@@ -1,0 +1,25 @@
+{
+    "request": {
+        "method": "POST",
+        "urlPath": "/talentcloud/api/v1/user/oauth/authenticate"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "accept, content-type",
+            "Access-Control-Allow-Methods": "POST",
+            "Content-Type": "application/json; charset=utf-8"
+        },
+        "jsonBody": {
+            "accessToken": "0000001",
+            "expiryDateTime":"2017-11-08 17:00:00 UTC",
+            "token_type":"bearer",
+            "scope":"null",
+            "user_fname":"TestFname",
+            "user_lname":"TestLName",
+            "user_email":"manager@test.com",
+            "user_role":"jobseeker"
+        }
+    }
+}

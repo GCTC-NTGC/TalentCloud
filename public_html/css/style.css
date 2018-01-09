@@ -1,0 +1,876 @@
+/*BEGIN CUSTOM CSS*/
+
+html{
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size:100%;
+    height:100%;
+}
+
+body{
+    font-size:100% !important;
+    height:100% !important;
+    color: #333 !important;
+    width: auto !important;
+    /*max-width:1200px !important;*/
+    margin:0px auto !important;
+    background-image: url('/images/backgrounds/background.jpg');
+    background-position: center top;
+    background-attachment: fixed;
+}
+
+blockquote, form, h1, h2, h3, h4, h5, h6, img, p, pre, table, details, [class*=span-]{
+    margin:0 !important;
+}
+
+h1,h2,h3,h4{
+    padding:0;
+    margin:0;
+    font-family: sans-serif;
+}
+
+hr{
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}
+
+.overFlowHidden{
+    overflow:hidden;
+}
+
+header{
+    /*max-width: 1200px;*/
+    margin: 0px auto;
+    background-color:rgba(255,255,255,0.6);
+    padding: 2em !important;
+}
+
+nav{
+    background-color:rgba(255,255,255,1);
+    padding:0 !important;
+}
+
+#manager_top_nav{
+    background-color: rgba(255,255,255,1);
+    padding:0.25em;
+    margin:0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+#manager_top_nav ul{
+    list-style: none !important;
+    display: inline-block;
+}
+
+#manager_top_nav ul li{
+    display: inline-block;
+    margin-right: 1em;
+}
+
+#manager_top_nav ul li a{
+    color: #295376;
+    list-style: none !important;
+}
+
+#manager_top_nav ul li a.active{
+    color: #295376;
+    text-decoration: underline;
+}
+
+.tabsList{
+    line-height: 2em;
+    display: flex;
+    list-style: none !important;
+    width: 100%;
+    margin:0 !important;
+    padding:0 !important;
+}
+
+.tabsList li{
+    display: inline-block;
+    margin-right: 1em;
+    margin:0 !important;
+    padding:0 !important;
+    text-align: center;
+}
+
+.tabsList li a {
+    text-align: center;
+}
+
+#loginOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.loginFormWrapperWindow{
+    width:30%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+    position:relative;
+}
+
+div label span{
+    clear:left;
+    display: block !important;
+}
+
+#loginTitleWrapper,#registerFormTitleWrapper{
+    height:50px !important;
+    line-height:50px !important;
+    vertical-align: middle !important;
+    width:auto !important;
+    overflow:visible !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-bottom:1em;
+}
+
+#loginForm,#registerForm{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+#loginErrors{
+    white-space: pre-wrap;
+}
+
+#loginTitle, #registerFormTitle, #myProfileTitle{
+    height:3em !important;
+    width:auto !important;
+    line-height:3em !important;
+    overflow:visible !important;
+    clip:auto !important;
+    position:relative;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+#registerFormTitleText,#myProfileTitleText{
+    padding-left:0.5em;
+}
+
+#loginLogoImage,#registerLogoImage,#jobSeekerLogoImage,#registerStatusLogoImage{
+    height:50px;
+    vertical-align: middle;
+}
+
+#loginTitleLabel{
+}
+
+#registerFormOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#createJobPosterOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.contentContainer{
+    background-color: white;
+}
+
+.viewProfileContainer{
+    padding: 1em 1em 1em 1em;
+}
+
+.viewProfileLeftPane{
+    float: left;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileRightPane{
+    float: right;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileSlot{
+    padding: 0.5em 0em 0.5em 0em;
+}
+
+.viewProfileSlotLabel{
+    font-size: 12px;
+}
+
+.viewProfileSlotContent{
+    
+}
+
+.viewProfileSlotImg{
+    float: left;
+}
+
+.viewProfileSlotValue{
+    overflow: hidden;
+    width: 45%;
+    border-bottom: 1px solid grey;
+}
+
+.viewProfileHeightBoost{
+    min-height: 200px;
+}
+
+.createEditProfile{
+    padding: 2em 2em 2em 2em;
+}
+
+.registerFormWrapperWindow{
+    width:40%;
+    min-width:450px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+}
+
+#registrationFormStatusMessage,#registrationFormEmailConfMessage{
+    padding:1em;
+}
+
+.createJobPosterWrapperWindow{
+    width:80%;
+    min-width: 900px;
+    height: 80%;
+    margin:0px auto;
+    position:relative;
+    top:25%;
+    transform: translateY(-25%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+}
+
+.createJobPosterEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createJobPosterFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createEditProfileEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createEditProfileFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createJobPosterSubmitPane{
+    clear: both;
+}
+
+.createEditProfileSubmitPane{
+    clear: both;
+}
+
+.createJobPosterDemoAreaEnglish{
+    float: left;
+}
+
+.createJobPosterDemoAreaFrench{
+    float: right;
+}
+
+.createEditProfileDemoAreaEnglish{
+    float: left;
+}
+
+.createEditProfileDemoAreaFrench{
+    float: right;
+}
+
+.createJobPosterDemoArea{
+    min-height: 840px;
+    display: inline;
+    white-space: nowrap;
+}
+
+.tabs{
+    padding:1em 2em 2em 2em;
+}
+
+.tabsSteps{
+    font-size: 1em;
+    line-height: 2em;
+    display: flex;
+    color: #777;
+    float: left;
+    cursor: default;
+    width: 100%;
+    position: absolute;
+    background-color: #ddd;
+}
+
+.create-job-poster-tab,.four-step-tab{
+    width: 25%;
+    position: relative;
+}
+
+.create-profile-tab{
+    width: 33%;
+    position: relative;
+}
+
+
+.create-job-poster-tab-current,.four-step-tab-current{
+    color: #fff;
+    background-color: #5599e5;
+}
+
+.create-profile-tab-current{
+    color: #fff;
+    background-color: #5599e5;
+}
+
+.tabbedForm{
+    width: 100%;
+    height: 100%;
+}
+
+
+.form-textbox{
+    width:95%;
+}
+
+
+#overlayLogo{
+    width:400px;
+    height:300px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.languageSelectLink{
+    float:right;
+}
+
+.section{
+    clear:both;
+    overflow:auto;
+    position:relative;
+}
+
+.searchWrapper{
+    float:left;
+}
+
+#search{
+    margin-top: 0.2em;
+    vertical-align: bottom;
+}
+
+.logoutWrapper{
+    float:right;
+}
+
+#browseNav{
+    float:left;
+    min-width:3em;
+    border:1px solid #ccc;
+    margin-top:1em;
+}
+
+.alphaList{
+    list-style: none;
+    list-style-type: none;
+    padding:0;
+    margin:0;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+.alpha{
+    border-top: 1px solid #ccc;
+}
+
+.steppedFormLink{
+    text-align: center !important;
+    text-decoration:none !important;
+    color:#333 !important;
+}
+
+.steppedFormLinkActive{
+    text-align: center !important;
+    text-decoration:none !important;
+    color:#fff !important;
+}
+
+main{
+    background-color: rgba(255,255,255,0.6) !important;
+    height:100%;
+    padding-top: 1em;
+}
+
+main aside{
+    background-color: rgba(255,255,255,0.6) !important;
+    max-width: 1200px;
+    margin:0px auto;
+    padding: 1em 0;
+}
+
+#noJobs{
+    color:#999;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#jobs{
+    margin-top:1em;
+    overflow:auto;
+    padding:0 1em;
+}
+
+.jobCount{
+    position:absolute;
+    right:1em;
+    top:1em;
+}
+
+.jobList{
+    margin:0px auto;
+    overflow:auto;
+}
+
+.jobCard{
+    border: 1px solid #eee;
+    width: 380px;
+    display:inline-block;
+    position:relative;
+    padding:1%;
+    text-align:center;
+    margin:0 20px 20px 0;
+    background-color: rgba(255,255,255,1) !important;
+    box-shadow: 3px 3px 15px #666;
+}
+
+.jobPostSummary{
+}
+
+.jobTitle{
+    font-size:1.5em;
+    font-weight:700;
+    margin: 1em 0;
+}
+
+.jobDepartment{
+    margin: 1em 0 0 0;
+}
+
+.hiringManagerWrapper{
+    text-align:left;
+    margin: 0px auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    height: 1.6em;
+    background-color: #eee;
+    border-radius:0.75em;
+    width:40%;
+    min-width:140px;
+}
+
+.hiringManagerProfilePicSmall{
+    width:1.5em;
+    height:1.5em;
+    margin:0;
+}
+
+.hiringManagerLabel{
+    font-size:0.75em;
+    margin-left: 1em;
+    line-height: 1.5em;
+}
+
+.jobPoster{
+    padding:1em;
+}
+
+.jobPosterHeader{
+    padding:0.5em;
+    background-color:#eee;
+    font-size:1.5em;
+}
+
+.jobPosterTitle,.jobLocation,.jobCity,.jobProvince,.jobTerm,.jobSalaryRange{
+    padding:0.5em;
+}
+
+.jobPosterApplyButton{
+    padding:1em 0 0.5em 0;
+    overflow:auto;
+}
+.jobPosterCancelButton{
+    margin-left:1em;
+}
+
+.contactCard{
+    border:1px solid #eee;
+    box-shadow: 3px 3px 6px #999;
+    width:150px;
+    padding:1em 0.5em;
+    height:200px;
+    float:left;
+    margin-right:1em;
+    margin-bottom:1em;
+    position:relative;
+}
+
+.contactImageWrapper{
+    width:150px;
+    height:130px;
+    text-align:center;
+}
+
+.contactImage{
+    width:100px;
+    margin:0px auto;
+}
+
+.contactRow{
+    padding:0.25em 0;
+}
+
+.contactActionColLeft{
+    float:left;
+    width:50%;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.contactEmailLinkImage{
+    width:50px;
+    vertical-align: middle;
+}
+
+.contactNoEmailLinkImage{
+    opacity:0.5;
+    width:50px;
+    vertical-align: middle;
+}
+
+.contactPhoneLinkImage{
+    width:40px;
+    vertical-align: middle;
+}
+
+.contactActionColRight{
+    float:right;
+    width:50%;
+    text-align: right;
+    vertical-align: bottom;
+}
+
+.favouriteImageWrapper{
+    position:absolute;
+    top:0.5em;
+    right:0.5em;
+}
+
+.jobPosterFavouriteImg,.editImage{
+    width:1.5em;
+}
+
+.editImageWrapper{
+    position:absolute;
+    top:0.5em;
+    left:0.5em;
+}
+
+.formGroup{
+    padding:1em;
+}
+
+.formGroupTwoColumn{
+    padding:1em;
+    width:50%;
+    display:inline;
+}
+
+.stepNavigation{
+    position: absolute;
+    absolute: 0;
+}
+
+.stepGroup,.jobSeekerFormStepGroup {
+    position: relative;
+    width:100%;
+    min-height: 100%;
+    bottom: 0;
+    background-color: #fff;
+}
+
+.stepGroup_createEditProfile {
+    position: relative;
+    width:100%;
+    min-height: 100%;
+    bottom: 0;
+    background-color: #fff;
+}
+
+.reallyShortInput{
+    width:3em;
+}
+
+.shortInput{
+    width:10em;
+}
+
+.mediumInput{
+    width:20em;
+}
+
+.longInput{
+    width:40em;
+}
+
+.validationMessage{
+    color:#ff0000;
+}
+
+/* clear float */
+.clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.hidden{
+    transition: all 1s ease-in-out !important;
+    opacity:0;
+    max-height:0;
+    max-width:0;
+    display:none;
+    padding:0 !important;
+    margin:0 !important;
+    border:none !important;
+    overflow:hidden;
+}
+
+.visible{
+    max-height:4000px;
+    max-width:4000px;
+    display:static;
+    opacity:1;
+    transition: opacity 1s ease-in-out;
+}
+
+input[type=text],input[type=password],select{
+    font-family: Roboto;
+    font-size:1em;
+    padding:0.5em;
+    border-radius:3px;
+    border:1px solid #999;
+}
+
+input[type=button],input[type=submit]{
+    font-family: Roboto;
+    font-size:1em;
+    padding:0.25em;
+}
+
+.viewJobPosterOverlay,.viewJobPosterApplicationOverlay,.jobSeekerProfileOverlay{
+    width:100%;
+    height:100%;
+    z-index:1002;
+    background-color: rgba(255,255,255,0.75);
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow,.jobSeekerProfileWrapperWindow{
+    width:80%;
+    height:90%;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:2em;
+    overflow:hidden
+}
+
+#jobPosterApplication{
+    padding:1em;
+}
+
+.jobPosterApplicationProfileSelect{
+    padding:1em;
+}
+
+.closeButton{
+    position:absolute;
+    top:1em;
+    right:1em;
+    width: 10px;
+    height: 10px;
+    background: url(../images/chosen-sprite.png) 10px 0;
+}
+
+.closeButtonLink{
+    padding:5px;
+    display:block;
+}
+
+/*BEGIN - GC Desktop Style Classes*/
+
+.gcwu-sig-in {
+    width: 214px;
+    height: 20px;
+    display:inline-block !important;
+}
+
+/* BEGIN - Welcome Screen */
+
+#wb-core-in {
+    background: url(data:image/jpeg;base64,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) top center repeat-x white;
+    overflow: visible!important;
+    width:100% !important;
+}
+
+#wb-head-in, #wb-foot-in, #wb-core-in {
+    margin: auto;
+}
+
+#wb-main {
+    width: 100%;
+}
+
+#wb-main h1 {
+    text-align: center;
+    padding: 40px 0;
+    margin: 0;
+    border: 0;
+}
+
+#wb-main-in {
+    background: url("/images/mapleleaf.png") center 92px no-repeat transparent !important;
+    position: relative;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+#wb-main-in [class*=span-]{
+    margin:0px !important;
+}
+
+@media screen and (min-device-width: 768px) and (min-width: 768px){
+    .equalize>* {
+        float: none!important;
+        display: table-cell!important;
+        vertical-align: top!important;
+    }
+    
+}
+#gcwu-lang {
+    margin-top: 100px !important;
+    line-height: normal;
+}
+#gcwu-wmms {
+    text-align: right;
+    margin-top: 15px;
+    height: 30px;
+}
+/* END - Welcome Screen */
+
+
+
+/*END - GC Desktop Style Classes*/
+
+@media all and (max-width: 800px){
+    .jobList{
+        max-width: 750px;
+        margin-right:0.5em;
+    }
+    .jobCard{
+        width: 355px;
+    }
+}
+
+@media all and (max-width: 768px){
+    .jobList{
+        max-width: 750px;
+        margin:0px auto;
+    }
+    .jobCard{
+        width: 355px;
+    }
+}
+
+@media all and (max-width: 673px){
+    .jobList{
+        max-width: 620px;
+        margin:0px auto;
+    }
+}
+
+@media all and (max-width: 572px){
+    .jobList{
+        max-width: 540px;
+        margin:0px auto;
+    }
+}
+
+
+@media all and (max-width: 443px){
+    .jobList{
+        max-width: 400px;
+        margin:0px auto;
+    }
+}

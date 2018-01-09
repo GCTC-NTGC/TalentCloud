@@ -1,0 +1,26 @@
+RewriteEngine on
+RewriteBase /tc/
+
+#non localized services
+RewriteRule ^api/v1/authenticate services/Authentication.php
+RewriteRule ^api/v1/user services/User.php
+RewriteRule ^api/v1/user/validateEmail services/User.php
+RewriteRule ^api/v1/user/register services/User.php
+RewriteRule ^api/v1/locale services/Locale.php
+RewriteRule ^api/v1/getJobSeekers services/JobSeekers.php
+RewriteRule ^api/v1/getJobSeekerProfile/([0-9]{1,10}) services/JobSeekerProfile.php
+RewriteRule ^api/v1/putJobSeekerProfile services/JobSeekerProfile.php
+RewriteRule ^api/v1/getJobPosterApplicationByProfileId services/JobPosterApplication.php
+RewriteRule ^api/v1/putJobPosterApplication services/JobPosterApplication.php
+RewriteRule ^api/v1/putJobPoster services/JobPoster.php
+
+#localized services
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllJobs services/JobPosters.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getJobPoster/([0-9]{1,10}) services/JobPoster.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/department services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/province services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/city services/Lookup.php
+
+#Require all granted
+#Require ip 127.0.0.1

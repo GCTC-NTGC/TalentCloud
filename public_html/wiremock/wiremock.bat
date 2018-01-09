@@ -1,0 +1,1 @@
+java -jar wiremock-standalone-2.6.0.jar --port 8082 --https-port 8083 --verbose --preserve-host-header

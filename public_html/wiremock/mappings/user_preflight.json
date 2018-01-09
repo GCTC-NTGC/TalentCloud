@@ -1,0 +1,14 @@
+{
+    "request": {
+        "method": "OPTIONS",
+        "urlPath": "/talentcloud/api/v1/user"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "accept, content-type, authorization",
+            "Access-Control-Allow-Methods": "POST"
+        }
+    }
+}

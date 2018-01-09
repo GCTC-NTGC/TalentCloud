@@ -1,0 +1,14 @@
+{
+	"request": {
+		"method": "OPTIONS",
+		"urlPattern": "/contacts/api/v1/delete/([0-9]{7})"
+	},
+	"response":{
+		"status": 200,
+		"headers" : {
+			"Access-Control-Allow-Origin" : "*",
+			"Access-Control-Allow-Headers": "accept, content-type",
+			"Access-Control-Allow-Methods": "DELETE"
+		}
+	}
+}

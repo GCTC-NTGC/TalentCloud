@@ -1,0 +1,104 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPath": "/talentcloud/api/v1/en_CA/getAllJobs"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "accept, content-type",
+            "Access-Control-Allow-Methods": "GET",
+            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8"
+        },
+        "jsonBody": {
+            "jobs": [
+                {
+                    "id": "0000001",
+                    "title": "Web Developer",
+                    "applicants_to_date": "64",
+                    "close_date_time": "2017-11-22 12:00:00",
+                    "department": "Natural Resources Canada",
+                    "location_city": "Ottawa",
+                    "location_province": "Ontario",
+                    "term_qty": 1,
+                    "term_units": "year",
+                    "remuneration_type": "salary",
+                    "remuneration_range_low": "61,558",
+                    "remuneration_range_high": "66,324"
+                },
+                {
+                    "id": "0000002",
+                    "title": "Service Designer",
+                    "applicants_to_date": "10",
+                    "close_date_time": "2018-04-22 12:00:00",
+                    "department": "Treasury Board of Canada Secretariat",
+                    "location_city": "Ottawa",
+                    "location_province": "Ontario",
+                    "term_qty": 6,
+                    "term_units": "month",
+                    "remuneration_type": "salary",
+                    "remuneration_range_low": "60,653",
+                    "remuneration_range_high": "82,590"
+                },
+                {
+                    "id": "0000003",
+                    "title": "Project Lead",
+                    "applicants_to_date": "10",
+                    "close_date_time": "2018-04-22 12:00:00",
+                    "department": "Treasury Board of Canada Secretariat",
+                    "location_city": "Ottawa",
+                    "location_province": "Ontario",
+                    "term_qty": 6,
+                    "term_units": "month",
+                    "remuneration_type": "salary",
+                    "remuneration_range_low": "60,653",
+                    "remuneration_range_high": "82,590"
+                },
+                {
+                    "id": "0000004",
+                    "title": "Database Developer",
+                    "applicants_to_date": "10",
+                    "close_date_time": "2018-04-22 12:00:00",
+                    "department": "Treasury Board of Canada Secretariat",
+                    "location_city": "Ottawa",
+                    "location_province": "Ontario",
+                    "term_qty": 6,
+                    "term_units": "month",
+                    "remuneration_type": "salary",
+                    "remuneration_range_low": "60,653",
+                    "remuneration_range_high": "82,590"
+                },
+                {
+                    "id": "0000005",
+                    "title": "Web Developer",
+                    "applicants_to_date": "10",
+                    "close_date_time": "2018-04-22 12:00:00",
+                    "department": "Treasury Board of Canada Secretariat",
+                    "location_city": "Ottawa",
+                    "location_province": "Ontario",
+                    "term_qty": 6,
+                    "term_units": "month",
+                    "remuneration_type": "salary",
+                    "remuneration_range_low": "60,653",
+                    "remuneration_range_high": "82,590"
+                },
+                {
+                    "id": "0000006",
+                    "title": "UX Designer",
+                    "applicants_to_date": "10",
+                    "close_date_time": "2018-04-22 12:00:00",
+                    "department": "Treasury Board of Canada Secretariat",
+                    "location_city": "Ottawa",
+                    "location_province": "Ontario",
+                    "term_qty": 6,
+                    "term_units": "month",
+                    "remuneration_type": "salary",
+                    "remuneration_range_low": "60,653",
+                    "remuneration_range_high": "82,590"
+                }
+            ]
+        }
+    }
+}

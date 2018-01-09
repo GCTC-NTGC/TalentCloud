@@ -1,0 +1,38 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPath": "/talentcloud/api/v1/fr_CA/getJobSeekers"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "accept, content-type",
+            "Access-Control-Allow-Methods": "GET",
+            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8"
+        },
+        "jsonBody": {
+            "jobSeeker": [
+                {
+                    "id": "0000001",
+                    "firstname": "John",
+                    "lastname": "Dore",
+                    "title": "Développeur web",
+                    "location_province": "Ontario",
+                    "term_qty": 1,
+                    "term_units": "month"
+                },
+                {
+                    "id": "0000002",
+                    "firstname": "Bill",
+                    "lastname": "Mayes",
+                    "title": "Développeur",
+                    "location_province": "Ontario",
+                    "term_qty": 1,
+                    "term_units": "year"
+                }
+            ]
+        }
+    }
+}

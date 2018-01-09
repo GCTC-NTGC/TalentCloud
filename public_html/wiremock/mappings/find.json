@@ -1,0 +1,27 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPattern": "/contacts/api/v1/get/([0-9]{7})"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "accept, content-type",
+            "Access-Control-Allow-Methods": "GET",
+            "Content-Type": "application/json"
+        },
+        "jsonBody": {
+            
+                
+                    "id": "0000001",
+                    "fname": "Motaz",
+                    "lname": "Al-Ashhab",
+                    "email": "",
+                    "tel": "6137515472",
+                    "fav": false
+                
+            
+        }
+    }
+}
