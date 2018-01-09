@@ -31,8 +31,12 @@ EventsAPI.onLoadEvents = function(){
             EventsAPI.hideAllLayouts();
             TalentCloudAPI.hideAllContent();
             if(e.state.pageInfo === 'talent_cloud'){
-                //Special case, where manager home page is different than user home page
+                //Special case, where admin or manager home page is different than user home page
                 DataAPI.getJobs(locale);
+            } else if(e.state.pageInfo === 'talent_cloud_admin'){
+                TalentCloudAPI.loadManager();
+                var jobSeekers = document.getElementById("jobSeekers");
+                jobSeekers.classList.remove("hidden");
             } else if(e.state.pageInfo === 'talent_cloud_manager'){
                 TalentCloudAPI.loadManager();
                 var createJobPoster = document.getElementById("jobSeekers");
@@ -67,7 +71,13 @@ EventsAPI.onLoadEvents = function(){
 };
 
 EventsAPI.hideAllLayouts = function(){
-    if(window.location.href.includes("manager")){
+    if(window.location.href.includes(TalentCloudAPI.roles.manager)){
+        var overlays = ["loginOverlay", "registerFormOverlay", "createEditProfile", "viewProfile", "jobSeekers"];
+        for(var i = 0;i < overlays.length;i++){
+            var overlayDOM = document.getElementById(overlays[i]);
+            overlayDOM.classList.add("hidden");
+        }
+    }else if(window.location.href.includes(TalentCloudAPI.roles.admin)){
         var overlays = ["loginOverlay", "registerFormOverlay", "createEditProfile", "viewProfile", "jobSeekers"];
         for(var i = 0;i < overlays.length;i++){
             var overlayDOM = document.getElementById(overlays[i]);
@@ -101,4 +111,14 @@ EventsAPI.hideBodyOverflow = function(hide){
 EventsAPI.setFormFocus = function(fieldId){
     var fieldToFocus = document.getElementById(fieldId);
     fieldToFocus.focus();
+};
+
+EventsAPI.clearJobsContainer = function(){
+    var containers = ['noJobs','loadingJobs','jobList','viewJobPosterApplicationOverlay','jobPosterApplication','jobSeekerProfileWrapperWindow'];
+    for(var c = 0; c < containers.length; c++){
+        var container = document.getElementById(containers[c]);
+        if(!container.classList.contains('hidden')){
+            container.classList.add('hidden');
+        }
+    }
 };

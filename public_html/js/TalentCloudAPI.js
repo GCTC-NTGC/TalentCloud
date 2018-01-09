@@ -6,6 +6,7 @@
 
 var TalentCloudAPI = {};
 var siteContent;
+TalentCloudAPI.roles = {jobseeker:"jobseeker", manager:"manager", admin:"admin"};
 
 TalentCloudAPI.Content = function(title,helpLearn,languageSelect,applyNow,loginLink,logoutLink,registerLink,homeLink,profileLink,
 jobPostersLink,teamsLink,jobNumber,jobTitle,jobLocation,jobCity,jobProvince,jobApplicantsSoFar,jobUnitsToCloseHours,
@@ -85,7 +86,12 @@ TalentCloudAPI.load = function(){
     
     var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     var managerView = false;
-    if(window.location.href.includes("/manager")) {
+    var adminView = false;
+    if(window.location.href.includes("/"+TalentCloudAPI.roles.admin)) {
+        stateInfo.pageInfo = 'talent_cloud_admin';
+        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/admin/#");
+        adminView = true;
+    }else if(window.location.href.includes("/"+TalentCloudAPI.roles.manager)) {
         stateInfo.pageInfo = 'talent_cloud_manager';
         window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
         managerView = true;
@@ -93,7 +99,9 @@ TalentCloudAPI.load = function(){
         window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
     }
     
-    if(managerView === true){
+    if(adminView === true){
+        TalentCloudAPI.loadManager();
+    }else if(managerView === true){
         TalentCloudAPI.loadManager();
     }
     else{

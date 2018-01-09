@@ -397,8 +397,7 @@ div label span{
 
 .section{
     clear:both;
-    overflow:auto;
-    position:relative;
+    height:100%;
 }
 
 .searchWrapper{
@@ -460,6 +459,7 @@ main aside{
     max-width: 1200px;
     margin:0px auto;
     padding: 1em 0;
+    height: 100%;
 }
 
 #noJobs{
@@ -470,8 +470,8 @@ main aside{
 
 #jobs{
     margin-top:1em;
-    overflow:auto;
     padding:0 1em;
+    height:100%;
 }
 
 .jobCount{
@@ -732,19 +732,12 @@ input[type=button],input[type=submit]{
 }
 
 .viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow,.jobSeekerProfileWrapperWindow{
-    width:80%;
-    height:90%;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
     text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:2em;
-    overflow:hidden
+    background-color: #fff;
+    padding: 2em;
 }
 
 #jobPosterApplication{
