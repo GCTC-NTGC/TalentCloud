@@ -152,30 +152,35 @@ class JobSeekerDAO extends BaseDAO {
     public static function getJobSeekers() {
 
         $link = BaseDAO::getConnection();
+                
         $sqlStr = "
-            SELECT jsp.job_seeker_profile_id,
-                jsp.job_seeker_profile_link,
-                jsp.job_seeker_profile_accomp,
-                jsp.job_seeker_profile_best_exp,
-                jsp.job_seeker_profile_worst_exp,
-                jsp.job_seeker_profile_superpower,
-                max(jsp.last_updated) as last_updated
+            SELECT u.firstname,
+                    u.lastname,
+                    jsp.job_seeker_profile_id,
+                    jsp.job_seeker_profile_link,
+                    jsp.job_seeker_profile_accomp,
+                    jsp.job_seeker_profile_best_exp,
+                    jsp.job_seeker_profile_worst_exp,
+                    jsp.job_seeker_profile_superpower,
+                    max(jsp.last_updated) as last_updated
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE ujsp.user_id = u.user_id
             AND jsp.job_seeker_profile_id = ujsp.job_seeker_profile_id
             GROUP BY u.user_id
             ";
+        
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':user_id', $user_id, PDO::PARAM_STR);
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','last_updated'));
+            //$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','last_updated'));
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
             return 'getJobSeekersByUserId failed: ' . $e->getMessage();
         }
+        
         BaseDAO::closeConnection($link);
         return $rows;
     }

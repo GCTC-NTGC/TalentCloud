@@ -100,7 +100,7 @@ TalentCloudAPI.load = function(){
     }
     
     if(adminView === true){
-        TalentCloudAPI.loadManager();
+        TalentCloudAPI.loadAdmin();
     }else if(managerView === true){
         TalentCloudAPI.loadManager();
     }
@@ -159,19 +159,70 @@ TalentCloudAPI.loadManager = function(){
         locale = "en_CA";
     }
     console.log(UserAPI.hasAuthToken());
+    DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
+        authToken = UserAPI.getAuthTokenAsJSON();
+        //console.log(authToken);
         if(!UserAPI.hasAuthTokenExpired()){
-            DataAPI.getTalentCloudUI(locale,true);
-            DataAPI.getJobSeekers(locale);
-            //Add log user in automatically
+            if(UserAPI.hasSessionUser()){
+                var credentials = {};
+                sessionUser = UserAPI.getSessionUserAsJSON();
+                //console.log(sessionUser);
+                credentials.email = sessionUser.email;
+                credentials.password = sessionUser.password;
+                credentials.authToken = authToken;
+                UserAPI.authenticate(credentials);
+                DataAPI.getJobSeekers(locale);
+                DataAPI.getDepartments(locale);
+                //Add log user in automatically
+            }else{
+                DataAPI.getJobSeekers(locale);
+            }
         }else{
-            DataAPI.getTalentCloudUI(locale,true);
             DataAPI.getJobSeekers(locale);
         }
     }else{
-        DataAPI.getTalentCloudUI(locale,true);
         DataAPI.getJobSeekers(locale);
-        DataAPI.getDepartments(locale);
+    }
+};
+
+
+/**
+ * 
+ * @returns {undefined}
+ */
+TalentCloudAPI.loadAdmin = function(){
+    
+    if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
+        locale = TalentCloudAPI.getLanguageFromCookie();
+    }else{
+        locale = "en_CA";
+    }
+    console.log(UserAPI.hasAuthToken());
+    DataAPI.getTalentCloudUI(locale,true);
+    if(UserAPI.hasAuthToken()){
+        authToken = UserAPI.getAuthTokenAsJSON();
+        //console.log(authToken);
+        if(!UserAPI.hasAuthTokenExpired()){
+            if(UserAPI.hasSessionUser()){
+                var credentials = {};
+                sessionUser = UserAPI.getSessionUserAsJSON();
+                //console.log(sessionUser);
+                credentials.email = sessionUser.email;
+                credentials.password = sessionUser.password;
+                credentials.authToken = authToken;
+                UserAPI.authenticate(credentials);
+                DataAPI.getJobSeekers(locale);
+                DataAPI.getDepartments(locale);
+                //Add log user in automatically
+            }else{
+                DataAPI.getJobSeekers(locale);
+            }
+        }else{
+            DataAPI.getJobSeekers(locale);
+        }
+    }else{
+        DataAPI.getJobSeekers(locale);
     }
 };
 

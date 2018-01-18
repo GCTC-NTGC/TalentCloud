@@ -35,6 +35,7 @@ class JobPosterDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sqlStr = "
             SELECT jp.job_poster_id as id,
+            l.locale_id as locale_id,
             jpd.job_poster_desc_title as title,
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
@@ -47,7 +48,9 @@ class JobPosterDAO extends BaseDAO {
             jp.job_poster_close_date_time as close_date,
             dd.department_details_name as department,
             pd.province_details_name as location_province,
-            cd.city_details_name as location_city
+            cd.city_details_name as location_city,
+            jp.job_poster_remuneration_min as remuneration_range_low,
+            jp.job_poster_remuneration_max as remuneration_range_high
             FROM job_poster jp, job_poster_details jpd, 
                 locale l, 
                 job_term jt, 
@@ -81,7 +84,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'job_end_date', 'close_date', 'department', 'location_province', 'location_city','','',''));
+            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'job_end_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high'));
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -102,6 +105,7 @@ class JobPosterDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sqlStr = "
             SELECT jp.job_poster_id as id,
+            l.locale_id as locale_id,
             jpd.job_poster_desc_title as title,
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
@@ -203,6 +207,43 @@ class JobPosterDAO extends BaseDAO {
             COMMIT;
 
          */
+        
+        $sql1 = "INSERT INTO job_poster
+            (
+            job_term_id,
+            job_poster_term_qty,
+            job_poster_job_min_level_id,
+            job_poster_job_max_level_id,
+            job_poster_start_date,
+            job_poster_end_date,
+            job_poster_close_date_time,
+            job_poster_department_id
+            )
+            VALUES
+            (
+            0000000003,
+            2,
+            0000000001,
+            0000000003,
+            '2018-02-01 08:00:00',
+            '2020-02-01 17:00:00',
+            '2018-01-01 23:59:59',
+            0000000001
+            );";
+        $sql2 = "INSERT INTO job_poster_details
+            (
+            job_poster_id,
+            locale_id,
+            job_poster_desc_title,
+            job_poster_desc_content
+            )
+            VALUES
+            (
+            last_insert_id(),
+            0000000002,
+            'Designer UX',
+            'This is the description for the UX Design position_french'
+            );";
     }
     
 }

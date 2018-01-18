@@ -14,6 +14,7 @@
 class JobPoster implements JsonSerializable {
     
     private $id;
+    private $locale_id;
     private $title;
     private $description;
     private $applicants_to_date;
@@ -27,12 +28,12 @@ class JobPoster implements JsonSerializable {
     private $department;
     private $location_province;
     private $location_city;
-    private $remuneration_type;
     private $remuneration_range_low;
     private $remuneration_range_high;
     
-    public function __construct($id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $job_end_date, $close_date, $department, $location_province, $location_city,$remuneration_type,$remuneration_range_low,$remuneration_range_high) {
+    public function __construct($id, $locale_id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $job_end_date, $close_date, $department, $location_province, $location_city, $remuneration_range_low, $remuneration_range_high) {
         $this->id = $id;
+        $this->locale_id = $locale_id;
         $this->title = $title;
         $this->description = $description;
         $this->applicants_to_date = $applicants_to_date;
@@ -46,7 +47,6 @@ class JobPoster implements JsonSerializable {
         $this->department = $department;
         $this->location_province = $location_province;
         $this->location_city = $location_city;
-        $this->remuneration_type = $remuneration_type;
         $this->remuneration_range_low = $remuneration_range_low;
         $this->remuneration_range_high = $remuneration_range_high;
     }
@@ -64,6 +64,14 @@ class JobPoster implements JsonSerializable {
     
     public function getId() {
         return $this->id;
+    }
+    
+    public function getLocale_id() {
+        return $this->locale_id;
+    }
+
+    public function setLocale_id($locale_id) {
+        $this->locale_id = $locale_id;
     }
 
     public function getTitle() {
@@ -116,10 +124,6 @@ class JobPoster implements JsonSerializable {
 
     public function getLocation_city() {
         return $this->location_city;
-    }
-    
-    public function getRemuneration_type() {
-        return $this->remuneration_type;
     }
 
     public function getRemuneration_range_low() {
@@ -198,10 +202,6 @@ class JobPoster implements JsonSerializable {
     public function setLocation_city($location_city) {
         $this->location_city = $location_city;
         return $this;
-    }
-    
-    public function setRemuneration_type($remuneration_type) {
-        $this->remuneration_type = $remuneration_type;
     }
 
     public function setRemuneration_range_low($remuneration_range_low) {
