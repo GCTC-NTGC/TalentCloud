@@ -36,7 +36,7 @@ and open the template in the editor .
             loadingImage.src = "/images/logo.svg";
         </script>
     </head>
-    <body class="overFlowHidden" id="body">
+    <body id="body">
         <header>
             <div class="gcwu-sig-in">
                 <object data="/images/sig-blk-eng.svg" role="img" tabindex="-1" aria-label="Government of Canada" type="image/svg+xml"><img src="/images/sig-eng-alt.png" class="image-actual" alt="Government of Canada"></object>
@@ -52,7 +52,7 @@ and open the template in the editor .
                 <ul>
                     <li aria-hidden="false"><a href="/admin/" class="active" id="homeLink">Home</a></li>
                     <li id="profileLinkListItem" aria-hidden="true"><a href="javascript:void(0)" class="hidden" id="profileLink" onclick="UserAPI.showCreateEditProfile(this);">My Profile</a></li>
-                    <li id="jobPostersLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="jobPostersLink" onclick="UserAPI.showManagerCreateJobPosterForm(this)">Create Job Poster</a></li>
+                    <li id="jobPostersLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showManagerCreateJobPosterForm(this)">Create Job Poster</a></li>
                     <li id="teamsLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="teamsLink">My Teams</a></li>
                 </ul>
                 <div class="logoutWrapper">
@@ -60,16 +60,6 @@ and open the template in the editor .
                         <li>
                             <div id="viewProfileLink">
                                 <a href="javascript:void(0)" id="viewProfileLink" onclick="UserAPI.showViewProfile(this)">temp_view_profile_link</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div id="createEditManagerProfileLink">
-                                <a href="javascript:void(0)" id="createEditProfileLink" onclick="UserAPI.showCreateEditProfile(this)">temp_create_edit_profile_link</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div id="createJobPoster">
-                                <a href="javascript:void(0)" id="createJobPosterLink" onclick="UserAPI.showManagerCreateJobPosterForm(this)">temp_job_poster_link</a>
                             </div>
                         </li>
                         <li>
@@ -238,7 +228,9 @@ and open the template in the editor .
                                                 </strong>
                                             </label>
                                             <div>
-                                                <input class="form-control full-width" type="text" name="createJobPoster_city" id="createJobPoster_city"/>
+                                                <select class="form-control full-width" name="createJobPoster_city" id="createJobPoster_city">
+                                                    <option value="">--</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -249,7 +241,9 @@ and open the template in the editor .
                                                 </strong>
                                             </label>
                                             <div>
-                                                <input class="form-control full-width" type="text" name="createJobPoster_province" id="createJobPoster_province"/>
+                                                <select class="form-control full-width" name="createJobPoster_province" id="createJobPoster_province">
+                                                    <option value="">--</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -270,10 +264,7 @@ and open the template in the editor .
                                                     <span id="createJobPoster_termUnits_error_msg" class="label label-danger"></span>
                                                 </strong>
                                             </label>
-                                            <div>
-                                                <input type="radio" onclick="CreateJobPosterAPI.selectedUnit('fr_option_weeks')" name="createJobPoster_termUnits" value="weeks" checked> Weeks<br>
-                                                <input type="radio" onclick="CreateJobPosterAPI.selectedUnit('fr_option_months')" name="createJobPoster_termUnits" value="months"> Months<br>
-                                                <input type="radio" onclick="CreateJobPosterAPI.selectedUnit('fr_option_years')" name="createJobPoster_termUnits" value="years"> Years<br>
+                                            <div id="jobterms">
                                             </div>
                                         </div>
                                     </div>
@@ -586,7 +577,7 @@ and open the template in the editor .
                                     <h3 style="height:50px;line-height:50px;"><img src="/images/logo.svg" style="height:50px;vertical-align: middle;" id="createProfileLogoImage" alt="createEditProfile"/> &nbsp; &nbsp;<span id="createProfileWindowTitle">Create Profile</span></h3>
                                 </div>
                                 <!-- Where the old steps resided -->
-                                <form method="post" name="CreateEditProfileForm" action="#" id="CreateEditProfileForm">
+                                <form method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
                                     <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
@@ -960,69 +951,6 @@ and open the template in the editor .
             </div>
         </div>
         
-        <!-- BEGIN - Add Contact Overlay and Form-->
-        <div id="addContactOverlay" class="addContactOverlay hidden">
-            <div id="formWrapperWindow" class="formWrapperWindow">
-                <form method="post" id="addContactForm" name="addContactForm">
-                    <h3>Add Contact</h3>
-                    <br/>
-                    <div class="formGroup">
-                        <div>
-                            <label for="firstName">First Name:*</label>
-                        </div>
-                        <div>
-                            <input type="text" id="firstName" name="firstName" value="" class="mediumInput" required="" onblur="this.value.trim()"/>
-                            <div class="validationMessage" id="validationMessage_firstName"></div>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <div>
-                            <label for="lastName">Last Name:*</label>
-                        </div>
-                        <div>
-                            <input type="text" id="lastName" name="lastName" value="" class="mediumInput" required="" onblur="this.value = this.value.trim()"/>
-                            <div class="validationMessage" id="validationMessage_lastName"></div>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <div>
-                            <label for="emailAddress">Email Address:</label>
-                        </div>
-                        <div>
-                            <input type="text" id="emailAddress" name="emailAddress" value="" class="mediumInput"/>
-                            <div class="validationMessage" id="validationMessage_emailAddress"></div>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <div>
-                            <label for="phoneNumber">Phone Number:*</label>
-                        </div>
-                        <div>
-                            <input type="text" id="phoneNumber" name="phoneNumber" value="" class="mediumInput" required=""/>
-                            <div class="validationMessage" id="validationMessage_phoneNumber"></div>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <div>
-                            <label for="isFavourite">Add to favourites:</label>
-                            <input type="checkbox" id="isFavourite" name="isFavourite" value="true" class="smallInput"/>
-                        </div>
-                    </div>
-                    <input type="hidden" id="id" name="id" value=""/>
-                    <div class="formGroup">
-                        <div>
-                            <input type="button" id="submit" value="Add contact" onclick="return ContactAPI.addContact();"/>
-                            <input type="button" id="update" value="Update contact" onclick="return ContactAPI.updateContact();" class="hidden"/>
-                            <input type="button" id="delete" value="Delete contact" class="hidden"/>
-                            <input type="button" id="cancel" value="Cancel" onclick="ContactAPI.hideContactForm()"/>
-                        </div>
-                    </div>
-                </form>
-                <div class="closeButton">
-                    <a href="javascript:ContactAPI.hideContactForm()" style="padding:5px;display:block;"> </a>
-                </div>
-            </div>
-        </div>
         <footer>
             <div></div>
         </footer>

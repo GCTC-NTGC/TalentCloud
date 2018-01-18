@@ -118,6 +118,34 @@ class LookupDAO extends BaseDAO {
         BaseDAO::closeConnection($link);
         return $rows;
     }
+    
+    /**
+     * Summary: obtains content and template for request page_name, locale and language
+     * @return object Page
+     */
+    public static function getJobTermsByLocale($locale) {
+
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT j.job_term_id, j.job_term 
+            FROM job_term j, locale l
+            WHERE l.locale_iso = :locale
+            AND j.job_term_locale_id = l.locale_id;
+            ";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_KEY_PAIR);
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getContentByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
 }
 
 ?>

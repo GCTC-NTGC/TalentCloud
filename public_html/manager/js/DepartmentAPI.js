@@ -12,7 +12,14 @@ DepartmentAPI.departments = [];
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
 DepartmentAPI.loadFromJSON = function(data) {
-    DepartmentAPI.departments = data.department;
+    console.log(data.length);
+    /*var department = {};
+    
+    department.id = data[0];
+    department.name = data[1];
+    
+    DepartmentAPI.departments = data.department;*/
+    
     
 };
 
@@ -25,6 +32,7 @@ DepartmentAPI.filterCreateJobPosterDepartments = function(firstLoad){
     if(firstLoad !== true){
         departmentSearchBox = document.getElementById("createJobPoster_department").value;
     }
+    
     for(var i = 0;i < DepartmentAPI.departments.length;i++){
         if(DepartmentAPI.departments[i].toLowerCase().includes(departmentSearchBox.toLowerCase())){
             var department = document.createElement("li");
