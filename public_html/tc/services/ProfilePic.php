@@ -62,23 +62,26 @@ header("Content-Type: application/json; charset=utf-8");
             //Here Handle DELETE Request
             break;
         case 'PUT':
-            //Must have correct authraurization to modify photo
-            $jsonBody = file_get_contents('php://input');
+            //Must have correct authaurization to modify photo
+            
             if(strlen($requestParams) > 1){
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
-                $profilePicJSON = json_decode($jsonBody, TRUE);
-                //var_dump($profilePicJSON);
-
+                $headers = getallheaders();
+                                
                 $profile_pic = new ProfilePic($user_id, 
-                        $profilePicJSON['image'], 
-                        $profilePicJSON['last_updated']);
+                        file_get_contents('php://input'), 
+                        null,
+                        $headers['Content-type'],
+                        $headers['Content-Length']);
                 $result = ProfilePicController::putProfilePic($profile_pic);
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($result);
+                //echo('{"profilepic":"upload failed"}');
             }else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
+                //echo('{"profilepic":"upload failed"}');
             }
             /*
             $jsonBody = file_get_contents('php://input');

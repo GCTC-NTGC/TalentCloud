@@ -78,10 +78,10 @@ class ProfilePicDAO extends BaseDAO {
                 :size
             )
             ON DUPLICATE KEY UPDATE
-                image=:image,
+                image=:image2,
                 last_updated=now(),
-                type=:type,
-                size=:size
+                type=:type2,
+                size=:size2
             ;";
         $sql = $link->prepare($sql_str);
         
@@ -93,6 +93,9 @@ class ProfilePicDAO extends BaseDAO {
         $sql->bindParam(':image', $image, PDO::PARAM_LOB);
         $sql->bindParam(':type', $type, PDO::PARAM_STR);
         $sql->bindParam(':size', $size, PDO::PARAM_INT);
+        $sql->bindParam(':image2', $image, PDO::PARAM_LOB);
+        $sql->bindParam(':type2', $type, PDO::PARAM_STR);
+        $sql->bindParam(':size2', $size, PDO::PARAM_INT);
         
         $rowsmodified = 0;
         
