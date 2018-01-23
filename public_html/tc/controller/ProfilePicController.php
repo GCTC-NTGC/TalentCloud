@@ -19,7 +19,10 @@ require_once '../model/ProfilePic.php';
 class ProfilePicController {
     
     public static function getProfilePic($user_id) {
-        return ProfilePicDAO::getProfilePic($user_id);
+        if (ProfilePicDAO::profilePicExistsForUser($user_id))
+            return ProfilePicDAO::getProfilePic($user_id);
+        else 
+            return NULL;
     }
     
     public static function putProfilePic($profile_pic) {

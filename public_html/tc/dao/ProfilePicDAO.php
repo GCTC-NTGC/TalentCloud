@@ -25,6 +25,29 @@ require_once '../model/ProfilePic.php';
  */
 class ProfilePicDAO extends BaseDAO {
     
+    public static function profilePicExistsForUser($user_id) {
+        $link = BaseDAO::getConnection();
+        $sql_str = "
+            SELECT EXISTS (SELECT 1 FROM 
+                talentcloud.profile_pic 
+            WHERE 
+                user_id=:user_id
+            );
+            ";
+        $sql = $link->prepare($sql_str);
+        $user_id_int = intval($user_id);
+        $sql->bindParam(':user_id', $user_id_int, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $found = $sql->fetch()[0];
+        } catch (PDOException $e) {
+            return 'profilePicExistsForUser failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $found == 1;
+    }
+    
     /**
      * 
      * @param type $user_id

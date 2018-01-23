@@ -33,8 +33,14 @@ header("Content-Type: application/json; charset=utf-8");
             if(strlen($requestParams) > 1){
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
                 $result = ProfilePicController::getProfilePic($user_id);
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                
+                if ($result == NULL) {
+                    http_response_code(404);
+                    echo('No profile image uploaded for this user.');
+                } else {
+                    header("Content-type: " . $result->getType());
+                    echo($result->getImage());
+                }
             }else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
@@ -75,6 +81,7 @@ header("Content-Type: application/json; charset=utf-8");
                         $headers['Content-Length']);
                 $result = ProfilePicController::putProfilePic($profile_pic);
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
+                //echo($profile_pic->getImage());
                 echo($result);
                 //echo('{"profilepic":"upload failed"}');
             }else{
