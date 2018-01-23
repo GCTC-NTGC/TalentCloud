@@ -372,7 +372,7 @@ UserAPI.loaded = function(response){
             //var profileLink = document.getElementById("profileLink"); 
             //profileLink.classList.remove("hidden");
 
-        if(authJSON.user_role === "manager"){
+        if(authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin){
             
             var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
             jobPostersLinkListItem.setAttribute("aria-hidden","false");
@@ -518,22 +518,6 @@ UserAPI.hideRegisterForm = function(){
     UserAPI.clearFormFields("registerForm");
 };
 
-
-
-//This should be in the JobPosterAPI or TalentCloudAPI-not user related
-UserAPI.showManagerCreateJobPosterForm = function(linkElement){
-    var title = linkElement.innerHTML;
-    var url = linkElement.getAttribute('href');
-    var stateInfo = {pageInfo: 'create_job_poster', pageTitle: 'Talent Cloud: Create Job Poster'};
-    document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');//last parameter just replaced with #Register instead of url
-    
-    var createJobPosterDialog = document.getElementById("createJobPosterOverlay");
-    createJobPosterDialog.classList.remove("hidden");
-    CreateJobPosterAPI.firstLoad();
-    
-    EventsAPI.hideBodyOverflow(true);
-};
 
 UserAPI.showCreateEditProfile = function(linkElement){
     var stateInfo = {pageInfo: 'user_create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};

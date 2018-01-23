@@ -25,39 +25,39 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=utf-8");
 
-    $context = '/';
+$context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
-    
-    switch ($requestMethod) {
-        case 'GET':
-            if(strlen($requestParams) > 1){
-                $result = JobSeekerController::getJobSeekers();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }else{
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }
+$requestParams = substr($requestURI,strlen($context));
 
-            break;
-        case 'POST':
-            break;
-        case 'DELETE':
-            //Here Handle DELETE Request
-            break;
-        case 'PUT':
-            break;
-        case 'PATCH':
-            //Here Handle PATCH Request
-            break;
-        case 'OPTIONS':
-            //Here Handle OPTIONS/Pre-flight requests
-            header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: GET");
-            echo("");
-            break;
-    }
+switch ($requestMethod) {
+    case 'GET':
+        if(strlen($requestParams) > 1){
+            $result = JobSeekerController::getJobSeekers();
+            $json = json_encode($result, JSON_PRETTY_PRINT);
+            echo($json);
+        }else{
+            $result = array();
+            $json = json_encode($result, JSON_PRETTY_PRINT);
+            echo($json);
+        }
+
+        break;
+    case 'POST':
+        break;
+    case 'DELETE':
+        //Here Handle DELETE Request
+        break;
+    case 'PUT':
+        break;
+    case 'PATCH':
+        //Here Handle PATCH Request
+        break;
+    case 'OPTIONS':
+        //Here Handle OPTIONS/Pre-flight requests
+        header("Access-Control-Allow-Headers: accept, content-type");
+        header("Access-Control-Allow-Methods: GET");
+        echo("");
+        break;
+}
 
 ?>

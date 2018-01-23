@@ -247,7 +247,7 @@ DataAPI.getJobSeekers = function(locale){
 
 DataAPI.getDepartments = function(locale){
     Utilities.debug?console.log("loading departments"):null;
-    var departments_url = DataAPI.mockURL+"/"+locale+"/getDepartments";
+    var departments_url = DataAPI.baseURL+"/"+locale+"/Lookup/department";
     getDepartments_xhr = new XMLHttpRequest();
     if ("withCredentials" in getDepartments_xhr) {
 
@@ -365,6 +365,7 @@ DataAPI.loadedManager = function(response){
         JobSeekerAPI.getJobSeekerCount();
     }
     ,1000);
+    
 };
 
 DataAPI.loadedManagerDepartments = function(response){

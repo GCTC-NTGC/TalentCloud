@@ -12,7 +12,7 @@ RewriteRule ^api/v1/getJobSeekerProfile/([0-9]{1,10}) services/JobSeekerProfile.
 RewriteRule ^api/v1/putJobSeekerProfile services/JobSeekerProfile.php
 RewriteRule ^api/v1/getJobPosterApplicationByProfileId services/JobPosterApplication.php
 RewriteRule ^api/v1/putJobPosterApplication services/JobPosterApplication.php
-RewriteRule ^api/v1/putJobPoster services/JobPoster.php
+RewriteRule ^api/v1/createJobPoster services/JobPoster.php
 RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
 
 #localized services
@@ -22,6 +22,7 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getJobPoster/([0-9]{1,10}) services/
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/department services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/province services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/city services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/jobterm services/Lookup.php
 
 #Require all granted
 #Require ip 127.0.0.1

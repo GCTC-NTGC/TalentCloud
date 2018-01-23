@@ -70,10 +70,10 @@ ManagerEventsAPI.cancelLogin = function(){
 
 ManagerEventsAPI.hideBodyOverflow = function(hide){
     var body = document.getElementById("body");
-    if(hide){
-        body.classList.add("overFlowHidden");
-    }else{
+    if(!hide){
         body.classList.remove("overFlowHidden");
+    }else{
+        body.classList.add("overFlowHidden");
     }
 };
 

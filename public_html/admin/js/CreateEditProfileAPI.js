@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 var CreateEditProfileAPI = {};
 
 CreateEditProfileAPI.managerProfileObj = {};
@@ -22,8 +20,6 @@ CreateEditProfileAPI.Profile = function(name, link, accomplishment, accomplishme
     this.superpower = superpower;
     this.superpower_fr = superpower_fr;
 };
-
-
 
 CreateJobPosterAPI.selectedUnit = function(newID){
     var option = document.getElementById(newID);
@@ -145,28 +141,28 @@ CreateEditProfileAPI.validateStep2 = function() {
         var demoAreaEnglish = document.getElementById("createEditProfileDemoAreaEnglish");
         //demoAreaEnglish.innerHTML = 'Profile Object printed in console!';//JSON.stringify(CreateEditProfileAPI.managerProfileObj);
         //Temp prifle obj
-    var tempProfileObj = {name: createEditProfileForm.createEditProfile_name.value, 
-        bio: createEditProfileForm.createEditProfile_bio.value,
-        bio_fr: createEditProfileForm.createEditProfile_bio_fr.value,
-        position: createEditProfileForm.createEditProfile_position.value, 
-        position_fr: createEditProfileForm.createEditProfile_position_fr.value,
-        department: createEditProfileForm.createEditProfile_department.value, 
-        department_fr: createEditProfileForm.createEditProfile_department_fr.value,
-        branch_fr: createEditProfileForm.createEditProfile_branch_fr.value,
-        branch: createEditProfileForm.createEditProfile_branch.value, 
-        division: createEditProfileForm.createEditProfile_division.value,
-        division_fr: createEditProfileForm.createEditProfile_division_fr.value,
-        twitter: createEditProfileForm.createEditProfile_twitter.value,
-        linkedin: createEditProfileForm.createEditProfile_linkedin.value,
-        leadership_style: createEditProfileForm.createEditProfile_leadership_style.value,
-        leadership_style_fr: createEditProfileForm.createEditProfile_leadership_style_fr.value,
-        app_to_employees: createEditProfileForm.createEditProfile_app_to_employees.value,
-        app_to_employees_fr: createEditProfileForm.createEditProfile_app_to_employees_fr.value,
-        exp_of_employees: createEditProfileForm.createEditProfile_exp_of_employees.value,
-        exp_of_employees_fr: createEditProfileForm.createEditProfile_exp_of_employees_fr.value,
-        how_often_review: '',
-        how_often_early: ''
-    };
+        var tempProfileObj = {name: createEditProfileForm.createEditProfile_name.value, 
+            bio: createEditProfileForm.createEditProfile_bio.value,
+            bio_fr: createEditProfileForm.createEditProfile_bio_fr.value,
+            position: createEditProfileForm.createEditProfile_position.value, 
+            position_fr: createEditProfileForm.createEditProfile_position_fr.value,
+            department: createEditProfileForm.createEditProfile_department.value, 
+            department_fr: createEditProfileForm.createEditProfile_department_fr.value,
+            branch_fr: createEditProfileForm.createEditProfile_branch_fr.value,
+            branch: createEditProfileForm.createEditProfile_branch.value, 
+            division: createEditProfileForm.createEditProfile_division.value,
+            division_fr: createEditProfileForm.createEditProfile_division_fr.value,
+            twitter: createEditProfileForm.createEditProfile_twitter.value,
+            linkedin: createEditProfileForm.createEditProfile_linkedin.value,
+            leadership_style: createEditProfileForm.createEditProfile_leadership_style.value,
+            leadership_style_fr: createEditProfileForm.createEditProfile_leadership_style_fr.value,
+            app_to_employees: createEditProfileForm.createEditProfile_app_to_employees.value,
+            app_to_employees_fr: createEditProfileForm.createEditProfile_app_to_employees_fr.value,
+            exp_of_employees: createEditProfileForm.createEditProfile_exp_of_employees.value,
+            exp_of_employees_fr: createEditProfileForm.createEditProfile_exp_of_employees_fr.value,
+            how_often_review: '',
+            how_often_early: ''
+        };
     
     var how_often_review_radios= document.getElementsByName('createEditProfile_how_often_review_options');
     for(var i = 0;i < how_often_review_radios.length;i++){
@@ -548,11 +544,5 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
     viewProfileContent.appendChild(vp_decisionMaking_div);
     
     return viewProfileContent;
-    
-};
-
-CreateJobPosterAPI.hideCreateJobPosterForm = function(){
-    var jobPosterCreation = document.getElementById("createJobPosterOverlay");    
-    jobPosterCreation.classList.add("hidden");
     
 };

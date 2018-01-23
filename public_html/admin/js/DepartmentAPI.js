@@ -12,8 +12,15 @@ DepartmentAPI.departments = [];
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
 DepartmentAPI.loadFromJSON = function(data) {
-    DepartmentAPI.departments = data.department;
     
+    console.log(data);
+    
+    var departments = data;
+    
+    for(var department in departments) {
+        DepartmentAPI.departments.push( department + " : " + departments[department]);
+    }
+    console.log(DepartmentAPI.departments);
 };
 
 DepartmentAPI.filterCreateJobPosterDepartments = function(firstLoad){
@@ -26,6 +33,8 @@ DepartmentAPI.filterCreateJobPosterDepartments = function(firstLoad){
         departmentSearchBox = document.getElementById("createJobPoster_department").value;
     }
     for(var i = 0;i < DepartmentAPI.departments.length;i++){
+        var departmentData = DepartmentAPI.departments[i];
+        console.log(departmentData);
         if(DepartmentAPI.departments[i].toLowerCase().includes(departmentSearchBox.toLowerCase())){
             var department = document.createElement("li");
             var dLink = document.createElement("a");
@@ -37,10 +46,6 @@ DepartmentAPI.filterCreateJobPosterDepartments = function(firstLoad){
             departmentList.appendChild(department);
         }
     }
-    
-    
-    
-    
 };
 
 /**
