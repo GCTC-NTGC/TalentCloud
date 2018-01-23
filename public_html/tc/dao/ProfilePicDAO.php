@@ -36,7 +36,9 @@ class ProfilePicDAO extends BaseDAO {
             SELECT 
                 profile_pic.user_id,
                 profile_pic.image,
-                profile_pic.last_updated
+                profile_pic.last_updated,
+                profile_pic.type,
+                profile_pic.size
             FROM profile_pic
             WHERE profile_pic.user_id = :user_id
             ORDER BY profile_pic.last_updated DESC LIMIT 1
@@ -47,7 +49,7 @@ class ProfilePicDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ProfilePic',array('user_id','image','last_updated'));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ProfilePic',array('user_id','image','last_updated', 'type', 'size'));
             $profile_pic = $sql->fetch();
         } catch (PDOException $e) {
             return 'getProfilePic failed: ' . $e->getMessage();
@@ -63,24 +65,34 @@ class ProfilePicDAO extends BaseDAO {
             (
                 user_id,
                 image,
-                last_upadated
+                last_updated,
+                type,
+                size
             )
             VALUES
             (
                 :user_id,
                 :image,
-                now()
+                now(),
+                :type,
+                :size
             )
             ON DUPLICATE KEY UPDATE
                 image=:image,
-                last_updated=now()
+                last_updated=now(),
+                type=:type,
+                size=:size
             ;";
         $sql = $link->prepare($sql_str);
         
         $user_id = intval($profile_pic->getUser_id());
         $image = $profile_pic->getImage();
+        $type = $profile_pic->getType();
+        $size = intval($profile_pic->getSize());
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $sql->bindParam(':image', $image, PDO::PARAM_LOB);
+        $sql->bindParam(':type', $type, PDO::PARAM_STR);
+        $sql->bindParam(':size', $size, PDO::PARAM_INT);
         
         $rowsmodified = 0;
         

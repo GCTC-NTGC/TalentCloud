@@ -10,12 +10,17 @@ class ProfilePic {
     protected $user_id;
     protected $image;
     protected $last_updated;
+    protected $type;
+    protected $size;
     
-    public function __construct($user_id, $image, $last_updated) {
+    public function __construct($user_id, $image, $last_updated, $type, $size) {
         $this->user_id = $user_id;
         $this->image = $image;
         $this->last_updated = $last_updated;
+        $this->type = $type;
+        $this->size = $size;
     }
+
     
     public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
@@ -40,6 +45,14 @@ class ProfilePic {
         return $this->last_updated;
     }
 
+    public function getType() {
+        return $this->type;
+    }
+
+    public function getSize() {
+        return $this->size;
+    }
+
     public function setUser_id($user_id) {
         $this->user_id = $user_id;
     }
@@ -52,6 +65,11 @@ class ProfilePic {
         $this->last_updated = $last_updated;
     }
 
+    public function setType($type) {
+        $this->type = $type;
+    }
 
-
+    public function setSize($size) {
+        $this->size = $size;
+    }
 }
