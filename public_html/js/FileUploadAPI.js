@@ -10,6 +10,8 @@ FileUploadAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
+FileUploadAPI.defaultProfilePic = '/images/user.svg';
+
 var fileUploader = null;
 
 function FileUploader(fileField, dropZone, fileList, isSingleFile, 
@@ -132,9 +134,9 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
             }else if (file.type.search("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") != -1){
             	otherFileType = "MS Excel";
             }else { 
-                otherFileType = "Unknown file type";
+                //otherFileType = "Unknown file type";
             }
-            /*
+            
             var divText = document.createTextNode(
                 "File type: "
                 + 
@@ -143,7 +145,7 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
                 Math.round(file.size / 1024) + "KB"
             );
             div.appendChild(divText);
-            */
+            
             var divLoader = document.createElement("div");
             divLoader.className = "loadingIndicator";
             
@@ -281,9 +283,53 @@ FileUploadAPI.makeProfilePicUploadRequest = function(file){
 };
 
 FileUploadAPI.onProfilePicUploaded = function(xhr){
-    //TODO
-    console.log("Profile img uploaded: " + xhr.response);
+    FileUploadAPI.refreshProfilePic();
 };
+
+FileUploadAPI.getProfilePic = function(user_id, response_callback) {
+    var xhr = new XMLHttpRequest();
+    var pic_url = FileUploadAPI.baseURL+'/profilePic/'+user_id;
+    if ("withCredentials" in xhr) {
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      xhr.open("GET", pic_url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      xhr = new XDomainRequest();
+      xhr.open("GET", pic_url);
+    } else {
+      // Otherwise, CORS is not supported by the browser.
+      xhr = null;
+      // TODO: indicate to user that browser is not supported
+    } 
+    xhr.open('GET', pic_url);
+    xhr.setRequestHeader("Accept","image/*"); 
+    xhr.addEventListener('load', function() {
+        response_callback(xhr);
+    });
+    xhr.send();
+};
+
+FileUploadAPI.refreshProfilePic = function() {
+    if (UserAPI.hasSessionUser()) {
+        var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
+        FileUploadAPI.getProfilePic(user_id, FileUploadAPI.displayUserProfilePic);
+    }
+};
+
+FileUploadAPI.displayUserProfilePic = function(xhr) {
+    var pic = document.getElementById('profilePicImg');
+    if (xhr.status == 200) {
+        pic.src = xhr.responseURL;
+    } else {
+        pic.src = FileUploadAPI.defaultProfilePic;
+    }
+
+};
+
+
 
 FileUploadAPI.showProfilePicUpload = function() {
     var uploadWindow = document.getElementById('profilePicUploadWrapperWindow');

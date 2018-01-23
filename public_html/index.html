@@ -198,18 +198,16 @@ and open the template in the editor .
         <main>
             <aside>
                 <div class="section contentContainer">
+                    <div id="profilePicSection">
+                         <img id="profilePicImg" alt="profile image" src="/images/mapleleaf.png"/>
+                    </div>
                     <div id="profilePicUploadWrapperWindow" class="hidden">
-                        <img id="profilePicImg" alt="profile image" src="/images/mapleleaf.png"/>
-                        <h1>Choose or drag and drop a new Profile Image</h1>
-                        <div style="float:left;width:50%;">
+                       
+                        <h1>Choose a new Profile Image</h1>
+                        <div>
                             <div>
                                 <input type="file" id="profilePicUploadField" accept="image/*" name="profilePicField"/>
                             </div>
-                            <div id="profilePicUploadDrop">
-                                <p>Drop file here</p>
-                            </div>
-                        </div>
-                        <div style="float:left;width:50%;">
                             <h2>Preview:</h2>
                             <a id="profilePicUploadReset" href="javascript:void(0)" onclick="FileUploadAPI.clearUploadQueue()" title="Remove all files from list">Clear</a>
                             <ul id="profilePicUploadFiles"></ul>
