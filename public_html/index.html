@@ -170,11 +170,6 @@ and open the template in the editor .
                 <div class="logoutWrapper">
                     <ul>
                         <li>
-                            <div id="editProfilePic">
-                                <a href="javascript:void(0)" id="profilePicUploadLink" onclick="FileUploadAPI.showProfilePicUpload()">Upload Profile Image</a>
-                            </div>
-                        </li>
-                        <li>
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
                             </div>
@@ -198,22 +193,6 @@ and open the template in the editor .
         <main>
             <aside>
                 <div class="section contentContainer">
-                    <div id="profilePicSection">
-                         <img id="profilePicImg" alt="profile image" src="/images/mapleleaf.png"/>
-                    </div>
-                    <div id="profilePicUploadWrapperWindow" class="hidden">
-                       
-                        <h1>Choose a new Profile Image</h1>
-                        <div>
-                            <div>
-                                <input type="file" id="profilePicUploadField" accept="image/*" name="profilePicField"/>
-                            </div>
-                            <h2>Preview:</h2>
-                            <a id="profilePicUploadReset" href="javascript:void(0)" onclick="FileUploadAPI.clearUploadQueue()" title="Remove all files from list">Clear</a>
-                            <ul id="profilePicUploadFiles"></ul>
-                            <a id="profilePicUpload" href="javascript:void(0)" onclick="FileUploadAPI.uploadQueue()" title="Upload all files in list">Upload file</a>
-                        </div>
-                    </div>
                     <div id="jobs">
                         <div id="noJobs" class="hidden">
                             No jobs found
