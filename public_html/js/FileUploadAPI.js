@@ -12,10 +12,13 @@ FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
 FileUploadAPI.defaultProfilePic = '/images/user.svg';
 
-var fileUploader = null;
-
-function FileUploader(fileField, dropZone, fileList, isSingleFile, 
-    makeUploadRequest, onUploadComplete) {
+FileUploadAPI.FileUploader = function(
+        fileField, dropZone, fileList,
+        clearBtn,
+        uploadBtn,
+        isSingleFile, 
+        makeUploadRequest, 
+        onUploadComplete) {
         
     var fileQueue = new Array(),
         preview = null,
@@ -23,6 +26,8 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
 
     this.init = function () {
         fileField.onchange = this.addFiles;
+        clearBtn.onclick = clearUploadQueue;
+        uploadBtn.onclick = this.uploadQueue;
         dropZone.addEventListener("dragenter",  this.stopProp, false);
         dropZone.addEventListener("dragleave",  this.dragExit, false);
         dropZone.addEventListener("dragover",  this.dragOver, false);
@@ -40,14 +45,6 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
         addFileListItems(files);
     };
     
-    this.clearUploadQueue = function () {
-        while (fileList.childNodes.length > 0) {
-            fileList.removeChild(
-                fileList.childNodes[fileList.childNodes.length - 1]
-            );
-        }
-    };
-
     this.dragOver = function (ev) {
         ev.stopPropagation();
         ev.preventDefault();
@@ -77,7 +74,7 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
         while (fileQueue.length > 0) {
             var item = fileQueue.pop();
             var p = document.createElement("p");
-            p.className = "loader";
+            p.className = "fileUploadLoader";
             var pText = document.createTextNode("Uploading...");
             p.appendChild(pText);
             item.li.appendChild(p);
@@ -89,10 +86,18 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
             }
         }
     };
+    
+    var clearUploadQueue = function () {
+        while (fileList.childNodes.length > 0) {
+            fileList.removeChild(
+                fileList.childNodes[fileList.childNodes.length - 1]
+            );
+        }
+    };
 
     var addFileListItems = function (files) {
         if (isSingleFile) {
-            fileUploader.clearUploadQueue();
+            clearUploadQueue();
             var fr = new FileReader();
             fr.file = files[0];
             fr.onloadend = showFileInList;
@@ -147,7 +152,7 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
             div.appendChild(divText);
             
             var divLoader = document.createElement("div");
-            divLoader.className = "loadingIndicator";
+            divLoader.className = "fileUploadLoadingIndicator";
             
             li.appendChild(div);
             li.appendChild(divLoader);
@@ -217,7 +222,7 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
                 div.style["width"] = "100%";
                 div.style["backgroundColor"] = "#0f0";
                 for (var i = 0; i < ps.length; i++) {
-                    if (ps[i].className == "loader") {
+                    if (ps[i].className == "fileUploadLoader") {
                         ps[i].textContent = "Upload complete";
                         ps[i].style["color"] = "#3DD13F";
                         break;
@@ -238,7 +243,7 @@ function FileUploader(fileField, dropZone, fileList, isSingleFile,
             xhr.send(file);
         }
     };
-}
+};
 
 FileUploadAPI.clearUploadQueue = function() {
     if (fileUploader) {
@@ -283,10 +288,10 @@ FileUploadAPI.makeProfilePicUploadRequest = function(file){
 };
 
 FileUploadAPI.onProfilePicUploaded = function(xhr){
-    FileUploadAPI.refreshProfilePic();
+    FileUploadAPI.refreshUserProfilePic();
 };
 
-FileUploadAPI.getProfilePic = function(user_id, response_callback) {
+FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
     var xhr = new XMLHttpRequest();
     var pic_url = FileUploadAPI.baseURL+'/profilePic/'+user_id;
     if ("withCredentials" in xhr) {
@@ -307,29 +312,21 @@ FileUploadAPI.getProfilePic = function(user_id, response_callback) {
     xhr.open('GET', pic_url);
     xhr.setRequestHeader("Accept","image/*"); 
     xhr.addEventListener('load', function() {
-        response_callback(xhr);
+        if (xhr.status == 200) {
+            img_elem.src = xhr.responseURL;
+        } else {
+            img_elem.src = FileUploadAPI.defaultProfilePic;
+        }
     });
     xhr.send();
 };
 
-FileUploadAPI.refreshProfilePic = function() {
+FileUploadAPI.refreshUserProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        FileUploadAPI.getProfilePic(user_id, FileUploadAPI.displayUserProfilePic);
+        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("myProfilePic"));
     }
 };
-
-FileUploadAPI.displayUserProfilePic = function(xhr) {
-    var pic = document.getElementById('profilePicImg');
-    if (xhr.status == 200) {
-        pic.src = xhr.responseURL;
-    } else {
-        pic.src = FileUploadAPI.defaultProfilePic;
-    }
-
-};
-
-
 
 FileUploadAPI.showProfilePicUpload = function() {
     var uploadWindow = document.getElementById('profilePicUploadWrapperWindow');
@@ -338,9 +335,13 @@ FileUploadAPI.showProfilePicUpload = function() {
     
     var fileField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
-    var fileList = document.getElementById('profilePicUploadFiles');
+    var fileList = document.getElementById('profilePicUploadPreview');
+    var clearBtn = document.getElementById('profilePicUploadClear');
+    var uploadBtn = document.getElementById('profilePicUploadBtn');
     fileUploader = new FileUploader(
             fileField, fileDrop, fileList, 
+            clearBtn,
+            uploadBtn,
             true, 
             FileUploadAPI.makeProfilePicUploadRequest, 
             FileUploadAPI.onProfilePicUploaded);

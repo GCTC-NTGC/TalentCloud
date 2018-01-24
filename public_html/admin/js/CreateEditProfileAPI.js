@@ -546,3 +546,36 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
     return viewProfileContent;
     
 };
+
+CreateEditProfileAPI.profilePicUploader = null;
+
+CreateEditProfileAPI.showUploadProfilePic = function() {
+    var uploadOverlay = document.getElementById('profilePicUploadOverlay');
+    uploadOverlay.classList.remove("hidden");
+    EventsAPI.setFormFocus("profilePicUploadField");
+    
+    var fileField = document.getElementById('profilePicUploadField');
+    var fileDrop = document.getElementById('profilePicUploadDrop');
+    var fileList = document.getElementById('profilePicUploadPreview');
+    var clearBtn = document.getElementById('profilePicUploadClear');
+    var uploadBtn = document.getElementById('profilePicUploadBtn');
+    CreateEditProfileAPI.profilePicUploader = new FileUploadAPI.FileUploader(
+            fileField, fileDrop, fileList, 
+            clearBtn,
+            uploadBtn,
+            true, 
+            FileUploadAPI.makeProfilePicUploadRequest, 
+            CreateEditProfileAPI.onProfilePicUploaded);
+    CreateEditProfileAPI.profilePicUploader.init();
+};
+
+CreateEditProfileAPI.hideUploadProfilePic = function() {
+    var uploadOverlay = document.getElementById('profilePicUploadOverlay');
+    uploadOverlay.classList.add("hidden");
+    CreateEditProfileAPI.profilePicUploader = null;
+};
+
+CreateEditProfileAPI.onProfilePicUploaded = function() {
+    FileUploadAPI.refreshUserProfilePic();
+    CreateEditProfileAPI.hideUploadProfilePic();
+};

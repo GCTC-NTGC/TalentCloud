@@ -29,6 +29,7 @@ and open the template in the editor .
         <script src="/admin/js/CreateEditProfileAPI.js" type="text/javascript"></script>
         <script src="/js/FormValidationAPI.js" type="text/javascript"></script>
         <script src="/js/EventsAPI.js" type="text/javascript"></script>
+        <script src="/js/FileUploadAPI.js" type="text/javascript"></script>
         <script src="/admin/js/ManagerEventsAPI.js" type="text/javascript"></script>
         <script src="/admin/js/DepartmentAPI.js" type="text/javascript"></script>
         <script type="text/javascript">
@@ -548,6 +549,31 @@ and open the template in the editor .
                 </div>
             </div>
         </div>
+        <div id="profilePicUploadOverlay" class="hidden">
+            <div id="profilePicUploadWrapperWindow">
+                <h1>Choose new profile img or drag and drop onto zone below</h1>
+                <div class="fileUpload">
+                    <div style="float:left;width:50%;">
+                        <div>
+                            <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
+                        </div>
+                        <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
+                            <p>Drop file here</p>
+                        </div>
+                    </div>
+                    <div style="float:left;width:50%;padding:20px 20px;">
+                        <div id="fileUploadPreviewPanel" style="min-height:130px;">
+                            <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
+                            <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
+                        </div>
+                        <div id="fileUploadButtons">
+                            <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
+                            <a href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <main>
             <aside>
                 <div class="section">
@@ -573,6 +599,12 @@ and open the template in the editor .
                                     <h2>Job Poster Entry Form</h2>
                                 </div>
                                 <!--<div><hr></div>-->
+                                <div>
+                                    <img id="myProfilePic" src="../images/user.svg" class="profilePic"/>
+                                    <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
+                                        <img id="editMyProfilePicImg" src="../images/edit.svg" class="editImage">
+                                    </a>
+                                </div>
                                 <div style="height:50px;line-height:50px;vertical-align: middle;">
                                     <h3 style="height:50px;line-height:50px;"><img src="/images/logo.svg" style="height:50px;vertical-align: middle;" id="createProfileLogoImage" alt="createEditProfile"/> &nbsp; &nbsp;<span id="createProfileWindowTitle">Create Profile</span></h3>
                                 </div>
