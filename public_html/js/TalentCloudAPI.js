@@ -103,8 +103,7 @@ TalentCloudAPI.load = function(){
         TalentCloudAPI.loadAdmin();
     }else if(managerView === true){
         TalentCloudAPI.loadManager();
-    }
-    else{
+    }else{
         TalentCloudAPI.loadPublic();
     }
     
@@ -173,7 +172,7 @@ TalentCloudAPI.loadManager = function(){
                 credentials.authToken = authToken;
                 UserAPI.authenticate(credentials);
                 DataAPI.getJobSeekers(locale);
-                DataAPI.getDepartments(locale);
+                DepartmentAPI.getDepartments(locale);
                 //Add log user in automatically
             }else{
                 DataAPI.getJobSeekers(locale);
@@ -207,22 +206,22 @@ TalentCloudAPI.loadAdmin = function(){
             if(UserAPI.hasSessionUser()){
                 var credentials = {};
                 sessionUser = UserAPI.getSessionUserAsJSON();
-                //console.log(sessionUser);
+                console.log(sessionUser);
                 credentials.email = sessionUser.email;
                 credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.authenticate(credentials);
-                DataAPI.getJobSeekers(locale);
-                DataAPI.getDepartments(locale);
+                //DataAPI.getJobSeekers(locale);
+                DepartmentAPI.getDepartments(locale);
                 //Add log user in automatically
             }else{
-                DataAPI.getJobSeekers(locale);
+                //DataAPI.getJobSeekers(locale);
             }
         }else{
-            DataAPI.getJobSeekers(locale);
+            //DataAPI.getJobSeekers(locale);
         }
     }else{
-        DataAPI.getJobSeekers(locale);
+        //DataAPI.getJobSeekers(locale);
     }
 };
 

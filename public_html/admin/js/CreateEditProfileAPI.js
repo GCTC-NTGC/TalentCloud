@@ -8,24 +8,33 @@ var CreateEditProfileAPI = {};
 
 CreateEditProfileAPI.managerProfileObj = {};
 
-CreateEditProfileAPI.Profile = function(name, link, accomplishment, accomplishment_fr, best_work_exp, best_work_exp_fr, worst_work_exp, worst_work_exp_fr, superpower, superpower_fr){
-    this.name = name;
-    this.link = link;
-    this.accomplishment = accomplishment;
-    this.accomplishment_fr = accomplishment_fr;
-    this.best_work_exp = best_work_exp;
-    this.best_work_exp_fr = best_work_exp_fr;
-    this.worst_work_exp = worst_work_exp;
-    this.worst_work_exp_fr = worst_work_exp_fr;
-    this.superpower = superpower;
-    this.superpower_fr = superpower_fr;
+CreateEditProfileAPI.ManagerProfile = function(
+        user_manager_profile_id, 
+        user_manager_profile_department_id,
+        user_manager_profile_position_id,
+        user_manager_profile_branch_id,
+        user_manager_profile_division_id,
+        user_manager_profile_twitter,
+        user_manager_profile_linkedin,
+        user_id){
+    this.user_manager_profile_id = user_manager_profile_id;
+    this.user_manager_profile_department_id = user_manager_profile_department_id;
+    this.user_manager_profile_position_id = user_manager_profile_position_id;
+    this.user_manager_profile_branch_id = user_manager_profile_branch_id;
+    this.user_manager_profile_division_id = user_manager_profile_division_id;
+    this.user_manager_profile_twitter = user_manager_profile_twitter;
+    this.user_manager_profile_linkedin = user_manager_profile_linkedin;
+    this.user_id = user_id;
 };
 
-CreateJobPosterAPI.selectedUnit = function(newID){
+CreateEditProfileAPI.ManagerProfileDetails = function(){
+    
+};
+
+CreateEditProfileAPI.selectedUnit = function(newID){
     var option = document.getElementById(newID);
     option.checked = true;
 };
-
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
 CreateEditProfileAPI.goToStep = function(stepId) {
@@ -62,6 +71,19 @@ CreateEditProfileAPI.firstLoad = function() {
     DepartmentAPI.filterCreateJobPosterDepartments(true);
     
 };
+
+CreateEditProfileAPI.loadData = function(){
+    
+    var createEditProfile_position = document.getElementById("createEditProfile_position");
+    
+    var createEditProfile_department = document.getElementById("createEditProfile_department");
+    
+    var createEditProfile_branch = document.getElementById("createEditProfile_branch");
+    
+    var createEditProfile_division = document.getElementById("createEditProfile_division");
+    
+    
+}
 
 CreateEditProfileAPI.validateStep1 = function() {
     var valid = true;
@@ -544,5 +566,61 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
     viewProfileContent.appendChild(vp_decisionMaking_div);
     
     return viewProfileContent;
+    
+};
+
+
+
+CreateEditProfileAPI.showCreateEditProfile = function(linkElement){
+    var stateInfo = {pageInfo: 'user_create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#CreateEditProfile');
+    
+    EventsAPI.hideAllLayouts()
+    
+    var createJobPosterDialog = document.getElementById("createEditProfile");
+    createJobPosterDialog.classList.remove("hidden");
+    
+    var jobSeekersDiv = document.getElementById("jobSeekerList");
+    jobSeekersDiv.classList.add("hidden");
+    
+};
+
+CreateEditProfileAPI.showViewProfile = function(linkElement){
+    var stateInfo = {pageInfo: 'manager_view_profile', pageTitle: 'Talent Cloud: View Profile'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#ViewProfile');
+    
+    //Temp prifle obj
+    var tempProfileObj = {name: 'John Dore', 
+        bio: 'BIo in englsih',
+        bio_fr: 'BIo in French',
+        position: 'Position In English', 
+        position_fr: 'Position in French',
+        department: 'Deparmtnet in Enlgish', 
+        department_fr: 'Deparmtne tin French',
+        branch_fr: 'Branch name in French',
+        branch: 'Branch nme in English', 
+        division: 'The division (in English)',
+        division_fr: 'The division (in french)',
+        twitter: 'Twitter Link',
+        linkedin: 'LinkedIn Link',
+        leadership_style: 'Leadership style in English',
+        leadership_style_fr: 'Leadership Style in French',
+        app_to_employees: 'Approach to employees',
+        app_to_employees_fr: 'Approach to employees french',
+        exp_of_employees: 'Expectations of employees',
+        exp_of_employees_fr: 'Expectations of emplyoees in the second language',
+        how_often_review: 'Almost Never',
+        how_often_early: 'Usually'
+    };
+    
+    EventsAPI.hideAllLayouts();
+    
+    var viewProfileElement = document.getElementById("viewProfile");
+    viewProfileElement.classList.remove("hidden");
+    
+    viewProfileElement.innerHTML = '';
+    viewProfileElement.appendChild(CreateEditProfileAPI.viewProfile(tempProfileObj));
     
 };
