@@ -13,6 +13,7 @@ RewriteRule ^api/v1/putJobSeekerProfile services/JobSeekerProfile.php
 RewriteRule ^api/v1/getJobPosterApplicationByProfileId services/JobPosterApplication.php
 RewriteRule ^api/v1/putJobPosterApplication services/JobPosterApplication.php
 RewriteRule ^api/v1/createJobPoster services/JobPoster.php
+RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
 RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
 
 #localized services

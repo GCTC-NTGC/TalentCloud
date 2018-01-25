@@ -569,8 +569,6 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
     
 };
 
-
-
 CreateEditProfileAPI.showCreateEditProfile = function(linkElement){
     var stateInfo = {pageInfo: 'user_create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
     document.title = stateInfo.pageTitle;
@@ -583,7 +581,6 @@ CreateEditProfileAPI.showCreateEditProfile = function(linkElement){
     
     var jobSeekersDiv = document.getElementById("jobSeekerList");
     jobSeekersDiv.classList.add("hidden");
-    
 };
 
 CreateEditProfileAPI.showViewProfile = function(linkElement){
@@ -622,5 +619,37 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
     
     viewProfileElement.innerHTML = '';
     viewProfileElement.appendChild(CreateEditProfileAPI.viewProfile(tempProfileObj));
+};
+
+CreateEditProfileAPI.profilePicUploader = null;
+
+CreateEditProfileAPI.showUploadProfilePic = function() {
+    var uploadOverlay = document.getElementById('profilePicUploadOverlay');
+    uploadOverlay.classList.remove("hidden");
+    EventsAPI.setFormFocus("profilePicUploadField");
     
+    var fileField = document.getElementById('profilePicUploadField');
+    var fileDrop = document.getElementById('profilePicUploadDrop');
+    var fileList = document.getElementById('profilePicUploadPreview');
+    var clearBtn = document.getElementById('profilePicUploadClear');
+    var uploadBtn = document.getElementById('profilePicUploadBtn');
+    CreateEditProfileAPI.profilePicUploader = new FileUploadAPI.FileUploader(
+            fileField, fileDrop, fileList, 
+            clearBtn,
+            uploadBtn,
+            true, 
+            FileUploadAPI.makeProfilePicUploadRequest, 
+            CreateEditProfileAPI.onProfilePicUploaded);
+    CreateEditProfileAPI.profilePicUploader.init();
+};
+
+CreateEditProfileAPI.hideUploadProfilePic = function() {
+    var uploadOverlay = document.getElementById('profilePicUploadOverlay');
+    uploadOverlay.classList.add("hidden");
+    CreateEditProfileAPI.profilePicUploader = null;
+};
+
+CreateEditProfileAPI.onProfilePicUploaded = function() {
+    FileUploadAPI.refreshUserProfilePic();
+    CreateEditProfileAPI.hideUploadProfilePic();
 };
