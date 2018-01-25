@@ -16,6 +16,7 @@ and open the template in the editor .
         <link href="/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="/css/theme-sp-pe-min.css" rel="stylesheet" type="text/css"/>
         <link href="/css/messaging.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/sliderButton.css" rel="stylesheet" type="text/css"/>
         <script src="/js/Utilities.js" type="text/javascript"></script>
         <script src="/js/TalentCloudAPI.js" type="text/javascript"></script>
         <script src="/js/ContactAPI.js" type="text/javascript"></script>
@@ -52,7 +53,7 @@ and open the template in the editor .
             <div id="manager_top_nav" class="nav">
                 <ul>
                     <li aria-hidden="false"><a href="/admin/" class="active" id="homeLink">Home</a></li>
-                    <li id="profileLinkListItem" aria-hidden="true"><a href="javascript:void(0)" class="hidden" id="profileLink" onclick="UserAPI.showCreateEditProfile(this);">My Profile</a></li>
+                    <li id="profileLinkListItem" aria-hidden="true"><a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile(this);">My Profile</a></li>
                     <li id="jobPostersLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showManagerCreateJobPosterForm(this)">Create Job Poster</a></li>
                     <li id="teamsLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="teamsLink">My Teams</a></li>
                 </ul>
@@ -60,7 +61,7 @@ and open the template in the editor .
                     <ul>
                         <li>
                             <div id="viewProfileLink">
-                                <a href="javascript:void(0)" id="viewProfileLink" onclick="UserAPI.showViewProfile(this)">temp_view_profile_link</a>
+                                <a href="javascript:void(0)" id="viewProfileLink" onclick="CreateEditProfileAPI.showViewProfile(this)">temp_view_profile_link</a>
                             </div>
                         </li>
                         <li>
@@ -119,7 +120,7 @@ and open the template in the editor .
                                         <div class="createJobPosterEnglishPane">
                                             <div class="form-group">
                                                 <label for="createJobPoster_jobTitle">
-                                                    <div>Job Title: *</div>
+                                                    <span>Job Title: *</span>
                                                     <strong id="createJobPoster_jobTitle_error" class="error hidden">
                                                         <span id="createJobPoster_jobTitle_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -130,7 +131,7 @@ and open the template in the editor .
                                             </div>
                                             <div class="form-group">
                                                 <label for="createJobPoster_closeDate">
-                                                    <div>Close Date: *</div>
+                                                    <span>Close Date: *</span>
                                                     <strong id="createJobPoster_closeDate_error" class="error hidden">
                                                         <span id="createJobPoster_closeDate_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -141,7 +142,7 @@ and open the template in the editor .
                                             </div>
                                             <div class="form-group">
                                                 <label for="createJobPoster_department">
-                                                    <div>Department: *</div>
+                                                    <span>Department: *</span>
                                                     <strong id="createJobPoster_department_error" class="error hidden">
                                                         <span id="createJobPoster_department_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -150,15 +151,17 @@ and open the template in the editor .
                                                     <input class="form-control full-width" type="text" name="createJobPoster_department" id="createJobPoster_department" onkeyup="DepartmentAPI.filterCreateJobPosterDepartments()"/>
                                                 </div>
                                                 <div id="createJobPoster_listOfDepartments">
-                                                    <li>List 1</li>
-                                                    <li>List 2</li>
+                                                    <ul>
+                                                        <li>List 1</li>
+                                                        <li>List 2</li>
+                                                    </ul>s
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="createJobPosterFrenchPane">
                                             <div class="form-group">
                                                 <label for="createJobPoster_jobTitle_fr">
-                                                    <div>Job Title_fr: *</div>
+                                                    <span>Job Title_fr: *</span>
                                                     <strong id="createJobPoster_jobTitle_fr_error" class="error hidden">
                                                         <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -169,7 +172,7 @@ and open the template in the editor .
                                             </div>
                                             <div class="form-group">
                                                 <label for="createJobPoster_closeDate_fr">
-                                                    <div>Close Date_fr: *</div>
+                                                    <span>Close Date_fr: *</span>
                                                     <strong id="createJobPoster_closeDate_fr_error" class="error hidden">
                                                         <span id="createJobPoster_closeDate_fr_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -180,7 +183,7 @@ and open the template in the editor .
                                             </div>
                                             <div class="form-group">
                                                 <label for="createJobPoster_department_fr">
-                                                    <div>Department_fr: *</div>
+                                                    <span>Department_fr: *</span>
                                                     <strong id="createJobPoster_department_fr_error" class="error hidden">
                                                         <span id="createJobPoster_department_fr_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -189,9 +192,11 @@ and open the template in the editor .
                                                     <input disabled class="form-control full-width" type="text" name="createJobPoster_department_fr" id="createJobPoster_department_fr" onkeyup="DepartmentAPI.filterCreateJobPosterDepartments()"/>
                                                 </div>
                                                 <div id="createJobPoster_listOfDepartments_fr">
+                                                    <ul>
                                                     <li>Human Resources</li>
                                                     <li>Accounting</li>
                                                     <li>Fish</li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +228,7 @@ and open the template in the editor .
                                     <div class="createJobPosterEnglishPane">
                                         <div class="form-group">
                                             <label for="createJobPoster_city">
-                                                <div>City: *</div>
+                                                <span>City: *</span>
                                                 <strong id="createJobPoster_city_error" class="error hidden">
                                                     <span id="createJobPoster_city_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -236,7 +241,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_province">
-                                                <div>Province: *</div>
+                                                <span>Province: *</span>
                                                 <strong id="createJobPoster_province_error" class="error hidden">
                                                     <span id="createJobPoster_province_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -249,7 +254,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_termQuantity">
-                                                <div>Term Quantity: *</div>
+                                                <span>Term Quantity: *</span>
                                                 <strong id="createJobPoster_termQuantity_error" class="error hidden">
                                                     <span id="createJobPoster_termQuantity_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -260,7 +265,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_termUnits">
-                                                <div>Term Units: *</div>
+                                                <span>Term Units: *</span>
                                                 <strong id="createJobPoster_termUnits_error" class="error hidden">
                                                     <span id="createJobPoster_termUnits_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -272,7 +277,7 @@ and open the template in the editor .
                                     <div class="createJobPosterFrenchPane">
                                         <div class="form-group">
                                             <label for="createJobPoster_city_fr">
-                                                <div>City_fr: *</div>
+                                                <span>City_fr: *</span>
                                                 <strong id="createJobPoster_city_fr_error" class="error hidden">
                                                     <span id="createJobPoster_city_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -283,7 +288,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_province_fr">
-                                                <div>Province_fr: *</div>
+                                                <span>Province_fr: *</span>
                                                 <strong id="createJobPoster_province_fr_error" class="error hidden">
                                                     <span id="createJobPoster_province_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -294,7 +299,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_termQuantity_fr">
-                                                <div>Term Quantity_fr: *</div>
+                                                <span>Term Quantity_fr: *</span>
                                                 <strong id="createJobPoster_termQuantity_fr_error" class="error hidden">
                                                     <span id="createJobPoster_termQuantity_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -305,7 +310,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_termUnits_fr">
-                                                <div>Term Units_fr: *</div>
+                                                <span>Term Units_fr: *</span>
                                                 <strong id="createJobPoster_termUnits_fr_error" class="error hidden">
                                                     <span id="createJobPoster_termUnits_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -346,7 +351,7 @@ and open the template in the editor .
                                     <div class="createJobPosterEnglishPane">
                                         <div class="form-group">
                                             <label for="createJobPoster_remunerationType">
-                                                <div>Remuneration Type: *</div>
+                                                <span>Remuneration Type: *</span>
                                                 <strong id="createJobPoster_remunerationType_error" class="error hidden">
                                                     <span id="createJobPoster_remunerationType_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -357,7 +362,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_remunerationLowRange">
-                                                <div>Remuneration Range Low: *</div>
+                                                <span>Remuneration Range Low: *</span>
                                                 <strong id="createJobPoster_remunerationLowRange_error" class="error hidden">
                                                     <span id="createJobPoster_remunerationLowRange_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -368,7 +373,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_remunerationHighRange">
-                                                <div>Remuneration Range High: *</div>
+                                                <span>Remuneration Range High: *</span>
                                                 <strong id="createJobPoster_remunerationHighRange_error" class="error hidden">
                                                     <span id="createJobPoster_remunerationHighRange_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -381,7 +386,7 @@ and open the template in the editor .
                                     <div class="createJobPosterFrenchPane">
                                         <div class="form-group">
                                             <label for="createJobPoster_remunerationType_fr">
-                                                <div>Remuneration Type_fr: *</div>
+                                                <span>Remuneration Type_fr: *</span>
                                                 <strong id="createJobPoster_remunerationType_fr_error" class="error hidden">
                                                     <span id="createJobPoster_remunerationType_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -392,7 +397,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_remunerationLowRange_fr">
-                                                <div>Remuneration Range Low_fr: *</div>
+                                                <span>Remuneration Range Low_fr: *</span>
                                                 <strong id="createJobPoster_remunerationLowRange_fr_error" class="error hidden">
                                                     <span id="createJobPoster_remunerationLowRange_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -403,7 +408,7 @@ and open the template in the editor .
                                         </div>
                                         <div class="form-group">
                                             <label for="createJobPoster_remunerationHighRange_fr">
-                                                <div>Remuneration Range High_fr: *</div>
+                                                <span>Remuneration Range High_fr: *</span>
                                                 <strong id="createJobPoster_remunerationHighRange_fr_error" class="error hidden">
                                                     <span id="createJobPoster_remunerationHighRange_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -596,7 +601,7 @@ and open the template in the editor .
                         <div class="wb-frmvld wb-init">
                             <div class="tabbedForm">
                                 <div class="section">
-                                    <h2>Job Poster Entry Form</h2>
+                                    <h2>Create/Edit Profile</h2>
                                 </div>
                                 <!--<div><hr></div>-->
                                 <div>
@@ -610,184 +615,218 @@ and open the template in the editor .
                                 </div>
                                 <!-- Where the old steps resided -->
                                 <form method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
+                                    <div id="profileCommon">
+                                        <div>
+                                            <div style='display:block;text-align:center;'>
+                                                <div style='display:inline-block;height:200px;'>
+                                                    <div style='margin:0px auto !important'>
+                                                        <img id='profile_image_preview' src='/images/profile_off.svg' style='width:200px;height:200px;'/>
+                                                    </div>
+                                                <input class="form-control full-width hidden" type="file" id="createEditProfile_image" name="fileField" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style='text-align: center;width:100%;'>
+                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                                <span id="createEditProfile_name_preview" style="font-size:1.5em;">name</span>
+                                            </div>
+                                        </div>
+                                        <div style='text-align: center;width:100%;'>
+                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                                <span id="createEditProfile_position_preview">position</span>
+                                            </div>
+                                        </div>
+                                        <div style='text-align: center;width:100%;'>
+                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                                <span id="createEditProfile_department_preview">department</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="create-profile-tab create-profile-tab-current"><span id="createEditProfileStep1Label_1">Step 1</span></div>
-                                                <div class="create-profile-tab"><span id="createEditProfileStep2Label_1">Step 2</span></div>
-                                                <div class="create-profile-tab"><span id="createEditProfileStep3Label_1">Review</span></div>
+                                                <div class="create-profile-tab create-profile-tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
+                                                <div class="create-profile-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
+                                                <div class="create-profile-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-                                            <div class="createEditProfileEnglishPane">
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_name">
-                                                        <div id="createEditProfile_name_label">Name: *</div>
-                                                        <strong id="createEditProfile_name_error" class="error hidden">
-                                                            <span id="createEditProfile_name_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_name" id="createEditProfile_name"/>
+                                                <h3>About Me</h3>
+                                                <div style="margin-top:2em;">
+                                                <div class="createEditProfileEnglishPane">
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_bio">
+                                                            <span id="createEditProfile_bio_label">A little bit about me</span>
+                                                            <strong id="createEditProfile_bio_error" class="error hidden">
+                                                                <span id="createEditProfile_bio_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_bio" id="createEditProfile_bio"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_proudOf">
+                                                            <span id="createEditProfile_proudOf_label">What I'm most proud of in my career</span>
+                                                            <strong id="createEditProfile_branch_error" class="error hidden">
+                                                                <span id="createEditProfile_branch_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_branch" id="createEditProfile_proudOf"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_branch">
+                                                            <span id="createEditProfile_branch_label">Position</span>
+                                                            <strong id="createEditProfile_branch_error" class="error hidden">
+                                                                <span id="createEditProfile_department_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createEditProfile_position" id="createEditProfile_position"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_department">
+                                                            <span id="createEditProfile_department_label">Department</span>
+                                                            <strong id="createEditProfile_department_error" class="error hidden">
+                                                                <span id="createEditProfile_department_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
+                                                                <option value="">--</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_branch">
+                                                            <span id="createEditProfile_branch_label">Branch</span>
+                                                            <strong id="createEditProfile_branch_error" class="error hidden">
+                                                                <span id="createEditProfile_branch_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <select class="form-control full-width" name="createEditProfile_branch" id="createEditProfile_branch">
+                                                                <option value="">--</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_division">
+                                                            <span id="createEditProfile_division_label">Division</span>
+                                                            <strong id="createEditProfile_division_error" class="error hidden">
+                                                                <span id="createEditProfile_division_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <select class="form-control full-width" name="createEditProfile_division" id="createEditProfile_division">
+                                                                <option value="">--</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_twitter">
+                                                            <span id="createEditProfile_twitter_label">Twitter: *</span>
+                                                            <strong id="createEditProfile_twitter_error" class="error hidden">
+                                                                <span id="createEditProfile_twitter_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input class="form-control full-width" type="text" name="createEditProfile_twitter" id="createEditProfile_twitter" placeholder="@Username"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_linkedin">
+                                                            <span id="createEditProfile_linkedin_label">LinkedIn: *</span>
+                                                            <strong id="createEditProfile_linkedin_error" class="error hidden">
+                                                                <span id="createEditProfile_linkedin_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input class="form-control full-width" type="text" name="createEditProfile_linkedin" id="createEditProfile_linkedin" placeholder="www.linkedin.com/in/Username"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_bio">
-                                                        <div id="createEditProfile_bio_label">Bio: *</div>
-                                                        <strong id="createEditProfile_bio_error" class="error hidden">
-                                                            <span id="createEditProfile_bio_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_bio" id="createEditProfile_bio"/>
+                                                <div class="createEditProfileFrenchPane">
+                                                    <div class="form-group hidden">
+                                                        <label for="createEditProfile_name_fr">
+                                                            <span id="createEditProfile_name_fr_label">Name_fr: *</span>
+                                                            <strong id="createEditProfile_name_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_name_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input disabled class="form-control full-width" type="text" name="createEditProfile_name_fr" id="createEditProfile_name_fr"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_department">
-                                                        <div id="createEditProfile_department_label">Department: *</div>
-                                                        <strong id="createEditProfile_department_error" class="error hidden">
-                                                            <span id="createEditProfile_department_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_department" id="createEditProfile_department"/>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_bio_fr">
+                                                            <span id="createEditProfile_bio_fr_label">A little bit about me_fr: *</span>
+                                                            <strong id="createEditProfile_bio_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_bio_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr"></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_position">
-                                                        <div id="createEditProfile_position_label">Position: *</div>
-                                                        <strong id="createEditProfile_position_error" class="error hidden">
-                                                            <span id="createEditProfile_position_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_position" id="createEditProfile_position"/>
+                                                    <div class="form-group hidden">
+                                                        <label for="createEditProfile_department_fr">
+                                                            <span id="createEditProfile_department_fr_label">Department_fr: *</span>
+                                                            <strong id="createEditProfile_department_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_department_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input class="form-control full-width" type="text" name="createEditProfile_department_fr" id="createEditProfile_department_fr"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_branch">
-                                                        <div id="createEditProfile_branch_label">Branch: *</div>
-                                                        <strong id="createEditProfile_branch_error" class="error hidden">
-                                                            <span id="createEditProfile_branch_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_branch" id="createEditProfile_branch"/>
+                                                    <div class="form-group hidden">
+                                                        <label for="createEditProfile_position_fr">
+                                                            <span id="createEditProfile_position_fr_label">Position_fr: *</span>
+                                                            <strong id="createEditProfile_position_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input class="form-control full-width" type="text" name="createEditProfile_position_fr" id="createEditProfile_position_fr"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_division">
-                                                        <div id="createEditProfile_division_label">Division: *</div>
-                                                        <strong id="createEditProfile_division_error" class="error hidden">
-                                                            <span id="createEditProfile_division_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_division" id="createEditProfile_division"/>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_branch_fr">
+                                                            <span id="createEditProfile_branch_fr_label">What I'm most proud of in my career_fr</span>
+                                                            <strong id="createEditProfile_branch_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_branch_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr"></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_twitter">
-                                                        <div id="createEditProfile_twitter_label">Twitter: *</div>
-                                                        <strong id="createEditProfile_twitter_error" class="error hidden">
-                                                            <span id="createEditProfile_twitter_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_twitter" id="createEditProfile_twitter"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_linkedin">
-                                                        <div id="createEditProfile_linkedin_label">LinkedIn: *</div>
-                                                        <strong id="createEditProfile_linkedin_error" class="error hidden">
-                                                            <span id="createEditProfile_linkedin_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_linkedin" id="createEditProfile_linkedin"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="createEditProfileFrenchPane">
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_name_fr">
-                                                        <div id="createEditProfile_name_fr_label">Name_fr: *</div>
-                                                        <strong id="createEditProfile_name_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_name_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input disabled class="form-control full-width" type="text" name="createEditProfile_name_fr" id="createEditProfile_name_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_bio_fr">
-                                                        <div id="createEditProfile_bio_fr_label">Bio_fr: *</div>
-                                                        <strong id="createEditProfile_bio_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_bio_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_department_fr">
-                                                        <div id="createEditProfile_department_fr_label">Department_fr: *</div>
-                                                        <strong id="createEditProfile_department_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_department_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_department_fr" id="createEditProfile_department_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_position_fr">
-                                                        <div id="createEditProfile_position_fr_label">Position_fr: *</div>
-                                                        <strong id="createEditProfile_position_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_position_fr" id="createEditProfile_position_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_branch_fr">
-                                                        <div id="createEditProfile_branch_fr_label">Branch_fr: *</div>
-                                                        <strong id="createEditProfile_branch_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_branch_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_division_fr">
-                                                        <div id="createEditProfile_division_fr_label">Division_fr: *</div>
-                                                        <strong id="createEditProfile_division_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_division_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_division_fr" id="createEditProfile_division_fr"/>
+                                                    <div class="form-group hidden">
+                                                        <label for="createEditProfile_division_fr">
+                                                            <span id="createEditProfile_division_fr_label">Division_fr: *</span>
+                                                            <strong id="createEditProfile_division_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_division_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input class="form-control full-width" type="text" name="createEditProfile_division_fr" id="createEditProfile_division_fr"/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"><span>*</span><span id="createEditProfile_requiredStep1">Required</span></div>
                                                 <div class="formGroup">
-                                                    <input type="button" id="createEditProfile_goToStep2_1" value="Go to Step 2" onclick="CreateEditProfileAPI.validateStep1();">
+                                                    <input type="button" id="createEditProfile_goToStep2_1" value="Save" onclick="CreateEditProfileAPI.validateStep1();"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -803,114 +842,225 @@ and open the template in the editor .
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-                                            <div class="createEditProfileEnglishPane">
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_leadership_style">
-                                                        <div id="createEditProfile_leadership_style_label">Leadership Style: *</div>
-                                                        <strong id="createEditProfile_leadership_style_error" class="error hidden">
-                                                            <span id="createEditProfile_leadership_style_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style"/>
+                                            <h3>Leadership Style</h3>
+                                            <div style="margin-top:2em;overflow:auto;">
+                                                <div class="createEditProfileEnglishPane">
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_leadership_style">
+                                                            <span id="createEditProfile_leadership_style_label">My leadership style</span>
+                                                            <strong id="createEditProfile_leadership_style_error" class="error hidden">
+                                                                <span id="createEditProfile_leadership_style_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_app_to_employees">
+                                                            <span id="createEditProfile_app_to_employees_label">My approach to employee learning and development</span>
+                                                            <strong id="createEditProfile_app_to_employees_error" class="error hidden">
+                                                                <span id="createEditProfile_app_to_employees_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_exp_of_employees">
+                                                            <span id="createEditProfile_exp_of_employees_label">My expectations of employees</span>
+                                                            <strong id="createEditProfile_exp_of_employees_error" class="error hidden">
+                                                                <span id="createEditProfile_exp_of_employees_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_app_to_employees">
-                                                        <div id="createEditProfile_app_to_employees_label">Approach to employees: *</div>
-                                                        <strong id="createEditProfile_app_to_employees_error" class="error hidden">
-                                                            <span id="createEditProfile_app_to_employees_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees"/>
+                                                <div class="createEditProfileFrenchPane">
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_leadership_style_fr">
+                                                            <span id="createEditProfile_leadership_style_fr_label">Leadership Style_fr: *</span>
+                                                            <strong id="createEditProfile_leadership_style_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_leadership_style_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr"></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_exp_of_employees">
-                                                        <div id="createEditProfile_exp_of_employees_label">Expectation of employees: *</div>
-                                                        <strong id="createEditProfile_exp_of_employees_error" class="error hidden">
-                                                            <span id="createEditProfile_exp_of_employees_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees"/>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_app_to_employees_fr">
+                                                            <span id="createEditProfile_app_to_employees_fr_label">Approach to employees_fr: *</span>
+                                                            <strong id="createEditProfile_app_to_employees_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_app_to_employees_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr"></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_how_often_review">
-                                                        <div id="createEditProfile_how_often_review_label">How Often Do You Review: *</div>
-                                                        <strong id="createEditProfile_how_often_review_error" class="error hidden">
-                                                            <span id="createEditProfile_how_often_review_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <!--<input class="form-control full-width" type="text" name="createEditProfile_how_often_review" id="createEditProfile_how_often_review"/>-->
-                                                        <input type="radio" id="createEditProfile_how_often_review_option_1" name="createEditProfile_how_often_review_options" value="Almost never" checked>Almost never<br>
-                                                        <input type="radio" id="createEditProfile_how_often_review_option_2" name="createEditProfile_how_often_review_options" value="Rarely">Rarely<br>
-                                                        <input type="radio" id="createEditProfile_how_often_review_option_3" name="createEditProfile_how_often_review_options" value="Sometimes">Sometimes<br>
-                                                        <input type="radio" id="createEditProfile_how_often_review_option_4" name="createEditProfile_how_often_review_options" value="Usually">Usually<br>
-                                                        <input type="radio" id="createEditProfile_how_often_review_option_5" name="createEditProfile_how_often_review_options" value="Almost Always">Almost always<br>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_how_often_early">
-                                                        <div id="createEditProfile_how_often_early_label">How Often Do You Early?: *</div>
-                                                        <strong id="createEditProfile_how_often_early_error" class="error hidden">
-                                                            <span id="createEditProfile_how_often_early_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <!--<input class="form-control full-width" type="text" name="createEditProfile_how_often_early" id="createEditProfile_how_often_early"/>-->
-                                                        <input type="radio" id="createEditProfile_how_often_early_option_1" name="createEditProfile_how_often_early_options" value="Almost never" checked>Almost never<br>
-                                                        <input type="radio" id="createEditProfile_how_often_early_option_2" name="createEditProfile_how_often_early_options" value="Rarely">Rarely<br>
-                                                        <input type="radio" id="createEditProfile_how_often_early_option_3" name="createEditProfile_how_often_early_options" value="Sometimes">Sometimes<br>
-                                                        <input type="radio" id="createEditProfile_how_often_early_option_4" name="createEditProfile_how_often_early_options" value="Usually">Usually<br>
-                                                        <input type="radio" id="createEditProfile_how_often_early_option_5" name="createEditProfile_how_often_early_options" value="Almost always">Almost always<br>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="createEditProfileFrenchPane">
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_leadership_style_fr">
-                                                        <div id="createEditProfile_leadership_style_fr_label">Leadership Style_fr: *</div>
-                                                        <strong id="createEditProfile_leadership_style_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_leadership_style_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_app_to_employees_fr">
-                                                        <div id="createEditProfile_app_to_employees_fr_label">Approach to employees_fr: *</div>
-                                                        <strong id="createEditProfile_app_to_employees_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_app_to_employees_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_exp_of_employees_fr">
-                                                        <div id="createEditProfile_exp_of_employees_fr_label">Expectation of employees_fr: *</div>
-                                                        <strong id="createEditProfile_exp_of_employees_fr_error" class="error hidden">
-                                                            <span id="createEditProfile_exp_of_employees_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr"/>
+                                                    <div class="form-group">
+                                                        <label for="createEditProfile_exp_of_employees_fr">
+                                                            <span id="createEditProfile_exp_of_employees_fr_label">Expectation of employees_fr: *</span>
+                                                            <strong id="createEditProfile_exp_of_employees_fr_error" class="error hidden">
+                                                                <span id="createEditProfile_exp_of_employees_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <textarea class="form-control full-width" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                            <fieldset>
+                                                <legend>My approach to decision making:</legend>
+                                                <div>
+                                                    <div class="form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span>&nbsp;</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:49%'>
+                                                            <div>
+                                                                <div style="line-height:2em;font-size:0.8em;">
+                                                                    <span style="line-height:2em;vertical-align: middle;display:inline-block;width:20%;text-align: left;">10% or less</span>
+                                                                    <span style="line-height:2em;display:inline-block;width:20%;text-align: center;margin-left:-5px;">~25%</span>
+                                                                    <span style="line-height:2em;display:inline-block;width:20%;text-align: center;margin-left:-5px;">~50%</span>
+                                                                    <span style="line-height:2em;display:inline-block;width:20%;text-align: center;margin-left:-5px;">~75%</span>
+                                                                    <span style="line-height:2em;display:inline-block;width:20%;text-align: right;margin-left:-5px;">90% or more</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span id="createEditProfile_how_often_review_label">How often do you review your teams work before it is shared?</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='options' style="position:absolute;top:0px;right:0px;width:35em;height:2em;z-index:100">
+                                                                    <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('multi_bgcolor',0)" />
+                                                                    <label for="option0" class='option0Label'>Almost never</label>
+                                                                    <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',1)"/>
+                                                                    <label for="option1" class='option1Label'>Rarely</label>
+                                                                    <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',2)"/>
+                                                                    <label for="option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',3)"/>
+                                                                    <label for="option3" class='option3Label'>Usually</label>
+                                                                    <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',4)"/>
+                                                                    <label for="option4" class='option4Label'>Almost always</label>
+                                                                </div>
+                                                                <div id='multi_bgcolor' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span id="createEditProfile_how_often_early_label">How often do you get in early or stay late to get some extra work done?</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='createEditProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:35em;height:2em;z-index:100">
+                                                                    <input type="radio" id="staylate_option0" name="createEditProfile_staylate" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('staylate',0)" />
+                                                                    <label for="staylate_option0" class='option0Label'>Almost never</label>
+                                                                    <input type="radio" id="staylate_option1" name="createEditProfile_staylate" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('staylate',1)"/>
+                                                                    <label for="staylate_option1" class='option1Label'>Rarely</label>
+                                                                    <input type="radio" id="staylate_option2" name="createEditProfile_staylate" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('staylate',2)"/>
+                                                                    <label for="staylate_option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="staylate_option3" name="createEditProfile_staylate" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('staylate',3)"/>
+                                                                    <label for="staylate_option3" class='option3Label'>Usually</label>
+                                                                    <input type="radio" id="staylate_option4" name="createEditProfile_staylate" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('staylate',4)"/>
+                                                                    <label for="staylate_option4" class='option4Label'>Almost always</label>
+                                                                </div>
+                                                                <div id='staylate' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span>How often do you engage your team before responding to management?</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                                    <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('engage',0)" />
+                                                                    <label for="engage_option0" class='option0Label'>Almost never</label>
+                                                                    <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('engage',1)"/>
+                                                                    <label for="engage_option1" class='option1Label'>Rarely</label>
+                                                                    <input type="radio" id="engage_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('engage',2)"/>
+                                                                    <label for="engage_option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="engage_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('engage',3)"/>
+                                                                    <label for="engage_option3" class='option3Label'>Usually</label>
+                                                                    <input type="radio" id="engage_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('engage',4)"/>
+                                                                    <label for="engage_option4" class='option4Label'>Almost always</label>
+                                                                </div>
+                                                                <div id='engage' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span>How often do you approve development opportunities for your employees?</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                                    <input type="radio" id="devops_option0" name="createEditProfile_devops" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('devops',0)" />
+                                                                    <label for="devops_option0" class='option0Label'>Almost never</label>
+                                                                    <input type="radio" id="devops_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('devops',1)"/>
+                                                                    <label for="devops_option1" class='option1Label'>Rarely</label>
+                                                                    <input type="radio" id="devops_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('devops',2)"/>
+                                                                    <label for="devops_option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="devops_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('devops',3)"/>
+                                                                    <label for="devops_option3" class='option3Label'>Usually</label>
+                                                                    <input type="radio" id="devops_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('devops',4)"/>
+                                                                    <label for="devops_option4" class='option4Label'>Almost always</label>
+                                                                </div>
+                                                                <div id='devops' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span>How often do you refuse low value work requests from management?</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='createEditProfile_lvwRequests' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                                    <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwRequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('lvwRequests',0)" />
+                                                                    <label for="lvwRequests_option0" class='option0Label'>Almost never</label>
+                                                                    <input type="radio" id="lvwRequests_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',1)"/>
+                                                                    <label for="lvwRequests_option1" class='option1Label'>Rarely</label>
+                                                                    <input type="radio" id="lvwRequests_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',2)"/>
+                                                                    <label for="lvwRequests_option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="lvwRequests_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',3)"/>
+                                                                    <label for="lvwRequests_option3" class='option3Label'>Usually</label>
+                                                                    <input type="radio" id="lvwRequests_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',4)"/>
+                                                                    <label for="lvwRequests_option4" class='option4Label'>Almost always</label>
+                                                                </div>
+                                                                <div id='lvwRequests' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"><span>*</span><span id="createEditProfile_requiredStep2">Required</span></div>
                                                 <div class="formGroup">
@@ -1000,5 +1150,6 @@ and open the template in the editor .
             EventsAPI.onLoadEvents();
         </script>
         <script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
+        <script src="/js/SliderAPI.js" type="text/javascript"></script>
     </body>
 </html>

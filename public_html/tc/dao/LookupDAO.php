@@ -33,7 +33,7 @@ class LookupDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sqlStr = "
             SELECT 
-            p.province_id, pd.province_details_name 
+            p.province_id as id, pd.province_details_name as value
             FROM 
             province p, province_details pd, locale l
             WHERE l.locale_iso = :locale
@@ -45,7 +45,7 @@ class LookupDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_KEY_PAIR);
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
             
         } catch (PDOException $e) {
@@ -64,7 +64,7 @@ class LookupDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sqlStr = "
             SELECT 
-            c.city_id, cd.city_details_name 
+            c.city_id as id, cd.city_details_name as value
             FROM 
             city c, city_details cd, locale l
             WHERE l.locale_iso = :locale
@@ -77,7 +77,7 @@ class LookupDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_KEY_PAIR);
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
             
         } catch (PDOException $e) {
@@ -96,7 +96,7 @@ class LookupDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sqlStr = "
             SELECT 
-            d.department_id, dd.department_details_name 
+            d.department_id as id, dd.department_details_name as value
             FROM 
             department d, department_details dd, locale l
             WHERE l.locale_iso = :locale
@@ -109,7 +109,7 @@ class LookupDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_KEY_PAIR);
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
             
         } catch (PDOException $e) {
@@ -123,11 +123,44 @@ class LookupDAO extends BaseDAO {
      * Summary: obtains content and template for request page_name, locale and language
      * @return object Page
      */
+    public static function getDivisionsByLocale($locale) {
+
+        $link = BaseDAO::getConnection();
+        
+        $sqlStr = "
+            SELECT 
+                d.division_id as id, dd.division_name as value
+                FROM 
+                division d, division_details dd, locale l
+                WHERE l.locale_iso = :locale
+                AND dd.division_id = d.division_id
+                AND l.locale_id = dd.division_locale_id
+                ORDER BY dd.division_name
+            ";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getDivisionsByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
+    /**
+     * Summary: obtains content and template for request page_name, locale and language
+     * @return object Page
+     */
     public static function getJobTermsByLocale($locale) {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT j.job_term_id, j.job_term 
+            SELECT j.job_term_id as id, j.job_term as value
             FROM job_term j, locale l
             WHERE l.locale_iso = :locale
             AND j.job_term_locale_id = l.locale_id;
@@ -137,7 +170,7 @@ class LookupDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_KEY_PAIR);
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
             
         } catch (PDOException $e) {

@@ -40,6 +40,10 @@ class LookupController {
                 $lookupData = LookupDAO::getDepartmentsByLocale($locale);
                 return $lookupData;
             break;
+            case 'division':
+                $lookupData = LookupDAO::getDivisionsByLocale($locale);
+                return $lookupData;
+            break;
             case 'jobterm':
                 $lookupData = LookupDAO::getJobTermsByLocale($locale);
                 return $lookupData;

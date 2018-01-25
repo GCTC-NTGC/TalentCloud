@@ -357,6 +357,7 @@ div label span{
 .create-profile-tab{
     width: 33%;
     position: relative;
+    text-align: center;
 }
 
 
@@ -653,6 +654,7 @@ main aside{
 }
 
 .stepGroup_createEditProfile {
+    margin-top:2em;
     position: relative;
     width:100%;
     min-height: 100%;
