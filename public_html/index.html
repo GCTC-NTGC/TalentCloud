@@ -165,7 +165,7 @@ and open the template in the editor .
             <div id="manager_top_nav" class="nav">
                 <ul role="menubar">
                     <li aria-hidden="false"><a href="/" class="active" id="homeLink">Home</a></li>
-                    <li id="profileLinkListItem" aria-hidden="true"><a href="#MyProfile" class="hidden" id="profileLink" onclick="UserAPI.showJobSeekerProfileForm()">My Profile</a></li>
+                    <li id="profileLinkListItem" aria-hidden="true"><a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfileForm()">My Profile</a></li>
                 </ul>
                 <div class="logoutWrapper">
                     <ul>
@@ -280,7 +280,7 @@ and open the template in the editor .
                                             </div>
                                             <div class="formGroup stepNavigation">
                                                 <input type="button" value="Go to Accomplishments" id="goToAccomplishmentsButton" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',true,'JobSeekerAPI.saveJobSeekerProfileChanges','profile_accomplishment')">
-                                                <input type="button" value="Cancel" id="cancelProfile1" onclick="UserAPI.hideJobSeekerProfileForm()">
+                                                <input type="button" value="Cancel" id="cancelProfile1" onclick="JobSeekerAPI.hideJobSeekerProfileForm()">
                                             </div>
                                         </div>
                                         <div id="accomplishments" class="jobSeekerFormStepGroup hidden">
@@ -316,7 +316,7 @@ and open the template in the editor .
                                             <div class="formGroup stepNavigation">
                                                 <input type="button" value="Go to back to Contact Details" onclick="FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',true,'JobSeekerAPI.saveJobSeekerProfileChanges','profile_first_name')">
                                                 <input type="button" value="Go to Experiences" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup',true,'JobSeekerAPI.saveJobSeekerProfileChanges','profile_best_experience')">
-                                                <input type="button" value="Cancel" id="cancelProfile2" onclick="UserAPI.hideJobSeekerProfileForm()">
+                                                <input type="button" value="Cancel" id="cancelProfile2" onclick="JobSeekerAPI.hideJobSeekerProfileForm()">
                                             </div>
                                         </div>
                                         <div id="experiences" class="jobSeekerFormStepGroup hidden">
@@ -365,7 +365,7 @@ and open the template in the editor .
                                             <div class="formGroup stepNavigation">
                                                 <input type="button" value="Go to back to Accomplishments" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',true,'JobSeekerAPI.saveJobSeekerProfileChanges','profile_accomplishment')">
                                                 <input type="button" value="Go to Superpowers" onclick="FormsAPI.steppedForm.validateStep('superpowers','jobSeekerFormStepGroup',true,'JobSeekerAPI.saveJobSeekerProfileChanges','profile_superpower')">
-                                                <input type="button" value="Cancel" id="cancelProfile3" onclick="UserAPI.hideJobSeekerProfileForm()">
+                                                <input type="button" value="Cancel" id="cancelProfile3" onclick="JobSeekerAPI.hideJobSeekerProfileForm()">
                                             </div>
                                         </div>
                                         <div id="superpowers" class="jobSeekerFormStepGroup hidden">
@@ -400,7 +400,7 @@ and open the template in the editor .
                                             </div>
                                             <div class="formGroup stepNavigation">
                                                 <input type="button" value="Go to back to Experiences" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup',true,'JobSeekerAPI.saveJobSeekerProfileChanges','profile_best_experience')">
-                                                <input type="button" value="Cancel" id="cancelProfile4" onclick="UserAPI.hideJobSeekerProfileForm()">
+                                                <input type="button" value="Cancel" id="cancelProfile4" onclick="JobSeekerAPI.hideJobSeekerProfileForm()">
                                             </div>
                                         </div>
                                     </div>

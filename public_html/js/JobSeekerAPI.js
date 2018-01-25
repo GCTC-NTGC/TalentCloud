@@ -401,3 +401,32 @@ JobSeekerAPI.saveJobSeekerProfileLoaded = function(response){
     console.log(response);
 };
 
+//This should be in the JobPosterAPI or TalentCloudAPI-not user related
+JobSeekerAPI.showJobSeekerProfileForm = function () {
+    var stateInfo = {pageInfo: 'create_job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #Register instead of url
+
+    EventsAPI.clearJobsContainer();
+
+    var jobSeekerProfileOverlay = document.getElementById("jobSeekerProfileWrapperWindow");
+    jobSeekerProfileOverlay.classList.remove("hidden");
+
+    var profile_first_name = document.getElementById("profile_first_name");
+    profile_first_name.focus();
+
+    EventsAPI.hideBodyOverflow(false);
+    //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");
+    //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
+
+};
+
+JobSeekerAPI.hideJobSeekerProfileForm = function () {
+    var jobSeekerProfileOverlay = document.getElementById("jobSeekerProfileWrapperWindow");
+    jobSeekerProfileOverlay.classList.add("hidden");
+
+    //UserAPI.clearFormFields("jobSeekerForm");
+    //EventsAPI.hideBodyOverflow(false);
+
+    //FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,null);
+};
