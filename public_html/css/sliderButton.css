@@ -1,0 +1,161 @@
+
+.toggle-btn-group {
+    border: #ccc 1px solid;		
+    position:relative;
+    width:6rem;
+    height:2rem;
+    border-radius: 3px;
+}
+
+#bgcolor.left{
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:0rem;
+    width:3rem;
+    height:2rem;
+    background-color: #ccc;
+}
+
+#bgcolor.right {
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:3rem;
+    width:3rem;
+    height:2rem;
+    background-color: #ccc;
+}
+
+.toggle-btn-group label {
+    transition:all 0.5s ease-in-out;
+    display: inline-block;
+    width:2.8rem;
+    height:2rem;
+    text-align: center;
+    cursor: pointer;
+    color: #ccc;
+    vertical-align: middle;
+    line-height:2.1rem;
+    font-weight:400;
+}
+
+.toggle-btn-group input[type="radio"]:checked+label {
+    color: #000;
+}
+
+.toggle-btn-group label:hover, 
+.toggle-btn-group label:focus {
+    color: #000;
+}
+
+
+/* hide visually */
+.accessAid {
+    position: absolute!important;
+    clip: rect(1px,1px,1px,1px);
+    overflow: hidden;
+}
+
+.multi-btn-group-form-group{
+    display:block;
+    line-height: 3em;
+}
+
+.multi-btn-group-form-group-label{
+    display:inline-block;
+    width:48%;
+    line-height: 1.5em;
+    vertical-align: top;
+}
+
+.multi-btn-group-form-group-label span{
+    line-height: 0em !important;
+    line-height:1em !important;
+}
+
+.multi-btn-group {		
+    position:relative;
+    width:35rem;
+    height:3rem;
+    background-color:#ddd;
+}
+
+.multi-btn-group label {
+    transition:all 0.5s ease-in-out;
+    display: inline-block;
+    width:112px;
+    height:3rem;
+    text-align: center;
+    cursor: pointer;
+    color: #777;
+    vertical-align: middle;
+    line-height:3.1rem;
+    font-weight:400;
+    white-space-collapsing:discard;
+    font-size:0.8em !important;
+}
+
+.multi-btn-group input[type="radio"]:checked+label {
+    color: #000;
+}
+
+.multi-btn-group label:hover, 
+.multi-btn-group label:focus {
+    color: #000;
+}
+
+.option1Label,.option2Label,.option3Label,.option4Label{
+    margin-left:-6px !important;
+}
+
+#multi_bgcolor.option0,#staylate.option0,#engage.option0,#devops.option0,#lvwRequests.option0{
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:0rem;
+    width:7rem;
+    height:3rem;
+    /*background-color: #daeaf5;*/
+    border-bottom:5px solid #5599e5;
+}
+
+#multi_bgcolor.option1,#staylate.option1,#engage.option1,#devops.option1,#lvwRequests.option1{
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:7rem;
+    width:7rem;
+    height:3rem;
+    border-bottom:5px solid #5599e5;
+}
+
+#multi_bgcolor.option2,#staylate.option2,#engage.option2,#devops.option2,#lvwRequests.option2{
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:14rem;
+    width:7rem;
+    height:3rem;
+    border-bottom:5px solid #5599e5;
+}
+
+#multi_bgcolor.option3,#staylate.option3,#engage.option3,#devops.option3,#lvwRequests.option3{
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:21rem;
+    width:7rem;
+    height:3rem;
+    border-bottom:5px solid #5599e5;
+}
+
+#multi_bgcolor.option4,#staylate.option4,#engage.option4,#devops.option4,#lvwRequests.option4{
+    transition:left 0.5s ease-in-out;
+    position:absolute;
+    top:0rem;
+    left:28rem;
+    width:7rem;
+    height:3rem;
+    border-bottom:5px solid #5599e5;
+}

@@ -28,7 +28,6 @@ CreateJobPosterAPI.showManagerCreateJobPosterForm = function(linkElement){
     CreateJobPosterAPI.getLookupData("city");
     CreateJobPosterAPI.getLookupData("jobterm");
     
-    ManagerEventsAPI.hideBodyOverflow(true);
 };
 
 CreateJobPosterAPI.selectedUnit = function(newID){
@@ -206,7 +205,6 @@ CreateJobPosterAPI.submitJobPosterForm = function() {
 CreateJobPosterAPI.hideCreateJobPosterForm = function(){
     var jobPosterCreation = document.getElementById("createJobPosterOverlay");    
     jobPosterCreation.classList.add("hidden");
-    ManagerEventsAPI.hideBodyOverflow(false);
 };
 
 CreateJobPosterAPI.getLookupData = function(lookupType){

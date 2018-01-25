@@ -76,7 +76,7 @@ class JobSeekerDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         
         $sqlStr = "
-            
+                
                 INSERT INTO job_seeker_profile
                 (job_seeker_profile_link,
                 job_seeker_profile_accomp,
