@@ -16,8 +16,9 @@ class ManagerProfile implements JsonSerializable{
     private $user_manager_profile_twitter;
     private $user_manager_profile_linkedin;
     private $user_id;
+    private $profile_pic;
     
-    public function __construct($user_manager_profile_id = null, $user_manager_profile_department_id = null, $user_manager_profile_position_id = null, $user_manager_profile_branch_id = null, $user_manager_profile_division_id = null, $user_manager_profile_twitter = null, $user_manager_profile_linkedin = null, $user_id = null) {
+    public function __construct($user_manager_profile_id = null, $user_manager_profile_department_id = null, $user_manager_profile_position_id = null, $user_manager_profile_branch_id = null, $user_manager_profile_division_id = null, $user_manager_profile_twitter = null, $user_manager_profile_linkedin = null, $user_id = null, $profile_pic = null) {
         $this->user_manager_profile_id = $user_manager_profile_id;
         $this->user_manager_profile_department_id = $user_manager_profile_department_id;
         $this->user_manager_profile_position_id = $user_manager_profile_position_id;
@@ -26,6 +27,8 @@ class ManagerProfile implements JsonSerializable{
         $this->user_manager_profile_twitter = $user_manager_profile_twitter;
         $this->user_manager_profile_linkedin = $user_manager_profile_linkedin;
         $this->user_id = $user_id;
+        $this->profile_pic = $profile_pic;
+        
     }
 
     public function jsonSerialize() {
@@ -101,6 +104,14 @@ class ManagerProfile implements JsonSerializable{
 
     public function setUser_id($user_id) {
         $this->user_id = $user_id;
+    }
+
+    public function getProfile_pic() {
+        return $this->profile_pic;
+    }
+
+    public function setProfile_pic($profile_pic) {
+        $this->profile_pic = $profile_pic;
     }
 
 

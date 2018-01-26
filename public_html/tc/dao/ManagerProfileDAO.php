@@ -124,6 +124,64 @@ class ManagerProfileDAO extends BaseDAO{
         
     }
     
+    public static function getManagerProfile(ManagerProfile $managerProfile){
+        
+        $link = BaseDAO::getConnection();
+        
+        $user_id = $managerProfile->getUser_id();
+        
+        $sqlStr = "
+            SELECT 
+                ump.user_manager_profile_id,
+                ump.user_manager_profile_department_id,
+                ump.user_manager_profile_position_id,
+                ump.user_manager_profile_branch_id,
+                ump.user_manager_profile_division_id,
+                ump.user_manager_profile_twitter,
+                ump.user_manager_profile_linkedin,
+                u.user_id,
+                pp.image as profile_pic
+            FROM 
+                user u 
+                LEFT JOIN user_manager_profile ump on ump.user_id = u.user_id
+                RIGHT JOIN profile_pic pp on pp.user_id = u.user_id
+            WHERE u.user_id = :user_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            /*$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfile', array(
+                'user_manager_profile_id', 
+                'user_manager_profile_department_id', 
+                'user_manager_profile_position_id', 
+                'user_manager_profile_branch_id', 
+                'user_manager_profile_division_id', 
+                'user_manager_profile_twitter',
+                'user_manager_profile_linkedin',
+                'user_id',
+                'profile_pic'));*/
+            
+            $row = $sql->fetch();
+            
+            $managerProfile->setUser_manager_profile_id($row['user_manager_profile_id']);
+            $managerProfile->setUser_manager_profile_department_id($row['user_manager_profile_department_id']);
+            $managerProfile->setUser_manager_profile_position_id($row['user_manager_profile_position_id']);
+            $managerProfile->setUser_manager_profile_branch_id($row['user_manager_profile_branch_id']);
+            $managerProfile->setUser_manager_profile_division_id($row['user_manager_profile_division_id']);
+            $managerProfile->setUser_manager_profile_twitter($row['user_manager_profile_twitter']);
+            $managerProfile->setUser_manager_profile_linkedin($row['user_manager_profile_linkedin']);
+            $managerProfile->setProfile_pic(base64_encode($row['profile_pic']));
+            
+            //var_dump($row);
+        } catch (PDOException $e) {
+            return 'getContentByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $managerProfile;
+        
+    }
+    
 }
 
 ?>

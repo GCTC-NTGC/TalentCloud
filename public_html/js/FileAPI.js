@@ -7,7 +7,7 @@
 var FileUploadAPI = {};
 
 FileUploadAPI.version = "v1";
-//UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
+
 FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
 FileUploadAPI.defaultProfilePic = '/images/user.svg';
@@ -324,7 +324,7 @@ FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
 FileUploadAPI.refreshUserProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("myProfilePic"));
+        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
     }
 };
 

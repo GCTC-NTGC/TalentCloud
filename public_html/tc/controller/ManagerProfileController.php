@@ -20,5 +20,11 @@ class ManagerProfileController{
         
     }
     
+    public static function getManagerProfile($managerProfile){
+        $response = ManagerProfileDAO::getManagerProfile($managerProfile);
+        
+        return $response;
+    }
+    
 }
 ?>

@@ -27,14 +27,15 @@
     $context = '/';
 
     $requestParams = substr($requestURI,strlen($context));
-
+    $user_id_param_index = 4;
     switch ($requestMethod) {
         case 'GET':
             if(strlen($requestParams) > 1){
-                $locale = Utils::getLocaleFromRequest($requestParams);
-                $result = JobPosterController::getJobPostersByLocale($locale);
+                $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
+                $managerProfile = new ManagerProfile();
+                $managerProfile->setUser_id($user_id);
+                $result = ManagerProfileController::getManagerProfile($managerProfile);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
-                header("Content-length:".strlen($json));
                 echo($json);
             }else{
                 $result = array();

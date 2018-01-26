@@ -16,7 +16,8 @@ CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_division_id,
         user_manager_profile_twitter,
         user_manager_profile_linkedin,
-        user_id){
+        user_id,
+        profile_pic){
     this.user_manager_profile_id = user_manager_profile_id;
     this.user_manager_profile_department_id = user_manager_profile_department_id;
     this.user_manager_profile_position_id = user_manager_profile_position_id;
@@ -24,7 +25,8 @@ CreateEditProfileAPI.ManagerProfile = function(
     this.user_manager_profile_division_id = user_manager_profile_division_id;
     this.user_manager_profile_twitter = user_manager_profile_twitter;
     this.user_manager_profile_linkedin = user_manager_profile_linkedin;
-    this.user_id = user_id;
+    this.user_id = user_id,
+    this.profile_pic = profile_pic;
 };
 
 CreateEditProfileAPI.ManagerProfileDetails = function(){
@@ -633,12 +635,12 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
     var fileList = document.getElementById('profilePicUploadPreview');
     var clearBtn = document.getElementById('profilePicUploadClear');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
-    CreateEditProfileAPI.profilePicUploader = new FileUploadAPI.FileUploader(
+    CreateEditProfileAPI.profilePicUploader = new FileAPI.FileUploader(
             fileField, fileDrop, fileList, 
             clearBtn,
             uploadBtn,
             true, 
-            FileUploadAPI.makeProfilePicUploadRequest, 
+            FileAPI.makeProfilePicUploadRequest, 
             CreateEditProfileAPI.onProfilePicUploaded);
     CreateEditProfileAPI.profilePicUploader.init();
 };
@@ -650,6 +652,36 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
 };
 
 CreateEditProfileAPI.onProfilePicUploaded = function() {
-    FileUploadAPI.refreshUserProfilePic();
+    FileAPI.refreshUserProfilePic();
     CreateEditProfileAPI.hideUploadProfilePic();
 };
+
+CreateEditProfileAPI.getManagerProfile = function(){
+    var get_profile_xhr = new XMLHttpRequest();
+    var get_profile_url = FileAPI.baseURL+'/profilePic/'+user_id;
+    if ("withCredentials" in xhr) {
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      xhr.open("GET", pic_url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      xhr = new XDomainRequest();
+      xhr.open("GET", pic_url);
+    } else {
+      // Otherwise, CORS is not supported by the browser.
+      xhr = null;
+      // TODO: indicate to user that browser is not supported
+    } 
+    xhr.open('GET', pic_url);
+    xhr.setRequestHeader("Accept","image/*"); 
+    xhr.addEventListener('load', function() {
+        if (xhr.status == 200) {
+            img_elem.src = xhr.responseURL;
+        } else {
+            img_elem.src = FileAPI.defaultProfilePic;
+        }
+    });
+    xhr.send();
+}
