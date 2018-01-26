@@ -44,6 +44,7 @@ header("Content-Type: application/json; charset=utf-8");
 
             break;
         case 'POST':
+            /*
            //must contain access token to get logged in content
             $jsonBody = file_get_contents('php://input');
             if(strlen($requestParams) > 1){
@@ -57,7 +58,7 @@ header("Content-Type: application/json; charset=utf-8");
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }
-
+            */
             break;
         case 'DELETE':
             //Here Handle DELETE Request
@@ -70,11 +71,15 @@ header("Content-Type: application/json; charset=utf-8");
                 //var_dump($jobSeekerJSON);
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
                 $jobSeekerProfile = new JobSeekerProfile();
-                $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["profile_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_accomp($jobSeekerJSON["profile_accomp"]);
-                $jobSeekerProfile->setJob_seeker_profile_best_exp($jobSeekerJSON["profile_best_exp"]);
-                $jobSeekerProfile->setJob_seeker_profile_worst_exp($jobSeekerJSON["profile_worst_exp"]);
-                $jobSeekerProfile->setJob_seeker_profile_superpower($jobSeekerJSON["profile_superpower"]);
+                $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["personal_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_accomp($jobSeekerJSON["accomplishment"]);
+                $jobSeekerProfile->setJob_seeker_profile_best_exp($jobSeekerJSON["best_experience"]);
+                $jobSeekerProfile->setJob_seeker_profile_worst_exp($jobSeekerJSON["worst_experience"]);
+                $jobSeekerProfile->setJob_seeker_profile_superpower($jobSeekerJSON["superpower"]);
+                $jobSeekerProfile->setJob_seeker_profile_tagline($jobSeekerJSON["tagline"]);
+                $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["twitter_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_linkedin_link($jobSeekerJSON["linkedin_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_about_me($jobSeekerJSON["about_me"]);
                 //$user = new User();
                 $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile,$user_id);
                 

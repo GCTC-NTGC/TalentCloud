@@ -8,13 +8,28 @@
 var JobSeekerAPI = {};
 JobSeekerAPI.jobSeekers = [];
 
-JobSeekerAPI.JobSeeker = function(id,profile_link,profile_accomp,profile_best_exp,profile_worst_exp,profile_superpower,last_updated){
+JobSeekerAPI.JobSeeker = function(
+        id,
+        personal_link,
+        accomplishment,
+        best_experience,
+        worst_experience,
+        superpower,
+        tagline,
+        twitter_link,
+        linkedin_link,
+        about_me,
+        last_updated){
     this.id = id;
-    this.profile_link = profile_link;
-    this.profile_accomp = profile_accomp;
-    this.profile_best_exp = profile_best_exp;
-    this.profile_worst_exp = profile_worst_exp;
-    this.profile_superpower = profile_superpower;
+    this.personal_link = personal_link;
+    this.accomplishment = accomplishment;
+    this.best_experience = best_experience;
+    this.worst_experience = worst_experience;
+    this.superpower = superpower;
+    this.tagline = tagline;
+    this.twitter_link = twitter_link;
+    this.linkedin_link = linkedin_link;
+    this.about_me = about_me;
     this.last_updated = last_updated;
 };
 
@@ -261,32 +276,38 @@ JobSeekerAPI.populateJobSeekerProfile = function(response){
     var sessionUser = UserAPI.getSessionUserAsJSON();
     var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
     jobSeekerProfile.id = jobSeekerJSON.job_seeker_profile_id;
-    jobSeekerProfile.profile_link = unescape(jobSeekerJSON.job_seeker_profile_link);
-    jobSeekerProfile.profile_accomp = jobSeekerJSON.job_seeker_profile_accomp;
-    jobSeekerProfile.profile_best_exp = jobSeekerJSON.job_seeker_profile_best_exp;
-    jobSeekerProfile.profile_worst_exp = jobSeekerJSON.job_seeker_profile_worst_exp;
-    jobSeekerProfile.profile_superpower = jobSeekerJSON.job_seeker_profile_superpower;
+    jobSeekerProfile.personal_link = unescape(jobSeekerJSON.job_seeker_profile_link);
+    jobSeekerProfile.accomplishment = jobSeekerJSON.job_seeker_profile_accomp;
+    jobSeekerProfile.best_experience = jobSeekerJSON.job_seeker_profile_best_exp;
+    jobSeekerProfile.worst_experience = jobSeekerJSON.job_seeker_profile_worst_exp;
+    jobSeekerProfile.superpower = jobSeekerJSON.job_seeker_profile_superpower;
+    jobSeekerProfile.tagline = jobSeekerJSON.job_seeker_profile_tagline;
+    jobSeekerProfile.twitter_link = jobSeekerJSON.job_seeker_profile_twitter_link;
+    jobSeekerProfile.linkedin_link = jobSeekerJSON.job_seeker_profile_linkedin_link;
+    jobSeekerProfile.about_me = jobSeekerJSON.job_seeker_profile_about_me;
     jobSeekerProfile.last_updated = jobSeekerJSON.last_updated;
     
-    var jobSeekerForm = document.getElementById("jobSeekerForm");
+    //var jobSeekerForm = document.getElementById("jobSeekerForm");
     
-    var profile_id = document.getElementById("profile_id");
+    var profile_id = document.getElementById("profileId");
     profile_id.value = jobSeekerProfile.id;
     
-    var last_updated = document.getElementById("last_updated");
+    var last_updated = document.getElementById("profileLastUpdated");
     last_updated.value = jobSeekerProfile.last_updated;
     
-    var profile_first_name = document.getElementById("profile_first_name");
+    var profile_first_name = document.getElementById("profileFirstName");
     profile_first_name.value = sessionUser.firstname;
     
-    var profile_last_name = document.getElementById("profile_last_name");
+    var profile_last_name = document.getElementById("profileLastName");
     profile_last_name.value = sessionUser.lastname;
     
+    /*
     console.log(jobSeekerJSON.job_seeker_profile_link);
     if(jobSeekerJSON.job_seeker_profile_link !== undefined){
         var profile_link = document.getElementById("profile_link");
         profile_link.value = jobSeekerProfile.profile_link;
     }
+    
     var profile_accomplishment = document.getElementById("profile_accomplishment");
     profile_accomplishment.value = jobSeekerProfile.profile_accomp;
     
@@ -298,7 +319,7 @@ JobSeekerAPI.populateJobSeekerProfile = function(response){
     
     var profile_superpower = document.getElementById("profile_superpower");
     profile_superpower.value = jobSeekerProfile.profile_superpower;
-    
+    */
 };
 
 JobSeekerAPI.saveJobSeekerProfileChanges = function(){
@@ -401,7 +422,6 @@ JobSeekerAPI.saveJobSeekerProfileLoaded = function(response){
     console.log(response);
 };
 
-//This should be in the JobPosterAPI or TalentCloudAPI-not user related
 JobSeekerAPI.showJobSeekerProfileForm = function () {
     var stateInfo = {pageInfo: 'create_job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
     document.title = stateInfo.pageTitle;

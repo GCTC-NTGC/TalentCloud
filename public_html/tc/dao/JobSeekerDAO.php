@@ -41,6 +41,10 @@ class JobSeekerDAO extends BaseDAO {
                 jsp.job_seeker_profile_best_exp,
                 jsp.job_seeker_profile_worst_exp,
                 jsp.job_seeker_profile_superpower,
+                jsp.job_seeker_profile_tagline,
+                jsp.job_seeker_profile_twitter_link,
+                jsp.job_seeker_profile_linkedin_link,
+                jsp.job_seeker_profile_about_me,
                 jsp.last_updated as last_updated
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE u.user_id = :user_id
@@ -53,7 +57,7 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','last_updated'));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','job_seeker_profile_tagline','job_seeker_profile_twitter_link','job_seeker_profile_linkedin_link','job_seeker_profile_about_me','last_updated'));
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -71,6 +75,10 @@ class JobSeekerDAO extends BaseDAO {
         $jobSeekerProfile_profile_best_exp = $jobSeekerProfile->getJob_seeker_profile_best_exp();
         $jobSeekerProfile_profile_worst_exp = $jobSeekerProfile->getJob_seeker_profile_worst_exp();
         $jobSeekerProfile_profile_superpower = $jobSeekerProfile->getJob_seeker_profile_superpower();
+        $jobSeekerProfile_tagline = $jobSeekerProfile->getJob_seeker_profile_tagline();
+        $jobSeekerProfile_twitter_link = $jobSeekerProfile->getJob_seeker_profile_twitter_link();
+        $jobSeekerProfile_linkedin_link = $jobSeekerProfile->getJob_seeker_profile_linkedin_link();
+        $jobSeekerProfile_about_me = $jobSeekerProfile->getJob_seeker_profile_about_me();
         
         
         $link = BaseDAO::getConnection();
@@ -83,6 +91,10 @@ class JobSeekerDAO extends BaseDAO {
                 job_seeker_profile_best_exp,
                 job_seeker_profile_worst_exp,
                 job_seeker_profile_superpower,
+                job_seeker_profile_tagline,
+                job_seeker_profile_twitter_link,
+                job_seeker_profile_linkedin_link,
+                job_seeker_profile_about_me,
                 last_updated)
                 VALUES
                 (
@@ -91,6 +103,10 @@ class JobSeekerDAO extends BaseDAO {
                 :job_seeker_profile_best_exp,
                 :job_seeker_profile_worst_exp,
                 :job_seeker_profile_superpower,
+                :job_seeker_profile_tagline,
+                :job_seeker_profile_twitter_link,
+                :job_seeker_profile_linkedin_link,
+                :job_seeker_profile_about_me,
                 now()
                 );
             ";
@@ -116,6 +132,10 @@ class JobSeekerDAO extends BaseDAO {
         $sql->bindParam(':job_seeker_profile_best_exp', $jobSeekerProfile_profile_best_exp, PDO::PARAM_STR);
         $sql->bindParam(':job_seeker_profile_worst_exp', $jobSeekerProfile_profile_worst_exp, PDO::PARAM_STR);
         $sql->bindParam(':job_seeker_profile_superpower', $jobSeekerProfile_profile_superpower, PDO::PARAM_STR);
+        $sql->bindParam(':job_seeker_profile_tagline', $jobSeekerProfile_tagline, PDO::PARAM_STR);
+        $sql->bindParam(':job_seeker_profile_twitter_link', $jobSeekerProfile_twitter_link, PDO::PARAM_STR);
+        $sql->bindParam(':job_seeker_profile_linkedin_link', $jobSeekerProfile_linkedin_link, PDO::PARAM_STR);
+        $sql->bindParam(':job_seeker_profile_about_me', $jobSeekerProfile_about_me, PDO::PARAM_STR);
         $sql2->bindParam(':user_id', $user_id_int, PDO::PARAM_INT);
 
         $rowsmodified = 0;
@@ -156,12 +176,15 @@ class JobSeekerDAO extends BaseDAO {
         $sqlStr = "
             SELECT u.firstname,
                     u.lastname,
-                    jsp.job_seeker_profile_id,
                     jsp.job_seeker_profile_link,
                     jsp.job_seeker_profile_accomp,
                     jsp.job_seeker_profile_best_exp,
                     jsp.job_seeker_profile_worst_exp,
                     jsp.job_seeker_profile_superpower,
+                    jsp.job_seeker_profile_tagline,
+                    jsp.job_seeker_profile_twitter_link,
+                    jsp.job_seeker_profile_linkedin_link,
+                    jsp.job_seeker_profile_about_me,
                     max(jsp.last_updated) as last_updated
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE ujsp.user_id = u.user_id

@@ -213,41 +213,44 @@ and open the template in the editor .
                         </div>
                                                
                         <div id="jobSeekerProfileWrapperWindow" class="jobSeekerProfileWrapperWindow hidden">
-                            <div id="jobSeekerBasicInfo">
-                                <ul id="jobSeekerSocialMediaLinks"> 
+                            <div id="profileBasicInfo">
+                                <ul id="profileSocialMediaLinks"> 
                                     <li>
-                                        <a href="#" id="jobSeekerTwitterLink" class="visible"><img src="/images/twitter.png" class="socialMediaLink"/></a>
+                                        <a href="#" id="profileTwitterLink" class="visible"><img src="/images/twitter.png" class="socialMediaLink"/></a>
                                     </li>
                                     <li>
-                                        <a href="#" id="jobSeekerLinkedInLink" class="visible"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
+                                        <a href="#" id="profileLinkedInLink" class="visible"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
                                     </li>    
                                 </ul>
-                                <img id="jobSeekerProfileImg" class="profilePic" src="images/user.svg"/>
-                                <a href="javascript:void(0)" id="jobSeekerBasicInfoEdit"><img src="/images/edit.svg" class="editImage"/></a>
-                                <div id="jobSeekerNameWrapper">
-                                    <h1 id="jobSeekerName">Jane Doe</h1>
+                                <img id="profilePic" class="profilePic" src="images/user.svg"/>
+                                <a href="javascript:void(0)" id="profileBasicInfoEdit"><img src="/images/edit.svg" class="editImage"/></a>
+                                <div id="profileNameWrapper">
+                                    <h1 id="profileName">
+                                        <span id="profileFirstName"></span> <span id="profileLastName"></span></h1>
                                 </div>
                                 <div>
-                                    <p id="jobSeekerTagLine">Default tag line!</p>
+                                    <p id="profileTagLine">Default tag line!</p>
                                     <p>
                                         <span>Available: </span>
-                                        <span id="jobSeekerStartDate"></span>
+                                        <span id="profileStartDate"></span>
                                     </p>
                                     <p>
                                         <span>Status: </span>
-                                        <span id="jobSeekerStatus"></span>
+                                        <span id="profileStatus"></span>
                                     </p>
                                 </div>
+                                <input type="hidden" id="profileId"/>
+                                <input type="hidden" id="profileLastUpdated"/>
                             </div>
-                            <div id="jobSeekerAboutMeWrapper">
+                            <div id="profileAboutMeWrapper">
                                 <h3>About me</h3>
-                                <a href="javascript:void(0)" id="jobSeekerAboutMeEdit"><img src="/images/edit.svg" class="editImage"/></a>
-                                <p id="jobSeekerAboutMeContent">This is the about me section.</p>
+                                <a href="javascript:void(0)" id="profileAboutMeEdit"><img src="/images/edit.svg" class="editImage"/></a>
+                                <p id="profileAboutMeContent">This is the about me section.</p>
                             </div>
-                            <div id="jobSeekerSkillsWrapper">
+                            <div id="profileSkillsWrapper">
                                 <h3>My Skills and Knowledge</h3>
-                                <a href="javascript:void(0)" id="jobSeekerSkillsEdit"><img src="/images/edit.svg" class="editImage"/></a>
-                                <ul id="jobSeekerSkillsList">
+                                <a href="javascript:void(0)" id="profileSkillsEdit"><img src="/images/edit.svg" class="editImage"/></a>
+                                <ul id="profileSkillsList">
                                 </ul>
                             </div>
                             <!--
