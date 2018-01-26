@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-var FileUploadAPI = {};
+var FileAPI = {};
 
-FileUploadAPI.version = "v1";
+FileAPI.version = "v1";
 
-FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
+FileAPI.baseURL = "/tc/api/"+FileAPI.version;
 
-FileUploadAPI.defaultProfilePic = '/images/user.svg';
+FileAPI.defaultProfilePic = '/images/user.svg';
 
-FileUploadAPI.FileUploader = function(
+FileAPI.FileUploader = function(
         fileField, dropZone, fileList,
         clearBtn,
         uploadBtn,
@@ -245,20 +245,20 @@ FileUploadAPI.FileUploader = function(
     };
 };
 
-FileUploadAPI.clearUploadQueue = function() {
+FileAPI.clearUploadQueue = function() {
     if (fileUploader) {
         fileUploader.clearUploadQueue();
     }
 };
 
-FileUploadAPI.uploadQueue = function() {
+FileAPI.uploadQueue = function() {
     if (fileUploader) {
         fileUploader.uploadQueue();
     }
 }
 
-FileUploadAPI.makeProfilePicUploadRequest = function(file){
-    var upload_url = FileUploadAPI.baseURL+"/profilePic/"+UserAPI.getSessionUserAsJSON()['user_id'];
+FileAPI.makeProfilePicUploadRequest = function(file){
+    var upload_url = FileAPI.baseURL+"/profilePic/"+UserAPI.getSessionUserAsJSON()['user_id'];
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
       // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -287,13 +287,13 @@ FileUploadAPI.makeProfilePicUploadRequest = function(file){
     return xhr;
 };
 
-FileUploadAPI.onProfilePicUploaded = function(xhr){
-    FileUploadAPI.refreshUserProfilePic();
+FileAPI.onProfilePicUploaded = function(xhr){
+    FileAPI.refreshUserProfilePic();
 };
 
-FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
+FileAPI.refreshProfilePic = function(user_id, img_elem) {
     var xhr = new XMLHttpRequest();
-    var pic_url = FileUploadAPI.baseURL+'/profilePic/'+user_id;
+    var pic_url = FileAPI.baseURL+'/profilePic/'+user_id;
     if ("withCredentials" in xhr) {
       // Check if the XMLHttpRequest object has a "withCredentials" property.
       // "withCredentials" only exists on XMLHTTPRequest2 objects.
@@ -315,20 +315,20 @@ FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
         if (xhr.status == 200) {
             img_elem.src = xhr.responseURL;
         } else {
-            img_elem.src = FileUploadAPI.defaultProfilePic;
+            img_elem.src = FileAPI.defaultProfilePic;
         }
     });
     xhr.send();
 };
 
-FileUploadAPI.refreshUserProfilePic = function() {
+FileAPI.refreshUserProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
+        FileAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
     }
 };
 
-FileUploadAPI.showProfilePicUpload = function() {
+FileAPI.showProfilePicUpload = function() {
     var uploadWindow = document.getElementById('profilePicUploadWrapperWindow');
     uploadWindow.classList.remove("hidden");
     EventsAPI.setFormFocus("profilePicUploadField");
@@ -343,12 +343,12 @@ FileUploadAPI.showProfilePicUpload = function() {
             clearBtn,
             uploadBtn,
             true, 
-            FileUploadAPI.makeProfilePicUploadRequest, 
-            FileUploadAPI.onProfilePicUploaded);
+            FileAPI.makeProfilePicUploadRequest, 
+            FileAPI.onProfilePicUploaded);
     fileUploader.init();
 }
 
-FileUploadAPI.hideProfilePicUpload = function() {
+FileAPI.hideProfilePicUpload = function() {
     var uploadWindow = document.getElementById('profilePicUploadWrapperWindow');
     uploadWindow.classList.add("hidden");
 }
