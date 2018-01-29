@@ -70,16 +70,19 @@ header("Content-Type: application/json; charset=utf-8");
                 $jobSeekerJSON = json_decode($jsonBody, TRUE);
                 //var_dump($jobSeekerJSON);
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
-                $jobSeekerProfile = new JobSeekerProfile();
-                $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["personal_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_accomp($jobSeekerJSON["accomplishment"]);
-                $jobSeekerProfile->setJob_seeker_profile_best_exp($jobSeekerJSON["best_experience"]);
-                $jobSeekerProfile->setJob_seeker_profile_worst_exp($jobSeekerJSON["worst_experience"]);
-                $jobSeekerProfile->setJob_seeker_profile_superpower($jobSeekerJSON["superpower"]);
-                $jobSeekerProfile->setJob_seeker_profile_tagline($jobSeekerJSON["tagline"]);
-                $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["twitter_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_linkedin_link($jobSeekerJSON["linkedin_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_about_me($jobSeekerJSON["about_me"]);
+                $jobSeekerProfile = new JobSeekerProfile(
+                    $jobSeekerJSON["id"],
+                    $jobSeekerJSON["personal_link"],
+                    $jobSeekerJSON["accomplishment"],
+                    $jobSeekerJSON["best_experience"],
+                    $jobSeekerJSON["worst_experience"],
+                    $jobSeekerJSON["superpower"],
+                    $jobSeekerJSON["tagline"],
+                    $jobSeekerJSON["twitter_link"],
+                    $jobSeekerJSON["linkedin_link"],
+                    $jobSeekerJSON["about_me"],
+                    $jobSeekerJSON["last_updated"]
+                );
                 //$user = new User();
                 $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile,$user_id);
                 

@@ -160,6 +160,76 @@ and open the template in the editor .
                 </div>
             </div>
         </div>
+        
+        <!-- BEGIN - Profile Basic Info Edit Overlay-->
+        <div id="profileBasicInfoEditOverlay" class="hidden" role="dialog" aria-labelledby="loginTitle" aria-describedby="profileBasicInfoFormDescription">
+            <div id="profileBasicInfoFormWrapperWindow">
+                <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
+                    <div id='profileBasicInfoEditTitleWrapper'>
+                        <h3 id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</h3>
+                        <div class="hidden" id="profileBasicInfoFormDescription">Edit your basic info</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEditFirstName">
+                            <span>First Name:</span>
+                            <strong id="profileEditFirstNameError" class="error hidden">
+                                <span id="profileEditFirstNameErrorMsg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEditLastName">
+                            <span>Last Name:</span>
+                            <strong id="profileEditLastNameError" class="error hidden">
+                                <span id="profileEditLastNameErrorMsg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEditTagline">
+                            <span>Tagline:</span>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="text" name="profileEditTagline" id="profileEditTagline"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEditTwitter">
+                            <img src="images/twitter.png"/>
+                            <span>Twitter Username:</span>
+                            <strong id="profileEditTwitterError" class="error hidden">
+                                <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEditLinkedin">
+                            <img src="images/linkedin.png"/>
+                            <span>LinkedIn Profile Address:</span>
+                            <strong id="profileEditLinkedinError" class="error hidden">
+                                <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
+                        <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileBasicInfoEdit()"/>
+                    </div>
+                </form>
+            </div>
+        </div>
         <!-- BEGIN - Top Navigation Bar-->
         <nav>
             <div id="manager_top_nav" class="nav">
@@ -215,15 +285,15 @@ and open the template in the editor .
                         <div id="jobSeekerProfileWrapperWindow" class="jobSeekerProfileWrapperWindow hidden">
                             <div id="profileBasicInfo">
                                 <ul id="profileSocialMediaLinks"> 
-                                    <li>
-                                        <a href="#" id="profileTwitterLink" class="visible"><img src="/images/twitter.png" class="socialMediaLink"/></a>
+                                    <li id="profileTwitterLinkWrapper" class="hidden">
+                                        <a href="#" id="profileTwitterLink"><img src="/images/twitter.png" class="socialMediaLink"/></a>
                                     </li>
-                                    <li>
-                                        <a href="#" id="profileLinkedInLink" class="visible"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
+                                    <li id="profileLinkedinLinkWrapper" class="hidden">
+                                        <a href="#" id="profileLinkedinLink"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
                                     </li>    
                                 </ul>
                                 <img id="profilePic" class="profilePic" src="images/user.svg"/>
-                                <a href="javascript:void(0)" id="profileBasicInfoEdit"><img src="/images/edit.svg" class="editImage"/></a>
+                                <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/edit.svg" class="editImage"/></a>
                                 <div id="profileNameWrapper">
                                     <h1 id="profileName">
                                         <span id="profileFirstName"></span> <span id="profileLastName"></span></h1>
@@ -231,11 +301,11 @@ and open the template in the editor .
                                 <div>
                                     <p id="profileTagLine">Default tag line!</p>
                                     <p>
-                                        <span>Available: </span>
+                                        <strong>Available: </strong>
                                         <span id="profileStartDate"></span>
                                     </p>
                                     <p>
-                                        <span>Status: </span>
+                                        <strong>Status: </strong>
                                         <span id="profileStatus"></span>
                                     </p>
                                 </div>
@@ -245,7 +315,7 @@ and open the template in the editor .
                             <div id="profileAboutMeWrapper">
                                 <h3>About me</h3>
                                 <a href="javascript:void(0)" id="profileAboutMeEdit"><img src="/images/edit.svg" class="editImage"/></a>
-                                <p id="profileAboutMeContent">This is the about me section.</p>
+                                <p id="profileAboutMe">This is the about me section.</p>
                             </div>
                             <div id="profileSkillsWrapper">
                                 <h3>My Skills and Knowledge</h3>
