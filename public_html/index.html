@@ -162,7 +162,7 @@ and open the template in the editor .
         </div>
         
         <!-- BEGIN - Profile Basic Info Edit Overlay-->
-        <div id="profileBasicInfoEditOverlay" class="hidden" role="dialog" aria-labelledby="loginTitle" aria-describedby="profileBasicInfoFormDescription">
+        <div id="profileBasicInfoEditOverlay" class="hidden" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
             <div id="profileBasicInfoFormWrapperWindow">
                 <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
                     <div id='profileBasicInfoEditTitleWrapper'>
@@ -225,11 +225,35 @@ and open the template in the editor .
                     </div>
                     <div>
                         <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
-                        <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileBasicInfoEdit()"/>
+                        <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
                     </div>
                 </form>
             </div>
         </div>
+        <!-- BEGIN - About Me Edit Overlay-->
+        <div id="profileAboutMeEditOverlay" class="hidden" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
+            <div id="profileAboutMeFormWrapperWindow">
+                <form name="profileAboutMeForm" id="profileAboutMeForm" method="post" enctype="application/x-www-form-urlencoded">
+                    <div id='profileBasicInfoEditTitleWrapper'>
+                        <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
+                        <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEditAboutMe">
+                            <span>About Me:</span>
+                        </label>
+                        <div>
+                            <textarea class="form-control" name="profileEditAboutMe" id="profileEditAboutMe" form="profileAboutMeForm"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="button" id="profileAboutMeEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
+                        <input type="button" id="profileAboutMeEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <!-- BEGIN - Top Navigation Bar-->
         <nav>
             <div id="manager_top_nav" class="nav">
@@ -314,7 +338,7 @@ and open the template in the editor .
                             </div>
                             <div id="profileAboutMeWrapper">
                                 <h3>About me</h3>
-                                <a href="javascript:void(0)" id="profileAboutMeEdit"><img src="/images/edit.svg" class="editImage"/></a>
+                                <a href="javascript:void(0)" id="profileAboutMeEdit" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/edit.svg" class="editImage"/></a>
                                 <p id="profileAboutMe">This is the about me section.</p>
                             </div>
                             <div id="profileSkillsWrapper">
