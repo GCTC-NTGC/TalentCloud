@@ -10,13 +10,13 @@ UserAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
-UserAPI.User = function (id, firstName, lastName, emailAddress, password, authToken, userRole) {
+UserAPI.User = function (userId, firstname, lastname, email, password, isConfirmed, userRole) {
     this.user_id = id;
     this.firstname = firstName;
     this.lastname = lastName;
     this.email = emailAddress;
     this.password = password;
-    this.access_token = authToken;
+    this.is_confirmed = isConfirmed;
     this.user_role = userRole;
 };
 
