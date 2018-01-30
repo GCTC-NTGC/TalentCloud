@@ -847,6 +847,8 @@ input[type=button],input[type=submit]{
     width:120px;
     height:120px;
     clip-path: circle(60px at center);
+    border: 3px solid #FFCC33;
+    border-radius: 60px;
 }
 
 #profilePicUploadOverlay{
