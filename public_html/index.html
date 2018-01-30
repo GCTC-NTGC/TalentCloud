@@ -163,71 +163,99 @@ and open the template in the editor .
         
         <!-- BEGIN - Profile Basic Info Edit Overlay-->
         <div id="profileBasicInfoEditOverlay" class="hidden" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
-            <div id="profileBasicInfoFormWrapperWindow">
-                <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
-                    <div id='profileBasicInfoEditTitleWrapper'>
-                        <h3 id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</h3>
-                        <div class="hidden" id="profileBasicInfoFormDescription">Edit your basic info</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="profileEditFirstName">
-                            <span>First Name:</span>
-                            <strong id="profileEditFirstNameError" class="error hidden">
-                                <span id="profileEditFirstNameErrorMsg" class="label label-danger"></span>
-                            </strong>
-                        </label>
+            <div id="profileBasicInfoEditWrapperWindow">
+                <div id="profileBasicInfoFormWrapper">
+                    <img id="profileBasicInfoEditProfilePic" class="profilePic" src="images/user.svg"/>
+                    <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/edit.svg" class="editImage"/></a>
+                               
+                    <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
+                        <div id='profileBasicInfoEditTitleWrapper'>
+                            <h3 id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</h3>
+                            <div class="hidden" id="profileBasicInfoFormDescription">Edit your basic info</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEditFirstName">
+                                <span>First Name:</span>
+                                <strong id="profileEditFirstNameError" class="error hidden">
+                                    <span id="profileEditFirstNameErrorMsg" class="label label-danger"></span>
+                                </strong>
+                            </label>
+                            <div>
+                                <input class="form-control" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEditLastName">
+                                <span>Last Name:</span>
+                                <strong id="profileEditLastNameError" class="error hidden">
+                                    <span id="profileEditLastNameErrorMsg" class="label label-danger"></span>
+                                </strong>
+                            </label>
+                            <div>
+                                <input class="form-control" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEditTagline">
+                                <span>Tagline:</span>
+                            </label>
+                            <div>
+                                <input class="form-control" type="text" name="profileEditTagline" id="profileEditTagline"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEditTwitter">
+                                <img src="images/twitter.png"/>
+                                <span>Twitter Username:</span>
+                                <strong id="profileEditTwitterError" class="error hidden">
+                                    <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
+                                </strong>
+                            </label>
+                            <div>
+                                <input class="form-control" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEditLinkedin">
+                                <img src="images/linkedin.png"/>
+                                <span>LinkedIn Profile Address:</span>
+                                <strong id="profileEditLinkedinError" class="error hidden">
+                                    <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
+                                </strong>
+                            </label>
+                            <div>
+                                <input class="form-control" type="text" name="profileEditTwitter" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
+                            </div>
+                        </div>
                         <div>
-                            <input class="form-control full-width" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
+                            <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
+                            <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
+                        </div>
+                    </form>
+                </div>
+                <div id="profilePicUploadWrapper" class="hidden">
+                    <h1>Choose new profile img or drag and drop onto zone below</h1>
+                    <div class="fileUpload">
+                        <div style="float:left;width:50%;">
+                            <div>
+                                <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
+                            </div>
+                            <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
+                                <p>Drop file here</p>
+                            </div>
+                        </div>
+                        <div style="float:left;width:50%;padding:20px 20px;">
+                            <div id="fileUploadPreviewPanel" style="min-height:130px;">
+                                <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
+                                <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
+                            </div>
+                            <div id="fileUploadButtons">
+                                <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
+                                <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="profileEditLastName">
-                            <span>Last Name:</span>
-                            <strong id="profileEditLastNameError" class="error hidden">
-                                <span id="profileEditLastNameErrorMsg" class="label label-danger"></span>
-                            </strong>
-                        </label>
-                        <div>
-                            <input class="form-control full-width" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="profileEditTagline">
-                            <span>Tagline:</span>
-                        </label>
-                        <div>
-                            <input class="form-control full-width" type="text" name="profileEditTagline" id="profileEditTagline"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="profileEditTwitter">
-                            <img src="images/twitter.png"/>
-                            <span>Twitter Username:</span>
-                            <strong id="profileEditTwitterError" class="error hidden">
-                                <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
-                            </strong>
-                        </label>
-                        <div>
-                            <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="profileEditLinkedin">
-                            <img src="images/linkedin.png"/>
-                            <span>LinkedIn Profile Address:</span>
-                            <strong id="profileEditLinkedinError" class="error hidden">
-                                <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
-                            </strong>
-                        </label>
-                        <div>
-                            <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
-                        </div>
-                    </div>
-                    <div>
-                        <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
-                        <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
         <!-- BEGIN - About Me Edit Overlay-->
@@ -316,7 +344,7 @@ and open the template in the editor .
                                         <a href="#" id="profileLinkedinLink"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
                                     </li>    
                                 </ul>
-                                <img id="profilePic" class="profilePic" src="images/user.svg"/>
+                                <img id="myProfilePic" class="profilePic" src="images/user.svg"/>
                                 <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/edit.svg" class="editImage"/></a>
                                 <div id="profileNameWrapper">
                                     <h1 id="profileName">

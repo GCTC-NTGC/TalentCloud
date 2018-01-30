@@ -8,6 +8,7 @@
 var JobSeekerAPI = {};
 JobSeekerAPI.jobSeekers = [];
 JobSeekerAPI.jobSeekerProfile = null;
+JobSeekerAPI.profilePicUploader = null;
 JobSeekerAPI.defaultFirstName = "Jane";
 JobSeekerAPI.defaultLastName = "Doe";
 
@@ -274,6 +275,14 @@ JobSeekerAPI.updateFavourite = function(isFav,jobPosterId){
     Utilities.debug?console.log(favImg.src):null;
 };
 
+JobSeekerAPI.refreshJobSeekerProfilePic = function() {
+    if (UserAPI.hasSessionUser()) {
+        var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
+        profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")]
+        FileUploadAPI.refreshProfilePic(user_id, profile_pic_elements);
+    }
+}
+
 JobSeekerAPI.populateJobSeekerProfile = function(response){
     var jobSeekerJSON = JSON.parse(response)[0];
     var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
@@ -403,10 +412,6 @@ JobSeekerAPI.resetProfileEditValues = function() {
         var profile_edit_about_me = document.getElementById("profileEditAboutMe");
         profile_edit_about_me.value = JobSeekerAPI.jobSeekerProfile.about_me;
     }
-};
-
-JobSeekerAPI.saveJobSeekerProfileBasicInfo = function() {
-    
 };
 
 JobSeekerAPI.saveJobSeekerProfileChanges = function(){    
@@ -606,7 +611,7 @@ JobSeekerAPI.showJobSeekerProfileAboutMeEdit = function() {
 
 JobSeekerAPI.hideJobSeekerProfileAboutMeEdit = function() {
     //TODO modify state info history ?
-    var jobSeekerAboutMeEditOverlay=  document.getElementById("profileAboutMeEditOverlay");
+    var jobSeekerAboutMeEditOverlay = document.getElementById("profileAboutMeEditOverlay");
     jobSeekerAboutMeEditOverlay.classList.add("hidden");
     
     JobSeekerAPI.resetProfileEditValues();
@@ -616,8 +621,52 @@ JobSeekerAPI.hideJobSeekerProfileEditOverlays = function() {
     var jobSeekerBasicInfoEditOverlay = document.getElementById("profileBasicInfoEditOverlay");
     jobSeekerBasicInfoEditOverlay.classList.add("hidden");
     
-    var jobSeekerAboutMeEditOverlay=  document.getElementById("profileAboutMeEditOverlay");
+    var jobSeekerAboutMeEditOverlay = document.getElementById("profileAboutMeEditOverlay");
     jobSeekerAboutMeEditOverlay.classList.add("hidden");
     
     JobSeekerAPI.resetProfileEditValues();
+}
+
+JobSeekerAPI.showUploadProfilePic = function() {
+    //TODO: enable slide transition between divs
+    
+    var profileBasicInfoFormWrapper = document.getElementById("profileBasicInfoFormWrapper");
+    profileBasicInfoFormWrapper.classList.add("hidden");
+    
+    var profilePicUploadWrapper = document.getElementById("profilePicUploadWrapper")
+    profilePicUploadWrapper.classList.remove("hidden");
+    
+    AccessibilityAPI.preventModalEscape("profilePicUploadField", "profilePicUploadBtn");
+    AccessibilityAPI.focusElement("profilePicUploadField");
+    
+    var fileField = document.getElementById('profilePicUploadField');
+    var fileDrop = document.getElementById('profilePicUploadDrop');
+    var fileList = document.getElementById('profilePicUploadPreview');
+    var clearBtn = document.getElementById('profilePicUploadClear');
+    var uploadBtn = document.getElementById('profilePicUploadBtn');
+    JobSeekerAPI.profilePicUploader = new FileUploadAPI.FileUploader(
+            fileField, fileDrop, fileList, 
+            clearBtn,
+            uploadBtn,
+            true, 
+            FileUploadAPI.makeProfilePicUploadRequest, 
+            JobSeekerAPI.onProfilePicUploaded);
+    JobSeekerAPI.profilePicUploader.init();
+};
+
+JobSeekerAPI.onProfilePicUploaded = function() {
+    JobSeekerAPI.refreshJobSeekerProfilePic();
+    JobSeekerAPI.hideUploadProfilePic();
+};
+
+JobSeekerAPI.hideUploadProfilePic = function() {
+    JobSeekerAPI.profilePicUploader = null;
+    
+    var profileBasicInfoFormWrapper = document.getElementById("profileBasicInfoFormWrapper");
+    profileBasicInfoFormWrapper.classList.remove("hidden");
+    
+    var profilePicUploadWrapper = document.getElementById("profilePicUploadWrapper")
+    profilePicUploadWrapper.classList.add("hidden");
+    
+    JobSeekerAPI.showJobSeekerProfileBasicInfoEdit();
 }
