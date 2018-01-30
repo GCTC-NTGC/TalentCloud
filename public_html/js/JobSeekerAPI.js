@@ -404,13 +404,29 @@ JobSeekerAPI.resetProfileEditValues = function() {
         profile_edit_tagline.value = JobSeekerAPI.jobSeekerProfile.tagline;
 
         var profile_edit_twitter = document.getElementById("profileEditTwitter");
-        profile_edit_twitter.value = JobSeekerAPI.jobSeekerProfile.twitter_link;
+        profile_edit_twitter.value = JobSeekerAPI.twitterLinkToUsername(JobSeekerAPI.jobSeekerProfile.twitter_link);
 
         var profile_edit_linkedin = document.getElementById("profileEditLinkedin");
         profile_edit_linkedin.value = unescape(JobSeekerAPI.jobSeekerProfile.linkedin_link);
 
         var profile_edit_about_me = document.getElementById("profileEditAboutMe");
         profile_edit_about_me.value = JobSeekerAPI.jobSeekerProfile.about_me;
+    }
+};
+
+JobSeekerAPI.twitterLinkToUsername = function(twitterLink) {
+    if (twitterLink.startsWith("https://twitter.com/")) {
+        return '@' + twitterLink.substring(20);
+    } else {
+        return twitterLink;
+    }
+};
+
+JobSeekerAPI.twitterUsernameToLink = function(twitterUsername) {
+    if (twitterUsername.startsWith('@')) {
+        return "https://twitter.com/" + twitterUsername.substring(1);
+    } else {
+        return twitterUsername;
     }
 };
 
@@ -472,6 +488,8 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function(){
     if (FormValidationAPI.validateUpdateProfileBasicInfo(
             user.firstname, user.lastname,
             jobSeekerProfile.twitter_link, jobSeekerProfile.linkedin_link)) {
+        //change twitter username to link
+        jobSeekerProfile.twitter_link = JobSeekerAPI.twitterUsernameToLink(jobSeekerProfile.twitter_link);
         
         JobSeekerAPI.saveJobSeekerProfile(jobSeekerProfile);
         

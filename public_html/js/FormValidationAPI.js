@@ -93,7 +93,7 @@ FormValidationAPI.validateUpdateProfileBasicInfo = function(firstName, lastName,
     
     if(!FormValidationAPI.fieldNotEmpty(firstName)) {
         FormValidationAPI.setValidationErrorProperties(true, "profileEditFirstNameError", "profileEditFirstNameErrorMsg", "Error: No First Name");
-        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditFirstName")
+        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditFirstName");
         valid = false;
     } else {
         FormValidationAPI.setValidationErrorProperties(false, "profileEditFirstNameError", "profileEditFirstNameErrorMsg", "Error: No First Name");
@@ -101,26 +101,26 @@ FormValidationAPI.validateUpdateProfileBasicInfo = function(firstName, lastName,
     
     if(!FormValidationAPI.fieldNotEmpty(lastName)) {
         FormValidationAPI.setValidationErrorProperties(true, "profileEditLastNameError", "profileEditLastNameErrorMsg", "Error: No Last Name");
-        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditLastName")
+        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditLastName");
         valid = false;
     } else {
         FormValidationAPI.setValidationErrorProperties(false, "profileEditLastNameError", "profileEditLastNameErrorMsg", "Error: No Last Name");
     }
     
-    /*
-    if(!FormValidationAPI.fieldNotEmpty(tagline)) {
-        FormValidationAPI.setValidationErrorProperties(true, "profileEditTaglineError", "profileEditTaglineErrorMsg", "Error: No Tagline");
-        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditTagline")
+    
+    if(FormValidationAPI.fieldNotEmpty(twitter) && !FormValidationAPI.validateTwitterUsername(twitter)) {
+        FormValidationAPI.setValidationErrorProperties(true, "profileEditTwitterError", "profileEditTwitterErrorMsg", "Error: Invalid Twitter Username");
+        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditTwitter")
         valid = false;
     } else {
-        FormValidationAPI.setValidationErrorProperties(false, "profileEditTaglineError", "profileEditTaglineErrorMsg", "Error: No Tagline");
+        FormValidationAPI.setValidationErrorProperties(false, "profileEditTwitterError", "profileEditTwitterErrorMsg", "Error: Invalid Twitter Username");
     }
-    */
+    
     
     //TODO: validate linkedin url
     
     return valid;
-}
+};
 
 FormValidationAPI.validateTwitterUsername = function(twitterUsername) {
     var regex = /^@[0-9a-zA-Z_]+$/;
