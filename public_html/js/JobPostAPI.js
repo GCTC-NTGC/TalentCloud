@@ -178,6 +178,9 @@ JobPostAPI.populateJob = function(job, demo, locale){
     jobIDCell.setAttribute("class", "jobId hidden");
     jobIDCell.innerHTML = job.id;
     
+    var titleDepartmentWrapper = document.createElement("div");
+    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper");
+    
     var jobTitle = document.createElement("div");
     jobTitle.setAttribute("class", "jobTitle");
     jobTitle.innerHTML = job.title;
@@ -261,15 +264,21 @@ JobPostAPI.populateJob = function(job, demo, locale){
         viewJobButton.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
     }
     
+    
     jobMainTable.appendChild(jobIDCell);
+    jobMainTable.appendChild(hiringManagerWrapper);
     jobMainTable.appendChild(jobTitle);
+    jobMainTable.appendChild(jobDepartment);
+    
+    jobMainTable.appendChild(jobLocation);
+    
     jobMainTable.appendChild(jobApplicants_to_date);
     jobMainTable.appendChild(jobClose_date_time);
-    jobMainTable.appendChild(jobDepartment);
-    jobMainTable.appendChild(jobLocation);
+
+
     jobMainTable.appendChild(jobTerm_qty);
     
-    jobMainTable.appendChild(hiringManagerWrapper);
+    
     
     jobMainTable.appendChild(viewJobButton);
     

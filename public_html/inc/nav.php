@@ -2,10 +2,10 @@
     <div class="topbar transparent" id="site--topbar">
         <h2>Topics menu</h2>
         <div class="row">
-            <!-- Logo - To Do
-            <div class="col-xs-4 col-sm-3">
-                <a href="/" class="cds-logo" role="img" aria-label="Canadian Digital Service"></a>
-            </div> -->
+            <!-- TO DO - Logo
+            <div class="circle">
+                <a href="/" class="tc-logo" role="img" aria-label="GC Talent Cloud"></a>
+            </div>-->
             <div class="nav-container">
                 <!--
                 <div id="js-mobileNav">

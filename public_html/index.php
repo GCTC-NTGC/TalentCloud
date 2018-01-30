@@ -121,12 +121,12 @@
 <!-- BEGIN - Main Content Section-->
 <main>
 <div class="contentContainer">
-<!--
-    <section class="section homepage--what-we-do">
+
+    <section class="section">
         <div class="container">
 
-            <h2 class="section--title">What is GC Talent Cloud?</h2>
-            <p>Sample text</p>
+            <h2 class="section--title">Browse Jobs</h2>
+            <!--
             <div class="row icon-text-list">
                 <div class="col-xs-12 col-sm-4 icon-text">
                     <div class="cds-icon"><i class="fa fa-code" aria-hidden="true"></i></div>
@@ -141,11 +141,9 @@
                     <div class="text">Sample text / icon</div>
                 </div>
             </div>
-            <a href="/how-we-work" class="button">Sample button</a>
+            <a href="/how-we-work" class="button">Sample button</a>-->
         </div>
-    </section>-->
-    
-    <div class="section">
+
         <div id="jobs">
             <div id="noJobs" class="hidden">
                 No jobs found
@@ -365,7 +363,7 @@
     <div class="jobCount hidden">
         <span id="contactCount">0</span> jobs
     </div>
-    </div>
+    </section>
 </div>
 </main>
 
