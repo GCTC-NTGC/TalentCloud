@@ -194,6 +194,40 @@ div label span{
     left:0;
 }
 
+.dialogOverlay {
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.dialogHalfWidthWrapperWindow {
+    width:50%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    position:relative;
+}
+
+.dialogWindowInterior {
+    padding:1em 2em 2em 2em;
+}
+
+.dialogTitle {
+    padding:0.5em;
+    background-color:#E5F8FF;
+}
+
 .contentContainer{
     background-color: white;
 }
@@ -244,6 +278,43 @@ div label span{
 
 .createEditProfile{
     padding: 2em 2em 2em 2em;
+}
+
+#profileBasicInfo {
+    text-align: center;
+    padding: 2em 0em;
+}
+
+#profileSocialMediaLinks {
+    list-style-type: none;
+}
+
+#profileSocialMediaLinks li{
+    display: inline;
+    padding: 1em;
+}
+
+.profileSection {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.profileSectionTitleBar {
+    margin-bottom: 1em;
+}
+
+.profileSectionTitleBar h3{
+    display: inline;
+}
+
+
+.sectionEditBtn {
+    float: right;
+}
+
+.sectionEditBtn img{
+    width: 1em;
+    height: 1em;
 }
 
 .registerFormWrapperWindow{
@@ -769,7 +840,13 @@ input[type=button],input[type=submit]{
 .profilePic{
     width:50px;
     height:50px;
-    clip-path: circle(25px at center)
+    clip-path: circle(25px at center);
+}
+
+.profilePicLarge {
+    width:120px;
+    height:120px;
+    clip-path: circle(60px at center);
 }
 
 #profilePicUploadOverlay{
