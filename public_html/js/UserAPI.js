@@ -11,13 +11,13 @@ UserAPI.version = "v1";
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
 UserAPI.User = function (id, firstName, lastName, emailAddress, password, authToken, userRole) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.emailAddress = emailAddress;
+    this.user_id = id;
+    this.firstname = firstName;
+    this.lastname = lastName;
+    this.email = emailAddress;
     this.password = password;
-    this.authToken = authToken;
-    this.userRole = userRole;
+    this.access_token = authToken;
+    this.user_role = userRole;
 };
 
 /**

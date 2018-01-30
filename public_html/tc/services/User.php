@@ -53,22 +53,40 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
             $jsonBody = file_get_contents('php://input');
             //var_dump($jsonBody);
             if(strlen($jsonBody) > 1){
-                $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
-                $email = $credentials['email'];
-                $password = $credentials['password'];
-                $userrole = $credentials['userrole'];
-                if(strlen($email) > 1){
-                    $newUser = new User();
-                    $newUser->setEmail($email);
-                    $newUser->setPassword($password);
-                    $newUser->setUser_role($userrole);
-                    $userRegistered = UserController::registerUser($newUser);
-                    $json = json_encode($userRegistered, JSON_PRETTY_PRINT);
-                    echo($json);
-                }else{
-                    $result = array();
+                if(Utils::getParameterFromRequest($requestParams,4) === "update") {
+                    $userJson = json_decode($jsonBody, TRUE);
+
+                    $updatedUser = new User();
+                    $updatedUser->setUser_id($userJson['user_id']);
+                    $updatedUser->setEmail($userJson['email']);
+                    $updatedUser->setPassword($userJson['password']);
+                    $updatedUser->setFirstname($userJson['firstname']);
+                    $updatedUser->setLastname($userJson['lastname']);
+                    $updatedUser->setUser_role($userJson['user_role']);
+
+                    $result = UserController::updateUser($updatedUser);
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
+                    
+                } else if (Utils::getParameterFromRequest($requestParams,4) === "register") {
+           
+                    $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
+                    $email = $credentials['email'];
+                    $password = $credentials['password'];
+                    $userrole = $credentials['userrole'];
+                    if(strlen($email) > 1){
+                        $newUser = new User();
+                        $newUser->setEmail($email);
+                        $newUser->setPassword($password);
+                        $newUser->setUser_role($userrole);
+                        $userRegistered = UserController::registerUser($newUser);
+                        $json = json_encode($userRegistered, JSON_PRETTY_PRINT);
+                        echo($json);
+                    }else{
+                        $result = array();
+                        $json = json_encode($result, JSON_PRETTY_PRINT);
+                        echo($json);
+                    }
                 }
             }else{
                 header('HTTP/1.0 401 Unauthorized');
@@ -80,7 +98,7 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
             //Here Handle DELETE Request 
             break;
         case 'PUT':
-            //Here Handle PUT Request 
+            //TODO: check authaurization
             break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests

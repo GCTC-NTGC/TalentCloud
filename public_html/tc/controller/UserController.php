@@ -36,7 +36,8 @@ class UserController{
     }
     
     public static function getUserById($user_id){
-        
+        $user = UserDAO::getUserById($user_id);
+        return $user;
     }
     
     public static function registerUser(User $newUser){
@@ -48,11 +49,42 @@ class UserController{
         $registeredUser = UserDAO::registerUser($newUser);
         if($registeredUser->getUser_id() !== null){
             $userRegistered = true;
-            if(EmailConfirmationController::sendConfirmationEmail($registeredUser)){
-                $confEmailSent = true;
-            }
+            $confEmailSent = UserController::confirmEmail($registeredUser);
         }
         return array("userRegistered"=>$userRegistered,"confEmailSent"=>$confEmailSent);
         
+    }
+    
+    public static function confirmEmail($user) {
+        return EmailConfirmationController::sendConfirmationEmail($user);
+    }
+    
+    /**
+     * 
+     * @param User $updatedUser
+     * 
+     * If a user with the same id as $user already exists, update the email,
+     * password, firstname, lastname, and is_confirmed entries with values form
+     * $user. Note that user_id and user_role_id will be unaffected.
+     */
+    public static function updateUser(User $updatedUser) {
+        $updateSuccessful = false;
+        $confEmailSent = false;
+        $oldUser = UserController::getUserById($updatedUser->getUser_id());
+        //Only update if user with this id already exists
+        if ($oldUser) {
+            //Confirm email if it has changed
+            if ($oldUser->getEmail() != $updatedUser->getEmail()) {
+                $confEmailSent = UserController::confirmEmail($updatedUser);
+                $updatedUser->setIs_confirmed(false);
+            } else {
+                $updatedUser->setIs_confirmed($oldUser->getIs_confirmed());
+            }
+            $updateSuccessful = UserDAO::updateUser($updatedUser); //do updates
+        }
+        return array("userUpdated"=>$updateSuccessful,
+            "oldUser"=>$oldUser,
+            "updatedUser"=>UserController::getUserById($updatedUser->getUser_id()),
+            "confEmailSent"=>$confEmailSent);   
     }
 }

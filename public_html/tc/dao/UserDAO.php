@@ -61,6 +61,31 @@ class UserDAO extends BaseDAO{
         return $row;
     }
     
+    public static function getUserById($user_id) {
+        $link = BaseDAO::getConnection();
+ 
+        $sqlStr = "
+            SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
+            FROM user u, user_role ur
+            WHERE 
+                u.user_id = :user_id AND
+                ur.user_role_id = u.user_role_id
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User', array('user_id', 'email', 'firstname', 'lastname', 'is_confirmed', 'user_role'));
+            $row = $sql->fetch();
+            //var_dump($row);
+        } catch (PDOException $e) {
+            return 'getContentByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $row;
+    }
+    
     
     public static function registerUser(User $user){
         
@@ -109,6 +134,57 @@ class UserDAO extends BaseDAO{
             //var_dump($id);
             return $user;
         
+    }
+    
+    /**
+     * Updates all columns except user_role
+     * @param User $updatedUser
+     * @return boolean Whether updatedUser matched an existing user which could be updated
+     */
+    public static function updateUser($updatedUser) {
+        $user_id = $updatedUser->getUser_id();
+        $email = $updatedUser->getEmail();
+        $password = $updatedUser->getPassword();
+        $md5_password = md5($password);
+        $is_confirmed = $updatedUser->getIs_confirmed();
+        $user_role = $updatedUser->getUser_role();
+        $first_name = $updatedUser->getFirstname();
+        $last_name = $updatedUser->getLastname();
+
+        $link = BaseDAO::getConnection();
+        $sqlStr = "UPDATE user 
+            SET
+                email = :email,
+                password = :password,
+                is_confirmed = :is_confirmed,
+                firstname = :firstname,
+                lastname = :lastname
+            WHERE
+                user_id = :user_id
+            ;";
+
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $sql->bindParam(':email', $email, PDO::PARAM_STR);
+        $sql->bindParam(':password', $md5_password, PDO::PARAM_STR);
+        $sql->bindParam(':is_confirmed', $is_confirmed, PDO::PARAM_INT);
+        $sql->bindParam(":firstname", $first_name, PDO::PARAM_STR);
+        $sql->bindParam(":lastname", $last_name, PDO::PARAM_STR);
+        //$sql->bindParam(':user_role', $user_role, PDO::PARAM_STR);
+        //var_dump($sql);
+
+        $count = 0;
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $count = $sql->rowCount();
+            
+        } catch (PDOException $e) {
+                //var_dump(PDO::errorInfo());
+                return 'updateUser failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        //var_dump($id);
+        return $count > 0;
     }
     
     public static function validateEmail($emailAddress){
