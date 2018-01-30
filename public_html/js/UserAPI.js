@@ -650,14 +650,14 @@ UserAPI.updateUser = function(user, updateUserCallback) {
 
       // Check if the XMLHttpRequest object has a "withCredentials" property.
       // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      updateUser_xhr.open("POST", updateUser_url);
+      updateUser_xhr.open("PUT", updateUser_url);
 
     } else if (typeof XDomainRequest != "undefined") {
 
       // Otherwise, check if XDomainRequest.
       // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
       updateUser_xhr = new XDomainRequest();
-      updateUser_xhr.open("POST", updateUser_url);
+      updateUser_xhr.open("PUT", updateUser_url);
 
     } else {
 
@@ -666,7 +666,7 @@ UserAPI.updateUser = function(user, updateUserCallback) {
 
     }
 
-    updateUser_xhr.open('POST',updateUser_url);
+    updateUser_xhr.open('PUT',updateUser_url);
     updateUser_xhr.setRequestHeader("Content-Type","application/json");
     
     //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
