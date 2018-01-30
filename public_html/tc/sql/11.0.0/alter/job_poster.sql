@@ -9,5 +9,5 @@
  */
 
 ALTER TABLE `talentcloud`.`job_poster` 
-ADD COLUMN `job_poster_remuneration_min` INT(9) NULL AFTER `lastname`,
+ADD COLUMN `job_poster_remuneration_min` INT(9) NULL AFTER `job_poster_department_id`,
 ADD COLUMN `job_poster_remuneration_max` INT(9) NULL AFTER `job_poster_remuneration_min`;

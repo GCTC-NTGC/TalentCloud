@@ -216,7 +216,6 @@ JobSeekerAPI.getJobSeekerCount = function(){
 JobSeekerAPI.addFavouriteLink = function(jobPosterId){
     var jobPoster = document.getElementById(jobPosterId);
 
-    
     //create hidden div for favourite action
     var jobPosterFavouriteImgWrapper = document.createElement("div");
     jobPosterFavouriteImgWrapper.setAttribute("class","favouriteImageWrapper");
@@ -278,10 +277,10 @@ JobSeekerAPI.updateFavourite = function(isFav,jobPosterId){
 JobSeekerAPI.refreshJobSeekerProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")]
+        profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
         FileUploadAPI.refreshProfilePic(user_id, profile_pic_elements);
     }
-}
+};
 
 JobSeekerAPI.populateJobSeekerProfile = function(response){
     var jobSeekerJSON = JSON.parse(response)[0];
