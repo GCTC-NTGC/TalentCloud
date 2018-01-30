@@ -389,7 +389,7 @@ JobSeekerAPI.resetProfileEditValues = function() {
         profile_edit_twitter.value = JobSeekerAPI.jobSeekerProfile.twitter_link;
 
         var profile_edit_linkedin = document.getElementById("profileEditLinkedin");
-        profile_edit_linkedin.value = JobSeekerAPI.jobSeekerProfile.linkedin_link;
+        profile_edit_linkedin.value = unescape(JobSeekerAPI.jobSeekerProfile.linkedin_link);
 
         var profile_edit_about_me = document.getElementById("profileEditAboutMe");
         profile_edit_about_me.value = JobSeekerAPI.jobSeekerProfile.about_me;
