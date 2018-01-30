@@ -196,7 +196,6 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            //$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','last_updated'));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
             //var_dump($rows);
