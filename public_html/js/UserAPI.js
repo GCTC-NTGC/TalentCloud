@@ -11,10 +11,10 @@ UserAPI.version = "v1";
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
 UserAPI.User = function (userId, firstname, lastname, email, password, isConfirmed, userRole) {
-    this.user_id = id;
-    this.firstname = firstName;
-    this.lastname = lastName;
-    this.email = emailAddress;
+    this.user_id = userId;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
     this.password = password;
     this.is_confirmed = isConfirmed;
     this.user_role = userRole;
@@ -334,8 +334,6 @@ UserAPI.loaded = function (response) {
         UserAPI.storeSessionUser(authJSON);
     }
     if (authJSON.user_id !== "") {
-
-
         var user_fname = document.getElementById("user_fname");
         user_fname.innerHTML = authJSON.firstname;
 
@@ -640,3 +638,46 @@ UserAPI.clearFormFields = function (formId) {
 
     }
 };
+
+UserAPI.updateUser = function(user, updateUserCallback) {
+    Utilities.debug?console.log("updating user"):null;
+    var updateUser_url = UserAPI.baseURL+"/user/update/";
+    var jsonData=JSON.stringify(user);
+    
+    var updateUser_xhr = new XMLHttpRequest();
+    if ("withCredentials" in updateUser_xhr) {
+
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      updateUser_xhr.open("POST", updateUser_url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      updateUser_xhr = new XDomainRequest();
+      updateUser_xhr.open("POST", updateUser_url);
+
+    } else {
+
+      // Otherwise, CORS is not supported by the browser.
+      updateUser_xhr = null;
+
+    }
+
+    updateUser_xhr.open('POST',updateUser_url);
+    updateUser_xhr.setRequestHeader("Content-Type","application/json");
+    
+    //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
+    //updateUser_xhr.addEventListener("error",DataAPI.transferFailed,false);
+    //updateUser_xhr.addEventListener("abort",DataAPI.transferAborted,false);
+    updateUser_xhr.addEventListener("load",function(){
+        var responseJson = JSON.parse(updateUser_xhr.responseText);
+        if (responseJson.userUpdated && responseJson.updatedUser) {
+            UserAPI.storeSessionUser(responseJson.updatedUser);
+        }
+        updateUserCallback(updateUser_xhr.response);
+    }
+    ,false);
+    updateUser_xhr.send(jsonData);
+}

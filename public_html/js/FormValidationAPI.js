@@ -101,7 +101,7 @@ FormValidationAPI.validateUpdateProfileBasicInfo = function(firstName, lastName,
     
     if(!FormValidationAPI.fieldNotEmpty(lastName)) {
         FormValidationAPI.setValidationErrorProperties(true, "profileEditLastNameError", "profileEditLastNameErrorMsg", "Error: No Last Name");
-        FormValidationAPI.focusIfFirstInvalidField(valid, "profeilEditLastName")
+        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditLastName")
         valid = false;
     } else {
         FormValidationAPI.setValidationErrorProperties(false, "profileEditLastNameError", "profileEditLastNameErrorMsg", "Error: No Last Name");
