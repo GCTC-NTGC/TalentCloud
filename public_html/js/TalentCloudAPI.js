@@ -273,20 +273,18 @@ TalentCloudAPI.setLanguage = function(locale){
 };
 
 /**
- * 
+ * Hides all overlays/dialogs and all main sections
  * @returns {undefined}
  */
 TalentCloudAPI.hideAllContent = function(){
-    var overlays;
-    if(window.location.href.includes("manager")){
-        overlays = ["createJobPosterOverlay"];
-    }
-    else{
-        overlays = ["jobList", "viewJobPosterApplicationOverlay", "jobPosterApplication"];
-    }
+    var overlays = document.getElementById("overlays").children;
+    var sections = document.getElementsByTagName("main")[0].children;
+    
     for(var i = 0;i < overlays.length;i++){
-        var overlayDOM = document.getElementById(overlays[i]);
-        overlayDOM.classList.add("hidden");
+        overlays[i].classList.add("hidden");
+    }
+    for(var i = 0;i < sections.length;i++){
+        sections[i].classList.add("hidden");
     }
 };
 

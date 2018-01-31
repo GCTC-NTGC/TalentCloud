@@ -114,7 +114,7 @@ EventsAPI.setFormFocus = function(fieldId){
 };
 
 EventsAPI.clearJobsContainer = function(){
-    var containers = ['noJobs','loadingJobs','jobList','viewJobPosterApplicationOverlay','jobPosterApplication','jobSeekerProfileWrapperWindow'];
+    var containers = ['noJobs','loadingJobs','jobList','viewJobPosterApplicationOverlay','jobPosterApplication'];
     for(var c = 0; c < containers.length; c++){
         var container = document.getElementById(containers[c]);
         if(!container.classList.contains('hidden')){
