@@ -53,29 +53,30 @@ JobSeekerAPI.populateJobSeekerObjects = function(data){
     JobSeekerAPI.populateJobSeekers();
 };
 
-JobSeekerAPI.populateJobSeekerObject = function(JSONContact){
+JobSeekerAPI.populateJobSeekerObject = function(jobSeekerJSON){
     
-    Utilities.debug?console.log("populating job Objects"):null;
-    Utilities.debug?console.log(JSONContact):null;
-    
-    var job = JSONContact;
+    Utilities.debug?console.log("populating job seeker Objects"):null;
+    Utilities.debug?console.log(jobSeekerJSON):null;
     
     Utilities.debug?console.log(job):null;
 
-    var jobObj = new JobSeekerAPI.JobSeeker();
+    var jobSeekerObj = new JobSeekerAPI.JobSeeker();
 
-    jobObj.id = job.id;
-    jobObj.firstname = job.firstname;
-    jobObj.lastname = job.lastname;
-    jobObj.location_city = job.location_city;
-    jobObj.location_province = job.location_province;
-    jobObj.term_qty = job.term_qty;
-    jobObj.term_units = job.term_units;
+    jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
+    jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
+    jobSeekerObj.accomplishment = jobSeekerJSON.job_seeker_profile_accomp;
+    jobSeekerObj.best_experience = jobSeekerJSON.job_seeker_profile_best_exp;
+    jobSeekerObj.worst_experience = jobSeekerJSON.job_seeker_profile_worst_exp;
+    jobSeekerObj.superpower = jobSeekerJSON.job_seeker_profile_superpower;
+    jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
+    jobSeekerObj.twitter_link = jobSeekerJSON.job_seeker_profile_twitter_link;
+    jobSeekerObj.linkedin_link = jobSeekerJSON.job_seeker_profile_linkedin_link;
+    jobSeekerObj.about_me = jobSeekerJSON.job_seeker_profile_about_me;
+    jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
 
+    Utilities.debug?console.log(jobSeekerObj):null;
 
-    Utilities.debug?console.log(jobObj):null;
-
-    return jobObj;
+    return jobSeekerObj;
 };
 
 JobSeekerAPI.populateJobSeekers = function(){
