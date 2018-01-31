@@ -24,7 +24,7 @@
                             <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile(this);">My Profile</a>
                         </li>
                         <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
-                            <a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showManagerCreateJobPosterForm(this)">Create Job Poster</a>
+                            <a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this)">Job Posters</a>
                         </li>
                         <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>

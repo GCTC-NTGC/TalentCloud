@@ -14,19 +14,19 @@ CreateJobPosterAPI.jobObjFrench = new JobPostAPI.JobPost();
 
 
 //This should be in the JobPosterAPI or TalentCloudAPI-not user related
-CreateJobPosterAPI.showManagerCreateJobPosterForm = function(linkElement){
-    var title = linkElement.innerHTML;
-    var url = linkElement.getAttribute('href');
+CreateJobPosterAPI.showCreateJobPosterForm = function(){
     var stateInfo = {pageInfo: 'create_job_poster', pageTitle: 'Talent Cloud: Create Job Poster'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');//last parameter just replaced with #Register instead of url
+    history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');
     
-    var createJobPosterDialog = document.getElementById("createJobPosterOverlay");
-    createJobPosterDialog.classList.remove("hidden");
-    CreateJobPosterAPI.firstLoad();
-    CreateJobPosterAPI.getLookupData("province");
-    CreateJobPosterAPI.getLookupData("city");
-    CreateJobPosterAPI.getLookupData("jobterm");
+    TalentCloudAPI.hideAllContent();
+    
+    var createJobPosterSection = document.getElementById("createJobPosterSection");
+    createJobPosterSection.classList.remove("hidden");
+    //CreateJobPosterAPI.firstLoad();
+    //CreateJobPosterAPI.getLookupData("province");
+    //CreateJobPosterAPI.getLookupData("city");
+    //CreateJobPosterAPI.getLookupData("jobterm");
     
 };
 

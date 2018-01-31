@@ -1061,6 +1061,41 @@
             </div>
         </div>
     </section>
+    <section class="section" id="createJobPosterSection">
+        <h2 class="section--title">Create a new Job Poster</h2>
+        <div class="wb-frmvld wb-init" id="jobPosterFormWrapper">
+            <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
+                <section id="createJobPosterBanner" class="text-center">
+                    <div class="form-group">
+                        <label for="createJobPosterJobTitle">
+                            <strong id="createJobPosterJobTitleError" class="error hidden">
+                                <span id="createJobPosterJobTitleErrorMsg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <input class="form-control form-textbox" id="createJobPosterJobTitle" name="createJobPosterJobTitle" type="text" required="" placeholder="Job Title"/>
+                    </div>
+                </section>
+                <section id="createJobPosterDetails">
+                    <div class="form-group">
+                        <label for="createJobPosterAreaOfGovernment">
+                            <span class="field-name">Area of Government</span> <strong class="required">(required)</strong>
+                            <!-- pre WET version 
+                            <span>Area of Government</span>
+                            <strong id="createJobPosterAreaOfGovernmentError" class="error hidden">
+                                <span id="createJobPosterAreaOfGovernmentErrorMsg" class="label label-danger"></span>
+                            </strong>
+                            -->
+                        </label>
+                        <input class="form-control form-textbox" id="createJobPosterAreaOfGovernment" name="createJobPosterAreaOfGovernment" type="text" required=""/>
+                    </div>
+                </section>
+            </form>
+        </div>
+            
+        <section id="createJobPosterBanner">
+            
+        </section>
+    </section>
 </main>
 
 <!-- BEGIN - Footer-->
