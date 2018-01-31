@@ -278,7 +278,7 @@ TalentCloudAPI.setLanguage = function(locale){
  */
 TalentCloudAPI.hideAllContent = function(){
     var overlays = document.getElementById("overlays").children;
-    var sections = document.getElementsByTagName("main")[0].getElementsByTagName("section");
+    var sections = document.getElementsByTagName("main")[0].children;
     
     for(var i = 0;i < overlays.length;i++){
         overlays[i].classList.add("hidden");

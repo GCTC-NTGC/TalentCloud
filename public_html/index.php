@@ -261,8 +261,7 @@
 </div>
 
 <!-- BEGIN - Main Content Section-->
-<main>
-<div class="contentContainer">
+<main class="contentContainer">
     <section class="section" id="browseJobsSection">
         <div class="container">
 
@@ -361,7 +360,6 @@
             </ul>
         </div>
     </section>
-</div>
 </main>
 <!-- BEGIN - Footer-->
 <?php include 'inc/footer.php';?>
