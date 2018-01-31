@@ -126,8 +126,10 @@
             </div>
 
             <div class="dialogWindowInterior">
-                <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.svg"/>
-                <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/></a>
+                <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.svg" alt="User profile image"/>
+                <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()">
+                    <img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/>
+                </a>
 
                 <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
 
@@ -163,7 +165,7 @@
                     </div>
                     <div class="form-group">
                         <label for="profileEditTwitter">
-                            <img src="images/twitter.png"/>
+                            <img src="images/twitter.png" alt="Twitter logo"/>
                             <span>Twitter Username:</span>
                             <strong id="profileEditTwitterError" class="error hidden">
                                 <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
@@ -175,7 +177,7 @@
                     </div>
                     <div class="form-group">
                         <label for="profileEditLinkedin">
-                            <img src="images/linkedin.png"/>
+                            <img src="images/linkedin.png" alt="LinkedIn logo"/>
                             <span>LinkedIn Profile Address:</span>
                             <strong id="profileEditLinkedinError" class="error hidden">
                                 <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
@@ -278,7 +280,7 @@
                 No jobs found
             </div>
             <div id="loadingJobs" class="hidden">
-                <img src="/images/working.gif" alt="loading jobs"/>
+                <img src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
 
@@ -304,20 +306,20 @@
                 <div id="profileBasicInfoTopBar" style="padding:1em;">
                     <ul id="profileSocialMediaLinks" style="display: inline;"> 
                         <li id="profileTwitterLinkWrapper" class="hidden">
-                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink"/></a>
+                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink" alt="Twitter logo"/></a>
                         </li>
                         <li id="profileLinkedinLinkWrapper" class="hidden">
-                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
+                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink" alt="LinkedIn logo"/></a>
                         </li>    
                     </ul>
                     <div style="display: inline;">
-                        <img id="myProfilePic" class="profilePicLarge" src="images/user.svg"/>
+                        <img id="myProfilePic" class="profilePicLarge" src="images/user.svg" alt="User profile image"/>
                         <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_light.png" alt="Edit Basic Info" class="editImage"/></a>
                     </div>
                 </div>
                 <div id="profileNameWrapper">
-                    <h1 id="profileName">
-                        <span id="profileFirstName"></span> <span id="profileLastName"></span></h1>
+                    <h2 id="profileName">
+                        <span id="profileFirstName"></span> <span id="profileLastName"></span></h2>
                 </div>
                 <div style="background-color:#E5F8FF;">
                     <p id="profileTagLine">Default tag line!</p>

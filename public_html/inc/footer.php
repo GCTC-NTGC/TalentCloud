@@ -3,10 +3,10 @@
             </footer>
             <!-- BEGIN - Add Contact Overlay and Form-->
             <script src="js/Messages.js"></script>
-            <script type="text/javascript">
+            <script>
                 EventsAPI.onLoadEvents();
             </script>
-            <script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
+            <script src="/js/AccessibilityAPI.js"></script>
         </div> <!-- End of main container -->
     </body>
 </html>
