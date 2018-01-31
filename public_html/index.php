@@ -225,7 +225,7 @@
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
         <div id="profileAboutMeFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
-            <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle">
+            <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
                 <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
                 <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
             </div>
