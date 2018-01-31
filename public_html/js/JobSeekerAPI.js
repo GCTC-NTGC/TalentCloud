@@ -568,11 +568,12 @@ JobSeekerAPI.saveJobSeekerProfileLoaded = function(response){
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON());
 };
 
-JobSeekerAPI.showJobSeekerProfileForm = function () {
-    var stateInfo = {pageInfo: 'create_job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
+JobSeekerAPI.showJobSeekerProfile = function () {
+    var stateInfo = {pageInfo: 'job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #Register instead of url
+    history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #MyProfile instead of url
 
+    TalentCloudAPI.hideAllContent();
     EventsAPI.clearJobsContainer();
 
     var jobSeekerProfileOverlay = document.getElementById("profileSection");

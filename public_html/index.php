@@ -311,6 +311,7 @@
     </section>
     
     <section class="section hidden" id="profileSection">
+        <h2 class="section--title">My Profile</h2>
         <div id="profileBasicInfo" class="centered">
             <div id="profileBasicInfoTopBar" style="padding:1em;">
                 <ul id="profileSocialMediaLinks" style="display: inline;"> 

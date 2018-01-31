@@ -25,7 +25,7 @@
                         </li>
                        
                         <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
-                            <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfileForm()">My Profile</a>
+                            <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile()">My Profile</a>
                        </li>
                         
                         <li class="top-nav--link">
