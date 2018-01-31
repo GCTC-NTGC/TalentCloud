@@ -575,7 +575,7 @@ JobSeekerAPI.showJobSeekerProfileForm = function () {
 
     EventsAPI.clearJobsContainer();
 
-    var jobSeekerProfileOverlay = document.getElementById("jobSeekerProfileWrapperWindow");
+    var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.remove("hidden");
 
     var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
@@ -588,7 +588,7 @@ JobSeekerAPI.showJobSeekerProfileForm = function () {
 };
 
 JobSeekerAPI.hideJobSeekerProfileForm = function () {
-    var jobSeekerProfileOverlay = document.getElementById("jobSeekerProfileWrapperWindow");
+    var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.add("hidden");
 
     //UserAPI.clearFormFields("jobSeekerForm");
