@@ -309,6 +309,7 @@ div label span{
 #profileBasicInfo {
     text-align: center;
     padding: 2em 0em;
+    margin-top: -130px;
 }
 
 #profileBasicInfoTopBar {
@@ -336,6 +337,10 @@ div label span{
 #profileBasicInfoEdit {
     float: left;
     margin-left: 1em;
+}
+
+#profileName {
+    margin-top: 0px;
 }
 
 .profileSection {

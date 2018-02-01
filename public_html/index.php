@@ -310,7 +310,6 @@
     </section>
     
     <section class="section hidden" id="profileSection">
-        <h2 class="section--title">My Profile</h2>
         <div id="profileBasicInfo" class="centered">
             <div id="profileBasicInfoTopBar">
                 <div style="width:40%"> 
@@ -329,8 +328,8 @@
                 </div>
             </div>
             <div id="profileNameWrapper">
-                <h1 id="profileName">
-                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h1>
+                <h3 id="profileName">
+                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h3>
             </div>
             <div style="background-color:#E5F8FF;">
                 <p id="profileTagLine">Default tag line!</p>
