@@ -10,10 +10,22 @@ var CreateJobPosterAPI = {};
 CreateJobPosterAPI.jobObjEnglish = new JobPostAPI.JobPost();
 CreateJobPosterAPI.jobObjFrench = new JobPostAPI.JobPost();
 
+CreateJobPosterAPI.JobPostMultilingual = function() {
+    this.id = id;
+    this.title_en = title;
+    this.title_fr
+    this.applicants_to_date = applicants_to_date;
+    this.close_date_time = close_date_time;
+    this.department = department;
+    this.location_city = location_city;
+    this.location_province = location_province;
+    this.term_qty = term_qty;
+    this.term_units = term_units;
+    this.remuneration_type = remuneration_type;
+    this.remuneration_range_low = remuneration_range_low;
+    this.remuneration_range_high = remuneration_range_high;
+}
 
-
-
-//This should be in the JobPosterAPI or TalentCloudAPI-not user related
 CreateJobPosterAPI.showCreateJobPosterForm = function(){
     var stateInfo = {pageInfo: 'create_job_poster', pageTitle: 'Talent Cloud: Create Job Poster'};
     document.title = stateInfo.pageTitle;
@@ -191,6 +203,34 @@ CreateJobPosterAPI.validateStep4 = function() {
     }
 };
 
+CreateJobPosterAPI.validateJobPosterForm = function() { 
+    var valid = true; 
+     
+    var jobTitle = document.getElementById("createJobPoster_jobTitle").value; 
+    CreateJobPosterAPI.jobObjEnglish.title = jobTitle; 
+     
+    var jobTitle_fr = document.getElementById("createJobPoster_jobTitle_fr").value; 
+    CreateJobPosterAPI.jobObjFrench.title = jobTitle_fr; 
+     
+    var closeDate = document.getElementById("createJobPoster_closeDate").value; 
+    CreateJobPosterAPI.jobObjEnglish.close_date_time = closeDate; 
+     
+    var closeDate_fr = document.getElementById("createJobPoster_closeDate_fr").value; 
+    CreateJobPosterAPI.jobObjFrench.close_date_time = closeDate_fr; 
+         
+    var department = document.getElementById("createJobPoster_department").value; 
+    CreateJobPosterAPI.jobObjEnglish.department = department; 
+     
+    var department_fr = document.getElementById("createJobPoster_department_fr").value; 
+    CreateJobPosterAPI.jobObjFrench.department = department_fr; 
+     
+    //TODO: VALIDATION 
+     
+    if (valid) { 
+        CreateJobPosterAPI.submitJobPosterForm(); 
+    } 
+} 
+
 
 CreateJobPosterAPI.submitJobPosterForm = function() {
     
@@ -294,11 +334,10 @@ CreateJobPosterAPI.populateLookups = function(lookupType,response){
             optionRow.appendChild(optionLabel);
             jobTermSelect.appendChild(optionRow);
         }
-    }
-    
+    }  
 };
 
-CreateJobPosterAPI.createJobPoster = function(){
+CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
     var createJobPoster_URL = DataAPI.baseURL+"/putJobPoster";
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
@@ -306,38 +345,44 @@ CreateJobPosterAPI.createJobPoster = function(){
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
     }
-    var talentcloudData_xhr = new XMLHttpRequest();
-    if ("withCredentials" in talentcloudData_xhr) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
 
       // Check if the XMLHttpRequest object has a "withCredentials" property.
       // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      talentcloudData_xhr.open("GET", talentcloudData_URL);
+      xhr.open("POST", createJobPoster_URL);
 
     } else if (typeof XDomainRequest != "undefined") {
 
       // Otherwise, check if XDomainRequest.
       // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      talentcloudData_xhr = new XDomainRequest();
-      talentcloudData_xhr.open("GET", createJobPoster_URL);
+      xhr = new XDomainRequest();
+      xhr.open("POST", createJobPoster_URL);
 
     } else {
 
       // Otherwise, CORS is not supported by the browser.
-      talentcloudData_xhr = null;
+      xhr = null;
 
     }
+    xhr.open('POST',createJobPoster_URL);
+    xhr.setRequestHeader('x-access-token', authToken.access_token);
     
-    talentcloudData_xhr.addEventListener("progress",
+    xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);
     },false);
-    talentcloudData_xhr.addEventListener("load",
+    xhr.addEventListener("load",
     function(evt){
-        DataAPI.talentcloudDataloaded(talentcloudData_xhr.responseText,isManager);
+        CreateJobPosterAPI.postJobPosterComplete(xhr.response);
     },false);
-    talentcloudData_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    talentcloudData_xhr.addEventListener("abort",DataAPI.transferAborted,false);
+    xhr.addEventListener("error",DataAPI.transferFailed,false);
+    xhr.addEventListener("abort",DataAPI.transferAborted,false);
 
-    talentcloudData_xhr.open('POST',createJobPoster_URL);
-    talentcloudData_xhr.send(authToken);
+    xhr.send(jobPosterJson);
 }
+
+CreateJobPosterAPI.postJobPosterComplete = function(response) {
+    //TODO
+    console.log(response);
+};

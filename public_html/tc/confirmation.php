@@ -271,7 +271,7 @@ and open the template in the editor .
                                 <div class="tabsWrapper">
                                     <div class="tabsSteps">
                                         <ul class="tabsList">
-                                            <li class="four-step-tab four-step-tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,profile_first_name)">Contact Details</a></li>
+                                            <li class="four-step-tab tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,profile_first_name)">Contact Details</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',false,null,'profile_accomplishment')">Accomplishments</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup','jobSeekerFormStepGroup',false,null,'profile_best_experience')">Experiences</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('superpowers','jobSeekerFormStepGroup','jobSeekerFormStepGroup',false,null,'profile_superpower')">Superpowers</a></li>
@@ -332,7 +332,7 @@ and open the template in the editor .
                                     <div class="tabsSteps">
                                         <ul class="tabsList">
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,'profile_first_name')">Contact Details</a></li>
-                                            <li class="four-step-tab four-step-tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',false,null,'profile_accomplishment')">Accomplishments</a></li>
+                                            <li class="four-step-tab tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',false,null,'profile_accomplishment')">Accomplishments</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup',false,null,'profile_best_experience')">Experiences</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('superpowers','jobSeekerFormStepGroup',false,null,'profile_superpower')">Superpowers</a></li>
                                         </ul>
@@ -368,7 +368,7 @@ and open the template in the editor .
                                         <ul class="tabsList">
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,'profile_first_name')">Contact Details</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',false,null,'profile_accomplishment')">Accomplishments</a></li>
-                                            <li class="four-step-tab four-step-tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup',false,null,'profile_best_experience')">Experiences</a></li>
+                                            <li class="four-step-tab tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup',false,null,'profile_best_experience')">Experiences</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('superpowers','jobSeekerFormStepGroup',false,null,'profile_superpower')">Superpowers</a></li>
                                         </ul>
                                     </div>
@@ -417,7 +417,7 @@ and open the template in the editor .
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,'profile_first_name')">Contact Details</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('accomplishments','jobSeekerFormStepGroup',false,null,'profile_accomplishment')">Accomplishments</a></li>
                                             <li class="four-step-tab"><a href="#" class="steppedFormLink" onclick="FormsAPI.steppedForm.validateStep('experiences','jobSeekerFormStepGroup',false,null,'profile_best_experience')">Experiences</a></li>
-                                            <li class="four-step-tab four-step-tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('superpowers','jobSeekerFormStepGroup',false,null,'profile_superpower')">Superpowers</a></li>
+                                            <li class="four-step-tab tab-current"><a href="#" class="steppedFormLinkActive" onclick="FormsAPI.steppedForm.validateStep('superpowers','jobSeekerFormStepGroup',false,null,'profile_superpower')">Superpowers</a></li>
                                         </ul>
                                     </div>
                                     <div class="tabs">
