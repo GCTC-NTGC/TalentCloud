@@ -133,7 +133,7 @@
 
                     <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
 
-                        <div class="form-group">
+                        <div class="form-group leftPane">
                             <label for="profileEditFirstName">
                                 <span>First Name:</span>
                                 <strong id="profileEditFirstNameError" class="error hidden">
@@ -141,10 +141,10 @@
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
+                                <input class="form-control full-width" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group rightPane">
                             <label for="profileEditLastName">
                                 <span>Last Name:</span>
                                 <strong id="profileEditLastNameError" class="error hidden">
@@ -152,39 +152,39 @@
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
+                                <input class="form-control full-width" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group clear">
                             <label for="profileEditTagline">
                                 <span>Tagline:</span>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditTagline" id="profileEditTagline"/>
+                                <input class="form-control full-width" type="text" name="profileEditTagline" id="profileEditTagline"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="profileEditTwitter">
-                                <img src="images/twitter.png"/>
+                                <img src="images/twitter.png" class="form-icon"/>
                                 <span>Twitter Username:</span>
                                 <strong id="profileEditTwitterError" class="error hidden">
                                     <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
+                                <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="profileEditLinkedin">
-                                <img src="images/linkedin.png"/>
+                                <img src="images/linkedin.png" class="form-icon"/>
                                 <span>LinkedIn Profile Address:</span>
                                 <strong id="profileEditLinkedinError" class="error hidden">
                                     <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
+                                <input class="form-control full-width" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
                             </div>
                         </div>
                         <div>

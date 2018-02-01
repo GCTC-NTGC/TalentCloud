@@ -64,6 +64,25 @@ nav{
     padding: 2em 2em 2em 2em;
 }
 
+.form-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.clear {
+    clear: both;
+}
+
+.leftPane {
+    width: 45%;
+    float: left;
+}
+
+.rightPane {
+    width: 45%;
+    float: right;
+}
+
 .tc-logo {
   background-image: url("images/talentcloud_logo_white.png");
   background-position:  center;
