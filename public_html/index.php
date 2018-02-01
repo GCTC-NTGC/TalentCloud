@@ -289,7 +289,7 @@
                 No jobs found
             </div>
             <div id="loadingJobs" class="hidden">
-                <img src="/images/working.gif" alt="loading jobs"/>
+                <img src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
 
