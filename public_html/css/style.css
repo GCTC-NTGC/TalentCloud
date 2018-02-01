@@ -354,6 +354,7 @@ div label span{
 
 .profileSectionTitleBar h3{
     display: inline;
+    font-weight: bold;
 }
 
 
@@ -529,6 +530,9 @@ div label span{
 .section{
     clear:both;
     height:100%;
+    max-width: 1200px;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .searchWrapper{
