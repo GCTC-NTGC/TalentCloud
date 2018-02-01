@@ -311,13 +311,31 @@ div label span{
     padding: 2em 0em;
 }
 
+#profileBasicInfoTopBar {
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #profileSocialMediaLinks {
     list-style-type: none;
+    float: right;
 }
 
 #profileSocialMediaLinks li{
     display: inline;
-    padding: 1em;
+    padding: 0.5em;
+}
+
+#profileSocialMediaLinks img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+#profileBasicInfoEdit {
+    float: left;
+    margin-left: 1em;
 }
 
 .profileSection {
@@ -339,8 +357,8 @@ div label span{
 }
 
 .sectionEditBtn img{
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .registerFormWrapperWindow{

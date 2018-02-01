@@ -312,17 +312,19 @@
     <section class="section hidden" id="profileSection">
         <h2 class="section--title">My Profile</h2>
         <div id="profileBasicInfo" class="centered">
-            <div id="profileBasicInfoTopBar" style="padding:1em;">
-                <ul id="profileSocialMediaLinks" style="display: inline;"> 
-                    <li id="profileTwitterLinkWrapper" class="hidden">
-                        <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink"/></a>
-                    </li>
-                    <li id="profileLinkedinLinkWrapper" class="hidden">
-                        <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
-                    </li>    
-                </ul>
-                <div style="display: inline;">
-                    <img id="myProfilePic" class="profilePicLarge" src="images/user.svg"/>
+            <div id="profileBasicInfoTopBar">
+                <div style="width:40%"> 
+                    <ul id="profileSocialMediaLinks"> 
+                        <li id="profileTwitterLinkWrapper" class="hidden">
+                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink"/></a>
+                        </li>
+                        <li id="profileLinkedinLinkWrapper" class="hidden">
+                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
+                        </li>    
+                    </ul>
+                </div>
+                <img id="myProfilePic" class="profilePicLarge" src="images/user.svg"/>
+                <div style="width:40%">
                     <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_light.png" alt="Edit Basic Info" class="editImage"/></a>
                 </div>
             </div>
