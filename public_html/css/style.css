@@ -60,6 +60,10 @@ nav{
     right:0;
 }
 
+.section{
+    padding: 2em 2em 2em 2em;
+}
+
 .tc-logo {
   background-image: url("images/talentcloud_logo_white.png");
   background-position:  center;
@@ -302,10 +306,6 @@ div label span{
     min-height: 200px;
 }
 
-.createEditProfile{
-    padding: 2em 2em 2em 2em;
-}
-
 #profileBasicInfo {
     text-align: center;
     padding: 2em 0em;
@@ -457,25 +457,19 @@ div label span{
     background-color: #ddd;
 }
 
-.create-job-poster-tab,.four-step-tab{
-    width: 25%;
-    position: relative;
-}
-
-.create-profile-tab{
+.three-step-tab {
     width: 33%;
     position: relative;
 }
 
-
-.create-job-poster-tab-current,.four-step-tab-current{
+.tab-current {
     color: #fff;
     background-color: #5599e5;
 }
 
-.create-profile-tab-current{
-    color: #fff;
-    background-color: #5599e5;
+.four-step-tab{
+    width: 25%;
+    position: relative;
 }
 
 .tabbedForm{

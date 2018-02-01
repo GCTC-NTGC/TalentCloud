@@ -71,27 +71,7 @@ EventsAPI.onLoadEvents = function(){
 };
 
 EventsAPI.hideAllLayouts = function(){
-    if(window.location.href.includes(TalentCloudAPI.roles.manager)){
-        var overlays = ["loginOverlay", "registerFormOverlay", "createEditProfile", "viewProfile", "jobSeekers"];
-        for(var i = 0;i < overlays.length;i++){
-            var overlayDOM = document.getElementById(overlays[i]);
-            overlayDOM.classList.add("hidden");
-        }
-    }else if(window.location.href.includes(TalentCloudAPI.roles.admin)){
-        var overlays = ["loginOverlay", "registerFormOverlay", "createEditProfile", "viewProfile", "jobSeekers"];
-        for(var i = 0;i < overlays.length;i++){
-            var overlayDOM = document.getElementById(overlays[i]);
-            overlayDOM.classList.add("hidden");
-        }
-    }
-    else{
-        var overlays = ["loginOverlay", "registerFormOverlay","viewJobPosterOverlay","viewJobPosterApplicationOverlay"];
-        for(var i = 0;i < overlays.length;i++){
-            var overlayDOM = document.getElementById(overlays[i]);
-            overlayDOM.classList.add("hidden");
-        }
-    }
-    
+    TalentCloudAPI.hideAllContent();
 };
 
 EventsAPI.cancelLogin = function(){
