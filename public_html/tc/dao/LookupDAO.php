@@ -161,7 +161,7 @@ class LookupDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sqlStr = "
             SELECT j.job_term_id as id, j.job_term as value
-            FROM job_term j, locale l
+            FROM job_term_details j, locale l
             WHERE l.locale_iso = :locale
             AND j.job_term_locale_id = l.locale_id;
             ";
