@@ -211,7 +211,9 @@ JobPostAPI.populateJob = function(job, demo, locale){
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+job.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
     jobSalaryRange.setAttribute("tabindex", "0");
-    jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
+    if (job.remuneration_range_low && job.remuneration_range_high) {
+        jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
+    }
 
     var jobDepartment = document.createElement("div");
     jobDepartment.setAttribute("class", "jobDepartment");
