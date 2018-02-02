@@ -241,3 +241,12 @@ Utilities.replaceElementText = function(element, newText) {
         element.removeChild( element.firstChild );
     element.appendChild( document.createTextNode(newText) );
 };
+
+Utilities.clearSelectOptions = function(selectElement)
+{
+    var i;
+    for(i = selectElement.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectElement.remove(i);
+    }
+};

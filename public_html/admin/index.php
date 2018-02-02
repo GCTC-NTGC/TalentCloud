@@ -682,243 +682,203 @@
         <h2 class="section--title">Create a new Job Poster</h2>
         <div class="wb-frmvld wb-init tabbedForm" id="jobPosterFormWrapper">
             <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
-                <!--
-                <section id="createJobPosterBanner" class="text-center">
-                    <div class="form-group">
-                        <label for="createJobPosterJobTitle">
-                            <strong id="createJobPosterJobTitleError" class="error hidden">
-                                <span id="createJobPosterJobTitleErrorMsg" class="label label-danger"></span>
-                            </strong>
-                        </label>
-                        <input class="form-control form-textbox" id="createJobPosterJobTitle" name="createJobPosterJobTitle" type="text" required="" placeholder="Job Title"/>
-                    </div>
-                </section>
-                <section id="createJobPosterDetails">
-                    <div class="form-group">
-                        <label for="createJobPosterAreaOfGovernment">
-                            <span class="field-name">Area of Government</span> <strong class="required">(required)</strong>
-                            <!-- pre WET version 
-                            <span>Area of Government</span>
-                            <strong id="createJobPosterAreaOfGovernmentError" class="error hidden">
-                                <span id="createJobPosterAreaOfGovernmentErrorMsg" class="label label-danger"></span>
-                            </strong>
-                            ->
-                        </label>
-                        <input class="form-control form-textbox" id="createJobPosterAreaOfGovernment" name="createJobPosterAreaOfGovernment" type="text" required=""/>
-                    </div>
-                </section>
-            -->
-            
-            <div id="createJobPosterCreateTab" class="stepGroup">
-                <div class="tabsWrapper">
-                    <div class="tabsSteps">
-                        <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
-                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
-                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
-                    </div>
-                    <div class="tabs">
-                        <div class="steptab active"> </div>
-                        <div class="steptab inactive"> </div>
-                        <div class="steptab inactive"> </div>
-                    </div>
-                </div>
-                <div class="stepGroupForm">
-                    <section id ="createJobPosterJobTitleSection">
-                        <div class="leftPane">
-                            <div class="form-group">
-                                <label for="createJobPoster_jobTitle">
-                                    <span>Job Title: *</span>
-                                    <strong id="createJobPoster_jobTitle_error" class="error hidden">
-                                        <span id="createJobPoster_jobTitle_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_jobTitle" id="createJobPoster_jobTitle"/>
-                                </div>
-                            </div>
+                <div id="createJobPosterCreateTab" class="stepGroup">
+                    <div class="tabsWrapper">
+                        <div class="tabsSteps">
+                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
+                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
+                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
                         </div>
-                        <div class="rightPane">
-                            <div class="form-group">
-                                <label for="createJobPoster_jobTitle_fr">
-                                    <span>Job Title_fr: *</span>
-                                    <strong id="createJobPoster_jobTitle_fr_error" class="error hidden">
-                                        <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_jobTitle_fr" id="createJobPoster_jobTitle_fr"/>
-                                </div>
-                            </div>
+                        <div class="tabs">
+                            <div class="steptab active"> </div>
+                            <div class="steptab inactive"> </div>
+                            <div class="steptab inactive"> </div>
                         </div>
-                    </section>
-                    <section id="createJobPosterDetailsSection">
-                        <div class="singlePane">
-                            <div class="form-group">
-                                <label for="createJobPoster_department">
-                                    <span><span id="createJobPoster_department_labelName">Department</span>: *</span>
-                                    <strong id="createJobPoster_department_error" class="error hidden">
-                                        <span id="createJobPoster_department_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_department" id="createJobPoster_department" onkeyup="DepartmentAPI.filterCreateJobPosterDepartments()"/>
-                                </div>
-                                <div id="createJobPoster_listOfDepartments">
-                                    <ul>
-                                    </ul>
+                    </div>
+                    <div class="stepGroupForm">
+                        <section id ="createJobPosterJobTitleSection">
+                            <div class="leftPane">
+                                <div class="form-group">
+                                    <label for="createJobPoster_jobTitle">
+                                        <span>Job Title: *</span>
+                                        <strong id="createJobPoster_jobTitle_error" class="error hidden">
+                                            <span id="createJobPoster_jobTitle_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_jobTitle" id="createJobPoster_jobTitle"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="createJobPoster_province">
-                                    <span><span id="createJobPoster_province_labelName">Province</span>: *</span>
-                                    <strong id="createJobPoster_province_error" class="error hidden">
-                                        <span id="createJobPoster_province_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <select class="form-control full-width" name="createJobPoster_province" id="createJobPoster_province">
+                            <div class="rightPane">
+                                <div class="form-group">
+                                    <label for="createJobPoster_jobTitle_fr">
+                                        <span>Job Title_fr: *</span>
+                                        <strong id="createJobPoster_jobTitle_fr_error" class="error hidden">
+                                            <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_jobTitle_fr" id="createJobPoster_jobTitle_fr"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="createJobPosterDetailsSection">
+                            <div class="singlePane">
+                                <div class="form-group">
+                                    <label for="createJobPoster_department">
+                                        <span><span id="createJobPoster_department_labelName">Department</span>: *</span>
+                                        <strong id="createJobPoster_department_error" class="error hidden">
+                                            <span id="createJobPoster_department_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <select class="form-control full-width" name="createJobPoster_department" id="createJobPoster_department">
                                         <option value="">--</option>
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="leftPane">                            
-                            <div class="form-group">
-                                <label for="createJobPoster_city">
-                                    <span>City: *</span>
-                                    <strong id="createJobPoster_city_error" class="error hidden">
-                                        <span id="createJobPoster_city_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <select class="form-control full-width" name="createJobPoster_city" id="createJobPoster_city">
-                                        <option value="">--</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="createJobPoster_province">
+                                        <span><span id="createJobPoster_province_labelName">Province</span>: *</span>
+                                        <strong id="createJobPoster_province_error" class="error hidden">
+                                            <span id="createJobPoster_province_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <select class="form-control full-width" name="createJobPoster_province" id="createJobPoster_province">
+                                            <option value="">--</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="rightPane">
-                            <div class="form-group">
-                                <label for="createJobPoster_city_fr">
-                                    <span>City_fr: *</span>
-                                    <strong id="createJobPoster_city_fr_error" class="error hidden">
-                                        <span id="createJobPoster_city_fr_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_city_fr" id="createJobPoster_city_fr"/>
+                            <div class="leftPane">                            
+                                <div class="form-group">
+                                    <label for="createJobPoster_city">
+                                        <span>City: *</span>
+                                        <strong id="createJobPoster_city_error" class="error hidden">
+                                            <span id="createJobPoster_city_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_city" id="createJobPoster_city"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="singlePane">
-                            <div class="form-group">
-                                <label for="createJobPoster_minSalary">
-                                    <span><span id="createJobPoster_minSalary_labelName">Minimum salary</span>: *</span>
-                                    <strong id="createJobPoster_minSalary_error" class="error hidden">
-                                        <span id="createJobPoster_minSalary_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_minSalary" id="createJobPoster_minSalary"/>
+                            <div class="rightPane">
+                                <div class="form-group">
+                                    <label for="createJobPoster_city_fr">
+                                        <span>City_fr: *</span>
+                                        <strong id="createJobPoster_city_fr_error" class="error hidden">
+                                            <span id="createJobPoster_city_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_city_fr" id="createJobPoster_city_fr"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="createJobPoster_maxSalary">
-                                    <span><span id="createJobPoster_maxSalary_labelName">Maximum salary</span>: *</span>
-                                    <strong id="createJobPoster_maxSalary_error" class="error hidden">
-                                        <span id="createJobPoster_maxSalary_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_maxSalary" id="createJobPoster_maxSalary"/>
+                            <div class="singlePane">
+                                <div class="form-group">
+                                    <label for="createJobPoster_remunerationLowRange">
+                                        <span><span id="createJobPoster_remunerationLowRange_labelName">Minimum salary</span>: *</span>
+                                        <strong id="createJobPoster_remunerationLowRange_error" class="error hidden">
+                                            <span id="createJobPoster_remunerationLowRange_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_remunerationLowRange" id="createJobPoster_remunerationLowRange"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_remunerationHighRange">
+                                        <span><span id="createJobPoster_remunerationHighRange_labelName">Maximum salary</span>: *</span>
+                                        <strong id="createJobPoster_remunerationHighRange_error" class="error hidden">
+                                            <span id="createJobPoster_remunerationHighRange_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_remunerationHighRange" id="createJobPoster_remunerationHighRange"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_termQuantity">
+                                        <span><span id="createJobPoster_termQuantity_labelName">Duration (months)</span>: *</span>
+                                        <strong id="createJobPoster_termQuantity_error" class="error hidden">
+                                            <span id="createJobPoster_termQuantity_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="text" name="createJobPoster_termQuantity" id="createJobPoster_termQuantity"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_openDate">
+                                        <span><span id="createJobPoster_openDate_labelName">Open Date</span>: *</span>
+                                        <strong id="createJobPoster_openDate_error" class="error hidden">
+                                            <span id="createJobPoster_openDate_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="datetime-local" name="createJobPoster_openDate" id="createJobPoster_openDate"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_closeDate">
+                                        <span><span id="createJobPoster_closeDate_labelName">Close Date</span>: *</span>
+                                        <strong id="createJobPoster_closeDate_error" class="error hidden">
+                                            <span id="createJobPoster_closeDate_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="datetime-local" name="createJobPoster_closeDate" id="createJobPoster_closeDate"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="createJobPoster_termQuantity">
-                                    <span><span id="createJobPoster_termQuantity_labelName">Duration (months)</span>: *</span>
-                                    <strong id="createJobPoster_termQuantity_error" class="error hidden">
-                                        <span id="createJobPoster_termQuantity_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="createJobPoster_termQuantity" id="createJobPoster_termQuantity"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="createJobPoster_openDate">
-                                    <span><span id="createJobPoster_openDate_labelName">Open Date</span>: *</span>
-                                    <strong id="createJobPoster_openDate_error" class="error hidden">
-                                        <span id="createJobPoster_openDate_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="datetime-local" name="createJobPoster_openDate" id="createJobPoster_openDate"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="createJobPoster_closeDate">
-                                    <span><span id="createJobPoster_closeDate_labelName">Close Date</span>: *</span>
-                                    <strong id="createJobPoster_closeDate_error" class="error hidden">
-                                        <span id="createJobPoster_closeDate_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form-control full-width" type="datetime-local" name="createJobPoster_closeDate" id="createJobPoster_closeDate"/>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                        </section>
 
-                    <div class="createJobPosterSubmitPane">
-                        <div class="formGroup insert">*Required</div>
-                        <div class="formGroup">
-                            <input type="button" id="createJobPosterSubmitButton" value="Submit" onclick="Create">
+                        <div class="createJobPosterSubmitPane">
+                            <div class="formGroup insert">*Required</div>
+                            <div class="formGroup">
+                                <input type="button" id="createJobPosterSubmitButton" value="Submit" onclick="Create">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-             <div id="createJobPosterOutdatedTab" class="stepGroup">
-                <div class="tabsWrapper">
-                    <div class="tabsSteps">
-                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
-                        <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
-                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
+                 <div id="createJobPosterOutdatedTab" class="stepGroup hidden">
+                    <div class="tabsWrapper">
+                        <div class="tabsSteps">
+                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
+                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
+                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
+                        </div>
+                        <div class="tabs">
+                            <div class="steptab active"> </div>
+                            <div class="steptab inactive"> </div>
+                            <div class="steptab inactive"> </div>
+                        </div>
                     </div>
-                    <div class="tabs">
-                        <div class="steptab active"> </div>
-                        <div class="steptab inactive"> </div>
-                        <div class="steptab inactive"> </div>
+                     <h3>This is for outdated fields</h3>
+                 </div>
+                <div id="createJobPosterReviewTab" class="stepGroup hidden">
+                    <div class="tabsWrapper">
+                        <div class="tabsSteps">
+                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_3">Create</a></div>
+                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_3">Outdated</a></div>
+                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_3">Review</a></div>
+                        </div>
+                        <div class="tabs">
+                            <div class="steptab inactive"> </div>
+                            <div class="steptab inactive"> </div>
+                            <div class="steptab active"> </div>
+                        </div>
                     </div>
-                </div>
-                 <h3>This is for outdated fields</h3>
-             </div>
-            <div id="createJobPosterReviewTab" class="stepGroup hidden">
-                <div class="tabsWrapper">
-                    <div class="tabsSteps">
-                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_3">Create</a></div>
-                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_3">Outdated</a></div>
-                        <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_3">Review</a></div>
-                    </div>
-                    <div class="tabs">
-                        <div class="steptab inactive"> </div>
-                        <div class="steptab inactive"> </div>
-                        <div class="steptab active"> </div>
-                    </div>
-                </div>
-                <div class="stepGroupForm">
-                    <div class="formGroup">
-                        <div class="createJobPosterDemoAreaEnglish" id="createJobPosterDemoAreaEnglish"></div>
-                        <div class="createJobPosterDemoAreaFrench" id="createJobPosterDemoAreaFrench"></div>
-                    </div>
-                </div>
-                <div class="createJobPosterSubmitPane">
-                    <div id="createJobPosterSubmitInstructions" class="formGroup insert">Submit to publish new job poster.</div>
-                    <div class="formGroup">
-                        <input type="button" id="createJobPoster_goToStep3_2"  value="Go to Step 3" onclick="CreateJobPosterAPI.goToStep('step3')">
-                        <input id ="createJobPosterSubmitButton" type="submit" value="Submit" onclick="CreateJobPosterAPI.validateStep4()">
+                    <div class="stepGroupForm">
+                        <div class="formGroup">
+                            <div class="createJobPosterDemoAreaEnglish" id="createJobPosterDemoAreaEnglish"></div>
+                            <div class="createJobPosterDemoAreaFrench" id="createJobPosterDemoAreaFrench"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
         </div>
             
