@@ -7,7 +7,7 @@
  * Author:  Tristan O'Rourke
  * Created: Feb 01, 2018
  */
-
+DROP TABLE IF EXISTS `talentcloud`.`job_term_details`;
 CREATE TABLE `talentcloud`.`job_term_details` (
   `job_term_details_id` INT(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `job_term_id` INT(10) UNSIGNED ZEROFILL NOT NULL,

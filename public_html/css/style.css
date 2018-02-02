@@ -64,6 +64,25 @@ nav{
     padding: 2em 2em 2em 2em;
 }
 
+.form-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.clear {
+    clear: both;
+}
+
+.leftPane {
+    width: 45%;
+    float: left;
+}
+
+.rightPane {
+    width: 45%;
+    float: right;
+}
+
 .tc-logo {
   background-image: url("images/talentcloud_logo_white.png");
   background-position:  center;
@@ -309,15 +328,38 @@ div label span{
 #profileBasicInfo {
     text-align: center;
     padding: 2em 0em;
+    margin-top: -130px;
+}
+
+#profileBasicInfoTopBar {
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #profileSocialMediaLinks {
     list-style-type: none;
+    float: right;
 }
 
 #profileSocialMediaLinks li{
     display: inline;
-    padding: 1em;
+    padding: 0.5em;
+}
+
+#profileSocialMediaLinks img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+#profileBasicInfoEdit {
+    float: left;
+    margin-left: 1em;
+}
+
+#profileName {
+    margin-top: 0px;
 }
 
 .profileSection {
@@ -331,6 +373,7 @@ div label span{
 
 .profileSectionTitleBar h3{
     display: inline;
+    font-weight: bold;
 }
 
 
@@ -339,8 +382,8 @@ div label span{
 }
 
 .sectionEditBtn img{
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .registerFormWrapperWindow{
@@ -506,6 +549,9 @@ div label span{
 .section{
     clear:both;
     height:100%;
+    max-width: 1200px;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .searchWrapper{
@@ -597,16 +643,13 @@ main{
     width: 100%;
     color: #777;
     font-size: 1.25em;
-    padding-bottom: 1em;
-    padding-top: 1em;
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    text-align: center;
     font-family: "HKGrotesk", sans-serif;
     font-size: 1.5em;
-    font-weight: bold;
-    
+    font-weight: 700;
 }
 
 .jobCard:nth-child(odd){
@@ -618,48 +661,78 @@ main{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    max-width: 1200px;
 }
 
 .jobApplicants_to_date{
+    line-height: 1.5em;
 }
 
 .jobTitle{
     font-size: 1.2em;
     font-weight: bold;
-    width: 150px;
     color: #000;
+    line-height: 1.5em;
 }
 
-.jobDepartment{
+.titleDepartmentWrapper{
+    text-align: left;
+    width: 225px;
 }
 
-.jobTitle, .jobDepartment{
-}
+.jobSalaryRange{
+    width: 200px;
+    text-align: center;
 
-.jobClose_date_time{
-}
-
-.jobTerm_qty{
-}
-
-.jobLocation{
-}
-
-.hiringManagerWrapper{
 }
 
 .hiringManagerProfilePicSmall{
-    width:7.5em;
-    height:7.5em;
-    display: block;
+    width: 50%;
     padding-bottom: 0.5em;
+    margin: auto;
+    display: block;
 }
 
 .hiringManagerLabel{
     font-size:1em;
     color: #333;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
 }
+
+.hiringManagerWrapper{
+    width: 200px;
+    
+}
+
+.applicantsCloseDateWrapper{
+    text-align: center;
+    width: 200px;
+}
+
+.jobTerm_qty{
+    width: 150px;
+    text-align: center;
+}
+
+.viewJobButton{
+    color: #fff!important;
+    background-color: #2196F3!important;
+    font-weight: normal;
+    border: none;
+    padding: 8px 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 10%;
+    display: block;
+    margin-right: 3em;
+    margin-left: 2em;
+}
+
 
 .jobPosterApplyButton{
     /*padding:1em 0 0.5em 0;*/
@@ -678,11 +751,6 @@ main{
     background-color:#eee;
     font-size:1.5em;
 }
-
-.jobPosterTitle,.jobLocation,.jobCity,.jobProvince,.jobTerm,.jobSalaryRange{
-    
-}
-
 
 
 .contactCard{

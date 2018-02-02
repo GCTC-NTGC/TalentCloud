@@ -178,9 +178,6 @@ JobPostAPI.populateJob = function(job, demo, locale){
     jobIDCell.setAttribute("class", "jobId hidden");
     jobIDCell.innerHTML = job.id;
     
-    var titleDepartmentWrapper = document.createElement("div");
-    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper");
-    
     var jobTitle = document.createElement("div");
     jobTitle.setAttribute("class", "jobTitle");
     jobTitle.innerHTML = job.title;
@@ -203,10 +200,28 @@ JobPostAPI.populateJob = function(job, demo, locale){
     jobClose_date_time.setAttribute("class", "jobClose_date_time");
     //console.log(job.close_date_time);
     jobClose_date_time.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobUntilClose;
+    
+    var applicantsCloseDateWrapper = document.createElement("div");
+    applicantsCloseDateWrapper.setAttribute("class", "applicantsCloseDateWrapper");
+    
+    applicantsCloseDateWrapper.appendChild(jobApplicants_to_date);
+    applicantsCloseDateWrapper.appendChild(jobClose_date_time);
+    
+    var jobSalaryRange = document.createElement("div");
+    jobSalaryRange.setAttribute("id", "jobSalaryRange"+job.id);
+    jobSalaryRange.setAttribute("class", "row jobSalaryRange");
+    jobSalaryRange.setAttribute("tabindex", "0");
+    jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
 
     var jobDepartment = document.createElement("div");
     jobDepartment.setAttribute("class", "jobDepartment");
     jobDepartment.innerHTML = job.department;
+    
+    var titleDepartmentWrapper = document.createElement("div");
+    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper");
+    
+    titleDepartmentWrapper.appendChild(jobTitle);
+    titleDepartmentWrapper.appendChild(jobDepartment);
     
     var jobLocation = document.createElement("div");
     jobLocation.setAttribute("class", "jobLocation");
@@ -239,14 +254,14 @@ JobPostAPI.populateJob = function(job, demo, locale){
     
     if(demo === true){
         viewJobButton = document.createElement("input");
-        viewJobButton.setAttribute("class","btn btn-primary");
+        viewJobButton.setAttribute("class","viewJobButton");
         viewJobButton.setAttribute("type","button");
         viewJobButton.setAttribute("value",siteContent.viewButton);
         viewJobButton.innerHTML = siteContent.viewButton;
     }
     else{
         viewJobButton = document.createElement("button");
-        viewJobButton.setAttribute("class","btn btn-primary");
+        viewJobButton.setAttribute("class","viewJobButton");
         viewJobButton.setAttribute("value",siteContent.viewButton);
         viewJobButton.innerHTML = siteContent.viewButton;
     }
@@ -267,16 +282,25 @@ JobPostAPI.populateJob = function(job, demo, locale){
     
     jobMainTable.appendChild(jobIDCell);
     jobMainTable.appendChild(hiringManagerWrapper);
-    jobMainTable.appendChild(jobTitle);
-    jobMainTable.appendChild(jobDepartment);
     
-    jobMainTable.appendChild(jobLocation);
+    jobMainTable.appendChild(titleDepartmentWrapper);
     
-    jobMainTable.appendChild(jobApplicants_to_date);
-    jobMainTable.appendChild(jobClose_date_time);
-
-
+    //jobMainTable.appendChild(jobTitle);
+    //jobMainTable.appendChild(jobDepartment);
+    
+    //jobMainTable.appendChild(jobLocation);
+    
+    jobMainTable.appendChild(jobSalaryRange);
+    
     jobMainTable.appendChild(jobTerm_qty);
+    
+    jobMainTable.appendChild(applicantsCloseDateWrapper);
+    
+    //jobMainTable.appendChild(jobApplicants_to_date);
+    //jobMainTable.appendChild(jobClose_date_time);
+
+
+    
     
     
     
