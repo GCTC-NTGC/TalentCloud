@@ -51,9 +51,13 @@ CreateJobPosterAPI.selectedUnit = function(newID){
 
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
-CreateJobPosterAPI.goToStep = function(stepId) {
+CreateJobPosterAPI.goToTab = function(tabId) {
     var stepGroups = document.getElementsByClassName('stepGroup');
     //console.log("+   " + stepGroups);
+    
+    if (tabId == "createJobPosterReviewTab") {
+        CreateJobPosterAPI.populateReviewTab();
+    }
     
     for (var s = 0; s < stepGroups.length; s++) {
         var stepGroup = stepGroups[s];
@@ -61,10 +65,21 @@ CreateJobPosterAPI.goToStep = function(stepId) {
         if (!stepGroup.classList.contains('hidden')) {
             stepGroup.classList.add('hidden');
         }
-        if (stepGroup.id === stepId) {
+        if (stepGroup.id === tabId) {
             stepGroup.classList.remove('hidden');
         }
     }
+};
+
+CreateJobPosterAPI.populateReviewTab = function() {
+    var demoAreaEnglish = document.getElementById("createJobPosterDemoAreaEnglish");
+    demoAreaEnglish.innerHTML = "";
+    demoAreaEnglish.appendChild(JobPostAPI.populateJob(CreateJobPosterAPI.jobObjEnglish, true, "en_CA"));
+
+    //Create demo french
+    var demoAreaFrench = document.getElementById("createJobPosterDemoAreaFrench");
+    demoAreaFrench.innerHTML = "";
+    demoAreaFrench.appendChild(JobPostAPI.populateJob(CreateJobPosterAPI.jobObjFrench, true, "fr_CA"));
 };
 
 CreateJobPosterAPI.stepHighlight = function(stepID){
@@ -109,7 +124,7 @@ CreateJobPosterAPI.validateStep1 = function() {
     
     
     if (valid) {
-        CreateJobPosterAPI.goToStep('step2');
+        CreateJobPosterAPI.goToTab('step2');
         //CreateJobPosterAPI.stepHighlight("createJobPosterStep1Label");
     }
 };
@@ -151,7 +166,7 @@ CreateJobPosterAPI.validateStep2 = function() {
     }
     
     if (valid) {
-        CreateJobPosterAPI.goToStep('step3');
+        CreateJobPosterAPI.goToTab('step3');
         //CreateJobPosterAPI.stepHighlight("createJobPosterStep1Label");
     }
 };
@@ -191,7 +206,7 @@ CreateJobPosterAPI.validateStep3 = function() {
         demoAreaFrench.innerHTML = "";
         demoAreaFrench.appendChild(JobPostAPI.populateJob(CreateJobPosterAPI.jobObjFrench, true, "fr_CA"));
         
-        CreateJobPosterAPI.goToStep('step4');
+        CreateJobPosterAPI.goToTab('step4');
     }
 };
 
@@ -237,7 +252,7 @@ CreateJobPosterAPI.submitJobPosterForm = function() {
     //call REST API to submit data and hide then clear and hide the modal dialog.  Do not use form submission.
     var createJobPosterOverlay = document.getElementById("createJobPosterOverlay");
     createJobPosterOverlay.classList.add("hidden");
-    CreateJobPosterAPI.goToStep('step1');
+    CreateJobPosterAPI.goToTab('step1');
     Utilities.clearFormFields("createJobPosterForm");
     return false;
 };

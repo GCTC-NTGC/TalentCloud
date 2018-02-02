@@ -712,9 +712,9 @@
             <div id="createJobPosterCreateTab" class="stepGroup">
                 <div class="tabsWrapper">
                     <div class="tabsSteps">
-                        <div class="three-step-tab tab-current"><span id="createJobPosterTab1Label_1">Create</span></div>
-                        <div class="three-step-tab"><span id="createJobPosterTab2Label_1">Outdated Fields</span></div>
-                        <div class="three-step-tab"><span id="createJobPosterTab3Label_1">Review</span></div>
+                        <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
+                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
+                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
                     </div>
                     <div class="tabs">
                         <div class="steptab active"> </div>
@@ -877,12 +877,27 @@
                     </div>
                 </div>
             </div>
+             <div id="createJobPosterOutdatedTab" class="stepGroup">
+                <div class="tabsWrapper">
+                    <div class="tabsSteps">
+                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
+                        <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
+                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
+                    </div>
+                    <div class="tabs">
+                        <div class="steptab active"> </div>
+                        <div class="steptab inactive"> </div>
+                        <div class="steptab inactive"> </div>
+                    </div>
+                </div>
+                 <h3>This is for outdated fields</h3>
+             </div>
             <div id="createJobPosterReviewTab" class="stepGroup hidden">
                 <div class="tabsWrapper">
                     <div class="tabsSteps">
-                        <div class="three-step-tab"><span id="createJobPosterTab1Label_1">Create</span></div>
-                        <div class="three-step-tab"><span id="createJobPosterTab2Label_1">Outdated Fields</span></div>
-                        <div class="three-step-tab tab-current"><span id="createJobPosterTab3Label_1">Review</span></div>
+                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_3">Create</a></div>
+                        <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_3">Outdated</a></div>
+                        <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_3">Review</a></div>
                     </div>
                     <div class="tabs">
                         <div class="steptab inactive"> </div>
