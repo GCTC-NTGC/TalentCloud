@@ -608,6 +608,8 @@ JobSeekerAPI.showJobSeekerProfileBasicInfoEdit = function() {
     AccessibilityAPI.preventModalEscape("profileEditFirstName", "profileBasicInfoEditCancel");
     AccessibilityAPI.focusElement("profileEditFirstName");
     
+    EventsAPI.hideBodyOverflow(true);
+    
 };
 
 JobSeekerAPI.hideJobSeekerProfileBasicInfoEdit = function() {
@@ -616,6 +618,8 @@ JobSeekerAPI.hideJobSeekerProfileBasicInfoEdit = function() {
     jobSeekerBasicInfoEditOverlay.classList.add("hidden");
     
     JobSeekerAPI.resetProfileEditValues();
+    
+    EventsAPI.hideBodyOverflow(false);
 };
 
 JobSeekerAPI.showJobSeekerProfileAboutMeEdit = function() {
@@ -626,6 +630,8 @@ JobSeekerAPI.showJobSeekerProfileAboutMeEdit = function() {
     
     AccessibilityAPI.preventModalEscape("profileEditAboutMe", "profileEditAboutMe");
     AccessibilityAPI.focusElement("profileEditAboutMe");
+    
+    EventsAPI.hideBodyOverflow(true);
 }
 
 JobSeekerAPI.hideJobSeekerProfileAboutMeEdit = function() {
@@ -634,6 +640,8 @@ JobSeekerAPI.hideJobSeekerProfileAboutMeEdit = function() {
     jobSeekerAboutMeEditOverlay.classList.add("hidden");
     
     JobSeekerAPI.resetProfileEditValues();
+    
+    EventsAPI.hideBodyOverflow(false);
 };
 
 JobSeekerAPI.hideJobSeekerProfileEditOverlays = function() {
@@ -644,6 +652,8 @@ JobSeekerAPI.hideJobSeekerProfileEditOverlays = function() {
     jobSeekerAboutMeEditOverlay.classList.add("hidden");
     
     JobSeekerAPI.resetProfileEditValues();
+    
+    EventsAPI.hideBodyOverflow(false);
 }
 
 JobSeekerAPI.showUploadProfilePic = function() {
