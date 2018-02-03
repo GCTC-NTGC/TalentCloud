@@ -329,20 +329,22 @@ TalentCloudAPI.setContent = function(content, isManager){
         teamsLink.innerHTML = siteContent.teamsLink;
         
         //Create Job Poster
+        //TODO: fix localization of terms for Create Job Poster
+        /*
         var createJobPosterWindowTitle = document.getElementById("createJobPosterWindowTitle");
         createJobPosterWindowTitle.innerHTML = siteContent.createJobPosterWindowTitle;
         
-        for(var i = 1;i < 5;i++){
-            var stepOne = document.getElementById("createJobPosterStep1Label_" + i);
+        for(var i = 1;i < 4;i++){
+            var stepOne = document.getElementById("createJobPosterTabLabel_" + i);
             stepOne.innerHTML = siteContent.step1;
         }
         
-        for(var i = 1;i < 5;i++){
-            var stepTwo = document.getElementById("createJobPosterStep2Label_" + i);
+        for(var i = 1;i < 4;i++){
+            var stepTwo = document.getElementById("createJobPosterTabLabel_" + i);
             stepTwo.innerHTML = siteContent.step2;
         }
         
-        for(var i = 1;i < 5;i++){
+        for(var i = 1;i < 4;i++){
             var stepThree = document.getElementById("createJobPosterStep3Label_" + i);
             stepThree.innerHTML = siteContent.step3;
         }
@@ -369,6 +371,13 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var goToReview = document.getElementById("createJobPoster_goToReview");
         goToReview.setAttribute("value", siteContent.goToReview);
+        
+        var createJobPoster_submit = document.getElementById("createJobPosterSubmitButton");
+        createJobPoster_submit.setAttribute("value", content.submit);
+        
+        var createJobPosterSubmitInst = document.getElementById("createJobPosterSubmitInstructions");
+        createJobPosterSubmitInst.innerHTML = content.createJobPosterSubmitInstructions;
+        */
         
         //Create Edit Profile
         var createEditProfile_goToStep2 = document.getElementById("createEditProfile_goToStep2_1");
@@ -409,12 +418,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var createEditProfile_submit = document.getElementById("createEditProfileSubmitButton");
         createEditProfile_submit.setAttribute("value", content.submit);
-        
-        var createJobPoster_submit = document.getElementById("createJobPosterSubmitButton");
-        createJobPoster_submit.setAttribute("value", content.submit);
-        
-        var createJobPosterSubmitInst = document.getElementById("createJobPosterSubmitInstructions");
-        createJobPosterSubmitInst.innerHTML = content.createJobPosterSubmitInstructions;
         
         var createEditProfile_how_often_review_label = document.getElementById("createEditProfile_how_often_review_label");
         createEditProfile_how_often_review_label.innerHTML = content.howOftenDoYouReview + ' *';

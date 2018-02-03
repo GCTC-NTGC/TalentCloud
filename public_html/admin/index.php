@@ -170,11 +170,9 @@
     </section>
     <section id="createEditProfileSection" class="section hidden">
         <div id="createEditProfile">
+            <h2 id="createJobPosterWindowTitle" class="section--title">Create a new Job Poster</h2>
             <div class="wb-frmvld wb-init">
                 <div class="tabbedForm">
-                    <div class="section">
-                        <h2>Create/Edit Profile</h2>
-                    </div>
                     <!--<div><hr></div>-->
                     <div>
                         <img id="myProfilePic" src="../images/user.svg" class="profilePic"/>
@@ -839,7 +837,7 @@
                         <div class="createJobPosterSubmitPane">
                             <div class="formGroup insert">*Required</div>
                             <div class="formGroup">
-                                <input type="button" id="createJobPosterSubmitButton" value="Submit" onclick="Create">
+                                <input type="button" id="createJobPosterSubmitButton" value="Submit" onclick="CreateJobPosterAPI.validateJobPosterForm()">
                             </div>
                         </div>
                     </div>
