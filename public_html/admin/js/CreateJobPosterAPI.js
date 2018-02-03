@@ -8,16 +8,18 @@
 
 var CreateJobPosterAPI = {};
 
-CreateJobPosterAPI.jobObj = new CreateJobPosterAPI.JobPostNonLocalized();
+CreateJobPosterAPI.jobObj = null;
 
 CreateJobPosterAPI.lookupMap = {};
 
 CreateJobPosterAPI.JobPostNonLocalized = function(id, title, title_fr, department_id, province_id, city, city_fr, start_date_time, close_date_time, term_qty, remuneration_range_low, remuneration_range_high) {
     this.id = id;
+    this.title = {};
     this.title.en_CA = title;
     this.title.fr_CA = title_fr;
     this.department_id = department_id;
     this.province_id = province_id;
+    this.city = {};
     this.city.en_CA = city;
     this.city.fr_CA = city_fr;
     this.start_date_time = start_date_time;
@@ -418,10 +420,13 @@ CreateJobPosterAPI.validateJobPosterForm = function() {
 CreateJobPosterAPI.submitJobPosterForm = function() {
     
     //call REST API to submit data and hide then clear and hide the modal dialog.  Do not use form submission.
+    
+    /*
     var createJobPosterOverlay = document.getElementById("createJobPosterOverlay");
     createJobPosterOverlay.classList.add("hidden");
     CreateJobPosterAPI.goToTab('step1');
     Utilities.clearFormFields("createJobPosterForm");
+    */
     return false;
 };
 
