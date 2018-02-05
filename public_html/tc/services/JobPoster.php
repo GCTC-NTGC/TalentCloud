@@ -13,6 +13,7 @@
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
     require_once '../controller/JobPosterController.php';
+    require_once '../model/JobPosterNonLocalized.php';
     require_once '../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -48,19 +49,26 @@
             
             if(strlen($jsonBody) > 1){
                 $jobPosterJSON = json_decode($jsonBody, TRUE);
+                $en = "en_CA";
+                $fr = "fr_CA";
                 
-                $jobPoster = new JobPoster();
-                $jobPoster->setTitle($jobPosterJSON["createJobPoster_jobTitle"]);
-                $jobPoster->setTerm_units($jobPosterJSON["createJobPoster_termUnits"]);
-                $jobPoster->setTerm_qty($jobPosterJSON["createJobPoster_termQuantity"]);
-                $jobPoster->setJob_min_level("");
-                $jobPoster->setJob_max_level("");
-                $jobPoster->setJob_start_date("");
-                $jobPoster->setJob_end_date($jobPoster[""]);
-                $jobPoster->setClose_date($jobPoster["createJobPoster_closeDate_fr"]);
-                $jobPoster->setDepartment($jobPoster["createJobPoster_department"]);
-                $jobPoster->setLocation_province($jobPoster["createJobPoster_province"]);
-                $jobPoster->setLocation_city($jobPoster["createJobPoster_city"]);
+                $jobPoster = new JobPosterNonLocalized();
+                $jobPoster->setTitle_en($jobPosterJSON["title"][$en]);
+                $jobPoster->setTitle_fr($jobPosterJSON["title"][$fr]);
+                $jobPoster->setDepartment_id($jobPosterJSON["department_id"]);
+                $jobPoster->setProvince_id($jobPosterJSON["province_id"]);
+                $jobPoster->setCity_en($jobPosterJSON["city"][$en]);
+                $jobPoster->setCity_fr($jobPosterJSON["city"][$fr]);
+                $jobPoster->setTerm_qty($jobPosterJSON["term_qty"]);
+                $jobPoster->setTerm_units_id($jobPosterJSON["term_units_id"]);
+                $jobPoster->setOpen_date($jobPosterJSON["open_date_time"]);
+                $jobPoster->setClose_date($jobPosterJSON["close_date_time"]);
+                $jobPoster->setStart_date($jobPosterJSON["start_date"]);
+                $jobPoster->setRemuneration_range_low($jobPosterJSON["remuneration_range_low"]);
+                $jobPoster->setRemuneration_range_high($jobPosterJSON["remuneration_range_high"]);
+                $jobPoster->setJob_min_level_id($jobPosterJSON["job_min_level_id"]);
+                $jobPoster->setJob_max_level_id($jobPosterJSON["job_max_level_id"]);
+               
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

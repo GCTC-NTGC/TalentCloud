@@ -16,6 +16,7 @@
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
 require_once '../model/JobPoster.php';
+require_once '../model/JobPosterNonLocalized.php';
 
 /**
  * Summary: Data Access Object for Resources
@@ -168,86 +169,87 @@ class JobPosterDAO extends BaseDAO {
     }
     
     public static function createJobPoster($jobPoster){
-        /*
-         * BEGIN;
+        $link = BaseDAO::getConnection();
+        $sqlStr1 = "
             INSERT INTO job_poster
             (
             job_term_id,
             job_poster_term_qty,
             job_poster_job_min_level_id,
             job_poster_job_max_level_id,
-            job_poster_start_date,
-            job_poster_end_date,
+            job_poster_open_date_time,
             job_poster_close_date_time,
-            job_poster_department_id
+            job_poster_start_date,
+            job_poster_department_id,
+            job_poster_province_id,
+            job_poster_remuneration_min,
+            job_poster_remuneration_max
             )
             VALUES
             (
-            0000000003,
-            2,
-            0000000001,
-            0000000003,
-            '2018-02-01 08:00:00',
-            '2020-02-01 17:00:00',
-            '2018-01-01 23:59:59',
-            0000000001
-            );
+            :term_units_id,
+            :term_qty,
+            :job_min_level_id,
+            :job_max_level_id,
+            :open_date,
+            :close_date,
+            :start_date,
+            :department_id,
+            :province_id,
+            :remuneration_range_low,
+            :remuneration_range_high
+            );";
+        $sqlStr2 = "SELECT LAST_INSERT_ID() INTO @job_post_id;";
+        
+        $sqlStr3 = "
             INSERT INTO job_poster_details
             (
             job_poster_id,
             locale_id,
             job_poster_desc_title,
-            job_poster_desc_content
+            job_poster_desc_content,
+            job_poster_city,
+            job_poster_title
             )
             VALUES
-            (
-            last_insert_id(),
-            0000000002,
-            'Designer UX',
-            'This is the description for the UX Design position_french'
-            );
-            COMMIT;
-
-         */
+            (@job_post_id,1,'','',:city_en,:title_en),
+            (@job_post_id,2,'','',:city_fr,:title_fr);";
         
-        $sql1 = "INSERT INTO job_poster
-            (
-            job_term_id,
-            job_poster_term_qty,
-            job_poster_job_min_level_id,
-            job_poster_job_max_level_id,
-            job_poster_start_date,
-            job_poster_end_date,
-            job_poster_close_date_time,
-            job_poster_department_id
-            )
-            VALUES
-            (
-            0000000003,
-            2,
-            0000000001,
-            0000000003,
-            '2018-02-01 08:00:00',
-            '2020-02-01 17:00:00',
-            '2018-01-01 23:59:59',
-            0000000001
-            );";
-        $sql2 = "INSERT INTO job_poster_details
-            (
-            job_poster_id,
-            locale_id,
-            job_poster_desc_title,
-            job_poster_desc_content
-            )
-            VALUES
-            (
-            last_insert_id(),
-            0000000002,
-            'Designer UX',
-            'This is the description for the UX Design position_french'
-            );";
+        $sql1 = $link->prepare($sqlStr1);
+        $sql2 = $link->prepare($sqlStr2);
+        $sql3 = $link->prepare($sqlStr3);
+        
+        $sql1->bindValue(':term_units_id', $jobPoster->getTerm_units_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':term_qty', $jobPoster->getTerm_qty(), PDO::PARAM_INT);
+        $sql1->bindValue(':job_min_level_id', $jobPoster->getJob_min_level_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':job_max_level_id', $jobPoster->getJob_max_level_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':open_date', $jobPoster->getOpen_date(), PDO::PARAM_STR);
+        $sql1->bindValue(':close_date', $jobPoster->getClose_date(), PDO::PARAM_STR);
+        $sql1->bindValue(':start_date', $jobPoster->getStart_date(), PDO::PARAM_STR);
+        $sql1->bindValue(':department_id', $jobPoster->getDepartment_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':province_id', $jobPoster->getProvince_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':remuneration_range_low', $jobPoster->getRemuneration_range_low(), PDO::PARAM_INT);
+        $sql1->bindValue(':remuneration_range_high', $jobPoster->getRemuneration_range_high(), PDO::PARAM_INT);
+        
+        $sql3->bindValue(':city_en', $jobPoster->getCity_en(), PDO::PARAM_STR);
+        $sql3->bindValue(':city_fr', $jobPoster->getCity_fr(), PDO::PARAM_STR);
+        $sql3->bindValue(':title_en', $jobPoster->getTitle_en(), PDO::PARAM_STR);
+        $sql3->bindValue(':title_fr', $jobPoster->getTitle_fr(), PDO::PARAM_STR);
+       
+        $job_post_id = null;
+        try {
+            //$result = BaseDAO::executeDBTransaction($link,$sql);
+            $link->beginTransaction();
+            $sql1->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $job_post_id = $link->lastInsertId();
+            $sql2->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql3->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $link->commit();
+        } catch (PDOException $e) {
+            return 'createJobPoster failed: ' . $e->getMessage();
+        }
+        return $job_post_id;
     }
-    
 }
 
 ?>

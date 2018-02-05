@@ -54,8 +54,8 @@ class  JobPosterController {
      */
     public static function createJobPoster($jobPoster) {
         
-        $jobPoster = JobPosterDAO::getJobPosterById($locale,$jobPosterId);
-        return $jobPoster;
+        $newJobPosterId = JobPosterDAO::createJobPoster($jobPoster);
+        return array("job_poster_id"=>$newJobPosterId);
     }
 
 }
