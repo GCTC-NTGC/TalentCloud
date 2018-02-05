@@ -60,6 +60,8 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     
     TalentCloudAPI.hideAllContent();
     
+    document.getElementById("createJobPoster_openDate").value = Utilities.formatDateTimeLocal(new Date());
+    
     var createJobPosterSection = document.getElementById("createJobPosterSection");
     createJobPosterSection.classList.remove("hidden");
 };
