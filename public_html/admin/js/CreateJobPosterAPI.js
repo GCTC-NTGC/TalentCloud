@@ -12,7 +12,7 @@ CreateJobPosterAPI.jobObj = null;
 
 CreateJobPosterAPI.lookupMap = {};
 
-CreateJobPosterAPI.JobPostNonLocalized = function(id, title, title_fr, department_id, province_id, city, city_fr, start_date_time, close_date_time, term_qty, remuneration_range_low, remuneration_range_high) {
+CreateJobPosterAPI.JobPostNonLocalized = function(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high) {
     this.id = id;
     this.title = {};
     this.title.en_CA = title;
@@ -22,16 +22,16 @@ CreateJobPosterAPI.JobPostNonLocalized = function(id, title, title_fr, departmen
     this.city = {};
     this.city.en_CA = city;
     this.city.fr_CA = city_fr;
-    this.start_date_time = start_date_time;
+    this.open_date_time = open_date_time;
     this.close_date_time = close_date_time;
+    this.start_date = start_date;
     this.term_qty = term_qty;
     this.remuneration_range_low = remuneration_range_low;
     this.remuneration_range_high = remuneration_range_high;
     
-    this.applicants_to_date = 0; //initialize to 0
     this.term_units_id = 2; //default to months for now
-    
-    this.remuneration_type = ""; //unused 
+    this.job_min_level_id = 1; //default to CS1
+    this.job_max_level_id = 3; //default to CS3
 };
 
 CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
@@ -400,17 +400,19 @@ CreateJobPosterAPI.validateJobPosterForm = function() {
     
     var city_fr = document.getElementById("createJobPoster_city_fr").value;
     
-    var start_date_time = document.getElementById("createJobPoster_closeDate").value; 
+    var open_date_time = document.getElementById("createJobPoster_openDate").value; 
      
     var close_date_time = document.getElementById("createJobPoster_closeDate").value; 
-             
+    
+    var start_date = document.getElementById("createJobPoster_startDate").value; 
+    
     var term_qty = document.getElementById("createJobPoster_termQuantity").value;
     
-    var remuneration_range_low = document.getElementById("createJobPoster_remunerationLowRange")
+    var remuneration_range_low = document.getElementById("createJobPoster_remunerationLowRange").value;
     
-    var remuneration_range_high = document.getElementById("createJobPoster_remunerationHighRange")
+    var remuneration_range_high = document.getElementById("createJobPoster_remunerationHighRange").value;
     
-    CreateJobPosterAPI.jobObj = new CreateJobPosterAPI.JobPostNonLocalized(id, title, title_fr, department_id, province_id, city, city_fr, start_date_time, close_date_time, term_qty, remuneration_range_low, remuneration_range_high);
+    CreateJobPosterAPI.jobObj = new CreateJobPosterAPI.JobPostNonLocalized(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high);
     //TODO: VALIDATION 
     var valid = true; 
     if (valid) { 

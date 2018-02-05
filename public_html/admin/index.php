@@ -831,6 +831,17 @@
                                         <input class="form-control full-width" type="datetime-local" name="createJobPoster_closeDate" id="createJobPoster_closeDate"/>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_startDate">
+                                        <span><span id="createJobPoster_startDate_labelName">Start Date</span>: *</span>
+                                        <strong id="createJobPoster_startDate_error" class="error hidden">
+                                            <span id="createJobPoster_startDate_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="datetime-local" name="createJobPoster_startDate" id="createJobPoster_startDate"/>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
