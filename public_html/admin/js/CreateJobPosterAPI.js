@@ -276,8 +276,8 @@ CreateJobPosterAPI.stepHighlight = function(stepID){
 CreateJobPosterAPI.validateJobPosterForm = function() { 
     CreateJobPosterAPI.populateJobPosterObjFromForm();
     
-    //TODO: VALIDATION 
-    var valid = true; 
+    var jp = CreateJobPosterAPI.jobPosterObj;
+    var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty, jp.remuneration_range_low, jp.remuneration_range_high);
     if (valid) { 
         CreateJobPosterAPI.submitJobPosterForm(); 
     } 
@@ -347,7 +347,7 @@ CreateJobPosterAPI.hideCreateJobPosterForm = function(){
 };
 
 CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
-    var createJobPoster_URL = DataAPI.baseURL+"/putJobPoster";
+    var createJobPoster_URL = DataAPI.baseURL+"/createJobPoster";
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
     var authToken = "";
@@ -393,5 +393,8 @@ CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
 
 CreateJobPosterAPI.postJobPosterComplete = function(response) {
     //TODO
-    console.log(response);
+    CreateJobPosterAPI.jobPosterObj.id = JSON.parse(response).job_poster_id;
+    
+    CreateJobPosterAPI.goToTab("createJobPosterReviewTab");
+    window.alert("Job Post submitted successfully.");
 };

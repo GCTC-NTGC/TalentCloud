@@ -198,6 +198,92 @@ FormValidationAPI.validateNewJobPosterForm = function(name, closeDate, id, depar
     return valid;
 };
 
+FormValidationAPI.validateJobPoster = function(title_en, title_fr, city_en, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high) {
+    var valid = true;
+    
+    if(!FormValidationAPI.fieldNotEmpty(title_en)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_jobTitle_error", "createJobPoster_jobTitle_error_msg", "Error: No Job Title");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_jobTitle_error", "createJobPoster_jobTitle_error_msg", "Error: No Job Title");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(title_fr)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_jobTitle_fr_error", "createJobPoster_jobTitle_fr_error_msg", "Error: No Job Title");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_jobTitle_fr_error", "createJobPoster_jobTitle_fr_error_msg", "Error: No Job Title");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(city_en)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_city_error", "createJobPoster_city_error_msg", "Error: No City");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_city_error", "createJobPoster_city_error_msg", "Error: No City");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(city_fr)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_city_fr_error", "createJobPoster_city_fr_error_msg", "Error: No City");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_city_fr_error", "createJobPoster_city_fr_error_msg", "Error: No City");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(open_date_time)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_openDate_error", "createJobPoster_openDate_error_msg", "Error: No Open Date/Time");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_openDate_error", "createJobPoster_openDate_error_msg", "Error: No Open Date/Time");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(close_date_time)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_closeDate_error", "createJobPoster_closeDate_error_msg", "Error: No Close Date/Time");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_closeDate_error", "createJobPoster_closeDate_error_msg", "Error: No Close Date/Time");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(start_date)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_startDate_error", "createJobPoster_startDate_error_msg", "Error: No Start Date");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_startDate_error", "createJobPoster_startDate_error_msg", "Error: No Start Date");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(term_qty)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_termQuantity_error", "createJobPoster_termQuantity_error_msg", "Error: No Term Duration");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_termQuantity_error", "createJobPoster_termQuantity_error_msg", "Error: No Term Duration");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(remuneration_range_low)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_remunerationLowRange_error", "createJobPoster_remunerationLowRange_error_msg", "Error: No minimum salary");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_remunerationLowRange_error", "createJobPoster_remunerationLowRange_error_msg", "Error: No minimum salary");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(remuneration_range_high)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_remunerationHighRange_error", "createJobPoster_remunerationHighRange_error_msg", "Error: No maximum salary");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_remunerationHighRange_error", "createJobPoster_remunerationHighRange_error_msg", "Error: No maximum salary");
+    }
+
+    return valid;
+}
+
 FormValidationAPI.setValidationErrorProperties = function(isVisible, errorId, msgId, msg) {
     var errorElement = document.getElementById(errorId);
     var msgElement = document.getElementById(msgId);
