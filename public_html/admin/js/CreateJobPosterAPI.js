@@ -62,7 +62,9 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     
     var createJobPosterSection = document.getElementById("createJobPosterSection");
     createJobPosterSection.classList.remove("hidden");
-    
+};
+
+CreateJobPosterAPI.loadLookupData = function() {
     var locales = ["en_CA", "fr_CA"];
     var lookupTypes = ["department", "province"];
     for(i in locales) {

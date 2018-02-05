@@ -213,6 +213,7 @@ TalentCloudAPI.loadAdmin = function(){
                 UserAPI.authenticate(credentials);
                 //DataAPI.getJobSeekers(locale);
                 DepartmentAPI.getDepartments(locale);
+                CreateJobPosterAPI.loadLookupData();
                 //Add log user in automatically
             }else{
                 //DataAPI.getJobSeekers(locale);
