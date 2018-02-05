@@ -839,7 +839,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="datetime-local" name="createJobPoster_startDate" id="createJobPoster_startDate"/>
+                                        <input class="form-control full-width" type="date" name="createJobPoster_startDate" id="createJobPoster_startDate"/>
                                     </div>
                                 </div>
                             </div>
