@@ -145,7 +145,7 @@ CreateJobPosterAPI.populateLookups = function(lookupType,response){
         Utilities.clearSelectOptions(departmentSelect);
         for(var department in data) {
             var option = document.createElement("option");
-            option.value = city;
+            option.value = data[department].id;
             option.innerHTML = data[department].value;
             departmentSelect.appendChild(option);
         }
@@ -156,7 +156,7 @@ CreateJobPosterAPI.populateLookups = function(lookupType,response){
         Utilities.clearSelectOptions(citiesSelect);
         for(var city in data) {
             var option = document.createElement("option");
-            option.value = city;
+            option.value = data[city].id;
             option.innerHTML = data[city].value;
             citiesSelect.appendChild(option);
         }
@@ -168,7 +168,7 @@ CreateJobPosterAPI.populateLookups = function(lookupType,response){
         Utilities.clearSelectOptions(provincesSelect);
         for(var province in data) {
             var option = document.createElement("option");
-            option.value = province;
+            option.value = data[province].id;
             option.innerHTML = data[province].value;
             provincesSelect.appendChild(option);
         }
@@ -184,10 +184,11 @@ CreateJobPosterAPI.populateLookups = function(lookupType,response){
             option.setAttribute("id","jobterm_"+jobterm_name);
             option.setAttribute("type","radio");
             option.setAttribute("name","createJobPoster_termUnits");
-            option.value = jobterm_name;
+            option.value = data[jobterm].id;
             var optionLabel = document.createElement("label");
             optionLabel.setAttribute("for","jobterm_"+jobterm_name);
-            optionLabel.innerHTML = data[jobterm_name];
+            optionLabel.value = data[jobterm].id;
+            optionLabel.innerHTML = jobterm_name;
             optionRow.appendChild(option);
             optionRow.appendChild(optionLabel);
             jobTermSelect.appendChild(optionRow);
@@ -390,11 +391,11 @@ CreateJobPosterAPI.validateJobPosterForm = function() {
      
     var title_fr = document.getElementById("createJobPoster_jobTitle_fr").value; 
     
-    var department = document.getElementById("createJobPoster_department").value; 
-    var department_id = CreateJobPosterAPI.getLookupIdFromLocalizedValue("department", locale, department);
+    var department_id = document.getElementById("createJobPoster_department").value; 
+    //var department_id = CreateJobPosterAPI.getLookupIdFromLocalizedValue("department", locale, department);
     
-    var province = document.getElementById("createJobPoster_province").value;
-    var province_id = CreateJobPosterAPI.getLookupIdFromLocalizedValue("province", locale, province);
+    var province_id = document.getElementById("createJobPoster_province").value;
+    //var province_id = CreateJobPosterAPI.getLookupIdFromLocalizedValue("province", locale, province);
     
     var city = document.getElementById("createJobPoster_city").value;
     
