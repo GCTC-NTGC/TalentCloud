@@ -68,6 +68,8 @@
                 $jobPoster->setRemuneration_range_high($jobPosterJSON["remuneration_range_high"]);
                 $jobPoster->setJob_min_level_id($jobPosterJSON["job_min_level_id"]);
                 $jobPoster->setJob_max_level_id($jobPosterJSON["job_max_level_id"]);
+                $jobPoster->setImpact_en($jobPosterJSON["impact"][$en]);
+                $jobPoster->setImpact_fr($jobPosterJSON["impact"][$fr]);
                
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);

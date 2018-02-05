@@ -209,11 +209,12 @@ class JobPosterDAO extends BaseDAO {
             job_poster_desc_title,
             job_poster_desc_content,
             job_poster_city,
-            job_poster_title
+            job_poster_title,
+            job_poster_impact
             )
             VALUES
-            (@job_post_id,1,'','',:city_en,:title_en),
-            (@job_post_id,2,'','',:city_fr,:title_fr);";
+            (@job_post_id,1,'','',:city_en,:title_en, :impact_en),
+            (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr);";
         
         $sql1 = $link->prepare($sqlStr1);
         $sql2 = $link->prepare($sqlStr2);
@@ -235,6 +236,8 @@ class JobPosterDAO extends BaseDAO {
         $sql3->bindValue(':city_fr', $jobPoster->getCity_fr(), PDO::PARAM_STR);
         $sql3->bindValue(':title_en', $jobPoster->getTitle_en(), PDO::PARAM_STR);
         $sql3->bindValue(':title_fr', $jobPoster->getTitle_fr(), PDO::PARAM_STR);
+        $sql3->bindValue(':impact_en', $jobPoster->getImpact_en(), PDO::PARAM_LOB);
+        $sql3->bindValue(':impact_fr', $jobPoster->getImpact_fr(), PDO::PARAM_LOB);
        
         $job_post_id = null;
         try {

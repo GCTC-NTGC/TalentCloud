@@ -843,6 +843,32 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="leftPane">                            
+                                <div class="form-group">
+                                    <label for="createJobPoster_impact">
+                                        <span><span id="createJobPoster_impact_labelName">Impact</span>:</span>
+                                        <strong id="createJobPoster_impact_error" class="error hidden">
+                                            <span id="createJobPoster_impact_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_impact" id="createJobPoster_impact"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rightPane">                            
+                                <div class="form-group">
+                                    <label for="createJobPoster_impact_fr">
+                                        <span><span id="createJobPoster_impact_fr_labelName">Impact_fr</span>:</span>
+                                        <strong id="createJobPoster_impact_fr_error" class="error hidden">
+                                            <span id="createJobPoster_impact_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_impact_fr" id="createJobPoster_impact_fr"/>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
 
                         <div class="createJobPosterSubmitPane">

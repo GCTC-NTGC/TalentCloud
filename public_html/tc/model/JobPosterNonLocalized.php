@@ -24,8 +24,10 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $remuneration_range_high;
     private $job_min_level_id;
     private $job_max_level_id;
+    private $impact_en;
+    private $impact_fr;
     
-    public function __construct($id=null, $title_en=null, $title_fr=null, $department_id=null, $province_id=null, $city_en=null, $city_fr=null, $term_qty=null, $term_units_id=null, $open_date=null, $close_date=null, $start_date=null, $remuneration_range_low=null, $remuneration_range_high=null, $job_min_level_id=null, $job_max_level_id=null) {
+    public function __construct($id=null, $title_en=null, $title_fr=null, $department_id=null, $province_id=null, $city_en=null, $city_fr=null, $term_qty=null, $term_units_id=null, $open_date=null, $close_date=null, $start_date=null, $remuneration_range_low=null, $remuneration_range_high=null, $job_min_level_id=null, $job_max_level_id=null, $impact_en=null, $impact_fr=null) {
         $this->id = $id;
         $this->title_en = $title_en;
         $this->title_fr = $title_fr;
@@ -42,6 +44,8 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->remuneration_range_high = $remuneration_range_high;
         $this->job_min_level_id = $job_min_level_id;
         $this->job_max_level_id = $job_max_level_id;
+        $this->impact_en = $impact_en;
+        $this->impact_fr = $impact_fr;
     }
 
     
@@ -118,6 +122,14 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function getJob_max_level_id() {
         return $this->job_max_level_id;
+    }
+
+    public function getImpact_en() {
+        return $this->impact_en;
+    }
+
+    public function getImpact_fr() {
+        return $this->impact_fr;
     }
 
     public function setId($id) {
@@ -197,6 +209,16 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function setJob_max_level_id($job_max_level_id) {
         $this->job_max_level_id = $job_max_level_id;
+        return $this;
+    }
+
+    public function setImpact_en($impact_en) {
+        $this->impact_en = $impact_en;
+        return $this;
+    }
+
+    public function setImpact_fr($impact_fr) {
+        $this->impact_fr = $impact_fr;
         return $this;
     }
 }
