@@ -576,11 +576,11 @@ CreateEditProfileAPI.showCreateEditProfile = function(linkElement){
     
     EventsAPI.hideAllLayouts()
     
-    var createJobPosterDialog = document.getElementById("createEditProfile");
-    createJobPosterDialog.classList.remove("hidden");
+    var createEditProfile = document.getElementById("createEditProfileSection");
+    createEditProfile.classList.remove("hidden");
     
-    var jobSeekersDiv = document.getElementById("jobSeekerList");
-    jobSeekersDiv.classList.add("hidden");
+    var viewProfileElement = document.getElementById("viewProfile");
+    viewProfileElement.classList.add("hidden");
 };
 
 CreateEditProfileAPI.showViewProfile = function(linkElement){
@@ -613,6 +613,9 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
     };
     
     EventsAPI.hideAllLayouts();
+    
+    var createEditProfile = document.getElementById("createEditProfileSection");
+    createEditProfile.classList.remove("hidden");
     
     var viewProfileElement = document.getElementById("viewProfile");
     viewProfileElement.classList.remove("hidden");

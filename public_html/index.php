@@ -133,7 +133,7 @@
 
                     <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
 
-                        <div class="form-group">
+                        <div class="form-group leftPane">
                             <label for="profileEditFirstName">
                                 <span>First Name:</span>
                                 <strong id="profileEditFirstNameError" class="error hidden">
@@ -141,10 +141,10 @@
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
+                                <input class="form-control full-width" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group rightPane">
                             <label for="profileEditLastName">
                                 <span>Last Name:</span>
                                 <strong id="profileEditLastNameError" class="error hidden">
@@ -152,39 +152,39 @@
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
+                                <input class="form-control full-width" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group clear">
                             <label for="profileEditTagline">
                                 <span>Tagline:</span>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditTagline" id="profileEditTagline"/>
+                                <input class="form-control full-width" type="text" name="profileEditTagline" id="profileEditTagline"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="profileEditTwitter">
-                                <img src="images/twitter.png"/>
+                                <img src="images/twitter.png" class="form-icon"/>
                                 <span>Twitter Username:</span>
                                 <strong id="profileEditTwitterError" class="error hidden">
                                     <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
+                                <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="profileEditLinkedin">
-                                <img src="images/linkedin.png"/>
+                                <img src="images/linkedin.png" class="form-icon"/>
                                 <span>LinkedIn Profile Address:</span>
                                 <strong id="profileEditLinkedinError" class="error hidden">
                                     <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
+                                <input class="form-control full-width" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
                             </div>
                         </div>
                         <div>
@@ -225,7 +225,7 @@
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
         <div id="profileAboutMeFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
-            <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle">
+            <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
                 <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
                 <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
             </div>
@@ -310,25 +310,26 @@
     </section>
     
     <section class="section hidden" id="profileSection">
-        <h2 class="section--title">My Profile</h2>
         <div id="profileBasicInfo" class="centered">
-            <div id="profileBasicInfoTopBar" style="padding:1em;">
-                <ul id="profileSocialMediaLinks" style="display: inline;"> 
-                    <li id="profileTwitterLinkWrapper" class="hidden">
-                        <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink"/></a>
-                    </li>
-                    <li id="profileLinkedinLinkWrapper" class="hidden">
-                        <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
-                    </li>    
-                </ul>
-                <div style="display: inline;">
-                    <img id="myProfilePic" class="profilePicLarge" src="images/user.svg"/>
+            <div id="profileBasicInfoTopBar">
+                <div style="width:40%"> 
+                    <ul id="profileSocialMediaLinks"> 
+                        <li id="profileTwitterLinkWrapper" class="hidden">
+                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink"/></a>
+                        </li>
+                        <li id="profileLinkedinLinkWrapper" class="hidden">
+                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink"/></a>
+                        </li>    
+                    </ul>
+                </div>
+                <img id="myProfilePic" class="profilePicLarge" src="images/user.svg"/>
+                <div style="width:40%">
                     <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_light.png" alt="Edit Basic Info" class="editImage"/></a>
                 </div>
             </div>
             <div id="profileNameWrapper">
-                <h1 id="profileName">
-                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h1>
+                <h3 id="profileName">
+                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h3>
             </div>
             <div style="background-color:#E5F8FF;">
                 <p id="profileTagLine">Default tag line!</p>

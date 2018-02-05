@@ -60,6 +60,29 @@ nav{
     right:0;
 }
 
+.section{
+    padding: 2em 2em 2em 2em;
+}
+
+.form-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.clear {
+    clear: both;
+}
+
+.leftPane {
+    width: 45%;
+    float: left;
+}
+
+.rightPane {
+    width: 45%;
+    float: right;
+}
+
 .tc-logo {
   background-image: url("images/talentcloud_logo_white.png");
   background-position:  center;
@@ -302,22 +325,41 @@ div label span{
     min-height: 200px;
 }
 
-.createEditProfile{
-    padding: 2em 2em 2em 2em;
-}
-
 #profileBasicInfo {
     text-align: center;
     padding: 2em 0em;
+    margin-top: -130px;
+}
+
+#profileBasicInfoTopBar {
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #profileSocialMediaLinks {
     list-style-type: none;
+    float: right;
 }
 
 #profileSocialMediaLinks li{
     display: inline;
-    padding: 1em;
+    padding: 0.5em;
+}
+
+#profileSocialMediaLinks img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+#profileBasicInfoEdit {
+    float: left;
+    margin-left: 1em;
+}
+
+#profileName {
+    margin-top: 0px;
 }
 
 .profileSection {
@@ -331,6 +373,7 @@ div label span{
 
 .profileSectionTitleBar h3{
     display: inline;
+    font-weight: bold;
 }
 
 
@@ -339,8 +382,8 @@ div label span{
 }
 
 .sectionEditBtn img{
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .registerFormWrapperWindow{
@@ -457,25 +500,19 @@ div label span{
     background-color: #ddd;
 }
 
-.create-job-poster-tab,.four-step-tab{
-    width: 25%;
-    position: relative;
-}
-
-.create-profile-tab{
+.three-step-tab {
     width: 33%;
     position: relative;
 }
 
-
-.create-job-poster-tab-current,.four-step-tab-current{
+.tab-current {
     color: #fff;
     background-color: #5599e5;
 }
 
-.create-profile-tab-current{
-    color: #fff;
-    background-color: #5599e5;
+.four-step-tab{
+    width: 25%;
+    position: relative;
 }
 
 .tabbedForm{
@@ -512,6 +549,9 @@ div label span{
 .section{
     clear:both;
     height:100%;
+    max-width: 1200px;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .searchWrapper{

@@ -41,7 +41,6 @@ and open the template in the editor .
         loadingImage.src = "/images/logo.svg";
     </script>
     <!-- Admin scripts -->
-    <!--<script src="/admin/js/JobSeekerAPI.js"></script> -->
     <script src="/admin/js/CreateJobPosterAPI.js"></script>
     <script src="/admin/js/CreateEditProfileAPI.js"></script>
     <script src="/admin/js/ManagerEventsAPI.js"></script>
