@@ -479,8 +479,10 @@ JobPostAPI.populateJobPoster = function(jobData){
     jobPoster.appendChild(jobSalaryRange);
     jobPoster.appendChild(jobPosterApplyButton);
     viewJobPosterOverlay.classList.remove("hidden");
-    var jobSeekerProfileId = document.getElementById("profile_id").value;
-    JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
+    
+    //TODO: fix this when working on jobPoserApplications
+    //var jobSeekerProfileId = document.getElementById("profile_id").value;
+    //JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
 };
 
 /**

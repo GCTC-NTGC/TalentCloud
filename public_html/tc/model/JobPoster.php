@@ -23,7 +23,7 @@ class JobPoster implements JsonSerializable {
     private $job_min_level;
     private $job_max_level;
     private $job_start_date;
-    private $job_end_date;
+    private $open_date;
     private $close_date;
     private $department;
     private $location_province;
@@ -31,7 +31,7 @@ class JobPoster implements JsonSerializable {
     private $remuneration_range_low;
     private $remuneration_range_high;
 
-    public function __construct($id, $locale_id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $job_end_date, $close_date, $department, $location_province, $location_city, $remuneration_range_low, $remuneration_range_high) {
+    public function __construct($id, $locale_id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $open_date, $close_date, $department, $location_province, $location_city, $remuneration_range_low, $remuneration_range_high) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->title = $title;
@@ -42,7 +42,7 @@ class JobPoster implements JsonSerializable {
         $this->job_min_level = $job_min_level;
         $this->job_max_level = $job_max_level;
         $this->job_start_date = $job_start_date;
-        $this->job_end_date = $job_end_date;
+        $this->open_date = $open_date;
         $this->close_date = $close_date;
         $this->department = $department;
         $this->location_province = $location_province;
@@ -50,7 +50,6 @@ class JobPoster implements JsonSerializable {
         $this->remuneration_range_low = $remuneration_range_low;
         $this->remuneration_range_high = $remuneration_range_high;
     }
-
     
     public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
@@ -66,13 +65,9 @@ class JobPoster implements JsonSerializable {
     public function getId() {
         return $this->id;
     }
-    
+
     public function getLocale_id() {
         return $this->locale_id;
-    }
-
-    public function setLocale_id($locale_id) {
-        $this->locale_id = $locale_id;
     }
 
     public function getTitle() {
@@ -87,12 +82,12 @@ class JobPoster implements JsonSerializable {
         return $this->applicants_to_date;
     }
 
-    public function getTerm_units() {
-        return $this->term_units;
-    }
-
     public function getTerm_qty() {
         return $this->term_qty;
+    }
+
+    public function getTerm_units() {
+        return $this->term_units;
     }
 
     public function getJob_min_level() {
@@ -107,8 +102,8 @@ class JobPoster implements JsonSerializable {
         return $this->job_start_date;
     }
 
-    public function getJob_end_date() {
-        return $this->job_end_date;
+    public function getOpen_date() {
+        return $this->open_date;
     }
 
     public function getClose_date() {
@@ -134,9 +129,14 @@ class JobPoster implements JsonSerializable {
     public function getRemuneration_range_high() {
         return $this->remuneration_range_high;
     }
-    
+
     public function setId($id) {
         $this->id = $id;
+        return $this;
+    }
+
+    public function setLocale_id($locale_id) {
+        $this->locale_id = $locale_id;
         return $this;
     }
 
@@ -155,13 +155,13 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
-    public function setTerm_units($term_units) {
-        $this->term_units = $term_units;
+    public function setTerm_qty($term_qty) {
+        $this->term_qty = $term_qty;
         return $this;
     }
 
-    public function setTerm_qty($term_qty) {
-        $this->term_qty = $term_qty;
+    public function setTerm_units($term_units) {
+        $this->term_units = $term_units;
         return $this;
     }
 
@@ -180,8 +180,8 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
-    public function setJob_end_date($job_end_date) {
-        $this->job_end_date = $job_end_date;
+    public function setOpen_date($open_date) {
+        $this->open_date = $open_date;
         return $this;
     }
 
@@ -207,14 +207,13 @@ class JobPoster implements JsonSerializable {
 
     public function setRemuneration_range_low($remuneration_range_low) {
         $this->remuneration_range_low = $remuneration_range_low;
+        return $this;
     }
 
     public function setRemuneration_range_high($remuneration_range_high) {
         $this->remuneration_range_high = $remuneration_range_high;
-    }
-
-
-    
+        return $this;
+    }  
 }
 
 ?>

@@ -45,7 +45,7 @@ class JobPosterDAO extends BaseDAO {
             jl_1.job_level as job_min_level,
             jl_2.job_level as job_max_level,
             jp.job_poster_start_date as job_start_date,
-            jp.job_poster_end_date as job_end_date,
+            jp.job_poster_open_date_time as open_date,
             jp.job_poster_close_date_time as close_date,
             dd.department_details_name as department,
             pd.province_details_name as location_province,
@@ -86,7 +86,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'job_end_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high'));
+            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high'));
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -117,7 +117,7 @@ class JobPosterDAO extends BaseDAO {
             jl_1.job_level as job_min_level,
             jl_2.job_level as job_max_level,
             jp.job_poster_start_date as job_start_date,
-            jp.job_poster_end_date as job_end_date,
+            jp.job_poster_open_date_time as open_date,
             jp.job_poster_close_date_time as close_date,
             dd.department_details_name as department,
             pd.province_details_name as location_province,
@@ -159,7 +159,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'job_end_date', 'close_date', 'department', 'location_province', 'location_city','','',''));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','','',''));
             $jobPoster = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
