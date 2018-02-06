@@ -39,7 +39,7 @@ class LookupDAO extends BaseDAO {
             WHERE l.locale_iso = :locale
             AND pd.province_details_province_id = p.province_id
             AND l.locale_id = pd.province_details_locale_id
-            ORDER BY pd.province_details_name";
+            ORDER BY pd.province_details_name;";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
         

@@ -90,6 +90,7 @@ class JobPosterDAO extends BaseDAO {
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
+            BaseDAO::closeConnection($link);
             return 'getJobPostersByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
@@ -162,6 +163,7 @@ class JobPosterDAO extends BaseDAO {
             $jobPoster = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
+            BaseDAO::closeConnection($link);
             return 'getJobPostersByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
@@ -326,8 +328,10 @@ class JobPosterDAO extends BaseDAO {
             
             $link->commit();
         } catch (PDOException $e) {
+            BaseDAO::closeConnection($link);
             return 'createJobPoster failed: ' . $e->getMessage();
         }
+        BaseDAO::closeConnection($link);
         return $job_post_id;
     }
 }
