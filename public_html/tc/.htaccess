@@ -6,6 +6,7 @@ RewriteRule ^api/v1/authenticate services/Authentication.php
 RewriteRule ^api/v1/user services/User.php
 RewriteRule ^api/v1/user/validateEmail services/User.php
 RewriteRule ^api/v1/user/register services/User.php
+RewriteRule ^api/v1/user/update services/User.php
 RewriteRule ^api/v1/locale services/Locale.php
 RewriteRule ^api/v1/getJobSeekers services/JobSeekers.php
 RewriteRule ^api/v1/getJobSeekerProfile/([0-9]{1,10}) services/JobSeekerProfile.php

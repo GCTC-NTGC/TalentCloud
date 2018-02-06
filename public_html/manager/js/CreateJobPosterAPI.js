@@ -171,6 +171,34 @@ CreateJobPosterAPI.validateStep4 = function() {
     }
 };
 
+CreateJobPosterAPI.validateJobPosterForm = function() {
+    var valid = true;
+    
+    var jobTitle = document.getElementById("createJobPoster_jobTitle").value;
+    CreateJobPosterAPI.jobObjEnglish.title = jobTitle;
+    
+    var jobTitle_fr = document.getElementById("createJobPoster_jobTitle_fr").value;
+    CreateJobPosterAPI.jobObjFrench.title = jobTitle_fr;
+    
+    var closeDate = document.getElementById("createJobPoster_closeDate").value;
+    CreateJobPosterAPI.jobObjEnglish.close_date_time = closeDate;
+    
+    var closeDate_fr = document.getElementById("createJobPoster_closeDate_fr").value;
+    CreateJobPosterAPI.jobObjFrench.close_date_time = closeDate_fr;
+        
+    var department = document.getElementById("createJobPoster_department").value;
+    CreateJobPosterAPI.jobObjEnglish.department = department;
+    
+    var department_fr = document.getElementById("createJobPoster_department_fr").value;
+    CreateJobPosterAPI.jobObjFrench.department = department_fr;
+    
+    //TODO: VALIDATION
+    
+    if (valid) {
+        CreateJobPosterAPI.submitJobPosterForm();
+    }
+}
+
 
 CreateJobPosterAPI.submitJobPosterForm = function() {
     

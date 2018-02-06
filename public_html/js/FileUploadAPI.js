@@ -10,7 +10,7 @@ FileUploadAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
-FileUploadAPI.defaultProfilePic = '/images/user.svg';
+FileUploadAPI.defaultProfilePic = '/images/user.png';
 
 FileUploadAPI.FileUploader = function(
         fileField, dropZone, fileList,
@@ -291,7 +291,7 @@ FileUploadAPI.onProfilePicUploaded = function(xhr){
     FileUploadAPI.refreshUserProfilePic();
 };
 
-FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
+FileUploadAPI.refreshProfilePic = function(user_id, img_element_array) {
     var xhr = new XMLHttpRequest();
     var pic_url = FileUploadAPI.baseURL+'/profilePic/'+user_id;
     if ("withCredentials" in xhr) {
@@ -313,9 +313,13 @@ FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
     xhr.setRequestHeader("Accept","image/*"); 
     xhr.addEventListener('load', function() {
         if (xhr.status == 200) {
-            img_elem.src = xhr.responseURL;
+            for (var i=0; i<img_element_array.length;i++) {
+                img_element_array[i].src = xhr.responseURL;
+            }
         } else {
-            img_elem.src = FileUploadAPI.defaultProfilePic;
+            for (var i=0; i<img_element_array.length;i++) {
+                img_element_array[i].src = FileUploadAPI.defaultProfilePic;
+            }
         }
     });
     xhr.send();
@@ -324,7 +328,7 @@ FileUploadAPI.refreshProfilePic = function(user_id, img_elem) {
 FileUploadAPI.refreshUserProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("myProfilePic"));
+        FileUploadAPI.refreshProfilePic(user_id, [document.getElementById("myProfilePic")]);
     }
 };
 

@@ -72,13 +72,12 @@ header("Content-Type: application/json; charset=utf-8");
             
             if(strlen($requestParams) > 1){
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
-                $headers = getallheaders();
-                                
+                                                
                 $profile_pic = new ProfilePic($user_id, 
                         file_get_contents('php://input'), 
                         null,
-                        $headers['Content-type'],
-                        $headers['Content-Length']);
+                        $_SERVER['CONTENT_TYPE'], 
+                        $_SERVER['CONTENT_LENGTH']); 
                 $result = ProfilePicController::putProfilePic($profile_pic);
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
                 //echo($profile_pic->getImage());

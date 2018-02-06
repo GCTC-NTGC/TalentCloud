@@ -40,7 +40,7 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
             jp.job_poster_term_qty as term_qty,
-            jt.job_term as term_units,
+            jtd.job_term as term_units,
             jl_1.job_level as job_min_level,
             jl_2.job_level as job_max_level,
             jp.job_poster_start_date as job_start_date,
@@ -53,7 +53,7 @@ class JobPosterDAO extends BaseDAO {
             jp.job_poster_remuneration_max as remuneration_range_high
             FROM job_poster jp, job_poster_details jpd, 
                 locale l, 
-                job_term jt, 
+                job_term_details jtd, 
                 job_level jl_1, 
                 job_level jl_2, 
                 department d, 
@@ -65,7 +65,8 @@ class JobPosterDAO extends BaseDAO {
             WHERE jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
-            AND jt.job_term_id = jp.job_term_id
+            AND jtd.job_term_id = jp.job_term_id
+            AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
             AND jl_2.job_level_id = jp.job_poster_job_max_level_id
             AND d.department_id = jp.job_poster_department_id
@@ -110,7 +111,7 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
             jp.job_poster_term_qty as term_qty,
-            jt.job_term as term_units,
+            jtd.job_term as term_units,
             jl_1.job_level as job_min_level,
             jl_2.job_level as job_max_level,
             jp.job_poster_start_date as job_start_date,
@@ -121,8 +122,8 @@ class JobPosterDAO extends BaseDAO {
             cd.city_details_name as location_city
             FROM job_poster jp, 
                 job_poster_details jpd, 
-                locale l, 
-                job_term jt, 
+                locale l,
+                job_term_details jtd,
                 job_level jl_1, 
                 job_level jl_2, 
                 department d, 
@@ -135,7 +136,8 @@ class JobPosterDAO extends BaseDAO {
             AND jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
-            AND jt.job_term_id = jp.job_term_id
+            AND jtd.job_term_id = jp.job_term_id
+            AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
             AND jl_2.job_level_id = jp.job_poster_job_max_level_id
             AND d.department_id = jp.job_poster_department_id

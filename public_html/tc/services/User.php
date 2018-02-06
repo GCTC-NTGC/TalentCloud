@@ -69,7 +69,7 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                     $result = array();
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
-                }
+                }                
             }else{
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Authorization declined';
@@ -80,7 +80,27 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
             //Here Handle DELETE Request 
             break;
         case 'PUT':
-            //Here Handle PUT Request 
+            $jsonBody = file_get_contents('php://input');
+            //TODO: check authaurization
+            if(strlen($jsonBody) > 1){
+                $userJson = json_decode($jsonBody, TRUE);
+
+                $updatedUser = new User();
+                $updatedUser->setUser_id($userJson['user_id']);
+                $updatedUser->setEmail($userJson['email']);
+                $updatedUser->setPassword($userJson['password']);
+                $updatedUser->setFirstname($userJson['firstname']);
+                $updatedUser->setLastname($userJson['lastname']);
+                $updatedUser->setUser_role($userJson['user_role']);
+
+                $result = UserController::updateUser($updatedUser);
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }else{
+                header('HTTP/1.0 401 Unauthorized');
+                echo 'Authorization declined';
+                exit;
+            }
             break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests

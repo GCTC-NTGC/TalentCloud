@@ -234,4 +234,10 @@ Utilities.serialize = function(obj, prefix) {
     }
   }
   return str.join("&");
-}
+};
+
+Utilities.replaceElementText = function(element, newText) {
+    while( element.firstChild )
+        element.removeChild( element.firstChild );
+    element.appendChild( document.createTextNode(newText) );
+};

@@ -10,14 +10,14 @@ UserAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
-UserAPI.User = function (id, firstName, lastName, emailAddress, password, authToken, userRole) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.emailAddress = emailAddress;
+UserAPI.User = function (userId, firstname, lastname, email, password, isConfirmed, userRole) {
+    this.user_id = userId;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
     this.password = password;
-    this.authToken = authToken;
-    this.userRole = userRole;
+    this.is_confirmed = isConfirmed;
+    this.user_role = userRole;
 };
 
 /**
@@ -334,8 +334,6 @@ UserAPI.loaded = function (response) {
         UserAPI.storeSessionUser(authJSON);
     }
     if (authJSON.user_id !== "") {
-
-
         var user_fname = document.getElementById("user_fname");
         user_fname.innerHTML = authJSON.firstname;
 
@@ -357,6 +355,7 @@ UserAPI.loaded = function (response) {
         if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
             //if(authJSON.firstname !== null){
             DataAPI.getJobSeekerProfileByUserId(authJSON);
+            JobSeekerAPI.refreshJobSeekerProfilePic();
             //}else{
             //    UserAPI.showJobSeekerProfileForm();
             //}
@@ -641,32 +640,45 @@ UserAPI.clearFormFields = function (formId) {
     }
 };
 
-//This should be in the JobPosterAPI or TalentCloudAPI-not user related
-UserAPI.showJobSeekerProfileForm = function () {
-    var stateInfo = {pageInfo: 'create_job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
-    document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #Register instead of url
+UserAPI.updateUser = function(user, updateUserCallback) {
+    Utilities.debug?console.log("updating user"):null;
+    var updateUser_url = UserAPI.baseURL+"/user/update/";
+    var jsonData=JSON.stringify(user);
+    
+    var updateUser_xhr = new XMLHttpRequest();
+    if ("withCredentials" in updateUser_xhr) {
 
-    EventsAPI.clearJobsContainer();
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      updateUser_xhr.open("PUT", updateUser_url);
 
-    var jobSeekerProfileOverlay = document.getElementById("jobSeekerProfileWrapperWindow");
-    jobSeekerProfileOverlay.classList.remove("hidden");
+    } else if (typeof XDomainRequest != "undefined") {
 
-    var profile_first_name = document.getElementById("profile_first_name");
-    profile_first_name.focus();
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      updateUser_xhr = new XDomainRequest();
+      updateUser_xhr.open("PUT", updateUser_url);
 
-    EventsAPI.hideBodyOverflow(false);
-    //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");
-    //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
+    } else {
 
-};
+      // Otherwise, CORS is not supported by the browser.
+      updateUser_xhr = null;
 
-UserAPI.hideJobSeekerProfileForm = function () {
-    var jobSeekerProfileOverlay = document.getElementById("jobSeekerProfileWrapperWindow");
-    jobSeekerProfileOverlay.classList.add("hidden");
+    }
 
-    //UserAPI.clearFormFields("jobSeekerForm");
-    //EventsAPI.hideBodyOverflow(false);
-
-    //FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,null);
-};
+    updateUser_xhr.open('PUT',updateUser_url);
+    updateUser_xhr.setRequestHeader("Content-Type","application/json");
+    
+    //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
+    //updateUser_xhr.addEventListener("error",DataAPI.transferFailed,false);
+    //updateUser_xhr.addEventListener("abort",DataAPI.transferAborted,false);
+    updateUser_xhr.addEventListener("load",function(){
+        var responseJson = JSON.parse(updateUser_xhr.responseText);
+        if (responseJson.userUpdated && responseJson.updatedUser) {
+            UserAPI.storeSessionUser(responseJson.updatedUser);
+        }
+        updateUserCallback(updateUser_xhr.response);
+    }
+    ,false);
+    updateUser_xhr.send(jsonData);
+}
