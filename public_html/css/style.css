@@ -79,6 +79,11 @@ nav{
     float: right;
 }
 
+.singlePane {
+    width: 100%;
+    clear: both;
+}
+
 .tc-logo {
   background-image: url("images/talentcloud_logo_white.png");
   background-position:  center;
@@ -167,10 +172,12 @@ nav{
     position:relative;
 }
 
+/* Was this here for a good reason? - Tristan
 div label span{
     clear:left;
     display: block !important;
 }
+*/
 
 #loginTitleWrapper,#registerFormTitleWrapper{
     height:50px !important;

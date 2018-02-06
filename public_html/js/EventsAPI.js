@@ -80,7 +80,7 @@ EventsAPI.cancelLogin = function(){
 };
 
 EventsAPI.hideBodyOverflow = function(hide){
-    var body = document.getElementById("body");
+    var body = document.getElementsByTagName("body")[0];
     if(hide){
         body.classList.add("overFlowHidden");
     }else{

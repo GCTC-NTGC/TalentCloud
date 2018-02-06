@@ -16,6 +16,7 @@
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
 require_once '../model/JobPoster.php';
+require_once '../model/JobPosterNonLocalized.php';
 
 /**
  * Summary: Data Access Object for Resources
@@ -168,86 +169,167 @@ class JobPosterDAO extends BaseDAO {
     }
     
     public static function createJobPoster($jobPoster){
-        /*
-         * BEGIN;
+        $link = BaseDAO::getConnection();
+        $sqlStr1 = "
             INSERT INTO job_poster
             (
             job_term_id,
             job_poster_term_qty,
             job_poster_job_min_level_id,
             job_poster_job_max_level_id,
-            job_poster_start_date,
-            job_poster_end_date,
+            job_poster_open_date_time,
             job_poster_close_date_time,
-            job_poster_department_id
+            job_poster_start_date,
+            job_poster_department_id,
+            job_poster_province_id,
+            job_poster_remuneration_min,
+            job_poster_remuneration_max
             )
             VALUES
             (
-            0000000003,
-            2,
-            0000000001,
-            0000000003,
-            '2018-02-01 08:00:00',
-            '2020-02-01 17:00:00',
-            '2018-01-01 23:59:59',
-            0000000001
-            );
+            :term_units_id,
+            :term_qty,
+            :job_min_level_id,
+            :job_max_level_id,
+            :open_date,
+            :close_date,
+            :start_date,
+            :department_id,
+            :province_id,
+            :remuneration_range_low,
+            :remuneration_range_high
+            );";
+        $sqlStr2 = "SELECT LAST_INSERT_ID() INTO @job_post_id;";
+        
+        $sqlStr3 = "
             INSERT INTO job_poster_details
             (
             job_poster_id,
             locale_id,
             job_poster_desc_title,
-            job_poster_desc_content
+            job_poster_desc_content,
+            job_poster_city,
+            job_poster_title,
+            job_poster_impact
             )
             VALUES
-            (
-            last_insert_id(),
-            0000000002,
-            'Designer UX',
-            'This is the description for the UX Design position_french'
-            );
-            COMMIT;
-
-         */
+            (@job_post_id,1,'','',:city_en,:title_en, :impact_en),
+            (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr);";
         
-        $sql1 = "INSERT INTO job_poster
-            (
-            job_term_id,
-            job_poster_term_qty,
-            job_poster_job_min_level_id,
-            job_poster_job_max_level_id,
-            job_poster_start_date,
-            job_poster_end_date,
-            job_poster_close_date_time,
-            job_poster_department_id
-            )
-            VALUES
-            (
-            0000000003,
-            2,
-            0000000001,
-            0000000003,
-            '2018-02-01 08:00:00',
-            '2020-02-01 17:00:00',
-            '2018-01-01 23:59:59',
-            0000000001
-            );";
-        $sql2 = "INSERT INTO job_poster_details
-            (
-            job_poster_id,
-            locale_id,
-            job_poster_desc_title,
-            job_poster_desc_content
-            )
-            VALUES
-            (
-            last_insert_id(),
-            0000000002,
-            'Designer UX',
-            'This is the description for the UX Design position_french'
-            );";
+        //Build bulk insert sql strings for array data
+        $key_task_data = [];
+        $key_task_values = [];
+        foreach($jobPoster->getKey_tasks_en() as $task) {
+            $key_task_values[] = '(@job_post_id, 1, ?)';
+            $key_task_data[] = $task;
+        }
+        foreach($jobPoster->getKey_tasks_fr() as $task) {
+            $key_task_values[] = '(@job_post_id, 2, ?)';
+            $key_task_data[] = $task;
+        }
+        $sqlStr4 = "INSERT INTO job_poster_key_task
+            (job_poster_id, locale_id, task) VALUES " . 
+            implode(',', $key_task_values) . ";";
+            
+        $core_competency_data = [];
+        $core_competency_values = [];
+        foreach($jobPoster->getCore_competencies_en() as $core_competency) {
+            $core_competency_values[] = '(@job_post_id, 1, ?)';
+            $core_competency_data[] = $core_competency;
+        }
+        foreach($jobPoster->getCore_competencies_fr() as $core_competency) {
+            $core_competency_values[] = '(@job_post_id, 2, ?)';
+            $core_competency_data[] = $core_competency;
+        }
+        $sqlStr5 = "INSERT INTO job_poster_core_competency
+            (job_poster_id, locale_id, core_competency) VALUES " . 
+            implode(',', $core_competency_values) . ";";
+        
+        $dev_competency_data = [];
+        $dev_competency_values = [];
+        foreach($jobPoster->getDeveloping_competencies_en() as $dev_competency) {
+            $dev_competency_values[] = '(@job_post_id, 1, ?)';
+            $dev_competency_data[] = $dev_competency;
+        }
+        foreach($jobPoster->getDeveloping_competencies_fr() as $dev_competency) {
+            $dev_competency_values[] = '(@job_post_id, 2, ?)';
+            $dev_competency_data[] = $dev_competency;
+        }
+        $sqlStr6 = "INSERT INTO job_poster_developing_competency
+            (job_poster_id, locale_id, developing_competency) VALUES " . 
+            implode(',', $dev_competency_values) . ";";
+            
+        $requirement_data = [];
+        $requirement_values = [];
+        foreach($jobPoster->getOther_requirements_en() as $requirement) {
+            $requirement_values[] = '(@job_post_id, 1, ?)';
+            $requirement_data[] = $requirement;
+        }
+        foreach($jobPoster->getOther_requirements_fr() as $requirement) {
+            $requirement_values[] = '(@job_post_id, 2, ?)';
+            $requirement_data[] = $requirement;
+        }
+        $sqlStr7 = "INSERT INTO job_poster_other_requirement
+            (job_poster_id, locale_id, requirement) VALUES " . 
+            implode(',', $requirement_values) . ";";
+                       
+                
+        $sql1 = $link->prepare($sqlStr1);
+        $sql2 = $link->prepare($sqlStr2);
+        $sql3 = $link->prepare($sqlStr3);
+        
+        if (sizeof($key_task_data) > 0)
+            $sql4 = $link->prepare($sqlStr4);
+        if (sizeof($core_competency_data) > 0)
+            $sql5 = $link->prepare($sqlStr5);
+        if (sizeof($dev_competency_data) > 0)
+            $sql6 = $link->prepare($sqlStr6);
+        if (sizeof($requirement_data) > 0)
+            $sql7 = $link->prepare($sqlStr7);
+        
+        $sql1->bindValue(':term_units_id', $jobPoster->getTerm_units_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':term_qty', $jobPoster->getTerm_qty(), PDO::PARAM_INT);
+        $sql1->bindValue(':job_min_level_id', $jobPoster->getJob_min_level_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':job_max_level_id', $jobPoster->getJob_max_level_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':open_date', $jobPoster->getOpen_date(), PDO::PARAM_STR);
+        $sql1->bindValue(':close_date', $jobPoster->getClose_date(), PDO::PARAM_STR);
+        $sql1->bindValue(':start_date', $jobPoster->getStart_date(), PDO::PARAM_STR);
+        $sql1->bindValue(':department_id', $jobPoster->getDepartment_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':province_id', $jobPoster->getProvince_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':remuneration_range_low', $jobPoster->getRemuneration_range_low(), PDO::PARAM_INT);
+        $sql1->bindValue(':remuneration_range_high', $jobPoster->getRemuneration_range_high(), PDO::PARAM_INT);
+        
+        $sql3->bindValue(':city_en', $jobPoster->getCity_en(), PDO::PARAM_STR);
+        $sql3->bindValue(':city_fr', $jobPoster->getCity_fr(), PDO::PARAM_STR);
+        $sql3->bindValue(':title_en', $jobPoster->getTitle_en(), PDO::PARAM_STR);
+        $sql3->bindValue(':title_fr', $jobPoster->getTitle_fr(), PDO::PARAM_STR);
+        $sql3->bindValue(':impact_en', $jobPoster->getImpact_en(), PDO::PARAM_LOB);
+        $sql3->bindValue(':impact_fr', $jobPoster->getImpact_fr(), PDO::PARAM_LOB);
+       
+        $job_post_id = null;
+        try {
+            //$result = BaseDAO::executeDBTransaction($link,$sql);
+            $link->beginTransaction();
+            $sql1->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $job_post_id = $link->lastInsertId();
+            $sql2->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql3->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            
+            if (sizeof($key_task_data) > 0)
+                 $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($core_competency_data) > 0)
+                $sql5->execute($core_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($dev_competency_data) > 0)
+                $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($requirement_data) > 0)
+                $sql7->execute($requirement_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            
+            $link->commit();
+        } catch (PDOException $e) {
+            return 'createJobPoster failed: ' . $e->getMessage();
+        }
+        return $job_post_id;
     }
-    
 }
 
 ?>

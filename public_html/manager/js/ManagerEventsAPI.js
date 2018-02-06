@@ -69,7 +69,7 @@ ManagerEventsAPI.cancelLogin = function(){
 };
 
 ManagerEventsAPI.hideBodyOverflow = function(hide){
-    var body = document.getElementById("body");
+    var body = document.getElementsByTagName("body")[0];
     if(!hide){
         body.classList.remove("overFlowHidden");
     }else{

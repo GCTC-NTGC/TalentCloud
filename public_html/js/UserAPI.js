@@ -351,6 +351,8 @@ UserAPI.loaded = function (response) {
 
         var loginOverlay = document.getElementById("loginOverlay");
         loginOverlay.classList.add("hidden");
+        
+        EventsAPI.hideBodyOverflow(false);
 
         if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
             //if(authJSON.firstname !== null){
@@ -516,6 +518,7 @@ UserAPI.hideRegisterForm = function () {
             document.getElementById("register_password_error");
     register_password_error.classList.add("hidden");
 
+    EventsAPI.hideBodyOverflow(false);
     UserAPI.clearFormFields("registerForm");
 };
 
