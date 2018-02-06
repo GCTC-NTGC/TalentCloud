@@ -158,6 +158,9 @@ CreateJobPosterAPI.getLookupData = function(lookupType, locale){
     function(evt){
         CreateJobPosterAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
         var userLocale = Utilities.getCookieByName("locale");
+        if (userLocale === undefined) {
+            userLocale = "en_CA";
+        }
         if (userLocale === locale) {
             CreateJobPosterAPI.populateLookups(lookupType,lookupData_xhr.response);
         }

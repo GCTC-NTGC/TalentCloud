@@ -201,7 +201,7 @@ Utilities.sortAlphaNum = function (a, b) {
 Utilities.setCookie = function(name, value, exdate, path) {
     var escapedValue = escape(value);
     var expDate = new Date(exdate).toUTCString();
-    var cookieStr = name + "=" + escapedValue + "; expires=" + expDate + "; path=" + path + ";secure";
+    var cookieStr = name + "=" + escapedValue + "; expires=" + expDate + "; path=" + path;
     Utilities.debug?console.log("cookieString=" + cookieStr):null;
     document.cookie = cookieStr;
 };
