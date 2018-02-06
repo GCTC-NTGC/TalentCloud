@@ -12,7 +12,30 @@ CreateJobPosterAPI.jobPosterObj = null;
 
 CreateJobPosterAPI.lookupMap = {};
 
-CreateJobPosterAPI.JobPostNonLocalized = function(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr) {
+CreateJobPosterAPI.JobPostNonLocalized = function(
+        id, 
+        title, 
+        title_fr, 
+        department_id, 
+        province_id, 
+        city, 
+        city_fr, 
+        open_date_time, 
+        close_date_time, 
+        start_date, 
+        term_qty, 
+        remuneration_range_low, 
+        remuneration_range_high, 
+        impact, 
+        impact_fr,
+        key_tasks_en,
+        key_tasks_fr,
+        core_competencies_en,
+        core_competencies_fr,
+        developing_competencies_en,
+        developing_competencies_fr,
+        other_requirments_en,
+        other_requirments_fr) {
     this.id = id;
     this.title = {};
     this.title.en_CA = title;
@@ -31,6 +54,18 @@ CreateJobPosterAPI.JobPostNonLocalized = function(id, title, title_fr, departmen
     this.impact = {};
     this.impact.en_CA = impact;
     this.impact.fr_CA = impact_fr;
+    this.key_tasks = {};
+    this.key_tasks.en_CA = key_tasks_en;
+    this.key_tasks.fr_CA = key_tasks_fr;
+    this.core_competencies = {};
+    this.core_competencies.en_CA = core_competencies_en;
+    this.core_competencies.fr_CA = core_competencies_fr;
+    this.developing_competencies = {};
+    this.developing_competencies.en_CA = developing_competencies_en;
+    this.developing_competencies.fr_CA = developing_competencies_fr;
+    this.other_requirements = {};
+    this.other_requirements.en_CA = other_requirments_en;
+    this.other_requirements.fr_CA = other_requirments_fr;    
     
     this.term_units_id = 2; //default to months for now
     this.job_min_level_id = 1; //default to CS1
@@ -323,7 +358,16 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     
     var impact_fr = document.getElementById("createJobPoster_impact_fr").value;
     
-    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr);
+    var key_tasks_en = ['task1', 'task2'],
+            key_tasks_fr = ['tache1', 'tache2'],
+            core_competencies_en = ['comp'],
+            core_competencies_fr = ['compe'],
+            developing_competencies_en = [],
+            developing_competencies_fr = [],
+            other_requirements_en = [],
+            other_requirements_fr = [];
+    
+    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
 }
 
 

@@ -26,8 +26,42 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $job_max_level_id;
     private $impact_en;
     private $impact_fr;
+    private $key_tasks_en;
+    private $key_tasks_fr;
+    private $core_competencies_en;
+    private $core_competencies_fr;
+    private $developing_competencies_en;
+    private $developing_competencies_fr;
+    private $other_requirements_en;
+    private $other_requirements_fr;
     
-    public function __construct($id=null, $title_en=null, $title_fr=null, $department_id=null, $province_id=null, $city_en=null, $city_fr=null, $term_qty=null, $term_units_id=null, $open_date=null, $close_date=null, $start_date=null, $remuneration_range_low=null, $remuneration_range_high=null, $job_min_level_id=null, $job_max_level_id=null, $impact_en=null, $impact_fr=null) {
+    public function __construct(
+            $id=null, 
+            $title_en=null, 
+            $title_fr=null, 
+            $department_id=null, 
+            $province_id=null, 
+            $city_en=null, 
+            $city_fr=null, 
+            $term_qty=null, 
+            $term_units_id=null, 
+            $open_date=null, 
+            $close_date=null, 
+            $start_date=null,
+            $remuneration_range_low=null, 
+            $remuneration_range_high=null, 
+            $job_min_level_id=null, 
+            $job_max_level_id=null, 
+            $impact_en=null, 
+            $impact_fr=null,
+            $key_tasks_en=null,
+            $key_tasks_fr=null,
+            $core_competencies_en=null,
+            $core_competencies_fr=null,
+            $developing_competencies_en=null,
+            $developing_competencies_fr=null,
+            $other_requirements_en=null,
+            $other_requirements_fr=null) {
         $this->id = $id;
         $this->title_en = $title_en;
         $this->title_fr = $title_fr;
@@ -46,6 +80,14 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->job_max_level_id = $job_max_level_id;
         $this->impact_en = $impact_en;
         $this->impact_fr = $impact_fr;
+        $this->key_tasks_en = $key_tasks_en;
+        $this->key_tasks_fr = $key_tasks_fr;
+        $this->core_competencies_en = $core_competencies_en;
+        $this->core_competencies_fr = $core_competencies_fr;
+        $this->developing_competencies_en = $developing_competencies_en;
+        $this->developing_competencies_fr = $developing_competencies_fr;
+        $this->other_requirements_en = $other_requirements_en;
+        $this->other_requirements_fr = $other_requirements_fr;
     }
 
     
@@ -130,6 +172,38 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function getImpact_fr() {
         return $this->impact_fr;
+    }
+
+    public function getKey_tasks_en() {
+        return $this->key_tasks_en;
+    }
+
+    public function getKey_tasks_fr() {
+        return $this->key_tasks_fr;
+    }
+
+    public function getCore_competencies_en() {
+        return $this->core_competencies_en;
+    }
+
+    public function getCore_competencies_fr() {
+        return $this->core_competencies_fr;
+    }
+
+    public function getDeveloping_competencies_en() {
+        return $this->developing_competencies_en;
+    }
+
+    public function getDeveloping_competencies_fr() {
+        return $this->developing_competencies_fr;
+    }
+
+    public function getOther_requirements_en() {
+        return $this->other_requirements_en;
+    }
+
+    public function getOther_requirements_fr() {
+        return $this->other_requirements_fr;
     }
 
     public function setId($id) {
@@ -219,6 +293,46 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function setImpact_fr($impact_fr) {
         $this->impact_fr = $impact_fr;
+        return $this;
+    }
+
+    public function setKey_tasks_en($key_tasks_en) {
+        $this->key_tasks_en = $key_tasks_en;
+        return $this;
+    }
+
+    public function setKey_tasks_fr($key_tasks_fr) {
+        $this->key_tasks_fr = $key_tasks_fr;
+        return $this;
+    }
+
+    public function setCore_competencies_en($core_competencies_en) {
+        $this->core_competencies_en = $core_competencies_en;
+        return $this;
+    }
+
+    public function setCore_competencies_fr($core_competencies_fr) {
+        $this->core_competencies_fr = $core_competencies_fr;
+        return $this;
+    }
+
+    public function setDeveloping_competencies_en($developing_competencies_en) {
+        $this->developing_competencies_en = $developing_competencies_en;
+        return $this;
+    }
+
+    public function setDeveloping_competencies_fr($developing_competencies_fr) {
+        $this->developing_competencies_fr = $developing_competencies_fr;
+        return $this;
+    }
+
+    public function setOther_requirements_en($other_requirements_en) {
+        $this->other_requirements_en = $other_requirements_en;
+        return $this;
+    }
+
+    public function setOther_requirements_fr($other_requirements_fr) {
+        $this->other_requirements_fr = $other_requirements_fr;
         return $this;
     }
 }

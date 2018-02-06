@@ -216,9 +216,76 @@ class JobPosterDAO extends BaseDAO {
             (@job_post_id,1,'','',:city_en,:title_en, :impact_en),
             (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr);";
         
+        //Build bulk insert sql strings for array data
+        $key_task_data = [];
+        $key_task_values = [];
+        foreach($jobPoster->getKey_tasks_en() as $task) {
+            $key_task_values[] = '(@job_post_id, 1, ?)';
+            $key_task_data[] = $task;
+        }
+        foreach($jobPoster->getKey_tasks_fr() as $task) {
+            $key_task_values[] = '(@job_post_id, 2, ?)';
+            $key_task_data[] = $task;
+        }
+        $sqlStr4 = "INSERT INTO job_poster_key_task
+            (job_poster_id, locale_id, task) VALUES " . 
+            implode(',', $key_task_values) . ";";
+            
+        $core_competency_data = [];
+        $core_competency_values = [];
+        foreach($jobPoster->getCore_competencies_en() as $core_competency) {
+            $core_competency_values[] = '(@job_post_id, 1, ?)';
+            $core_competency_data[] = $core_competency;
+        }
+        foreach($jobPoster->getCore_competencies_fr() as $core_competency) {
+            $core_competency_values[] = '(@job_post_id, 2, ?)';
+            $core_competency_data[] = $core_competency;
+        }
+        $sqlStr5 = "INSERT INTO job_poster_core_competency
+            (job_poster_id, locale_id, core_competency) VALUES " . 
+            implode(',', $core_competency_values) . ";";
+        
+        $dev_competency_data = [];
+        $dev_competency_values = [];
+        foreach($jobPoster->getDeveloping_competencies_en() as $dev_competency) {
+            $dev_competency_values[] = '(@job_post_id, 1, ?)';
+            $dev_competency_data[] = $dev_competency;
+        }
+        foreach($jobPoster->getDeveloping_competencies_fr() as $dev_competency) {
+            $dev_competency_values[] = '(@job_post_id, 2, ?)';
+            $dev_competency_data[] = $dev_competency;
+        }
+        $sqlStr6 = "INSERT INTO job_poster_developing_competency
+            (job_poster_id, locale_id, developing_competency) VALUES " . 
+            implode(',', $dev_competency_values) . ";";
+            
+        $requirement_data = [];
+        $requirement_values = [];
+        foreach($jobPoster->getOther_requirements_en() as $requirement) {
+            $requirement_values[] = '(@job_post_id, 1, ?)';
+            $requirement_data[] = $requirement;
+        }
+        foreach($jobPoster->getOther_requirements_fr() as $requirement) {
+            $requirement_values[] = '(@job_post_id, 2, ?)';
+            $requirement_data[] = $requirement;
+        }
+        $sqlStr7 = "INSERT INTO job_poster_other_requirement
+            (job_poster_id, locale_id, requirement) VALUES " . 
+            implode(',', $requirement_values) . ";";
+                       
+                
         $sql1 = $link->prepare($sqlStr1);
         $sql2 = $link->prepare($sqlStr2);
         $sql3 = $link->prepare($sqlStr3);
+        
+        if (sizeof($key_task_data) > 0)
+            $sql4 = $link->prepare($sqlStr4);
+        if (sizeof($core_competency_data) > 0)
+            $sql5 = $link->prepare($sqlStr5);
+        if (sizeof($dev_competency_data) > 0)
+            $sql6 = $link->prepare($sqlStr6);
+        if (sizeof($requirement_data) > 0)
+            $sql7 = $link->prepare($sqlStr7);
         
         $sql1->bindValue(':term_units_id', $jobPoster->getTerm_units_id(), PDO::PARAM_INT);
         $sql1->bindValue(':term_qty', $jobPoster->getTerm_qty(), PDO::PARAM_INT);
@@ -247,6 +314,16 @@ class JobPosterDAO extends BaseDAO {
             $job_post_id = $link->lastInsertId();
             $sql2->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql3->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            
+            if (sizeof($key_task_data) > 0)
+                 $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($core_competency_data) > 0)
+                $sql5->execute($core_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($dev_competency_data) > 0)
+                $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($requirement_data) > 0)
+                $sql7->execute($requirement_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            
             $link->commit();
         } catch (PDOException $e) {
             return 'createJobPoster failed: ' . $e->getMessage();

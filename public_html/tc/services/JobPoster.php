@@ -70,7 +70,15 @@
                 $jobPoster->setJob_max_level_id($jobPosterJSON["job_max_level_id"]);
                 $jobPoster->setImpact_en($jobPosterJSON["impact"][$en]);
                 $jobPoster->setImpact_fr($jobPosterJSON["impact"][$fr]);
-               
+                $jobPoster->setKey_tasks_en($jobPosterJSON["key_tasks"][$en]);
+                $jobPoster->setKey_tasks_fr($jobPosterJSON["key_tasks"][$fr]);
+                $jobPoster->setCore_competencies_en($jobPosterJSON["core_competencies"][$en]);
+                $jobPoster->setCore_competencies_fr($jobPosterJSON["core_competencies"][$fr]);
+                $jobPoster->setDeveloping_competencies_en($jobPosterJSON["developing_competencies"][$en]);
+                $jobPoster->setDeveloping_competencies_fr($jobPosterJSON["developing_competencies"][$fr]);
+                $jobPoster->setOther_requirements_en($jobPosterJSON["other_requirements"][$en]);
+                $jobPoster->setOther_requirements_fr($jobPosterJSON["other_requirements"][$fr]);
+                
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
