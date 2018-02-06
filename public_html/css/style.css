@@ -356,6 +356,7 @@ div label span{
 
 #profileName {
     margin-top: 0px;
+    font-size:3.5em;
 }
 
 .profileSection {
@@ -367,7 +368,7 @@ div label span{
     margin-bottom: 1em;
 }
 
-.profileSectionTitleBar h3{
+.profileSectionTitleBar h2{
     display: inline;
     font-weight: bold;
 }
@@ -480,7 +481,14 @@ div label span{
     width: 100%;
 }
 
-.nav-container li a {
+.nav-container li a{
+    font-size: 1.5rem;
+    color: #ccc;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#loggedInUser{
     font-size: 1.5rem;
     color: #ccc;
     font-weight: bold;
@@ -997,6 +1005,11 @@ input[type=button],input[type=submit]{
     box-shadow: 3px 3px 6px #999;
     padding:1em 2em 2em 2em;
     position:relative;
+}
+
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
 }
 
 .fileDropZone {

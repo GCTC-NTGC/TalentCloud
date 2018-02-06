@@ -78,7 +78,7 @@
         <div id="loginFormWrapperWindow" class="loginFormWrapperWindow">
             <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
                 <div id='loginTitleWrapper'>
-                    <h3 id='loginTitle' title="Login to TalentCloud"><img src="images/logo.svg" id="loginLogoImage" alt="Login Logo Image"/> &nbsp; &nbsp;Login</h3>
+                    <h3 id='loginTitle' title="Login to TalentCloud"><img src="images/logo.svg" id="loginLogoImage" alt="Login Logo Image"/>Login</h3>
                     <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
                 </div>
                 <div class="label label-danger hidden" id="loginErrors"></div>
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="dialogWindowInterior">
-                    <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.png"/>
+                    <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.png" alt="Default user"/>
                     <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/></a>
 
                     <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
@@ -165,7 +165,7 @@
                         </div>
                         <div class="form-group">
                             <label for="profileEditTwitter">
-                                <img src="images/twitter.png" class="form-icon"/>
+                                <img src="images/twitter.png" alt="Twitter logo" class="form-icon"/>
                                 <span>Twitter Username:</span>
                                 <strong id="profileEditTwitterError" class="error hidden">
                                     <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="form-group">
                             <label for="profileEditLinkedin">
-                                <img src="images/linkedin.png" class="form-icon"/>
+                                <img src="images/linkedin.png" alt="LinkedIn logo" class="form-icon"/>
                                 <span>LinkedIn Profile Address:</span>
                                 <strong id="profileEditLinkedinError" class="error hidden">
                                     <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
@@ -331,13 +331,11 @@
                 <h2 id="profileName">
                     <span id="profileFirstName"></span> <span id="profileLastName"></span></h2>
             </div>
-            <div style="background-color:#E5F8FF;">
+            <div class="profileTagLineContainer">
                 <p id="profileTagLine">Default tag line!</p>
                 <p>
-                    <strong>Available: </strong>
-                    <span id="profileStartDate"></span>
-                </p>
-                <p>
+                    <strong>Available: </strong><span id="profileStartDate"></span>
+                    <br>
                     <strong>Status: </strong>
                     <span id="profileStatus"></span>
                 </p>
@@ -347,14 +345,14 @@
         </div>
         <div id="profileAboutMeWrapper" class="profileSection">
             <div class="profileSectionTitleBar">
-                <h2><strong>About me</strong></h2>
+                <h2>About Me</h2>
                 <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
             </div>
             <p id="profileAboutMe">This is the about me section.</p>
         </div>
         <div id="profileSkillsWrapper" class="profileSection">
             <div class="profileSectionTitleBar">
-                <h2><strong>My Skills and Knowledge</strong></h2>
+                <h2>My Skills and Knowledge</h2>
                 <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
             </div>
             <ul id="profileSkillsList">
