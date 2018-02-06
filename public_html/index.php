@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="dialogWindowInterior">
-                    <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.svg"/>
+                    <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.png"/>
                     <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/></a>
 
                     <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
@@ -322,14 +322,14 @@
                         </li>    
                     </ul>
                 </div>
-                <img id="myProfilePic" class="profilePicLarge" src="images/user.svg"/>
+                <img id="myProfilePic" class="profilePicLarge" src="images/user.png"/>
                 <div style="width:40%">
-                    <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_light.png" alt="Edit Basic Info" class="editImage"/></a>
+                    <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_dark.png" alt="Edit Basic Info" class="editImage"/></a>
                 </div>
             </div>
             <div id="profileNameWrapper">
-                <h3 id="profileName">
-                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h3>
+                <h2 id="profileName">
+                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h2>
             </div>
             <div style="background-color:#E5F8FF;">
                 <p id="profileTagLine">Default tag line!</p>
@@ -347,14 +347,14 @@
         </div>
         <div id="profileAboutMeWrapper" class="profileSection">
             <div class="profileSectionTitleBar">
-                <h3>About me</h3>
+                <h2><strong>About me</strong></h2>
                 <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
             </div>
             <p id="profileAboutMe">This is the about me section.</p>
         </div>
         <div id="profileSkillsWrapper" class="profileSection">
             <div class="profileSectionTitleBar">
-                <h3>My Skills and Knowledge</h3>
+                <h2><strong>My Skills and Knowledge</strong></h2>
                 <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
             </div>
             <ul id="profileSkillsList">

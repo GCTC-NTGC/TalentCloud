@@ -60,10 +60,6 @@ nav{
     right:0;
 }
 
-.section{
-    padding: 2em 2em 2em 2em;
-}
-
 .form-icon {
     width: 1em;
     height: 1em;
@@ -376,6 +372,9 @@ div label span{
     font-weight: bold;
 }
 
+.socialMediaLink{
+    margin-top:2em;
+}
 
 .sectionEditBtn {
     float: right;
@@ -549,9 +548,8 @@ div label span{
 .section{
     clear:both;
     height:100%;
-    max-width: 1200px;
-    margin-left: 2em;
-    margin-right: 2em;
+    margin: 0 auto;;
+    width: 90%;
 }
 
 .searchWrapper{
@@ -968,11 +966,11 @@ input[type=button],input[type=submit]{
 }
 
 .profilePicLarge {
-    width:120px;
-    height:120px;
-    clip-path: circle(60px at center);
+    width:200px;
+    height:200px;
+    clip-path: circle(100px at center);
     border: 3px solid #FFCC33;
-    border-radius: 60px;
+    border-radius: 100px;
 }
 
 #profilePicUploadOverlay{
