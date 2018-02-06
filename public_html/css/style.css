@@ -60,10 +60,6 @@ nav{
     right:0;
 }
 
-.section{
-    padding: 2em 2em 2em 2em;
-}
-
 .form-icon {
     width: 1em;
     height: 1em;
@@ -367,6 +363,7 @@ div label span{
 
 #profileName {
     margin-top: 0px;
+    font-size:3.5em;
 }
 
 .profileSection {
@@ -378,11 +375,14 @@ div label span{
     margin-bottom: 1em;
 }
 
-.profileSectionTitleBar h3{
+.profileSectionTitleBar h2{
     display: inline;
     font-weight: bold;
 }
 
+.socialMediaLink{
+    margin-top:1em;
+}
 
 .sectionEditBtn {
     float: right;
@@ -488,7 +488,14 @@ div label span{
     width: 100%;
 }
 
-.nav-container li a {
+.nav-container li a{
+    font-size: 1.5rem;
+    color: #ccc;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#loggedInUser{
     font-size: 1.5rem;
     color: #ccc;
     font-weight: bold;
@@ -556,9 +563,8 @@ div label span{
 .section{
     clear:both;
     height:100%;
-    max-width: 1200px;
-    margin-left: 2em;
-    margin-right: 2em;
+    margin: 0 auto;;
+    width: 90%;
 }
 
 .searchWrapper{
@@ -975,11 +981,11 @@ input[type=button],input[type=submit]{
 }
 
 .profilePicLarge {
-    width:120px;
-    height:120px;
-    clip-path: circle(60px at center);
+    width:200px;
+    height:200px;
+    clip-path: circle(100px at center);
     border: 3px solid #FFCC33;
-    border-radius: 60px;
+    border-radius: 100px;
 }
 
 #profilePicUploadOverlay{
@@ -1006,6 +1012,11 @@ input[type=button],input[type=submit]{
     box-shadow: 3px 3px 6px #999;
     padding:1em 2em 2em 2em;
     position:relative;
+}
+
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
 }
 
 .fileDropZone {

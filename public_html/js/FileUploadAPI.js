@@ -10,7 +10,7 @@ FileUploadAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
-FileUploadAPI.defaultProfilePic = '/images/user.svg';
+FileUploadAPI.defaultProfilePic = '/images/user.png';
 
 FileUploadAPI.FileUploader = function(
         fileField, dropZone, fileList,

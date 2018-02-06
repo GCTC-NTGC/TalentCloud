@@ -139,7 +139,7 @@ ContactAPI.populateContact = function(contact){
 
     //add image child to contactImageWrapper
     var defaultContactImage = new Image();
-    defaultContactImage.src = "images/user.svg";
+    defaultContactImage.src = "images/user.png";
     var contactImage = document.createElement("img");
     contactImage.src = defaultContactImage.src;
     contactImage.setAttribute("class","contactImage");

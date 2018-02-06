@@ -15,34 +15,34 @@ DELETE FROM `talentcloud`.`job_term` WHERE
     job_term_id=8;
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (1,'week',1);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (1,'semaine',2);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (2,'month',1);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (2,'mois',2);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (3,'year',1);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (3,'an',2);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (4,'permanent',1);
 
 INSERT INTO `talentcloud`.`job_term_details` 
-    (`job_term_id`, `job_term`, `job_term_local_id`)
+    (`job_term_id`, `job_term`, `job_term_locale_id`)
 VALUES (4,'permanent',2);
 

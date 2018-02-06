@@ -175,7 +175,7 @@
                 <div class="tabbedForm">
                     <!--<div><hr></div>-->
                     <div>
-                        <img id="myProfilePic" src="../images/user.svg" class="profilePic"/>
+                        <img id="myProfilePic" src="../images/user.png" class="profilePic"/>
                         <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
                             <img id="editMyProfilePicImg" src="../images/edit.svg" class="editImage">
                         </a>

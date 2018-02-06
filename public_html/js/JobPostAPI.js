@@ -237,7 +237,7 @@ JobPostAPI.populateJob = function(job, demo, locale){
     hiringManagerWrapper.setAttribute("class", "hiringManagerWrapper");
     
     var hiringManagerProfilePicImg = new Image();
-    hiringManagerProfilePicImg.src = "/images/user.svg";
+    hiringManagerProfilePicImg.src = "/images/user.png";
     
     var hiringManagerProfilePic = document.createElement("img");
     hiringManagerProfilePic.setAttribute("class", "hiringManagerProfilePicSmall");
