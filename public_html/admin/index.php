@@ -855,6 +855,50 @@
                                         <input class="form-control full-width" type="textarea" name="createJobPoster_impact" id="createJobPoster_impact"/>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_keyTasks">
+                                        <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span>:</span>
+                                        <strong id="createJobPoster_keyTasks_error" class="error hidden">
+                                            <span id="createJobPoster_keyTasks_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_keyTasks" id="createJobPoster_keyTasks"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_coreCompetencies">
+                                        <span><span id="createJobPoster_coreCompetencies_labelName">Core Competencies</span>:</span>
+                                        <strong id="createJobPoster_coreCompetencies_error" class="error hidden">
+                                            <span id="createJobPoster_coreCompetencies_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_coreCompetencies" id="createJobPoster_coreCompetencies"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_developingCompetencies">
+                                        <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>:</span>
+                                        <strong id="createJobPoster_developingCompetencies_error" class="error hidden">
+                                            <span id="createJobPoster_developingCompetencies_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_developingCompetencies" id="createJobPoster_developingCompetencies"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_otherRequirements">
+                                        <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>:</span>
+                                        <strong id="createJobPoster_otherRequirements_error" class="error hidden">
+                                            <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_otherRequirements" id="createJobPoster_developingCompetencies"/>
+                                    </div>
+                                </div>
                             </div>
                             <div class="rightPane">                            
                                 <div class="form-group">
@@ -866,6 +910,50 @@
                                     </label>
                                     <div>
                                         <input class="form-control full-width" type="textarea" name="createJobPoster_impact_fr" id="createJobPoster_impact_fr"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_keyTasks_fr">
+                                        <span><span id="createJobPoster_keyTasks_fr_labelName">Key Tasks_fr</span>:</span>
+                                        <strong id="createJobPoster_keyTasks_fr_error" class="error hidden">
+                                            <span id="createJobPoster_keyTasks_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_keyTasks_fr" id="createJobPoster_keyTasks_fr"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_coreCompetencies_fr">
+                                        <span><span id="createJobPoster_coreCompetencies_fr_labelName">Core Competencies_fr</span>:</span>
+                                        <strong id="createJobPoster_coreCompetencies_fr_error" class="error hidden">
+                                            <span id="createJobPoster_coreCompetencies_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_coreCompetencies_fr"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_developingCompetencies_fr">
+                                        <span><span id="createJobPoster_developingCompetencies_fr_labelName">Developing Competencies</span>:</span>
+                                        <strong id="createJobPoster_developingCompetencies_fr_error" class="error hidden">
+                                            <span id="createJobPoster_developingCompetencies_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createJobPoster_otherRequirements_fr">
+                                        <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements_fr</span>:</span>
+                                        <strong id="createJobPoster_otherRequirements_fr_error" class="error hidden">
+                                            <span id="createJobPoster_otherRequirements_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="textarea" name="createJobPoster_otherRequirements_fr" id="createJobPoster_developingCompetencies"/>
                                     </div>
                                 </div>
                             </div>
