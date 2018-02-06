@@ -852,7 +852,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_impact" id="createJobPoster_impact"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_impact" id="createJobPoster_impact"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -863,7 +863,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_keyTasks" id="createJobPoster_keyTasks"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_keyTasks" id="createJobPoster_keyTasks"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -874,7 +874,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_coreCompetencies" id="createJobPoster_coreCompetencies"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_coreCompetencies" id="createJobPoster_coreCompetencies"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -885,7 +885,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_developingCompetencies" id="createJobPoster_developingCompetencies"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_developingCompetencies" id="createJobPoster_developingCompetencies"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -896,7 +896,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_otherRequirements" id="createJobPoster_developingCompetencies"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_otherRequirements" id="createJobPoster_otherRequirements"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -909,7 +909,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_impact_fr" id="createJobPoster_impact_fr"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_impact_fr" id="createJobPoster_impact_fr"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -920,7 +920,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_keyTasks_fr" id="createJobPoster_keyTasks_fr"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_keyTasks_fr" id="createJobPoster_keyTasks_fr"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -931,7 +931,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_coreCompetencies_fr"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_coreCompetencies_fr"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -942,7 +942,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -953,7 +953,7 @@
                                         </strong>
                                     </label>
                                     <div>
-                                        <input class="form-control full-width" type="textarea" name="createJobPoster_otherRequirements_fr" id="createJobPoster_developingCompetencies"/>
+                                        <textarea class="form-control full-width" name="createJobPoster_otherRequirements_fr" id="createJobPoster_otherRequirements_fr"></textarea>
                                     </div>
                                 </div>
                             </div>
