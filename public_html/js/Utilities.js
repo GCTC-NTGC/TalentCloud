@@ -234,4 +234,4 @@ Utilities.serialize = function(obj, prefix) {
     }
   }
   return str.join("&");
-}
+};

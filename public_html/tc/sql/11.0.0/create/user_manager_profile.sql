@@ -1,7 +1,7 @@
 CREATE TABLE `talentcloud`.`user_manager_profile` (
 `user_manager_profile_id` INT(10) ZEROFILL NOT NULL AUTO_INCREMENT,
 `user_manager_profile_department_id` INT(10) NULL,
-`user_manager_profile_position_id` INT(10) NULL,
+`user_manager_profile_position` VARCHAR(65) NULL,
 `user_manager_profile_branch_id` INT(10) NULL,
 `user_manager_profile_division_id` INT(10) NULL,
 `user_manager_profile_twitter` VARCHAR(65) NULL,

@@ -30,7 +30,7 @@ class ManagerProfileDAO extends BaseDAO{
         $link = BaseDAO::getConnection();
         
         $user_manager_profile_department_id = $managerProfile->getUser_manager_profile_department_id();
-        $user_manager_profile_position_id = $managerProfile->getUser_manager_profile_position_id();
+        $user_manager_profile_position = $managerProfile->getUser_manager_profile_position();
         $user_manager_profile_branch_id = $managerProfile->getUser_manager_profile_branch_id();
         $user_manager_profile_division_id = $managerProfile->getUser_manager_profile_division_id();
         $user_manager_profile_twitter = $managerProfile->getUser_manager_profile_twitter();
@@ -40,7 +40,7 @@ class ManagerProfileDAO extends BaseDAO{
         $sqlStr="INSERT INTO talentcloud.user_manager_profile
             (
             user_manager_profile_department_id,
-            user_manager_profile_position_id,
+            user_manager_profile_position,
             user_manager_profile_branch_id,
             user_manager_profile_division_id,
             user_manager_profile_twitter,
@@ -49,7 +49,7 @@ class ManagerProfileDAO extends BaseDAO{
             VALUES
             (
             :user_manager_profile_department_id,
-            :user_manager_profile_position_id,
+            :user_manager_profile_position,
             :user_manager_profile_branch_id,
             :user_manager_profile_division_id,
             :user_manager_profile_twitter,
@@ -60,7 +60,7 @@ class ManagerProfileDAO extends BaseDAO{
         
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':user_manager_profile_department_id', $user_manager_profile_department_id, PDO::PARAM_INT);
-        $sql->bindParam(':user_manager_profile_position_id', $user_manager_profile_department_id, PDO::PARAM_INT);
+        $sql->bindParam(':user_manager_profile_position', $user_manager_profile_department, PDO::PARAM_STR);
         $sql->bindParam(':user_manager_profile_branch_id', $user_manager_profile_department_id, PDO::PARAM_INT);
         $sql->bindParam(':user_manager_profile_division_id', $user_manager_profile_department_id, PDO::PARAM_INT);
         $sql->bindParam(':user_manager_profile_twitter', $contentType, PDO::PARAM_STR);
@@ -134,7 +134,7 @@ class ManagerProfileDAO extends BaseDAO{
             SELECT 
                 ump.user_manager_profile_id,
                 ump.user_manager_profile_department_id,
-                ump.user_manager_profile_position_id,
+                ump.user_manager_profile_position,
                 ump.user_manager_profile_branch_id,
                 ump.user_manager_profile_division_id,
                 ump.user_manager_profile_twitter,
@@ -166,7 +166,7 @@ class ManagerProfileDAO extends BaseDAO{
             
             $managerProfile->setUser_manager_profile_id($row['user_manager_profile_id']);
             $managerProfile->setUser_manager_profile_department_id($row['user_manager_profile_department_id']);
-            $managerProfile->setUser_manager_profile_position_id($row['user_manager_profile_position_id']);
+            $managerProfile->setUser_manager_profile_position($row['user_manager_profile_position']);
             $managerProfile->setUser_manager_profile_branch_id($row['user_manager_profile_branch_id']);
             $managerProfile->setUser_manager_profile_division_id($row['user_manager_profile_division_id']);
             $managerProfile->setUser_manager_profile_twitter($row['user_manager_profile_twitter']);

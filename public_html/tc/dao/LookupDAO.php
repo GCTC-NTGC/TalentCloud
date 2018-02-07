@@ -179,6 +179,40 @@ class LookupDAO extends BaseDAO {
         BaseDAO::closeConnection($link);
         return $rows;
     }
+    
+    
+    /**
+     * Summary: obtains content and template for request page_name, locale and language
+     * @return object Page
+     */
+    public static function getBranchesByLocale($locale) {
+
+        $link = BaseDAO::getConnection();
+        
+        $sqlStr = "
+            SELECT 
+            b.branch_id as id, bd.branch_details_name as value
+            FROM branch b, branch_details bd, locale l
+            WHERE l.locale_iso = :locale
+            AND bd.branch_id = b.branch_id
+            AND l.locale_id = bd.branch_details_locale_id
+            ORDER BY bd.branch_details_name
+            ";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getBranchesByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
 }
 
 ?>

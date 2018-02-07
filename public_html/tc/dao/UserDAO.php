@@ -135,4 +135,46 @@ class UserDAO extends BaseDAO{
         BaseDAO::closeConnection($link);
         return $row;
     }
+    
+    
+    /**
+     * 
+     * @param type $email_address
+     * @param type $password
+     * @return type
+     */
+    public static function getUserById(User $user){
+        
+        /*
+         * SELECT u.firstname, u.lastname, ur.user_role  FROM tc.user u, tc.user_role ur
+        WHERE u.email = 'test@test.com'
+        AND u.password = MD5('password')
+        AND u.is_confirmed = true
+        AND ur.user_role_id = u.user_role_id
+        LIMIT 1;
+         */
+        $link = BaseDAO::getConnection();
+        $user_id = $user->getUser_id();
+        //var_dump(urldecode($email_address));
+        //var_dump($enc_password);
+        $sqlStr = "
+            SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
+            FROM user u, user_role ur
+            WHERE u.user_id = :user_id
+            AND ur.user_role_id = u.user_role_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User', array('user_id', 'email', 'firstname', 'lastname', 'is_confirmed', 'user_role'));
+            $row = $sql->fetch();
+            //var_dump($row);
+        } catch (PDOException $e) {
+            return 'getContentByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $row;
+    }
+    
 }

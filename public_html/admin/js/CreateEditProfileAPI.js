@@ -11,7 +11,7 @@ CreateEditProfileAPI.managerProfileObj = {};
 CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_id, 
         user_manager_profile_department_id,
-        user_manager_profile_position_id,
+        user_manager_profile_position,
         user_manager_profile_branch_id,
         user_manager_profile_division_id,
         user_manager_profile_twitter,
@@ -20,7 +20,7 @@ CreateEditProfileAPI.ManagerProfile = function(
         profile_pic){
     this.user_manager_profile_id = user_manager_profile_id;
     this.user_manager_profile_department_id = user_manager_profile_department_id;
-    this.user_manager_profile_position_id = user_manager_profile_position_id;
+    this.user_manager_profile_position = user_manager_profile_position;
     this.user_manager_profile_branch_id = user_manager_profile_branch_id;
     this.user_manager_profile_division_id = user_manager_profile_division_id;
     this.user_manager_profile_twitter = user_manager_profile_twitter;
@@ -656,32 +656,103 @@ CreateEditProfileAPI.onProfilePicUploaded = function() {
     CreateEditProfileAPI.hideUploadProfilePic();
 };
 
-CreateEditProfileAPI.getManagerProfile = function(){
-    var get_profile_xhr = new XMLHttpRequest();
-    var get_profile_url = FileAPI.baseURL+'/profilePic/'+user_id;
-    if ("withCredentials" in xhr) {
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("GET", pic_url);
+CreateEditProfileAPI.getManagerProfilePic = function(){
+    if (UserAPI.hasSessionUser()) {
+        var user = UserAPI.getSessionUserAsJSON();
+        var user_id = user["user_id"];
+        FileAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
+    }
+};
 
-    } else if (typeof XDomainRequest != "undefined") {
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("GET", pic_url);
-    } else {
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-      // TODO: indicate to user that browser is not supported
-    } 
-    xhr.open('GET', pic_url);
-    xhr.setRequestHeader("Accept","image/*"); 
-    xhr.addEventListener('load', function() {
-        if (xhr.status == 200) {
-            img_elem.src = xhr.responseURL;
+CreateEditProfileAPI.getManagerProfile = function(){
+    
+    if (UserAPI.hasSessionUser()) {
+        var user = UserAPI.getSessionUserAsJSON();
+        var authToken = UserAPI.getAuthTokenAsJSON();
+        var user_id = user["user_id"];
+        var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/"+user_id;
+        var manager_profile_xhr = new XMLHttpRequest();
+        if ("withCredentials" in manager_profile_xhr) {
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            manager_profile_xhr.open("GET", manager_profile_url);
+
+        } else if (typeof XDomainRequest != "undefined") {
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            manager_profile_xhr = new XDomainRequest();
+            manager_profile_xhr.open("GET", manager_profile_url);
         } else {
-            img_elem.src = FileAPI.defaultProfilePic;
+            // Otherwise, CORS is not supported by the browser.
+            manager_profile_xhr = null;
+            // TODO: indicate to user that browser is not supported
         }
-    });
-    xhr.send();
-}
+
+        manager_profile_xhr.open('GET', manager_profile_url);
+        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
+        manager_profile_xhr.setRequestHeader("Accept", "application/json");
+        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
+        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
+        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
+        manager_profile_xhr.addEventListener("load", function () {
+            CreateEditProfileAPI.populateProfile(manager_profile_xhr.response);
+        }, false);
+        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
+        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
+
+        manager_profile_xhr.send(null);
+    }
+};
+
+CreateEditProfileAPI.userLoaded = function(response){
+    var user_json = JSON.parse(response);
+    var user = new UserAPI.User();
+    user.id = user_json['id'];
+   
+};
+
+CreateEditProfileAPI.populateProfile = function(response){
+    var manager_profile_json = JSON.parse(response);
+    var manager_profile = new CreateEditProfileAPI.ManagerProfile();
+    manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
+    manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
+    manager_profile.user_manager_profile_division_id = manager_profile_json["user_manager_profile_division_id"];
+    manager_profile.user_manager_profile_branch_id = manager_profile_json["user_manager_profile_branch_id"];
+    
+    var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
+    if(UserAPI.hasSessionUser()){
+        var session_user = UserAPI.getSessionUserAsJSON();
+        createEditProfile_name_preview.innerHTML = session_user.firstname + " " + session_user.lastname;
+    }
+    
+    var profile_position = manager_profile.user_manager_profile_position;
+    var profile_department_id = manager_profile.user_manager_profile_department_id;
+    var profile_division_id = manager_profile.user_manager_profile_division_id;
+    var profile_branch_id = manager_profile.user_manager_profile_branch_id;
+    
+    if(profile_position !== null){
+        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+        createEditProfile_position_preview.innerHTML = profile_position;
+
+        var createEditProfile_position = document.getElementById("createEditProfile_position");
+        createEditProfile_position.value = profile_position;
+    }
+    
+    if(profile_department_id !== null){
+        console.log(profile_department_id);
+        var createEditProfile_department = document.getElementById("createEditProfile_department");
+        createEditProfile_department.value = profile_department_id.toString();
+
+        var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
+        createEditProfile_department_preview.innerHTML = createEditProfile_department.innerHTML;
+    }
+    
+    if(profile_division_id !== null){
+        console.log(profile_division_id);
+        var createEditProfile_division = document.getElementById("createEditProfile_division");
+        createEditProfile_division.value = profile_division_id.toString();
+
+        //var createEditProfile_division_preview = document.getElementById("createEditProfile_division_preview");
+        //createEditProfile_division_preview.innerHTML = createEditProfile_division.innerHTML;
+    }
+};

@@ -10,7 +10,7 @@ UserAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
-UserAPI.User = function (id, firstName, lastName, emailAddress, password, authToken, userRole) {
+UserAPI.User = function (id, firstName, lastName, emailAddress, password, authToken, userRole, isConfirmed) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -18,6 +18,7 @@ UserAPI.User = function (id, firstName, lastName, emailAddress, password, authTo
     this.password = password;
     this.authToken = authToken;
     this.userRole = userRole;
+    this.isConfirmed = isConfirmed;
 };
 
 /**
@@ -385,8 +386,14 @@ UserAPI.loaded = function (response) {
             teamsLinkListItem.setAttribute("aria-hidden", "false");
             var teamsLink = document.getElementById("teamsLink");
             teamsLink.classList.remove("hidden");
+            
+            CreateEditProfileAPI.getManagerProfilePic();
+            
+            CreateEditProfileAPI.getManagerProfile();
 
         }
+
+        EventsAPI.hideBodyOverflow(false);
 
     } else {
         UserAPI.failedLogin();
@@ -670,3 +677,5 @@ UserAPI.hideJobSeekerProfileForm = function () {
 
     //FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,null);
 };
+
+
