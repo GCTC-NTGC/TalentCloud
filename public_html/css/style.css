@@ -1083,6 +1083,7 @@ input[type=button],input[type=submit]{
 	position: relative;
 }
 
+/*
 .filePreviewList li img {
 	width: 120px;
 	border: solid 1px #999;
@@ -1093,6 +1094,7 @@ input[type=button],input[type=submit]{
 	float: left;
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
 }
+*/
 
 .fileUploadReset {
     position: absolute;

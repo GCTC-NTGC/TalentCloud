@@ -678,6 +678,7 @@ JobSeekerAPI.showUploadProfilePic = function() {
             clearBtn,
             uploadBtn,
             true, 
+            true,
             FileUploadAPI.makeProfilePicUploadRequest, 
             JobSeekerAPI.onProfilePicUploaded);
     JobSeekerAPI.profilePicUploader.init();

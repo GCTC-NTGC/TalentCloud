@@ -45,6 +45,9 @@ and open the template in the editor .
     <script src="/admin/js/CreateEditProfileAPI.js"></script>
     <script src="/admin/js/ManagerEventsAPI.js"></script>
     <script src="/admin/js/DepartmentAPI.js"></script>
+    <!-- Libraries -->
+    <link rel="stylesheet" href="/libraries/croppie.css" />
+    <script src="/libraries/croppie.js"></script>
 </head>
 
 <body>

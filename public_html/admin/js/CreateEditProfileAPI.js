@@ -641,6 +641,7 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
             clearBtn,
             uploadBtn,
             true, 
+            true,
             FileUploadAPI.makeProfilePicUploadRequest, 
             CreateEditProfileAPI.onProfilePicUploaded);
     CreateEditProfileAPI.profilePicUploader.init();
