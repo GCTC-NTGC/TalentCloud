@@ -61,7 +61,7 @@ and open the template in the editor .
         <div class="row">
             <div class="col-xs-4">
                 <a href="https://www.canada.ca/en.html" class="fip-logo gl-FIP" aria-label="Government of Canada">
-                    <object type="image/svg+xml" tabindex="-1" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
+                    <object type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
                 </a>
             </div>
             <div class="col-xs-4">

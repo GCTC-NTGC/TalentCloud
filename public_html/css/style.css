@@ -47,17 +47,28 @@ nav{
     padding-right: 0.5rem;
 }
 
+.logo-container{
+    position: absolute;
+    width: 100%;
+}
+
 .circle {
     width: 200px;
     height: 200px;
     background: #000;
     -moz-border-radius: 100px;
     -webkit-border-radius: 100px;
+    border: 3px solid #000;
     border-radius: 100px;
     position:absolute;
-    align: center;
-    left:0;
+    top:12em;
+    left:1em;
     right:0;
+    margin: 0 auto;
+}
+
+.tc-logo{
+    margin-top:6em;
 }
 
 .form-icon {
@@ -83,48 +94,6 @@ nav{
     width: 100%;
     clear: both;
 }
-
-.tc-logo {
-  background-image: url("images/talentcloud_logo_white.png");
-  background-position:  center;
-  /*
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: block;
-  height: 5rem;
-  width: 5rem;
- 
-  z-index: 1; */
-}
-/*
-#manager_top_nav{
-    padding:0.25em;
-    margin:0;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-}
-
-#manager_top_nav ul{
-    list-style: none !important;
-    display: inline-block;
-}
-
-#manager_top_nav ul li{
-    display: inline-block;
-    margin-right: 1em;
-}
-
-#manager_top_nav ul li a{
-    color: #295376;
-    list-style: none !important;
-}
-
-#manager_top_nav ul li a.active{
-    color: #295376;
-    text-decoration: underline;
-}
-*/
 
 .tabsList{
     line-height: 2em;
@@ -276,6 +245,7 @@ div label span{
 
 .contentContainer{
     background-color: white;
+    z-index: -1;
 }
 
 .teaser{
@@ -330,20 +300,22 @@ div label span{
 
 #profileBasicInfo {
     text-align: center;
-    padding: 2em 0em;
-    margin-top: -130px;
+    position: relative;
+    bottom:13.5em;
 }
 
 #profileBasicInfoTopBar {
-    padding: 1em;
     display: flex;
-    justify-content: center;
     align-items: center;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
 }
 
 #profileSocialMediaLinks {
     list-style-type: none;
     float: right;
+    margin-top: 3em;
 }
 
 #profileSocialMediaLinks li{
@@ -358,17 +330,19 @@ div label span{
 
 #profileBasicInfoEdit {
     float: left;
-    margin-left: 1em;
+    margin-top: 5em;
 }
 
 #profileName {
-    margin-top: 0px;
+    margin-top: .25em;
     font-size:3.5em;
 }
 
 .profileSection {
     padding-top: 2em;
     padding-bottom: 2em;
+    position: relative;
+    bottom:11em;
 }
 
 .profileSectionTitleBar {
@@ -381,7 +355,7 @@ div label span{
 }
 
 .socialMediaLink{
-    margin-top:1em;
+    margin-top:1.5em;
 }
 
 .sectionEditBtn {
@@ -585,6 +559,10 @@ div label span{
     min-width:3em;
     border:1px solid #ccc;
     margin-top:1em;
+}
+
+#browseJobsSection{
+    margin-top:8em;
 }
 
 .alphaList{
@@ -983,9 +961,10 @@ input[type=button],input[type=submit]{
 .profilePicLarge {
     width:200px;
     height:200px;
-    clip-path: circle(100px at center);
     border: 3px solid #FFCC33;
     border-radius: 100px;
+    margin: auto;
+    
 }
 
 #profilePicUploadOverlay{
