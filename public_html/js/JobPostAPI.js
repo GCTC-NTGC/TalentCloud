@@ -426,7 +426,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);//last parameter just replaced with #Register instead of url
     
-    var viewJobPosterOverlay = document.getElementById("viewJobPosterApplicationOverlay");   
     var jobPoster = document.getElementById("jobPoster");
     jobPoster.innnerHTML = "";
     
@@ -478,7 +477,8 @@ JobPostAPI.populateJobPoster = function(jobData){
     jobPoster.appendChild(jobTerm);
     jobPoster.appendChild(jobSalaryRange);
     jobPoster.appendChild(jobPosterApplyButton);
-    viewJobPosterOverlay.classList.remove("hidden");
+    
+    document.getElementById("viewJobPosterSection").classList.remove("hidden");
     
     //TODO: fix this when working on jobPoserApplications
     //var jobSeekerProfileId = document.getElementById("profile_id").value;

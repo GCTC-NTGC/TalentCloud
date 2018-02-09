@@ -61,6 +61,7 @@ EventsAPI.onLoadEvents = function(){
                 viewJobPosterOverlay.classList.remove("hidden");
             } else if(e.state.pageInfo === 'view_job_poster_application'){
                 var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
+                viewJobPosterApplicationOverlay.remove("hidden");
             } else if(e.state.pageInfo === 'apply_job_poster'){
                 var viewJobPosterOverlay = document.getElementById("jobPosterApplication"); 
                 viewJobPosterOverlay.classList.remove("hidden");

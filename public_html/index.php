@@ -294,11 +294,7 @@
             <div id="jobList" class="jobList hidden">
 
             </div>
-            <div id="viewJobPosterApplicationOverlay" class="hidden">
-                <div id="jobPoster" class="jobPoster">
-
-                </div>
-            </div>
+            
             <div id="jobPosterApplication" class="hidden">
 
             </div>
@@ -306,6 +302,14 @@
  
         <div class="jobCount hidden">
             <span id="contactCount">0</span> jobs
+        </div>
+    </section>
+    
+    <section class="section" id="viewJobPosterSection" class="hidden">
+        <div id="viewJobPosterApplicationOverlay" class="container">
+            <div id="jobPoster" class="jobPoster">
+
+            </div>
         </div>
     </section>
     
