@@ -2815,8 +2815,11 @@ main {
     .top-nav--link {
       display: inline-block;
       position: relative; }
+    /*
       .top-nav--link:first-child {
-        display: none; } }
+        display: none; }
+    */
+    }
   @media (min-width: 992px) {
     .top-nav--link {
       margin: 0 1rem; } }

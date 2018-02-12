@@ -2,19 +2,17 @@
     <div class="topbar transparent" id="site--topbar">
         <h2>Topics menu</h2>
         <div class="row">
-            <div id="logo-circle" class="logo-container">
-                <a href="/" role="img" class="circle" aria-label="GC Talent Cloud"><img class="tc-logo" src="/images/talentcloud_logo_white.png" width="200" /></a>
+            <div id="logo" class="logo-container">
+                <a href="/" role="img" class="circle" aria-label="GC Talent Cloud"><img class="tc-logo" src="/images/talentcloud_logo_white.png" width="200" alt="GC Talent Cloud logo"/></a>
             </div>
             <div class="nav-container">
                 <ul class="navbar-right" role="menubar">
-                    <li class="top-nav--link active" aria-hidden="false" id="homeLink">
+                    <!--<li class="top-nav--link active" aria-hidden="false" id="homeLink">
                         <a href="/">Home</a>
                     </li>
-
-                    <!--<li class="top-nav--link">
+                    <li class="top-nav--link">
                         <a href="/about">FAQ</a>
                     </li>-->
-
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
                         <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile()">My Profile</a>
                    </li>

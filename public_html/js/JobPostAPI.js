@@ -210,7 +210,7 @@ JobPostAPI.populateJob = function(job, demo, locale){
     var jobSalaryRange = document.createElement("div");
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+job.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
-    jobSalaryRange.setAttribute("tabindex", "0");
+    //jobSalaryRange.setAttribute("tabindex", "0");
     if (job.remuneration_range_low && job.remuneration_range_high) {
         jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
     }
@@ -523,7 +523,8 @@ JobPostAPI.populateDemoJobPoster = function(jobData){
     var jobSalaryRange = document.createElement("div");
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+jobData.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
-    jobSalaryRange.setAttribute("tabindex", "0");
+    // accessibility issue - Grant
+    // jobSalaryRange.setAttribute("tabindex", "0");
     jobSalaryRange.innerHTML = siteContent.jobSalaryRange + " : $" + jobData.remuneration_range_low + " - $" + jobData.remuneration_range_high + " CDN";
     
     var jobHiringManager = document.createElement("div");

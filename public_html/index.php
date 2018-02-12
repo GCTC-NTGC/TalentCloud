@@ -316,7 +316,7 @@
     <section class="section hidden" id="profileSection">
         <div id="profileBasicInfo" class="centered">
             <div id="profileBasicInfoTopBar">
-                <div style="width:40%"> 
+                <div class="socialMediaWrapper"> 
                     <ul id="profileSocialMediaLinks"> 
                         <li id="profileTwitterLinkWrapper" class="hidden">
                             <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink" alt="Twitter logo"/></a>
@@ -327,13 +327,14 @@
                     </ul>
                 </div>
                 <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Default user"/>
-                <div style="width:40%">
+                <div class="editProfileWrapper">
                     <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_dark.png" alt="Edit Basic Info" class="editImage"/></a>
                 </div>
             </div>
             <div id="profileNameWrapper">
-                <h2 id="profileName">
-                    <span id="profileFirstName"></span> <span id="profileLastName"></span></h2>
+                <div id="profileName">
+                    <span id="profileFirstName"></span> <span id="profileLastName"></span>
+                </div>
             </div>
             <div class="profileTagLineContainer">
                 <p id="profileTagLine">Default tag line!</p>

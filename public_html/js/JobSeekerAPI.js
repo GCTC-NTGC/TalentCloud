@@ -576,6 +576,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     
 
     TalentCloudAPI.hideAllContent();
+    TalentCloudAPI.hideLogo();
     EventsAPI.clearJobsContainer();
 
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
