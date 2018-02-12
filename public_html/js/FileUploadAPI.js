@@ -12,6 +12,9 @@ FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
 FileUploadAPI.defaultProfilePic = '/images/user.png';
 
+FileUploadAPI.loadingTextClass = 'fileUploadLoadingText';
+FileUploadAPI.loadingBarClass = 'fileUploadLoadingBar';
+
 FileUploadAPI.FileUploader = function(
         fileField, dropZone, fileList,
         clearBtn,
@@ -33,6 +36,7 @@ FileUploadAPI.FileUploader = function(
         dropZone.addEventListener("dragleave",  this.dragExit, false);
         dropZone.addEventListener("dragover",  this.dragOver, false);
         dropZone.addEventListener("drop",  this.showDroppedFiles, false);
+        clearUploadQueue();
     };
 
     this.addFiles = function () {
@@ -75,7 +79,7 @@ FileUploadAPI.FileUploader = function(
         while (fileQueue.length > 0) {
             var item = fileQueue.pop();
             var p = document.createElement("p");
-            p.className = "fileUploadLoader";
+            p.className = FileUploadAPI.loadingTextClass;
             var pText = document.createTextNode("Uploading...");
             p.appendChild(pText);
             item.li.appendChild(p);
@@ -86,14 +90,19 @@ FileUploadAPI.FileUploader = function(
                     size: 'viewport',
                     format: 'png',
                     quality: 1,
-                    circle: 1
+                    circle: false
                 }).then(function(blob) {
-                    var size = blob.size;
-                    if (size < max_filesize) {
-                        uploadFile(item.file, item.li, item.croppie);
-                    } else {
-                        p.textContent = "File too large";
-                        p.style["color"] = "red";
+                    try {
+                        var size = blob.size;
+                        if (size < max_filesize) {
+                            uploadFile(item.file, item.li, item.croppie);
+                        } else {
+                            p.textContent = "File too large";
+                            p.style["color"] = "red";
+                        }
+                    } catch (e) {
+                        console.log(e);
+                        setFilePreviewLabel(item.li, {type: "error"});
                     }
                 });
             } else {
@@ -114,15 +123,19 @@ FileUploadAPI.FileUploader = function(
                 fileList.childNodes[fileList.childNodes.length - 1]
             );
         }
+        fileField.value = null;
     };
 
     var addFileListItems = function (files) {
         if (isSingleFile) {
-            clearUploadQueue();
             var fr = new FileReader();
             fr.file = files[0];
+            
+            clearUploadQueue(); //NOTE: this will set files to null
+     
             fr.onloadend = showFileInList;
-            fr.readAsDataURL(files[0]);
+            fr.readAsDataURL(fr.file);
+            
         } else {
             for (var i = 0; i < files.length; i++) {
                 var fr = new FileReader();
@@ -144,7 +157,9 @@ FileUploadAPI.FileUploader = function(
                 var croppie = null;
                 if (isProfilePic) {
                     croppie = makeProfilePicCroppie(thumb, ev.target.result);
-                } 
+                } else {
+                    thumb.classList.add("uploadFileThumbnail");
+                }
             }
             var h3 = document.createElement("h3");
             var h3Text = document.createTextNode(file.name);
@@ -175,7 +190,7 @@ FileUploadAPI.FileUploader = function(
             div.appendChild(divText);
             
             var divLoader = document.createElement("div");
-            divLoader.className = "fileUploadLoadingIndicator";
+            divLoader.className = FileUploadAPI.loadingBarClass;
             
             li.appendChild(div);
             li.appendChild(divLoader);
@@ -200,10 +215,8 @@ FileUploadAPI.FileUploader = function(
         });
         croppie.bind({
             url: imageSrc
-        });
-        //on button click
-        croppie.result('canvas').then(function(canvas) {
-            console.log("croppie pic bound");
+        }).then(function() {
+            croppie.setZoom(0);
         });
         return croppie;
     };
@@ -225,33 +238,20 @@ FileUploadAPI.FileUploader = function(
             var xhr = makeUploadRequest(type, name),
             upload = xhr.upload;
             upload.addEventListener("progress", function (ev) {
-                if (ev.lengthComputable) {
-                    var loader = li.getElementsByTagName("div")[0];
-                    loader.style["width"] = (ev.loaded / ev.total) * 100 + "%";
-                }
+                setFilePreviewLabel(li, ev);
             }, false);
             upload.addEventListener("load", function (ev) {
-                var ps = li.getElementsByTagName("p");
-                var div = li.getElementsByTagName("div")[0];
-                div.style["width"] = "100%";
-                div.style["backgroundColor"] = "#0f0";
-                for (var i = 0; i < ps.length; i++) {
-                    if (ps[i].className == "fileUploadLoader") {
-                        ps[i].textContent = "Upload complete";
-                        ps[i].style["color"] = "#3DD13F";
-                        break;
-                    }
-                }
+                setFilePreviewLabel(li, ev);
                 if (onUploadComplete) {
                     onUploadComplete(xhr);
                 }
             }, false);
             upload.addEventListener("error", function (ev) {
-                console.log(ev);
+                setFilePreviewLabel(li, ev);
                 //TODO
             }, false);
             upload.addEventListener("abort", function (ev) {
-                console.log(ev);
+                setFilePreviewLabel(li, ev);
                 //TODO
             }, false);
             
@@ -261,7 +261,7 @@ FileUploadAPI.FileUploader = function(
                     size: 'viewport',
                     format: 'png',
                     quality: 1,
-                    circle: 1
+                    circle: false
                 }).then(function(blob) {
                     payload = blob;
                     xhr.send(payload);
@@ -269,6 +269,42 @@ FileUploadAPI.FileUploader = function(
             } else {
                 xhr.send(payload);
             }
+        }
+    };
+    
+    var setFilePreviewLabel = function(previewElement, event) {
+        switch(event.type) {
+            case "load":
+                var loaderText = previewElement.getElementsByClassName(FileUploadAPI.loadingTextClass)[0];
+                var loadingBar = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                loadingBar.style["width"] = "100%";
+                loadingBar.style["backgroundColor"] = "#0f0";
+                loaderText.textContent = "Upload complete";
+                loaderText.style["color"] = "#3DD13F";
+                break;
+            case "progress":
+                if (event.lengthComputable) {
+                    var loader = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                    loader.style["width"] = (event.loaded / event.total) * 100 + "%";
+                }
+                break;
+            case "error":
+                var loaderText = previewElement.getElementsByClassName(FileUploadAPI.loadingTextClass)[0];
+                var loadingBar = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                loadingBar.style["backgroundColor"] = "red";
+                loaderText.style["color"] = "red";
+                loaderText.textContent = "Upload Error";
+                break;
+            case "abort":
+                var loaderText = previewElement.getElementsByClassName(FileUploadAPI.loadingTextClass)[0];
+                var loadingBar = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                loadingBar.style["backgroundColor"] = "red";
+                loaderText.style["color"] = "red";
+                loaderText.textContent = "Upload Aborted";
+                break;
+            default:
+                console.log(event);
+                break;
         }
     };
 };

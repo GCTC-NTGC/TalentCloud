@@ -120,7 +120,7 @@
 
     <!-- BEGIN - Profile Basic Info Edit Overlay-->
     <div id="profileBasicInfoEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
-        <div id="profileBasicInfoEditWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
             <div id="profileBasicInfoFormWrapper">
                 <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle">
                     <strong id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</strong>
@@ -200,7 +200,7 @@
                     <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
                 </div>
                 <div class="fileUpload">
-                    <div style="float:left;width:50%;">
+                    <div class="leftPane">
                         <div>
                             <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                         </div>
@@ -208,7 +208,7 @@
                             <p>Drop file here</p>
                         </div>
                     </div>
-                    <div style="float:left;width:50%;padding:20px 20px;">
+                    <div class="rightPane">
                         <div id="fileUploadPreviewPanel" style="min-height:130px;">
                             <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
                             <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
@@ -224,7 +224,7 @@
     </div>
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
-        <div id="profileAboutMeFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="profileAboutMeFormWrapperWindow" class="dialogThreeQuarterWrapperWindow">
             <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
                 <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
                 <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>

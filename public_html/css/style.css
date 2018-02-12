@@ -250,6 +250,21 @@ div label span{
     left:0;
 }
 
+.dialogThreeQuarterWrapperWindow {
+    width:75%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    position:relative;
+}
+
 .dialogHalfWidthWrapperWindow {
     width:50%;
     min-width:350px;
@@ -1083,8 +1098,8 @@ input[type=button],input[type=submit]{
 	position: relative;
 }
 
-/*
-.filePreviewList li img {
+
+.uploadFileThumbnail img {
 	width: 120px;
 	border: solid 1px #999;
 	padding: 6px;
@@ -1094,7 +1109,7 @@ input[type=button],input[type=submit]{
 	float: left;
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
 }
-*/
+
 
 .fileUploadReset {
     position: absolute;
@@ -1108,20 +1123,13 @@ input[type=button],input[type=submit]{
     color: #333;
 }
 
-.fileUploadLoader {
-    position: absolute;
-    bottom: -3px;
-    right: 0;
+.fileUploadLoadingText {
     color: orange;
 }
 
-.fileUploadLoadingIndicator {
+.fileUploadLoadingBar {
     width: 0%;
-    height: 2px;
     background-color: orange;
-    position: absolute;
-    bottom: 0;
-    left: 0;
 }
 
 /*BEGIN - GC Desktop Style Classes*/
