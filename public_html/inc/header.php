@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor . 
--->
-
 <?php
-// best location for this? - Grant
+header('Content-Type: text/html; charset=utf-8');
+
 $url = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
 if ($url == '/admin/'){
     $portal = 'Manager (Admin)';
@@ -15,12 +9,16 @@ else{
     $portal = 'Applicant';
 }
 ?>
-
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor . 
+-->
 <html lang="en">
 <head>
     <title>GC Talent Cloud</title>
     <!-- Metadata -->
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Fonts / icons -->
