@@ -543,6 +543,14 @@ div label span{
     width: 90%;
 }
 
+#browseJobsSection{
+    margin-top: 7em;
+}
+
+#createJobPosterSection{
+    margin-top: 7em;
+}
+
 .searchWrapper{
     float:left;
 }
@@ -561,10 +569,6 @@ div label span{
     min-width:3em;
     border:1px solid #ccc;
     margin-top:1em;
-}
-
-#browseJobsSection{
-    margin-top:8em;
 }
 
 .alphaList{

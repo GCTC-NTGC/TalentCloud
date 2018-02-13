@@ -33,7 +33,7 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high){
+JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact){
     this.id = id;
     this.title = title;
     this.applicants_to_date = applicants_to_date;
@@ -46,6 +46,7 @@ JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,depart
     this.remuneration_type = remuneration_type;
     this.remuneration_range_low = remuneration_range_low;
     this.remuneration_range_high = remuneration_range_high;
+    this.impact = impact;
 };
 
 /**
@@ -102,6 +103,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.remuneration_type = job.remuneration_type;
     jobObj.remuneration_range_low = job.remuneration_range_low;
     jobObj.remuneration_range_high = job.remuneration_range_high;
+    jobObj.impact = job.impact;
 
 
     Utilities.debug?console.log(jobObj):null;
@@ -444,6 +446,11 @@ JobPostAPI.populateJobPoster = function(jobData){
     jobTerm.setAttribute("class", "row jobTerm");
     jobTerm.innerHTML = siteContent.jobTerm + " : " + jobData.term_qty + " " + jobData.term_units;
     
+    var jobImpact = document.createElement("div");
+    jobImpact.setAttribute("id", "jobImpact"+jobData.id);
+    jobImpact.setAttribute("class", "row jobImpact");
+    jobImpact.innerHTML = "Impact statement: " + siteContent.jobImpact;
+    
     var jobSalaryRange = document.createElement("div");
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+jobData.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
@@ -474,6 +481,7 @@ JobPostAPI.populateJobPoster = function(jobData){
 
     jobPoster.appendChild(jobPosterHeader);
     jobPoster.appendChild(jobLocation);
+    jobPoster.appendChild(jobImpact);
     jobPoster.appendChild(jobTerm);
     jobPoster.appendChild(jobSalaryRange);
     jobPoster.appendChild(jobPosterApplyButton);
@@ -523,10 +531,10 @@ JobPostAPI.populateDemoJobPoster = function(jobData){
     var jobSalaryRange = document.createElement("div");
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+jobData.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
-    // accessibility issue - Grant
+    // fixed accessibility issue - Grant
     // jobSalaryRange.setAttribute("tabindex", "0");
     jobSalaryRange.innerHTML = siteContent.jobSalaryRange + " : $" + jobData.remuneration_range_low + " - $" + jobData.remuneration_range_high + " CDN";
-    
+   
     var jobHiringManager = document.createElement("div");
     jobHiringManager.setAttribute("id", "jobHiringManager"+jobData.id);
     jobHiringManager.setAttribute("class", "row jobHiringManager");
@@ -535,7 +543,6 @@ JobPostAPI.populateDemoJobPoster = function(jobData){
     var jobPosterApplyButton = document.createElement("div");
     jobPosterApplyButton.setAttribute("id", "jobPosterApplyButton_"+jobData.id);
     jobPosterApplyButton.setAttribute("class", "btn_primary jobPosterApplyButton");
-
 
     var applyNowButton = document.createElement("button");
     applyNowButton.setAttribute("id", "applyNowButton_"+jobData.id);
@@ -551,7 +558,6 @@ JobPostAPI.populateDemoJobPoster = function(jobData){
     jobPoster.appendChild(jobLocation);
     jobPoster.appendChild(jobTerm);
     jobPoster.appendChild(jobSalaryRange);
-    
     jobPoster.appendChild(jobPosterApplyButton);
     
     viewJobPosterOverlay.classList.remove("hidden");

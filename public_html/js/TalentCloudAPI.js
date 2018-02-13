@@ -290,6 +290,10 @@ TalentCloudAPI.hideAllContent = function(){
     }
 };
 
+/**
+ * Hides the circular GC Talent Cloud logo
+ * @returns {undefined}
+ */
 TalentCloudAPI.hideLogo = function(){
     var logo = document.getElementById("logo");
     logo.classList.add("hidden");
