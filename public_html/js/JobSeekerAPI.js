@@ -573,12 +573,16 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     var stateInfo = {pageInfo: 'job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #MyProfile instead of url
+    
 
     TalentCloudAPI.hideAllContent();
+    TalentCloudAPI.hideLogo();
     EventsAPI.clearJobsContainer();
 
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.remove("hidden");
+    
+    document.getElementById("logo-circle").style.display = "none";
 
     var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
     profileBasicInfoEdit.focus();
