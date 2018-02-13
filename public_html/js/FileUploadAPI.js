@@ -16,7 +16,7 @@ FileUploadAPI.loadingTextClass = 'fileUploadLoadingText';
 FileUploadAPI.loadingBarClass = 'fileUploadLoadingBar';
 
 FileUploadAPI.FileUploader = function(
-        fileField, dropZone, fileList,
+        fileInputField, dropZone, filePreviewListElement,
         clearBtn,
         uploadBtn,
         isSingleFile, 
@@ -29,9 +29,18 @@ FileUploadAPI.FileUploader = function(
 	max_filesize = 2048576;
 
     this.init = function () {
-        fileField.onchange = this.addFiles;
+        fileInputField.onchange = this.addFiles;
         clearBtn.onclick = clearUploadQueue;
         uploadBtn.onclick = this.uploadQueue;
+        
+        //clone dropZone to remove existing event listeners
+        var clone = dropZone.cloneNode();
+        while (dropZone.firstChild) {
+          clone.appendChild(dropZone.lastChild);
+        }
+        dropZone.parentNode.replaceChild(clone, dropZone);
+        dropZone = clone;
+
         dropZone.addEventListener("dragenter",  this.stopProp, false);
         dropZone.addEventListener("dragleave",  this.dragExit, false);
         dropZone.addEventListener("dragover",  this.dragOver, false);
@@ -118,12 +127,16 @@ FileUploadAPI.FileUploader = function(
     };
     
     var clearUploadQueue = function () {
-        while (fileList.childNodes.length > 0) {
-            fileList.removeChild(
-                fileList.childNodes[fileList.childNodes.length - 1]
+        //Clear file preview list
+        while (filePreviewListElement.childNodes.length > 0) {
+            filePreviewListElement.removeChild(
+                filePreviewListElement.childNodes[filePreviewListElement.childNodes.length - 1]
             );
         }
-        fileField.value = null;
+        //Clear upload queue
+        fileQueue = new Array();
+        //Clear input button value
+        fileInputField.value = null;
     };
 
     var addFileListItems = function (files) {
@@ -194,7 +207,7 @@ FileUploadAPI.FileUploader = function(
             
             li.appendChild(div);
             li.appendChild(divLoader);
-            fileList.appendChild(li);
+            filePreviewListElement.appendChild(li);
             fileQueue.push({
                 file : file,
                 li : li,
@@ -401,13 +414,13 @@ FileUploadAPI.showProfilePicUpload = function() {
     uploadWindow.classList.remove("hidden");
     EventsAPI.setFormFocus("profilePicUploadField");
     
-    var fileField = document.getElementById('profilePicUploadField');
+    var fileInputField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
-    var fileList = document.getElementById('profilePicUploadPreview');
+    var filePreviewListElement = document.getElementById('profilePicUploadPreview');
     var clearBtn = document.getElementById('profilePicUploadClear');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
     fileUploader = new FileUploader(
-            fileField, fileDrop, fileList, 
+            fileInputField, fileDrop, filePreviewListElement, 
             clearBtn,
             uploadBtn,
             true, 
@@ -419,4 +432,5 @@ FileUploadAPI.showProfilePicUpload = function() {
 FileUploadAPI.hideProfilePicUpload = function() {
     var uploadWindow = document.getElementById('profilePicUploadWrapperWindow');
     uploadWindow.classList.add("hidden");
+    FileUploadAPI.clearUploadQueue();
 }
