@@ -84,6 +84,14 @@ nav{
     clear: both;
 }
 
+.half-width {
+    width:50%;
+}
+
+.three-quarter-width{
+    width:75%;
+}
+
 .tc-logo {
   background-image: url("images/talentcloud_logo_white.png");
   background-position:  center;
@@ -561,6 +569,9 @@ input[type=button],input[type=submit],input[type=reset]{
     border-color:transparent;
 }
 
+form label{
+    font-size: 16px;
+}
 
 #overlayLogo{
     width:400px;
