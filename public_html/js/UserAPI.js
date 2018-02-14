@@ -156,13 +156,14 @@ UserAPI.updateProgress = function () {
 UserAPI.register = function (isManager) {
     var registerForm = document.getElementById("registerForm");
     var email = registerForm.register_email.value;
+    var email_confirm = registerForm.register_email_confirm.value;
     var password = registerForm.register_password.value;
     var password_confirm = registerForm.register_password_confirm.value;
     var userrole = "jobseeker";
     if (isManager) {
         userrole = "manager";
     }
-    var isValid = FormValidationAPI.validateRegisterForm(email, password, password_confirm);
+    var isValid = FormValidationAPI.validateRegisterForm(email, email_confirm, password, password_confirm);
 
     var credentials = {};
     credentials.email = email;

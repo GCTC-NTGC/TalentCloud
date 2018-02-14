@@ -25,8 +25,17 @@
                         <input class="form-control form-textbox" id="register_email" name="register_email" type="text" required=""/>
                     </div>
                     <div class="form-group">
+                        <label for="register_email_confirm">
+                            <span>Re-enter email:</span>
+                            <strong id="register_email_confirm_error" class="error hidden">
+                                <span id="register_email_confirm_error_msg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <input class="form-control form-textbox" id="register_email_confirm" name="register_email_confirm" type="text" required=""/>
+                    </div>
+                    <div class="form-group">
                         <label for="register_password">
-                            <span>Password (min. 6 characters)</span>
+                            <span>Password:</span>
                             <strong id="register_password_error" class="error hidden">
                                 <span id="register_password_error_msg" class="label label-danger"></span>
                             </strong>
@@ -35,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="register_password_confirm">
-                            <span>Confirm password</span>
+                            <span>Re-enter password</span>
                             <strong id="register_password_confirm_error" class="error hidden">
                                 <span id="register_password_confirm_error_msg" class="label label-danger"></span>
                             </strong>
