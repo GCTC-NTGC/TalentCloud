@@ -225,13 +225,13 @@ UserAPI.userRegistered = function (response) {
 };
 
 UserAPI.showRegisterConf = function (registerSuccess, confEmailSuccess) {
-    var registerFormWrapper = document.getElementById("registerFormWrapper");
-    var registrationFormStatus = document.getElementById("registrationFormStatus");
-    var registrationFormStatusMessage = document.getElementById("registrationFormStatusMessage");
-    var registrationFormEmailConfMessage = document.getElementById("registrationFormEmailConfMessage");
+    var registrationForm = document.getElementById("registerFormOverlay");
+    var registrationStatus = document.getElementById("registerStatusOverlay");
+    var registrationFormStatusMessage = document.getElementById("registrationStatusSuccessMessage");
+    var registrationFormEmailConfMessage = document.getElementById("registrationStatusEmailConfMessage");
 
-    var registrationSuccessMessage = "<div>Registration Successful</div>";
-    var registrationFailureMessage = "<div>Registration Unsuccessful</div>";
+    var registrationSuccessMessage = "<h4>Registration Successful</h4>";
+    var registrationFailureMessage = "<h4>Registration Unsuccessful</h4>";
     if (registerSuccess) {
         registrationFormStatusMessage.innerHTML = registrationSuccessMessage;
     } else {
@@ -246,15 +246,20 @@ UserAPI.showRegisterConf = function (registerSuccess, confEmailSuccess) {
      }else{
      registrationFormEmailConfMessage.innerHTML = emailConfFailureMessage;
      }*/
+    /*
     AccessibilityAPI.enableTabIndex("registerFormStatusTitleText");
     AccessibilityAPI.enableTabIndex("registrationFormStatusMessage");
     AccessibilityAPI.enableTabIndex("registrationFormStatusMessage");
     AccessibilityAPI.enableTabIndex("registerFormStatusClose");
-    AccessibilityAPI.preventModalEscape("registrationFormStatus", "registerFormStatusClose");
-    AccessibilityAPI.focusElement("registerFormTitle");
+    */
+   
+    AccessibilityAPI.preventModalEscape("registerStatusCloseBtn", "registerStatusLoginBtn");
+    AccessibilityAPI.focusElement("registerStatusLoginBtn");
 
-    registerFormWrapper.classList.add("hidden");
-    registrationFormStatus.classList.remove("hidden");
+    UserAPI.clearFormFields("registerForm");
+    registrationForm.classList.add("hidden");
+    
+    registrationStatus.classList.remove("hidden");
 };
 
 
@@ -266,22 +271,14 @@ UserAPI.hideRegisterConf = function () {
     var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#');
-
-    var registerFormWrapper = document.getElementById("registerFormWrapper");
-    registerFormWrapper.classList.remove("hidden");
-    var registerDialog = document.getElementById("registerFormOverlay");
-    registerDialog.classList.add("hidden");
-    var registrationFormStatus = document.getElementById("registrationFormStatus");
-    registrationFormStatus.classList.add("hidden");
-    var registrationFormStatusMessage = document.getElementById("registrationFormStatusMessage");
+    
+    var registrationFormStatusMessage = document.getElementById("registrationStatusSuccessMessage");
     registrationFormStatusMessage.innerHTML = "";
-    var registrationFormEmailConfMessage = document.getElementById("registrationFormEmailConfMessage");
+    var registrationFormEmailConfMessage = document.getElementById("registrationStatusEmailConfMessage");
     registrationFormEmailConfMessage.innerHTML = "";
 
-    registerDialog.classList.add("hidden");
-
-
-
+    var registrationStatus = document.getElementById("registerStatusOverlay");
+    registrationStatus.classList.add("hidden");
 };
 
 
@@ -445,7 +442,7 @@ UserAPI.showLogin = function () {
     loginDialog.classList.remove("hidden");
     EventsAPI.setFormFocus("login_email");
     EventsAPI.hideBodyOverflow(true);
-    AccessibilityAPI.preventModalEscape("login_email", "switchToRegister");
+    AccessibilityAPI.preventModalEscape("login_email", "loginFormLoginBtn");
 };
 
 /**
@@ -494,8 +491,7 @@ UserAPI.showRegisterForm = function (linkElement) {
 
     EventsAPI.setFormFocus("register_email");
     EventsAPI.hideBodyOverflow(true);
-    AccessibilityAPI.preventModalEscapeBackward("register_email");
-    AccessibilityAPI.preventModalEscapeForward("switchToLogin");
+    AccessibilityAPI.preventModalEscape("register_email","registerFormRegisterBtn");
 };
 
 /**
@@ -509,15 +505,6 @@ UserAPI.hideRegisterForm = function () {
 
     var registerDialog = document.getElementById("registerFormOverlay");
     registerDialog.classList.add("hidden");
-    var register_email_error =
-            document.getElementById("register_email_error");
-    register_email_error.classList.add("hidden");
-    var register_password_confirm_error =
-            document.getElementById("register_password_confirm_error");
-    register_password_confirm_error.classList.add("hidden");
-    var register_password_error =
-            document.getElementById("register_password_error");
-    register_password_error.classList.add("hidden");
 
     EventsAPI.hideBodyOverflow(false);
     UserAPI.clearFormFields("registerForm");

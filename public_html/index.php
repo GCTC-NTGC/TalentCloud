@@ -51,33 +51,36 @@
                         </label>
                         <input class="form-control form-textbox" id="register_password_confirm" name="register_password_confirm" type="password" required=""/>
                     </div>
-                    <div class="formButtonWrapper">
-                        <input type="button" class="btn btn-default" value="Cancel" onclick="UserAPI.hideRegisterForm()">
-                        <input type="button" class="btn btn-primary" value="Register" onclick="UserAPI.register();">
-                    </div>
-                    <div class="clear"></div>
                     <div class="hidden">
                         <p><a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link" id="switchToLogin" title="Already have an account? Click here to login.">Already have an account? Click here to login</a></p>
                     </div>
+                    <div class="formButtonWrapper">
+                        <input type="button" class="btn btn-default" id="registerFormCancelBtn" value="Cancel" onclick="UserAPI.hideRegisterForm()">
+                        <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register();">
+                    </div>
+                    <div class="clear"></div>
                 </form>  
             </div>
-            <div id="registrationFormStatus" class="hidden">
-                <div id='registerFormStatusTitleWrapper'>
-                    <h3 id='registerFormStatusTitle'>
-                        <img src="images/logo.svg" id="registerStatusLogoImage" alt="registerLogoImage"/>
-                        <span id="registerFormStatusTitleText">Talent Cloud Registration Status</span>
-                    </h3>
-                    <div id="registrationFormStatusMessage">
+        </div>
+    </div>
+    <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
+        <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
+            <div id='registerStatusTitleWrapper' class="dialogTitle">
+                <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
+                <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
+            </div>
+            <div class="dialogWindowInterior">
+                <div id="registrationStatusSuccessMessage">
 
-                    </div>
-                    <div id="registrationFormEmailConfMessage">
-
-                    </div>
-                    <div>
-                        <input type="button" class="btn btn-primary" value="Login" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);"/>
-                        <input type="button" class="btn btn-default" id="registerFormStatusClose" value="Close" onclick="UserAPI.hideRegisterConf()">
-                    </div>
                 </div>
+                <div id="registrationStatusEmailConfMessage">
+
+                </div>
+                <div class="formButtonWrapper">
+                    <input type="button" class="btn btn-default" id="registerStatusCloseBtn" value="Close" onclick="UserAPI.hideRegisterConf()">
+                    <input type="button" class="btn btn-primary" id="registerStatusLoginBtn" value="Log in" onclick="UserAPI.hideRegisterConf(); return UserAPI.showLogin(this);"/>
+                </div>
+                <div class="clear"></div>
             </div>
         </div>
     </div>
@@ -113,20 +116,22 @@
                             <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                         </div>
                     </div>
+                                        
+                    <div class="hidden">
+                        <div style="margin: 1em 0 0 0;">
+                            <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+                        </div>
+                        <div style="margin: 1em 0 0 0;">
+                            <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                        </div>
+                    </div>
+                                        
                     <div class="formButtonWrapper">
-                        <input type="button" id="login_cancel_button" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
-                        <input type="button" id="login_button" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
+                        <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
+                        <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
                     </div>
                     <div class="clear"></div>
                 </form>
-                <div class="hidden">
-                    <div style="margin: 1em 0 0 0;">
-                        <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
-                    </div>
-                    <div style="margin: 1em 0 0 0;">
-                        <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
