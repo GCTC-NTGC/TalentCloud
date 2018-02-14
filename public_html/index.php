@@ -42,11 +42,12 @@
                         </label>
                         <input class="form-control form-textbox" id="register_password_confirm" name="register_password_confirm" type="password" required=""/>
                     </div>
-                    <div>
-                        <input type="button" class="btn btn-primary" value="Register" onclick="UserAPI.register();">
+                    <div class="formButtonWrapper">
                         <input type="button" class="btn btn-default" value="Cancel" onclick="UserAPI.hideRegisterForm()">
+                        <input type="button" class="btn btn-primary" value="Register" onclick="UserAPI.register();">
                     </div>
-                    <div style="margin: 1em 0 0 0;">
+                    <div class="clear"></div>
+                    <div class="hidden">
                         <p><a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link" id="switchToLogin" title="Already have an account? Click here to login.">Already have an account? Click here to login</a></p>
                     </div>
                 </form>  
@@ -103,16 +104,19 @@
                             <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                         </div>
                     </div>
-                    <div style="margin: 2em 0 0 0;">
-                        <input type="button" id="login_button" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
+                    <div class="formButtonWrapper">
                         <input type="button" id="login_cancel_button" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
+                        <input type="button" id="login_button" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
                     </div>
+                    <div class="clear"></div>
                 </form>
-                <div style="margin: 1em 0 0 0;">
-                    <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
-                </div>
-                <div style="margin: 1em 0 0 0;">
-                    <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                <div class="hidden">
+                    <div style="margin: 1em 0 0 0;">
+                        <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+                    </div>
+                    <div style="margin: 1em 0 0 0;">
+                        <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                    </div>
                 </div>
             </div>
         </div>

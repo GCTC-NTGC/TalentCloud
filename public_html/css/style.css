@@ -223,6 +223,10 @@ div label span{
     background-color:#E5F8FF;
 }
 
+.formButtonWrapper{
+    float:right;
+}
+
 .contentContainer{
     background-color: white;
 }
@@ -504,7 +508,7 @@ input[type=button],input[type=submit],input[type=reset]{
     border-radius: 30px;
     min-width: 140px;
     border:1px solid transparent;
-    margin: 1em;
+    margin: 1em 1em 0em 1em;
 }
 .btn.active.focus,.btn.active:focus,.btn.focus,.btn:active.focus,.btn:active:focus,.btn:focus{
     outline:none;
