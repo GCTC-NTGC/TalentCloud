@@ -251,7 +251,7 @@ UserAPI.showRegisterConf = function (registerSuccess, confEmailSuccess) {
     AccessibilityAPI.enableTabIndex("registrationFormStatusMessage");
     AccessibilityAPI.enableTabIndex("registerFormStatusClose");
     AccessibilityAPI.preventModalEscape("registrationFormStatus", "registerFormStatusClose");
-    AccessibilityAPI.focusElement("registerFormTitleText");
+    AccessibilityAPI.focusElement("registerFormTitle");
 
     registerFormWrapper.classList.add("hidden");
     registrationFormStatus.classList.remove("hidden");
