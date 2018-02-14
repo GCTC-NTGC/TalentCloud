@@ -387,9 +387,6 @@ UserAPI.loaded = function (response) {
             var teamsLink = document.getElementById("teamsLink");
             teamsLink.classList.remove("hidden");
             
-            CreateEditProfileAPI.getManagerProfilePic();
-            
-            CreateEditProfileAPI.getManagerProfile();
 
         }
 

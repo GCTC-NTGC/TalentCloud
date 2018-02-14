@@ -51,7 +51,7 @@ DataAPI.getTalentCloudUI = function(locale,isManager){
       talentcloudData_xhr = null;
 
     }
-    
+    talentcloudData_xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
     talentcloudData_xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);

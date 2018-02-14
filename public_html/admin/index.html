@@ -24,11 +24,11 @@ and open the template in the editor .
         <script src="/js/UserAPI.js" type="text/javascript"></script>
         <script src="/js/MessageHandlerAPI.js" type="text/javascript"></script>
         <script src="/js/JobPostAPI.js" type="text/javascript"></script>
+        <script src="/js/FormsAPI.js" type="text/javascript"></script>
         <script src="/js/FormValidationAPI.js" type="text/javascript"></script>
         <script src="/admin/js/JobSeekerAPI.js" type="text/javascript"></script>
         <script src="/admin/js/CreateJobPosterAPI.js" type="text/javascript"></script>
         <script src="/admin/js/CreateEditProfileAPI.js" type="text/javascript"></script>
-        <script src="/js/FormValidationAPI.js" type="text/javascript"></script>
         <script src="/js/EventsAPI.js" type="text/javascript"></script>
         <script src="/js/FileAPI.js" type="text/javascript"></script>
         <script src="/admin/js/ManagerEventsAPI.js" type="text/javascript"></script>
@@ -55,17 +55,17 @@ and open the template in the editor .
             <div id="manager_top_nav" class="nav">
                 <ul>
                     <li aria-hidden="false"><a href="/admin/" class="active" id="homeLink">Home</a></li>
-                    <li id="profileLinkListItem" aria-hidden="true"><a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile(this);">My Profile</a></li>
+                    <li id="profileLinkListItem" aria-hidden="true"><a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();">My Profile</a></li>
                     <li id="jobPostersLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showManagerCreateJobPosterForm(this)">Create Job Poster</a></li>
                     <li id="teamsLinkListItem" aria-hidden="true"><a href="#" class="hidden" id="teamsLink">My Teams</a></li>
                 </ul>
                 <div class="logoutWrapper">
                     <ul>
-                        <li>
+                        <!--li>
                             <div id="viewProfileLink">
                                 <a href="javascript:void(0)" id="viewProfileLink" onclick="CreateEditProfileAPI.showViewProfile(this)">temp_view_profile_link</a>
                             </div>
-                        </li>
+                        </li-->
                         <li>
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
@@ -610,6 +610,9 @@ and open the template in the editor .
                                 </div>
                                 <!-- Where the old steps resided -->
                                 <form method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
+                                    <input type="hidden" id="UserId"/>
+                                    <input type="hidden" id="ManagerProfileId"/>
+                                    <input type="hidden" id="ManagerProfileDetailsId"/>
                                     <div id="profileCommon">
                                         <div>
                                             <div style='display:block;text-align:center;'>
@@ -677,7 +680,7 @@ and open the template in the editor .
                                                             </strong>
                                                         </label>
                                                         <div>
-                                                            <textarea class="form-control full-width" name="createEditProfile_branch" id="createEditProfile_proudOf"></textarea>
+                                                            <textarea class="form-control full-width" name="createEditProfile_proudOf" id="createEditProfile_proudOf"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -699,9 +702,10 @@ and open the template in the editor .
                                                             </strong>
                                                         </label>
                                                         <div>
-                                                            <select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
+                                                            <input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>
+                                                            <!--select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
                                                                 <option value="">--</option>
-                                                            </select>
+                                                            </select-->
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -732,7 +736,7 @@ and open the template in the editor .
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="createEditProfile_twitter">
-                                                            <span id="createEditProfile_twitter_label">Twitter: *</span>
+                                                            <span id="createEditProfile_twitter_label">Twitter</span>
                                                             <strong id="createEditProfile_twitter_error" class="error hidden">
                                                                 <span id="createEditProfile_twitter_error_msg" class="label label-danger"></span>
                                                             </strong>
@@ -743,7 +747,7 @@ and open the template in the editor .
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="createEditProfile_linkedin">
-                                                            <span id="createEditProfile_linkedin_label">LinkedIn: *</span>
+                                                            <span id="createEditProfile_linkedin_label">LinkedIn</span>
                                                             <strong id="createEditProfile_linkedin_error" class="error hidden">
                                                                 <span id="createEditProfile_linkedin_error_msg" class="label label-danger"></span>
                                                             </strong>
@@ -946,18 +950,18 @@ and open the template in the editor .
                                                         <div style='display:inline-block;width:48%'>
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id='options' style="position:absolute;top:0px;right:0px;width:35em;height:2em;z-index:100">
-                                                                    <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('multi_bgcolor',0)" />
+                                                                    <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options',this.value,'review_options')" />
                                                                     <label for="option0" class='option0Label'>Almost never</label>
-                                                                    <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',1)"/>
+                                                                    <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options',this.value,'review_options')"/>
                                                                     <label for="option1" class='option1Label'>Rarely</label>
-                                                                    <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',2)"/>
+                                                                    <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options',this.value,'review_options')"/>
                                                                     <label for="option2" class='option2Label'>Sometimes</label>
-                                                                    <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',3)"/>
+                                                                    <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options',this.value,'review_options')"/>
                                                                     <label for="option3" class='option3Label'>Usually</label>
-                                                                    <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('multi_bgcolor',4)"/>
+                                                                    <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options',this.value,'review_options') "/>
                                                                     <label for="option4" class='option4Label'>Almost always</label>
                                                                 </div>
-                                                                <div id='multi_bgcolor' class="option0"></div>
+                                                                <div id='review_options' class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -970,15 +974,15 @@ and open the template in the editor .
                                                         <div style='display:inline-block;width:48%'>
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id='createEditProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:35em;height:2em;z-index:100">
-                                                                    <input type="radio" id="staylate_option0" name="createEditProfile_staylate" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('staylate',0)" />
+                                                                    <input type="radio" id="staylate_option0" name="createEditProfile_staylate" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate',this.value,'staylate')" />
                                                                     <label for="staylate_option0" class='option0Label'>Almost never</label>
-                                                                    <input type="radio" id="staylate_option1" name="createEditProfile_staylate" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('staylate',1)"/>
+                                                                    <input type="radio" id="staylate_option1" name="createEditProfile_staylate" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate',this.value,'staylate')"/>
                                                                     <label for="staylate_option1" class='option1Label'>Rarely</label>
-                                                                    <input type="radio" id="staylate_option2" name="createEditProfile_staylate" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('staylate',2)"/>
+                                                                    <input type="radio" id="staylate_option2" name="createEditProfile_staylate" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate',this.value,'staylate')"/>
                                                                     <label for="staylate_option2" class='option2Label'>Sometimes</label>
-                                                                    <input type="radio" id="staylate_option3" name="createEditProfile_staylate" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('staylate',3)"/>
+                                                                    <input type="radio" id="staylate_option3" name="createEditProfile_staylate" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate',this.value,'staylate')"/>
                                                                     <label for="staylate_option3" class='option3Label'>Usually</label>
-                                                                    <input type="radio" id="staylate_option4" name="createEditProfile_staylate" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('staylate',4)"/>
+                                                                    <input type="radio" id="staylate_option4" name="createEditProfile_staylate" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate',this.value,'staylate')"/>
                                                                     <label for="staylate_option4" class='option4Label'>Almost always</label>
                                                                 </div>
                                                                 <div id='staylate' class="option0"></div>
@@ -994,15 +998,15 @@ and open the template in the editor .
                                                         <div style='display:inline-block;width:48%'>
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
-                                                                    <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('engage',0)" />
+                                                                    <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage',this.value,'engage')" />
                                                                     <label for="engage_option0" class='option0Label'>Almost never</label>
-                                                                    <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('engage',1)"/>
+                                                                    <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage',this.value,'engage')"/>
                                                                     <label for="engage_option1" class='option1Label'>Rarely</label>
-                                                                    <input type="radio" id="engage_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('engage',2)"/>
+                                                                    <input type="radio" id="engage_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage',this.value,'engage')"/>
                                                                     <label for="engage_option2" class='option2Label'>Sometimes</label>
-                                                                    <input type="radio" id="engage_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('engage',3)"/>
+                                                                    <input type="radio" id="engage_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage',this.value,'engage')"/>
                                                                     <label for="engage_option3" class='option3Label'>Usually</label>
-                                                                    <input type="radio" id="engage_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('engage',4)"/>
+                                                                    <input type="radio" id="engage_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage',this.value,'engage')"/>
                                                                     <label for="engage_option4" class='option4Label'>Almost always</label>
                                                                 </div>
                                                                 <div id='engage' class="option0"></div>
@@ -1019,15 +1023,15 @@ and open the template in the editor .
                                                         <div style='display:inline-block;width:48%'>
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
-                                                                    <input type="radio" id="devops_option0" name="createEditProfile_devops" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('devops',0)" />
+                                                                    <input type="radio" id="devops_option0" name="createEditProfile_devops" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops',this.value,'devops')" />
                                                                     <label for="devops_option0" class='option0Label'>Almost never</label>
-                                                                    <input type="radio" id="devops_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('devops',1)"/>
+                                                                    <input type="radio" id="devops_option1" name="createEditProfile_devops" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops',this.value,'devops')"/>
                                                                     <label for="devops_option1" class='option1Label'>Rarely</label>
-                                                                    <input type="radio" id="devops_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('devops',2)"/>
+                                                                    <input type="radio" id="devops_option2" name="createEditProfile_devops" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops',this.value,'devops')"/>
                                                                     <label for="devops_option2" class='option2Label'>Sometimes</label>
-                                                                    <input type="radio" id="devops_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('devops',3)"/>
+                                                                    <input type="radio" id="devops_option3" name="createEditProfile_devops" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops',this.value,'devops')"/>
                                                                     <label for="devops_option3" class='option3Label'>Usually</label>
-                                                                    <input type="radio" id="devops_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('devops',4)"/>
+                                                                    <input type="radio" id="devops_option4" name="createEditProfile_devops" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops',this.value,'devops')"/>
                                                                     <label for="devops_option4" class='option4Label'>Almost always</label>
                                                                 </div>
                                                                 <div id='devops' class="option0"></div>
@@ -1042,16 +1046,16 @@ and open the template in the editor .
                                                         </div>
                                                         <div style='display:inline-block;width:48%'>
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_lvwRequests' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
-                                                                    <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwRequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOption('lvwRequests',0)" />
+                                                                <div id='createEditProfile_lvwrequests' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                                    <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests',this.value,'lvwRequests')" />
                                                                     <label for="lvwRequests_option0" class='option0Label'>Almost never</label>
-                                                                    <input type="radio" id="lvwRequests_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',1)"/>
+                                                                    <input type="radio" id="lvwRequests_option1" name="createEditProfile_lvwrequests" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests',this.value,'lvwRequests')"/>
                                                                     <label for="lvwRequests_option1" class='option1Label'>Rarely</label>
-                                                                    <input type="radio" id="lvwRequests_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',2)"/>
+                                                                    <input type="radio" id="lvwRequests_option2" name="createEditProfile_lvwrequests" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests',this.value,'lvwRequests')"/>
                                                                     <label for="lvwRequests_option2" class='option2Label'>Sometimes</label>
-                                                                    <input type="radio" id="lvwRequests_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',3)"/>
+                                                                    <input type="radio" id="lvwRequests_option3" name="createEditProfile_lvwrequests" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests',this.value,'lvwRequests')"/>
                                                                     <label for="lvwRequests_option3" class='option3Label'>Usually</label>
-                                                                    <input type="radio" id="lvwRequests_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOption('lvwRequests',4)"/>
+                                                                    <input type="radio" id="lvwRequests_option4" name="createEditProfile_lvwrequests" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests',this.value,'lvwRequests')"/>
                                                                     <label for="lvwRequests_option4" class='option4Label'>Almost always</label>
                                                                 </div>
                                                                 <div id='lvwRequests' class="option0"></div>
@@ -1085,8 +1089,32 @@ and open the template in the editor .
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-                                            <div class="createEditProfileDemoAreaEnglish" id="createEditProfileDemoAreaEnglish"></div>
-                                            <div class="createEditProfileDemoAreaFrench" id="createEditProfileDemoAreaFrench"></div>
+                                            
+                                            <fieldset>
+                                                <legend>Other</legend>
+                                                <div>
+                                                    <div class="form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <label for="user_manager_profile_work_experience"><span>Work Experience</span></label>
+                                                        </div>
+                                                        <div style='display:inline-block;width:49%'>
+                                                            <div>
+                                                                <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="textAreaInput"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <label for="user_manager_profile_education"><span>Education</span></label>
+                                                        </div>
+                                                        <div style='display:inline-block;width:49%'>
+                                                            <div>
+                                                                <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="textAreaInput"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
@@ -1146,7 +1174,7 @@ and open the template in the editor .
         <!-- BEGIN - Add Contact Overlay and Form-->
         <script src="/js/Messages.js" type="text/javascript"></script>
         <script type="text/javascript">
-            EventsAPI.onLoadEvents();
+            ManagerEventsAPI.onLoadEvents();
         </script>
         <script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
         <script src="/js/SliderAPI.js" type="text/javascript"></script>

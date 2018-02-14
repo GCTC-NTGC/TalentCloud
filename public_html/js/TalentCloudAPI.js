@@ -212,7 +212,7 @@ TalentCloudAPI.loadAdmin = function(){
                 credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.authenticate(credentials);
-                DepartmentAPI.getDepartments(locale);
+                
                 DivisionAPI.getDivisions(locale);
                 BranchAPI.getBranches(locale);
                 //Add log user in automatically

@@ -10,12 +10,14 @@
     }
 
     /*set api path*/
-    set_include_path(get_include_path() . PATH_SEPARATOR);
+    if(!defined('ROOT_PATH')){
+        define('ROOT_PATH', dirname(__DIR__) . '/');
+    }
 
-    require_once '../controller/ManagerProfileController.php';
-    require_once '../model/ManagerProfile.php';
-    require_once '../model/ManagerProfileDetails.php';
-    require_once '../utils/Utils.php';
+    require_once ROOT_PATH.'controller/ManagerProfileController.php';
+    require_once ROOT_PATH.'model/ManagerProfile.php';
+    require_once ROOT_PATH.'model/ManagerProfileDetails.php';
+    require_once ROOT_PATH.'utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -34,7 +36,7 @@
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
                 $managerProfile = new ManagerProfile();
                 $managerProfile->setUser_id($user_id);
-                $result = ManagerProfileController::getManagerProfile($managerProfile);
+                $result = ManagerProfileController::getManagerProfileWithDetails($managerProfile);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
@@ -48,25 +50,38 @@
             //must contain access token to get logged in content
             $jsonBody = file_get_contents('php://input');
                 $decoded_json = json_decode($jsonBody, TRUE);
+                //var_dump($decoded_json);
                 $managerProfileJSON = $decoded_json["manager_profile"];
                 
                 $managerProfile = new ManagerProfile();
                 $managerProfile->setUser_id($managerProfileJSON["user_id"]);
-                $managerProfile->setUser_manager_profile_position_id($managerProfileJSON["user_manager_profile_position_id"]);
-                $managerProfile->setUser_manager_profile_department_id($managerProfileJSON["user_manager_profile_department_id"]);
+                $managerProfile->setUser_manager_profile_id($managerProfileJSON["user_manager_profile_id"]);
+                $managerProfile->setUser_manager_profile_position($managerProfileJSON["user_manager_profile_position"]);
+                $managerProfile->setUser_manager_profile_department($managerProfileJSON["user_manager_profile_department"]);
                 $managerProfile->setUser_manager_profile_branch_id($managerProfileJSON["user_manager_profile_branch_id"]);
                 $managerProfile->setUser_manager_profile_division_id($managerProfileJSON["user_manager_profile_division_id"]);
                 $managerProfile->setUser_manager_profile_twitter($managerProfileJSON["user_manager_profile_twitter"]);
                 $managerProfile->setUser_manager_profile_linkedin($managerProfileJSON["user_manager_profile_linkedin"]);
+                //var_dump($managerProfile);
                 
                 $managerProfileDetailsJSON = $decoded_json["manager_profile_details"];
                 $managerProfileDetails = new ManagerProfileDetails();
                 $managerProfileDetails->setLocale_id($managerProfileDetailsJSON["locale_id"]);
+                $managerProfileDetails->setUser_manager_profile_id($managerProfileDetailsJSON["user_manager_profile_id"]);
                 $managerProfileDetails->setUser_manager_profile_details_aboutme($managerProfileDetailsJSON["user_manager_profile_details_aboutme"]);
                 $managerProfileDetails->setUser_manager_profile_details_emp_learn($managerProfileDetailsJSON["user_manager_profile_details_emp_learn"]);
                 $managerProfileDetails->setUser_manager_profile_details_expectations($managerProfileDetailsJSON["user_manager_profile_details_expectations"]);
                 $managerProfileDetails->setUser_manager_profile_details_lead_style($managerProfileDetailsJSON["user_manager_profile_details_lead_style"]);
                 $managerProfileDetails->setUser_manager_profile_details_proud($managerProfileDetailsJSON["user_manager_profile_details_proud"]);
+                $managerProfileDetails->setUser_manager_profile_review_options($managerProfileDetailsJSON['user_manager_profile_review_options']);
+                $managerProfileDetails->setUser_manager_profile_staylate($managerProfileDetailsJSON['user_manager_profile_staylate']);
+                $managerProfileDetails->setUser_manager_profile_engage($managerProfileDetailsJSON['user_manager_profile_engage']);
+                $managerProfileDetails->setUser_manager_profile_devops($managerProfileDetailsJSON['user_manager_profile_devops']);
+                $managerProfileDetails->setUser_manager_profile_lvwRequests($managerProfileDetailsJSON['user_manager_profile_lvwrequests']);
+                $managerProfileDetails->setUser_manager_profile_work_experience($managerProfileDetailsJSON['user_manager_profile_work_experience']);
+                $managerProfileDetails->setUser_manager_profile_education($managerProfileDetailsJSON['user_manager_profile_education']);
+                
+                //var_dump($managerProfileDetailsJSON);
                 
                 $result = ManagerProfileController::createManagerProfile($managerProfile, $managerProfileDetails);
                 $json = json_encode($result, JSON_PRETTY_PRINT);

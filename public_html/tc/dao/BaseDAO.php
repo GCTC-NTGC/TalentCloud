@@ -45,11 +45,11 @@
                     $dbname = DBNAME;
 
                     try{
-                        $link = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.'',''.$dbusername.'',''.$dbpassword.'');
+                        $link = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf8',''.$dbusername.'',''.$dbpassword.'');
                         $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
                         $link->setAttribute(PDO::ATTR_PERSISTENT, true);
                         $link->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-                        //$link->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
+                        
                         return $link;
                     }catch(PDOException $e){
                         die('<b>Error:</b> '.$e->getMessage());
