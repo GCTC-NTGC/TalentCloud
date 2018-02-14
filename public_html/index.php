@@ -6,20 +6,18 @@
 <!-- A top-level dialog or overlay elements should be children of this div-->
 <div id="overlays">
     <!-- BEGIN - Registration Dialog and Overlay-->
-    <div id="registerFormOverlay" class="hidden" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
-        <div id="registerFormWrapperWindow" class="registerFormWrapperWindow">
-            <div class="wb-frmvld wb-init" id="registerFormWrapper">
+    <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
+        <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+            <div id='registerFormTitleWrapper' class="dialogTitle">
+                <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
+                <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
+            </div>
+            <div class="wb-frmvld wb-init dialogWindowInterior" id="registerFormWrapper">
                 <form name="registerForm" id="registerForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
-                    <div id='registerFormTitleWrapper'>
-                        <h3 id='registerFormTitle'>
-                            <img src="images/logo.svg" id="registerLogoImage" alt="registerLogoImage"/>
-                            <span id="registerFormTitleText">Talent Cloud Registration</span>
-                        </h3>
-                        <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="register_email">
-                            <span>Email</span>
+                            <span>Email:</span>
                             <strong id="register_email_error" class="error hidden">
                                 <span id="register_email_error_msg" class="label label-danger"></span>
                             </strong>
@@ -74,46 +72,48 @@
         </div>
     </div>
     <!-- BEGIN - Login Modal Dialog and Overlay-->
-    <div id="loginOverlay" class="hidden" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginFormDescription">
-        <div id="loginFormWrapperWindow" class="loginFormWrapperWindow">
-            <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
-                <div id='loginTitleWrapper'>
-                    <h3 id='loginTitle' title="Login to TalentCloud"><img src="images/logo.svg" id="loginLogoImage" alt="Login Logo Image"/>Login</h3>
-                    <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
-                </div>
-                <div class="label label-danger hidden" id="loginErrors"></div>
-                <div class="form-group">
-                    <label for="login_email">
-                        <span>Email address:</span>
-                        <strong id="login_email_error" class="error hidden">
-                            <span id="login_email_error_msg" class="label label-danger"></span>
-                        </strong>
-                    </label>
-                    <div>
-                        <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="login_password">
-                        <span>Password:</span>
-                        <strong id="login_password_error" class="error hidden">
-                            <span id="login_password_error_msg" class="label label-danger"></span>
-                        </strong>
-                    </label>
-                    <div>
-                        <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
-                    </div>
-                </div>
-                <div style="margin: 2em 0 0 0;">
-                    <input type="button" id="login_button" value="Login" class="btn btn-primary" onclick="return UserAPI.login()"/>
-                    <input type="button" id="login_cancel_button" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
-                </div>
-            </form>
-            <div style="margin: 1em 0 0 0;">
-                <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+    <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
+        <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+            <div id='loginFormTitleWrapper' class="dialogTitle">
+                <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
+                <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
             </div>
-            <div style="margin: 1em 0 0 0;">
-                <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+            <div class="dialogWindowInterior">
+                <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
+                                        <div class="label label-danger hidden" id="loginErrors"></div>
+                    <div class="form-group">
+                        <label for="login_email">
+                            <span>Email:</span>
+                            <strong id="login_email_error" class="error hidden">
+                                <span id="login_email_error_msg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password">
+                            <span>Password:</span>
+                            <strong id="login_password_error" class="error hidden">
+                                <span id="login_password_error_msg" class="label label-danger"></span>
+                            </strong>
+                        </label>
+                        <div>
+                            <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
+                        </div>
+                    </div>
+                    <div style="margin: 2em 0 0 0;">
+                        <input type="button" id="login_button" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
+                        <input type="button" id="login_cancel_button" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
+                    </div>
+                </form>
+                <div style="margin: 1em 0 0 0;">
+                    <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+                </div>
+                <div style="margin: 1em 0 0 0;">
+                    <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                </div>
             </div>
         </div>
     </div>

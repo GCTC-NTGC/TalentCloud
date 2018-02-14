@@ -147,31 +147,6 @@ nav{
     text-align: center;
 }
 
-#loginOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.loginFormWrapperWindow{
-    width:30%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-    position:relative;
-}
-
 /* Was this here for a good reason? - Tristan
 div label span{
     clear:left;
@@ -199,7 +174,7 @@ div label span{
     white-space: pre-wrap;
 }
 
-#loginTitle, #registerFormTitle, #myProfileTitle{
+#myProfileTitle{
     height:3em !important;
     width:auto !important;
     line-height:3em !important;
@@ -220,15 +195,6 @@ div label span{
 }
 
 #loginTitleLabel{
-}
-
-#registerFormOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    position:absolute;
-    top:0;
-    left:0;
 }
 
 #createJobPosterOverlay{
@@ -252,7 +218,7 @@ div label span{
 
 .dialogHalfWidthWrapperWindow {
     width:50%;
-    min-width:350px;
+    min-width:450px;
     margin:0px auto;
     position:relative;
     top:50%;
@@ -260,7 +226,6 @@ div label span{
     text-align: left;
     background-color:#fff;
     border: 1px solid #999;
-    border-radius: 5px;
     box-shadow: 3px 3px 6px #999;
     position:relative;
 }
@@ -393,21 +358,6 @@ div label span{
     height: 1.5em;
 }
 
-.registerFormWrapperWindow{
-    width:40%;
-    min-width:450px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-}
-
 #registrationFormStatusMessage,#registrationFormEmailConfMessage{
     padding:1em;
 }
@@ -537,6 +487,23 @@ div label span{
 
 .form-textbox{
     width:95%;
+}
+
+/*
+   Following form classes override styles in theme.min.css 
+*/
+.form-control{
+    color:#555;
+    background-color:#EAEAEA;
+    background-image:none;
+    border:none;
+    border-radius:0;
+}
+.form-control:focus{
+    border: 1px solid #999;
+    outline:0;
+    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153,153,153,.6);
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153, 153, 153,.6)
 }
 
 
@@ -921,8 +888,6 @@ input[type=text],input[type=password],select{
     font-family: Roboto;
     font-size:1em;
     padding:0.5em;
-    border-radius:3px;
-    border:1px solid #999;
 }
 
 input[type=button],input[type=submit]{
