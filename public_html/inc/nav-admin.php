@@ -27,13 +27,7 @@
                         <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>
                         </li>
-                        <!-- Outdated? - Grant
-                        <li class="top-nav--link">
-                            <div id="viewProfileLink">
-                                <a href="javascript:void(0)" id="viewProfileLink" onclick="CreateEditProfileAPI.showViewProfile(this)">temp_view_profile_link</a>
-                            </div>
-                        </li>
-                        -->
+
                         <li class="top-nav--link">
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
@@ -51,16 +45,7 @@
                             </div>
                         </li>        
                     </ul>
-                    </ul>
-                   
                 </div>
-            <!--
-                <button class="main-nav-button" id="js-mainNavButton">
-                    <span class="main-nav-button--text">Menu</span>
-                    <span class="main-nav-button--button">
-                        <span class="glyphicon glyphicon-th"></span>
-                    </span>
-                </button> -->
             </div>
         </div>
     </div>

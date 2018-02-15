@@ -30,9 +30,10 @@ class JobPoster implements JsonSerializable {
     private $location_city;
     private $remuneration_range_low;
     private $remuneration_range_high;
-    //private $impact;
+    private $impact;
+    //private $key_tasks;
 
-    public function __construct($id, $locale_id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $open_date, $close_date, $department, $location_province, $location_city, $remuneration_range_low, $remuneration_range_high) {
+    public function __construct($id, $locale_id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $open_date, $close_date, $department, $location_province, $location_city, $remuneration_range_low, $remuneration_range_high, $impact) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->title = $title;
@@ -50,7 +51,8 @@ class JobPoster implements JsonSerializable {
         $this->location_city = $location_city;
         $this->remuneration_range_low = $remuneration_range_low;
         $this->remuneration_range_high = $remuneration_range_high;
-        //$this->impact = $impact;
+        $this->impact = $impact;
+        //$this->key_tasks = $key_tasks;
     }
     
     public function jsonSerialize() {
@@ -132,8 +134,12 @@ class JobPoster implements JsonSerializable {
         return $this->remuneration_range_high;
     }
     
-    //public function getImpact() {
-    //    return $this->impact;
+    public function getImpact() {
+        return $this->impact;
+    }
+    
+    //public function getKeyTasks() {
+    //    return $this->key_tasks;
     //}
 
     public function setId($id) {
@@ -221,8 +227,13 @@ class JobPoster implements JsonSerializable {
         return $this;
     }  
 
-    //public function setImpact($impact) {
-    //    $this->impact = $impact;
+    public function setImpact($impact) {
+        $this->impact = $impact;
+        return $this;
+    }
+
+    //public function setKeyTasks($key_tasks) {
+    //    $this->key_tasks = $key_tasks;
     //    return $this;
     //}  
 }

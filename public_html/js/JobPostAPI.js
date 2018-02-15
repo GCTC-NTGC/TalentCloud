@@ -221,9 +221,7 @@ JobPostAPI.populateJob = function(job, demo, locale){
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+job.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
     //jobSalaryRange.setAttribute("tabindex", "0");
-    if (job.remuneration_range_low && job.remuneration_range_high) {
-        jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
-    }
+    jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
 
     var jobDepartment = document.createElement("div");
     jobDepartment.setAttribute("class", "jobDepartment");
@@ -502,12 +500,12 @@ JobPostAPI.populateJobPoster = function(jobData, locale){
     var jobImpact = document.createElement("div");
     jobImpact.setAttribute("id", "jobImpact"+jobData.id);
     jobImpact.setAttribute("class", "row jobImpact");
-    jobImpact.innerHTML = "Impact statement: " + jobData.description;
+    jobImpact.innerHTML = "Impact statement: " + jobData.impact;
     
     var jobKeyTasks = document.createElement("div");
     jobKeyTasks.setAttribute("id", "jobKeyTasks"+jobData.id);
     jobKeyTasks.setAttribute("class", "row jobKeyTasks");
-    jobKeyTasks.innerHTML = "Key tasks: " + siteContent.jobKeyTasks;
+    jobKeyTasks.innerHTML = "Key tasks: " + jobData.key_tasks;
     
     var jobCoreCompetencies = document.createElement("div");
     jobCoreCompetencies.setAttribute("id", "jobCoreCompetencies"+jobData.id);
