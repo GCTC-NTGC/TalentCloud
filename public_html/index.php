@@ -1,6 +1,25 @@
-<!-- BEGIN - Header-->
-<?php include 'inc/header.php';?>
-<!-- BEGIN - Top Navigation Bar-->
+<?php //header('Content-Type: text/html; charset=utf-8'); ?>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor . 
+-->
+<html lang="en">
+<head>
+    <title>GC Talent Cloud</title>
+    <?php include 'inc/head-common.php'; ?>
+</head>
+
+<body>
+<div id="cloud-container">
+<ul id="wb-tphp">
+    <li class="wb-slc">
+        <a class="wb-sl" href="#jobs">Skip to available jobs</a>
+    </li>
+</ul>
+
+<?php include 'inc/fip.php';?>
 <?php include 'inc/nav.php';?>
 
 <!-- A top-level dialog or overlay elements should be children of this div-->
@@ -364,5 +383,7 @@
         </div>
     </section>
 </main>
-<!-- BEGIN - Footer-->
 <?php include 'inc/footer.php';?>
+</div> <!-- End of main container -->
+</body>
+</html>
