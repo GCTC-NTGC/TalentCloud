@@ -280,6 +280,7 @@ TalentCloudAPI.setLanguage = function(locale){
 TalentCloudAPI.hideAllContent = function(){
     var overlays = document.getElementById("overlays").children;
     var sections = document.getElementsByTagName("main")[0].children;
+
     
     for(var i = 0;i < overlays.length;i++){
         overlays[i].classList.add("hidden");
@@ -287,6 +288,15 @@ TalentCloudAPI.hideAllContent = function(){
     for(var i = 0;i < sections.length;i++){
         sections[i].classList.add("hidden");
     }
+};
+
+/**
+ * Hides the circular GC Talent Cloud logo
+ * @returns {undefined}
+ */
+TalentCloudAPI.hideLogo = function(){
+    var logo = document.getElementById("logo");
+    logo.classList.add("hidden");
 };
 
 /**
@@ -313,8 +323,8 @@ TalentCloudAPI.setContent = function(content, isManager){
     var registerLink = document.getElementById("registerLink");
     registerLink.innerHTML = siteContent.registerLink;
     
-    var homeLink = document.getElementById("homeLink");
-    homeLink.innerHTML = siteContent.homeLink;
+    //var homeLink = document.getElementById("homeLink");
+    //homeLink.innerHTML = siteContent.homeLink;
 
     var profileLink = document.getElementById("profileLink");
     profileLink.innerHTML = siteContent.profileLink;

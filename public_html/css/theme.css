@@ -1,56 +1,11 @@
-@charset "UTF-8";
-@font-face {
-  font-family: "HKGrotesk";
-  font-weight: 600;
-  src: url("fonts/HKGrotesk-Bold.eot?") format("eot"), url("fonts/HKGrotesk-Bold.woff2") format("woff2"), url("fonts/HKGrotesk-Bold.woff") format("woff"), url("fonts/HKGrotesk-Bold.ttf") format("truetype"), url("fonts/HKGrotesk-Bold.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-style: italic;
-  font-weight: 600;
-  src: url("fonts/HKGrotesk-BoldItalic.eot?") format("eot"), url("fonts/HKGrotesk-BoldItalic.woff2") format("woff2"), url("fonts/HKGrotesk-BoldItalic.woff") format("woff"), url("fonts/HKGrotesk-BoldItalic.ttf") format("truetype"), url("fonts/HKGrotesk-BoldItalic.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-weight: 500;
-  src: url("fonts/HKGrotesk-SemiBold.eot?") format("eot"), url("fonts/HKGrotesk-SemiBold.woff2") format("woff2"), url("fonts/HKGrotesk-SemiBold.woff") format("woff"), url("fonts/HKGrotesk-SemiBold.ttf") format("truetype"), url("fonts/HKGrotesk-SemiBold.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-style: italic;
-  font-weight: 500;
-  src: url("fonts/HKGrotesk-SemiBoldItalic.eot?") format("eot"), url("fonts/HKGrotesk-SemiBoldItalic.woff2") format("woff2"), url("fonts/HKGrotesk-SemiBoldItalic.woff") format("woff"), url("fonts/HKGrotesk-SemiBoldItalic.ttf") format("truetype"), url("fonts/HKGrotesk-SemiBoldItalic.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-weight: 400;
-  src: url("fonts/HKGrotesk-Medium.eot?") format("eot"), url("fonts/HKGrotesk-Medium.woff2") format("woff2"), url("fonts/HKGrotesk-Medium.woff") format("woff"), url("fonts/HKGrotesk-Medium.ttf") format("truetype"), url("fonts/HKGrotesk-Medium.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-style: italic;
-  font-weight: 400;
-  src: url("fonts/HKGrotesk-MediumItalic.eot?") format("eot"), url("fonts/HKGrotesk-MediumItalic.woff2") format("woff2"), url("fonts/HKGrotesk-MediumItalic.woff") format("woff"), url("fonts/HKGrotesk-MediumItalic.ttf") format("truetype"), url("fonts/HKGrotesk-MediumItalic.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-weight: 300;
-  src: url("fonts/HKGrotesk-Regular.eot?") format("eot"), url("fonts/HKGrotesk-Regular.woff2") format("woff2"), url("fonts/HKGrotesk-Regular.woff") format("woff"), url("fonts/HKGrotesk-Regular.ttf") format("truetype"), url("fonts/HKGrotesk-Regular.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-weight: 100;
-  src: url(" fonts/HKGrotesk-Light.eot?") format("eot"), url(" fonts/HKGrotesk-Light.woff2") format("woff2"), url(" fonts/HKGrotesk-Light.woff") format("woff"), url(" fonts/HKGrotesk-Light.ttf") format("truetype"), url(" fonts/HKGrotesk-Light.svg#HKGrotesk") format("svg"); }
-@font-face {
-  font-family: "HKGrotesk";
-  font-style: italic;
-  font-weight: 100;
-  src: url(" fonts/HKGrotesk-LightItalic.eot?") format("eot"), url(" fonts/HKGrotesk-LightItalic.woff2") format("woff2"), url(" fonts/HKGrotesk-LightItalic.woff") format("woff"), url(" fonts/HKGrotesk-LightItalic.ttf") format("truetype"), url(" fonts/HKGrotesk-LightItalic.svg#HKGrotesk") format("svg"); }
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
-@font-face {
-  font-family: 'FontAwesome';
-  src: url("fonts/fontawesome-webfont.eot?v=4.7.0");
-  src: url("fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
-  font-weight: normal;
-  font-style: normal; }
+
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -2860,8 +2815,11 @@ main {
     .top-nav--link {
       display: inline-block;
       position: relative; }
+    /*
       .top-nav--link:first-child {
-        display: none; } }
+        display: none; }
+    */
+    }
   @media (min-width: 992px) {
     .top-nav--link {
       margin: 0 1rem; } }
@@ -3807,12 +3765,7 @@ article.post {
  */
 /* FONT PATH
  * -------------------------- */
-@font-face {
-  font-family: 'FontAwesome';
-  src: url("fonts/fontawesome-webfont.eot?v=4.7.0");
-  src: url("fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
-  font-weight: normal;
-  font-style: normal; }
+
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;

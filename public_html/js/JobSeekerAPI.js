@@ -132,7 +132,7 @@ JobSeekerAPI.populateJobSeeker = function(job){
     
     //Main job table
     var jobMainTable = document.createElement("div");
-    jobMainTable.setAttribute("class", "jobPostSummary");
+    jobMainTable.setAttribute("class", "jobPoster");
     
     var jobIDCell = document.createElement("div");
     jobIDCell.setAttribute("class", "jobId hidden");
@@ -573,8 +573,10 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     var stateInfo = {pageInfo: 'job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #MyProfile instead of url
+    
 
     TalentCloudAPI.hideAllContent();
+    TalentCloudAPI.hideLogo();
     EventsAPI.clearJobsContainer();
 
     var jobSeekerProfileOverlay = document.getElementById("profileSection");

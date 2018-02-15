@@ -1,3 +1,14 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+
+$url = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
+if ($url == '/admin/'){
+    $portal = 'Manager (Admin)';
+}
+else{
+    $portal = 'Applicant';
+}
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -8,7 +19,6 @@ and open the template in the editor .
 <head>
     <title>GC Talent Cloud</title>
     <!-- Metadata -->
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Fonts / icons -->
@@ -59,17 +69,17 @@ and open the template in the editor .
 <div id="fip">
     <div class="container">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <a href="https://www.canada.ca/en.html" class="fip-logo gl-FIP" aria-label="Government of Canada">
-                    <object type="image/svg+xml" tabindex="-1" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
+                    <object type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
                 </a>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-8">
                 <section class="visible-md visible-lg">
-                    <h1 class="tc-title">GC Talent Cloud <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> ### Portal</h1>
+                    <h1 class="tc-title">GC Talent Cloud <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <?php echo $portal; ?> Portal</h1>
                 </section>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <section id="wb-lng" class="visible-sm visible-md visible-lg">
                     <h2>Language selection</h2>
                     <div id="lang" class="lang">
