@@ -16,18 +16,16 @@
                         <li class="top-nav--link" aria-hidden="false">
                             <a href="/admin/" class="active" id="homeLink">Admin Home</a>
                         </li>
-                        <!-- Outdated? - Grant
                         <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
                             <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile(this);">My Profile</a>
                         </li>
-                        -->
                         <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this)">Job Posters</a>
                         </li>
                         <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>
                         </li>
-
+                        
                         <li class="top-nav--link">
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
