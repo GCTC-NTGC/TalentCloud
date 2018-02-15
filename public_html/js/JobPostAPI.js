@@ -33,7 +33,7 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact){
+JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
     this.id = id;
     this.title = title;
     this.applicants_to_date = applicants_to_date;
@@ -47,6 +47,10 @@ JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,depart
     this.remuneration_range_low = remuneration_range_low;
     this.remuneration_range_high = remuneration_range_high;
     this.impact = impact;
+    this.key_tasks = key_tasks;
+    this.core_competencies = core_competencies;
+    this.developing_competencies = developing_competencies;
+    this.other_requirements = other_requirements;
 };
 
 /**
@@ -104,6 +108,10 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.remuneration_range_low = job.remuneration_range_low;
     jobObj.remuneration_range_high = job.remuneration_range_high;
     jobObj.impact = job.impact;
+    jobObj.key_tasks = job.key_tasks;
+    jobObj.core_competencies = job.core_competencies;
+    jobObj.developing_competencies = job.developing_competencies;
+    jobObj.other_requirements = job.other_requirements;
 
 
     Utilities.debug?console.log(jobObj):null;
@@ -174,7 +182,7 @@ JobPostAPI.populateJob = function(job, demo, locale){
     
     //Main job table
     var jobMainTable = document.createElement("div");
-    jobMainTable.setAttribute("class", "jobPostSummary");
+    jobMainTable.setAttribute("class", "jobPoster");
     
     var jobIDCell = document.createElement("div");
     jobIDCell.setAttribute("class", "jobId hidden");
@@ -248,7 +256,7 @@ JobPostAPI.populateJob = function(job, demo, locale){
     
     hiringManagerWrapper.appendChild(hiringManagerProfilePic);
     
-    hiringManagerLabel = document.createElement("span");
+    var hiringManagerLabel = document.createElement("span");
     hiringManagerLabel.setAttribute("class", "hiringManagerLabel");
     hiringManagerLabel.innerHTML = "Hiring Manager";
     
@@ -420,7 +428,7 @@ JobPostAPI.viewJobPoster = function(jobId){
  * @param {type} jobData
  * @returns {undefined}
  */
-JobPostAPI.populateJobPoster = function(jobData){
+JobPostAPI.populateJobPoster = function(jobData, locale){
     TalentCloudAPI.hideAllContent();
     
     var stateInfo = {pageInfo: 'view_job_poster', pageTitle: 'Talent Cloud: ' + jobData.title + ' (' + jobData.id + ')'};
@@ -428,33 +436,90 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);//last parameter just replaced with #Register instead of url
     
-    var jobPoster = document.getElementById("jobPoster");
-    jobPoster.innnerHTML = "";
+    var jobSummary = document.getElementById("jobSummary");
+    jobSummary.innnerHTML = "";
     
-    var jobPosterHeader = document.createElement("div");
-    jobPosterHeader.setAttribute("id", "jobPosterHeader_" + jobData.id);
-    jobPosterHeader.setAttribute("class", "row jobPosterHeader");
-    jobPosterHeader.innerHTML = jobData.title + " (" + jobData.id + ")";
+    var jobSummaryHeaderWrapper = document.createElement("div");
+    jobSummaryHeaderWrapper.setAttribute("class", "jobSummaryHeaderWrapper");
     
-    var jobLocation = document.createElement("div");
-    jobLocation.setAttribute("id", "jobLocation"+jobData.id);
-    jobLocation.setAttribute("class", "row jobLocation");
-    jobLocation.innerHTML = siteContent.jobLocation + " : " + jobData.department + " - " + jobData.location_city+ " (" + jobData.location_province + ")";
+    var jobSummaryTitle = document.createElement("div");
+    jobSummaryTitle.setAttribute("id", "jobSummaryTitle_" + jobData.id);
+    jobSummaryTitle.setAttribute("class", "row jobSummaryTitle");
+    //jobSummaryTitle.innerHTML = jobData.title + " (" + jobData.id + ")";
+    jobSummaryTitle.innerHTML = jobData.title;
     
-    var jobTerm = document.createElement("div");
-    jobTerm.setAttribute("id", "jobTerm"+jobData.id);
-    jobTerm.setAttribute("class", "row jobTerm");
-    jobTerm.innerHTML = siteContent.jobTerm + " : " + jobData.term_qty + " " + jobData.term_units;
+    var jobSummaryDepartmentLocation = document.createElement("div");
+    jobSummaryDepartmentLocation.setAttribute("id", "jobSummaryDepartmentLocation"+jobData.id);
+    jobSummaryDepartmentLocation.setAttribute("class", "jobSummaryDepartmentLocation");
+    jobSummaryDepartmentLocation.innerHTML = jobData.department + " - " + jobData.location_city+ " (" + jobData.location_province + ")";
+    
+    var jobSummaryID = document.createElement("div");
+    jobSummaryID.setAttribute("id", "jobSummaryID_" + jobData.id);
+    jobSummaryID.setAttribute("class", "jobSummaryID");
+    jobSummaryID.innerHTML = "# " + jobData.id;
+    
+    jobSummaryDepartmentLocation.appendChild(jobSummaryID);
+    jobSummaryHeaderWrapper.appendChild(jobSummaryTitle);
+    jobSummaryHeaderWrapper.appendChild(jobSummaryDepartmentLocation);
+    
+    var jobSummaryMiddleWrapper = document.createElement("div");
+    jobSummaryMiddleWrapper.setAttribute("class", "jobSummaryMiddleWrapper");
+    
+    var jobSummarySalaryRange = document.createElement("div");
+    jobSummarySalaryRange.setAttribute("id", "jobSummarySalaryRange"+jobData.id);
+    jobSummarySalaryRange.setAttribute("class", "jobSummarySalaryRange");
+    
+    if (locale === "en_CA"){
+        jobSummarySalaryRange.innerHTML = "$" + jobData.remuneration_range_low.toLocaleString('en') + " ~ $" + jobData.remuneration_range_high.toLocaleString('en');
+    } else {
+        jobSummarySalaryRange.innerHTML = "Not working yet"
+    }
+    // fixed accessibility issue - Grant
+    // jobSummarySalaryRange.setAttribute("tabindex", "0");
+    //jobSummarySalaryRange.innerHTML = siteContent.jobSalaryRange + " : $" + jobData.remuneration_range_low + " - $" + jobData.remuneration_range_high + " CDN";
+    
+    var jobSummaryTerm = document.createElement("div");
+    jobSummaryTerm.setAttribute("id", "jobSummaryTerm"+jobData.id);
+    jobSummaryTerm.setAttribute("class", "jobSummaryTerm");
+    jobSummaryTerm.innerHTML = siteContent.jobTerm + " : " + jobData.term_qty + " " + jobData.term_units;
+    
+    var jobSummaryClearance = document.createElement("div");
+    jobSummaryClearance.setAttribute("id", "jobSummaryClearance"+jobData.id);
+    jobSummaryClearance.setAttribute("class", "jobSummaryClearance");
+    jobSummaryClearance.innerHTML = "Clearance: ";
+    
+    var jobSummaryLanguage = document.createElement("div");
+    jobSummaryLanguage.setAttribute("id", "jobSummaryLanguage"+jobData.id);
+    jobSummaryLanguage.setAttribute("class", "jobSummaryLanguage");
+    jobSummaryLanguage.innerHTML = "Language: ";
+    
+    jobSummaryMiddleWrapper.appendChild(jobSummarySalaryRange);
+    jobSummaryMiddleWrapper.appendChild(jobSummaryTerm);
+    jobSummaryMiddleWrapper.appendChild(jobSummaryClearance);
+    jobSummaryMiddleWrapper.appendChild(jobSummaryLanguage);
+
     
     var jobImpact = document.createElement("div");
     jobImpact.setAttribute("id", "jobImpact"+jobData.id);
     jobImpact.setAttribute("class", "row jobImpact");
-    jobImpact.innerHTML = "Impact statement: " + siteContent.jobImpact;
+    jobImpact.innerHTML = "Impact statement: " + jobData.description;
     
-    var jobSalaryRange = document.createElement("div");
-    jobSalaryRange.setAttribute("id", "jobSalaryRange"+jobData.id);
-    jobSalaryRange.setAttribute("class", "row jobSalaryRange");
-    jobSalaryRange.innerHTML = siteContent.jobSalaryRange + " : $" + jobData.remuneration_range_low + " - $" + jobData.remuneration_range_high + " CDN";
+    var jobKeyTasks = document.createElement("div");
+    jobKeyTasks.setAttribute("id", "jobKeyTasks"+jobData.id);
+    jobKeyTasks.setAttribute("class", "row jobKeyTasks");
+    jobKeyTasks.innerHTML = "Key tasks: " + siteContent.jobKeyTasks;
+    
+    var jobCoreCompetencies = document.createElement("div");
+    jobCoreCompetencies.setAttribute("id", "jobCoreCompetencies"+jobData.id);
+    jobCoreCompetencies.setAttribute("class", "row jobCoreCompetencies");
+    jobCoreCompetencies.innerHTML = "Core Competencies: " + siteContent.jobCoreCompetencies;
+    
+    var jobDevCompetencies = document.createElement("div");
+    jobDevCompetencies.setAttribute("id", "jobDevCompetencies"+jobData.id);
+    jobDevCompetencies.setAttribute("class", "row jobDevCompetencies");
+    jobDevCompetencies.innerHTML = "Asset Competencies: " + siteContent.jobDevCompetencies;
+    
+
 
     var jobPosterApplyButton = document.createElement("div");
     jobPosterApplyButton.setAttribute("id", "jobPosterApplyButton_"+jobData.id);
@@ -479,12 +544,14 @@ JobPostAPI.populateJobPoster = function(jobData){
     applyNowBackButton.setAttribute("onclick", "JobPostAPI.hideJobPoster('"+jobData.id+"')");
     jobPosterApplyButton.appendChild(applyNowBackButton);
 
-    jobPoster.appendChild(jobPosterHeader);
-    jobPoster.appendChild(jobLocation);
-    jobPoster.appendChild(jobImpact);
-    jobPoster.appendChild(jobTerm);
-    jobPoster.appendChild(jobSalaryRange);
-    jobPoster.appendChild(jobPosterApplyButton);
+    jobSummary.appendChild(jobSummaryHeaderWrapper);
+    jobSummary.appendChild(jobSummaryMiddleWrapper);
+    
+    jobSummary.appendChild(jobImpact);
+    jobSummary.appendChild(jobKeyTasks);
+    jobSummary.appendChild(jobCoreCompetencies);
+    jobSummary.appendChild(jobDevCompetencies);
+    jobSummary.appendChild(jobPosterApplyButton);
     
     document.getElementById("viewJobPosterSection").classList.remove("hidden");
     

@@ -307,7 +307,7 @@
     
     <section class="section" id="viewJobPosterSection" class="hidden">
         <div id="viewJobPosterApplicationOverlay" class="container">
-            <div id="jobPoster" class="jobPoster">
+            <div id="jobSummary" class="jobSummary">
 
             </div>
         </div>

@@ -653,7 +653,7 @@ main{
     background: #F8F8F8;
 }
 
-.jobPostSummary{
+.jobPoster{
     width: 90%;
     display: flex;
     flex-direction: row;
@@ -670,17 +670,17 @@ main{
     font-weight: bold;
     color: #000;
     line-height: 1.5em;
+    text-align: left;
 }
 
 .titleDepartmentWrapper{
-    text-align: left;
+    
     width: 225px;
 }
 
 .jobSalaryRange{
     width: 200px;
     text-align: center;
-
 }
 
 .hiringManagerProfilePicSmall{
@@ -739,16 +739,32 @@ main{
     margin-left:1em;
 }
 
-.jobPoster{
-    padding:1em;
+.jobSummary{
+    background-color: #f8f8f8;
 }
 
-.jobPosterHeader{
-    padding:0.5em;
+.jobSummaryHeaderWrapper{
     background-color:#eee;
+    padding: 2em 0 2em 1em;
+}
+
+.jobSummaryMiddleWrapper{
+    background-color: #777;
+    color: #FFF;
+    padding: 2em;
+}
+
+.jobSummaryTitle{
     font-size:1.5em;
 }
 
+.jobSummaryID{
+    float: right;
+    padding-right:2em;
+}
+
+.jobSalaryRange-poster{
+}
 
 .contactCard{
     border:1px solid #eee;

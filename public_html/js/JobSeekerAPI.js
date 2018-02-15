@@ -132,7 +132,7 @@ JobSeekerAPI.populateJobSeeker = function(job){
     
     //Main job table
     var jobMainTable = document.createElement("div");
-    jobMainTable.setAttribute("class", "jobPostSummary");
+    jobMainTable.setAttribute("class", "jobPoster");
     
     var jobIDCell = document.createElement("div");
     jobIDCell.setAttribute("class", "jobId hidden");
@@ -581,8 +581,6 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.remove("hidden");
-    
-    document.getElementById("logo-circle").style.display = "none";
 
     var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
     profileBasicInfoEdit.focus();
