@@ -431,6 +431,8 @@ JobPostAPI.viewJobPoster = function(jobId){
 JobPostAPI.populateJobPoster = function(jobData, locale){
     TalentCloudAPI.hideAllContent();
     
+    locale = TalentCloudAPI.getLanguageFromCookie().toString();
+    
     var stateInfo = {pageInfo: 'view_job_poster', pageTitle: 'Talent Cloud: ' + jobData.title + ' (' + jobData.id + ')'};
     //stateInfo.viewJobPosterJobObj = jobData;
     document.title = stateInfo.pageTitle;
@@ -472,7 +474,7 @@ JobPostAPI.populateJobPoster = function(jobData, locale){
     if (locale === "en_CA"){
         jobSummarySalaryRange.innerHTML = "$" + jobData.remuneration_range_low.toLocaleString('en') + " ~ $" + jobData.remuneration_range_high.toLocaleString('en');
     } else {
-        jobSummarySalaryRange.innerHTML = "French";
+        jobSummarySalaryRange.innerHTML = jobData.remuneration_range_low.toLocaleString('fr') + " $ ~ " + jobData.remuneration_range_high.toLocaleString('fr') + " $";
     }
     // jobSummarySalaryRange.setAttribute("tabindex", "0");
     //jobSummarySalaryRange.innerHTML = siteContent.jobSalaryRange + " : $" + jobData.remuneration_range_low + " - $" + jobData.remuneration_range_high + " CDN";
@@ -497,8 +499,6 @@ JobPostAPI.populateJobPoster = function(jobData, locale){
     jobSummaryMiddleWrapper.appendChild(jobSummaryClearance);
     jobSummaryMiddleWrapper.appendChild(jobSummaryLanguage);
 
-    
-    // fixed accessibility issue - Grant
     var jobImpact = document.createElement("div");
     jobImpact.setAttribute("id", "jobImpact"+jobData.id);
     jobImpact.setAttribute("class", "row jobImpact");
