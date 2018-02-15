@@ -12,11 +12,15 @@ FileUploadAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
 
 FileUploadAPI.defaultProfilePic = '/images/user.png';
 
+FileUploadAPI.loadingTextClass = 'fileUploadLoadingText';
+FileUploadAPI.loadingBarClass = 'fileUploadLoadingBar';
+
 FileUploadAPI.FileUploader = function(
-        fileField, dropZone, fileList,
+        fileInputField, dropZone, filePreviewListElement,
         clearBtn,
         uploadBtn,
         isSingleFile, 
+        isProfilePic,
         makeUploadRequest, 
         onUploadComplete) {
         
@@ -25,13 +29,23 @@ FileUploadAPI.FileUploader = function(
 	max_filesize = 2048576;
 
     this.init = function () {
-        fileField.onchange = this.addFiles;
+        fileInputField.onchange = this.addFiles;
         clearBtn.onclick = clearUploadQueue;
         uploadBtn.onclick = this.uploadQueue;
+        
+        //clone dropZone to remove existing event listeners
+        var clone = dropZone.cloneNode();
+        while (dropZone.firstChild) {
+          clone.appendChild(dropZone.lastChild);
+        }
+        dropZone.parentNode.replaceChild(clone, dropZone);
+        dropZone = clone;
+
         dropZone.addEventListener("dragenter",  this.stopProp, false);
         dropZone.addEventListener("dragleave",  this.dragExit, false);
         dropZone.addEventListener("dragover",  this.dragOver, false);
         dropZone.addEventListener("drop",  this.showDroppedFiles, false);
+        clearUploadQueue();
     };
 
     this.addFiles = function () {
@@ -74,34 +88,67 @@ FileUploadAPI.FileUploader = function(
         while (fileQueue.length > 0) {
             var item = fileQueue.pop();
             var p = document.createElement("p");
-            p.className = "fileUploadLoader";
+            p.className = FileUploadAPI.loadingTextClass;
             var pText = document.createTextNode("Uploading...");
             p.appendChild(pText);
             item.li.appendChild(p);
-            if (item.file.size < max_filesize) {
-                uploadFile(item.file, item.li);
+            var size = 0;
+            if (item.croppie) {
+                item.croppie.result({
+                    type: 'blob',
+                    size: 'viewport',
+                    format: 'png',
+                    quality: 1,
+                    circle: false
+                }).then(function(blob) {
+                    try {
+                        var size = blob.size;
+                        if (size < max_filesize) {
+                            uploadFile(item.file, item.li, item.croppie);
+                        } else {
+                            p.textContent = "File too large";
+                            p.style["color"] = "red";
+                        }
+                    } catch (e) {
+                        console.log(e);
+                        setFilePreviewLabel(item.li, {type: "error"});
+                    }
+                });
             } else {
-                p.textContent = "File too large";
-                p.style["color"] = "red";
+                size = item.file.size;
+                if (size < max_filesize) {
+                    uploadFile(item.file, item.li, item.croppie);
+                } else {
+                    p.textContent = "File too large";
+                    p.style["color"] = "red";
+                }
             }
         }
     };
     
     var clearUploadQueue = function () {
-        while (fileList.childNodes.length > 0) {
-            fileList.removeChild(
-                fileList.childNodes[fileList.childNodes.length - 1]
+        //Clear file preview list
+        while (filePreviewListElement.childNodes.length > 0) {
+            filePreviewListElement.removeChild(
+                filePreviewListElement.childNodes[filePreviewListElement.childNodes.length - 1]
             );
         }
+        //Clear upload queue
+        fileQueue = new Array();
+        //Clear input button value
+        fileInputField.value = null;
     };
 
     var addFileListItems = function (files) {
         if (isSingleFile) {
-            clearUploadQueue();
             var fr = new FileReader();
             fr.file = files[0];
+            
+            clearUploadQueue(); //NOTE: this will set files to null
+     
             fr.onloadend = showFileInList;
-            fr.readAsDataURL(files[0]);
+            fr.readAsDataURL(fr.file);
+            
         } else {
             for (var i = 0; i < files.length; i++) {
                 var fr = new FileReader();
@@ -119,9 +166,13 @@ FileUploadAPI.FileUploader = function(
             if (file.type.search(/image\/.*/) != -1) {
                 var thumb = new Image();
                 thumb.src = ev.target.result;
-                //thumb.addEventListener("mouseover", showImagePreview, false);
-                //thumb.addEventListener("mouseout", removePreview, false);
                 li.appendChild(thumb);
+                var croppie = null;
+                if (isProfilePic) {
+                    croppie = makeProfilePicCroppie(thumb, ev.target.result);
+                } else {
+                    thumb.classList.add("uploadFileThumbnail");
+                }
             }
             var h3 = document.createElement("h3");
             var h3Text = document.createTextNode(file.name);
@@ -152,95 +203,121 @@ FileUploadAPI.FileUploader = function(
             div.appendChild(divText);
             
             var divLoader = document.createElement("div");
-            divLoader.className = "fileUploadLoadingIndicator";
+            divLoader.className = FileUploadAPI.loadingBarClass;
             
             li.appendChild(div);
             li.appendChild(divLoader);
-            fileList.appendChild(li);
+            filePreviewListElement.appendChild(li);
             fileQueue.push({
                 file : file,
-                li : li
+                li : li,
+                croppie : croppie
             });
         }
     };
 
-    /*
-    var showImagePreview = function (ev) {
-        var div = document.createElement("div");
-        div.style["top"] = (ev.pageY + 10) + "px";
-        div.style["left"] = (ev.pageX + 10) + "px";
-        div.style["opacity"] = 0;
-        div.className = "imagePreview";
-        var img = new Image();
-        img.src = ev.target.src;
-        div.appendChild(img);
-        document.body.appendChild(div);
-        document.body.addEventListener("mousemove", movePreview, false);
-        preview = div;
-        fadePreviewIn();
-    };
-
-    var movePreview = function (ev) {
-        if (preview) {
-            preview.style["top"] = (ev.pageY + 10) + "px";
-            preview.style["left"] = (ev.pageX + 10) + "px";
-        }
-    };
-
-    var removePreview = function (ev) {
-        document.body.removeEventListener("mousemove", movePreview, false);
-        document.body.removeChild(preview);
+    var makeProfilePicCroppie = function(img, imageSrc) {
+        
+        var croppie = new Croppie(img, {
+            viewport: { width: 200, height: 200, type: 'circle'},
+            boundary: { width: 200, height: 200 },
+            showZoomer: true,
+            enableZoom: true,
+            enforceBoundary: true,
+            mouseWheelZoombool: true
+        });
+        croppie.bind({
+            url: imageSrc
+        }).then(function() {
+            croppie.setZoom(0);
+        });
+        return croppie;
     };
     
-    var fadePreviewIn = function () {
-        if (preview) {
-            var opacity = preview.style["opacity"];
-            for (var i = 10; i < 250; i = i+10) {
-                (function () {
-                    var level = i;
-                    setTimeout(function () {
-                        preview.style["opacity"] = opacity + level / 250;
-                    }, level);
-                })();
-            }
-        }
-    };
-    */
-    var uploadFile = function (file, li) {
+    var uploadFile = function (file, li, croppie) {
         if (li && file && makeUploadRequest) {
-            var xhr = makeUploadRequest(file),
+            var type = "";
+            var name = "";
+            var payload = null;
+            if (croppie) {
+                name = 'profile_pic.png';
+                type = 'image/png';
+            } else {
+                type = file.type;
+                name = file.name;
+                payload = file;
+            }
+            
+            var xhr = makeUploadRequest(type, name),
             upload = xhr.upload;
             upload.addEventListener("progress", function (ev) {
-                if (ev.lengthComputable) {
-                    var loader = li.getElementsByTagName("div")[0];
-                    loader.style["width"] = (ev.loaded / ev.total) * 100 + "%";
-                }
+                setFilePreviewLabel(li, ev);
             }, false);
             upload.addEventListener("load", function (ev) {
-                var ps = li.getElementsByTagName("p");
-                var div = li.getElementsByTagName("div")[0];
-                div.style["width"] = "100%";
-                div.style["backgroundColor"] = "#0f0";
-                for (var i = 0; i < ps.length; i++) {
-                    if (ps[i].className == "fileUploadLoader") {
-                        ps[i].textContent = "Upload complete";
-                        ps[i].style["color"] = "#3DD13F";
-                        break;
-                    }
-                }
+                setFilePreviewLabel(li, ev);
                 if (onUploadComplete) {
                     onUploadComplete(xhr);
                 }
             }, false);
             upload.addEventListener("error", function (ev) {
-                console.log(ev);
+                setFilePreviewLabel(li, ev);
                 //TODO
             }, false);
             upload.addEventListener("abort", function (ev) {
-                console.log(ev);
+                setFilePreviewLabel(li, ev);
                 //TODO
             }, false);
-            xhr.send(file);
+            
+            if (croppie) {
+                croppie.result({
+                    type: 'blob',
+                    size: 'viewport',
+                    format: 'png',
+                    quality: 1,
+                    circle: false
+                }).then(function(blob) {
+                    payload = blob;
+                    xhr.send(payload);
+                });
+            } else {
+                xhr.send(payload);
+            }
+        }
+    };
+    
+    var setFilePreviewLabel = function(previewElement, event) {
+        switch(event.type) {
+            case "load":
+                var loaderText = previewElement.getElementsByClassName(FileUploadAPI.loadingTextClass)[0];
+                var loadingBar = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                loadingBar.style["width"] = "100%";
+                loadingBar.style["backgroundColor"] = "#0f0";
+                loaderText.textContent = "Upload complete";
+                loaderText.style["color"] = "#3DD13F";
+                break;
+            case "progress":
+                if (event.lengthComputable) {
+                    var loader = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                    loader.style["width"] = (event.loaded / event.total) * 100 + "%";
+                }
+                break;
+            case "error":
+                var loaderText = previewElement.getElementsByClassName(FileUploadAPI.loadingTextClass)[0];
+                var loadingBar = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                loadingBar.style["backgroundColor"] = "red";
+                loaderText.style["color"] = "red";
+                loaderText.textContent = "Upload Error";
+                break;
+            case "abort":
+                var loaderText = previewElement.getElementsByClassName(FileUploadAPI.loadingTextClass)[0];
+                var loadingBar = previewElement.getElementsByClassName(FileUploadAPI.loadingBarClass)[0];
+                loadingBar.style["backgroundColor"] = "red";
+                loaderText.style["color"] = "red";
+                loaderText.textContent = "Upload Aborted";
+                break;
+            default:
+                console.log(event);
+                break;
         }
     };
 };
@@ -257,7 +334,7 @@ FileUploadAPI.uploadQueue = function() {
     }
 }
 
-FileUploadAPI.makeProfilePicUploadRequest = function(file){
+FileUploadAPI.makeProfilePicUploadRequest = function(fileType, fileName){
     var upload_url = FileUploadAPI.baseURL+"/profilePic/"+UserAPI.getSessionUserAsJSON()['user_id'];
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
@@ -277,8 +354,8 @@ FileUploadAPI.makeProfilePicUploadRequest = function(file){
     }
     
     xhr.open('PUT',upload_url);
-    xhr.setRequestHeader("Content-type",file.type);
-    xhr.setRequestHeader("X-File-Name", file.name);
+    xhr.setRequestHeader("Content-type",fileType);
+    xhr.setRequestHeader("X-File-Name", fileName);
     xhr.setRequestHeader("Accept","application/json");
     if (UserAPI.hasAuthToken()) {
         var authToken = UserAPI.getAuthTokenAsJSON()
@@ -337,13 +414,13 @@ FileUploadAPI.showProfilePicUpload = function() {
     uploadWindow.classList.remove("hidden");
     EventsAPI.setFormFocus("profilePicUploadField");
     
-    var fileField = document.getElementById('profilePicUploadField');
+    var fileInputField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
-    var fileList = document.getElementById('profilePicUploadPreview');
+    var filePreviewListElement = document.getElementById('profilePicUploadPreview');
     var clearBtn = document.getElementById('profilePicUploadClear');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
     fileUploader = new FileUploader(
-            fileField, fileDrop, fileList, 
+            fileInputField, fileDrop, filePreviewListElement, 
             clearBtn,
             uploadBtn,
             true, 
@@ -355,4 +432,5 @@ FileUploadAPI.showProfilePicUpload = function() {
 FileUploadAPI.hideProfilePicUpload = function() {
     var uploadWindow = document.getElementById('profilePicUploadWrapperWindow');
     uploadWindow.classList.add("hidden");
+    FileUploadAPI.clearUploadQueue();
 }
