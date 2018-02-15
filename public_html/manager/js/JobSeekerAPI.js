@@ -112,7 +112,7 @@ JobSeekerAPI.populateJobSeeker = function(job){
     
     //Main job table
     var jobMainTable = document.createElement("div");
-    jobMainTable.setAttribute("class", "jobPostSummary");
+    jobMainTable.setAttribute("class", "jobPoster");
     
     var jobIDCell = document.createElement("div");
     jobIDCell.setAttribute("class", "jobId hidden");

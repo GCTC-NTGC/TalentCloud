@@ -2,38 +2,38 @@
     <div class="topbar transparent" id="site--topbar">
         <h2>Topics menu</h2>
         <div class="row">
-            <!--
-            <div class="col-xs-4 col-sm-3">
-                <a href="/" class="cds-logo" role="img" aria-label="Canadian Digital Service"></a>
+            <div id="logo" class="logo-container">
+                <a href="/" role="img" class="circle" aria-label="GC Talent Cloud"><img class="tc-logo" src="/images/talentcloud_logo_white.png" width="200" alt="GC Talent Cloud logo"/></a>
             </div>
-            -->
             <div class="nav-container nav">
-                <!--
-                <div id="js-mobileNav">
-                    <div id="js-mobileNav--closeContainer">
-                        <button id="js-mobileNav--button">
-                            <span class="text">Close</span>
-                            <span class="glyphicon glyphicon-remove close-icon"></span>
-                        </button>
-                    </div> -->
+                    <!--<li class="top-nav--link active" aria-hidden="false" id="homeLink">
+                        <a href="/">Home</a>
+                    </li>
+                    <li class="top-nav--link">
+                        <a href="/about">FAQ</a>
+                    </li>-->
                     <ul class="navbar-right" role="menubar">
                         <li class="top-nav--link" aria-hidden="false">
-                            <a href="/admin/" class="active" id="homeLink">Home</a>
+                            <a href="/admin/" class="active" id="homeLink">Admin Home</a>
                         </li>
+                        <!-- Outdated? - Grant
                         <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
                             <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile(this);">My Profile</a>
                         </li>
+                        -->
                         <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this)">Job Posters</a>
                         </li>
                         <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>
                         </li>
+                        <!-- Outdated? - Grant
                         <li class="top-nav--link">
                             <div id="viewProfileLink">
                                 <a href="javascript:void(0)" id="viewProfileLink" onclick="CreateEditProfileAPI.showViewProfile(this)">temp_view_profile_link</a>
                             </div>
                         </li>
+                        -->
                         <li class="top-nav--link">
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
