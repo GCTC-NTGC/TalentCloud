@@ -174,6 +174,8 @@ JobPostAPI.populateJobs = function(jobPosts){
 JobPostAPI.populateJob = function(job, demo, locale){
     Utilities.debug?console.log("populating job"):null;
     
+    locale = TalentCloudAPI.getLanguageFromCookie().toString();
+    
     //Create a job card
     var jobCard = document.createElement("div");
     jobCard.setAttribute("id", "jobId_"+job.id);
@@ -193,18 +195,8 @@ JobPostAPI.populateJob = function(job, demo, locale){
     jobTitle.innerHTML = job.title;
 
     var jobApplicants_to_date = document.createElement("div");
-    if(demo === true){
-        jobApplicants_to_date.setAttribute("class", "jobApplicants_to_date");
-        
-        if(locale === "en_CA")
-            jobApplicants_to_date.innerHTML = "Applicants to date: 12";
-        else
-            jobApplicants_to_date.innerHTML = "Candidats à ce jour: 12";
-    }
-    else{
-        jobApplicants_to_date.setAttribute("class", "jobApplicants_to_date");
-        jobApplicants_to_date.innerHTML = job.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
-    }
+    jobApplicants_to_date.setAttribute("class", "jobApplicants_to_date");
+    jobApplicants_to_date.innerHTML = job.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
     
     var jobClose_date_time = document.createElement("div");
     jobClose_date_time.setAttribute("class", "jobClose_date_time");
@@ -220,8 +212,11 @@ JobPostAPI.populateJob = function(job, demo, locale){
     var jobSalaryRange = document.createElement("div");
     jobSalaryRange.setAttribute("id", "jobSalaryRange"+job.id);
     jobSalaryRange.setAttribute("class", "row jobSalaryRange");
-    //jobSalaryRange.setAttribute("tabindex", "0");
-    jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
+    if (locale === "en_CA"){
+        jobSalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
+    } else {
+        jobSalaryRange.innerHTML = job.remuneration_range_low.toLocaleString('fr') + " $ ~ " + job.remuneration_range_high.toLocaleString('fr') + " $";
+    }
 
     var jobDepartment = document.createElement("div");
     jobDepartment.setAttribute("class", "jobDepartment");
@@ -292,28 +287,10 @@ JobPostAPI.populateJob = function(job, demo, locale){
     
     jobMainTable.appendChild(jobIDCell);
     jobMainTable.appendChild(hiringManagerWrapper);
-    
     jobMainTable.appendChild(titleDepartmentWrapper);
-    
-    //jobMainTable.appendChild(jobTitle);
-    //jobMainTable.appendChild(jobDepartment);
-    
-    //jobMainTable.appendChild(jobLocation);
-    
     jobMainTable.appendChild(jobSalaryRange);
-    
     jobMainTable.appendChild(jobTerm_qty);
-    
     jobMainTable.appendChild(applicantsCloseDateWrapper);
-    
-    //jobMainTable.appendChild(jobApplicants_to_date);
-    //jobMainTable.appendChild(jobClose_date_time);
-
-
-    
-    
-    
-    
     jobMainTable.appendChild(viewJobButton);
     
     //Append job to the jobcard
@@ -510,14 +487,12 @@ JobPostAPI.populateJobPoster = function(jobData, locale){
     var jobCoreCompetencies = document.createElement("div");
     jobCoreCompetencies.setAttribute("id", "jobCoreCompetencies"+jobData.id);
     jobCoreCompetencies.setAttribute("class", "row jobCoreCompetencies");
-    jobCoreCompetencies.innerHTML = "Core Competencies: " + siteContent.jobCoreCompetencies;
+    jobCoreCompetencies.innerHTML = "Core Competencies: " + jobData.core_competencies;
     
     var jobDevCompetencies = document.createElement("div");
     jobDevCompetencies.setAttribute("id", "jobDevCompetencies"+jobData.id);
     jobDevCompetencies.setAttribute("class", "row jobDevCompetencies");
-    jobDevCompetencies.innerHTML = "Asset Competencies: " + siteContent.jobDevCompetencies;
-    
-
+    jobDevCompetencies.innerHTML = "Asset Competencies: " + jobData.dev_competencies;
 
     var jobPosterApplyButton = document.createElement("div");
     jobPosterApplyButton.setAttribute("id", "jobPosterApplyButton_"+jobData.id);
