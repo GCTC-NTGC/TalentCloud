@@ -51,7 +51,8 @@ class JobPosterDAO extends BaseDAO {
             pd.province_details_name as location_province,
             cd.city_details_name as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
-            jp.job_poster_remuneration_max as remuneration_range_high
+            jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact
             FROM job_poster jp, job_poster_details jpd, 
                 locale l, 
                 job_term_details jtd, 
@@ -81,12 +82,16 @@ class JobPosterDAO extends BaseDAO {
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
             ";
+        
+        //    AND kt.locale_id = l.locale_id,
+        //    AND kt.job_poster_id = jp.job_poster_id
+        
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale_iso', $locale, PDO::PARAM_STR);
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high'));
+            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact'));
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -123,7 +128,8 @@ class JobPosterDAO extends BaseDAO {
             pd.province_details_name as location_province,
             cd.city_details_name as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
-            jp.job_poster_remuneration_max as remuneration_range_high
+            jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact
             FROM job_poster jp, 
                 job_poster_details jpd, 
                 locale l,
@@ -155,13 +161,17 @@ class JobPosterDAO extends BaseDAO {
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
             ";
+        
+        //    AND kt.locale_id = l.locale_id,
+        //    AND kt.job_poster_id = jp.job_poster_id
+        
         $sql = $link->prepare($sqlStr);
         $sql->bindParam('jobPosterId',$jobPosterId, PDO::PARAM_INT);
         $sql->bindParam(':locale_iso', $locale, PDO::PARAM_STR);
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high'));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact'));
             $jobPoster = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
