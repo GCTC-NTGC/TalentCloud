@@ -18,6 +18,19 @@ body{
     background-size: auto;
 }
 
+main{
+   background-color: #fff;
+   height: 100vh;
+   margin-top: 30rem;
+   position: absolute;
+   top:0;
+   bottom:0;
+   left:0;
+   right:0;
+   /*overflow:hidden;*/
+   /*padding-top: 1em;*/
+}
+
 .overFlowHidden{
     overflow:hidden;
 }
@@ -32,6 +45,16 @@ nav{
     padding:0 !important;
 }
 
+.nav-container{
+    width: 100%;
+}
+
+.nav-container li a{
+    font-size: 1.5rem;
+    color: #ccc;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 .transparent{
   background:rgba(0,0,0,0.7);
 }
@@ -477,17 +500,6 @@ div label span{
     padding:1em 2em 2em 2em;
 }
 
-.nav-container{
-    width: 100%;
-}
-
-.nav-container li a{
-    font-size: 1.5rem;
-    color: #ccc;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 #loggedInUser{
     font-size: 1.5rem;
     color: #ccc;
@@ -614,24 +626,6 @@ div label span{
     color:#fff !important;
 }
 
-.textAreaInput{
-    width:100%;
-    height:5em;
-}
-
-main{
-   background-color: #fff;
-   height: 100vh;
-   margin-top: 30rem;
-   position: absolute;
-   top:0;
-   bottom:0;
-   left:0;
-   right:0;
-   /*overflow:hidden;*/
-   /*padding-top: 1em;*/
-}
-
 #noJobs{
     color:#999;
     text-align: center;
@@ -642,6 +636,61 @@ main{
     margin-top:1em;
     padding:0 1em;
     height:100%;
+}
+
+input[type=text],input[type=password],select{
+    font-family: Roboto;
+    font-size:1em;
+    padding:0.5em;
+    border-radius:3px;
+    border:1px solid #999;
+}
+
+input[type=button],input[type=submit]{
+    font-family: Roboto;
+    font-size:1em;
+    padding:0.25em;
+}
+
+.viewJobPosterOverlay,.viewJobPosterApplicationOverlay,.jobSeekerProfileOverlay{
+    width:100%;
+    height:100%;
+    z-index: 1002;
+    background-color: rgba(255,255,255,0.75);
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    text-align: left;
+    background-color: #fff;
+    padding: 2em;
+}
+
+#jobPosterApplication{
+    padding:1em;
+}
+
+.jobPosterApplicationProfileSelect{
+    padding:1em;
+}
+
+.closeButton{
+    position:absolute;
+    top:1em;
+    right:1em;
+    width: 10px;
+    height: 10px;
+    background: url(../images/chosen-sprite.png) 10px 0;
+}
+
+.closeButtonLink{
+    padding:5px;
+    display:block;
 }
 
 .jobCount{
@@ -751,14 +800,6 @@ main{
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 
-.jobPosterApplyButton{
-    /*padding:1em 0 0.5em 0;*/
-    overflow:auto;
-}
-.jobPosterCancelButton{
-    margin-left:1em;
-}
-
 .jobPoster{
     background-color: #f8f8f8;
 }
@@ -784,6 +825,14 @@ main{
 }
 
 .jobPosterSalaryRange{
+}
+
+.jobPosterApplyButton{
+    /*padding:1em 0 0.5em 0;*/
+    overflow:auto;
+}
+.jobPosterCancelButton{
+    margin-left:1em;
 }
 
 .contactCard{
@@ -917,6 +966,7 @@ main{
     clear: both;
 }
 
+/* hide / show */ 
 .hidden{
     transition: all 1s ease-in-out !important;
     opacity:0;
@@ -928,68 +978,12 @@ main{
     border:none !important;
     overflow:hidden;
 }
-
 .visible{
     max-height:4000px;
     max-width:4000px;
     display:static;
     opacity:1;
     transition: opacity 1s ease-in-out;
-}
-
-input[type=text],input[type=password],select{
-    font-family: Roboto;
-    font-size:1em;
-    padding:0.5em;
-    border-radius:3px;
-    border:1px solid #999;
-}
-
-input[type=button],input[type=submit]{
-    font-family: Roboto;
-    font-size:1em;
-    padding:0.25em;
-}
-
-.viewJobPosterOverlay,.viewJobPosterApplicationOverlay,.jobSeekerProfileOverlay{
-    width:100%;
-    height:100%;
-    z-index: 1002;
-    background-color: rgba(255,255,255,0.75);
-    position:fixed;
-    top:0;
-    left:0;
-}
-
-.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow{
-    width: 100%;
-    height: 100%;
-    margin: 0px auto;
-    text-align: left;
-    background-color: #fff;
-    padding: 2em;
-}
-
-#jobPosterApplication{
-    padding:1em;
-}
-
-.jobPosterApplicationProfileSelect{
-    padding:1em;
-}
-
-.closeButton{
-    position:absolute;
-    top:1em;
-    right:1em;
-    width: 10px;
-    height: 10px;
-    background: url(../images/chosen-sprite.png) 10px 0;
-}
-
-.closeButtonLink{
-    padding:5px;
-    display:block;
 }
 
 /* Begin - Profile Pic display and upload */
