@@ -1,4 +1,5 @@
-/*BEGIN CUSTOM CSS*/
+/* TOP LEVEL */
+
 html{
     min-height:100%;/* make sure it is at least as tall as the viewport */
     position:relative;
@@ -18,8 +19,17 @@ body{
     background-size: auto;
 }
 
-.overFlowHidden{
-    overflow:hidden;
+main{
+   background-color: #fff;
+   height: 100vh;
+   margin-top: 30rem;
+   position: absolute;
+   top:0;
+   bottom:0;
+   left:0;
+   right:0;
+   /*overflow:hidden;*/
+   /*padding-top: 1em;*/
 }
 
 header{
@@ -28,15 +38,36 @@ header{
     /*padding: 2em !important;*/
 }
 
+/* NAVIGATION */
+
 nav{
     padding:0 !important;
 }
-
-.transparent{
-  background:rgba(0,0,0,0.7);
+.nav-container{
+    width: 100%;
 }
 
-.tc-title{
+.nav-container li a{
+    font-size: 1.5rem;
+    color: #ccc;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* CONTAINERS / OVERLAYS */
+
+.contentContainer{
+    background-color: white;
+}
+
+.section{
+    margin: 0 auto;
+    width: 90%;
+}
+
+/* FIP (TOP BLACK) BANNER */
+
+.page-title{
     font-size: 1.5rem;
     margin-top: 0;
     text-align: center;
@@ -46,6 +77,18 @@ nav{
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
+.languageSelectLink{
+    float:right;
+    margin-top: 0.75rem;
+    color: #FFFFFF;
+}
+.languageSelect{
+    color: #FFFFFF;
+    display: inline-block;
+}
+
+/* TALENT CLOUD LOGO */
 
 .logo-container{
     position: absolute;
@@ -72,13 +115,601 @@ nav{
     margin-top:6em;
 }
 
-.form-icon {
-    width: 1em;
-    height: 1em;
-}
+/* UTILITY */
 
 .clear {
     clear: both;
+}
+
+.clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.overFlowHidden{
+    overflow:hidden;
+}
+    
+.transparent{
+    background:rgba(0,0,0,0.7);
+}
+
+.hidden{
+    transition: all 1s ease-in-out !important;
+    opacity:0;
+    max-height:0;
+    max-width:0;
+    display:none;
+    padding:0 !important;
+    margin:0 !important;
+    border:none !important;
+    overflow:hidden;
+}
+
+.visible{
+    max-height:4000px;
+    max-width:4000px;
+    display:static;
+    opacity:1;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Begin - Profile Pic display and upload */
+
+.profilePic{
+    width:50px;
+    height:50px;
+    clip-path: circle(25px at center);
+}
+
+.profilePicLarge {
+    width:200px;
+    height:200px;
+    border: 3px solid #FFCC33;
+    border-radius: 100px;
+    margin: auto;
+}
+
+#profilePicUploadOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#profilePicUploadWrapperWindow{
+    width:75%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+    position:relative;
+}
+
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
+}
+
+.fileDropZone {
+    border: dashed 2px;
+    margin-top:3%;
+}
+
+.fileDropZoneNormal {
+    background-color: #fefefe;
+    color: #ccc;
+    borderColor: #ccc;
+}
+
+.fileDropZoneHighlight {
+    background-color: #f0fcf0;
+    /* borderColor: #3DD13F; */
+    color: #3DD13F;
+}
+
+.fileDropZone p {
+    text-align: center;
+    font-size: 1.6em;
+    vertical-align:middle;
+    min-height:150px;
+    min-width:100px;
+    height: 100%;
+    width: 100%;
+}
+
+.fileUpload{
+    margin: 0 0 0 0px;
+    padding: 20px 20px 20px 20px;
+    border: solid 2px #ccc;
+    background: #fefefe;
+    min-height: 240px;
+    position: relative;
+    overflow: auto;
+}
+
+.fileDropZone,.fileUpload {
+    -moz-box-shadow: 0 0 20px #ccc;
+    -webkit-box-shadow: 0 0 20px #ccc;
+    box-shadow: 0 0 20px #ccc;
+}
+
+.filePreviewList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filePreviewList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filePreviewList li {
+	margin: 0;
+	padding: 10px 0;
+	margin: 0;
+	overflow: auto;
+	border-bottom: solid 1px #ccc;
+	position: relative;
+}
+
+
+.uploadFileThumbnail img {
+	width: 120px;
+	border: solid 1px #999;
+	padding: 6px;
+	margin: 0 10px 0 0;
+	background-color: #eee;
+	display: block;
+	float: left;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
+}
+
+
+.fileUploadReset {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.fileUploadReset:hover {
+    color: #333;
+}
+
+.fileUploadLoadingText {
+    color: orange;
+}
+
+.fileUploadLoadingBar {
+    width: 0%;
+    background-color: orange;
+}
+
+/* JOB POSTER APPLICATION */
+
+.viewJobPosterOverlay,.viewJobPosterApplicationOverlay,.jobSeekerProfileOverlay{
+    width:100%;
+    height:100%;
+    z-index: 1002;
+    background-color: rgba(255,255,255,0.75);
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    text-align: left;
+    background-color: #fff;
+    padding: 2em;
+}
+
+#jobPosterApplication{
+    padding:1em;
+}
+
+.jobPosterApplicationProfileSelect{
+    padding:1em;
+}
+
+.closeButton{
+    position:absolute;
+    top:1em;
+    right:1em;
+    width: 10px;
+    height: 10px;
+    background: url(../images/chosen-sprite.png) 10px 0;
+}
+
+.closeButtonLink{
+    padding:5px;
+    display:block;
+}
+
+#noJobs{
+    color:#999;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#jobs{
+    margin-top:1em;
+    padding:0 1em;
+    height:100%;
+}
+
+.jobCount{
+    position:absolute;
+    right:1em;
+    top:1em;
+}
+
+.jobList{
+    margin:0px auto;
+    overflow:auto;
+}
+
+#browseJobsSection{
+    margin-top: 7em;
+}
+
+#createJobPosterSection{
+    margin-top: 7em;
+}
+
+/* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
+
+.jobSummary{
+    position: relative;
+    width: 100%;
+    color: #777;
+    font-size: 1.25em;
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
+    display: flex;
+    justify-content: center;
+    font-family: "HKGrotesk", sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.jobSummary:nth-child(odd){
+    background: #F8F8F8;
+}
+
+.jobSummaryTable{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1200px;
+}
+
+.hiringManagerProfilePicSmall{
+    width: 50%;
+    padding-bottom: 0.5em;
+    margin: auto;
+    display: block;
+}
+
+.hiringManagerLabel{
+    font-size:1em;
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.hiringManagerWrapper{
+    width: 200px;
+}
+
+.jobSummaryTitle{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000;
+    line-height: 1.5em;
+    text-align: left;
+}
+.jobSummarySalaryRange{
+    width: 200px;
+    text-align: center;
+}
+
+.jobSummaryApplicants_to_date{
+    line-height: 1.5em;
+}
+
+.jobSummaryTerm_qty{
+    width: 150px;
+    text-align: center;
+}
+
+.titleDepartmentWrapper{
+    width: 225px;
+}
+
+.applicantsCloseDateWrapper{
+    text-align: center;
+    width: 200px;
+}
+
+.viewJobButton{
+    color: #fff!important;
+    background-color: #2196F3!important;
+    font-weight: normal;
+    border: none;
+    padding: 8px 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 10%;
+    display: block;
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+/* JOB POSTER (LONG DESCRIPTION) STYLES */
+
+.jobPoster{
+    background-color: #f8f8f8;
+}
+
+.jobPosterHeaderWrapper{
+    background-color:#eee;
+    padding: 2em 0 2em 1em;
+}
+
+.jobPosterMiddleWrapper{
+    background-color: #777;
+    color: #FFF;
+    padding: 2em;
+}
+
+.jobPosterTitle{
+    font-size:1.5em;
+}
+
+.jobPosterID{
+    float: right;
+    padding-right:2em;
+}
+
+.jobPosterSalaryRange{
+}
+
+.jobPosterApplyButton{
+    /*padding:1em 0 0.5em 0;*/
+    overflow:auto;
+}
+.jobPosterCancelButton{
+    margin-left:1em;
+}
+
+/* CREATE JOB POSTER */
+
+#createJobPosterOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.createJobPosterWrapperWindow{
+    width:80%;
+    min-width: 900px;
+    height: 80%;
+    margin:0px auto;
+    position:relative;
+    top:25%;
+    transform: translateY(-25%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+}
+
+.createJobPosterEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createJobPosterFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createEditProfileEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createEditProfileFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createJobPosterSubmitPane{
+    clear: both;
+}
+
+.createEditProfileSubmitPane{
+    clear: both;
+}
+
+.createJobPosterDemoAreaEnglish{
+    float: left;
+}
+
+.createJobPosterDemoAreaFrench{
+    float: right;
+}
+
+.createEditProfileDemoAreaEnglish{
+    float: left;
+}
+
+.createEditProfileDemoAreaFrench{
+    float: right;
+}
+
+.createJobPosterDemoArea{
+    min-height: 840px;
+    display: inline;
+    white-space: nowrap;
+}
+
+/* APPLICANT PROFILE */ 
+
+#profileBasicInfo {
+    text-align: center;
+    position: relative;
+    bottom:13.5em;
+}
+
+#profileBasicInfoTopBar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#profileSocialMediaLinks {
+    list-style-type: none;
+    float: right;
+    margin-top: 3em;
+}
+
+#profileSocialMediaLinks li{
+    display: inline;
+    padding-left: 0.5em;
+}
+
+#profileSocialMediaLinks img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.socialMediaWrapper, .editProfileWrapper{
+    width: 40%;
+}
+
+#profileBasicInfoEdit {
+    float: left;
+    margin-top: 7em;
+}
+
+#profileName {
+    margin-top: .25em;
+    font-size:3.5em;
+}
+
+.profileSection {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    position: relative;
+    bottom:11em;
+}
+
+.profileSectionTitleBar {
+    margin-bottom: 1em;
+}
+
+.profileSectionTitleBar h2{
+    display: inline;
+    font-weight: bold;
+}
+
+.socialMediaLink{
+    margin-top:1.5em;
+}
+
+.sectionEditBtn {
+    float: right;
+}
+
+.sectionEditBtn img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* VIEW PROFILE (OLD??)  */
+
+.viewProfileContainer{
+    padding: 1em 1em 1em 1em;
+}
+
+.viewProfileLeftPane{
+    float: left;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileRightPane{
+    float: right;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileSlot{
+    padding: 0.5em 0em 0.5em 0em;
+}
+
+.viewProfileSlotLabel{
+    font-size: 12px;
+}
+
+.viewProfileSlotContent{
+    
+}
+
+.viewProfileSlotImg{
+    float: left;
+}
+
+.viewProfileSlotValue{
+    overflow: hidden;
+    width: 45%;
+    border-bottom: 1px solid grey;
+}
+
+.viewProfileHeightBoost{
+    min-height: 200px;
+}
+
+/* END SORTED STYLES */
+
+.form-icon {
+    width: 1em;
+    height: 1em;
 }
 
 .leftPane {
@@ -201,15 +832,6 @@ div label span{
     left:0;
 }
 
-#createJobPosterOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    position:absolute;
-    top:0;
-    left:0;
-}
-
 .dialogOverlay {
     width:100%;
     height:100%;
@@ -259,133 +881,6 @@ div label span{
     background-color:#E5F8FF;
 }
 
-.contentContainer{
-    background-color: white;
-}
-
-.teaser{
-    text-align: center;
-    max-width: 70%;
-    padding-top: 3rem;
-}
-
-.viewProfileContainer{
-    padding: 1em 1em 1em 1em;
-}
-
-.viewProfileLeftPane{
-    float: left;
-    width: 45%;
-    padding: 1em 1em 1em 1em;
-    background-color: inherit;
-}
-
-.viewProfileRightPane{
-    float: right;
-    width: 45%;
-    padding: 1em 1em 1em 1em;
-    background-color: inherit;
-}
-
-.viewProfileSlot{
-    padding: 0.5em 0em 0.5em 0em;
-}
-
-.viewProfileSlotLabel{
-    font-size: 12px;
-}
-
-.viewProfileSlotContent{
-    
-}
-
-.viewProfileSlotImg{
-    float: left;
-}
-
-.viewProfileSlotValue{
-    overflow: hidden;
-    width: 45%;
-    border-bottom: 1px solid grey;
-}
-
-.viewProfileHeightBoost{
-    min-height: 200px;
-}
-
-#profileBasicInfo {
-    text-align: center;
-    position: relative;
-    bottom:13.5em;
-}
-
-#profileBasicInfoTopBar {
-    display: flex;
-    align-items: center;
-    position: relative;
-    max-width: 1200px;
-    margin: auto;
-}
-
-#profileSocialMediaLinks {
-    list-style-type: none;
-    float: right;
-    margin-top: 3em;
-}
-
-#profileSocialMediaLinks li{
-    display: inline;
-    padding-left: 0.5em;
-}
-
-#profileSocialMediaLinks img{
-    width: 1.5em;
-    height: 1.5em;
-}
-
-.socialMediaWrapper, .editProfileWrapper{
-    width: 40%;
-}
-
-#profileBasicInfoEdit {
-    float: left;
-    margin-top: 7em;
-}
-
-#profileName {
-    margin-top: .25em;
-    font-size:3.5em;
-}
-
-.profileSection {
-    padding-top: 2em;
-    padding-bottom: 2em;
-    position: relative;
-    bottom:11em;
-}
-
-.profileSectionTitleBar {
-    margin-bottom: 1em;
-}
-
-.profileSectionTitleBar h2{
-    display: inline;
-    font-weight: bold;
-}
-
-.socialMediaLink{
-    margin-top:1.5em;
-}
-
-.sectionEditBtn {
-    float: right;
-}
-
-.sectionEditBtn img{
-    width: 1.5em;
-    height: 1.5em;
-}
-
 .registerFormWrapperWindow{
     width:40%;
     min-width:450px;
@@ -405,87 +900,8 @@ div label span{
     padding:1em;
 }
 
-.createJobPosterWrapperWindow{
-    width:80%;
-    min-width: 900px;
-    height: 80%;
-    margin:0px auto;
-    position:relative;
-    top:25%;
-    transform: translateY(-25%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-}
-
-.createJobPosterEnglishPane{
-    float: left;
-    width: 45%;
-}
-
-.createJobPosterFrenchPane{
-    float: right;
-    width: 45%;
-    height: 100%;
-}
-
-.createEditProfileEnglishPane{
-    float: left;
-    width: 45%;
-}
-
-.createEditProfileFrenchPane{
-    float: right;
-    width: 45%;
-    height: 100%;
-}
-
-.createJobPosterSubmitPane{
-    clear: both;
-}
-
-.createEditProfileSubmitPane{
-    clear: both;
-}
-
-.createJobPosterDemoAreaEnglish{
-    float: left;
-}
-
-.createJobPosterDemoAreaFrench{
-    float: right;
-}
-
-.createEditProfileDemoAreaEnglish{
-    float: left;
-}
-
-.createEditProfileDemoAreaFrench{
-    float: right;
-}
-
-.createJobPosterDemoArea{
-    min-height: 840px;
-    display: inline;
-    white-space: nowrap;
-}
-
 .tabs{
     padding:1em 2em 2em 2em;
-}
-
-.nav-container{
-    width: 100%;
-}
-
-.nav-container li a{
-    font-size: 1.5rem;
-    color: #ccc;
-    font-weight: bold;
-    text-transform: uppercase;
 }
 
 #loggedInUser{
@@ -527,43 +943,8 @@ div label span{
     height: 100%;
 }
 
-
 .form-textbox{
     width:95%;
-}
-
-
-#overlayLogo{
-    width:400px;
-    height:300px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: center;
-}
-
-.languageSelectLink{
-    float:right;
-    margin-top: 0.75rem;
-    color: #fff;
-}
-.languageSelect{
-    color: #FFFFFF;
-    display: inline-block;
-}
-
-.section{
-    margin: 0 auto;
-    width: 90%;
-}
-
-#browseJobsSection{
-    margin-top: 7em;
-}
-
-#createJobPosterSection{
-    margin-top: 7em;
 }
 
 .searchWrapper{
@@ -577,13 +958,6 @@ div label span{
 
 .logoutWrapper{
     float:right;
-}
-
-#browseNav{
-    float:left;
-    min-width:3em;
-    border:1px solid #ccc;
-    margin-top:1em;
 }
 
 .alphaList{
@@ -612,173 +986,6 @@ div label span{
     text-align: center !important;
     text-decoration:none !important;
     color:#fff !important;
-}
-
-main{
-   background-color: #fff;
-   height: 100vh;
-   margin-top: 30rem;
-   position: absolute;
-   top:0;
-   bottom:0;
-   left:0;
-   right:0;
-   /*overflow:hidden;*/
-   /*padding-top: 1em;*/
-}
-
-#noJobs{
-    color:#999;
-    text-align: center;
-    font-size: 1.5em;
-}
-
-#jobs{
-    margin-top:1em;
-    padding:0 1em;
-    height:100%;
-}
-
-.jobCount{
-    position:absolute;
-    right:1em;
-    top:1em;
-}
-
-.jobList{
-    margin:0px auto;
-    overflow:auto;
-}
-
-/* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
-
-.jobSummary{
-    position: relative;
-    width: 100%;
-    color: #777;
-    font-size: 1.25em;
-    padding-bottom: 1.5em;
-    padding-top: 1.5em;
-    display: flex;
-    justify-content: center;
-    font-family: "HKGrotesk", sans-serif;
-    font-size: 1.5em;
-    font-weight: 700;
-}
-
-.jobSummary:nth-child(odd){
-    background: #F8F8F8;
-}
-
-.jobSummaryTable{
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    max-width: 1200px;
-}
-
-.hiringManagerProfilePicSmall{
-    width: 50%;
-    padding-bottom: 0.5em;
-    margin: auto;
-    display: block;
-}
-
-.hiringManagerLabel{
-    font-size:1em;
-    color: #333;
-    width: 100%;
-    text-align: center;
-    margin: auto;
-    display: block;
-}
-
-.hiringManagerWrapper{
-    width: 200px;
-}
-
-.jobSummaryTitle{
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #000;
-    line-height: 1.5em;
-    text-align: left;
-}
-.jobSummarySalaryRange{
-    width: 200px;
-    text-align: center;
-}
-
-.jobSummaryApplicants_to_date{
-    line-height: 1.5em;
-}
-
-.jobSummaryTerm_qty{
-    width: 150px;
-    text-align: center;
-}
-
-.titleDepartmentWrapper{
-    width: 225px;
-}
-
-.applicantsCloseDateWrapper{
-    text-align: center;
-    width: 200px;
-}
-
-.viewJobButton{
-    color: #fff!important;
-    background-color: #2196F3!important;
-    font-weight: normal;
-    border: none;
-    padding: 8px 16px;
-    vertical-align: middle;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    width: 10%;
-    display: block;
-    margin-right: 2em;
-    margin-left: 2em;
-}
-
-/* JOB POSTER (LONG DESCRIPTION) STYLES */
-
-.jobPosterApplyButton{
-    /*padding:1em 0 0.5em 0;*/
-    overflow:auto;
-}
-.jobPosterCancelButton{
-    margin-left:1em;
-}
-
-.jobPoster{
-    background-color: #f8f8f8;
-}
-
-.jobPosterHeaderWrapper{
-    background-color:#eee;
-    padding: 2em 0 2em 1em;
-}
-
-.jobPosterMiddleWrapper{
-    background-color: #777;
-    color: #FFF;
-    padding: 2em;
-}
-
-.jobPosterTitle{
-    font-size:1.5em;
-}
-
-.jobPosterID{
-    float: right;
-    padding-right:2em;
-}
-
-.jobPosterSalaryRange{
 }
 
 .contactCard{
@@ -866,7 +1073,7 @@ main{
 
 .stepNavigation{
     position: absolute;
-    absolute: 0;
+    /* absolute: 0; */
 }
 
 .stepGroup,.jobSeekerFormStepGroup {
@@ -905,33 +1112,6 @@ main{
     color:#ff0000;
 }
 
-/* clear float */
-.clearfix {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.hidden{
-    transition: all 1s ease-in-out !important;
-    opacity:0;
-    max-height:0;
-    max-width:0;
-    display:none;
-    padding:0 !important;
-    margin:0 !important;
-    border:none !important;
-    overflow:hidden;
-}
-
-.visible{
-    max-height:4000px;
-    max-width:4000px;
-    display:static;
-    opacity:1;
-    transition: opacity 1s ease-in-out;
-}
-
 input[type=text],input[type=password],select{
     font-family: Roboto;
     font-size:1em;
@@ -944,190 +1124,4 @@ input[type=button],input[type=submit]{
     font-family: Roboto;
     font-size:1em;
     padding:0.25em;
-}
-
-.viewJobPosterOverlay,.viewJobPosterApplicationOverlay,.jobSeekerProfileOverlay{
-    width:100%;
-    height:100%;
-    z-index: 1002;
-    background-color: rgba(255,255,255,0.75);
-    position:fixed;
-    top:0;
-    left:0;
-}
-
-.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow{
-    width: 100%;
-    height: 100%;
-    margin: 0px auto;
-    text-align: left;
-    background-color: #fff;
-    padding: 2em;
-}
-
-#jobPosterApplication{
-    padding:1em;
-}
-
-.jobPosterApplicationProfileSelect{
-    padding:1em;
-}
-
-.closeButton{
-    position:absolute;
-    top:1em;
-    right:1em;
-    width: 10px;
-    height: 10px;
-    background: url(../images/chosen-sprite.png) 10px 0;
-}
-
-.closeButtonLink{
-    padding:5px;
-    display:block;
-}
-
-/* Begin - Profile Pic display and upload */
-
-.profilePic{
-    width:50px;
-    height:50px;
-    clip-path: circle(25px at center);
-}
-
-.profilePicLarge {
-    width:200px;
-    height:200px;
-    border: 3px solid #FFCC33;
-    border-radius: 100px;
-    margin: auto;
-}
-
-#profilePicUploadOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    background-color: rgba(255,255,255,0.90);
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-#profilePicUploadWrapperWindow{
-    width:75%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-    position:relative;
-}
-
-.profileTagLineContainer{
-    background-color:#E5F8FF;
-    margin-top:2em;
-}
-
-.fileDropZone {
-    border: dashed 2px;
-    margin-top:3%;
-}
-
-.fileDropZoneNormal {
-    background-color: #fefefe;
-    color: #ccc;
-    borderColor: #ccc;
-}
-
-.fileDropZoneHighlight {
-    background-color: #f0fcf0;
-    borderColor: #3DD13F;
-    color: #3DD13F;
-}
-
-.fileDropZone p {
-    text-align: center;
-    font-size: 1.6em;
-    vertical-align:middle;
-    min-height:150px;
-    min-width:100px;
-    height: 100%;
-    width: 100%;
-}
-
-.fileUpload{
-    margin: 0 0 0 0px;
-    padding: 20px 20px 20px 20px;
-    border: solid 2px #ccc;
-    background: #fefefe;
-    min-height: 240px;
-    position: relative;
-    overflow: auto;
-}
-
-.fileDropZone,.fileUpload {
-    -moz-box-shadow: 0 0 20px #ccc;
-    -webkit-box-shadow: 0 0 20px #ccc;
-    box-shadow: 0 0 20px #ccc;
-}
-
-.filePreviewList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.filePreviewList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.filePreviewList li {
-	margin: 0;
-	padding: 10px 0;
-	margin: 0;
-	overflow: auto;
-	border-bottom: solid 1px #ccc;
-	position: relative;
-}
-
-
-.uploadFileThumbnail img {
-	width: 120px;
-	border: solid 1px #999;
-	padding: 6px;
-	margin: 0 10px 0 0;
-	background-color: #eee;
-	display: block;
-	float: left;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
-}
-
-
-.fileUploadReset {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #ccc;
-    text-decoration: none;
-}
-
-.fileUploadReset:hover {
-    color: #333;
-}
-
-.fileUploadLoadingText {
-    color: orange;
-}
-
-.fileUploadLoadingBar {
-    width: 0%;
-    background-color: orange;
 }
