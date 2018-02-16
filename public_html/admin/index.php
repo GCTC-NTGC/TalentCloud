@@ -13,7 +13,6 @@ and open the template in the editor .
 </head>
 
 <body>
-<div id="cloud-container">
 <ul id="wb-tphp">
     <li class="wb-slc">
         <a class="wb-sl" href="#jobs">Skip to available jobs</a>
@@ -1412,6 +1411,5 @@ and open the template in the editor .
     </section>
 </main>
 <?php include '../inc/footer.php';?>
-</div> <!-- End of main container -->
 </body>
 </html>
