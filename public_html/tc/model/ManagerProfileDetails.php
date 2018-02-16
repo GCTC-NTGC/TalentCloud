@@ -16,8 +16,31 @@ class ManagerProfileDetails implements JsonSerializable{
     private $user_manager_profile_details_emp_learn;
     private $user_manager_profile_details_expectations;
     private $user_manager_profile_id;
+    private $user_manager_profile_review_options;
+    private $user_manager_profile_staylate;
+    private $user_manager_profile_engage;
+    private $user_manager_profile_devops;
+    private $user_manager_profile_lvwRequests;
+    private $user_manager_profile_work_experience;
+    private $user_manager_profile_education;
     
-    public function __construct($user_manager_profile_details_id = null,$locale_id = null, $user_manager_profile_details_aboutme = null, $user_manager_profile_details_proud = null, $user_manager_profile_details_lead_style = null, $user_manager_profile_details_emp_learn = null, $user_manager_profile_details_expectations = null,$user_manager_profile_id = null) {
+    public function __construct(
+            $user_manager_profile_details_id = null,
+            $locale_id = null, 
+            $user_manager_profile_details_aboutme = null, 
+            $user_manager_profile_details_proud = null, 
+            $user_manager_profile_details_lead_style = null, 
+            $user_manager_profile_details_emp_learn = null, 
+            $user_manager_profile_details_expectations = null,
+            $user_manager_profile_id = null,
+            $user_manager_profile_review_options = null,
+            $user_manager_profile_staylate = null,
+            $user_manager_profile_engage = null,
+            $user_manager_profile_devops = null,
+            $user_manager_profile_lvwRequests = null,
+            $user_manager_profile_work_experience = null,
+            $user_manager_profile_education = null
+            ) {
         $this->user_manager_profile_details_id = $user_manager_profile_details_id;
         $this->locale_id = $locale_id;
         $this->user_manager_profile_details_aboutme = $user_manager_profile_details_aboutme;
@@ -26,6 +49,13 @@ class ManagerProfileDetails implements JsonSerializable{
         $this->user_manager_profile_details_emp_learn = $user_manager_profile_details_emp_learn;
         $this->user_manager_profile_details_expectations = $user_manager_profile_details_expectations;
         $this->user_manager_profile_id = $user_manager_profile_id;
+        $this->user_manager_profile_review_options = $user_manager_profile_review_options;
+        $this->user_manager_profile_staylate = $user_manager_profile_staylate;
+        $this->user_manager_profile_engage = $user_manager_profile_engage;
+        $this->user_manager_profile_devops = $user_manager_profile_devops;
+        $this->user_manager_profile_lvwRequests = $user_manager_profile_lvwRequests;
+        $this->user_manager_profile_work_experience = $user_manager_profile_work_experience;
+        $this->user_manager_profile_education = $user_manager_profile_education;
     }
 
     public function jsonSerialize() {
@@ -94,6 +124,71 @@ class ManagerProfileDetails implements JsonSerializable{
     public function setUser_manager_profile_details_expectations($user_manager_profile_details_expectations) {
         $this->user_manager_profile_details_expectations = $user_manager_profile_details_expectations;
     }
+
+    public function getUser_manager_profile_id() {
+        return $this->user_manager_profile_id;
+    }
+
+    public function setUser_manager_profile_id($user_manager_profile_id) {
+        $this->user_manager_profile_id = $user_manager_profile_id;
+    }
+
+    public function getUser_manager_profile_review_options() {
+        return $this->user_manager_profile_review_options;
+    }
+
+    public function getUser_manager_profile_staylate() {
+        return $this->user_manager_profile_staylate;
+    }
+
+    public function getUser_manager_profile_engage() {
+        return $this->user_manager_profile_engage;
+    }
+
+    public function getUser_manager_profile_devops() {
+        return $this->user_manager_profile_devops;
+    }
+
+    public function getUser_manager_profile_lvwRequests() {
+        return $this->user_manager_profile_lvwRequests;
+    }
+
+    public function setUser_manager_profile_review_options($user_manager_profile_review_options) {
+        $this->user_manager_profile_review_options = $user_manager_profile_review_options;
+    }
+
+    public function setUser_manager_profile_staylate($user_manager_profile_staylate) {
+        $this->user_manager_profile_staylate = $user_manager_profile_staylate;
+    }
+
+    public function setUser_manager_profile_engage($user_manager_profile_engage) {
+        $this->user_manager_profile_engage = $user_manager_profile_engage;
+    }
+
+    public function setUser_manager_profile_devops($user_manager_profile_devops) {
+        $this->user_manager_profile_devops = $user_manager_profile_devops;
+    }
+
+    public function setUser_manager_profile_lvwRequests($user_manager_profile_lvwRequests) {
+        $this->user_manager_profile_lvwRequests = $user_manager_profile_lvwRequests;
+    }
+
+    public function getUser_manager_profile_work_experience() {
+        return $this->user_manager_profile_work_experience;
+    }
+
+    public function getUser_manager_profile_education() {
+        return $this->user_manager_profile_education;
+    }
+
+    public function setUser_manager_profile_work_experience($user_manager_profile_work_experience) {
+        $this->user_manager_profile_work_experience = $user_manager_profile_work_experience;
+    }
+
+    public function setUser_manager_profile_education($user_manager_profile_education) {
+        $this->user_manager_profile_education = $user_manager_profile_education;
+    }
+
 
 
 }
