@@ -650,7 +650,9 @@ main{
     overflow:auto;
 }
 
-.jobCard{
+/* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
+
+.jobSummary{
     position: relative;
     width: 100%;
     color: #777;
@@ -664,38 +666,16 @@ main{
     font-weight: 700;
 }
 
-.jobCard:nth-child(odd){
+.jobSummary:nth-child(odd){
     background: #F8F8F8;
 }
 
-.jobPoster{
+.jobSummaryTable{
     width: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
     max-width: 1200px;
-}
-
-.jobApplicants_to_date{
-    line-height: 1.5em;
-}
-
-.jobTitle{
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #000;
-    line-height: 1.5em;
-    text-align: left;
-}
-
-.titleDepartmentWrapper{
-    
-    width: 225px;
-}
-
-.jobSalaryRange{
-    width: 200px;
-    text-align: center;
 }
 
 .hiringManagerProfilePicSmall{
@@ -716,17 +696,36 @@ main{
 
 .hiringManagerWrapper{
     width: 200px;
-    
+}
+
+.jobSummaryTitle{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000;
+    line-height: 1.5em;
+    text-align: left;
+}
+.jobSummarySalaryRange{
+    width: 200px;
+    text-align: center;
+}
+
+.jobSummaryApplicants_to_date{
+    line-height: 1.5em;
+}
+
+.jobSummaryTerm_qty{
+    width: 150px;
+    text-align: center;
+}
+
+.titleDepartmentWrapper{
+    width: 225px;
 }
 
 .applicantsCloseDateWrapper{
     text-align: center;
     width: 200px;
-}
-
-.jobTerm_qty{
-    width: 150px;
-    text-align: center;
 }
 
 .viewJobButton{
@@ -741,10 +740,11 @@ main{
     cursor: pointer;
     width: 10%;
     display: block;
-    margin-right: 3em;
+    margin-right: 2em;
     margin-left: 2em;
 }
 
+/* JOB POSTER (LONG DESCRIPTION) STYLES */
 
 .jobPosterApplyButton{
     /*padding:1em 0 0.5em 0;*/
@@ -754,31 +754,31 @@ main{
     margin-left:1em;
 }
 
-.jobSummary{
+.jobPoster{
     background-color: #f8f8f8;
 }
 
-.jobSummaryHeaderWrapper{
+.jobPosterHeaderWrapper{
     background-color:#eee;
     padding: 2em 0 2em 1em;
 }
 
-.jobSummaryMiddleWrapper{
+.jobPosterMiddleWrapper{
     background-color: #777;
     color: #FFF;
     padding: 2em;
 }
 
-.jobSummaryTitle{
+.jobPosterTitle{
     font-size:1.5em;
 }
 
-.jobSummaryID{
+.jobPosterID{
     float: right;
     padding-right:2em;
 }
 
-.jobSalaryRange-poster{
+.jobPosterSalaryRange{
 }
 
 .contactCard{
@@ -1130,48 +1130,4 @@ input[type=button],input[type=submit]{
 .fileUploadLoadingBar {
     width: 0%;
     background-color: orange;
-}
-
-/*BEGIN - GC Desktop Style Classes*/
-
-@media all and (max-width: 800px){
-    .jobList{
-        max-width: 750px;
-        margin-right:0.5em;
-    }
-    .jobCard{
-        width: 355px;
-    }
-}
-
-@media all and (max-width: 768px){
-    .jobList{
-        max-width: 750px;
-        margin:0px auto;
-    }
-    .jobCard{
-        width: 355px;
-    }
-}
-
-@media all and (max-width: 673px){
-    .jobList{
-        max-width: 620px;
-        margin:0px auto;
-    }
-}
-
-@media all and (max-width: 572px){
-    .jobList{
-        max-width: 540px;
-        margin:0px auto;
-    }
-}
-
-
-@media all and (max-width: 443px){
-    .jobList{
-        max-width: 400px;
-        margin:0px auto;
-    }
 }

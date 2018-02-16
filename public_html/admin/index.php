@@ -22,7 +22,7 @@ and open the template in the editor .
 <?php include '../inc/fip.php';?>
 <?php include '../inc/nav-admin.php';?>
 
-<!-- A top-level dialog or overlay elements should be children of this div-->
+<!-- All top-level dialog or overlay elements should be children of this div-->
 <div id="overlays">
     <div id="registerFormOverlay" class="hidden">
         <div id="registerFormWrapperWindow" class="registerFormWrapperWindow">

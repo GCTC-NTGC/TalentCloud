@@ -151,12 +151,12 @@ CreateJobPosterAPI.validateStep3 = function() {
         //Create demo english
         var demoAreaEnglish = document.getElementById("createJobPosterDemoAreaEnglish");
         demoAreaEnglish.innerHTML = "";
-        demoAreaEnglish.appendChild(JobPostAPI.populateJob(CreateJobPosterAPI.jobObjEnglish, true, "en_CA"));
+        demoAreaEnglish.appendChild(JobPostAPI.populateJobSummary(CreateJobPosterAPI.jobObjEnglish, true, "en_CA"));
         
         //Create demo french
         var demoAreaFrench = document.getElementById("createJobPosterDemoAreaFrench");
         demoAreaFrench.innerHTML = "";
-        demoAreaFrench.appendChild(JobPostAPI.populateJob(CreateJobPosterAPI.jobObjFrench, true, "fr_CA"));
+        demoAreaFrench.appendChild(JobPostAPI.populateJobSummary(CreateJobPosterAPI.jobObjFrench, true, "fr_CA"));
         
         CreateJobPosterAPI.goToStep('step4');
     }
