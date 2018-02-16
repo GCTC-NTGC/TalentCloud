@@ -8,7 +8,7 @@ and open the template in the editor .
 <html lang="en">
 <head>
     <title>GC Talent Cloud</title>
-    <?php include '../inc/head-common.php'; ?>
+    <?php include '../inc/head.php'; ?>
     <?php include '../inc/head-admin.php'; ?>
 </head>
 
@@ -1410,6 +1410,6 @@ and open the template in the editor .
         </div>-->
     </section>
 </main>
-<?php include '../inc/footer.php';?>
+<?php include '../inc/footer-admin.php';?>
 </body>
 </html>
