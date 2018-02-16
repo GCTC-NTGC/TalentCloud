@@ -28,6 +28,7 @@ EventsAPI.onLoadEvents = function(){
     window.onpopstate = function(e){
         //If going to a valid state
         if(e.state){
+            console.log();
             EventsAPI.hideAllLayouts();
             TalentCloudAPI.hideAllContent();
             if(e.state.pageInfo === 'talent_cloud'){

@@ -7,3 +7,4 @@
     ManagerEventsAPI.onLoadEvents();
 </script>
 <script src="../js/AccessibilityAPI.js"></script>
+<script src="/js/SliderAPI.js" type="text/javascript"></script>
