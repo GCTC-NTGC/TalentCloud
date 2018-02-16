@@ -1,0 +1,3 @@
+<script>
+    EventsAPI.onLoadEvents();
+</script>
