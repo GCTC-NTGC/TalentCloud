@@ -7,8 +7,9 @@
  * Author:  GBowden
  * Created: Feb 13, 2018
  */
+TRUNCATE `talentcloud`.`branch_details`;
 
 INSERT INTO `talentcloud`.`branch_details` (`branch_id`, `branch_details_locale_id`, `branch_details_name`) VALUES ('3', '1', 'Chief Information Officer Branch');
 
-INSERT INTO `talentcloud`.`branch_details` (`branch_id`, `branch_details_locale_id`, `branch_details_name`) VALUES ('3', '2', 'Direction du dirigeant principal de l'information');
+INSERT INTO `talentcloud`.`branch_details` (`branch_id`, `branch_details_locale_id`, `branch_details_name`) VALUES ('3', '2', "Direction du dirigeant principal de l'information");
 

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `talentcloud`.`user_manager_profile`;
 CREATE TABLE `talentcloud`.`user_manager_profile` (
 `user_manager_profile_id` INT(10) ZEROFILL NOT NULL AUTO_INCREMENT,
 `user_manager_profile_department` VARCHAR(65) NULL,
