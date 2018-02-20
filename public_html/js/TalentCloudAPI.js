@@ -215,6 +215,7 @@ TalentCloudAPI.loadAdmin = function(){
                 
                 DivisionAPI.getDivisions(locale);
                 BranchAPI.getBranches(locale);
+                CreateJobPosterAPI.loadLookupData();
                 //Add log user in automatically
             }else{
                 //DataAPI.getJobSeekers(locale);
