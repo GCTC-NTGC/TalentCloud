@@ -157,11 +157,14 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
-            <div id="profilePicUploadOverlay" class="hidden">
-                <div id="profilePicUploadWrapperWindow">
-                    <h1>Choose new profile img or drag and drop onto zone below</h1>
+            <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
+                <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+                    <div id='profilePicUploadTitleWrapper' class="dialogTitle">
+                        <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
+                        <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
+                    </div>
                     <div class="fileUpload">
-                        <div style="float:left;width:50%;">
+                        <div class="leftPane">
                             <div>
                                 <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                             </div>
@@ -169,14 +172,14 @@ and open the template in the editor .
                                 <p>Drop file here</p>
                             </div>
                         </div>
-                        <div style="float:left;width:50%;padding:20px 20px;">
+                        <div class="rightPane">
                             <div id="fileUploadPreviewPanel" style="min-height:130px;">
                                 <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
                                 <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
                             </div>
                             <div id="fileUploadButtons">
+                                <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
                                 <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
-                                <a href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -252,7 +255,7 @@ and open the template in the editor .
                                         <div style='display:block;text-align:center;'>
                                             <div style='display:inline-block;height:200px;width:200px;position:relative;'>
                                                 <div style='margin:0px auto !important;position:absolute;'>
-                                                    <img id='profile_image_preview' src='/images/profile_off.svg' style='width:200px;height:200px;border-radius: 50%;border:1px solid #ccc;'/>
+                                                    <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
                                                 </div>
                                                 <div style='margin:0px auto !important;position:absolute;right:0.75em;bottom:0.75em;'>
                                                     <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">

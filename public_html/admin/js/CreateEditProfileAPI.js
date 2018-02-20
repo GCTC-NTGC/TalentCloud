@@ -704,9 +704,8 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
-    
-            
-    CreateEditProfileAPI.getManagerProfilePic();
+         
+    FileUploadAPI.refreshUserProfilePic();
 
     CreateEditProfileAPI.getManagerProfile();
 };
@@ -784,14 +783,6 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
 CreateEditProfileAPI.onProfilePicUploaded = function() {
     FileUploadAPI.refreshUserProfilePic();
     CreateEditProfileAPI.hideUploadProfilePic();
-};
-
-CreateEditProfileAPI.getManagerProfilePic = function(){
-    if (UserAPI.hasSessionUser()) {
-        var user = UserAPI.getSessionUserAsJSON();
-        var user_id = user["user_id"];
-        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
-    }
 };
 
 CreateEditProfileAPI.getManagerProfile = function(){

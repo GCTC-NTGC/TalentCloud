@@ -364,7 +364,7 @@ and open the template in the editor .
                         </li>    
                     </ul>
                 </div>
-                <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Default user"/>
+                <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
                 <div class="editProfileWrapper">
                     <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_dark.png" alt="Edit Basic Info" class="editImage"/></a>
                 </div>
