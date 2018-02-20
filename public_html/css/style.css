@@ -230,10 +230,6 @@ div label span{
     padding-top: 3rem;
 }
 
-.viewProfileContainer{
-    padding: 1em 1em 1em 1em;
-}
-
 .viewProfileLeftPane{
     float: left;
     width: 45%;

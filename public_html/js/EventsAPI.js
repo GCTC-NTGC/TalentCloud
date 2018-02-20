@@ -55,8 +55,8 @@ EventsAPI.onLoadEvents = function(){
                 var createJobPosterDialog = document.getElementById("createEditProfile");
                 createJobPosterDialog.classList.remove("hidden");
             } else if(e.state.pageInfo === 'manager_view_profile'){
-                var createJobPosterDialog = document.getElementById("viewProfile");
-                createJobPosterDialog.classList.remove("hidden");
+                //var createJobPosterDialog = document.getElementById("viewProfile");
+                //createJobPosterDialog.classList.remove("hidden");
             } else if(e.state.pageInfo === 'view_job_poster'){
                 var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
                 viewJobPosterOverlay.classList.remove("hidden");

@@ -762,11 +762,6 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
-                <div id="viewProfileContainer" class="contentContainer viewProfileContainer">
-                    <div id="viewProfile" class="contentContainer viewProfile hidden">
-
-                    </div>
-                </div>
             </section>
             <section class="section hidden" id="createJobPosterSection">
                 <h2 class="section--title">Create a new Job Poster</h2>
