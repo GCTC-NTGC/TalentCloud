@@ -696,14 +696,11 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 };
 
 CreateEditProfileAPI.showCreateEditProfile = function(){
-    var stateInfo = {pageInfo: 'user_create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
+    var stateInfo = {pageInfo: 'create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateEditProfile');
     
-    //ManagerEventsAPI.hideAllLayouts();
-    
-    var jobSeekersDiv = document.getElementById("jobSeekerList");
-    jobSeekersDiv.classList.add("hidden");
+    TalentCloudAPI.hideAllContent();
     
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
