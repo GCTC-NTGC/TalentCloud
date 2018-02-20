@@ -234,7 +234,7 @@ and open the template in the editor .
             </section>
             <section id="createEditProfileSection" class="pageContent hidden">
                 <div id="createEditProfile" class="createEditProfile">
-                    <h2 id="createJobPosterWindowTitle" class="section--title">Create a new Job Poster</h2>
+                    <h2 id="createJobPosterWindowTitle" class="section--title">Edit your Profile</h2>
                     <div class="wb-frmvld wb-init">
                         <div class="tabbedForm">
                             <div class="section">
