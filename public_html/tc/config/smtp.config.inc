@@ -31,5 +31,5 @@ define('SMTP_USERNAME', "talentcloud");
  * Defines the database username.
  */
 define('SMTP_PASSWORD', "talentcloud");
-//define('PASSWORD', "TalentCloud123!");
+//define('SMTP_PASSWORD', "TalentCloud123!");
 ?>
