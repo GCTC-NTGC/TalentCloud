@@ -273,7 +273,7 @@ div label span{
 #profileBasicInfo {
     text-align: center;
     position: relative;
-    bottom:13.5em;
+    bottom:22.5em;
 }
 
 #profileBasicInfoTopBar {
@@ -582,17 +582,10 @@ form label{
     display: inline-block;
 }
 
-.section{
+.pageContent{
     margin: 0 auto;
     width: 90%;
-}
-
-#browseJobsSection{
-    margin-top: 7em;
-}
-
-#createJobPosterSection{
-    margin-top: 7em;
+    margin-top: 12em;
 }
 
 .searchWrapper{

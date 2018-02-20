@@ -300,7 +300,7 @@ and open the template in the editor .
 
 <!-- BEGIN - Main Content Section-->
 <main class="contentContainer">
-    <section class="section" id="browseJobsSection">
+    <section class="pageContent" id="browseJobsSection">
         <div class="container">
 
             <h2 class="section--title">Browse Jobs</h2>
@@ -343,7 +343,7 @@ and open the template in the editor .
         </div>
     </section>
     
-    <section class="section" id="viewJobPosterSection" class="hidden">
+    <section class="pageContent" id="viewJobPosterSection" class="hidden">
         <div id="viewJobPosterApplicationOverlay" class="container">
             <div id="jobSummary" class="jobSummary">
 
@@ -351,7 +351,7 @@ and open the template in the editor .
         </div>
     </section>
     
-    <section class="section hidden" id="profileSection">
+    <section class="pageContent hidden" id="profileSection">
         <div id="profileBasicInfo" class="centered">
             <div id="profileBasicInfoTopBar">
                 <div class="socialMediaWrapper"> 

@@ -216,7 +216,7 @@ and open the template in the editor .
             </div>
         </div>
         <main class="contentContainer">
-            <section class="section" id="jobSeekersSection">
+            <section class="pageContent" id="jobSeekersSection">
                 <div id="jobSeekers">
                     <div id="noJobSeekers" class="hidden">
                         No job seekers found
@@ -232,7 +232,7 @@ and open the template in the editor .
                     <span id="contactCount">0</span> job seekers
                 </div>
             </section>
-            <section id="createEditProfileSection" class="section hidden">
+            <section id="createEditProfileSection" class="pageContent hidden">
                 <div id="createEditProfile" class="createEditProfile">
                     <h2 id="createJobPosterWindowTitle" class="section--title">Create a new Job Poster</h2>
                     <div class="wb-frmvld wb-init">
@@ -763,7 +763,7 @@ and open the template in the editor .
                     </div>
                 </div>
             </section>
-            <section class="section hidden" id="createJobPosterSection">
+            <section class="pageContent hidden" id="createJobPosterSection">
                 <h2 class="section--title">Create a new Job Poster</h2>
                 <div class="wb-frmvld wb-init tabbedForm" id="jobPosterFormWrapper">
                     <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
