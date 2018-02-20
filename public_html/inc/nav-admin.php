@@ -16,24 +16,16 @@
                         <li class="top-nav--link" aria-hidden="false">
                             <a href="/admin/" class="active" id="homeLink">Admin Home</a>
                         </li>
-                        <!-- Outdated? - Grant
                         <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
-                            <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile(this);">My Profile</a>
+                            <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();">My Profile</a>
                         </li>
-                        -->
                         <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this)">Job Posters</a>
                         </li>
                         <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>
                         </li>
-                        <!-- Outdated? - Grant
-                        <li class="top-nav--link">
-                            <div id="viewProfileLink">
-                                <a href="javascript:void(0)" id="viewProfileLink" onclick="CreateEditProfileAPI.showViewProfile(this)">temp_view_profile_link</a>
-                            </div>
-                        </li>
-                        -->
+                        
                         <li class="top-nav--link">
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
@@ -51,16 +43,7 @@
                             </div>
                         </li>        
                     </ul>
-                    </ul>
-                   
                 </div>
-            <!--
-                <button class="main-nav-button" id="js-mainNavButton">
-                    <span class="main-nav-button--text">Menu</span>
-                    <span class="main-nav-button--button">
-                        <span class="glyphicon glyphicon-th"></span>
-                    </span>
-                </button> -->
             </div>
         </div>
     </div>

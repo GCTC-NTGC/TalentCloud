@@ -23,17 +23,17 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=utf-8");
     $requestParams = substr($requestURI,strlen($context));
+    $user_id_param_index = 4;
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            $jsonBody = json_encode($_GET);
-            //var_dump($jsonBody);
-            if(strlen($jsonBody) > 1){
-                $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
-                $email = $credentials['username'];
-                $password = $credentials['password'];
-                if(strlen($credentials) > 1){
-                    $result = UserController::getUserByCredentials($email,$password);
+            $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
+            
+            if(strlen($requestParams) > 1){
+                if(strlen($user_id) > 1){
+                    $user = new User();
+                    $user->setUser_id($user_id);
+                    $result = UserController::getUserById($user);
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
                 }else{

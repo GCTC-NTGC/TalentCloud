@@ -384,8 +384,11 @@ UserAPI.loaded = function (response) {
             teamsLinkListItem.setAttribute("aria-hidden", "false");
             var teamsLink = document.getElementById("teamsLink");
             teamsLink.classList.remove("hidden");
+            
 
         }
+
+        EventsAPI.hideBodyOverflow(false);
 
     } else {
         UserAPI.failedLogin();

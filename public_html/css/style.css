@@ -647,6 +647,11 @@ form label{
     color:#fff !important;
 }
 
+.textAreaInput{
+    width:100%;
+    height:5em;
+}
+
 main{
    background-color: #fff;
    height: 100vh;
