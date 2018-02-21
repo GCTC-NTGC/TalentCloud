@@ -120,6 +120,10 @@ class JobPosterDAO extends BaseDAO {
     public static function getJobPosterById($locale, $jobPosterId) {
 
         $link = BaseDAO::getConnection();
+        
+        //$sqlIdConstStr = "SELECT :jobPosterId INTO @job_poster_id;";
+        //$sqlLocaleConstStr = "SELECT :local_iso INTO @local_iso;";
+        
         $sqlStr = "
             SELECT jp.job_poster_id as id,
             l.locale_id as locale_id,
@@ -138,11 +142,7 @@ class JobPosterDAO extends BaseDAO {
             cd.city_details_name as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
-            jpd.job_poster_impact as impact,
-            kt.task as key_tasks,
-            cc.core_competency as core_competencies,
-            dc.developing_competency as dev_competencies,
-            o.requirement as other_qualifications
+            jpd.job_poster_impact as impact
             FROM job_poster jp, 
                 job_poster_details jpd, 
                 locale l,
@@ -154,12 +154,8 @@ class JobPosterDAO extends BaseDAO {
                 province p,
                 province_details pd,
                 city c,
-                city_details cd,
-                job_poster_key_task kt,
-                job_poster_core_competency cc,
-                job_poster_developing_competency dc,
-                job_poster_other_requirement o
-            WHERE jp.job_poster_id = :jobPosterId
+                city_details cd                
+            WHERE jp.job_poster_id = :job_poster_id
             AND jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
@@ -177,24 +173,94 @@ class JobPosterDAO extends BaseDAO {
             AND cd.city_details_city_id = c.city_id
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
-            AND kt.locale_id = l.locale_id
-            AND cc.locale_id = l.locale_id
-            AND dc.locale_id = l.locale_id
-            AND o.locale_id = l.locale_id
             ";
         
+        $sqlTasksStr = "
+            SELECT key_tasks.task
+            FROM job_poster_key_task as key_tasks, locale
+            WHERE key_tasks.job_poster_id = :job_poster_id 
+            AND locale.locale_iso = :locale_iso
+            AND locale.locale_id = key_tasks.locale_id
+            ;";
+                
+        $sqlCoreCompsStr = "
+            SELECT core_comps.core_competency
+            FROM job_poster_core_competency as core_comps, locale
+            WHERE core_comps.job_poster_id = :job_poster_id 
+            AND locale.locale_iso = :locale_iso
+            AND locale.locale_id = core_comps.locale_id
+            ;";
+                
+        $sqlDevelopingCompsStr = "
+            SELECT dev_comps.developing_competency
+            FROM job_poster_developing_competency as dev_comps, locale
+            WHERE dev_comps.job_poster_id = :job_poster_id 
+            AND locale.locale_iso = :locale_iso
+            AND locale.locale_id = dev_comps.locale_id
+            ;";
+        
+        $sqlRequirementsStr = "
+            SELECT other_reqs.requirement
+            FROM job_poster_other_requirement as other_reqs, locale
+            WHERE other_reqs.job_poster_id = :job_poster_id 
+            AND locale.locale_iso = :locale_iso
+            AND locale.locale_id = other_reqs.locale_id
+            ;";
+        
+        //$sqlIdConst = $link->prepare($sqlIdConstStr);
+        //$sqlIdConst->bindParam(':jobPosterId',$jobPosterId, PDO::PARAM_INT);
+        
+        //$sqlLocaleConst = $link->prepare($sqlLocaleConstStr);
+        //$sqlLocaleConst->bindParam(':locale_iso', $locale, PDO::PARAM_STR);
+        
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam('jobPosterId',$jobPosterId, PDO::PARAM_INT);
-        $sql->bindParam(':locale_iso', $locale, PDO::PARAM_STR);
-
+        $sqlTasks = $link->prepare($sqlTasksStr);
+        $sqlCoreComps = $link->prepare($sqlCoreCompsStr);
+        $sqlDevelopingComps = $link->prepare($sqlDevelopingCompsStr);
+        $sqlRequirements = $link->prepare($sqlRequirementsStr);
+        
+        $input_fields = array(':job_poster_id' => $jobPosterId, ':locale_iso' => $locale);
+        
         try {
-            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications'));
+            //$sqlIdConst->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            //$sqlLocaleConst->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+                    
+            $sql->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
+            
+            $sqlTasks->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sqlCoreComps->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sqlDevelopingComps->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sqlRequirements->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
+            
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact'));
+            
+            $sqlTasks->setFetchMode(PDO::FETCH_NUM);
+            $sqlCoreComps->setFetchMode(PDO::FETCH_NUM);
+            $sqlDevelopingComps->setFetchMode(PDO::FETCH_NUM);
+            $sqlRequirements->setFetchMode(PDO::FETCH_NUM);
+            
             $jobPoster = $sql->fetch();
-            //var_dump($rows);
+            
+            //fetch array items
+            $tasks = $sqlTasks->fetchAll();
+            $core_comps = $sqlCoreComps->fetchAll();
+            $developing_comps = $sqlDevelopingComps->fetchAll();
+            $other_requirements = $sqlRequirements->fetchAll();
+            
+            //merge arrays or make them empty arrays (instead of null)
+            $tasks = empty($tasks) ? [] : array_merge(...$tasks);
+            $core_comps = empty($core_comps) ? [] : array_merge(...$core_comps);
+            $developing_comps = empty($developing_comps) ? [] : array_merge(...$developing_comps);
+            $other_requirements = empty($other_requirements) ? [] : array_merge(...$other_requirements);
+            
+            $jobPoster->setKey_tasks($tasks);
+            $jobPoster->setCore_competencies($core_comps);
+            $jobPoster->setDeveloping_competencies($developing_comps);
+            $jobPoster->setOther_requirements($other_requirements);
+            
         } catch (PDOException $e) {
             BaseDAO::closeConnection($link);
-            return 'getJobPostersByLocale failed: ' . $e->getMessage();
+            return 'getJobPostersById failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $jobPoster;
