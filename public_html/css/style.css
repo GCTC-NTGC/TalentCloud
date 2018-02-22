@@ -446,6 +446,14 @@ nav{
     overflow:auto;
 }
 
+#browseJobsSection{
+    margin-top: 7em;
+}
+
+#createJobPosterSection{
+    margin-top: 7em;
+}
+
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 
 .jobSummary{
@@ -690,7 +698,7 @@ nav{
 #profileBasicInfo {
     text-align: center;
     position: relative;
-    bottom:21.5em;
+    bottom:13.5em;
 }
 
 #profileBasicInfoTopBar {
