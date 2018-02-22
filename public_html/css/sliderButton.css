@@ -64,7 +64,7 @@
 
 .multi-btn-group-form-group-label{
     display:inline-block;
-    width:48%;
+    width:560px;
     line-height: 1.5em;
     vertical-align: top;
 }
@@ -72,13 +72,15 @@
 .multi-btn-group-form-group-label span{
     line-height: 0em !important;
     line-height:1em !important;
+    font-size:14px !important;
 }
 
 .multi-btn-group {		
     position:relative;
-    width:35rem;
+    width:560px;
     height:3rem;
     background-color:#ddd;
+    font-size: 0;
 }
 
 .multi-btn-group label {
@@ -93,7 +95,7 @@
     line-height:3.1rem;
     font-weight:400;
     white-space-collapsing:discard;
-    font-size:0.8em !important;
+    font-size:12px !important;
 }
 
 .multi-btn-group input[type="radio"]:checked+label {
@@ -105,8 +107,8 @@
     color: #000;
 }
 
-.option1Label,.option2Label,.option3Label,.option4Label{
-    margin-left:-6px !important;
+.option0Label,.option1Label,.option2Label,.option3Label,.option4Label{
+    /*margin-left:-6px !important;*/
 }
 
 #review_options.option0,#staylate.option0,#engage.option0,#devops.option0,#lvwRequests.option0{
@@ -114,7 +116,7 @@
     position:absolute;
     top:0rem;
     left:0px;
-    width:7rem;
+    width:112px;
     height:3rem;
     /*background-color: #daeaf5;*/
     border-bottom:5px solid #5599e5;
@@ -125,7 +127,7 @@
     position:absolute;
     top:0rem;
     left:112px;
-    width:7rem;
+    width:112px;
     height:3rem;
     border-bottom:5px solid #5599e5;
 }
@@ -135,7 +137,7 @@
     position:absolute;
     top:0rem;
     left:224px;
-    width:7rem;
+    width:112px;
     height:3rem;
     border-bottom:5px solid #5599e5;
 }
@@ -145,7 +147,7 @@
     position:absolute;
     top:0rem;
     left:336px;
-    width:7rem;
+    width:112px;
     height:3rem;
     border-bottom:5px solid #5599e5;
 }
@@ -155,7 +157,7 @@
     position:absolute;
     top:0rem;
     left:448px;
-    width:7rem;
+    width:112px;
     height:3rem;
     border-bottom:5px solid #5599e5;
 }

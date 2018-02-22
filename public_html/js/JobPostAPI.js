@@ -123,14 +123,15 @@ JobPostAPI.populateJobObject = function(JSONJob){
  * 
  * @returns {undefined}
  */
-JobPostAPI.populateJobList = function(jobPosts){
-
+JobPostAPI.populateJobs = function(jobPosts){
+    TalentCloudAPI.hideAllContent();
     Utilities.debug?console.log("populating jobs"):null;
     var jobsDiv = document.getElementById("jobList");
     //jobsDiv.innerHTML = "";
     
-    while (jobsDiv.firstChild) {
-        jobsDiv.removeChild(jobsDiv.firstChild);
+    
+    while (jobsDiv.lastChild.id !== 'browseTitle') {
+        jobsDiv.removeChild(jobsDiv.lastChild);
     }
     
     for(var j = 0; j < jobPosts.length; j++){

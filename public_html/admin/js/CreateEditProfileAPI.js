@@ -754,6 +754,7 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
 CreateEditProfileAPI.profilePicUploader = null;
 
 CreateEditProfileAPI.showUploadProfilePic = function() {
+    document.body.style.overflow = "hidden";
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
     uploadOverlay.classList.remove("hidden");
     EventsAPI.setFormFocus("profilePicUploadField");
@@ -775,6 +776,7 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
 };
 
 CreateEditProfileAPI.hideUploadProfilePic = function() {
+    document.body.style.overflow = "";
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
     uploadOverlay.classList.add("hidden");
     CreateEditProfileAPI.profilePicUploader = null;
