@@ -33,10 +33,10 @@ class JobPoster implements JsonSerializable {
     private $impact;
     private $key_tasks;
     private $core_competencies;
-    private $dev_competencies;
-    private $other_qualifications;
+    private $developing_competencies;
+    private $other_requirements;
 
-    public function __construct($id, $locale_id, $title, $description, $applicants_to_date, $term_qty, $term_units, $job_min_level, $job_max_level, $job_start_date, $open_date, $close_date, $department, $location_province, $location_city, $remuneration_range_low, $remuneration_range_high, $impact, $key_tasks, $core_competencies, $dev_competencies, $other_qualifications) {
+    public function __construct($id=null, $locale_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->title = $title;
@@ -57,8 +57,8 @@ class JobPoster implements JsonSerializable {
         $this->impact = $impact;
         $this->key_tasks = $key_tasks;
         $this->core_competencies = $core_competencies;
-        $this->dev_competencies = $dev_competencies;
-        $this->other_qualifications = $other_qualifications;
+        $this->developing_competencies = $developing_competencies;
+        $this->other_requirements = $other_requirements;
     }
     
     public function jsonSerialize() {
@@ -152,12 +152,12 @@ class JobPoster implements JsonSerializable {
         return $this->core_competencies;
     }
     
-    public function getDev_competencies() {
-        return $this->dev_competencies;
+    public function getDeveloping_competencies() {
+        return $this->developing_competencies;
     }
     
-    public function getOther_qualifications() {
-        return $this->other_qualifications;
+    public function getOther_requirements() {
+        return $this->other_requirements;
     }
 
     public function setId($id) {
@@ -260,13 +260,13 @@ class JobPoster implements JsonSerializable {
         return $this;
     }  
     
-    public function setDev_competencies($dev_competencies) {
-        $this->dev_competencies = $dev_competencies;
+    public function setDeveloping_competencies($developing_competencies) {
+        $this->developing_competencies = $developing_competencies;
         return $this;
     }  
     
-    public function setOther_qualifications($other_qualifications) {
-        $this->other_qualifications = $other_qualifications;
+    public function setOther_requirements($other_requirements) {
+        $this->other_requirements = $other_requirements;
         return $this;
     }  
 }
