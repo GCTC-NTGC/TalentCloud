@@ -211,6 +211,29 @@ nav{
     transition: opacity 1s ease-in-out;
 }
 
+.half-width {
+    width:50%;
+
+}
+.three-quarter-width{
+    width:75%;
+}
+
+.leftPane {
+    width: 45%;
+    float: left;
+}
+
+.rightPane {
+    width: 45%;
+    float: right;
+}
+
+.singlePane {
+    width: 100%;
+    clear: both;
+}
+
 /* Begin - Profile Pic display and upload */
 
 .profilePic{
@@ -791,7 +814,18 @@ nav{
     min-height: 200px;
 }
 
-/* FORM INPUT */
+/* LOGIN AND REGISTRATION FORMS */
+
+#loginForm,#registerForm{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+#loginErrors{
+    white-space: pre-wrap;
+}
+
+/* FORMS */
 
 .form-group{
     color:#555;
@@ -809,6 +843,12 @@ nav{
     -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153,153,153,.6);
     box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153, 153, 153,.6)
 }
+.form-textbox{
+    width:95%;
+}
+form label{
+    font-size: 16px;
+}
 input[type=text],input[type=password],select{
     font-family: Roboto;
     font-size:1em;
@@ -819,9 +859,6 @@ input[type=button],input[type=submit],input[type=reset]{
     font-size:1em;
     padding:0.25em;
     height: 30px;
-}
-form label{
-    font-size: 16px;
 }
 
 /* BUTTONS */
@@ -884,35 +921,7 @@ form label{
     border-color:transparent;
 }
 
-/* END SORTED STYLES */
-
-.form-icon {
-    width: 1em;
-    height: 1em;
-}
-
-.half-width {
-    width:50%;
-
-}
-.three-quarter-width{
-    width:75%;
-}
-
-.leftPane {
-    width: 45%;
-    float: left;
-}
-
-.rightPane {
-    width: 45%;
-    float: right;
-}
-
-.singlePane {
-    width: 100%;
-    clear: both;
-}
+/* TABS LIST */
 
 .tabsList{
     line-height: 2em;
@@ -922,7 +931,6 @@ form label{
     margin:0 !important;
     padding:0 !important;
 }
-
 .tabsList li{
     display: inline-block;
     margin-right: 1em;
@@ -930,125 +938,12 @@ form label{
     padding:0 !important;
     text-align: center;
 }
-
 .tabsList li a {
     text-align: center;
 }
-
-#loginOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.loginFormWrapperWindow{
-    width:30%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-    position:relative;
-}
-
-/* Was this here for a good reason? - Tristan
-div label span{
-    clear:left;
-    display: block !important;
-}
-*/
-
-#loginTitleWrapper,#registerFormTitleWrapper{
-    height:50px !important;
-    line-height:50px !important;
-    vertical-align: middle !important;
-    width:auto !important;
-    overflow:visible !important;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    margin-bottom:1em;
-}
-
-#loginForm,#registerForm{
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-}
-
-#loginErrors{
-    white-space: pre-wrap;
-}
-
-#loginTitle, #registerFormTitle, #myProfileTitle{
-    height:3em !important;
-    width:auto !important;
-    line-height:3em !important;
-    overflow:visible !important;
-    clip:auto !important;
-    position:relative;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-}
-
-#registerFormTitleText,#myProfileTitleText{
-    padding-left:0.5em;
-}
-
-#loginLogoImage,#registerLogoImage,#jobSeekerLogoImage,#registerStatusLogoImage{
-    height:50px;
-    vertical-align: middle;
-}
-
-#loginTitleLabel{
-}
-
-#registerFormOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.registerFormWrapperWindow{
-    width:40%;
-    min-width:450px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-}
-
-#registrationFormStatusMessage,#registrationFormEmailConfMessage{
-    padding:1em;
-}
-
 .tabs{
     padding:1em 2em 2em 2em;
 }
-
-#loggedInUser{
-    font-size: 1.5rem;
-    color: #ccc;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 .tabsSteps{
     font-size: 1em;
     line-height: 2em;
@@ -1060,30 +955,39 @@ div label span{
     position: absolute;
     background-color: #ddd;
 }
-
 .three-step-tab {
     width: 33%;
     position: relative;
 }
-
 .tab-current {
     color: #fff;
     background-color: #5599e5;
 }
-
 .four-step-tab{
     width: 25%;
     position: relative;
 }
-
 .tabbedForm{
     width: 100%;
     height: 100%;
 }
 
-.form-textbox{
-    width:95%;
+/* END SORTED STYLES */
+
+.form-icon {
+    width: 1em;
+    height: 1em;
 }
+
+
+
+/* Was this here for a good reason? - Tristan
+div label span{
+    clear:left;
+    display: block !important;
+}
+*/
+
 
 .searchWrapper{
     float:left;
@@ -1092,10 +996,6 @@ div label span{
 #search{
     margin-top: 0.2em;
     vertical-align: bottom;
-}
-
-.logoutWrapper{
-    float:right;
 }
 
 .alphaList{
