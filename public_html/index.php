@@ -300,7 +300,7 @@ and open the template in the editor .
 
 <!-- BEGIN - Main Content Section-->
 <main class="contentContainer">
-    <section class="pageContent" id="browseJobsSection">
+    <section class="pageContent" id="homePageContentSection">
         <div class="container" id="homePageContent">
             <section class="section homepage--intro">
                 <div class="container">
@@ -400,7 +400,9 @@ and open the template in the editor .
 
             </section>
         </div>
-
+    </section>
+    
+    <section class="pageContent" id="browseJobsSection">
         <div id="jobs">
             <div id="noJobs" class="hidden">
                 No jobs found
