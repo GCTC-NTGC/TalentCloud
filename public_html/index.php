@@ -425,11 +425,59 @@ and open the template in the editor .
         </div>
     </section>
     
-    <section class="pageContent" id="viewJobPosterSection" class="hidden">
-        <div id="viewJobPosterApplicationOverlay" class="container">
-            <div id="jobPoster" class="jobPoster">
-
-            </div>
+    <section class="pageContent" id="viewJobPosterSection">
+        <section id="jobPosterHeaderSection">
+            <h3 id="jobPosterTitle"></h3>
+            <p id="jobPosterLocation">
+                <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
+            </p>
+            <p id="jobPosterId">#<span id="jobPosterIdValue"></span></p>
+            <input id="jobPosterJobId" type="hidden"/>
+        </section>
+        <section id="jobPosterDatapointsSection">
+            <ul>
+                <li>
+                    <p id="jobPosterSalaryRange">
+                        <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
+                    </p>
+                </li>
+                <li>
+                    <p id="jobPosterTerm">
+                        <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
+                    </p>
+                </li>
+                <li>
+                    <p id="jobPosterJobLevel">
+                        <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
+                    </p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <p id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</p>
+            <p id="jobPosterImpact"></p>
+        </section>
+        <section>
+            <p id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</p>
+            <ul id="jobPosterKeyTasks"></ul>
+        </section>
+        <section>
+            <p id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</p>
+            <ul id="jobPosterCoreCompetencies"></ul>
+        </section>
+        <section>
+            <p id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</p>
+            <ul id="jobPosterDevelopingCompetencies"></ul>
+        </section>
+        <section>
+            <p id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</p>
+            <ul id="jobPosterOtherRequirements"></ul>
+        </section>
+        
+        <div id="jobPosterButtonWrapper">
+            <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
+                Apply Now
+            </button>
         </div>
     </section>
     

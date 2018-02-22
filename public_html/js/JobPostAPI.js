@@ -395,132 +395,44 @@ JobPostAPI.viewJobPoster = function(jobId){
  * @param {type} jobData
  * @returns {undefined}
  */
-JobPostAPI.populateJobPoster = function(jobData){
-    TalentCloudAPI.hideAllContent();
-    
+JobPostAPI.populateJobPoster = function(jobData){    
     var stateInfo = {pageInfo: 'view_job_poster', pageTitle: 'Talent Cloud: ' + jobData.title + ' (' + jobData.id + ')'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);//last parameter just replaced with #Register instead of url
     
-    var locale = TalentCloudAPI.getLanguageFromCookie().toString();
+    TalentCloudAPI.hideAllContent();
     
-    // TO DO: page state for job posters (refreshable)
-    
-    // Create a job poster
-    var jobPoster = document.getElementById("jobPoster");
-    jobPoster.innerHTML = "";
-    
-    // Job poster elements
-    var jobPosterHeaderWrapper = document.createElement("div");
-    jobPosterHeaderWrapper.setAttribute("class", "jobPosterHeaderWrapper");
-    
-    var jobPosterTitle = document.createElement("div");
-    jobPosterTitle.setAttribute("id", "jobPosterTitle_" + jobData.id);
-    jobPosterTitle.setAttribute("class", "row jobPosterTitle");
-    //jobPosterTitle.innerHTML = jobData.title + " (" + jobData.id + ")";
-    jobPosterTitle.innerHTML = jobData.title;
-    
-    var jobPosterDepartmentLocation = document.createElement("div");
-    jobPosterDepartmentLocation.setAttribute("id", "jobPosterDepartmentLocation"+jobData.id);
-    jobPosterDepartmentLocation.setAttribute("class", "jobPosterDepartmentLocation");
-    jobPosterDepartmentLocation.innerHTML = jobData.department + " - " + jobData.location_city+ " (" + jobData.location_province + ")";
-    
-    var jobPosterID = document.createElement("div");
-    jobPosterID.setAttribute("id", "jobPosterID_" + jobData.id);
-    jobPosterID.setAttribute("class", "jobPosterID");
-    jobPosterID.innerHTML = "# " + jobData.id;
-    
-    jobPosterDepartmentLocation.appendChild(jobPosterID);
-    jobPosterHeaderWrapper.appendChild(jobPosterTitle);
-    jobPosterHeaderWrapper.appendChild(jobPosterDepartmentLocation);
-    
-    var jobPosterMiddleWrapper = document.createElement("div");
-    jobPosterMiddleWrapper.setAttribute("class", "jobPosterMiddleWrapper");
-    
-    var jobPosterSalaryRange = document.createElement("div");
-    jobPosterSalaryRange.setAttribute("id", "jobPosterSalaryRange"+jobData.id);
-    jobPosterSalaryRange.setAttribute("class", "jobPosterSalaryRange");
-    
-    if (locale === "en_CA"){
-        jobPosterSalaryRange.innerHTML = "Compensation: $" + jobData.remuneration_range_low.toLocaleString('en') + " ~ $" + jobData.remuneration_range_high.toLocaleString('en');
-    } else {
-        jobPosterSalaryRange.innerHTML = "Compensation :" + jobData.remuneration_range_low.toLocaleString('fr') + " $ ~ " + jobData.remuneration_range_high.toLocaleString('fr') + " $";
-    }
-    // jobPosterSalaryRange.setAttribute("tabindex", "0"); 
+    //Set language-specific labels
+    document.getElementById("jobPosterSalaryRangeLabel").innerHTML = siteContent.jobSalaryRange;
+    document.getElementById("jobPosterApplyButton").innerHTML = siteContent.applyNow;
+    //TODO: add more
    
-    var jobPosterTerm = document.createElement("div");
-    jobPosterTerm.setAttribute("id", "jobPosterTerm"+jobData.id);
-    jobPosterTerm.setAttribute("class", "jobPosterTerm");
-    jobPosterTerm.innerHTML = siteContent.jobTerm + " : " + jobData.term_qty + " " + jobData.term_units;
+    //Header
+    document.getElementById("jobPosterTitle").innerHTML = jobData.title;
+    document.getElementById("jobPosterDepartment").innerHTML = jobData.department;
+    document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
+    document.getElementById("jobPosterProvince").innerHTML = jobData.location_province;
+    document.getElementById("jobPosterIdValue").innerHTML = jobData.id;
+    document.getElementById("jobPosterJobId").value = jobData.id;
     
-    var jobPosterClearance = document.createElement("div");
-    jobPosterClearance.setAttribute("id", "jobPosterClearance"+jobData.id);
-    jobPosterClearance.setAttribute("class", "jobPosterClearance");
-    jobPosterClearance.innerHTML = "Clearance: ";
-    
-    var jobPosterLanguage = document.createElement("div");
-    jobPosterLanguage.setAttribute("id", "jobPosterLanguage"+jobData.id);
-    jobPosterLanguage.setAttribute("class", "jobPosterLanguage");
-    jobPosterLanguage.innerHTML = "Language: ";
-    
-    jobPosterMiddleWrapper.appendChild(jobPosterSalaryRange);
-    jobPosterMiddleWrapper.appendChild(jobPosterTerm);
-    jobPosterMiddleWrapper.appendChild(jobPosterClearance);
-    jobPosterMiddleWrapper.appendChild(jobPosterLanguage);
+    //Datapoints
+    if (locale === "en_CA"){
+        document.getElementById("jobPosterSalaryRangeValue").innerHTML = jobData.remuneration_range_low.toLocaleString('en') + " ~ $" + jobData.remuneration_range_high.toLocaleString('en');
+    } else {
+        document.getElementById("jobPosterSalaryRangeValue").innerHTML = jobData.remuneration_range_low.toLocaleString('fr') + " $ ~ " + jobData.remuneration_range_high.toLocaleString('fr') + " $";
+    }
+    document.getElementById("jobPosterTermValue").innerHTML = jobData.term_qty + " " + jobData.term_units;
+    document.getElementById("jobPosterJobLevelValue").innerHTML = jobData.job_min_level + " ~ " + jobData.job_max_level;
 
-    var jobImpact = document.createElement("div");
-    jobImpact.setAttribute("id", "jobImpact"+jobData.id);
-    jobImpact.setAttribute("class", "row jobImpact");
-    jobImpact.innerHTML = "Impact statement: " + jobData.impact;
-    
-    var jobKeyTasks = document.createElement("div");
-    jobKeyTasks.setAttribute("id", "jobKeyTasks"+jobData.id);
-    jobKeyTasks.setAttribute("class", "row jobKeyTasks");
-    jobKeyTasks.innerHTML = "Key tasks: " + jobData.key_tasks;
-    
-    var jobCoreCompetencies = document.createElement("div");
-    jobCoreCompetencies.setAttribute("id", "jobCoreCompetencies"+jobData.id);
-    jobCoreCompetencies.setAttribute("class", "row jobCoreCompetencies");
-    jobCoreCompetencies.innerHTML = "Core Competencies: " + jobData.core_competencies;
-    
-    var jobDevCompetencies = document.createElement("div");
-    jobDevCompetencies.setAttribute("id", "jobDevCompetencies"+jobData.id);
-    jobDevCompetencies.setAttribute("class", "row jobDevCompetencies");
-    jobDevCompetencies.innerHTML = "Asset Competencies: " + jobData.dev_competencies;
-
-    var jobPosterApplyButton = document.createElement("div");
-    jobPosterApplyButton.setAttribute("id", "jobPosterApplyButton_"+jobData.id);
-    jobPosterApplyButton.setAttribute("class", "btn_primary jobPosterApplyButton");
-
-    var applyNowButton = document.createElement("button");
-    applyNowButton.setAttribute("id", "applyNowButton_"+jobData.id);
-    applyNowButton.setAttribute("class","btn btn-primary");
-    applyNowButton.setAttribute("value",siteContent.viewButton);
-    applyNowButton.innerHTML = siteContent.applyNow;
+    document.getElementById("jobPosterImpact").innerHTML = jobData.impact;
+        
+    var applyNowButton = document.getElementById("jobPosterApplyButton"); 
     if(UserAPI.hasSessionUser()){
         applyNowButton.setAttribute("onclick", "JobPostAPI.jobPosterApplication("+jobData.id+",'"+jobData.title+ "');");
     }else{
         applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
     }
-    
-    var applyNowBackButton = document.createElement("button");
-    applyNowBackButton.setAttribute("id", "applyNowBackButton_"+jobData.id);
-    applyNowBackButton.setAttribute("class","btn jobPosterCancelButton");
-    applyNowBackButton.innerHTML = "Cancel";
-    applyNowBackButton.setAttribute("onclick", "JobPostAPI.hideJobPoster('"+jobData.id+"')");
-    
-    jobPosterApplyButton.appendChild(applyNowButton);
-    jobPosterApplyButton.appendChild(applyNowBackButton);
 
-    jobPoster.appendChild(jobPosterHeaderWrapper);
-    jobPoster.appendChild(jobPosterMiddleWrapper);
-    
-    jobPoster.appendChild(jobImpact);
-    jobPoster.appendChild(jobKeyTasks);
-    jobPoster.appendChild(jobCoreCompetencies);
-    jobPoster.appendChild(jobDevCompetencies);
-    jobPoster.appendChild(jobPosterApplyButton);
-    
     document.getElementById("viewJobPosterSection").classList.remove("hidden");
     
     //TODO: fix this when working on jobPoserApplications
@@ -533,7 +445,7 @@ JobPostAPI.populateJobPoster = function(jobData){
  * @param {type} jobPosterId
  * @returns {undefined}
  */
-JobPostAPI.hideJobPoster = function(jobPosterId){
+JobPostAPI.hideJobPoster = function(){
     var viewJobPosterOverlay = document.getElementById("jobPosterApplication");    
     viewJobPosterOverlay.classList.add("hidden");
     var jobPoster = document.getElementById("jobPoster");

@@ -59,11 +59,11 @@ EventsAPI.onLoadEvents = function(){
             } else if(e.state.pageInfo === 'browse_jobs') {
                 JobPostAPI.showBrowseJobs();
             } else if(e.state.pageInfo === 'view_job_poster'){
-                var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
-                viewJobPosterOverlay.classList.remove("hidden");
+                //var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
+                //viewJobPosterOverlay.classList.remove("hidden");
             } else if(e.state.pageInfo === 'view_job_poster_application'){
-                var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
-                viewJobPosterApplicationOverlay.remove("hidden");
+                //var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
+                //viewJobPosterApplicationOverlay.remove("hidden");
             } else if(e.state.pageInfo === 'apply_job_poster'){
                 var viewJobPosterOverlay = document.getElementById("jobPosterApplication"); 
                 viewJobPosterOverlay.classList.remove("hidden");

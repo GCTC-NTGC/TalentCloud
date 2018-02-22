@@ -570,53 +570,42 @@ nav{
     left:0;
 }
 
-.viewJobPosterApplicationOverlay{
-    
-}
-
-.jobPoster{
-    background: none;
-    width: 100%;
-}
-
-.jobPosterHeaderWrapper{
+#jobPosterHeaderSection{
     background: none;
     padding: 2em 0 2em 1em;
 }
 
-.jobPosterTitle{
+#jobPosterTitle{
     font-size:2.5em;
     color: #eee;
 }
 
-.jobPosterID{
+#jobPosterLocation{
+    color: #eee;
+    font-size: 1.5em;
+}
+
+#jobPosterId{
     float: right;
     padding-right:2em;
     font-size: 1em;
     color: #eee;
 }
 
-.jobPosterDepartmentLocation{
-    color: #eee;
-    font-size: 1.5em;
-}
-
-.jobPosterMiddleWrapper{
+#jobPosterDatapointsSection{
     background-color: #777;
     color: #FFF;
     padding: 2em;
 }
 
-
-
-.jobPosterSalaryRange{
+#jobPosterSalaryRange{
 }
 
-.jobPosterApplyButton{
+#jobPosterApplyButton{
     /*padding:1em 0 0.5em 0;*/
     overflow:auto;
 }
-.jobPosterCancelButton{
+#jobPosterCancelButton{
     margin-left:1em;
 }
 
