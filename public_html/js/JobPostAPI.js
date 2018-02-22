@@ -393,23 +393,22 @@ JobPostAPI.viewJobPoster = function(jobId){
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
  * 
  * @param {type} jobData
- * @param {type} locale
  * @returns {undefined}
  */
-JobPostAPI.populateJobPoster = function(jobData, locale){
+JobPostAPI.populateJobPoster = function(jobData){
     TalentCloudAPI.hideAllContent();
     
-    locale = TalentCloudAPI.getLanguageFromCookie().toString();
-    
-    // TO DO: page state for job posters (refreshable)
     var stateInfo = {pageInfo: 'view_job_poster', pageTitle: 'Talent Cloud: ' + jobData.title + ' (' + jobData.id + ')'};
-    //stateInfo.viewJobPosterJobObj = jobData;
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);//last parameter just replaced with #Register instead of url
     
+    var locale = TalentCloudAPI.getLanguageFromCookie().toString();
+    
+    // TO DO: page state for job posters (refreshable)
+    
     // Create a job poster
     var jobPoster = document.getElementById("jobPoster");
-    jobPoster.innnerHTML = "";
+    jobPoster.innerHTML = "";
     
     // Job poster elements
     var jobPosterHeaderWrapper = document.createElement("div");
