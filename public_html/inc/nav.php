@@ -15,7 +15,7 @@
                     </li>-->
                     <li class="top-nav--link" id="browseLinkListItem">
                         <div id="browse">
-                            <a href="#BrowseJobs" id="browseLink" onclick="DataAPI.getJobs();">Browse Jobs</a>
+                            <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();">Browse Jobs</a>
                         </div>
                     </li>
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">

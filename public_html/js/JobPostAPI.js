@@ -53,12 +53,26 @@ JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,depart
     this.other_requirements = other_requirements;
 };
 
+JobPostAPI.showBrowseJobs = function() {
+    var stateInfo = {pageInfo: 'browse_jobs', pageTitle: 'Talent Cloud: Browse Jobs'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#Jobs');
+    
+    TalentCloudAPI.hideAllContent();
+    var browseJobsSection = document.getElementById('browseJobsSection');
+    browseJobsSection.classList.remove('hidden');
+    
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
+}
+
 /**
  * 
  * @param {type} data
  * @returns {undefined}
  */
-JobPostAPI.populateJobObjectList = function(data){
+JobPostAPI.populateJobObjectList = function(xhr_response){
+    var data = JSON.parse(xhr_response.responseText);
     Utilities.debug?console.log("populating job Objects"):null;
     Utilities.debug?console.log(data):null;
     
@@ -124,10 +138,10 @@ JobPostAPI.populateJobObject = function(JSONJob){
  * @returns {undefined}
  */
 JobPostAPI.populateJobs = function(jobPosts){
-    TalentCloudAPI.hideAllContent();
     Utilities.debug?console.log("populating jobs"):null;
     var jobsDiv = document.getElementById("jobList");
     var browseJobsSection = document.getElementById("browseJobsSection");
+    browseJobsSection.classList.remove("hidden");
     //jobsDiv.innerHTML = "";
     
     
@@ -141,7 +155,7 @@ JobPostAPI.populateJobs = function(jobPosts){
     }
     
     jobsDiv.classList.remove("hidden");
-    browseJobsSection.classList.remove("hidden");
+
     //hide no contacts div
     if(jobPosts.length > 0){
         var noJobs = document.getElementById("noJobs");
@@ -525,10 +539,10 @@ JobPostAPI.hideJobPoster = function(jobPosterId){
     viewJobPosterOverlay.classList.add("hidden");
     var jobPoster = document.getElementById("jobPoster");
     jobPoster.innerHTML = "";
-    DataAPI.getJobs(locale);
-    //var viewJobPosterButton = document.getElementById("viewJobPosterButton_"+jobPosterId);
-    //viewJobPosterButton.focus();
-    EventsAPI.hideBodyOverflow(false);
+    var jobPosterSection = document.getElementById("viewJobPosterSection");
+    jobPosterSection.classList.add("hidden");
+    
+    JobPostAPI.showBrowseJobs();    
 };
 
 /**

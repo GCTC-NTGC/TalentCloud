@@ -170,13 +170,13 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
  * @param {type} locale
  * @returns {undefined}
  */
-DataAPI.getJobs = function(locale){
+DataAPI.getJobs = function(locale, responseCallback){
     console.log("getting jobs");
     Utilities.debug?console.log("loading jobs"):null;
     locale = TalentCloudAPI.getLanguageFromCookie();
     var jobs_url = DataAPI.baseURL+"/"+locale+"/getAllJobs";
     console.log('Job URL:   ' + jobs_url);
-    getJobs_xhr = new XMLHttpRequest();
+    var getJobs_xhr = new XMLHttpRequest();
     if ("withCredentials" in getJobs_xhr) {
 
       // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -201,7 +201,9 @@ DataAPI.getJobs = function(locale){
     function(evt){
         DataAPI.updateProgress(evt);
     },false);
-    getJobs_xhr.addEventListener("load",DataAPI.loaded,false);
+    getJobs_xhr.addEventListener("load", function() {
+        responseCallback(getJobs_xhr);
+    },false);
     getJobs_xhr.addEventListener("error",DataAPI.transferFailed,false);
     getJobs_xhr.addEventListener("abort",DataAPI.transferAborted,false);
 
@@ -349,15 +351,6 @@ DataAPI.updateProgress = function(evt){
         //var loadingProgress = document.getElementById("loadingProgress");
         //loadingProgress.innerHTML = " " + percentComplete + "%";   
     }
-};
-
-/**
- * 
- * @returns {undefined}
- */
-DataAPI.loaded = function(){
-    JobPostAPI.populateJobObjectList(JSON.parse(getJobs_xhr.responseText));
-    JobPostAPI.getJobCount();
 };
 
 DataAPI.loadedManager = function(response){
