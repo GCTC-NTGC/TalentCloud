@@ -370,7 +370,7 @@ JobPostAPI.viewJobPoster = function(jobId){
          
     DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId);
     
-    //TalentCloudAPI.hideLogo();
+    TalentCloudAPI.hideLogo();
     
 };
 
@@ -400,7 +400,7 @@ JobPostAPI.populateJobPoster = function(jobData, locale){
     jobPosterHeaderWrapper.setAttribute("class", "jobPosterHeaderWrapper");
     
     var jobPosterTitle = document.createElement("div");
-    jobPosterTitle.setAttribute("id", "jobSPosterTitle_" + jobData.id);
+    jobPosterTitle.setAttribute("id", "jobPosterTitle_" + jobData.id);
     jobPosterTitle.setAttribute("class", "row jobPosterTitle");
     //jobPosterTitle.innerHTML = jobData.title + " (" + jobData.id + ")";
     jobPosterTitle.innerHTML = jobData.title;
@@ -427,12 +427,12 @@ JobPostAPI.populateJobPoster = function(jobData, locale){
     jobPosterSalaryRange.setAttribute("class", "jobPosterSalaryRange");
     
     if (locale === "en_CA"){
-        jobPosterSalaryRange.innerHTML = "$" + jobData.remuneration_range_low.toLocaleString('en') + " ~ $" + jobData.remuneration_range_high.toLocaleString('en');
+        jobPosterSalaryRange.innerHTML = "Compensation: $" + jobData.remuneration_range_low.toLocaleString('en') + " ~ $" + jobData.remuneration_range_high.toLocaleString('en');
     } else {
-        jobPosterSalaryRange.innerHTML = jobData.remuneration_range_low.toLocaleString('fr') + " $ ~ " + jobData.remuneration_range_high.toLocaleString('fr') + " $";
+        jobPosterSalaryRange.innerHTML = "Compensation :" + jobData.remuneration_range_low.toLocaleString('fr') + " $ ~ " + jobData.remuneration_range_high.toLocaleString('fr') + " $";
     }
-    // jobPosterSalaryRange.setAttribute("tabindex", "0");
-    
+    // jobPosterSalaryRange.setAttribute("tabindex", "0"); 
+   
     var jobPosterTerm = document.createElement("div");
     jobPosterTerm.setAttribute("id", "jobPosterTerm"+jobData.id);
     jobPosterTerm.setAttribute("class", "jobPosterTerm");
