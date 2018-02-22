@@ -467,15 +467,15 @@ and open the template in the editor .
             <input type="hidden" id="profileId"/>
             <input type="hidden" id="profileLastUpdated"/>
         </div>
-        <div id="profileAboutMeWrapper" class="profileSection">
-            <div class="profileSectionTitleBar">
+        <div id="profileAboutMeWrapper" class="profileSubSection">
+            <div class="profileSubSectionTitleBar">
                 <h2>About Me</h2>
                 <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
             </div>
             <p id="profileAboutMe">This is the about me section.</p>
         </div>
-        <div id="profileSkillsWrapper" class="profileSection">
-            <div class="profileSectionTitleBar">
+        <div id="profileSkillsWrapper" class="profileSubSection">
+            <div class="profileSubSectionTitleBar">
                 <h2>My Skills and Knowledge</h2>
                 <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
             </div>

@@ -62,8 +62,7 @@ nav{
 
 .pageContent{
     margin: 0 auto;
-    width: 90%;
-    margin-top: 11em;
+    width: 100%;
 }
 
 .formButtonWrapper{
@@ -234,7 +233,7 @@ nav{
     clear: both;
 }
 
-/* Begin - Profile Pic display and upload */
+/* PROFILE PIC AND UPLOAD */
 
 .profilePic{
     width:50px;
@@ -379,6 +378,18 @@ nav{
     background-color: orange;
 }
 
+/* HOMEPAGE */
+
+#homePageContentSection {
+    margin-top: 10em;
+}
+
+/* JOB POSTER DETAILS */
+
+#viewJobPosterSection {
+    margin-top: -6em;
+}
+
 /* JOB POSTER APPLICATION */
 
 .jobSeekerProfileOverlay{
@@ -447,11 +458,11 @@ nav{
 }
 
 #browseJobsSection{
-    margin-top: 7em;
+    margin-top: 10em;
 }
 
 #createJobPosterSection{
-    margin-top: 7em;
+    margin-top: 10em;
 }
 
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
@@ -563,11 +574,6 @@ nav{
     
 }
 
-#viewJobPosterSection{
-    width: 100%;
-    margin-top: -12em;
-}
-
 .jobPoster{
     background: none;
     width: 100%;
@@ -652,6 +658,10 @@ nav{
     height: 100%;
 }
 
+#createEditProfileSection {
+    margin-top: 10em;
+}
+
 .createEditProfileEnglishPane{
     float: left;
     width: 45%;
@@ -698,7 +708,7 @@ nav{
 #profileBasicInfo {
     text-align: center;
     position: relative;
-    bottom:13.5em;
+    bottom:11.5em;
 }
 
 #profileBasicInfoTopBar {
@@ -739,18 +749,18 @@ nav{
     font-size:3.5em;
 }
 
-.profileSection {
-    padding-top: 2em;
+.profileSubSection {
+    padding-top: 2em; 
     padding-bottom: 2em;
     position: relative;
     bottom:11em;
 }
 
-.profileSectionTitleBar {
+.profileSubSectionTitleBar {
     margin-bottom: 1em;
 }
 
-.profileSectionTitleBar h2{
+.profileSubSectionTitleBar h2{
     display: inline;
     font-weight: bold;
 }
