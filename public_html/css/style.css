@@ -917,6 +917,25 @@ input[type=button],input[type=submit],input[type=reset]{
     border-color:transparent;
 }
 
+/* these are required to override other styles in theme.min.css */
+main .btn {
+    height:30px;
+    border-radius: 30px;
+    min-width: 140px;
+    border:1px solid transparent;
+    margin: 1em 1em 0em 1em;
+}
+main .btn-primary {
+    color:#555;
+    background-color:#FFE25B;
+    border-color:transparent;}
+main .btn-default {
+    color:#555;
+    background-color:#C8C8C8;
+    border-color:transparent;
+}
+
+
 /* TABS LIST */
 
 .tabsList{
