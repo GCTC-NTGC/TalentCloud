@@ -354,7 +354,7 @@ DataAPI.updateProgress = function(evt){
  * @returns {undefined}
  */
 DataAPI.loaded = function(){
-        JobPostAPI.populateJobObjects(JSON.parse(getJobs_xhr.responseText));
+        JobPostAPI.populateJobObjectList(JSON.parse(getJobs_xhr.responseText));
         JobPostAPI.getJobCount();
 };
 

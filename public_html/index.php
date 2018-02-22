@@ -310,16 +310,7 @@ and open the template in the editor .
                     <div class="cds-icon"><i class="fa fa-code" aria-hidden="true"></i></div>
                     <div class="text">Sample text / icon</div>
                 </div>
-                <div class="col-xs-12 col-sm-4 icon-text">
-                    <div class="cds-icon"><i class="fa fa-cogs" aria-hidden="true"></i></div>
-                    <div class="text">Sample text / icon</div>
-                </div>
-                <div class="col-xs-12 col-sm-4 icon-text">
-                    <div class="cds-icon"><i class="fa fa-comments-o" aria-hidden="true"></i></div>
-                    <div class="text">Sample text / icon</div>
-                </div>
-            </div>
-            <a href="/how-we-work" class="button">Sample button</a>-->
+            -->
         </div>
 
         <div id="jobs">
@@ -345,7 +336,7 @@ and open the template in the editor .
     
     <section class="pageContent" id="viewJobPosterSection" class="hidden">
         <div id="viewJobPosterApplicationOverlay" class="container">
-            <div id="jobSummary" class="jobSummary">
+            <div id="jobPoster" class="jobPoster">
 
             </div>
         </div>

@@ -58,7 +58,7 @@ ManagerEventsAPI.onLoadEvents = function(){
 };
 
 ManagerEventsAPI.hideAllLayouts = function(){
-    var overlays = ["loginOverlay", "registerFormOverlay", "createEditProfile"];
+    var overlays = ["loginOverlay", "registerFormOverlay"];
     for(var i = 0;i < overlays.length;i++){
         var overlayDOM = document.getElementById(overlays[i]);
         overlayDOM.classList.add("hidden");
