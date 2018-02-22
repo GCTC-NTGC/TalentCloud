@@ -22,101 +22,149 @@ and open the template in the editor .
         <?php include '../inc/fip.php'; ?>
         <?php include '../inc/nav-admin.php'; ?>
 
-        <!-- A top-level dialog or overlay elements should be children of this div-->
+        <!-- All top-level dialog or overlay elements should be children of this div-->
         <div id="overlays">
-            <div id="registerFormOverlay" class="hidden">
-                <div id="registerFormWrapperWindow" class="registerFormWrapperWindow">
-                    <div class="wb-frmvld wb-init">
-                        <form name="registerForm" id="registerForm" novalidate="novalidate" onsubmit="return UserAPI.register(true);" method="post" enctype="application/x-www-form-urlencoded">
-                            <div style="height:50px;line-height:50px;vertical-align: middle;">
-                                <h3 style="height:50px;line-height:50px;"><img src="/images/logo.svg" style="height:50px;vertical-align: middle;" id="registerLogoImage" alt="registerLogoImage"/> &nbsp; &nbsp;Registration</h3>
+            <!-- BEGIN - Registration Form Modal Dialog and Overlay-->
+            <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
+                <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+                    <div id='registerFormTitleWrapper' class="dialogTitle">
+                        <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
+                        <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
+                    </div>
+                    <div class="wb-frmvld wb-init dialogWindowInterior" id="registerFormWrapper">
+                        <form name="registerForm" id="registerForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="center-block three-quarter-width">
+                                <div class="form-group">
+                                    <label for="register_email">
+                                        <span>Email:</span>
+                                        <strong id="register_email_error" class="error hidden">
+                                            <span id="register_email_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_email" name="register_email" type="text" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register_email_confirm">
+                                        <span>Re-enter email:</span>
+                                        <strong id="register_email_confirm_error" class="error hidden">
+                                            <span id="register_email_confirm_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_email_confirm" name="register_email_confirm" type="text" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register_password">
+                                        <span>Password:</span>
+                                        <strong id="register_password_error" class="error hidden">
+                                            <span id="register_password_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_password" name="register_password" type="password" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register_password_confirm">
+                                        <span>Re-enter password:</span>
+                                        <strong id="register_password_confirm_error" class="error hidden">
+                                            <span id="register_password_confirm_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_password_confirm" name="register_password_confirm" type="password" required=""/>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="register_email">
-                                    <span>Email</span>
-                                    <strong id="register_email_error" class="error hidden">
-                                        <span id="register_email_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <input class="form-control form-textbox" id="register_email" name="register_email" type="text"/>
+                            <div class="hidden">
+                                <p><a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link" id="switchToLogin" title="Already have an account? Click here to login.">Already have an account? Click here to login</a></p>
                             </div>
-                            <div class="form-group">
-                                <label for="register_password">
-                                    <span>Password (min. 6 characters)</span>
-                                    <strong id="register_password_error" class="error hidden">
-                                        <span id="register_password_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <input class="form-control form-textbox" id="register_password" name="register_password" type="password"/>
+                            <div class="formButtonWrapper">
+                                <input type="button" class="btn btn-default" id="registerFormCancelBtn" value="Cancel" onclick="UserAPI.hideRegisterForm()">
+                                <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register(true);">
                             </div>
-                            <div class="form-group">
-                                <label for="register_password_confirm">
-                                    <span>Confirm password</span>
-                                    <strong id="register_password_confirm_error" class="error hidden">
-                                        <span id="register_password_confirm_error_msg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <input class="form-control form-textbox" id="register_password_confirm" name="register_password_confirm" type="password"/>
-                            </div>
-                            <div>
-                                <input type="submit" class="btn btn-primary" value="Register">
-                                <input type="button" class="btn btn-default" value="Cancel" onclick="UserAPI.hideRegisterForm()">
-                            </div>
-                            <div style="margin: 1em 0 0 0;">
-                                <p> Already have an account? <a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link">Login</a></p>
-                            </div>
+                            <div class="clear"></div>
                         </form>  
                     </div>
                 </div>
             </div>
-            <div id="loginOverlay" class="hidden" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginFormDescription">
-                <div id="loginFormWrapperWindow" class="loginFormWrapperWindow">
-                    <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
-                        <div id='loginTitleWrapper'>
-                            <h3 id='loginTitle' title="Login to TalentCloud"><img src="/images/logo.svg" id="loginLogoImage" alt="Login Logo Image"/> &nbsp; &nbsp;Login</h3>
-                            <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
-                        </div>
-                        <div class="label label-danger hidden" id="loginErrors"></div>
-                        <div class="form-group">
-                            <label for="login_email">
-                                <span>Email address:</span>
-                                <strong id="login_email_error" class="error hidden">
-                                    <span id="login_email_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <div>
-                                <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="login_password">
-                                <span>Password:</span>
-                                <strong id="login_password_error" class="error hidden">
-                                    <span id="login_password_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <div>
-                                <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
-                            </div>
-                        </div>
-                        <div style="margin: 2em 0 0 0;">
-                            <input type="button" id="login_button" value="Login" class="btn btn-primary" onclick="return UserAPI.login()"/>
-                            <input type="button" id="login_cancel_button" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
-                        </div>
-                    </form>
-                    <div style="margin: 1em 0 0 0;">
-                        <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+            <!-- BEGIN - Registration Status Dialog and Overlay-->
+            <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
+                <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
+                    <div id='registerStatusTitleWrapper' class="dialogTitle">
+                        <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
+                        <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
                     </div>
-                    <div style="margin: 1em 0 0 0;">
-                        <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                    <div class="dialogWindowInterior">
+                        <div id="registrationStatusSuccessMessage">
+
+                        </div>
+                        <div id="registrationStatusEmailConfMessage">
+
+                        </div>
+                        <div class="formButtonWrapper">
+                            <input type="button" class="btn btn-default" id="registerStatusCloseBtn" value="Close" onclick="UserAPI.hideRegisterConf()">
+                            <input type="button" class="btn btn-primary" id="registerStatusLoginBtn" value="Log in" onclick="UserAPI.hideRegisterConf(); return UserAPI.showLogin(this);"/>
+                        </div>
+                        <div class="clear"></div>
                     </div>
                 </div>
             </div>
-            <div id="profilePicUploadOverlay" class="hidden">
-                <div id="profilePicUploadWrapperWindow">
-                    <h1>Choose new profile img or drag and drop onto zone below</h1>
+            <!-- BEGIN - Login Modal Dialog and Overlay-->
+            <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
+                <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+                    <div id='loginFormTitleWrapper' class="dialogTitle">
+                        <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
+                        <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
+                    </div>
+                    <div class="dialogWindowInterior">
+                        <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="label label-danger hidden" id="loginErrors"></div>
+                            <div class="center-block three-quarter-width">
+                                <div class="form-group">
+                                    <label for="login_email">
+                                        <span>Email:</span>
+                                        <strong id="login_email_error" class="error hidden">
+                                            <span id="login_email_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login_password">
+                                        <span>Password:</span>
+                                        <strong id="login_password_error" class="error hidden">
+                                            <span id="login_password_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
+                                    </div>
+                                </div>
+                            </div>                
+                            <div class="hidden">
+                                <div style="margin: 1em 0 0 0;">
+                                    <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+                                </div>
+                                <div style="margin: 1em 0 0 0;">
+                                    <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                                </div>
+                            </div>
+
+                            <div class="formButtonWrapper">
+                                <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
+                                <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
+                            </div>
+                            <div class="clear"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
+                <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+                    <div id='profilePicUploadTitleWrapper' class="dialogTitle">
+                        <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
+                        <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
+                    </div>
                     <div class="fileUpload">
-                        <div style="float:left;width:50%;">
+                        <div class="leftPane">
                             <div>
                                 <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                             </div>
@@ -124,14 +172,14 @@ and open the template in the editor .
                                 <p>Drop file here</p>
                             </div>
                         </div>
-                        <div style="float:left;width:50%;padding:20px 20px;">
+                        <div class="rightPane">
                             <div id="fileUploadPreviewPanel" style="min-height:130px;">
                                 <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
                                 <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
                             </div>
                             <div id="fileUploadButtons">
+                                <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
                                 <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
-                                <a href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -171,7 +219,7 @@ and open the template in the editor .
             </div>
         </div>
         <main class="contentContainer">
-            <section class="section" id="jobSeekersSection">
+            <section class="pageContent" id="jobSeekersSection">
                 <div id="jobSeekers">
                     <div id="noJobSeekers" class="hidden">
                         No job seekers found
@@ -187,9 +235,9 @@ and open the template in the editor .
                     <span id="contactCount">0</span> job seekers
                 </div>
             </section>
-            <section id="createEditProfileSection" class="section hidden">
+            <section id="createEditProfileSection" class="pageContent hidden">
                 <div id="createEditProfile" class="createEditProfile">
-                    <h2 id="createJobPosterWindowTitle" class="section--title">Create a new Job Poster</h2>
+                    <h2 id="createJobPosterWindowTitle" class="section--title">Edit your Profile</h2>
                     <div class="wb-frmvld wb-init">
                         <div class="tabbedForm">
                             <div class="section">
@@ -207,7 +255,7 @@ and open the template in the editor .
                                         <div style='display:block;text-align:center;'>
                                             <div style='display:inline-block;height:200px;width:200px;position:relative;'>
                                                 <div style='margin:0px auto !important;position:absolute;'>
-                                                    <img id='profile_image_preview' src='/images/profile_off.svg' style='width:200px;height:200px;border-radius: 50%;border:1px solid #ccc;'/>
+                                                    <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
                                                 </div>
                                                 <div style='margin:0px auto !important;position:absolute;right:0.75em;bottom:0.75em;'>
                                                     <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
@@ -717,13 +765,8 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
-                <div id="viewProfileContainer" class="contentContainer viewProfileContainer">
-                    <div id="viewProfile" class="contentContainer viewProfile hidden">
-
-                    </div>
-                </div>
             </section>
-            <section class="section hidden" id="createJobPosterSection">
+            <section class="pageContent hidden" id="createJobPosterSection">
                 <h2 class="section--title">Create a new Job Poster</h2>
                 <div class="wb-frmvld wb-init tabbedForm" id="jobPosterFormWrapper">
                     <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">

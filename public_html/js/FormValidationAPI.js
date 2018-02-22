@@ -57,7 +57,7 @@ FormValidationAPI.validateLoginForm = function(email, password) {
     }
 };
 
-FormValidationAPI.validateRegisterForm = function(email, password, confirm_password) {
+FormValidationAPI.validateRegisterForm = function(email, email_confirm, password, confirm_password) {
     var valid = true;
     
     /*FormValidationAPI.setValidationErrorProperties(false, "register_name_error", "register_name_error_msg");
@@ -65,6 +65,12 @@ FormValidationAPI.validateRegisterForm = function(email, password, confirm_passw
         valid = false;
         FormValidationAPI.setValidationErrorProperties(true, "register_name_error", "register_name_error_msg", "Error: Invalid name.");
     }*/
+
+    FormValidationAPI.setValidationErrorProperties(false, "register_email_confirm_error", "register_email_confirm_error_msg");
+    if(email !== email_confirm) {
+        valid = false;
+        FormValidationAPI.setValidationErrorProperties(true, "register_email_confirm_error", "register_email_confirm_error_msg", "Error: Emails do not match.");
+    }
 
     FormValidationAPI.setValidationErrorProperties(false, "register_email_error", "register_email_error_msg");
     if((FormValidationAPI.validateEmail(email)).length === 0 || !FormValidationAPI.validateEmail(email)) {
@@ -81,8 +87,8 @@ FormValidationAPI.validateRegisterForm = function(email, password, confirm_passw
     FormValidationAPI.setValidationErrorProperties(false, "register_password_error", "register_password_error_msg");
     if(password.length < 6 || !password) {
         valid = false;
-        FormValidationAPI.setValidationErrorProperties(true, "register_password_confirm_error", "register_password_confirm_error_msg", "Error: Invalid password.");
-        FormValidationAPI.setValidationErrorProperties(true, "register_password_error", "register_password_error_msg", "Error: Invalid password.");
+        //FormValidationAPI.setValidationErrorProperties(true, "register_password_confirm_error", "register_password_confirm_error_msg", "Error: Invalid password.");
+        FormValidationAPI.setValidationErrorProperties(true, "register_password_error", "register_password_error_msg", "Error: Password must be at least 6 characters.");
     }
     
     return valid;

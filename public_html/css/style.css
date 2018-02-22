@@ -60,9 +60,65 @@ nav{
     background-color: white;
 }
 
-.section{
+.pageContent{
     margin: 0 auto;
     width: 90%;
+    margin-top: 11em;
+}
+
+.formButtonWrapper{
+    float:right;
+}
+
+/* DIALOGS */
+
+.dialogOverlay {
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.dialogThreeQuarterWrapperWindow {
+    width:75%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    position:relative;
+}
+
+.dialogHalfWidthWrapperWindow {
+    width:50%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    position:relative;
+}
+
+.dialogWindowInterior {
+    padding:1em 2em 2em 2em;
+}
+
+.dialogTitle {
+    padding:0.5em;
+    background-color:#E5F8FF;
 }
 
 /* FIP (TOP BLACK) BANNER */
@@ -258,12 +314,12 @@ nav{
 }
 
 .filePreviewList li {
-	margin: 0;
-	padding: 10px 0;
-	margin: 0;
-	overflow: auto;
-	border-bottom: solid 1px #ccc;
-	position: relative;
+    margin: 0;
+    padding: 10px 0;
+    margin: 0;
+    overflow: auto;
+    border-bottom: solid 1px #ccc;
+    position: relative;
 }
 
 
@@ -320,6 +376,7 @@ nav{
     background-color: #fff;
     padding: 2em;
 }
+
 
 #jobPosterApplication{
     padding:1em;
@@ -470,7 +527,13 @@ nav{
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 .viewJobPosterOverlay{
-    
+    width:100%;
+    height:100%;
+    z-index: 1002;
+    background-color: rgba(255,255,255,0.75);
+    position:fixed;
+    top:0;
+    left:0;
 }
 
 .viewJobPosterApplicationOverlay{
@@ -728,11 +791,112 @@ nav{
     min-height: 200px;
 }
 
+/* FORM INPUT */
+
+.form-group{
+    color:#555;
+}
+.form-control{
+    color:#555;
+    background-color:#EAEAEA;
+    background-image:none;
+    border:none;
+    border-radius:0;
+}
+.form-control:focus{
+    border: 1px solid #999;
+    outline:0;
+    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153,153,153,.6);
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153, 153, 153,.6)
+}
+input[type=text],input[type=password],select{
+    font-family: Roboto;
+    font-size:1em;
+    padding:0.5em;
+}
+input[type=button],input[type=submit],input[type=reset]{
+    font-family: Roboto;
+    font-size:1em;
+    padding:0.25em;
+    height: 30px;
+}
+form label{
+    font-size: 16px;
+}
+
+/* BUTTONS */
+
+.btn{
+    height:30px;
+    border-radius: 30px;
+    min-width: 140px;
+    border:1px solid transparent;
+    margin: 1em 1em 0em 1em;
+}
+.btn.active.focus,.btn.active:focus,.btn.focus,.btn:active.focus,.btn:active:focus,.btn:focus{
+    outline:none;
+}
+.btn.focus,.btn:focus,.btn:hover{
+    text-decoration:none
+}
+.btn.active,.btn:active{
+    outline:0;
+    background-image:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+.btn-default{
+    color:#555;
+    background-color:#C8C8C8;
+    border-color:transparent;
+}
+.btn-default.active,.btn-default:active,.btn-default:hover,open>.btn-default.dropdown-toggle{
+    color:#555;
+    background-color:#A3A3A3;
+    border-color:transparent;
+}
+.btn-default.focus,.btn-default:focus{
+    color:#FFFFFF;
+    background-color:#484848;
+    border-color:transparent;
+}
+.btn-default.disabled,.btn-default.disabled.active,.btn-default.disabled.focus,.btn-default.disabled:active,.btn-default.disabled:focus,.btn-default.disabled:hover,.btn-default[disabled],.btn-default[disabled].active,.btn-default[disabled].focus,.btn-default[disabled]:active,.btn-default[disabled]:focus,.btn-default[disabled]:hover,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default.active,fieldset[disabled] .btn-default.focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:hover{
+    background-color:#C8C8C8;
+    border-color:transparent;
+}
+.btn-primary{
+    color:#555;
+    background-color:#FFE25B;
+    border-color:transparent;
+}
+.btn-primary.active,.btn-primary:active,.btn-primary:hover,open>.btn-default.dropdown-toggle{
+    color:#555;
+    background-color:#FFD200;
+    border-color:transparent;
+}
+.btn-primary.focus,.btn-primary:focus{
+    color:#FFFFFF;
+    background-color:#484848;
+    border-color:transparent;
+}
+.btn-primary.disabled,.btn-primary.disabled.active,.btn-primary.disabled.focus,.btn-primary.disabled:active,.btn-primary.disabled:focus,.btn-primary.disabled:hover,.btn-primary[disabled],.btn-primary[disabled].active,.btn-primary[disabled].focus,.btn-primary[disabled]:active,.btn-primary[disabled]:focus,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary.active,fieldset[disabled] .btn-primary.focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:hover{
+    background-color:#FFE25B;
+    border-color:transparent;
+}
+
 /* END SORTED STYLES */
 
 .form-icon {
     width: 1em;
     height: 1em;
+}
+
+.half-width {
+    width:50%;
+
+}
+.three-quarter-width{
+    width:75%;
 }
 
 .leftPane {
@@ -853,55 +1017,6 @@ div label span{
     position:absolute;
     top:0;
     left:0;
-}
-
-.dialogOverlay {
-    width:100%;
-    height:100%;
-    z-index:1001;
-    background-color: rgba(255,255,255,0.90);
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.dialogThreeQuarterWrapperWindow {
-    width:75%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    position:relative;
-}
-
-.dialogHalfWidthWrapperWindow {
-    width:50%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    position:relative;
-}
-
-.dialogWindowInterior {
-    padding:1em 2em 2em 2em;
-}
-
-.dialogTitle {
-    padding:0.5em;
-    background-color:#E5F8FF;
 }
 
 .registerFormWrapperWindow{
@@ -1133,18 +1248,4 @@ div label span{
 
 .validationMessage{
     color:#ff0000;
-}
-
-input[type=text],input[type=password],select{
-    font-family: Roboto;
-    font-size:1em;
-    padding:0.5em;
-    border-radius:3px;
-    border:1px solid #999;
-}
-
-input[type=button],input[type=submit]{
-    font-family: Roboto;
-    font-size:1em;
-    padding:0.25em;
 }

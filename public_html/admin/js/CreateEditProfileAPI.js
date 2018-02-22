@@ -696,20 +696,16 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 };
 
 CreateEditProfileAPI.showCreateEditProfile = function(){
-    var stateInfo = {pageInfo: 'user_create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
+    var stateInfo = {pageInfo: 'create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateEditProfile');
     
-    //ManagerEventsAPI.hideAllLayouts();
-    
-    var jobSeekersDiv = document.getElementById("jobSeekerList");
-    jobSeekersDiv.classList.add("hidden");
+    TalentCloudAPI.hideAllContent();
     
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
-    
-            
-    CreateEditProfileAPI.getManagerProfilePic();
+         
+    FileUploadAPI.refreshUserProfilePic();
 
     CreateEditProfileAPI.getManagerProfile();
 };
@@ -787,14 +783,6 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
 CreateEditProfileAPI.onProfilePicUploaded = function() {
     FileUploadAPI.refreshUserProfilePic();
     CreateEditProfileAPI.hideUploadProfilePic();
-};
-
-CreateEditProfileAPI.getManagerProfilePic = function(){
-    if (UserAPI.hasSessionUser()) {
-        var user = UserAPI.getSessionUserAsJSON();
-        var user_id = user["user_id"];
-        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
-    }
 };
 
 CreateEditProfileAPI.getManagerProfile = function(){

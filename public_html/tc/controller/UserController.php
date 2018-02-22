@@ -47,7 +47,7 @@ class UserController{
         $userRegistered = false;
         $confEmailSent = false;
         $registeredUser = UserDAO::registerUser($newUser);
-        if($registeredUser->getUser_id() !== null){
+        if($registeredUser instanceof User && $registeredUser->getUser_id() !== null){
             $userRegistered = true;
             $confEmailSent = UserController::confirmEmail($registeredUser);
         }
