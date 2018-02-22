@@ -178,7 +178,7 @@ and open the template in the editor .
                                 <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
                             </div>
                             <div id="fileUploadButtons">
-                                <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
+                                <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
                                 <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
                             </div>
                         </div>
@@ -237,14 +237,10 @@ and open the template in the editor .
             </section>
             <section id="createEditProfileSection" class="pageContent hidden">
                 <div id="createEditProfile" class="createEditProfile">
-                    <h2 id="createJobPosterWindowTitle" class="section--title">Edit your Profile</h2>
+                    <h2 id="createProfileWindowTitle" class="section--title">Edit your Profile</h2>
                     <div class="wb-frmvld wb-init">
                         <div class="tabbedForm">
                             <div class="section">
-                                <h2>Create/Edit Profile</h2>
-                            <div style="height:50px;line-height:50px;vertical-align: middle;">
-                                <h3 style="height:50px;line-height:50px;"><img src="/images/logo.svg" style="height:50px;vertical-align: middle;" id="createProfileLogoImage" alt="createEditProfile"/> &nbsp; &nbsp;<span id="createProfileWindowTitle">Create Profile</span></h3>
-                            </div>
                             <!-- Where the old steps resided -->
                             <form method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
                                 <input type="hidden" id="UserId"/>
@@ -259,7 +255,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div style='margin:0px auto !important;position:absolute;right:0.75em;bottom:0.75em;'>
                                                     <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
-                                                        <img id="editMyProfilePicImg" src="../images/edit_black.svg" class="editImage" style="width:40px;height:40px;background-color: #ccc;border-radius: 50%;border:1px solid #ccc;">
+                                                        <img id="editMyProfilePicImg" src="../images/edit_profile_pic.svg" class="editImage" style="width:40px;height:40px;background-color: #ccc;border-radius: 50%;border:1px solid #ccc;">
                                                     </a>
                                                 </div>
                                             </div>
@@ -566,9 +562,9 @@ and open the template in the editor .
                                                     <div class='multi-btn-group-form-group-label'>
                                                         <span>&nbsp;</span>
                                                     </div>
-                                                    <div style='display:inline-block;width:49%'>
+                                                    <div style='display:inline-block;width:560px'>
                                                         <div>
-                                                            <div style="line-height:2em;font-size:0.8em;">
+                                                            <div style="line-height:2em;;font-size: 1.2em !important;">
                                                                 <span style="line-height:2em;vertical-align: middle;display:inline-block;width:20%;text-align: left;">10% or less</span>
                                                                 <span style="line-height:2em;display:inline-block;width:20%;text-align: center;margin-left:-5px;">~25%</span>
                                                                 <span style="line-height:2em;display:inline-block;width:20%;text-align: center;margin-left:-5px;">~50%</span>
@@ -584,18 +580,18 @@ and open the template in the editor .
                                                     <div class='multi-btn-group-form-group-label'>
                                                         <span id="createEditProfile_how_often_review_label">How often do you review your teams work before it is shared?</span>
                                                     </div>
-                                                    <div style='display:inline-block;width:48%'>
+                                                    <div style='display:inline-block;width:560px'>
                                                         <div class="multi-btn-group clearfix">
-                                                            <div id='options' style="position:absolute;top:0px;right:0px;width:35em;height:2em;z-index:100">
-                                                                <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options', this.value, 'review_options')" />
+                                                            <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
+                                                                <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')" />
                                                                 <label for="option0" class='option0Label'>Almost never</label>
-                                                                <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options', this.value, 'review_options')"/>
+                                                                <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
                                                                 <label for="option1" class='option1Label'>Rarely</label>
-                                                                <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options', this.value, 'review_options')"/>
+                                                                <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
                                                                 <label for="option2" class='option2Label'>Sometimes</label>
-                                                                <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options', this.value, 'review_options')"/>
+                                                                <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
                                                                 <label for="option3" class='option3Label'>Usually</label>
-                                                                <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_review_options', this.value, 'review_options')"/>
+                                                                <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
                                                                 <label for="option4" class='option4Label'>Almost always</label>
                                                             </div>
                                                             <div id='review_options' class="option0"></div>
@@ -608,9 +604,9 @@ and open the template in the editor .
                                                     <div class='multi-btn-group-form-group-label'>
                                                         <span id="createEditProfile_how_often_early_label">How often do you get in early or stay late to get some extra work done?</span>
                                                     </div>
-                                                    <div style='display:inline-block;width:48%'>
+                                                    <div style='display:inline-block;width:560px'>
                                                         <div class="multi-btn-group clearfix">
-                                                            <div id='createEditProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:35em;height:2em;z-index:100">
+                                                            <div id='createEditProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
                                                                 <input type="radio" id="staylate_option0" name="createEditProfile_staylate" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')" />
                                                                 <label for="staylate_option0" class='option0Label'>Almost never</label>
                                                                 <input type="radio" id="staylate_option1" name="createEditProfile_staylate" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
@@ -632,9 +628,9 @@ and open the template in the editor .
                                                     <div class='multi-btn-group-form-group-label'>
                                                         <span>How often do you engage your team before responding to management?</span>
                                                     </div>
-                                                    <div style='display:inline-block;width:48%'>
+                                                    <div style='display:inline-block;width:560px'>
                                                         <div class="multi-btn-group clearfix">
-                                                            <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                            <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                 <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')" />
                                                                 <label for="engage_option0" class='option0Label'>Almost never</label>
                                                                 <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
@@ -657,9 +653,9 @@ and open the template in the editor .
                                                     <div class='multi-btn-group-form-group-label'>
                                                         <span>How often do you approve development opportunities for your employees?</span>
                                                     </div>
-                                                    <div style='display:inline-block;width:48%'>
+                                                    <div style='display:inline-block;width:560px'>
                                                         <div class="multi-btn-group clearfix">
-                                                            <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                            <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                 <input type="radio" id="devops_option0" name="createEditProfile_devops" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')" />
                                                                 <label for="devops_option0" class='option0Label'>Almost never</label>
                                                                 <input type="radio" id="devops_option1" name="createEditProfile_devops" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
@@ -683,7 +679,7 @@ and open the template in the editor .
                                                     </div>
                                                     <div style='display:inline-block;width:48%'>
                                                         <div class="multi-btn-group clearfix">
-                                                            <div id='createEditProfile_lvwrequests' style="position:absolute;top:0px;right:0px;width:35em;height:3em;z-index:100">
+                                                            <div id='createEditProfile_lvwrequests' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                 <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')" />
                                                                 <label for="lvwRequests_option0" class='option0Label'>Almost never</label>
                                                                 <input type="radio" id="lvwRequests_option1" name="createEditProfile_lvwrequests" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>

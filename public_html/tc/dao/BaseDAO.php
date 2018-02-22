@@ -9,11 +9,7 @@
         session_start();
     }
 
-    /*set api path*/
-    set_include_path(get_include_path() . PATH_SEPARATOR);
-
-	
-	require_once '../config/db.config.inc';
+	require_once '/dev/tc_config/db.config.inc';
 	
      /**
 	* Summary: Database connection manager class

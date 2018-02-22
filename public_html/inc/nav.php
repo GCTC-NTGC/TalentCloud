@@ -13,10 +13,14 @@
                     <li class="top-nav--link">
                         <a href="/about">FAQ</a>
                     </li>-->
+                    <li class="top-nav--link" id="browseLinkListItem">
+                        <div id="browse">
+                            <a href="#BrowseJobs" id="browseLink" onclick="DataAPI.getJobs();">Browse Jobs</a>
+                        </div>
+                    </li>
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
                         <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile()">My Profile</a>
-                   </li>
-
+                    </li>
                     <li class="top-nav--link">
                         <div id="register">
                             <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>

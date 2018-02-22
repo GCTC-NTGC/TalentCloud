@@ -51,7 +51,8 @@ DataAPI.getTalentCloudUI = function(locale,isManager){
       talentcloudData_xhr = null;
 
     }
-    talentcloudData_xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+    talentcloudData_xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    talentcloudData_xhr.setRequestHeader('Authorization', 'Bearer ' + authToken.access_token);
     talentcloudData_xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);
@@ -172,6 +173,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
 DataAPI.getJobs = function(locale){
     console.log("getting jobs");
     Utilities.debug?console.log("loading jobs"):null;
+    locale = TalentCloudAPI.getLanguageFromCookie();
     var jobs_url = DataAPI.baseURL+"/"+locale+"/getAllJobs";
     console.log('Job URL:   ' + jobs_url);
     getJobs_xhr = new XMLHttpRequest();
@@ -354,8 +356,8 @@ DataAPI.updateProgress = function(evt){
  * @returns {undefined}
  */
 DataAPI.loaded = function(){
-        JobPostAPI.populateJobObjects(JSON.parse(getJobs_xhr.responseText));
-        JobPostAPI.getJobCount();
+    JobPostAPI.populateJobObjects(JSON.parse(getJobs_xhr.responseText));
+    JobPostAPI.getJobCount();
 };
 
 DataAPI.loadedManager = function(response){
