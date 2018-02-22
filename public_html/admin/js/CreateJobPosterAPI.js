@@ -288,13 +288,13 @@ CreateJobPosterAPI.populateReviewTab = function() {
         var demoAreaEnglish = document.getElementById("createJobPosterDemoAreaEnglish");
         demoAreaEnglish.innerHTML = "";
         var jobEnglish = CreateJobPosterAPI.localizeJobPost(CreateJobPosterAPI.jobPosterObj, "en_CA");
-        demoAreaEnglish.appendChild(JobPostAPI.populateJob(jobEnglish, true, "en_CA"));
+        demoAreaEnglish.appendChild(JobPostAPI.populateJobSummary(jobEnglish, true, "en_CA"));
 
         //Create demo french
         var demoAreaFrench = document.getElementById("createJobPosterDemoAreaFrench");
         demoAreaFrench.innerHTML = "";
         var jobFrench = CreateJobPosterAPI.localizeJobPost(CreateJobPosterAPI.jobPosterObj, "fr_CA");
-        demoAreaFrench.appendChild(JobPostAPI.populateJob(jobFrench, true, "fr_CA"));
+        demoAreaFrench.appendChild(JobPostAPI.populateJobSummary(jobFrench, true, "fr_CA"));
     } else {
         window.alert("Job Poster must be submitted first");
     }

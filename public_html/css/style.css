@@ -1,4 +1,5 @@
-/*BEGIN CUSTOM CSS*/
+/* TOP LEVEL */
+
 html{
     min-height:100%;/* make sure it is at least as tall as the viewport */
     position:relative;
@@ -18,8 +19,17 @@ body{
     background-size: auto;
 }
 
-.overFlowHidden{
-    overflow:hidden;
+main{
+   background-color: #fff;
+   height: 100vh;
+   margin-top: 30rem;
+   position: absolute;
+   top:0;
+   bottom:0;
+   left:0;
+   right:0;
+   /*overflow:hidden;*/
+   /*padding-top: 1em;*/
 }
 
 header{
@@ -28,145 +38,39 @@ header{
     /*padding: 2em !important;*/
 }
 
+/* NAVIGATION */
+
 nav{
     padding:0 !important;
 }
-
-.transparent{
-  background:rgba(0,0,0,0.7);
+.nav-container{
+    width: 100%;
 }
 
-.tc-title{
+.nav-container li a{
     font-size: 1.5rem;
-    margin-top: 0;
-    text-align: center;
+    color: #ccc;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.cloudicon{
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+/* CONTAINERS / OVERLAYS */
+
+.contentContainer{
+    background-color: white;
 }
 
-.logo-container{
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-}
-
-.circle {
-    width: 200px;
-    height: 200px;
-    background: #000;
-    -moz-border-radius: 100px;
-    -webkit-border-radius: 100px;
-    border: 3px solid #000;
-    border-radius: 100px;
-    position:absolute;
-    top:12em;
-    left:1em;
-    right:0;
+.pageContent{
     margin: 0 auto;
+    width: 90%;
+    margin-top: 11em;
 }
 
-.tc-logo{
-    margin-top:6em;
+.formButtonWrapper{
+    float:right;
 }
 
-.form-icon {
-    width: 1em;
-    height: 1em;
-}
-
-.clear {
-    clear: both;
-}
-
-.leftPane {
-    width: 45%;
-    float: left;
-}
-
-.rightPane {
-    width: 45%;
-    float: right;
-}
-
-.singlePane {
-    width: 100%;
-    clear: both;
-}
-
-.half-width {
-    width:50%;
-
-}
-.three-quarter-width{
-    width:75%;
-}
-
-.tabsList{
-    line-height: 2em;
-    display: flex;
-    list-style: none !important;
-    width: 100%;
-    margin:0 !important;
-    padding:0 !important;
-}
-
-.tabsList li{
-    display: inline-block;
-    margin-right: 1em;
-    margin:0 !important;
-    padding:0 !important;
-    text-align: center;
-}
-
-.tabsList li a {
-    text-align: center;
-}
-
-/* Was this here for a good reason? - Tristan
-div label span{
-    clear:left;
-    display: block !important;
-}
-*/
-
-#loginErrors{
-    white-space: pre-wrap;
-}
-
-#myProfileTitle{
-    height:3em !important;
-    width:auto !important;
-    line-height:3em !important;
-    overflow:visible !important;
-    clip:auto !important;
-    position:relative;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-}
-
-#myProfileTitleText{
-    padding-left:0.5em;
-}
-
-#loginLogoImage,#registerLogoImage,#jobSeekerLogoImage,#registerStatusLogoImage{
-    height:50px;
-    vertical-align: middle;
-}
-
-#loginTitleLabel{
-}
-
-#createJobPosterOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    position:absolute;
-    top:0;
-    left:0;
-}
+/* DIALOGS */
 
 .dialogOverlay {
     width:100%;
@@ -195,7 +99,7 @@ div label span{
 
 .dialogHalfWidthWrapperWindow {
     width:50%;
-    min-width:450px;
+    min-width:350px;
     margin:0px auto;
     position:relative;
     top:50%;
@@ -203,6 +107,7 @@ div label span{
     text-align: left;
     background-color:#fff;
     border: 1px solid #999;
+    border-radius: 5px;
     box-shadow: 3px 3px 6px #999;
     position:relative;
 }
@@ -216,135 +121,508 @@ div label span{
     background-color:#E5F8FF;
 }
 
-.formButtonWrapper{
+/* FIP (TOP BLACK) BANNER */
+
+.page-title{
+    font-size: 1.5rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+.cloudicon{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.languageSelectLink{
     float:right;
+    margin-top: 0.75rem;
+    color: #FFFFFF;
+}
+.languageSelect{
+    color: #FFFFFF;
+    display: inline-block;
 }
 
-.contentContainer{
-    background-color: white;
+/* TALENT CLOUD LOGO */
+
+.logo-container{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
 }
 
-.teaser{
-    text-align: center;
-    max-width: 70%;
-    padding-top: 3rem;
+.circle {
+    width: 200px;
+    height: 200px;
+    background: #000;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border: 3px solid #000;
+    border-radius: 100px;
+    position:absolute;
+    top:12em;
+    left:1em;
+    right:0;
+    margin: 0 auto;
 }
 
-.viewProfileLeftPane{
-    float: left;
-    width: 45%;
-    padding: 1em 1em 1em 1em;
-    background-color: inherit;
+.tc-logo{
+    margin-top:6em;
 }
 
-.viewProfileRightPane{
-    float: right;
-    width: 45%;
-    padding: 1em 1em 1em 1em;
-    background-color: inherit;
+/* UTILITY */
+
+.clear {
+    clear: both;
 }
 
-.viewProfileSlot{
-    padding: 0.5em 0em 0.5em 0em;
+.clearfix {
+    content: "";
+    display: table;
+    clear: both;
 }
 
-.viewProfileSlotLabel{
-    font-size: 12px;
+.overFlowHidden{
+    overflow:hidden;
 }
-
-.viewProfileSlotContent{
     
+.transparent{
+    background:rgba(0,0,0,0.7);
 }
 
-.viewProfileSlotImg{
+.hidden{
+    transition: all 1s ease-in-out !important;
+    opacity:0;
+    max-height:0;
+    max-width:0;
+    display:none;
+    padding:0 !important;
+    margin:0 !important;
+    border:none !important;
+    overflow:hidden;
+}
+
+.visible{
+    max-height:4000px;
+    max-width:4000px;
+    display:static;
+    opacity:1;
+    transition: opacity 1s ease-in-out;
+}
+
+.half-width {
+    width:50%;
+
+}
+.three-quarter-width{
+    width:75%;
+}
+
+.leftPane {
+    width: 45%;
     float: left;
 }
 
-.viewProfileSlotValue{
-    overflow: hidden;
+.rightPane {
     width: 45%;
-    border-bottom: 1px solid grey;
+    float: right;
 }
 
-.viewProfileHeightBoost{
-    min-height: 200px;
+.singlePane {
+    width: 100%;
+    clear: both;
 }
 
-#profileBasicInfo {
-    text-align: center;
-    position: relative;
-    bottom:21.5em;
+/* Begin - Profile Pic display and upload */
+
+.profilePic{
+    width:50px;
+    height:50px;
+    clip-path: circle(25px at center);
 }
 
-#profileBasicInfoTopBar {
-    display: flex;
-    align-items: center;
-    position: relative;
-    max-width: 1200px;
+.profilePicLarge {
+    width:200px;
+    height:200px;
+    border: 3px solid #FFCC33;
+    border-radius: 100px;
     margin: auto;
 }
 
-#profileSocialMediaLinks {
-    list-style-type: none;
-    float: right;
-    margin-top: 3em;
+#profilePicUploadOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    background-color: rgba(255,255,255,0.90);
+    position:absolute;
+    top:0;
+    left:0;
 }
 
-#profileSocialMediaLinks li{
-    display: inline;
-    padding-left: 0.5em;
+#profilePicUploadWrapperWindow{
+    width:75%;
+    min-width:350px;
+    margin:0px auto;
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+    position:relative;
 }
 
-#profileSocialMediaLinks img{
-    width: 1.5em;
-    height: 1.5em;
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
 }
 
-.socialMediaWrapper, .editProfileWrapper{
-    width: 40%;
+.fileDropZone {
+    border: dashed 2px;
+    margin-top:3%;
 }
 
-#profileBasicInfoEdit {
-    float: left;
+.fileDropZoneNormal {
+    background-color: #fefefe;
+    color: #ccc;
+    borderColor: #ccc;
+}
+
+.fileDropZoneHighlight {
+    background-color: #f0fcf0;
+    /* borderColor: #3DD13F; */
+    color: #3DD13F;
+}
+
+.fileDropZone p {
+    text-align: center;
+    font-size: 1.6em;
+    vertical-align:middle;
+    min-height:150px;
+    min-width:100px;
+    height: 100%;
+    width: 100%;
+}
+
+.fileUpload{
+    margin: 0 0 0 0px;
+    padding: 20px 20px 20px 20px;
+    border: solid 2px #ccc;
+    background: #fefefe;
+    min-height: 240px;
+    position: relative;
+    overflow: auto;
+}
+
+.fileDropZone,.fileUpload {
+    -moz-box-shadow: 0 0 20px #ccc;
+    -webkit-box-shadow: 0 0 20px #ccc;
+    box-shadow: 0 0 20px #ccc;
+}
+
+.filePreviewList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filePreviewList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filePreviewList li {
+    margin: 0;
+    padding: 10px 0;
+    margin: 0;
+    overflow: auto;
+    border-bottom: solid 1px #ccc;
+    position: relative;
+}
+
+
+.uploadFileThumbnail img {
+	width: 120px;
+	border: solid 1px #999;
+	padding: 6px;
+	margin: 0 10px 0 0;
+	background-color: #eee;
+	display: block;
+	float: left;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
+}
+
+
+.fileUploadReset {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.fileUploadReset:hover {
+    color: #333;
+}
+
+.fileUploadLoadingText {
+    color: orange;
+}
+
+.fileUploadLoadingBar {
+    width: 0%;
+    background-color: orange;
+}
+
+/* JOB POSTER APPLICATION */
+
+.jobSeekerProfileOverlay{
+    width:100%;
+    height:100%;
+    z-index: 1002;
+    background-color: rgba(255,255,255,0.75);
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    text-align: left;
+    background-color: #fff;
+    padding: 2em;
+}
+
+
+#jobPosterApplication{
+    padding:1em;
+}
+
+.jobPosterApplicationProfileSelect{
+    padding:1em;
+}
+
+.closeButton{
+    position:absolute;
+    top:1em;
+    right:1em;
+    width: 10px;
+    height: 10px;
+    background: url(../images/chosen-sprite.png) 10px 0;
+}
+
+.closeButtonLink{
+    padding:5px;
+    display:block;
+}
+
+#noJobs{
+    color:#999;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#jobs{
+    margin-top:1em;
+    padding:0 1em;
+    height:100%;
+}
+
+.jobCount{
+    position:absolute;
+    right:1em;
+    top:1em;
+}
+
+.jobList{
+    margin:0px auto;
+    overflow:auto;
+}
+
+#browseJobsSection{
     margin-top: 7em;
 }
 
-#profileName {
-    margin-top: .25em;
-    font-size:3.5em;
+#createJobPosterSection{
+    margin-top: 7em;
 }
 
-.profileSection {
-    padding-top: 2em;
-    padding-bottom: 2em;
+/* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
+
+.jobSummary{
     position: relative;
-    bottom:11em;
+    width: 100%;
+    color: #777;
+    font-size: 1.25em;
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
+    display: flex;
+    justify-content: center;
+    font-family: "HKGrotesk", sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
 }
 
-.profileSectionTitleBar {
-    margin-bottom: 1em;
+.jobSummary:nth-child(odd){
+    background: #F8F8F8;
 }
 
-.profileSectionTitleBar h2{
-    display: inline;
+.jobSummaryTable{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1200px;
+}
+
+.hiringManagerProfilePicSmall{
+    width: 50%;
+    padding-bottom: 0.5em;
+    margin: auto;
+    display: block;
+}
+
+.hiringManagerLabel{
+    font-size:1em;
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.hiringManagerWrapper{
+    width: 200px;
+}
+
+.jobSummaryTitle{
+    font-size: 1.2em;
     font-weight: bold;
+    color: #000;
+    line-height: 1.5em;
+    text-align: left;
+}
+.jobSummarySalaryRange{
+    width: 200px;
+    text-align: center;
 }
 
-.socialMediaLink{
-    margin-top:1.5em;
+.jobSummaryApplicants_to_date{
+    line-height: 1.5em;
 }
 
-.sectionEditBtn {
+.jobSummaryTerm_qty{
+    width: 150px;
+    text-align: center;
+}
+
+.titleDepartmentWrapper{
+    width: 225px;
+}
+
+.applicantsCloseDateWrapper{
+    text-align: center;
+    width: 200px;
+}
+
+.viewJobButton{
+    color: #fff!important;
+    background-color: #2196F3!important;
+    font-weight: normal;
+    border: none;
+    padding: 8px 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 10%;
+    display: block;
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+/* JOB POSTER (LONG DESCRIPTION) STYLES */
+.viewJobPosterOverlay{
+    width:100%;
+    height:100%;
+    z-index: 1002;
+    background-color: rgba(255,255,255,0.75);
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.viewJobPosterApplicationOverlay{
+    
+}
+
+#viewJobPosterSection{
+    width: 100%;
+    margin-top: -12em;
+}
+
+.jobPoster{
+    background: none;
+    width: 100%;
+}
+
+.jobPosterHeaderWrapper{
+    background: none;
+    padding: 2em 0 2em 1em;
+}
+
+.jobPosterTitle{
+    font-size:2.5em;
+    color: #eee;
+}
+
+.jobPosterID{
     float: right;
+    padding-right:2em;
+    font-size: 1em;
+    color: #eee;
 }
 
-.sectionEditBtn img{
-    width: 1.5em;
-    height: 1.5em;
+.jobPosterDepartmentLocation{
+    color: #eee;
+    font-size: 1.5em;
 }
 
-#registrationFormStatusMessage,#registrationFormEmailConfMessage{
-    padding:1em;
+.jobPosterMiddleWrapper{
+    background-color: #777;
+    color: #FFF;
+    padding: 2em;
+}
+
+
+
+.jobPosterSalaryRange{
+}
+
+.jobPosterApplyButton{
+    /*padding:1em 0 0.5em 0;*/
+    overflow:auto;
+}
+.jobPosterCancelButton{
+    margin-left:1em;
+}
+
+/* CREATE JOB POSTER */
+
+#createJobPosterOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .createJobPosterWrapperWindow{
@@ -415,68 +693,140 @@ div label span{
     white-space: nowrap;
 }
 
-.tabs{
-    padding:1em 2em 2em 2em;
+/* APPLICANT PROFILE */ 
+
+#profileBasicInfo {
+    text-align: center;
+    position: relative;
+    bottom:13.5em;
 }
 
-.nav-container{
-    width: 100%;
-}
-
-.nav-container li a{
-    font-size: 1.5rem;
-    color: #ccc;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-#loggedInUser{
-    font-size: 1.5rem;
-    color: #ccc;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.tabsSteps{
-    font-size: 1em;
-    line-height: 2em;
+#profileBasicInfoTopBar {
     display: flex;
-    color: #777;
+    align-items: center;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#profileSocialMediaLinks {
+    list-style-type: none;
+    float: right;
+    margin-top: 3em;
+}
+
+#profileSocialMediaLinks li{
+    display: inline;
+    padding-left: 0.5em;
+}
+
+#profileSocialMediaLinks img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.socialMediaWrapper, .editProfileWrapper{
+    width: 40%;
+}
+
+#profileBasicInfoEdit {
     float: left;
-    cursor: default;
-    width: 100%;
-    position: absolute;
-    background-color: #ddd;
+    margin-top: 7em;
 }
 
-.three-step-tab {
-    width: 33%;
+#profileName {
+    margin-top: .25em;
+    font-size:3.5em;
+}
+
+.profileSection {
+    padding-top: 2em;
+    padding-bottom: 2em;
     position: relative;
+    bottom:11em;
 }
 
-.tab-current {
-    color: #fff;
-    background-color: #5599e5;
+.profileSectionTitleBar {
+    margin-bottom: 1em;
 }
 
-.four-step-tab{
-    width: 25%;
-    position: relative;
+.profileSectionTitleBar h2{
+    display: inline;
+    font-weight: bold;
 }
 
-.tabbedForm{
-    width: 100%;
-    height: 100%;
+.socialMediaLink{
+    margin-top:1.5em;
 }
 
-
-.form-textbox{
-    width:95%;
+.sectionEditBtn {
+    float: right;
 }
 
-/*
-   Following classes override styles in theme.min.css 
-*/
+.sectionEditBtn img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* VIEW PROFILE (OLD??)  */
+
+.viewProfileContainer{
+    padding: 1em 1em 1em 1em;
+}
+
+.viewProfileLeftPane{
+    float: left;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileRightPane{
+    float: right;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileSlot{
+    padding: 0.5em 0em 0.5em 0em;
+}
+
+.viewProfileSlotLabel{
+    font-size: 12px;
+}
+
+.viewProfileSlotContent{
+    
+}
+
+.viewProfileSlotImg{
+    float: left;
+}
+
+.viewProfileSlotValue{
+    overflow: hidden;
+    width: 45%;
+    border-bottom: 1px solid grey;
+}
+
+.viewProfileHeightBoost{
+    min-height: 200px;
+}
+
+/* LOGIN AND REGISTRATION FORMS */
+
+#loginForm,#registerForm{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+#loginErrors{
+    white-space: pre-wrap;
+}
+
+/* FORMS */
+
 .form-group{
     color:#555;
 }
@@ -493,6 +843,12 @@ div label span{
     -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153,153,153,.6);
     box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153, 153, 153,.6)
 }
+.form-textbox{
+    width:95%;
+}
+form label{
+    font-size: 16px;
+}
 input[type=text],input[type=password],select{
     padding:0.5em;
 }
@@ -500,6 +856,9 @@ input[type=button],input[type=submit],input[type=reset]{
     padding:0.25em;
     height: 30px;
 }
+
+/* BUTTONS */
+
 .btn{
     height:30px;
     border-radius: 30px;
@@ -558,35 +917,92 @@ input[type=button],input[type=submit],input[type=reset]{
     border-color:transparent;
 }
 
-form label{
-    font-size: 16px;
+/* these are required to override other styles in theme.min.css */
+main .btn {
+    height:30px;
+    border-radius: 30px;
+    min-width: 140px;
+    border:1px solid transparent;
+    margin: 1em 1em 0em 1em;
+}
+main .btn-primary {
+    color:#555;
+    background-color:#FFE25B;
+    border-color:transparent;}
+main .btn-default {
+    color:#555;
+    background-color:#C8C8C8;
+    border-color:transparent;
 }
 
-#overlayLogo{
-    width:400px;
-    height:300px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
+
+/* TABS LIST */
+
+.tabsList{
+    line-height: 2em;
+    display: flex;
+    list-style: none !important;
+    width: 100%;
+    margin:0 !important;
+    padding:0 !important;
+}
+.tabsList li{
+    display: inline-block;
+    margin-right: 1em;
+    margin:0 !important;
+    padding:0 !important;
     text-align: center;
 }
-
-.languageSelectLink{
-    float:right;
-    margin-top: 0.75rem;
+.tabsList li a {
+    text-align: center;
+}
+.tabs{
+    padding:1em 2em 2em 2em;
+}
+.tabsSteps{
+    font-size: 1em;
+    line-height: 2em;
+    display: flex;
+    color: #777;
+    float: left;
+    cursor: default;
+    width: 100%;
+    position: absolute;
+    background-color: #ddd;
+}
+.three-step-tab {
+    width: 33%;
+    position: relative;
+}
+.tab-current {
     color: #fff;
+    background-color: #5599e5;
 }
-.languageSelect{
-    color: #FFFFFF;
-    display: inline-block;
+.four-step-tab{
+    width: 25%;
+    position: relative;
+}
+.tabbedForm{
+    width: 100%;
+    height: 100%;
 }
 
-.pageContent{
-    margin: 0 auto;
-    width: 90%;
-    margin-top: 11em;
+/* END SORTED STYLES */
+
+.form-icon {
+    width: 1em;
+    height: 1em;
 }
+
+
+
+/* Was this here for a good reason? - Tristan
+div label span{
+    clear:left;
+    display: block !important;
+}
+*/
+
 
 .searchWrapper{
     float:left;
@@ -595,17 +1011,6 @@ form label{
 #search{
     margin-top: 0.2em;
     vertical-align: bottom;
-}
-
-.logoutWrapper{
-    float:right;
-}
-
-#browseNav{
-    float:left;
-    min-width:3em;
-    border:1px solid #ccc;
-    margin-top:1em;
 }
 
 .alphaList{
@@ -634,178 +1039,6 @@ form label{
     text-align: center !important;
     text-decoration:none !important;
     color:#fff !important;
-}
-
-.textAreaInput{
-    width:100%;
-    height:5em;
-}
-
-main{
-   background-color: #fff;
-   height: 100vh;
-   margin-top: 30rem;
-   position: absolute;
-   top:0;
-   bottom:0;
-   left:0;
-   right:0;
-   /*overflow:hidden;*/
-   /*padding-top: 1em;*/
-}
-
-#noJobs{
-    color:#999;
-    text-align: center;
-    font-size: 1.5em;
-}
-
-#jobs{
-    margin-top:1em;
-    padding:0 1em;
-    height:100%;
-}
-
-.jobCount{
-    position:absolute;
-    right:1em;
-    top:1em;
-}
-
-.jobList{
-    margin:0px auto;
-    overflow:auto;
-}
-
-.jobCard{
-    position: relative;
-    width: 100%;
-    color: #777;
-    font-size: 1.25em;
-    padding-bottom: 1.5em;
-    padding-top: 1.5em;
-    display: flex;
-    justify-content: center;
-    font-family: "HKGrotesk", sans-serif;
-    font-size: 1.5em;
-    font-weight: 700;
-}
-
-.jobCard:nth-child(odd){
-    background: #F8F8F8;
-}
-
-.jobPoster{
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    max-width: 1200px;
-}
-
-.jobApplicants_to_date{
-    line-height: 1.5em;
-}
-
-.jobTitle{
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #000;
-    line-height: 1.5em;
-    text-align: left;
-}
-
-.titleDepartmentWrapper{
-    
-    width: 225px;
-}
-
-.jobSalaryRange{
-    width: 200px;
-    text-align: center;
-}
-
-.hiringManagerProfilePicSmall{
-    width: 50%;
-    padding-bottom: 0.5em;
-    margin: auto;
-    display: block;
-}
-
-.hiringManagerLabel{
-    font-size:1em;
-    color: #333;
-    width: 100%;
-    text-align: center;
-    margin: auto;
-    display: block;
-}
-
-.hiringManagerWrapper{
-    width: 200px;
-    
-}
-
-.applicantsCloseDateWrapper{
-    text-align: center;
-    width: 200px;
-}
-
-.jobTerm_qty{
-    width: 150px;
-    text-align: center;
-}
-
-.viewJobButton{
-    color: #fff!important;
-    background-color: #2196F3!important;
-    font-weight: normal;
-    border: none;
-    padding: 8px 16px;
-    vertical-align: middle;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    width: 10%;
-    display: block;
-    margin-right: 3em;
-    margin-left: 2em;
-}
-
-
-.jobPosterApplyButton{
-    /*padding:1em 0 0.5em 0;*/
-    overflow:auto;
-}
-.jobPosterCancelButton{
-    margin-left:1em;
-}
-
-.jobSummary{
-    background-color: #f8f8f8;
-}
-
-.jobSummaryHeaderWrapper{
-    background-color:#eee;
-    padding: 2em 0 2em 1em;
-}
-
-.jobSummaryMiddleWrapper{
-    background-color: #777;
-    color: #FFF;
-    padding: 2em;
-}
-
-.jobSummaryTitle{
-    font-size:1.5em;
-}
-
-.jobSummaryID{
-    float: right;
-    padding-right:2em;
-}
-
-.jobSalaryRange-poster{
 }
 
 .contactCard{
@@ -893,7 +1126,7 @@ main{
 
 .stepNavigation{
     position: absolute;
-    absolute: 0;
+    /* absolute: 0; */
 }
 
 .stepGroup,.jobSeekerFormStepGroup {
@@ -930,261 +1163,4 @@ main{
 
 .validationMessage{
     color:#ff0000;
-}
-
-/* clear float */
-.clearfix {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.hidden{
-    transition: all 1s ease-in-out !important;
-    opacity:0;
-    max-height:0;
-    max-width:0;
-    display:none;
-    padding:0 !important;
-    margin:0 !important;
-    border:none !important;
-    overflow:hidden;
-}
-
-.visible{
-    max-height:4000px;
-    max-width:4000px;
-    display:static;
-    opacity:1;
-    transition: opacity 1s ease-in-out;
-}
-
-.viewJobPosterOverlay,.viewJobPosterApplicationOverlay,.jobSeekerProfileOverlay{
-    width:100%;
-    height:100%;
-    z-index: 1002;
-    background-color: rgba(255,255,255,0.75);
-    position:fixed;
-    top:0;
-    left:0;
-}
-
-.viewJobPosterWrapperWindow,.viewJobPosterApplicationWrapperWindow{
-    width: 100%;
-    height: 100%;
-    margin: 0px auto;
-    text-align: left;
-    background-color: #fff;
-    padding: 2em;
-}
-
-#jobPosterApplication{
-    padding:1em;
-}
-
-.jobPosterApplicationProfileSelect{
-    padding:1em;
-}
-
-.closeButton{
-    position:absolute;
-    top:1em;
-    right:1em;
-    width: 10px;
-    height: 10px;
-    background: url(../images/chosen-sprite.png) 10px 0;
-}
-
-.closeButtonLink{
-    padding:5px;
-    display:block;
-}
-
-/* Begin - Profile Pic display and upload */
-
-.profilePic{
-    width:50px;
-    height:50px;
-    clip-path: circle(25px at center);
-}
-
-.profilePicLarge {
-    width:200px;
-    height:200px;
-    border: 3px solid #FFCC33;
-    border-radius: 100px;
-    margin: auto;
-}
-
-#profilePicUploadOverlay{
-    width:100%;
-    height:100%;
-    z-index:1001;
-    background-color: rgba(255,255,255,0.90);
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-#profilePicUploadWrapperWindow{
-    width:75%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
-    text-align: left;
-    background-color:#fff;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px #999;
-    padding:1em 2em 2em 2em;
-    position:relative;
-}
-
-.profileTagLineContainer{
-    background-color:#E5F8FF;
-    margin-top:2em;
-}
-
-.fileDropZone {
-    border: dashed 2px;
-    margin-top:3%;
-}
-
-.fileDropZoneNormal {
-    background-color: #fefefe;
-    color: #ccc;
-    borderColor: #ccc;
-}
-
-.fileDropZoneHighlight {
-    background-color: #f0fcf0;
-    borderColor: #3DD13F;
-    color: #3DD13F;
-}
-
-.fileDropZone p {
-    text-align: center;
-    font-size: 1.6em;
-    vertical-align:middle;
-    min-height:150px;
-    min-width:100px;
-    height: 100%;
-    width: 100%;
-}
-
-.fileUpload{
-    margin: 0 0 0 0px;
-    padding: 20px 20px 20px 20px;
-    border: solid 2px #ccc;
-    background: #fefefe;
-    min-height: 240px;
-    position: relative;
-    overflow: auto;
-}
-
-.fileDropZone,.fileUpload {
-    -moz-box-shadow: 0 0 20px #ccc;
-    -webkit-box-shadow: 0 0 20px #ccc;
-    box-shadow: 0 0 20px #ccc;
-}
-
-.filePreviewList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.filePreviewList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.filePreviewList li {
-	margin: 0;
-	padding: 10px 0;
-	margin: 0;
-	overflow: auto;
-	border-bottom: solid 1px #ccc;
-	position: relative;
-}
-
-
-.uploadFileThumbnail img {
-	width: 120px;
-	border: solid 1px #999;
-	padding: 6px;
-	margin: 0 10px 0 0;
-	background-color: #eee;
-	display: block;
-	float: left;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
-}
-
-
-.fileUploadReset {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #ccc;
-    text-decoration: none;
-}
-
-.fileUploadReset:hover {
-    color: #333;
-}
-
-.fileUploadLoadingText {
-    color: orange;
-}
-
-.fileUploadLoadingBar {
-    width: 0%;
-    background-color: orange;
-}
-
-/*BEGIN - GC Desktop Style Classes*/
-
-@media all and (max-width: 800px){
-    .jobList{
-        max-width: 750px;
-        margin-right:0.5em;
-    }
-    .jobCard{
-        width: 355px;
-    }
-}
-
-@media all and (max-width: 768px){
-    .jobList{
-        max-width: 750px;
-        margin:0px auto;
-    }
-    .jobCard{
-        width: 355px;
-    }
-}
-
-@media all and (max-width: 673px){
-    .jobList{
-        max-width: 620px;
-        margin:0px auto;
-    }
-}
-
-@media all and (max-width: 572px){
-    .jobList{
-        max-width: 540px;
-        margin:0px auto;
-    }
-}
-
-
-@media all and (max-width: 443px){
-    .jobList{
-        max-width: 400px;
-        margin:0px auto;
-    }
 }

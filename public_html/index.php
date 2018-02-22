@@ -425,7 +425,7 @@ and open the template in the editor .
     
     <section class="pageContent" id="viewJobPosterSection" class="hidden">
         <div id="viewJobPosterApplicationOverlay" class="container">
-            <div id="jobSummary" class="jobSummary">
+            <div id="jobPoster" class="jobPoster">
 
             </div>
         </div>
