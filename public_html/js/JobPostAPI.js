@@ -75,7 +75,7 @@ JobPostAPI.populateJobObjectList = function(data){
         jobPosts.push(job);
     }
     
-    JobPostAPI.populateJobList(jobPosts);
+    JobPostAPI.populateJobs(jobPosts);
     
 };
 
@@ -127,6 +127,7 @@ JobPostAPI.populateJobs = function(jobPosts){
     TalentCloudAPI.hideAllContent();
     Utilities.debug?console.log("populating jobs"):null;
     var jobsDiv = document.getElementById("jobList");
+    var browseJobsSection = document.getElementById("browseJobsSection");
     //jobsDiv.innerHTML = "";
     
     
@@ -140,7 +141,7 @@ JobPostAPI.populateJobs = function(jobPosts){
     }
     
     jobsDiv.classList.remove("hidden");
-    
+    browseJobsSection.classList.remove("hidden");
     //hide no contacts div
     if(jobPosts.length > 0){
         var noJobs = document.getElementById("noJobs");

@@ -287,6 +287,7 @@ TalentCloudAPI.hideAllContent = function(){
     for(var i = 0;i < overlays.length;i++){
         overlays[i].classList.add("hidden");
     }
+    
     for(var i = 0;i < sections.length;i++){
         sections[i].classList.add("hidden");
     }
