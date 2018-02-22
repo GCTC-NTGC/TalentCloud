@@ -16,10 +16,7 @@ lazyLoaderImg.src = "";
 ManagerEventsAPI.onLoadEvents = function(){
     //On initial load - modify state
     
-    
     document.addEventListener("DOMContentLoaded", function(){
-        //UserAPI.authenticate();
-        //document.getElementById("login_email").focus();
         var locale =  TalentCloudAPI.getLanguageFromCookie();
         console.log(locale);
         if(locale == undefined){
@@ -29,26 +26,31 @@ ManagerEventsAPI.onLoadEvents = function(){
         
     });
     
-    window.addEventListener("beforeunload", function (event) {
-        UserAPI.logout();
-    });
-    
     //Handle what happens when new history state popped off stack
     window.onpopstate = function(e){
         //If going to a valid state
         if(e.state){
             ManagerEventsAPI.hideAllLayouts();
+            console.log(e.state.pageInfo);
             if(e.state.pageInfo === 'talent_cloud'){
+                TalentCloudAPI.loadManager();
                 //ManagerEventsAPI.hideAllLayouts();//bad practice to have this empty...
             } else if(e.state.pageInfo === 'register'){
+                TalentCloudAPI.loadManager();
                 var registerFormOverlay = document.getElementById("registerFormOverlay");
                 registerFormOverlay.classList.remove("hidden");
             } else if(e.state.pageInfo === 'user_login'){
+                TalentCloudAPI.loadManager();
                 var loginAccount = document.getElementById("loginOverlay");
                 loginAccount.classList.remove("hidden");
             } else if(e.state.pageInfo === 'create_job_poster'){
+                TalentCloudAPI.loadManager();
                 var createJobPoster = document.getElementById("createJobPosterOverlay");
                 createJobPoster.classList.remove("hidden");
+            }else if(e.state.pageInfo === 'user_create_edit_profile'){
+                console.log(e.state.pageInfo);
+                TalentCloudAPI.loadManager();
+                CreateEditProfileAPI.showCreateEditProfile();
             }
             document.title = e.state.pageTitle;
         }
@@ -56,7 +58,7 @@ ManagerEventsAPI.onLoadEvents = function(){
 };
 
 ManagerEventsAPI.hideAllLayouts = function(){
-    var overlays = ["loginOverlay", "registerFormOverlay", "createJobPosterOverlay"];
+    var overlays = ["loginOverlay", "registerFormOverlay", "createEditProfile"];
     for(var i = 0;i < overlays.length;i++){
         var overlayDOM = document.getElementById(overlays[i]);
         overlayDOM.classList.add("hidden");

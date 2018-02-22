@@ -173,6 +173,7 @@ TalentCloudAPI.loadManager = function(){
                 UserAPI.authenticate(credentials);
                 DataAPI.getJobSeekers(locale);
                 DepartmentAPI.getDepartments(locale);
+                DivisionAPI.getDivisions(locale);
                 //Add log user in automatically
             }else{
                 DataAPI.getJobSeekers(locale);
@@ -211,9 +212,9 @@ TalentCloudAPI.loadAdmin = function(){
                 credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.authenticate(credentials);
-                //DataAPI.getJobSeekers(locale);
-                DepartmentAPI.getDepartments(locale);
-                CreateJobPosterAPI.loadLookupData();
+                
+                DivisionAPI.getDivisions(locale);
+                BranchAPI.getBranches(locale);
                 //Add log user in automatically
             }else{
                 //DataAPI.getJobSeekers(locale);

@@ -61,9 +61,12 @@ class UserDAO extends BaseDAO{
         return $row;
     }
     
-    public static function getUserById($user_id) {
+    public static function getUserById(User $user) {
         $link = BaseDAO::getConnection();
  
+        $user_id = $user->getUser_id();
+        
+        
         $sqlStr = "
             SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
             FROM user u, user_role ur
@@ -211,4 +214,5 @@ class UserDAO extends BaseDAO{
         BaseDAO::closeConnection($link);
         return $row;
     }
+    
 }

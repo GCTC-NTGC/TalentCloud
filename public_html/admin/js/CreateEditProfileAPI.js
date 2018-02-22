@@ -10,24 +10,56 @@ CreateEditProfileAPI.managerProfileObj = {};
 
 CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_id, 
-        user_manager_profile_department_id,
-        user_manager_profile_position_id,
+        user_manager_profile_department,
+        user_manager_profile_position,
         user_manager_profile_branch_id,
         user_manager_profile_division_id,
         user_manager_profile_twitter,
         user_manager_profile_linkedin,
-        user_id){
+        user_id,
+        profile_pic){
     this.user_manager_profile_id = user_manager_profile_id;
-    this.user_manager_profile_department_id = user_manager_profile_department_id;
-    this.user_manager_profile_position_id = user_manager_profile_position_id;
+    this.user_manager_profile_department = user_manager_profile_department;
+    this.user_manager_profile_position = user_manager_profile_position;
     this.user_manager_profile_branch_id = user_manager_profile_branch_id;
     this.user_manager_profile_division_id = user_manager_profile_division_id;
     this.user_manager_profile_twitter = user_manager_profile_twitter;
     this.user_manager_profile_linkedin = user_manager_profile_linkedin;
-    this.user_id = user_id;
+    this.user_id = user_id,
+    this.profile_pic = profile_pic;
 };
 
-CreateEditProfileAPI.ManagerProfileDetails = function(){
+CreateEditProfileAPI.ManagerProfileDetails = function(
+        user_manager_profile_details_id,
+        locale_id,
+        user_manager_profile_details_aboutme,
+        user_manager_profile_details_proud,
+        user_manager_profile_details_lead_style,
+        user_manager_profile_details_emp_learn,
+        user_manager_profile_details_expectations,
+        user_manager_profile_id,
+        user_manager_profile_review_options,
+        user_manager_profile_staylate,
+        user_manager_profile_engage,
+        user_manager_profile_devops,
+        user_manager_profile_lvwrequests,
+        user_manager_profile_work_experience,
+        user_manager_profile_education){
+    this.user_manager_profile_details_id = user_manager_profile_details_id;
+    this.locale_id = locale_id;
+    this.user_manager_profile_details_aboutme = user_manager_profile_details_aboutme;
+    this.user_manager_profile_details_proud = user_manager_profile_details_proud;
+    this.user_manager_profile_details_lead_style = user_manager_profile_details_lead_style;
+    this.user_manager_profile_details_emp_learn = user_manager_profile_details_emp_learn;
+    this.user_manager_profile_details_expectations = user_manager_profile_details_expectations;
+    this.user_manager_profile_id = user_manager_profile_id;
+    this.user_manager_profile_review_options = user_manager_profile_review_options;
+    this.user_manager_profile_staylate = user_manager_profile_staylate;
+    this.user_manager_profile_engage = user_manager_profile_engage;
+    this.user_manager_profile_devops = user_manager_profile_devops;
+    this.user_manager_profile_lvwrequests = user_manager_profile_lvwrequests;
+    this.user_manager_profile_work_experience = user_manager_profile_work_experience;
+    this.user_manager_profile_education = user_manager_profile_education;
     
 };
 
@@ -160,7 +192,7 @@ CreateEditProfileAPI.validateStep2 = function() {
     if (valid) {
         CreateEditProfileAPI.goToStep('createEditProfile_step3');
         var createEditProfileForm = document.getElementById("CreateEditProfileForm");
-        var demoAreaEnglish = document.getElementById("createEditProfileDemoAreaEnglish");
+        /*var demoAreaEnglish = document.getElementById("createEditProfileDemoAreaEnglish");
         //demoAreaEnglish.innerHTML = 'Profile Object printed in console!';//JSON.stringify(CreateEditProfileAPI.managerProfileObj);
         //Temp prifle obj
         var tempProfileObj = {name: createEditProfileForm.createEditProfile_name.value, 
@@ -186,29 +218,29 @@ CreateEditProfileAPI.validateStep2 = function() {
             how_often_early: ''
         };
     
-    var how_often_review_radios= document.getElementsByName('createEditProfile_how_often_review_options');
-    for(var i = 0;i < how_often_review_radios.length;i++){
-        if(how_often_review_radios[i].checked){
-            tempProfileObj.how_often_review = how_often_review_radios[i].value;
-            break;
+        var how_often_review_radios= document.getElementsByName('createEditProfile_how_often_review_options');
+        for(var i = 0;i < how_often_review_radios.length;i++){
+            if(how_often_review_radios[i].checked){
+                tempProfileObj.how_often_review = how_often_review_radios[i].value;
+                break;
+            }
         }
-    }
-    var how_often_early_radios= document.getElementsByName('createEditProfile_how_often_early_options');
-    for(var i = 0;i < how_often_early_radios.length;i++){
-        if(how_often_early_radios[i].checked){
-            tempProfileObj.how_often_early = how_often_early_radios[i].value;
-            break;
+        var how_often_early_radios= document.getElementsByName('createEditProfile_how_often_early_options');
+        for(var i = 0;i < how_often_early_radios.length;i++){
+            if(how_often_early_radios[i].checked){
+                tempProfileObj.how_often_early = how_often_early_radios[i].value;
+                break;
+            }
         }
-    }
- 
-    console.log(tempProfileObj);
-    demoAreaEnglish.innerHTML = '';
-    demoAreaEnglish.appendChild(CreateEditProfileAPI.viewProfile(tempProfileObj));
-    
-    var demoAreaFrench = document.getElementById("createEditProfileDemoAreaFrench");
-    demoAreaFrench.innerHTML = "";
+
+        console.log(tempProfileObj);
+        demoAreaEnglish.innerHTML = '';
+        demoAreaEnglish.appendChild(CreateEditProfileAPI.viewProfile(tempProfileObj));
+
+        var demoAreaFrench = document.getElementById("createEditProfileDemoAreaFrench");
+        demoAreaFrench.innerHTML = "";
         
-         
+        */
     }
 };
 
@@ -217,8 +249,102 @@ CreateEditProfileAPI.validateStep3 = function() {
     
     if (valid) {
         Utilities.debug?console.log(CreateEditProfileAPI.managerProfileObj):null;
-        console.log(CreateEditProfileAPI.managerProfileObj);
+        //console.log(CreateEditProfileAPI.managerProfileObj);
         //submitForm();
+        CreateEditProfileAPI.updateManagerProfileWithDetails();
+    }
+};
+
+CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
+    
+    var updated_manager_profile = new CreateEditProfileAPI.ManagerProfile();
+    
+    updated_manager_profile.user_id = document.getElementById("UserId").value;
+    
+    updated_manager_profile.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
+    
+    updated_manager_profile.user_manager_profile_position = document.getElementById("createEditProfile_position").value;
+    updated_manager_profile.user_manager_profile_department = document.getElementById("createEditProfile_department").value;
+    updated_manager_profile.user_manager_profile_division_id = document.getElementById("createEditProfile_division").value;
+    updated_manager_profile.user_manager_profile_branch_id = document.getElementById("createEditProfile_branch").value;
+    updated_manager_profile.user_manager_profile_twitter = document.getElementById("createEditProfile_twitter").value;
+    updated_manager_profile.user_manager_profile_linkedin = document.getElementById("createEditProfile_linkedin").value;    
+    
+    console.log(updated_manager_profile);
+    
+    var updated_manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
+    
+    updated_manager_profile_details.user_manager_profile_details_id = document.getElementById("ManagerProfileDetailsId").value;
+    
+    updated_manager_profile_details.locale_id = 1;
+    
+    updated_manager_profile_details.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
+    
+    updated_manager_profile_details.user_manager_profile_details_aboutme = document.getElementById("createEditProfile_bio").value;
+    updated_manager_profile_details.user_manager_profile_details_proud = document.getElementById("createEditProfile_proudOf").value;
+    updated_manager_profile_details.user_manager_profile_details_lead_style = document.getElementById("createEditProfile_leadership_style").value;
+    updated_manager_profile_details.user_manager_profile_details_emp_learn = document.getElementById("createEditProfile_app_to_employees").value;
+    updated_manager_profile_details.user_manager_profile_details_expectations = document.getElementById("createEditProfile_exp_of_employees").value;
+
+    updated_manager_profile_details.user_manager_profile_review_options = document.querySelector('input[name="createEditProfile_how_often_review_options"]:checked').value;
+    updated_manager_profile_details.user_manager_profile_staylate = document.querySelector('input[name="createEditProfile_staylate"]:checked').value;
+    updated_manager_profile_details.user_manager_profile_engage = document.querySelector('input[name="createEditProfile_engage"]:checked').value;
+    updated_manager_profile_details.user_manager_profile_devops = document.querySelector('input[name="createEditProfile_devops"]:checked').value;
+    updated_manager_profile_details.user_manager_profile_lvwrequests = document.querySelector('input[name="createEditProfile_lvwrequests"]:checked').value;
+
+    updated_manager_profile_details.user_manager_profile_work_experience = document.getElementById("user_manager_profile_work_experience").value;
+    updated_manager_profile_details.user_manager_profile_education = document.getElementById("user_manager_profile_education").value;
+
+    console.log(updated_manager_profile_details);
+    
+    var complete_manager_profile = {};
+        
+    complete_manager_profile.manager_profile = updated_manager_profile;
+    complete_manager_profile.manager_profile_details = updated_manager_profile_details;
+    
+    CreateEditProfileAPI.saveManagerProfile(complete_manager_profile);
+    
+};
+
+CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
+    
+    var complete_manager_profileJSON = JSON.stringify(complete_manager_profile);
+    
+    if (UserAPI.hasSessionUser()) {
+        var user = UserAPI.getSessionUserAsJSON();
+        var authToken = UserAPI.getAuthTokenAsJSON();
+        var user_id = user["user_id"];
+        var manager_profile_url = UserAPI.baseURL + "/postManagerProfile/"+user_id;
+        var manager_profile_xhr = new XMLHttpRequest();
+        if ("withCredentials" in manager_profile_xhr) {
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            manager_profile_xhr.open("POST", manager_profile_url);
+
+        } else if (typeof XDomainRequest != "undefined") {
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            manager_profile_xhr = new XDomainRequest();
+            manager_profile_xhr.open("POST", manager_profile_url);
+        } else {
+            // Otherwise, CORS is not supported by the browser.
+            manager_profile_xhr = null;
+            // TODO: indicate to user that browser is not supported
+        }
+
+        manager_profile_xhr.open('POST', manager_profile_url);
+        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
+        manager_profile_xhr.setRequestHeader("Accept", "application/json");
+        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
+        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
+        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
+        manager_profile_xhr.addEventListener("load", function () {
+           CreateEditProfileAPI.goToStep('createEditProfile_step1');
+        }, false);
+        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
+        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
+
+        manager_profile_xhr.send(complete_manager_profileJSON);
     }
 };
 
@@ -569,18 +695,23 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
     
 };
 
-CreateEditProfileAPI.showCreateEditProfile = function(linkElement){
+CreateEditProfileAPI.showCreateEditProfile = function(){
     var stateInfo = {pageInfo: 'user_create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateEditProfile');
     
-    EventsAPI.hideAllLayouts()
+    //ManagerEventsAPI.hideAllLayouts();
+    
+    var jobSeekersDiv = document.getElementById("jobSeekerList");
+    jobSeekersDiv.classList.add("hidden");
     
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
     
-    var viewProfileElement = document.getElementById("viewProfile");
-    viewProfileElement.classList.add("hidden");
+            
+    CreateEditProfileAPI.getManagerProfilePic();
+
+    CreateEditProfileAPI.getManagerProfile();
 };
 
 CreateEditProfileAPI.showViewProfile = function(linkElement){
@@ -594,10 +725,10 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
         bio_fr: 'BIo in French',
         position: 'Position In English', 
         position_fr: 'Position in French',
-        department: 'Deparmtnet in Enlgish', 
-        department_fr: 'Deparmtne tin French',
+        department: 'Department in Enlgish', 
+        department_fr: 'Department in French',
         branch_fr: 'Branch name in French',
-        branch: 'Branch nme in English', 
+        branch: 'Branch name in English',
         division: 'The division (in English)',
         division_fr: 'The division (in french)',
         twitter: 'Twitter Link',
@@ -656,4 +787,197 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
 CreateEditProfileAPI.onProfilePicUploaded = function() {
     FileUploadAPI.refreshUserProfilePic();
     CreateEditProfileAPI.hideUploadProfilePic();
+};
+
+CreateEditProfileAPI.getManagerProfilePic = function(){
+    if (UserAPI.hasSessionUser()) {
+        var user = UserAPI.getSessionUserAsJSON();
+        var user_id = user["user_id"];
+        FileUploadAPI.refreshProfilePic(user_id, document.getElementById("profile_image_preview"));
+    }
+};
+
+CreateEditProfileAPI.getManagerProfile = function(){
+    
+    if (UserAPI.hasSessionUser()) {
+        var user = UserAPI.getSessionUserAsJSON();
+        var authToken = UserAPI.getAuthTokenAsJSON();
+        var user_id = user["user_id"];
+        var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/"+user_id;
+        var manager_profile_xhr = new XMLHttpRequest();
+        if ("withCredentials" in manager_profile_xhr) {
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            manager_profile_xhr.open("GET", manager_profile_url);
+
+        } else if (typeof XDomainRequest != "undefined") {
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            manager_profile_xhr = new XDomainRequest();
+            manager_profile_xhr.open("GET", manager_profile_url);
+        } else {
+            // Otherwise, CORS is not supported by the browser.
+            manager_profile_xhr = null;
+            // TODO: indicate to user that browser is not supported
+        }
+
+        manager_profile_xhr.open('GET', manager_profile_url);
+        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
+        manager_profile_xhr.setRequestHeader("Accept", "application/json");
+        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
+        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
+        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
+        manager_profile_xhr.addEventListener("load", function () {
+            CreateEditProfileAPI.populateProfile(manager_profile_xhr.response);
+        }, false);
+        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
+        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
+
+        manager_profile_xhr.send(null);
+    }
+};
+
+CreateEditProfileAPI.userLoaded = function(response){
+    var user_json = JSON.parse(response);
+    var user = new UserAPI.User();
+    user.id = user_json['id'];
+   
+};
+
+CreateEditProfileAPI.populateProfile = function(response){
+    var manager_profile_with_details_json = JSON.parse(response);
+    
+    var manager_profile_json = manager_profile_with_details_json["manager_profile"];
+    
+    var manager_profile_details_json = manager_profile_with_details_json["manager_profile_details"];
+    
+    var manager_profile = new CreateEditProfileAPI.ManagerProfile();
+    
+    manager_profile.user_id = manager_profile_json["user_id"];
+    manager_profile.user_manager_profile_id = manager_profile_json["user_manager_profile_id"];
+    
+    manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
+    manager_profile.user_manager_profile_department = manager_profile_json["user_manager_profile_department"];
+    manager_profile.user_manager_profile_division_id = manager_profile_json["user_manager_profile_division_id"];
+    manager_profile.user_manager_profile_branch_id = manager_profile_json["user_manager_profile_branch_id"];
+    manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
+    manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
+    
+    var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
+    manager_profile_details.user_manager_profile_details_id = manager_profile_details_json["user_manager_profile_details_id"];
+    manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
+    manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
+    manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
+    manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
+    manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
+    manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
+    manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
+    
+    manager_profile_details.user_manager_profile_review_options = manager_profile_details_json["user_manager_profile_review_options"];
+    manager_profile_details.user_manager_profile_staylate = manager_profile_details_json["user_manager_profile_staylate"];
+    manager_profile_details.user_manager_profile_engage = manager_profile_details_json["user_manager_profile_engage"];
+    manager_profile_details.user_manager_profile_devops = manager_profile_details_json["user_manager_profile_devops"];
+    manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
+    manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
+    manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
+
+
+    //set hidden field values
+    var UserId = document.getElementById("UserId");
+    UserId.value = manager_profile.user_id;
+    
+    var ManagerProfileId = document.getElementById("ManagerProfileId");
+    ManagerProfileId.value = manager_profile.user_manager_profile_id;
+    
+    var ManagerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
+    ManagerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
+    
+    var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
+    if(UserAPI.hasSessionUser()){
+        var session_user = UserAPI.getSessionUserAsJSON();
+        createEditProfile_name_preview.innerHTML = session_user.firstname + " " + session_user.lastname;
+    }
+    
+    //AboutMe
+    var createEditProfile_bio = document.getElementById("createEditProfile_bio");
+    createEditProfile_bio.value = manager_profile_details.user_manager_profile_details_aboutme;
+    
+    var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
+    createEditProfile_proudOf.value = manager_profile_details.user_manager_profile_details_proud;
+    
+    //createEditProfile_leadership_style
+    var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
+    createEditProfile_leadership_style.value = manager_profile_details.user_manager_profile_details_lead_style;
+    
+    var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
+    createEditProfile_app_to_employees.value = manager_profile_details.user_manager_profile_details_emp_learn;
+    
+    var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
+    createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
+    
+    var profile_position = manager_profile.user_manager_profile_position;
+    var profile_department = manager_profile.user_manager_profile_department;
+    var profile_division_id = manager_profile.user_manager_profile_division_id;
+    var profile_branch_id = manager_profile.user_manager_profile_branch_id;
+    
+    if(profile_position !== null){
+        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+        createEditProfile_position_preview.innerHTML = profile_position;
+
+        var createEditProfile_position = document.getElementById("createEditProfile_position");
+        createEditProfile_position.value = profile_position;
+    }
+    
+    if(profile_department !== null){
+        console.log("profile_department="+profile_department);
+        var createEditProfile_department = document.getElementById("createEditProfile_department");
+        createEditProfile_department.value = profile_department;
+        //createEditProfile_department.value = profile_department_id.toString();
+        //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
+        var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
+        createEditProfile_department_preview.innerHTML = createEditProfile_department.innerHTML;
+    }
+    
+    if(profile_division_id !== null){
+        console.log(profile_division_id);
+        var createEditProfile_division = document.getElementById("createEditProfile_division");
+        createEditProfile_division.value = profile_division_id;
+        //FormsAPI.selectByValue(createEditProfile_division,profile_division_id.toString());
+        //var createEditProfile_division_preview = document.getElementById("createEditProfile_division_preview");
+        //createEditProfile_division_preview.innerHTML = createEditProfile_division.innerHTML;
+    }
+    
+    if(profile_branch_id !== null){
+        console.log("profile_branch_id="+profile_branch_id);
+        var createEditProfile_branch = document.getElementById("createEditProfile_branch");
+        createEditProfile_branch.value = profile_branch_id;
+        //FormsAPI.selectByValue(createEditProfile_branch,profile_branch_id.toString());
+        //var createEditProfile_branch_preview = document.getElementById("createEditProfile_branch_preview");
+        //createEditProfile_branch_preview.innerHTML = createEditProfile_branch.innerHTML;
+    }
+    
+    var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
+    createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;
+    
+    var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
+    createEditProfile_linkedin.value = manager_profile.user_manager_profile_linkedin;
+    
+    //Multiple choice slider questions
+
+    SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', manager_profile_details.user_manager_profile_review_options, 'review_options');
+
+    SliderAPI.selectOptionByValue('createEditProfile_staylate', manager_profile_details.user_manager_profile_staylate, 'staylate');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_engage', manager_profile_details.user_manager_profile_engage, 'engage');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details.user_manager_profile_devops, 'devops');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
+    
+    var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
+    user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;
+    
+    var user_manager_profile_education = document.getElementById('user_manager_profile_education');
+    user_manager_profile_education.value = manager_profile_details.user_manager_profile_education;
+    
 };

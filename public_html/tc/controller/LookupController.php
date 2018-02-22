@@ -48,6 +48,10 @@ class LookupController {
                 $lookupData = LookupDAO::getJobTermsByLocale($locale);
                 return $lookupData;
             break;
+            case 'branch':
+                $lookupData = LookupDAO::getBranchesByLocale($locale);
+                return $lookupData;
+            break;
         }
     }
 
