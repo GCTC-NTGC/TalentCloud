@@ -4,10 +4,12 @@
         <div class="row">
             <div class="nav-container">
                 <ul class="navbar-right" role="menubar">
-                    <!--<li class="top-nav--link active" aria-hidden="false" id="homeLink">
-                        <a href="/">Home</a>
+                    <li class="top-nav--link" aria-hidden="false" id="homeLink">
+                        <div id="homeLink">
+                            <a href="/">Home</a>
+                        </div>
                     </li>
-                    <li class="top-nav--link">
+                    <!--li class="top-nav--link">
                         <a href="/about">FAQ</a>
                     </li>-->
                     <li class="top-nav--link" id="browseLinkListItem">
@@ -30,13 +32,12 @@
                     </li>    
                     <li class="top-nav--link">
                         <div id="loggedIn" class="hidden">
-                            <span id="loggedInUser">Hi <span id="user_fname"></span>!</span>
                             <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
                         </div>
                     </li>        
                 </ul>
             </div>
-            <div class="logo-container">
+            <div id="logo-container" class="logo-container">
                 <div class="container">
                     <div class="row">
                         <div class="page-banner--tag-line--logo-container col-xs-12 col-sm-3 logo-container">

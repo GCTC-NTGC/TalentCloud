@@ -298,7 +298,7 @@ TalentCloudAPI.hideAllContent = function(){
  * @returns {undefined}
  */
 TalentCloudAPI.hideLogo = function(){
-    var logo = document.getElementById("logo");
+    var logo = document.getElementById("logo-container");
     logo.classList.add("hidden");
 };
 
@@ -339,8 +339,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         var jobPostersLink = document.getElementById("jobPostersLink");
         jobPostersLink.innerHTML = siteContent.jobPostersLink;
 
-        var teamsLink = document.getElementById("teamsLink");
-        teamsLink.innerHTML = siteContent.teamsLink;
+        //var teamsLink = document.getElementById("teamsLink");
+        //teamsLink.innerHTML = siteContent.teamsLink;
         
         //Create Job Poster
         //TODO: fix localization of terms for Create Job Poster
