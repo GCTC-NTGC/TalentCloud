@@ -332,8 +332,8 @@ UserAPI.loaded = function (response) {
         UserAPI.storeSessionUser(authJSON);
     }
     if (authJSON.user_id !== "") {
-        var user_fname = document.getElementById("user_fname");
-        user_fname.innerHTML = authJSON.firstname;
+        //var user_fname = document.getElementById("user_fname");
+        //user_fname.innerHTML = authJSON.firstname;
 
         var loggedIn = document.getElementById("loggedIn");
         loggedIn.classList.remove("hidden");
