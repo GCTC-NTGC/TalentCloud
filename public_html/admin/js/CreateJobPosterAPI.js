@@ -77,7 +77,7 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
    
     return new JobPostAPI.JobPost(
             jp.id, 
-            jp.title[locale],   
+            jp.title[locale],
             jp.appplicants_to_date, 
             jp.close_date_time, 
             CreateJobPosterAPI.getLocalizedLookupValueFromId("department", locale, jp.department_id),

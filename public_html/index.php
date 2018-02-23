@@ -204,7 +204,7 @@ and open the template in the editor .
                         <div class="form-group">
                             <label for="profileEditTwitter">
                                 <img src="images/twitter.png" alt="Twitter logo" class="form-icon"/>
-                                <span>Twitter Username:</span>
+                                <span>Twitter Handle:</span>
                                 <strong id="profileEditTwitterError" class="error hidden">
                                     <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
                                 </strong>
@@ -222,7 +222,8 @@ and open the template in the editor .
                                 </strong>
                             </label>
                             <div>
-                                <input class="form-control full-width" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="https://www.linkedin.com/in/exampleuser"/>
+                                <span class="form-control" style="padding:7px 0 7px 14px;float:left;color:#999;vertical-align: middle;" onclick="document.getElementById('profileEditLinkedin').focus()">https://www.linkedin.com/in/</span>
+                                <span style="float:left;"><input class="form-control full-width" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="exampleuser"/></span>
                             </div>
                         </div>
                         <div>
@@ -305,20 +306,15 @@ and open the template in the editor .
             <section class="section homepage--intro">
                 <div class="container">
 
-                    <p class="lead"><a id="mission"></a>The Government of Canada must embrace new methods and tools to improve how it designs, builds,
-                        and delivers services.</p>
-                    <p class="text">The Canadian Digital Service (CDS) is bringing together the skills and expertise needed to
-                        accelerate this change.</p>
+                    <p class="lead"><a id="mission"></a>The jobs are real. The platform is experimental.</p>
+                    <p>Help us build a new hiring model for the Government of Canada.</p>
                 </div>
             </section>
             <section class="section page-what-we-do">
-                <h2 class="section--title">What We Do</h2>
-                <p class="lead">
-                        The Canadian Digital Service is focused first and foremost on delivery: building simple, easy to use services directly with federal departments. We learn by doing, and we use this experience to keep our work firmly grounded in practical experience. 
-                </p>
-
+                <h2 class="section--title">How It Works</h2>
+                
                 <p>
-                        Inspired by digital initiatives around the world, we are bringing together digital talent and external and government partners to:
+                    GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians&hellip;
                 </p>
 
                 <ul class="icon-list">
@@ -326,87 +322,43 @@ and open the template in the editor .
                         <li class="item">
                                 <span class="item-icon"><i class="fa fa-code"></i></span>
                                 <span class="item-text">
-                                        <h3>Deliver solutions</h3>
-                                        <p>We work with federal organizations to design, prototype, and build better digital services. We focus on solving problems using design, agile methods, and proven technologies that put the user at the centre of our work. We take successful digital solutions and help replicate them across government. </p>
+                                        <h3>Own Your Story</h3>
+                                        <p>Everyone is unique. Participate in a job selection process that lets you tell your story your way.</p>
                                 </span>
                         </li>
 
                         <li class="item">
                                 <span class="item-icon"><i class="fa fa-users"></i></span>
                                 <span class="item-text">
-                                        <h3>Build capacity</h3>
-                                        <p>We invest in recruitment, learning, and communities of practice to help departments and public servants amplify their skills in areas like user research, design, and data science. </p>
+                                        <h3>Get Found</h3>
+                                        <p>Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.</p>
                                 </span>
                         </li>
 
                         <li class="item">
                                 <span class="item-icon"><i class="fa fa-comments-o"></i></span>
                                 <span class="item-text">
-                                        <h3>Provide advice</h3>
-                                        <p>We provide advice to federal organizations grounded in practical experience and global best practices.</p>
+                                        <h3>Contribute</h3>
+                                        <p>Find meaningful work that has an impact on Canadians… and be part of the effort to design a better hiring process for Government jobs.</p>
                                 </span>
                         </li>
                 </ul>
 
-                <p>We work in the open, sharing what we learn to help make a bigger impact. Housed at the Treasury Board Secretariat, we benefit from line of sight across government and close proximity to the policies and standards needed to drive and scale this transformation.</p>
-
-                <h2><a name="partnering"></a>Interested in partnering with us?</h2>
-
-                <p>We focus on improving services to the public and, in particular, advancing services that have a big impact (e.g., used by many people). We are on the lookout for opportunities to get involved at the front end of a problem. When we partner, we will work with you and your service users  on discovery and design, before determining the best way to get the right digital solution in place (e.g. buy, build, hybrid).</p>
-
-                <p>To ensure the work we do will measurably improve services, we assess potential projects against the following criteria with departments, which we call the “Three Rs” (Readiness, Reach, and Replicability):</p>
-
-                <h3>Readiness</h3>
-
-                <p>Is there:</p>
-
-                <ul>
-
-                        <li>a clearly defined problem?</li>
-                        <li>an empowered service owner with a clear path to deploy a solution?</li>
-                        <li>a commitment to adopt user-centric, open, and agile techniques?</li>
-                        <li>flexibility concerning the technology solution?</li>
-                        <li>broader organizational awareness and support?</li>
-
-                </ul>
-
-                <h3>Reach</h3>
-
-                <p>What is the:</p>
-
-                <ul>
-
-                        <li>nature of the target audience? (e.g. veterans, citizenship applicants)</li>
-                        <li>number of potential service users?</li>
-                        <li>nature and scope of the service impact on the user? (e.g., saving time, saving money, improving health)</li>
-
-                </ul>
-
-                <h3>Replicability</h3>
-
-                <p>Can we:</p>
-
-                <ul>
-
-                        <li>scale the solution to other users, within the organization, across government or with other partners?</li>
-                        <li>package up the solution and share it for others to use?</li>
-                        <li>leverage this project to unlock a barrier to service transformation?</li>
-
-                </ul>
-
-                <p>We want to help you build the best, so we take into account our current expertise and availability when we assess an opportunity; when it makes sense, we may bring other partners with complementary skills and tools to the table to help. Where a solution already exists or another partner may be a better fit, we will help connect you with the broader #GCDigital community or to outside partners.</p>
-
-                <p>Interested in chatting about a potential partnership? <a href="/contact/">Contact us!</a></p>
+                <p>We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
 
             </section>
             <section class="section section--featured-video">
                 <div class="container video-container">
 
                     <div class="embed-responsive embed-responsive-16by9">
-                        <video width="640" height="360" controls>
+                        <video width="640" height="360" controls id="video_player" controlsList="nodownload">
                             <source src="videos/1479932728445-v0ch3x.mp4" type="video/mp4">
                             Your browser does not support the <code>video</code> tag.
                         </video>
+                        <script type="text/javascript">
+                            var video_player = document.getElementById('video_player');
+                            video_player.volume = 0.5;
+                        </script>
                     </div>
 
                     <div>
@@ -444,11 +396,10 @@ and open the template in the editor .
                         <div class="col-xs-12">
                             <h2 class="section--title">Our Team</h2>
 
-                            <p>We are a building a team with diverse skills and backgrounds, and we’re recruiting! <a href="/our-team">Learn more<span class="sr-only"> about our team:</span></a> about the designers, developers, UX researchers, policy hackers,
-                                data specialists, and communicators who make up CDS.</p>
+                            <p>We are a small but growing team of public servants passionate about the future of talent in Canada. Learn more about us and make your own contribution to GC Talent Cloud by joining us on one of these channels.</p>
                             <p>
-                                <a href="/our-team" class="button yellow">Meet our team</a>
-                                <a href="/work-with-us" class="button yellow">Join our team</a>
+                                <a href="https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent" target="_blank" class="button yellow">GCcollab</a>
+                                <a href="https://twitter.com/TalentCloudGC" target="_blank" class="button yellow">Twitter</a>
                             </p>
                         </div>
                     </div>
@@ -494,16 +445,18 @@ and open the template in the editor .
                 <div class="socialMediaWrapper"> 
                     <ul id="profileSocialMediaLinks"> 
                         <li id="profileTwitterLinkWrapper" class="hidden">
-                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/twitter.png" class="socialMediaLink" alt="Twitter logo"/></a>
+                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                         </li>
                         <li id="profileLinkedinLinkWrapper" class="hidden">
-                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/linkedin.png" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
                         </li>    
                     </ul>
                 </div>
                 <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
                 <div class="editProfileWrapper">
-                    <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()"><img src="/images/btn_edit_dark.png" alt="Edit Basic Info" class="editImage"/></a>
+                    <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
+                        <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
+                    </a>
                 </div>
             </div>
             <div id="profileNameWrapper">
@@ -513,11 +466,11 @@ and open the template in the editor .
             </div>
             <div class="profileTagLineContainer">
                 <p id="profileTagLine">Default tag line!</p>
-                <p>
+                <!--p>
                     <strong>Available: </strong><span id="profileStartDate"></span>
                     <br>
                     <strong>Status: </strong><span id="profileStatus"></span>
-                </p>
+                </p-->
             </div>
             <input type="hidden" id="profileId"/>
             <input type="hidden" id="profileLastUpdated"/>
@@ -529,14 +482,14 @@ and open the template in the editor .
             </div>
             <p id="profileAboutMe">This is the about me section.</p>
         </div>
-        <div id="profileSkillsWrapper" class="profileSection">
+        <!--div id="profileSkillsWrapper" class="profileSection">
             <div class="profileSectionTitleBar">
                 <h2>My Skills and Knowledge</h2>
                 <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
             </div>
             <ul id="profileSkillsList">
             </ul>
-        </div>
+        </div-->
     </section>
 </main>
 <?php include 'inc/footer.php';?>

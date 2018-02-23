@@ -903,7 +903,7 @@ and open the template in the editor .
                                                 </strong>
                                             </label>
                                             <div>
-                                                <input class="form-control full-width" type="datetime-local" name="createJobPoster_openDate" id="createJobPoster_openDate"/>
+                                                <input class="form-control full-width" type="date" name="createJobPoster_openDate" id="createJobPoster_openDate"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -914,7 +914,7 @@ and open the template in the editor .
                                                 </strong>
                                             </label>
                                             <div>
-                                                <input class="form-control full-width" type="datetime-local" name="createJobPoster_closeDate" id="createJobPoster_closeDate"/>
+                                                <input class="form-control full-width" type="date" name="createJobPoster_closeDate" id="createJobPoster_closeDate"/>
                                             </div>
                                         </div>
                                         <div class="form-group">

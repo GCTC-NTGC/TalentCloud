@@ -45,7 +45,7 @@
                                 <img class="tc-logo" src="/images/talentcloudHomepage.png" width="229" alt="GC Talent Cloud logo"/>
                             </a>
                         </div>
-                        <div class="h1 col-xs-12 col-sm-7 col-md-6 logo-tagline">People have a right to <br/>meaningful work.</div>
+                        <div class="h1 col-xs-12 col-sm-7 col-md-6 logo-tagline">People want meaningful work.</div>
                     </div>
                 </div>
             </div>
