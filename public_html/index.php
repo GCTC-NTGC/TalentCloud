@@ -463,7 +463,7 @@ and open the template in the editor .
                 No jobs found
             </div>
             <div id="loadingJobs" class="hidden">
-                <img src="/images/working.gif" alt="Loading jobs"/>
+                <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
                 <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
@@ -483,7 +483,7 @@ and open the template in the editor .
     <section class="pageContent hidden" id="viewJobPosterSection">
         <section id="jobPosterHeaderSection">
             <div class="container">
-                <h3 id="jobPosterTitle"></h3>
+                <h2 id="jobPosterTitle"></h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
@@ -514,31 +514,31 @@ and open the template in the editor .
         </section>
         <section>
             <div class="container">
-                <p id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</p>
+                <h3 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h3>
                 <p id="jobPosterImpact"></p>
             </div>
         </section>
         <section>
             <div class="container">
-                <p id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</p>
+                <h3 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h3>
                 <ul id="jobPosterKeyTasks"></ul>
             </div>
         </section>
         <section>
             <div class="container">
-                <p id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</p>
+                <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
                 <ul id="jobPosterCoreCompetencies"></ul>
             </div>
         </section>
         <section>
             <div class="container">
-               <p id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</p>
+               <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
                 <ul id="jobPosterDevelopingCompetencies"></ul>
             </div>
         </section>
         <section>
             <div class="container">
-                <p id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</p>
+                <h3 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h3>
                 <ul id="jobPosterOtherRequirements"></ul>
             </div>
         </section>
