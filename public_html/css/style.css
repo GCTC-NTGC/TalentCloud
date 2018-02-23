@@ -60,7 +60,7 @@ nav{
 
 .pageBanner {
     background:rgba(0,0,0,0.7);
-    height:30rem;
+    min-height: 10rem;
     width:100%;
     overflow:auto;
     color: #FFFFFF;
@@ -156,6 +156,7 @@ nav{
 
 .logo-container{
     width: 100%;
+    height: 30rem;
     z-index: 1;
 }
 

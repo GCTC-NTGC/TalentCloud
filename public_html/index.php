@@ -502,6 +502,7 @@ and open the template in the editor .
     <section class="pageContent hidden" id="viewJobPosterSection">
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
+                <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
                 <h2 id="jobPosterTitle"></h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
