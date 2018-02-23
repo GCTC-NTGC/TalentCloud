@@ -70,7 +70,7 @@ nav{
     background-color: white;
     width:100%;
     min-height: 200px;
-    overflow:auto;
+    overflow:visible;
     padding-bottom: 10em;
 }
 
@@ -670,6 +670,10 @@ nav{
 }
 
 /* APPLICANT PROFILE */ 
+
+#profileBannerFiller {
+    height:11.5em;
+}
 
 #profileBasicInfo {
     text-align: center;
