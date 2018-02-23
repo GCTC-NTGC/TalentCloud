@@ -36,7 +36,7 @@ DepartmentAPI.loadFromJSON = function(data) {
 
 DepartmentAPI.filterCreateJobPosterDepartments = function(firstLoad){
     var departmentList = document.getElementById("createJobPoster_listOfDepartments");
-    departmentList.innerHTML = "";
+    Utilities.clearSelectOptions(departmentList);
     
     //Grab current text
     var departmentSearchBox="";

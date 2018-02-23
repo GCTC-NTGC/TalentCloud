@@ -31,7 +31,7 @@ class UserController{
      */
     public static function getUserByCredentials($username, $password) {
         $authUser = UserDAO::getUserByCredentials($username, $password);
-        //$authUser->setPassword($password);
+        $authUser->setPassword($password);
         return $authUser;
     }
     

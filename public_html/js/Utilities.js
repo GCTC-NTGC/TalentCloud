@@ -265,4 +265,8 @@ Utilities.clearSelectOptions = function(selectElement)
     {
         selectElement.remove(i);
     }
+    var blankSelect = document.createElement("option");
+    blankSelect.value="";
+    blankSelect.innerHTML = "--";
+    selectElement.appendChild(blankSelect);
 };
