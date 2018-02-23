@@ -9,7 +9,7 @@ body{
     font-size:100% !important;
     height:100% !important;
     color: #333 !important;
-    width: auto !important;
+    width: 100% !important;
     /*max-width:1200px !important;*/
     margin:0px auto !important;
     
@@ -17,6 +17,7 @@ body{
     background-position: center -350px; 
     background-repeat: no-repeat;
     background-size: auto;
+    position:absolute;
 }
 
 main{
@@ -49,6 +50,10 @@ nav{
 
 /* CONTAINERS / OVERLAYS */
 
+#overlays{
+    position:relative;
+}
+
 .contentContainer{
     background-color: white;
 }
@@ -70,24 +75,24 @@ nav{
     height:100%;
     z-index:1001;
     background-color: rgba(255,255,255,0.90);
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
 }
 
 .dialogThreeQuarterWrapperWindow {
-    width:75%;
-    min-width:350px;
-    margin:0px auto;
-    position:relative;
-    top:50%;
-    transform: translateY(-50%);
+    width: 75%;
+    min-width: 350px;
+    margin: 0px auto;
+    position: absolute;
+    top: 50%;
+        transform: translate(-50%, -50%);
     text-align: left;
-    background-color:#fff;
+    background-color: #fff;
     border: 1px solid #999;
     border-radius: 5px;
     box-shadow: 3px 3px 6px #999;
-    position:relative;
+    left: 50%;
 }
 
 .dialogHalfWidthWrapperWindow {
@@ -150,7 +155,7 @@ nav{
     line-height: 1.35;
     position: absolute;
     right: -1em;
-    top: 6em;
+    top: 7em;
 }
 
 .tc-logo{
@@ -704,7 +709,7 @@ nav{
 #profileSocialMediaLinks {
     list-style-type: none;
     float: right;
-    margin-top: 3em;
+    margin-top: 0em;
 }
 
 #profileSocialMediaLinks li{
@@ -723,12 +728,12 @@ nav{
 
 #profileBasicInfoEdit {
     float: left;
-    margin-top: 7em;
 }
 
 #profileName {
     margin-top: .25em;
     font-size:3.5em;
+    font-weight:700;
 }
 
 .profileSection {
@@ -840,6 +845,7 @@ nav{
 }
 form label{
     font-size: 16px;
+    line-height:20px;
 }
 input[type=text],input[type=password],select{
     padding:0.5em;
@@ -984,6 +990,7 @@ main .btn-default {
 .form-icon {
     width: 1em;
     height: 1em;
+    vertical-align: top;
 }
 
 
@@ -1096,8 +1103,14 @@ div label span{
     right:0.5em;
 }
 
-.jobPosterFavouriteImg,.editImage{
+.jobPosterFavouriteImg{
     width:1.5em;
+}
+
+.editImage{
+    width:3.5em;
+    border-radius: 50%;
+    background-color: #fff;
 }
 
 .editImageWrapper{

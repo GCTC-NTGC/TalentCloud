@@ -380,10 +380,10 @@ UserAPI.loaded = function (response) {
             var jobPostersLink = document.getElementById("jobPostersLink");
             jobPostersLink.classList.remove("hidden");
 
-            var teamsLinkListItem = document.getElementById("teamsLinkListItem");
+            /*var teamsLinkListItem = document.getElementById("teamsLinkListItem");
             teamsLinkListItem.setAttribute("aria-hidden", "false");
             var teamsLink = document.getElementById("teamsLink");
-            teamsLink.classList.remove("hidden");
+            teamsLink.classList.remove("hidden");*/
             
 
         }
