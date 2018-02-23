@@ -1,7 +1,7 @@
 <?php
 $url = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
     if ($url == '/admin/') {
-        $portal = 'Manager (Admin) Portal';
+        $portal = 'Admin Portal';
     } else {
         $portal = 'Applicant Portal';
     }

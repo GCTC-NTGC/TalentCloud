@@ -22,10 +22,9 @@
                         <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this)">Job Posters</a>
                         </li>
-                        <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
+                        <!--li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>
-                        </li>
-                        
+                        </li-->
                         <li class="top-nav--link">
                             <div id="register">
                                 <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
@@ -38,7 +37,6 @@
                         </li>    
                         <li class="top-nav--link">
                             <div id="loggedIn" class="hidden">
-                                <span id="loggedInUser">Hi <span id="user_fname"></span>!</span>
                                 <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
                             </div>
                         </li>        
