@@ -425,53 +425,67 @@ and open the template in the editor .
         </div>
     </section>
     
-    <section class="pageContent" id="viewJobPosterSection">
+    <section class="pageContent hidden" id="viewJobPosterSection">
         <section id="jobPosterHeaderSection">
-            <h3 id="jobPosterTitle"></h3>
-            <p id="jobPosterLocation">
-                <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
-            </p>
-            <p id="jobPosterId">#<span id="jobPosterIdValue"></span></p>
-            <input id="jobPosterJobId" type="hidden"/>
+            <div class="container">
+                <h3 id="jobPosterTitle"></h3>
+                <p id="jobPosterLocation">
+                    <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
+                </p>
+                <p id="jobPosterId">#<span id="jobPosterIdValue"></span></p>
+                <input id="jobPosterJobId" type="hidden"/>
+            </div>
         </section>
         <section id="jobPosterDatapointsSection">
-            <ul>
-                <li>
-                    <p id="jobPosterSalaryRange">
-                        <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
-                    </p>
-                </li>
-                <li>
-                    <p id="jobPosterTerm">
-                        <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
-                    </p>
-                </li>
-                <li>
-                    <p id="jobPosterJobLevel">
-                        <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
-                    </p>
-                </li>
-            </ul>
+            <div class="container">
+                <ul>
+                    <li>
+                        <p id="jobPosterSalaryRange">
+                            <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
+                        </p>
+                    </li>
+                    <li>
+                        <p id="jobPosterTerm">
+                            <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
+                        </p>
+                    </li>
+                    <li>
+                        <p id="jobPosterJobLevel">
+                            <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
         </section>
         <section>
-            <p id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</p>
-            <p id="jobPosterImpact"></p>
+            <div class="container">
+                <p id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</p>
+                <p id="jobPosterImpact"></p>
+            </div>
         </section>
         <section>
-            <p id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</p>
-            <ul id="jobPosterKeyTasks"></ul>
+            <div class="container">
+                <p id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</p>
+                <ul id="jobPosterKeyTasks"></ul>
+            </div>
         </section>
         <section>
-            <p id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</p>
-            <ul id="jobPosterCoreCompetencies"></ul>
+            <div class="container">
+                <p id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</p>
+                <ul id="jobPosterCoreCompetencies"></ul>
+            </div>
         </section>
         <section>
-            <p id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</p>
-            <ul id="jobPosterDevelopingCompetencies"></ul>
+            <div class="container">
+               <p id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</p>
+                <ul id="jobPosterDevelopingCompetencies"></ul>
+            </div>
         </section>
         <section>
-            <p id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</p>
-            <ul id="jobPosterOtherRequirements"></ul>
+            <div class="container">
+                <p id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</p>
+                <ul id="jobPosterOtherRequirements"></ul>
+            </div>
         </section>
         
         <div id="jobPosterButtonWrapper">

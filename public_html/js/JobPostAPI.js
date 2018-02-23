@@ -408,6 +408,9 @@ JobPostAPI.populateJobPoster = function(jobData){
     //TODO: add more
    
     //Header
+    if (jobData.title === "") {
+        jobData.title = "No Title";
+    }
     document.getElementById("jobPosterTitle").innerHTML = jobData.title;
     document.getElementById("jobPosterDepartment").innerHTML = jobData.department;
     document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
