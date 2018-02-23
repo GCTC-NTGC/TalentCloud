@@ -71,6 +71,7 @@ nav{
     width:100%;
     min-height: 200px;
     overflow:auto;
+    padding-bottom: 10em;
 }
 
 .formButtonWrapper{
