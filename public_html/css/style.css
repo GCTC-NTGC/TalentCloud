@@ -676,13 +676,13 @@ nav{
 /* APPLICANT PROFILE */ 
 
 #profileBannerFiller {
-    height:11.5em;
+    height:18em;
 }
 
 #profileBasicInfo {
     text-align: center;
     position: relative;
-    bottom:11.5em;
+    bottom:13.5em;
 }
 
 #profileBasicInfoTopBar {
