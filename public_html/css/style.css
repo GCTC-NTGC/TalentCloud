@@ -14,22 +14,15 @@ body{
     margin:0px auto !important;
     
     background-image: url('/images/backgrounds/background.jpg');
-    background-position: center -450px; 
+    background-position: center -350px; 
     background-repeat: no-repeat;
     background-size: auto;
 }
 
 main{
    background-color: #fff;
-   height: 100vh;
-   margin-top: 30rem;
-   position: absolute;
-   top:0;
-   bottom:0;
-   left:0;
-   right:0;
-   /*overflow:hidden;*/
-   /*padding-top: 1em;*/
+   margin-top: -1rem;
+   padding-bottom: 10rem;
 }
 
 header{
@@ -63,7 +56,7 @@ nav{
 .pageContent{
     margin: 0 auto;
     width: 90%;
-    margin-top: 11em;
+    margin-top: 1em;
 }
 
 .formButtonWrapper{
@@ -147,28 +140,26 @@ nav{
 /* TALENT CLOUD LOGO */
 
 .logo-container{
-    position: absolute;
     width: 100%;
     z-index: 1;
 }
 
-.circle {
-    width: 200px;
-    height: 200px;
-    background: #000;
-    -moz-border-radius: 100px;
-    -webkit-border-radius: 100px;
-    border: 3px solid #000;
-    border-radius: 100px;
-    position:absolute;
-    top:12em;
-    left:1em;
-    right:0;
-    margin: 0 auto;
+.logo-tagline{
+    font-family: "HKGrotesk", sans-serif;
+    font-size:3.75em !important;
+    line-height: 1.35;
+    position: absolute;
+    right: -1em;
+    top: 6em;
 }
 
 .tc-logo{
-    margin-top:6em;
+    width: 229px;
+    position:absolute;
+    top:11em;
+    left:-15em;
+    right:0;
+    margin: 0 auto;
 }
 
 /* UTILITY */
@@ -189,6 +180,7 @@ nav{
     
 .transparent{
     background:rgba(0,0,0,0.7);
+    height: 36em;
 }
 
 .hidden{
@@ -447,11 +439,11 @@ nav{
 }
 
 #browseJobsSection{
-    margin-top: 7em;
+    padding-top: 7em;
 }
 
 #createJobPosterSection{
-    margin-top: 7em;
+    padding-top: 7em;
 }
 
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
@@ -1163,4 +1155,9 @@ div label span{
 
 .validationMessage{
     color:#ff0000;
+}
+
+footer{
+    clear:left;
+    width: 100%;
 }

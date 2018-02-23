@@ -2,9 +2,6 @@
     <div class="topbar transparent" id="site--topbar">
         <h2>Topics menu</h2>
         <div class="row">
-            <div id="logo" class="logo-container">
-                <a href="/" role="img" class="circle" aria-label="GC Talent Cloud"><img class="tc-logo" src="/images/talentcloud_logo_white.png" width="200" alt="GC Talent Cloud logo"/></a>
-            </div>
             <div class="nav-container">
                 <ul class="navbar-right" role="menubar">
                     <!--<li class="top-nav--link active" aria-hidden="false" id="homeLink">
@@ -39,6 +36,25 @@
                     </li>        
                 </ul>
             </div>
+            <div class="logo-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="page-banner--tag-line--logo-container col-xs-12 col-sm-3 logo-container">
+                            <a href="/" role="img" aria-label="GC Talent Cloud">
+                                <img class="tc-logo" src="/images/talentcloudHomepage.png" width="229" alt="GC Talent Cloud logo"/>
+                            </a>
+                        </div>
+                        <div class="h1 col-xs-12 col-sm-7 col-md-6 logo-tagline">People have a right to <br/>meaningful work.</div>
+                    </div>
+                </div>
+            </div>
+            <!--div id="logo" class="logo-container">
+                <a href="/" role="img" aria-label="GC Talent Cloud">
+                    <img class="tc-logo" src="/images/talentcloudHomepage.png" width="259" alt="GC Talent Cloud logo"/>
+                </a>
+                <div class="h1 col-xs-12 col-sm-7 col-md-6">People have a right to meaningful work.</div>
+            </div-->
+            
         </div>
     </div>
 </nav>
