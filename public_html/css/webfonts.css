@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 22, 2018, 3:59:47 PM
+    Author     : GBowden
+*/
+
+@font-face {
+  font-family: 'HKGrotesk';
+  src: url('/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.eot'); /* IE9 Compt fix */
+  src: local('☺'), 
+        url('/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.woff2') format('woff2'),
+        url('/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.woff') format('woff'), 
+        url('/webfonts/hk-grotesk/TTF/HKGrotesk-Regular.ttf') format('truetype');
+}
