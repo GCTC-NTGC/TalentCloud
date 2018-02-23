@@ -474,7 +474,10 @@ and open the template in the editor .
     </section>
     
     <section class="pageContent" id="browseJobsSection">
-        <div id="jobs">
+        <div class="pageBanner">
+            <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+        </div>
+        <div id="jobs" class="pageBody">
             <div id="noJobs" class="hidden">
                 No jobs found
             </div>
@@ -482,7 +485,7 @@ and open the template in the editor .
                 <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
-                <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+                
             
             </div>
             

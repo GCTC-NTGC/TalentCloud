@@ -150,7 +150,7 @@ JobPostAPI.populateJobs = function(jobPosts){
     browseJobsSection.classList.remove("hidden");
     
     //Remove previously shown jobs
-    while (jobsDiv.lastChild.id !== 'browseTitle') {
+    while (jobsDiv.lastChild) {
         jobsDiv.removeChild(jobsDiv.lastChild);
     }
     

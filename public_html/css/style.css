@@ -50,17 +50,21 @@ nav{
 .pageContent{
     margin: 0 auto;
     width: 100%;
+    overflow:auto;
 }
 
 .pageBanner {
     background:rgba(0,0,0,0.7);
-    height:30em;
+    height:30rem;
     width:100%;
+    overflow:auto;
+    color: #FFFFFF;
 }
 
 .pageBody {
     background-color: white;
     width:100%;
+    overflow:auto;
 }
 
 .formButtonWrapper{
@@ -424,12 +428,6 @@ nav{
     color:#999;
     text-align: center;
     font-size: 1.5em;
-}
-
-#jobs{
-    margin-top:1em;
-    padding:0 1em;
-    height:100%;
 }
 
 .jobCount{
