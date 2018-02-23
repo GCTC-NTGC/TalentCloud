@@ -62,6 +62,9 @@ JobPostAPI.showBrowseJobs = function() {
     var browseJobsSection = document.getElementById('browseJobsSection');
     browseJobsSection.classList.remove('hidden');
     
+    var loadingJobs = document.getElementById("loadingJobs");
+    loadingJobs.classList.remove("hidden");
+    
     var locale = TalentCloudAPI.getLanguageFromCookie();
     DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
 }
@@ -140,11 +143,13 @@ JobPostAPI.populateJobObject = function(JSONJob){
 JobPostAPI.populateJobs = function(jobPosts){
     Utilities.debug?console.log("populating jobs"):null;
     var jobsDiv = document.getElementById("jobList");
+    var noJobs = document.getElementById("noJobs");
+    var loadingJobs = document.getElementById("loadingJobs");
+    
     var browseJobsSection = document.getElementById("browseJobsSection");
     browseJobsSection.classList.remove("hidden");
-    //jobsDiv.innerHTML = "";
     
-    
+    //Remove previously shown jobs
     while (jobsDiv.lastChild.id !== 'browseTitle') {
         jobsDiv.removeChild(jobsDiv.lastChild);
     }
@@ -154,30 +159,16 @@ JobPostAPI.populateJobs = function(jobPosts){
         jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false));
     }
     
-    jobsDiv.classList.remove("hidden");
-
-    //hide no contacts div
+    loadingJobs.classList.add("hidden");
     if(jobPosts.length > 0){
-        var noJobs = document.getElementById("noJobs");
-        noJobs.classList.remove("visible");
+        jobsDiv.classList.remove("hidden");
         noJobs.classList.add("hidden");
+    } else {
+        jobsDiv.classList.add("hidden");
+        noJobs.classList.remove("hidden");
     }
-    
-    /*var addedCards = contactsDiv.getElementsByClassName('contactCardHighlighted');
-    for(var cards = 0; cards < addedCards.length; cards++){
-        var addedCard = addedCards[cards];
-        addedCard.classList.remove("hidden");
-    }*/
-    
-    //hide overlay
-    /*var loadingJobs = document.getElementById("loadingJobs");
-        
-    if(loadingJobs.classList.contains("visible")){
-        loadingJobs.classList.remove("visible");
-        loadingJobs.classList.add("hidden");
-    }*/
-    EventsAPI.hideBodyOverflow(false);
-    
+   
+    EventsAPI.hideBodyOverflow(false); 
 };
 
 /** SHORT JOB DESCRIPTIONS (BROWSE JOBS AREA)
@@ -386,7 +377,7 @@ JobPostAPI.viewJobPoster = function(jobId){
          
     DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId);
     
-    TalentCloudAPI.hideLogo();
+    //TalentCloudAPI.hideLogo();
     
 };
 
