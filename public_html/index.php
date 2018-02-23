@@ -299,161 +299,177 @@ and open the template in the editor .
 </div>
 
 <!-- BEGIN - Main Content Section-->
-<main class="contentContainer">
+<main>
     <section class="pageContent" id="homePageContentSection">
-        <div class="container" id="homePageContent">
-            <section class="section homepage--intro">
-                <div class="container">
-
-                    <p class="lead"><a id="mission"></a>The Government of Canada must embrace new methods and tools to improve how it designs, builds,
-                        and delivers services.</p>
-                    <p class="text">The Canadian Digital Service (CDS) is bringing together the skills and expertise needed to
-                        accelerate this change.</p>
-                </div>
-            </section>
-            <section class="section page-what-we-do">
-                <h2 class="section--title">What We Do</h2>
-                <p class="lead">
-                        The Canadian Digital Service is focused first and foremost on delivery: building simple, easy to use services directly with federal departments. We learn by doing, and we use this experience to keep our work firmly grounded in practical experience. 
-                </p>
-
-                <p>
-                        Inspired by digital initiatives around the world, we are bringing together digital talent and external and government partners to:
-                </p>
-
-                <ul class="icon-list">
-
-                        <li class="item">
-                                <span class="item-icon"><i class="fa fa-code"></i></span>
-                                <span class="item-text">
-                                        <h3>Deliver solutions</h3>
-                                        <p>We work with federal organizations to design, prototype, and build better digital services. We focus on solving problems using design, agile methods, and proven technologies that put the user at the centre of our work. We take successful digital solutions and help replicate them across government. </p>
-                                </span>
-                        </li>
-
-                        <li class="item">
-                                <span class="item-icon"><i class="fa fa-users"></i></span>
-                                <span class="item-text">
-                                        <h3>Build capacity</h3>
-                                        <p>We invest in recruitment, learning, and communities of practice to help departments and public servants amplify their skills in areas like user research, design, and data science. </p>
-                                </span>
-                        </li>
-
-                        <li class="item">
-                                <span class="item-icon"><i class="fa fa-comments-o"></i></span>
-                                <span class="item-text">
-                                        <h3>Provide advice</h3>
-                                        <p>We provide advice to federal organizations grounded in practical experience and global best practices.</p>
-                                </span>
-                        </li>
-                </ul>
-
-                <p>We work in the open, sharing what we learn to help make a bigger impact. Housed at the Treasury Board Secretariat, we benefit from line of sight across government and close proximity to the policies and standards needed to drive and scale this transformation.</p>
-
-                <h2><a name="partnering"></a>Interested in partnering with us?</h2>
-
-                <p>We focus on improving services to the public and, in particular, advancing services that have a big impact (e.g., used by many people). We are on the lookout for opportunities to get involved at the front end of a problem. When we partner, we will work with you and your service users  on discovery and design, before determining the best way to get the right digital solution in place (e.g. buy, build, hybrid).</p>
-
-                <p>To ensure the work we do will measurably improve services, we assess potential projects against the following criteria with departments, which we call the “Three Rs” (Readiness, Reach, and Replicability):</p>
-
-                <h3>Readiness</h3>
-
-                <p>Is there:</p>
-
-                <ul>
-
-                        <li>a clearly defined problem?</li>
-                        <li>an empowered service owner with a clear path to deploy a solution?</li>
-                        <li>a commitment to adopt user-centric, open, and agile techniques?</li>
-                        <li>flexibility concerning the technology solution?</li>
-                        <li>broader organizational awareness and support?</li>
-
-                </ul>
-
-                <h3>Reach</h3>
-
-                <p>What is the:</p>
-
-                <ul>
-
-                        <li>nature of the target audience? (e.g. veterans, citizenship applicants)</li>
-                        <li>number of potential service users?</li>
-                        <li>nature and scope of the service impact on the user? (e.g., saving time, saving money, improving health)</li>
-
-                </ul>
-
-                <h3>Replicability</h3>
-
-                <p>Can we:</p>
-
-                <ul>
-
-                        <li>scale the solution to other users, within the organization, across government or with other partners?</li>
-                        <li>package up the solution and share it for others to use?</li>
-                        <li>leverage this project to unlock a barrier to service transformation?</li>
-
-                </ul>
-
-                <p>We want to help you build the best, so we take into account our current expertise and availability when we assess an opportunity; when it makes sense, we may bring other partners with complementary skills and tools to the table to help. Where a solution already exists or another partner may be a better fit, we will help connect you with the broader #GCDigital community or to outside partners.</p>
-
-                <p>Interested in chatting about a potential partnership? <a href="/contact/">Contact us!</a></p>
-
-            </section>
-            <section class="section section--featured-video">
-                <div class="container video-container">
-
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <video width="640" height="360" controls>
-                            <source src="videos/1479932728445-v0ch3x.mp4" type="video/mp4">
-                            Your browser does not support the <code>video</code> tag.
-                        </video>
-                    </div>
-
-                    <div>
-                        <a href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
-                    </div>
-
-                    <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
-                        <header class="modal-header">
-                            <h2 class="modal-title">Transcript</h2>
-                        </header>
-                        <div class="modal-body">
-                            <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
-
-                            <p>We're about making it faster, simpler, and easier, to access government services online.</p>
-
-                            <p>We are bringing together top talent from inside and outside of government that includes developers, designers, data scientists and user experience researchers. We're partnering with departments to solve problems, in order to make services better.</p>
-
-                            <p>We're working in the open, using agile methods and constantly iterating, while relentlessly focusing on user needs.</p>
-
-                            <p>CDS is not about IT. It's about service. User centric government services. It's about recognizing services need to be at the centre of our priorities as a government. Our relevance to citizens is in jeopardy if we can't deliver digital services.</p>
-
-                            <p>We are learning from digital government movements across the globe, and working with the digital community across Canada, to shape a Canadian Digital Service.</p>
-
-                            <p>Together, we can deliver world-class services that are simple and easy to use. It's what Canadians expect. Open. Agile. And focused on delivery. We are the Canadian Digital Service.</p>
-                        </div>
-                    </section>
-
-                </div>
-            </section>
-            <section class="section homepage--our-team">
-                <div class="page-banner--scrim"></div>
-
+        <div class="pageBanner">
+            <div id="logo-container" class="logo-container">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12">
-                            <h2 class="section--title">Our Team</h2>
-
-                            <p>We are a building a team with diverse skills and backgrounds, and we’re recruiting! <a href="/our-team">Learn more<span class="sr-only"> about our team:</span></a> about the designers, developers, UX researchers, policy hackers,
-                                data specialists, and communicators who make up CDS.</p>
-                            <p>
-                                <a href="/our-team" class="button yellow">Meet our team</a>
-                                <a href="/work-with-us" class="button yellow">Join our team</a>
-                            </p>
+                        <div class="page-banner--tag-line--logo-container col-xs-12 col-sm-3 logo-container">
+                            <a href="/" role="img" aria-label="GC Talent Cloud">
+                                <img class="tc-logo" src="/images/talentcloudHomepage.png" width="229" alt="GC Talent Cloud logo"/>
+                            </a>
                         </div>
+                        <div class="h1 col-xs-12 col-sm-7 col-md-6 logo-tagline">People have a right to <br/>meaningful work.</div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+        <div class="pageBody" id="homePageContent">
+            <div class="contentContainer">
+                <section class="section homepage--intro">
+                    <div class="container">
+
+                        <p class="lead"><a id="mission"></a>The Government of Canada must embrace new methods and tools to improve how it designs, builds,
+                            and delivers services.</p>
+                        <p class="text">The Canadian Digital Service (CDS) is bringing together the skills and expertise needed to
+                            accelerate this change.</p>
+                    </div>
+                </section>
+                <section class="section page-what-we-do">
+                    <h2 class="section--title">What We Do</h2>
+                    <p class="lead">
+                            The Canadian Digital Service is focused first and foremost on delivery: building simple, easy to use services directly with federal departments. We learn by doing, and we use this experience to keep our work firmly grounded in practical experience. 
+                    </p>
+
+                    <p>
+                            Inspired by digital initiatives around the world, we are bringing together digital talent and external and government partners to:
+                    </p>
+
+                    <ul class="icon-list">
+
+                            <li class="item">
+                                    <span class="item-icon"><i class="fa fa-code"></i></span>
+                                    <span class="item-text">
+                                            <h3>Deliver solutions</h3>
+                                            <p>We work with federal organizations to design, prototype, and build better digital services. We focus on solving problems using design, agile methods, and proven technologies that put the user at the centre of our work. We take successful digital solutions and help replicate them across government. </p>
+                                    </span>
+                            </li>
+
+                            <li class="item">
+                                    <span class="item-icon"><i class="fa fa-users"></i></span>
+                                    <span class="item-text">
+                                            <h3>Build capacity</h3>
+                                            <p>We invest in recruitment, learning, and communities of practice to help departments and public servants amplify their skills in areas like user research, design, and data science. </p>
+                                    </span>
+                            </li>
+
+                            <li class="item">
+                                    <span class="item-icon"><i class="fa fa-comments-o"></i></span>
+                                    <span class="item-text">
+                                            <h3>Provide advice</h3>
+                                            <p>We provide advice to federal organizations grounded in practical experience and global best practices.</p>
+                                    </span>
+                            </li>
+                    </ul>
+
+                    <p>We work in the open, sharing what we learn to help make a bigger impact. Housed at the Treasury Board Secretariat, we benefit from line of sight across government and close proximity to the policies and standards needed to drive and scale this transformation.</p>
+
+                    <h2><a name="partnering"></a>Interested in partnering with us?</h2>
+
+                    <p>We focus on improving services to the public and, in particular, advancing services that have a big impact (e.g., used by many people). We are on the lookout for opportunities to get involved at the front end of a problem. When we partner, we will work with you and your service users  on discovery and design, before determining the best way to get the right digital solution in place (e.g. buy, build, hybrid).</p>
+
+                    <p>To ensure the work we do will measurably improve services, we assess potential projects against the following criteria with departments, which we call the “Three Rs” (Readiness, Reach, and Replicability):</p>
+
+                    <h3>Readiness</h3>
+
+                    <p>Is there:</p>
+
+                    <ul>
+
+                            <li>a clearly defined problem?</li>
+                            <li>an empowered service owner with a clear path to deploy a solution?</li>
+                            <li>a commitment to adopt user-centric, open, and agile techniques?</li>
+                            <li>flexibility concerning the technology solution?</li>
+                            <li>broader organizational awareness and support?</li>
+
+                    </ul>
+
+                    <h3>Reach</h3>
+
+                    <p>What is the:</p>
+
+                    <ul>
+
+                            <li>nature of the target audience? (e.g. veterans, citizenship applicants)</li>
+                            <li>number of potential service users?</li>
+                            <li>nature and scope of the service impact on the user? (e.g., saving time, saving money, improving health)</li>
+
+                    </ul>
+
+                    <h3>Replicability</h3>
+
+                    <p>Can we:</p>
+
+                    <ul>
+
+                            <li>scale the solution to other users, within the organization, across government or with other partners?</li>
+                            <li>package up the solution and share it for others to use?</li>
+                            <li>leverage this project to unlock a barrier to service transformation?</li>
+
+                    </ul>
+
+                    <p>We want to help you build the best, so we take into account our current expertise and availability when we assess an opportunity; when it makes sense, we may bring other partners with complementary skills and tools to the table to help. Where a solution already exists or another partner may be a better fit, we will help connect you with the broader #GCDigital community or to outside partners.</p>
+
+                    <p>Interested in chatting about a potential partnership? <a href="/contact/">Contact us!</a></p>
+
+                </section>
+                <section class="section section--featured-video">
+                    <div class="container video-container">
+
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <video width="640" height="360" controls>
+                                <source src="videos/1479932728445-v0ch3x.mp4" type="video/mp4">
+                                Your browser does not support the <code>video</code> tag.
+                            </video>
+                        </div>
+
+                        <div>
+                            <a href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
+                        </div>
+
+                        <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
+                            <header class="modal-header">
+                                <h2 class="modal-title">Transcript</h2>
+                            </header>
+                            <div class="modal-body">
+                                <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
+
+                                <p>We're about making it faster, simpler, and easier, to access government services online.</p>
+
+                                <p>We are bringing together top talent from inside and outside of government that includes developers, designers, data scientists and user experience researchers. We're partnering with departments to solve problems, in order to make services better.</p>
+
+                                <p>We're working in the open, using agile methods and constantly iterating, while relentlessly focusing on user needs.</p>
+
+                                <p>CDS is not about IT. It's about service. User centric government services. It's about recognizing services need to be at the centre of our priorities as a government. Our relevance to citizens is in jeopardy if we can't deliver digital services.</p>
+
+                                <p>We are learning from digital government movements across the globe, and working with the digital community across Canada, to shape a Canadian Digital Service.</p>
+
+                                <p>Together, we can deliver world-class services that are simple and easy to use. It's what Canadians expect. Open. Agile. And focused on delivery. We are the Canadian Digital Service.</p>
+                            </div>
+                        </section>
+
+                    </div>
+                </section>
+                <section class="section homepage--our-team">
+                    <div class="page-banner--scrim"></div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2 class="section--title">Our Team</h2>
+
+                                <p>We are a building a team with diverse skills and backgrounds, and we’re recruiting! <a href="/our-team">Learn more<span class="sr-only"> about our team:</span></a> about the designers, developers, UX researchers, policy hackers,
+                                    data specialists, and communicators who make up CDS.</p>
+                                <p>
+                                    <a href="/our-team" class="button yellow">Meet our team</a>
+                                    <a href="/work-with-us" class="button yellow">Join our team</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </section>
     
