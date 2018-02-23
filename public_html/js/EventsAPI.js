@@ -95,13 +95,3 @@ EventsAPI.setFormFocus = function(fieldId){
     var fieldToFocus = document.getElementById(fieldId);
     fieldToFocus.focus();
 };
-
-EventsAPI.clearJobsContainer = function(){
-    var containers = ['noJobs','loadingJobs','jobList','viewJobPosterApplicationOverlay','jobPosterApplication'];
-    for(var c = 0; c < containers.length; c++){
-        var container = document.getElementById(containers[c]);
-        if(!container.classList.contains('hidden')){
-            container.classList.add('hidden');
-        }
-    }
-};
