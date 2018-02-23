@@ -1,7 +1,7 @@
 /* TOP LEVEL */
 
 html{
-    min-height:100%;/* make sure it is at least as tall as the viewport */
+    height:100%;/* make sure it is at least as tall as the viewport */
     position:relative;
 }
 
@@ -20,13 +20,17 @@ body{
 }
 
 main{
-   padding-bottom: 10rem;
 }
 
 header{
     /*max-width: 1200px;*/
     margin: 0px auto;
     /*padding: 2em !important;*/
+}
+
+footer{
+    clear:left;
+    width: 100%;
 }
 
 /* NAVIGATION */
@@ -50,6 +54,7 @@ nav{
 .pageContent{
     margin: 0 auto;
     width: 100%;
+    min-height: 100%;
     overflow:auto;
 }
 
@@ -64,6 +69,7 @@ nav{
 .pageBody {
     background-color: white;
     width:100%;
+    min-height: 200px;
     overflow:auto;
 }
 
@@ -441,6 +447,12 @@ nav{
     overflow:auto;
 }
 
+/* BROWSE JOBS */
+
+#loadingJobs{
+    padding: 3rem;
+}
+
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 
 .jobSummary{
@@ -550,7 +562,7 @@ nav{
 #jobPosterHeaderSection{
     background: none;
     padding: 2em 0 2em 1em;
-    margin-top: -18em;
+    float:bottom;
 }
 
 
@@ -1132,9 +1144,4 @@ div label span{
 
 .validationMessage{
     color:#ff0000;
-}
-
-footer{
-    clear:left;
-    width: 100%;
 }
