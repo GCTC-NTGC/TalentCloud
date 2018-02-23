@@ -418,7 +418,34 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterTermValue").innerHTML = jobData.term_qty + " " + jobData.term_units;
     document.getElementById("jobPosterJobLevelValue").innerHTML = jobData.job_min_level + " ~ " + jobData.job_max_level;
 
+
+    if (jobData.impact === "")
+        jobData.impact = "N/A";
     document.getElementById("jobPosterImpact").innerHTML = jobData.impact;
+    
+    var keyTaskList = document.getElementById("jobPosterKeyTasks");
+    if (jobData.key_tasks.length === 0) {
+        jobData.key_tasks.push("N/A");
+    }
+    JobPostAPI.addItemsToListElement(keyTaskList, jobData.key_tasks, "keyTaskItem");
+    
+    var coreCompetencyList = document.getElementById("jobPosterCoreCompetencies");
+    if (jobData.core_competencies.length === 0) {
+        jobData.core_competencies.push("N/A");
+    }
+    JobPostAPI.addItemsToListElement(coreCompetencyList, jobData.core_competencies, "coreCompetencyItem");
+    
+    var developingCompetencyList = document.getElementById("jobPosterDevelopingCompetencies");
+    if (jobData.developing_competencies.length === 0) {
+        jobData.developing_competencies.push("N/A");
+    }
+    JobPostAPI.addItemsToListElement(developingCompetencyList, jobData.developing_competencies, "developingCompetencyItem");
+    
+    var otherRequirmentList = document.getElementById("jobPosterOtherRequirements");
+    if (jobData.other_requirements.length === 0) {
+        jobData.other_requirements.push("N/A");
+    }
+    JobPostAPI.addItemsToListElement(otherRequirmentList, jobData.other_requirements, "otherRequirmentItem");
         
     var applyNowButton = document.getElementById("jobPosterApplyButton"); 
     if(UserAPI.hasSessionUser()){
@@ -432,6 +459,20 @@ JobPostAPI.populateJobPoster = function(jobData){
     //TODO: fix this when working on jobPoserApplications
     //var jobSeekerProfileId = document.getElementById("profile_id").value;
     //JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
+};
+
+JobPostAPI.addItemsToListElement = function(element, items, itemClassAtribute) {
+    for (var i=0; i<items.length; i++) {
+        var item = document.createElement("li");
+        if (itemClassAtribute)
+            item.setAttribute("class", itemClassAtribute);
+        var p = document.createElement("p");
+        var text = document.createTextNode(items[i]);
+        
+        p.appendChild(text);
+        item.appendChild(p)
+        element.appendChild(item);
+    }
 };
 
 /**

@@ -561,13 +561,6 @@ nav{
     left:0;
 }
 
-#jobPosterHeaderSection{
-    background: none;
-    padding: 2em 0 2em 1em;
-    float:bottom;
-}
-
-
 #jobPosterTitle{
     font-size:5em;
     color: #eee;
