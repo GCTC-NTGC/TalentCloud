@@ -316,17 +316,17 @@ and open the template in the editor .
             </div>
         </div>
         <div class="pageBody" id="homePageContent">
-            <div class="contentContainer">
-                <section class="section homepage--intro">
-                    <div class="container">
+            <section class="section homepage--intro">
+                <div class="container">
 
-                        <p class="lead"><a id="mission"></a>The Government of Canada must embrace new methods and tools to improve how it designs, builds,
-                            and delivers services.</p>
-                        <p class="text">The Canadian Digital Service (CDS) is bringing together the skills and expertise needed to
-                            accelerate this change.</p>
-                    </div>
-                </section>
-                <section class="section page-what-we-do">
+                    <p class="lead"><a id="mission"></a>The Government of Canada must embrace new methods and tools to improve how it designs, builds,
+                        and delivers services.</p>
+                    <p class="text">The Canadian Digital Service (CDS) is bringing together the skills and expertise needed to
+                        accelerate this change.</p>
+                </div>
+            </section>
+            <section class="section page-what-we-do">
+                <div class="container">
                     <h2 class="section--title">What We Do</h2>
                     <p class="lead">
                             The Canadian Digital Service is focused first and foremost on delivery: building simple, easy to use services directly with federal departments. We learn by doing, and we use this experience to keep our work firmly grounded in practical experience. 
@@ -412,64 +412,64 @@ and open the template in the editor .
                     <p>We want to help you build the best, so we take into account our current expertise and availability when we assess an opportunity; when it makes sense, we may bring other partners with complementary skills and tools to the table to help. Where a solution already exists or another partner may be a better fit, we will help connect you with the broader #GCDigital community or to outside partners.</p>
 
                     <p>Interested in chatting about a potential partnership? <a href="/contact/">Contact us!</a></p>
+                </div>
+            </section>
+            <section class="section section--featured-video">
+                <div class="container video-container">
 
-                </section>
-                <section class="section section--featured-video">
-                    <div class="container video-container">
-
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <video width="640" height="360" controls>
-                                <source src="videos/1479932728445-v0ch3x.mp4" type="video/mp4">
-                                Your browser does not support the <code>video</code> tag.
-                            </video>
-                        </div>
-
-                        <div>
-                            <a href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
-                        </div>
-
-                        <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
-                            <header class="modal-header">
-                                <h2 class="modal-title">Transcript</h2>
-                            </header>
-                            <div class="modal-body">
-                                <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
-
-                                <p>We're about making it faster, simpler, and easier, to access government services online.</p>
-
-                                <p>We are bringing together top talent from inside and outside of government that includes developers, designers, data scientists and user experience researchers. We're partnering with departments to solve problems, in order to make services better.</p>
-
-                                <p>We're working in the open, using agile methods and constantly iterating, while relentlessly focusing on user needs.</p>
-
-                                <p>CDS is not about IT. It's about service. User centric government services. It's about recognizing services need to be at the centre of our priorities as a government. Our relevance to citizens is in jeopardy if we can't deliver digital services.</p>
-
-                                <p>We are learning from digital government movements across the globe, and working with the digital community across Canada, to shape a Canadian Digital Service.</p>
-
-                                <p>Together, we can deliver world-class services that are simple and easy to use. It's what Canadians expect. Open. Agile. And focused on delivery. We are the Canadian Digital Service.</p>
-                            </div>
-                        </section>
-
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <video width="640" height="360" controls>
+                            <source src="videos/1479932728445-v0ch3x.mp4" type="video/mp4">
+                            Your browser does not support the <code>video</code> tag.
+                        </video>
                     </div>
-                </section>
-                <section class="section homepage--our-team">
-                    <div class="page-banner--scrim"></div>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="section--title">Our Team</h2>
+                    <div>
+                        <a href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
+                    </div>
 
-                                <p>We are a building a team with diverse skills and backgrounds, and we’re recruiting! <a href="/our-team">Learn more<span class="sr-only"> about our team:</span></a> about the designers, developers, UX researchers, policy hackers,
-                                    data specialists, and communicators who make up CDS.</p>
-                                <p>
-                                    <a href="/our-team" class="button yellow">Meet our team</a>
-                                    <a href="/work-with-us" class="button yellow">Join our team</a>
-                                </p>
-                            </div>
+                    <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
+                        <header class="modal-header">
+                            <h2 class="modal-title">Transcript</h2>
+                        </header>
+                        <div class="modal-body">
+                            <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
+
+                            <p>We're about making it faster, simpler, and easier, to access government services online.</p>
+
+                            <p>We are bringing together top talent from inside and outside of government that includes developers, designers, data scientists and user experience researchers. We're partnering with departments to solve problems, in order to make services better.</p>
+
+                            <p>We're working in the open, using agile methods and constantly iterating, while relentlessly focusing on user needs.</p>
+
+                            <p>CDS is not about IT. It's about service. User centric government services. It's about recognizing services need to be at the centre of our priorities as a government. Our relevance to citizens is in jeopardy if we can't deliver digital services.</p>
+
+                            <p>We are learning from digital government movements across the globe, and working with the digital community across Canada, to shape a Canadian Digital Service.</p>
+
+                            <p>Together, we can deliver world-class services that are simple and easy to use. It's what Canadians expect. Open. Agile. And focused on delivery. We are the Canadian Digital Service.</p>
+                        </div>
+                    </section>
+
+                </div>
+            </section>
+            <section class="section homepage--our-team">
+                <div class="page-banner--scrim"></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="section--title">Our Team</h2>
+
+                            <p>We are a building a team with diverse skills and backgrounds, and we’re recruiting! <a href="/our-team">Learn more<span class="sr-only"> about our team:</span></a> about the designers, developers, UX researchers, policy hackers,
+                                data specialists, and communicators who make up CDS.</p>
+                            <p>
+                                <a href="/our-team" class="button yellow">Meet our team</a>
+                                <a href="/work-with-us" class="button yellow">Join our team</a>
+                            </p>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
+        </div>
         </div>
     </section>
     
