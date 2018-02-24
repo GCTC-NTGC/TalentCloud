@@ -421,8 +421,8 @@ TalentCloudAPI.setContent = function(content, isManager){
             stepThree.innerHTML = content.step3;
         }
         
-        var createEditProfile_title = document.getElementById("createProfileWindowTitle");
-        createEditProfile_title.innerHTML = content.createProfileWindowTitle;
+        //var createEditProfile_title = document.getElementById("createProfileWindowTitle");
+        //createEditProfile_title.innerHTML = content.createProfileWindowTitle;
         
         var createEditProfile_required2 = document.getElementById("createEditProfile_requiredStep2");
         createEditProfile_required2.innerHTML = content.required;
