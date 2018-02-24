@@ -376,9 +376,12 @@ UserAPI.loaded = function (response) {
         if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {
 
             var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
-            jobPostersLinkListItem.setAttribute("aria-hidden", "false");
+            if (jobPostersLinkListItem)
+                jobPostersLinkListItem.setAttribute("aria-hidden", "false");
+            
             var jobPostersLink = document.getElementById("jobPostersLink");
-            jobPostersLink.classList.remove("hidden");
+            if (jobPostersLink)
+                jobPostersLink.classList.remove("hidden");
 
             /*var teamsLinkListItem = document.getElementById("teamsLinkListItem");
             teamsLinkListItem.setAttribute("aria-hidden", "false");
