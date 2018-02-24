@@ -158,28 +158,27 @@ nav{
 
 /* TALENT CLOUD LOGO */
 
-.logo-container{
-    width: 100%;
+.page-banner--logo-container {
     height: 30rem;
     z-index: 1;
 }
 
-.logo-tagline{
+.page-banner--tagline{
     font-family: "HKGrotesk", sans-serif;
-    font-size:3.75em !important;
+    font-size:2rem !important;
     line-height: 1.35;
-    position: absolute;
-    right: -1em;
-    top: 6em;
 }
 
 .tc-logo{
-    width: 229px;
-    position:absolute;
-    top:10em;
-    left:-19em;
-    right:0;
-    margin: 0 auto;
+    width: 500px;  
+    float: right;
+}
+
+.page-banner--logo-tagline-divider{
+    width:3px;
+    height: 12em;
+    background-color: white;
+    margin: 2em;
 }
 
 /* UTILITY */

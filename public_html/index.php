@@ -305,13 +305,14 @@ and open the template in the editor .
         <div class="pageBanner">
             <div id="logo-container" class="logo-container">
                 <div class="container">
-                    <div class="row">
-                        <div class="page-banner--tag-line--logo-container col-xs-12 col-sm-3 logo-container">
+                    <div class="page-banner--logo-container flexContainerVerticallyCentered">
+                        <div class="page-banner--logo flexLeftOfCenter">
                             <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img class="tc-logo" src="/images/talentcloudHomepage.png" width="229" alt="GC Talent Cloud logo"/>
+                                <img class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud logo"/>
                             </a>
                         </div>
-                        <div class="h1 col-xs-12 col-sm-7 col-md-6 logo-tagline">People want meaningful work.</div>
+                        <div class="page-banner--logo-tagline-divider"></div>
+                        <div class="page-banner--tagline flexRightOfCenter">People want meaningful work.</div>
                     </div>
                 </div>
             </div>
