@@ -14,7 +14,7 @@
                     </li>-->
                     <li class="top-nav--link" id="browseLinkListItem">
                         <div id="browse">
-                            <a href="#BrowseJobs" id="browseLink" onclick="DataAPI.getJobs();">Browse Jobs</a>
+                            <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();">Browse Jobs</a>
                         </div>
                     </li>
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
@@ -36,18 +36,6 @@
                         </div>
                     </li>        
                 </ul>
-            </div>
-            <div id="logo-container" class="logo-container">
-                <div class="container">
-                    <div class="row">
-                        <div class="page-banner--tag-line--logo-container col-xs-12 col-sm-3 logo-container">
-                            <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img class="tc-logo" src="/images/talentcloudHomepage.png" width="229" alt="GC Talent Cloud logo"/>
-                            </a>
-                        </div>
-                        <div class="h1 col-xs-12 col-sm-7 col-md-6 logo-tagline">People want meaningful work.</div>
-                    </div>
-                </div>
             </div>
             <!--div id="logo" class="logo-container">
                 <a href="/" role="img" aria-label="GC Talent Cloud">

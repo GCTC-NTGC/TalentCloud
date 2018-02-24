@@ -32,8 +32,7 @@ EventsAPI.onLoadEvents = function(){
             EventsAPI.hideAllLayouts();
             TalentCloudAPI.hideAllContent();
             if(e.state.pageInfo === 'talent_cloud'){
-                //Special case, where admin or manager home page is different than user home page
-                DataAPI.getJobs(locale);
+                //static content for home page
             } else if(e.state.pageInfo === 'talent_cloud_admin'){
                 TalentCloudAPI.loadManager();
                 var jobSeekers = document.getElementById("jobSeekers");
@@ -57,12 +56,14 @@ EventsAPI.onLoadEvents = function(){
             } else if(e.state.pageInfo === 'manager_view_profile'){
                 //var createJobPosterDialog = document.getElementById("viewProfile");
                 //createJobPosterDialog.classList.remove("hidden");
+            } else if(e.state.pageInfo === 'browse_jobs') {
+                JobPostAPI.showBrowseJobs();
             } else if(e.state.pageInfo === 'view_job_poster'){
-                var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
-                viewJobPosterOverlay.classList.remove("hidden");
+                //var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
+                //viewJobPosterOverlay.classList.remove("hidden");
             } else if(e.state.pageInfo === 'view_job_poster_application'){
-                var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
-                viewJobPosterApplicationOverlay.remove("hidden");
+                //var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
+                //viewJobPosterApplicationOverlay.remove("hidden");
             } else if(e.state.pageInfo === 'apply_job_poster'){
                 var viewJobPosterOverlay = document.getElementById("jobPosterApplication"); 
                 viewJobPosterOverlay.classList.remove("hidden");
@@ -93,14 +94,4 @@ EventsAPI.hideBodyOverflow = function(hide){
 EventsAPI.setFormFocus = function(fieldId){
     var fieldToFocus = document.getElementById(fieldId);
     fieldToFocus.focus();
-};
-
-EventsAPI.clearJobsContainer = function(){
-    var containers = ['noJobs','loadingJobs','jobList','viewJobPosterApplicationOverlay','jobPosterApplication'];
-    for(var c = 0; c < containers.length; c++){
-        var container = document.getElementById(containers[c]);
-        if(!container.classList.contains('hidden')){
-            container.classList.add('hidden');
-        }
-    }
 };

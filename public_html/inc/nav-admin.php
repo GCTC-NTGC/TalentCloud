@@ -2,9 +2,6 @@
     <div class="topbar transparent" id="site--topbar">
         <h2>Topics menu</h2>
         <div class="row">
-            <div id="logo" class="logo-container">
-                <a href="/" role="img" class="circle" aria-label="GC Talent Cloud"><img class="tc-logo" src="/images/talentcloud_logo_white.png" width="200" alt="GC Talent Cloud logo"/></a>
-            </div>
             <div class="nav-container nav">
                     <!--<li class="top-nav--link active" aria-hidden="false" id="homeLink">
                         <a href="/">Home</a>

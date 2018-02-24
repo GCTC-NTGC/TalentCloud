@@ -1,7 +1,7 @@
 /* TOP LEVEL */
 
 html{
-    min-height:100%;/* make sure it is at least as tall as the viewport */
+    height:100%;/* make sure it is at least as tall as the viewport */
     position:relative;
 }
 
@@ -21,15 +21,17 @@ body{
 }
 
 main{
-   background-color: #fff;
-   margin-top: -1rem;
-   padding-bottom: 10rem;
 }
 
 header{
     /*max-width: 1200px;*/
     margin: 0px auto;
     /*padding: 2em !important;*/
+}
+
+footer{
+    clear:left;
+    width: 100%;
 }
 
 /* NAVIGATION */
@@ -53,15 +55,26 @@ nav{
 #overlays{
     position:relative;
 }
-
-.contentContainer{
-    background-color: white;
-}
-
 .pageContent{
     margin: 0 auto;
-    width: 90%;
-    margin-top: 1em;
+    width: 100%;
+    min-height: 100%;
+    overflow:auto;
+}
+
+.pageBanner {
+    background:rgba(0,0,0,0.7);
+    min-height: 10rem;
+    width:100%;
+    overflow:auto;
+    color: #FFFFFF;
+}
+
+.pageBody {
+    background-color: white;
+    width:100%;
+    overflow:visible;
+    padding-bottom: 10em;
 }
 
 .formButtonWrapper{
@@ -144,27 +157,27 @@ nav{
 
 /* TALENT CLOUD LOGO */
 
-.logo-container{
-    width: 100%;
+.page-banner--logo-container {
+    height: 30rem;
     z-index: 1;
 }
 
-.logo-tagline{
+.page-banner--tagline{
     font-family: "HKGrotesk", sans-serif;
-    font-size:3.75em !important;
+    font-size:2rem !important;
     line-height: 1.35;
-    position: absolute;
-    right: -1em;
-    top: 7em;
 }
 
 .tc-logo{
-    width: 229px;
-    position:absolute;
-    top:11em;
-    left:-15em;
-    right:0;
-    margin: 0 auto;
+    width: 500px;  
+    float: right;
+}
+
+.page-banner--logo-tagline-divider{
+    width:3px;
+    height: 12em;
+    background-color: white;
+    margin: 2em;
 }
 
 /* UTILITY */
@@ -185,7 +198,6 @@ nav{
     
 .transparent{
     background:rgba(0,0,0,0.7);
-    height: 36em;
 }
 
 .hidden{
@@ -231,7 +243,22 @@ nav{
     clear: both;
 }
 
-/* Begin - Profile Pic display and upload */
+.flexContainerVerticallyCentered {
+    display: flex;
+    align-items: center;
+}
+
+.flexLeftOfCenter {
+    width:50%;
+    float:right;
+}
+
+.flexRightOfCenter {
+    width:50%;
+    float:left;
+}
+
+/* PROFILE PIC AND UPLOAD */
 
 .profilePic{
     width:50px;
@@ -245,6 +272,8 @@ nav{
     border: 3px solid #FFCC33;
     border-radius: 100px;
     margin: auto;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 #profilePicUploadOverlay{
@@ -376,6 +405,8 @@ nav{
     background-color: orange;
 }
 
+/* HOMEPAGE */
+
 /* JOB POSTER APPLICATION */
 
 .jobSeekerProfileOverlay{
@@ -420,16 +451,15 @@ nav{
     display:block;
 }
 
+/*TODO: deal with empty browseJobs page better*/
+#jobs{
+    min-height: 500px;
+}
+
 #noJobs{
     color:#999;
     text-align: center;
     font-size: 1.5em;
-}
-
-#jobs{
-    margin-top:1em;
-    padding:0 1em;
-    height:100%;
 }
 
 .jobCount{
@@ -443,12 +473,10 @@ nav{
     overflow:auto;
 }
 
-#browseJobsSection{
-    padding-top: 7em;
-}
+/* BROWSE JOBS */
 
-#createJobPosterSection{
-    padding-top: 7em;
+#loadingJobs{
+    padding: 3rem;
 }
 
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
@@ -546,6 +574,7 @@ nav{
 }
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
+
 .viewJobPosterOverlay{
     width:100%;
     height:100%;
@@ -556,59 +585,33 @@ nav{
     left:0;
 }
 
-.viewJobPosterApplicationOverlay{
-    
-}
-
-#viewJobPosterSection{
-    width: 100%;
-    margin-top: -12em;
-}
-
-.jobPoster{
-    background: none;
-    width: 100%;
-}
-
-.jobPosterHeaderWrapper{
-    background: none;
-    padding: 2em 0 2em 1em;
-}
-
-.jobPosterTitle{
-    font-size:2.5em;
+#jobPosterTitle{
+    font-size:5em;
     color: #eee;
 }
 
-.jobPosterID{
+#jobPosterLocation{
+    color: #eee;
+    float: left;
+}
+
+#jobPosterId{
     float: right;
     padding-right:2em;
-    font-size: 1em;
     color: #eee;
 }
 
-.jobPosterDepartmentLocation{
-    color: #eee;
-    font-size: 1.5em;
-}
-
-.jobPosterMiddleWrapper{
+#jobPosterDatapointsSection{
     background-color: #777;
     color: #FFF;
     padding: 2em;
 }
 
-
-
-.jobPosterSalaryRange{
+#jobPosterSalaryRange{
 }
 
-.jobPosterApplyButton{
-    /*padding:1em 0 0.5em 0;*/
-    overflow:auto;
-}
-.jobPosterCancelButton{
-    margin-left:1em;
+#jobPosterButtonWrapper {
+    text-align: center;
 }
 
 /* CREATE JOB POSTER */
@@ -649,22 +652,7 @@ nav{
     height: 100%;
 }
 
-.createEditProfileEnglishPane{
-    float: left;
-    width: 45%;
-}
-
-.createEditProfileFrenchPane{
-    float: right;
-    width: 45%;
-    height: 100%;
-}
-
 .createJobPosterSubmitPane{
-    clear: both;
-}
-
-.createEditProfileSubmitPane{
     clear: both;
 }
 
@@ -676,14 +664,6 @@ nav{
     float: right;
 }
 
-.createEditProfileDemoAreaEnglish{
-    float: left;
-}
-
-.createEditProfileDemoAreaFrench{
-    float: right;
-}
-
 .createJobPosterDemoArea{
     min-height: 840px;
     display: inline;
@@ -692,10 +672,14 @@ nav{
 
 /* APPLICANT PROFILE */ 
 
+#profileBannerFiller {
+    height:18em;
+}
+
 #profileBasicInfo {
     text-align: center;
     position: relative;
-    bottom:13.5em;
+    margin-top:-13.5em;
 }
 
 #profileBasicInfoTopBar {
@@ -722,10 +706,6 @@ nav{
     height: 1.5em;
 }
 
-.socialMediaWrapper, .editProfileWrapper{
-    width: 40%;
-}
-
 #profileBasicInfoEdit {
     float: left;
 }
@@ -736,18 +716,17 @@ nav{
     font-weight:700;
 }
 
-.profileSection {
-    padding-top: 2em;
+.profileSubSection {
+    padding-top: 2em; 
     padding-bottom: 2em;
     position: relative;
-    bottom:11em;
 }
 
-.profileSectionTitleBar {
+.profileSubSectionTitleBar {
     margin-bottom: 1em;
 }
 
-.profileSectionTitleBar h2{
+.profileSubSectionTitleBar h2{
     display: inline;
     font-weight: bold;
 }
@@ -763,6 +742,39 @@ nav{
 .sectionEditBtn img{
     width: 1.5em;
     height: 1.5em;
+}
+
+/* ADMIN PROFILE */
+
+#createEditProfileBannerFiller {
+    height:18em;
+}
+
+#createEditProfilePicWrapper {
+    margin-top:-13.5em;
+}
+
+.createEditProfileDemoAreaEnglish{
+    float: left;
+}
+
+.createEditProfileDemoAreaFrench{
+    float: right;
+}
+
+.createEditProfileEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createEditProfileFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createEditProfileSubmitPane{
+    clear: both;
 }
 
 /* VIEW PROFILE (OLD??)  */
@@ -1168,9 +1180,4 @@ div label span{
 
 .validationMessage{
     color:#ff0000;
-}
-
-footer{
-    clear:left;
-    width: 100%;
 }

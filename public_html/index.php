@@ -300,9 +300,24 @@ and open the template in the editor .
 </div>
 
 <!-- BEGIN - Main Content Section-->
-<main class="contentContainer">
+<main>
     <section class="pageContent" id="homePageContentSection">
-        <div class="container" id="homePageContent">
+        <div class="pageBanner">
+            <div id="logo-container" class="logo-container">
+                <div class="container">
+                    <div class="page-banner--logo-container flexContainerVerticallyCentered">
+                        <div class="page-banner--logo flexLeftOfCenter">
+                            <a href="/" role="img" aria-label="GC Talent Cloud">
+                                <img class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud logo"/>
+                            </a>
+                        </div>
+                        <div class="page-banner--logo-tagline-divider"></div>
+                        <div class="page-banner--tagline flexRightOfCenter">People want meaningful work.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pageBody" id="homePageContent">
             <section class="section homepage--intro">
                 <div class="container">
 
@@ -311,41 +326,43 @@ and open the template in the editor .
                 </div>
             </section>
             <section class="section page-what-we-do">
-                <h2 class="section--title">How It Works</h2>
-                
-                <p>
-                    GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians&hellip;
-                </p>
+                <div class="container">
+                    <h2 class="section--title">How It Works</h2>
 
-                <ul class="icon-list">
+                    <p>
+                        GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians&hellip;
+                    </p>
 
-                        <li class="item">
-                                <span class="item-icon"><i class="fa fa-code"></i></span>
-                                <span class="item-text">
-                                        <h3>Own Your Story</h3>
-                                        <p>Everyone is unique. Participate in a job selection process that lets you tell your story your way.</p>
-                                </span>
-                        </li>
+                    <ul class="icon-list">
 
-                        <li class="item">
-                                <span class="item-icon"><i class="fa fa-users"></i></span>
-                                <span class="item-text">
-                                        <h3>Get Found</h3>
-                                        <p>Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.</p>
-                                </span>
-                        </li>
+                            <li class="item">
+                                    <span class="item-icon"><i class="fa fa-code"></i></span>
+                                    <span class="item-text">
+                                            <h3>Own Your Story</h3>
+                                            <p>Everyone is unique. Participate in a job selection process that lets you tell your story your way.</p>
+                                    </span>
+                            </li>
 
-                        <li class="item">
-                                <span class="item-icon"><i class="fa fa-comments-o"></i></span>
-                                <span class="item-text">
-                                        <h3>Contribute</h3>
-                                        <p>Find meaningful work that has an impact on Canadians… and be part of the effort to design a better hiring process for Government jobs.</p>
-                                </span>
-                        </li>
-                </ul>
+                            <li class="item">
+                                    <span class="item-icon"><i class="fa fa-users"></i></span>
+                                    <span class="item-text">
+                                            <h3>Get Found</h3>
+                                            <p>Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.</p>
+                                    </span>
+                            </li>
 
-                <p>We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
+                            <li class="item">
+                                    <span class="item-icon"><i class="fa fa-comments-o"></i></span>
+                                    <span class="item-text">
+                                            <h3>Contribute</h3>
+                                            <p>Find meaningful work that has an impact on Canadians… and be part of the effort to design a better hiring process for Government jobs.</p>
+                                    </span>
+                            </li>
+                    </ul>
 
+                    <p>We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
+                    <p>Interested in chatting about a potential partnership? <a href="/contact/">Contact us!</a></p>
+                </div>
             </section>
             <section class="section section--featured-video">
                 <div class="container video-container">
@@ -406,18 +423,22 @@ and open the template in the editor .
                 </div>
             </section>
         </div>
+        </div>
     </section>
     
-    <section class="pageContent" id="browseJobsSection">
-        <div id="jobs">
+    <section class="pageContent hidden" id="browseJobsSection">
+        <div class="pageBanner">
+            <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+        </div>
+        <div id="jobs" class="pageBody">
             <div id="noJobs" class="hidden">
                 No jobs found
             </div>
             <div id="loadingJobs" class="hidden">
-                <img src="/images/working.gif" alt="Loading jobs"/>
+                <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
-                <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+                
             
             </div>
             
@@ -431,65 +452,141 @@ and open the template in the editor .
         </div>
     </section>
     
-    <section class="pageContent" id="viewJobPosterSection" class="hidden">
-        <div id="viewJobPosterApplicationOverlay" class="container">
-            <div id="jobPoster" class="jobPoster">
+    <section class="pageContent hidden" id="viewJobPosterSection">
+        <div class="pageBanner">
+            <div id="jobPosterHeaderSection" class="container">
+                <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+                <h2 id="jobPosterTitle"></h2>
+                <p id="jobPosterLocation">
+                    <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
+                </p>
+                <p id="jobPosterId">#<span id="jobPosterIdValue"></span></p>
+                <input id="jobPosterJobId" type="hidden"/>
+            </div>
+        </div>
+        <div class="pageBody">
+            <section id="jobPosterDatapointsSection">
+                <div class="container">
+                    <ul>
+                        <li>
+                            <p id="jobPosterSalaryRange">
+                                <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="jobPosterTerm">
+                                <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="jobPosterJobLevel">
+                                <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h3 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h3>
+                    <p id="jobPosterImpact"></p>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h3 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h3>
+                    <ul id="jobPosterKeyTasks"></ul>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
+                    <ul id="jobPosterCoreCompetencies"></ul>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                   <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
+                    <ul id="jobPosterDevelopingCompetencies"></ul>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h3 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h3>
+                    <ul id="jobPosterOtherRequirements"></ul>
+                </div>
+            </section>
 
+            <div id="jobPosterButtonWrapper">
+                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
+                    Apply Now
+                </button>
             </div>
         </div>
     </section>
     
     <section class="pageContent hidden" id="profileSection">
-        <div id="profileBasicInfo" class="centered">
-            <div id="profileBasicInfoTopBar">
-                <div class="socialMediaWrapper"> 
-                    <ul id="profileSocialMediaLinks"> 
-                        <li id="profileTwitterLinkWrapper" class="hidden">
-                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
-                        </li>
-                        <li id="profileLinkedinLinkWrapper" class="hidden">
-                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
-                        </li>    
+        <div class="pageBanner">
+            <div id="profileBannerFiller"></div>
+        </div>
+        <div class="pageBody">
+            <div class="container">
+                <div id="profileBasicInfo" class="centered">
+                    <div id="profileBasicInfoTopBar" class="flexContainerVerticallyCentered">
+                        <div class="flexLeftOfCenter"> 
+                            <ul id="profileSocialMediaLinks"> 
+                                <li id="profileTwitterLinkWrapper" class="hidden">
+                                    <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                                </li>
+                                <li id="profileLinkedinLinkWrapper" class="hidden">
+                                    <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                </li>    
+                            </ul>
+                        </div>
+                        <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
+                        <div class="flexRightOfCenter">
+                            <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
+                                <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="profileNameWrapper">
+                        <div id="profileName">
+                            <span id="profileFirstName"></span> <span id="profileLastName"></span>
+                        </div>
+                    </div>
+                    <div class="profileTagLineContainer">
+                        <p id="profileTagLine">Default tag line!</p>
+                        <p>
+                        <!--p>
+                            <strong>Available: </strong><span id="profileStartDate"></span>
+                            <br>
+                            <strong>Status: </strong><span id="profileStatus"></span>
+                        </p-->
+                        </p>
+                    </div>
+                    <input type="hidden" id="profileId"/>
+                    <input type="hidden" id="profileLastUpdated"/>
+                </div>
+                <div id="profileAboutMeWrapper" class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2>About Me</h2>
+                        <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
+                    </div>
+                    <p id="profileAboutMe">This is the about me section.</p>
+                </div>
+                <!--
+                <div id="profileSkillsWrapper" class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2>My Skills and Knowledge</h2>
+                        <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
+                    </div>
+                    <ul id="profileSkillsList">
                     </ul>
                 </div>
-                <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
-                <div class="editProfileWrapper">
-                    <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
-                        <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
-                    </a>
-                </div>
+                -->
             </div>
-            <div id="profileNameWrapper">
-                <div id="profileName">
-                    <span id="profileFirstName"></span> <span id="profileLastName"></span>
-                </div>
-            </div>
-            <div class="profileTagLineContainer">
-                <p id="profileTagLine">Default tag line!</p>
-                <!--p>
-                    <strong>Available: </strong><span id="profileStartDate"></span>
-                    <br>
-                    <strong>Status: </strong><span id="profileStatus"></span>
-                </p-->
-            </div>
-            <input type="hidden" id="profileId"/>
-            <input type="hidden" id="profileLastUpdated"/>
         </div>
-        <div id="profileAboutMeWrapper" class="profileSection">
-            <div class="profileSectionTitleBar">
-                <h2>About Me</h2>
-                <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
-            </div>
-            <p id="profileAboutMe">This is the about me section.</p>
-        </div>
-        <!--div id="profileSkillsWrapper" class="profileSection">
-            <div class="profileSectionTitleBar">
-                <h2>My Skills and Knowledge</h2>
-                <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
-            </div>
-            <ul id="profileSkillsList">
-            </ul>
-        </div-->
     </section>
 </main>
 <?php include 'inc/footer.php';?>

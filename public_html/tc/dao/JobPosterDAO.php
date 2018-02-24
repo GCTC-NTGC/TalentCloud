@@ -118,7 +118,7 @@ class JobPosterDAO extends BaseDAO {
         $sqlStr = "
             SELECT jp.job_poster_id as id,
             l.locale_id as locale_id,
-            jpd.job_poster_desc_title as title,
+            jpd.job_poster_title as title,
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
             jp.job_poster_term_qty as term_qty,

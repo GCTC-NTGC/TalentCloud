@@ -357,7 +357,7 @@ JobSeekerAPI.resetVisibleProfile = function() {
         var linkedin_link_wrapper = document.getElementById("profileLinkedinLinkWrapper");
         if (JobSeekerAPI.jobSeekerProfile.linkedin_link == null || JobSeekerAPI.jobSeekerProfile.linkedin_link == "") {
             linkedin_link_wrapper.classList.add("hidden");
-            twitter_link.href = "#";
+            linkedin_link.href = "#";
         } else {
             linkedin_link_wrapper.classList.remove("hidden");
             linkedin_link.href = unescape("https://www.linkedin.com/in/"+JobSeekerAPI.jobSeekerProfile.linkedin_link);   
@@ -576,8 +576,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     
 
     TalentCloudAPI.hideAllContent();
-    TalentCloudAPI.hideLogo();
-    EventsAPI.clearJobsContainer();
+    //TalentCloudAPI.hideLogo();
 
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.remove("hidden");

@@ -134,15 +134,15 @@ TalentCloudAPI.loadPublic = function(){
                 credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.authenticate(credentials);
-                //DataAPI.getJobs(locale);
+                
             }else{
-                //DataAPI.getJobs(locale);
+                
             }
         }else{
-            //DataAPI.getJobs(locale);
+            
         }
     }else{
-        //DataAPI.getJobs(locale);
+        
     }
 };
 
