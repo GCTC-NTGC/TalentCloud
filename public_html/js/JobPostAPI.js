@@ -427,25 +427,25 @@ JobPostAPI.populateJobPoster = function(jobData){
     if (jobData.key_tasks.length === 0) {
         jobData.key_tasks.push("N/A");
     }
-    JobPostAPI.addItemsToListElement(keyTaskList, jobData.key_tasks, "keyTaskItem");
+    JobPostAPI.setItemsForListElement(keyTaskList, jobData.key_tasks, "keyTaskItem");
     
     var coreCompetencyList = document.getElementById("jobPosterCoreCompetencies");
     if (jobData.core_competencies.length === 0) {
         jobData.core_competencies.push("N/A");
     }
-    JobPostAPI.addItemsToListElement(coreCompetencyList, jobData.core_competencies, "coreCompetencyItem");
+    JobPostAPI.setItemsForListElement(coreCompetencyList, jobData.core_competencies, "coreCompetencyItem");
     
     var developingCompetencyList = document.getElementById("jobPosterDevelopingCompetencies");
     if (jobData.developing_competencies.length === 0) {
         jobData.developing_competencies.push("N/A");
     }
-    JobPostAPI.addItemsToListElement(developingCompetencyList, jobData.developing_competencies, "developingCompetencyItem");
+    JobPostAPI.setItemsForListElement(developingCompetencyList, jobData.developing_competencies, "developingCompetencyItem");
     
     var otherRequirmentList = document.getElementById("jobPosterOtherRequirements");
     if (jobData.other_requirements.length === 0) {
         jobData.other_requirements.push("N/A");
     }
-    JobPostAPI.addItemsToListElement(otherRequirmentList, jobData.other_requirements, "otherRequirmentItem");
+    JobPostAPI.setItemsForListElement(otherRequirmentList, jobData.other_requirements, "otherRequirmentItem");
         
     var applyNowButton = document.getElementById("jobPosterApplyButton"); 
     if(UserAPI.hasSessionUser()){
@@ -461,7 +461,11 @@ JobPostAPI.populateJobPoster = function(jobData){
     //JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
 };
 
-JobPostAPI.addItemsToListElement = function(element, items, itemClassAtribute) {
+JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) {
+    //First, clear existing items in element
+    while( element.lastChild )
+        element.removeChild( element.lastChild );
+    
     for (var i=0; i<items.length; i++) {
         var item = document.createElement("li");
         if (itemClassAtribute)
