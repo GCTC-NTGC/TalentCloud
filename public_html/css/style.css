@@ -73,7 +73,6 @@ nav{
 .pageBody {
     background-color: white;
     width:100%;
-    min-height: 200px;
     overflow:visible;
     padding-bottom: 10em;
 }
@@ -450,6 +449,11 @@ nav{
 .closeButtonLink{
     padding:5px;
     display:block;
+}
+
+/*TODO: deal with empty browseJobs page better*/
+#jobs{
+    min-height: 500px;
 }
 
 #noJobs{
