@@ -531,7 +531,7 @@ and open the template in the editor .
         <div class="pageBody">
             <div class="container">
                 <div id="profileBasicInfo" class="centered">
-                    <div id="profileBasicInfoTopBar">
+                    <div id="profileBasicInfoTopBar" class="flexContainerVerticallyCentered">
                         <div class="flexLeftOfCenter"> 
                             <ul id="profileSocialMediaLinks"> 
                                 <li id="profileTwitterLinkWrapper" class="hidden">
