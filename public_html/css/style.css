@@ -999,6 +999,10 @@ main .btn-default {
 
 /* END SORTED STYLES */
 
+#jobPosterFormWrapper{
+    margin-top: 1em;
+}
+
 .form-icon {
     width: 1em;
     height: 1em;

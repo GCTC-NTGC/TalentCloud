@@ -362,17 +362,17 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var impact_fr = document.getElementById("createJobPoster_impact_fr").value;
     
     //TODO: actually get list items from ui
-    var key_tasks_en = [document.getElementById("createJobPoster_keyTasks").value];
-    var key_tasks_fr = [document.getElementById("createJobPoster_keyTasks_fr").value];
+    var key_tasks_en = document.getElementById("createJobPoster_keyTasks").value.split(/\r|\n/);
+    var key_tasks_fr = document.getElementById("createJobPoster_keyTasks_fr").value.split(/\r|\n/);
     
-    var core_competencies_en = [document.getElementById("createJobPoster_coreCompetencies").value];
-    var core_competencies_fr = [document.getElementById("createJobPoster_coreCompetencies_fr").value];
+    var core_competencies_en = document.getElementById("createJobPoster_coreCompetencies").value.split(/\r|\n/);
+    var core_competencies_fr = document.getElementById("createJobPoster_coreCompetencies_fr").value.split(/\r|\n/);
     
-    var developing_competencies_en = [document.getElementById("createJobPoster_developingCompetencies").value];
-    var developing_competencies_fr = [document.getElementById("createJobPoster_developingCompetencies_fr").value];
+    var developing_competencies_en = document.getElementById("createJobPoster_developingCompetencies").value.split(/\r|\n/);
+    var developing_competencies_fr = document.getElementById("createJobPoster_developingCompetencies_fr").value.split(/\r|\n/);
     
-    var other_requirements_en = [document.getElementById("createJobPoster_otherRequirements").value];
-    var other_requirements_fr = [document.getElementById("createJobPoster_otherRequirements_fr").value];
+    var other_requirements_en = document.getElementById("createJobPoster_otherRequirements").value.split(/\r|\n/);
+    var other_requirements_fr = document.getElementById("createJobPoster_otherRequirements_fr").value.split(/\r|\n/);
         
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
 }
