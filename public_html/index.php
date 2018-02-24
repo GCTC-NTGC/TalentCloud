@@ -532,7 +532,7 @@ and open the template in the editor .
             <div class="container">
                 <div id="profileBasicInfo" class="centered">
                     <div id="profileBasicInfoTopBar">
-                        <div class="socialMediaWrapper"> 
+                        <div class="flexLeftOfCenter"> 
                             <ul id="profileSocialMediaLinks"> 
                                 <li id="profileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
@@ -543,7 +543,7 @@ and open the template in the editor .
                             </ul>
                         </div>
                         <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
-                        <div class="editProfileWrapper">
+                        <div class="flexRightOfCenter">
                             <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
                                 <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
                             </a>

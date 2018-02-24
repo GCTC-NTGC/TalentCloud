@@ -245,6 +245,21 @@ nav{
     clear: both;
 }
 
+.flexContainerVerticallyCentered {
+    display: flex;
+    align-items: center;
+}
+
+.flexLeftOfCenter {
+    width:50%;
+    float:right;
+}
+
+.flexRightOfCenter {
+    width:50%;
+    float:left;
+}
+
 /* PROFILE PIC AND UPLOAD */
 
 .profilePic{
@@ -259,6 +274,8 @@ nav{
     border: 3px solid #FFCC33;
     border-radius: 100px;
     margin: auto;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 #profilePicUploadOverlay{
@@ -632,22 +649,7 @@ nav{
     height: 100%;
 }
 
-.createEditProfileEnglishPane{
-    float: left;
-    width: 45%;
-}
-
-.createEditProfileFrenchPane{
-    float: right;
-    width: 45%;
-    height: 100%;
-}
-
 .createJobPosterSubmitPane{
-    clear: both;
-}
-
-.createEditProfileSubmitPane{
     clear: both;
 }
 
@@ -656,14 +658,6 @@ nav{
 }
 
 .createJobPosterDemoAreaFrench{
-    float: right;
-}
-
-.createEditProfileDemoAreaEnglish{
-    float: left;
-}
-
-.createEditProfileDemoAreaFrench{
     float: right;
 }
 
@@ -682,7 +676,7 @@ nav{
 #profileBasicInfo {
     text-align: center;
     position: relative;
-    bottom:13.5em;
+    margin-top:-13.5em;
 }
 
 #profileBasicInfoTopBar {
@@ -709,10 +703,6 @@ nav{
     height: 1.5em;
 }
 
-.socialMediaWrapper, .editProfileWrapper{
-    width: 40%;
-}
-
 #profileBasicInfoEdit {
     float: left;
 }
@@ -727,7 +717,6 @@ nav{
     padding-top: 2em; 
     padding-bottom: 2em;
     position: relative;
-    bottom:11em;
 }
 
 .profileSubSectionTitleBar {
@@ -750,6 +739,39 @@ nav{
 .sectionEditBtn img{
     width: 1.5em;
     height: 1.5em;
+}
+
+/* ADMIN PROFILE */
+
+#createEditProfileBannerFiller {
+    height:18em;
+}
+
+#createEditProfilePicWrapper {
+    margin-top:-13.5em;
+}
+
+.createEditProfileDemoAreaEnglish{
+    float: left;
+}
+
+.createEditProfileDemoAreaFrench{
+    float: right;
+}
+
+.createEditProfileEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createEditProfileFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createEditProfileSubmitPane{
+    clear: both;
 }
 
 /* VIEW PROFILE (OLD??)  */

@@ -244,18 +244,19 @@ and open the template in the editor .
             </section>
             <section id="createEditProfileSection" class="pageContent hidden">
                 <div class="pageBanner">
-                    <div id="profilePicBannerWrapper">
-                        <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
-                        <div class="editProfileWrapper">
-                            <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
-                                <img id="editMyProfilePicImg" src="../images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
-                            </a>
-                        </div>
-                    </div>
+                    <div id="createEditProfileBannerFiller"></div>
                 </div>
                 <div class="pageBody">
                     <div class="container">
-                        <div id="profileBannerFiller"></div>
+                        <div id="createEditProfilePicWrapper" class="flexContainerVerticallyCentered">
+                            <div class="flexLeftOfCenter"></div>
+                            <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
+                            <div class="flexRightOfCenter">
+                                <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
+                                    <img id="editMyProfilePicImg" src="../images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
+                                </a>
+                            </div>
+                        </div>
                         <div class="wb-frmvld wb-init">
                             <div class="tabbedForm">
                                 <div class="section">
