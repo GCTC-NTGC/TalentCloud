@@ -91,6 +91,7 @@ nav{
     position:fixed;
     top:0;
     left:0;
+    overflow-y:scroll;
 }
 
 .dialogThreeQuarterWrapperWindow {
@@ -281,7 +282,7 @@ nav{
     height:100%;
     z-index:1001;
     background-color: rgba(255,255,255,0.90);
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
 }
@@ -978,15 +979,19 @@ main .btn-default {
     cursor: default;
     width: 100%;
     position: absolute;
-    background-color: #ddd;
+    background:rgba(0,0,0,0.7);
 }
 .three-step-tab {
+    color: #bbb;
     width: 33%;
     position: relative;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
 }
 .tab-current {
     color: #fff;
-    background-color: #5599e5;
+    border-bottom: 5px solid #999;
 }
 .four-step-tab{
     width: 25%;

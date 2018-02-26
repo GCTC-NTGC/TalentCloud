@@ -30,7 +30,7 @@ FileUploadAPI.FileUploader = function(
 
     this.init = function () {
         fileInputField.onchange = this.addFiles;
-        clearBtn.onclick = clearUploadQueue;
+        //clearBtn.onclick = clearUploadQueue;
         uploadBtn.onclick = this.uploadQueue;
         
         //clone dropZone to remove existing event listeners

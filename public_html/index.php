@@ -227,8 +227,8 @@ and open the template in the editor .
                             </div>
                         </div>
                         <div>
-                            <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
                             <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
+                            <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
                         </div>
                     </form>
                 </div>
@@ -249,12 +249,12 @@ and open the template in the editor .
                     </div>
                     <div class="rightPane">
                         <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                            <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
+                            <!--a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a-->
                             <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
                         </div>
                         <div id="fileUploadButtons">
                             <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
-                            <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
+                            <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Save</a>
                         </div>
                     </div>
                 </div>
