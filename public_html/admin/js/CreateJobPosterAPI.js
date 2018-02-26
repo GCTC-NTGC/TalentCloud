@@ -362,19 +362,30 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var impact_fr = document.getElementById("createJobPoster_impact_fr").value;
     
     //TODO: actually get list items from ui
-    var key_tasks_en = document.getElementById("createJobPoster_keyTasks").value.split(/\r|\n/);
-    var key_tasks_fr = document.getElementById("createJobPoster_keyTasks_fr").value.split(/\r|\n/);
+    var key_tasks_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_keyTasks");
+    var key_tasks_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_keyTasks_fr"); 
     
-    var core_competencies_en = document.getElementById("createJobPoster_coreCompetencies").value.split(/\r|\n/);
-    var core_competencies_fr = document.getElementById("createJobPoster_coreCompetencies_fr").value.split(/\r|\n/);
+    var core_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_coreCompetencies");
+    var core_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_coreCompetencies_fr");
     
-    var developing_competencies_en = document.getElementById("createJobPoster_developingCompetencies").value.split(/\r|\n/);
-    var developing_competencies_fr = document.getElementById("createJobPoster_developingCompetencies_fr").value.split(/\r|\n/);
+    var developing_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies");
+    var developing_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies_fr");
     
-    var other_requirements_en = document.getElementById("createJobPoster_otherRequirements").value.split(/\r|\n/);
-    var other_requirements_fr = document.getElementById("createJobPoster_otherRequirements_fr").value.split(/\r|\n/);
+    var other_requirements_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements");
+    var other_requirements_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements_fr");
         
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
+}
+
+CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
+    var list = document.getElementById(textareaElementId).value.split(/\r|\n/);
+    for (var i=(list.length - 1); i >= 0; i--) {
+        list[i] = list[i].trim();
+        if (list[i] === "") {
+            list.splice(i, 1);
+        }
+    }
+    return list;
 }
 
 

@@ -467,15 +467,17 @@ JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) 
         element.removeChild( element.lastChild );
     
     for (var i=0; i<items.length; i++) {
-        var item = document.createElement("li");
-        if (itemClassAtribute)
-            item.setAttribute("class", itemClassAtribute);
-        var p = document.createElement("p");
-        var text = document.createTextNode(items[i]);
-        
-        p.appendChild(text);
-        item.appendChild(p)
-        element.appendChild(item);
+        if (items[i].trim()) {
+            var item = document.createElement("li");
+            if (itemClassAtribute)
+                item.setAttribute("class", itemClassAtribute);
+            var p = document.createElement("p");
+            var text = document.createTextNode(items[i]);
+
+            p.appendChild(text);
+            item.appendChild(p)
+            element.appendChild(item);
+        }
     }
 };
 
