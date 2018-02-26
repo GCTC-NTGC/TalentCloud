@@ -754,10 +754,10 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
 CreateEditProfileAPI.profilePicUploader = null;
 
 CreateEditProfileAPI.showUploadProfilePic = function() {
-    document.body.style.overflow = "hidden";
+    //document.body.style.overflow = "hidden";
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
     uploadOverlay.classList.remove("hidden");
-    EventsAPI.setFormFocus("profilePicUploadField");
+    ManagerEventsAPI.setFormFocus("profilePicUploadField");
     
     var fileField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
