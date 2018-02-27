@@ -398,6 +398,10 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterApplyButton").innerHTML = siteContent.applyNow;
     //TODO: add more
    
+   //set hidden values
+   document.getElementById("jobPosterJobId").value = jobData.id;
+   //document.getElementById('jobPosterHiringManagerUserId').value = jobData.hiring_manager_user_id;
+   
     //Header
     if (jobData.title === "") {
         jobData.title = "No Title";
@@ -407,7 +411,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
     document.getElementById("jobPosterProvince").innerHTML = jobData.location_province;
     document.getElementById("jobPosterIdValue").innerHTML = jobData.id;
-    document.getElementById("jobPosterJobId").value = jobData.id;
     
     //Datapoints
     if (locale === "en_CA"){

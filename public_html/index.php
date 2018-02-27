@@ -516,6 +516,15 @@ and open the template in the editor .
                     <ul id="jobPosterOtherRequirements"></ul>
                 </div>
             </section>
+            <section>
+                <div class='container'>
+                    <input type='hidden' id='jobPosterHiringManagerUserId'/>
+                    <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                        Hiring Manager
+                    </button>
+                </div>
+            </section>
+            
 
             <div id="jobPosterButtonWrapper">
                 <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
