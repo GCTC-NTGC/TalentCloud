@@ -527,14 +527,14 @@ and open the template in the editor .
     
     <section class="pageContent hidden" id="profileSection">
         <div class="pageBanner">
-            <div id="profileBannerFiller"></div>
+            <div class="profileBannerFiller"></div>
         </div>
         <div class="pageBody">
             <div class="container">
-                <div id="profileBasicInfo" class="centered">
-                    <div id="profileBasicInfoTopBar" class="flexContainerVerticallyCentered">
+                <div id="profileBasicInfo" class="profileBasicInfo centered">
+                    <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                         <div class="flexLeftOfCenter"> 
-                            <ul id="profileSocialMediaLinks"> 
+                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks"> 
                                 <li id="profileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
@@ -545,13 +545,13 @@ and open the template in the editor .
                         </div>
                         <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
                         <div class="flexRightOfCenter">
-                            <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
+                            <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
                                 <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
                             </a>
                         </div>
                     </div>
                     <div id="profileNameWrapper">
-                        <div id="profileName">
+                        <div class="profileName">
                             <span id="profileFirstName"></span> <span id="profileLastName"></span>
                         </div>
                     </div>
@@ -585,6 +585,48 @@ and open the template in the editor .
                     </ul>
                 </div>
                 -->
+            </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="managerProfileSection">
+        <div class="pageBanner">
+            <div class="profileBannerFiller"></div>
+        </div>
+        <div class="pageBody">
+            <div class="container">
+                <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
+                    <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
+                        <div class="flexLeftOfCenter"> 
+                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                                <li id="managerProfileTwitterLinkWrapper" class="hidden">
+                                    <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                                </li>
+                                <li id="managerProfileLinkedinLinkWrapper" class="hidden">
+                                    <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                </li>    
+                            </ul>
+                        </div>
+                        <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
+                        <div class="flexRightOfCenter"></div>
+                    </div>
+                    <div id="managerProfileNameWrapper">
+                        <div id="managerProfileName" class="profileName">
+                            <span id="managerProfileFirstName"></span> <span id="managerProfileLastName"></span>
+                        </div>
+                    </div>
+                    <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
+                        <p><span id="managerProfilePosition" class="bold"></span> at <span id="managerProfileDepartment" class="bold"></span></p>
+                    </div>
+                    <input type="hidden" id="managerProfile_managerProfileId"/>
+                    <input type="hidden" id="managerProfile_userId"/>
+                    <input type="hidden" id="managerProfileLastUpdated"/>
+                </div>
+                <div id="managerProfileAboutMeWrapper" class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2>About Me</h2>
+                    <p id="managerProfileAboutMe">This is the about me section.</p>
+                </div>
+                
             </div>
         </div>
     </section>

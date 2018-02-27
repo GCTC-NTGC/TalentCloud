@@ -181,6 +181,10 @@ nav{
 }
 
 /* UTILITY */
+.bold {
+    font-weight: bold;
+}
+
 
 .clear {
     clear: both;
@@ -300,11 +304,6 @@ nav{
     box-shadow: 3px 3px 6px #999;
     padding:1em 2em 2em 2em;
     position:relative;
-}
-
-.profileTagLineContainer{
-    background-color:#E5F8FF;
-    margin-top:2em;
 }
 
 .fileDropZone {
@@ -670,50 +669,55 @@ nav{
     white-space: nowrap;
 }
 
-/* APPLICANT PROFILE */ 
+/* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
 
-#profileBannerFiller {
+.profileBannerFiller {
     height:18em;
 }
 
-#profileBasicInfo {
+.profileBasicInfo {
     text-align: center;
     position: relative;
-    margin-top:-13.5em;
 }
 
-#profileBasicInfoTopBar {
+.profileBasicInfoTopBar {
     display: flex;
     align-items: center;
     position: relative;
     max-width: 1200px;
     margin: auto;
+    margin-top:-13.5em;
 }
 
-#profileSocialMediaLinks {
+.profileSocialMediaLinks {
     list-style-type: none;
     float: right;
     margin-top: 0em;
 }
 
-#profileSocialMediaLinks li{
+.profileSocialMediaLinks li{
     display: inline;
     padding-left: 0.5em;
 }
 
-#profileSocialMediaLinks img{
+.profileSocialMediaLinks img{
     width: 1.5em;
     height: 1.5em;
 }
 
-#profileBasicInfoEdit {
+.profileBasicInfoEdit {
     float: left;
 }
 
-#profileName {
+.profileName {
     margin-top: .25em;
     font-size:3.5em;
     font-weight:700;
+}
+
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
 }
 
 .profileSubSection {
@@ -744,15 +748,9 @@ nav{
     height: 1.5em;
 }
 
+/* APPLICANT PROFILE */ 
+
 /* ADMIN PROFILE */
-
-#createEditProfileBannerFiller {
-    height:18em;
-}
-
-#createEditProfilePicWrapper {
-    margin-top:-13.5em;
-}
 
 .createEditProfileDemoAreaEnglish{
     float: left;
