@@ -174,12 +174,11 @@ and open the template in the editor .
                         </div>
                         <div class="rightPane">
                             <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                                <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
                                 <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
                             </div>
                             <div id="fileUploadButtons">
                                 <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
-                                <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Upload</a>
+                                <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Save</a>
                             </div>
                         </div>
                     </div>
@@ -494,9 +493,9 @@ and open the template in the editor .
                                     <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                        <div class="three-step-tab"><span id="createEditProfileStep1Label_2">Step 1</span></div>
-                                        <div class="three-step-tab tab-current"><span id="createEditProfileStep2Label_2">Step 2</span></div>
-                                        <div class="three-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
+                                                <div class="three-step-tab"><span id="createEditProfileStep1Label_2">Step 1</span></div>
+                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep2Label_2">Step 2</span></div>
+                                                <div class="three-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab active"> </div>
@@ -733,16 +732,14 @@ and open the template in the editor .
                                     <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="create-profile-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
-                                                <div class="create-profile-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
-                                                <div class="create-profile-tab create-profile-tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
+                                                <div class="three-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
+                                                <div class="three-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
+                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
                                             </div>
                                             <div class="tabs">
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
-                                                <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
