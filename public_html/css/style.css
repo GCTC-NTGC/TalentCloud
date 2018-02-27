@@ -736,6 +736,13 @@ nav{
     font-weight: bold;
 }
 
+.profileSubSectionBlock {
+    background-color: #EBEBEB;
+    width: 90%;
+    margin-bottom: 1em;
+    padding: 1em 3em;
+}
+
 .socialMediaLink{
     margin-top:1.5em;
 }

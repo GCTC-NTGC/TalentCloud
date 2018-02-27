@@ -133,6 +133,10 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
     SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
     SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
+    
+    //TODO: treat education and work history as lists
+    document.getElementById('managerProfileEducation').innerHTML = profile.education;
+    document.getElementById('managerProfileExperience').innerHTML = profile.work_experience;
 };
 
 ManagerProfileAPI.twitterUsernameToLink = function(twitterUsername) {
