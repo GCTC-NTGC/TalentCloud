@@ -155,10 +155,10 @@ JobPostAPI.populateJobs = function(jobPosts){
     while (jobsDiv.lastChild) {
         jobsDiv.removeChild(jobsDiv.lastChild);
     }
-    
+    var locale = TalentCloudAPI.getLanguageFromCookie().toString();
     for(var j = 0; j < jobPosts.length; j++){
         var job = jobPosts[j];
-        jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false));
+        jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false, locale));
     }
     
     loadingJobs.classList.add("hidden");
@@ -182,8 +182,6 @@ JobPostAPI.populateJobs = function(jobPosts){
  */
 JobPostAPI.populateJobSummary = function(job, demo, locale){
     Utilities.debug?console.log("populating job"):null;
-    
-    locale = TalentCloudAPI.getLanguageFromCookie().toString();
     
     // Create a job summary
     var jobSummary = document.createElement("div");
