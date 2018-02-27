@@ -128,7 +128,11 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     document.getElementById("managerProfileAccomplishment").innerHTML = profile.accomplishment;
     document.getElementById("managerProfileLeadershipStyle").innerHTML = profile.lead_style;
     document.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
-
+    
+    SliderAPI.selectOptionByValue("managerProfile_review_options_groupName", profile.review_options, "review_options");
+    SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
+    SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
+    SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
 };
 
 ManagerProfileAPI.twitterUsernameToLink = function(twitterUsername) {
