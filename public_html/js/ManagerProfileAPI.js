@@ -48,7 +48,7 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response) {
     
     profile.locale_id = manager_profile_details.locale_id;
     profile.about_me = manager_profile_details.user_manager_profile_details_aboutme;
-    profile.proud = manager_profile_details.user_manager_profile_details_proud;
+    profile.accomplishment = manager_profile_details.user_manager_profile_details_proud;
     profile.lead_style = manager_profile_details.user_manager_profile_details_lead_style;
     profile.employee_learning = manager_profile_details.user_manager_profile_details_emp_learn;
     profile.expectations = manager_profile_details.user_manager_profile_details_expectations;
@@ -114,7 +114,13 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     } else {
         linkedin_link_wrapper.classList.remove("hidden");
         linkedin_link.href = ManagerProfileAPI.linkedInHandleToLink(profile.linkedin);
-    }    
+    } 
+    
+    document.getElementById("managerProfileAboutMe").innerHTML = profile.about_me;
+    document.getElementById("managerProfileAccomplishment").innerHTML = profile.accomplishment;
+    document.getElementById("managerProfileLeadershipStyle").innerHTML = profile.lead_style;
+    docuement.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
+
 };
 
 ManagerProfileAPI.twitterUsernameToLink = function(twitterUsername) {

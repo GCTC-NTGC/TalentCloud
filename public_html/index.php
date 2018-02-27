@@ -621,12 +621,30 @@ and open the template in the editor .
                     <input type="hidden" id="managerProfile_userId"/>
                     <input type="hidden" id="managerProfileLastUpdated"/>
                 </div>
-                <div id="managerProfileAboutMeWrapper" class="profileSubSection">
+                <div class="profileSubSection">
                     <div class="profileSubSectionTitleBar">
                         <h2>About Me</h2>
+                    </div>
                     <p id="managerProfileAboutMe">This is the about me section.</p>
                 </div>
-                
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2>My Greatest Accomplishment</h2>
+                    </div>
+                    <p id="managerProfileAccomplishment">This is my greatest accomplishment.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2>My Leadership Style</h2>
+                    </div>
+                    <p id="managerProfileLeadershipStyle">This is my leadership style.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2>My Expectations of Employees</h2>
+                    </div>
+                    <p id="managerProfileExpectations">These are my employee expectations.</p>
+                </div>
             </div>
         </div>
     </section>
