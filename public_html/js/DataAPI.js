@@ -655,8 +655,8 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, responseCal
         request.setRequestHeader(key, headersMap[key]);
     });
     
-    request.addEventListener("progress", DataAPI.updateProgress(), false);
-    request.addEventListener("error", DataAPI.transferFailed(), false);
+    request.addEventListener("progress", DataAPI.updateProgress, false);
+    request.addEventListener("error", DataAPI.transferFailed, false);
     request.addEventListener("abort", DataAPI.transferAborted, false);
     request.addEventListener("load", function() {
         responseCallback(request.response);
