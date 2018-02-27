@@ -15,6 +15,7 @@ class JobPoster implements JsonSerializable {
     
     private $id;
     private $locale_id;
+    private $manager_user_id;
     private $title;
     private $description;
     private $applicants_to_date;
@@ -34,11 +35,12 @@ class JobPoster implements JsonSerializable {
     private $key_tasks;
     private $core_competencies;
     private $developing_competencies;
-    private $other_requirements;
+    private $other_requirements;    
 
-    public function __construct($id=null, $locale_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null) {
+    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
+        $this->manager_user_id = $manager_user_id;
         $this->title = $title;
         $this->description = $description;
         $this->applicants_to_date = $applicants_to_date;
@@ -71,13 +73,17 @@ class JobPoster implements JsonSerializable {
         }
         return $gettable_attributes;
     }
-    
+   
     public function getId() {
         return $this->id;
     }
 
     public function getLocale_id() {
         return $this->locale_id;
+    }
+
+    public function getManager_user_id() {
+        return $this->manager_user_id;
     }
 
     public function getTitle() {
@@ -139,23 +145,23 @@ class JobPoster implements JsonSerializable {
     public function getRemuneration_range_high() {
         return $this->remuneration_range_high;
     }
-    
+
     public function getImpact() {
         return $this->impact;
     }
-    
+
     public function getKey_tasks() {
         return $this->key_tasks;
     }
-    
+
     public function getCore_competencies() {
         return $this->core_competencies;
     }
-    
+
     public function getDeveloping_competencies() {
         return $this->developing_competencies;
     }
-    
+
     public function getOther_requirements() {
         return $this->other_requirements;
     }
@@ -167,6 +173,11 @@ class JobPoster implements JsonSerializable {
 
     public function setLocale_id($locale_id) {
         $this->locale_id = $locale_id;
+        return $this;
+    }
+
+    public function setManager_user_id($manager_user_id) {
+        $this->manager_user_id = $manager_user_id;
         return $this;
     }
 
@@ -243,7 +254,7 @@ class JobPoster implements JsonSerializable {
     public function setRemuneration_range_high($remuneration_range_high) {
         $this->remuneration_range_high = $remuneration_range_high;
         return $this;
-    }  
+    }
 
     public function setImpact($impact) {
         $this->impact = $impact;
@@ -253,22 +264,20 @@ class JobPoster implements JsonSerializable {
     public function setKey_tasks($key_tasks) {
         $this->key_tasks = $key_tasks;
         return $this;
-    }  
-    
+    }
+
     public function setCore_competencies($core_competencies) {
         $this->core_competencies = $core_competencies;
         return $this;
-    }  
-    
+    }
+
     public function setDeveloping_competencies($developing_competencies) {
         $this->developing_competencies = $developing_competencies;
         return $this;
-    }  
-    
+    }
+
     public function setOther_requirements($other_requirements) {
         $this->other_requirements = $other_requirements;
         return $this;
-    }  
+    }
 }
-
-?>
