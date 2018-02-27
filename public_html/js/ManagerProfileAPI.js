@@ -1,60 +1,66 @@
 ManagerProfileAPI = {};
 
-
-
-ManagerProfileAPI.ManagerProfile = function(
-        user_manager_profile_id, 
-        user_manager_profile_department,
-        user_manager_profile_position,
-        user_manager_profile_branch_id,
-        user_manager_profile_division_id,
-        user_manager_profile_twitter,
-        user_manager_profile_linkedin,
-        user_id,
-        profile_pic){
-    this.user_manager_profile_id = user_manager_profile_id;
-    this.user_manager_profile_department = user_manager_profile_department;
-    this.user_manager_profile_position = user_manager_profile_position;
-    this.user_manager_profile_branch_id = user_manager_profile_branch_id;
-    this.user_manager_profile_division_id = user_manager_profile_division_id;
-    this.user_manager_profile_twitter = user_manager_profile_twitter;
-    this.user_manager_profile_linkedin = user_manager_profile_linkedin;
-    this.user_id = user_id,
-    this.profile_pic = profile_pic;
+ManagerProfileAPI.ManagerProfile = function(){
+    this.user_id = null,
+    this.manager_profile_id = null;
+    this.department = null;
+    this.position = null;
+    this.branch_id = null;
+    this.division_id = null;
+    this.twitter = null;
+    this.linkedin = null;
+    
+    this.locale_id = null;
+    this.about_me = null;
+    this.proud = null;
+    this.lead_style = null;
+    this.employee_learning = null;
+    this.expectations = null;
+    this.review_options = null;
+    this.stay_late = null;
+    this.engagement = null;
+    this.development_opportunities = null;
+    this.low_value_work_requests = null;
+    this.work_experience = null;
+    this.education = null;
 };
 
-ManagerProfileAPI.ManagerProfileDetails = function(
-        user_manager_profile_details_id,
-        locale_id,
-        user_manager_profile_details_aboutme,
-        user_manager_profile_details_proud,
-        user_manager_profile_details_lead_style,
-        user_manager_profile_details_emp_learn,
-        user_manager_profile_details_expectations,
-        user_manager_profile_id,
-        user_manager_profile_review_options,
-        user_manager_profile_staylate,
-        user_manager_profile_engage,
-        user_manager_profile_devops,
-        user_manager_profile_lvwrequests,
-        user_manager_profile_work_experience,
-        user_manager_profile_education){
-    this.user_manager_profile_details_id = user_manager_profile_details_id;
-    this.locale_id = locale_id;
-    this.user_manager_profile_details_aboutme = user_manager_profile_details_aboutme;
-    this.user_manager_profile_details_proud = user_manager_profile_details_proud;
-    this.user_manager_profile_details_lead_style = user_manager_profile_details_lead_style;
-    this.user_manager_profile_details_emp_learn = user_manager_profile_details_emp_learn;
-    this.user_manager_profile_details_expectations = user_manager_profile_details_expectations;
-    this.user_manager_profile_id = user_manager_profile_id;
-    this.user_manager_profile_review_options = user_manager_profile_review_options;
-    this.user_manager_profile_staylate = user_manager_profile_staylate;
-    this.user_manager_profile_engage = user_manager_profile_engage;
-    this.user_manager_profile_devops = user_manager_profile_devops;
-    this.user_manager_profile_lvwrequests = user_manager_profile_lvwrequests;
-    this.user_manager_profile_work_experience = user_manager_profile_work_experience;
-    this.user_manager_profile_education = user_manager_profile_education;
+/**
+ * 
+ * @param {XMLHttpRequest} response - returned from http request
+ * @return {MangagerProfileAPI.ManagerProfile}
+ */
+ManagerProfileAPI.parseManagerProfileResponse = function(response) {
+    var manager_profile_with_details_json = JSON.parse(response);
     
+    var manager_profile = manager_profile_with_details_json.manager_profile;
+    var manager_profile_details = manager_profile_with_details_json.manager_profile_details;
+    
+    profile = new ManagerProfileAPI.ManagerProfile();
+    profile.user_id = manager_profile.user_id;
+    profile.manager_profile_id = manager_profile.user_manager_profile_id;
+    profile.department = manager_profile.user_manager_profile_department;
+    profile.position = manager_profile.user_manager_profile_position;
+    profile.branch_id = manager_profile.user_manager_profile_branch_id;
+    profile.division_id = manager_profile.user_manager_profile_division_id;
+    profile.twitter = manager_profile.user_manager_profile_twitter;
+    profile.linkedin = manager_profile.user_manager_profile_linkedin;
+    
+    profile.locale_id = manager_profile_details.locale_id;
+    profile.about_me = manager_profile_details.user_manager_profile_details_aboutme;
+    profile.proud = manager_profile_details.user_manager_profile_details_proud;
+    profile.lead_style = manager_profile_details.user_manager_profile_details_lead_style;
+    profile.employee_learning = manager_profile_details.user_manager_profile_details_emp_learn;
+    profile.expectations = manager_profile_details.user_manager_profile_details_expectations;
+    profile.review_options = manager_profile_details.user_manager_profile_review_options;
+    profile.stay_late = manager_profile_details.user_manager_profile_staylate;
+    profile.engagement = manager_profile_details.user_manager_profile_engage;
+    profile.development_opportunities = manager_profile_details.user_manager_profile_devops;
+    profile.low_value_work_requests = manager_profile_details.user_manager_profile_lvwrequests;
+    profile.work_experience = manager_profile_details.user_manager_profile_work_experience;
+    profile.education = manager_profile_details.user_manager_profile_education;
+    
+    return profile;
 };
 
 ManagerProfileAPI.showManagerProfile = function(user_id) {
@@ -70,19 +76,13 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
 }
 
 ManagerProfileAPI.populateManagerProfile = function(response) {
-    var manager_profile_with_details_json = JSON.parse(response);
-    
-    var manager_profile = manager_profile_with_details_json["manager_profile"];
-    var manager_profile_details = manager_profile_with_details_json["manager_profile_details"];
-    
-    
-    
+    var profile = ManagerProfileAPI.parseManagerProfileResponse(response);
     
     var user_id = document.getElementById("managerProfile_userId");
-    user_id.value = manager_profile.user_id;
+    user_id.value = profile.user_id;
     
     var manager_id = document.getElementById("managerProfile_managerProfileId");
-    manager_id.value = manager_profile.user_manager_profile_id;
+    manager_id.value = profile.manager_profile_id;
 
     //var firstName = document.getElementById("managerProfileFirstName");
     //firstName.innerText = manager_
@@ -91,29 +91,41 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     //last_updated.value = JobSeekerAPI.jobSeekerProfile.last_updated;
 
     var position = document.getElementById("managerProfilePosition");
-    position.innerHTML = manager_profile.user_manager_profile_position;
+    position.innerHTML = profile.position;
     
     var department = document.getElementById("managerProfileDepartment");
-    department.innerHTML = manager_profile.user_manager_profile_department;
+    department.innerHTML = profile.department;
 
     var twitter_link = document.getElementById("managerProfileTwitterLink");
     var twitter_link_wrapper = document.getElementById("managerProfileTwitterLinkWrapper");
-    if (manager_profile.user_manager_profile_twitter == null || manager_profile.user_manager_profile_twitter == "") {
+    if (profile.twitter == null || profile.twitter == "") {
         twitter_link_wrapper.classList.add("hidden");
         twitter_link.href = "javascript:void(0)";
     } else {
         twitter_link_wrapper.classList.remove("hidden");
-        twitter_link.href = JobSeekerAPI.jobSeekerProfile.twitter_link;       
+        twitter_link.href = ManagerProfileAPI.twitterUsernameToLink(profile.twitter);
     }
 
     var linkedin_link = document.getElementById("managerProfileLinkedinLink");
     var linkedin_link_wrapper = document.getElementById("managerProfileLinkedinLinkWrapper");
-    if (manager_profile.user_manager_profile_linkedin == null || manager_profile.user_manager_profile_linkedin == "") {
+    if (profile.linkedin == null || profile.linkedin == "") {
         linkedin_link_wrapper.classList.add("hidden");
         linkedin_link.href = "#";
     } else {
         linkedin_link_wrapper.classList.remove("hidden");
-        linkedin_link.href = unescape("https://www.linkedin.com/in/"+JobSeekerAPI.jobSeekerProfile.linkedin_link);   
+        linkedin_link.href = ManagerProfileAPI.linkedInHandleToLink(profile.linkedin);
     }    
 };
+
+ManagerProfileAPI.twitterUsernameToLink = function(twitterUsername) {
+    if (twitterUsername.startsWith('@')) {
+        return "https://twitter.com/" + twitterUsername.substring(1);
+    } else {
+        return "https://twitter.com/" + twitterUsername;
+    }
+};
+
+ManagerProfileAPI.linkedInHandleToLink = function(linkedInHandle) {
+    return "https://www.linkedin.com/in/"+linkedInHandle;
+}
 
