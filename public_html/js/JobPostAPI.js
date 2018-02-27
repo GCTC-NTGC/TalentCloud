@@ -33,8 +33,9 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
+JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
     this.id = id;
+    this.manager_user_id = manager_user_id;
     this.title = title;
     this.applicants_to_date = applicants_to_date;
     this.close_date_time = close_date_time;
@@ -113,6 +114,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     var jobObj = new JobPostAPI.JobPost();
 
     jobObj.id = job.id;
+    jobObj.manager_user_id = job.manager_user_id;
     jobObj.title = job.title;
     jobObj.applicants_to_date = job.applicants_to_date;
     jobObj.close_date_time = job.close_date;
@@ -400,7 +402,7 @@ JobPostAPI.populateJobPoster = function(jobData){
    
    //set hidden values
    document.getElementById("jobPosterJobId").value = jobData.id;
-   //document.getElementById('jobPosterHiringManagerUserId').value = jobData.hiring_manager_user_id;
+   document.getElementById('jobPosterHiringManagerUserId').value = jobData.manager_user_id;
    
     //Header
     if (jobData.title === "") {
