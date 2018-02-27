@@ -12,7 +12,7 @@ ManagerProfileAPI.ManagerProfile = function(){
     
     this.locale_id = null;
     this.about_me = null;
-    this.proud = null;
+    this.accomplishment = null;
     this.lead_style = null;
     this.employee_learning = null;
     this.expectations = null;
@@ -36,7 +36,7 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response) {
     var manager_profile = manager_profile_with_details_json.manager_profile;
     var manager_profile_details = manager_profile_with_details_json.manager_profile_details;
     
-    profile = new ManagerProfileAPI.ManagerProfile();
+    var profile = new ManagerProfileAPI.ManagerProfile();
     profile.user_id = manager_profile.user_id;
     profile.manager_profile_id = manager_profile.user_manager_profile_id;
     profile.department = manager_profile.user_manager_profile_department;
@@ -72,8 +72,16 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     var managerProfileSection = document.getElementById('managerProfileSection');
     managerProfileSection.classList.remove('hidden');
     
+    DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
 }
+
+ManagerProfileAPI.populateManagerProfileName = function(response) {
+    var user = UserAPI.parseUserResponse(response);
+    
+    document.getElementById("managerProfileFirstName").innerHTML = user.firstname;
+    document.getElementById("managerProfileLastName").innerHTML = user.lastname;
+};
 
 ManagerProfileAPI.populateManagerProfile = function(response) {
     var profile = ManagerProfileAPI.parseManagerProfileResponse(response);
@@ -119,7 +127,7 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     document.getElementById("managerProfileAboutMe").innerHTML = profile.about_me;
     document.getElementById("managerProfileAccomplishment").innerHTML = profile.accomplishment;
     document.getElementById("managerProfileLeadershipStyle").innerHTML = profile.lead_style;
-    docuement.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
+    document.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
 
 };
 

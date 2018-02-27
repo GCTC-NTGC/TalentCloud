@@ -666,7 +666,12 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, responseCal
 };
 
 DataAPI.getManagerProfile = function(userId, responseCallback) {
-    var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/"+userId;
+    var manager_profile_url = DataAPI.baseURL + "/getManagerProfile/"+userId;
     DataAPI.sendRequest(manager_profile_url, "GET", {}, null, responseCallback);
 };
+
+DataAPI.getUser = function(userId, responseCallback) {
+    var user_url = DataAPI.baseURL + "/getUser/" + userId;
+    DataAPI.sendRequest(user_url, "GET", {}, null, responseCallback);
+}
 
