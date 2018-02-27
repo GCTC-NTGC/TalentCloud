@@ -280,9 +280,20 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummary.appendChild(jobSummaryTable);
     //jobSummary.appendChild(JobPostAPI.addFavouriteLink(job.id));
     
+    //Load Hiring Manager Name
+    DataAPI.getUser(job.manager_user_id, function(response) {
+       var managerUser = UserAPI.parseUserResponse(response);
+       hiringManagerLabel.innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+    });
+    
+    //Load Hiring Manager Image
+    FileUploadAPI.refreshProfilePic(job.manager_user_id, [hiringManagerProfilePic]);
+    
     return jobSummary;
     
 };
+
+
 
 /**
  * 

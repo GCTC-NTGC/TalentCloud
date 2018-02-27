@@ -518,6 +518,7 @@ and open the template in the editor .
             </section>
             <section>
                 <div class='container'>
+                    <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
                     <input type='hidden' id='jobPosterHiringManagerUserId'/>
                     <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
                         Hiring Manager
