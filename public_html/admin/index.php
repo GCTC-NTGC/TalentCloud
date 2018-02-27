@@ -197,17 +197,6 @@ and open the template in the editor .
                 </div>
             </div>
 
-            <div id="viewJobPosterOverlay" class="viewJobPosterOverlay hidden">
-                <div id="viewJobPosterWrapperWindow" class="viewJobPosterWrapperWindow">
-                    <div class="closeButton">
-                        <a href="javascript:JobPostAPI.hideJobPoster()" class="closeButtonLink"> </a>
-                    </div>
-                    <div id="jobPoster" class="jobPoster">
-
-                    </div>
-                </div>
-            </div>
-
             <!-- BEGIN - Update Overlay-->
             <div class="yesNoModalOverlay hidden" id="updateOverlay">
                 <div id="updateWindow" class="yesNoModalWindow">

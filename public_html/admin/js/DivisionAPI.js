@@ -56,7 +56,6 @@ DivisionAPI.filterCreateJobPosterDivisions = function(firstLoad){
 };
 
 /**
- * <a href="javascript:JobPostAPI.hideJobPoster()"
  * @param {type} element
  * @returns {undefined}
  */

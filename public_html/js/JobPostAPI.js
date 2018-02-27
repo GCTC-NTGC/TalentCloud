@@ -486,14 +486,9 @@ JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) 
 
 /**
  * 
- * @param {type} jobPosterId
  * @returns {undefined}
  */
 JobPostAPI.hideJobPoster = function(){
-    var viewJobPosterOverlay = document.getElementById("jobPosterApplication");    
-    viewJobPosterOverlay.classList.add("hidden");
-    var jobPoster = document.getElementById("jobPoster");
-    jobPoster.innerHTML = "";
     var jobPosterSection = document.getElementById("viewJobPosterSection");
     jobPosterSection.classList.add("hidden");
     
