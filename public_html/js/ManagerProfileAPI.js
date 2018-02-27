@@ -72,8 +72,48 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
 ManagerProfileAPI.populateManagerProfile = function(response) {
     var manager_profile_with_details_json = JSON.parse(response);
     
-    var manager_profile_json = manager_profile_with_details_json["manager_profile"];
+    var manager_profile = manager_profile_with_details_json["manager_profile"];
+    var manager_profile_details = manager_profile_with_details_json["manager_profile_details"];
     
-    var manager_profile_details_json = manager_profile_with_details_json["manager_profile_details"];
+    
+    
+    
+    var user_id = document.getElementById("managerProfile_userId");
+    user_id.value = manager_profile.user_id;
+    
+    var manager_id = document.getElementById("managerProfile_managerProfileId");
+    manager_id.value = manager_profile.user_manager_profile_id;
+
+    //var firstName = document.getElementById("managerProfileFirstName");
+    //firstName.innerText = manager_
+
+    //var last_updated = document.getElementById("profileLastUpdated");
+    //last_updated.value = JobSeekerAPI.jobSeekerProfile.last_updated;
+
+    var position = document.getElementById("managerProfilePosition");
+    position.innerHTML = manager_profile.user_manager_profile_position;
+    
+    var department = document.getElementById("managerProfileDepartment");
+    department.innerHTML = manager_profile.user_manager_profile_department;
+
+    var twitter_link = document.getElementById("managerProfileTwitterLink");
+    var twitter_link_wrapper = document.getElementById("managerProfileTwitterLinkWrapper");
+    if (manager_profile.user_manager_profile_twitter == null || manager_profile.user_manager_profile_twitter == "") {
+        twitter_link_wrapper.classList.add("hidden");
+        twitter_link.href = "javascript:void(0)";
+    } else {
+        twitter_link_wrapper.classList.remove("hidden");
+        twitter_link.href = JobSeekerAPI.jobSeekerProfile.twitter_link;       
+    }
+
+    var linkedin_link = document.getElementById("managerProfileLinkedinLink");
+    var linkedin_link_wrapper = document.getElementById("managerProfileLinkedinLinkWrapper");
+    if (manager_profile.user_manager_profile_linkedin == null || manager_profile.user_manager_profile_linkedin == "") {
+        linkedin_link_wrapper.classList.add("hidden");
+        linkedin_link.href = "#";
+    } else {
+        linkedin_link_wrapper.classList.remove("hidden");
+        linkedin_link.href = unescape("https://www.linkedin.com/in/"+JobSeekerAPI.jobSeekerProfile.linkedin_link);   
+    }    
 };
 
