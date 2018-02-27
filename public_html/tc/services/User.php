@@ -28,13 +28,11 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
     switch ($requestMethod) {
         case 'GET':
             $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
-            
             if(strlen($requestParams) > 1){
-                if(strlen($user_id) > 1){
-                    $user = new User();
-                    $user->setUser_id($user_id);
-                    $result = UserController::getUserById($user);
-                    $json = json_encode($result, JSON_PRETTY_PRINT);
+                if(strlen($user_id) > 0){
+                    $user = UserController::getUserById($user_id);
+                    $user->setPassword(null); //Don't return password for security reasons
+                    $json = json_encode($user, JSON_PRETTY_PRINT);
                     echo($json);
                 }else{
                     $result = array();
