@@ -625,7 +625,7 @@ and open the template in the editor .
                         </div>
                     </div>
                     <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
-                        <p><span id="managerProfilePosition" class="bold"></span> at <span id="managerProfileDepartment" class="bold"></span></p>
+                        <p><span id="managerProfilePosition" class="bold"></span> <span id="managerProfilePositionAtLabel"></span> <span id="managerProfileDepartment" class="bold"></span></p>
                     </div>
                     <input type="hidden" id="managerProfile_managerProfileId"/>
                     <input type="hidden" id="managerProfile_userId"/>
@@ -686,7 +686,7 @@ and open the template in the editor .
                     <div>
                         <div class="multi-btn-group-form-group">
                             <div class='multi-btn-group-form-group-label'>
-                                <span id="managerProfile_stayList_label">How often do you get in early or stay late to get some extra work done?</span>
+                                <span id="managerProfile_stayLate_label">How often do you get in early or stay late to get some extra work done?</span>
                             </div>
                             <div style='display:inline-block;width:560px'>
                                 <div class="multi-btn-group clearfix">

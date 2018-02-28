@@ -77,6 +77,23 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     FileUploadAPI.refreshProfilePic(user_id, [document.getElementById('managerProfilePic')]);
 }
 
+ManagerProfileAPI.localizeManagerProfile = function() {
+    if (siteContent) {
+        document.getElementById("managerProfilePositionAtLabel").innerHTML = siteContent.at;
+        document.getElementById("managerProfileAboutMeTitle").innerHTML = siteContent.aLittleBitAboutMe;
+        document.getElementById("managerProfileAccomplishmentTitle").innerHTML = siteContent.whatImMostProudOfInCareer;
+        document.getElementById("managerProfileLeadershipStyleTitle").innerHTML = siteContent.myLeadershipStyle;
+        document.getElementById("managerProfileExpectationsTitle").innerHTML = siteContent.myExpectationsOfEmployees;
+        document.getElementById("managerProfileDecisionMakingTitle").innerHTML = siteContent.myApproachToDecisionMaking;
+        document.getElementById("managerProfile_review_label").innerHTML = siteContent.howOftenDoYouReview;
+        document.getElementById("managerProfile_stayLate_label").innerHTML = siteContent.howOftenDoYouStayLate;
+        document.getElementById("managerProfile_engagement_label").innerHTML = siteContent.howOftenDoYouEngage;
+        document.getElementById("managerProfile_developmentOpportunities_Label").innerHTML = siteContent.howOftenDoYouApproveDevelopment;
+        document.getElementById("managerProfileEducationTitle").innerHTML = siteContent.education;
+        document.getElementById("managerProfileExperienceTitle").innerHTML = siteContent.workExperience;
+    }
+}
+
 ManagerProfileAPI.populateManagerProfileName = function(response) {
     var user = UserAPI.parseUserResponse(response);
     

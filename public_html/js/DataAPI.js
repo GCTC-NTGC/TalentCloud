@@ -152,13 +152,16 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.education = content.education;
     thisContent.howOftenDoYouReview = content.howOftenDoYouReview;
     thisContent.howOftenDoYouStayLate = content.howOftenDoYouStayLate;
+    thisContent.howOftenDoYouEngage = content.howOftenDoYouEngage;
+    thisContent.howOftenDoYouApproveDevelopment = content.howOftenDoYouApproveDevelopment;
     thisContent.almostNever = content.almostNever;
     thisContent.rarely = content.rarely;
     thisContent.sometimes = content.sometimes;
     thisContent.usually = content.usually;
     thisContent.almostAlways = content.almostAlways;
     thisContent.name = content.name;
-    
+    thisContent.at = content.at;
+
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
