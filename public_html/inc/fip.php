@@ -17,7 +17,7 @@ $url = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
             </div>
             <div class="col-xs-8">
                 <section class="visible-md visible-lg">
-                    <h1 class="page-title">GC Talent Cloud <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <?php echo $portal; ?> </h1>
+                    <h1 class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <?php echo $portal; ?> </h1>
                 </section>
             </div>
             <div class="col-xs-2">

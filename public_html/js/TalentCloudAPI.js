@@ -15,7 +15,7 @@ step3, review, goToStep2, goToStep1, goToStep3, goToReview, createJobPosterWindo
 createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutMe, whatImMostProudOfInCareer, position,
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
-rarely, sometimes, usually, almostAlways, name){
+rarely, sometimes, usually, almostAlways, name, browseLink, gctc){
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -76,6 +76,8 @@ rarely, sometimes, usually, almostAlways, name){
     this.usually = usually;
     this.almostAlways = almostAlways;
     this.name = name;
+    this.browseLink = browseLink;
+    this.gctc = gctc;
 };
 
 /**
@@ -314,6 +316,9 @@ TalentCloudAPI.setContent = function(content, isManager){
     document.title = siteContent.title;
     window.title = siteContent.title;
     
+    var gctc = document.getElementById("gctc");
+    gctc.innerHTML = siteContent.gctc;
+    
     var languageLink = document.getElementById("languageSelect");
     languageLink.innerHTML = siteContent.languageSelect;
     
@@ -326,8 +331,11 @@ TalentCloudAPI.setContent = function(content, isManager){
     var registerLink = document.getElementById("registerLink");
     registerLink.innerHTML = siteContent.registerLink;
     
-    //var homeLink = document.getElementById("homeLink");
-    //homeLink.innerHTML = siteContent.homeLink;
+    var browseLink = document.getElementById("browseLink");
+    browseLink.innerHTML = siteContent.browseLink;
+    
+    var homeLink = document.getElementById("homeLink");
+    homeLink.innerHTML = siteContent.homeLink;
 
     var profileLink = document.getElementById("profileLink");
     profileLink.innerHTML = siteContent.profileLink;
