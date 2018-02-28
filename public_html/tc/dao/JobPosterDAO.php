@@ -37,6 +37,7 @@ class JobPosterDAO extends BaseDAO {
         $sqlStr = "
             SELECT jp.job_poster_id as id,
             l.locale_id as locale_id,
+            jp_to_user.user_id as manager_user_id,
             jpd.job_poster_title as title,
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
@@ -55,6 +56,7 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_impact as impact
             FROM job_poster jp, job_poster_details jpd, 
                 locale l, 
+                job_poster_to_manager_user_id jp_to_user,
                 job_term_details jtd, 
                 job_level jl_1, 
                 job_level jl_2, 
@@ -67,6 +69,7 @@ class JobPosterDAO extends BaseDAO {
             WHERE jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
+            AND jp_to_user.job_poster_id = jp.job_poster_id
             AND jtd.job_term_id = jp.job_term_id
             AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
@@ -88,7 +91,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications'));
+            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications'));
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -118,6 +121,7 @@ class JobPosterDAO extends BaseDAO {
         $sqlStr = "
             SELECT jp.job_poster_id as id,
             l.locale_id as locale_id,
+            jp_to_user.user_id as manager_user_id,
             jpd.job_poster_title as title,
             jpd.job_poster_desc_content as description,
             (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
@@ -137,6 +141,7 @@ class JobPosterDAO extends BaseDAO {
             FROM job_poster jp, 
                 job_poster_details jpd, 
                 locale l,
+                job_poster_to_manager_user_id jp_to_user,
                 job_term_details jtd,
                 job_level jl_1, 
                 job_level jl_2, 
@@ -150,6 +155,7 @@ class JobPosterDAO extends BaseDAO {
             AND jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
+            AND jp_to_user.job_poster_id = jp.job_poster_id
             AND jtd.job_term_id = jp.job_term_id
             AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
@@ -176,7 +182,7 @@ class JobPosterDAO extends BaseDAO {
                     
             $sql->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
             
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact'));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact'));
             $jobPoster = $sql->fetch();            
         } catch (PDOException $e) {
             BaseDAO::closeConnection($link);
@@ -324,7 +330,7 @@ class JobPosterDAO extends BaseDAO {
             )
             VALUES
             (@job_post_id,1,'','',:city_en,:title_en, :impact_en),
-            (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr);";
+            (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr);";            
         
         //Build bulk insert sql strings for array data
         $key_task_data = [];
@@ -383,10 +389,16 @@ class JobPosterDAO extends BaseDAO {
             (job_poster_id, locale_id, requirement) VALUES " . 
             implode(',', $requirement_values) . ";";
                        
-                
+        $sqlManagerStr = "INSERT INTO job_poster_to_manager_user_id
+            (job_poster_id, user_id)
+            VALUES
+            (@job_post_id, :manager_user_id);";        
+        
         $sql1 = $link->prepare($sqlStr1);
         $sql2 = $link->prepare($sqlStr2);
         $sql3 = $link->prepare($sqlStr3);
+        
+        $sqlManager = $link->prepare($sqlManagerStr);
         
         if (sizeof($key_task_data) > 0)
             $sql4 = $link->prepare($sqlStr4);
@@ -415,6 +427,8 @@ class JobPosterDAO extends BaseDAO {
         $sql3->bindValue(':title_fr', $jobPosterNonLocalized->getTitle_fr(), PDO::PARAM_STR);
         $sql3->bindValue(':impact_en', $jobPosterNonLocalized->getImpact_en(), PDO::PARAM_LOB);
         $sql3->bindValue(':impact_fr', $jobPosterNonLocalized->getImpact_fr(), PDO::PARAM_LOB);
+        
+        $sqlManager->bindValue(':manager_user_id', $jobPosterNonLocalized->getManager_user_id(), PDO::PARAM_INT);
        
         $job_post_id = null;
         try {
@@ -424,6 +438,8 @@ class JobPosterDAO extends BaseDAO {
             $job_post_id = $link->lastInsertId();
             $sql2->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql3->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            
+            $sqlManager->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             
             if (sizeof($key_task_data) > 0)
                  $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));

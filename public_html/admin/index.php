@@ -197,17 +197,6 @@ and open the template in the editor .
                 </div>
             </div>
 
-            <div id="viewJobPosterOverlay" class="viewJobPosterOverlay hidden">
-                <div id="viewJobPosterWrapperWindow" class="viewJobPosterWrapperWindow">
-                    <div class="closeButton">
-                        <a href="javascript:JobPostAPI.hideJobPoster()" class="closeButtonLink"> </a>
-                    </div>
-                    <div id="jobPoster" class="jobPoster">
-
-                    </div>
-                </div>
-            </div>
-
             <!-- BEGIN - Update Overlay-->
             <div class="yesNoModalOverlay hidden" id="updateOverlay">
                 <div id="updateWindow" class="yesNoModalWindow">
@@ -262,11 +251,11 @@ and open the template in the editor .
             </section>
             <section id="createEditProfileSection" class="pageContent hidden">
                 <div class="pageBanner">
-                    <div id="createEditProfileBannerFiller"></div>
+                    <div class="profileBannerFiller"></div>
                 </div>
                 <div class="pageBody">
                     <div class="container">
-                        <div id="createEditProfilePicWrapper" class="flexContainerVerticallyCentered">
+                        <div id="createEditProfilePicWrapper" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                             <div class="flexLeftOfCenter"></div>
                             <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
                             <div class="flexRightOfCenter">

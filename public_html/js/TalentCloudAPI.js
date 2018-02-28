@@ -14,8 +14,8 @@ jobUnitsToCloseDays,jobUnitsToCloseMonths,jobUntilClose,jobTerm,viewButton,jobSa
 step3, review, goToStep2, goToStep1, goToStep3, goToReview, createJobPosterWindowTitle, createProfileWindowTitle, required, 
 createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutMe, whatImMostProudOfInCareer, position,
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
-myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
-rarely, sometimes, usually, almostAlways, name){
+myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, howOftenDoYouEngage,
+howOftenDoYouApproveDevelopment, almostNever, rarely, sometimes, usually, almostAlways, name, at){
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -70,12 +70,15 @@ rarely, sometimes, usually, almostAlways, name){
     this.education = education;
     this.howOftenDoYouReview = howOftenDoYouReview;
     this.howOftenDoYouStayLate = howOftenDoYouStayLate;
+    this.howOftenDoYouEngage = howOftenDoYouEngage;
+    this.howOftenDoYouApproveDevelopment = howOftenDoYouApproveDevelopment;
     this.almostNever = almostNever;
     this.rarely = rarely;
     this.sometimes = sometimes;
     this.usually = usually;
     this.almostAlways = almostAlways;
     this.name = name;
+    this.at = at;
 };
 
 /**
@@ -438,6 +441,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
+    } else {
+        //is job seeker
+        ManagerProfileAPI.localizeManagerProfile();
     }
     
 };

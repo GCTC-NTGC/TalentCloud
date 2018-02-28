@@ -33,8 +33,9 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
+JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
     this.id = id;
+    this.manager_user_id = manager_user_id;
     this.title = title;
     this.applicants_to_date = applicants_to_date;
     this.close_date_time = close_date_time;
@@ -113,6 +114,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     var jobObj = new JobPostAPI.JobPost();
 
     jobObj.id = job.id;
+    jobObj.manager_user_id = job.manager_user_id;
     jobObj.title = job.title;
     jobObj.applicants_to_date = job.applicants_to_date;
     jobObj.close_date_time = job.close_date;
@@ -153,10 +155,10 @@ JobPostAPI.populateJobs = function(jobPosts){
     while (jobsDiv.lastChild) {
         jobsDiv.removeChild(jobsDiv.lastChild);
     }
-    
+    var locale = TalentCloudAPI.getLanguageFromCookie().toString();
     for(var j = 0; j < jobPosts.length; j++){
         var job = jobPosts[j];
-        jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false));
+        jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false, locale));
     }
     
     loadingJobs.classList.add("hidden");
@@ -180,8 +182,6 @@ JobPostAPI.populateJobs = function(jobPosts){
  */
 JobPostAPI.populateJobSummary = function(job, demo, locale){
     Utilities.debug?console.log("populating job"):null;
-    
-    locale = TalentCloudAPI.getLanguageFromCookie().toString();
     
     // Create a job summary
     var jobSummary = document.createElement("div");
@@ -280,9 +280,20 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummary.appendChild(jobSummaryTable);
     //jobSummary.appendChild(JobPostAPI.addFavouriteLink(job.id));
     
+    //Load Hiring Manager Name
+    DataAPI.getUser(job.manager_user_id, function(response) {
+       var managerUser = UserAPI.parseUserResponse(response);
+       hiringManagerLabel.innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+    });
+    
+    //Load Hiring Manager Image
+    FileUploadAPI.refreshProfilePic(job.manager_user_id, [hiringManagerProfilePic]);
+    
     return jobSummary;
     
 };
+
+
 
 /**
  * 
@@ -398,6 +409,10 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterApplyButton").innerHTML = siteContent.applyNow;
     //TODO: add more
    
+   //set hidden values
+   document.getElementById("jobPosterJobId").value = jobData.id;
+   document.getElementById('jobPosterHiringManagerUserId').value = jobData.manager_user_id;
+   
     //Header
     if (jobData.title === "") {
         jobData.title = "No Title";
@@ -407,7 +422,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
     document.getElementById("jobPosterProvince").innerHTML = jobData.location_province;
     document.getElementById("jobPosterIdValue").innerHTML = jobData.id;
-    document.getElementById("jobPosterJobId").value = jobData.id;
     
     //Datapoints
     if (locale === "en_CA"){
@@ -483,14 +497,9 @@ JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) 
 
 /**
  * 
- * @param {type} jobPosterId
  * @returns {undefined}
  */
 JobPostAPI.hideJobPoster = function(){
-    var viewJobPosterOverlay = document.getElementById("jobPosterApplication");    
-    viewJobPosterOverlay.classList.add("hidden");
-    var jobPoster = document.getElementById("jobPoster");
-    jobPoster.innerHTML = "";
     var jobPosterSection = document.getElementById("viewJobPosterSection");
     jobPosterSection.classList.add("hidden");
     

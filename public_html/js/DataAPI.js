@@ -152,13 +152,16 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.education = content.education;
     thisContent.howOftenDoYouReview = content.howOftenDoYouReview;
     thisContent.howOftenDoYouStayLate = content.howOftenDoYouStayLate;
+    thisContent.howOftenDoYouEngage = content.howOftenDoYouEngage;
+    thisContent.howOftenDoYouApproveDevelopment = content.howOftenDoYouApproveDevelopment;
     thisContent.almostNever = content.almostNever;
     thisContent.rarely = content.rarely;
     thisContent.sometimes = content.sometimes;
     thisContent.usually = content.usually;
     thisContent.almostAlways = content.almostAlways;
     thisContent.name = content.name;
-    
+    thisContent.at = content.at;
+
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
@@ -614,3 +617,64 @@ DataAPI.getJobPoster = function(locale, jobId){
     xhr.open('GET',jobPoster_url);
     xhr.send(null);
 };
+
+/**
+ * 
+ * @param {String} url - the url endpoint of the request
+ * @param {String} restMethod - 'GET', 'PUT', 'POST', or 'DELETE' 
+ * @param {String:String map} headersMap - Map of extra reuqest headers for the 
+ *      request. By default, Content-type and Accept are set to 'application/json', 
+ *      though this can be overridden with headersMap.
+ * @param {Object} payload - the payload of the request
+ * @param {function} responseCallback - this function will be called upon the'load'
+ *      event, with the XMLHttpRequest as the single argument
+ * @return {undefined}
+ */
+DataAPI.sendRequest = function(url, restMethod, headersMap, payload, responseCallback) {
+    var request = new XMLHttpRequest();
+    if ("withCredentials" in request) {
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        request.open(restMethod, url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        request = new XDomainRequest();
+        request.open(restMethod, url);
+    } else {
+        // Otherwise, CORS is not supported by the browser.
+        request = null;
+        // TODO: indicate to user that browser is not supported
+    }
+
+    request.setRequestHeader("Content-type", "application/json");
+    request.setRequestHeader("Accept", "application/json");
+    if (UserAPI.hasSessionUser()) {
+        authToken = UserAPI.getAuthTokenAsJSON();
+        request.setRequestHeader('x-access-token', authToken.access_token);
+    }
+    Object.keys(headersMap).forEach(function(key) {
+        request.setRequestHeader(key, headersMap[key]);
+    });
+    
+    request.addEventListener("progress", DataAPI.updateProgress, false);
+    request.addEventListener("error", DataAPI.transferFailed, false);
+    request.addEventListener("abort", DataAPI.transferAborted, false);
+    request.addEventListener("load", function() {
+        responseCallback(request.response);
+    },false);
+
+    request.send(payload);
+};
+
+DataAPI.getManagerProfile = function(userId, responseCallback) {
+    var manager_profile_url = DataAPI.baseURL + "/getManagerProfile/"+userId;
+    DataAPI.sendRequest(manager_profile_url, "GET", {}, null, responseCallback);
+};
+
+DataAPI.getUser = function(userId, responseCallback) {
+    var user_url = DataAPI.baseURL + "/getUser/" + userId;
+    DataAPI.sendRequest(user_url, "GET", {}, null, responseCallback);
+}
+
