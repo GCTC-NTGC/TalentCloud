@@ -21,6 +21,7 @@ body{
 }
 
 main{
+    min-height: 70%;
 }
 
 header{
@@ -31,7 +32,9 @@ header{
 
 footer{
     clear:left;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width:100%;
 }
 
 /* NAVIGATION */
@@ -58,13 +61,13 @@ nav{
 .pageContent{
     margin: 0 auto;
     width: 100%;
-    min-height: 100%;
+    min-height: 700px;
     overflow:auto;
 }
 
 .pageBanner {
     background:rgba(0,0,0,0.7);
-    min-height: 10rem;
+    min-height: 10%;
     width:100%;
     overflow:auto;
     color: #FFFFFF;
@@ -73,8 +76,8 @@ nav{
 .pageBody {
     background-color: white;
     width:100%;
-    overflow:visible;
-    padding-bottom: 10em;
+    min-height: 700px;
+    overflow: visible;
 }
 
 .formButtonWrapper{
@@ -260,6 +263,10 @@ nav{
 }
 
 /* PROFILE PIC AND UPLOAD */
+
+#profileSection{
+    min-height: 500px;
+}
 
 .profilePic{
     width:50px;
@@ -453,8 +460,9 @@ nav{
 }
 
 /*TODO: deal with empty browseJobs page better*/
-#jobs{
-    min-height: 500px;
+
+#browseJobsSection{
+    min-height: 800px;
 }
 
 #noJobs{
@@ -615,6 +623,10 @@ nav{
     text-align: center;
 }
 
+#jobPosterApplyButton{
+    margin-bottom: 5em;
+}
+
 /* CREATE JOB POSTER */
 
 #createJobPosterOverlay{
@@ -681,6 +693,7 @@ nav{
     text-align: center;
     position: relative;
     margin-top:-13.5em;
+    padding-bottom: -13.5em;
 }
 
 #profileBasicInfoTopBar {
