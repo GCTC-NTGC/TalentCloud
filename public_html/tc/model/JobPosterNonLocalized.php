@@ -9,6 +9,7 @@
 class JobPosterNonLocalized implements JsonSerializable {
 
     private $id;
+    private $manager_user_id;
     private $title_en;
     private $title_fr;
     private $department_id;
@@ -37,6 +38,7 @@ class JobPosterNonLocalized implements JsonSerializable {
     
     public function __construct(
             $id=null, 
+            $manager_user_id=null,
             $title_en=null, 
             $title_fr=null, 
             $department_id=null, 
@@ -63,6 +65,7 @@ class JobPosterNonLocalized implements JsonSerializable {
             $other_requirements_en=null,
             $other_requirements_fr=null) {
         $this->id = $id;
+        $this->manager_user_id = $manager_user_id;
         $this->title_en = $title_en;
         $this->title_fr = $title_fr;
         $this->department_id = $department_id;
@@ -101,9 +104,12 @@ class JobPosterNonLocalized implements JsonSerializable {
         }
         return $gettable_attributes;
     }
-    
     public function getId() {
         return $this->id;
+    }
+
+    public function getManager_user_id() {
+        return $this->manager_user_id;
     }
 
     public function getTitle_en() {
@@ -208,6 +214,11 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function setId($id) {
         $this->id = $id;
+        return $this;
+    }
+
+    public function setManager_user_id($manager_user_id) {
+        $this->manager_user_id = $manager_user_id;
         return $this;
     }
 

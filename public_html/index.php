@@ -516,6 +516,16 @@ and open the template in the editor .
                     <ul id="jobPosterOtherRequirements"></ul>
                 </div>
             </section>
+            <section>
+                <div class='container'>
+                    <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
+                    <input type='hidden' id='jobPosterHiringManagerUserId'/>
+                    <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                        Hiring Manager
+                    </button>
+                </div>
+            </section>
+            
 
             <div id="jobPosterButtonWrapper">
                 <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
@@ -527,14 +537,14 @@ and open the template in the editor .
     
     <section class="pageContent hidden" id="profileSection">
         <div class="pageBanner">
-            <div id="profileBannerFiller"></div>
+            <div class="profileBannerFiller"></div>
         </div>
         <div class="pageBody">
             <div class="container">
-                <div id="profileBasicInfo" class="centered">
-                    <div id="profileBasicInfoTopBar" class="flexContainerVerticallyCentered">
+                <div id="profileBasicInfo" class="profileBasicInfo centered">
+                    <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                         <div class="flexLeftOfCenter"> 
-                            <ul id="profileSocialMediaLinks"> 
+                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks"> 
                                 <li id="profileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
@@ -545,13 +555,13 @@ and open the template in the editor .
                         </div>
                         <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
                         <div class="flexRightOfCenter">
-                            <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
+                            <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
                                 <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
                             </a>
                         </div>
                     </div>
                     <div id="profileNameWrapper">
-                        <div id="profileName">
+                        <div class="profileName">
                             <span id="profileFirstName"></span> <span id="profileLastName"></span>
                         </div>
                     </div>
@@ -585,6 +595,179 @@ and open the template in the editor .
                     </ul>
                 </div>
                 -->
+            </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="managerProfileSection">
+        <div class="pageBanner">
+            <div class="profileBannerFiller"></div>
+        </div>
+        <div class="pageBody">
+            <div class="container">
+                <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
+                    <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
+                        <div class="flexLeftOfCenter"> 
+                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                                <li id="managerProfileTwitterLinkWrapper" class="hidden">
+                                    <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                                </li>
+                                <li id="managerProfileLinkedinLinkWrapper" class="hidden">
+                                    <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                </li>    
+                            </ul>
+                        </div>
+                        <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
+                        <div class="flexRightOfCenter"></div>
+                    </div>
+                    <div id="managerProfileNameWrapper">
+                        <div id="managerProfileName" class="profileName">
+                            <span id="managerProfileFirstName"></span> <span id="managerProfileLastName"></span>
+                        </div>
+                    </div>
+                    <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
+                        <p><span id="managerProfilePosition" class="bold"></span> <span id="managerProfilePositionAtLabel"></span> <span id="managerProfileDepartment" class="bold"></span></p>
+                    </div>
+                    <input type="hidden" id="managerProfile_managerProfileId"/>
+                    <input type="hidden" id="managerProfile_userId"/>
+                    <input type="hidden" id="managerProfileLastUpdated"/>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileAboutMeTitle" >About Me</h2>
+                    </div>
+                    <p id="managerProfileAboutMe">This is the about me section.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileAccomplishmentTitle">My Greatest Accomplishment</h2>
+                    </div>
+                    <p id="managerProfileAccomplishment">This is my greatest accomplishment.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileLeadershipStyleTitle">My Leadership Style</h2>
+                    </div>
+                    <p id="managerProfileLeadershipStyle">This is my leadership style.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileExpectationsTitle">My Expectations of Employees</h2>
+                    </div>
+                    <p id="managerProfileExpectations">These are my employee expectations.</p>
+                </div>
+                <div class='profileSubSection'>
+                    <div class='profileSubSectionTitleBar'>
+                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id="managerProfile_review_label">How often do you review your teams work before it is shared?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
+                                        <input type="radio" id="option0" name="managerProfile_review_options_groupName" value="option0" class="accessAid" />
+                                        <label for="option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="option1" name="managerProfile_review_options_groupName" value="option1" class="accessAid" />
+                                        <label for="option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="option2" name="managerProfile_review_options_groupName" value="option2" class="accessAid" />
+                                        <label for="option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="option3" name="managerProfile_review_options_groupName" value="option3" class="accessAid" />
+                                        <label for="option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="option4" name="managerProfile_review_options_groupName" value="option4" class="accessAid" />
+                                        <label for="option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='review_options' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id="managerProfile_stayLate_label">How often do you get in early or stay late to get some extra work done?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='managerProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
+                                        <input type="radio" id="staylate_option0" name="managerProfile_staylate_groupName" value="option0" class="accessAid" />
+                                        <label for="staylate_option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="staylate_option1" name="managerProfile_staylate_groupName" value="option1" class="accessAid" />
+                                        <label for="staylate_option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="staylate_option2" name="managerProfile_staylate_groupName" value="option2" class="accessAid" />
+                                        <label for="staylate_option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="staylate_option3" name="managerProfile_staylate_groupName" value="option3" class="accessAid" />
+                                        <label for="staylate_option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="staylate_option4" name="managerProfile_staylate_groupName" value="option4" class="accessAid" />
+                                        <label for="staylate_option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='staylate' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id='managerProfile_engagement_label'>How often do you engage your team before responding to management?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                        <input type="radio" id="engage_option0" name="managerProfile_engagement_groupName" value="option0" class="accessAid" />
+                                        <label for="engage_option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="engage_option1" name="managerProfile_engagement_groupName" value="option1" class="accessAid" />
+                                        <label for="engage_option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="engage_option2" name="managerProfile_engagement_groupName" value="option2" class="accessAid" />
+                                        <label for="engage_option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="engage_option3" name="managerProfile_engagement_groupName" value="option3" class="accessAid" />
+                                        <label for="engage_option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="engage_option4" name="managerProfile_engagement_groupName" value="option4" class="accessAid" />
+                                        <label for="engage_option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='engage' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id='managerProfile_developmentOpportunities_Label'>How often do you approve development opportunities for your employees?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                        <input type="radio" id="devops_option0" name="managerProfile_developmentOpportunities_groupName" value="option0" class="accessAid" />
+                                        <label for="devops_option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="devops_option1" name="managerProfile_developmentOpportunities_groupName" value="option1" class="accessAid" />
+                                        <label for="devops_option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="devops_option2" name="managerProfile_developmentOpportunities_groupName" value="option2" class="accessAid" />
+                                        <label for="devops_option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="devops_option3" name="managerProfile_developmentOpportunities_groupName" value="option3" class="accessAid" />
+                                        <label for="devops_option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="devops_option4" name="managerProfile_developmentOpportunities_groupName" value="option4" class="accessAid" />
+                                        <label for="devops_option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='devops' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='profileSubSection'>
+                    <div class='profileSubSectionTitleBar'>
+                        <h2 id='managerProfileEducationTitle'>Education</h2>
+                    </div>
+                    <p class='profileSubSectionBlock' id='managerProfileEducation'>This is my education.</p>
+                </div>
+                <div class='profileSubSection'>
+                    <div class='profileSubSectionTitleBar'>
+                        <h2 id='managerProfileExperienceTitle'>Work History</h2>
+                    </div>
+                    <p class='profileSubSectionBlock' id='managerProfileExperience'>This is my work history.</p>
+                </div>
             </div>
         </div>
     </section>

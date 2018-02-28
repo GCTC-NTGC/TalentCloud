@@ -14,11 +14,11 @@
                     </li>-->
                     <li class="top-nav--link" id="browseLinkListItem">
                         <div id="browse">
-                            <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();">Browse Jobs</a>
+                            <a href="javascript:void(0)" id="browseLink" onclick="JobPostAPI.showBrowseJobs();">Browse Jobs</a>
                         </div>
                     </li>
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
-                        <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile()">My Profile</a>
+                        <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile()">My Profile</a>
                     </li>
                     <li class="top-nav--link">
                         <div id="register">

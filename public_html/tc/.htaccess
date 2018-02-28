@@ -3,6 +3,7 @@ RewriteBase /tc/
 
 #non localized services
 RewriteRule ^api/v1/authenticate services/Authentication.php
+RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
 RewriteRule ^api/v1/user services/User.php
 RewriteRule ^api/v1/user/validateEmail services/User.php
 RewriteRule ^api/v1/user/register services/User.php
