@@ -105,7 +105,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.logoutLink = content.logoutLink;
     thisContent.registerLink = content.registerLink;
     thisContent.applyNow = content.applyNow;
-    //thisContent.homeLink = content.homeLink;
+    thisContent.homeLink = content.homeLink;
     thisContent.profileLink = content.profileLink;
     thisContent.jobPostersLink = content.jobPostersLink;
     thisContent.teamsLink = content.teamsLink;
@@ -160,8 +160,10 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.usually = content.usually;
     thisContent.almostAlways = content.almostAlways;
     thisContent.name = content.name;
+    thisContent.browseLink = content.browseLink;
+    thisContent.gctc = content.gctc;
     thisContent.at = content.at;
-
+  
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
