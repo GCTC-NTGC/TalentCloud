@@ -55,4 +55,95 @@ class JobApplicationDAO extends BaseDAO {
         return $questionAnswers;
     }
     
+    public static function getJobPosterApplicationByApplicationId($jobPosterApplicationId) {
+        $link = BaseDAO::getConnection();
+        
+        $sqlStr = "
+        SELECT 
+            jpa.job_poster_application_id,
+            jpa.application_job_poster_id,
+            jpa.application_job_seeker_profile_id
+        FROM job_poster_application jpa
+        WHERE
+        jpa.job_poster_application_id = :job_poster_application_id
+        ;";
+        
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+       
+        try {
+            //$result = BaseDAO::executeDBTransaction($link,$sql);
+            //$link->beginTransaction();
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            //$link->commit();
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPosterApplication',array('job_poster_application_id', 'application_job_poster_id','application_job_seeker_profile_id'));
+            $jobPosterApplication = $sql->fetch();            
+        } catch (PDOException $e) {
+            return 'getJobPosterApplicationByApplicationId failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $jobPosterApplication;
+    }
+    
+    public static function getJobPosterApplicationsByJobPosterId($jobPosterId) {
+        $link = BaseDAO::getConnection();
+        
+        $sqlStr = "
+        SELECT 
+            jpa.job_poster_application_id,
+            jpa.application_job_poster_id,
+            jpa.application_job_seeker_profile_id
+        FROM job_poster_application jpa
+        WHERE
+        jpa.application_job_poster_id = :job_poster_id
+        ;";
+        
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':job_poster_id', $jobPosterId, PDO::PARAM_INT);
+       
+        try {
+            //$result = BaseDAO::executeDBTransaction($link,$sql);
+            //$link->beginTransaction();
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            //$link->commit();
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPosterApplication',array('job_poster_application_id', 'application_job_poster_id','application_job_seeker_profile_id'));
+            $jobPosterApplications = $sql->fetchAll();            
+        } catch (PDOException $e) {
+            return 'getJobPosterApplicationsByJobPosterId failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $jobPosterApplications;
+    }
+    
+    public static function getJobPosterApplicationsByJobSeekerProfileId($jobSeekerProfileId) {
+        $link = BaseDAO::getConnection();
+        
+        $sqlStr = "
+        SELECT 
+            jpa.job_poster_application_id,
+            jpa.application_job_poster_id,
+            jpa.application_job_seeker_profile_id
+        FROM job_poster_application jpa
+        WHERE
+        jpa.application_job_seeker_profile_id = :job_seeker_profile_id
+        ;";
+        
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':job_seeker_profile_id', $jobSeekerProfileId, PDO::PARAM_INT);
+       
+        try {
+            //$result = BaseDAO::executeDBTransaction($link,$sql);
+            //$link->beginTransaction();
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            //$link->commit();
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPosterApplication',array('job_poster_application_id', 'application_job_poster_id','application_job_seeker_profile_id'));
+            $jobPosterApplications = $sql->fetchAll();            
+        } catch (PDOException $e) {
+            return 'getJobPosterApplicationsByJobPosterId failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $jobPosterApplications;
+    }
+    
+    
 }
