@@ -29,10 +29,10 @@ class JobApplicationDAO extends BaseDAO {
         
         $sqlStr = "
             SELECT 
-                qa.application_question_answer_id as qa_id,
-                qa.job_poster_application_id as application_id,
-                qa.question as question,
-                qa.answer as answer
+                qa.application_question_answer_id,
+                qa.job_poster_application_id,
+                qa.question,
+                qa.answer
             FROM application_question_answer as qa
             WHERE
                 qa.job_poster_application_id = :job_poster_application_id
