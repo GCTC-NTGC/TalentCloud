@@ -41,7 +41,7 @@ class JobApplicationController{
     public static function getJobApplicationsWithAnswersForJobPosterApplications($jobPosterApplications) {
         $jobApplicationsWithAnswers = [];
         
-        foreach($jobPosterApplcations as $jpa) {
+        foreach($jobPosterApplications as $jpa) {
             $questionAnswers = self::getApplicationQuestionAnswers($jpa->getJob_poster_application_id());
             $jobApplication = new JobApplicationWithAnswers($jpa, $questionAnswers);
             array_push($jobApplicationsWithAnswers, $jobApplication);
@@ -64,4 +64,3 @@ class JobApplicationController{
         return self::getJobApplicationsWithAnswersForJobPosterApplications($jobPosterApplications);
     }
 }
-?>
