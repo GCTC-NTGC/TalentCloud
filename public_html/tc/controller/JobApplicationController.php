@@ -11,7 +11,7 @@ require_once '../model/ApplicationQuestionAnswer.php';
 require_once '../model/JobApplicationWIthAnswers.php';
 require_once '../dao/JobApplicationDAO.php';
 
-class JobApplicationProfile{
+class JobApplicationController{
         
     public static function getApplicationQuestionAnswers($jobPosterApplicationId){
         
