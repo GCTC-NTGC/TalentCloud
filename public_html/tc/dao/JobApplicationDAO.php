@@ -47,7 +47,7 @@ class JobApplicationDAO extends BaseDAO {
             ;";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+        $sql->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
@@ -83,7 +83,7 @@ class JobApplicationDAO extends BaseDAO {
         ;";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+        $sql->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
        
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
@@ -121,7 +121,7 @@ class JobApplicationDAO extends BaseDAO {
         ;";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':job_poster_id', $jobPosterId, PDO::PARAM_INT);
+        $sql->bindValue(':job_poster_id', $jobPosterId, PDO::PARAM_INT);
        
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
@@ -158,7 +158,7 @@ class JobApplicationDAO extends BaseDAO {
         ;";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':job_seeker_profile_id', $jobSeekerProfileId, PDO::PARAM_INT);
+        $sql->bindValue(':job_seeker_profile_id', $jobSeekerProfileId, PDO::PARAM_INT);
        
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
@@ -168,7 +168,7 @@ class JobApplicationDAO extends BaseDAO {
             $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPosterApplication',array('job_poster_application_id', 'application_job_poster_id','application_job_seeker_profile_id'));
             $jobPosterApplications = $sql->fetchAll();            
         } catch (PDOException $e) {
-            return 'getJobPosterApplicationsByJobPosterId failed: ' . $e->getMessage();
+            return 'getJobPosterApplicationsByJobSeekerProfileId failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $jobPosterApplications;
@@ -184,16 +184,15 @@ class JobApplicationDAO extends BaseDAO {
     public static function createJobPosterApplication($jobPosterApplication) {
         $link = BaseDAO::getConnection();
         
-        $sqlStr = "INSERT INTO job_poster_application jpa
-            (jpa.application_job_poster_id,
-            jpa.application_job_seeker_profile_id)
+        $sqlStr = "INSERT INTO job_poster_application
+            (application_job_poster_id, application_job_seeker_profile_id)
             VALUES
             (:job_poster_id, :job_seeker_profile_id)       
         ;";
         
-        $sql = $link->prepare(sqlStr);
-        $sql->bindParam(':job_poster_id', $jobPosterApplication->getJob_poster_id(), PDO::PARAM_INT);
-        $sql->bindParam(':job_seeker_profile_id', $jobPosterApplication->getJob_seeker_profile_id(), PDO::PARAM_INT);
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':job_poster_id', $jobPosterApplication->getApplication_job_poster_id(), PDO::PARAM_INT);
+        $sql->bindValue(':job_seeker_profile_id', $jobPosterApplication->getApplication_job_seeker_profile_id(), PDO::PARAM_INT);
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
@@ -202,11 +201,51 @@ class JobApplicationDAO extends BaseDAO {
                 $application_id = $link->lastInsertId();
             }
         } catch (PDOException $e) {
-            return 'getJobSeekersByUserId failed: ' . $e->getMessage();
+            return 'createJobPosterApplication failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $application_id;
     }
     
-    
+    /**
+     * 
+     * Accepts an array of ApplicationQuestionAnswer objects, and adds them all
+     * to database.
+     * NOTE: since they are added as new items, a new application_question_answer_id 
+     * will be created for each, regardless of the contents of the input objects.
+     * 
+     * @param ApplicationQuestionAnswer[] $applicationQuestionAnswers
+     * @return int $rowsmodified - number of rows modified in database
+     */
+    public static function createApplicationQuestionAnswers($applicationQuestionAnswers) {
+        if (sizeof($applicationQuestionAnswers) === 0){
+            return 0;
+        }
+        
+        $link = BaseDAO::getConnection();
+                
+         //Build bulk insert sql strings for array data
+        $values = [];
+        $valueStrings = [];
+        foreach($applicationQuestionAnswers as $questionAnswer) {
+            $valueStrings[] = '(?, ?, ?)';
+            $entryValues = [$questionAnswer->getJob_poster_application_id(), $questionAnswer->getQuestion(), $questionAnswer->getAnswer()];
+            $values = array_merge($values, $entryValues);
+        }
+        
+        $sqlStr = "INSERT INTO application_question_answer 
+            (job_poster_application_id, question, answer)
+            VALUES " . 
+            implode(',', $valueStrings) . ";";
+        
+        $sql = $link->prepare($sqlStr);
+        try {
+            $sql->execute($values) or die("ERROR: " . implode(":", $link->errorInfo()));
+            $rowsmodified = $sql->rowCount();
+        } catch (PDOException $e) {
+            return 'createApplicationQuestionAnswers failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rowsmodified;
+    }
 }

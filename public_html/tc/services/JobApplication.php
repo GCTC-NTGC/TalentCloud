@@ -14,6 +14,8 @@
     
     require_once '../controller/JobApplicationController.php';
     require_once '../model/JobApplicationWithAnswers.php';
+    require_once '../model/JobPosterApplication.php';
+    require_once '../model/ApplicationQuestionAnswer.php';
     require_once '../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -45,6 +47,31 @@
             }
             break;
         case 'POST':
+            //Assemble JobApplicationWithAnswers object from JSON
+            $jsonBody = file_get_contents('php://input');
+            $jsonJobApplicationWithAnswers = json_decode($jsonBody, TRUE);
+       
+            $jsonJobPosterApplication = $jsonJobApplicationWithAnswers["job_poster_application"];
+            
+            $jobPosterApplication = new JobPosterApplication();
+            $jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
+            $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
+            
+            $questionAnswers = [];
+            foreach($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
+                $questionAnswer = new ApplicationQuestionAnswer();
+                $questionAnswer->setQuestion($jsonQA['question']);
+                $questionAnswer->setAnswer($jsonQA['answer']);
+                $questionAnswers[] = $questionAnswer;
+            }
+            
+            $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
+            
+            $jobPosterApplicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
+            $returnMap = array('job_poster_application_id' => $jobPosterApplicationId);
+            $json = json_encode($returnMap, JSON_PRETTY_PRINT);
+            echo($json);
+            
             break;
         case 'DELETE':
             //Here Handle DELETE Request 
@@ -73,7 +100,7 @@
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: GET");
+            header("Access-Control-Allow-Methods: GET,POST");
             echo("");
             break;
     }

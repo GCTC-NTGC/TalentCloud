@@ -63,4 +63,20 @@ class JobApplicationController{
         
         return self::getJobApplicationsWithAnswersForJobPosterApplications($jobPosterApplications);
     }
+    
+    /**
+     * 
+     * @param JobApplicationWithAnswers $jobApplicationWithAnswers
+     * @return int @jobPosterApplicationId
+     */
+    public static function createJobApplicationWithAnswers($jobApplicationWithAnswers) {
+        $jobPosterApplicationId = JobApplicationDAO::createJobPosterApplication($jobApplicationWithAnswers->getJob_poster_application());
+        
+        foreach($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
+            $questionAnswer->setJob_poster_application_id($jobPosterApplicationId);
+        }
+        JobApplicationDAO::createApplicationQuestionAnswers($jobApplicationWithAnswers->getApplication_question_answers());
+        
+        return $jobPosterApplicationId;
+    }
 }
