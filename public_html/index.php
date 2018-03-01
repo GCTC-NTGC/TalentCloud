@@ -528,7 +528,7 @@ and open the template in the editor .
             
 
             <div id="jobPosterButtonWrapper">
-                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
+                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                     Apply Now
                 </button>
             </div>
@@ -767,6 +767,28 @@ and open the template in the editor .
                         <h2 id='managerProfileExperienceTitle'>Work History</h2>
                     </div>
                     <p class='profileSubSectionBlock' id='managerProfileExperience'>This is my work history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="createJobApplicationSection">
+        <div class="pageBanner">
+            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+            <div class="container centered">
+                <p id="createJobApplicationPositionLabel">for the position of:</p>
+                <h3 id="createJobApplicationPostition"></h3>
+            </div>
+        </div>
+        <div class="pageBody">
+            <div class="container centered">
+                <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
+                <div class="profileName">
+                    <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
+                </div>
+            </div>
+            <div class="container">
+                <div id="createJobApplicationOpenEndedQuestionsWrapper">
+                    
                 </div>
             </div>
         </div>

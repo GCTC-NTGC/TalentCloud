@@ -463,7 +463,7 @@ JobPostAPI.populateJobPoster = function(jobData){
         
     var applyNowButton = document.getElementById("jobPosterApplyButton"); 
     if(UserAPI.hasSessionUser()){
-        applyNowButton.setAttribute("onclick", "JobPostAPI.jobPosterApplication("+jobData.id+",'"+jobData.title+ "');");
+        applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");
     }else{
         applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
     }
