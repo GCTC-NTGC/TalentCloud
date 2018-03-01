@@ -24,6 +24,14 @@ require_once '../model/JobPosterApplication.php';
  */
 class JobApplicationDAO extends BaseDAO {
     
+    /**
+     * 
+     * Returns an array of ApplicationQuestionAnswer objects associated with
+     * a given job_poster_application_id.
+     * 
+     * @param int $jobPosterApplicationId
+     * @return ApplicationQuestionAnswer[]
+     */
     public static function getApplicationQuestionAnswersByApplicationId($jobPosterApplicationId) {
         $link = BaseDAO::getConnection();
         
@@ -55,6 +63,12 @@ class JobApplicationDAO extends BaseDAO {
         return $questionAnswers;
     }
     
+    /**
+     * Returns the JobPosterApplicaiton object with the supplied job_poster_application_id.
+     * 
+     * @param int $jobPosterApplicationId
+     * @return JobPosterApplication
+     */
     public static function getJobPosterApplicationByApplicationId($jobPosterApplicationId) {
         $link = BaseDAO::getConnection();
         
@@ -85,6 +99,14 @@ class JobApplicationDAO extends BaseDAO {
         return $jobPosterApplication;
     }
     
+    /**
+     * 
+     * Returns an array of all JobPosterApplication objects associated with the
+     * specified Job Poster.
+     * 
+     * @param int $jobPosterId
+     * @return JobPosterApplication[]
+     */
     public static function getJobPosterApplicationsByJobPosterId($jobPosterId) {
         $link = BaseDAO::getConnection();
         
@@ -115,6 +137,13 @@ class JobApplicationDAO extends BaseDAO {
         return $jobPosterApplications;
     }
     
+    /**
+     * Returns an array of all JobPosterApplication objects associated with the
+     * specified Job Seeker Profile.
+     * 
+     * @param int $jobSeekerProfileId
+     * @return JobPosterApplication[]
+     */
     public static function getJobPosterApplicationsByJobSeekerProfileId($jobSeekerProfileId) {
         $link = BaseDAO::getConnection();
         
@@ -143,6 +172,40 @@ class JobApplicationDAO extends BaseDAO {
         }
         BaseDAO::closeConnection($link);
         return $jobPosterApplications;
+    }
+    
+    /**
+     * Creates a new JobPosterApplication row in database, returns the 
+     * job_poster_application_id of the new row.
+     * 
+     * @param JobPosterApplication $jobPosterApplication
+     * @return int - new job_poster_application_id
+     */
+    public static function createJobPosterApplication($jobPosterApplication) {
+        $link = BaseDAO::getConnection();
+        
+        $sqlStr = "INSERT INTO job_poster_application jpa
+            (jpa.application_job_poster_id,
+            jpa.application_job_seeker_profile_id)
+            VALUES
+            (:job_poster_id, :job_seeker_profile_id)       
+        ;";
+        
+        $sql = $link->prepare(sqlStr);
+        $sql->bindParam(':job_poster_id', $jobPosterApplication->getJob_poster_id(), PDO::PARAM_INT);
+        $sql->bindParam(':job_seeker_profile_id', $jobPosterApplication->getJob_seeker_profile_id(), PDO::PARAM_INT);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $rowsmodified = $sql->rowCount();
+            if($rowsmodified > 0){
+                $application_id = $link->lastInsertId();
+            }
+        } catch (PDOException $e) {
+            return 'getJobSeekersByUserId failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $application_id;
     }
     
     
