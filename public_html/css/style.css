@@ -438,6 +438,10 @@ nav{
     
 }
 
+#createJobApplicationButtonWrapper {
+    text-align: center;
+}
+
 /* JOB POSTER APPLICATION */
 
 .jobSeekerProfileOverlay{
