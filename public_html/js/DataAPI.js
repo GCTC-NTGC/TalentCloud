@@ -621,3 +621,16 @@ DataAPI.getUser = function(userId, responseCallback) {
         responseCallback(request.response);
     });
 }
+
+/**
+ * 
+ * @param {JobApplicationAPI.JobApplication} jobApplication
+ * @param {function} responseCallback
+ * @return {undefined}
+ */
+DataAPI.createJobApplication = function(jobApplication, responseCallback) {
+    var url = DataAPI.baseURL + '/postJobApplication';
+    DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), function(request) {
+        responseCallback(request.response);
+    });
+};

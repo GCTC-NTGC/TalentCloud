@@ -1,5 +1,34 @@
 var JobApplicationAPI = {};
 
+JobApplicationAPI.ApplicationQuestionAnswer = function(
+        applicationQuestionAnswerId,
+        jobApplicationId,
+        question,
+        answer) {
+    this.applcation_question_answer_id = applicationQuestionAnswerId;
+    this.job_poster_application_id = jobApplicationId;
+    this.question = question;
+    this.answer = answer;
+};
+
+/*
+ * It's recommended to use the costructor for this object, to avoid dealing
+ * directly with multilevel JSON
+ * 
+ * @return {JobApplicationAPI.JobApplication}
+ */
+JobApplicationAPI.JobApplication = function(
+        jobApplicationId, 
+        jobPosterId, 
+        jobSeekerProfileId,
+        applicationQuestionAnswers) {
+    this.job_poster_application = {};
+    this.job_poster_application.job_poster_application_id = jobApplicationId;
+    this.job_poster_application.application_job_poster_id = jobPosterId;
+    this.job_poster_application.application_job_seeker_profile_id = jobSeekerProfileId;
+    
+    this.application_question_answers = applicationQuestionAnswers;
+};
 
 JobApplicationAPI.showCreateJobApplication = function(jobPosterId) {
     var stateInfo = {pageInfo: 'create_job_application', pageTitle: 'Talent Cloud: Create Job Application'};
@@ -48,38 +77,85 @@ JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function(jobS
 
 JobApplicationAPI.populateApplicationWithQuestionContent = function() {
     
-    var questions = [];
+    var applicationQuestionAnswers = [];
     //TODO get questions associated with Job Poster
-    questions.push('How are you a good fit?');
+    applicationQuestionAnswers.push(new JobApplicationAPI.ApplicationQuestionAnswer(null,null,'How are you a good fit?', ''));
     
     var questionSectionWrapper = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
     
-    for (var i=0; i < questions.length; i++) {
-        var element = JobApplicationAPI.makeQuestionAnswerHtmlElement(questions[i]);
+    //REMOVE existing children (from previous application)
+    questionSectionWrapper.innerHTML = '';
+    
+    for (var i=0; i < applicationQuestionAnswers.length; i++) {
+        
+        var element = JobApplicationAPI.makeQuestionAnswerHtmlElement(applicationQuestionAnswers[i]);
         questionSectionWrapper.appendChild(element);
     }
 };
 
 /**
  * 
- * @param {string} questionText
+ * @param {JobApplicationAPI.ApplicationQuestionAnswer} applicationQuestionAnswer
  * @return {Element} Job Application Question Answer Wrapper element
  */
-JobApplicationAPI.makeQuestionAnswerHtmlElement = function(questionText) {
+JobApplicationAPI.makeQuestionAnswerHtmlElement = function(applicationQuestionAnswer) {
     var wrapper = document.createElement("div");
     wrapper.setAttribute("class", "jobApplicationQuestionAnswerWrapper");
     
     var question = document.createElement('p');
     question.setAttribute('class', 'jobApplicationQuestion');
-    var questionTextNode = document.createTextNode(questionText);
+    var questionTextNode = document.createTextNode(applicationQuestionAnswer.question);
     question.appendChild(questionTextNode);
     
     var answerField = document.createElement('textarea');
+    answerField.setAttribute('name', 'answer');
     answerField.setAttribute('class', 'jobApplicationAnswerField full-width');
+    answerField.value = applicationQuestionAnswer.answer;
+    
+    var questionAnswerId = document.createElement('input');
+    questionAnswerId.setAttribute('name','application_question_answer_id');
+    questionAnswerId.setAttribute('type', 'hidden');
+    questionAnswerId.value = applicationQuestionAnswer.applcation_question_answer_id;
+    
+    var applicationId = document.createElement('input');
+    applicationId.setAttribute('name','job_poster_application_id');
+    applicationId.setAttribute('type', 'hidden');
+    applicationId.value = applicationQuestionAnswer.job_poster_application_id;
     
     wrapper.appendChild(question);
     wrapper.appendChild(answerField);
+    wrapper.appendChild(questionAnswerId);
+    wrapper.appendChild(applicationId);
     
     return wrapper;
+};
+
+JobApplicationAPI.submitNewJobApplication = function() {
+    var jobApplicationId = document.getElementById('createJobApplicationJobApplicationId').value;
+    var jobPosterId = document.getElementById('createJobApplicationJobPosterId').value;
+    var jobSeekerId = document.getElementById('createJobApplicationJobSeekerId').value;
+    
+    //get all Question answers
+    var applicationQuestionAnswers = [];
+    var questionAnswerSection = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
+    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('jobApplicationQuestionAnswerWrapper');
+    for (var i=0; i<questionAnswerWrappers.length; i++) {
+        var questionAnswerId = questionAnswerWrappers[i].querySelector('input[name="application_question_answer_id"]').value;
+        var jobApplicationId = questionAnswerWrappers[i].querySelector('input[name="job_poster_application_id"]').value;
+        var answer = questionAnswerWrappers[i].getElementsByTagName('textarea')[0].value;
+        var question = questionAnswerWrappers[i].getElementsByClassName('jobApplicationQuestion')[0].innerHTML; 
+        
+        var questionAnswer = new JobApplicationAPI.ApplicationQuestionAnswer(
+                questionAnswerId, jobApplicationId, question, answer);
+        applicationQuestionAnswers.push(questionAnswer);
+    }
+    
+    var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationQuestionAnswers);
+    
+    DataAPI.createJobApplication(jobApplication, function(response) {
+        //TODO: what to do when applicaiton submitted?
+       Utilities.debug?console.log("Job Application Submitted"):null;
+       JobPostAPI.showBrowseJobs(); 
+    });
 };
 

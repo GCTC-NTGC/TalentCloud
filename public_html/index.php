@@ -778,6 +778,7 @@ and open the template in the editor .
                 <p id="createJobApplicationPositionLabel">for the position of:</p>
                 <h3 id="createJobApplicationPostition"></h3>
             </div>
+            <input type='hidden' id='createJobApplicationJobApplicationId' />
             <input type='hidden' id='createJobApplicationJobPosterId' />
             <input type='hidden' id='createJobApplicationJobSeekerId' />
         </div>
@@ -792,6 +793,11 @@ and open the template in the editor .
                 <div id="createJobApplicationOpenEndedQuestionsWrapper">
                     
                 </div>
+            </div>
+            <div id='createJobApplicationButtonWrapper'>
+                <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
+                    Submit
+                </button>
             </div>
         </div>
     </section>
