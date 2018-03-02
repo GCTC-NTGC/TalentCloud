@@ -58,6 +58,12 @@ JobApplicationAPI.showCreateJobApplication = function(jobPosterId) {
     JobApplicationAPI.populateApplicationWithQuestionContent();
 };
 
+JobApplicationAPI.localizeCreateJobApplication = function() {
+    document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
+    document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
+    document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
+}
+
 JobApplicationAPI.populateApplicationWithJobPosterContent = function(jobPosterResponse) {
     var jobPoster = JobPostAPI.populateJobObject(JSON.parse(jobPosterResponse));
     

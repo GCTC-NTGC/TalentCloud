@@ -163,6 +163,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.browseLink = content.browseLink;
     thisContent.gctc = content.gctc;
     thisContent.at = content.at;
+    thisContent.createJobApplicationWindowTitle = content.createJobApplicationWindowTitle;
+    thisContent.createJobApplicationJobTitleLabel = content.createJobApplicationJobTitleLabel;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
