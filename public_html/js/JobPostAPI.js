@@ -99,8 +99,8 @@ JobPostAPI.populateJobObjectList = function(xhr_response){
 
 /**
  * 
- * @param {type} JSONJob
- * @returns {JobPostAPI.populateJobObject.jobObj|JobPostAPI.JobPost}
+ * @param {json} JSONJob
+ * @returns JobPostAPI.JobPost
  */
 JobPostAPI.populateJobObject = function(JSONJob){
     
@@ -386,15 +386,15 @@ JobPostAPI.updateFavourite = function(isFav,jobPosterId){
  */
 JobPostAPI.viewJobPoster = function(jobId){
          
-    DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId);
-    
-    //TalentCloudAPI.hideLogo();
-    
+    DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
+        var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
+        JobPostAPI.populateJobPoster(jobPoster);
+    });
 };
 
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
  * 
- * @param {type} jobData
+ * @param JobPostAPI.JobPost jobData
  * @returns {undefined}
  */
 JobPostAPI.populateJobPoster = function(jobData){    

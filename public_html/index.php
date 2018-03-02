@@ -778,6 +778,8 @@ and open the template in the editor .
                 <p id="createJobApplicationPositionLabel">for the position of:</p>
                 <h3 id="createJobApplicationPostition"></h3>
             </div>
+            <input type='hidden' id='createJobApplicationJobPosterId' />
+            <input type='hidden' id='createJobApplicationJobSeekerId' />
         </div>
         <div class="pageBody">
             <div class="container centered">

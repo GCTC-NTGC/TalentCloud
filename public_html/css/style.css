@@ -420,6 +420,24 @@ nav{
 
 /* HOMEPAGE */
 
+/* CREATE JOB APPLICATION */
+
+#createJobApplicationProfilePic {
+    margin-top: 2em;
+}
+
+#createJobApplicationOpenEndedQuestionsWrapper {
+    margin-top: 2em;
+}
+
+.jobAPplicationQuestion {
+    
+}
+
+.jobApplicationAnswerField {
+    
+}
+
 /* JOB POSTER APPLICATION */
 
 .jobSeekerProfileOverlay{
