@@ -518,8 +518,10 @@ nav{
 }
 
 .hiringManagerProfilePicSmall{
-    width: 50%;
-    padding-bottom: 0.5em;
+    width: 70px;
+    height: 70px;
+    clip-path: circle(35px at center);
+    margin-bottom: 0.5em;
     margin: auto;
     display: block;
 }
