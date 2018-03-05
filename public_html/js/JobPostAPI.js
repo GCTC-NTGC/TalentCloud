@@ -392,6 +392,13 @@ JobPostAPI.viewJobPoster = function(jobId){
     
 };
 
+JobPostAPI.localizeJobPoster = function() {
+    if (siteContent) {
+        document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
+        document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
+    }
+};
+
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
  * 
  * @param {type} jobData

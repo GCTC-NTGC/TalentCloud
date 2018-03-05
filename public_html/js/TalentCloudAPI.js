@@ -15,7 +15,8 @@ step3, review, goToStep2, goToStep1, goToStep3, goToReview, createJobPosterWindo
 createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutMe, whatImMostProudOfInCareer, position,
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
-rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment){
+rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
+readMore){
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -81,6 +82,7 @@ rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDo
     this.browseLink = browseLink;
     this.gctc = gctc;
     this.at = at;
+    this.readMore = readMore;
 };
 
 /**
@@ -452,6 +454,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     } else {
         //is job seeker
         ManagerProfileAPI.localizeManagerProfile();
+        JobPostAPI.localizeJobPoster();
     }
     
 };

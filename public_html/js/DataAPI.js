@@ -163,6 +163,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.browseLink = content.browseLink;
     thisContent.gctc = content.gctc;
     thisContent.at = content.at;
+    thisContent.readMore = content.readMore;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
