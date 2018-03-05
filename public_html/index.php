@@ -803,6 +803,28 @@ and open the template in the editor .
             </div>
         </div>
     </section>
+    <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
+         <div class="pageBanner">
+            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+        </div>
+        <div class="pageBody">
+            <div id='createJobApplicationConfirmationBodyWrapper'>
+                <div class="centered container">
+                    <p id="createJobApplicationConfirmationPositionLabel">
+                        You have applied for the position of:
+                    </p>
+                    <h3 id="createJobApplicationConfirmationPostition"></h3>
+                    <p id="createJobApplicationConfirmationTrackingReminder">
+                        Track the application from your Dashboard.
+                    </p>
+                    <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="JobPostAPI.showBrowseJobs();">
+                        Continue to Dashboard
+                    </button>
+                </div>
+            </div>
+            <div class="confirmationFramingBar"></div>
+        </div>
+    </section>
 </main>
 <?php include 'inc/footer.php';?>
 </body>

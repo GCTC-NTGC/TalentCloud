@@ -442,6 +442,18 @@ nav{
     text-align: center;
 }
 
+/* CREATE JOB APPLICATION CONFIRMATION */
+
+#createJobApplicationConfirmationBodyWrapper {
+    padding: 6em 2em;
+    background-color: #B3B3B3;
+}
+
+.confirmationFramingBar {
+    height: 12em;
+    background-color: black;
+}
+
 /* JOB POSTER APPLICATION */
 
 .jobSeekerProfileOverlay{

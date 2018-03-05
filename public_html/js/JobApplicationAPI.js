@@ -164,9 +164,25 @@ JobApplicationAPI.submitNewJobApplication = function() {
     var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationQuestionAnswers);
     
     DataAPI.createJobApplication(jobApplication, function(response) {
-        //TODO: what to do when applicaiton submitted?
-       Utilities.debug?console.log("Job Application Submitted"):null;
-       JobPostAPI.showBrowseJobs(); 
+      
+       Utilities.debug?console.log("New Job Application Submitted"):null;
+       
+       //TODO: less hacky way of getting job title? Is it worth re-requesting it?
+       var jobTitle = document.getElementById('createJobApplicationPostition').innerHTML;
+       JobApplicationAPI.showCreateJobConfirmation(jobTitle);        
     });
 };
+
+JobApplicationAPI.showCreateJobConfirmation = function(jobTitle) {
+    var stateInfo = {pageInfo: 'create_job_application_confirmation', pageTitle: 'Talent Cloud: New Job Application Confirmed'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobApplicationConfirmation/' + encodeURI(jobTitle));
+    
+    TalentCloudAPI.hideAllContent();
+    
+    document.getElementById('createJobApplicationConfirmationPostition').innerHTML = jobTitle;
+    
+    var createJobApplicationSection = document.getElementById('createJobApplicationConfirmationSection');
+    createJobApplicationSection.classList.remove('hidden');
+}
 
