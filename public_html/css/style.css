@@ -614,10 +614,16 @@ nav{
 
 #jobPosterButtonWrapper {
     text-align: center;
+    background-color: #B9B9B9;
 }
 
 #jobPosterApplyButton{
-    margin-bottom: 4em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.jobPosterSection:nth-child(odd){
+    background: #F8F8F8;
 }
 
 /* CREATE JOB POSTER */
@@ -674,6 +680,50 @@ nav{
     min-height: 840px;
     display: inline;
     white-space: nowrap;
+}
+
+/* HIRING MANAGER SUMMARY */
+
+.hiringManagerSummaryWrapper {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.hiringManagerSummaryName{
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+#hiringManagerSummaryImageWrapper {
+    margin: 2em;
+}
+
+#jobPosterHiringManagerProfilePic {
+    width:150px;
+    height:150px;
+    border: 3px solid #FFCC33;
+    border-radius: 75px;
+    margin: auto;
+}
+
+
+#hiringManagerSummaryContentWrapper {
+   flex: 1;
+}
+
+#hiringManagerSummaryButtonWrapper {
+    text-align:right;
+}
+
+#jobPosterHiringManagerButton {
+    margin: 0;
+    padding: 0;
 }
 
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */

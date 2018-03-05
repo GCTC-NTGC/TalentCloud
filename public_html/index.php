@@ -486,43 +486,57 @@ and open the template in the editor .
                     </ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h3>
                     <p id="jobPosterImpact"></p>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h3>
                     <ul id="jobPosterKeyTasks"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
                     <ul id="jobPosterCoreCompetencies"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                    <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
                     <ul id="jobPosterDevelopingCompetencies"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h3>
                     <ul id="jobPosterOtherRequirements"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class='container'>
                     <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
                     <input type='hidden' id='jobPosterHiringManagerUserId'/>
-                    <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
-                        Hiring Manager
-                    </button>
+                    
+                    <div class="hiringManagerSummaryWrapper">  
+                        <div id='hiringManagerSummaryImageWrapper'>
+                            <img id='jobPosterHiringManagerProfilePic' alt="Image of Hiring Manager" src="images/user.png">
+                            <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
+                        </div>
+                        <div id='hiringManagerSummaryContentWrapper' >
+                            <p><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></p>
+                            <p id='jobPosterHiringManagerAboutMe'></p>
+                            <div id='hiringManagerSummaryButtonWrapper'>
+                                <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                                    Read More
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div> 
                 </div>
             </section>
             
