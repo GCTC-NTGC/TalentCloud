@@ -165,6 +165,9 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.at = content.at;
     thisContent.createJobApplicationWindowTitle = content.createJobApplicationWindowTitle;
     thisContent.createJobApplicationJobTitleLabel = content.createJobApplicationJobTitleLabel;
+    thisContent.createJobApplicationConfirmationPositionLabel = content.createJobApplicationConfirmationPositionLabel;
+    thisContent.jobApplicationConfirmationTrackingReminder = content.jobApplicationConfirmationTrackingReminder;
+    thisContent.continueToDashboard = content.continueToDashboard;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

@@ -16,7 +16,8 @@ createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutM
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
-createJobApplicationWindowTitle, createJobApplicationJobTitleLabel){
+createJobApplicationWindowTitle, createJobApplicationJobTitleLabel, 
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard){
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -84,6 +85,9 @@ createJobApplicationWindowTitle, createJobApplicationJobTitleLabel){
     this.at = at;
     this.createJobApplicationWindowTitle = createJobApplicationWindowTitle;
     this.createJobApplicationJobTitleLabel = createJobApplicationJobTitleLabel;
+    this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
+    this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
+    this.continueToDashboard = continueToDashboard;
 };
 
 /**

@@ -59,9 +59,16 @@ JobApplicationAPI.showCreateJobApplication = function(jobPosterId) {
 };
 
 JobApplicationAPI.localizeCreateJobApplication = function() {
-    document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
-    document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
-    document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
+    if (siteContent) {
+        document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
+        document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
+        document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
+
+        //Localize confirmation page at same time
+        document.getElementById('createJobApplicationConfirmationPositionLabel').innerHTML = siteContent.createJobApplicationConfirmationPositionLabel;
+        document.getElementById('createJobApplicationConfirmationTrackingReminder').innerHTML = siteContent.jobApplicationConfirmationTrackingReminder;
+        document.getElementById('createJobApplicationConfirmationContinueButton').innerHTML = siteContent.continueToDashboard;
+    }
 }
 
 JobApplicationAPI.populateApplicationWithJobPosterContent = function(jobPosterResponse) {
