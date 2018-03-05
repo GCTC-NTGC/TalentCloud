@@ -789,11 +789,13 @@ and open the template in the editor .
                     <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
                 </div>
             </div>
-            <div class="container">
-                <div id="createJobApplicationOpenEndedQuestionsWrapper">
-                    
+            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="container">
+                    <div id="createJobApplicationOpenEndedQuestionsWrapper">
+
+                    </div>
                 </div>
-            </div>
+            </form>
             <div id='createJobApplicationButtonWrapper'>
                 <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
                     Submit

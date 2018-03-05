@@ -108,6 +108,9 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function(applicationQuestionAn
     var wrapper = document.createElement("div");
     wrapper.setAttribute("class", "jobApplicationQuestionAnswerWrapper");
     
+    var label = document.createElement('label');
+    label.setAttribute('class', 'full-width');
+    
     var question = document.createElement('p');
     question.setAttribute('class', 'jobApplicationQuestion');
     var questionTextNode = document.createTextNode(applicationQuestionAnswer.question);
@@ -128,8 +131,10 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function(applicationQuestionAn
     applicationId.setAttribute('type', 'hidden');
     applicationId.value = applicationQuestionAnswer.job_poster_application_id;
     
-    wrapper.appendChild(question);
-    wrapper.appendChild(answerField);
+    label.appendChild(question);
+    label.appendChild(answerField);
+    
+    wrapper.appendChild(label);
     wrapper.appendChild(questionAnswerId);
     wrapper.appendChild(applicationId);
     
