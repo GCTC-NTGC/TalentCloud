@@ -17,8 +17,10 @@ department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEm
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
 readMore,
-createJobApplicationWindowTitle, createJobApplicationJobTitleLabel, 
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard){
+canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
+logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
+howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -85,6 +87,29 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.gctc = gctc;
     this.at = at;
     this.readMore = readMore;
+    this.canadaLink = canadaLink;
+    this.canadaLinkHref = canadaLinkHref;
+    this.taglineMain = taglineMain;
+    this.taglineSecondary = taglineSecondary;
+    this.taglineTertiary = taglineTertiary;
+    this.howItWorksHeading = howItWorksHeading;
+    this.howItWorksLead = howItWorksLead;
+    //this.howItWorksMainHtml = howItWorksMainHtml;
+    this.logoSrc = logoSrc;
+    this.logoAlt = logoAlt;
+    this.ownYourStory = ownYourStory;
+    this.ownYourStoryText = ownYourStoryText;
+    this.getFound = getFound;
+    this.getFoundText = getFoundText;
+    this.contribute = contribute;
+    this.contributeText = contributeText;
+    this.howItWorksLeadOut = howItWorksLeadOut;
+    this.howItWorksLast = howItWorksLast;
+    this.contactUs = contactUs;
+    this.transcript = transcript;
+    this.ourTeam = ourTeam;
+    this.ourTeamText = ourTeamText;
+    this.browseTitle = browseTitle;
     this.createJobApplicationWindowTitle = createJobApplicationWindowTitle;
     this.createJobApplicationJobTitleLabel = createJobApplicationJobTitleLabel;
     this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
@@ -351,6 +376,74 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     var profileLink = document.getElementById("profileLink");
     profileLink.innerHTML = siteContent.profileLink;
+    
+    var logoSrc = document.getElementById("logoSrc");
+    logoSrc.src = siteContent.logoSrc;
+    logoSrc.alt = siteContent.logoAlt;
+    
+    var taglineMain = document.getElementById("taglineMain");
+    taglineMain.innerHTML = siteContent.taglineMain;
+    
+    var taglineSecondary = document.getElementById("taglineSecondary");
+    taglineSecondary.innerHTML = siteContent.taglineSecondary;
+    
+    var taglineTertiary = document.getElementById("taglineTertiary");
+    taglineTertiary.innerHTML = siteContent.taglineTertiary;
+    
+    var howItWorksHeading = document.getElementById("howItWorksHeading");
+    howItWorksHeading.innerHTML = siteContent.howItWorksHeading;
+    
+    var howItWorksLead = document.getElementById("howItWorksLead");
+    howItWorksLead.innerHTML = siteContent.howItWorksLead;
+    
+    var ownYourStory = document.getElementById("ownYourStory");
+    ownYourStory.innerHTML = siteContent.ownYourStory;
+    
+    var ownYourStoryText = document.getElementById("ownYourStoryText");
+    ownYourStoryText.innerHTML = siteContent.ownYourStoryText;
+    
+    var getFound = document.getElementById("getFound");
+    getFound.innerHTML = siteContent.getFound;
+    
+    var getFoundText = document.getElementById("getFoundText");
+    getFoundText.innerHTML = siteContent.getFoundText;
+    
+    var contribute = document.getElementById("contribute");
+    contribute.innerHTML = siteContent.contribute;
+    
+    var contributeText = document.getElementById("contributeText");
+    contributeText.innerHTML = siteContent.contributeText;
+    
+    var howItWorksLeadOut = document.getElementById("howItWorksLeadOut");
+    howItWorksLeadOut.innerHTML = siteContent.howItWorksLeadOut;
+    
+    var ourTeam = document.getElementById("ourTeam");
+    ourTeam.innerHTML = siteContent.ourTeam;
+    
+    var ourTeamText = document.getElementById("ourTeamText");
+    ourTeamText.innerHTML = siteContent.ourTeamText;
+    
+    var contactUs = document.getElementById("contactUs");
+    contactUs.innerHTML = siteContent.contactUs;
+    
+    var transcript = document.getElementById("transcript");
+    transcript.innerHTML = siteContent.transcript;
+    
+    var canadaLink = document.getElementById("canadaLink");
+    canadaLink.innerHTML = siteContent.canadaLink;
+    canadaLink.href = siteContent.canadaLinkHref;
+    
+    var browseTitle = document.getElementById("browseTitle");
+    browseTitle.innerHTML = siteContent.browseTitle;
+    
+    //var howItWorksLast = document.getElementById("howItWorksLast");
+    //howItWorksLast.innerHTML = siteContent.howItWorksLast;
+    
+    //var howItWorksMainHtmlWrapper = document.createElement("div");
+    //var howItWorksMainHtml = document.getElementById("howItWorksMainHtml");
+    //howItWorksMainHtml.outerHTML = siteContent.howItWorksMainHtml;
+    //howItWorksMainHtml.appendChild(howItWorksMainHtml);
+
     
     if(isManager){
         var profileLink = document.getElementById("profileLink");
