@@ -528,7 +528,7 @@ and open the template in the editor .
             
 
             <div id="jobPosterButtonWrapper">
-                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
+                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                     Apply Now
                 </button>
             </div>
@@ -769,6 +769,60 @@ and open the template in the editor .
                     <p class='profileSubSectionBlock' id='managerProfileExperience'>This is my work history.</p>
                 </div>
             </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="createJobApplicationSection">
+        <div class="pageBanner">
+            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+            <div class="container centered">
+                <p id="createJobApplicationPositionLabel">for the position of:</p>
+                <h3 id="createJobApplicationPostition"></h3>
+            </div>
+            <input type='hidden' id='createJobApplicationJobApplicationId' />
+            <input type='hidden' id='createJobApplicationJobPosterId' />
+            <input type='hidden' id='createJobApplicationJobSeekerId' />
+        </div>
+        <div class="pageBody">
+            <div class="container centered">
+                <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
+                <div class="profileName">
+                    <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
+                </div>
+            </div>
+            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="container">
+                    <div id="createJobApplicationOpenEndedQuestionsWrapper">
+
+                    </div>
+                </div>
+            </form>
+            <div id='createJobApplicationButtonWrapper'>
+                <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
+         <div class="pageBanner">
+            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+        </div>
+        <div class="pageBody">
+            <div id='createJobApplicationConfirmationBodyWrapper'>
+                <div class="centered container">
+                    <p id="createJobApplicationConfirmationPositionLabel">
+                        You have applied for the position of:
+                    </p>
+                    <h3 id="createJobApplicationConfirmationPostition"></h3>
+                    <p id="createJobApplicationConfirmationTrackingReminder">
+                        Track the application from your Dashboard.
+                    </p>
+                    <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="JobPostAPI.showBrowseJobs();">
+                        Continue to Dashboard
+                    </button>
+                </div>
+            </div>
+            <div class="confirmationFramingBar"></div>
         </div>
     </section>
 </main>
