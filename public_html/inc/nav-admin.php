@@ -13,6 +13,11 @@
                         <li class="top-nav--link" aria-hidden="false">
                             <a href="/admin/" class="active" id="homeLink">Admin Home</a>
                         </li>
+                        <li class="top-nav--link hidden" id="browseLinkListItem">
+                            <div id="browse">
+                                <a href="javascript:void(0)" id="browseLink" onclick="JobPostAPI.showBrowseJobs();">Browse Jobs</a>
+                            </div>
+                        </li>
                         <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
                             <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();">My Profile</a>
                         </li>

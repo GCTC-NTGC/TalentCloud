@@ -163,6 +163,30 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.browseLink = content.browseLink;
     thisContent.gctc = content.gctc;
     thisContent.at = content.at;
+    thisContent.canadaLink = content.canadaLink;
+    thisContent.canadaLinkHref = content.canadaLinkHref;
+    thisContent.taglineMain = content.taglineMain;
+    thisContent.taglineSecondary = content.taglineSecondary;
+    thisContent.taglineTertiary = content.taglineTertiary;
+    thisContent.howItWorksHeading = content.howItWorksHeading;
+    thisContent.howItWorksLead = content.howItWorksLead;
+    //thisContent.howItWorksMainHtml = content.howItWorksMainHtml;
+    thisContent.logoSrc = content.logoSrc;
+    thisContent.logoAlt = content.logoAlt;
+    thisContent.ownYourStory = content.ownYourStory;
+    thisContent.ownYourStoryText = content.ownYourStoryText;
+    thisContent.getFound = content.getFound;
+    thisContent.getFoundText = content.getFoundText;
+    thisContent.contribute = content.contribute;
+    thisContent.contributeText = content.contributeText;
+    thisContent.howItWorksLeadOut = content.howItWorksLeadOut;
+    thisContent.howItWorksLast = content.howItWorksLast;
+    thisContent.contactUs = content.contactUs;
+    thisContent.transcript = content.transcript;
+    thisContent.ourTeam = content.ourTeam;
+    thisContent.ourTeamText = content.ourTeamText;
+    thisContent.browseTitle = content.browseTitle;
+    
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
