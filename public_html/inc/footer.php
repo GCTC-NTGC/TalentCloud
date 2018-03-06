@@ -10,7 +10,7 @@
                     <ul>
                         <li><a href="/legal/terms/">Terms and Conditions</a></li>
                         <li><a href="/legal/privacy/">Privacy</a></li>
-                        <li><a href="https://www.canada.ca/en.html">Visit Canada.ca</a></li>
+                        <li><a id="canadaLink" href="https://www.canada.ca/en.html">Visit Canada.ca</a></li>
                     </ul>
                 </nav>
             </div>

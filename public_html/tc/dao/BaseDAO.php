@@ -8,8 +8,8 @@
     if(!isset($_SESSION)){
         session_start();
     }
-
-	require_once '/dev/tc_config/db.config.inc';
+        require_once '/Users/Grant/Applications/MAMP/htdocs/TalentCloud/public_html/tc/config/db.config.inc';
+	//require_once '/dev/tc_config/db.config.inc';
 	
      /**
 	* Summary: Database connection manager class
