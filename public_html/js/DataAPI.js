@@ -192,6 +192,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.createJobApplicationConfirmationPositionLabel = content.createJobApplicationConfirmationPositionLabel;
     thisContent.jobApplicationConfirmationTrackingReminder = content.jobApplicationConfirmationTrackingReminder;
     thisContent.continueToDashboard = content.continueToDashboard;
+    thisContent.announcement = content.announcement;
 
   
     //if(siteContent){

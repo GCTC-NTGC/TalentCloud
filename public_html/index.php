@@ -17,6 +17,9 @@ and open the template in the editor .
         <a class="wb-sl" href="#jobs">Skip to available jobs</a>
     </li>
 </ul>
+<div class="announcement-banner">
+    <span class="fa fa-bullhorn"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+</div>
 
 <?php include 'inc/fip.php';?>
 <?php include 'inc/nav.php';?>
