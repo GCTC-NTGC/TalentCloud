@@ -289,7 +289,7 @@ DataAPI.getDepartments = function(locale){
 };
                     
 DataAPI.getJobSeekerProfileByUserId = function(authJSON){
-    console.log(authJSON.user_id);
+    //console.log(authJSON.user_id);
     Utilities.debug?console.log("loading job seekers"):null;
     var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfile/"+authJSON.user_id;
     //var jobSeekers_url = "/wiremock/mappings/GET_jobSeekers.json";//DELETE before MERGE
@@ -441,15 +441,15 @@ DataAPI.updateToggleProgress = function(evt){
  */
 DataAPI.toggleFavouriteCallback = function(contact){
         var updatedContact = JSON.parse(contact);
-        console.log(updatedContact);
+        //console.log(updatedContact);
         for(var i = 0; i < ContactAPI.contacts.length; i++) {
             var contactToUpdate = ContactAPI.contacts[i];
             if(contactToUpdate.id === updatedContact.id) {
                 if(updatedContact.isFavourite){
-                    console.log("true");
+                    //console.log("true");
                     contactToUpdate.isFavourite = true;
                 }else{
-                    console.log("false");
+                    //console.log("false");
                     contactToUpdate.isFavourite = false;
                 }
                 break;
@@ -577,7 +577,7 @@ DataAPI.getContactCount = function(){
 DataAPI.getJobPoster = function(locale, jobId){
     Utilities.debug?console.log("loading job seekers"):null;
     var jobPoster_url = DataAPI.baseURL+"/"+locale+"/getJobPoster/"+jobId;
-    console.log('job poster url: ' + jobPoster_url);
+    //console.log('job poster url: ' + jobPoster_url);
     //var jobSeekers_url = "/wiremock/mappings/GET_jobSeekers.json";//DELETE before MERGE
     xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {

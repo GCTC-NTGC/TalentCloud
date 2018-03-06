@@ -56,7 +56,7 @@ JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,depart
 JobPostAPI.showBrowseJobs = function() {
     var stateInfo = {pageInfo: 'browse_jobs', pageTitle: 'Talent Cloud: Browse Jobs'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#Jobs');
+    history.pushState(stateInfo, stateInfo.pageInfo, '#BrowseJobs');
     
     TalentCloudAPI.hideAllContent();
     var browseJobsSection = document.getElementById('browseJobsSection');
@@ -67,7 +67,7 @@ JobPostAPI.showBrowseJobs = function() {
     
     var locale = TalentCloudAPI.getLanguageFromCookie();
     DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
-}
+};
 
 /**
  * 
@@ -109,7 +109,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     var job = JSONJob;
     
     Utilities.debug?console.log(job):null;
-    console.log(job);
+    //console.log(job);
     var jobObj = new JobPostAPI.JobPost();
 
     jobObj.id = job.id;
@@ -386,10 +386,11 @@ JobPostAPI.viewJobPoster = function(jobId){
  * @param {type} jobData
  * @returns {undefined}
  */
-JobPostAPI.populateJobPoster = function(jobData){    
-    var stateInfo = {pageInfo: 'view_job_poster', pageTitle: 'Talent Cloud: ' + jobData.title + ' (' + jobData.id + ')'};
+JobPostAPI.populateJobPoster = function(jobData){
+    var stateInfo = {pageInfo: 'view_job_poster', pageTitle: 'Talent Cloud: ' + jobData.title + ' (' + jobData.id + ')', jobId: jobData.id};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);//last parameter just replaced with #Register instead of url
+    history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);
+    //console.log("asdfasdfsd = "+history.state.pageInfo);
     
     TalentCloudAPI.hideAllContent();
     

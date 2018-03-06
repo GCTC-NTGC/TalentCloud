@@ -78,33 +78,107 @@ rarely, sometimes, usually, almostAlways, name){
     this.name = name;
 };
 
+TalentCloudAPI.pages = {
+            home: {
+                url: "#",
+                state: function(){
+                    TalentCloudAPI.loadPublic();
+                    TalentCloudAPI.setNav("homeLinkListItem");
+                }
+            },
+            BrowseJobs: {
+                url: "#BrowseJobs",
+                state: function(){
+                    JobPostAPI.showBrowseJobs();
+                    TalentCloudAPI.setNav("browseLinkListItem");
+                }
+            },
+            Login: {
+                url: "#Login",
+                state: function(){
+                    UserAPI.showLogin();
+                    TalentCloudAPI.setNav("loginLinkListItem");
+                }
+            },
+            Register: {
+                url: "#Register",
+                state: function(){
+                    UserAPI.showRegisterForm();
+                    document.getElementById("registerLinkListItem");
+                }
+            },
+            MyProfile: {
+                url: "#MyProfile",
+                state: function(){
+                    JobSeekerAPI.showJobSeekerProfile();
+                    TalentCloudAPI.setNav("profileLinkListItem");
+                }
+            },
+            Job:{
+                url: "#Job",
+                state: function(jobPostId){
+                    JobPostAPI.viewJobPoster(jobPostId);
+                    TalentCloudAPI.setNav("browseLinkListItem");
+                }
+            },
+            CreateEditProfile:{
+                url:"#CreateEditProfile",
+                state: function(){
+                    CreateEditProfileAPI.showCreateEditProfile();
+                    TalentCloudAPI.setNav("profileLinkListItem");
+                }
+            },
+            CreateJobPoster:{
+                url:"#CreateJobPoster",
+                state: function(){
+                    CreateJobPosterAPI.showCreateJobPosterForm();
+                    TalentCloudAPI.setNav("jobPostersLinkListItem");
+                }
+            }
+        };
+
 /**
  * 
  * @returns {undefined}
  */
 TalentCloudAPI.load = function(){
-    
+    var pageToReload;
     var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     var managerView = false;
     var adminView = false;
+    var location = document.location.hash;
+    //console.log(location);
+    event.preventDefault();
+    location_elements = location.split('\/');
+    console.log(location_elements[0]);
+    location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["home"];
+    data = location_elements[1];
+    //console.log(pageToReload);
     if(window.location.href.includes("/"+TalentCloudAPI.roles.admin)) {
-        stateInfo.pageInfo = 'talent_cloud_admin';
-        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/admin/#");
         adminView = true;
-    }else if(window.location.href.includes("/"+TalentCloudAPI.roles.manager)) {
-        stateInfo.pageInfo = 'talent_cloud_manager';
-        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
-        managerView = true;
-    } else {
-        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
-    }
-    
-    if(adminView === true){
         TalentCloudAPI.loadAdmin();
-    }else if(managerView === true){
+        console.log(pageToReload);
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/admin/#");
+        }
+    }else if(window.location.href.includes("/"+TalentCloudAPI.roles.manager)) {
+        
+        managerView = true;
         TalentCloudAPI.loadManager();
-    }else{
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
+        }
+    } else {
         TalentCloudAPI.loadPublic();
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
+        }
     }
     
 };
@@ -123,24 +197,24 @@ TalentCloudAPI.loadPublic = function(){
     }
     DataAPI.getTalentCloudUI(locale,false);
     if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
+        authToken = UserAPI.getAuthToken();
         //console.log(authToken);
-        if(!UserAPI.hasAuthTokenExpired()){
+        //if(!UserAPI.hasAuthTokenExpired()){
             if(UserAPI.hasSessionUser()){
                 var credentials = {};
                 sessionUser = UserAPI.getSessionUserAsJSON();
                 //console.log(sessionUser);
                 credentials.email = sessionUser.email;
-                credentials.password = sessionUser.password;
+                //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
-                UserAPI.authenticate(credentials);
+                UserAPI.login(credentials);
                 
             }else{
-                
+                alert("nope");
             }
-        }else{
+        /*}else{
             
-        }
+        }*/
     }else{
         
     }
@@ -157,20 +231,21 @@ TalentCloudAPI.loadManager = function(){
     }else{
         locale = "en_CA";
     }
-    console.log(UserAPI.hasAuthToken());
+    //console.log(UserAPI.hasAuthToken());
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
+        authToken = UserAPI.getAuthToken();
         //console.log(authToken);
-        if(!UserAPI.hasAuthTokenExpired()){
+        //if(!UserAPI.hasAuthTokenExpired()){
             if(UserAPI.hasSessionUser()){
                 var credentials = {};
                 sessionUser = UserAPI.getSessionUserAsJSON();
                 //console.log(sessionUser);
                 credentials.email = sessionUser.email;
-                credentials.password = sessionUser.password;
+                //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
-                UserAPI.authenticate(credentials);
+                //console.log(credentials);
+                UserAPI.login(credentials);
                 DataAPI.getJobSeekers(locale);
                 DepartmentAPI.getDepartments(locale);
                 DivisionAPI.getDivisions(locale);
@@ -178,9 +253,9 @@ TalentCloudAPI.loadManager = function(){
             }else{
                 DataAPI.getJobSeekers(locale);
             }
-        }else{
+        /*}else{
             DataAPI.getJobSeekers(locale);
-        }
+        }*/
     }else{
         DataAPI.getJobSeekers(locale);
     }
@@ -198,20 +273,20 @@ TalentCloudAPI.loadAdmin = function(){
     }else{
         locale = "en_CA";
     }
-    console.log(UserAPI.hasAuthToken());
+    //console.log(UserAPI.hasAuthToken());
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
         //console.log(authToken);
-        if(!UserAPI.hasAuthTokenExpired()){
+        //if(!UserAPI.hasAuthTokenExpired()){
             if(UserAPI.hasSessionUser()){
                 var credentials = {};
                 sessionUser = UserAPI.getSessionUserAsJSON();
-                console.log(sessionUser);
+                //console.log(sessionUser);
                 credentials.email = sessionUser.email;
-                credentials.password = sessionUser.password;
+                //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
-                UserAPI.authenticate(credentials);
+                UserAPI.login(credentials);
                 
                 DivisionAPI.getDivisions(locale);
                 BranchAPI.getBranches(locale);
@@ -220,9 +295,9 @@ TalentCloudAPI.loadAdmin = function(){
             }else{
                 //DataAPI.getJobSeekers(locale);
             }
-        }else{
+        /*}else{
             //DataAPI.getJobSeekers(locale);
-        }
+        }*/
     }else{
         //DataAPI.getJobSeekers(locale);
     }
@@ -309,7 +384,7 @@ TalentCloudAPI.hideLogo = function(){
  * @returns {undefined}
  */
 TalentCloudAPI.setContent = function(content, isManager){
-    console.log(content);
+    //console.log(content);
     siteContent = content;
     document.title = siteContent.title;
     window.title = siteContent.title;
@@ -438,6 +513,15 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
-    }
+    };
     
+};
+    
+TalentCloudAPI.setNav = function(navItemToHighlightId){
+    var navItems = document.getElementsByClassName("top-nav--link active");
+    if(navItems.length > 0){
+        navItems[0].classList.remove("active");
+    }
+    var navItemToHighlight = document.getElementById(navItemToHighlightId);
+    navItemToHighlight.classList.add("active");
 };

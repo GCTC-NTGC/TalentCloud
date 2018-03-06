@@ -4,6 +4,7 @@
  * Defines the email user and server configuration details.
  */
 define('FROM_NAME', "Talent Cloud-nuage de talents");
+
 define('FROM_EMAIL', "Talent.Cloud-nuage.de.talents@tbs-sct.gc.ca");
 
 /**

@@ -16,8 +16,7 @@ require_once '../dao/AuthenticationDAO.php';
 require_once '../dao/UserDAO.php';
 require_once '../model/AuthToken.php';
 require_once '../model/User.php';
-
-define('SECRET_KEY', "TalentCloud");
+require_once '../utils/JWTUtils.php';
 
 /**
  * 
@@ -34,19 +33,11 @@ class AuthenticationController {
         $authUser = AuthenticationController::authenticateUser($username, $password);
         //var_dump($authUser);
         if($authUser && $authUser->getIs_confirmed()){
-            $tokenGeneric = SECRET_KEY.$authUser->getPassword(); // It can be 'stronger' of course
-            //generate token
-            $token = hash('sha256', $tokenGeneric);
-            $now = new DateTime();
-            $expiryDate = $now->getTimestamp() + 3600;
-            //createArray
-            $result = array('access_token' => $token, 'expires_in'=> $expiryDate, 'token-type' => 'bearer','scope' => null);
+            $token = JWTUtils::generateJWT($authUser);
             //store authtoken 
-            AuthenticationDAO::storeAuthToken($result,$authUser);
-        }else{
-            $result = array('failed' => 'Invalid user');
+            //AuthenticationDAO::storeAuthToken($result,$authUser);
         }
-        return $result;
+        return $token;
     }
 
     /**

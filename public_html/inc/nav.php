@@ -4,7 +4,7 @@
         <div class="row">
             <div class="nav-container">
                 <ul class="navbar-right" role="menubar">
-                    <li class="top-nav--link" aria-hidden="false" id="homeLink">
+                    <li class="top-nav--link" aria-hidden="false" id="homeLinkListItem">
                         <div id="homeLink">
                             <a href="/">Home</a>
                         </div>
@@ -14,15 +14,15 @@
                     </li>-->
                     <li class="top-nav--link" id="browseLinkListItem">
                         <div id="browse">
-                            <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();">Browse Jobs</a>
+                            <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('browseLinkListItem');">Browse Jobs</a>
                         </div>
                     </li>
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
-                        <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile()">My Profile</a>
+                        <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile();TalentCloudAPI.setNav('profileLinkListItem');">My Profile</a>
                     </li>
                     <li class="top-nav--link">
                         <div id="register">
-                            <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
+                            <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this);">Register</a>
                         </div>
                     </li>
                     <li class="top-nav--link">

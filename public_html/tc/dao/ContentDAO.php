@@ -9,10 +9,7 @@
         session_start();
     }
 
-    /*set api path*/
-    set_include_path(get_include_path() . PATH_SEPARATOR);
-
-
+set_include_path(get_include_path() . PATH_SEPARATOR);
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
 require_once '../model/Content.php';
