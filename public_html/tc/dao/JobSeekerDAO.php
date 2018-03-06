@@ -58,7 +58,7 @@ class JobSeekerDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','job_seeker_profile_tagline','job_seeker_profile_twitter_link','job_seeker_profile_linkedin_link','job_seeker_profile_about_me','last_updated'));
-            $rows = $sql->fetchAll();
+            $rows = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
             return 'getJobSeekersByUserId failed: ' . $e->getMessage();

@@ -268,6 +268,10 @@ nav{
     float:left;
 }
 
+.centered {
+    text-align: center;
+}
+
 /* PROFILE PIC AND UPLOAD */
 
 #profileSection{
@@ -415,6 +419,40 @@ nav{
 }
 
 /* HOMEPAGE */
+
+/* CREATE JOB APPLICATION */
+
+#createJobApplicationProfilePic {
+    margin-top: 2em;
+}
+
+#createJobApplicationOpenEndedQuestionsWrapper {
+    margin-top: 2em;
+}
+
+.jobAPplicationQuestion {
+    
+}
+
+.jobApplicationAnswerField {
+    
+}
+
+#createJobApplicationButtonWrapper {
+    text-align: center;
+}
+
+/* CREATE JOB APPLICATION CONFIRMATION */
+
+#createJobApplicationConfirmationBodyWrapper {
+    padding: 6em 2em;
+    background-color: #B3B3B3;
+}
+
+.confirmationFramingBar {
+    height: 12em;
+    background-color: black;
+}
 
 /* JOB POSTER APPLICATION */
 

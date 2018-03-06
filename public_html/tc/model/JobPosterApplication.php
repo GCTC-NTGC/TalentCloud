@@ -17,7 +17,7 @@ class JobPosterApplication implements JsonSerializable{
     private $application_job_poster_id;
     private $application_job_seeker_profile_id;
     
-    public function __construct($job_poster_application_id,$application_job_poster_id,$application_job_seeker_profile_id) {
+    public function __construct($job_poster_application_id=null,$application_job_poster_id=null,$application_job_seeker_profile_id=null) {
         $this->job_poster_application_id = $job_poster_application_id;
         $this->application_job_poster_id = $application_job_poster_id;
         $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;

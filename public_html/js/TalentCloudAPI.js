@@ -16,7 +16,9 @@ createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutM
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
-readMore){
+readMore,
+createJobApplicationWindowTitle, createJobApplicationJobTitleLabel, 
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard){
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -83,6 +85,11 @@ readMore){
     this.gctc = gctc;
     this.at = at;
     this.readMore = readMore;
+    this.createJobApplicationWindowTitle = createJobApplicationWindowTitle;
+    this.createJobApplicationJobTitleLabel = createJobApplicationJobTitleLabel;
+    this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
+    this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
+    this.continueToDashboard = continueToDashboard;
 };
 
 /**
@@ -455,6 +462,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         //is job seeker
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
+        JobApplicationAPI.localizeCreateJobApplication();
     }
     
 };

@@ -99,8 +99,8 @@ JobPostAPI.populateJobObjectList = function(xhr_response){
 
 /**
  * 
- * @param {type} JSONJob
- * @returns {JobPostAPI.populateJobObject.jobObj|JobPostAPI.JobPost}
+ * @param {json} JSONJob
+ * @returns JobPostAPI.JobPost
  */
 JobPostAPI.populateJobObject = function(JSONJob){
     
@@ -386,10 +386,10 @@ JobPostAPI.updateFavourite = function(isFav,jobPosterId){
  */
 JobPostAPI.viewJobPoster = function(jobId){
          
-    DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId);
-    
-    //TalentCloudAPI.hideLogo();
-    
+    DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
+        var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
+        JobPostAPI.populateJobPoster(jobPoster);
+    });
 };
 
 JobPostAPI.localizeJobPoster = function() {
@@ -401,7 +401,7 @@ JobPostAPI.localizeJobPoster = function() {
 
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
  * 
- * @param {type} jobData
+ * @param JobPostAPI.JobPost jobData
  * @returns {undefined}
  */
 JobPostAPI.populateJobPoster = function(jobData){    
@@ -487,7 +487,7 @@ JobPostAPI.populateJobPoster = function(jobData){
         
     var applyNowButton = document.getElementById("jobPosterApplyButton"); 
     if(UserAPI.hasSessionUser()){
-        applyNowButton.setAttribute("onclick", "JobPostAPI.jobPosterApplication("+jobData.id+",'"+jobData.title+ "');");
+        applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");
     }else{
         applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
     }
