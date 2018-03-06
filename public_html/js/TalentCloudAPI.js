@@ -16,6 +16,7 @@ createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutM
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
+readMore,
 canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
@@ -85,6 +86,7 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.browseLink = browseLink;
     this.gctc = gctc;
     this.at = at;
+    this.readMore = readMore;
     this.canadaLink = canadaLink;
     this.canadaLinkHref = canadaLinkHref;
     this.taglineMain = taglineMain;
@@ -552,6 +554,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     } else {
         //is job seeker
         ManagerProfileAPI.localizeManagerProfile();
+        JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
     }
     
