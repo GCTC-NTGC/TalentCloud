@@ -19,7 +19,7 @@ rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDo
 canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard)){
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
