@@ -292,12 +292,14 @@ and open the template in the editor .
                                     <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                        <div class="three-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
-                                        <div class="three-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
-                                        <div class="three-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
+                                        <div class="four-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
+                                        <div class="four-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
+                                        <div class="four-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
+                                        <div class="four-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                             </div>
@@ -482,14 +484,16 @@ and open the template in the editor .
                                     <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="three-step-tab"><span id="createEditProfileStep1Label_2">Step 1</span></div>
-                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep2Label_2">Step 2</span></div>
-                                                <div class="three-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_2">Step 1</span></div>
+                                                <div class="four-step-tab tab-current"><span id="createEditProfileStep2Label_2">Step 2</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileWorkEnvironmentLabel_2">Work Environment</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
                                             </div>
                                             <div class="tabs">
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>                                                
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
@@ -713,7 +717,39 @@ and open the template in the editor .
                                                 <div class="formGroup insert"><span>*</span><span id="createEditProfile_requiredStep2">Required</span></div>
                                                 <div class="formGroup">
                                                     <input type="button" id="createEditProfile_goToStep1_1" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');">
-                                                    <input type="button" id="createEditProfile_goToStep3_1" value="Go to Step 3" onclick="CreateEditProfileAPI.validateStep2();">
+                                                    <input type="button" id="createEditProfile_goToWorkEnvironment_1" value="Go to WorkEnvironment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="createEditProfile_workEnvironment" class="stepGroup_createEditProfile hidden">
+                                        <div class="tabsWrapper">
+                                            <div class="tabsSteps">
+                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
+                                                <div class="four-step-tab tab-current"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep3Label_3">Review</span></div>
+                                            </div>
+                                            <div class="tabs">
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="stepGroupForm">
+
+                                            <fieldset>
+                                                <legend>Work Environment</legend>
+                                                <div>
+                                                    
+                                                </div>
+                                            </fieldset>
+                                            <div class="createEditProfileSubmitPane">
+                                                <div class="formGroup insert"></div>
+                                                <div class="formGroup">
+                                                    <input type="button" id="createEditProfile_goToStep2_2" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');">
+                                                    <input id="createEditProfile_goToStep3_2" type="button" value="Go to Step 3" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')">
                                                 </div>
                                             </div>
                                         </div>
@@ -721,11 +757,13 @@ and open the template in the editor .
                                     <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="three-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
-                                                <div class="three-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
-                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></div>
+                                                <div class="four-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
                                             </div>
                                             <div class="tabs">
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
@@ -761,7 +799,7 @@ and open the template in the editor .
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
-                                                    <input type="button" id="createEditProfile_goToStep2_2" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');">
+                                                    <input type="button" id="createEditProfile_goToWorkEnvironment_2" value="Go to Work Environment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
                                                     <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();">
                                                 </div>
                                             </div>
