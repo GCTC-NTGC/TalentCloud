@@ -18,7 +18,8 @@ myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howO
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
 canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
-howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle ){
+howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard)){
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -107,6 +108,11 @@ howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle ){
     this.ourTeam = ourTeam;
     this.ourTeamText = ourTeamText;
     this.browseTitle = browseTitle;
+    this.createJobApplicationWindowTitle = createJobApplicationWindowTitle;
+    this.createJobApplicationJobTitleLabel = createJobApplicationJobTitleLabel;
+    this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
+    this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
+    this.continueToDashboard = continueToDashboard;
 };
 
 /**
@@ -546,6 +552,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     } else {
         //is job seeker
         ManagerProfileAPI.localizeManagerProfile();
+        JobApplicationAPI.localizeCreateJobApplication();
     }
     
 };
