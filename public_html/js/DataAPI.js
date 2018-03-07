@@ -193,7 +193,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.jobApplicationConfirmationTrackingReminder = content.jobApplicationConfirmationTrackingReminder;
     thisContent.continueToDashboard = content.continueToDashboard;
     thisContent.announcement = content.announcement;
-
+    thisContent.adminPortal = content.adminPortal;
+    thisContent.applicantPortal = content.applicantPortal;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

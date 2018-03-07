@@ -9,7 +9,7 @@
             </div>
             <div class="col-xs-8">
                 <section class="visible-md visible-lg">
-                    <h1 class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <span id="applicantPortal">Applicant Portal</span></h1>
+                    <h1 class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <span id="adminPortal">Admin Portal</span></h1>
                 </section>
             </div>
             <div class="col-xs-2">
