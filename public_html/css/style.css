@@ -6,8 +6,7 @@ html{
 }
 
 body{
-    /* Couldn't adjust announcement text size while this was active - Grant
-    font-size:100% !important; */
+    font-size:100% !important;
     height:100% !important;
     color: #333 !important;
     width: 100% !important;
@@ -36,9 +35,13 @@ footer{
     display: flex;
     flex-direction: column;
     width:100%;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     bottom: 0;
 }
+
+#announcement{
+    font-size: 1.5em;
+    padding-left: 0.5em;}
 
 /* NAVIGATION */
 

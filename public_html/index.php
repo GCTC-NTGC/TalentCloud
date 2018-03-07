@@ -18,7 +18,7 @@ and open the template in the editor .
     </li>
 </ul>
 <div class="announcement-banner">
-    <span class="fa fa-bullhorn"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+    <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
 </div>
 
 <?php include 'inc/fip.php';?>
