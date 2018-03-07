@@ -392,6 +392,13 @@ JobPostAPI.viewJobPoster = function(jobId){
     });
 };
 
+JobPostAPI.localizeJobPoster = function() {
+    if (siteContent) {
+        document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
+        document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
+    }
+};
+
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
  * 
  * @param JobPostAPI.JobPost jobData
@@ -403,6 +410,23 @@ JobPostAPI.populateJobPoster = function(jobData){
     history.pushState(stateInfo, stateInfo.pageInfo, '#Job/' + jobData.id);//last parameter just replaced with #Register instead of url
     
     TalentCloudAPI.hideAllContent();
+    
+    //Start requests for Hiring Manager data
+    //Load Hiring Manager Name
+    DataAPI.getUser(jobData.manager_user_id, function(response) {
+       var managerUser = UserAPI.parseUserResponse(response);
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+    });    
+    //Load Hiring Manager Image
+    var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
+    FileUploadAPI.refreshProfilePic(jobData.manager_user_id, [hiringManagerProfilePic]);
+    //Load Other Hiring Manager Data
+    DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
+       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
+       document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
+       document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
+       document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
+    });
     
     //Set language-specific labels
     document.getElementById("jobPosterSalaryRangeLabel").innerHTML = siteContent.jobSalaryRange;

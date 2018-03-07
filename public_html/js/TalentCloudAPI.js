@@ -16,10 +16,10 @@ createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutM
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
-canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
+readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard) {
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -85,6 +85,7 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.browseLink = browseLink;
     this.gctc = gctc;
     this.at = at;
+    this.readMore = readMore;
     this.canadaLink = canadaLink;
     this.canadaLinkHref = canadaLinkHref;
     this.taglineMain = taglineMain;
@@ -113,6 +114,7 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
     this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
     this.continueToDashboard = continueToDashboard;
+    this.announcement = announcement;
 };
 
 /**
@@ -351,6 +353,9 @@ TalentCloudAPI.setContent = function(content, isManager){
     document.title = siteContent.title;
     window.title = siteContent.title;
     
+    var announcement = document.getElementById("announcement");
+    announcement.innerHTML = siteContent.announcement;
+    
     var gctc = document.getElementById("gctc");
     gctc.innerHTML = siteContent.gctc;
     
@@ -552,6 +557,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     } else {
         //is job seeker
         ManagerProfileAPI.localizeManagerProfile();
+        JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
     }
     
