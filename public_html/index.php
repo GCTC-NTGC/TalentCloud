@@ -275,7 +275,7 @@ and open the template in the editor .
                 <form name="profileAboutMeForm" id="profileAboutMeForm" method="post" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="profileEditAboutMe">
-                            <span>About Me:</span>
+                            <span id="aboutMe">About Me:</span>
                         </label>
                         <div>
                             <textarea class="form-control full-width" name="profileEditAboutMe" id="profileEditAboutMe" form="profileAboutMeForm"></textarea>

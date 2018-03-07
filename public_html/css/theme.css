@@ -3353,7 +3353,7 @@ main {
     padding-top: 3rem; } }
 
 .homepage--our-team {
-  background: url("/assets/img/cds/header-images/our-team.jpg") center center no-repeat;
+  /*background: url("/assets/img/cds/header-images/our-team.jpg") center center no-repeat;*/
   background-color: #0f0a08;
   background-size: cover;
   color: #FFFFFF;
