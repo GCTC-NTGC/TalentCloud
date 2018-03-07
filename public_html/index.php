@@ -311,7 +311,7 @@ and open the template in the editor .
                     <div class="page-banner--logo-container flexContainerVerticallyCentered">
                         <div class="page-banner--logo flexLeftOfCenter">
                             <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img id="logoSrc" class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
+                                <img id="logoSrc" class="tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
                             </a>
                         </div>
                         <div class="page-banner--logo-tagline-divider"></div>
