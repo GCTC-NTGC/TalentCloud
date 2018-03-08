@@ -18,6 +18,7 @@ RewriteRule ^api/v1/postJobApplication services/JobApplication.php
 RewriteRule ^api/v1/getJobPosterApplicationByProfileId services/JobPosterApplication.php
 RewriteRule ^api/v1/putJobPosterApplication services/JobPosterApplication.php
 RewriteRule ^api/v1/createJobPoster services/JobPoster.php
+RewriteRule ^api/v1/putWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
 RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
 RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
 RewriteRule ^api/v1/getManagerProfile/([0-9]{1,10}) services/ManagerProfile.php
