@@ -19,8 +19,8 @@ class WorkEnvironmentController{
             $workEnvironment = self::createWorkEnvironment($workEnvironment);
             WorkEnvironmentDAO::setManagerProfileWorkEnvironment($managerProfileId, $workEnvironment->getBasic_work_environment()->getId());
         } else {
-            //update work environment
-            echo('work env already exists for manager profile');
+            $workEnvironment->getBasic_work_environment()->setId($workEnvId);
+            self::updateWorkEnvironment($workEnvironment);
         }
         return $workEnvironment;
     }
@@ -38,9 +38,25 @@ class WorkEnvironmentController{
         
         foreach($workEnvironment->getWorkplace_photo_captions() as $photoCaption) {
             $photoCaption->setWork_environment_id($workEnvironmentId);
-            WorkEnvironmentDAO::createWorkplacePhotoCaption($photoCaption);
+            WorkEnvironmentDAO::insertUpdateWorkplacePhotoCaption($photoCaption);
         }
                 
+        return $workEnvironment;
+    }
+    
+    /**
+     * 
+     * @param WorkEnvironment $workEnvironment
+     * @return WorkEnvironment $workEnvironment
+     */
+    public static function updateWorkEnvironment($workEnvironment) {
+        WorkEnvironmentDAO::updateBasicWorkEnvironment($workEnvironment->getBasic_work_environment());
+        
+        foreach($workEnvironment->getWorkplace_photo_captions() as $caption) {
+            $caption->setWork_environment_id($workEnvironment->getBasic_work_environment()->getId());
+            WorkEnvironmentDAO::insertUpdateWorkplacePhotoCaption($caption);
+        }
+        
         return $workEnvironment;
     }
 }

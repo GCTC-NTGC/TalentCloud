@@ -97,7 +97,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         $sqlStr = "INSERT INTO work_environment
             (remote_allowed, telework_allowed, flexible_allowed)
             VALUES
-            (:remote_allowed, :telework_allowed, :flexible_allowed)
+            (:remote_allowed, :telework_allowed, :flexible_allowed)            
             ;";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':remote_allowed', $basicWorkEnvironment->getRemote_allowed(), PDO::PARAM_STR);
@@ -119,6 +119,38 @@ class WorkEnvironmentDAO extends BaseDAO {
     }
     
     /**
+     * 
+     * @param BasicWorkEnvironment $basicWorkEnvironment
+     * @return int $rowsmodified
+     */
+    public static function updateBasicWorkEnvironment($basicWorkEnvironment) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "UPDATE work_environment SET
+            remote_allowed= :remote_allowed, 
+            telework_allowed= :telework_allowed, 
+            flexible_allowed= :flexible_allowed
+            WHERE
+            id = :id
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':id', $basicWorkEnvironment->getId(), PDO::PARAM_INT);
+        $sql->bindValue(':remote_allowed', $basicWorkEnvironment->getRemote_allowed(), PDO::PARAM_STR);
+        $sql->bindValue(':telework_allowed', $basicWorkEnvironment->getTelework_allowed(), PDO::PARAM_STR);
+        $sql->bindValue(':flexible_allowed', $basicWorkEnvironment->getFlexible_allowed(), PDO::PARAM_STR);
+        
+        $rowsmodified = 0;
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));           
+            $rowsmodified = $sql->rowCount();
+            
+        } catch (PDOException $e) {
+            return 'updateBasicWorkEnvironment failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rowsmodified;
+    }
+    
+    /**
      * Add the work_environment_id, name, and description fields to the database.
      * 
      * NOTE: mime_type and size will NOT be added. They are added to the database 
@@ -127,17 +159,20 @@ class WorkEnvironmentDAO extends BaseDAO {
      * @param WorkplacePhotoCaption $workplacePhotoCaption
      * @return int $rowsModified
      */
-    public static function createWorkplacePhotoCaption($workplacePhotoCaption) {
+    public static function insertUpdateWorkplacePhotoCaption($workplacePhotoCaption) {
         $link = BaseDAO::getConnection();
         $sqlStr = "INSERT INTO workplace_photo_caption
             (work_environment_id, photo_name, description)
             VALUES
             (:work_environment_id, :photo_name, :description)
+            ON DUPLICATE KEY UPDATE
+            description = :description_update
             ;";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':work_environment_id', $workplacePhotoCaption->getWork_environment_id(), PDO::PARAM_INT);
         $sql->bindValue(':photo_name', $workplacePhotoCaption->getPhoto_name(), PDO::PARAM_STR);
         $sql->bindValue(':description', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
+        $sql->bindValue(':description_update', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
         
         $rowsmodified = 0;
         try {
@@ -145,7 +180,7 @@ class WorkEnvironmentDAO extends BaseDAO {
             $rowsmodified = $sql->rowCount();
  
         } catch (PDOException $e) {
-            return 'createWorkplacePhotoCaption failed: ' . $e->getMessage();
+            return 'insertUpdateWorkplacePhotoCaption failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rowsmodified;
