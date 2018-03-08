@@ -71,5 +71,15 @@ class WorkEnvironmentController{
         return $workEnvironment;
     }
     
+    public static function putWorkplacePhotoByManagerProfileAndName($workplacePhoto, $photoName, $managerProfileId) {
+        $result = WorkEnvironmentDAO::insertWorkplacePhoto($workplacePhoto);
+        //TODO: 
+        // create call to see if photo exists
+        // if no call exists, insertWorkplacePhoto and 
+        // use id to create new database row for workplace photo caption
+        // 
+        // if exists, get id and update
+        return $result;
+    }
     
 }

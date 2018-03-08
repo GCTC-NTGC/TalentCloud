@@ -230,4 +230,30 @@ class WorkEnvironmentDAO extends BaseDAO {
         }
         return $photoCaptions;
     }
+    
+    public static function insertWorkplacePhoto($workplacePhoto) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "INSERT INTO workplace_photo
+            (image, mime_type, size)
+            VALUES
+            (:image, :mime_type, :size)
+            ;";
+                
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':image', $workplacePhoto->getFile(), PDO::PARAM_LOB);
+        $sql->bindValue(':mime_type', $workplacePhoto->getFile(), PDO::PARAM_STR);
+        $sql->bindValue(':size', $workplacePhoto->getFile(), PDO::PARAM_INT);
+        
+        $insert_id = 0;
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));           
+            $rowsmodified = $sql->rowCount();
+            if($rowsmodified > 0){
+                $insert_id = $link->lastInsertId();
+            }
+        } catch (PDOException $e) {
+            return 'insertWorkplacePhoto failed: ' . $e->getMessage();
+        }
+        return $insert_id;
+    }
 }
