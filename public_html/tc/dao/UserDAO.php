@@ -62,11 +62,8 @@ class UserDAO extends BaseDAO{
     }
     
     public static function getUserById(User $user) {
-        $link = BaseDAO::getConnection();
- 
+        $link = BaseDAO::getConnection();   
         $user_id = $user->getUser_id();
-        
-        
         $sqlStr = "
             SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
             FROM user u, user_role ur
@@ -79,7 +76,7 @@ class UserDAO extends BaseDAO{
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User', array('user_id', 'email', 'firstname', 'lastname', 'is_confirmed', 'user_role'));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {

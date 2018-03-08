@@ -57,8 +57,6 @@ JobSeekerAPI.populateJobSeekerObject = function(jobSeekerJSON){
     
     Utilities.debug?console.log("populating job seeker Objects"):null;
     Utilities.debug?console.log(jobSeekerJSON):null;
-    
-    Utilities.debug?console.log(job):null;
 
     var jobSeekerObj = new JobSeekerAPI.JobSeeker();
 
@@ -287,17 +285,7 @@ JobSeekerAPI.populateJobSeekerProfile = function(response){
     var jobSeekerJSON = JSON.parse(response)[0];
     var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
     if (jobSeekerJSON) {
-        jobSeekerProfile.id = jobSeekerJSON.job_seeker_profile_id;
-        jobSeekerProfile.personal_link = jobSeekerJSON.job_seeker_profile_link;
-        jobSeekerProfile.accomplishment = jobSeekerJSON.job_seeker_profile_accomp;
-        jobSeekerProfile.best_experience = jobSeekerJSON.job_seeker_profile_best_exp;
-        jobSeekerProfile.worst_experience = jobSeekerJSON.job_seeker_profile_worst_exp;
-        jobSeekerProfile.superpower = jobSeekerJSON.job_seeker_profile_superpower;
-        jobSeekerProfile.tagline = jobSeekerJSON.job_seeker_profile_tagline;
-        jobSeekerProfile.twitter_link = jobSeekerJSON.job_seeker_profile_twitter_link;
-        jobSeekerProfile.linkedin_link = jobSeekerJSON.job_seeker_profile_linkedin_link;
-        jobSeekerProfile.about_me = jobSeekerJSON.job_seeker_profile_about_me;
-        jobSeekerProfile.last_updated = jobSeekerJSON.last_updated;
+        jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(jobSeekerJSON);
     } else {
         //TODO: make more robust
         //jobSeekerJSON could not be parsed, probably because profile doesnt exist yet
@@ -566,7 +554,7 @@ JobSeekerAPI.saveJobSeekerProfileAborted = function(evt){
 
 JobSeekerAPI.saveJobSeekerProfileLoaded = function(response){
     Utilities.debug?console.log(response):null;
-    DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON());
+    DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
 };
 
 JobSeekerAPI.showJobSeekerProfile = function () {
@@ -582,7 +570,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     jobSeekerProfileOverlay.classList.remove("hidden");
 
     var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
-    profileBasicInfoEdit.focus();
+    //profileBasicInfoEdit.focus();
 
     EventsAPI.hideBodyOverflow(false);
     //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");

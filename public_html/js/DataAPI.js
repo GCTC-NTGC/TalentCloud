@@ -105,7 +105,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.logoutLink = content.logoutLink;
     thisContent.registerLink = content.registerLink;
     thisContent.applyNow = content.applyNow;
-    //thisContent.homeLink = content.homeLink;
+    thisContent.homeLink = content.homeLink;
     thisContent.profileLink = content.profileLink;
     thisContent.jobPostersLink = content.jobPostersLink;
     thisContent.teamsLink = content.teamsLink;
@@ -152,13 +152,48 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.education = content.education;
     thisContent.howOftenDoYouReview = content.howOftenDoYouReview;
     thisContent.howOftenDoYouStayLate = content.howOftenDoYouStayLate;
+    thisContent.howOftenDoYouEngage = content.howOftenDoYouEngage;
+    thisContent.howOftenDoYouApproveDevelopment = content.howOftenDoYouApproveDevelopment;
     thisContent.almostNever = content.almostNever;
     thisContent.rarely = content.rarely;
     thisContent.sometimes = content.sometimes;
     thisContent.usually = content.usually;
     thisContent.almostAlways = content.almostAlways;
     thisContent.name = content.name;
-    
+    thisContent.browseLink = content.browseLink;
+    thisContent.gctc = content.gctc;
+    thisContent.at = content.at;
+    thisContent.readMore = content.readMore;
+    thisContent.canadaLink = content.canadaLink;
+    thisContent.canadaLinkHref = content.canadaLinkHref;
+    thisContent.taglineMain = content.taglineMain;
+    thisContent.taglineSecondary = content.taglineSecondary;
+    thisContent.taglineTertiary = content.taglineTertiary;
+    thisContent.howItWorksHeading = content.howItWorksHeading;
+    thisContent.howItWorksLead = content.howItWorksLead;
+    //thisContent.howItWorksMainHtml = content.howItWorksMainHtml;
+    thisContent.logoSrc = content.logoSrc;
+    thisContent.logoAlt = content.logoAlt;
+    thisContent.ownYourStory = content.ownYourStory;
+    thisContent.ownYourStoryText = content.ownYourStoryText;
+    thisContent.getFound = content.getFound;
+    thisContent.getFoundText = content.getFoundText;
+    thisContent.contribute = content.contribute;
+    thisContent.contributeText = content.contributeText;
+    thisContent.howItWorksLeadOut = content.howItWorksLeadOut;
+    thisContent.howItWorksLast = content.howItWorksLast;
+    thisContent.contactUs = content.contactUs;
+    thisContent.transcript = content.transcript;
+    thisContent.ourTeam = content.ourTeam;
+    thisContent.ourTeamText = content.ourTeamText;
+    thisContent.browseTitle = content.browseTitle;
+    thisContent.createJobApplicationWindowTitle = content.createJobApplicationWindowTitle;
+    thisContent.createJobApplicationJobTitleLabel = content.createJobApplicationJobTitleLabel;
+    thisContent.createJobApplicationConfirmationPositionLabel = content.createJobApplicationConfirmationPositionLabel;
+    thisContent.jobApplicationConfirmationTrackingReminder = content.jobApplicationConfirmationTrackingReminder;
+    thisContent.continueToDashboard = content.continueToDashboard;
+
+  
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
@@ -287,51 +322,22 @@ DataAPI.getDepartments = function(locale){
     getDepartments_xhr.open('GET',departments_url);
     getDepartments_xhr.send(null);
 };
-                    
-DataAPI.getJobSeekerProfileByUserId = function(authJSON){
-    //console.log(authJSON.user_id);
+
+/**
+ * 
+ * @param {int} user_id
+ * @param {function} successfulResponseCallback - this will be called if the
+ *  request comes back with readyState==4 and status==200
+ * @return {undefined}
+ */
+DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallback){
     Utilities.debug?console.log("loading job seekers"):null;
-    var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfile/"+authJSON.user_id;
-    //var jobSeekers_url = "/wiremock/mappings/GET_jobSeekers.json";//DELETE before MERGE
-    getJobSeekerProfileByUserId_xhr = new XMLHttpRequest();
-    if ("withCredentials" in getJobSeekerProfileByUserId_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      getJobSeekerProfileByUserId_xhr.open("GET", jobSeekers_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      getJobSeekerProfileByUserId_xhr = new XDomainRequest();
-      getJobSeekerProfileByUserId_xhr.open("GET", jobSeekers_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      getJobSeekerProfileByUserId_xhr = null;
-
-    }
-    
-    getJobSeekerProfileByUserId_xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.updateProgress(evt);
-    },false);
-    getJobSeekerProfileByUserId_xhr.addEventListener("load",
-    function(evt){
-        if(getJobSeekerProfileByUserId_xhr.readyState === 4){
-            if(getJobSeekerProfileByUserId_xhr.status === 200){
-                //console.log("populateJobSeekerProfile");
-                JobSeekerAPI.populateJobSeekerProfile(getJobSeekerProfileByUserId_xhr.response);
-            }
+    var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfile/"+user_id;
+    DataAPI.sendRequest(jobSeekers_url, "GET", {}, null, function(request) {
+        if(request.readyState === 4 && request.status === 200){
+            successfulResponseCallback(request.response);
         }
-    },false);
-    getJobSeekerProfileByUserId_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    getJobSeekerProfileByUserId_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    getJobSeekerProfileByUserId_xhr.open('GET',jobSeekers_url);
-    getJobSeekerProfileByUserId_xhr.send(null);
+    });
 };
 
 /**
@@ -574,43 +580,87 @@ DataAPI.getContactCount = function(){
 };
 
 
-DataAPI.getJobPoster = function(locale, jobId){
+DataAPI.getJobPoster = function(locale, jobId, responseCallback){
     Utilities.debug?console.log("loading job seekers"):null;
     var jobPoster_url = DataAPI.baseURL+"/"+locale+"/getJobPoster/"+jobId;
-    //console.log('job poster url: ' + jobPoster_url);
-    //var jobSeekers_url = "/wiremock/mappings/GET_jobSeekers.json";//DELETE before MERGE
-    xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
+    DataAPI.sendRequest(jobPoster_url, 'GET', {}, null, function(request) {
+        responseCallback(request.response);
+    });
+};
 
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("GET", jobPoster_url);
+/**
+ * 
+ * @param {String} url - the url endpoint of the request
+ * @param {String} restMethod - 'GET', 'PUT', 'POST', or 'DELETE' 
+ * @param {String:String map} headersMap - Map of extra reuqest headers for the 
+ *      request. By default, Content-type and Accept are set to 'application/json', 
+ *      though this can be overridden with headersMap.
+ * @param {Object} payload - the payload of the request
+ * @param {function} requestCallback - this function will be called upon the'load'
+ *      event, with the XMLHttpRequest as the single argument
+ * @return {undefined}
+ */
+DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCallback) {
+    var request = new XMLHttpRequest();
+    if ("withCredentials" in request) {
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        request.open(restMethod, url);
 
     } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("GET", jobPoster_url);
-
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        request = new XDomainRequest();
+        request.open(restMethod, url);
     } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-
+        // Otherwise, CORS is not supported by the browser.
+        request = null;
+        // TODO: indicate to user that browser is not supported
     }
-    
-    xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.updateProgress(evt);
-    },false);
-    xhr.addEventListener("load",
-    function(evt){
-        JobPostAPI.populateJobPoster(JSON.parse(xhr.responseText));
-    },false);
-    xhr.addEventListener("error",DataAPI.transferFailed,false);
-    xhr.addEventListener("abort",DataAPI.transferAborted,false);
 
-    xhr.open('GET',jobPoster_url);
-    xhr.send(null);
+    request.setRequestHeader("Content-type", "application/json");
+    request.setRequestHeader("Accept", "application/json");
+    if (UserAPI.hasSessionUser()) {
+        authToken = UserAPI.getAuthTokenAsJSON();
+        request.setRequestHeader('x-access-token', authToken.access_token);
+    }
+    Object.keys(headersMap).forEach(function(key) {
+        request.setRequestHeader(key, headersMap[key]);
+    });
+    
+    request.addEventListener("progress", DataAPI.updateProgress, false);
+    request.addEventListener("error", DataAPI.transferFailed, false);
+    request.addEventListener("abort", DataAPI.transferAborted, false);
+    request.addEventListener("load", function() {
+        requestCallback(request);
+    },false);
+
+    request.send(payload);
+};
+
+DataAPI.getManagerProfile = function(userId, responseCallback) {
+    var manager_profile_url = DataAPI.baseURL + "/getManagerProfile/"+userId;
+    DataAPI.sendRequest(manager_profile_url, "GET", {}, null, function(request) {
+        responseCallback(request.response);
+    });
+};
+
+DataAPI.getUser = function(userId, responseCallback) {
+    var user_url = DataAPI.baseURL + "/getUser/" + userId;
+    DataAPI.sendRequest(user_url, "GET", {}, null, function(request) {
+        responseCallback(request.response);
+    });
+}
+
+/**
+ * 
+ * @param {JobApplicationAPI.JobApplication} jobApplication
+ * @param {function} responseCallback
+ * @return {undefined}
+ */
+DataAPI.createJobApplication = function(jobApplication, responseCallback) {
+    var url = DataAPI.baseURL + '/postJobApplication';
+    DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), function(request) {
+        responseCallback(request.response);
+    });
 };

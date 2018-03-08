@@ -308,11 +308,11 @@ and open the template in the editor .
                     <div class="page-banner--logo-container flexContainerVerticallyCentered">
                         <div class="page-banner--logo flexLeftOfCenter">
                             <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud logo"/>
+                                <img id="logoSrc" class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
                             </a>
                         </div>
                         <div class="page-banner--logo-tagline-divider"></div>
-                        <div class="page-banner--tagline flexRightOfCenter">People want meaningful work.</div>
+                        <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
                     </div>
                 </div>
             </div>
@@ -320,48 +320,41 @@ and open the template in the editor .
         <div class="pageBody" id="homePageContent">
             <section class="section homepage--intro">
                 <div class="container">
-
-                    <p class="lead"><a id="mission"></a>The jobs are real. The platform is experimental.</p>
-                    <p>Help us build a new hiring model for the Government of Canada.</p>
+                    <p class="lead" id="taglineSecondary"><a id="mission"></a>The jobs are real. The platform is experimental.</p>
+                    <p id="taglineTertiary">Help us build a new hiring model for the Government of Canada.</p>
                 </div>
             </section>
             <section class="section page-what-we-do">
                 <div class="container">
-                    <h2 class="section--title">How It Works</h2>
-
-                    <p>
-                        GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians&hellip;
-                    </p>
-
-                    <ul class="icon-list">
-
-                            <li class="item">
-                                    <span class="item-icon"><i class="fa fa-code"></i></span>
-                                    <span class="item-text">
-                                            <h3>Own Your Story</h3>
-                                            <p>Everyone is unique. Participate in a job selection process that lets you tell your story your way.</p>
-                                    </span>
-                            </li>
-
-                            <li class="item">
-                                    <span class="item-icon"><i class="fa fa-users"></i></span>
-                                    <span class="item-text">
-                                            <h3>Get Found</h3>
-                                            <p>Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.</p>
-                                    </span>
-                            </li>
-
-                            <li class="item">
-                                    <span class="item-icon"><i class="fa fa-comments-o"></i></span>
-                                    <span class="item-text">
-                                            <h3>Contribute</h3>
-                                            <p>Find meaningful work that has an impact on Canadians… and be part of the effort to design a better hiring process for Government jobs.</p>
-                                    </span>
-                            </li>
-                    </ul>
-
-                    <p>We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
-                    <p>Interested in chatting about a potential partnership? <a href="/contact/">Contact us!</a></p>
+                    <h2 class="section--title" id="howItWorksHeading">How It Works</h2>
+                        <p id="howItWorksLead">GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.</p>
+                        <!--<div id="howItWorksMainHtml"></div>-->
+                        <ul class="icon-list">
+                                <li class="item">
+                                        <span class="item-icon"><i class="fa fa-map-signs fa-fw"></i></span>
+                                        <span class="item-text">
+                                            <h3 id="ownYourStory">Own Your Story</h3>
+                                            <p id="ownYourStoryText">Everyone is unique. Participate in a job selection process that lets you tell your story your way.</p>
+                                        </span>
+                                </li>
+                                <li class="item">
+                                        <span class="item-icon"><i class="fa fa-search fa-fw"></i></span>
+                                        <span class="item-text">
+                                            <h3 id="getFound">Get Found</h3>
+                                            <p id="getFoundText">Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.</p>
+                                        </span>
+                                </li>
+                                <li class="item">
+                                        <span class="item-icon"><i class="fa fa-handshake-o"></i></span>
+                                        <span class="item-text">
+                                            <h3 id="contribute">Contribute</h3>
+                                            <p id="contributeText">Find meaningful work that has an impact on Canadians… and be part of the effort to design a better hiring process for Government jobs.</p>
+                                        </span>
+                                </li>
+                        </ul>
+                        <p id="howItWorksLeadOut">We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
+                        <p><span id="howitWorksLast">Interested in chatting about a potential partnership?</span> <a id="contactUs" href="/contact/">Contact us!</a></p>
+                    
                 </div>
             </section>
             <section class="section section--featured-video">
@@ -384,21 +377,15 @@ and open the template in the editor .
 
                     <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
                         <header class="modal-header">
-                            <h2 class="modal-title">Transcript</h2>
+                            <h2 id="transcript" class="modal-title">Transcript</h2>
                         </header>
                         <div class="modal-body">
                             <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
-
                             <p>We're about making it faster, simpler, and easier, to access government services online.</p>
-
                             <p>We are bringing together top talent from inside and outside of government that includes developers, designers, data scientists and user experience researchers. We're partnering with departments to solve problems, in order to make services better.</p>
-
                             <p>We're working in the open, using agile methods and constantly iterating, while relentlessly focusing on user needs.</p>
-
                             <p>CDS is not about IT. It's about service. User centric government services. It's about recognizing services need to be at the centre of our priorities as a government. Our relevance to citizens is in jeopardy if we can't deliver digital services.</p>
-
                             <p>We are learning from digital government movements across the globe, and working with the digital community across Canada, to shape a Canadian Digital Service.</p>
-
                             <p>Together, we can deliver world-class services that are simple and easy to use. It's what Canadians expect. Open. Agile. And focused on delivery. We are the Canadian Digital Service.</p>
                         </div>
                     </section>
@@ -411,9 +398,8 @@ and open the template in the editor .
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2 class="section--title">Our Team</h2>
-
-                            <p>We are a small but growing team of public servants passionate about the future of talent in Canada. Learn more about us and make your own contribution to GC Talent Cloud by joining us on one of these channels.</p>
+                            <h2 class="section--title" id="ourTeam">Our Team</h2>
+                            <p id="ourTeamText">We are a small but growing team of public servants passionate about the future of talent in Canada. Learn more about us and make your own contribution to GC Talent Cloud by joining us on one of these channels.</p>
                             <p>
                                 <a href="https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent" target="_blank" class="button yellow">GCcollab</a>
                                 <a href="https://twitter.com/TalentCloudGC" target="_blank" class="button yellow">Twitter</a>
@@ -486,39 +472,63 @@ and open the template in the editor .
                     </ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h3>
                     <p id="jobPosterImpact"></p>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h3>
                     <ul id="jobPosterKeyTasks"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
                     <ul id="jobPosterCoreCompetencies"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                    <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
                     <ul id="jobPosterDevelopingCompetencies"></ul>
                 </div>
             </section>
-            <section>
+            <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h3>
                     <ul id="jobPosterOtherRequirements"></ul>
                 </div>
             </section>
+            <section class='jobPosterSection'>
+                <div class='container'>
+                    <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
+                    <input type='hidden' id='jobPosterHiringManagerUserId'/>
+                    
+                    <div class="hiringManagerSummaryWrapper">  
+                        <div id='hiringManagerSummaryImageWrapper'>
+                            <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
+                            <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
+                        </div>
+                        <div id='hiringManagerSummaryContentWrapper' >
+                            <h4><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></h4>
+                            <p id='jobPosterHiringManagerAboutMe'></p>
+                            <div id='hiringManagerSummaryButtonWrapper'>
+                                <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                                    Read More
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                </div>
+            </section>
+            
 
             <div id="jobPosterButtonWrapper">
-                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobPostAPI.jobPosterApplication();">
+                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                     Apply Now
                 </button>
             </div>
@@ -527,14 +537,14 @@ and open the template in the editor .
     
     <section class="pageContent hidden" id="profileSection">
         <div class="pageBanner">
-            <div id="profileBannerFiller"></div>
+            <div class="profileBannerFiller"></div>
         </div>
         <div class="pageBody">
             <div class="container">
-                <div id="profileBasicInfo" class="centered">
-                    <div id="profileBasicInfoTopBar" class="flexContainerVerticallyCentered">
+                <div id="profileBasicInfo" class="profileBasicInfo centered">
+                    <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                         <div class="flexLeftOfCenter"> 
-                            <ul id="profileSocialMediaLinks"> 
+                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks"> 
                                 <li id="profileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
@@ -545,13 +555,13 @@ and open the template in the editor .
                         </div>
                         <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
                         <div class="flexRightOfCenter">
-                            <a href="javascript:void(0)" id="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
+                            <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
                                 <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
                             </a>
                         </div>
                     </div>
                     <div id="profileNameWrapper">
-                        <div id="profileName">
+                        <div class="profileName">
                             <span id="profileFirstName"></span> <span id="profileLastName"></span>
                         </div>
                     </div>
@@ -586,6 +596,233 @@ and open the template in the editor .
                 </div>
                 -->
             </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="managerProfileSection">
+        <div class="pageBanner">
+            <div class="profileBannerFiller"></div>
+        </div>
+        <div class="pageBody">
+            <div class="container">
+                <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
+                    <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
+                        <div class="flexLeftOfCenter"> 
+                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                                <li id="managerProfileTwitterLinkWrapper" class="hidden">
+                                    <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                                </li>
+                                <li id="managerProfileLinkedinLinkWrapper" class="hidden">
+                                    <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                </li>    
+                            </ul>
+                        </div>
+                        <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
+                        <div class="flexRightOfCenter"></div>
+                    </div>
+                    <div id="managerProfileNameWrapper">
+                        <div id="managerProfileName" class="profileName">
+                            <span id="managerProfileFirstName"></span> <span id="managerProfileLastName"></span>
+                        </div>
+                    </div>
+                    <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
+                        <p><span id="managerProfilePosition" class="bold"></span> <span id="managerProfilePositionAtLabel"></span> <span id="managerProfileDepartment" class="bold"></span></p>
+                    </div>
+                    <input type="hidden" id="managerProfile_managerProfileId"/>
+                    <input type="hidden" id="managerProfile_userId"/>
+                    <input type="hidden" id="managerProfileLastUpdated"/>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileAboutMeTitle" >About Me</h2>
+                    </div>
+                    <p id="managerProfileAboutMe">This is the about me section.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileAccomplishmentTitle">My Greatest Accomplishment</h2>
+                    </div>
+                    <p id="managerProfileAccomplishment">This is my greatest accomplishment.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileLeadershipStyleTitle">My Leadership Style</h2>
+                    </div>
+                    <p id="managerProfileLeadershipStyle">This is my leadership style.</p>
+                </div>
+                <div class="profileSubSection">
+                    <div class="profileSubSectionTitleBar">
+                        <h2 id="managerProfileExpectationsTitle">My Expectations of Employees</h2>
+                    </div>
+                    <p id="managerProfileExpectations">These are my employee expectations.</p>
+                </div>
+                <div class='profileSubSection'>
+                    <div class='profileSubSectionTitleBar'>
+                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id="managerProfile_review_label">How often do you review your teams work before it is shared?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
+                                        <input type="radio" id="option0" name="managerProfile_review_options_groupName" value="option0" class="accessAid" />
+                                        <label for="option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="option1" name="managerProfile_review_options_groupName" value="option1" class="accessAid" />
+                                        <label for="option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="option2" name="managerProfile_review_options_groupName" value="option2" class="accessAid" />
+                                        <label for="option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="option3" name="managerProfile_review_options_groupName" value="option3" class="accessAid" />
+                                        <label for="option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="option4" name="managerProfile_review_options_groupName" value="option4" class="accessAid" />
+                                        <label for="option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='review_options' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id="managerProfile_stayLate_label">How often do you get in early or stay late to get some extra work done?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='managerProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
+                                        <input type="radio" id="staylate_option0" name="managerProfile_staylate_groupName" value="option0" class="accessAid" />
+                                        <label for="staylate_option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="staylate_option1" name="managerProfile_staylate_groupName" value="option1" class="accessAid" />
+                                        <label for="staylate_option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="staylate_option2" name="managerProfile_staylate_groupName" value="option2" class="accessAid" />
+                                        <label for="staylate_option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="staylate_option3" name="managerProfile_staylate_groupName" value="option3" class="accessAid" />
+                                        <label for="staylate_option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="staylate_option4" name="managerProfile_staylate_groupName" value="option4" class="accessAid" />
+                                        <label for="staylate_option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='staylate' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id='managerProfile_engagement_label'>How often do you engage your team before responding to management?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                        <input type="radio" id="engage_option0" name="managerProfile_engagement_groupName" value="option0" class="accessAid" />
+                                        <label for="engage_option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="engage_option1" name="managerProfile_engagement_groupName" value="option1" class="accessAid" />
+                                        <label for="engage_option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="engage_option2" name="managerProfile_engagement_groupName" value="option2" class="accessAid" />
+                                        <label for="engage_option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="engage_option3" name="managerProfile_engagement_groupName" value="option3" class="accessAid" />
+                                        <label for="engage_option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="engage_option4" name="managerProfile_engagement_groupName" value="option4" class="accessAid" />
+                                        <label for="engage_option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='engage' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="multi-btn-group-form-group">
+                            <div class='multi-btn-group-form-group-label'>
+                                <span id='managerProfile_developmentOpportunities_Label'>How often do you approve development opportunities for your employees?</span>
+                            </div>
+                            <div style='display:inline-block;width:560px'>
+                                <div class="multi-btn-group clearfix">
+                                    <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                        <input type="radio" id="devops_option0" name="managerProfile_developmentOpportunities_groupName" value="option0" class="accessAid" />
+                                        <label for="devops_option0" class='option0Label'>Almost never</label>
+                                        <input type="radio" id="devops_option1" name="managerProfile_developmentOpportunities_groupName" value="option1" class="accessAid" />
+                                        <label for="devops_option1" class='option1Label'>Rarely</label>
+                                        <input type="radio" id="devops_option2" name="managerProfile_developmentOpportunities_groupName" value="option2" class="accessAid" />
+                                        <label for="devops_option2" class='option2Label'>Sometimes</label>
+                                        <input type="radio" id="devops_option3" name="managerProfile_developmentOpportunities_groupName" value="option3" class="accessAid" />
+                                        <label for="devops_option3" class='option3Label'>Usually</label>
+                                        <input type="radio" id="devops_option4" name="managerProfile_developmentOpportunities_groupName" value="option4" class="accessAid" />
+                                        <label for="devops_option4" class='option4Label'>Almost always</label>
+                                    </div>
+                                    <div id='devops' class="option0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='profileSubSection'>
+                    <div class='profileSubSectionTitleBar'>
+                        <h2 id='managerProfileEducationTitle'>Education</h2>
+                    </div>
+                    <p class='profileSubSectionBlock' id='managerProfileEducation'>This is my education.</p>
+                </div>
+                <div class='profileSubSection'>
+                    <div class='profileSubSectionTitleBar'>
+                        <h2 id='managerProfileExperienceTitle'>Work History</h2>
+                    </div>
+                    <p class='profileSubSectionBlock' id='managerProfileExperience'>This is my work history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="createJobApplicationSection">
+        <div class="pageBanner">
+            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+            <div class="container centered">
+                <p id="createJobApplicationPositionLabel">for the position of:</p>
+                <h3 id="createJobApplicationPostition"></h3>
+            </div>
+            <input type='hidden' id='createJobApplicationJobApplicationId' />
+            <input type='hidden' id='createJobApplicationJobPosterId' />
+            <input type='hidden' id='createJobApplicationJobSeekerId' />
+        </div>
+        <div class="pageBody">
+            <div class="container centered">
+                <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
+                <div class="profileName">
+                    <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
+                </div>
+            </div>
+            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="container">
+                    <div id="createJobApplicationOpenEndedQuestionsWrapper">
+
+                    </div>
+                </div>
+            </form>
+            <div id='createJobApplicationButtonWrapper'>
+                <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
+         <div class="pageBanner">
+            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+        </div>
+        <div class="pageBody">
+            <div id='createJobApplicationConfirmationBodyWrapper'>
+                <div class="centered container">
+                    <p id="createJobApplicationConfirmationPositionLabel">
+                        You have applied for the position of:
+                    </p>
+                    <h3 id="createJobApplicationConfirmationPostition"></h3>
+                    <p id="createJobApplicationConfirmationTrackingReminder">
+                        Track the application from your Dashboard.
+                    </p>
+                    <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="JobPostAPI.showBrowseJobs();">
+                        Continue to Dashboard
+                    </button>
+                </div>
+            </div>
+            <div class="confirmationFramingBar"></div>
         </div>
     </section>
 </main>

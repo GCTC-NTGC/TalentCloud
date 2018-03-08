@@ -33,8 +33,9 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
+JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
     this.id = id;
+    this.manager_user_id = manager_user_id;
     this.title = title;
     this.applicants_to_date = applicants_to_date;
     this.close_date_time = close_date_time;
@@ -98,8 +99,8 @@ JobPostAPI.populateJobObjectList = function(xhr_response){
 
 /**
  * 
- * @param {type} JSONJob
- * @returns {JobPostAPI.populateJobObject.jobObj|JobPostAPI.JobPost}
+ * @param {json} JSONJob
+ * @returns JobPostAPI.JobPost
  */
 JobPostAPI.populateJobObject = function(JSONJob){
     
@@ -113,6 +114,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     var jobObj = new JobPostAPI.JobPost();
 
     jobObj.id = job.id;
+    jobObj.manager_user_id = job.manager_user_id;
     jobObj.title = job.title;
     jobObj.applicants_to_date = job.applicants_to_date;
     jobObj.close_date_time = job.close_date;
@@ -153,10 +155,10 @@ JobPostAPI.populateJobs = function(jobPosts){
     while (jobsDiv.lastChild) {
         jobsDiv.removeChild(jobsDiv.lastChild);
     }
-    
+    var locale = TalentCloudAPI.getLanguageFromCookie().toString();
     for(var j = 0; j < jobPosts.length; j++){
         var job = jobPosts[j];
-        jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false));
+        jobsDiv.appendChild(JobPostAPI.populateJobSummary(job, false, locale));
     }
     
     loadingJobs.classList.add("hidden");
@@ -180,8 +182,6 @@ JobPostAPI.populateJobs = function(jobPosts){
  */
 JobPostAPI.populateJobSummary = function(job, demo, locale){
     Utilities.debug?console.log("populating job"):null;
-    
-    locale = TalentCloudAPI.getLanguageFromCookie().toString();
     
     // Create a job summary
     var jobSummary = document.createElement("div");
@@ -280,9 +280,20 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummary.appendChild(jobSummaryTable);
     //jobSummary.appendChild(JobPostAPI.addFavouriteLink(job.id));
     
+    //Load Hiring Manager Name
+    DataAPI.getUser(job.manager_user_id, function(response) {
+       var managerUser = UserAPI.parseUserResponse(response);
+       hiringManagerLabel.innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+    });
+    
+    //Load Hiring Manager Image
+    FileUploadAPI.refreshProfilePic(job.manager_user_id, [hiringManagerProfilePic]);
+    
     return jobSummary;
     
 };
+
+
 
 /**
  * 
@@ -375,15 +386,22 @@ JobPostAPI.updateFavourite = function(isFav,jobPosterId){
  */
 JobPostAPI.viewJobPoster = function(jobId){
          
-    DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId);
-    
-    //TalentCloudAPI.hideLogo();
-    
+    DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
+        var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
+        JobPostAPI.populateJobPoster(jobPoster);
+    });
+};
+
+JobPostAPI.localizeJobPoster = function() {
+    if (siteContent) {
+        document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
+        document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
+    }
 };
 
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
  * 
- * @param {type} jobData
+ * @param JobPostAPI.JobPost jobData
  * @returns {undefined}
  */
 JobPostAPI.populateJobPoster = function(jobData){
@@ -394,10 +412,31 @@ JobPostAPI.populateJobPoster = function(jobData){
     
     TalentCloudAPI.hideAllContent();
     
+    //Start requests for Hiring Manager data
+    //Load Hiring Manager Name
+    DataAPI.getUser(jobData.manager_user_id, function(response) {
+       var managerUser = UserAPI.parseUserResponse(response);
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+    });    
+    //Load Hiring Manager Image
+    var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
+    FileUploadAPI.refreshProfilePic(jobData.manager_user_id, [hiringManagerProfilePic]);
+    //Load Other Hiring Manager Data
+    DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
+       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
+       document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
+       document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
+       document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
+    });
+    
     //Set language-specific labels
     document.getElementById("jobPosterSalaryRangeLabel").innerHTML = siteContent.jobSalaryRange;
     document.getElementById("jobPosterApplyButton").innerHTML = siteContent.applyNow;
     //TODO: add more
+   
+   //set hidden values
+   document.getElementById("jobPosterJobId").value = jobData.id;
+   document.getElementById('jobPosterHiringManagerUserId').value = jobData.manager_user_id;
    
     //Header
     if (jobData.title === "") {
@@ -408,7 +447,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
     document.getElementById("jobPosterProvince").innerHTML = jobData.location_province;
     document.getElementById("jobPosterIdValue").innerHTML = jobData.id;
-    document.getElementById("jobPosterJobId").value = jobData.id;
     
     //Datapoints
     if (locale === "en_CA"){
@@ -450,7 +488,7 @@ JobPostAPI.populateJobPoster = function(jobData){
         
     var applyNowButton = document.getElementById("jobPosterApplyButton"); 
     if(UserAPI.hasSessionUser()){
-        applyNowButton.setAttribute("onclick", "JobPostAPI.jobPosterApplication("+jobData.id+",'"+jobData.title+ "');");
+        applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");
     }else{
         applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
     }
@@ -484,14 +522,9 @@ JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) 
 
 /**
  * 
- * @param {type} jobPosterId
  * @returns {undefined}
  */
 JobPostAPI.hideJobPoster = function(){
-    var viewJobPosterOverlay = document.getElementById("jobPosterApplication");    
-    viewJobPosterOverlay.classList.add("hidden");
-    var jobPoster = document.getElementById("jobPoster");
-    jobPoster.innerHTML = "";
     var jobPosterSection = document.getElementById("viewJobPosterSection");
     jobPosterSection.classList.add("hidden");
     

@@ -53,6 +53,7 @@
                 $fr = "fr_CA";
                 
                 $jobPoster = new JobPosterNonLocalized();
+                $jobPoster->setManager_user_id($jobPosterJSON["manager_user_id"]);
                 $jobPoster->setTitle_en($jobPosterJSON["title"][$en]);
                 $jobPoster->setTitle_fr($jobPosterJSON["title"][$fr]);
                 $jobPoster->setDepartment_id($jobPosterJSON["department_id"]);

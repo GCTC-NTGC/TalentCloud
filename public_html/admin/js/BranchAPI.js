@@ -56,7 +56,6 @@ BranchAPI.filterCreateJobPosterBranches = function(firstLoad){
 };
 
 /**
- * <a href="javascript:JobPostAPI.hideJobPoster()"
  * @param {type} element
  * @returns {undefined}
  */

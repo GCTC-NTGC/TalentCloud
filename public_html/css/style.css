@@ -21,6 +21,7 @@ body{
 }
 
 main{
+    min-height: 70%;
 }
 
 header{
@@ -31,7 +32,11 @@ header{
 
 footer{
     clear:left;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    font-size: 1.5em;
+    bottom: 0;
 }
 
 /* NAVIGATION */
@@ -58,13 +63,13 @@ nav{
 .pageContent{
     margin: 0 auto;
     width: 100%;
-    min-height: 100%;
+    min-height: 700px;
     overflow:auto;
 }
 
 .pageBanner {
     background:rgba(0,0,0,0.7);
-    min-height: 10rem;
+    min-height: 10%;
     width:100%;
     overflow:auto;
     color: #FFFFFF;
@@ -73,8 +78,8 @@ nav{
 .pageBody {
     background-color: white;
     width:100%;
-    overflow:visible;
-    padding-bottom: 10em;
+    min-height: 700px;
+    overflow: visible;
 }
 
 .formButtonWrapper{
@@ -182,6 +187,10 @@ nav{
 }
 
 /* UTILITY */
+.bold {
+    font-weight: bold;
+}
+
 
 .clear {
     clear: both;
@@ -259,7 +268,15 @@ nav{
     float:left;
 }
 
+.centered {
+    text-align: center;
+}
+
 /* PROFILE PIC AND UPLOAD */
+
+#profileSection{
+    min-height: 500px;
+}
 
 .profilePic{
     width:50px;
@@ -301,11 +318,6 @@ nav{
     box-shadow: 3px 3px 6px #999;
     padding:1em 2em 2em 2em;
     position:relative;
-}
-
-.profileTagLineContainer{
-    background-color:#E5F8FF;
-    margin-top:2em;
 }
 
 .fileDropZone {
@@ -408,6 +420,40 @@ nav{
 
 /* HOMEPAGE */
 
+/* CREATE JOB APPLICATION */
+
+#createJobApplicationProfilePic {
+    margin-top: 2em;
+}
+
+#createJobApplicationOpenEndedQuestionsWrapper {
+    margin-top: 2em;
+}
+
+.jobAPplicationQuestion {
+    
+}
+
+.jobApplicationAnswerField {
+    
+}
+
+#createJobApplicationButtonWrapper {
+    text-align: center;
+}
+
+/* CREATE JOB APPLICATION CONFIRMATION */
+
+#createJobApplicationConfirmationBodyWrapper {
+    padding: 6em 2em;
+    background-color: #B3B3B3;
+}
+
+.confirmationFramingBar {
+    height: 12em;
+    background-color: black;
+}
+
 /* JOB POSTER APPLICATION */
 
 .jobSeekerProfileOverlay{
@@ -453,8 +499,9 @@ nav{
 }
 
 /*TODO: deal with empty browseJobs page better*/
-#jobs{
-    min-height: 500px;
+
+#browseJobsSection{
+    min-height: 800px;
 }
 
 #noJobs{
@@ -509,8 +556,10 @@ nav{
 }
 
 .hiringManagerProfilePicSmall{
-    width: 50%;
-    padding-bottom: 0.5em;
+    width: 70px;
+    height: 70px;
+    clip-path: circle(35px at center);
+    margin-bottom: 0.5em;
     margin: auto;
     display: block;
 }
@@ -576,16 +625,6 @@ nav{
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 
-.viewJobPosterOverlay{
-    width:100%;
-    height:100%;
-    z-index: 1002;
-    background-color: rgba(255,255,255,0.75);
-    position:fixed;
-    top:0;
-    left:0;
-}
-
 #jobPosterTitle{
     font-size:5em;
     color: #eee;
@@ -613,6 +652,16 @@ nav{
 
 #jobPosterButtonWrapper {
     text-align: center;
+    background-color: #B9B9B9;
+}
+
+#jobPosterApplyButton{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.jobPosterSection:nth-child(odd){
+    background: #F8F8F8;
 }
 
 /* CREATE JOB POSTER */
@@ -671,50 +720,101 @@ nav{
     white-space: nowrap;
 }
 
-/* APPLICANT PROFILE */ 
+/* HIRING MANAGER SUMMARY */
 
-#profileBannerFiller {
+.hiringManagerSummaryWrapper {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.hiringManagerSummaryName{
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+#hiringManagerSummaryImageWrapper {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+#jobPosterHiringManagerProfilePic {
+    width:150px;
+    height:150px;
+    border: 3px solid #FFCC33;
+    border-radius: 75px;
+    margin: auto;
+}
+
+
+#hiringManagerSummaryContentWrapper {
+   flex: 1;
+}
+
+#hiringManagerSummaryButtonWrapper {
+    text-align:right;
+}
+
+#jobPosterHiringManagerButton {
+    margin: 0;
+    padding: 0;
+}
+
+/* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
+
+.profileBannerFiller {
     height:18em;
 }
 
-#profileBasicInfo {
+.profileBasicInfo {
     text-align: center;
     position: relative;
     margin-top:-13.5em;
 }
 
-#profileBasicInfoTopBar {
+.profileBasicInfoTopBar {
     display: flex;
     align-items: center;
     position: relative;
     max-width: 1200px;
     margin: auto;
+    margin-top:-13.5em;
 }
 
-#profileSocialMediaLinks {
+.profileSocialMediaLinks {
     list-style-type: none;
     float: right;
     margin-top: 0em;
 }
 
-#profileSocialMediaLinks li{
+.profileSocialMediaLinks li{
     display: inline;
     padding-left: 0.5em;
 }
 
-#profileSocialMediaLinks img{
+.profileSocialMediaLinks img{
     width: 1.5em;
     height: 1.5em;
 }
 
-#profileBasicInfoEdit {
+.profileBasicInfoEdit {
     float: left;
 }
 
-#profileName {
+.profileName {
     margin-top: .25em;
     font-size:3.5em;
     font-weight:700;
+}
+
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
 }
 
 .profileSubSection {
@@ -732,6 +832,13 @@ nav{
     font-weight: bold;
 }
 
+.profileSubSectionBlock {
+    background-color: #EBEBEB;
+    width: 90%;
+    margin-bottom: 1em;
+    padding: 1em 3em;
+}
+
 .socialMediaLink{
     margin-top:1.5em;
 }
@@ -745,15 +852,9 @@ nav{
     height: 1.5em;
 }
 
+/* APPLICANT PROFILE */ 
+
 /* ADMIN PROFILE */
-
-#createEditProfileBannerFiller {
-    height:18em;
-}
-
-#createEditProfilePicWrapper {
-    margin-top:-13.5em;
-}
 
 .createEditProfileDemoAreaEnglish{
     float: left;

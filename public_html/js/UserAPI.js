@@ -10,14 +10,33 @@ UserAPI.version = "v1";
 //UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
-UserAPI.User = function (userId, firstname, lastname, email, password, isConfirmed, userRole) {
-    this.user_id = userId;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.password = password;
-    this.is_confirmed = isConfirmed;
-    this.user_role = userRole;
+UserAPI.User = function () {
+    this.user_id = null;
+    this.firstname = null;
+    this.lastname = null;
+    this.email = null;
+    this.password = null;
+    this.is_confirmed = null;
+    this.user_role = null;
+};
+
+/**
+ * @param {XMLHttpRequest} httpResponse - returned from http request
+ * @return {UserAPI.User}
+ */
+UserAPI.parseUserResponse = function(httpResponse) {
+    var userJson = JSON.parse(httpResponse);
+    
+    var user = new UserAPI.User();
+    user.user_id = userJson.user_id;
+    user.email = userJson.email;
+    user.password = userJson.password;
+    user.firstname = userJson.firstname;
+    user.lastname = userJson.lastname;
+    user.is_confirmed = userJson.is_confirmed;
+    user.user_role = userJson.user_role;
+    
+    return user;
 };
 
 /**
@@ -349,7 +368,7 @@ UserAPI.loaded = function (response) {
 
         if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
             //if(authJSON.firstname !== null){
-            DataAPI.getJobSeekerProfileByUserId(authJSON);
+            DataAPI.getJobSeekerProfileByUserId(authJSON.user_id, JobSeekerAPI.populateJobSeekerProfile);
             JobSeekerAPI.refreshJobSeekerProfilePic();
             //}else{
             //    UserAPI.showJobSeekerProfileForm();

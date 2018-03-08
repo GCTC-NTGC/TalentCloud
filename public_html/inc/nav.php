@@ -5,8 +5,8 @@
             <div class="nav-container">
                 <ul class="navbar-right" role="menubar">
                     <li class="top-nav--link" aria-hidden="false" id="homeLinkListItem">
-                        <div id="homeLink">
-                            <a href="/">Home</a>
+                        <div id="home">
+                            <a href="/" id="homeLink">Home</a>
                         </div>
                     </li>
                     <!--li class="top-nav--link">
