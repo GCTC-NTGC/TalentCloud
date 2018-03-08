@@ -30,7 +30,17 @@
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            //TODO: add, then change 'OPTIONS' to refelct
+            if(strlen($requestParams) > 1){
+                $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
+                
+                $result = WorkEnvironmentController::getWorkEnivronmentByManagerProfile($managerProfileId);
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }else{
+                $result = array();
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }
             break;
         case 'POST':
             
@@ -69,7 +79,7 @@
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: PUT");
+            header("Access-Control-Allow-Methods: PUT, GET");
             echo("");
             break;
     }

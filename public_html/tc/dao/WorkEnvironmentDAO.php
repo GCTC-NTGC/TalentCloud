@@ -185,4 +185,49 @@ class WorkEnvironmentDAO extends BaseDAO {
         BaseDAO::closeConnection($link);
         return $rowsmodified;
     }
+    
+    /**
+     * 
+     * @param int $workEnvironmentId
+     * @return BasicWorkEnvironment
+     */
+    public static function getBasicWorkEnvironment($workEnvironmentId) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "SELECT remote_allowed, telework_allowed, flexible_allowed, id
+            FROM work_environment
+            WHERE id = :id        
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':id', $workEnvironmentId, PDO::PARAM_INT);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'BasicWorkEnvironment');
+            $workEnvironment = $sql->fetch();
+        } catch (PDOException $e) {
+            return 'getBasicWorkEnvironment failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $workEnvironment;
+    }
+    
+    public static function getWorkplacePhotoCaptions($workEnvironmentId) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "SELECT work_environment_id, photo_name, workplace_photo_id, description
+            FROM workplace_photo_caption
+            WHERE work_environment_id = :work_environment_id    
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':work_environment_id', $workEnvironmentId, PDO::PARAM_INT);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'WorkplacePhotoCaption');
+            $photoCaptions = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getWorkplacePhotoCaptions failed: ' . $e->getMessage();
+        }
+        return $photoCaptions;
+    }
 }

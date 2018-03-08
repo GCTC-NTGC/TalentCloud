@@ -59,4 +59,17 @@ class WorkEnvironmentController{
         
         return $workEnvironment;
     }
+    
+    public static function getWorkEnivronmentByManagerProfile($managerProfileId) {
+        $workEnvId = WorkEnvironmentDAO::getWorkEnvironmentIdByManagerProfile($managerProfileId);
+        $basicWorkEnvironment = WorkEnvironmentDAO::getBasicWorkEnvironment($workEnvId);
+        $photoCaptions = WorkEnvironmentDAO::getWorkplacePhotoCaptions($workEnvId);
+        $workEnvironment = new WorkEnvironment();
+        $workEnvironment->setBasic_work_environment($basicWorkEnvironment);
+        $workEnvironment->setWorkplace_photo_captions($photoCaptions);
+        
+        return $workEnvironment;
+    }
+    
+    
 }
