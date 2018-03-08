@@ -35,9 +35,13 @@ footer{
     display: flex;
     flex-direction: column;
     width:100%;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     bottom: 0;
 }
+
+#announcement{
+    font-size: 1.5em;
+    padding-left: 0.5em;}
 
 /* NAVIGATION */
 
@@ -167,6 +171,12 @@ nav{
     height: 30rem;
     z-index: 1;
 }
+@media (max-width: 768px) {
+    .page-banner--logo-container {
+        height: 20rem;
+        padding-bottom:3rem;
+    }
+}
 
 .page-banner--tagline{
     font-family: "HKGrotesk", sans-serif;
@@ -175,10 +185,10 @@ nav{
 }
 
 .tc-logo{
-    width: 500px;  
-    float: right;
-}
-
+    width: 100%;
+    height: auto;  
+    float: right; }
+  
 .page-banner--logo-tagline-divider{
     width:3px;
     height: 12em;
@@ -1106,7 +1116,7 @@ main .btn-default {
 /* END SORTED STYLES */
 
 #jobPosterFormWrapper{
-    margin-top: 1em;
+    margin-top: 10em;
 }
 
 .form-icon {

@@ -20,7 +20,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
         department_id, 
         province_id, 
         city, 
-        city_fr, 
+        //city_fr, 
         open_date_time, 
         close_date_time, 
         start_date, 
@@ -46,7 +46,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.province_id = province_id;
     this.city = {};
     this.city.en_CA = city;
-    this.city.fr_CA = city_fr;
+    //this.city.fr_CA = city_fr;
     this.open_date_time = open_date_time;
     this.close_date_time = close_date_time;
     this.start_date = start_date;
@@ -99,7 +99,7 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');
     
-    TalentCloudAPI.hideAllContent();
+    ManagerEventsAPI.hideAllLayouts();
     
     document.getElementById("createJobPoster_openDate").value = Utilities.formatDateTimeLocal(new Date());
     
@@ -352,7 +352,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     
     var city = document.getElementById("createJobPoster_city").value;
     
-    var city_fr = document.getElementById("createJobPoster_city_fr").value;
+    //var city_fr = document.getElementById("createJobPoster_city_fr").value;
     
     var open_date_time = document.getElementById("createJobPoster_openDate").value; 
      
@@ -383,7 +383,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var other_requirements_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements");
     var other_requirements_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements_fr");
         
-    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
+    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, city, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
 }
 
 CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {

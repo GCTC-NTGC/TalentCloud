@@ -28,44 +28,58 @@ EventsAPI.onLoadEvents = function(){
     window.onpopstate = function(e){
         //If going to a valid state
         if(e.state){
-            console.log();
-            EventsAPI.hideAllLayouts();
+            //console.log(e.state.pageInfo);
             TalentCloudAPI.hideAllContent();
             if(e.state.pageInfo === 'talent_cloud'){
+                EventsAPI.hideAllLayouts();
+                document.getElementById("homeLinkListItem").classList.add("active");
                 //static content for home page
             } else if(e.state.pageInfo === 'talent_cloud_admin'){
-                TalentCloudAPI.loadManager();
-                var jobSeekers = document.getElementById("jobSeekers");
-                jobSeekers.classList.remove("hidden");
+                EventsAPI.hideAllLayouts();
+                TalentCloudAPI.loadAdmin();
+                //var jobSeekers = document.getElementById("jobSeekers");
+                //jobSeekers.classList.remove("hidden");
             } else if(e.state.pageInfo === 'talent_cloud_manager'){
+                EventsAPI.hideAllLayouts();
                 TalentCloudAPI.loadManager();
-                var createJobPoster = document.getElementById("jobSeekers");
-                createJobPoster.classList.remove("hidden");
+                //var createJobPoster = document.getElementById("jobSeekers");
+                //createJobPoster.classList.remove("hidden");
             } else if(e.state.pageInfo === 'register'){
                 var registerFormOverlay = document.getElementById("registerFormOverlay");
                 registerFormOverlay.classList.remove("hidden");
+                document.getElementById("registerLinkListItem").classList.add("active");
             } else if(e.state.pageInfo === 'user_login'){
                 var loginAccount = document.getElementById("loginOverlay");
                 loginAccount.classList.remove("hidden");
+                document.getElementById("loginLinkListItem").classList.add("active");
             } else if(e.state.pageInfo === 'create_job_poster'){
+                EventsAPI.hideAllLayouts();
                 var createJobPoster = document.getElementById("createJobPosterOverlay");
                 createJobPoster.classList.remove("hidden");
             } else if(e.state.pageInfo === 'user_create_edit_profile'){
+                EventsAPI.hideAllLayouts();
                 var createJobPosterSection = document.getElementById("createEditProfileSection");
                 createJobPosterSection.classList.remove("hidden");
             } else if(e.state.pageInfo === 'manager_view_profile'){
                 //var createJobPosterDialog = document.getElementById("viewProfile");
                 //createJobPosterDialog.classList.remove("hidden");
             } else if(e.state.pageInfo === 'browse_jobs') {
+                EventsAPI.hideAllLayouts();
                 JobPostAPI.showBrowseJobs();
+                document.getElementById("browseLinkListItem").classList.add("active");
             } else if(e.state.pageInfo === 'view_job_poster'){
-                //JobPostAPI.showJobPoster( x ) //get job poster id
+                EventsAPI.hideAllLayouts();
+                JobPostAPI.viewJobPoster(e.state.jobId);
+                var jobPosterDatapointsSection = document.getElementById("jobPosterDatapointsSection");
+                jobPosterDatapointsSection.classList.remove("hidden");
             } else if(e.state.pageInfo === 'view_job_poster_application'){
+                EventsAPI.hideAllLayouts();
                 //var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
                 //viewJobPosterApplicationOverlay.remove("hidden");
             } else if(e.state.pageInfo === 'apply_job_poster'){
-                var jobPosterApplication = document.getElementById("jobPosterApplication"); 
-                jobPosterApplication.classList.remove("hidden");
+                EventsAPI.hideAllLayouts();
+                var viewJobPosterOverlay = document.getElementById("jobPosterApplication"); 
+                viewJobPosterOverlay.classList.remove("hidden");
             }
             document.title = e.state.pageTitle;
         }

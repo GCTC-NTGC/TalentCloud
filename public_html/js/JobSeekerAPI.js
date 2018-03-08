@@ -570,7 +570,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     jobSeekerProfileOverlay.classList.remove("hidden");
 
     var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
-    profileBasicInfoEdit.focus();
+    //profileBasicInfoEdit.focus();
 
     EventsAPI.hideBodyOverflow(false);
     //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");

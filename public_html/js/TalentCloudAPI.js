@@ -16,11 +16,10 @@ createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutM
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
-readMore,
-canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
+readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard) {
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -115,36 +114,124 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
     this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
     this.continueToDashboard = continueToDashboard;
+    this.announcement = announcement;
+    this.applicantPortal = applicantPortal;
+    this.adminPortal = adminPortal;
 };
+
+TalentCloudAPI.pages = {
+            home: {
+                url: "#",
+                state: function(){
+                    TalentCloudAPI.loadPublic();
+                    TalentCloudAPI.setNav("homeLinkListItem");
+                }
+            },
+            adinhome: {
+                url: "#",
+                state: function(){
+                    TalentCloudAPI.loadAdmin();
+                    TalentCloudAPI.setNav("homeLinkListItem");
+                }
+            },
+            BrowseJobs: {
+                url: "#BrowseJobs",
+                state: function(){
+                    JobPostAPI.showBrowseJobs();
+                    TalentCloudAPI.setNav("browseLinkListItem");
+                    AccessibilityAPI.focusElement("browseTitle");
+                }
+            },
+            Login: {
+                url: "#Login",
+                state: function(){
+                    UserAPI.showLogin();
+                    TalentCloudAPI.setNav("loginLinkListItem");
+                }
+            },
+            Register: {
+                url: "#Register",
+                state: function(){
+                    UserAPI.showRegisterForm();
+                    document.getElementById("registerLinkListItem");
+                }
+            },
+            MyProfile: {
+                url: "#MyProfile",
+                state: function(){
+                    JobSeekerAPI.showJobSeekerProfile();
+                    TalentCloudAPI.setNav("profileLinkListItem");
+                    AccessibilityAPI.focusElement("myProfilePic");
+                }
+            },
+            Job:{
+                url: "#Job",
+                state: function(jobPostId){
+                    JobPostAPI.viewJobPoster(jobPostId);
+                    TalentCloudAPI.setNav("browseLinkListItem");
+                }
+            },
+            CreateEditProfile:{
+                url:"#CreateEditProfile",
+                state: function(){
+                    CreateEditProfileAPI.showCreateEditProfile();
+                    TalentCloudAPI.setNav("profileLinkListItem");
+                }
+            },
+            CreateJobPoster:{
+                url:"#CreateJobPoster",
+                state: function(){
+                    CreateJobPosterAPI.showCreateJobPosterForm();
+                    TalentCloudAPI.setNav("jobPostersLinkListItem");
+                }
+            }
+        };
 
 /**
  * 
  * @returns {undefined}
  */
 TalentCloudAPI.load = function(){
-    
+    var pageToReload;
     var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     var managerView = false;
     var adminView = false;
-    if(window.location.href.includes("/"+TalentCloudAPI.roles.admin)) {
-        stateInfo.pageInfo = 'talent_cloud_admin';
-        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/admin/#");
+    var location = document.location.hash;
+    //console.log(location);
+    event.preventDefault();
+    location_elements = location.split('\/');
+    //console.log(location_elements[0]);
+    data = location_elements[1];
+    //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
+    if(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin) > -1) {
         adminView = true;
-    }else if(window.location.href.includes("/"+TalentCloudAPI.roles.manager)) {
-        stateInfo.pageInfo = 'talent_cloud_manager';
-        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
-        managerView = true;
-    } else {
-        window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
-    }
-    
-    if(adminView === true){
+        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["adminhome"];
         TalentCloudAPI.loadAdmin();
-    }else if(managerView === true){
-        TalentCloudAPI.loadManager();
+        console.log(pageToReload);
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/admin/#");
+        }
     }else{
         TalentCloudAPI.loadPublic();
+        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["home"];
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
+        }
     }
+    /*if(window.location.href.indexOf("/"+TalentCloudAPI.roles.manager) > -1) {
+        
+        managerView = true;
+        TalentCloudAPI.loadManager();
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
+        }
+    }*/
     
 };
 
@@ -162,27 +249,18 @@ TalentCloudAPI.loadPublic = function(){
     }
     DataAPI.getTalentCloudUI(locale,false);
     if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-        //console.log(authToken);
-        if(!UserAPI.hasAuthTokenExpired()){
-            if(UserAPI.hasSessionUser()){
-                var credentials = {};
-                sessionUser = UserAPI.getSessionUserAsJSON();
-                //console.log(sessionUser);
-                credentials.email = sessionUser.email;
-                credentials.password = sessionUser.password;
-                credentials.authToken = authToken;
-                UserAPI.authenticate(credentials);
-                
-            }else{
-                
-            }
-        }else{
-            
+        authToken = UserAPI.getAuthToken();
+        if(UserAPI.hasSessionUser()){
+            var credentials = {};
+            sessionUser = UserAPI.getSessionUserAsJSON();
+            //console.log(sessionUser);
+            credentials.email = sessionUser.email;
+            //credentials.password = sessionUser.password;
+            credentials.authToken = authToken;
+            UserAPI.login(credentials);
         }
-    }else{
-        
     }
+    
 };
 
 /**
@@ -196,20 +274,21 @@ TalentCloudAPI.loadManager = function(){
     }else{
         locale = "en_CA";
     }
-    console.log(UserAPI.hasAuthToken());
+    //console.log(UserAPI.hasAuthToken());
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
+        authToken = UserAPI.getAuthToken();
         //console.log(authToken);
-        if(!UserAPI.hasAuthTokenExpired()){
+        //if(!UserAPI.hasAuthTokenExpired()){
             if(UserAPI.hasSessionUser()){
                 var credentials = {};
                 sessionUser = UserAPI.getSessionUserAsJSON();
                 //console.log(sessionUser);
                 credentials.email = sessionUser.email;
-                credentials.password = sessionUser.password;
+                //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
-                UserAPI.authenticate(credentials);
+                //console.log(credentials);
+                UserAPI.login(credentials);
                 DataAPI.getJobSeekers(locale);
                 DepartmentAPI.getDepartments(locale);
                 DivisionAPI.getDivisions(locale);
@@ -217,9 +296,9 @@ TalentCloudAPI.loadManager = function(){
             }else{
                 DataAPI.getJobSeekers(locale);
             }
-        }else{
+        /*}else{
             DataAPI.getJobSeekers(locale);
-        }
+        }*/
     }else{
         DataAPI.getJobSeekers(locale);
     }
@@ -237,20 +316,20 @@ TalentCloudAPI.loadAdmin = function(){
     }else{
         locale = "en_CA";
     }
-    console.log(UserAPI.hasAuthToken());
+    //console.log(UserAPI.hasAuthToken());
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
         //console.log(authToken);
-        if(!UserAPI.hasAuthTokenExpired()){
+        //if(!UserAPI.hasAuthTokenExpired()){
             if(UserAPI.hasSessionUser()){
                 var credentials = {};
                 sessionUser = UserAPI.getSessionUserAsJSON();
-                console.log(sessionUser);
+                //console.log(sessionUser);
                 credentials.email = sessionUser.email;
-                credentials.password = sessionUser.password;
+                //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
-                UserAPI.authenticate(credentials);
+                UserAPI.login(credentials);
                 
                 DivisionAPI.getDivisions(locale);
                 BranchAPI.getBranches(locale);
@@ -259,9 +338,9 @@ TalentCloudAPI.loadAdmin = function(){
             }else{
                 //DataAPI.getJobSeekers(locale);
             }
-        }else{
+        /*}else{
             //DataAPI.getJobSeekers(locale);
-        }
+        }*/
     }else{
         //DataAPI.getJobSeekers(locale);
     }
@@ -348,10 +427,15 @@ TalentCloudAPI.hideLogo = function(){
  * @returns {undefined}
  */
 TalentCloudAPI.setContent = function(content, isManager){
-    console.log(content);
+    //console.log(content);
     siteContent = content;
+    
+    // Common headers (both Applicant and Admin)
     document.title = siteContent.title;
     window.title = siteContent.title;
+    
+    var announcement = document.getElementById("announcement");
+    announcement.innerHTML = siteContent.announcement;
     
     var gctc = document.getElementById("gctc");
     gctc.innerHTML = siteContent.gctc;
@@ -383,74 +467,22 @@ TalentCloudAPI.setContent = function(content, isManager){
     
     var taglineMain = document.getElementById("taglineMain");
     taglineMain.innerHTML = siteContent.taglineMain;
-    
-    var taglineSecondary = document.getElementById("taglineSecondary");
-    taglineSecondary.innerHTML = siteContent.taglineSecondary;
-    
-    var taglineTertiary = document.getElementById("taglineTertiary");
-    taglineTertiary.innerHTML = siteContent.taglineTertiary;
-    
-    var howItWorksHeading = document.getElementById("howItWorksHeading");
-    howItWorksHeading.innerHTML = siteContent.howItWorksHeading;
-    
-    var howItWorksLead = document.getElementById("howItWorksLead");
-    howItWorksLead.innerHTML = siteContent.howItWorksLead;
-    
-    var ownYourStory = document.getElementById("ownYourStory");
-    ownYourStory.innerHTML = siteContent.ownYourStory;
-    
-    var ownYourStoryText = document.getElementById("ownYourStoryText");
-    ownYourStoryText.innerHTML = siteContent.ownYourStoryText;
-    
-    var getFound = document.getElementById("getFound");
-    getFound.innerHTML = siteContent.getFound;
-    
-    var getFoundText = document.getElementById("getFoundText");
-    getFoundText.innerHTML = siteContent.getFoundText;
-    
-    var contribute = document.getElementById("contribute");
-    contribute.innerHTML = siteContent.contribute;
-    
-    var contributeText = document.getElementById("contributeText");
-    contributeText.innerHTML = siteContent.contributeText;
-    
-    var howItWorksLeadOut = document.getElementById("howItWorksLeadOut");
-    howItWorksLeadOut.innerHTML = siteContent.howItWorksLeadOut;
-    
-    var ourTeam = document.getElementById("ourTeam");
-    ourTeam.innerHTML = siteContent.ourTeam;
-    
-    var ourTeamText = document.getElementById("ourTeamText");
-    ourTeamText.innerHTML = siteContent.ourTeamText;
-    
-    var contactUs = document.getElementById("contactUs");
-    contactUs.innerHTML = siteContent.contactUs;
-    
-    var transcript = document.getElementById("transcript");
-    transcript.innerHTML = siteContent.transcript;
-    
+
     var canadaLink = document.getElementById("canadaLink");
     canadaLink.innerHTML = siteContent.canadaLink;
     canadaLink.href = siteContent.canadaLinkHref;
-    
-    var browseTitle = document.getElementById("browseTitle");
-    browseTitle.innerHTML = siteContent.browseTitle;
-    
-    //var howItWorksLast = document.getElementById("howItWorksLast");
-    //howItWorksLast.innerHTML = siteContent.howItWorksLast;
-    
-    //var howItWorksMainHtmlWrapper = document.createElement("div");
-    //var howItWorksMainHtml = document.getElementById("howItWorksMainHtml");
-    //howItWorksMainHtml.outerHTML = siteContent.howItWorksMainHtml;
-    //howItWorksMainHtml.appendChild(howItWorksMainHtml);
 
-    
     if(isManager){
+        console.log(isManager);
+        //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
 
         var jobPostersLink = document.getElementById("jobPostersLink");
         jobPostersLink.innerHTML = siteContent.jobPostersLink;
+        
+        var adminPortal = document.getElementById("adminPortal");
+        adminPortal.innerHTML = siteContent.adminPortal;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
@@ -551,11 +583,79 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
-    } else {
-        //is job seeker
+        
+    }
+    
+    if(!isManager){
+        //Applicant side only headers
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
+        
+        var applicantPortal = document.getElementById("applicantPortal");
+        applicantPortal.innerHTML = siteContent.applicantPortal;
+
+        var taglineSecondary = document.getElementById("taglineSecondary");
+        taglineSecondary.innerHTML = siteContent.taglineSecondary;
+
+        var taglineTertiary = document.getElementById("taglineTertiary");
+        taglineTertiary.innerHTML = siteContent.taglineTertiary;
+
+        var howItWorksHeading = document.getElementById("howItWorksHeading");
+        howItWorksHeading.innerHTML = siteContent.howItWorksHeading;
+
+        var howItWorksLead = document.getElementById("howItWorksLead");
+        howItWorksLead.innerHTML = siteContent.howItWorksLead;
+
+        var ownYourStory = document.getElementById("ownYourStory");
+        ownYourStory.innerHTML = siteContent.ownYourStory;
+
+        var ownYourStoryText = document.getElementById("ownYourStoryText");
+        ownYourStoryText.innerHTML = siteContent.ownYourStoryText;
+
+        var getFound = document.getElementById("getFound");
+        getFound.innerHTML = siteContent.getFound;
+
+        var getFoundText = document.getElementById("getFoundText");
+        getFoundText.innerHTML = siteContent.getFoundText;
+
+        var contribute = document.getElementById("contribute");
+        contribute.innerHTML = siteContent.contribute;
+
+        var contributeText = document.getElementById("contributeText");
+        contributeText.innerHTML = siteContent.contributeText;
+
+        var howItWorksLeadOut = document.getElementById("howItWorksLeadOut");
+        howItWorksLeadOut.innerHTML = siteContent.howItWorksLeadOut;
+
+        var ourTeam = document.getElementById("ourTeam");
+        ourTeam.innerHTML = siteContent.ourTeam;
+
+        var ourTeamText = document.getElementById("ourTeamText");
+        ourTeamText.innerHTML = siteContent.ourTeamText;
+
+        var contactUs = document.getElementById("contactUs");
+        contactUs.innerHTML = siteContent.contactUs;
+        
+        var browseTitle = document.getElementById("browseTitle");
+        browseTitle.innerHTML = siteContent.browseTitle;
+
+        //not working yet
+        
+        //var transcript = document.getElementById("transcript");
+        //transcript.innerHTML = siteContent.transcript;
+
+        //var howItWorksLast = document.getElementById("howItWorksLast");
+        //howItWorksLast.innerHTML = siteContent.howItWorksLast;
     }
     
+};
+    
+TalentCloudAPI.setNav = function(navItemToHighlightId){
+    var navItems = document.getElementsByClassName("top-nav--link active");
+    if(navItems.length > 0){
+        navItems[0].classList.remove("active");
+    }
+    var navItemToHighlight = document.getElementById(navItemToHighlightId);
+    navItemToHighlight.classList.add("active");
 };

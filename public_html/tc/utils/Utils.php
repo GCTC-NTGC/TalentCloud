@@ -12,41 +12,80 @@
  * @author gregg
  */
 class Utils {
-    //put your code here
+
+    /**
+     * 
+     * @param type $variable
+     * @return type
+     */
     public function is_defined(&$variable) {
         return isset($variable) && !is_null($variable);
     }
-    
-    public static function getLocaleFromRequest($requestParams){
-        
+
+    /**
+     * 
+     * @param type $requestParams
+     * @return type
+     */
+    public static function getLocaleFromRequest($requestParams) {
+
         $uri_delimiter = "/";
-        
+
         $params = explode($uri_delimiter, $requestParams);
-        
+
         $locale = $params[3];
-        
+
         return $locale;
     }
-    
-    public static function getParameterFromRequest($requestParams,$paramIndex){
-        
+
+    /**
+     * 
+     * @param type $requestParams
+     * @param type $paramIndex
+     * @return type
+     */
+    public static function getParameterFromRequest($requestParams, $paramIndex) {
+
         $uri_delimiter = "/";
-        
+
         $params = explode($uri_delimiter, $requestParams);
-        
+
         $paramValue = $params[$paramIndex];
-        
+
         return $paramValue;
     }
-    
-    public static function getParameterFromheader($requestParams,$paramIndex){
-        
+
+    /**
+     * 
+     * @param type $requestParams
+     * @param type $paramIndex
+     * @return type
+     */
+    public static function getParameterFromheader($requestParams, $paramIndex) {
+
         $uri_delimiter = "/";
-        
+
         $params = explode($uri_delimiter, $requestParams);
-        
+
         $paramValue = $params[$paramIndex];
-        
+
         return $paramValue;
     }
+
+    /**
+     * 
+     * @param type $data
+     * @return type
+     */
+    public static function base64url_encode($data) {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    }
+
+    /**
+     * 
+     */
+    public static function base64url_decode($data) {
+        return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
+    }
+
 }

@@ -35,8 +35,8 @@ class UserController{
         return $authUser;
     }
     
-    public static function getUserById($user_id){
-        $user = UserDAO::getUserById($user_id);
+    public static function getUserById(User $user){
+        $user = UserDAO::getUserById($user);
         return $user;
     }
     

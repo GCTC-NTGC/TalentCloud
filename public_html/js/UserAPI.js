@@ -49,11 +49,12 @@ UserAPI.login = function () {
         loginErrors.classList.add('hidden');
     }
     var credentials = {};
-    if (UserAPI.hasSessionUser()) {
+    if (UserAPI.hasSessionUser()){
         credentials = UserAPI.getSessionUserAsJSON();
         if (UserAPI.hasAuthToken() && credentials !== null) {
             authToken = UserAPI.getAuthToken();
-            UserAPI.authenticate();
+            credentials.authToken = UserAPI.getAuthToken();
+            UserAPI.getUserById(credentials);
         }
     } else {
         var loginForm = document.getElementById("loginForm");
@@ -61,57 +62,9 @@ UserAPI.login = function () {
         var password = loginForm.login_password.value;
         credentials = FormValidationAPI.validateLoginForm(email, password);
         if (credentials !== null) {
-            UserAPI.getToken(credentials);
+            UserAPI.authenticate(credentials);
         }
     }
-};
-
-/**
- * 
- * @param {type} credentials
- * @returns {undefined}
- */
-UserAPI.getToken = function (credentials) {
-    //console.log(UserAPI.hasAuthToken());
-    if (UserAPI.hasAuthToken()) {
-        var storedToken = UserAPI.getAuthTokenAsJSON();
-        if (storedToken != null) {
-            credentials.authToken = storedToken;
-        } else {
-            credentials.authToken = "";
-        }
-    } else {
-        credentials.authToken = "";
-    }
-    var qString = Utilities.serialize(credentials);
-    var auth_url = UserAPI.baseURL + "/authenticate?" + qString;
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        xhr.open("GET", auth_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        xhr = new XDomainRequest();
-        xhr.open("GET", auth_url);
-    } else {
-        // Otherwise, CORS is not supported by the browser.
-        xhr = null;
-        // TODO: indicate to user that browser is not supported
-    }
-
-    xhr.open('GET', auth_url);
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.addEventListener("progress", UserAPI.updateProgress, false);
-    xhr.addEventListener("load", function () {
-        UserAPI.authTokenCallback(xhr, credentials);
-    }, false);
-    xhr.addEventListener("error", UserAPI.transferFailed, false);
-    xhr.addEventListener("abort", UserAPI.transferAborted, false);
-
-    xhr.send();
 };
 
 /**
@@ -147,11 +100,9 @@ UserAPI.authenticate = function (credentials) {
     xhr.open('POST', auth_url);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader('x-access-token', credentials.authToken.access_token);
-    //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
     xhr.addEventListener("progress", UserAPI.updateProgress, false);
     xhr.addEventListener("load", function () {
-        UserAPI.loaded(xhr.response);
+        UserAPI.authTokenCallback(xhr.response, credentials);
     }, false);
     xhr.addEventListener("error", UserAPI.transferFailed, false);
     xhr.addEventListener("abort", UserAPI.transferAborted, false);
@@ -159,6 +110,48 @@ UserAPI.authenticate = function (credentials) {
     xhr.send(JSON.stringify(credentials));
 };
 
+/**
+ * 
+ * @param {type} credentials
+ * @returns {undefined}
+ */
+UserAPI.getUserById = function (credentials) {
+    authToken = credentials.authToken;
+    var jwt_elements = authToken.split('.');
+    var user_id_from_token = JSON.parse(window.atob(jwt_elements[1]));
+    //console.log(user_id_from_token);
+
+    var auth_url = UserAPI.baseURL + "/user/"+user_id_from_token.user_id ;
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        xhr.open("GET", auth_url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        xhr = new XDomainRequest();
+        xhr.open("GET", auth_url);
+    } else {
+        // Otherwise, CORS is not supported by the browser.
+        xhr = null;
+        // TODO: indicate to user that browser is not supported
+    }
+
+    xhr.open('GET', auth_url);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + authToken);
+    xhr.addEventListener("progress", UserAPI.updateProgress, false);
+    xhr.addEventListener("load", function () {
+        UserAPI.loaded(xhr.response);
+    }, false);
+    xhr.addEventListener("error", UserAPI.transferFailed, false);
+    xhr.addEventListener("abort", UserAPI.transferAborted, false);
+
+    xhr.send();
+};
 
 /**
  * 
@@ -235,7 +228,7 @@ UserAPI.registerUser = function (credentials) {
 };
 
 UserAPI.userRegistered = function (response) {
-    console.log(response);
+    //console.log(response);
     var result = JSON.parse(response);
     var registerSuccess = result.userRegistered;
     var confEmailSuccess = result.confEmailSent;
@@ -287,9 +280,9 @@ UserAPI.showRegisterConf = function (registerSuccess, confEmailSuccess) {
  * @returns {undefined}
  */
 UserAPI.hideRegisterConf = function () {
-    var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+    /*var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#');
+    history.pushState(stateInfo, stateInfo.pageInfo, '#');*/
     
     var registrationFormStatusMessage = document.getElementById("registrationStatusSuccessMessage");
     registrationFormStatusMessage.innerHTML = "";
@@ -323,16 +316,15 @@ UserAPI.submitNewJobPoster = function () {
  * @returns {undefined}
  */
 UserAPI.authTokenCallback = function (response, credentials) {
-    //console.log(response);
-    var token = JSON.parse(response.responseText);
-    if (token.failed) {
+    var tokenJSON = JSON.parse(response);
+    if (tokenJSON.failed) {
         UserAPI.authenticationFail();
     } else {
+        UserAPI.storeAuthToken(tokenJSON);
         if (credentials !== null) {
-            credentials.authToken = token;
+            credentials.authToken = tokenJSON.token;
         }
-        UserAPI.storeAuthToken(token);
-        UserAPI.authenticate(credentials);
+        UserAPI.getUserById(credentials);
     }
 };
 
@@ -344,13 +336,16 @@ UserAPI.authTokenCallback = function (response, credentials) {
 UserAPI.loaded = function (response) {
     //console.log(response);
     var authJSON = JSON.parse(response);
-    console.log(authJSON);
+    //console.log(authJSON);
     var sessionUser = UserAPI.getSessionUserAsJSON();
-    console.log(sessionUser);
+    //console.log(sessionUser);
     if (sessionUser === null) {
         UserAPI.storeSessionUser(authJSON);
     }
     if (authJSON.user_id !== "") {
+        //var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+        //document.title = stateInfo.pageTitle;
+        //history.pushState(stateInfo, stateInfo.pageInfo, '#');
         //var user_fname = document.getElementById("user_fname");
         //user_fname.innerHTML = authJSON.firstname;
 
@@ -439,6 +434,10 @@ UserAPI.transferAborted = function () {
  * @returns {undefined}
  */
 UserAPI.logout = function () {
+    var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+    document.title = stateInfo.pageTitle;
+    history.replaceState(stateInfo, stateInfo.pageInfo, '#');
+    
     var storage = window.sessionStorage;
     storage.removeItem('authToken');
     storage.removeItem('sessionUser');
@@ -459,9 +458,9 @@ UserAPI.authenticationFail = function () {
  * @returns {undefined}
  */
 UserAPI.showLogin = function () {
-    var stateInfo = {pageInfo: 'user_login', pageTitle: 'Talent Cloud: Login'};
-    document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#Login');
+    //var stateInfo = {pageInfo: 'user_login', pageTitle: 'Talent Cloud: Login'};
+    //document.title = stateInfo.pageTitle;
+    //history.pushState(stateInfo, stateInfo.pageInfo, '#Login');
 
     var loginDialog = document.getElementById("loginOverlay");
     loginDialog.classList.remove("hidden");
@@ -483,9 +482,9 @@ UserAPI.failedLogin = function () {
  * @returns {undefined}
  */
 UserAPI.cancelLogin = function () {
-    var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+    /*var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#');//
+    history.pushState(stateInfo, stateInfo.pageInfo, '#');//*/
 
     var loginOverlay = document.getElementById("loginOverlay");
     loginOverlay.classList.add("hidden");
@@ -504,12 +503,10 @@ UserAPI.cancelLogin = function () {
  * @param {type} linkElement
  * @returns {undefined}
  */
-UserAPI.showRegisterForm = function (linkElement) {
-    var title = linkElement.innerHTML;
-    var url = linkElement.getAttribute('href');
-    var stateInfo = {pageInfo: 'register', pageTitle: 'Talent Cloud: Register'};
-    document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#Register');//last parameter just replaced with #Register instead of url
+UserAPI.showRegisterForm = function () {
+    //var stateInfo = {pageInfo: 'register', pageTitle: 'Talent Cloud: Register'};
+    //document.title = stateInfo.pageTitle;
+    //history.pushState(stateInfo, stateInfo.pageInfo, '#Register');//last parameter just replaced with #Register instead of url
 
     var registerDialog = document.getElementById("registerFormOverlay");
     registerDialog.classList.remove("hidden");
@@ -524,9 +521,9 @@ UserAPI.showRegisterForm = function (linkElement) {
  * @returns {undefined}
  */
 UserAPI.hideRegisterForm = function () {
-    var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+    /*var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#');
+    history.pushState(stateInfo, stateInfo.pageInfo, '#');*/
 
     var registerDialog = document.getElementById("registerFormOverlay");
     registerDialog.classList.add("hidden");
@@ -550,7 +547,8 @@ UserAPI.storeAuthToken = function (authToken) {
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.getAuthToken = function () {
-    var existingToken = window.sessionStorage.authToken;
+    var existingToken = JSON.parse(window.sessionStorage.authToken).token;
+    //console.log(existingToken);
     return existingToken;
 };
 

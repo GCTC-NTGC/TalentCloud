@@ -1,4 +1,8 @@
 RewriteEngine on
+
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
 RewriteBase /tc/
 
 #non localized services
@@ -34,6 +38,5 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/city services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/jobterm services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/division services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/branch services/Lookup.php
-
 #Require all granted
 #Require ip 127.0.0.1
