@@ -127,6 +127,13 @@ TalentCloudAPI.pages = {
                     TalentCloudAPI.setNav("homeLinkListItem");
                 }
             },
+            adinhome: {
+                url: "#",
+                state: function(){
+                    TalentCloudAPI.loadAdmin();
+                    TalentCloudAPI.setNav("homeLinkListItem");
+                }
+            },
             BrowseJobs: {
                 url: "#BrowseJobs",
                 state: function(){
@@ -193,12 +200,12 @@ TalentCloudAPI.load = function(){
     //console.log(location);
     event.preventDefault();
     location_elements = location.split('\/');
-    console.log(location_elements[0]);
-    location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["home"];
+    //console.log(location_elements[0]);
     data = location_elements[1];
-    //console.log(pageToReload);
-    if(window.location.href.includes("/"+TalentCloudAPI.roles.admin)) {
+    //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
+    if(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin) > -1) {
         adminView = true;
+        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["adminhome"];
         TalentCloudAPI.loadAdmin();
         console.log(pageToReload);
         if(pageToReload !== undefined){
@@ -206,7 +213,16 @@ TalentCloudAPI.load = function(){
         }else{
             window.history.replaceState(stateInfo, stateInfo.pageInfo, "/admin/#");
         }
-    }else if(window.location.href.includes("/"+TalentCloudAPI.roles.manager)) {
+    }else{
+        TalentCloudAPI.loadPublic();
+        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["home"];
+        if(pageToReload !== undefined){
+            pageToReload.state(data);
+        }else{
+            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
+        }
+    }
+    /*if(window.location.href.indexOf("/"+TalentCloudAPI.roles.manager) > -1) {
         
         managerView = true;
         TalentCloudAPI.loadManager();
@@ -215,14 +231,7 @@ TalentCloudAPI.load = function(){
         }else{
             window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
         }
-    } else {
-        TalentCloudAPI.loadPublic();
-        if(pageToReload !== undefined){
-            pageToReload.state(data);
-        }else{
-            window.history.replaceState(stateInfo, stateInfo.pageInfo, "/#");
-        }
-    }
+    }*/
     
 };
 
@@ -464,6 +473,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     canadaLink.href = siteContent.canadaLinkHref;
 
     if(isManager){
+        console.log(isManager);
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
@@ -573,7 +583,10 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
-    } else {
+        
+    }
+    
+    if(!isManager){
         //Applicant side only headers
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
