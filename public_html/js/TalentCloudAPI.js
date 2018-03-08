@@ -558,14 +558,34 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
+        
+        var howItWorksLast = document.getElementById("howItWorksLast");
+        howItWorksLast.innerHTML = siteContent.howItWorksLast;
+        
+        var transcript = document.getElementById("transcript");
+        transcript.innerHTML = siteContent.transcript;
+        
+        var almostAlways = document.getElementById("almostAlways");
+        almostAlways.innerHTML = siteContent.almostAlways;
+        
+        var rarely = document.getElementById("rarely");
+        rarely.innerHTML = siteContent.rarely;
+        
+        var sometimes = document.getElementById("sometimes");
+        sometimes.innerHTML = siteContent.sometimes;
+        
+        var usually = document.getElementById("usually");
+        usually.innerHTML = siteContent.usually;
+        
+        var almostNever = document.getElementById("almostNever");
+        almostNever.innerHTML = siteContent.almostNever;
+        
 
+        
+        
         //not working yet
         
-        //var transcript = document.getElementById("transcript");
-        //transcript.innerHTML = siteContent.transcript;
 
-        //var howItWorksLast = document.getElementById("howItWorksLast");
-        //howItWorksLast.innerHTML = siteContent.howItWorksLast;
     }
     
 };

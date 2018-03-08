@@ -2,11 +2,7 @@ INSERT into base_content
 (base_content_type_id, base_content_key, base_content_value, base_content_locale_id)
 VALUES
 (1,'announcement','This site is under construction. The jobs are not in fact real at the moment.',1),
-(1,'announcement','Ce site est en construction. Les emplois ne sont pas réels en ce moment.',2),
-(1,'adminPortal','Admin Portal',1),
-(1,'adminPortal','Portail d\'administration',2),
-(1,'applicantPortal','Applicant Portal',1),
-(1,'applicantPortal','Portail demandeur',2)
+(1,'announcement','Ce site est en construction. Les emplois ne sont pas réels en ce moment.',2)
 ;
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Aller à l\'étape 2' WHERE `base_content_key`='goToStep2' AND `base_content_locale_id`='0000000002';
