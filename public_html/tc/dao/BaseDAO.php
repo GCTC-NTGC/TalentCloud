@@ -9,7 +9,7 @@
         session_start();
     }
 
-	require_once '/dev/tc_config/db.config.inc';
+	require_once '../config/db.config.inc';
 	
      /**
 	* Summary: Database connection manager class

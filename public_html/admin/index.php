@@ -18,8 +18,11 @@ and open the template in the editor .
                 <a class="wb-sl" href="#jobs">Skip to available jobs</a>
             </li>
         </ul>
+        <div class="announcement-banner">
+            <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+        </div>
 
-        <?php include '../inc/fip.php'; ?>
+        <?php include '../inc/fip-admin.php'; ?>
         <?php include '../inc/nav-admin.php'; ?>
 
         <!-- All top-level dialog or overlay elements should be children of this div-->
@@ -220,6 +223,7 @@ and open the template in the editor .
                                 <div class="page-banner--logo-tagline-divider"></div>
                                 <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
                             </div>
+                            <p class="centered">Changing government through it's people</p>
                         </div>
                     </div>
                 </div>

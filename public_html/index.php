@@ -17,6 +17,9 @@ and open the template in the editor .
         <a class="wb-sl" href="#jobs">Skip to available jobs</a>
     </li>
 </ul>
+<div class="announcement-banner">
+    <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+</div>
 
 <?php include 'inc/fip.php';?>
 <?php include 'inc/nav.php';?>
@@ -272,7 +275,7 @@ and open the template in the editor .
                 <form name="profileAboutMeForm" id="profileAboutMeForm" method="post" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="profileEditAboutMe">
-                            <span>About Me:</span>
+                            <span id="aboutMe">About Me:</span>
                         </label>
                         <div>
                             <textarea class="form-control full-width" name="profileEditAboutMe" id="profileEditAboutMe" form="profileAboutMeForm"></textarea>
@@ -308,7 +311,7 @@ and open the template in the editor .
                     <div class="page-banner--logo-container flexContainerVerticallyCentered">
                         <div class="page-banner--logo flexLeftOfCenter">
                             <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img id="logoSrc" class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
+                                <img id="logoSrc" class="tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
                             </a>
                         </div>
                         <div class="page-banner--logo-tagline-divider"></div>

@@ -16,11 +16,10 @@ createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutM
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
-readMore,
-canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
+readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard) {
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -115,6 +114,9 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
     this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
     this.continueToDashboard = continueToDashboard;
+    this.announcement = announcement;
+    this.applicantPortal = applicantPortal;
+    this.adminPortal = adminPortal;
 };
 
 TalentCloudAPI.pages = {
@@ -418,8 +420,13 @@ TalentCloudAPI.hideLogo = function(){
 TalentCloudAPI.setContent = function(content, isManager){
     //console.log(content);
     siteContent = content;
+    
+    // Common headers (both Applicant and Admin)
     document.title = siteContent.title;
     window.title = siteContent.title;
+    
+    var announcement = document.getElementById("announcement");
+    announcement.innerHTML = siteContent.announcement;
     
     var gctc = document.getElementById("gctc");
     gctc.innerHTML = siteContent.gctc;
@@ -451,74 +458,21 @@ TalentCloudAPI.setContent = function(content, isManager){
     
     var taglineMain = document.getElementById("taglineMain");
     taglineMain.innerHTML = siteContent.taglineMain;
-    
-    var taglineSecondary = document.getElementById("taglineSecondary");
-    taglineSecondary.innerHTML = siteContent.taglineSecondary;
-    
-    var taglineTertiary = document.getElementById("taglineTertiary");
-    taglineTertiary.innerHTML = siteContent.taglineTertiary;
-    
-    var howItWorksHeading = document.getElementById("howItWorksHeading");
-    howItWorksHeading.innerHTML = siteContent.howItWorksHeading;
-    
-    var howItWorksLead = document.getElementById("howItWorksLead");
-    howItWorksLead.innerHTML = siteContent.howItWorksLead;
-    
-    var ownYourStory = document.getElementById("ownYourStory");
-    ownYourStory.innerHTML = siteContent.ownYourStory;
-    
-    var ownYourStoryText = document.getElementById("ownYourStoryText");
-    ownYourStoryText.innerHTML = siteContent.ownYourStoryText;
-    
-    var getFound = document.getElementById("getFound");
-    getFound.innerHTML = siteContent.getFound;
-    
-    var getFoundText = document.getElementById("getFoundText");
-    getFoundText.innerHTML = siteContent.getFoundText;
-    
-    var contribute = document.getElementById("contribute");
-    contribute.innerHTML = siteContent.contribute;
-    
-    var contributeText = document.getElementById("contributeText");
-    contributeText.innerHTML = siteContent.contributeText;
-    
-    var howItWorksLeadOut = document.getElementById("howItWorksLeadOut");
-    howItWorksLeadOut.innerHTML = siteContent.howItWorksLeadOut;
-    
-    var ourTeam = document.getElementById("ourTeam");
-    ourTeam.innerHTML = siteContent.ourTeam;
-    
-    var ourTeamText = document.getElementById("ourTeamText");
-    ourTeamText.innerHTML = siteContent.ourTeamText;
-    
-    var contactUs = document.getElementById("contactUs");
-    contactUs.innerHTML = siteContent.contactUs;
-    
-    var transcript = document.getElementById("transcript");
-    transcript.innerHTML = siteContent.transcript;
-    
+
     var canadaLink = document.getElementById("canadaLink");
     canadaLink.innerHTML = siteContent.canadaLink;
     canadaLink.href = siteContent.canadaLinkHref;
-    
-    var browseTitle = document.getElementById("browseTitle");
-    browseTitle.innerHTML = siteContent.browseTitle;
-    
-    //var howItWorksLast = document.getElementById("howItWorksLast");
-    //howItWorksLast.innerHTML = siteContent.howItWorksLast;
-    
-    //var howItWorksMainHtmlWrapper = document.createElement("div");
-    //var howItWorksMainHtml = document.getElementById("howItWorksMainHtml");
-    //howItWorksMainHtml.outerHTML = siteContent.howItWorksMainHtml;
-    //howItWorksMainHtml.appendChild(howItWorksMainHtml);
 
-    
     if(isManager){
+        //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
 
         var jobPostersLink = document.getElementById("jobPostersLink");
         jobPostersLink.innerHTML = siteContent.jobPostersLink;
+        
+        var adminPortal = document.getElementById("adminPortal");
+        adminPortal.innerHTML = siteContent.adminPortal;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
@@ -620,10 +574,66 @@ TalentCloudAPI.setContent = function(content, isManager){
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
     } else {
-        //is job seeker
+        //Applicant side only headers
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
+        
+        var applicantPortal = document.getElementById("applicantPortal");
+        applicantPortal.innerHTML = siteContent.applicantPortal;
+
+        var taglineSecondary = document.getElementById("taglineSecondary");
+        taglineSecondary.innerHTML = siteContent.taglineSecondary;
+
+        var taglineTertiary = document.getElementById("taglineTertiary");
+        taglineTertiary.innerHTML = siteContent.taglineTertiary;
+
+        var howItWorksHeading = document.getElementById("howItWorksHeading");
+        howItWorksHeading.innerHTML = siteContent.howItWorksHeading;
+
+        var howItWorksLead = document.getElementById("howItWorksLead");
+        howItWorksLead.innerHTML = siteContent.howItWorksLead;
+
+        var ownYourStory = document.getElementById("ownYourStory");
+        ownYourStory.innerHTML = siteContent.ownYourStory;
+
+        var ownYourStoryText = document.getElementById("ownYourStoryText");
+        ownYourStoryText.innerHTML = siteContent.ownYourStoryText;
+
+        var getFound = document.getElementById("getFound");
+        getFound.innerHTML = siteContent.getFound;
+
+        var getFoundText = document.getElementById("getFoundText");
+        getFoundText.innerHTML = siteContent.getFoundText;
+
+        var contribute = document.getElementById("contribute");
+        contribute.innerHTML = siteContent.contribute;
+
+        var contributeText = document.getElementById("contributeText");
+        contributeText.innerHTML = siteContent.contributeText;
+
+        var howItWorksLeadOut = document.getElementById("howItWorksLeadOut");
+        howItWorksLeadOut.innerHTML = siteContent.howItWorksLeadOut;
+
+        var ourTeam = document.getElementById("ourTeam");
+        ourTeam.innerHTML = siteContent.ourTeam;
+
+        var ourTeamText = document.getElementById("ourTeamText");
+        ourTeamText.innerHTML = siteContent.ourTeamText;
+
+        var contactUs = document.getElementById("contactUs");
+        contactUs.innerHTML = siteContent.contactUs;
+        
+        var browseTitle = document.getElementById("browseTitle");
+        browseTitle.innerHTML = siteContent.browseTitle;
+
+        //not working yet
+        
+        //var transcript = document.getElementById("transcript");
+        //transcript.innerHTML = siteContent.transcript;
+
+        //var howItWorksLast = document.getElementById("howItWorksLast");
+        //howItWorksLast.innerHTML = siteContent.howItWorksLast;
     }
     
 };
