@@ -99,7 +99,7 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');
     
-    TalentCloudAPI.hideAllContent();
+    ManagerEventsAPI.hideAllLayouts();
     
     document.getElementById("createJobPoster_openDate").value = Utilities.formatDateTimeLocal(new Date());
     

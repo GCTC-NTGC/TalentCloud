@@ -449,15 +449,15 @@ DataAPI.updateToggleProgress = function(evt){
  */
 DataAPI.toggleFavouriteCallback = function(contact){
         var updatedContact = JSON.parse(contact);
-        console.log(updatedContact);
+        //console.log(updatedContact);
         for(var i = 0; i < ContactAPI.contacts.length; i++) {
             var contactToUpdate = ContactAPI.contacts[i];
             if(contactToUpdate.id === updatedContact.id) {
                 if(updatedContact.isFavourite){
-                    console.log("true");
+                    //console.log("true");
                     contactToUpdate.isFavourite = true;
                 }else{
-                    console.log("false");
+                    //console.log("false");
                     contactToUpdate.isFavourite = false;
                 }
                 break;

@@ -140,8 +140,8 @@ and open the template in the editor .
                             </div>
                         </div>
                     </div>                
-                    <div class="hidden">
-                        <div style="margin: 1em 0 0 0;">
+                    <div>
+                        <div style="margin: 1em 0 0 0;" class="hidden">
                             <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
                         </div>
                         <div style="margin: 1em 0 0 0;">

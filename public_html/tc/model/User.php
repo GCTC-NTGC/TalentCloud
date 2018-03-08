@@ -30,15 +30,14 @@ class User implements JsonSerializable{
     }
 
     public function jsonSerialize() {
-        return [
-            'user_id' => $this->user_id,
-            'email' => $this->email,
-            'password' => $this->password,
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'is_confirmed' => $this->is_confirmed,
-            'user_role' => $this->user_role
-        ];
+        $getter_names = get_class_methods(get_class($this));
+        $gettable_attributes = array();
+        foreach ($getter_names as $key => $value) {
+            if(substr($value, 0, 3) === 'get') {
+                $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
+            }
+        }
+        return $gettable_attributes;
     }
 
     public function getUser_id() {

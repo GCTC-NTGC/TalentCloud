@@ -24,61 +24,45 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json");
     header("Accept: application/json");
-    header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
+    //header("Access-Control-Allow-Methods: GET,POST");
 
     $context = '/';
 
     $requestParams = substr($requestURI,strlen($context)+1);
+    
+    $headers = apache_request_headers();
+    /*foreach ($headers as $header => $value) {
+        echo "$header: $value <br />\n";
+    }*/
+    
     switch ($requestMethod) {
     case 'GET':
-        $jsonBody = json_encode($_GET);
+        header('HTTP/1.0 401 Unauthorized');
+        echo json_encode(array("failed"=>"Authorization declined"),JSON_FORCE_OBJECT);
+        exit;
+        break;
+    case 'POST':
+        $jsonBody = file_get_contents('php://input');
         //var_dump($jsonBody);
         if(strlen($jsonBody) > 1){
-        $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
+            $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
+            //var_dump($credentials);
             $token = $credentials['authToken'];
-            if($token == ""){
-                $token = AuthenticationController::getAuthToken(urldecode($credentials['email']), urldecode($credentials['password']));
+            if($token == null){
+                $token = AuthenticationController::getAuthToken($credentials['email'], $credentials['password']);
             }
             
             if($token == null){
                 header('HTTP/1.0 401 Unauthorized');
-                echo 'Authorization declined';
+                echo json_encode(array("failed"=>"Authorization declined"),JSON_FORCE_OBJECT);
                 exit;
             }
             
-            $json = json_encode($token);
+            $json = json_encode(array("token"=>$token),JSON_FORCE_OBJECT);
             echo($json);
         }else{
             header('HTTP/1.0 401 Unauthorized');
-            echo 'Authorization declined';
-            exit;
-        }
-        break;
-    case 'POST':
-        //var_dump(apache_request_headers());
-        //Here Handle POST Request 
-        $jsonBody = file_get_contents('php://input');
-        //var_dump($jsonBody);
-        if(strlen($jsonBody) > 1){
-        $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
-        //var_dump($credentials);
-            $user = new User();
-            $token = $credentials['authToken'];
-            //var_dump($token);
-            if($token == ""){
-                header('HTTP/1.0 401 Unauthorized');
-                echo 'Authorization declined';
-                exit;
-            }else{
-                $user = UserController::getUserByCredentials($credentials['email'], $credentials['password']);
-                //var_dump($user);
-            }
-            
-            $json = json_encode($user);
-            echo($json);
-        }else{
-            header('HTTP/1.0 401 Unauthorized');
-            echo 'Authorization declined';
+            echo json_encode(array("failed"=>"Authorization declined"),JSON_FORCE_OBJECT);
             exit;
         }
         break;
@@ -91,7 +75,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
     case 'OPTIONS':
         //Here Handle OPTIONS/Pre-flight requests
     header("Access-Control-Allow-Headers: Accept, Content-Type, Access-Control-Allow-Origin, x-access-token");
-        header("Access-Control-Allow-Methods: GET,POST,DELETE,PUT");
+        header("Access-Control-Allow-Methods: GET,POST");
         echo("");
         break;
    }

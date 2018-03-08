@@ -855,7 +855,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="leftPane">                            
+                                            <div class="singlePane">                            
                                                 <div class="form-group">
                                                     <label for="createJobPoster_city">
                                                         <span>City: *</span>
@@ -865,19 +865,6 @@ and open the template in the editor .
                                                     </label>
                                                     <div>
                                                         <input class="form-control full-width" type="text" name="createJobPoster_city" id="createJobPoster_city"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="rightPane">
-                                                <div class="form-group">
-                                                    <label for="createJobPoster_city_fr">
-                                                        <span>City_fr: *</span>
-                                                        <strong id="createJobPoster_city_fr_error" class="error hidden">
-                                                            <span id="createJobPoster_city_fr_error_msg" class="label label-danger"></span>
-                                                        </strong>
-                                                    </label>
-                                                    <div>
-                                                        <input class="form-control full-width" type="text" name="createJobPoster_city_fr" id="createJobPoster_city_fr"/>
                                                     </div>
                                                 </div>
                                             </div>
