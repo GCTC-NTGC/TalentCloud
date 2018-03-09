@@ -565,23 +565,30 @@ TalentCloudAPI.setContent = function(content, isManager){
         var transcript = document.getElementById("transcript");
         transcript.innerHTML = siteContent.transcript;
         
-        var almostAlways = document.getElementById("almostAlways");
-        almostAlways.innerHTML = siteContent.almostAlways;
+        var almostNeverElements = document.getElementsByClassName("option0Label");
+        for (var i = 0; i < almostNeverElements.length; i++) {
+            almostNeverElements[i].innerHTML = siteContent.almostNever;
+        }
         
-        var rarely = document.getElementById("rarely");
-        rarely.innerHTML = siteContent.rarely;
+        var rarelyElements = document.getElementsByClassName("option1Label");
+        for (var i = 0; i < rarelyElements.length; i++) {
+            rarelyElements[i].innerHTML = siteContent.rarely;
+        }
         
-        var sometimes = document.getElementById("sometimes");
-        sometimes.innerHTML = siteContent.sometimes;
+        var sometimesElements = document.getElementsByClassName("option2Label");
+        for (var i = 0; i < sometimesElements.length; i++) {
+            sometimesElements[i].innerHTML = siteContent.sometimes;
+        }
         
-        var usually = document.getElementById("usually");
-        usually.innerHTML = siteContent.usually;
+        var usuallyElements = document.getElementsByClassName("option3Label");
+        for (var i = 0; i < usuallyElements.length; i++) {
+            usuallyElements[i].innerHTML = siteContent.usually;
+        }
         
-        var almostNever = document.getElementById("almostNever");
-        almostNever.innerHTML = siteContent.almostNever;
-        
-
-        
+        var almostAlwaysElements = document.getElementsByClassName("option4Label");
+        for (var i = 0; i < almostAlwaysElements.length; i++) {
+            almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
+        }
         
         //not working yet
         
