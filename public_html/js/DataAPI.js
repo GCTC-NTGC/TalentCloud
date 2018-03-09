@@ -666,3 +666,17 @@ DataAPI.createJobApplication = function(jobApplication, responseCallback) {
         responseCallback(request.response);
     });
 };
+
+/**
+ * 
+ * @param {int} managerProfileId
+ * @param {int} workplaceEnvironment
+ * @param {function} responseCallback
+ * @return {undefined}
+ */
+DataAPI.submitWorkplaceEnvironment = function(managerProfileId, workplaceEnvironment, responseCallback) {
+    var url = DataAPI.baseURL + '/putWorkplacePhotoByManagerProfileAndName/' + managerProfileId;
+    DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(workplaceEnvironment), function(request) {
+        responseCallback(request.response);
+    });
+};

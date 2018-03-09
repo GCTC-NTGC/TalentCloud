@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <nav id="wb-sm">
     <div class="topbar transparent" id="site--topbar">
         <h2>Topics menu</h2>
