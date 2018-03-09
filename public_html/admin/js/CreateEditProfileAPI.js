@@ -8,6 +8,8 @@ var CreateEditProfileAPI = {};
 
 CreateEditProfileAPI.managerProfileObj = {};
 
+CreateEditProfileAPI.lookupMap = {};
+
 CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_id, 
         user_manager_profile_department,
@@ -104,18 +106,112 @@ CreateEditProfileAPI.firstLoad = function() {
     
 };
 
-CreateEditProfileAPI.loadData = function(){
+CreateEditProfileAPI.loadLookupData = function() {
+    //DivisionAPI.getDivisions(locale);
+    //BranchAPI.getBranches(locale);
+    var locales = ["en_CA", "fr_CA"];
+    var lookupTypes = ["branch", "division"];
+    for(i in locales) {
+        for (j in lookupTypes) {
+            var locale = locales[i];
+            var lookupType = lookupTypes[j];
+            CreateEditProfileAPI.getLookupData(lookupType, locale);
+        }
+    }
+};
+
+
+CreateEditProfileAPI.getLookupData = function(lookupType, locale){    
+    var lookup_URL = DataAPI.baseURL+"/"+locale+"/Lookup/"+lookupType;
+    //console.log('Talent cloud url data:   ' + talentcloudData_URL);
+    //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
+    var authToken = "";
+    if(UserAPI.hasAuthToken()){
+        authToken = UserAPI.getAuthTokenAsJSON();
+    }
+    var lookupData_xhr = new XMLHttpRequest();
+    if ("withCredentials" in lookupData_xhr) {
+
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      lookupData_xhr.open("GET", lookup_URL);
+
+    } else if (typeof XDomainRequest !== "undefined") {
+
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      lookupData_xhr = new XDomainRequest();
+      lookupData_xhr.open("GET", lookup_URL);
+
+    } else {
+
+      // Otherwise, CORS is not supported by the browser.
+      lookupData_xhr = null;
+
+    }
     
-    var createEditProfile_position = document.getElementById("createEditProfile_position");
+    lookupData_xhr.addEventListener("progress",
+    function(evt){
+        DataAPI.talentcloudDataUpdateProgress(evt);
+    },false);
+    lookupData_xhr.addEventListener("load",
+    function(evt){
+        CreateEditProfileAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
+        var userLocale = Utilities.getCookieByName("locale");
+        if (userLocale === undefined) {
+            userLocale = "en_CA";
+        }
+        if (userLocale === locale) {
+            CreateEditProfileAPI.populateLookups(lookupType,lookupData_xhr.response);
+        }
+    },false);
+    lookupData_xhr.addEventListener("error",DataAPI.transferFailed,false);
+    lookupData_xhr.addEventListener("abort",DataAPI.transferAborted,false);
+
+    lookupData_xhr.open('GET',lookup_URL);
+    lookupData_xhr.send();
+};
+
+
+CreateEditProfileAPI.populateLookups = function(lookupType,response){
+    //console.log(JSON.parse(response));
+    var data = JSON.parse(response);
     
-    var createEditProfile_department = document.getElementById("createEditProfile_department");
+    switch(lookupType) {
+        case "branch":
+            CreateEditProfileAPI.populateSelect("branch","createEditProfile_branch",data);
+            break;
+        case "division":
+            CreateEditProfileAPI.populateSelect("division","createEditProfile_division",data);
+            break;
+        default:
+            break;
+    }
     
-    var createEditProfile_branch = document.getElementById("createEditProfile_branch");
+        
     
-    var createEditProfile_division = document.getElementById("createEditProfile_division");
+};
+
+CreateEditProfileAPI.addToLookupMap = function(lookupType, locale, response) {
+    if (!CreateEditProfileAPI.lookupMap[lookupType]) {
+        CreateEditProfileAPI.lookupMap[lookupType] = {};
+    }
+    CreateEditProfileAPI.lookupMap[lookupType][locale] = JSON.parse(response);
+};
+
+CreateEditProfileAPI.populateSelect = function(lookupType, elementId, data){
     
-    
-}
+    if(lookupType === lookupType && document.getElementById(elementId)){
+        var select = document.getElementById(elementId);
+        Utilities.clearSelectOptions(select);
+        for(var department in data) {
+            var option = document.createElement("option");
+            option.value = data[department].id;
+            option.innerHTML = data[department].value;
+            select.appendChild(option);
+        }
+    }
+};
 
 CreateEditProfileAPI.validateStep1 = function() {
     var valid = true;

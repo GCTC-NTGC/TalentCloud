@@ -421,8 +421,9 @@ class JobPosterDAO extends BaseDAO {
         $sql1->bindValue(':remuneration_range_low', $jobPosterNonLocalized->getRemuneration_range_low(), PDO::PARAM_INT);
         $sql1->bindValue(':remuneration_range_high', $jobPosterNonLocalized->getRemuneration_range_high(), PDO::PARAM_INT);
         
-        $sql3->bindValue(':city_en', $jobPosterNonLocalized->getCity_en(), PDO::PARAM_STR);
-        $sql3->bindValue(':city_fr', $jobPosterNonLocalized->getCity_fr(), PDO::PARAM_STR);
+        $jpCity = $jobPosterNonLocalized->getCity_en();
+        $sql3->bindValue(':city_en', $jpCity, PDO::PARAM_STR);
+        $sql3->bindValue(':city_fr', $jpCity, PDO::PARAM_STR);
         $sql3->bindValue(':title_en', $jobPosterNonLocalized->getTitle_en(), PDO::PARAM_STR);
         $sql3->bindValue(':title_fr', $jobPosterNonLocalized->getTitle_fr(), PDO::PARAM_STR);
         $sql3->bindValue(':impact_en', $jobPosterNonLocalized->getImpact_en(), PDO::PARAM_LOB);

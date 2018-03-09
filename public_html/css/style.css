@@ -822,6 +822,12 @@ nav{
     font-weight:700;
 }
 
+.managerProfileTitle{
+    margin-top: .25em;
+    font-size:2.5em;
+    font-weight:700;
+}
+
 .profileTagLineContainer{
     background-color:#E5F8FF;
     margin-top:2em;

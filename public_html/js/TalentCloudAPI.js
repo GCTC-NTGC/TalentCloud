@@ -127,7 +127,7 @@ TalentCloudAPI.pages = {
                     TalentCloudAPI.setNav("homeLinkListItem");
                 }
             },
-            adinhome: {
+            adminhome: {
                 url: "#",
                 state: function(){
                     TalentCloudAPI.loadAdmin();
@@ -330,10 +330,8 @@ TalentCloudAPI.loadAdmin = function(){
                 //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.login(credentials);
-                
-                DivisionAPI.getDivisions(locale);
-                BranchAPI.getBranches(locale);
                 CreateJobPosterAPI.loadLookupData();
+                CreateEditProfileAPI.loadLookupData();
                 //Add log user in automatically
             }else{
                 //DataAPI.getJobSeekers(locale);

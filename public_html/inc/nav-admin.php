@@ -15,7 +15,7 @@
                     </li>-->
                     <ul class="navbar-right" role="menubar">
                         <li class="top-nav--link" aria-hidden="false" id="homeLinkListItem">
-                            <a href="/admin/" class="active" id="homeLink">Admin Home</a>
+                            <a href="/admin/" class="active" id="homeLink">Home</a>
                         </li>
                         <li class="top-nav--link hidden" id="browseLinkListItem">
                             <div id="browse">

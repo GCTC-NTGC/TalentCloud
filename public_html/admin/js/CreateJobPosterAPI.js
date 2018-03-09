@@ -20,7 +20,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
         department_id, 
         province_id, 
         city, 
-        //city_fr, 
+        city_fr, 
         open_date_time, 
         close_date_time, 
         start_date, 
@@ -46,7 +46,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.province_id = province_id;
     this.city = {};
     this.city.en_CA = city;
-    //this.city.fr_CA = city_fr;
+    this.city.fr_CA = city_fr;
     this.open_date_time = open_date_time;
     this.close_date_time = close_date_time;
     this.start_date = start_date;
@@ -108,8 +108,10 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
 };
 
 CreateJobPosterAPI.loadLookupData = function() {
+    //DivisionAPI.getDivisions(locale);
+    //BranchAPI.getBranches(locale);
     var locales = ["en_CA", "fr_CA"];
-    var lookupTypes = ["department", "province", "jobterm"];
+    var lookupTypes = ["department","branch", "division", "province", "jobterm"];
     for(i in locales) {
         for (j in lookupTypes) {
             var locale = locales[i];
@@ -186,60 +188,56 @@ CreateJobPosterAPI.populateLookups = function(lookupType,response){
     //console.log(JSON.parse(response));
     var data = JSON.parse(response);
     
-    if(lookupType === "department" && document.getElementById("createJobPoster_department")){
-        var departmentSelect = document.getElementById("createJobPoster_department");
-        Utilities.clearSelectOptions(departmentSelect);
+    switch(lookupType) {
+        case "department":
+            CreateJobPosterAPI.populateSelect("department","createJobPoster_department",data);
+            break;
+        case "province":
+            CreateJobPosterAPI.populateSelect("province","createJobPoster_province",data);
+            break;
+        case "jobterm":
+            if(document.getElementById("jobterms")){
+                var jobTermSelect = document.getElementById("jobterms");
+                Utilities.clearSelectOptions(jobTermSelect);
+                for(var jobterm in data) {
+                    var jobterm_name = data[jobterm].value;
+                    var optionRow = document.createElement("div");
+                    var option = document.createElement("input");
+                    option.setAttribute("id","jobterm_"+jobterm_name);
+                    option.setAttribute("type","radio");
+                    option.setAttribute("name","createJobPoster_termUnits");
+                    option.value = data[jobterm].id;
+                    var optionLabel = document.createElement("label");
+                    optionLabel.setAttribute("for","jobterm_"+jobterm_name);
+                    optionLabel.value = data[jobterm].id;
+                    optionLabel.innerHTML = jobterm_name;
+                    optionRow.appendChild(option);
+                    optionRow.appendChild(optionLabel);
+                    jobTermSelect.appendChild(optionRow);
+                }
+            }  
+            break;
+        default:
+            break;
+    }
+    
+        
+    
+};
+
+CreateJobPosterAPI.populateSelect = function(lookupType, elementId, data){
+    
+    if(lookupType === lookupType && document.getElementById(elementId)){
+        var select = document.getElementById(elementId);
+        Utilities.clearSelectOptions(select);
         for(var department in data) {
             var option = document.createElement("option");
             option.value = data[department].id;
             option.innerHTML = data[department].value;
-            departmentSelect.appendChild(option);
+            select.appendChild(option);
         }
-    }
+    }    
     
-    if(lookupType === "city" && document.getElementById("createJobPoster_city")){
-        var citiesSelect = document.getElementById("createJobPoster_city");
-        Utilities.clearSelectOptions(citiesSelect);
-        for(var city in data) {
-            var option = document.createElement("option");
-            option.value = data[city].id;
-            option.innerHTML = data[city].value;
-            citiesSelect.appendChild(option);
-        }
-        
-    }
-    
-    if(lookupType === "province" && document.getElementById("createJobPoster_province")){
-        var provincesSelect = document.getElementById("createJobPoster_province");
-        Utilities.clearSelectOptions(provincesSelect);
-        for(var province in data) {
-            var option = document.createElement("option");
-            option.value = data[province].id;
-            option.innerHTML = data[province].value;
-            provincesSelect.appendChild(option);
-        }
-    }
-    
-    if(lookupType === "jobterm" && document.getElementById("jobterms")){
-        var jobTermSelect = document.getElementById("jobterms");
-        Utilities.clearSelectOptions(jobTermSelect);
-        for(var jobterm in data) {
-            var jobterm_name = data[jobterm].value;
-            var optionRow = document.createElement("div");
-            var option = document.createElement("input");
-            option.setAttribute("id","jobterm_"+jobterm_name);
-            option.setAttribute("type","radio");
-            option.setAttribute("name","createJobPoster_termUnits");
-            option.value = data[jobterm].id;
-            var optionLabel = document.createElement("label");
-            optionLabel.setAttribute("for","jobterm_"+jobterm_name);
-            optionLabel.value = data[jobterm].id;
-            optionLabel.innerHTML = jobterm_name;
-            optionRow.appendChild(option);
-            optionRow.appendChild(optionLabel);
-            jobTermSelect.appendChild(optionRow);
-        }
-    }  
 };
 
 CreateJobPosterAPI.getLocalizedLookupValueFromId = function(lookeupType, locale, id) {
@@ -352,7 +350,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     
     var city = document.getElementById("createJobPoster_city").value;
     
-    //var city_fr = document.getElementById("createJobPoster_city_fr").value;
+    var city_fr = document.getElementById("createJobPoster_city").value;
     
     var open_date_time = document.getElementById("createJobPoster_openDate").value; 
      
@@ -383,7 +381,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var other_requirements_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements");
     var other_requirements_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements_fr");
         
-    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, city, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
+    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr);
 }
 
 CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
@@ -474,5 +472,7 @@ CreateJobPosterAPI.postJobPosterComplete = function(response) {
     CreateJobPosterAPI.jobPosterObj.id = JSON.parse(response).job_poster_id;
     
     CreateJobPosterAPI.goToTab("createJobPosterReviewTab");
-    window.alert("Job Post submitted successfully.");
+    
+    
+    
 };
