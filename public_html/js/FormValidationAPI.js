@@ -231,13 +231,13 @@ FormValidationAPI.validateJobPoster = function(title_en, title_fr, city_en, city
         FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_city_error", "createJobPoster_city_error_msg", "Error: No City");
     }
     
-    if(!FormValidationAPI.fieldNotEmpty(city_fr)){
+    /*if(!FormValidationAPI.fieldNotEmpty(city_fr)){
         FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_city_fr_error", "createJobPoster_city_fr_error_msg", "Error: No City");
         valid = false;
     }
     else{
         FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_city_fr_error", "createJobPoster_city_fr_error_msg", "Error: No City");
-    }
+    }*/
     
     if(!FormValidationAPI.fieldNotEmpty(open_date_time)){
         FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_openDate_error", "createJobPoster_openDate_error_msg", "Error: No Open Date/Time");

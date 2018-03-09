@@ -412,7 +412,6 @@ and open the template in the editor .
                 </div>
             </section>
         </div>
-        </div>
     </section>
     
     <section class="pageContent hidden" id="browseJobsSection">

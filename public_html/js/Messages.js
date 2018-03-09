@@ -97,3 +97,23 @@ function NetworkErrorMessage(){
 
     ShowHideModal(message);
 }
+
+
+
+function SessionTimeoutMessage(){
+    var buttonArgs=new Array();
+    buttonArgs[0]='yesNoModalOverlay';
+    buttonArgs[1]='yesNoModalOverlay hidden';
+    buttonArgs[2]='yesNoModalOverlay visible';
+    var buttons=new Array();
+    buttons.push(new Button("Close",'yesNoModalNoButton','HideModal',buttonArgs));
+    var message=new Message();
+    message.elemId='yesNoModalOverlay';
+    message.hiddenClass='yesNoModalOverlay hidden';
+    message.visibleClass='yesNoModalOverlay visible';
+    message.title='Network Error';
+    message.text='Your browser session timed out. Please login again.';
+    message.buttons=buttons;
+    
+    ShowHideModal(message);
+}
