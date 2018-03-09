@@ -38,6 +38,7 @@ class WorkEnvironmentController{
         
         foreach($workEnvironment->getWorkplace_photo_captions() as $photoCaption) {
             $photoCaption->setWork_environment_id($workEnvironmentId);
+            //TODO: don't want to overwrite workplace_photo_id!!!
             WorkEnvironmentDAO::insertUpdateWorkplacePhotoCaption($photoCaption);
         }
                 
@@ -54,6 +55,7 @@ class WorkEnvironmentController{
         
         foreach($workEnvironment->getWorkplace_photo_captions() as $caption) {
             $caption->setWork_environment_id($workEnvironment->getBasic_work_environment()->getId());
+            //TODO: don't want to overwrite workplace_photo_id!!!
             WorkEnvironmentDAO::insertUpdateWorkplacePhotoCaption($caption);
         }
         
@@ -73,13 +75,12 @@ class WorkEnvironmentController{
     
     public static function putWorkplacePhotoByManagerProfileAndName($workplacePhoto, $photoName, $managerProfileId) {
         $exists = WorkEnvironmentDAO::workplacePhotoExistsForManagerAndName($managerProfileId, $photoName);
-
         if ($exists) {
-            WorkEnvironmentDAO::updateWorkplacePhoto($workplacePhoto, $managerProfileId, $photoName);
-            
+            WorkEnvironmentDAO::updateWorkplacePhoto($workplacePhoto, $managerProfileId, $photoName);      
         } else {
-            $result = WorkEnvironmentDAO::insertWorkplacePhoto($workplacePhoto);
             
+            $result = WorkEnvironmentDAO::insertWorkplacePhoto($workplacePhoto);
+
             $workEnvironmentId = WorkEnvironmentDAO::getWorkEnvironmentIdByManagerProfile($managerProfileId);
             
             if ($workEnvironmentId === 0) {
@@ -89,14 +90,16 @@ class WorkEnvironmentController{
             }
             
             $caption = WorkEnvironmentDAO::getWorkplacePhotoCaptionByName($workEnvironmentId, $photoName);
-            if (!$caption) {
-                $caption = new WorkplacePhotoCaption($workEnvironmentId, $photoName, $result, '');
-            } else {
+            if ($caption) {
+
                 $caption->setWorkplace_photo_id($result);
+            } else {
+                
+                $caption = new WorkplacePhotoCaption($workEnvironmentId, $photoName, $result, '');                
             }
             WorkEnvironmentDAO::insertUpdateWorkplacePhotoCaption($caption);
         }
-        return 1;
+        return "";
     }
     
     

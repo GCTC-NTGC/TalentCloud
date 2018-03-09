@@ -151,26 +151,24 @@ class WorkEnvironmentDAO extends BaseDAO {
     }
     
     /**
-     * Add the work_environment_id, name, and description fields to the database.
-     * 
-     * NOTE: mime_type and size will NOT be added. They are added to the database 
-     * along with the photo itself, not the metadata.
-     * 
      * @param WorkplacePhotoCaption $workplacePhotoCaption
      * @return int $rowsModified
      */
     public static function insertUpdateWorkplacePhotoCaption($workplacePhotoCaption) {
         $link = BaseDAO::getConnection();
         $sqlStr = "INSERT INTO workplace_photo_caption
-            (work_environment_id, photo_name, description)
+            (work_environment_id, photo_name, workplace_photo_id, description)
             VALUES
-            (:work_environment_id, :photo_name, :description)
+            (:work_environment_id, :photo_name, :photo_id, :description)
             ON DUPLICATE KEY UPDATE
+            workplace_photo_id = :photo_id_update,
             description = :description_update
             ;";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':work_environment_id', $workplacePhotoCaption->getWork_environment_id(), PDO::PARAM_INT);
         $sql->bindValue(':photo_name', $workplacePhotoCaption->getPhoto_name(), PDO::PARAM_STR);
+        $sql->bindValue(':photo_id', $workplacePhotoCaption->getWorkplace_photo_id(), PDO::PARAM_INT);
+        $sql->bindValue(':photo_id_update', $workplacePhotoCaption->getWorkplace_photo_id(), PDO::PARAM_INT);
         $sql->bindValue(':description', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
         $sql->bindValue(':description_update', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
         
@@ -241,8 +239,8 @@ class WorkEnvironmentDAO extends BaseDAO {
                 
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':image', $workplacePhoto->getFile(), PDO::PARAM_LOB);
-        $sql->bindValue(':mime_type', $workplacePhoto->getFile(), PDO::PARAM_STR);
-        $sql->bindValue(':size', $workplacePhoto->getFile(), PDO::PARAM_INT);
+        $sql->bindValue(':mime_type', $workplacePhoto->getMime_type(), PDO::PARAM_STR);
+        $sql->bindValue(':size', $workplacePhoto->getSize(), PDO::PARAM_INT);
         
         $insert_id = 0;
         try {
@@ -285,15 +283,17 @@ class WorkEnvironmentDAO extends BaseDAO {
     public static function updateWorkplacePhoto($image, $managerProfileId, $photoName){
         $link = BaseDAO::getConnection();
         $sql_str = "
-            INSERT INTO talentcloud.workplace_photo photo, talentcloud.manager_profile_to_work_environment env, talentcloud.workplace_photo_caption cap
-            (photo.image, photo.mime_type, photo.size)
-            VALUES
-            (:image, :mime_type, :size)
+            UPDATE talentcloud.workplace_photo photo, talentcloud.manager_profile_to_work_environment env, talentcloud.workplace_photo_caption cap
+            SET
+            photo.image = :image, 
+            photo.mime_type = :mime_type, 
+            photo.size = :size
             WHERE 
-                env.user_manager_profile_id = :manager_profile_id AND env.work_enviromnent_id = cap.work_environment_id
-                AND cap.photo_name = :photo_name AND cap.workplace_photo_id = photo.id
-            );
-            ";
+                env.user_manager_profile_id = :manager_profile_id 
+                AND env.work_environment_id = cap.work_environment_id
+                AND cap.photo_name = :photo_name 
+                AND cap.workplace_photo_id = photo.id
+            ;";
         $sql = $link->prepare($sql_str);
         $sql->bindValue(':manager_profile_id', $managerProfileId, PDO::PARAM_INT);
         $sql->bindValue(':photo_name', $photoName, PDO::PARAM_STR);
