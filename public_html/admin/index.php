@@ -753,7 +753,7 @@ and open the template in the editor .
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
                                                     <input type="button" id="createEditProfile_goToStep2_2" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');">
-                                                    <input id="createEditProfile_goToStep3_2" type="button" value="Go to Step 3" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')">
+                                                    <input id="createEditProfile_goToStep3_1" type="button" value="Go to Step 3" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')">
                                                 </div>
                                             </div>
                                         </div>
