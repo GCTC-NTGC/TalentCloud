@@ -72,14 +72,33 @@ class WorkEnvironmentController{
     }
     
     public static function putWorkplacePhotoByManagerProfileAndName($workplacePhoto, $photoName, $managerProfileId) {
-        $result = WorkEnvironmentDAO::insertWorkplacePhoto($workplacePhoto);
-        //TODO: 
-        // create call to see if photo exists
-        // if no call exists, insertWorkplacePhoto and 
-        // use id to create new database row for workplace photo caption
-        // 
-        // if exists, get id and update
-        return $result;
+        $exists = WorkEnvironmentDAO::workplacePhotoExistsForManagerAndName($managerProfileId, $photoName);
+
+        if ($exists) {
+            WorkEnvironmentDAO::updateWorkplacePhoto($workplacePhoto, $managerProfileId, $photoName);
+            
+        } else {
+            $result = WorkEnvironmentDAO::insertWorkplacePhoto($workplacePhoto);
+            
+            $workEnvironmentId = WorkEnvironmentDAO::getWorkEnvironmentIdByManagerProfile($managerProfileId);
+            
+            if ($workEnvironmentId === 0) {
+                $basicWorkEnvironment = new BasicWorkEnvironment();
+                $env = WorkEnvironmentDAO::createBasicWorkEnvironment($basicWorkEnvironment);
+                $workEnvironmentId = $env->getId();
+            }
+            
+            $caption = WorkEnvironmentDAO::getWorkplacePhotoCaptionByName($workEnvironmentId, $photoName);
+            if (!$caption) {
+                $caption = new WorkplacePhotoCaption($workEnvironmentId, $photoName, $result, '');
+            } else {
+                $caption->setWorkplace_photo_id($result);
+            }
+            WorkEnvironmentDAO::insertUpdateWorkplacePhotoCaption($caption);
+        }
+        return 1;
     }
+    
+    
     
 }
