@@ -22,7 +22,7 @@ VALUES
 (1,'logoSrc','/images/talent-cloud-logo_full.png',1),
 (1,'logoSrc','/images/talent-cloud-logo_FR.png',2),
 (1,'logoAlt','GC Talent Cloud graphic',1),
-(1,'logoAlt','Graphique de Nuage de talent du GC',2),
+(1,'logoAlt','Graphique de Nuage de talents du GC',2),
 (1,'browseTitle','Browse Jobs',1),
 (1,'browseTitle','Parcourir les travaux',2),
 (1,'ownYourStory','Own Your Story',1),
@@ -38,7 +38,7 @@ VALUES
 (1,'contributeText','Find meaningful work that has an impact on Canadians, and be part of the effort to design a better hiring process for Government jobs.',1),
 (1,'contributeText','Trouver un travail significatif qui a un impact sur les Canadiens et faire partie de l\'effort visant à concevoir un meilleur processus d\'embauche pour les emplois du gouvernement.',2),
 (1,'howItWorksLeadOut','We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.',1),
-(1,'howItWorksLeadOut','Nous voulons que Nuage de talent du GC soit un moteur qui permette à plus de Canadiens de travailler au gouvernement. Nous voulons que les talents divers apportent de nouvelles idées qui façonneront les programmes et les services partout au Canada.',2),
+(1,'howItWorksLeadOut','Nous voulons que Nuage de talents du GC soit un moteur qui permette à plus de Canadiens de travailler au gouvernement. Nous voulons que les talents divers apportent de nouvelles idées qui façonneront les programmes et les services partout au Canada.',2),
 (1,'howItWorksLast','Interested in chatting about a potential partnership?',1),
 (1,'howItWorksLast','Intéressé à discuter d\'un partenariat potentiel?',2),
 (1,'contactUs','Contact Us!',1),
@@ -56,7 +56,6 @@ VALUES
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Home' WHERE `base_content_key`='homeLink' AND `base_content_locale_id`='0000000001';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Accueil' WHERE `base_content_key`='homeLink' AND `base_content_locale_id`='0000000002';
-UPDATE `talentcloud`.`base_content` SET `base_content_value`='Nuage de talent du GC' WHERE `base_content_key`='gctc' AND `base_content_locale_id`='0000000002';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Aller à l\'étape 2' WHERE `base_content_key`='goToStep2' AND `base_content_locale_id`='0000000002';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Aller à l\'étape 1' WHERE `base_content_key`='goToStep1' AND `base_content_locale_id`='0000000002';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Aller à l\'étape 3' WHERE `base_content_key`='goToStep3' AND `base_content_locale_id`='0000000002';
