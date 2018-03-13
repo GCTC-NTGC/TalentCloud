@@ -74,7 +74,7 @@ class JWTUtils {
 
         $iat = time();
         
-        $expiryTime = time()+60*60;
+        $expiryTime = time()+60*60; //expires in one hour
         
         $payload_content = array("iat"=>$iat,"iss"=>"https://talentcloud.localhost","exp"=>$expiryTime,"user_id"=>$user_id);
         
@@ -152,33 +152,22 @@ class JWTUtils {
         $exp = $receivedPayload['exp'];
         
         $now = Time();
-        //var_dump($exp);
+        
         if($now < $exp){
             $isValid = true;
         }
         
-        $iss = $receivedPayload['iss'];
-        //var_dump($iss);
-
         $key = SECRET;
-        //var_dump($key);
-        $header = JWTUtils::setHeader();
-        $payload = JWTUtils::setPayload($user);
-        $evalSignature = Utils::base64url_decode(JWTUtils::setSignature($header, $payload, $key));
         
-        //var_dump($evalSignature);
-        
+        $evalSignature = Utils::base64url_decode(JWTUtils::setSignature($jwt_elements[0], $jwt_elements[1], $key));
+                
         $recieved_signature = Utils::base64url_decode($jwt_elements[2]);
-        
-        //var_dump($recieved_signature);
-
+       
         // checking if the created signature is equal to the received signature
-        //if(hash_equals($evalSignature, $recieved_signature)) {
+        if(hash_equals($evalSignature, $recieved_signature)) {
             // If everything worked fine, if the signature is ok and the payload was not modified you should get a success message and the ecryption hashes match
-        //    $isValid = true;   
-        //}
-        
-        //var_dump($isValid);
+            $isValid = true;   
+        }
         
         return $isValid;
         

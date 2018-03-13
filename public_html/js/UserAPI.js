@@ -7,7 +7,7 @@
 var UserAPI = {};
 
 UserAPI.version = "v1";
-//UserAPI.baseURL = "https://localhost:8083/talentcloud/api/"+UserAPI.version+"";
+
 UserAPI.baseURL = "/tc/api/" + UserAPI.version + "";
 
 UserAPI.User = function () {
@@ -195,7 +195,7 @@ UserAPI.register = function (isManager) {
  */
 UserAPI.registerUser = function (credentials) {
 
-    var registerUser_url = UserAPI.baseURL + "/user";
+    var registerUser_url = UserAPI.baseURL + "/user/register";
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
         // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -337,78 +337,80 @@ UserAPI.loaded = function (response) {
     //console.log(response);
     var authJSON = JSON.parse(response);
     //console.log(authJSON);
-    var sessionUser = UserAPI.getSessionUserAsJSON();
-    //console.log(sessionUser);
-    if (sessionUser === null) {
-        UserAPI.storeSessionUser(authJSON);
-    }
-    if (authJSON.user_id !== "") {
-        //var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
-        //document.title = stateInfo.pageTitle;
-        //history.pushState(stateInfo, stateInfo.pageInfo, '#');
-        //var user_fname = document.getElementById("user_fname");
-        //user_fname.innerHTML = authJSON.firstname;
-
-        var loggedIn = document.getElementById("loggedIn");
-        loggedIn.classList.remove("hidden");
-
-        var loggedOut = document.getElementById("loggedOut");
-        loggedOut.classList.add("hidden");
-
-        var registerLink = document.getElementById("register");
-        registerLink.classList.add("hidden");
-
-        var registerFormOverlay = document.getElementById("registerFormOverlay");
-        registerFormOverlay.classList.add("hidden");
-
-        var loginOverlay = document.getElementById("loginOverlay");
-        loginOverlay.classList.add("hidden");
-        
-        EventsAPI.hideBodyOverflow(false);
-
-        if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
-            //if(authJSON.firstname !== null){
-            DataAPI.getJobSeekerProfileByUserId(authJSON.user_id, JobSeekerAPI.populateJobSeekerProfile);
-            JobSeekerAPI.refreshJobSeekerProfilePic();
-            //}else{
-            //    UserAPI.showJobSeekerProfileForm();
-            //}
-            //if(Utilities.timeRemaining(authJSON.expiryDateTime) !== ""){
+    if(!authJSON.failed){
+        var sessionUser = UserAPI.getSessionUserAsJSON();
+        //console.log(sessionUser);
+        if (sessionUser === null) {
+            UserAPI.storeSessionUser(authJSON);
         }
-        //UserAPI.storeAuthToken(authJSON);
-        var myProfileLink = document.getElementById("profileLink");
-        if (myProfileLink !== null) {
-            var profileLinkListItem = document.getElementById("profileLinkListItem");
-            myProfileLink.classList.remove("hidden");
-            profileLinkListItem.setAttribute("aria-hidden", "false");
-            AccessibilityAPI.focusElement("profileLinkListItem");
+        if (authJSON.user_id !== "") {
+            //var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+            //document.title = stateInfo.pageTitle;
+            //history.pushState(stateInfo, stateInfo.pageInfo, '#');
+            //var user_fname = document.getElementById("user_fname");
+            //user_fname.innerHTML = authJSON.firstname;
+
+            var loggedIn = document.getElementById("loggedIn");
+            loggedIn.classList.remove("hidden");
+
+            var loggedOut = document.getElementById("loggedOut");
+            loggedOut.classList.add("hidden");
+
+            var registerLink = document.getElementById("register");
+            registerLink.classList.add("hidden");
+
+            var registerFormOverlay = document.getElementById("registerFormOverlay");
+            registerFormOverlay.classList.add("hidden");
+
+            var loginOverlay = document.getElementById("loginOverlay");
+            loginOverlay.classList.add("hidden");
+
+            EventsAPI.hideBodyOverflow(false);
+
+            if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
+                //if(authJSON.firstname !== null){
+                DataAPI.getJobSeekerProfileByUserId(authJSON.user_id, JobSeekerAPI.populateJobSeekerProfile);
+                JobSeekerAPI.refreshJobSeekerProfilePic();
+                //}else{
+                //    UserAPI.showJobSeekerProfileForm();
+                //}
+                //if(Utilities.timeRemaining(authJSON.expiryDateTime) !== ""){
+            }
+            //UserAPI.storeAuthToken(authJSON);
+            var myProfileLink = document.getElementById("profileLink");
+            if (myProfileLink !== null) {
+                var profileLinkListItem = document.getElementById("profileLinkListItem");
+                myProfileLink.classList.remove("hidden");
+                profileLinkListItem.setAttribute("aria-hidden", "false");
+                AccessibilityAPI.focusElement("profileLinkListItem");
+            }
+
+            //var profileLink = document.getElementById("profileLink"); 
+            //profileLink.classList.remove("hidden");
+
+            if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {
+
+                var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
+                if (jobPostersLinkListItem)
+                    jobPostersLinkListItem.setAttribute("aria-hidden", "false");
+
+                var jobPostersLink = document.getElementById("jobPostersLink");
+                if (jobPostersLink)
+                    jobPostersLink.classList.remove("hidden");
+
+                /*var teamsLinkListItem = document.getElementById("teamsLinkListItem");
+                teamsLinkListItem.setAttribute("aria-hidden", "false");
+                var teamsLink = document.getElementById("teamsLink");
+                teamsLink.classList.remove("hidden");*/
+
+
+            }
+
+            EventsAPI.hideBodyOverflow(false);
+
         }
-
-        //var profileLink = document.getElementById("profileLink"); 
-        //profileLink.classList.remove("hidden");
-
-        if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {
-
-            var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
-            if (jobPostersLinkListItem)
-                jobPostersLinkListItem.setAttribute("aria-hidden", "false");
-            
-            var jobPostersLink = document.getElementById("jobPostersLink");
-            if (jobPostersLink)
-                jobPostersLink.classList.remove("hidden");
-
-            /*var teamsLinkListItem = document.getElementById("teamsLinkListItem");
-            teamsLinkListItem.setAttribute("aria-hidden", "false");
-            var teamsLink = document.getElementById("teamsLink");
-            teamsLink.classList.remove("hidden");*/
-            
-
-        }
-
-        EventsAPI.hideBodyOverflow(false);
-
     } else {
-        UserAPI.failedLogin();
+        UserAPI.logout();
     }
 
 };
@@ -446,6 +448,7 @@ UserAPI.logout = function () {
 };
 
 UserAPI.authenticationFail = function () {
+    UserAPI.logout();
     UserAPI.showLogin();
     var loginErrors = document.getElementById("loginErrors");
     loginErrors.innerHTML = "Login unsuccessful. Please verify your email address and password.";

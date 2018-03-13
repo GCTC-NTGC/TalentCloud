@@ -718,10 +718,14 @@ nav{
 
 .createJobPosterDemoAreaEnglish{
     float: left;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    background-color: #FFF;
 }
 
 .createJobPosterDemoAreaFrench{
-    float: right;
+    float: left;
+    background-color: #F8F8F8;
 }
 
 .createJobPosterDemoArea{
@@ -819,6 +823,12 @@ nav{
 .profileName {
     margin-top: .25em;
     font-size:3.5em;
+    font-weight:700;
+}
+
+.managerProfileTitle{
+    margin-top: .25em;
+    font-size:2.5em;
     font-weight:700;
 }
 

@@ -279,17 +279,17 @@ and open the template in the editor .
                                     <div id="profileCommon">
                                         <div style='text-align: center;width:100%;'>
                                             <div style='width:500px;margin:1em auto;text-align: center;'>
-                                                <span id="createEditProfile_name_preview" style="font-size:1.5em;">name</span>
+                                                <span id="createEditProfile_name_preview" class="profileName">name</span>
                                             </div>
                                         </div>
                                         <div style='text-align: center;width:100%;'>
                                             <div style='width:500px;margin:1em auto;text-align: center;'>
-                                                <span id="createEditProfile_position_preview">position</span>
+                                                <span id="createEditProfile_position_preview" class="managerProfileTitle">position</span>
                                             </div>
                                         </div>
                                         <div style='text-align: center;width:100%;'>
                                             <div style='width:500px;margin:1em auto;text-align: center;'>
-                                                <span id="createEditProfile_department_preview">department</span>
+                                                <span id="createEditProfile_department_preview" class="managerProfileDepartment">department</span>
                                             </div>
                                         </div>
                                     </div>
@@ -326,8 +326,8 @@ and open the template in the editor .
                                                     <div class="form-group">
                                                         <label for="createEditProfile_proudOf">
                                                             <span id="createEditProfile_proudOf_label">What I'm most proud of in my career</span>
-                                                            <strong id="createEditProfile_branch_error" class="error hidden">
-                                                                <span id="createEditProfile_branch_error_msg" class="label label-danger"></span>
+                                                            <strong id="createEditProfile_proudOf_error" class="error hidden">
+                                                                <span id="createEditProfile_proudOf_error_msg" class="label label-danger"></span>
                                                             </strong>
                                                         </label>
                                                         <div>
@@ -336,9 +336,9 @@ and open the template in the editor .
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="createEditProfile_branch">
-                                                            <span id="createEditProfile_branch_label">Position</span>
-                                                            <strong id="createEditProfile_branch_error" class="error hidden">
-                                                                <span id="createEditProfile_department_fr_error_msg" class="label label-danger"></span>
+                                                            <span id="createEditProfile_position_label">Position</span>
+                                                            <strong id="createEditProfile_position_error" class="error hidden">
+                                                                <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
                                                             </strong>
                                                         </label>
                                                         <div>
@@ -838,6 +838,7 @@ and open the template in the editor .
                                         </div>
                                     </div>
                                     <div class="stepGroupForm">
+                                        <h3>Details</h3>
                                         <section id ="createJobPosterJobTitleSection">
                                             <div class="leftPane">
                                                 <div class="form-group">

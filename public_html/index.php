@@ -275,7 +275,7 @@ and open the template in the editor .
                 <form name="profileAboutMeForm" id="profileAboutMeForm" method="post" enctype="application/x-www-form-urlencoded">
                     <div class="form-group">
                         <label for="profileEditAboutMe">
-                            <span id="aboutMe">About Me:</span>
+                            <span>About Me:</span>
                         </label>
                         <div>
                             <textarea class="form-control full-width" name="profileEditAboutMe" id="profileEditAboutMe" form="profileAboutMeForm"></textarea>
@@ -356,7 +356,7 @@ and open the template in the editor .
                                 </li>
                         </ul>
                         <p id="howItWorksLeadOut">We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
-                        <p><span id="howitWorksLast">Interested in chatting about a potential partnership?</span> <a id="contactUs" href="/contact/">Contact us!</a></p>
+                        <p><span id="howItWorksLast">Interested in chatting about a potential partnership?</span> <a id="contactUs" href="/contact/">Contact us!</a></p>
                     
                 </div>
             </section>
@@ -375,12 +375,12 @@ and open the template in the editor .
                     </div>
 
                     <div>
-                        <a href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
+                        <a id="transcript" href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
                     </div>
 
                     <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
                         <header class="modal-header">
-                            <h2 id="transcript" class="modal-title">Transcript</h2>
+                            <h2 class="modal-title">Transcript</h2>
                         </header>
                         <div class="modal-body">
                             <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
@@ -411,7 +411,6 @@ and open the template in the editor .
                     </div>
                 </div>
             </section>
-        </div>
         </div>
     </section>
     
@@ -583,7 +582,7 @@ and open the template in the editor .
                 </div>
                 <div id="profileAboutMeWrapper" class="profileSubSection">
                     <div class="profileSubSectionTitleBar">
-                        <h2>About Me</h2>
+                        <h2 id="aboutMe">About Me</h2>
                         <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
                     </div>
                     <p id="profileAboutMe">This is the about me section.</p>
@@ -671,15 +670,15 @@ and open the template in the editor .
                                 <div class="multi-btn-group clearfix">
                                     <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
                                         <input type="radio" id="option0" name="managerProfile_review_options_groupName" value="option0" class="accessAid" />
-                                        <label for="option0" class='option0Label'>Almost never</label>
+                                        <label for="option0" class='option0Label' id="almostNever">Almost never</label>
                                         <input type="radio" id="option1" name="managerProfile_review_options_groupName" value="option1" class="accessAid" />
-                                        <label for="option1" class='option1Label'>Rarely</label>
+                                        <label for="option1" class='option1Label' id="rarely">Rarely</label>
                                         <input type="radio" id="option2" name="managerProfile_review_options_groupName" value="option2" class="accessAid" />
-                                        <label for="option2" class='option2Label'>Sometimes</label>
+                                        <label for="option2" class='option2Label' id="sometimes">Sometimes</label>
                                         <input type="radio" id="option3" name="managerProfile_review_options_groupName" value="option3" class="accessAid" />
-                                        <label for="option3" class='option3Label'>Usually</label>
+                                        <label for="option3" class='option3Label' id="usually">Usually</label>
                                         <input type="radio" id="option4" name="managerProfile_review_options_groupName" value="option4" class="accessAid" />
-                                        <label for="option4" class='option4Label'>Almost always</label>
+                                        <label for="option4" class='option4Label' id="almostAlways">Almost always</label>
                                     </div>
                                     <div id='review_options' class="option0"></div>
                                 </div>

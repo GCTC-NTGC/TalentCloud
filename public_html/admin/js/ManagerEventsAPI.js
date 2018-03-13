@@ -84,7 +84,6 @@ ManagerEventsAPI.lazyLoader = function(parentElementId){
     loadingWidget.setAttribute("class","loadingWidget");
     loadingWidget.classList.add("hidden");
     
-    
 };
 
 ManagerEventsAPI.setFormFocus = function(fieldId){

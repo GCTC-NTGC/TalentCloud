@@ -268,5 +268,6 @@ Utilities.clearSelectOptions = function(selectElement)
     var blankSelect = document.createElement("option");
     blankSelect.value="";
     blankSelect.innerHTML = "--";
+    blankSelect.setAttribute("selected","selected");
     selectElement.appendChild(blankSelect);
 };
