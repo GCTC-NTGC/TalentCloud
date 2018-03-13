@@ -195,7 +195,7 @@ UserAPI.register = function (isManager) {
  */
 UserAPI.registerUser = function (credentials) {
 
-    var registerUser_url = UserAPI.baseURL + "/user";
+    var registerUser_url = UserAPI.baseURL + "/user/register";
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
         // Check if the XMLHttpRequest object has a "withCredentials" property.
