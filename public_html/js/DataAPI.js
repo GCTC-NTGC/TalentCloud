@@ -652,7 +652,7 @@ DataAPI.getUser = function(userId, responseCallback) {
     DataAPI.sendRequest(user_url, "GET", {}, null, function(request) {
         responseCallback(request.response);
     });
-}
+};
 
 /**
  * 
@@ -670,13 +670,26 @@ DataAPI.createJobApplication = function(jobApplication, responseCallback) {
 /**
  * 
  * @param {int} managerProfileId
- * @param {int} workplaceEnvironment
+ * @param {CreateWorkEnvironment.WorkEnvironment} workplaceEnvironment
  * @param {function} responseCallback
  * @return {undefined}
  */
 DataAPI.submitWorkplaceEnvironment = function(managerProfileId, workplaceEnvironment, responseCallback) {
     var url = DataAPI.baseURL + '/putWorkplacePhotoByManagerProfileAndName/' + managerProfileId;
     DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(workplaceEnvironment), function(request) {
+        responseCallback(request.response);
+    });
+};
+
+/**
+ * 
+ * @param {int} managerProfileId
+ * @param {function} responseCallback
+ * @return {undefined}
+ */
+DataAPI.getWorkplaceEnvironment = function(managerProfileId, responseCallback) {
+    var url = DataAPI.baseUrl + '/getWorkEnvironmentByManagerProfile/' + managerProfileId;
+    DataAPI.sendRequest(url, 'GET', {}, null, function(request) {
         responseCallback(request.response);
     });
 };
