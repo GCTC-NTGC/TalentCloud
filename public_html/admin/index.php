@@ -1102,16 +1102,6 @@ and open the template in the editor .
                 </div>
                 
             </section>
-            <section class="pageContent hidden" id="dashboardSection">
-                <div class="pageBanner">
-                    <h2 class="section--title">Dashboard</h2>
-                </div>
-                <div class="pageBody">
-                    <div class="container">
-                        
-                    </div>
-                </div>
-            </section>
         </main>
         <?php include '../inc/footer-admin.php'; ?>
     </body>

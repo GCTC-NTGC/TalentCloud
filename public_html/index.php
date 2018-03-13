@@ -827,6 +827,18 @@ and open the template in the editor .
             <div class="confirmationFramingBar"></div>
         </div>
     </section>
+    <section class="pageContent hidden" id="dashboardSection">
+        <div class="pageBanner">
+            <h2 class="section--title">Dashboard</h2>
+        </div>
+        <div class="pageBody">
+            <div class="container" id="dashboardContainer">
+                <div id="yourApplications">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 <?php include 'inc/footer.php';?>
 </body>

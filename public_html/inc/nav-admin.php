@@ -26,7 +26,7 @@
                             <a href="javascript:void(0)" class="hidden" id="profileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();TalentCloudAPI.setNav('profileLinkListItem');">My Profile</a>
                         </li>
                         <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
-                            <a href="javascript:void(0)" class="hidden" id="jobPostersLink" onclick="DashboardAPI.showDashboard(this);TalentCloudAPI.setNav('jobPostersLinkListItem');">Dashboard</a>
+                            <a href="javascript:void(0)" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this);TalentCloudAPI.setNav('jobPostersLinkListItem');">JobPoster</a>
                         </li>
                         <!--li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                             <a href="#" class="hidden" id="teamsLink">My Teams</a>
