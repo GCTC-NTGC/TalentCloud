@@ -216,7 +216,7 @@ and open the template in the editor .
                         <div class="container">
                             <div class="page-banner--logo-container flexContainerVerticallyCentered">
                                 <div class="page-banner--logo flexLeftOfCenter">
-                                    <a href="/" role="img" aria-label="GC Talent Cloud">
+                                    <a href="/" aria-label="GC Talent Cloud">
                                         <img id="logoSrc" class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud logo"/>
                                     </a>
                                 </div>
@@ -742,25 +742,23 @@ and open the template in the editor .
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-
-                                            <fieldset>
-                                                <legend>Work Environment</legend>
-                                                <div>
-                                                    <div class="multi-btn-group-form-group">
+                                            <h3>Work Environment</h3>
+                                                    <div class="form-group">
                                                         <div class='multi-btn-group-form-group-label'>
                                                             <span>Remote work allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
-                                                            <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_remoteWork' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
-                                                                    <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_remoteWork', this.value, 'remoteWork')" />
+                                                        <div style='display:inline-block;'>
+                                                            <div class="toggle-btn-group clearfix">
+                                                                <div id='createEditProfile_remoteWork' style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
+                                                                    <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
                                                                     <label for="remoteWork_option0" class='option0Label'>Yes</label>
-                                                                    <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_remoteWork', this.value, 'remoteWork')"/>
+                                                                    <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
                                                                     <label for="remoteWork_option1" class='option1Label'>No</label>
                                                                 </div>
-                                                                <div id='remoteWork' class="option0"></div>
+                                                                <div id='remoteWork' class="left"></div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     <div class="multi-btn-group-form-group">
                                                         <div class='multi-btn-group-form-group-label'>
                                                             <span>Telework allowed</span>
@@ -809,27 +807,26 @@ and open the template in the editor .
                                                         <span class="workEnvironmentTitle">Physical Environment</span>
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="80%"><br>
+                                                                <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <input type="file" id="workplace_photo_input_1" class="fileInput" name="Workplace Photo 1" accept="image/*" /><br>
-                                                                <label for="caption1">Caption:</label>
+                                                                <label for="workplace_photo_input_1">Caption:</label>
                                                                 <input id="workplace_photo_caption_1" type="text" name="workplace workplace_photo_caption_1"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="80%"><br>
+                                                                <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <input type="file" id="workplace_photo_input_2" class="fileInput" name="Workplace Photo 2" accept="image/*" /><br>
-                                                                <label for="caption2">Caption:</label>
+                                                                <label for="workplace_photo_input_2">Caption:</label>
                                                                 <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="80%"><br>
+                                                                <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <input type="file" id="workplace_photo_input_3" class="fileInput" name="Workplace Photo 3" accept="image/*" /><br>
-                                                                <label for="caption3">Caption:</label>
+                                                                <label for="workplace_photo_input_3">Caption:</label>
                                                                 <input id="workplace_photo_caption_3" type="text" name="workplace_photo_caption_3"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </fieldset>
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
@@ -838,7 +835,6 @@ and open the template in the editor .
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
