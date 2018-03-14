@@ -809,13 +809,13 @@ and open the template in the editor .
                                                         <span class="workEnvironmentTitle">Physical Environment</span>
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
-                                                                <button id="" class="btn btn-default" onclick="">Upload</button>
+                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <button id="" class="btn btn-default" onclick="">Upload</button>
+                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <button id="" class="btn btn-default" onclick="">Upload</button>
+                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button>
                                                             </div>
                                                         </div>
                                                     </div>
