@@ -899,6 +899,22 @@ nav{
     clear: both;
 }
 
+.workEnvironmentWrapper{
+}
+
+.workEnvironmentTitle{
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 2em;
+}
+
+.workEnvironmentImage{
+    float: left;
+    display: inline;
+    width: 30%;
+    margin-right: 2em;
+}
+
 /* VIEW PROFILE (OLD??)  */
 
 .viewProfileContainer{
