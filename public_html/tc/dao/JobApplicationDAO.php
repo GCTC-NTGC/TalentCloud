@@ -185,14 +185,15 @@ class JobApplicationDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         
         $sqlStr = "INSERT INTO job_poster_application
-            (application_job_poster_id, application_job_seeker_profile_id)
+            (application_job_poster_id, application_job_seeker_profile_id, job_poster_application_status_id)
             VALUES
-            (:job_poster_id, :job_seeker_profile_id)       
+            (:job_poster_id, :job_seeker_profile_id, :job_poster_application_status_id)       
         ;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_poster_id', $jobPosterApplication->getApplication_job_poster_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_seeker_profile_id', $jobPosterApplication->getApplication_job_seeker_profile_id(), PDO::PARAM_INT);
+        $sql->bindValue(':job_poster_application_status_id', 1, PDO::PARAM_INT);
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));

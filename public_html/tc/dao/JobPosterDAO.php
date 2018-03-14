@@ -459,6 +459,87 @@ class JobPosterDAO extends BaseDAO {
         BaseDAO::closeConnection($link);
         return $job_post_id;
     }
+    
+    
+    /**
+     * 
+     * @param type $locale
+     * @return type
+     */
+    public static function getJobPostersByManagerId($locale,$managerId) {
+
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT jp.job_poster_id as id,
+            l.locale_id as locale_id,
+            jp_to_user.user_id as manager_user_id,
+            jpd.job_poster_title as title,
+            jpd.job_poster_desc_content as description,
+            (SELECT count(*) FROM job_poster_application jpa WHERE jpa.application_job_poster_id = jp.job_poster_id) as applicants_to_date,
+            jp.job_poster_term_qty as term_qty,
+            jtd.job_term as term_units,
+            jl_1.job_level as job_min_level,
+            jl_2.job_level as job_max_level,
+            jp.job_poster_start_date as job_start_date,
+            jp.job_poster_open_date_time as open_date,
+            jp.job_poster_close_date_time as close_date,
+            dd.department_details_name as department,
+            pd.province_details_name as location_province,
+            cd.city_details_name as location_city,
+            jp.job_poster_remuneration_min as remuneration_range_low,
+            jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact
+            FROM job_poster jp, job_poster_details jpd, 
+                locale l, 
+                job_poster_to_manager_user_id jp_to_user,
+                job_term_details jtd, 
+                job_level jl_1, 
+                job_level jl_2, 
+                department d, 
+                department_details dd,
+                province p,
+                province_details pd,
+                city c,
+                city_details cd
+            WHERE jpd.job_poster_id = jp.job_poster_id
+            AND l.locale_iso = :locale_iso
+            AND jpd.locale_id = l.locale_id
+            AND jp_to_user.job_poster_id = jp.job_poster_id
+            AND jtd.job_term_id = jp.job_term_id
+            AND jtd.job_term_locale_id = l.locale_id
+            AND jl_1.job_level_id = jp.job_poster_job_min_level_id
+            AND jl_2.job_level_id = jp.job_poster_job_max_level_id
+            AND d.department_id = jp.job_poster_department_id
+            AND dd.department_id = d.department_id
+            AND dd.department_details_locale_id = l.locale_id
+            AND jp.job_poster_department_id = d.department_id
+            AND pd.province_details_locale_id = l.locale_id
+            AND pd.province_details_province_id = p.province_id
+            AND p.province_id = d.department_province_id
+            AND cd.city_details_city_id = c.city_id
+            AND d.department_city_id = c.city_id
+            AND cd.city_details_locale_id = l.locale_id
+            ";
+        
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':locale_iso', $locale, PDO::PARAM_STR);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'job_start_date', 'open_date', 'close_date', 'department', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications'));
+            $jobPosters = $sql->fetchAll();
+            //var_dump($rows);
+        } catch (PDOException $e) {
+            BaseDAO::closeConnection($link);
+            return 'getJobPostersByLocale failed: ' . $e->getMessage();
+        }
+        foreach ($jobPosters as $jobPoster) {
+            self::fetchArrayItemsForJobPoster($jobPoster, $locale);
+        }
+        
+        return $jobPosters;
+    }
+    
 }
 
 ?>

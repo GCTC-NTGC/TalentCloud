@@ -368,42 +368,38 @@ UserAPI.loaded = function (response) {
             EventsAPI.hideBodyOverflow(false);
 
             if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
-                //if(authJSON.firstname !== null){
                 DataAPI.getJobSeekerProfileByUserId(authJSON.user_id, JobSeekerAPI.populateJobSeekerProfile);
                 JobSeekerAPI.refreshJobSeekerProfilePic();
-                //}else{
-                //    UserAPI.showJobSeekerProfileForm();
-                //}
-                //if(Utilities.timeRemaining(authJSON.expiryDateTime) !== ""){
-            }
-            //UserAPI.storeAuthToken(authJSON);
-            var myProfileLink = document.getElementById("profileLink");
-            if (myProfileLink !== null) {
-                var profileLinkListItem = document.getElementById("profileLinkListItem");
-                myProfileLink.classList.remove("hidden");
-                profileLinkListItem.setAttribute("aria-hidden", "false");
-                AccessibilityAPI.focusElement("profileLinkListItem");
-            }
 
-            //var profileLink = document.getElementById("profileLink"); 
-            //profileLink.classList.remove("hidden");
+                
+                var dashBoardLink = document.getElementById("dashBoardLink");
+                
+                if (dashBoardLink !== null) {
+                    var dashBoardLinkListItem = document.getElementById("dashBoardLinkListItem");
+                    dashBoardLink.classList.remove("hidden");
+                    dashBoardLinkListItem.setAttribute("aria-hidden", "false");
+                }
+            }
+            
+                var myProfileLink = document.getElementById("profileLink");
 
+                if (myProfileLink !== null) {
+                    var profileLinkListItem = document.getElementById("profileLinkListItem");
+                    myProfileLink.classList.remove("hidden");
+                    profileLinkListItem.setAttribute("aria-hidden", "false");
+                    AccessibilityAPI.focusElement("profileLinkListItem");
+                }
+                
             if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {
 
                 var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
-                if (jobPostersLinkListItem)
+                if (jobPostersLinkListItem){
                     jobPostersLinkListItem.setAttribute("aria-hidden", "false");
-
+                }
                 var jobPostersLink = document.getElementById("jobPostersLink");
-                if (jobPostersLink)
+                if (jobPostersLink){
                     jobPostersLink.classList.remove("hidden");
-
-                /*var teamsLinkListItem = document.getElementById("teamsLinkListItem");
-                teamsLinkListItem.setAttribute("aria-hidden", "false");
-                var teamsLink = document.getElementById("teamsLink");
-                teamsLink.classList.remove("hidden");*/
-
-
+                }
             }
 
             EventsAPI.hideBodyOverflow(false);

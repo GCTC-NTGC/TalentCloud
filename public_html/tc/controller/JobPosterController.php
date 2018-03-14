@@ -58,6 +58,19 @@ class  JobPosterController {
         return array("job_poster_id"=>$newJobPosterId);
     }
 
+    /**
+     * 
+     * @param string $page_name
+     * @param string $locale
+     * @return Page object
+     */
+    public static function getJobPostersByManagerId($locale,$managerId) {
+        
+        $jobPosters = new JobPosters();
+        $jobs = JobPosterDAO::getJobPostersByManagerId($locale,$managerId);
+        $jobPosters->setJobs($jobs);
+        return $jobPosters;
+    }
 }
 
 ?>
