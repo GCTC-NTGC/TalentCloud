@@ -83,12 +83,16 @@ Utilities.timeRemaining = function(dateObj){
     var date2 = formattedDate;
     var timeDiff = Math.abs(date2.getTime() - date1.getTime());
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    if(diffDays <=1 ){
-        timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseHours;
-    }else if(diffDays > 1 && diffDays < 32){
-        timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseDays;
+    if(date2 < date1){
+        if(diffDays <= 1 ){
+            timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseHours;
+        }else if(diffDays > 1 && diffDays < 32){
+            timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseDays;
+        }else{
+            timeRemaining = Math.round(diffDays/30) + " " + siteContent.jobUnitsToCloseMonths;
+        }
     }else{
-        timeRemaining = Math.round(diffDays/30) + " " + siteContent.jobUnitsToCloseMonths;
+        timeRemaining = 0;
     }
      
     return timeRemaining;

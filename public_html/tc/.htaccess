@@ -6,13 +6,13 @@ RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 RewriteBase /tc/
 
 #non localized services - public
+RewriteRule ^api/v1/authenticate services/Authentication.php
 RewriteRule ^api/v1/user/register services/User.php
 RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
 RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
 RewriteRule ^api/v1/getManagerProfile/([0-9]{1,10}) services/ManagerProfile.php
 
 #non localized services - secured
-RewriteRule ^api/v1/authenticate services/Authentication.php
 RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
 RewriteRule ^api/v1/user/([0-9]{1,10}) services/User.php
 RewriteRule ^api/v1/user/validateEmail services/User.php
@@ -31,7 +31,6 @@ RewriteRule ^api/v1/createJobPoster services/JobPoster.php
 #localized services - public
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllJobs services/JobPosters.php
-RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/dashboard services/Dashboard.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getJobPoster/([0-9]{1,10}) services/JobPoster.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/department services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/province services/Lookup.php
@@ -39,5 +38,9 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/city services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/jobterm services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/division services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/branch services/Lookup.php
+
+#localized services - secured
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/dashboard/([0-9]{1,10}) services/Dashboard.php
+
 #Require all granted
 #Require ip 127.0.0.1

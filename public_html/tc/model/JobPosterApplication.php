@@ -16,11 +16,13 @@ class JobPosterApplication implements JsonSerializable{
     private $job_poster_application_id;
     private $application_job_poster_id;
     private $application_job_seeker_profile_id;
+    private $job_poster_application_status_id;
     
-    public function __construct($job_poster_application_id=null,$application_job_poster_id=null,$application_job_seeker_profile_id=null) {
+    public function __construct($job_poster_application_id=null,$application_job_poster_id=null,$application_job_seeker_profile_id=null, $job_poster_application_status_id=null) {
         $this->job_poster_application_id = $job_poster_application_id;
         $this->application_job_poster_id = $application_job_poster_id;
         $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+        $this->job_poster_application_status_id = $job_poster_application_status_id;
     }
 
     public function jsonSerialize() {
@@ -58,6 +60,16 @@ class JobPosterApplication implements JsonSerializable{
         $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
     }
 
+    public function getJob_poster_application_status_id() {
+        return $this->job_poster_application_status_id;
+    }
+
+    public function setJob_poster_application_status_id($job_poster_application_status_id) {
+        $this->job_poster_application_status_id = $job_poster_application_status_id;
+    }
+
+
+    
 }
 
 ?>

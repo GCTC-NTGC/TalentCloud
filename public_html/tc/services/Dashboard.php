@@ -37,7 +37,7 @@
                 
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
                 $locale = Utils::getLocaleFromRequest($requestParams);
-            
+                
                 if(strlen($requestParams) > 1){
 
                     if(strlen($user_id) > 0){

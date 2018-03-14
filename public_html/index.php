@@ -833,6 +833,7 @@ and open the template in the editor .
         </div>
         <div class="pageBody">
             <div class="container" id="dashboardContainer">
+                <h3>Your Applications</h3>
                 <div id="yourApplications">
                     
                 </div>

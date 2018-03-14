@@ -24,39 +24,51 @@ require_once '../model/JobPosterApplication.php';
  */
 class DashboardDAO extends BaseDAO {
 
-    public static function getDashboardByUserId($user_id, $locale_id){
+    public static function getDashboardByUserId($user_id, $locale_iso){
         
         $link = BaseDAO::getConnection();
         
         $sqlStr = "
-            SELECT jpd.job_poster_id, jpd.job_poster_title, jp.job_poster_close_date_time
+            SELECT 
+                ujsp.user_id,
+                jpd.job_poster_id, 
+                jpd.job_poster_title,
+                asd.application_status, 
+                jp.job_poster_close_date_time,
+                dd.department_details_name
             FROM 
-            job_poster_application jpa,
-            job_seeker_profile jsp,
-            user_job_seeker_profiles ujsp,
-            job_poster jp,
-            job_poster_details jpd,
-            job_poster_to_manager_user_id jpm,
-            user_manager_profile ump,
-            user u,
-            locale l
-            WHERE u.user_id = 1
-            AND l.locale_id = 1
+                    user_job_seeker_profiles ujsp, 
+                    user u, 
+                    job_seeker_profile jsp, 
+                    job_poster_application jpa,
+                application_status aps,
+                application_status_details asd,
+                job_poster jp,
+                job_poster_details jpd,
+                locale l,
+                department d,
+                department_details dd
+            WHERE ujsp.user_id = :user_id
+            AND l.locale_iso = :locale_iso
             AND ujsp.user_id = u.user_id
             AND jsp.job_seeker_profile_id = ujsp.job_seeker_profile_id
-            AND jpa.application_job_seeker_profile_id = jsp.job_seeker_profile_id
+            AND jpa.application_job_seeker_profile_id = ujsp.job_seeker_profile_id
+            AND jpa.job_poster_application_status_id = aps.application_status_id
             AND jp.job_poster_id = jpa.application_job_poster_id
             AND jpd.job_poster_id = jp.job_poster_id
             AND jpd.locale_id = l.locale_id
-            AND ump.user_id = jpm.user_id
-            AND jp.job_poster_id = jpm.job_poster_id;";
+            AND asd.application_status_locale_id = l.locale_id
+            AND asd.application_status_id = aps.application_status_id
+            AND jp.job_poster_department_id = d.department_id
+            AND dd.department_id = d.department_id
+            AND dd.department_details_locale_id = l.locale_id;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $sql->bindParam(':locale_id', $locale_id, PDO::PARAM_INT);
+        $sql->bindParam(':locale_iso', $locale_iso, PDO::PARAM_INT);
 
-        $job_poster_application_id;
-        
+        //var_dump($sql);
+            
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
             //$link->beginTransaction();
@@ -64,7 +76,6 @@ class DashboardDAO extends BaseDAO {
             //$link->commit();
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $result = $sql->fetchAll();
-            
         } catch (PDOException $e) {
             return 'getJobSeekersByUserId failed: ' . $e->getMessage();
         }
