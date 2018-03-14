@@ -663,6 +663,7 @@ nav{
 #jobPosterButtonWrapper {
     text-align: center;
     background-color: #B9B9B9;
+    margin-top: 2em;
 }
 
 #jobPosterApplyButton{
@@ -899,7 +900,27 @@ nav{
     clear: both;
 }
 
+#jobPosterWorkEnvironmentLabel{
+    padding-bottom:0.25em;
+}
+
 .workEnvironmentWrapper{
+}
+
+.jobPosterWorkEnvironmentImage{
+    float: left;
+    width: 30%;
+    height: 20em;
+    margin-left: 2em;
+    margin-right: 1.75em;
+}
+
+.workEnvironmentAnswerWrapper{
+    margin-left: 2em;
+}
+
+.workEnvironmentAnswerWrapper p{
+    margin-bottom:0.5em;
 }
 
 .workEnvironmentTitle{
