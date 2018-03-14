@@ -718,10 +718,14 @@ nav{
 
 .createJobPosterDemoAreaEnglish{
     float: left;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    background-color: #FFF;
 }
 
 .createJobPosterDemoAreaFrench{
-    float: right;
+    float: left;
+    background-color: #F8F8F8;
 }
 
 .createJobPosterDemoArea{

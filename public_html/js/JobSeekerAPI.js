@@ -282,7 +282,7 @@ JobSeekerAPI.refreshJobSeekerProfilePic = function() {
 };
 
 JobSeekerAPI.populateJobSeekerProfile = function(response){
-    var jobSeekerJSON = JSON.parse(response)[0];
+    var jobSeekerJSON = JSON.parse(response);
     var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
     if (jobSeekerJSON) {
         jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(jobSeekerJSON);

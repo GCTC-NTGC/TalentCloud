@@ -644,14 +644,41 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
-
+        
+        var howItWorksLast = document.getElementById("howItWorksLast");
+        howItWorksLast.innerHTML = siteContent.howItWorksLast;
+        
+        var transcript = document.getElementById("transcript");
+        transcript.innerHTML = siteContent.transcript;
+        
+        var almostNeverElements = document.getElementsByClassName("option0Label");
+        for (var i = 0; i < almostNeverElements.length; i++) {
+            almostNeverElements[i].innerHTML = siteContent.almostNever;
+        }
+        
+        var rarelyElements = document.getElementsByClassName("option1Label");
+        for (var i = 0; i < rarelyElements.length; i++) {
+            rarelyElements[i].innerHTML = siteContent.rarely;
+        }
+        
+        var sometimesElements = document.getElementsByClassName("option2Label");
+        for (var i = 0; i < sometimesElements.length; i++) {
+            sometimesElements[i].innerHTML = siteContent.sometimes;
+        }
+        
+        var usuallyElements = document.getElementsByClassName("option3Label");
+        for (var i = 0; i < usuallyElements.length; i++) {
+            usuallyElements[i].innerHTML = siteContent.usually;
+        }
+        
+        var almostAlwaysElements = document.getElementsByClassName("option4Label");
+        for (var i = 0; i < almostAlwaysElements.length; i++) {
+            almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
+        }
+        
         //not working yet
         
-        //var transcript = document.getElementById("transcript");
-        //transcript.innerHTML = siteContent.transcript;
 
-        //var howItWorksLast = document.getElementById("howItWorksLast");
-        //howItWorksLast.innerHTML = siteContent.howItWorksLast;
     }
     
 };
