@@ -619,9 +619,11 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
         request = null;
         // TODO: indicate to user that browser is not supported
     }
-
-    request.setRequestHeader("Content-type", "application/json");
-    request.setRequestHeader("Accept", "application/json");
+    //Default to application/json if content-type not included in headersMap
+    if (!headersMap['Content-type'] && !headersMap['Content-Type'])
+        request.setRequestHeader("Content-type", "application/json");
+    if (!headersMap['Accept'])
+        request.setRequestHeader("Accept", "application/json");
     if (UserAPI.hasSessionUser()) {
         authToken = UserAPI.getAuthTokenAsJSON();
         request.setRequestHeader('x-access-token', authToken.access_token);

@@ -26,6 +26,7 @@
 <script src="/js/FileUploadAPI.js"></script>
 <script src="/js/ManagerProfileAPI.js"></script>
 <script src="/js/JobApplicationAPI.js"></script>
+<script src="/js/WorkEnvironmentAPI.js"></script>
 <script>
     var loadingImage = new Image();
     loadingImage.src = "/images/logo.svg";

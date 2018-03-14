@@ -44,7 +44,7 @@ CreateWorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
             json.basic_work_environment.telework_allowed,
             json.basic_work_environment.flexible_allowed,
             []
-    )
+    );
     json.workplace_photo_captions.forEach(function(caption) {
         var workplacePhotoCaption = new CreateWorkEnvironmentAPI.WorkplacePhotoCaption(
                caption.photo_name,
@@ -86,6 +86,9 @@ CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm = function(managerProfile
  */
 CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function(workEnvironment) {
     
+    
+    
+    
     SliderAPI.selectOptionByValue("createEditProfile_remoteWork", workEnvironment.remote_allowed, "remoteWork");
     SliderAPI.selectOptionByValue("createEditProfile_telework", workEnvironment.telework_allowed, "telework");
     SliderAPI.selectOptionByValue("createEditProfile_flexHours", workEnvironment.flexible_allowed, "flexHours");
@@ -100,7 +103,7 @@ CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function(workEnvironment)
 
 CreateWorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName, previewImageElementId) {
     var xhr = new XMLHttpRequest();
-    var photoUrl = DataAPI.baseURL+'/putWorkplacePhotoByManagerProfileAndName/'+ managerProfileId + '/' + photoName;
+    var photoUrl = DataAPI.baseURL+'/getWorkplacePhotoByManagerProfileAndName/'+ managerProfileId + '/' + photoName;
     if ("withCredentials" in xhr) {
       // Check if the XMLHttpRequest object has a "withCredentials" property.
       // "withCredentials" only exists on XMLHTTPRequest2 objects.
