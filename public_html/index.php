@@ -529,14 +529,16 @@ and open the template in the editor .
             <section class='jobPosterSection'>
                 <div class="container">
                     <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
-                    <p>Remote location allowed: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
-                    <p>Telework allowed: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
-                    <p>Flexible hours allowed: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+                    <div class="workEnvironmentAnswerWrapper">
+                        <p>Remote location allowed: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
+                        <p>Telework allowed: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
+                        <p>Flexible hours allowed: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+                    </div>
                     <div class="workEnvironmentSummaryWrapper">  
                         <div id='workEnvironmentSummaryImagesWrapper'>
-                            <img id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="30%">
-                            <img id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="30%">
-                            <img id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="30%">
+                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="25%">
+                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="25%">
+                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="25%">
                         </div>
                     </div>
             </section>
