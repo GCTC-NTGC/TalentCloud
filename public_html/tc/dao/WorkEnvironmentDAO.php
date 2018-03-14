@@ -155,23 +155,18 @@ class WorkEnvironmentDAO extends BaseDAO {
      * @param WorkplacePhotoCaption $workplacePhotoCaption
      * @return int $rowsModified
      */
-    public static function insertUpdateWorkplacePhotoCaption($workplacePhotoCaption) {
+    public static function insertWorkplacePhotoCaption($workplacePhotoCaption) {
         $link = BaseDAO::getConnection();
         $sqlStr = "INSERT INTO workplace_photo_caption
             (work_environment_id, photo_name, workplace_photo_id, description)
             VALUES
             (:work_environment_id, :photo_name, :photo_id, :description)
-            ON DUPLICATE KEY UPDATE
-            workplace_photo_id = :photo_id_update,
-            description = :description_update
             ;";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':work_environment_id', $workplacePhotoCaption->getWork_environment_id(), PDO::PARAM_INT);
         $sql->bindValue(':photo_name', $workplacePhotoCaption->getPhoto_name(), PDO::PARAM_STR);
         $sql->bindValue(':photo_id', $workplacePhotoCaption->getWorkplace_photo_id(), PDO::PARAM_INT);
-        $sql->bindValue(':photo_id_update', $workplacePhotoCaption->getWorkplace_photo_id(), PDO::PARAM_INT);
         $sql->bindValue(':description', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
-        $sql->bindValue(':description_update', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
         
         $rowsmodified = 0;
         try {
@@ -179,7 +174,40 @@ class WorkEnvironmentDAO extends BaseDAO {
             $rowsmodified = $sql->rowCount();
  
         } catch (PDOException $e) {
-            return 'insertUpdateWorkplacePhotoCaption failed: ' . $e->getMessage();
+            return 'insertWorkplacePhotoCaption failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rowsmodified;
+    }
+    
+    /**
+     * @param WorkplacePhotoCaption $workplacePhotoCaption
+     * @return int $rowsModified
+     */
+    public static function updateWorkplacePhotoCaption($workplacePhotoCaption) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "UPDATE workplace_photo_caption
+            SET
+            workplace_photo_id = :photo_id,
+            description = :description
+            WHERE
+            work_environment_id = :work_environment_id 
+            AND photo_name = :photo_name
+            
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':work_environment_id', $workplacePhotoCaption->getWork_environment_id(), PDO::PARAM_INT);
+        $sql->bindValue(':photo_name', $workplacePhotoCaption->getPhoto_name(), PDO::PARAM_STR);
+        $sql->bindValue(':photo_id', $workplacePhotoCaption->getWorkplace_photo_id(), PDO::PARAM_INT);
+        $sql->bindValue(':description', $workplacePhotoCaption->getDescription(), PDO::PARAM_STR);
+        
+        $rowsmodified = 0;
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));           
+            $rowsmodified = $sql->rowCount();
+ 
+        } catch (PDOException $e) {
+            return 'updateWorkplacePhotoCaption failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rowsmodified;
@@ -266,8 +294,13 @@ class WorkEnvironmentDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sql_str = "
             SELECT
-                photo.image as file, photo.mime_type as mime_type, photo.size as size
-            FROM workplace_photo photo, talentcloud.manager_profile_to_work_environment env, talentcloud.workplace_photo_caption cap
+                photo.image as file, 
+                photo.mime_type as mime_type, 
+                photo.size as size
+            FROM 
+            talentcloud.workplace_photo photo, 
+            talentcloud.manager_profile_to_work_environment env, 
+            talentcloud.workplace_photo_caption cap
             WHERE 
                 env.user_manager_profile_id = :manager_profile_id 
                 AND env.work_environment_id = cap.work_environment_id
@@ -278,14 +311,13 @@ class WorkEnvironmentDAO extends BaseDAO {
         $sql = $link->prepare($sql_str);
         $sql->bindValue(':manager_profile_id', $manager_profile_id, PDO::PARAM_INT);
         $sql->bindValue(':photo_name', $photo_name, PDO::PARAM_STR);
-        
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'File');
             $photo = $sql->fetch();
         } catch (PDOException $e) {
-            return 'workplacePhotoExistsForManagerAndName failed: ' . $e->getMessage();
+            return 'getWorkplacePhoto failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $photo;
@@ -295,10 +327,14 @@ class WorkEnvironmentDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sql_str = "
             SELECT EXISTS (SELECT 1 FROM 
-                talentcloud.workplace_photo photo, talentcloud.manager_profile_to_work_environment env, talentcloud.workplace_photo_caption cap
+                talentcloud.workplace_photo photo, 
+                talentcloud.manager_profile_to_work_environment env, 
+                talentcloud.workplace_photo_caption cap
             WHERE 
-                env.user_manager_profile_id = :manager_profile_id AND env.work_environment_id = cap.work_environment_id
-                AND cap.photo_name = :photo_name AND cap.workplace_photo_id = photo.id
+                env.user_manager_profile_id = :manager_profile_id 
+                AND env.work_environment_id = cap.work_environment_id
+                AND cap.photo_name = :photo_name 
+                AND cap.workplace_photo_id = photo.id
             );
             ";
         $sql = $link->prepare($sql_str);
@@ -308,7 +344,8 @@ class WorkEnvironmentDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $found = $sql->fetch()[0];
+            $result = $sql->fetch();
+            $found = $result[0];
         } catch (PDOException $e) {
             return 'workplacePhotoExistsForManagerAndName failed: ' . $e->getMessage();
         }
@@ -346,6 +383,12 @@ class WorkEnvironmentDAO extends BaseDAO {
         return $rowsmodified;
     }
     
+    /**
+     * 
+     * @param int $workEnvironmentId
+     * @param string $photoName
+     * @return WorkplacePhotoCaption
+     */
     public static function getWorkplacePhotoCaptionByName($workEnvironmentId, $photoName) {
         $link = BaseDAO::getConnection();
         $sqlStr = "SELECT work_environment_id, photo_name, workplace_photo_id, description
