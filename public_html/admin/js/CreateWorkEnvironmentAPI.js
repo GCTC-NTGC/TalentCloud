@@ -1,12 +1,12 @@
-var CreateWorkEnvironment = {};
+var CreateWorkEnvironmentAPI = {};
 
-CreateWorkEnvironment.workplacePhotoUploaders = [];
+CreateWorkEnvironmentAPI.workplacePhotoUploaders = [];
 
-CreateWorkEnvironment.photoNameToCaptionFormId = {'workplace_photo_1' : 'work_environment_photo_caption_1',
+CreateWorkEnvironmentAPI.photoNameToCaptionFormId = {'workplace_photo_1' : 'work_environment_photo_caption_1',
     'workplace_photo_2' : 'work_environment_photo_caption_2', 
     'workplace_photo_3' : 'work_environment_photo_caption_3'};
 
-CreateWorkEnvironment.defaultWorkplacePhoto = '/images/user.png';
+CreateWorkEnvironmentAPI.defaultWorkplacePhoto = '/images/user.png';
 
 /**
  * 
@@ -14,7 +14,7 @@ CreateWorkEnvironment.defaultWorkplacePhoto = '/images/user.png';
  * @param {string} description
  * @return {CreateWorkEnvironment.WorkplacePhotoCaption}
  */
-CreateWorkEnvironment.WorkplacePhotoCaption = function(photo_name, description) {
+CreateWorkEnvironmentAPI.WorkplacePhotoCaption = function(photo_name, description) {
     this.photo_name = photo_name;
     this.description = description;
 };
@@ -27,7 +27,7 @@ CreateWorkEnvironment.WorkplacePhotoCaption = function(photo_name, description) 
  * @param {CreateWorkEnvironment.WorkplacePhotoCaption[]} workplace_photo_captions
  * @return {CreateWorkEnvironment.WorkEnvironment}
  */
-CreateWorkEnvironment.WorkEnvironment = function(remote_allowed, telework_allowed,
+CreateWorkEnvironmentAPI.WorkEnvironment = function(remote_allowed, telework_allowed,
         flexible_allowed, workplace_photo_captions) {
     this.remote_allowed = remote_allowed;
     this.telework_allowed = telework_allowed;
@@ -37,16 +37,16 @@ CreateWorkEnvironment.WorkEnvironment = function(remote_allowed, telework_allowe
 
 
 
-CreateWorkEnvironment.parseWorkEnvironmentResponse = function(response) {
+CreateWorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
     var json = JSON.parse(response);
-    var workEnvironment = new CreateWorkEnvironment.WorkEnvironment(
+    var workEnvironment = new CreateWorkEnvironmentAPI.WorkEnvironment(
             json.remote_allowed,
             json.telework_allowed,
             json.flexible_allowed,
             []
     )
     json.workplace_photo_captions.foreach(function(caption) {
-        var workplacePhotoCaption = new CreateWorkEnvironment.WorkplacePhotoCaption(
+        var workplacePhotoCaption = new CreateWorkEnvironmentAPI.WorkplacePhotoCaption(
                caption.photo_name,
                caption.description
         );
@@ -55,28 +55,28 @@ CreateWorkEnvironment.parseWorkEnvironmentResponse = function(response) {
     return workEnvironment;
 };
 
-CreateWorkEnvironment.initializeWorkEnvironmentForm = function(managerProfileId) {
+CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm = function(managerProfileId) {
     //Fill previous form fields
     DataAPI.getWorkplaceEnvironment(managerProfileId, function(response) {
-        var workEnv = CreateWorkEnvironment.parseWorkEnvironmentResponse(response);
-        CreateWorkEnvironment.populateWorkEnvironmentForm(workEnv);
+        var workEnv = CreateWorkEnvironmentAPI.parseWorkEnvironmentResponse(response);
+        CreateWorkEnvironmentAPI.populateWorkEnvironmentForm(workEnv);
     })
     
     //Show preivious workplace photos
-    CreateWorkEnvironment.refreshWorkplacePhoto(managerProfileId, 'workplace_photo_1', 'workplace_photo_preview_1');
-    CreateWorkEnvironment.refreshWorkplacePhoto(managerProfileId, 'workplace_photo_2', 'workplace_photo_preview_2');
-    CreateWorkEnvironment.refreshWorkplacePhoto(managerProfileId, 'workplace_photo_3', 'workplace_photo_preview_3');
+    CreateWorkEnvironmentAPI.refreshWorkplacePhoto(managerProfileId, 'workplace_photo_1', 'workplace_photo_preview_1');
+    CreateWorkEnvironmentAPI.refreshWorkplacePhoto(managerProfileId, 'workplace_photo_2', 'workplace_photo_preview_2');
+    CreateWorkEnvironmentAPI.refreshWorkplacePhoto(managerProfileId, 'workplace_photo_3', 'workplace_photo_preview_3');
     
     //Set up photo uploaders
-    CreateWorkEnvironment.workplacePhotoUploaders = [];
-    var uploader1 = CreateWorkEnvironment.makeWorkplacePhotoUploader(managerProfileId, 'workplace_photo_1',
+    CreateWorkEnvironmentAPI.workplacePhotoUploaders = [];
+    var uploader1 = CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader(managerProfileId, 'workplace_photo_1',
         'workplace_photo_input_1','workplace_photo_dropzone_1','workplace_photo_preview_1');
-    var uploader2 = CreateWorkEnvironment.makeWorkplacePhotoUploader(managerProfileId, 'workplace_photo_2',
+    var uploader2 = CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader(managerProfileId, 'workplace_photo_2',
         'workplace_photo_input_2','workplace_photo_dropzone_2','workplace_photo_preview_2');
-    var uploader3 = CreateWorkEnvironment.makeWorkplacePhotoUploader(managerProfileId, 'workplace_photo_3',
+    var uploader3 = CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader(managerProfileId, 'workplace_photo_3',
         'workplace_photo_input_3','workplace_photo_dropzone_3','workplace_photo_preview_3');
     
-    CreateWorkEnvironment.workplacePhotoUploaders.push(uploader1, uploader2, uploader3);
+    CreateWorkEnvironmentAPI.workplacePhotoUploaders.push(uploader1, uploader2, uploader3);
 };
 
 /**
@@ -84,21 +84,21 @@ CreateWorkEnvironment.initializeWorkEnvironmentForm = function(managerProfileId)
  * @param {CreateWorkEnvironment.WorkEnvironment} workEnvironment
  * @return {undefined}
  */
-CreateWorkEnvironment.populateWorkEnvironmentForm = function(workEnvironment) {
+CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function(workEnvironment) {
     
     SliderAPI.selectOptionByValue("work_environment_remote_allowed_groupname", workEnvironment.remote_allowed, "work_environment_remote");
     SliderAPI.selectOptionByValue("work_environment_telework_allowed_groupname", workEnvironment.telework_allowed, "work_environment_telework_allowed");
     SliderAPI.selectOptionByValue("work_environment_flexible_allowed_groupname", workEnvironment.flexible_allowed_allowed, "work_environment_flexible_allowed");
     
     workEnvironment.workplace_photo_captions.foreach(function(caption){
-        var captionFormElementId = CreateWorkEnvironment.photoNameToCaptionFormId[caption.photo_name];
+        var captionFormElementId = CreateWorkEnvironmentAPI.photoNameToCaptionFormId[caption.photo_name];
         if (captionFormElementId) {
             document.getElementById(captionFormElementId).value = caption.description;
         } 
     });
 };
 
-CreateWorkEnvironment.refreshWorkplacePhoto = function(managerProfileId, photoName, previewImageElementId) {
+CreateWorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName, previewImageElementId) {
     var xhr = new XMLHttpRequest();
     var photoUrl = DataAPI.baseURL+'/putWorkplacePhotoByManagerProfileAndName/'+ managerProfileId + '/' + photoName;
     if ("withCredentials" in xhr) {
@@ -122,38 +122,38 @@ CreateWorkEnvironment.refreshWorkplacePhoto = function(managerProfileId, photoNa
         if (xhr.status == 200 && xhr.responseURL) {
             img.src = xhr.responseURL;
         } else {
-            img.src = CreateWorkEnvironment.defaultWorkplacePhoto;
+            img.src = CreateWorkEnvironmentAPI.defaultWorkplacePhoto;
         }
     });
     xhr.send();
 };
 
-CreateWorkEnvironment.saveWorkEnvironment = function(managerProfileId) {
+CreateWorkEnvironmentAPI.saveWorkEnvironment = function(managerProfileId) {
     var remoteAllowed = document.querySelector('input[name="work_environment_remote_allowed_groupname"]:checked').value;
     var teleworkAllowed = document.querySelector('input[name="work_environment_telework_allowed_groupname"]:checked').value;
     var flexibleAllowed = document.querySelector('input[name="work_environment_flexible_allowed_groupname"]:checked').value;
     
-    var workEnvironment = new CreateWorkEnvironment.WorkEnvironment(remoteAllowed, teleworkAllowed, flexibleAllowed, []);
+    var workEnvironment = new CreateWorkEnvironmentAPI.WorkEnvironment(remoteAllowed, teleworkAllowed, flexibleAllowed, []);
     
-    for (var name in CreateWorkEnvironment.photoNameToCaptionFormId) {
-        var descriptionFormId = CreateWorkEnvironment.photoNameToCaptionFormId[name];
+    for (var name in CreateWorkEnvironmentAPI.photoNameToCaptionFormId) {
+        var descriptionFormId = CreateWorkEnvironmentAPI.photoNameToCaptionFormId[name];
         var description = document.getElementById(descriptionFormId).value;
-        var photoCaption = new CreateWorkEnvironment.WorkplacePhotoCaption(name, description);
+        var photoCaption = new CreateWorkEnvironmentAPI.WorkplacePhotoCaption(name, description);
         workEnvironment.workplace_photo_captions.push(photoCaption);
     }
     
     DataAPI.submitWorkplaceEnvironment(managerProfileId, workEnvironment, function(){}); //TODO add response callback
     
-    CreateWorkEnvironment.workplacePhotoUploaders.foreach(uploader => uploader.uploadPhoto());    
+    CreateWorkEnvironmentAPI.workplacePhotoUploaders.foreach(uploader => uploader.uploadPhoto());    
 }
 
-CreateWorkEnvironment.makeWorkplacePhotoUploader = function(managerProfileId, photoName, inputId, dropzoneId, previewId) {
+CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader = function(managerProfileId, photoName, inputId, dropzoneId, previewId) {
     var photoInput = document.getElementById(inputId);
     var photoDropzone = document.getElementById(dropzoneId);
     var photoPreview = document.getElementById(previewId);
     var uploadUrl = DataAPI.baseURL+"/putWorkplacePhotoByManagerProfileAndName/"+managerProfileId + '/' + photoName;
     
-    var uploader = new CreateWorkEnvironment.WorkplacePhotoUploader(
+    var uploader = new CreateWorkEnvironmentAPI.WorkplacePhotoUploader(
             photoInput, photoDropzone, photoPreview,
             uploadUrl, 
             function(request) {
@@ -164,7 +164,7 @@ CreateWorkEnvironment.makeWorkplacePhotoUploader = function(managerProfileId, ph
     return uploader;
 };
 
-CreateWorkEnvironment.WorkplacePhotoUploader = function(
+CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function(
         inputField, dropZone, previewImgElement,
         uploadUrl,
         onUploadComplete) {
@@ -174,7 +174,7 @@ CreateWorkEnvironment.WorkplacePhotoUploader = function(
         
     var uploadPhoto = null;
     var max_filesize = 2048576;
-    var defaultPhotoSrc = CreateWorkEnvironment.defaultWorkplacePhoto;
+    var defaultPhotoSrc = CreateWorkEnvironmentAPI.defaultWorkplacePhoto;
     
     this.init = function() {
         inputField.onchange = this.addFiles;
