@@ -102,6 +102,13 @@ class WorkEnvironmentController{
         return "";
     }
     
+    public static function getWorkplacePhotoByManagerProfileAndName($photoName, $managerProfileId) {
+        if (WorkEnvironmentDAO::workplacePhotoExistsForManagerAndName($managerProfileId, $photoName))
+            return WorkEnvironmentDAO::getWorkplacePhoto($managerProfileId, $photoName);
+        else 
+            return NULL;            
+    }
+    
     
     
 }

@@ -55,7 +55,7 @@
                 $json = json_decode(file_get_contents('php://input'), TRUE);
                 
                 $basicWorkEnvironment = new BasicWorkEnvironment();
-                $basicWorkEnvironment->setId($json['id']);
+                //$basicWorkEnvironment->setId($json['id']);
                 $basicWorkEnvironment->setRemote_allowed($json['remote_allowed']);
                 $basicWorkEnvironment->setTelework_allowed($json['telework_allowed']);
                 $basicWorkEnvironment->setFlexible_allowed($json['flexible_allowed']);
@@ -63,7 +63,7 @@
                 $photo_captions = [];
                 foreach($json['workplace_photo_captions'] as $captionJson) {
                     $caption = new WorkplacePhotoCaption();
-                    $caption->setWork_environment_id($captionJson['work_environment_id']);
+                    //$caption->setWork_environment_id($captionJson['work_environment_id']);
                     $caption->setPhoto_name($captionJson['photo_name']);
                     $caption->setDescription($captionJson['description']);                    
                     $photo_captions[] = $caption;

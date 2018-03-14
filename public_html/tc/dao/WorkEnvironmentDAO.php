@@ -18,6 +18,7 @@ require_once '../dao/BaseDAO.php';
 require_once '../model/WorkEnvironment.php';
 require_once '../model/BasicWorkEnvironment.php';
 require_once '../model/WorkplacePhotoCaption.php';
+require_once '../model/File.php';
 
 /**
  * Summary: Data Access Object for Resources
@@ -253,6 +254,41 @@ class WorkEnvironmentDAO extends BaseDAO {
             return 'insertWorkplacePhoto failed: ' . $e->getMessage();
         }
         return $insert_id;
+    }
+    
+    /**
+     * 
+     * @param int $manager_profile_id
+     * @param string $photo_name
+     * @return File
+     */
+    public static function getWorkplacePhoto($manager_profile_id, $photo_name) {
+        $link = BaseDAO::getConnection();
+        $sql_str = "
+            SELECT
+                photo.image as file, photo.mime_type as mime_type, photo.size as size
+            FROM workplace_photo photo, talentcloud.manager_profile_to_work_environment env, talentcloud.workplace_photo_caption cap
+            WHERE 
+                env.user_manager_profile_id = :manager_profile_id 
+                AND env.work_environment_id = cap.work_environment_id
+                AND cap.photo_name = :photo_name 
+                AND cap.workplace_photo_id = photo.id
+            ;
+            ";
+        $sql = $link->prepare($sql_str);
+        $sql->bindValue(':manager_profile_id', $manager_profile_id, PDO::PARAM_INT);
+        $sql->bindValue(':photo_name', $photo_name, PDO::PARAM_STR);
+        
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'File');
+            $photo = $sql->fetch();
+        } catch (PDOException $e) {
+            return 'workplacePhotoExistsForManagerAndName failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $photo;
     }
     
     public static function workplacePhotoExistsForManagerAndName($manager_profile_id, $photo_name) {

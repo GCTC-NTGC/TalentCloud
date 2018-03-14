@@ -40,12 +40,12 @@ CreateWorkEnvironmentAPI.WorkEnvironment = function(remote_allowed, telework_all
 CreateWorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
     var json = JSON.parse(response);
     var workEnvironment = new CreateWorkEnvironmentAPI.WorkEnvironment(
-            json.remote_allowed,
-            json.telework_allowed,
-            json.flexible_allowed,
+            json.basic_work_environment.remote_allowed,
+            json.basic_work_environment.telework_allowed,
+            json.basic_work_environment.flexible_allowed,
             []
     )
-    json.workplace_photo_captions.foreach(function(caption) {
+    json.workplace_photo_captions.forEach(function(caption) {
         var workplacePhotoCaption = new CreateWorkEnvironmentAPI.WorkplacePhotoCaption(
                caption.photo_name,
                caption.description
@@ -88,9 +88,9 @@ CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function(workEnvironment)
     
     SliderAPI.selectOptionByValue("createEditProfile_remoteWork", workEnvironment.remote_allowed, "remoteWork");
     SliderAPI.selectOptionByValue("createEditProfile_telework", workEnvironment.telework_allowed, "telework");
-    SliderAPI.selectOptionByValue("createEditProfile_flexHours", workEnvironment.flexible_allowed_allowed, "flexHours");
+    SliderAPI.selectOptionByValue("createEditProfile_flexHours", workEnvironment.flexible_allowed, "flexHours");
     
-    workEnvironment.workplace_photo_captions.foreach(function(caption){
+    workEnvironment.workplace_photo_captions.forEach(function(caption){
         var captionFormElementId = CreateWorkEnvironmentAPI.photoNameToCaptionFormId[caption.photo_name];
         if (captionFormElementId) {
             document.getElementById(captionFormElementId).value = caption.description;
@@ -144,7 +144,7 @@ CreateWorkEnvironmentAPI.saveWorkEnvironment = function(managerProfileId) {
     
     DataAPI.submitWorkplaceEnvironment(managerProfileId, workEnvironment, function(){}); //TODO add response callback
     
-    CreateWorkEnvironmentAPI.workplacePhotoUploaders.foreach(uploader => uploader.uploadPhoto());    
+    CreateWorkEnvironmentAPI.workplacePhotoUploaders.forEach(uploader => uploader.uploadPhoto());    
 }
 
 CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader = function(managerProfileId, photoName, inputId, dropzoneId, previewId) {
@@ -152,7 +152,7 @@ CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader = function(managerProfileId,
     if (dropzoneId) {
         var photoDropzone = document.getElementById(dropzoneId);
     } else {
-        var photoDropzone = {};
+        var photoDropzone = null;
     }
     var photoPreview = document.getElementById(previewId);
     var uploadUrl = DataAPI.baseURL+"/putWorkplacePhotoByManagerProfileAndName/"+managerProfileId + '/' + photoName;
@@ -173,92 +173,98 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function(
         uploadUrl,
         onUploadComplete) {
         
+    this.inputField = inputField;
+    this.dropZone = dropZone;
+    this.previewImgElement = previewImgElement;
     this.uploadUrl = uploadUrl;
     this.onUploadComplete = onUploadComplete;
         
-    var uploadPhoto = null;
-    var max_filesize = 2048576;
-    var defaultPhotoSrc = CreateWorkEnvironmentAPI.defaultWorkplacePhoto;
+    this.photo = null;
+    this.max_filesize = 2048576;
+    this.defaultPhotoSrc = CreateWorkEnvironmentAPI.defaultWorkplacePhoto;
     
-    this.init = function() {
-        inputField.onchange = this.addFiles;
-        this.initializeDropzone();
+    var self = this;
+    
+    self.init = function() {
+        self.inputField.onchange = self.addFiles;
+        if (self.dropZone)
+            self.initializeDropzone();
     };
     
     //clone dropZone to remove existing event listeners
-    this.initializeDropzone = function(){
-        var clone = dropZone.cloneNode();
-        while (dropZone.firstChild) {
-          clone.appendChild(dropZone.lastChild);
+    self.initializeDropzone = function(){
+        var clone = self.dropZone.cloneNode();
+        while (self.dropZone.firstChild) {
+          clone.appendChild(self.dropZone.lastChild);
         }
-        dropZone.parentNode.replaceChild(clone, dropZone);
-        dropZone = clone;
+        self.dropZone.parentNode.replaceChild(clone, self.dropZone);
+        self.dropZone = clone;
 
-        dropZone.addEventListener("dragenter",  this.stopProp, false);
-        dropZone.addEventListener("dragleave",  this.dragExit, false);
-        dropZone.addEventListener("dragover",  this.dragOver, false);
-        dropZone.addEventListener("drop",  this.showDroppedFiles, false);
+        self.dropZone.addEventListener("dragenter",  self.stopProp, false);
+        self.dropZone.addEventListener("dragleave",  self.dragExit, false);
+        self.dropZone.addEventListener("dragover",  self.dragOver, false);
+        self.dropZone.addEventListener("drop",  self.processDroppedFiles, false);
     };
     
-    this.setFiles = function(files) {
-        processNewFiles(files);
+    self.setFiles = function(files) {
+        self.processNewFiles(files);
     };
 
-    this.addFiles = function () {
-        processNewFiles(this.files);
+    self.addFiles = function () {
+        self.processNewFiles(this.files);
     };
 
-    this.showDroppedFiles = function (ev) {
-        this.stopProp(ev);
+    self.processDroppedFiles = function (ev) {
+        self.stopProp(ev);
         var files = ev.dataTransfer.files;
-        processNewFiles(files);
+        self.processNewFiles(files);
     };
     
-    this.dragOver = function (ev) {
-       this.stopProp(ev);
-        dropZone.classList.remove("fileDropzoneNormal");
-        dropZone.classList.add("fileDropzoneHighlight");
+    self.dragOver = function (ev) {
+        self.stopProp(ev);
+        self.dropZone.classList.remove("fileDropzoneNormal");
+        self.dropZone.classList.add("fileDropzoneHighlight");
         //this.style["backgroundColor"] = "#F0FCF0";
         //this.style["borderColor"] = "#3DD13F";
         //this.style["color"] = "#3DD13F";
     };
 
-    this.dragExit = function (ev) {
-        this.stopProp(ev);
-        dropZone.classList.remove("fileDropzoneHighlight");
-        dropZone.classList.add("fileDropzoneNormal");
+    self.dragExit = function (ev) {
+        self.stopProp(ev);
+        self.dropZone.classList.remove("fileDropzoneHighlight");
+        self.dropZone.classList.add("fileDropzoneNormal");
         //dropZone.style["backgroundColor"] = "#FEFEFE";
         //dropZone.style["borderColor"] = "#CCC";
         //dropZone.style["color"] = "#CCC";
     };
 
-    this.stopProp = function (ev) {
+    self.stopProp = function (ev) {
         ev.stopPropagation();
         ev.preventDefault();
     };
 
-    clearUpload = function () {
+    self.clearUpload = function () {
         //Clear upload 
-        this.photo = null;
+        self.photo = null;
         
         //Clear preview
-        previewImgElement.src = defaultPhotoSrc;
+        self.previewImgElement.src = self.defaultPhotoSrc;
         
         //Clear input button value
-        this.inputField.value = null;
+        self.inputField.value = null;
     };
 
-    processNewFiles = function (files) {
+    self.processNewFiles = function (files) {
         var file = files[0];
         if (file.type.match('image.*')) {        
-            this.clearUpload();
+            self.clearUpload();
             var fr = new FileReader();
             fr.file = file;
             fr.onloadend = function(ev) {
                 
-                if (ev.target.file.size < max_filesize) {   
-                    uploadPhoto = ev.target.file;
-                    previewImgElement.src = ev.target.result;
+                if (ev.target.file.size < self.max_filesize) {   
+                    self.photo = ev.target.file;
+                    self.previewImgElement.src = ev.target.result;
                 } else {
                     //TODO: indicate overlarge file
                 }
@@ -269,43 +275,43 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function(
         }
     };
     
-    this.uploadPhoto = function(){
-        if (uploadPhoto) {
+    self.uploadPhoto = function(){
+        if (self.photo) {
             var xhr = new XMLHttpRequest();
             if ("withCredentials" in xhr) {
               // Check if the XMLHttpRequest object has a "withCredentials" property.
               // "withCredentials" only exists on XMLHTTPRequest2 objects.
-              xhr.open("PUT", uploadUrl);
+              xhr.open("PUT", self.uploadUrl);
 
             } else if (typeof XDomainRequest != "undefined") {
               // Otherwise, check if XDomainRequest.
               // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
               xhr = new XDomainRequest();
-              xhr.open("PUT", uploadUrl);
+              xhr.open("PUT", self.uploadUrl);
             } else {
               // Otherwise, CORS is not supported by the browser.
               xhr = null;
               // TODO: indicate to user that browser is not supported
             }
 
-            xhr.setRequestHeader("Content-type",uploadPhoto.type);
-            xhr.setRequestHeader("X-File-Name", uploadPhoto.name);
+            xhr.setRequestHeader("Content-type",self.photo.type);
+            xhr.setRequestHeader("X-File-Name", self.photo.name);
             xhr.setRequestHeader("Accept","application/json");
             if (UserAPI.hasAuthToken()) {
-                var authToken = UserAPI.getAuthTokenAsJSON()
-                xhr.setRequestHeader("x-access-token", authToken.access_token);
+                var authToken = UserAPI.getAuthToken()
+                xhr.setRequestHeader("Authorization", authToken);
             }
             xhr.addEventListener("load", function (ev) {
-                if (onUploadComplete) {
-                    onUploadComplete(xhr);
+                if (self.onUploadComplete) {
+                    self.onUploadComplete(xhr);
                 }
             }, false);
             
-            xhr.send(uploadPhoto);
+            xhr.send(self.photo);
         }
     };
     
-    this.init(); //call init function at end of constructor
+    self.init(); //call init function at end of constructor
 };
 
 
