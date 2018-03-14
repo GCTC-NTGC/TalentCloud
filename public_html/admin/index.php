@@ -809,12 +809,15 @@ and open the template in the editor .
                                                         <span class="workEnvironmentTitle">Physical Environment</span>
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
+                                                                <img id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="../images/user.png" width="80%"><br>
                                                                 <button id="" class="btn btn-default" onclick="">Upload picture</button>
                                                             </div>
                                                             <div class="workEnvironmentImage">
+                                                                <img id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="../images/user.png" width="80%"><br>
                                                                 <button id="" class="btn btn-default" onclick="">Upload picture</button>
                                                             </div>
                                                             <div class="workEnvironmentImage">
+                                                                <img id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="../images/user.png" width="80%"><br>
                                                                 <button id="" class="btn btn-default" onclick="">Upload picture</button>
                                                             </div>
                                                         </div>
