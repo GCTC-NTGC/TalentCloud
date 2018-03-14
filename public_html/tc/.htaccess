@@ -28,6 +28,7 @@ RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
 RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
 RewriteRule ^api/v1/getManagerProfile/([0-9]{1,10}) services/ManagerProfile.php
 RewriteRule ^api/v1/putWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
+RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 
 #localized services
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php

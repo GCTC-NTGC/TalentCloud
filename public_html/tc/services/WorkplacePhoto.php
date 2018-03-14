@@ -31,15 +31,17 @@ header("Content-Type: application/json; charset=utf-8");
     switch ($requestMethod) {
         case 'GET':            
             if(strlen($requestParams) > 1){
-                $user_id = Utils::getParameterFromRequest($requestParams,4);
-                $result = ProfilePicController::getProfilePic($user_id);
+                $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
+                $photoName = Utils::getParameterFromRequest($requestParams,5);
+                
+                $result = WorkEnvironmentController::getWorkplacePhotoByManagerProfileAndName($photoName, $managerProfileId);
                 
                 if ($result == NULL) {
                     http_response_code(404);
-                    echo('No profile image uploaded for this user.');
+                    echo('This workplace photo does not exist');
                 } else {
-                    header("Content-type: " . $result->getType());
-                    echo($result->getImage());
+                    header("Content-type: " . $result->getMime_type());
+                    echo($result->getFile());
                 }
             }else{
                 $result = array();
