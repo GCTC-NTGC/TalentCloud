@@ -348,6 +348,8 @@ CreateEditProfileAPI.validateStep3 = function() {
         //console.log(CreateEditProfileAPI.managerProfileObj);
         //submitForm();
         CreateEditProfileAPI.updateManagerProfileWithDetails();
+        
+        CreateWorkEnvironmentAPI.saveWorkEnvironment(document.getElementById("ManagerProfileId").value);
     }
 };
 
@@ -966,6 +968,10 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
     manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
     manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
+    
+    
+    //Initialize Work Environment
+    CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
 
 
     //set hidden field values

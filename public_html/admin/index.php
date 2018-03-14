@@ -758,7 +758,7 @@ and open the template in the editor .
                                                                     <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_remoteWork', this.value, 'remoteWork')"/>
                                                                     <label for="remoteWork_option1" class='option1Label'>No</label>
                                                                 </div>
-                                                                <div id='telework' class="option0"></div>
+                                                                <div id='remoteWork' class="option0"></div>
                                                             </div>
                                                         </div>
                                                     <div class="multi-btn-group-form-group">
@@ -809,23 +809,22 @@ and open the template in the editor .
                                                         <span class="workEnvironmentTitle">Physical Environment</span>
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
-                                                                <img id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="../images/user.png" width="80%"><br>
-                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button><br>
+                                                                <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="80%"><br>
+                                                                <input type="file" id="workplace_photo_input_1" class="fileInput" name="Workplace Photo 1" accept="image/*" /><br>
                                                                 <label for="caption1">Caption:</label>
-                                                                <input id="caption1" type="text" name="caption1"/>
+                                                                <input id="workplace_photo_caption_1" type="text" name="workplace workplace_photo_caption_1"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="../images/user.png" width="80%"><br>
-                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button><br>
+                                                                <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="80%"><br>
+                                                                <input type="file" id="workplace_photo_input_2" class="fileInput" name="Workplace Photo 2" accept="image/*" /><br>
                                                                 <label for="caption2">Caption:</label>
-                                                                <input id="caption2" type="text" name="caption2"/>
-
+                                                                <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="../images/user.png" width="80%"><br>
-                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button><br>
+                                                                <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="80%"><br>
+                                                                <input type="file" id="workplace_photo_input_3" class="fileInput" name="Workplace Photo 3" accept="image/*" /><br>
                                                                 <label for="caption3">Caption:</label>
-                                                                <input id="caption3" type="text" name="caption3"/>
+                                                                <input id="workplace_photo_caption_3" type="text" name="workplace_photo_caption_3"/>
                                                             </div>
                                                         </div>
                                                     </div>
