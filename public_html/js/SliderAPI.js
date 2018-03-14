@@ -24,12 +24,12 @@ var SliderAPI = {
         }
     },
     toggle : function (elemId, optionNum) {
-    var bgcolor = document.getElementById(elemId);
+        var bgcolor = document.getElementById(elemId);
 
-    if (optionNum == 0) {
-        bgcolor.setAttribute("class", "left");
-    } else {
-        bgcolor.setAttribute("class", "right");
+        if (optionNum == 0) {
+            bgcolor.setAttribute("class", "left");
+        } else {
+            bgcolor.setAttribute("class", "right");
+        }
     }
-}
 };
