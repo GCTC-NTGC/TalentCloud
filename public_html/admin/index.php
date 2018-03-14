@@ -810,15 +810,22 @@ and open the template in the editor .
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
                                                                 <img id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="../images/user.png" width="80%"><br>
-                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button>
+                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button><br>
+                                                                <label for="caption1">Caption:</label>
+                                                                <input id="caption1" type="text" name="caption1"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
                                                                 <img id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="../images/user.png" width="80%"><br>
-                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button>
+                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button><br>
+                                                                <label for="caption2">Caption:</label>
+                                                                <input id="caption2" type="text" name="caption2"/>
+
                                                             </div>
                                                             <div class="workEnvironmentImage">
                                                                 <img id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="../images/user.png" width="80%"><br>
-                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button>
+                                                                <button id="" class="btn btn-default" onclick="">Upload picture</button><br>
+                                                                <label for="caption3">Caption:</label>
+                                                                <input id="caption3" type="text" name="caption3"/>
                                                             </div>
                                                         </div>
                                                     </div>
