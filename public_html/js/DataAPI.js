@@ -675,7 +675,7 @@ DataAPI.createJobApplication = function(jobApplication, responseCallback) {
  * @return {undefined}
  */
 DataAPI.submitWorkplaceEnvironment = function(managerProfileId, workplaceEnvironment, responseCallback) {
-    var url = DataAPI.baseURL + '/putWorkplacePhotoByManagerProfileAndName/' + managerProfileId;
+    var url = DataAPI.baseURL + '/putWorkEnvironmentByManagerProfile/' + managerProfileId;
     DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(workplaceEnvironment), function(request) {
         responseCallback(request.response);
     });
@@ -688,7 +688,7 @@ DataAPI.submitWorkplaceEnvironment = function(managerProfileId, workplaceEnviron
  * @return {undefined}
  */
 DataAPI.getWorkplaceEnvironment = function(managerProfileId, responseCallback) {
-    var url = DataAPI.baseUrl + '/getWorkEnvironmentByManagerProfile/' + managerProfileId;
+    var url = DataAPI.baseURL + '/getWorkEnvironmentByManagerProfile/' + managerProfileId;
     DataAPI.sendRequest(url, 'GET', {}, null, function(request) {
         responseCallback(request.response);
     });

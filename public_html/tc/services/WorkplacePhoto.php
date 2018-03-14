@@ -119,7 +119,7 @@ header("Content-Type: application/json; charset=utf-8");
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: GET,POST,PUT");
+            header("Access-Control-Allow-Methods: GET,PUT");
             echo("");
             break;
     }
