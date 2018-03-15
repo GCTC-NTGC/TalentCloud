@@ -195,6 +195,13 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.announcement = content.announcement;
     thisContent.adminPortal = content.adminPortal;
     thisContent.applicantPortal = content.applicantPortal;
+    thisContent.workEnvironment = content.workEnvironment;
+    thisContent.remoteLocationAllowed = content.remoteLocationAllowed;
+    thisContent.teleworkAllowed = content.teleworkAllowed;
+    thisContent.flexHoursAllowed = content.flexHoursAllowed;
+    thisContent.yes = content.yes;
+    thisContent.no = content.no;
+    thisContent.physicalEnvironment = content.physicalEnvironment;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

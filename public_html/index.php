@@ -530,9 +530,9 @@ and open the template in the editor .
                 <div class="container">
                     <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
                     <div class="workEnvironmentAnswerWrapper">
-                        <p>Remote location allowed: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
-                        <p>Telework allowed: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
-                        <p>Flexible hours allowed: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+                        <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
+                        <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
+                        <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
                     </div>
                     <div class="workEnvironmentSummaryWrapper">  
                         <div id='workEnvironmentSummaryImagesWrapper'>

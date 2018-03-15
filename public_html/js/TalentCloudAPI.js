@@ -19,7 +19,8 @@ rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDo
 readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal) {
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
+workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -117,6 +118,13 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.announcement = announcement;
     this.applicantPortal = applicantPortal;
     this.adminPortal = adminPortal;
+    this.workEnvironment = workEnvironment;
+    this.remoteLocationAllowed = remoteLocationAllowed;
+    this.teleworkAllowed = teleworkAllowed;
+    this.flexHoursAllowed = flexHoursAllowed;
+    this.yes = yes;
+    this.no = no;
+    this.physicalEnvironment = physicalEnvironment;
 };
 
 TalentCloudAPI.pages = {
@@ -472,6 +480,9 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     if(isManager){
         console.log(isManager);
+        
+        CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
+        
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
@@ -589,6 +600,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
+        WorkEnvironmentAPI.localizeWorkEnvironment();
         
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;

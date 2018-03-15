@@ -35,7 +35,29 @@ CreateWorkEnvironmentAPI.WorkEnvironment = function(remote_allowed, telework_all
     this.workplace_photo_captions = workplace_photo_captions;
 };
 
-
+CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment = function() {
+    if (siteContent) {
+        document.getElementById('remoteWork_label').innerHTML = siteContent.remoteLocationAllowed;
+        document.getElementById('remoteWork_option0_label').innerHTML = siteContent.yes;
+        document.getElementById('remoteWork_option1_label').innerHTML = siteContent.no;
+        
+        document.getElementById('telework_label').innerHTML = siteContent.teleworkAllowed;
+        document.getElementById('telework_option0_label').innerHTML = siteContent.almostNever;
+        document.getElementById('telework_option1_label').innerHTML = siteContent.rarely;
+        document.getElementById('telework_option2_label').innerHTML = siteContent.sometimes;
+        document.getElementById('telework_option3_label').innerHTML = siteContent.usually;
+        document.getElementById('telework_option4_label').innerHTML = siteContent.almostAlways;
+        
+        document.getElementById('flexHours_label').innerHTML = siteContent.flexHoursAllowed;
+        document.getElementById('flexHours_option0_label').innerHTML = siteContent.almostNever;
+        document.getElementById('flexHours_option1_label').innerHTML = siteContent.rarely;
+        document.getElementById('flexHours_option2_label').innerHTML = siteContent.sometimes;
+        document.getElementById('flexHours_option3_label').innerHTML = siteContent.usually;
+        document.getElementById('flexHours_option4_label').innerHTML = siteContent.almostAlways;
+        
+        document.getElementById('physicalEnvironment_title').innerHTML = siteContent.physicalEnvironment;
+    }
+};
 
 CreateWorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
     var json = JSON.parse(response);

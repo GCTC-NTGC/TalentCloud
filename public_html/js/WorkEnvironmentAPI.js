@@ -52,6 +52,16 @@ WorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
     return workEnvironment;
 };
 
+WorkEnvironmentAPI.localizeWorkEnvironment = function() {
+    if (siteContent) {
+        document.getElementById('jobPosterWorkEnvironmentLabel').innerHTML = siteContent.workEnvironment;
+        
+        document.getElementById('jobPosterRemoteWork_label').innerHTML = siteContent.remoteLocationAllowed;
+        document.getElementById('jobPosterTelework_label').innerHTML = siteContent.teleworkAllowed;
+        document.getElementById('jobPosterFlexHours_label').innerHTML = siteContent.flexHoursAllowed;
+    }
+};
+
 WorkEnvironmentAPI.showWorkEnvironment = function(managerProfileId) {
     //Fill text fields
     DataAPI.getWorkplaceEnvironment(managerProfileId, function(response) {
@@ -70,9 +80,13 @@ WorkEnvironmentAPI.showWorkEnvironment = function(managerProfileId) {
  * @return {undefined}
  */
 WorkEnvironmentAPI.populateWorkEnvironment = function(workEnvironment) {
-    document.getElementById('jobPosterRemoteWork').innerHTML = workEnvironment.remote_allowed;
-    document.getElementById('jobPosterTelework').innerHTML = workEnvironment.telework_allowed;
-    document.getElementById('jobPosterFlexHours').innerHTML = workEnvironment.flexible_allowed;
+    
+    var toggleValueText = {'option0':siteContent.yes, 'option1':siteContent.no};
+    var sliderValueText = {'option0':siteContent.almostNever,'option1':siteContent.rarely,'option2':siteContent.sometimes,'option3':siteContent.usually,'option4':siteContent.almostAlways};
+    
+    document.getElementById('jobPosterRemoteWork').innerHTML = toggleValueText[workEnvironment.remote_allowed];
+    document.getElementById('jobPosterTelework').innerHTML = sliderValueText[workEnvironment.telework_allowed];
+    document.getElementById('jobPosterFlexHours').innerHTML = sliderValueText[workEnvironment.flexible_allowed];
     
     workEnvironment.workplace_photo_captions.forEach(function(caption){
         var imgId = WorkEnvironmentAPI.photoNameToImgElementId[caption.photo_name];
