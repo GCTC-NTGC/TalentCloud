@@ -1,0 +1,18 @@
+{
+    "name": "vendor/talent-cloud",
+    "description": "Description of project TalentCloud.",
+    "authors": [
+        {
+            "name": "GBowden",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpunit/phpunit-selenium": "* 3.0.3",
+        "friendsofphp/php-cs-fixer": "v2.10.4",
+        "phpmd/phpmd": "* 2.6.0",
+        "facebook/webdriver": "* 1.5.0"
+    }
+}

@@ -186,6 +186,13 @@ TalentCloudAPI.pages = {
                     TalentCloudAPI.setNav("profileLinkListItem");
                 }
             },
+            Dashboard:{
+                url:"#Dashboard",
+                state: function(){
+                    DashboardAPI.showDashboard();
+                    TalentCloudAPI.setNav("dashBoardLinkListItem");
+                }
+            },
             CreateJobPoster:{
                 url:"#CreateJobPoster",
                 state: function(){

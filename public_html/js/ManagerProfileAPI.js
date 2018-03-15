@@ -1,4 +1,4 @@
-ManagerProfileAPI = {};
+var ManagerProfileAPI = {};
 
 ManagerProfileAPI.ManagerProfile = function(){
     this.user_id = null,

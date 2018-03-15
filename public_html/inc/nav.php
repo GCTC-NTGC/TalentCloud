@@ -17,6 +17,9 @@
                             <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('browseLinkListItem');">Browse Jobs</a>
                         </div>
                     </li>
+                    <li class="top-nav--link" id="dashBoardLinkListItem" aria-hidden="true">
+                        <a href="javascript:void(0)" class="hidden" id="dashBoardLink" onclick="DashboardAPI.showDashboard(this);TalentCloudAPI.setNav('dashBoardLinkListItem');">Dashboard</a>
+                    </li>
                     <li class="top-nav--link" id="profileLinkListItem" aria-hidden="true">
                         <a href="#MyProfile" class="hidden" id="profileLink" onclick="JobSeekerAPI.showJobSeekerProfile();TalentCloudAPI.setNav('profileLinkListItem');">My Profile</a>
                     </li>
