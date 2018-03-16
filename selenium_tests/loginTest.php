@@ -73,22 +73,22 @@ class loginTest extends PHPUnit_Framework_TestCase {
         $this->webDriver->findElement(WebDriverBy::id("login_email"))->sendKeys("gbowden@deloitte.ca");
         print 'enter user email address' . PHP_EOL;
         
-        $this->webDriver->findElement(WebDriverBy::id("login_password"))->sendKeys("Vetitum4u.ca");
+        $this->webDriver->findElement(WebDriverBy::id("login_password"))->sendKeys("Vetitum4u");
         print 'enter user password' . PHP_EOL;
                 
         $this->webDriver->findElement(WebDriverBy::id("loginFormLoginBtn"))->click();
         print 'Click login button' . PHP_EOL;
         
         //wait for valid login to finish
-        $this->webDriver->wait()->until(
+        /*$this->webDriver->wait()->until(
             WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('div.bar'))
-        );
+        );*/
         
         $window = $this->webDriver->getWindowHandle();
         
-        $authTokenJSONString = $this->webDriver->executeScript('return window.sessionStorage.authToken',array());
+        //$authTokenJSONString = $this->webDriver->executeScript('return window.sessionStorage.authToken',array());
         print 'get JWT token from sessionstorage' . PHP_EOL;
-        var_dump($authTokenJSONString);
+        //var_dump($authTokenJSONString);
         
         print 'validate JWT token' . PHP_EOL;
         //$authTokenJSON = json_decode($authTokenJSONString);

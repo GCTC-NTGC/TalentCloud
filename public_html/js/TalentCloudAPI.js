@@ -19,7 +19,8 @@ rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDo
 readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal) {
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
+dashBoardLink,yourApplicationsTitle) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -117,6 +118,8 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.announcement = announcement;
     this.applicantPortal = applicantPortal;
     this.adminPortal = adminPortal;
+    this.dashBoardLink = dashBoardLink;
+    this.yourApplicationsTitle = yourApplicationsTitle;
 };
 
 TalentCloudAPI.pages = {
@@ -597,6 +600,10 @@ TalentCloudAPI.setContent = function(content, isManager){
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
         
+    
+        var dashBoardLink = document.getElementById("dashBoardLink");
+        dashBoardLink.innerHTML = siteContent.dashBoardLink;
+
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
 
@@ -644,6 +651,12 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
+        
+        var dashBoardTitle = document.getElementById("dashBoardTitle");
+        dashBoardTitle.innerHTML = siteContent.dashBoardLink;
+        
+        var yourApplicationsTitle = document.getElementById("yourApplicationsTitle");
+        yourApplicationsTitle.innerHTML = siteContent.yourApplicationsTitle;
         
         var howItWorksLast = document.getElementById("howItWorksLast");
         howItWorksLast.innerHTML = siteContent.howItWorksLast;

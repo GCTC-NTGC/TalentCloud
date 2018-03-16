@@ -192,9 +192,17 @@ DashboardAPI.populateDashboard = function(dashboardJSON){
         applicationStatus.setAttribute("id","ya_status_"+application.job_poster_id);
         applicationStatus.setAttribute("class","dashboardJobStatus");
         var statusInnerHTML = application.application_status;
+        
+        var closeStatus = document.createElement("span");
+        closeStatus.setAttribute("id","ya_close_status_"+application.job_poster_id);
+        closeStatus.setAttribute("class","dashboardJobCloseStatus");
         var closeInfo = Utilities.timeRemaining(application.job_poster_close_date_time);
-        var closeInnerHTML = closeInfo !== 0?"Closes in " + closeInfo:"Closed";
-        applicationStatus.innerHTML = statusInnerHTML + " - " + closeInnerHTML;
+        var closesIn = TalentCloudAPI.getLanguageFromCookie() === "en_CA"?"Closes in " : "Ferme dans ";
+        var closed = TalentCloudAPI.getLanguageFromCookie() === "en_CA"?"Closed " : "Fermé ";
+        var closeInnerHTML = closeInfo !== 0?closesIn + closeInfo:closed;
+        closeStatus.innerHTML = closeInnerHTML;
+        
+        applicationStatus.innerHTML = statusInnerHTML + " - " + closeStatus.outerHTML;
         
         applicationSubmitted.appendChild(applicationStatus);
         
