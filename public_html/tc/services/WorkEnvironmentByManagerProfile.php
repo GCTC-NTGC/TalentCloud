@@ -52,7 +52,7 @@
             break;
         case 'PUT':
             if(isset($_SERVER["HTTP_AUTHORIZATION"])){
-                $jwt = JWTUtils::getTokenFromAuthHeader($_SERVER["HTTP_AUTHORIZATION"]);
+                $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
             
                 if(strlen($requestParams) > 1){
                     

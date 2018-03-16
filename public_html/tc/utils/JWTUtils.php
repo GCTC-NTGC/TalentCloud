@@ -118,6 +118,7 @@ class JWTUtils {
         return $token;
         
     }
+    
     /**
      * 
      * @param type $headers
@@ -135,10 +136,10 @@ class JWTUtils {
     
     /**
      * 
-     * @param string $authHeader
-     * @return string
+     * @param type $headers
+     * @return type
      */
-    public static function getTokenFromAuthHeader($authHeader){
+    public static function getTokenFromRequest($authHeader){
         $token = null;
         if (!empty($authHeader)) {
             if (preg_match('/Bearer\s(\S+)/', $authHeader, $token)) {

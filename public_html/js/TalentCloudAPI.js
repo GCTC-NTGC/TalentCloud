@@ -20,7 +20,8 @@ readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTert
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
-workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment) {
+workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
+dashBoardLink,yourApplicationsTitle) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -125,6 +126,8 @@ workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, 
     this.yes = yes;
     this.no = no;
     this.physicalEnvironment = physicalEnvironment;
+    this.dashBoardLink = dashBoardLink;
+    this.yourApplicationsTitle = yourApplicationsTitle;
 };
 
 TalentCloudAPI.pages = {
@@ -609,6 +612,10 @@ TalentCloudAPI.setContent = function(content, isManager){
         JobApplicationAPI.localizeCreateJobApplication();
         WorkEnvironmentAPI.localizeWorkEnvironment();
         
+    
+        var dashBoardLink = document.getElementById("dashBoardLink");
+        dashBoardLink.innerHTML = siteContent.dashBoardLink;
+
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
 
@@ -656,6 +663,12 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
+        
+        var dashBoardTitle = document.getElementById("dashBoardTitle");
+        dashBoardTitle.innerHTML = siteContent.dashBoardLink;
+        
+        var yourApplicationsTitle = document.getElementById("yourApplicationsTitle");
+        yourApplicationsTitle.innerHTML = siteContent.yourApplicationsTitle;
         
         var howItWorksLast = document.getElementById("howItWorksLast");
         howItWorksLast.innerHTML = siteContent.howItWorksLast;

@@ -27,13 +27,13 @@
 
     $requestParams = substr($requestURI,strlen($context));
     $user_id_param_index = 5;
-    $headers = apache_request_headers();
+    //$headers = apache_request_headers();
 
     switch ($requestMethod) {
         case 'GET':
-            
-            if(isset($headers['Authorization'])){
-                $jwt = JWTUtils::getTokenFromHeader($headers);
+           
+            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+                $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
                 
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
                 $locale = Utils::getLocaleFromRequest($requestParams);

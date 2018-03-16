@@ -9,14 +9,15 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-/*set api path*/
-set_include_path(get_include_path() . PATH_SEPARATOR);
+    
+    /*set api path*/
+    set_include_path(get_include_path() . PATH_SEPARATOR);
 
     require_once '../controller/AuthenticationController.php';
     require_once '../controller/UserController.php';
     require_once '../model/User.php';
     require_once '../utils/Utils.php';
-
+    
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
     //var_dump($requestMethod);
@@ -30,10 +31,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 
     $requestParams = substr($requestURI,strlen($context)+1);
     
-    $headers = apache_request_headers();
-    /*foreach ($headers as $header => $value) {
-        echo "$header: $value <br />\n";
-    }*/
     
     switch ($requestMethod) {
     case 'GET':
@@ -79,5 +76,4 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
         echo("");
         break;
    }
-   
    ?>
