@@ -19,7 +19,8 @@ rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDo
 readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
-createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal) {
+createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
+dashBoardLink,yourApplicationsTitle) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -117,6 +118,8 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
     this.announcement = announcement;
     this.applicantPortal = applicantPortal;
     this.adminPortal = adminPortal;
+    this.dashBoardLink = dashBoardLink;
+    this.yourApplicationsTitle = yourApplicationsTitle;
 };
 
 TalentCloudAPI.pages = {
@@ -597,6 +600,10 @@ TalentCloudAPI.setContent = function(content, isManager){
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
         
+    
+        var dashBoardLink = document.getElementById("dashBoardLink");
+        dashBoardLink.innerHTML = siteContent.dashBoardLink;
+
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
 
@@ -644,14 +651,47 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
-
+        
+        var dashBoardTitle = document.getElementById("dashBoardTitle");
+        dashBoardTitle.innerHTML = siteContent.dashBoardLink;
+        
+        var yourApplicationsTitle = document.getElementById("yourApplicationsTitle");
+        yourApplicationsTitle.innerHTML = siteContent.yourApplicationsTitle;
+        
+        var howItWorksLast = document.getElementById("howItWorksLast");
+        howItWorksLast.innerHTML = siteContent.howItWorksLast;
+        
+        var transcript = document.getElementById("transcript");
+        transcript.innerHTML = siteContent.transcript;
+        
+        var almostNeverElements = document.getElementsByClassName("option0Label");
+        for (var i = 0; i < almostNeverElements.length; i++) {
+            almostNeverElements[i].innerHTML = siteContent.almostNever;
+        }
+        
+        var rarelyElements = document.getElementsByClassName("option1Label");
+        for (var i = 0; i < rarelyElements.length; i++) {
+            rarelyElements[i].innerHTML = siteContent.rarely;
+        }
+        
+        var sometimesElements = document.getElementsByClassName("option2Label");
+        for (var i = 0; i < sometimesElements.length; i++) {
+            sometimesElements[i].innerHTML = siteContent.sometimes;
+        }
+        
+        var usuallyElements = document.getElementsByClassName("option3Label");
+        for (var i = 0; i < usuallyElements.length; i++) {
+            usuallyElements[i].innerHTML = siteContent.usually;
+        }
+        
+        var almostAlwaysElements = document.getElementsByClassName("option4Label");
+        for (var i = 0; i < almostAlwaysElements.length; i++) {
+            almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
+        }
+        
         //not working yet
         
-        //var transcript = document.getElementById("transcript");
-        //transcript.innerHTML = siteContent.transcript;
 
-        //var howItWorksLast = document.getElementById("howItWorksLast");
-        //howItWorksLast.innerHTML = siteContent.howItWorksLast;
     }
     
 };

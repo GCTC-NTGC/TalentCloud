@@ -467,7 +467,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (0000000001,'gbowden@deloitte.ca','73ba3da8dd8d8cb991487261ef51f2cb','Gregg','Bowden',1,0000000001),(0000000013,'test1234@test.com','cc03e747a6afbbcbf8be7668acfebee5',NULL,NULL,0,0000000001),(0000000014,'test@test.com','cc03e747a6afbbcbf8be7668acfebee5',NULL,NULL,0,0000000001);
+INSERT INTO `user` VALUES (0000000001,'gregg@blackchicken.ca','73ba3da8dd8d8cb991487261ef51f2cb','Gregg','Bowden',1,0000000001),(0000000013,'test1234@test.com','cc03e747a6afbbcbf8be7668acfebee5',NULL,NULL,0,0000000001),(0000000014,'test@test.com','cc03e747a6afbbcbf8be7668acfebee5',NULL,NULL,0,0000000001);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 

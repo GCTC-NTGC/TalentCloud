@@ -1,5 +1,5 @@
 RewriteEngine on
-
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 
@@ -28,7 +28,7 @@ RewriteRule ^api/v1/getJobPosterApplicationByProfileId services/JobPosterApplica
 RewriteRule ^api/v1/putJobPosterApplication services/JobPosterApplication.php
 RewriteRule ^api/v1/createJobPoster services/JobPoster.php
 
-#localized services - public
+#common localized services - public
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllJobs services/JobPosters.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getJobPoster/([0-9]{1,10}) services/JobPoster.php
@@ -39,7 +39,7 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/jobterm services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/division services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/branch services/Lookup.php
 
-#localized services - secured
+#admin localized services - secured
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/dashboard/([0-9]{1,10}) services/Dashboard.php
 
 #Require all granted

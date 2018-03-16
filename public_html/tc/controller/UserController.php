@@ -70,7 +70,9 @@ class UserController{
     public static function updateUser(User $updatedUser) {
         $updateSuccessful = false;
         $confEmailSent = false;
-        $oldUser = UserController::getUserById($updatedUser->getUser_id());
+        $oldUser = new User();
+        $oldUser->setUser_id($updatedUser->getUser_id());
+        $oldUser = UserController::getUserById($oldUser);
         //Only update if user with this id already exists
         if ($oldUser) {
             //Confirm email if it has changed
@@ -84,7 +86,7 @@ class UserController{
         }
         return array("userUpdated"=>$updateSuccessful,
             "oldUser"=>$oldUser,
-            "updatedUser"=>UserController::getUserById($updatedUser->getUser_id()),
+            "updatedUser"=>UserController::getUserById($updatedUser),
             "confEmailSent"=>$confEmailSent);   
     }
 }

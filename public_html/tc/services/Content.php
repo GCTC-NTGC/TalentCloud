@@ -21,6 +21,7 @@
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=utf-8");
     
+    //$headers = apache_request_headers();
     $context = '/';
 
     $requestParams = substr($requestURI,strlen($context));

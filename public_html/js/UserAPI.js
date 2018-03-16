@@ -654,6 +654,8 @@ UserAPI.clearFormFields = function (formId) {
 };
 
 UserAPI.updateUser = function(user, updateUserCallback) {
+    var authToken = UserAPI.getAuthToken();
+    
     Utilities.debug?console.log("updating user"):null;
     var updateUser_url = UserAPI.baseURL+"/user/update/";
     var jsonData=JSON.stringify(user);
@@ -681,6 +683,7 @@ UserAPI.updateUser = function(user, updateUserCallback) {
 
     updateUser_xhr.open('PUT',updateUser_url);
     updateUser_xhr.setRequestHeader("Content-Type","application/json");
+    updateUser_xhr.setRequestHeader("Authorization", "Bearer " + authToken);
     
     //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
     //updateUser_xhr.addEventListener("error",DataAPI.transferFailed,false);

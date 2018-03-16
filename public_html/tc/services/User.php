@@ -17,7 +17,6 @@ require_once '../model/User.php';
 require_once '../utils/Utils.php';
 require_once '../utils/JWTUtils.php';
 
-
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
 $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
 
@@ -27,12 +26,12 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
     $requestParams = substr($requestURI,strlen($context));
     $user_id_param_index = 4;
     //var_dump($requestParams);
-    $headers = apache_request_headers();
+    //$headers = apache_request_headers();
     switch ($requestMethod) {
         case 'GET':
 
-            if(isset($headers['Authorization'])){
-                $jwt = JWTUtils::getTokenFromHeader($headers);
+            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+                $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
                 
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
             
@@ -107,21 +106,49 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
             break;
         case 'PUT':
             $jsonBody = file_get_contents('php://input');
+            
+            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+                $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
+                if(strlen($requestParams) > 1){
+                    if(strlen($jsonBody) > 0){
+                        $userJson = json_decode($jsonBody, TRUE);
+                        
+                        $updatedUser = new User();
+                        $updatedUser->setUser_id($userJson['user_id']);
+                        $updatedUser->setEmail($userJson['email']);
+                        $updatedUser->setPassword($userJson['password']);
+                        $updatedUser->setFirstname($userJson['firstname']);
+                        $updatedUser->setLastname($userJson['lastname']);
+                        $updatedUser->setUser_role($userJson['user_role']);   
+                        
+                        if(JWTUtils::validateJWT($jwt, $updatedUser)){                            
+                            $result = UserController::updateUser($updatedUser);
+                            $json = json_encode($result, JSON_PRETTY_PRINT);                            
+                            echo($json);                            
+                        }else{
+                            header('HTTP/1.0 401 Unauthorized');
+                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
+                            exit;
+                        }
+                    }else{
+                        header('HTTP/1.0 401 Unauthorized');
+                        echo json_encode(array("failed"=>"No user id provided"),JSON_FORCE_OBJECT);
+                        exit;
+                    }
+                }else{
+                    header('HTTP/1.0 401 Unauthorized');
+                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
+                    exit;
+                }
+            }else{
+                header('HTTP/1.0 401 Unauthorized');
+                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
+                exit;
+            }
+            
             //TODO: check authaurization
             if(strlen($jsonBody) > 1){
-                $userJson = json_decode($jsonBody, TRUE);
-
-                $updatedUser = new User();
-                $updatedUser->setUser_id($userJson['user_id']);
-                $updatedUser->setEmail($userJson['email']);
-                $updatedUser->setPassword($userJson['password']);
-                $updatedUser->setFirstname($userJson['firstname']);
-                $updatedUser->setLastname($userJson['lastname']);
-                $updatedUser->setUser_role($userJson['user_role']);
-
-                $result = UserController::updateUser($updatedUser);
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                
             }else{
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Authorization declined';
