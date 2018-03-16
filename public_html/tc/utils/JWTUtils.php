@@ -57,7 +57,6 @@ class JWTUtils {
     public static function getPayloadFromToken($jwt){
         
         $jwt_elements = explode('.', $jwt);
-        
         $payload = json_decode(Utils::base64url_decode($jwt_elements[1]),TRUE);
         //var_dump($payload);
         return $payload;
@@ -128,6 +127,21 @@ class JWTUtils {
         $token = null;
         if (!empty($headers)) {
             if (preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $token)) {
+                return $token[1];
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * 
+     * @param string $authHeader
+     * @return string
+     */
+    public static function getTokenFromAuthHeader($authHeader){
+        $token = null;
+        if (!empty($authHeader)) {
+            if (preg_match('/Bearer\s(\S+)/', $authHeader, $token)) {
                 return $token[1];
             }
         }

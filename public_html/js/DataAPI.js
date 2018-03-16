@@ -632,8 +632,8 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
     if (!headersMap['Accept'])
         request.setRequestHeader("Accept", "application/json");
     if (UserAPI.hasSessionUser()) {
-        authToken = UserAPI.getAuthTokenAsJSON();
-        request.setRequestHeader('x-access-token', authToken.access_token);
+        var authToken = UserAPI.getAuthToken();
+        request.setRequestHeader("Authorization", "Bearer " + authToken);
     }
     Object.keys(headersMap).forEach(function(key) {
         request.setRequestHeader(key, headersMap[key]);
