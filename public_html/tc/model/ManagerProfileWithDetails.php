@@ -10,10 +10,12 @@ class ManagerProfileWithDetails implements JsonSerializable{
     
     private $manager_profile;
     private $manager_profile_details;
+    private $user;
     
-    public function __construct($manager_profile = null,$manager_profile_details = null) {
+    public function __construct($manager_profile = null,$manager_profile_details = null, $user = null) {
         $this->manager_profile = $manager_profile;
         $this->manager_profile_details = $manager_profile_details;
+        $this->user = $user;
     }
 
     public function jsonSerialize() {
@@ -41,6 +43,14 @@ class ManagerProfileWithDetails implements JsonSerializable{
 
     public function setManager_profile_details($manager_profile_details) {
         $this->manager_profile_details = $manager_profile_details;
+    }
+
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function setUser($user) {
+        $this->user = $user;
     }
 
 

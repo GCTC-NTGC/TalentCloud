@@ -282,7 +282,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     
     //Load Hiring Manager Name
     DataAPI.getUser(job.manager_user_id, function(response) {
-       var managerUser = UserAPI.parseUserResponse(response);
+       var managerUser = JSON.parse(response);
        hiringManagerLabel.innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
     });
     
