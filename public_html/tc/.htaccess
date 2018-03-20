@@ -11,8 +11,8 @@ RewriteRule ^api/v1/user/register services/User.php
 RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
 RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
 RewriteRule ^api/v1/getManagerProfile/([0-9]{1,10}) services/ManagerProfile.php
-RewriteRule ^api/v1/putWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
-RewriteRule ^api/v1/putWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
+RewriteRule ^api/v1/getWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
+RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 
 #non localized services - secured
 RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
@@ -29,8 +29,8 @@ RewriteRule ^api/v1/postJobApplication services/JobApplication.php
 RewriteRule ^api/v1/getJobPosterApplicationByProfileId services/JobPosterApplication.php
 RewriteRule ^api/v1/putJobPosterApplication services/JobPosterApplication.php
 RewriteRule ^api/v1/createJobPoster services/JobPoster.php
-RewriteRule ^api/v1/getWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
-RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
+RewriteRule ^api/v1/putWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
+RewriteRule ^api/v1/putWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 
 
 #common localized services - public
