@@ -26,7 +26,7 @@ Below is a list of the technologies we're using and why we're using them. Have a
 
 #### Autoprefixer
 
-[Autoprefixer](https://github.com/postcss/autoprefixer) does the incredible magic of adding browser prefixers to our CSS for us! This includes prefixes such as `-webkit-` and `-moz-`.
+[Autoprefixer](https://github.com/postcss/autoprefixer) does the incredible magic of adding browser prefixes to our CSS for us! This includes prefixes such as `-webkit-` and `-moz-`.
 
 #### CSSnano
 
@@ -54,9 +54,9 @@ A practical example: `.hero__overlay--blue`
 
 Getting started with our front-end stack is surprisingly easy. Just follow these steps:
 * [Install Node.JS](https://nodejs.org/en/download/)
-* In Terminal/Command Prompt, `cd public_html`
+* In Terminal/Command Prompt, `cd dev\htdocs\GCTC-NTGC\TalentCloud\public_html`
 * In Terminal/Command Prompt, run `npm install`
-* In Terminal/Comman Prompt, run `gulp`
+* In Terminal/Command Prompt, run `gulp`
 * In your text editor, save a `.scss` file and watch the magic!
 
 When you are working with CSS, **DO NOT** edit the contents of `css\compiled` or `css\optimized` as your changes will be overwritten.
