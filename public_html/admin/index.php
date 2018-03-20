@@ -15,7 +15,7 @@ and open the template in the editor .
     <body>
         <ul id="wb-tphp">
             <li class="wb-slc">
-                <a class="wb-sl" href="#jobs">Skip to available jobs</a>
+                <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
             </li>
         </ul>
         <div class="announcement-banner">
@@ -169,6 +169,7 @@ and open the template in the editor .
                     <div class="fileUpload">
                         <div class="leftPane">
                             <div>
+                                <label for="profilePicUploadField">Profile picture</label>
                                 <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                             </div>
                             <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
@@ -337,7 +338,7 @@ and open the template in the editor .
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="createEditProfile_branch">
+                                                        <label for="createEditProfile_position">
                                                             <span id="createEditProfile_position_label">Position</span>
                                                             <strong id="createEditProfile_position_error" class="error hidden">
                                                                 <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
@@ -814,20 +815,23 @@ and open the template in the editor .
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
                                                                 <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <label for="workplace_photo_input_1">Image 1</label>
                                                                 <input type="file" id="workplace_photo_input_1" class="fileInput" name="Workplace Photo 1" accept="image/*" /><br>
-                                                                <label for="workplace_photo_input_1">Description:</label>
-                                                                <input id="workplace_photo_caption_1" type="text" name="workplace workplace_photo_caption_1"/>
+                                                                <label for="workplace_photo_caption_1">Description 1: </label>
+                                                                <input id="workplace_photo_caption_1" type="text" name="workplace_photo_caption_1"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
                                                                 <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <label for="workplace_photo_input_2">Image 2</label>
                                                                 <input type="file" id="workplace_photo_input_2" class="fileInput" name="Workplace Photo 2" accept="image/*" /><br>
-                                                                <label for="workplace_photo_input_2">Description:</label>
+                                                                <label for="workplace_photo_caption_2">Description 2: </label>
                                                                 <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
                                                                 <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <label for="workplace_photo_input_3">Image 3</label>
                                                                 <input type="file" id="workplace_photo_input_3" class="fileInput" name="Workplace Photo 3" accept="image/*" /><br>
-                                                                <label for="workplace_photo_input_3">Description:</label>
+                                                                <label for="workplace_photo_caption_3">Description 3: </label>
                                                                 <input id="workplace_photo_caption_3" type="text" name="workplace_photo_caption_3"/>
                                                             </div>
                                                         </div>
