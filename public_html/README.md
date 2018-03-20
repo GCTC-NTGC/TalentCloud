@@ -34,7 +34,9 @@ Below is a list of the technologies we're using and why we're using them. Have a
 
 ### File Structure: Atoms, Molecules, Organisms
 
-In order to keep our code concise and reusable, our CSS files will be structured using atoms, molecules, and organisms. This is reflected in the file structure found under the `scss` folder. Thanks to SASS and the ability to import CSS files, we can create:
+In order to keep our code concise and reusable, our CSS files will be structured using atoms, molecules, and organisms. This is reflected in the file structure found under the `scss` folder. `app.scss` is our primary CSS file to be compiled. This file should import all unique Organisms, as well as Molecules and Atoms that are not included elsewhere.
+
+Thanks to SASS and the ability to import CSS files, we can create:
 * **Atoms**: the most basic CSS building block - think of Atoms as individual components that can be reused throughout the project (e.g. a button).
 * **Molecules**: Molecules are files that collect Atoms together to form a small reusable structure - an example of a Molecule would be a group of buttons.
 * **Organisms**: the most complex components, organisms can import multiple Atoms and Molecules to form a coherent section on the project. This could range from a Navigation to a Hero element.
