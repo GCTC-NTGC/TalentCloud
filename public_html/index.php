@@ -244,6 +244,7 @@ and open the template in the editor .
                 <div class="fileUpload">
                     <div class="leftPane">
                         <div>
+                            <label for="profilePicUploadField">Profile picture</label>
                             <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                         </div>
                         <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
@@ -331,7 +332,6 @@ and open the template in the editor .
                 <div class="container">
                     <h2 class="section--title" id="howItWorksHeading">How It Works</h2>
                         <p id="howItWorksLead">GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.</p>
-                        <!--<div id="howItWorksMainHtml"></div>-->
                         <ul class="icon-list">
                                 <li class="item">
                                         <span class="item-icon"><i class="fa fa-map-signs fa-fw"></i></span>
@@ -444,7 +444,7 @@ and open the template in the editor .
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
                 <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-                <h2 id="jobPosterTitle"></h2>
+                <h2 id="jobPosterTitle">Job Title</h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
@@ -792,7 +792,7 @@ and open the template in the editor .
             <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
             <div class="container centered">
                 <p id="createJobApplicationPositionLabel">for the position of:</p>
-                <h3 id="createJobApplicationPostition"></h3>
+                <h3 id="createJobApplicationPostition">Job title</h3>
             </div>
             <input type='hidden' id='createJobApplicationJobApplicationId' />
             <input type='hidden' id='createJobApplicationJobPosterId' />
@@ -829,7 +829,7 @@ and open the template in the editor .
                     <p id="createJobApplicationConfirmationPositionLabel">
                         You have applied for the position of:
                     </p>
-                    <h3 id="createJobApplicationConfirmationPostition"></h3>
+                    <h3 id="createJobApplicationConfirmationPostition">Job title</h3>
                     <p id="createJobApplicationConfirmationTrackingReminder">
                         Track the application from your Dashboard.
                     </p>
