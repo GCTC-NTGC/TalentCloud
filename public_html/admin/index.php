@@ -860,6 +860,41 @@ and open the template in the editor .
                                         </div>
                                         <div class="stepGroupForm">
                                             <h3>Team Culture</h3>
+                                            <div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_teamSize">
+                                                        <span id="createEditProfile_teamSize_label">What is the size of the team?</span>
+                                                        <strong id="createEditProfile_teamSize_error" class="error hidden">
+                                                            <span id="createEditProfile_teamSize_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control" name="createEditProfile_teamSize" id="createEditProfile_teamSize"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_gcDirLink">
+                                                        <span id="createEditProfile_gcDirLink_label">Link to the team in GC Directory</span>
+                                                        <strong id="createEditProfile_gcDirLink_error" class="error hidden">
+                                                            <span id="createEditProfile_gcDirLink_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control full-width" name="createEditProfile_gcDirLink" id="createEditProfile_gcDirLink"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_teamNarrative">
+                                                        <span id="createEditProfile_teamNarrative_label">Tell us what makes your team unique. What are your team's vision, values, and expectations?</span>
+                                                        <strong id="createEditProfile_teamNarrative_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative" id="createEditProfile_teamNarrative"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="createEditProfileSubmitPane">
                                             <div class="formGroup insert"></div>
