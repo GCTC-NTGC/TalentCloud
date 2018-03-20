@@ -348,6 +348,8 @@ CreateEditProfileAPI.validateStep3 = function() {
         //console.log(CreateEditProfileAPI.managerProfileObj);
         //submitForm();
         CreateEditProfileAPI.updateManagerProfileWithDetails();
+        
+        CreateWorkEnvironmentAPI.saveWorkEnvironment(document.getElementById("ManagerProfileId").value);
     }
 };
 
@@ -966,6 +968,10 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
     manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
     manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
+    
+    
+    //Initialize Work Environment
+    CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
 
 
     //set hidden field values
@@ -1059,6 +1065,10 @@ CreateEditProfileAPI.populateProfile = function(response){
     SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details.user_manager_profile_devops, 'devops');
     
     SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details.user_manager_profile_telework, 'telework');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details.user_manager_profile_flexHours, 'flexHours');
     
     var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
     user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;

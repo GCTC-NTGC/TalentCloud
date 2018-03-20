@@ -22,5 +22,14 @@ var SliderAPI = {
                 slider.className = 'option'+g;
             }
         }
+    },
+    toggle : function (elemId, optionNum) {
+        var bgcolor = document.getElementById(elemId);
+
+        if (optionNum == 0) {
+            bgcolor.setAttribute("class", "left");
+        } else {
+            bgcolor.setAttribute("class", "right");
+        }
     }
 };

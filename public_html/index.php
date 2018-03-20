@@ -244,6 +244,7 @@ and open the template in the editor .
                 <div class="fileUpload">
                     <div class="leftPane">
                         <div>
+                            <label for="profilePicUploadField">Profile picture</label>
                             <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                         </div>
                         <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
@@ -331,7 +332,6 @@ and open the template in the editor .
                 <div class="container">
                     <h2 class="section--title" id="howItWorksHeading">How It Works</h2>
                         <p id="howItWorksLead">GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.</p>
-                        <!--<div id="howItWorksMainHtml"></div>-->
                         <ul class="icon-list">
                                 <li class="item">
                                         <span class="item-icon"><i class="fa fa-map-signs fa-fw"></i></span>
@@ -444,7 +444,7 @@ and open the template in the editor .
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
                 <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-                <h2 id="jobPosterTitle"></h2>
+                <h2 id="jobPosterTitle">Job Title</h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
@@ -523,11 +523,25 @@ and open the template in the editor .
                                 </button>
                             </div>
                         </div>
-                        
-                    </div> 
+                    </div>
                 </div>
             </section>
-            
+            <section class='jobPosterSection'>
+                <div class="container">
+                    <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
+                    <div class="workEnvironmentAnswerWrapper">
+                        <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
+                        <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
+                        <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+                    </div>
+                    <div class="workEnvironmentSummaryWrapper">  
+                        <div id='workEnvironmentSummaryImagesWrapper'>
+                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
+                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
+                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
+                        </div>
+                    </div>
+            </section>
 
             <div id="jobPosterButtonWrapper">
                 <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
@@ -778,7 +792,7 @@ and open the template in the editor .
             <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
             <div class="container centered">
                 <p id="createJobApplicationPositionLabel">for the position of:</p>
-                <h3 id="createJobApplicationPostition"></h3>
+                <h3 id="createJobApplicationPostition">Job title</h3>
             </div>
             <input type='hidden' id='createJobApplicationJobApplicationId' />
             <input type='hidden' id='createJobApplicationJobPosterId' />
@@ -815,7 +829,7 @@ and open the template in the editor .
                     <p id="createJobApplicationConfirmationPositionLabel">
                         You have applied for the position of:
                     </p>
-                    <h3 id="createJobApplicationConfirmationPostition"></h3>
+                    <h3 id="createJobApplicationConfirmationPostition">Job title</h3>
                     <p id="createJobApplicationConfirmationTrackingReminder">
                         Track the application from your Dashboard.
                     </p>
