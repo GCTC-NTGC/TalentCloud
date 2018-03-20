@@ -22,6 +22,7 @@
 .block__element--modifier {
   appearance: none;
   border-radius: 3px;
+  color: blue;
   display: block;
   grid-template-rows: 1fr 1fr; }
 
