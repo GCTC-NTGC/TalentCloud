@@ -16,7 +16,7 @@ Below is a list of the technologies we're using and why we're using them. Have a
 
 [Gulp Notify](https://github.com/mikaelbr/gulp-notify) is a process used to display notifications on your desktop. These notifications are set up to tell you if your CSS is compiling successfully or if there is an error.
 
-Curious about how Gulp handles tasks? Checkout `gulpfile.js` in this folder. If the comments in that file don't make sense, let Josh know!
+Curious about how Gulp handles tasks? Check out `gulpfile.js` in this folder. If the comments in that file don't make sense, let Josh know!
 
 #### SASS (SCSS)
 

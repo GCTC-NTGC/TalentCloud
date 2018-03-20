@@ -21,8 +21,8 @@ function swallowError (error) {
     var errorCopy = error.toString();
     // Spits out the Error Notification.
     notifier.notify({
-        title: 'Uh oh, something broke! 💀',
-        message: 'Check your console for what went wrong!',
+        title: 'Uh oh, something went wrong! 💀',
+        message: 'Check your console for more information on the error!',
         icon: ''
     });
     // Logs the error details to the console.
