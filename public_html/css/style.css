@@ -1349,14 +1349,21 @@ div label span{
     color:#ff0000;
 }
 
+#dashboardSection #yourApplications{
+    width:95%;
+    margin:0px auto;
+    text-align: center;
+}
+
 /*Applicant Dashboard Styles*/
 #dashboardSection .dashboardJobSummary {
     font-size: 100% !important;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     font-size:1.3rem;
-    line-height: 3.5rem;
+    line-height: 2.5rem;
     margin:0;
+    text-align: left;
 }
 
 .dashBoardHiringManagerWrapper {
@@ -1373,7 +1380,7 @@ div label span{
     font-size: 100%;
     font-size: 1.5em;
     color: #000;
-    line-height: 1.5em;
+    line-height: 2.5em;
     text-align: left;
     display:inline;
 
@@ -1383,7 +1390,7 @@ div label span{
     font-size: 100%;
     font-size: 1.5em;
     color: #000;
-    line-height: 1.5em;
+    line-height: 2.5em;
     display:inline;
 }
 
@@ -1404,6 +1411,7 @@ div label span{
 #dashboardSection .dashboardJobSubmitted{
     width:25%;
     display:inline-block;
+    color:#999;
 }
 
 #dashboardSection .dashboardJobStatus{
@@ -1411,4 +1419,5 @@ div label span{
     font-size: 1.5em;
     margin:0;
     text-align: right;
+    color:#999;
 }
