@@ -887,15 +887,26 @@ and open the template in the editor .
                                                         <input type="text" class="form-control full-width" name="createEditProfile_gcDirLink" id="createEditProfile_gcDirLink"/>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="createEditProfile_teamNarrative">
-                                                        <span id="createEditProfile_teamNarrative_label">Tell us what makes your team unique. What are your team's vision, values, and expectations?</span>
-                                                        <strong id="createEditProfile_teamNarrative_error" class="error hidden">
-                                                            <span id="createEditProfile_teamNarrative_error_msg" class="label label-danger"></span>
+                                                <div class="form-group leftPane">
+                                                    <label for="createEditProfile_teamNarrative_en">
+                                                        <span id="createEditProfile_teamNarrative_en_label">Tell us what makes your team unique. What are your team's vision, values, and expectations?</span>
+                                                        <strong id="createEditProfile_teamNarrative_en_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_en_error_msg" class="label label-danger"></span>
                                                         </strong>
                                                     </label>
                                                     <div>
-                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative" id="createEditProfile_teamNarrative"></textarea>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative_en" id="createEditProfile_teamNarrative_en"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group rightPane">
+                                                    <label for="createEditProfile_teamNarrative_fr">
+                                                        <span id="createEditProfile_teamNarrative_fr_label">Dites-nous ce qui rend votre équipe unique. Quelles sont la vision, les valeurs et les attentes de votre équipe?</span>
+                                                        <strong id="createEditProfile_teamNarrative_fr_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_fr_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative_fr" id="createEditProfile_teamNarrative_fr"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

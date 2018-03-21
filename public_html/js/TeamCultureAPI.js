@@ -35,7 +35,7 @@ TeamCultureAPI.populateTeamCultureSummary = function(teamCulture) {
 };
 
 TeamCultureAPI.getTeamCulture = function(managerProfileId, responseCallback) {
-    var url = TeamCultureAPI.baseURL + '/getTeamCultureByManagerProfile/' + managerProfileId;
+    var url = TeamCultureAPI.baseURL + '/' + TalentCloudAPI.getLanguageFromCookie() + '/getTeamCultureByManagerProfile/' + managerProfileId;
     TeamCultureAPI.sendHttpRequest(url, 'GET', null, responseCallback);
 };
 

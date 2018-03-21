@@ -15,6 +15,7 @@
     require_once '../controller/TeamCultureController.php';
     require_once '../controller/UserController.php';
     require_once '../model/TeamCulture.php';
+    require_once '../model/TeamCultureNonLocalized.php';
     require_once '../utils/Utils.php';
     require_once '../utils/JWTUtils.php';
 
@@ -31,9 +32,10 @@
     switch ($requestMethod) {
         case 'GET':
             if(strlen($requestParams) > 1){
-                $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
+                $locale = Utils::getLocaleFromRequest($requestParams);
+                $managerProfileId = Utils::getParameterFromRequest($requestParams, 5);
                 
-                $result = TeamCultureController::getTeamCultureByManagerProfileId($managerProfileId);
+                $result = TeamCultureController::getTeamCultureByManagerProfileId($managerProfileId, $locale);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
@@ -49,55 +51,12 @@
             //Here Handle DELETE Request 
             break;
         case 'PUT':            
-            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
-                $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
-            
-                if(strlen($requestParams) > 1){
-                    
-                    $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
-
-                    if(strlen($managerProfileId) > 0){
-
-                        $user = UserController::getUserByManagerProfileId($managerProfileId);
-
-                        if(JWTUtils::validateJWT($jwt, $user)){  
-                            $json = json_decode(file_get_contents('php://input'), TRUE);
-
-                            $teamCulture = new TeamCulture();
-                            $teamCulture->setTeam_size($json['team_size']);
-                            $teamCulture->setGc_directory_url($json['gc_directory_url']);
-                            $teamCulture->setNarrative_text($json['narrative_text']);
-                           
-                            $result = TeamCultureController::setTeamCultureByManagerProfileId($teamCulture, $managerProfileId);
-                            $resultJson = json_encode($result, JSON_PRETTY_PRINT);
-                            echo($resultJson);                
-                            
-                        }else{
-                            header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
-                            exit;
-                        }
-
-                    }else{
-                        header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No manager profile id provided"),JSON_FORCE_OBJECT);
-                        exit;
-                    }
-                }else{
-                    header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
-                    exit;
-                }
-            }else{
-                header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
-                exit;
-            }
+ 
             break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: PUT, GET");
+            header("Access-Control-Allow-Methods: GET");
             echo("");
             break;
     }
