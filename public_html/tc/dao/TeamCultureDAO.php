@@ -66,10 +66,13 @@ class TeamCultureDAO extends BaseDAO {
         
         $teamCultureId = 0;
         try {
-            $sql1->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $link->beginTransaction();
+            $sql1->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $teamCultureId = $link->lastInsertId();
-            $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql3->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql2->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql3->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sqlDetails->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $link->commit();
             
         } catch (PDOException $e) {
             BaseDAO::closeConnection($link);
@@ -122,7 +125,7 @@ class TeamCultureDAO extends BaseDAO {
         
         $rowsModified = 0;
         try {
-            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $rowsModified = $sql->rowCount();
             
         } catch (PDOException $e) {
@@ -163,7 +166,7 @@ class TeamCultureDAO extends BaseDAO {
         $sql->bindValue(":locale", $locale, PDO::PARAM_STR);
         
         try {
-            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'TeamCulture');
             $teamCulture = $sql->fetch();   
             
@@ -212,7 +215,7 @@ class TeamCultureDAO extends BaseDAO {
         $sql->bindValue(":fr_iso", "fr_CA", PDO::PARAM_STR);
         
         try {
-            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'TeamCultureNonLocalized');
             $teamCulture = $sql->fetch();   
             
