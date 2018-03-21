@@ -62,7 +62,7 @@ Getting started with our front-end stack is surprisingly easy. Just follow these
     * Windows: Run Command Prompt as Admin
     * Mac: Begin the command with `sudo`
 * **Temporary:** Make sure you've checked out the `SASS` branch.
-* In Terminal/Command Prompt, `cd dev\htdocs\GCTC-NTGC\TalentCloud\public_html`
+* In Terminal/Command Prompt, run `cd dev\htdocs\GCTC-NTGC\TalentCloud\public_html`
 * In Terminal/Command Prompt, run `npm install`
 * In Terminal/Command Prompt, run `gulp`
 * In your text editor, save a `.scss` file in the `dev\htdocs\GCTC-NTGC\TalentCloud\public_html\scss` folder and watch the magic!
