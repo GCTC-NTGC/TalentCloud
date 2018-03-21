@@ -58,10 +58,11 @@ A practical example: `.hero__overlay--blue`
 
 Getting started with our front-end stack is surprisingly easy. Just follow these steps:
 * [Install Node.JS](https://nodejs.org/en/download/)
+* Make sure you've checked out the `SASS` branch.
 * In Terminal/Command Prompt, `cd dev\htdocs\GCTC-NTGC\TalentCloud\public_html`
 * In Terminal/Command Prompt, run `npm install`
 * In Terminal/Command Prompt, run `gulp`
-* In your text editor, save a `.scss` file and watch the magic!
+* In your text editor, save a `.scss` file in the `dev\htdocs\GCTC-NTGC\TalentCloud\public_html\scss` folder and watch the magic!
 
 When you are working with CSS, **DO NOT** edit the contents of `css\compiled` or `css\optimized` as your changes will be overwritten.
 
