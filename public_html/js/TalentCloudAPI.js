@@ -216,9 +216,9 @@ TalentCloudAPI.load = function(){
     var adminView = false;
     var location = document.location.hash;
     //console.log(location);
-    event.preventDefault();
+    //event.preventDefault();
     location_elements = location.split('\/');
-    //console.log(location_elements[0]);
+    console.log(location_elements[0]);
     data = location_elements[1];
     //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
     if(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin) > -1) {
