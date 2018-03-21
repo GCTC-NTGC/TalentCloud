@@ -21,7 +21,8 @@ logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contri
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
-dashBoardLink,yourApplicationsTitle) {
+dashBoardLink,yourApplicationsTitle,
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -128,6 +129,12 @@ dashBoardLink,yourApplicationsTitle) {
     this.physicalEnvironment = physicalEnvironment;
     this.dashBoardLink = dashBoardLink;
     this.yourApplicationsTitle = yourApplicationsTitle;
+    this.teamCulture = teamCulture;
+    this.teamSize = teamSize;
+    this.gcDirectoryLink = gcDirectoryLink;
+    this.teamSizePrompt = teamSizePrompt;
+    this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
+    this.teamNarrativePrompt = teamNarrativePrompt;
 };
 
 TalentCloudAPI.pages = {
@@ -492,6 +499,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         console.log(isManager);
         
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
+        EditTeamCultureAPI.localizeEditTeamCulture();
         
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
@@ -611,7 +619,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
         WorkEnvironmentAPI.localizeWorkEnvironment();
-        
+        TeamCultureAPI.localizeTeamCulture();        
     
         var dashBoardLink = document.getElementById("dashBoardLink");
         dashBoardLink.innerHTML = siteContent.dashBoardLink;

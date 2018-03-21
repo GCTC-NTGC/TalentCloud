@@ -297,13 +297,15 @@ and open the template in the editor .
                                     <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                        <div class="four-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
-                                        <div class="four-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
-                                        <div class="four-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
-                                        <div class="four-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
+                                        <div class="five-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
+                                        <div class="five-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
+                                        <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
+                                        <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>                                                
+                                        <div class="five-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
@@ -489,16 +491,18 @@ and open the template in the editor .
                                     <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_2">Step 1</span></div>
-                                                <div class="four-step-tab tab-current"><span id="createEditProfileStep2Label_2">Step 2</span></div>
-                                                <div class="four-step-tab"><span id="createEditProfileWorkEnvironmentLabel_2">Work Environment</span></div>
-                                                <div class="four-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep1Label_2">About</span></div>
+                                                <div class="five-step-tab tab-current"><span id="createEditProfileStep2Label_2">Leadership</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_2">Work Environment</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_2">Team Culture</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>                                                
+                                                <div class="steptab inactive"> </div>  
+                                                <div class="steptab inactive"> </div> 
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
@@ -730,15 +734,17 @@ and open the template in the editor .
                                     <div id="createEditProfile_workEnvironment" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
-                                                <div class="four-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
-                                                <div class="four-step-tab tab-current"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></div>
-                                                <div class="four-step-tab"><span id="createEditProfileStep3Label_3">Review</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_WE">Step 1</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep2Label_WE">Step 2</span></div>
+                                                <div class="four-step-tab tab-current"><span id="createEditProfileWorkEnvironmentLabel_WE">Work Environment</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_WE">Team Culture</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep3Label_WE">Review</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                             </div>
                                         </div>
@@ -835,19 +841,95 @@ and open the template in the editor .
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
                                                     <input type="button" id="createEditProfile_goToStep2_2" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');">
-                                                    <input id="createEditProfile_goToStep3_1" type="button" value="Go to Step 3" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')">
+                                                    <input id="createEditProfile_goToTeamCulture_1" type="button" value="Go to Team Culture" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')">
                                                 </div>
                                             </div>
                                         </div>
+                                    <div id="createEditProfile_teamCulture" class="stepGroup_createEditProfile hidden">
+                                        <div class="tabsWrapper">
+                                            <div class="tabsSteps">
+                                                <div class="five-step-tab"><span id="createEditProfileStep1Label_TC">About</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep2Label_TC">Leadership</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_TC">Work Environment</span></div>
+                                                <div class="five-step-tab tab-current"><span id="createEditProfileTeamCultureLabel_TC">Team Culture</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep3Label_TC">Review</span></div>
+                                            </div>
+                                            <div class="tabs">
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="stepGroupForm">
+                                            <h3 id="createEditProfile_teamCultureTitle">Team Culture</h3>
+                                            <div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_teamSize">
+                                                        <span id="createEditProfile_teamSize_label">What is the size of the team?</span>
+                                                        <strong id="createEditProfile_teamSize_error" class="error hidden">
+                                                            <span id="createEditProfile_teamSize_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control" name="createEditProfile_teamSize" id="createEditProfile_teamSize"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_gcDirLink">
+                                                        <span id="createEditProfile_gcDirLink_label">Link to the team in GC Directory</span>
+                                                        <strong id="createEditProfile_gcDirLink_error" class="error hidden">
+                                                            <span id="createEditProfile_gcDirLink_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control full-width" name="createEditProfile_gcDirLink" id="createEditProfile_gcDirLink"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group leftPane">
+                                                    <label for="createEditProfile_teamNarrative_en">
+                                                        <span id="createEditProfile_teamNarrative_en_label">Tell us what makes your team unique. What are your team's vision, values, and expectations?</span>
+                                                        <strong id="createEditProfile_teamNarrative_en_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_en_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative_en" id="createEditProfile_teamNarrative_en"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group rightPane">
+                                                    <label for="createEditProfile_teamNarrative_fr">
+                                                        <span id="createEditProfile_teamNarrative_fr_label">Dites-nous ce qui rend votre équipe unique. Quelles sont la vision, les valeurs et les attentes de votre équipe?</span>
+                                                        <strong id="createEditProfile_teamNarrative_fr_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_fr_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative_fr" id="createEditProfile_teamNarrative_fr"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="createEditProfileSubmitPane">
+                                            <div class="formGroup insert"></div>
+                                            <div class="formGroup">
+                                                <input type="button" id="createEditProfile_goToWorkEnvironment_2" value="Go to Work Environment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
+                                                <input id="createEditProfile_goToStep3_1" type="button" value="Go to Step 3" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
-                                                <div class="four-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
-                                                <div class="four-step-tab"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></div>
-                                                <div class="four-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep1Label_3">About</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep2Label_3">Leadership</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></div>
+                                                <div class="five-step-tab "><span id="createEditProfileTeamCultureLabel_3">Team Culture</span></div>
+                                                <div class="five-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
                                             </div>
                                             <div class="tabs">
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
@@ -884,7 +966,7 @@ and open the template in the editor .
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
-                                                    <input type="button" id="createEditProfile_goToWorkEnvironment_2" value="Go to Work Environment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
+                                                    <input id="createEditProfile_goToTeamCulture_2" type="button" value="Go to Team Culture" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')">
                                                     <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();">
                                                 </div>
                                             </div>
