@@ -62,11 +62,11 @@ WorkEnvironmentAPI.localizeWorkEnvironment = function() {
     }
 };
 
-WorkEnvironmentAPI.showWorkEnvironment = function(managerProfileId) {
+WorkEnvironmentAPI.loadWorkEnvironmentSummary = function(managerProfileId) {
     //Fill text fields
     DataAPI.getWorkplaceEnvironment(managerProfileId, function(response) {
         var workEnv = WorkEnvironmentAPI.parseWorkEnvironmentResponse(response);
-        WorkEnvironmentAPI.populateWorkEnvironment(workEnv);
+        WorkEnvironmentAPI.populateWorkEnvironmentSummary(workEnv);
     })
     //Download photos
     for (photoName in WorkEnvironmentAPI.photoNameToImgElementId) {
@@ -79,7 +79,7 @@ WorkEnvironmentAPI.showWorkEnvironment = function(managerProfileId) {
  * @param {WorkEnvironment.WorkEnvironment} workEnvironment
  * @return {undefined}
  */
-WorkEnvironmentAPI.populateWorkEnvironment = function(workEnvironment) {
+WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
     
     var toggleValueText = {'option0':siteContent.yes, 'option1':siteContent.no};
     var sliderValueText = {'option0':siteContent.almostNever,'option1':siteContent.rarely,'option2':siteContent.sometimes,'option3':siteContent.usually,'option4':siteContent.almostAlways};

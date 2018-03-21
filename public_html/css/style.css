@@ -263,6 +263,10 @@ nav{
     clear: both;
 }
 
+.blue-highlight-text {
+    color: #2196F3;
+}
+
 .flexContainerVerticallyCentered {
     display: flex;
     align-items: center;
