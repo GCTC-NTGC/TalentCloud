@@ -283,7 +283,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     //Load Hiring Manager Name
     DataAPI.getUser(job.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
-       hiringManagerLabel.innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+       hiringManagerLabel.innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
     });
     
     //Load Hiring Manager Image
@@ -416,7 +416,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     //Load Hiring Manager Name
     DataAPI.getUser(jobData.manager_user_id, function(response) {
        var managerUser = UserAPI.parseUserResponse(response);
-       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
     });    
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
