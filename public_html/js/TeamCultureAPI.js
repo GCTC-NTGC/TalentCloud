@@ -13,6 +13,14 @@ TeamCultureAPI.parseTeamCultureResponse = function(responseText) {
     return new TeamCultureAPI.TeamCulture(json.team_size, json.gc_directory_url, json.narrative_text);
 };
 
+TeamCultureAPI.localizeTeamCulture = function() {
+    if (siteContent) {
+        document.getElementById("jobPosterTeamCultureLabel").innerHTML = siteContent.teamCulture;
+        document.getElementById("jobPosterTeamSize_label").innerHTML = siteContent.teamSize;
+        document.getElementById("jobPosterGcDirLink_label").innerHTML = siteContent.gcDirectoryLink;
+    }
+};
+
 TeamCultureAPI.loadTeamCultureSummary = function(managerProfileId) {
     TeamCultureAPI.getTeamCulture(managerProfileId, function(response) {
         var teamCulture = TeamCultureAPI.parseTeamCultureResponse(response);

@@ -13,6 +13,15 @@ EditTeamCultureAPI.parseTeamCultureResponse = function(responseText) {
     return new EditTeamCultureAPI.TeamCulture(json.team_size, json.gc_directory_url, json.narrative_text);
 };
 
+EditTeamCultureAPI.localizeEditTeamCulture = function() {
+    if (siteContent) {
+        document.getElementById("createEditProfile_teamCultureTitle").innerHTML = siteContent.teamCulture;
+        document.getElementById("createEditProfile_teamSize_label").innerHTML = siteContent.teamSizePrompt;
+        document.getElementById("createEditProfile_gcDirLink_label").innerHTML = siteContent.gcDirectoryLinkPrompt;
+        document.getElementById("createEditProfile_teamNarrative_label").innerHTML = siteContent.teamNarrativePrompt;
+    }
+};
+
 EditTeamCultureAPI.initializeTeamCultureForm = function(managerProfileId) {
     //Fill previous form fields
     EditTeamCultureAPI.getTeamCulture(managerProfileId, function(response) {

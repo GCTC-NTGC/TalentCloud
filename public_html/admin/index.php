@@ -863,7 +863,7 @@ and open the template in the editor .
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-                                            <h3>Team Culture</h3>
+                                            <h3 id="createEditProfile_teamCultureTitle">Team Culture</h3>
                                             <div>
                                                 <div class="form-group">
                                                     <label for="createEditProfile_teamSize">
