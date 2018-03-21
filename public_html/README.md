@@ -58,7 +58,7 @@ A practical example: `.hero__overlay--blue`
 
 Getting started with our front-end stack is surprisingly easy. Just follow these steps:
 * [Install Node.js](https://nodejs.org/en/download/)
-* In Terminal/Command Prompt, `npm install gulp -g`
+* In Terminal/Command Prompt, run `npm install gulp -g`
     * Windows: Run Command Prompt as Admin
     * Mac: Begin the command with `sudo`
 * **Temporary:** Make sure you've checked out the `SASS` branch.
