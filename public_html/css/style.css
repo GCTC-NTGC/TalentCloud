@@ -914,7 +914,6 @@ nav{
 .jobPosterWorkEnvironmentImage{
     float: left;
     width: 30%;
-    height: 20em;
     margin-left: 2em;
     margin-right: 1.75em;
 }
@@ -925,6 +924,10 @@ nav{
 
 .workEnvironmentAnswerWrapper p{
     margin-bottom:0.5em;
+}
+
+.workEnvironmentAnswer{
+    color: #2196F3;
 }
 
 .workEnvironmentTitle{
