@@ -6,4 +6,14 @@
 
 ============================================================================= */
 
+/* Vendor Dependencies ====================================================== */
+@import "vendor/cds/mixins";
+@import "vendor/cds/variables";
+@import "vendor/cds/base";
+@import "vendor/cds/layout";
+@import "vendor/cds/nav";
+@import "vendor/cds/components";
+@import "vendor/cds/sections";
+
+/* Example Imports ========================================================== */
 @import "organisms/organism-sample-01";
