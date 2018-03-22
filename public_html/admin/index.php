@@ -30,8 +30,8 @@ and open the template in the editor .
             <!-- BEGIN - Registration Form Modal Dialog and Overlay-->
             <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
                 <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
-                    <div id='registerFormTitleWrapper' class="dialogTitle">
-                        <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
+                    <div id="registerFormTitleWrapper" class="dialogTitle">
+                        <strong id="registerFormTitle" title="Register for Talent Cloud">Register for Talent Cloud</strong>
                         <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
                     </div>
                     <div class="wb-frmvld wb-init dialogWindowInterior" id="registerFormWrapper">
@@ -89,8 +89,8 @@ and open the template in the editor .
             <!-- BEGIN - Registration Status Dialog and Overlay-->
             <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
                 <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
-                    <div id='registerStatusTitleWrapper' class="dialogTitle">
-                        <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
+                    <div id="registerStatusTitleWrapper" class="dialogTitle">
+                        <strong id="registerStatusTitle" title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
                         <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
                     </div>
                     <div class="dialogWindowInterior">
@@ -111,8 +111,8 @@ and open the template in the editor .
             <!-- BEGIN - Login Modal Dialog and Overlay-->
             <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
                 <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
-                    <div id='loginFormTitleWrapper' class="dialogTitle">
-                        <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
+                    <div id="loginFormTitleWrapper" class="dialogTitle">
+                        <strong id="loginFormTitle" title="Login to TalentCloud">Login to TalentCloud</strong>
                         <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
                     </div>
                     <div class="dialogWindowInterior">
@@ -162,8 +162,8 @@ and open the template in the editor .
             </div>
             <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
                 <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
-                    <div id='profilePicUploadTitleWrapper' class="dialogTitle">
-                        <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
+                    <div id="profilePicUploadTitleWrapper" class="dialogTitle">
+                        <strong id="profilePicUploadTitle" title="Upload a new profile image">Upload a new profile image</strong>
                         <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
                     </div>
                     <div class="fileUpload">
@@ -278,18 +278,18 @@ and open the template in the editor .
                                     <input type="hidden" id="ManagerProfileId"/>
                                     <input type="hidden" id="ManagerProfileDetailsId"/>
                                     <div id="profileCommon">
-                                        <div style='text-align: center;width:100%;'>
-                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                        <div style="text-align: center;width:100%;">
+                                            <div style="width:500px;margin:1em auto;text-align: center;">
                                                 <span id="createEditProfile_name_preview" class="profileName">name</span>
                                             </div>
                                         </div>
-                                        <div style='text-align: center;width:100%;'>
-                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                        <div style="text-align: center;width:100%;">
+                                            <div style="width:500px;margin:1em auto;text-align: center;">
                                                 <span id="createEditProfile_position_preview" class="managerProfileTitle">position</span>
                                             </div>
                                         </div>
-                                        <div style='text-align: center;width:100%;'>
-                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                        <div style="text-align: center;width:100%;">
+                                            <div style="width:500px;margin:1em auto;text-align: center;">
                                                 <span id="createEditProfile_department_preview" class="managerProfileDepartment">department</span>
                                             </div>
                                         </div>
@@ -580,10 +580,10 @@ and open the template in the editor .
                                                 <legend>My approach to decision making:</legend>
                                                 <div>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>&nbsp;</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div>
                                                                 <div style="line-height:2em;;font-size: 1.2em !important;">
                                                                     <span style="line-height:2em;vertical-align: middle;display:inline-block;width:20%;text-align: left;">10% or less</span>
@@ -598,70 +598,70 @@ and open the template in the editor .
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span id="createEditProfile_how_often_review_label">How often do you review your teams work before it is shared?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
+                                                                <div id="options" style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
                                                                     <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')" />
-                                                                    <label for="option0" class='option0Label'>Almost never</label>
+                                                                    <label for="option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option1" class='option1Label'>Rarely</label>
+                                                                    <label for="option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option3" class='option3Label'>Usually</label>
+                                                                    <label for="option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option4" class='option4Label'>Almost always</label>
+                                                                    <label for="option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='review_options' class="option0"></div>
+                                                                <div id="review_options" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span id="createEditProfile_how_often_early_label">How often do you get in early or stay late to get some extra work done?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_staylate_options" style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="staylate_option0" name="createEditProfile_staylate" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')" />
-                                                                    <label for="staylate_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="staylate_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="staylate_option1" name="createEditProfile_staylate" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="staylate_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="staylate_option2" name="createEditProfile_staylate" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="staylate_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="staylate_option3" name="createEditProfile_staylate" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option3" class='option3Label'>Usually</label>
+                                                                    <label for="staylate_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="staylate_option4" name="createEditProfile_staylate" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="staylate_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='staylate' class="option0"></div>
+                                                                <div id="staylate" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you engage your team before responding to management?</span>
                                                         </div>
                                                         <div style='display:inline-block;width:560px'>
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')" />
-                                                                    <label for="engage_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="engage_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="engage_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="engage_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="engage_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="engage_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option3" class='option3Label'>Usually</label>
+                                                                    <label for="engage_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="engage_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="engage_option4" class="option4Label">Almost always</label>
                                                                 </div>
                                                                 <div id='engage' class="option0"></div>
                                                             </div>
@@ -674,45 +674,45 @@ and open the template in the editor .
                                                         <div class='multi-btn-group-form-group-label'>
                                                             <span>How often do you approve development opportunities for your employees?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_devops" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="devops_option0" name="createEditProfile_devops" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')" />
-                                                                    <label for="devops_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="devops_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="devops_option1" name="createEditProfile_devops" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="devops_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="devops_option2" name="createEditProfile_devops" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="devops_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="devops_option3" name="createEditProfile_devops" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option3" class='option3Label'>Usually</label>
+                                                                    <label for="devops_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="devops_option4" name="createEditProfile_devops" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="devops_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='devops' class="option0"></div>
+                                                                <div id="devops" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you refuse low value work requests from management?</span>
                                                         </div>
                                                         <div style='display:inline-block;width:48%'>
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_lvwrequests' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_lvwrequests" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')" />
-                                                                    <label for="lvwRequests_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="lvwRequests_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="lvwRequests_option1" name="createEditProfile_lvwrequests" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="lvwRequests_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="lvwRequests_option2" name="createEditProfile_lvwrequests" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="lvwRequests_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="lvwRequests_option3" name="createEditProfile_lvwrequests" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option3" class='option3Label'>Usually</label>
+                                                                    <label for="lvwRequests_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="lvwRequests_option4" name="createEditProfile_lvwrequests" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="lvwRequests_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='lvwRequests' class="option0"></div>
+                                                                <div id="lvwRequests" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -745,84 +745,84 @@ and open the template in the editor .
                                         <div class="stepGroupForm">
                                             <h3>Work Environment</h3>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span id="remoteWork_label">Remote work allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;'>
+                                                        <div style="display:inline-block;">
                                                             <div class="toggle-btn-group clearfix">
-                                                                <div id='createEditProfile_remoteWork' style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
+                                                                <div id="createEditProfile_remoteWork" style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
                                                                     <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
-                                                                    <label id='remoteWork_option0_label' for="remoteWork_option0" class='option0Label'>Yes</label>
+                                                                    <label id="remoteWork_option0_label" for="remoteWork_option0" class="option0Label">Yes</label>
                                                                     <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
-                                                                    <label id='remoteWork_option1_label' for="remoteWork_option1" class='option1Label'>No</label>
+                                                                    <label id="remoteWork_option1_label" for="remoteWork_option1" class="option1Label">No</label>
                                                                 </div>
-                                                                <div id='remoteWork' class="left"></div>
+                                                                <div id="remoteWork" class="left"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
-                                                            <span id='telework_label'>Telework allowed</span>
+                                                        <div class="multi-btn-group-form-group-label">
+                                                            <span id="telework_label">Telework allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
+                                                        <div style="display:inline-block;width:48%">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_telework' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_telework" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="telework_option0" name="createEditProfile_telework" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')" />
-                                                                    <label id='telework_option0_label' for="telework_option0" class='option0Label'>Never</label>
+                                                                    <label id="telework_option0_label" for="telework_option0" class="option0Label">Never</label>
                                                                     <input type="radio" id="telework_option1" name="createEditProfile_telework" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option1_label' for="telework_option1" class='option1Label'>Occasionally</label>
+                                                                    <label id="telework_option1_label" for="telework_option1" class="option1Label">Occasionally</label>
                                                                     <input type="radio" id="telework_option2" name="createEditProfile_telework" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option2_label' for="telework_option2" class='option2Label'>Sometimes</label>
+                                                                    <label id="telework_option2_label" for="telework_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="telework_option3" name="createEditProfile_telework" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option3_label' for="telework_option3" class='option3Label'>Frequently</label>
+                                                                    <label id="telework_option3_label" for="telework_option3" class="option3Label">Frequently</label>
                                                                     <input type="radio" id="telework_option4" name="createEditProfile_telework" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option4_label' for="telework_option4" class='option4Label'>Most of the time</label>
+                                                                    <label id="telework_option4_label" for="telework_option4" class="option4Label">Most of the time</label>
                                                                 </div>
-                                                                <div id='telework' class="option0"></div>
+                                                                <div id="telework" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
-                                                            <span id='flexHours_label'>Flexible hours allowed</span>
+                                                        <div class="multi-btn-group-form-group-label">
+                                                            <span id="flexHours_label">Flexible hours allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
+                                                        <div style="display:inline-block;width:48%">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_flexHours' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_flexHours" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="flexHours_option0" name="createEditProfile_flexHours" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')" />
-                                                                    <label id='flexHours_option0_label' for="flexHours_option0" class='option0Label'>Never</label>
+                                                                    <label id="flexHours_option0_label" for="flexHours_option0" class='option0Label'>Never</label>
                                                                     <input type="radio" id="flexHours_option1" name="createEditProfile_flexHours" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option1_label' for="flexHours_option1" class='option1Label'>Occasionally</label>
+                                                                    <label id="flexHours_option1_label" for="flexHours_option1" class='option1Label'>Occasionally</label>
                                                                     <input type="radio" id="flexHours_option2" name="createEditProfile_flexHours" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option2_label' for="flexHours_option2" class='option2Label'>Sometimes</label>
+                                                                    <label id="flexHours_option2_label" for="flexHours_option2" class='option2Label'>Sometimes</label>
                                                                     <input type="radio" id="flexHours_option3" name="createEditProfile_flexHours" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option3_label' for="flexHours_option3" class='option3Label'>Frequently</label>
+                                                                    <label id="flexHours_option3_label" for="flexHours_option3" class='option3Label'>Frequently</label>
                                                                     <input type="radio" id="flexHours_option4" name="createEditProfile_flexHours" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option4_label' for="flexHours_option4" class='option4Label'>Most of the time</label>
+                                                                    <label id="flexHours_option4_label" for="flexHours_option4" class='option4Label'>Most of the time</label>
                                                                 </div>
-                                                                <div id='flexHours' class="option0"></div>
+                                                                <div id="flexHours" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="workEnvironmentWrapper">
-                                                        <span id='physicalEnvironment_title' class="workEnvironmentTitle">Physical Environment</span>
+                                                        <span id="physicalEnvironment_title" class="workEnvironmentTitle">Physical Environment</span>
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <img id="workEnvironment_photo_1" alt="First image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <label for="workplace_photo_input_1">Image 1</label>
                                                                 <input type="file" id="workplace_photo_input_1" class="fileInput" name="Workplace Photo 1" accept="image/*" /><br>
                                                                 <label for="workplace_photo_caption_1">Description 1: </label>
                                                                 <input id="workplace_photo_caption_1" type="text" name="workplace_photo_caption_1"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <img id="workEnvironment_photo_2" alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <label for="workplace_photo_input_2">Image 2</label>
                                                                 <input type="file" id="workplace_photo_input_2" class="fileInput" name="Workplace Photo 2" accept="image/*" /><br>
                                                                 <label for="workplace_photo_caption_2">Description 2: </label>
                                                                 <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <img id="workEnvironment_photo_3" alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <label for="workplace_photo_input_3">Image 3</label>
                                                                 <input type="file" id="workplace_photo_input_3" class="fileInput" name="Workplace Photo 3" accept="image/*" /><br>
                                                                 <label for="workplace_photo_caption_3">Description 3: </label>
@@ -860,20 +860,20 @@ and open the template in the editor .
                                                 <legend>Other</legend>
                                                 <div>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <label for="user_manager_profile_work_experience"><span>Work Experience</span></label>
                                                         </div>
-                                                        <div style='display:inline-block;width:49%'>
+                                                        <div style="display:inline-block;width:49%">
                                                             <div>
                                                                 <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="textAreaInput"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <label for="user_manager_profile_education"><span>Education</span></label>
                                                         </div>
-                                                        <div style='display:inline-block;width:49%'>
+                                                        <div style="display:inline-block;width:49%">
                                                             <div>
                                                                 <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="textAreaInput"></textarea>
                                                             </div>
