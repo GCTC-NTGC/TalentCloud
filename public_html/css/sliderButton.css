@@ -7,7 +7,7 @@
     border-radius: 3px;
 }
 
-.left{
+#bgcolor.left{
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;
@@ -17,7 +17,7 @@
     background-color: #ccc;
 }
 
-.right {
+#bgcolor.right {
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;
@@ -111,7 +111,7 @@
     /*margin-left:-6px !important;*/
 }
 
-#review_options.option0,#staylate.option0,#engage.option0,#devops.option0,#lvwRequests.option0,#telework.option0,#flexHours.option0{
+#review_options.option0,#staylate.option0,#engage.option0,#devops.option0,#lvwRequests.option0{
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;
@@ -122,7 +122,7 @@
     border-bottom:5px solid #5599e5;
 }
 
-#review_options.option1,#staylate.option1,#engage.option1,#devops.option1,#lvwRequests.option1,#telework.option1,#flexHours.option1{
+#review_options.option1,#staylate.option1,#engage.option1,#devops.option1,#lvwRequests.option1{
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;
@@ -132,7 +132,7 @@
     border-bottom:5px solid #5599e5;
 }
 
-#review_options.option2,#staylate.option2,#engage.option2,#devops.option2,#lvwRequests.option2,#telework.option2,#flexHours.option2{
+#review_options.option2,#staylate.option2,#engage.option2,#devops.option2,#lvwRequests.option2{
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;
@@ -142,7 +142,7 @@
     border-bottom:5px solid #5599e5;
 }
 
-#review_options.option3,#staylate.option3,#engage.option3,#devops.option3,#lvwRequests.option3,#telework.option3,#flexHours.option3{
+#review_options.option3,#staylate.option3,#engage.option3,#devops.option3,#lvwRequests.option3{
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;
@@ -152,7 +152,7 @@
     border-bottom:5px solid #5599e5;
 }
 
-#review_options.option4,#staylate.option4,#engage.option4,#devops.option4,#lvwRequests.option4,#telework.option4,#flexHours.option4{
+#review_options.option4,#staylate.option4,#engage.option4,#devops.option4,#lvwRequests.option4{
     transition:left 0.5s ease-in-out;
     position:absolute;
     top:0rem;

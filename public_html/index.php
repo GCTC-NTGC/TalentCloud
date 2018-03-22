@@ -3,7 +3,7 @@
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor . 
+and open the template in the editor .
 -->
 <html lang="en">
 <head>
@@ -81,7 +81,7 @@ and open the template in the editor .
                         <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register();">
                     </div>
                     <div class="clear"></div>
-                </form>  
+                </form>
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@ and open the template in the editor .
                                 <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                             </div>
                         </div>
-                    </div>                
+                    </div>
                     <div>
                         <div style="margin: 1em 0 0 0;" class="hidden">
                             <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
@@ -148,7 +148,7 @@ and open the template in the editor .
                             <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
                         </div>
                     </div>
-                                        
+
                     <div class="formButtonWrapper">
                         <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
                         <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
@@ -244,7 +244,6 @@ and open the template in the editor .
                 <div class="fileUpload">
                     <div class="leftPane">
                         <div>
-                            <label for="profilePicUploadField">Profile picture</label>
                             <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                         </div>
                         <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
@@ -332,6 +331,7 @@ and open the template in the editor .
                 <div class="container">
                     <h2 class="section--title" id="howItWorksHeading">How It Works</h2>
                         <p id="howItWorksLead">GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.</p>
+                        <!--<div id="howItWorksMainHtml"></div>-->
                         <ul class="icon-list">
                                 <li class="item">
                                         <span class="item-icon"><i class="fa fa-map-signs fa-fw"></i></span>
@@ -357,7 +357,7 @@ and open the template in the editor .
                         </ul>
                         <p id="howItWorksLeadOut">We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
                         <p><span id="howItWorksLast">Interested in chatting about a potential partnership?</span> <a id="contactUs" href="/contact/">Contact us!</a></p>
-                    
+
                 </div>
             </section>
             <section class="section section--featured-video">
@@ -413,7 +413,7 @@ and open the template in the editor .
             </section>
         </div>
     </section>
-    
+
     <section class="pageContent hidden" id="browseJobsSection">
         <div class="pageBanner">
             <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
@@ -426,25 +426,25 @@ and open the template in the editor .
                 <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
-                
-            
+
+
             </div>
-            
+
             <div id="jobPosterApplication" class="hidden">
 
             </div>
         </div>
- 
+
         <div class="jobCount hidden">
             <span id="contactCount">0</span> jobs
         </div>
     </section>
-    
+
     <section class="pageContent hidden" id="viewJobPosterSection">
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
                 <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-                <h2 id="jobPosterTitle">Job Title</h2>
+                <h2 id="jobPosterTitle"></h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
@@ -508,8 +508,8 @@ and open the template in the editor .
                 <div class='container'>
                     <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
                     <input type='hidden' id='jobPosterHiringManagerUserId'/>
-                    
-                    <div class="hiringManagerSummaryWrapper">  
+
+                    <div class="hiringManagerSummaryWrapper">
                         <div id='hiringManagerSummaryImageWrapper'>
                             <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
                             <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
@@ -523,25 +523,11 @@ and open the template in the editor .
                                 </button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                    <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
-                    <div class="workEnvironmentAnswerWrapper">
-                        <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
-                        <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
-                        <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
-                    </div>
-                    <div class="workEnvironmentSummaryWrapper">  
-                        <div id='workEnvironmentSummaryImagesWrapper'>
-                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
-                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
-                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
-                        </div>
-                    </div>
-            </section>
+
 
             <div id="jobPosterButtonWrapper">
                 <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
@@ -550,7 +536,7 @@ and open the template in the editor .
             </div>
         </div>
     </section>
-    
+
     <section class="pageContent hidden" id="profileSection">
         <div class="pageBanner">
             <div class="profileBannerFiller"></div>
@@ -559,14 +545,14 @@ and open the template in the editor .
             <div class="container">
                 <div id="profileBasicInfo" class="profileBasicInfo centered">
                     <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
-                        <div class="flexLeftOfCenter"> 
-                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                        <div class="flexLeftOfCenter">
+                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks">
                                 <li id="profileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
                                 <li id="profileLinkedinLinkWrapper" class="hidden">
                                     <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
-                                </li>    
+                                </li>
                             </ul>
                         </div>
                         <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
@@ -622,14 +608,14 @@ and open the template in the editor .
             <div class="container">
                 <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
                     <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
-                        <div class="flexLeftOfCenter"> 
-                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                        <div class="flexLeftOfCenter">
+                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks">
                                 <li id="managerProfileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
                                 <li id="managerProfileLinkedinLinkWrapper" class="hidden">
                                     <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
-                                </li>    
+                                </li>
                             </ul>
                         </div>
                         <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
@@ -792,7 +778,7 @@ and open the template in the editor .
             <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
             <div class="container centered">
                 <p id="createJobApplicationPositionLabel">for the position of:</p>
-                <h3 id="createJobApplicationPostition">Job title</h3>
+                <h3 id="createJobApplicationPostition"></h3>
             </div>
             <input type='hidden' id='createJobApplicationJobApplicationId' />
             <input type='hidden' id='createJobApplicationJobPosterId' />
@@ -829,7 +815,7 @@ and open the template in the editor .
                     <p id="createJobApplicationConfirmationPositionLabel">
                         You have applied for the position of:
                     </p>
-                    <h3 id="createJobApplicationConfirmationPostition">Job title</h3>
+                    <h3 id="createJobApplicationConfirmationPostition"></h3>
                     <p id="createJobApplicationConfirmationTrackingReminder">
                         Track the application from your Dashboard.
                     </p>
@@ -849,7 +835,7 @@ and open the template in the editor .
             <div class="container" id="dashboardContainer">
                 <h3 id="yourApplicationsTitle">Your Applications</h3>
                 <div id="yourApplications">
-                    
+
                 </div>
             </div>
         </div>

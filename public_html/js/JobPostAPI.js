@@ -427,9 +427,6 @@ JobPostAPI.populateJobPoster = function(jobData){
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
        document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
        document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
-       
-       
-       WorkEnvironmentAPI.showWorkEnvironment(managerProfile.manager_profile_id);
     });
     
     //Set language-specific labels

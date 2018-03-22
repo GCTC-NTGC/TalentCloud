@@ -55,7 +55,7 @@ class UserDAO extends BaseDAO{
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
-            return 'getUserByCredentials failed: ' . $e->getMessage();
+            return 'getContentByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $row;
@@ -80,41 +80,12 @@ class UserDAO extends BaseDAO{
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
-            return 'getUserById failed: ' . $e->getMessage();
+            return 'getContentByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $row;
     }
     
-    /**
-     * 
-     * @param int $managerProfileId
-     * @return User $user
-     */
-    public static function getUserByManagerProfileId($managerProfileId) {
-        $link = BaseDAO::getConnection();   
-        $sqlStr = "
-            SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
-            FROM user u, user_role ur, talentcloud.user_manager_profile ump
-            WHERE 
-                u.user_id = ump.user_id
-                AND ur.user_role_id = u.user_role_id
-                AND ump.user_manager_profile_id = :manager_profile_id                
-            ;";
-        $sql = $link->prepare($sqlStr);
-        $sql->bindValue(':manager_profile_id', $managerProfileId, PDO::PARAM_INT);
-
-        try {
-            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
-            $user = $sql->fetch();
-            //var_dump($row);
-        } catch (PDOException $e) {
-            return 'getUserByManagerProfileId failed: ' . $e->getMessage();
-        }
-        BaseDAO::closeConnection($link);
-        return $user;
-    }
     
     public static function registerUser(User $user){
         
@@ -157,7 +128,7 @@ class UserDAO extends BaseDAO{
                 $user->setUser_id($user_id);
             } catch (PDOException $e) {
                     //var_dump(PDO::errorInfo());
-                    return 'registerUser failed: ' . $e->getMessage();
+                    return 'authenticateUser failed: ' . $e->getMessage();
             }
             BaseDAO::closeConnection($link);
             //var_dump($id);
@@ -235,7 +206,7 @@ class UserDAO extends BaseDAO{
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
-            return 'validateEmail failed: ' . $e->getMessage();
+            return 'getContentByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $row;

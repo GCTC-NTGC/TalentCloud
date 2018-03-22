@@ -89,13 +89,4 @@ class UserController{
             "updatedUser"=>UserController::getUserById($updatedUser),
             "confEmailSent"=>$confEmailSent);   
     }
-    
-    /**
-     * 
-     * @param int $managerProfileId
-     */
-    public static function getUserByManagerProfileId($managerProfileId) {
-        $user = UserDAO::getUserByManagerProfileId($managerProfileId);
-        return $user;
-    }
 }
