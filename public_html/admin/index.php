@@ -224,7 +224,7 @@ and open the template in the editor .
                                 <div class="page-banner--logo-tagline-divider"></div>
                                 <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
                             </div>
-                            <p class="centered">Changing government through it's people</p>
+                            <p id="adminTagline" class="centered">Changing government through it's people</p>
                         </div>
                     </div>
                 </div>

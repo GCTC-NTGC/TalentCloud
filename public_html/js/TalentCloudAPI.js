@@ -20,7 +20,7 @@ readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTert
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
-dashBoardLink,yourApplicationsTitle) {
+dashBoardLink,yourApplicationsTitle, adminTagline) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -120,6 +120,7 @@ dashBoardLink,yourApplicationsTitle) {
     this.adminPortal = adminPortal;
     this.dashBoardLink = dashBoardLink;
     this.yourApplicationsTitle = yourApplicationsTitle;
+    this.adminTagline = adminTagline;
 };
 
 TalentCloudAPI.pages = {
