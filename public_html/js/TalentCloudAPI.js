@@ -492,6 +492,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var adminPortal = document.getElementById("adminPortal");
         adminPortal.innerHTML = siteContent.adminPortal;
+        
+        var adminTagline = document.getElementById("adminTagline");
+        adminTagline.innerHTML = siteContent.adminTagline;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
