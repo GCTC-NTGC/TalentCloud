@@ -20,7 +20,7 @@ readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTert
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
-dashBoardLink,yourApplicationsTitle, adminTagline) {
+dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -121,6 +121,10 @@ dashBoardLink,yourApplicationsTitle, adminTagline) {
     this.dashBoardLink = dashBoardLink;
     this.yourApplicationsTitle = yourApplicationsTitle;
     this.adminTagline = adminTagline;
+    this.adminAboutMe = adminAboutMe;
+    this.adminProfilePositionLabel = adminProfilePositionLabel;
+    this.adminProfileDepartmentLabel = adminProfileDepartmentLabel;
+    this.adminProfileBranchLabel = adminProfileBranchLabel;
 };
 
 TalentCloudAPI.pages = {
@@ -495,6 +499,18 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var adminTagline = document.getElementById("adminTagline");
         adminTagline.innerHTML = siteContent.adminTagline;
+        
+        var adminAboutMe = document.getElementById("adminAboutMe");
+        adminAboutMe.innerHTML = siteContent.adminAboutMe;
+        
+        var adminProfilePositionLabel = document.getElementById("createEditProfile_position_label");
+        adminProfilePositionLabel.innerHTML = siteContent.adminProfilePositionLabel;
+        
+        var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
+        adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
+        
+        var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_label");
+        adminProfileBranchLabel.innerHTML = siteContent.adminProfileBranchLabel;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;

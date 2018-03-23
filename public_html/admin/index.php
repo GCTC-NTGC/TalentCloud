@@ -310,7 +310,7 @@ and open the template in the editor .
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-                                            <h3>About Me</h3>
+                                            <h3 id="adminAboutMe">About Me</h3>
                                             <div style="margin-top:2em;">
                                                 <div class="createEditProfileEnglishPane">
                                                     <div class="form-group">

@@ -198,6 +198,10 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.dashBoardLink = content.dashBoardLink;
     thisContent.yourApplicationsTitle = content.yourApplicationsTitle;
     thisContent.adminTagline = content.adminTagline;
+    thisContent.adminAboutMe = content.adminAboutMe;
+    thisContent.adminProfilePositionLabel = content.adminProfilePositionLabel;
+    thisContent.adminProfileDepartmentLabel = content.adminProfileDepartmentLabel;
+    thisContent.adminProfileBranchLabel = content.adminProfileBranchLabel;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

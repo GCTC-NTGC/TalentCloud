@@ -12,4 +12,13 @@ INSERT into base_content
 (base_content_type_id, base_content_key, base_content_value, base_content_locale_id)
 VALUES
 (1,'adminTagline','Changing government through it\'s people',1),
-(1,'adminTagline','Changer le gouvernement à travers ses gens',2);
+(1,'adminTagline','Changer le gouvernement à travers ses gens',2),
+(1,'adminAboutMe','About Me',1),
+(1,'adminAboutMe','À propos de moi',2),
+(1,'adminProfilePositionLabel','Position',1),
+(1,'adminProfilePositionLabel','Position',2),
+(1,'adminProfileDepartmentLabel','Department',1),
+(1,'adminProfileDepartmentLabel','département',2),
+(1,'adminProfileBranchLabel','Branch',1),
+(1,'adminProfileBranchLabel','branche',2)
+;
