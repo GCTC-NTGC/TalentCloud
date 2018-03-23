@@ -16,5 +16,10 @@
 @import "vendor/cds/sections";
 @import "vendor/font-awesome/font-awesome.scss";
 
+/* Core Elements ============================================================ */
+@import "system/media-queries";
+@import "system/grid";
+@import "system/grid-ie";
+
 /* Example Imports ========================================================== */
 @import "organisms/organism-sample-01";

@@ -161,15 +161,20 @@ and open the template in the editor .
 
     <!-- BEGIN - Profile Basic Info Edit Overlay-->
     <div id="profileBasicInfoEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
+
         <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+
             <div id="profileBasicInfoFormWrapper">
+
                 <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle">
                     <strong id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</strong>
                     <div class="hidden" id="profileBasicInfoFormDescription">Edit your basic info</div>
                 </div>
 
                 <div class="dialogWindowInterior">
+
                     <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.png" alt="Default user"/>
+
                     <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/></a>
 
                     <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
@@ -185,6 +190,7 @@ and open the template in the editor .
                                 <input class="form-control full-width" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
                             </div>
                         </div>
+
                         <div class="form-group rightPane">
                             <label for="profileEditLastName">
                                 <span>Last Name:</span>
@@ -196,6 +202,7 @@ and open the template in the editor .
                                 <input class="form-control full-width" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
                             </div>
                         </div>
+
                         <div class="form-group clear">
                             <label for="profileEditTagline">
                                 <span>Tagline:</span>
@@ -204,6 +211,7 @@ and open the template in the editor .
                                 <input class="form-control full-width" type="text" name="profileEditTagline" id="profileEditTagline"/>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="profileEditTwitter">
                                 <img src="images/twitter.png" alt="Twitter logo" class="form-icon"/>
@@ -216,6 +224,7 @@ and open the template in the editor .
                                 <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="profileEditLinkedin">
                                 <img src="images/linkedin.png" alt="LinkedIn logo" class="form-icon"/>
@@ -229,18 +238,25 @@ and open the template in the editor .
                                 <span style="float:left;"><input class="form-control full-width" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="exampleuser"/></span>
                             </div>
                         </div>
+
                         <div>
                             <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
                             <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
                         </div>
+
                     </form>
+
                 </div>
+
             </div>
+
             <div id="profilePicUploadWrapper" class="hidden" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
+
                 <div id='profilePicUploadTitleWrapper' class="dialogTitle">
                     <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
                     <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
                 </div>
+
                 <div class="fileUpload">
                     <div class="leftPane">
                         <div>
@@ -261,9 +277,13 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
         <div id="profileAboutMeFormWrapperWindow" class="dialogThreeQuarterWrapperWindow">

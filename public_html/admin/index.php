@@ -3,7 +3,7 @@
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor . 
+and open the template in the editor .
 -->
 <html lang="en">
     <head>
@@ -82,7 +82,7 @@ and open the template in the editor .
                                 <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register(true);">
                             </div>
                             <div class="clear"></div>
-                        </form>  
+                        </form>
                     </div>
                 </div>
             </div>
@@ -141,7 +141,7 @@ and open the template in the editor .
                                         <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                                     </div>
                                 </div>
-                            </div>                
+                            </div>
                             <div class="hidden">
                                 <div style="margin: 1em 0 0 0;">
                                     <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
@@ -160,6 +160,8 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+
+            <!-- Profile Photo Modal -->
             <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
                 <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
                     <div id='profilePicUploadTitleWrapper' class="dialogTitle">
@@ -856,7 +858,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="singlePane">                            
+                                            <div class="singlePane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_city">
                                                         <span>City: *</span>
@@ -937,7 +939,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="leftPane">                            
+                                            <div class="leftPane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_impact">
                                                         <span><span id="createJobPoster_impact_labelName">Impact</span>:</span>
@@ -994,7 +996,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="rightPane">                            
+                                            <div class="rightPane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_impact_fr">
                                                         <span><span id="createJobPoster_impact_fr_labelName">Impact_fr</span>:</span>
@@ -1100,7 +1102,7 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
-                
+
             </section>
         </main>
         <?php include '../inc/footer-admin.php'; ?>
