@@ -6373,7 +6373,7 @@ article.post {
     flex: 0 0 calc(10/12*100%); }
   .box.small-11of12 {
     flex: 0 0 calc(11/12*100%); }
-  @media p-tablet {
+  @media (min-width: 48em) {
     .box {
       /* 1 Column */
       /* 2 Column */
@@ -6521,7 +6521,7 @@ article.post {
         flex: 0 0 calc(10/12*100%); }
       .box.med-11of12 {
         flex: 0 0 calc(11/12*100%); } }
-  @media l-tablet {
+  @media (min-width: 64em) {
     .box {
       /* 1 Column */
       /* 2 Column */
@@ -6669,7 +6669,7 @@ article.post {
         flex: 0 0 calc(10/12*100%); }
       .box.lg-11of12 {
         flex: 0 0 calc(11/12*100%); } }
-  @media cinema {
+  @media (min-width: 100em) {
     .box {
       /* 1 Column */
       /* 2 Column */
@@ -7063,7 +7063,7 @@ body[id*="Trident/7.0"] .box {
   body[id*="Trident/7.0"] .box.small-11of12 {
     flex: 0 0 calc(11/12*100%);
     max-width: calc(11/12*100%); }
-  @media p-tablet {
+  @media (min-width: 48em) {
     body[id*="Trident/7.0"] .box {
       /* 1 Column */
       /* 2 Column */
@@ -7278,7 +7278,7 @@ body[id*="Trident/7.0"] .box {
       body[id*="Trident/7.0"] .box.med-11of12 {
         flex: 0 0 calc(11/12*100%);
         max-width: calc(11/12*100%); } }
-  @media l-tablet {
+  @media (min-width: 64em) {
     body[id*="Trident/7.0"] .box {
       /* 1 Column */
       /* 2 Column */
@@ -7493,7 +7493,7 @@ body[id*="Trident/7.0"] .box {
       body[id*="Trident/7.0"] .box.lg-11of12 {
         flex: 0 0 calc(11/12*100%);
         max-width: calc(11/12*100%); } }
-  @media cinema {
+  @media (min-width: 100em) {
     body[id*="Trident/7.0"] .box {
       /* 1 Column */
       /* 2 Column */

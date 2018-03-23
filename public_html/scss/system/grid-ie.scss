@@ -398,7 +398,7 @@ body[id*="Trident/7.0"] {
 
         /* Medium Boxes: Portrait Tablet Devices ================================ */
 
-        @media #{p-tablet} {
+        @media #{$p-tablet} {
 
             /* 1 Column */
             &.med-full,
@@ -752,7 +752,7 @@ body[id*="Trident/7.0"] {
 
         /* Large Boxes: Landscape Tablet Devices ================================ */
 
-        @media #{l-tablet} {
+        @media #{$l-tablet} {
 
             /* 1 Column */
             &.lg-full,
@@ -1106,7 +1106,7 @@ body[id*="Trident/7.0"] {
 
         /* XLarge Boxes: Landscape Tablet Devices ================================ */
 
-        @media #{cinema} {
+        @media #{$cinema} {
 
             /* 1 Column */
             &.xl-full,

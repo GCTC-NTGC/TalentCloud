@@ -329,7 +329,7 @@
 
     /* Medium Boxes: Portrait Tablet Devices ================================ */
 
-    @media #{p-tablet} {
+    @media #{$p-tablet} {
 
         /* 1 Column */
         &.med-full,
@@ -616,7 +616,7 @@
 
     /* Large Boxes: Landscape Tablet Devices ================================ */
 
-    @media #{l-tablet} {
+    @media #{$l-tablet} {
 
         /* 1 Column */
         &.lg-full,
@@ -903,7 +903,7 @@
 
     /* XLarge Boxes: Landscape Tablet Devices ================================ */
 
-    @media #{cinema} {
+    @media #{$cinema} {
 
         /* 1 Column */
         &.xl-full,
