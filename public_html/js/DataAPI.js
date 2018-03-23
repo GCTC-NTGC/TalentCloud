@@ -204,6 +204,12 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.yes = content.yes;
     thisContent.no = content.no;
     thisContent.physicalEnvironment = content.physicalEnvironment;
+    thisContent.teamCulture = content.teamCulture;
+    thisContent.teamSize = content.teamSize;
+    thisContent.gcDirectoryLink = content.gcDirectoryLink;
+    thisContent.teamSizePrompt = content.teamSizePrompt;
+    thisContent.gcDirectoryLinkPrompt = content.gcDirectoryLinkPrompt;
+    thisContent.teamNarrativePrompt = content.teamNarrativePrompt;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

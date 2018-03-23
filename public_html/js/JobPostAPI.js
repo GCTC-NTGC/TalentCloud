@@ -429,7 +429,8 @@ JobPostAPI.populateJobPoster = function(jobData){
        document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
        
        
-       WorkEnvironmentAPI.showWorkEnvironment(managerProfile.manager_profile_id);
+       WorkEnvironmentAPI.loadWorkEnvironmentSummary(managerProfile.manager_profile_id);
+       TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
     });
     
     //Set language-specific labels

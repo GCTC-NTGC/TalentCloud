@@ -263,6 +263,10 @@ nav{
     clear: both;
 }
 
+.blue-highlight-text {
+    color: #2196F3;
+}
+
 .flexContainerVerticallyCentered {
     display: flex;
     align-items: center;
@@ -1143,9 +1147,9 @@ main .btn-default {
     background:rgba(0,0,0,0.7);
 }
 .three-step-tab {
-    color: #bbb;
     width: 33%;
     position: relative;
+    color: #bbb;
     font-size:1.25em;
     text-align: center;
     line-height:3em;
@@ -1157,6 +1161,18 @@ main .btn-default {
 .four-step-tab{
     width: 25%;
     position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
+}
+.five-step-tab{
+    width: 20%;
+    position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
 }
 .tabbedForm{
     width: 100%;

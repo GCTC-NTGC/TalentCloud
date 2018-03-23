@@ -349,7 +349,9 @@ CreateEditProfileAPI.validateStep3 = function() {
         //submitForm();
         CreateEditProfileAPI.updateManagerProfileWithDetails();
         
-        CreateWorkEnvironmentAPI.saveWorkEnvironment(document.getElementById("ManagerProfileId").value);
+        var managerProfileId = document.getElementById("ManagerProfileId").value;
+        CreateWorkEnvironmentAPI.saveWorkEnvironment(managerProfileId);
+        EditTeamCultureAPI.submitTeamCulture(managerProfileId);
     }
 };
 
@@ -972,6 +974,9 @@ CreateEditProfileAPI.populateProfile = function(response){
     
     //Initialize Work Environment
     CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
+    
+    //Initialize Team Culture
+    EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
 
 
     //set hidden field values
