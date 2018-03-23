@@ -33,18 +33,20 @@ class DashboardDAO extends BaseDAO {
                 ujsp.user_id,
                 jpd.job_poster_id, 
                 jpd.job_poster_title,
+                jpmuid.user_id as manager_user_id,
                 asd.application_status, 
                 jp.job_poster_close_date_time,
                 dd.department_details_name
             FROM 
-                    user_job_seeker_profiles ujsp, 
-                    user u, 
-                    job_seeker_profile jsp, 
-                    job_poster_application jpa,
+				user_job_seeker_profiles ujsp, 
+				user u, 
+				job_seeker_profile jsp, 
+				job_poster_application jpa,
                 application_status aps,
                 application_status_details asd,
                 job_poster jp,
                 job_poster_details jpd,
+                job_poster_to_manager_user_id jpmuid,
                 locale l,
                 department d,
                 department_details dd
@@ -61,7 +63,8 @@ class DashboardDAO extends BaseDAO {
             AND asd.application_status_id = aps.application_status_id
             AND jp.job_poster_department_id = d.department_id
             AND dd.department_id = d.department_id
-            AND dd.department_details_locale_id = l.locale_id;";
+            AND dd.department_details_locale_id = l.locale_id
+            AND jpmuid.job_poster_id = jpd.job_poster_id;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
