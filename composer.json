@@ -7,12 +7,16 @@
             "email": "your@email.here"
         }
     ],
-    "require": {},
+    "require": {
+        "phpseclib/phpseclib": "2.0.1",
+        "jumbojett/openid-connect-php": "0.4.1"
+    },
     "require-dev": {
         "phpunit/phpunit": "*",
         "phpunit/phpunit-selenium": "* 3.0.3",
         "friendsofphp/php-cs-fixer": "v2.10.4",
         "phpmd/phpmd": "* 2.6.0",
-        "facebook/webdriver": "* 1.5.0"
+        "facebook/webdriver": "* 1.5.0",
+        "phpunit/dbunit": "2.0.x-dev"
     }
 }

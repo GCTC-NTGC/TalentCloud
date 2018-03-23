@@ -5,8 +5,9 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
-use Facebook\WebDriver\JavaScriptExecutor;
+use DBUnitTestUtility;
 
+require_once 'Common/UserConfig.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,7 +20,7 @@ require_once 'Common/Actions.php';
  *
  * @author GBowden
  */
-class loginTest extends PHPUnit_Framework_TestCase {
+class DashboardTest extends PHPUnit_Framework_TestCase {
 
    
     /**
@@ -58,50 +59,33 @@ class loginTest extends PHPUnit_Framework_TestCase {
                 $dateStr = $now->format('Y-m-d_H-i-s');
                 //$screenshotFilePath = 'D:/Selenium/screenshots/';
                 //$screenshotFileName = $screenshotFilePath . $now->format('Y-m-d H:i:s') . ' test ' . $this->getName() . '.png';
-                $screenshotFilePath = 'C:/dev/Selenium/screenshots/';
+                if (System.getProperty("screenshot_dir").equalsIgnoreCase("true")){
+                    $screenshotFilePath = System.getProperty("screenshot_dir");
+                }
+                
                 $this->webDriver->takeScreenshot($screenshotFilePath.'test_'.$dateStr.'.png');
             }
             $this->webDriver->close();
         //}
     }
 
-    public function testLogin() {
+    public function testDashboard() {
         $this->webDriver->get($this->url);
         
         Actions::login($this->webDriver);
         
         $this->webDriver->wait()->until(
-            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id("logoutLink"))
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id("dashBoardLink"))
         );
         
-        $sessionUserArray = $this->webDriver->executeScript('return UserAPI.getSessionUserAsJSON();');
-        var_dump(gettype($sessionUserArray));
-        print 'get User from sessionstorage' . PHP_EOL;
+        Actions::navigate($this->webDriver, "dashBoardLink");
         
-        $sessionUserJSONString = json_encode($sessionUserArray);
-        var_dump(gettype($sessionUserJSONString));
-        
-        $this->assertJson($sessionUserJSONString, "Invalid JSON Object for session User");
-        
-        $sessionUserJSON = json_decode($sessionUserJSONString);
-        
-        $user_id = $sessionUserJSON->user_id;
-        var_dump($user_id);
-        $this->assertTrue($user_id == 1, "No user Id");
-        
-        $authTokenJSONArray = $this->webDriver->executeScript('return UserAPI.getAuthTokenAsJSON();');
-        print 'get JWT token from sessionstorage' . PHP_EOL;
-        $authTokenJSONString = json_encode($authTokenJSONArray);
-        
-        $this->assertJson($authTokenJSONString, "Invalid JSON Object for session Auth token");
-        
-        $sessionAuthTokenJSON = json_decode($authTokenJSONString);
-        
-        $token = $sessionAuthTokenJSON->token;
-        var_dump($token);
-        $this->assertTrue($token != null, "No token for user");
+        $this->webDriver->wait()->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id("yourApplicationsTitle"))
+        );
         
         Actions::logout($this->webDriver);
+        
     }
 
 }
