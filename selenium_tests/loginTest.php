@@ -14,6 +14,7 @@ use Facebook\WebDriver\JavaScriptExecutor;
  */
 require_once '../vendor/autoload.php';
 require_once 'Common/Actions.php';
+require_once 'Common/SeleniumConfig.php';
 /**
  * Description of loginTest
  *
@@ -33,36 +34,46 @@ class loginTest extends PHPUnit_Framework_TestCase {
     protected $host = "http://localhost:4444/wd/hub";
     
     //site url
-    protected $url = 'https://talentcloud.localhost/';
+    protected $url = SITE_URL;
 
     public function setUp() {
-        
         $options = new ChromeOptions();
-        
         $options->addArguments(array(
             '--start-maximized',
             '--ignore-certificate-errors'
         ));
         
+        if(BROWSER_TO_TEST == 'chrome'){
+            if(BINARYPATH_CHROME !== ''){
+                $options->setBinary(BINARYPATH_CHROME);
+            }
+        }
+        
+        if(BROWSER_TO_TEST == 'firefox'){
+            if(BINARYPATH_FIREFOX !== ''){
+                $options->setBinary(BINARYPATH_FIREFOX);
+            }
+        }
+        
         $caps = DesiredCapabilities::chrome();
         $caps->setCapability(ChromeOptions::CAPABILITY, $options);
                 
         $this->webDriver = RemoteWebDriver::create($this->host, $caps);
+        
     }
 
     public function tearDown() {
         if($this->webDriver != null){
             $status = $this->getStatus();
-            //if ($status == PHPUnit_Runner_BaseTestRunner::STATUS_ERROR || $status == PHPUnit_Runner_BaseTestRunner::STATUS_FAILURE) {
+            if ($status == PHPUnit_Runner_BaseTestRunner::STATUS_ERROR || $status == PHPUnit_Runner_BaseTestRunner::STATUS_FAILURE) {
+                if (SCREENSHOTS_DIR !== ''){
                 $now = new DateTime();
                 $dateStr = $now->format('Y-m-d_H-i-s');
-                //$screenshotFilePath = 'D:/Selenium/screenshots/';
-                //$screenshotFileName = $screenshotFilePath . $now->format('Y-m-d H:i:s') . ' test ' . $this->getName() . '.png';
-                $screenshotFilePath = 'C:/dev/Selenium/screenshots/';
-                $this->webDriver->takeScreenshot($screenshotFilePath.'test_'.$dateStr.'.png');
+                    $this->webDriver->takeScreenshot(SCREENSHOTS_DIR.'test_'.$dateStr.'.png');
+                }
             }
             $this->webDriver->close();
-        //}
+        }
     }
 
     public function testLogin() {

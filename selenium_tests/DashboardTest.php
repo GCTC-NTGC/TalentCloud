@@ -39,16 +39,28 @@ class DashboardTest extends PHPUnit_Framework_TestCase {
     public function setUp() {
         
         $options = new ChromeOptions();
-        
         $options->addArguments(array(
             '--start-maximized',
             '--ignore-certificate-errors'
         ));
         
+        if(BROWSER_TO_TEST == 'chrome'){
+            if(BINARYPATH_CHROME !== ''){
+                $options->setBinary(BINARYPATH_CHROME);
+            }
+        }
+        
+        if(BROWSER_TO_TEST == 'firefox'){
+            if(BINARYPATH_FIREFOX !== ''){
+                $options->setBinary(BINARYPATH_FIREFOX);
+            }
+        }
+        
         $caps = DesiredCapabilities::chrome();
         $caps->setCapability(ChromeOptions::CAPABILITY, $options);
                 
         $this->webDriver = RemoteWebDriver::create($this->host, $caps);
+        
     }
 
     public function tearDown() {
