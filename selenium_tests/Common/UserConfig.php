@@ -8,11 +8,9 @@
 
 /* HIRING MANAGER TEST USER DETAILS */
 
-
-
 /* JOB SEEKER TEST USER DETAILS */
-define('JOBSEEKER_USER_EMAIL','jobseeker@test.com');
-define('JOBSEEKER_USER_PASSWORD','test123');
+define('JOBSEEKER_USER_EMAIL','gbowden@deloitte.ca');
+define('JOBSEEKER_USER_PASSWORD','Vetitum4u');
 
 
 

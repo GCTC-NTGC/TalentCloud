@@ -3,6 +3,7 @@
 use Facebook\WebDriver\WebDriverBy;
 
 require_once 'UserConfig.php';
+require_once 'SeleniumConfig.php';
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
