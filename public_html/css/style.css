@@ -1378,6 +1378,16 @@ div label span{
 #dashboardSection .dashboardJobSummary {
     font-size: 100% !important;
     border-top: 1px solid #ccc;
+    font-size:1.3rem;
+    line-height: 2.5rem;
+    margin:0;
+    text-align: left;
+}
+
+/*Applicant Dashboard Styles*/
+#dashboardSection .dashboardJobSummaryLast {
+    font-size: 100% !important;
+    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     font-size:1.3rem;
     line-height: 2.5rem;
@@ -1386,12 +1396,12 @@ div label span{
 }
 
 .dashBoardHiringManagerWrapper {
-    width:25%;
+    width:20%;
     display:inline-block;
 }
 
 .dashboardTitleDepartmentWrapper{
-    width:50%;
+    width:40%;
     display:inline-block;
 }
 
@@ -1413,22 +1423,39 @@ div label span{
     display:inline;
 }
 
-#dashboardSection .hiringManagerWrapper .hiringManagerProfilePicSmall{
-    width: 60px;
-    height: 60px;
-    clip-path: circle(20px at center);
+#dashboardSection .dashBoardHiringManagerWrapper {
+    height: 3em;
+    line-height: 3em;
+    background-color: #eee;
+    border-radius: 1.5em;
+}
+    
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall{
+    height: 2.5em;
+    line-height: 2.5em;
+    width: 2.5em;
+    border-radius: 1.25em;
     margin-bottom: 0.5em;
     display:inline;
 }
 
-#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerLabel{
-    font-size:1em;
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerWidget{
+    height: 2.5em;
+    line-height: 2.5em;
+}
+
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerName{
+    font-size: 100%;
+    font-size: 1.25em;
     color: #333;
     display:inline;
+    padding-left:1em;
+    height: 2.5em;
+    line-height: 2.5em;
 }
 
 #dashboardSection .dashboardJobSubmitted{
-    width:25%;
+    width:40%;
     display:inline-block;
     color:#999;
 }

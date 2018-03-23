@@ -209,6 +209,12 @@ TalentCloudAPI.pages = {
                     CreateJobPosterAPI.showCreateJobPosterForm();
                     TalentCloudAPI.setNav("jobPostersLinkListItem");
                 }
+            },
+            ManagerProfile:{
+                url:"#ManagerProfile",
+                state:function(managerProfileId){
+                    ManagerProfileAPI.showManagerProfile(managerProfileId);
+                }
             }
         };
 
