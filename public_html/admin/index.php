@@ -649,9 +649,9 @@ and open the template in the editor .
                                                         <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you engage your team before responding to management?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_engage_options" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')" />
                                                                     <label for="engage_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
@@ -663,7 +663,7 @@ and open the template in the editor .
                                                                     <input type="radio" id="engage_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
                                                                     <label for="engage_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='engage' class="option0"></div>
+                                                                <div id="engage" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -671,7 +671,7 @@ and open the template in the editor .
 
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-labe">
                                                             <span>How often do you approve development opportunities for your employees?</span>
                                                         </div>
                                                         <div style="display:inline-block;width:560px">
@@ -698,7 +698,7 @@ and open the template in the editor .
                                                         <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you refuse low value work requests from management?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
+                                                        <div style="display:inline-block;width:48%">
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id="createEditProfile_lvwrequests" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')" />
@@ -790,15 +790,15 @@ and open the template in the editor .
                                                             <div class="multi-btn-group clearfix">
                                                                 <div id="createEditProfile_flexHours" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="flexHours_option0" name="createEditProfile_flexHours" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')" />
-                                                                    <label id="flexHours_option0_label" for="flexHours_option0" class='option0Label'>Never</label>
+                                                                    <label id="flexHours_option0_label" for="flexHours_option0" class="option0Label">Never</label>
                                                                     <input type="radio" id="flexHours_option1" name="createEditProfile_flexHours" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id="flexHours_option1_label" for="flexHours_option1" class='option1Label'>Occasionally</label>
+                                                                    <label id="flexHours_option1_label" for="flexHours_option1" class="option1Label">Occasionally</label>
                                                                     <input type="radio" id="flexHours_option2" name="createEditProfile_flexHours" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id="flexHours_option2_label" for="flexHours_option2" class='option2Label'>Sometimes</label>
+                                                                    <label id="flexHours_option2_label" for="flexHours_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="flexHours_option3" name="createEditProfile_flexHours" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id="flexHours_option3_label" for="flexHours_option3" class='option3Label'>Frequently</label>
+                                                                    <label id="flexHours_option3_label" for="flexHours_option3" class="option3Label">Frequently</label>
                                                                     <input type="radio" id="flexHours_option4" name="createEditProfile_flexHours" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id="flexHours_option4_label" for="flexHours_option4" class='option4Label'>Most of the time</label>
+                                                                    <label id="flexHours_option4_label" for="flexHours_option4" class="option4Label">Most of the time</label>
                                                                 </div>
                                                                 <div id="flexHours" class="option0"></div>
                                                             </div>
