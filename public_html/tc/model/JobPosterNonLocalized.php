@@ -35,6 +35,8 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $developing_competencies_fr;
     private $other_requirements_en;
     private $other_requirements_fr;
+    private $questions_en;
+    private $questions_fr;
     
     public function __construct(
             $id=null, 
@@ -63,7 +65,9 @@ class JobPosterNonLocalized implements JsonSerializable {
             $developing_competencies_en=null,
             $developing_competencies_fr=null,
             $other_requirements_en=null,
-            $other_requirements_fr=null) {
+            $other_requirements_fr=null,
+            $questions_en=[],
+            $questions_fr=[]) {
         $this->id = $id;
         $this->manager_user_id = $manager_user_id;
         $this->title_en = $title_en;
@@ -91,6 +95,8 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->developing_competencies_fr = $developing_competencies_fr;
         $this->other_requirements_en = $other_requirements_en;
         $this->other_requirements_fr = $other_requirements_fr;
+        $this->questions_en = $questions_en;
+        $this->questions_fr = $questions_fr;
     }
 
     
@@ -104,6 +110,7 @@ class JobPosterNonLocalized implements JsonSerializable {
         }
         return $gettable_attributes;
     }
+    
     public function getId() {
         return $this->id;
     }
@@ -210,6 +217,14 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function getOther_requirements_fr() {
         return $this->other_requirements_fr;
+    }
+
+    public function getQuestions_en() {
+        return $this->questions_en;
+    }
+
+    public function getQuestions_fr() {
+        return $this->questions_fr;
     }
 
     public function setId($id) {
@@ -346,4 +361,15 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->other_requirements_fr = $other_requirements_fr;
         return $this;
     }
+
+    public function setQuestions_en($questions_en) {
+        $this->questions_en = $questions_en;
+        return $this;
+    }
+
+    public function setQuestions_fr($questions_fr) {
+        $this->questions_fr = $questions_fr;
+        return $this;
+    }
+
 }

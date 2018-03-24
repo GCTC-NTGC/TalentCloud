@@ -35,9 +35,10 @@ class JobPoster implements JsonSerializable {
     private $key_tasks;
     private $core_competencies;
     private $developing_competencies;
-    private $other_requirements;    
+    private $other_requirements;
+    private $questions;
 
-    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null) {
+    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null, $questions=[]) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -61,6 +62,7 @@ class JobPoster implements JsonSerializable {
         $this->core_competencies = $core_competencies;
         $this->developing_competencies = $developing_competencies;
         $this->other_requirements = $other_requirements;
+        $this->questions = $questions;
     }
     
     public function jsonSerialize() {
@@ -164,6 +166,10 @@ class JobPoster implements JsonSerializable {
 
     public function getOther_requirements() {
         return $this->other_requirements;
+    }
+    
+    public function getQuestions() {
+        return $this->questions;
     }
 
     public function setId($id) {
@@ -278,6 +284,11 @@ class JobPoster implements JsonSerializable {
 
     public function setOther_requirements($other_requirements) {
         $this->other_requirements = $other_requirements;
+        return $this;
+    }
+    
+    public function setQuestions($questions) {
+        $this->questions = $questions;
         return $this;
     }
 }
