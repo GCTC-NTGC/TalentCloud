@@ -501,7 +501,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     
     //TODO: fix this when working on jobPoserApplications
     //var jobSeekerProfileId = document.getElementById("profile_id").value;
-    //JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
 };
 
 JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) {
@@ -672,82 +671,4 @@ JobPostAPI.hideJobPosterApplication = function(){
     /*var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");  
     viewJobPosterOverlay.classList.add("hidden");*/
     
-};
-
-/**
- * 
- * @param {type} jobPosterId
- * @param {type} jobSeekerProfileId
- * @returns {undefined}
- */
-JobPostAPI.getJobPosterApplicationByProfileId = function(jobPosterId,jobSeekerProfileId){
-    Utilities.debug?console.log("loading talent cloud UI"):null;
-    Utilities.debug?console.log("loading contacts"):null;
-    var jobPosterApplication_URL = JobPostAPI.baseURL+"/getJobPosterApplicationByProfileId/"+jobPosterId+"/"+jobSeekerProfileId;
-    
-    var authToken = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
-    var jobPosterApplication_xhr = new XMLHttpRequest();
-    if ("withCredentials" in jobPosterApplication_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      jobPosterApplication_xhr.open("GET", jobPosterApplication_URL);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      jobPosterApplication_xhr = new XDomainRequest();
-      jobPosterApplication_xhr.open("GET", jobPosterApplication_URL);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      jobPosterApplication_xhr = null;
-
-    }
-    
-    jobPosterApplication_xhr.open('GET',jobPosterApplication_URL);
-    jobPosterApplication_xhr.setRequestHeader("Content-Type","application/json");
-    jobPosterApplication_xhr.setRequestHeader("x-access-token", authToken.access_token);
-    
-    jobPosterApplication_xhr.addEventListener("progress",
-    function(evt){
-        JobPostAPI.submitJobPosterApplicationProgress(evt);
-    },false);
-    jobPosterApplication_xhr.addEventListener("load",
-    function(evt){
-        JobPostAPI.getJobPosterApplicationByProfileIdLoaded(jobPosterApplication_xhr.responseText,jobPosterId,jobSeekerProfileId);
-    },false);
-    jobPosterApplication_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    jobPosterApplication_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    jobPosterApplication_xhr.send(authToken);
-    //JobPostAPI.hideJobPosterApplication();
-};
-
-
-JobPostAPI.submitJobPosterApplicationProgress = function(evt){
-    
-};
-
-/**
- * 
- * @param {type} response
- * @param {type} jobPosterId
- * @param {type} jobSeekerProfileId
- * @returns {undefined}
- */
-JobPostAPI.getJobPosterApplicationByProfileIdLoaded = function(response,jobPosterId,jobSeekerProfileId){
-    //var applyNowButton = document.getElementById("applyNowButton_"+jobPosterId);
-    //applyNowButton.setAttribute("disabled","");
-    //JobPostAPI.hideJobPosterApplication();
-    var jobPosterSubmitApplicationButton = document.getElementById("applyNowButton_"+jobPosterId);
-    //console.log(response);
-    if(response !== "null"){
-        jobPosterSubmitApplicationButton.setAttribute("disabled","");
-    }
 };
