@@ -33,8 +33,9 @@
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
                                     <!-- Insert Draggable Area -->
-                                    <div id="updateProfilePhtotDraggableArea"></div>
-
+                                    <div id="updateProfilePhotoDraggableArea"></div>
+                                    <div id="updateProfilePhotoCroppieContainer"></div>
+                                    
                                 </div>
 
                             </div>
@@ -56,7 +57,7 @@
                                     </div>
 
                                     <div class="box small-1of2">
-                                        <button class="update-profile__cancel-button">Cancel</button>
+                                        <button id="updateProfilePhotoCancelButton" class="update-profile__cancel-button">Cancel</button>
                                     </div>
 
                                 </div>

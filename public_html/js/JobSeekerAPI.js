@@ -600,6 +600,23 @@ JobSeekerAPI.showJobSeekerProfileBasicInfoEdit = function() {
     
     EventsAPI.hideBodyOverflow(true);
     
+    var fileInputButtons = [document.getElementById('updateProfileChoosePhotoButton'),
+        document.getElementById('updateProfileChooseAltPhotoButton')];
+    var fileDrop = document.getElementById('updateProfilePhotoDraggableArea');
+    var imagePreview = document.getElementById('updateProfilePhotoCroppieContainer');
+    var clearBtn = document.getElementById('updateProfilePhotoCancelButton');
+    //var uploadBtn = document.getElementById('profilePicUploadBtn');
+    
+    JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
+            fileInputButtons,
+            fileDrop,
+            imagePreview,
+            clearBtn,
+            null,
+            UserAPI.getSessionUserAsJSON().user_id,
+            JobSeekerAPI.onProfilePicUploaded
+        );
+    
 };
 
 JobSeekerAPI.hideJobSeekerProfileBasicInfoEdit = function() {
@@ -661,7 +678,7 @@ JobSeekerAPI.showUploadProfilePic = function() {
     var fileInputButtons = [document.getElementById('updateProfileChoosePhotoButton'),
         document.getElementById('updateProfileChooseAltPhotoButton')];
     var fileDrop = document.getElementById('updateProfilePhotoDraggableArea');
-    var imagePreview = document.getElementById('updateProfilePhotoPreviewImage');
+    var imagePreview = document.getElementById('updateProfilePhotoCroppieContainer');
     var clearBtn = document.getElementById('updateProfilePhotoCancelButton');
     //var uploadBtn = document.getElementById('profilePicUploadBtn');
     

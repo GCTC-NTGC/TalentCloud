@@ -10,7 +10,7 @@ ProfilePicAPI.defaultProfilePic = '/images/user.png';
 ProfilePicAPI.Uploader = function(
         fileInputButtons,
         dropZone,
-        imagePreview,
+        croppieContainer,
         clearButton,
         saveButton,
         userId,
@@ -19,7 +19,7 @@ ProfilePicAPI.Uploader = function(
     
     this.fileInputButtons = fileInputButtons;
     this.dropZone = dropZone;
-    this.imagePreview = imagePreview;
+    this.croppieContainer = croppieContainer;
     this.clearButton = clearButton;
     this.saveButton = saveButton;
     this.userId = userId;
@@ -107,12 +107,10 @@ ProfilePicAPI.Uploader = function(
     
     self.clearUpload = function () {
         //Clear upload 
-        self.photo = null;
-        
-        
+        self.photo = null;       
         
         //Clear preview
-        self.imagePreview.src = self.defaultPhotoSrc;
+        self.croppieContainer.innerHTML = "";
         
         //Clear input button value
         self.fileInputButtons.forEach(function(button) {
@@ -129,7 +127,7 @@ ProfilePicAPI.Uploader = function(
             fr.onloadend = function(ev) {                
                 if (ev.target.file.size < self.max_filesize) {   
                     self.photo = ev.target.file;
-                    self.makeProfilePicCroppie(self.imagePreview, ev.target.result);
+                    self.makeProfilePicCroppie(self.croppieContainer, ev.target.result);
                 } else {
                     //TODO: indicate overlarge file
                 }
