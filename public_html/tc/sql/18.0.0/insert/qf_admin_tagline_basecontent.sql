@@ -18,7 +18,7 @@ VALUES
 (1,'adminProfilePositionLabel','Position',1),
 (1,'adminProfilePositionLabel','Position',2),
 (1,'adminProfileDepartmentLabel','Department',1),
-(1,'adminProfileDepartmentLabel','département',2),
+(1,'adminProfileDepartmentLabel','Département',2),
 (1,'adminProfileBranchLabel','Branch',1),
-(1,'adminProfileBranchLabel','branche',2)
+(1,'adminProfileBranchLabel','Branche',2)
 ;
