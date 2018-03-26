@@ -37,14 +37,14 @@ class JobApplicationDAO extends BaseDAO {
         
         $sqlStr = "
             SELECT 
-                qa.job_poster_application_id as job_poster_application_id,
-                qa.job_poster_question_id as job_poster_question_id,
-                question.question,
-                qa.answer as answer
-            FROM application_question_answer as qa, job_poster_question question
+                answer.job_application_id as job_poster_application_id,
+                answer.job_poster_question_id as job_poster_question_id,
+                question.question as question,
+                answer.answer as answer
+            FROM job_application_answer as answer, job_poster_question question
             WHERE
-                qa.job_poster_application_id = :job_poster_application_id
-                AND qa.job_poster_question_id = question.id
+                answer.job_application_id = :job_poster_application_id
+                AND answer.job_poster_question_id = question.id
             ;";
         
         $sql = $link->prepare($sqlStr);
@@ -213,8 +213,6 @@ class JobApplicationDAO extends BaseDAO {
      * 
      * Accepts an array of ApplicationQuestionAnswer objects, and adds them all
      * to database.
-     * NOTE: since they are added as new items, a new application_question_answer_id 
-     * will be created for each, regardless of the contents of the input objects.
      * 
      * @param ApplicationQuestionAnswer[] $applicationQuestionAnswers
      * @return int $rowsmodified - number of rows modified in database
@@ -235,8 +233,8 @@ class JobApplicationDAO extends BaseDAO {
             $values = array_merge($values, $entryValues);
         }
         
-        $sqlStr = "INSERT INTO application_question_answer 
-            (job_poster_application_id, job_poster_question_id, answer)
+        $sqlStr = "INSERT INTO job_application_answer 
+            (job_application_id, job_poster_question_id, answer)
             VALUES " . 
             implode(',', $valueStrings) . ";";
         

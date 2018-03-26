@@ -95,7 +95,13 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             CreateJobPosterAPI.getLocalizedLookupValueFromId("jobterm", locale, jp.term_units_id),
             jp.remuneration_type,
             jp.remuneration_range_low,
-            jp.remuneration_range_high
+            jp.remuneration_range_high,
+            jp.impact[locale],
+            jp.key_tasks[locale],
+            jp.core_competencies[locale],
+            jp.developing_competencies[locale],
+            jp.other_requirements[locale],
+            jp.questions[locale]
             );
 };
 

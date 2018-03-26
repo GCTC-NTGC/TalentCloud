@@ -33,7 +33,7 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
+JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements,questions){
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = title;
@@ -52,6 +52,12 @@ JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_
     this.core_competencies = core_competencies;
     this.developing_competencies = developing_competencies;
     this.other_requirements = other_requirements;
+    this.questions = questions;
+};
+
+JobPostAPI.JobPosterQuestion = function(id, question) {
+    this.id = id;
+    this.question = question;
 };
 
 JobPostAPI.showBrowseJobs = function() {
@@ -131,6 +137,11 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.core_competencies = job.core_competencies;
     jobObj.developing_competencies = job.developing_competencies;
     jobObj.other_requirements = job.other_requirements;
+    jobObj.questions = [];
+    job.questions.forEach(function(q){
+        var question = new JobPostAPI.JobPosterQuestion(q.id, q.question);
+        jobObj.questions.push(question);
+    })
 
 
     Utilities.debug?console.log(jobObj):null;
