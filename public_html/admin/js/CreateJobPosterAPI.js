@@ -392,9 +392,8 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var other_requirements_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements");
     var other_requirements_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements_fr");
     
-    //TODO: get questions from form
-    var questions_en = [];
-    var questions_fr = [];
+    var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
+    var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
         
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr, questions_en, questions_fr);
 }
