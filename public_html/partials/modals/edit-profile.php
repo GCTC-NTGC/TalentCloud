@@ -42,7 +42,7 @@
 
                                 <span class="update-profile__or-copy heading--05">Or</span>
 
-                                <input type="file" value="Choose Photo..." class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" />
+                                <input type="file" value="Choose Photo..." class="update-profile__choose-photo-button button--yellow" name="User Profile Photo" accept="image/*" />
 
                             </div>
 

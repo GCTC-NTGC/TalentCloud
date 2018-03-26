@@ -7,13 +7,38 @@
 ============================================================================= */
 
 [class*="button--"] {
+    border-radius: 3px;
+    font-family: $font-hk;
+    font-weight: 400;
+    transition: all .2s ease;
 
     &[class*="yellow"] {
+        background: $palette-yellow--light;
+        color: $palette-grey--dark;
+
+        &:hover {
+            background: $palette-yellow--dark;
+        }
 
     }
 
     &[class*="grey"] {
+        background: $palette-grey--light;
+        color: $palette-grey--dark;
 
+        &:hover {
+            background: $palette-grey;
+        }
+
+        &:focus {
+            color: white;
+            background: $palette-grey--dark;
+        }
+
+    }
+
+    &:hover {
+        transition: all .2s ease;
     }
 
 }
