@@ -33,6 +33,7 @@
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
                                     <!-- Insert Draggable Area -->
+                                    <div id="updateProfilePhtotDraggableArea"></div>
 
                                 </div>
 
@@ -42,7 +43,7 @@
 
                                 <span class="update-profile__or-copy heading--05">Or</span>
 
-                                <input type="file" value="Choose Photo..." class="update-profile__choose-photo-button button--yellow" name="User Profile Photo" accept="image/*" />
+                                <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" value="Choose Photo..." class="update-profile__choose-photo-button button--yellow" name="User Profile Photo" accept="image/*" />
 
                             </div>
 
@@ -51,7 +52,7 @@
                                 <div class="flex-grid">
 
                                     <div class="box small-1of2">
-                                        <input type="file" value="Choose a Different Photo..." class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
+                                        <input id="updateProfileChooseAltPhotoButton" type="file" value="Choose a Different Photo..." class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
                                     </div>
 
                                     <div class="box small-1of2">

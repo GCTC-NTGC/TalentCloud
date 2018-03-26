@@ -276,7 +276,8 @@ JobSeekerAPI.updateFavourite = function(isFav,jobPosterId){
 JobSeekerAPI.refreshJobSeekerProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
+        //profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
+        profile_pic_elements = [document.getElementById("myProfilePic")];
         ProfilePicAPI.refreshMultipleProfilePics(user_id, profile_pic_elements);
     }
 };
@@ -657,18 +658,19 @@ JobSeekerAPI.showUploadProfilePic = function() {
     AccessibilityAPI.preventModalEscape("profilePicUploadField", "profilePicUploadBtn");
     AccessibilityAPI.focusElement("profilePicUploadField");
     
-    var fileField = document.getElementById('profilePicUploadField');
-    var fileDrop = document.getElementById('profilePicUploadDrop');
-    var imagePreview = document.getElementById('fileUploadPreviewImg');
-    var clearBtn = document.getElementById('profilePicUploadClear');
-    var uploadBtn = document.getElementById('profilePicUploadBtn');
+    var fileInputButtons = [document.getElementById('updateProfileChoosePhotoButton'),
+        document.getElementById('updateProfileChooseAltPhotoButton')];
+    var fileDrop = document.getElementById('updateProfilePhotoDraggableArea');
+    var imagePreview = document.getElementById('updateProfilePhotoPreviewImage');
+    var clearBtn = document.getElementById('updateProfilePhotoCancelButton');
+    //var uploadBtn = document.getElementById('profilePicUploadBtn');
     
     JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
-            [fileField],
+            fileInputButtons,
             fileDrop,
             imagePreview,
             clearBtn,
-            uploadBtn,
+            null,
             UserAPI.getSessionUserAsJSON().user_id,
             JobSeekerAPI.onProfilePicUploaded
         );

@@ -109,6 +109,8 @@ ProfilePicAPI.Uploader = function(
         //Clear upload 
         self.photo = null;
         
+        
+        
         //Clear preview
         self.imagePreview.src = self.defaultPhotoSrc;
         
@@ -127,7 +129,7 @@ ProfilePicAPI.Uploader = function(
             fr.onloadend = function(ev) {                
                 if (ev.target.file.size < self.max_filesize) {   
                     self.photo = ev.target.file;
-                    self.imagePreview.src = ev.target.result;
+                    self.makeProfilePicCroppie(self.imagePreview, ev.target.result);
                 } else {
                     //TODO: indicate overlarge file
                 }
@@ -136,6 +138,24 @@ ProfilePicAPI.Uploader = function(
         } else {
             //TODO: indicate imporper file type
         }
+    };
+    
+    self.makeProfilePicCroppie = function(imageElement, imageSrc) {
+        
+        var croppie = new Croppie(imageElement, {
+            viewport: { width: 200, height: 200, type: 'circle'},
+            boundary: { width: 200, height: 200 },
+            showZoomer: true,
+            enableZoom: true,
+            enforceBoundary: true,
+            mouseWheelZoombool: true
+        });
+        croppie.bind({
+            url: imageSrc
+        }).then(function() {
+            croppie.setZoom(0);
+        });
+        return croppie;
     };
     
     self.uploadPhoto = function() {
@@ -169,7 +189,17 @@ ProfilePicAPI.Uploader = function(
                     self.onUploadComplete(xhr);
                 }
             }, false);
-            xhr.send(self.photo);
+            
+            croppie.result({
+                    type: 'blob',
+                    size: 'viewport',
+                    format: 'png',
+                    quality: 1,
+                    circle: false
+                }).then(function(blob) {
+                    payload = blob;
+                    xhr.send(payload);
+                });
         }        
     }
     
