@@ -37,13 +37,14 @@ class JobApplicationDAO extends BaseDAO {
         
         $sqlStr = "
             SELECT 
-                qa.application_question_answer_id,
-                qa.job_poster_application_id,
-                qa.question,
-                qa.answer
-            FROM application_question_answer as qa
+                qa.job_poster_application_id as job_poster_application_id,
+                qa.job_poster_question_id as job_poster_question_id,
+                question.question,
+                qa.answer as answer
+            FROM application_question_answer as qa, job_poster_question question
             WHERE
                 qa.job_poster_application_id = :job_poster_application_id
+                AND qa.job_poster_question_id = question.id
             ;";
         
         $sql = $link->prepare($sqlStr);
@@ -52,7 +53,7 @@ class JobApplicationDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             //$link->commit();
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ApplicationQuestionAnswer', array('application_question_answer_id', 'job_poster_application_id','question','answer'));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ApplicationQuestionAnswer');
             
             $questionAnswers = $sql->fetchAll();
             
@@ -230,12 +231,12 @@ class JobApplicationDAO extends BaseDAO {
         $valueStrings = [];
         foreach($applicationQuestionAnswers as $questionAnswer) {
             $valueStrings[] = '(?, ?, ?)';
-            $entryValues = [$questionAnswer->getJob_poster_application_id(), $questionAnswer->getQuestion(), $questionAnswer->getAnswer()];
+            $entryValues = [$questionAnswer->getJob_poster_application_id(), $questionAnswer->getJob_poster_question_id(), $questionAnswer->getAnswer()];
             $values = array_merge($values, $entryValues);
         }
         
         $sqlStr = "INSERT INTO application_question_answer 
-            (job_poster_application_id, question, answer)
+            (job_poster_application_id, job_poster_question_id, answer)
             VALUES " . 
             implode(',', $valueStrings) . ";";
         
