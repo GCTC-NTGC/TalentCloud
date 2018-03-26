@@ -14,7 +14,7 @@ and open the template in the editor .
 <body>
 <ul id="wb-tphp">
     <li class="wb-slc">
-        <a class="wb-sl" href="#jobs">Skip to available jobs</a>
+        <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
     </li>
 </ul>
 <div class="announcement-banner">
@@ -228,7 +228,6 @@ and open the template in the editor .
                 <div class="container">
                     <h2 class="section--title" id="howItWorksHeading">How It Works</h2>
                         <p id="howItWorksLead">GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.</p>
-                        <!--<div id="howItWorksMainHtml"></div>-->
                         <ul class="icon-list">
                                 <li class="item">
                                         <span class="item-icon"><i class="fa fa-map-signs fa-fw"></i></span>
@@ -341,7 +340,7 @@ and open the template in the editor .
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
                 <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-                <h2 id="jobPosterTitle"></h2>
+                <h2 id="jobPosterTitle">Job Title</h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
@@ -420,11 +419,52 @@ and open the template in the editor .
                                 </button>
                             </div>
                         </div>
+<<<<<<< HEAD
 
                     </div>
                 </div>
             </section>
 
+=======
+                    </div>
+                </div>
+            </section>
+            <section class='jobPosterSection'>
+                <div class="container">
+                    <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
+                    <div class="workEnvironmentAnswerWrapper">
+                        <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
+                        <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
+                        <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+                    </div>
+                    <div class="workEnvironmentSummaryWrapper">
+                        <div id='workEnvironmentSummaryImagesWrapper'>
+                            <figure>
+                                <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
+                                <!--<figcaption>Caption 1</figcaption>-->
+                            </figure>
+                            <figure>
+                                <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
+                                <!--<figcaption>Caption 2</figcaption>-->
+                            </figure>
+                            <figure>
+                                <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
+                                <!--<figcaption>Caption 3</figcaption>-->
+                            </figure>
+                        </div>
+                    </div>
+            </section>
+            <section class="jobPosterSection">
+                <div class="container">
+                    <h3 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h3>
+                    <div class="container">
+                        <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
+                        <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
+                        <p><span id="jobPosterTeamNarrativeText"></span></p>
+                    </div>
+                </div>
+            </section>
+>>>>>>> to_profile_pic_upload
 
             <div id="jobPosterButtonWrapper">
                 <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
@@ -675,7 +715,7 @@ and open the template in the editor .
             <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
             <div class="container centered">
                 <p id="createJobApplicationPositionLabel">for the position of:</p>
-                <h3 id="createJobApplicationPostition"></h3>
+                <h3 id="createJobApplicationPostition">Job title</h3>
             </div>
             <input type='hidden' id='createJobApplicationJobApplicationId' />
             <input type='hidden' id='createJobApplicationJobPosterId' />
@@ -712,7 +752,7 @@ and open the template in the editor .
                     <p id="createJobApplicationConfirmationPositionLabel">
                         You have applied for the position of:
                     </p>
-                    <h3 id="createJobApplicationConfirmationPostition"></h3>
+                    <h3 id="createJobApplicationConfirmationPostition">Job title</h3>
                     <p id="createJobApplicationConfirmationTrackingReminder">
                         Track the application from your Dashboard.
                     </p>

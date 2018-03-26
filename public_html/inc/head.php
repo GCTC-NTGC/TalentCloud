@@ -25,9 +25,11 @@
 <script src="/js/EventsAPI.js"></script>
 <script src="/js/FormsAPI.js"></script>
 <script src="/js/JobSeekerAPI.js"></script>
-<script src="/js/FileUploadAPI.js"></script>
+<script src="/js/ProfilePicAPI.js"></script>
 <script src="/js/ManagerProfileAPI.js"></script>
 <script src="/js/JobApplicationAPI.js"></script>
+<script src="/js/WorkEnvironmentAPI.js"></script>
+<script src="/js/TeamCultureAPI.js"></script>
 <script src="/js/DashboardAPI.js" type="text/javascript"></script>
 <script>
     var loadingImage = new Image();

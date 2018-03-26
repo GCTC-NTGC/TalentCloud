@@ -348,6 +348,10 @@ CreateEditProfileAPI.validateStep3 = function() {
         //console.log(CreateEditProfileAPI.managerProfileObj);
         //submitForm();
         CreateEditProfileAPI.updateManagerProfileWithDetails();
+        
+        var managerProfileId = document.getElementById("ManagerProfileId").value;
+        CreateWorkEnvironmentAPI.saveWorkEnvironment(managerProfileId);
+        EditTeamCultureAPI.submitTeamCulture(managerProfileId);
     }
 };
 
@@ -801,7 +805,7 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
          
-    FileUploadAPI.refreshUserProfilePic();
+    ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
 
     CreateEditProfileAPI.getManagerProfile();
 };
@@ -857,18 +861,18 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
     
     var fileField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
-    var fileList = document.getElementById('profilePicUploadPreview');
+    var previewImage = document.getElementById('fileUploadPreviewImg');
     var clearBtn = document.getElementById('profilePicUploadClear');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
-    CreateEditProfileAPI.profilePicUploader = new FileUploadAPI.FileUploader(
-            fileField, fileDrop, fileList, 
+    CreateEditProfileAPI.profilePicUploader = new ProfilePicAPI.Uploader(
+            [fileField],
+            fileDrop,
+            previewImage,
             clearBtn,
             uploadBtn,
-            true, 
-            true,
-            FileUploadAPI.makeProfilePicUploadRequest, 
-            CreateEditProfileAPI.onProfilePicUploaded);
-    CreateEditProfileAPI.profilePicUploader.init();
+            UserAPI.getSessionUserAsJSON().user_id,
+            CreateEditProfileAPI.onProfilePicUploaded
+        );
 };
 
 CreateEditProfileAPI.hideUploadProfilePic = function() {
@@ -879,7 +883,7 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
 };
 
 CreateEditProfileAPI.onProfilePicUploaded = function() {
-    FileUploadAPI.refreshUserProfilePic();
+    ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
     CreateEditProfileAPI.hideUploadProfilePic();
 };
 
@@ -966,6 +970,13 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
     manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
     manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
+    
+    
+    //Initialize Work Environment
+    CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
+    
+    //Initialize Team Culture
+    EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
 
 
     //set hidden field values
@@ -1059,6 +1070,10 @@ CreateEditProfileAPI.populateProfile = function(response){
     SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details.user_manager_profile_devops, 'devops');
     
     SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details.user_manager_profile_telework, 'telework');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details.user_manager_profile_flexHours, 'flexHours');
     
     var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
     user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;

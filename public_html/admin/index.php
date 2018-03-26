@@ -15,7 +15,7 @@ and open the template in the editor .
     <body>
         <ul id="wb-tphp">
             <li class="wb-slc">
-                <a class="wb-sl" href="#jobs">Skip to available jobs</a>
+                <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
             </li>
         </ul>
         <div class="announcement-banner">
@@ -171,6 +171,7 @@ and open the template in the editor .
                     <div class="fileUpload">
                         <div class="leftPane">
                             <div>
+                                <label for="profilePicUploadField">Profile picture</label>
                                 <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
                             </div>
                             <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
@@ -178,8 +179,8 @@ and open the template in the editor .
                             </div>
                         </div>
                         <div class="rightPane">
-                            <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                                <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
+                            <div id="fileUploadPreviewPanel" class="uploadFileThumbnail" style="min-height:130px;">
+                                <img id="fileUploadPreviewImg" src="/images/user.png"/>
                             </div>
                             <div id="fileUploadButtons">
                                 <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
@@ -218,7 +219,7 @@ and open the template in the editor .
                         <div class="container">
                             <div class="page-banner--logo-container flexContainerVerticallyCentered">
                                 <div class="page-banner--logo flexLeftOfCenter">
-                                    <a href="/" role="img" aria-label="GC Talent Cloud">
+                                    <a href="/" aria-label="GC Talent Cloud">
                                         <img id="logoSrc" class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud logo"/>
                                     </a>
                                 </div>
@@ -298,12 +299,16 @@ and open the template in the editor .
                                     <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
-                                                <div class="three-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
-                                                <div class="three-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
+                                        <div class="five-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
+                                        <div class="five-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
+                                        <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
+                                        <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>                                                
+                                        <div class="five-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
                                             </div>
                                             <div class="tabs">
                                                 <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                             </div>
@@ -335,7 +340,7 @@ and open the template in the editor .
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="createEditProfile_branch">
+                                                        <label for="createEditProfile_position">
                                                             <span id="createEditProfile_position_label">Position</span>
                                                             <strong id="createEditProfile_position_error" class="error hidden">
                                                                 <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
@@ -488,14 +493,18 @@ and open the template in the editor .
                                     <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="three-step-tab"><span id="createEditProfileStep1Label_2">Step 1</span></div>
-                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep2Label_2">Step 2</span></div>
-                                                <div class="three-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep1Label_2">About</span></div>
+                                                <div class="five-step-tab tab-current"><span id="createEditProfileStep2Label_2">Leadership</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_2">Work Environment</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_2">Team Culture</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep3Label_2">Review</span></div>
                                             </div>
                                             <div class="tabs">
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>  
+                                                <div class="steptab inactive"> </div> 
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
@@ -719,19 +728,211 @@ and open the template in the editor .
                                                 <div class="formGroup insert"><span>*</span><span id="createEditProfile_requiredStep2">Required</span></div>
                                                 <div class="formGroup">
                                                     <input type="button" id="createEditProfile_goToStep1_1" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');">
-                                                    <input type="button" id="createEditProfile_goToStep3_1" value="Go to Step 3" onclick="CreateEditProfileAPI.validateStep2();">
+                                                    <input type="button" id="createEditProfile_goToWorkEnvironment_1" value="Go to WorkEnvironment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="createEditProfile_workEnvironment" class="stepGroup_createEditProfile hidden">
+                                        <div class="tabsWrapper">
+                                            <div class="tabsSteps">
+                                                <div class="four-step-tab"><span id="createEditProfileStep1Label_WE">Step 1</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep2Label_WE">Step 2</span></div>
+                                                <div class="four-step-tab tab-current"><span id="createEditProfileWorkEnvironmentLabel_WE">Work Environment</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_WE">Team Culture</span></div>
+                                                <div class="four-step-tab"><span id="createEditProfileStep3Label_WE">Review</span></div>
+                                            </div>
+                                            <div class="tabs">
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="stepGroupForm">
+                                            <h3>Work Environment</h3>
+                                                    <div class="form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span id="remoteWork_label">Remote work allowed</span>
+                                                        </div>
+                                                        <div style='display:inline-block;'>
+                                                            <div class="toggle-btn-group clearfix">
+                                                                <div id='createEditProfile_remoteWork' style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
+                                                                    <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
+                                                                    <label id='remoteWork_option0_label' for="remoteWork_option0" class='option0Label'>Yes</label>
+                                                                    <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
+                                                                    <label id='remoteWork_option1_label' for="remoteWork_option1" class='option1Label'>No</label>
+                                                                </div>
+                                                                <div id='remoteWork' class="left"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span id='telework_label'>Telework allowed</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='createEditProfile_telework' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                    <input type="radio" id="telework_option0" name="createEditProfile_telework" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')" />
+                                                                    <label id='telework_option0_label' for="telework_option0" class='option0Label'>Never</label>
+                                                                    <input type="radio" id="telework_option1" name="createEditProfile_telework" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                                                                    <label id='telework_option1_label' for="telework_option1" class='option1Label'>Occasionally</label>
+                                                                    <input type="radio" id="telework_option2" name="createEditProfile_telework" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                                                                    <label id='telework_option2_label' for="telework_option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="telework_option3" name="createEditProfile_telework" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                                                                    <label id='telework_option3_label' for="telework_option3" class='option3Label'>Frequently</label>
+                                                                    <input type="radio" id="telework_option4" name="createEditProfile_telework" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                                                                    <label id='telework_option4_label' for="telework_option4" class='option4Label'>Most of the time</label>
+                                                                </div>
+                                                                <div id='telework' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="multi-btn-group-form-group">
+                                                        <div class='multi-btn-group-form-group-label'>
+                                                            <span id='flexHours_label'>Flexible hours allowed</span>
+                                                        </div>
+                                                        <div style='display:inline-block;width:48%'>
+                                                            <div class="multi-btn-group clearfix">
+                                                                <div id='createEditProfile_flexHours' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                    <input type="radio" id="flexHours_option0" name="createEditProfile_flexHours" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')" />
+                                                                    <label id='flexHours_option0_label' for="flexHours_option0" class='option0Label'>Never</label>
+                                                                    <input type="radio" id="flexHours_option1" name="createEditProfile_flexHours" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                                                                    <label id='flexHours_option1_label' for="flexHours_option1" class='option1Label'>Occasionally</label>
+                                                                    <input type="radio" id="flexHours_option2" name="createEditProfile_flexHours" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                                                                    <label id='flexHours_option2_label' for="flexHours_option2" class='option2Label'>Sometimes</label>
+                                                                    <input type="radio" id="flexHours_option3" name="createEditProfile_flexHours" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                                                                    <label id='flexHours_option3_label' for="flexHours_option3" class='option3Label'>Frequently</label>
+                                                                    <input type="radio" id="flexHours_option4" name="createEditProfile_flexHours" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                                                                    <label id='flexHours_option4_label' for="flexHours_option4" class='option4Label'>Most of the time</label>
+                                                                </div>
+                                                                <div id='flexHours' class="option0"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="workEnvironmentWrapper">
+                                                        <span id='physicalEnvironment_title' class="workEnvironmentTitle">Physical Environment</span>
+                                                        <div class="centered">
+                                                            <div class="workEnvironmentImage">
+                                                                <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <label for="workplace_photo_input_1">Image 1</label>
+                                                                <input type="file" id="workplace_photo_input_1" class="fileInput" name="Workplace Photo 1" accept="image/*" /><br>
+                                                                <label for="workplace_photo_caption_1">Description 1: </label>
+                                                                <input id="workplace_photo_caption_1" type="text" name="workplace_photo_caption_1"/>
+                                                            </div>
+                                                            <div class="workEnvironmentImage">
+                                                                <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <label for="workplace_photo_input_2">Image 2</label>
+                                                                <input type="file" id="workplace_photo_input_2" class="fileInput" name="Workplace Photo 2" accept="image/*" /><br>
+                                                                <label for="workplace_photo_caption_2">Description 2: </label>
+                                                                <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2"/>
+                                                            </div>
+                                                            <div class="workEnvironmentImage">
+                                                                <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <label for="workplace_photo_input_3">Image 3</label>
+                                                                <input type="file" id="workplace_photo_input_3" class="fileInput" name="Workplace Photo 3" accept="image/*" /><br>
+                                                                <label for="workplace_photo_caption_3">Description 3: </label>
+                                                                <input id="workplace_photo_caption_3" type="text" name="workplace_photo_caption_3"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <div class="createEditProfileSubmitPane">
+                                                <div class="formGroup insert"></div>
+                                                <div class="formGroup">
+                                                    <input type="button" id="createEditProfile_goToStep2_2" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');">
+                                                    <input id="createEditProfile_goToTeamCulture_1" type="button" value="Go to Team Culture" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div id="createEditProfile_teamCulture" class="stepGroup_createEditProfile hidden">
+                                        <div class="tabsWrapper">
+                                            <div class="tabsSteps">
+                                                <div class="five-step-tab"><span id="createEditProfileStep1Label_TC">About</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep2Label_TC">Leadership</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_TC">Work Environment</span></div>
+                                                <div class="five-step-tab tab-current"><span id="createEditProfileTeamCultureLabel_TC">Team Culture</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep3Label_TC">Review</span></div>
+                                            </div>
+                                            <div class="tabs">
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab active"> </div>
+                                                <div class="steptab inactive"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="stepGroupForm">
+                                            <h3 id="createEditProfile_teamCultureTitle">Team Culture</h3>
+                                            <div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_teamSize">
+                                                        <span id="createEditProfile_teamSize_label">What is the size of the team?</span>
+                                                        <strong id="createEditProfile_teamSize_error" class="error hidden">
+                                                            <span id="createEditProfile_teamSize_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control" name="createEditProfile_teamSize" id="createEditProfile_teamSize"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="createEditProfile_gcDirLink">
+                                                        <span id="createEditProfile_gcDirLink_label">Link to the team in GC Directory</span>
+                                                        <strong id="createEditProfile_gcDirLink_error" class="error hidden">
+                                                            <span id="createEditProfile_gcDirLink_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control full-width" name="createEditProfile_gcDirLink" id="createEditProfile_gcDirLink"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group leftPane">
+                                                    <label for="createEditProfile_teamNarrative_en">
+                                                        <span id="createEditProfile_teamNarrative_en_label">Tell us what makes your team unique. What are your team's vision, values, and expectations?</span>
+                                                        <strong id="createEditProfile_teamNarrative_en_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_en_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative_en" id="createEditProfile_teamNarrative_en"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group rightPane">
+                                                    <label for="createEditProfile_teamNarrative_fr">
+                                                        <span id="createEditProfile_teamNarrative_fr_label">Dites-nous ce qui rend votre équipe unique. Quelles sont la vision, les valeurs et les attentes de votre équipe?</span>
+                                                        <strong id="createEditProfile_teamNarrative_fr_error" class="error hidden">
+                                                            <span id="createEditProfile_teamNarrative_fr_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createEditProfile_teamNarrative_fr" id="createEditProfile_teamNarrative_fr"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="createEditProfileSubmitPane">
+                                            <div class="formGroup insert"></div>
+                                            <div class="formGroup">
+                                                <input type="button" id="createEditProfile_goToWorkEnvironment_2" value="Go to Work Environment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
+                                                <input id="createEditProfile_goToStep3_1" type="button" value="Go to Step 3" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')">
                                             </div>
                                         </div>
                                     </div>
                                     <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
                                         <div class="tabsWrapper">
                                             <div class="tabsSteps">
-                                                <div class="three-step-tab"><span id="createEditProfileStep1Label_3">Step 1</span></div>
-                                                <div class="three-step-tab"><span id="createEditProfileStep2Label_3">Step 2</span></div>
-                                                <div class="three-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep1Label_3">About</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileStep2Label_3">Leadership</span></div>
+                                                <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></div>
+                                                <div class="five-step-tab "><span id="createEditProfileTeamCultureLabel_3">Team Culture</span></div>
+                                                <div class="five-step-tab tab-current"><span id="createEditProfileStep3Label_3">Review</span></div>
                                             </div>
                                             <div class="tabs">
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
@@ -767,7 +968,7 @@ and open the template in the editor .
                                             <div class="createEditProfileSubmitPane">
                                                 <div class="formGroup insert"></div>
                                                 <div class="formGroup">
-                                                    <input type="button" id="createEditProfile_goToStep2_2" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');">
+                                                    <input id="createEditProfile_goToTeamCulture_2" type="button" value="Go to Team Culture" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')">
                                                     <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();">
                                                 </div>
                                             </div>

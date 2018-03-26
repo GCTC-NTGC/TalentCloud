@@ -57,7 +57,6 @@ class JWTUtils {
     public static function getPayloadFromToken($jwt){
         
         $jwt_elements = explode('.', $jwt);
-        
         $payload = json_decode(Utils::base64url_decode($jwt_elements[1]),TRUE);
         //var_dump($payload);
         return $payload;

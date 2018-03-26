@@ -152,13 +152,19 @@ DashboardAPI.populateDashboard = function(dashboardJSON){
     
     //get yourApplications section from DOM
     var yourApplicationsSection = document.getElementById("yourApplications");
+    yourApplicationsSection.setAttribute("tabIndex","0");
     yourApplicationsSection.innerHTML = "";
     for(var d = 0; d < dashboardJSON.length; d++){
         var application = dashboardJSON[d];
         
         var applicationRow = document.createElement("div");
         applicationRow.setAttribute("id","ya_job_poster_id_"+application.job_poster_id);
-        applicationRow.setAttribute("class","dashboardJobSummary");
+        applicationRow.setAttribute("tabIndex","0");
+        if(d === (dashboardJSON.length - 1)){
+            applicationRow.setAttribute("class","dashboardJobSummaryLast");
+        }else{
+            applicationRow.setAttribute("class","dashboardJobSummary");
+        }
         
         var applicationTitleDept = document.createElement("div");
         applicationTitleDept.setAttribute("id","ya_title_dept_"+application.job_poster_id);
@@ -167,19 +173,23 @@ DashboardAPI.populateDashboard = function(dashboardJSON){
         var applicationTitle = document.createElement("div");
         applicationTitle.setAttribute("id","ya_title_"+application.job_poster_id);
         applicationTitle.setAttribute("class","dashboardJobSummaryTitle");
+        applicationTitle.setAttribute("tabIndex","0");
         applicationTitle.innerHTML = application.job_poster_title;
         applicationTitleDept.appendChild(applicationTitle);
         
         var applicationDept = document.createElement("div");
         applicationDept.setAttribute("id","ya_dept_"+application.job_poster_id);
         applicationDept.setAttribute("class","dashboardJobSummaryDepartment");
+        applicationDept.setAttribute("tabIndex","0");
         applicationDept.innerHTML = " - " + application.department_details_name;
         applicationTitleDept.appendChild(applicationDept);
         
         applicationRow.appendChild(applicationTitleDept);
         
-        var applicationManager = document.createElement("div");
+        var applicationManager = document.createElement("a");
         applicationManager.setAttribute("id","ya_manager_"+application.job_poster_id);
+        applicationManager.setAttribute("href","javascript:void(0)");
+        applicationManager.setAttribute("onclick","ManagerProfileAPI.showManagerProfile('"+application.manager_user_id+"');");
         applicationManager.setAttribute("class","dashBoardHiringManagerWrapper");
         
         applicationRow.appendChild(applicationManager);
@@ -191,6 +201,7 @@ DashboardAPI.populateDashboard = function(dashboardJSON){
         var applicationStatus = document.createElement("p");
         applicationStatus.setAttribute("id","ya_status_"+application.job_poster_id);
         applicationStatus.setAttribute("class","dashboardJobStatus");
+        applicationStatus.setAttribute("tabIndex","0");
         var statusInnerHTML = application.application_status;
         
         var closeStatus = document.createElement("span");
@@ -210,15 +221,40 @@ DashboardAPI.populateDashboard = function(dashboardJSON){
 
         yourApplicationsSection.appendChild(applicationRow);
        
-        //DashboardAPI.populateManagerProfile();
-    };
+        DashboardAPI.populateManagerProfile(application);
+    }
+};
     
-    DashboardAPI.populateManagerProfile = function(data, applicationManagerObj){
-        console.log(data);
-        
-        var hiringManagerProfilePicSmall = document.createElement("img");
-        hiringManagerProfilePicSmall.setAttribute("id","ya_manager_profilepic_"+application.job_poster_id);
-        hiringManagerProfilePicSmall.setAttribute("class","hiringManagerProfilePicSmall");
-        applicationManager.appendChild(hiringManagerProfilePicSmall);
-    };
+DashboardAPI.populateManagerProfile = function(application){
+    //console.log(application);
+
+
+    var hiringManagerWidget = document.createElement("a")
+    hiringManagerWidget.setAttribute("id","ya_manager_widget_"+application.job_poster_id);
+    hiringManagerWidget.setAttribute("class","hiringManagerWidget");
+       
+    var hiringManagerProfilePicSmall = document.createElement("img");
+    hiringManagerProfilePicSmall.setAttribute("id","ya_manager_profilepic_"+application.job_poster_id);
+    hiringManagerProfilePicSmall.setAttribute("class","hiringManagerProfilePicSmall");
+    hiringManagerProfilePicSmall.setAttribute("tabIndex","0");
+    ProfilePicAPI.refreshProfilePic(application.manager_user_id, hiringManagerProfilePicSmall);
+    hiringManagerWidget.appendChild(hiringManagerProfilePicSmall);
+    
+    var hiringManagerWidgetName = document.createElement("div")
+    hiringManagerWidgetName.setAttribute("id","ya_manager_name_"+application.job_poster_id);
+    hiringManagerWidgetName.setAttribute("class","hiringManagerName");
+    hiringManagerWidgetName.setAttribute("tabIndex","0");
+    hiringManagerWidget.appendChild(hiringManagerWidgetName);
+    
+    //Start requests for Hiring Manager data
+    //Load Hiring Manager Name
+    DataAPI.getUser(application.manager_user_id, function(response) {
+       var managerUser = JSON.parse(response);
+       console.log(managerUser);
+       document.getElementById("ya_manager_name_"+application.job_poster_id).innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+    });
+    
+    var ya_job_poster_manager_element = document.getElementById("ya_manager_"+application.job_poster_id);
+    ya_job_poster_manager_element.appendChild(hiringManagerWidget);
+    
 };

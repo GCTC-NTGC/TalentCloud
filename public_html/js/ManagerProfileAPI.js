@@ -23,6 +23,9 @@ ManagerProfileAPI.ManagerProfile = function(){
     this.low_value_work_requests = null;
     this.work_experience = null;
     this.education = null;
+    
+    this.firstname = null;
+    this.lastname = null;
 };
 
 /**
@@ -35,6 +38,7 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response) {
     
     var manager_profile = manager_profile_with_details_json.manager_profile;
     var manager_profile_details = manager_profile_with_details_json.manager_profile_details;
+    var manager_user = manager_profile_with_details_json.user;
     
     var profile = new ManagerProfileAPI.ManagerProfile();
     profile.user_id = manager_profile.user_id;
@@ -60,6 +64,9 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response) {
     profile.work_experience = manager_profile_details.user_manager_profile_work_experience;
     profile.education = manager_profile_details.user_manager_profile_education;
     
+    profile.firstname = manager_user.firstname;
+    profile.lastname = manager_user.lastname;
+    
     return profile;
 };
 
@@ -72,9 +79,9 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     var managerProfileSection = document.getElementById('managerProfileSection');
     managerProfileSection.classList.remove('hidden');
     
-    DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
+    //DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
-    FileUploadAPI.refreshProfilePic(user_id, [document.getElementById('managerProfilePic')]);
+    ProfilePicAPI.refreshProfilePic(user_id, document.getElementById('managerProfilePic'));
 }
 
 ManagerProfileAPI.localizeManagerProfile = function() {
@@ -110,8 +117,8 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     var manager_id = document.getElementById("managerProfile_managerProfileId");
     manager_id.value = profile.manager_profile_id;
 
-    //var firstName = document.getElementById("managerProfileFirstName");
-    //firstName.innerText = manager_
+    document.getElementById("managerProfileFirstName").innerHTML = profile.firstname;
+    document.getElementById("managerProfileLastName").innerHTML = profile.lastname;
 
     //var last_updated = document.getElementById("profileLastUpdated");
     //last_updated.value = JobSeekerAPI.jobSeekerProfile.last_updated;

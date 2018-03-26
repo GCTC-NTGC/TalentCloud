@@ -197,6 +197,19 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.applicantPortal = content.applicantPortal;
     thisContent.dashBoardLink = content.dashBoardLink;
     thisContent.yourApplicationsTitle = content.yourApplicationsTitle;
+    thisContent.workEnvironment = content.workEnvironment;
+    thisContent.remoteLocationAllowed = content.remoteLocationAllowed;
+    thisContent.teleworkAllowed = content.teleworkAllowed;
+    thisContent.flexHoursAllowed = content.flexHoursAllowed;
+    thisContent.yes = content.yes;
+    thisContent.no = content.no;
+    thisContent.physicalEnvironment = content.physicalEnvironment;
+    thisContent.teamCulture = content.teamCulture;
+    thisContent.teamSize = content.teamSize;
+    thisContent.gcDirectoryLink = content.gcDirectoryLink;
+    thisContent.teamSizePrompt = content.teamSizePrompt;
+    thisContent.gcDirectoryLinkPrompt = content.gcDirectoryLinkPrompt;
+    thisContent.teamNarrativePrompt = content.teamNarrativePrompt;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
@@ -621,12 +634,14 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
         request = null;
         // TODO: indicate to user that browser is not supported
     }
-
-    request.setRequestHeader("Content-type", "application/json");
-    request.setRequestHeader("Accept", "application/json");
+    //Default to application/json if content-type not included in headersMap
+    if (!headersMap['Content-type'] && !headersMap['Content-Type'])
+        request.setRequestHeader("Content-type", "application/json");
+    if (!headersMap['Accept'])
+        request.setRequestHeader("Accept", "application/json");
     if (UserAPI.hasSessionUser()) {
-        authToken = UserAPI.getAuthTokenAsJSON();
-        request.setRequestHeader('x-access-token', authToken.access_token);
+        var authToken = UserAPI.getAuthToken();
+        request.setRequestHeader("Authorization", "Bearer " + authToken);
     }
     Object.keys(headersMap).forEach(function(key) {
         request.setRequestHeader(key, headersMap[key]);
@@ -650,11 +665,11 @@ DataAPI.getManagerProfile = function(userId, responseCallback) {
 };
 
 DataAPI.getUser = function(userId, responseCallback) {
-    var user_url = DataAPI.baseURL + "/getUser/" + userId;
+    var user_url = DataAPI.baseURL + "/getManagerProfile/" + userId;
     DataAPI.sendRequest(user_url, "GET", {}, null, function(request) {
         responseCallback(request.response);
     });
-}
+};
 
 /**
  * 
@@ -665,6 +680,33 @@ DataAPI.getUser = function(userId, responseCallback) {
 DataAPI.createJobApplication = function(jobApplication, responseCallback) {
     var url = DataAPI.baseURL + '/postJobApplication';
     DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), function(request) {
+        responseCallback(request.response);
+    });
+};
+
+/**
+ * 
+ * @param {int} managerProfileId
+ * @param {CreateWorkEnvironment.WorkEnvironment} workplaceEnvironment
+ * @param {function} responseCallback
+ * @return {undefined}
+ */
+DataAPI.submitWorkplaceEnvironment = function(managerProfileId, workplaceEnvironment, responseCallback) {
+    var url = DataAPI.baseURL + '/putWorkEnvironmentByManagerProfile/' + managerProfileId;
+    DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(workplaceEnvironment), function(request) {
+        responseCallback(request.response);
+    });
+};
+
+/**
+ * 
+ * @param {int} managerProfileId
+ * @param {function} responseCallback
+ * @return {undefined}
+ */
+DataAPI.getWorkplaceEnvironment = function(managerProfileId, responseCallback) {
+    var url = DataAPI.baseURL + '/getWorkEnvironmentByManagerProfile/' + managerProfileId;
+    DataAPI.sendRequest(url, 'GET', {}, null, function(request) {
         responseCallback(request.response);
     });
 };
