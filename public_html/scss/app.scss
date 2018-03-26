@@ -20,6 +20,16 @@
 @import "system/media-queries";
 @import "system/grid";
 @import "system/grid-ie";
+@import "system/typography";
+@import "system/palette";
+
+/* Atoms ==================================================================== */
+@import "atoms/buttons";
+
+/* Molecules ================================================================ */
+
+/* Organisms ================================================================ */
+@import "organisms/update-profile";
 
 /* Example Imports ========================================================== */
 @import "organisms/organism-sample-01";

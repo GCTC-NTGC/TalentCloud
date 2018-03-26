@@ -7709,6 +7709,126 @@ body[id*="Trident/7.0"] .box {
         flex: 0 0 calc(11/12*100%);
         max-width: calc(11/12*100%); } }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Talent Cloud Font-Scale
+
+============================================================================= */
+/* Typography =============================================================== */
+/* Font Standard ============================================================ */
+/* 1.414 Scale */
+/* Temporary Font Scale ===================================================== */
+[class*="heading--"] {
+  font-family: HKGrotesk, sans-serif;
+  font-weight: 700;
+  margin: 0; }
+  [class*="heading--"][class*="01"] {
+    font-size: 5rem; }
+  [class*="heading--"][class*="02"] {
+    font-size: 3.5rem; }
+  [class*="heading--"][class*="03"] {
+    font-size: 2.75rem; }
+  [class*="heading--"][class*="04"] {
+    font-size: 1.125rem; }
+  [class*="heading--"][class*="05"] {
+    font-size: 1rem; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Talent Cloud Palette
+
+============================================================================= */
+/* Brand Colours ============================================================ */
+/* Grey */
+/* Yellow */
+/* Atoms ==================================================================== */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Default Buttons
+
+============================================================================= */
+/* Molecules ================================================================ */
+/* Organisms ================================================================ */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    The Update Profile Modal
+
+============================================================================= */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update Profile Photo (Update Profile Modal)
+
+============================================================================= */
+.update-profile-photo__wrapper {
+  text-align: center; }
+  @media (min-width: 64em) {
+    .update-profile-photo__wrapper {
+      padding: 0 2rem 0 0; } }
+
+.update-profile-photo__title {
+  color: black;
+  margin: 2rem 0; }
+
+/* Draggable Area =========================================================== */
+.update-profile-photo__draggable-area-wrapper {
+  border: 5px dashed #a3a3a3;
+  border-radius: 3rem;
+  display: block;
+  height: 25vh;
+  margin: 0 auto;
+  position: relative;
+  width: 80%; }
+
+.update-profile-photo__draggable-area-block {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; }
+
+.update-profile-photo__draggable-area-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5; }
+
+.update-profile-photo__draggable-area-label {
+  color: black;
+  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  z-index: 10; }
+
+/* Action Area ============================================================== */
+[class*="update-profile__action-wrapper"][class*="--default-state"] {
+  display: block; }
+  [class*="update-profile__action-wrapper"][class*="--default-state"].hidden {
+    display: none; }
+
+[class*="update-profile__action-wrapper"][class*="--upload-state"] {
+  display: none; }
+  [class*="update-profile__action-wrapper"][class*="--upload-state"].active {
+    diplay: block; }
+
+.update-profile__or-copy {
+  display: inline-block;
+  margin: 2rem 0;
+  width: 100%; }
+
 /* Example Imports ========================================================== */
 /* =============================================================================
 

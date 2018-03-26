@@ -1,0 +1,100 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update Profile Photo (Update Profile Modal)
+
+============================================================================= */
+
+.update-profile-photo__wrapper {
+    text-align: center;
+
+    @media #{$l-tablet} {
+        padding: 0 2rem 0 0;
+    }
+
+}
+
+.update-profile-photo__title {
+    color: black;
+    margin: 2rem 0;
+}
+
+/* Draggable Area =========================================================== */
+.update-profile-photo__draggable-area-wrapper {
+    border: 5px dashed $palette-grey;
+    border-radius: 3rem;
+    display: block;
+    height: 25vh;
+    margin: 0 auto;
+    position: relative;
+    width: 80%;
+}
+
+.update-profile-photo__draggable-area-block {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.update-profile-photo__draggable-area-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.update-profile-photo__draggable-area-label {
+    color: black;
+    font-weight: 700;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    z-index: 10;
+}
+
+/* Action Area ============================================================== */
+[class*="update-profile__action-wrapper"] {
+
+    &[class*="--default-state"] {
+        display: block;
+
+        &.hidden {
+            display: none;
+        }
+
+    }
+
+    &[class*="--upload-state"] {
+        display: none;
+
+        &.active {
+            diplay: block;
+        }
+
+    }
+
+}
+
+.update-profile__or-copy {
+    display: inline-block;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.update-profile__choose-photo-button {
+
+}
+
+.update-profile__choose-alt-photo-button {
+
+}
+
+.update-profile__cancel-button {
+
+}
