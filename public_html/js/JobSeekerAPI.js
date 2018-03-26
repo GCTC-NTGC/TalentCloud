@@ -277,7 +277,7 @@ JobSeekerAPI.refreshJobSeekerProfilePic = function() {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
         profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
-        FileUploadAPI.refreshProfilePic(user_id, profile_pic_elements);
+        ProfilePicAPI.refreshMultipleProfilePics(user_id, profile_pic_elements);
     }
 };
 
@@ -659,18 +659,19 @@ JobSeekerAPI.showUploadProfilePic = function() {
     
     var fileField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
-    var fileList = document.getElementById('profilePicUploadPreview');
+    var imagePreview = document.getElementById('fileUploadPreviewImg');
     var clearBtn = document.getElementById('profilePicUploadClear');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
-    JobSeekerAPI.profilePicUploader = new FileUploadAPI.FileUploader(
-            fileField, fileDrop, fileList, 
+    
+    JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
+            [fileField],
+            fileDrop,
+            imagePreview,
             clearBtn,
             uploadBtn,
-            true, 
-            true,
-            FileUploadAPI.makeProfilePicUploadRequest, 
-            JobSeekerAPI.onProfilePicUploaded);
-    JobSeekerAPI.profilePicUploader.init();
+            UserAPI.getSessionUserAsJSON().user_id,
+            JobSeekerAPI.onProfilePicUploaded
+        );
 };
 
 JobSeekerAPI.onProfilePicUploaded = function() {

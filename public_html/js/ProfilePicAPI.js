@@ -1,7 +1,7 @@
 var ProfilePicAPI = {};
 
 ProfilePicAPI.version = "v1";
-ProfilePicAPI.baseURL = "/tc/api/"+FileUploadAPI.version;
+ProfilePicAPI.baseURL = "/tc/api/"+ProfilePicAPI.version;
 
 ProfilePicAPI.loadingTextClass = 'fileUploadLoadingText';
 ProfilePicAPI.loadingBarClass = 'fileUploadLoadingBar';
@@ -33,12 +33,14 @@ ProfilePicAPI.Uploader = function(
     var self = this;
     
     self.init = function() {
-        self.fileInputButtons.foreach(function(button) {
+        self.fileInputButtons.forEach(function(button) {
             button.onchange = self.addFiles;
         });
-        self.saveButton.onclick = self.uploadPhoto();
+        if (self.saveButton) {
+            self.saveButton.onclick = self.uploadPhoto; 
+        }       
         if (self.clearButton) {
-            self.clearButton.onclick = self.clearUpload();
+            self.clearButton.onclick = self.clearUpload;
         }
         if (self.dropZone) {
             self.initializeDropzone();
@@ -111,7 +113,7 @@ ProfilePicAPI.Uploader = function(
         self.imagePreview.src = self.defaultPhotoSrc;
         
         //Clear input button value
-        self.fileInputButtons.foreach(function(button) {
+        self.fileInputButtons.forEach(function(button) {
             button.value = null;
         });
     };
@@ -163,8 +165,8 @@ ProfilePicAPI.Uploader = function(
                 xhr.setRequestHeader("Authorization", "Bearer " + authToken);
             }
             xhr.addEventListener("load", function (ev) {
-                if (self.onUnploadComplete) {
-                    self.onUnploadComplete(xhr);
+                if (self.onUploadComplete) {
+                    self.onUploadComplete(xhr);
                 }
             }, false);
             xhr.send(self.photo);
@@ -172,4 +174,49 @@ ProfilePicAPI.Uploader = function(
     }
     
     self.init();    
+};
+
+ProfilePicAPI.refreshUserProfilePic = function(imageElement) {
+    if (UserAPI.hasSessionUser()) {
+        var userId = UserAPI.getSessionUserAsJSON().user_id;
+        ProfilePicAPI.refreshProfilePic(userId, imageElement);
+    }
+};
+
+ProfilePicAPI.refreshProfilePic = function(userId, imageElement) {
+    ProfilePicAPI.refreshMultipleProfilePics(userId, [imageElement]);
+};
+
+ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
+    var xhr = new XMLHttpRequest();
+    var pic_url = ProfilePicAPI.baseURL+'/profilePic/'+userId;
+    if ("withCredentials" in xhr) {
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      xhr.open("GET", pic_url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      xhr = new XDomainRequest();
+      xhr.open("GET", pic_url);
+    } else {
+      // Otherwise, CORS is not supported by the browser.
+      xhr = null;
+      // TODO: indicate to user that browser is not supported
+    } 
+    xhr.open('GET', pic_url);
+    xhr.setRequestHeader("Accept","image/*"); 
+    xhr.addEventListener('load', function() {
+        if (xhr.status == 200) {
+            for (var i=0; i<imageElements.length;i++) {
+                imageElements[i].src = xhr.responseURL;
+            }
+        } else {
+            for (var i=0; i<imageElements.length;i++) {
+                imageElements[i].src = ProfilePicAPI.defaultProfilePic;
+            }
+        }
+    });
+    xhr.send();
 };

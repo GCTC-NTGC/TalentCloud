@@ -237,7 +237,7 @@ DashboardAPI.populateManagerProfile = function(application){
     hiringManagerProfilePicSmall.setAttribute("id","ya_manager_profilepic_"+application.job_poster_id);
     hiringManagerProfilePicSmall.setAttribute("class","hiringManagerProfilePicSmall");
     hiringManagerProfilePicSmall.setAttribute("tabIndex","0");
-    FileUploadAPI.refreshProfilePic(application.manager_user_id, [hiringManagerProfilePicSmall]);
+    ProfilePicAPI.refreshProfilePic(application.manager_user_id, hiringManagerProfilePicSmall);
     hiringManagerWidget.appendChild(hiringManagerProfilePicSmall);
     
     var hiringManagerWidgetName = document.createElement("div")

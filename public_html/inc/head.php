@@ -23,7 +23,7 @@
 <script src="/js/EventsAPI.js"></script>
 <script src="/js/FormsAPI.js"></script>    
 <script src="/js/JobSeekerAPI.js"></script>
-<script src="/js/FileUploadAPI.js"></script>
+<script src="/js/ProfilePicAPI.js"></script>
 <script src="/js/ManagerProfileAPI.js"></script>
 <script src="/js/JobApplicationAPI.js"></script>
 <script src="/js/WorkEnvironmentAPI.js"></script>

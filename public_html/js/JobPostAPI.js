@@ -287,7 +287,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     });
     
     //Load Hiring Manager Image
-    FileUploadAPI.refreshProfilePic(job.manager_user_id, [hiringManagerProfilePic]);
+    ProfilePicAPI.refreshProfilePic(job.manager_user_id, hiringManagerProfilePic);
     
     return jobSummary;
     
@@ -420,7 +420,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     });    
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
-    FileUploadAPI.refreshProfilePic(jobData.manager_user_id, [hiringManagerProfilePic]);
+    ProfilePicAPI.refreshProfilePic(jobData.manager_user_id, hiringManagerProfilePic);
     //Load Other Hiring Manager Data
     DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);

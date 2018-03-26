@@ -252,9 +252,8 @@ and open the template in the editor .
                         </div>
                     </div>
                     <div class="rightPane">
-                        <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                            <!--a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a-->
-                            <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
+                        <div id="fileUploadPreviewPanel" class="uploadFileThumbnail" style="min-height:130px;">
+                            <img id="fileUploadPreviewImg" src="/images/user.png"/>
                         </div>
                         <div id="fileUploadButtons">
                             <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
