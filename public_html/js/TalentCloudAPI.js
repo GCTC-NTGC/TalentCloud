@@ -22,7 +22,8 @@ howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, create
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
 dashBoardLink,yourApplicationsTitle,
-teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt) {
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
+openEndedQuestions) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -135,6 +136,7 @@ teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, t
     this.teamSizePrompt = teamSizePrompt;
     this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
     this.teamNarrativePrompt = teamNarrativePrompt;
+    this.openEndedQuestions = openEndedQuestions;
 };
 
 TalentCloudAPI.pages = {
@@ -513,6 +515,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
+        CreateJobPosterAPI.localizeCreateJobPosterForm();
         
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");

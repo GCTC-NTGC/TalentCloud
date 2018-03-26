@@ -210,6 +210,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.teamSizePrompt = content.teamSizePrompt;
     thisContent.gcDirectoryLinkPrompt = content.gcDirectoryLinkPrompt;
     thisContent.teamNarrativePrompt = content.teamNarrativePrompt;
+    thisContent.openEndedQuestions = content.openEndedQuestions;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

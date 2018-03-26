@@ -118,6 +118,13 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     createJobPosterSection.classList.remove("hidden");
 };
 
+CreateJobPosterAPI.localizeCreateJobPosterForm = function() {
+    if (siteContent) {
+        document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
+        document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
+    }
+}
+
 CreateJobPosterAPI.loadLookupData = function() {
     //DivisionAPI.getDivisions(locale);
     //BranchAPI.getBranches(locale);

@@ -1196,7 +1196,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_questions">
-                                                        <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span>: **</span>
+                                                        <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
                                                         <strong id="createJobPoster_questions_error" class="error hidden">
                                                             <span id="createJobPoster_questions_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1264,7 +1264,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_questions_fr">
-                                                        <span><span id="createJobPoster_questions_fr_labelName">Open Ended Questions</span>: **</span>
+                                                        <span><span id="createJobPoster_questions_fr_labelName">Open Ended Questions_fr</span> (francais): **</span>
                                                         <strong id="createJobPoster_questions_fr_error" class="error hidden">
                                                             <span id="createJobPoster_questions_fr_error_msg" class="label label-danger"></span>
                                                         </strong>
