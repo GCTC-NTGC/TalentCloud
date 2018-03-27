@@ -7791,6 +7791,19 @@ body[id*="Trident/7.0"] .box {
 
     Authored by: Talent Cloud
 
+    The Landing Hero Banner
+
+============================================================================= */
+.landing-hero__logo {
+  margin-top: -11%; }
+
+.landing-hero__tagline-divider {
+  margin: 2rem 5rem 2rem 2rem; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
     The Update Profile Modal
 
 ============================================================================= */
