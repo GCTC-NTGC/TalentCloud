@@ -430,7 +430,7 @@ JobPostAPI.populateJobPoster = function(jobData){
        /*Truncating Manager About Me*/
         
        var len = 250;
-       var shrinkables = document.getElementById('jobPosterHiringManagerAboutMe');
+       var shrinkables = document.getElementsByClassName('truncate');
        if (shrinkables.length > 0) {
            for (var i = 0; i < shrinkables.length; i++){
                var fullText = shrinkables[i].innerHTML;
@@ -440,6 +440,7 @@ JobPostAPI.populateJobPoster = function(jobData){
                    var id = shrinkables[i].id;
                    remainder = fullText.substring(len, fullText.length);
                    
+                   shrinkables[i].innerHTML = "";                   
                 
                    var showMoreAnchor = document.createElement("a");
                    showMoreAnchor.setAttribute("id", id + "MoreLink");
@@ -469,7 +470,7 @@ JobPostAPI.populateJobPoster = function(jobData){
                    truncatedSpan.appendChild(truncateText);
                    truncatedSpan.appendChild(overflowSpan);
                    
-                   var space = document.createTextNode("&nbsp;");
+                   var space = document.createTextNode( '\u00A0' );
                    
                    shrinkables[i].appendChild(truncatedSpan);
                    shrinkables[i].appendChild(space);
