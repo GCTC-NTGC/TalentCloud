@@ -450,7 +450,7 @@ JobPostAPI.populateJobPoster = function(jobData){
                    span.appendChild(anchor);
                    shrinkables[i].appendChild(span);
                    */
-                   shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPIshowLessHiringManagerSummary(\''+ id + '\');">Less</a>';
+                   shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPI.showLessHiringManagerSummary(\''+ id + '\');">Less</a>';
                 }
             }
         }
