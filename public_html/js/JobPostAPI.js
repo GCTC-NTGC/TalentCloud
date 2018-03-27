@@ -428,17 +428,6 @@ JobPostAPI.populateJobPoster = function(jobData){
        document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
        document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
        /*Truncating Manager About Me*/
-       function showMore(id){
-            document.getElementById(id+'Overflow').className='';
-            document.getElementById(id+'MoreLink').className='hidden';
-            document.getElementById(id+'LessLink').className='';
-        }
-        
-        function showLess(id){
-            document.getElementById(id+'Overflow').className='hidden';
-            document.getElementById(id+'MoreLink').className='';
-            document.getElementById(id+'LessLink').className='hidden';
-        }
         
        var len = 250;
        var shrinkables = document.getElementsByClassName('truncate');
@@ -450,7 +439,18 @@ JobPostAPI.populateJobPoster = function(jobData){
                    var remainder = "";
                    var id = shrinkables[i].id;
                    remainder = fullText.substring(len, fullText.length);
-                   shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="#!" onclick="showMore(\''+ id + '\');">Read More</a><a class="hidden" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">Less</a>';
+                   
+                   /*
+                   var anchor = document.createElement("a"); 
+                   
+                   anchor.setAttribute("href", "#!");
+                   anchor.setAttribute("onclick", showMore(i));
+                   var span = document.createElement("span");
+                   //set other span attributes
+                   span.appendChild(anchor);
+                   shrinkables[i].appendChild(span);
+                   */
+                   shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPIshowLessHiringManagerSummary(\''+ id + '\');">Less</a>';
                 }
             }
         }
@@ -529,6 +529,18 @@ JobPostAPI.populateJobPoster = function(jobData){
     //TODO: fix this when working on jobPoserApplications
     //var jobSeekerProfileId = document.getElementById("profile_id").value;
     //JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
+};
+
+JobPostAPI.showMoreHiringManagerSummary = function(id){
+    document.getElementById(id+'Overflow').className='';
+    document.getElementById(id+'MoreLink').className='hidden';
+    document.getElementById(id+'LessLink').className='';
+};
+    
+JobPostAPI.showLessHiringManagerSummary = function(id){
+    document.getElementById(id+'Overflow').className='hidden';
+    document.getElementById(id+'MoreLink').className='';
+    document.getElementById(id+'LessLink').className='hidden';
 };
 
 JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) {
