@@ -7858,7 +7858,7 @@ body[id*="Trident/7.0"] .box {
       .update-profile-photo__draggable-area-block .croppie-container .cr-boundary .cr-overlay {
         height: 25vh !important; }
       .update-profile-photo__draggable-area-block .croppie-container .cr-boundary .cr-viewport {
-        border: 5px dashed #a3a3a3;
+        border: 5px dashed #c8c8c8;
         width: 25vh !important; }
     .update-profile-photo__draggable-area-block .croppie-container .cr-slider-wrap {
       margin-top: 3rem; }
@@ -7873,6 +7873,7 @@ body[id*="Trident/7.0"] .box {
 
 .update-profile-photo__draggable-area-icon {
   height: 80%;
+  opacity: .3;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -7880,7 +7881,7 @@ body[id*="Trident/7.0"] .box {
   z-index: 5; }
 
 .update-profile-photo__draggable-area-label {
-  color: black;
+  color: #a3a3a3;
   font-weight: 700;
   position: absolute;
   top: 50%;

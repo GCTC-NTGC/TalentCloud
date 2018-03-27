@@ -87,7 +87,7 @@
             }
 
             .cr-viewport {
-                border: 5px dashed $palette-grey;
+                border: 5px dashed $palette-grey--light;
                 // width: calc(25vh - 10px) !important;
                 width: 25vh !important;
             }
@@ -113,6 +113,7 @@
 
 .update-profile-photo__draggable-area-icon {
     height: 80%;
+    opacity: .3;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -121,7 +122,7 @@
 }
 
 .update-profile-photo__draggable-area-label {
-    color: black;
+    color: $palette-grey;
     font-weight: 700;
     position: absolute;
     top: 50%;
