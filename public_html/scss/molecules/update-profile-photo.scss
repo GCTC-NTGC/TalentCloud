@@ -138,6 +138,10 @@
         display: block;
         margin: 0 0 4rem 0;
 
+        @media #{$l-tablet} {
+            margin: 0 0 2rem 0;
+        }
+
         &.hidden {
             display: none;
         }
@@ -146,7 +150,11 @@
 
     &[class*="--upload-state"] {
         display: none;
-        margin: 7rem 0 4rem 0;
+        margin: 8rem 0 4rem 0;
+
+        @media #{$l-tablet} {
+            margin: 8rem 0 2rem 0;
+        }
 
         &.active {
             display: block;
@@ -162,12 +170,29 @@
     width: 100%;
 }
 
-.update-profile__choose-photo-button {
+.update-profile__choose-photo-button-label {
+    position: relative;
+
+    &:focus {
+        color: white;
+        background: $palette-grey--dark;
+        border: 2px solid $palette-yellow--dark;
+    }
 
 }
 
-.update-profile__choose-alt-photo-button {
+.update-profile__choose-photo-button {
+    position: absolute;
+    left: -100vh;
+}
 
+.update-profile__choose-alt-photo-button-label {
+    position: relative;
+}
+
+.update-profile__choose-alt-photo-button {
+    position: absolute;
+    left: -100vh;
 }
 
 .update-profile__cancel-button {

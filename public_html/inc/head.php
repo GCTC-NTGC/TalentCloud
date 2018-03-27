@@ -13,6 +13,11 @@
 <link href="/css/sliderButton.css" rel="stylesheet" type="text/css"/>
 <!-- SASS Sheets -->
 <link href="/css/optimized/app.css" rel="stylesheet" type="text/css"/>
+<!-- jQuery CDN -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script>
 <!-- Scripts / APIs -->
 <script src="/js/Utilities.js"></script>
 <script src="/js/TalentCloudAPI.js"></script>

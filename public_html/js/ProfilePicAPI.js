@@ -16,7 +16,7 @@ ProfilePicAPI.Uploader = function(
         userId,
         onUploadComplete
         ) {
-    
+
     this.fileInputButtons = fileInputButtons;
     this.dropZone = dropZone;
     this.croppieContainer = croppieContainer;
@@ -24,21 +24,21 @@ ProfilePicAPI.Uploader = function(
     this.saveButton = saveButton;
     this.userId = userId;
     this.onUploadComplete = onUploadComplete;
-    
+
     this.photo = null;
     this.max_filesize = 2048576;
     this.defaultPhotoSrc = ProfilePicAPI.defaultProfilePic;
     this.uploadUrl = ProfilePicAPI.baseURL + "/profilePic/" + this.userId;
-    
+
     var self = this;
-    
+
     self.init = function() {
         self.fileInputButtons.forEach(function(button) {
             button.onchange = self.addFiles;
         });
         if (self.saveButton) {
-            self.saveButton.onclick = self.uploadPhoto; 
-        }       
+            self.saveButton.onclick = self.uploadPhoto;
+        }
         if (self.clearButton) {
             self.clearButton.onclick = self.clearUpload;
         }
@@ -46,7 +46,7 @@ ProfilePicAPI.Uploader = function(
             self.initializeDropzone();
         }
     };
-    
+
      self.initializeDropzone = function(){
         //clone dropZone to remove existing event listeners
         var clone = self.dropZone.cloneNode();
@@ -61,17 +61,17 @@ ProfilePicAPI.Uploader = function(
         self.dropZone.addEventListener("dragover",  self.dragOver, false);
         self.dropZone.addEventListener("drop",  self.processDroppedFiles, false);
     };
-    
+
     /**
      * Use this function to set files programmatically
-     * 
+     *
      * @param {type} files
      * @return {undefined}
      */
     self.setFiles = function(files) {
         self.processNewFiles(files);
     };
-    
+
     self.addFiles = function () {
         self.processNewFiles(this.files);
     };
@@ -98,36 +98,49 @@ ProfilePicAPI.Uploader = function(
         ev.stopPropagation();
         ev.preventDefault();
     };
-    
+
     self.processDroppedFiles = function (ev) {
         self.stopProp(ev);
         var files = ev.dataTransfer.files;
         self.processNewFiles(files);
     };
-    
+
     self.clearUpload = function () {
-        //Clear upload 
-        self.photo = null;       
-        
+        //Clear upload
+        self.photo = null;
+
         //Clear preview
         self.croppieContainer.innerHTML = "";
-        
+
         //Clear input button value
         self.fileInputButtons.forEach(function(button) {
             button.value = null;
         });
+
+        // UI Changes
+        $(".update-profile__action-wrapper--default-state").removeClass("hidden");
+        $(".update-profile__action-wrapper--upload-state").removeClass("active");
+        $(".update-profile-photo__draggable-area-wrapper").removeClass("active");
+
     };
-    
+
     self.processNewFiles = function (files) {
         var file = files[0];
-        if (file.type.match('image.*')) {        
+        if (file.type.match('image.*')) {
             self.clearUpload();
             var fr = new FileReader();
             fr.file = file;
-            fr.onloadend = function(ev) {                
-                if (ev.target.file.size < self.max_filesize) {   
+            fr.onloadend = function(ev) {
+                if (ev.target.file.size < self.max_filesize) {
                     self.photo = ev.target.file;
                     self.makeProfilePicCroppie(self.croppieContainer, ev.target.result);
+                    // UI Changes
+                    $(".update-profile__action-wrapper--default-state").addClass("hidden");
+                    $(".update-profile__action-wrapper--upload-state").addClass("active");
+                    $(".update-profile-photo__draggable-area-wrapper").addClass("active");
+                    setTimeout(function(e) {
+                        $(".cr-image").attr("alt", "Preview Profile Photo");
+                    }, 2000)
                 } else {
                     //TODO: indicate overlarge file
                 }
@@ -137,9 +150,9 @@ ProfilePicAPI.Uploader = function(
             //TODO: indicate imporper file type
         }
     };
-    
+
     self.makeProfilePicCroppie = function(imageElement, imageSrc) {
-        
+
         var croppie = new Croppie(imageElement, {
             viewport: { width: 200, height: 200, type: 'circle'},
             boundary: { width: 200, height: 200 },
@@ -151,11 +164,11 @@ ProfilePicAPI.Uploader = function(
         croppie.bind({
             url: imageSrc
         }).then(function() {
-            croppie.setZoom(0);
+            croppie.setZoom(0.15);
         });
         return croppie;
     };
-    
+
     self.uploadPhoto = function() {
         if (self.photo) {
             var xhr = new XMLHttpRequest();
@@ -174,7 +187,7 @@ ProfilePicAPI.Uploader = function(
                 xhr = null;
                 // TODO: indicate to user that browser is not supported
             }
-            
+
             xhr.setRequestHeader("Content-type", self.photo.type);
             xhr.setRequestHeader("X-File-Name", self.photo.name);
             xhr.setRequestHeader("Accept","application/json");
@@ -187,7 +200,7 @@ ProfilePicAPI.Uploader = function(
                     self.onUploadComplete(xhr);
                 }
             }, false);
-            
+
             croppie.result({
                     type: 'blob',
                     size: 'viewport',
@@ -198,10 +211,10 @@ ProfilePicAPI.Uploader = function(
                     payload = blob;
                     xhr.send(payload);
                 });
-        }        
+        }
     }
-    
-    self.init();    
+
+    self.init();
 };
 
 ProfilePicAPI.refreshUserProfilePic = function(imageElement) {
@@ -232,9 +245,9 @@ ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
       // Otherwise, CORS is not supported by the browser.
       xhr = null;
       // TODO: indicate to user that browser is not supported
-    } 
+    }
     xhr.open('GET', pic_url);
-    xhr.setRequestHeader("Accept","image/*"); 
+    xhr.setRequestHeader("Accept","image/*");
     xhr.addEventListener('load', function() {
         if (xhr.status == 200) {
             for (var i=0; i<imageElements.length;i++) {

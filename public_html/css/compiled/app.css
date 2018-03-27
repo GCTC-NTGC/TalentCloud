@@ -7754,18 +7754,25 @@ body[id*="Trident/7.0"] .box {
 
 ============================================================================= */
 [class*="button--"] {
+  appearance: none;
+  border: none;
   border-radius: 30px;
   cursor: pointer;
   display: inline-block;
   font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   transition: all .2s ease; }
   [class*="button--"][class*="yellow"] {
     background: #ffe25b;
     color: #484848; }
     [class*="button--"][class*="yellow"]:hover {
       background: #ffd200; }
+    [class*="button--"][class*="yellow"]:focus {
+      color: white;
+      background: #484848;
+      border: 2px solid #ffd200; }
   [class*="button--"][class*="grey"] {
     background: #c8c8c8;
     color: #484848; }
@@ -7773,13 +7780,10 @@ body[id*="Trident/7.0"] .box {
       background: #a3a3a3; }
     [class*="button--"][class*="grey"]:focus {
       color: white;
-      background: #484848; }
+      background: #484848;
+      border: 2px solid #ffd200; }
   [class*="button--"]:hover {
     transition: all .2s ease; }
-
-[class*="button__file--"],
-input[type="file"][class*="button__file--"] {
-  display: inline-block; }
 
 /* Molecules ================================================================ */
 /* Organisms ================================================================ */
@@ -7889,12 +7893,18 @@ input[type="file"][class*="button__file--"] {
 [class*="update-profile__action-wrapper"][class*="--default-state"] {
   display: block;
   margin: 0 0 4rem 0; }
+  @media (min-width: 64em) {
+    [class*="update-profile__action-wrapper"][class*="--default-state"] {
+      margin: 0 0 2rem 0; } }
   [class*="update-profile__action-wrapper"][class*="--default-state"].hidden {
     display: none; }
 
 [class*="update-profile__action-wrapper"][class*="--upload-state"] {
   display: none;
-  margin: 7rem 0 4rem 0; }
+  margin: 8rem 0 4rem 0; }
+  @media (min-width: 64em) {
+    [class*="update-profile__action-wrapper"][class*="--upload-state"] {
+      margin: 8rem 0 2rem 0; } }
   [class*="update-profile__action-wrapper"][class*="--upload-state"].active {
     display: block; }
 
@@ -7902,6 +7912,24 @@ input[type="file"][class*="button__file--"] {
   display: inline-block;
   margin: 2rem 0;
   width: 100%; }
+
+.update-profile__choose-photo-button-label {
+  position: relative; }
+  .update-profile__choose-photo-button-label:focus {
+    color: white;
+    background: #484848;
+    border: 2px solid #ffd200; }
+
+.update-profile__choose-photo-button {
+  position: absolute;
+  left: -100vh; }
+
+.update-profile__choose-alt-photo-button-label {
+  position: relative; }
+
+.update-profile__choose-alt-photo-button {
+  position: absolute;
+  left: -100vh; }
 
 /* Example Imports ========================================================== */
 /* =============================================================================

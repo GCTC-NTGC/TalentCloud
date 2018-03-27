@@ -12,7 +12,7 @@
 
             <div class="dialogWindowInterior">
 
-                <div class="flex-grid">
+                <div class="flex-grid middle">
 
                     <div class="box lg-1of2">
 
@@ -32,19 +32,12 @@
 
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
-                                    <!-- DEV-NOTE: On File Upload:
-                                    * Add "hidden" class to "update-profile__action-wrapper--default-state"
-                                    * Add "active" class to "update-profile__action-wrapper--upload-state"
-                                    * Add "active" class to "update-profile-photo__draggable-area-wrapper"
-                                    * The image doesn't seem to be draggable all the time :/ -->
-
                                     <!-- DEV-NOTE: On Cancel:
-                                    * Remove "hidden" class to "update-profile__action-wrapper--default-state"
-                                    * Remove "active" class to "update-profile__action-wrapper--upload-state"
-                                    * Remove "active" class to "update-profile-photo__draggable-area-wrapper"
-                                    * Croppie currently can't reinitialize when you upload a new photo -->
+                                    * Croppie currently can't reinitialize when you upload a new photo
+                                    * Submit Photo -->
 
                                     <div id="updateProfilePhotoDraggableArea" class="update-profile-photo__draggable-area"></div>
+
                                     <div id="updateProfilePhotoCroppieContainer"></div>
 
                                 </div>
@@ -55,7 +48,10 @@
 
                                 <span class="update-profile__or-copy heading--05">Or</span>
 
-                                <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" class="update-profile__choose-photo-button button__file--yellow" name="User Profile Photo" accept="image/*" />
+                                <label class="update-profile__choose-photo-button-label button--yellow" role="button" tabindex="1">
+                                    Choose File...
+                                    <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" />
+                                </label>
 
                             </div>
 
@@ -64,11 +60,14 @@
                                 <div class="flex-grid">
 
                                     <div class="box small-1of2">
-                                        <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button button__file--yellow" name="User Profile Photo" accept="image/*" />
+                                        <label class="update-profile__choose-alt-photo-button-label button--yellow" role="button" tabindex="2">
+                                            Choose Another File...
+                                            <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
+                                        </label>
                                     </div>
 
                                     <div class="box small-1of2">
-                                        <button id="updateProfilePhotoCancelButton" class="update-profile__cancel-button">Cancel</button>
+                                        <button id="updateProfilePhotoCancelButton" class="update-profile__cancel-button button--grey">Remove Photo</button>
                                     </div>
 
                                 </div>

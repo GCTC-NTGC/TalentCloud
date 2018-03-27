@@ -7,12 +7,15 @@
 ============================================================================= */
 
 [class*="button--"] {
+    appearance: none;
+    border: none;
     border-radius: 30px;
     cursor: pointer;
     display: inline-block;
     font-family: $font-hk;
+    font-size: 16px;
     font-weight: 400;
-    padding: 1rem 1.5rem;
+    padding: 1rem 2rem;
     transition: all .2s ease;
 
     &[class*="yellow"] {
@@ -21,6 +24,12 @@
 
         &:hover {
             background: $palette-yellow--dark;
+        }
+
+        &:focus {
+            color: white;
+            background: $palette-grey--dark;
+            border: 2px solid $palette-yellow--dark;
         }
 
     }
@@ -36,26 +45,13 @@
         &:focus {
             color: white;
             background: $palette-grey--dark;
+            border: 2px solid $palette-yellow--dark;
         }
 
     }
 
     &:hover {
         transition: all .2s ease;
-    }
-
-}
-
-[class*="button__file--"],
-input[type="file"][class*="button__file--"] {
-    display: inline-block;
-
-    &[class*="yellow"] {
-
-    }
-
-    &[class*="grey"] {
-
     }
 
 }
