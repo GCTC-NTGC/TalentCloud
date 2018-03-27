@@ -426,59 +426,56 @@ JobPostAPI.populateJobPoster = function(jobData){
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
        document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
-       document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
-       /*Truncating Manager About Me*/
-        
+       
+       /*Truncating Manager About Me*/ 
        var len = 250;
-       var shrinkables = document.getElementsByClassName('truncate');
-       if (shrinkables.length > 0) {
-           for (var i = 0; i < shrinkables.length; i++){
-               var fullText = shrinkables[i].innerHTML;
-               if(fullText.length > len){
-                   var trunc = fullText.substring(0, len).replace(/\w+$/, '');
-                   var remainder = "";
-                   var id = shrinkables[i].id;
-                   remainder = fullText.substring(len, fullText.length);
-                   
-                   shrinkables[i].innerHTML = "";                   
-                
-                   var showMoreAnchor = document.createElement("a");
-                   showMoreAnchor.setAttribute("id", id + "MoreLink");
-                   showMoreAnchor.setAttribute("href", "javascript:void(0)");
-                   showMoreAnchor.setAttribute("onclick", "JobPostAPI.showMoreHiringManagerSummary(\"" + id + "\")");
-                   showMoreAnchor.innerHTML = "Read more";
-                   
-                   var showLessAnchor = document.createElement("a");
-                   showLessAnchor.setAttribute("id", id + "LessLink");
-                   showLessAnchor.setAttribute("class", "hidden");
-                   showLessAnchor.setAttribute("href", "javascript:void(0)");
-                   showLessAnchor.setAttribute("onclick", "JobPostAPI.showLessHiringManagerSummary(\"" + id + "\")");
-                   showLessAnchor.innerHTML = "Less";
-                   
-                   
-                   var overflowSpan = document.createElement("span");
-                   overflowSpan.setAttribute("class", "hidden");
-                   overflowSpan.setAttribute("id", id + "Overflow");
-                   
-                   var remainderText = document.createTextNode(remainder);
-                   
-                   overflowSpan.appendChild(remainderText);
-                   
-                   var truncatedSpan = document.createElement("span");
-                   var truncateText = document.createTextNode(trunc);
-                   
-                   truncatedSpan.appendChild(truncateText);
-                   truncatedSpan.appendChild(overflowSpan);
-                   
-                   var space = document.createTextNode( '\u00A0' );
-                   
-                   shrinkables[i].appendChild(truncatedSpan);
-                   shrinkables[i].appendChild(space);
-                   shrinkables[i].appendChild(showMoreAnchor);
-                   shrinkables[i].appendChild(showLessAnchor);
-            
-                   //shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPI.showLessHiringManagerSummary(\''+ id + '\');">Less</a>';
-                }
+       if (managerProfile.about_me.length > 0) {
+            var fullText = managerProfile.about_me;
+            var id = "jobPosterHiringManagerAboutMe";
+            var aboutMe = document.getElementById(id);
+
+            if(fullText.length > len){
+               var trunc = fullText.substring(0, len).replace(/\w+$/, '');
+               var remainder = fullText.substring(len, fullText.length);
+
+               var showMoreAnchor = document.createElement("a");
+               showMoreAnchor.setAttribute("id", id + "_MoreLink");
+               showMoreAnchor.setAttribute("href", "javascript:void(0)");
+               showMoreAnchor.setAttribute("onclick", "JobPostAPI.showMoreHiringManagerSummary(\"" + id + "\")");
+               showMoreAnchor.innerHTML = "Read more";
+
+               var showLessAnchor = document.createElement("a");
+               showLessAnchor.setAttribute("id", id + "_LessLink");
+               showLessAnchor.setAttribute("class", "hidden");
+               showLessAnchor.setAttribute("href", "javascript:void(0)");
+               showLessAnchor.setAttribute("onclick", "JobPostAPI.showLessHiringManagerSummary(\"" + id  + "\")");
+               showLessAnchor.innerHTML = "Less";
+
+
+               var overflowSpan = document.createElement("span");
+               overflowSpan.setAttribute("class", "hidden");
+               overflowSpan.setAttribute("id", id + "_Overflow");
+
+               var remainderText = document.createTextNode(remainder);
+
+               overflowSpan.appendChild(remainderText);
+
+               var truncatedSpan = document.createElement("span");
+               var truncateText = document.createTextNode(trunc);
+
+               truncatedSpan.appendChild(truncateText);
+               truncatedSpan.appendChild(overflowSpan);
+
+               var space = document.createTextNode( '\u00A0' );
+
+               aboutMe.appendChild(truncatedSpan);
+               aboutMe.appendChild(space);
+               aboutMe.appendChild(showMoreAnchor);
+               aboutMe.appendChild(showLessAnchor);
+
+               //shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPI.showLessHiringManagerSummary(\''+ id + '\');">Less</a>';
+            } else {
+                aboutMe.innerHTML = fullText;
             }
         }
        /*End Truncating*/
@@ -559,15 +556,15 @@ JobPostAPI.populateJobPoster = function(jobData){
 };
 
 JobPostAPI.showMoreHiringManagerSummary = function(id){
-    document.getElementById(id+'Overflow').className='';
-    document.getElementById(id+'MoreLink').className='hidden';
-    document.getElementById(id+'LessLink').className='';
+    document.getElementById(id+'_Overflow').classList.remove("hidden");
+    document.getElementById(id+'_MoreLink').classList.add("hidden");
+    document.getElementById(id+'_LessLink').classList.remove("hidden");
 };
     
 JobPostAPI.showLessHiringManagerSummary = function(id){
-    document.getElementById(id+'Overflow').className='hidden';
-    document.getElementById(id+'MoreLink').className='';
-    document.getElementById(id+'LessLink').className='hidden';
+    document.getElementById(id+'_Overflow').classList.add("hidden");
+    document.getElementById(id+'_MoreLink').classList.remove("hidden");
+    document.getElementById(id+'_LessLink').classList.add("hidden");
 };
 
 JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) {
