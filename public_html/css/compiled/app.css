@@ -7753,6 +7753,34 @@ body[id*="Trident/7.0"] .box {
     Default Buttons
 
 ============================================================================= */
+[class*="button--"] {
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: HKGrotesk, sans-serif;
+  font-weight: 400;
+  padding: 1rem 1.5rem;
+  transition: all .2s ease; }
+  [class*="button--"][class*="yellow"] {
+    background: #ffe25b;
+    color: #484848; }
+    [class*="button--"][class*="yellow"]:hover {
+      background: #ffd200; }
+  [class*="button--"][class*="grey"] {
+    background: #c8c8c8;
+    color: #484848; }
+    [class*="button--"][class*="grey"]:hover {
+      background: #a3a3a3; }
+    [class*="button--"][class*="grey"]:focus {
+      color: white;
+      background: #484848; }
+  [class*="button--"]:hover {
+    transition: all .2s ease; }
+
+[class*="button__file--"],
+input[type="file"][class*="button__file--"] {
+  display: inline-block; }
+
 /* Molecules ================================================================ */
 /* Organisms ================================================================ */
 /* =============================================================================
@@ -7781,22 +7809,66 @@ body[id*="Trident/7.0"] .box {
 
 /* Draggable Area =========================================================== */
 .update-profile-photo__draggable-area-wrapper {
-  border: 5px dashed #a3a3a3;
-  border-radius: 3rem;
   display: block;
   height: 25vh;
   margin: 0 auto;
   position: relative;
-  width: 80%; }
+  width: 60%; }
+  .update-profile-photo__draggable-area-wrapper:after {
+    border: 5px dashed #a3a3a3;
+    border-radius: 3rem;
+    content: " ";
+    display: block;
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 25; }
+  .update-profile-photo__draggable-area-wrapper.active:after {
+    display: none; }
+  .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-icon,
+  .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-label {
+    display: none; }
 
 .update-profile-photo__draggable-area-block {
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; }
+  width: 100%;
+  /* Croppie Styles */ }
+  .update-profile-photo__draggable-area-block .croppie-container {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20; }
+    .update-profile-photo__draggable-area-block .croppie-container .cr-boundary {
+      border-radius: 3rem;
+      height: 25vh !important;
+      width: 100% !important; }
+      .update-profile-photo__draggable-area-block .croppie-container .cr-boundary .cr-viewport,
+      .update-profile-photo__draggable-area-block .croppie-container .cr-boundary .cr-overlay {
+        height: 25vh !important; }
+      .update-profile-photo__draggable-area-block .croppie-container .cr-boundary .cr-viewport {
+        border: 5px dashed #a3a3a3;
+        width: 25vh !important; }
+    .update-profile-photo__draggable-area-block .croppie-container .cr-slider-wrap {
+      margin-top: 3rem; }
+
+.update-profile-photo__draggable-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 15; }
 
 .update-profile-photo__draggable-area-icon {
+  height: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -7815,14 +7887,16 @@ body[id*="Trident/7.0"] .box {
 
 /* Action Area ============================================================== */
 [class*="update-profile__action-wrapper"][class*="--default-state"] {
-  display: block; }
+  display: block;
+  margin: 0 0 4rem 0; }
   [class*="update-profile__action-wrapper"][class*="--default-state"].hidden {
     display: none; }
 
 [class*="update-profile__action-wrapper"][class*="--upload-state"] {
-  display: none; }
+  display: none;
+  margin: 7rem 0 4rem 0; }
   [class*="update-profile__action-wrapper"][class*="--upload-state"].active {
-    diplay: block; }
+    display: block; }
 
 .update-profile__or-copy {
   display: inline-block;

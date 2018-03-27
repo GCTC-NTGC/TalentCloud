@@ -7,9 +7,12 @@
 ============================================================================= */
 
 [class*="button--"] {
-    border-radius: 3px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-block;
     font-family: $font-hk;
     font-weight: 400;
+    padding: 1rem 1.5rem;
     transition: all .2s ease;
 
     &[class*="yellow"] {
@@ -43,7 +46,9 @@
 
 }
 
-[class*="button__file--"] {
+[class*="button__file--"],
+input[type="file"][class*="button__file--"] {
+    display: inline-block;
 
     &[class*="yellow"] {
 

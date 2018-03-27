@@ -22,7 +22,7 @@
 
                         <div class="update-profile-photo__wrapper">
 
-                            <h4 class="update-profile-photo__title heading--03">Change Display Picture</h4>
+                            <h4 class="update-profile-photo__title heading--04">Change Display Picture</h4>
 
                             <div class="update-profile-photo__draggable-area-wrapper">
 
@@ -32,10 +32,21 @@
 
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
-                                    <!-- Insert Draggable Area -->
-                                    <div id="updateProfilePhotoDraggableArea"></div>
+                                    <!-- DEV-NOTE: On File Upload:
+                                    * Add "hidden" class to "update-profile__action-wrapper--default-state"
+                                    * Add "active" class to "update-profile__action-wrapper--upload-state"
+                                    * Add "active" class to "update-profile-photo__draggable-area-wrapper"
+                                    * The image doesn't seem to be draggable all the time :/ -->
+
+                                    <!-- DEV-NOTE: On Cancel:
+                                    * Remove "hidden" class to "update-profile__action-wrapper--default-state"
+                                    * Remove "active" class to "update-profile__action-wrapper--upload-state"
+                                    * Remove "active" class to "update-profile-photo__draggable-area-wrapper"
+                                    * Croppie currently can't reinitialize when you upload a new photo -->
+
+                                    <div id="updateProfilePhotoDraggableArea" class="update-profile-photo__draggable-area"></div>
                                     <div id="updateProfilePhotoCroppieContainer"></div>
-                                    
+
                                 </div>
 
                             </div>
@@ -44,7 +55,7 @@
 
                                 <span class="update-profile__or-copy heading--05">Or</span>
 
-                                <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" value="Choose Photo..." class="update-profile__choose-photo-button button--yellow" name="User Profile Photo" accept="image/*" />
+                                <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" class="update-profile__choose-photo-button button__file--yellow" name="User Profile Photo" accept="image/*" />
 
                             </div>
 
@@ -53,7 +64,7 @@
                                 <div class="flex-grid">
 
                                     <div class="box small-1of2">
-                                        <input id="updateProfileChooseAltPhotoButton" type="file" value="Choose a Different Photo..." class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
+                                        <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button button__file--yellow" name="User Profile Photo" accept="image/*" />
                                     </div>
 
                                     <div class="box small-1of2">
