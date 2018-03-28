@@ -419,13 +419,6 @@ and open the template in the editor .
                                 </button>
                             </div>
                         </div>
-<<<<<<< HEAD
-
-                    </div>
-                </div>
-            </section>
-
-=======
                     </div>
                 </div>
             </section>
@@ -464,7 +457,6 @@ and open the template in the editor .
                     </div>
                 </div>
             </section>
->>>>>>> to_profile_pic_upload
 
             <div id="jobPosterButtonWrapper">
                 <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
