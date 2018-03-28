@@ -40,9 +40,13 @@
                                     * Croppie currently can't reinitialize when you upload a new photo
                                     * Submit Photo -->
 
-                                    <div id="updateProfilePhotoDraggableArea" class="update-profile-photo__draggable-area"></div>
+                                    <div class="update-profile-photo__draggable-area" id="updateProfilePhotoDraggableArea"></div>
 
-                                    <div id="updateProfilePhotoCroppieContainer"></div>
+                                    <div class="update-profile-photo__croppie-wrapper" id="updateProfilePhotoCroppieContainer">
+
+                                        <!-- <div class="update-profile-photo__croppie" id="updateProfilePhotoCroppie"></div> -->
+
+                                    </div>
 
                                 </div>
 

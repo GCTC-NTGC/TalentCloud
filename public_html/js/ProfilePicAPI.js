@@ -111,6 +111,7 @@ ProfilePicAPI.Uploader = function(
 
         //Clear preview
         self.croppieContainer.innerHTML = "";
+        $(self.croppieContainer).removeClass("croppie-container");
 
         //Clear input button value
         self.fileInputButtons.forEach(function(button) {
