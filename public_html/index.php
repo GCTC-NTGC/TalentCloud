@@ -692,7 +692,7 @@ and open the template in the editor .
                 </div>
                 <div class='profileSubSection'>
                     <div class='profileSubSectionTitleBar'>
-                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2><!---Queenie TODO->
+                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
                     </div>
                     <div>
                         <div class="multi-btn-group-form-group">
