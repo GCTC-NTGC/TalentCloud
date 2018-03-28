@@ -2,8 +2,7 @@
 \.DS_Store
 
 public_html/tc/dao/BaseDAO\.php
-public_html/node_modules
 
-/vendor/
-/public_html/node_modules/
+vendor/
+public_html/node_modules/
 composer.lock
