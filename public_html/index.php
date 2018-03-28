@@ -516,7 +516,7 @@ and open the template in the editor .
                         </div>
                         <div id='hiringManagerSummaryContentWrapper' >
                             <h4><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></h4>
-                            <p id='jobPosterHiringManagerAboutMe' class-"truncate"></p>
+                            <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
                             <div id='hiringManagerSummaryButtonWrapper'>
                                 <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
                                     Read More
