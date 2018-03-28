@@ -1071,6 +1071,10 @@ CreateEditProfileAPI.populateProfile = function(response){
     
     SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
     
+    SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details.user_manager_profile_telework, 'telework');
+    
+    SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details.user_manager_profile_flexHours, 'flexHours');
+    
     var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
     user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;
     

@@ -639,12 +639,14 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
         request = null;
         // TODO: indicate to user that browser is not supported
     }
-
-    request.setRequestHeader("Content-type", "application/json");
-    request.setRequestHeader("Accept", "application/json");
+    //Default to application/json if content-type not included in headersMap
+    if (!headersMap['Content-type'] && !headersMap['Content-Type'])
+        request.setRequestHeader("Content-type", "application/json");
+    if (!headersMap['Accept'])
+        request.setRequestHeader("Accept", "application/json");
     if (UserAPI.hasSessionUser()) {
-        authToken = UserAPI.getAuthTokenAsJSON();
-        request.setRequestHeader('x-access-token', authToken.access_token);
+        var authToken = UserAPI.getAuthToken();
+        request.setRequestHeader("Authorization", "Bearer " + authToken);
     }
     Object.keys(headersMap).forEach(function(key) {
         request.setRequestHeader(key, headersMap[key]);
@@ -672,7 +674,7 @@ DataAPI.getUser = function(userId, responseCallback) {
     DataAPI.sendRequest(user_url, "GET", {}, null, function(request) {
         responseCallback(request.response);
     });
-}
+};
 
 /**
  * 

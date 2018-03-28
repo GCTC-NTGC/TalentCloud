@@ -34,6 +34,7 @@ RewriteRule ^api/v1/putWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/Wo
 RewriteRule ^api/v1/putWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 RewriteRule ^api/v1/putTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
 
+
 #common localized services - public
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllJobs services/JobPosters.php

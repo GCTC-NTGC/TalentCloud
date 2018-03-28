@@ -121,6 +121,13 @@ teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, t
     this.announcement = announcement;
     this.applicantPortal = applicantPortal;
     this.adminPortal = adminPortal;
+    this.workEnvironment = workEnvironment;
+    this.remoteLocationAllowed = remoteLocationAllowed;
+    this.teleworkAllowed = teleworkAllowed;
+    this.flexHoursAllowed = flexHoursAllowed;
+    this.yes = yes;
+    this.no = no;
+    this.physicalEnvironment = physicalEnvironment;
     this.dashBoardLink = dashBoardLink;
     this.yourApplicationsTitle = yourApplicationsTitle;
     this.adminTagline = adminTagline;
