@@ -26,6 +26,7 @@ ProfilePicAPI.Uploader = function(
     this.onUploadComplete = onUploadComplete;
 
     this.photo = null;
+    this.croppie = null;
     this.max_filesize = 2048576;
     this.defaultPhotoSrc = ProfilePicAPI.defaultProfilePic;
     this.uploadUrl = ProfilePicAPI.baseURL + "/profilePic/" + this.userId;
@@ -134,7 +135,7 @@ ProfilePicAPI.Uploader = function(
             fr.onloadend = function(ev) {
                 if (ev.target.file.size < self.max_filesize) {
                     self.photo = ev.target.file;
-                    self.makeProfilePicCroppie(self.croppieContainer, ev.target.result);
+                    self.croppie = self.makeProfilePicCroppie(self.croppieContainer, ev.target.result);
                     // UI Changes
                     $(".update-profile__action-wrapper--default-state").addClass("hidden");
                     $(".update-profile__action-wrapper--upload-state").addClass("active");
@@ -173,7 +174,7 @@ ProfilePicAPI.Uploader = function(
     };
 
     self.uploadPhoto = function() {
-        if (self.photo) {
+        if (self.photo && self.croppie) {
             var xhr = new XMLHttpRequest();
             if ("withCredentials" in xhr) {
                 // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -204,14 +205,14 @@ ProfilePicAPI.Uploader = function(
                 }
             }, false);
 
-            croppie.result({
+            self.croppie.result({
                     type: 'blob',
                     size: 'viewport',
                     format: 'png',
                     quality: 1,
                     circle: false
                 }).then(function(blob) {
-                    payload = blob;
+                    var payload = blob;
                     xhr.send(payload);
                 });
         }

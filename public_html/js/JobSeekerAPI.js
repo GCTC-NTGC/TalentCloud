@@ -477,6 +477,11 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function(){
     if (FormValidationAPI.validateUpdateProfileBasicInfo(
             user.firstname, user.lastname,
             jobSeekerProfile.twitter_link, jobSeekerProfile.linkedin_link)) {
+        //Also trigger photo upload
+        if (JobSeekerAPI.profilePicUploader) {
+            JobSeekerAPI.profilePicUploader.uploadPhoto();
+        }        
+                
         //change twitter username to link
         jobSeekerProfile.twitter_link = JobSeekerAPI.twitterUsernameToLink(jobSeekerProfile.twitter_link);
 
@@ -607,6 +612,8 @@ JobSeekerAPI.showJobSeekerProfileBasicInfoEdit = function() {
     var clearBtn = document.getElementById('updateProfilePhotoCancelButton');
     //var uploadBtn = document.getElementById('profilePicUploadBtn');
 
+    //Don't pass in a save button, because there is no dedicated button for pic uploading.
+    //The save button must upload photo, as well as profile info.
     JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
             fileInputButtons,
             fileDrop,
@@ -695,17 +702,4 @@ JobSeekerAPI.showUploadProfilePic = function() {
 
 JobSeekerAPI.onProfilePicUploaded = function() {
     JobSeekerAPI.refreshJobSeekerProfilePic();
-    JobSeekerAPI.hideUploadProfilePic();
 };
-
-JobSeekerAPI.hideUploadProfilePic = function() {
-    JobSeekerAPI.profilePicUploader = null;
-
-    var profileBasicInfoFormWrapper = document.getElementById("profileBasicInfoFormWrapper");
-    profileBasicInfoFormWrapper.classList.remove("hidden");
-
-    var profilePicUploadWrapper = document.getElementById("profilePicUploadWrapper")
-    profilePicUploadWrapper.classList.add("hidden");
-
-    JobSeekerAPI.showJobSeekerProfileBasicInfoEdit();
-}
