@@ -32,7 +32,9 @@
 
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
-                                    <span class="update-profile-photo__draggable-area-error heading--03">File Larger Than 2MB</span>
+                                    <span class="update-profile-photo__draggable-area-error--size heading--03">File Larger Than 2MB</span>
+
+                                    <span class="update-profile-photo__draggable-area-error--type heading--03">Please Use .JPG, .JPEG, or .PNG.</span>
 
                                     <!-- DEV-NOTE: On Cancel:
                                     * Croppie currently can't reinitialize when you upload a new photo
@@ -50,7 +52,7 @@
 
                                 <span class="update-profile__or-copy heading--05">Or</span>
 
-                                <label class="update-profile__choose-photo-button-label button--yellow" role="button" tabindex="1">
+                                <label class="update-profile__choose-photo-button-label button--yellow" id="updateProfileChoosePhotoButtonLabel" role="button" tabindex="0">
                                     Choose File...
                                     <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" />
                                 </label>
@@ -62,7 +64,7 @@
                                 <div class="flex-grid">
 
                                     <div class="box small-1of2">
-                                        <label class="update-profile__choose-alt-photo-button-label button--yellow" role="button" tabindex="2">
+                                        <label class="update-profile__choose-alt-photo-button-label button--yellow" role="button" tabindex="0">
                                             Choose Another File...
                                             <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
                                         </label>

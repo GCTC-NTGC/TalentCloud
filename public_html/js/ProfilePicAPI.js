@@ -143,12 +143,13 @@ ProfilePicAPI.Uploader = function(
                     }, 2000)
                 } else {
                     // Indicates file is too large.
-                    $(".update-profile-photo__draggable-area-wrapper").removeClass("active").addClass("error");
+                    $(".update-profile-photo__draggable-area-wrapper").removeClass("active").addClass("error--size");
                 }
             };
             fr.readAsDataURL(fr.file);
         } else {
-            //TODO: indicate imporper file type
+            // Indicates file is wrong type.
+            $(".update-profile-photo__draggable-area-wrapper").removeClass("active").addClass("error--type");
         }
     };
 
