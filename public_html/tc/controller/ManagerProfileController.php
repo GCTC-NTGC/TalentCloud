@@ -9,6 +9,8 @@
 require_once '../model/ManagerProfile.php';
 require_once '../model/ManagerProfileDetails.php';
 require_once '../model/ManagerProfileWithDetails.php';
+require_once '../model/User.php';
+require_once '../controller/UserController.php';
 require_once '../dao/ManagerProfileDAO.php';
 
 class ManagerProfileController{
@@ -40,13 +42,20 @@ class ManagerProfileController{
         
     }
     
-    public static function getManagerProfileWithDetails($managerProfile){
+    public static function getManagerProfileWithDetails(ManagerProfile $managerProfile){
+        
+        $user = new User();
+        $user->setUser_id($managerProfile->getUser_id());
+        
+        $managerUser = UserController::getUserById($user);
+        $managerUser->setIs_confirmed(null);
+        $managerUser->setUser_role(null);
         
         $profile = ManagerProfileController::getManagerProfile($managerProfile);
         
         $details = ManagerProfileController::getManagerProfileDetails($profile);
         
-        $managerProfileWithDetails = new ManagerProfileWithDetails($profile,$details);
+        $managerProfileWithDetails = new ManagerProfileWithDetails($profile,$details,$managerUser);
         
         $response = $managerProfileWithDetails;
         

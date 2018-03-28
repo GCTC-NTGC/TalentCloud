@@ -20,7 +20,10 @@ readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTert
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
-dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel) {
+dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
+workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
+dashBoardLink,yourApplicationsTitle,
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -125,6 +128,12 @@ dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePos
     this.adminProfilePositionLabel = adminProfilePositionLabel;
     this.adminProfileDepartmentLabel = adminProfileDepartmentLabel;
     this.adminProfileBranchLabel = adminProfileBranchLabel;
+    this.teamCulture = teamCulture;
+    this.teamSize = teamSize;
+    this.gcDirectoryLink = gcDirectoryLink;
+    this.teamSizePrompt = teamSizePrompt;
+    this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
+    this.teamNarrativePrompt = teamNarrativePrompt;
 };
 
 TalentCloudAPI.pages = {
@@ -199,6 +208,12 @@ TalentCloudAPI.pages = {
                     CreateJobPosterAPI.showCreateJobPosterForm();
                     TalentCloudAPI.setNav("jobPostersLinkListItem");
                 }
+            },
+            ManagerProfile:{
+                url:"#ManagerProfile",
+                state:function(managerProfileId){
+                    ManagerProfileAPI.showManagerProfile(managerProfileId);
+                }
             }
         };
 
@@ -213,9 +228,9 @@ TalentCloudAPI.load = function(){
     var adminView = false;
     var location = document.location.hash;
     //console.log(location);
-    event.preventDefault();
+    //event.preventDefault();
     location_elements = location.split('\/');
-    //console.log(location_elements[0]);
+    console.log(location_elements[0]);
     data = location_elements[1];
     //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
     if(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin) > -1) {
@@ -487,6 +502,10 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     if(isManager){
         console.log(isManager);
+        
+        CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
+        EditTeamCultureAPI.localizeEditTeamCulture();
+        
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
@@ -619,8 +638,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
-        
-    
+        WorkEnvironmentAPI.localizeWorkEnvironment();
+        TeamCultureAPI.localizeTeamCulture();        
+
         var dashBoardLink = document.getElementById("dashBoardLink");
         dashBoardLink.innerHTML = siteContent.dashBoardLink;
 

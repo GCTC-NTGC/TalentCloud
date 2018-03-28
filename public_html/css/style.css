@@ -263,6 +263,10 @@ nav{
     clear: both;
 }
 
+.blue-highlight-text {
+    color: #2196F3;
+}
+
 .flexContainerVerticallyCentered {
     display: flex;
     align-items: center;
@@ -899,6 +903,45 @@ nav{
     clear: both;
 }
 
+#jobPosterWorkEnvironmentLabel{
+    padding-bottom:0.25em;
+}
+
+.workEnvironmentWrapper{
+}
+
+.jobPosterWorkEnvironmentImage{
+    float: left;
+    width: 30%;
+    margin-left: 2em;
+    margin-right: 1.75em;
+}
+
+.workEnvironmentAnswerWrapper{
+    margin-left: 2em;
+}
+
+.workEnvironmentAnswerWrapper p{
+    margin-bottom:0.5em;
+}
+
+.workEnvironmentAnswer{
+    color: #2196F3;
+}
+
+.workEnvironmentTitle{
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 2em;
+}
+
+.workEnvironmentImage{
+    float: left;
+    display: inline;
+    width: 30%;
+    margin-right: 2em;
+}
+
 /* VIEW PROFILE (OLD??)  */
 
 .viewProfileContainer{
@@ -1103,9 +1146,9 @@ main .btn-default {
     background:rgba(0,0,0,0.7);
 }
 .three-step-tab {
-    color: #bbb;
     width: 33%;
     position: relative;
+    color: #bbb;
     font-size:1.25em;
     text-align: center;
     line-height:3em;
@@ -1117,6 +1160,18 @@ main .btn-default {
 .four-step-tab{
     width: 25%;
     position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
+}
+.five-step-tab{
+    width: 20%;
+    position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
 }
 .tabbedForm{
     width: 100%;
@@ -1316,6 +1371,16 @@ div label span{
 #dashboardSection .dashboardJobSummary {
     font-size: 100% !important;
     border-top: 1px solid #ccc;
+    font-size:1.3rem;
+    line-height: 2.5rem;
+    margin:0;
+    text-align: left;
+}
+
+/*Applicant Dashboard Styles*/
+#dashboardSection .dashboardJobSummaryLast {
+    font-size: 100% !important;
+    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     font-size:1.3rem;
     line-height: 3.5rem;
@@ -1323,12 +1388,12 @@ div label span{
 }
 
 .dashBoardHiringManagerWrapper {
-    width:25%;
+    width:20%;
     display:inline-block;
 }
 
 .dashboardTitleDepartmentWrapper{
-    width:50%;
+    width:40%;
     display:inline-block;
 }
 
@@ -1350,22 +1415,39 @@ div label span{
     display:inline;
 }
 
-#dashboardSection .hiringManagerWrapper .hiringManagerProfilePicSmall{
-    width: 60px;
-    height: 60px;
-    clip-path: circle(20px at center);
+#dashboardSection .dashBoardHiringManagerWrapper {
+    height: 3em;
+    line-height: 3em;
+    background-color: #eee;
+    border-radius: 1.5em;
+}
+    
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall{
+    height: 2.5em;
+    line-height: 2.5em;
+    width: 2.5em;
+    border-radius: 1.25em;
     margin-bottom: 0.5em;
     display:inline;
 }
 
-#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerLabel{
-    font-size:1em;
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerWidget{
+    height: 2.5em;
+    line-height: 2.5em;
+}
+
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerName{
+    font-size: 100%;
+    font-size: 1.25em;
     color: #333;
     display:inline;
+    padding-left:1em;
+    height: 2.5em;
+    line-height: 2.5em;
 }
 
 #dashboardSection .dashboardJobSubmitted{
-    width:25%;
+    width:40%;
     display:inline-block;
 }
 
@@ -1374,4 +1456,5 @@ div label span{
     font-size: 1.5em;
     margin:0;
     text-align: right;
+    color:#999;
 }

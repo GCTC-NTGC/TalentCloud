@@ -282,8 +282,8 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     
     //Load Hiring Manager Name
     DataAPI.getUser(job.manager_user_id, function(response) {
-       var managerUser = UserAPI.parseUserResponse(response);
-       hiringManagerLabel.innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+       var managerUser = JSON.parse(response);
+       hiringManagerLabel.innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
     });
     
     //Load Hiring Manager Image
@@ -415,8 +415,8 @@ JobPostAPI.populateJobPoster = function(jobData){
     //Start requests for Hiring Manager data
     //Load Hiring Manager Name
     DataAPI.getUser(jobData.manager_user_id, function(response) {
-       var managerUser = UserAPI.parseUserResponse(response);
-       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.firstname + ' ' + managerUser.lastname;
+       var managerUser = JSON.parse(response);
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
     });    
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
@@ -427,6 +427,10 @@ JobPostAPI.populateJobPoster = function(jobData){
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
        document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
        document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
+       
+       
+       WorkEnvironmentAPI.loadWorkEnvironmentSummary(managerProfile.manager_profile_id);
+       TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
     });
     
     //Set language-specific labels
