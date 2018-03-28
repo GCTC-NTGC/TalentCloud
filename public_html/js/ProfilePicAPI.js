@@ -137,12 +137,13 @@ ProfilePicAPI.Uploader = function(
                     // UI Changes
                     $(".update-profile__action-wrapper--default-state").addClass("hidden");
                     $(".update-profile__action-wrapper--upload-state").addClass("active");
-                    $(".update-profile-photo__draggable-area-wrapper").addClass("active");
+                    $(".update-profile-photo__draggable-area-wrapper").removeClass("error").addClass("active");
                     setTimeout(function(e) {
                         $(".cr-image").attr("alt", "Preview Profile Photo");
                     }, 2000)
                 } else {
-                    //TODO: indicate overlarge file
+                    // Indicates file is too large.
+                    $(".update-profile-photo__draggable-area-wrapper").removeClass("active").addClass("error");
                 }
             };
             fr.readAsDataURL(fr.file);

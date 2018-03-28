@@ -7848,6 +7848,12 @@ body[id*="Trident/7.0"] .box {
   .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-icon,
   .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-label {
     display: none; }
+  .update-profile-photo__draggable-area-wrapper.error:after {
+    border: 5px dashed rgba(255, 0, 0, 0.7); }
+  .update-profile-photo__draggable-area-wrapper.error .update-profile-photo__draggable-area-label {
+    display: none; }
+  .update-profile-photo__draggable-area-wrapper.error .update-profile-photo__draggable-area-error {
+    display: block; }
 
 .update-profile-photo__draggable-area-block {
   height: 100%;
@@ -7896,6 +7902,19 @@ body[id*="Trident/7.0"] .box {
 .update-profile-photo__draggable-area-label {
   color: #a3a3a3;
   font-weight: 700;
+  line-height: 1.2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  z-index: 10; }
+
+.update-profile-photo__draggable-area-error {
+  color: rgba(255, 0, 0, 0.8);
+  display: none;
+  font-weight: 700;
+  line-height: 1.2;
   position: absolute;
   top: 50%;
   left: 50%;

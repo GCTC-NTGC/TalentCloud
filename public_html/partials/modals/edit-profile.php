@@ -32,6 +32,8 @@
 
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
+                                    <span class="update-profile-photo__draggable-area-error heading--03">File Larger Than 2MB</span>
+
                                     <!-- DEV-NOTE: On Cancel:
                                     * Croppie currently can't reinitialize when you upload a new photo
                                     * Submit Photo -->
