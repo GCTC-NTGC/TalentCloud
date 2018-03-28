@@ -275,4 +275,3 @@ Utilities.clearSelectOptions = function(selectElement)
     blankSelect.setAttribute("selected","selected");
     selectElement.appendChild(blankSelect);
 };
-
