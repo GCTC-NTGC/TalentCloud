@@ -448,7 +448,7 @@ and open the template in the editor .
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
-                <p id="jobPosterId">#<span id="jobPosterIdValue"></span></p>
+                <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
                 <input id="jobPosterJobId" type="hidden"/>
             </div>
         </div>

@@ -23,7 +23,9 @@ createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackin
 dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
 dashBoardLink,yourApplicationsTitle,
-teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt) {
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
+jobReferenceId
+        ) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -141,6 +143,7 @@ teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, t
     this.teamSizePrompt = teamSizePrompt;
     this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
     this.teamNarrativePrompt = teamNarrativePrompt;
+    this.jobReferenceId = jobReferenceId;
 };
 
 TalentCloudAPI.pages = {
