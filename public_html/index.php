@@ -26,9 +26,10 @@ and open the template in the editor .
 
 <!-- A top-level dialog or overlay elements should be children of this div-->
 <div id="overlays">
+
     <!-- BEGIN - Registration Dialog and Overlay-->
     <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
-        <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
             <div id='registerFormTitleWrapper' class="dialogTitle">
                 <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
                 <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
@@ -85,8 +86,9 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
     <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
-        <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
             <div id='registerStatusTitleWrapper' class="dialogTitle">
                 <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
                 <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
@@ -106,9 +108,10 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
     <!-- BEGIN - Login Modal Dialog and Overlay-->
     <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
-        <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
             <div id='loginFormTitleWrapper' class="dialogTitle">
                 <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
                 <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
@@ -163,7 +166,7 @@ and open the template in the editor .
 
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
-        <div id="profileAboutMeFormWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+        <div id="profileAboutMeFormWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
             <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
                 <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
                 <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
@@ -186,9 +189,10 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
     <!-- BEGIN - Standard Yes/No Modal Popup-->
     <div id="yesNoModalOverlay" class="yesNoModalOverlay hidden" role="dialog">
-        <div id="yesNoModalWindow" class="yesNoModalWindow">
+        <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
             <div class="yesNoModalContent">
                 <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
                 <div id="yesNoModalText" class="yesNoModalText">Text</div>
@@ -197,6 +201,7 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+    
 </div>
 
 <!-- BEGIN - Main Content Section-->

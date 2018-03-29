@@ -7785,6 +7785,32 @@ body[id*="Trident/7.0"] .box {
   [class*="button--"]:hover {
     transition: all .2s ease; }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Default Modal Styles
+
+============================================================================= */
+.dialogue-modal {
+  width: 90%; }
+  @media (min-width: 64.01em) {
+    .dialogue-modal {
+      width: 75%; } }
+  .dialogue-modal[class*="--overflow"] {
+    position: relative;
+    top: 5rem;
+    left: auto;
+    margin: 0 auto 5rem auto;
+    transform: none;
+    width: 90%; }
+  .dialogue-modal[class*="--viewport"] {
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
 /* Molecules ================================================================ */
 /* Organisms ================================================================ */
 /* =============================================================================

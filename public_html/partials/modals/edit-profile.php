@@ -1,7 +1,7 @@
 <!-- BEGIN - Profile Basic Info Edit Overlay-->
 <div id="profileBasicInfoEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
 
-    <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+    <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
 
         <div id="profileBasicInfoFormWrapper">
 

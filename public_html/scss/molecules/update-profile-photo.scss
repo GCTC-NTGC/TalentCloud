@@ -108,19 +108,16 @@
 
         .cr-boundary {
             border-radius: 3rem;
-            // height: calc(25vh - 10px) !important;
             height: 25vh !important;
             width: 100% !important;
 
             .cr-viewport,
             .cr-overlay {
-                // height: calc(25vh - 10px) !important;
                 height: 25vh !important;
             }
 
             .cr-viewport {
                 border: 5px dashed $palette-grey--light;
-                // width: calc(25vh - 10px) !important;
                 width: 25vh !important;
             }
 

@@ -480,8 +480,8 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function(){
         //Also trigger photo upload
         if (JobSeekerAPI.profilePicUploader) {
             JobSeekerAPI.profilePicUploader.uploadPhoto();
-        }        
-                
+        }
+
         //change twitter username to link
         jobSeekerProfile.twitter_link = JobSeekerAPI.twitterUsernameToLink(jobSeekerProfile.twitter_link);
 
@@ -615,14 +615,16 @@ JobSeekerAPI.showJobSeekerProfileBasicInfoEdit = function() {
     //Don't pass in a save button, because there is no dedicated button for pic uploading.
     //The save button must upload photo, as well as profile info.
     JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
-            fileInputButtons,
-            fileDrop,
-            imagePreview,
-            clearBtn,
-            null,
-            UserAPI.getSessionUserAsJSON().user_id,
-            JobSeekerAPI.onProfilePicUploaded
-        );
+        fileInputButtons,
+        fileDrop,
+        imagePreview,
+        clearBtn,
+        null,
+        UserAPI.getSessionUserAsJSON().user_id,
+        JobSeekerAPI.onProfilePicUploaded
+    );
+
+    modalSize();
 
 };
 
@@ -646,6 +648,9 @@ JobSeekerAPI.showJobSeekerProfileAboutMeEdit = function() {
     AccessibilityAPI.focusElement("profileEditAboutMe");
 
     EventsAPI.hideBodyOverflow(true);
+
+    modalSize();
+    
 }
 
 JobSeekerAPI.hideJobSeekerProfileAboutMeEdit = function() {

@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,7 +26,7 @@ UserAPI.User = function () {
  */
 UserAPI.parseUserResponse = function(httpResponse) {
     var userJson = JSON.parse(httpResponse);
-    
+
     var user = new UserAPI.User();
     user.user_id = userJson.user_id;
     user.email = userJson.email;
@@ -35,12 +35,12 @@ UserAPI.parseUserResponse = function(httpResponse) {
     user.lastname = userJson.lastname;
     user.is_confirmed = userJson.is_confirmed;
     user.user_role = userJson.user_role;
-    
+
     return user;
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.login = function () {
@@ -68,7 +68,7 @@ UserAPI.login = function () {
 };
 
 /**
- * 
+ *
  * @param {type} credentials
  * @returns {undefined}
  */
@@ -111,7 +111,7 @@ UserAPI.authenticate = function (credentials) {
 };
 
 /**
- * 
+ *
  * @param {type} credentials
  * @returns {undefined}
  */
@@ -154,7 +154,7 @@ UserAPI.getUserById = function (credentials) {
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.updateProgress = function () {
@@ -162,7 +162,7 @@ UserAPI.updateProgress = function () {
 };
 
 /**
- * 
+ *
  * @returns {Boolean}
  */
 UserAPI.register = function (isManager) {
@@ -189,7 +189,7 @@ UserAPI.register = function (isManager) {
 
 
 /**
- * 
+ *
  * @param {type} credentials
  * @returns {undefined}
  */
@@ -252,7 +252,7 @@ UserAPI.showRegisterConf = function (registerSuccess, confEmailSuccess) {
     /*
      var emailConfSuccessMessage = "<div>Confirmation email sent successfully. Please check your email and confirm your email address.</div>";
      var emailConfFailureMessage = "<div>Confirmation email was not sent successfully</div>";
-     
+
      if(confEmailSuccess){
      registrationFormEmailConfMessage.innerHTML = emailConfSuccessMessage;
      }else{
@@ -264,26 +264,29 @@ UserAPI.showRegisterConf = function (registerSuccess, confEmailSuccess) {
     AccessibilityAPI.enableTabIndex("registrationFormStatusMessage");
     AccessibilityAPI.enableTabIndex("registerFormStatusClose");
     */
-   
+
     AccessibilityAPI.preventModalEscape("registerStatusCloseBtn", "registerStatusLoginBtn");
     AccessibilityAPI.focusElement("registerStatusLoginBtn");
 
     UserAPI.clearFormFields("registerForm");
     registrationForm.classList.add("hidden");
-    
+
     registrationStatus.classList.remove("hidden");
+
+    modalSize();
+
 };
 
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.hideRegisterConf = function () {
     /*var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#');*/
-    
+
     var registrationFormStatusMessage = document.getElementById("registrationStatusSuccessMessage");
     registrationFormStatusMessage.innerHTML = "";
     var registrationFormEmailConfMessage = document.getElementById("registrationStatusEmailConfMessage");
@@ -295,7 +298,7 @@ UserAPI.hideRegisterConf = function () {
 
 
 /**
- * 
+ *
  * @returns {Boolean}
  */
 UserAPI.submitNewJobPoster = function () {
@@ -311,7 +314,7 @@ UserAPI.submitNewJobPoster = function () {
 };
 
 /**
- * 
+ *
  * @param {type} response
  * @returns {undefined}
  */
@@ -329,7 +332,7 @@ UserAPI.authTokenCallback = function (response, credentials) {
 };
 
 /**
- * 
+ *
  * @param {type} response
  * @returns {undefined}
  */
@@ -371,16 +374,16 @@ UserAPI.loaded = function (response) {
                 DataAPI.getJobSeekerProfileByUserId(authJSON.user_id, JobSeekerAPI.populateJobSeekerProfile);
                 JobSeekerAPI.refreshJobSeekerProfilePic();
 
-                
+
                 var dashBoardLink = document.getElementById("dashBoardLink");
-                
+
                 if (dashBoardLink !== null) {
                     var dashBoardLinkListItem = document.getElementById("dashBoardLinkListItem");
                     dashBoardLink.classList.remove("hidden");
                     dashBoardLinkListItem.setAttribute("aria-hidden", "false");
                 }
             }
-            
+
                 var myProfileLink = document.getElementById("profileLink");
 
                 if (myProfileLink !== null) {
@@ -389,7 +392,7 @@ UserAPI.loaded = function (response) {
                     profileLinkListItem.setAttribute("aria-hidden", "false");
                     AccessibilityAPI.focusElement("profileLinkListItem");
                 }
-                
+
             if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {
 
                 var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
@@ -412,7 +415,7 @@ UserAPI.loaded = function (response) {
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.transferFailed = function () {
@@ -420,7 +423,7 @@ UserAPI.transferFailed = function () {
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.transferAborted = function () {
@@ -428,14 +431,14 @@ UserAPI.transferAborted = function () {
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.logout = function () {
     var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
     history.replaceState(stateInfo, stateInfo.pageInfo, '#');
-    
+
     var storage = window.sessionStorage;
     storage.removeItem('authToken');
     storage.removeItem('sessionUser');
@@ -452,7 +455,7 @@ UserAPI.authenticationFail = function () {
 };
 
 /**
- * 
+ *
  * @param {type} linkElement
  * @returns {undefined}
  */
@@ -466,10 +469,11 @@ UserAPI.showLogin = function () {
     EventsAPI.setFormFocus("login_email");
     EventsAPI.hideBodyOverflow(true);
     AccessibilityAPI.preventModalEscape("login_email", "loginFormLoginBtn");
+    modalSize();
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.failedLogin = function () {
@@ -477,7 +481,7 @@ UserAPI.failedLogin = function () {
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.cancelLogin = function () {
@@ -498,7 +502,7 @@ UserAPI.cancelLogin = function () {
 };
 
 /**
- * 
+ *
  * @param {type} linkElement
  * @returns {undefined}
  */
@@ -513,10 +517,11 @@ UserAPI.showRegisterForm = function () {
     EventsAPI.setFormFocus("register_email");
     EventsAPI.hideBodyOverflow(true);
     AccessibilityAPI.preventModalEscape("register_email","registerFormRegisterBtn");
+    modalSize();
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 UserAPI.hideRegisterForm = function () {
@@ -533,7 +538,7 @@ UserAPI.hideRegisterForm = function () {
 
 
 /**
- * 
+ *
  * @param {type} authToken
  * @returns {undefined}
  */
@@ -542,7 +547,7 @@ UserAPI.storeAuthToken = function (authToken) {
 };
 
 /**
- * 
+ *
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.getAuthToken = function () {
@@ -552,7 +557,7 @@ UserAPI.getAuthToken = function () {
 };
 
 /**
- * 
+ *
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.getAuthTokenAsJSON = function () {
@@ -566,7 +571,7 @@ UserAPI.getAuthTokenAsJSON = function () {
 
 
 /**
- * 
+ *
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.hasAuthToken = function () {
@@ -574,7 +579,7 @@ UserAPI.hasAuthToken = function () {
 };
 
 /**
- * 
+ *
  * @param {type} userObj
  * @returns {undefined}
  */
@@ -582,7 +587,7 @@ UserAPI.storeSessionUser = function (userObj) {
     window.sessionStorage.sessionUser = JSON.stringify(userObj);
 };
 /**
- * 
+ *
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.hasSessionUser = function () {
@@ -590,7 +595,7 @@ UserAPI.hasSessionUser = function () {
 };
 
 /**
- * 
+ *
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.getSessionUserAsJSON = function () {
@@ -604,7 +609,7 @@ UserAPI.getSessionUserAsJSON = function () {
 };
 
 /**
- * 
+ *
  * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
  */
 UserAPI.hasAuthTokenExpired = function () {
@@ -629,7 +634,7 @@ UserAPI.hasAuthTokenExpired = function () {
 };
 
 /**
- * 
+ *
  * @param {type} formId
  * @returns {undefined}
  */
@@ -655,11 +660,11 @@ UserAPI.clearFormFields = function (formId) {
 
 UserAPI.updateUser = function(user, updateUserCallback) {
     var authToken = UserAPI.getAuthToken();
-    
+
     Utilities.debug?console.log("updating user"):null;
     var updateUser_url = UserAPI.baseURL+"/user/update/";
     var jsonData=JSON.stringify(user);
-    
+
     var updateUser_xhr = new XMLHttpRequest();
     if ("withCredentials" in updateUser_xhr) {
 
@@ -684,7 +689,7 @@ UserAPI.updateUser = function(user, updateUserCallback) {
     updateUser_xhr.open('PUT',updateUser_url);
     updateUser_xhr.setRequestHeader("Content-Type","application/json");
     updateUser_xhr.setRequestHeader("Authorization", "Bearer " + authToken);
-    
+
     //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
     //updateUser_xhr.addEventListener("error",DataAPI.transferFailed,false);
     //updateUser_xhr.addEventListener("abort",DataAPI.transferAborted,false);
