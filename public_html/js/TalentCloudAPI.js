@@ -24,7 +24,9 @@ dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePos
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
 dashBoardLink,yourApplicationsTitle,
 teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
-openEndedQuestions) {
+openEndedQuestions,
+jobReferenceId
+        ) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -143,6 +145,7 @@ openEndedQuestions) {
     this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
     this.teamNarrativePrompt = teamNarrativePrompt;
     this.openEndedQuestions = openEndedQuestions;
+    this.jobReferenceId = jobReferenceId;
 };
 
 TalentCloudAPI.pages = {
