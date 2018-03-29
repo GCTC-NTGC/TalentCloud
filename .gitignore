@@ -3,6 +3,6 @@
 
 public_html/tc/dao/BaseDAO\.php
 
-/vendor/
-/public_html/node_modules/
+vendor/
+public_html/node_modules/
 composer.lock
