@@ -81,12 +81,9 @@ WorkEnvironmentAPI.loadWorkEnvironmentSummary = function(managerProfileId) {
  */
 WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
     
-    var toggleValueText = {'option0':siteContent.yes, 'option1':siteContent.no};
-    var sliderValueText = {'option0':siteContent.almostNever,'option1':siteContent.rarely,'option2':siteContent.sometimes,'option3':siteContent.usually,'option4':siteContent.almostAlways};
-    
-    document.getElementById('jobPosterRemoteWork').innerHTML = toggleValueText[workEnvironment.remote_allowed];
-    document.getElementById('jobPosterTelework').innerHTML = sliderValueText[workEnvironment.telework_allowed];
-    document.getElementById('jobPosterFlexHours').innerHTML = sliderValueText[workEnvironment.flexible_allowed];
+    document.getElementById('jobPosterRemoteWork').innerHTML = SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed);
+    document.getElementById('jobPosterTelework').innerHTML = SliderAPI.getFrequencySliderLabel(workEnvironment.telework_allowed);
+    document.getElementById('jobPosterFlexHours').innerHTML = SliderAPI.getFrequencySliderLabel(workEnvironment.flexible_allowed);
     
     workEnvironment.workplace_photo_captions.forEach(function(caption){
         var imgId = WorkEnvironmentAPI.photoNameToImgElementId[caption.photo_name];
