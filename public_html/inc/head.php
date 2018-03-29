@@ -29,6 +29,7 @@
 <script src="/js/WorkEnvironmentAPI.js"></script>
 <script src="/js/TeamCultureAPI.js"></script>
 <script src="/js/DashboardAPI.js" type="text/javascript"></script>
+<script src="/js/LookupAPI.js" type="text/javascript"></script>
 <script>
     var loadingImage = new Image();
     loadingImage.src = "/images/logo.svg";
