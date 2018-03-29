@@ -12,13 +12,13 @@
 
             <div class="dialogWindowInterior">
 
+                <!-- Modal Flex Grid ======================================= -->
+
                 <div class="flex-grid middle">
 
+                    <!-- Profile Upload Section (TAL-36) =================== -->
+
                     <div class="box lg-1of2">
-
-                        <!-- <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.png" alt="Default user"/>
-
-                        <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/></a> -->
 
                         <div class="update-profile-photo__wrapper">
 
@@ -36,17 +36,9 @@
 
                                     <span class="update-profile-photo__draggable-area-error--type heading--03">Please Use .JPG, .JPEG, or .PNG.</span>
 
-                                    <!-- DEV-NOTE: On Cancel:
-                                    * Croppie currently can't reinitialize when you upload a new photo
-                                    * Submit Photo -->
-
                                     <div class="update-profile-photo__draggable-area" id="updateProfilePhotoDraggableArea"></div>
 
-                                    <div class="update-profile-photo__croppie-wrapper" id="updateProfilePhotoCroppieContainer">
-
-                                        <!-- <div class="update-profile-photo__croppie" id="updateProfilePhotoCroppie"></div> -->
-
-                                    </div>
+                                    <div class="update-profile-photo__croppie-wrapper" id="updateProfilePhotoCroppieContainer"></div>
 
                                 </div>
 
@@ -85,6 +77,8 @@
                         </div>
 
                     </div>
+
+                    <!-- Profile Information Form ========================== -->
 
                     <div class="box lg-1of2">
 
@@ -164,36 +158,6 @@
             </div>
 
         </div>
-
-        <!-- <div id="profilePicUploadWrapper" class="hidden" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
-
-            <div id='profilePicUploadTitleWrapper' class="dialogTitle">
-                <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
-                <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
-            </div>
-
-            <div class="fileUpload">
-                <div class="leftPane">
-                    <div>
-                        <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
-                    </div>
-                    <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
-                        <p>Drop file here</p>
-                    </div>
-                </div>
-                <div class="rightPane">
-                    <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                        <a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a>
-                        <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
-                    </div>
-                    <div id="fileUploadButtons">
-                        <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
-                        <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Save</a>
-                    </div>
-                </div>
-            </div>
-
-        </div> -->
 
     </div>
 
