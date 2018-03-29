@@ -675,7 +675,7 @@ and open the template in the editor .
 
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class="multi-btn-group-form-group-labe">
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you approve development opportunities for your employees?</span>
                                                         </div>
                                                         <div style="display:inline-block;width:560px">
