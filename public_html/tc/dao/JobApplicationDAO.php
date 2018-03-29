@@ -37,13 +37,14 @@ class JobApplicationDAO extends BaseDAO {
         
         $sqlStr = "
             SELECT 
-                qa.application_question_answer_id,
-                qa.job_poster_application_id,
-                qa.question,
-                qa.answer
-            FROM application_question_answer as qa
+                answer.job_application_id as job_poster_application_id,
+                answer.job_poster_question_id as job_poster_question_id,
+                question.question as question,
+                answer.answer as answer
+            FROM job_application_answer as answer, job_poster_question question
             WHERE
-                qa.job_poster_application_id = :job_poster_application_id
+                answer.job_application_id = :job_poster_application_id
+                AND answer.job_poster_question_id = question.id
             ;";
         
         $sql = $link->prepare($sqlStr);
@@ -52,7 +53,7 @@ class JobApplicationDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             //$link->commit();
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ApplicationQuestionAnswer', array('application_question_answer_id', 'job_poster_application_id','question','answer'));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ApplicationQuestionAnswer');
             
             $questionAnswers = $sql->fetchAll();
             
@@ -212,8 +213,6 @@ class JobApplicationDAO extends BaseDAO {
      * 
      * Accepts an array of ApplicationQuestionAnswer objects, and adds them all
      * to database.
-     * NOTE: since they are added as new items, a new application_question_answer_id 
-     * will be created for each, regardless of the contents of the input objects.
      * 
      * @param ApplicationQuestionAnswer[] $applicationQuestionAnswers
      * @return int $rowsmodified - number of rows modified in database
@@ -230,12 +229,12 @@ class JobApplicationDAO extends BaseDAO {
         $valueStrings = [];
         foreach($applicationQuestionAnswers as $questionAnswer) {
             $valueStrings[] = '(?, ?, ?)';
-            $entryValues = [$questionAnswer->getJob_poster_application_id(), $questionAnswer->getQuestion(), $questionAnswer->getAnswer()];
+            $entryValues = [$questionAnswer->getJob_poster_application_id(), $questionAnswer->getJob_poster_question_id(), $questionAnswer->getAnswer()];
             $values = array_merge($values, $entryValues);
         }
         
-        $sqlStr = "INSERT INTO application_question_answer 
-            (job_poster_application_id, question, answer)
+        $sqlStr = "INSERT INTO job_application_answer 
+            (job_application_id, job_poster_question_id, answer)
             VALUES " . 
             implode(',', $valueStrings) . ";";
         

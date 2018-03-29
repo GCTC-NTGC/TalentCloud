@@ -1,10 +1,18 @@
 <?php
 
+require_once '../model/JobPosterApplication.php';
+require_once '../model/ApplicationQuestionAnswer.php';
+
 class JobApplicationWithAnswers implements JsonSerializable{
     
     private $job_poster_application;
     private $application_question_answers;
     
+    /**
+     * 
+     * @param JobPosterApplication $job_poster_application
+     * @param ApplicationQuestionAnswer[] $application_question_answers
+     */
     public function __construct($job_poster_application = null,$application_question_answers = []) {
         $this->job_poster_application = $job_poster_application;
         $this->application_question_answers = $application_question_answers;

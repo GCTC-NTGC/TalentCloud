@@ -24,6 +24,7 @@ dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePos
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
 dashBoardLink,yourApplicationsTitle,
 teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
+openEndedQuestions,
 jobReferenceId
         ) {
     this.title = title;
@@ -143,6 +144,7 @@ jobReferenceId
     this.teamSizePrompt = teamSizePrompt;
     this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
     this.teamNarrativePrompt = teamNarrativePrompt;
+    this.openEndedQuestions = openEndedQuestions;
     this.jobReferenceId = jobReferenceId;
 };
 
@@ -223,6 +225,13 @@ TalentCloudAPI.pages = {
                 url:"#ManagerProfile",
                 state:function(managerProfileId){
                     ManagerProfileAPI.showManagerProfile(managerProfileId);
+                }
+            },
+            CreateJobApplication:{
+                url:"#CreateJobApplication",
+                state:function(jobPosterId) {
+                    JobApplicationAPI.showCreateJobApplication(jobPosterId);
+                    TalentCloudAPI.setNav("browseLinkListItem");
                 }
             }
         };
@@ -515,6 +524,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
+        CreateJobPosterAPI.localizeCreateJobPosterForm();
         
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");

@@ -2,14 +2,14 @@
 
 class ApplicationQuestionAnswer implements JsonSerializable{
     
-    private $application_question_answer_id;
     private $job_poster_application_id;
+    private $job_poster_question_id;
     private $question;
     private $answer;
     
-    public function __construct($application_question_answer_id=null,$job_poster_application_id=null,$question=null,$answer=null) {
-        $this->application_question_answer_id = $application_question_answer_id;
+    public function __construct($job_poster_application_id=null,$job_poster_question_id=null,$question=null,$answer=null) {
         $this->job_poster_application_id = $job_poster_application_id;
+        $this->job_poster_question_id = $job_poster_question_id;
         $this->question = $question;
         $this->answer = $answer;
     }
@@ -24,13 +24,13 @@ class ApplicationQuestionAnswer implements JsonSerializable{
         }
         return $gettable_attributes;
     }
-    
-    public function getApplication_question_answer_id() {
-        return $this->application_question_answer_id;
-    }
 
     public function getJob_poster_application_id() {
         return $this->job_poster_application_id;
+    }
+
+    public function getJob_poster_question_id() {
+        return $this->job_poster_question_id;
     }
 
     public function getQuestion() {
@@ -41,13 +41,13 @@ class ApplicationQuestionAnswer implements JsonSerializable{
         return $this->answer;
     }
 
-    public function setApplication_question_answer_id($application_question_answer_id) {
-        $this->application_question_answer_id = $application_question_answer_id;
+    public function setJob_poster_application_id($job_poster_application_id) {
+        $this->job_poster_application_id = $job_poster_application_id;
         return $this;
     }
 
-    public function setJob_poster_application_id($job_poster_application_id) {
-        $this->job_poster_application_id = $job_poster_application_id;
+    public function setJob_poster_question_id($job_poster_question_id) {
+        $this->job_poster_question_id = $job_poster_question_id;
         return $this;
     }
 
@@ -60,4 +60,5 @@ class ApplicationQuestionAnswer implements JsonSerializable{
         $this->answer = $answer;
         return $this;
     }
+
 }
