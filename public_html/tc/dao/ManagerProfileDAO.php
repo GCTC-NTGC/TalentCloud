@@ -37,7 +37,7 @@ class ManagerProfileDAO extends BaseDAO{
         
         $link = BaseDAO::getConnection();
         
-        $user_manager_profile_department = $managerProfile->getUser_manager_profile_department();
+        $user_manager_profile_department_id = $managerProfile->getUser_manager_profile_department_id();
         $user_manager_profile_position = $managerProfile->getUser_manager_profile_position();
         $user_manager_profile_branch_id = $managerProfile->getUser_manager_profile_branch_id();
         $user_manager_profile_division_id = $managerProfile->getUser_manager_profile_division_id();
@@ -47,7 +47,7 @@ class ManagerProfileDAO extends BaseDAO{
         
         $sqlStr="INSERT INTO talentcloud.user_manager_profile
             (
-            user_manager_profile_department,
+            user_manager_profile_department_id,
             user_manager_profile_position,
             user_manager_profile_branch_id,
             user_manager_profile_division_id,
@@ -56,7 +56,7 @@ class ManagerProfileDAO extends BaseDAO{
             user_id)
             VALUES
             (
-            :user_manager_profile_department,
+            :user_manager_profile_department_id,
             :user_manager_profile_position,
             :user_manager_profile_branch_id,
             :user_manager_profile_division_id,
@@ -67,7 +67,7 @@ class ManagerProfileDAO extends BaseDAO{
         ";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':user_manager_profile_department', $user_manager_profile_department, PDO::PARAM_STR);
+        $sql->bindParam(':user_manager_profile_department_id', $user_manager_profile_department_id, PDO::PARAM_STR);
         $sql->bindParam(':user_manager_profile_position', $user_manager_profile_position, PDO::PARAM_STR);
         $sql->bindParam(':user_manager_profile_branch_id', $user_manager_profile_branch_id, PDO::PARAM_INT);
         $sql->bindParam(':user_manager_profile_division_id', $user_manager_profile_division_id, PDO::PARAM_INT);
@@ -175,7 +175,7 @@ class ManagerProfileDAO extends BaseDAO{
         
         $user_manager_profile_id = intval($managerProfile->getUser_manager_profile_id());
         //var_dump($user_manager_profile_id);
-        $user_manager_profile_department = $managerProfile->getUser_manager_profile_department();
+        $user_manager_profile_department_id = $managerProfile->getUser_manager_profile_department_id();
         $user_manager_profile_position = $managerProfile->getUser_manager_profile_position();
         $user_manager_profile_branch_id = intval($managerProfile->getUser_manager_profile_branch_id());
         $user_manager_profile_division_id =intval( $managerProfile->getUser_manager_profile_division_id());
@@ -185,7 +185,7 @@ class ManagerProfileDAO extends BaseDAO{
         
         $sqlStr="UPDATE talentcloud.user_manager_profile
             SET 
-                user_manager_profile_department = :user_manager_profile_department,
+                user_manager_profile_department_id = :user_manager_profile_department_id,
                 user_manager_profile_position = :user_manager_profile_position,
                 user_manager_profile_branch_id = :user_manager_profile_branch_id,
                 user_manager_profile_division_id = :user_manager_profile_division_id,
@@ -196,7 +196,7 @@ class ManagerProfileDAO extends BaseDAO{
         ";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':user_manager_profile_department', $user_manager_profile_department, PDO::PARAM_STR);
+        $sql->bindParam(':user_manager_profile_department_id', $user_manager_profile_department_id, PDO::PARAM_STR);
         $sql->bindParam(':user_manager_profile_position', $user_manager_profile_position, PDO::PARAM_STR);
         $sql->bindParam(':user_manager_profile_branch_id', $user_manager_profile_branch_id, PDO::PARAM_INT);
         $sql->bindParam(':user_manager_profile_division_id', $user_manager_profile_division_id, PDO::PARAM_INT);
@@ -284,7 +284,7 @@ class ManagerProfileDAO extends BaseDAO{
         $sqlStr = "
             SELECT 
                 ump.user_manager_profile_id,
-                ump.user_manager_profile_department,
+                ump.user_manager_profile_department_id,
                 ump.user_manager_profile_position,
                 ump.user_manager_profile_branch_id,
                 ump.user_manager_profile_division_id,
@@ -314,7 +314,7 @@ class ManagerProfileDAO extends BaseDAO{
             $row = $sql->fetch();
             
             $managerProfile->setUser_manager_profile_id($row['user_manager_profile_id']);
-            $managerProfile->setUser_manager_profile_department($row['user_manager_profile_department']);
+            $managerProfile->setUser_manager_profile_department_id($row['user_manager_profile_department_id']);
             $managerProfile->setUser_manager_profile_position($row['user_manager_profile_position']);
             $managerProfile->setUser_manager_profile_branch_id($row['user_manager_profile_branch_id']);
             $managerProfile->setUser_manager_profile_division_id($row['user_manager_profile_division_id']);

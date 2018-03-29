@@ -3,7 +3,7 @@ var ManagerProfileAPI = {};
 ManagerProfileAPI.ManagerProfile = function(){
     this.user_id = null,
     this.manager_profile_id = null;
-    this.department = null;
+    this.department_id = null;
     this.position = null;
     this.branch_id = null;
     this.division_id = null;
@@ -43,7 +43,7 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response) {
     var profile = new ManagerProfileAPI.ManagerProfile();
     profile.user_id = manager_profile.user_id;
     profile.manager_profile_id = manager_profile.user_manager_profile_id;
-    profile.department = manager_profile.user_manager_profile_department;
+    profile.department_id = manager_profile.user_manager_profile_department_id;
     profile.position = manager_profile.user_manager_profile_position;
     profile.branch_id = manager_profile.user_manager_profile_branch_id;
     profile.division_id = manager_profile.user_manager_profile_division_id;
@@ -127,7 +127,7 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     position.innerHTML = profile.position;
     
     var department = document.getElementById("managerProfileDepartment");
-    department.innerHTML = profile.department;
+    department.innerHTML = profile.department_id;
 
     var twitter_link = document.getElementById("managerProfileTwitterLink");
     var twitter_link_wrapper = document.getElementById("managerProfileTwitterLinkWrapper");

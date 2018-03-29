@@ -57,7 +57,7 @@
                 $managerProfile->setUser_id($managerProfileJSON["user_id"]);
                 $managerProfile->setUser_manager_profile_id($managerProfileJSON["user_manager_profile_id"]);
                 $managerProfile->setUser_manager_profile_position($managerProfileJSON["user_manager_profile_position"]);
-                $managerProfile->setUser_manager_profile_department($managerProfileJSON["user_manager_profile_department"]);
+                $managerProfile->setUser_manager_profile_department_id($managerProfileJSON["user_manager_profile_department_id"]);
                 $managerProfile->setUser_manager_profile_branch_id($managerProfileJSON["user_manager_profile_branch_id"]);
                 $managerProfile->setUser_manager_profile_division_id($managerProfileJSON["user_manager_profile_division_id"]);
                 $managerProfile->setUser_manager_profile_twitter($managerProfileJSON["user_manager_profile_twitter"]);

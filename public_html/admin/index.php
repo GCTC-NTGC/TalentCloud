@@ -356,10 +356,10 @@ and open the template in the editor .
                                                             </strong>
                                                         </label>
                                                         <div>
-                                                            <input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>
-                                                            <!--select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
+                                                            <!--<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>-->
+                                                            <select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
                                                                 <option value="">--</option>
-                                                            </select-->
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">

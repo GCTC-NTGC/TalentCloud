@@ -12,7 +12,7 @@ CreateEditProfileAPI.lookupMap = {};
 
 CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_id, 
-        user_manager_profile_department,
+        user_manager_profile_department_id,
         user_manager_profile_position,
         user_manager_profile_branch_id,
         user_manager_profile_division_id,
@@ -21,7 +21,7 @@ CreateEditProfileAPI.ManagerProfile = function(
         user_id,
         profile_pic){
     this.user_manager_profile_id = user_manager_profile_id;
-    this.user_manager_profile_department = user_manager_profile_department;
+    this.user_manager_profile_department_id = user_manager_profile_department_id;
     this.user_manager_profile_position = user_manager_profile_position;
     this.user_manager_profile_branch_id = user_manager_profile_branch_id;
     this.user_manager_profile_division_id = user_manager_profile_division_id;
@@ -110,7 +110,7 @@ CreateEditProfileAPI.loadLookupData = function() {
     //DivisionAPI.getDivisions(locale);
     //BranchAPI.getBranches(locale);
     var locales = ["en_CA", "fr_CA"];
-    var lookupTypes = ["branch", "division"];
+    var lookupTypes = ["department", "branch", "division"];
     for(i in locales) {
         for (j in lookupTypes) {
             var locale = locales[i];
@@ -184,6 +184,9 @@ CreateEditProfileAPI.populateLookups = function(lookupType,response){
         case "division":
             CreateEditProfileAPI.populateSelect("division","createEditProfile_division",data);
             break;
+        case "department":
+            CreateEditProfileAPI.populateSelect("department","createEditProfile_department",data);
+            break;
         default:
             break;
     }
@@ -204,10 +207,10 @@ CreateEditProfileAPI.populateSelect = function(lookupType, elementId, data){
     if(lookupType === lookupType && document.getElementById(elementId)){
         var select = document.getElementById(elementId);
         Utilities.clearSelectOptions(select);
-        for(var department in data) {
+        for(var item in data) {
             var option = document.createElement("option");
-            option.value = data[department].id;
-            option.innerHTML = data[department].value;
+            option.value = data[item].id;
+            option.innerHTML = data[item].value;
             select.appendChild(option);
         }
     }
@@ -364,7 +367,7 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     updated_manager_profile.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
     
     updated_manager_profile.user_manager_profile_position = document.getElementById("createEditProfile_position").value;
-    updated_manager_profile.user_manager_profile_department = document.getElementById("createEditProfile_department").value;
+    updated_manager_profile.user_manager_profile_department_id = document.getElementById("createEditProfile_department").value;
     updated_manager_profile.user_manager_profile_division_id = document.getElementById("createEditProfile_division").value;
     updated_manager_profile.user_manager_profile_branch_id = document.getElementById("createEditProfile_branch").value;
     updated_manager_profile.user_manager_profile_twitter = document.getElementById("createEditProfile_twitter").value;
@@ -947,7 +950,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile.user_manager_profile_id = manager_profile_json["user_manager_profile_id"];
     
     manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
-    manager_profile.user_manager_profile_department = manager_profile_json["user_manager_profile_department"];
+    manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
     manager_profile.user_manager_profile_division_id = manager_profile_json["user_manager_profile_division_id"];
     manager_profile.user_manager_profile_branch_id = manager_profile_json["user_manager_profile_branch_id"];
     manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
@@ -1013,7 +1016,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
     
     var profile_position = manager_profile.user_manager_profile_position;
-    var profile_department = manager_profile.user_manager_profile_department;
+    var profile_department_id = manager_profile.user_manager_profile_department_id;
     var profile_division_id = manager_profile.user_manager_profile_division_id;
     var profile_branch_id = manager_profile.user_manager_profile_branch_id;
     
@@ -1025,10 +1028,10 @@ CreateEditProfileAPI.populateProfile = function(response){
         createEditProfile_position.value = profile_position;
     }
     
-    if(profile_department !== null){
-        console.log("profile_department="+profile_department);
+    if(profile_department_id !== null){
+        console.log("profile_department="+profile_department_id);
         var createEditProfile_department = document.getElementById("createEditProfile_department");
-        createEditProfile_department.value = profile_department;
+        createEditProfile_department.value = profile_department_id;
         //createEditProfile_department.value = profile_department_id.toString();
         //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
         var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
