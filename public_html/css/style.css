@@ -165,6 +165,15 @@ nav{
     display: inline-block;
 }
 
+#langSelect{
+    color: #FFF;
+}
+
+#topicsMenu{
+    color: #FFF;
+    background: #000;
+}
+
 /* TALENT CLOUD LOGO */
 
 .page-banner--logo-container {
