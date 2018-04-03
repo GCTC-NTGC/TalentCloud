@@ -341,7 +341,7 @@ and open the template in the editor .
                                                         <label for="createEditProfile_position">
                                                             <span id="createEditProfile_position_label">Position</span>
                                                             <strong id="createEditProfile_position_error" class="error hidden">
-                                                                <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
+                                                                <span id="createEditProfile_position_error_msg" class="label label-danger"></span>
                                                             </strong>
                                                         </label>
                                                         <div>
@@ -1265,9 +1265,9 @@ and open the template in the editor .
                                 <div id="createJobPosterOutdatedTab" class="stepGroup hidden">
                                     <div class="tabsWrapper">
                                         <div class="tabsSteps">
-                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
-                                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
-                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
+                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_2">Create</a></div>
+                                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_2">Outdated</a></div>
+                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_2">Review</a></div>
                                         </div>
                                         <div class="tabs">
                                             <div class="steptab active"> </div>
