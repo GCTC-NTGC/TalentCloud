@@ -59,6 +59,7 @@ JobApplicationAPI.showCreateJobApplication = function(jobPosterId) {
 JobApplicationAPI.localizeCreateJobApplication = function() {
     if (siteContent) {
         document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
+        document.getElementById('createJobApplicationConfirmationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
         document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
         document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
 

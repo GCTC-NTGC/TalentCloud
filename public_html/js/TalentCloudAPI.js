@@ -712,6 +712,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
         
+        var viewJobPosterTitle = document.getElementById("viewJobPosterTitle");
+        viewJobPosterTitle.innerHTML = siteContent.browseTitle;
+        
         var dashBoardTitle = document.getElementById("dashBoardTitle");
         dashBoardTitle.innerHTML = siteContent.dashBoardLink;
         

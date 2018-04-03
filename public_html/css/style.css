@@ -165,6 +165,15 @@ nav{
     display: inline-block;
 }
 
+#langSelect{
+    color: #FFF;
+}
+
+#topicsMenu{
+    color: #FFF;
+    background: #000;
+}
+
 /* TALENT CLOUD LOGO */
 
 .page-banner--logo-container {
@@ -913,9 +922,14 @@ nav{
 
 .jobPosterWorkEnvironmentImage{
     float: left;
-    width: 30%;
-    margin-left: 2em;
-    margin-right: 1.75em;
+    display: block;
+    min-width: 30%;
+    max-height: 22.5rem;
+    margin-left: 2rem;
+    margin-right: 1.75rem;
+    margin-bottom: 3rem;
+    width: auto;
+    height: auto;
 }
 
 .workEnvironmentAnswerWrapper{

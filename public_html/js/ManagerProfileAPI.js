@@ -75,6 +75,9 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#ManagerProfile/' + user_id);
     
+    // focus top of page
+    window.scrollTo(0,0);
+    
     TalentCloudAPI.hideAllContent();
     var managerProfileSection = document.getElementById('managerProfileSection');
     managerProfileSection.classList.remove('hidden');
