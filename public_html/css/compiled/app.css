@@ -7872,8 +7872,10 @@ body[id*="Trident/7.0"] .box {
   .update-profile-photo__draggable-area-wrapper.active:after {
     display: none; }
   .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-icon,
-  .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-label {
-    display: none; }
+  .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-label,
+  .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-error--size,
+  .update-profile-photo__draggable-area-wrapper.active .update-profile-photo__draggable-area-error--type {
+    display: none !important; }
   .update-profile-photo__draggable-area-wrapper.error--size:after {
     border: 5px dashed rgba(255, 0, 0, 0.7); }
   .update-profile-photo__draggable-area-wrapper.error--size .update-profile-photo__draggable-area-label {

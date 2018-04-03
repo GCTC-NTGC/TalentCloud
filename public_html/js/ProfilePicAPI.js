@@ -106,6 +106,10 @@ ProfilePicAPI.Uploader = function(
         self.processNewFiles(files);
     };
 
+    var actionWrapperDefault = document.querySelector(".update-profile__action-wrapper--default-state");
+    var actionWrapperUpload = document.querySelector(".update-profile__action-wrapper--upload-state");
+    var draggableArea = document.querySelector(".update-profile-photo__draggable-area-wrapper");
+
     self.clearUpload = function () {
         //Clear upload
         self.photo = null;
@@ -120,9 +124,12 @@ ProfilePicAPI.Uploader = function(
         });
 
         // UI Changes
-        $(".update-profile__action-wrapper--default-state").removeClass("hidden");
-        $(".update-profile__action-wrapper--upload-state").removeClass("active");
-        $(".update-profile-photo__draggable-area-wrapper").removeClass("active");
+        actionWrapperDefault.classList.remove("hidden");
+        actionWrapperUpload.classList.remove("active");
+        draggableArea.classList.remove("active");
+        draggableArea.classList.remove("error");
+        draggableArea.classList.remove("error--size");
+        draggableArea.classList.remove("error--type");
 
     };
 
@@ -137,21 +144,25 @@ ProfilePicAPI.Uploader = function(
                     self.photo = ev.target.file;
                     self.croppie = self.makeProfilePicCroppie(self.croppieContainer, ev.target.result);
                     // UI Changes
-                    $(".update-profile__action-wrapper--default-state").addClass("hidden");
-                    $(".update-profile__action-wrapper--upload-state").addClass("active");
-                    $(".update-profile-photo__draggable-area-wrapper").removeClass("error").addClass("active");
+                    actionWrapperDefault.classList.add("hidden");
+                    actionWrapperUpload.classList.add("active");
+                    draggableArea.classList.add("active");
+                    draggableArea.classList.remove("error");
                     setTimeout(function(e) {
-                        $(".cr-image").attr("alt", "Preview Profile Photo");
+                        var crImage = document.querySelectorAll(".cr-image");
+                        crImage.setAttribute("alt", "Preview Profile Photo");
                     }, 2000)
                 } else {
                     // Indicates file is too large.
-                    $(".update-profile-photo__draggable-area-wrapper").removeClass("active").addClass("error--size");
+                    draggableArea.classList.remove("active");
+                    draggableArea.classList.add("error--size");
                 }
             };
             fr.readAsDataURL(fr.file);
         } else {
             // Indicates file is wrong type.
-            $(".update-profile-photo__draggable-area-wrapper").removeClass("active").addClass("error--type");
+            draggableArea.classList.remove("active");
+            draggableArea.classList.add("error--type");
         }
     };
 

@@ -278,18 +278,20 @@ Utilities.clearSelectOptions = function(selectElement)
 
 // Modal Height Calculation ====================================================
 function modalSize() {
-    var viewportHeight = $(window).height();
-    $(".dialogue-modal").each(function(e) {
-        var modalHeight = $(this).outerHeight();
+    var viewportHeight = window.innerHeight;
+    var dialogueModal = document.querySelectorAll(".dialogue-modal");
+    // console.log(dialogueModal);
+    for (let i of dialogueModal) {
+        var modalHeight = i.offsetHeight;
         if(modalHeight > viewportHeight) {
-            $(this).removeClass("dialogue-modal--viewport").addClass("dialogue-modal--overflow");
+            i.classList.remove("dialogue-modal--viewport");
+            i.classList.add("dialogue-modal--overflow");
         }
         else {
-            $(this).removeClass("dialogue-modal--overflow").addClass("dialogue-modal--viewport");
+            i.classList.remove("dialogue-modal--overflow");
+            i.classList.add("dialogue-modal--viewport");
         }
-    });
+    }
 }
 
-$(window).resize(function(e) {
-    modalSize();
-});
+window.onresize = modalSize;
