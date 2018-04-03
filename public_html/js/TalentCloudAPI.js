@@ -21,11 +21,9 @@ logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contri
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
 dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
-workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
-dashBoardLink,yourApplicationsTitle,
-teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
-openEndedQuestions,
-jobReferenceId
+workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment, dashBoardLink,yourApplicationsTitle,
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt, openEndedQuestions, jobReferenceId,
+skipNavText
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -146,6 +144,7 @@ jobReferenceId
     this.teamNarrativePrompt = teamNarrativePrompt;
     this.openEndedQuestions = openEndedQuestions;
     this.jobReferenceId = jobReferenceId;
+    this.skipNavText = skipNavText;
 };
 
 TalentCloudAPI.pages = {
@@ -480,6 +479,9 @@ TalentCloudAPI.setContent = function(content, isManager){
     // Common headers (both Applicant and Admin)
     document.title = siteContent.title;
     window.title = siteContent.title;
+    
+    var skipNavText = document.getElementById("skipNavText");
+    skipNavText.innerHTML = siteContent.skipNavText;
     
     var announcement = document.getElementById("announcement");
     announcement.innerHTML = siteContent.announcement;

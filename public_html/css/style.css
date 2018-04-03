@@ -920,13 +920,20 @@ nav{
 .workEnvironmentWrapper{
 }
 
+.workEnvironmentSummaryWrapper{
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .jobPosterWorkEnvironmentImage{
     float: left;
-    display: block;
-    min-width: 30%;
+    display: inline-block;
+    max-width: 33%;
     max-height: 22.5rem;
-    margin-left: 2rem;
-    margin-right: 1.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     margin-bottom: 3rem;
     width: auto;
     height: auto;

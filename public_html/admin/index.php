@@ -15,7 +15,7 @@ and open the template in the editor .
     <body>
         <ul id="wb-tphp">
             <li class="wb-slc">
-                <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
+                <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
             </li>
         </ul>
         <div class="announcement-banner">

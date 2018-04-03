@@ -217,6 +217,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.adminProfileBranchLabel = content.adminProfileBranchLabel;
     thisContent.jobReferenceId = content.jobReferenceId;
     thisContent.openEndedQuestions = content.openEndedQuestions;
+    thisContent.skipNavText = content.skipNavtext;
   
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
