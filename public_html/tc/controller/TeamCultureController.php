@@ -15,11 +15,11 @@ class TeamCultureController {
     public static function setTeamCultureByManagerProfileId($teamCulture, $managerProfileId) {
         $previousEntry = TeamCultureDAO::getTeamCultureNonLocalizedForManagerProfile($managerProfileId);
         if ($previousEntry) {
-            TeamCultureDAO::updateTeamCultureForManagerProfile($teamCulture, $managerProfileId);
+            $result = TeamCultureDAO::updateTeamCultureForManagerProfile($teamCulture, $managerProfileId);
         } else {
-            TeamCultureDAO::createTeamCultureForManagerProfile($teamCulture, $managerProfileId);
+            $result = TeamCultureDAO::createTeamCultureForManagerProfile($teamCulture, $managerProfileId);
         }
-        return $teamCulture;
+        return $result;
     }
     
     /**

@@ -14,7 +14,7 @@ and open the template in the editor .
 <body>
 <ul id="wb-tphp">
     <li class="wb-slc">
-        <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
+        <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
     </li>
 </ul>
 <div class="announcement-banner">
@@ -443,7 +443,7 @@ and open the template in the editor .
     <section class="pageContent hidden" id="viewJobPosterSection">
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
-                <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+                <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
                 <h2 id="jobPosterTitle">Job Title</h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
@@ -840,7 +840,7 @@ and open the template in the editor .
     </section>
     <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
          <div class="pageBanner">
-            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+            <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
         </div>
         <div class="pageBody">
             <div id='createJobApplicationConfirmationBodyWrapper'>

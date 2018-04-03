@@ -165,6 +165,15 @@ nav{
     display: inline-block;
 }
 
+#langSelect{
+    color: #FFF;
+}
+
+#topicsMenu{
+    color: #FFF;
+    background: #000;
+}
+
 /* TALENT CLOUD LOGO */
 
 .page-banner--logo-container {
@@ -911,11 +920,24 @@ nav{
 .workEnvironmentWrapper{
 }
 
+.workEnvironmentSummaryWrapper{
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .jobPosterWorkEnvironmentImage{
     float: left;
-    width: 30%;
-    margin-left: 2em;
-    margin-right: 1.75em;
+    display: inline-block;
+    min-width: 25%;
+    max-width: 33%;
+    max-height: 22.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 3rem;
+    width: auto;
+    height: auto;
 }
 
 .workEnvironmentAnswerWrapper{

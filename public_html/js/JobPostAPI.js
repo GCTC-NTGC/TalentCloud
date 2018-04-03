@@ -400,6 +400,9 @@ JobPostAPI.viewJobPoster = function(jobId){
     DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
         var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
         JobPostAPI.populateJobPoster(jobPoster);
+        
+        // focus top of page
+        window.scrollTo(0,0);
     });
 };
 

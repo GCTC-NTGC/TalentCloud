@@ -46,8 +46,8 @@ class TeamCultureDAO extends BaseDAO {
         $sqlStrDetails = "INSERT INTO team_culture_details
             (team_culture_id, narrative_text, locale_id)
             VALUES
-            (@team_culture_id, :narative_text_en, (SELECT locale.locale_id FROM locale WHERE locale.locale_iso=:en_iso LIMIT 1)),
-            (@team_culture_id, :narative_text_fr, (SELECT locale.locale_id FROM locale WHERE locale.locale_iso=:fr_iso LIMIT 1));";
+            (@team_culture_id, :narrative_text_en, (SELECT locale.locale_id FROM locale WHERE locale.locale_iso=:en_iso LIMIT 1)),
+            (@team_culture_id, :narrative_text_fr, (SELECT locale.locale_id FROM locale WHERE locale.locale_iso=:fr_iso LIMIT 1));";
         
         $sql1 = $link->prepare($sqlStr1);
         $sql2 = $link->prepare($sqlStr2);
@@ -62,7 +62,7 @@ class TeamCultureDAO extends BaseDAO {
         $sqlDetails->bindValue(':narrative_text_en', $teamCulture->getNarrative_text_en(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':narrative_text_fr', $teamCulture->getNarrative_text_fr(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':en_iso', "en_CA", PDO::PARAM_STR);
-        $sqlDetails->bindValue(':en_iso', "fr_CA", PDO::PARAM_STR);
+        $sqlDetails->bindValue(':fr_iso', "fr_CA", PDO::PARAM_STR);
         
         $teamCultureId = 0;
         try {
