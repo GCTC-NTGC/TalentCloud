@@ -930,6 +930,7 @@ nav{
 .jobPosterWorkEnvironmentImage{
     float: left;
     display: inline-block;
+    min-width: 25%;
     max-width: 33%;
     max-height: 22.5rem;
     padding-left: 1rem;
