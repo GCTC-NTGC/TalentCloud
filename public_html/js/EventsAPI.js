@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,12 +10,12 @@ var lazyLoaderImg = new Image();
 lazyLoaderImg.src = "";
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 EventsAPI.onLoadEvents = function(){
     //On initial load - modify state
-    
+
     document.addEventListener("DOMContentLoaded", function(){
         var locale =  TalentCloudAPI.getLanguageFromCookie();
         if(locale == undefined){
@@ -23,7 +23,7 @@ EventsAPI.onLoadEvents = function(){
         }
         TalentCloudAPI.load();
     });
-    
+
     //Handle what happens when new history state popped off stack
     window.onpopstate = function(e){
         //If going to a valid state
@@ -48,14 +48,17 @@ EventsAPI.onLoadEvents = function(){
                 var registerFormOverlay = document.getElementById("registerFormOverlay");
                 registerFormOverlay.classList.remove("hidden");
                 document.getElementById("registerLinkListItem").classList.add("active");
+                modalSize();
             } else if(e.state.pageInfo === 'user_login'){
                 var loginAccount = document.getElementById("loginOverlay");
                 loginAccount.classList.remove("hidden");
                 document.getElementById("loginLinkListItem").classList.add("active");
+                modalSize();
             } else if(e.state.pageInfo === 'create_job_poster'){
                 EventsAPI.hideAllLayouts();
                 var createJobPoster = document.getElementById("createJobPosterOverlay");
                 createJobPoster.classList.remove("hidden");
+                modalSize();
             } else if(e.state.pageInfo === 'user_create_edit_profile'){
                 EventsAPI.hideAllLayouts();
                 var createJobPosterSection = document.getElementById("createEditProfileSection");
@@ -78,8 +81,9 @@ EventsAPI.onLoadEvents = function(){
                 //viewJobPosterApplicationOverlay.remove("hidden");
             } else if(e.state.pageInfo === 'apply_job_poster'){
                 EventsAPI.hideAllLayouts();
-                var viewJobPosterOverlay = document.getElementById("jobPosterApplication"); 
+                var viewJobPosterOverlay = document.getElementById("jobPosterApplication");
                 viewJobPosterOverlay.classList.remove("hidden");
+                modalSize();
             }
             document.title = e.state.pageTitle;
         }

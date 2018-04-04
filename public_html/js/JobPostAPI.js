@@ -33,7 +33,7 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements){
+JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements,questions){
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = title;
@@ -52,6 +52,12 @@ JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_
     this.core_competencies = core_competencies;
     this.developing_competencies = developing_competencies;
     this.other_requirements = other_requirements;
+    this.questions = questions;
+};
+
+JobPostAPI.JobPosterQuestion = function(id, question) {
+    this.id = id;
+    this.question = question;
 };
 
 JobPostAPI.showBrowseJobs = function() {
@@ -131,6 +137,11 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.core_competencies = job.core_competencies;
     jobObj.developing_competencies = job.developing_competencies;
     jobObj.other_requirements = job.other_requirements;
+    jobObj.questions = [];
+    job.questions.forEach(function(q){
+        var question = new JobPostAPI.JobPosterQuestion(q.id, q.question);
+        jobObj.questions.push(question);
+    })
 
 
     Utilities.debug?console.log(jobObj):null;
@@ -287,7 +298,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     });
     
     //Load Hiring Manager Image
-    FileUploadAPI.refreshProfilePic(job.manager_user_id, [hiringManagerProfilePic]);
+    ProfilePicAPI.refreshProfilePic(job.manager_user_id, hiringManagerProfilePic);
     
     return jobSummary;
     
@@ -389,6 +400,9 @@ JobPostAPI.viewJobPoster = function(jobId){
     DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
         var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
         JobPostAPI.populateJobPoster(jobPoster);
+        
+        // focus top of page
+        window.scrollTo(0,0);
     });
 };
 
@@ -396,6 +410,7 @@ JobPostAPI.localizeJobPoster = function() {
     if (siteContent) {
         document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
+        document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
     }
 };
 
@@ -420,14 +435,65 @@ JobPostAPI.populateJobPoster = function(jobData){
     });    
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
-    FileUploadAPI.refreshProfilePic(jobData.manager_user_id, [hiringManagerProfilePic]);
+    ProfilePicAPI.refreshProfilePic(jobData.manager_user_id, hiringManagerProfilePic);
     //Load Other Hiring Manager Data
     DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
        document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
-       document.getElementById('jobPosterHiringManagerAboutMe').innerHTML = managerProfile.about_me;
        
+       /*Truncating Manager About Me*/ 
+       var len = 250;
+       if (managerProfile.about_me.length > 0) {
+            var fullText = managerProfile.about_me;
+            var id = "jobPosterHiringManagerAboutMe";
+            var aboutMe = document.getElementById(id);
+
+            if(fullText.length > len){
+               var trunc = fullText.substring(0, len).replace(/\w+$/, '');
+               var remainder = fullText.substring(len, fullText.length);
+
+               var showMoreAnchor = document.createElement("a");
+               showMoreAnchor.setAttribute("id", id + "_MoreLink");
+               showMoreAnchor.setAttribute("href", "javascript:void(0)");
+               showMoreAnchor.setAttribute("onclick", "JobPostAPI.showMoreHiringManagerSummary(\"" + id + "\")");
+               showMoreAnchor.innerHTML = "Read more";
+
+               var showLessAnchor = document.createElement("a");
+               showLessAnchor.setAttribute("id", id + "_LessLink");
+               showLessAnchor.setAttribute("class", "hidden");
+               showLessAnchor.setAttribute("href", "javascript:void(0)");
+               showLessAnchor.setAttribute("onclick", "JobPostAPI.showLessHiringManagerSummary(\"" + id  + "\")");
+               showLessAnchor.innerHTML = "Less";
+
+
+               var overflowSpan = document.createElement("span");
+               overflowSpan.setAttribute("class", "hidden");
+               overflowSpan.setAttribute("id", id + "_Overflow");
+
+               var remainderText = document.createTextNode(remainder);
+
+               overflowSpan.appendChild(remainderText);
+
+               var truncatedSpan = document.createElement("span");
+               var truncateText = document.createTextNode(trunc);
+
+               truncatedSpan.appendChild(truncateText);
+               truncatedSpan.appendChild(overflowSpan);
+
+               var space = document.createTextNode( '\u00A0' );
+
+               aboutMe.appendChild(truncatedSpan);
+               aboutMe.appendChild(space);
+               aboutMe.appendChild(showMoreAnchor);
+               aboutMe.appendChild(showLessAnchor);
+
+               //shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPI.showLessHiringManagerSummary(\''+ id + '\');">Less</a>';
+            } else {
+                aboutMe.innerHTML = fullText;
+            }
+        }
+       /*End Truncating*/
        
        WorkEnvironmentAPI.loadWorkEnvironmentSummary(managerProfile.manager_profile_id);
        TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
@@ -501,7 +567,18 @@ JobPostAPI.populateJobPoster = function(jobData){
     
     //TODO: fix this when working on jobPoserApplications
     //var jobSeekerProfileId = document.getElementById("profile_id").value;
-    //JobPostAPI.getJobPosterApplicationByProfileId(jobData.id,jobSeekerProfileId);
+};
+
+JobPostAPI.showMoreHiringManagerSummary = function(id){
+    document.getElementById(id+'_Overflow').classList.remove("hidden");
+    document.getElementById(id+'_MoreLink').classList.add("hidden");
+    document.getElementById(id+'_LessLink').classList.remove("hidden");
+};
+    
+JobPostAPI.showLessHiringManagerSummary = function(id){
+    document.getElementById(id+'_Overflow').classList.add("hidden");
+    document.getElementById(id+'_MoreLink').classList.remove("hidden");
+    document.getElementById(id+'_LessLink').classList.add("hidden");
 };
 
 JobPostAPI.setItemsForListElement = function(element, items, itemClassAtribute) {
@@ -672,82 +749,4 @@ JobPostAPI.hideJobPosterApplication = function(){
     /*var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");  
     viewJobPosterOverlay.classList.add("hidden");*/
     
-};
-
-/**
- * 
- * @param {type} jobPosterId
- * @param {type} jobSeekerProfileId
- * @returns {undefined}
- */
-JobPostAPI.getJobPosterApplicationByProfileId = function(jobPosterId,jobSeekerProfileId){
-    Utilities.debug?console.log("loading talent cloud UI"):null;
-    Utilities.debug?console.log("loading contacts"):null;
-    var jobPosterApplication_URL = JobPostAPI.baseURL+"/getJobPosterApplicationByProfileId/"+jobPosterId+"/"+jobSeekerProfileId;
-    
-    var authToken = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
-    var jobPosterApplication_xhr = new XMLHttpRequest();
-    if ("withCredentials" in jobPosterApplication_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      jobPosterApplication_xhr.open("GET", jobPosterApplication_URL);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      jobPosterApplication_xhr = new XDomainRequest();
-      jobPosterApplication_xhr.open("GET", jobPosterApplication_URL);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      jobPosterApplication_xhr = null;
-
-    }
-    
-    jobPosterApplication_xhr.open('GET',jobPosterApplication_URL);
-    jobPosterApplication_xhr.setRequestHeader("Content-Type","application/json");
-    jobPosterApplication_xhr.setRequestHeader("x-access-token", authToken.access_token);
-    
-    jobPosterApplication_xhr.addEventListener("progress",
-    function(evt){
-        JobPostAPI.submitJobPosterApplicationProgress(evt);
-    },false);
-    jobPosterApplication_xhr.addEventListener("load",
-    function(evt){
-        JobPostAPI.getJobPosterApplicationByProfileIdLoaded(jobPosterApplication_xhr.responseText,jobPosterId,jobSeekerProfileId);
-    },false);
-    jobPosterApplication_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    jobPosterApplication_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    jobPosterApplication_xhr.send(authToken);
-    //JobPostAPI.hideJobPosterApplication();
-};
-
-
-JobPostAPI.submitJobPosterApplicationProgress = function(evt){
-    
-};
-
-/**
- * 
- * @param {type} response
- * @param {type} jobPosterId
- * @param {type} jobSeekerProfileId
- * @returns {undefined}
- */
-JobPostAPI.getJobPosterApplicationByProfileIdLoaded = function(response,jobPosterId,jobSeekerProfileId){
-    //var applyNowButton = document.getElementById("applyNowButton_"+jobPosterId);
-    //applyNowButton.setAttribute("disabled","");
-    //JobPostAPI.hideJobPosterApplication();
-    var jobPosterSubmitApplicationButton = document.getElementById("applyNowButton_"+jobPosterId);
-    //console.log(response);
-    if(response !== "null"){
-        jobPosterSubmitApplicationButton.setAttribute("disabled","");
-    }
 };

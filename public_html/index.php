@@ -14,7 +14,7 @@ and open the template in the editor .
 <body>
 <ul id="wb-tphp">
     <li class="wb-slc">
-        <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
+        <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
     </li>
 </ul>
 <div class="announcement-banner">
@@ -26,9 +26,10 @@ and open the template in the editor .
 
 <!-- A top-level dialog or overlay elements should be children of this div-->
 <div id="overlays">
+
     <!-- BEGIN - Registration Dialog and Overlay-->
     <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
-        <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
             <div id='registerFormTitleWrapper' class="dialogTitle">
                 <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
                 <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
@@ -85,8 +86,9 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
     <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
-        <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
             <div id='registerStatusTitleWrapper' class="dialogTitle">
                 <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
                 <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
@@ -106,9 +108,10 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
     <!-- BEGIN - Login Modal Dialog and Overlay-->
     <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
-        <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+        <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
             <div id='loginFormTitleWrapper' class="dialogTitle">
                 <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
                 <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
@@ -159,115 +162,11 @@ and open the template in the editor .
         </div>
     </div>
 
-    <!-- BEGIN - Profile Basic Info Edit Overlay-->
-    <div id="profileBasicInfoEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
-        <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
-            <div id="profileBasicInfoFormWrapper">
-                <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle">
-                    <strong id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</strong>
-                    <div class="hidden" id="profileBasicInfoFormDescription">Edit your basic info</div>
-                </div>
+    <?php include 'partials/modals/edit-profile.php';?>
 
-                <div class="dialogWindowInterior">
-                    <img id="profileBasicInfoEditProfilePic" class="profilePicLarge" src="images/user.png" alt="Default user"/>
-                    <a href="javascript:void(0)" id="showUploadProfilePic" onclick="JobSeekerAPI.showUploadProfilePic()"><img src="/images/btn_edit_dark.png" alt="Edit Profile Image" class="editImage"/></a>
-
-                    <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded">
-
-                        <div class="form-group leftPane">
-                            <label for="profileEditFirstName">
-                                <span>First Name:</span>
-                                <strong id="profileEditFirstNameError" class="error hidden">
-                                    <span id="profileEditFirstNameErrorMsg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <div>
-                                <input class="form-control full-width" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
-                            </div>
-                        </div>
-                        <div class="form-group rightPane">
-                            <label for="profileEditLastName">
-                                <span>Last Name:</span>
-                                <strong id="profileEditLastNameError" class="error hidden">
-                                    <span id="profileEditLastNameErrorMsg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <div>
-                                <input class="form-control full-width" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
-                            </div>
-                        </div>
-                        <div class="form-group clear">
-                            <label for="profileEditTagline">
-                                <span>Tagline:</span>
-                            </label>
-                            <div>
-                                <input class="form-control full-width" type="text" name="profileEditTagline" id="profileEditTagline"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="profileEditTwitter">
-                                <img src="images/twitter.png" alt="Twitter logo" class="form-icon"/>
-                                <span>Twitter Handle:</span>
-                                <strong id="profileEditTwitterError" class="error hidden">
-                                    <span id="profileEditTwitterErrorMsg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <div>
-                                <input class="form-control full-width" type="text" name="profileEditTwitter" id="profileEditTwitter" placeholder="@Username"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="profileEditLinkedin">
-                                <img src="images/linkedin.png" alt="LinkedIn logo" class="form-icon"/>
-                                <span>LinkedIn Profile Address:</span>
-                                <strong id="profileEditLinkedinError" class="error hidden">
-                                    <span id="profileEditLinkedinErrorMsg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <div>
-                                <span class="form-control" style="padding:7px 0 7px 14px;float:left;color:#999;vertical-align: middle;" onclick="document.getElementById('profileEditLinkedin').focus()">https://www.linkedin.com/in/</span>
-                                <span style="float:left;"><input class="form-control full-width" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="exampleuser"/></span>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
-                            <input type="button" id="profileBasicInfoEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div id="profilePicUploadWrapper" class="hidden" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
-                <div id='profilePicUploadTitleWrapper' class="dialogTitle">
-                    <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
-                    <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
-                </div>
-                <div class="fileUpload">
-                    <div class="leftPane">
-                        <div>
-                            <label for="profilePicUploadField">Profile picture</label>
-                            <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
-                        </div>
-                        <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
-                            <p>Drop file here</p>
-                        </div>
-                    </div>
-                    <div class="rightPane">
-                        <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                            <!--a id="profilePicUploadClear" class="fileUploadReset" href="#" title="Remove all files from list">Clear</a-->
-                            <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
-                        </div>
-                        <div id="fileUploadButtons">
-                            <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="JobSeekerAPI.hideUploadProfilePic()">Cancel</a>
-                            <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Save</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
-        <div id="profileAboutMeFormWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+        <div id="profileAboutMeFormWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
             <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
                 <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
                 <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
@@ -290,9 +189,10 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
     <!-- BEGIN - Standard Yes/No Modal Popup-->
     <div id="yesNoModalOverlay" class="yesNoModalOverlay hidden" role="dialog">
-        <div id="yesNoModalWindow" class="yesNoModalWindow">
+        <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
             <div class="yesNoModalContent">
                 <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
                 <div id="yesNoModalText" class="yesNoModalText">Text</div>
@@ -301,6 +201,7 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- BEGIN - Main Content Section-->
@@ -312,10 +213,10 @@ and open the template in the editor .
                     <div class="page-banner--logo-container flexContainerVerticallyCentered">
                         <div class="page-banner--logo flexLeftOfCenter">
                             <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img id="logoSrc" class="tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
+                                <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
                             </a>
                         </div>
-                        <div class="page-banner--logo-tagline-divider"></div>
+                        <div class="landing-hero__tagline-divider page-banner--logo-tagline-divider"></div>
                         <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
                     </div>
                 </div>
@@ -443,12 +344,12 @@ and open the template in the editor .
     <section class="pageContent hidden" id="viewJobPosterSection">
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
-                <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+                <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
                 <h2 id="jobPosterTitle">Job Title</h2>
                 <p id="jobPosterLocation">
                     <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                 </p>
-                <p id="jobPosterId">#<span id="jobPosterIdValue"></span></p>
+                <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
                 <input id="jobPosterJobId" type="hidden"/>
             </div>
         </div>
@@ -516,7 +417,7 @@ and open the template in the editor .
                         </div>
                         <div id='hiringManagerSummaryContentWrapper' >
                             <h4><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></h4>
-                            <p id='jobPosterHiringManagerAboutMe'></p>
+                            <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
                             <div id='hiringManagerSummaryButtonWrapper'>
                                 <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
                                     Read More
@@ -750,7 +651,7 @@ and open the template in the editor .
     </section>
     <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
          <div class="pageBanner">
-            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+            <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
         </div>
         <div class="pageBody">
             <div id='createJobApplicationConfirmationBodyWrapper'>

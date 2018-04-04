@@ -79,6 +79,8 @@
                 $jobPoster->setDeveloping_competencies_fr($jobPosterJSON["developing_competencies"][$fr]);
                 $jobPoster->setOther_requirements_en($jobPosterJSON["other_requirements"][$en]);
                 $jobPoster->setOther_requirements_fr($jobPosterJSON["other_requirements"][$fr]);
+                $jobPoster->setQuestions_en($jobPosterJSON["questions"][$en]);
+                $jobPoster->setQuestions_fr($jobPosterJSON["questions"][$fr]);
                 
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);

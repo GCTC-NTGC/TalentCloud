@@ -12,9 +12,9 @@ body{
     width: 100% !important;
     /*max-width:1200px !important;*/
     margin:0px auto !important;
-    
+
     background-image: url('/images/backgrounds/background.jpg');
-    background-position: center -350px; 
+    background-position: center -350px;
     background-repeat: no-repeat;
     background-size: auto;
     position:absolute;
@@ -165,6 +165,15 @@ nav{
     display: inline-block;
 }
 
+#langSelect{
+    color: #FFF;
+}
+
+#topicsMenu{
+    color: #FFF;
+    background: #000;
+}
+
 /* TALENT CLOUD LOGO */
 
 .page-banner--logo-container {
@@ -186,9 +195,9 @@ nav{
 
 .tc-logo{
     width: 100%;
-    height: auto;  
+    height: auto;
     float: right; }
-  
+
 .page-banner--logo-tagline-divider{
     width:3px;
     height: 12em;
@@ -215,7 +224,7 @@ nav{
 .overFlowHidden{
     overflow:hidden;
 }
-    
+
 .transparent{
     background:rgba(0,0,0,0.7);
 }
@@ -300,7 +309,7 @@ nav{
 
 .profilePicLarge {
     width:200px;
-    height:200px;
+    /* height:200px; */
     border: 3px solid #FFCC33;
     border-radius: 100px;
     margin: auto;
@@ -445,11 +454,11 @@ nav{
 }
 
 .jobAPplicationQuestion {
-    
+
 }
 
 .jobApplicationAnswerField {
-    
+
 }
 
 #createJobApplicationButtonWrapper {
@@ -843,7 +852,7 @@ nav{
 }
 
 .profileSubSection {
-    padding-top: 2em; 
+    padding-top: 2em;
     padding-bottom: 2em;
     position: relative;
 }
@@ -877,7 +886,7 @@ nav{
     height: 1.5em;
 }
 
-/* APPLICANT PROFILE */ 
+/* APPLICANT PROFILE */
 
 /* ADMIN PROFILE */
 
@@ -911,11 +920,24 @@ nav{
 .workEnvironmentWrapper{
 }
 
+.workEnvironmentSummaryWrapper{
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .jobPosterWorkEnvironmentImage{
     float: left;
-    width: 30%;
-    margin-left: 2em;
-    margin-right: 1.75em;
+    display: inline-block;
+    min-width: 25%;
+    max-width: 33%;
+    max-height: 22.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 3rem;
+    width: auto;
+    height: auto;
 }
 
 .workEnvironmentAnswerWrapper{
@@ -972,7 +994,7 @@ nav{
 }
 
 .viewProfileSlotContent{
-    
+
 }
 
 .viewProfileSlotImg{
@@ -1429,7 +1451,7 @@ div label span{
     background-color: #eee;
     border-radius: 1.5em;
 }
-    
+
 #dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall{
     height: 2.5em;
     line-height: 2.5em;

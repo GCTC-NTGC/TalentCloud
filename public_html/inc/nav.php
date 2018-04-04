@@ -1,6 +1,6 @@
 <nav id="wb-sm">
     <div class="topbar transparent" id="site--topbar">
-        <h2>Topics menu</h2>
+        <h2 id="topicsMenu">Topics menu</h2>
         <div class="row">
             <div class="nav-container">
                 <ul class="navbar-right" role="menubar">

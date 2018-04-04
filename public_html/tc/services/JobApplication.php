@@ -60,7 +60,7 @@
             $questionAnswers = [];
             foreach($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
                 $questionAnswer = new ApplicationQuestionAnswer();
-                $questionAnswer->setQuestion($jsonQA['question']);
+                $questionAnswer->setJob_poster_question_id($jsonQA['job_poster_question_id']);
                 $questionAnswer->setAnswer($jsonQA['answer']);
                 $questionAnswers[] = $questionAnswer;
             }

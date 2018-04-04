@@ -1,0 +1,66 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Talent Cloud Font-Scale
+
+============================================================================= */
+
+/* Typography =============================================================== */
+$font-hk: HKGrotesk, sans-serif;
+
+/* Font Standard ============================================================ */
+// html,
+// body {
+//     font-size: 100%;
+//     -webkit-font-smoothing: antialiased;
+//
+//     @media screen and (min-width: 768px) {
+//         font-size: 115%;
+//     }
+//
+//     @media screen and (min-width: 1025px) {
+//         font-size: 125%;
+//     }
+//
+// }
+
+/* 1.414 Scale */
+
+// $font-scale: 1.414;
+//
+// $font-scale--h1: calc(1rem*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale})))));
+// $font-scale--h2: calc(1rem*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}))));
+// $font-scale--h3: calc(1rem*(#{$font-scale}*(#{$font-scale})));
+// $font-scale--h4: calc(1rem*(#{$font-scale}));
+// $font-scale--h5: 1rem;
+// $font-scale--regular: $font-scale--h5;
+// $font-scale--small: calc(1rem*(#{$font-scale}/2));
+
+/* Temporary Font Scale ===================================================== */
+[class*="heading--"] {
+    font-family: $font-hk;
+    font-weight: 700;
+    margin: 0;
+
+    &[class*="01"] {
+        font-size: 5rem;
+    }
+
+    &[class*="02"] {
+        font-size: 3.5rem;
+    }
+
+    &[class*="03"] {
+        font-size: 2.75rem;
+    }
+
+    &[class*="04"] {
+        font-size: 1.125rem;
+    }
+
+    &[class*="05"] {
+        font-size: 1rem;
+    }
+
+}

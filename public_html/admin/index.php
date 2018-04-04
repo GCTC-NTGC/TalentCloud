@@ -3,7 +3,7 @@
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor . 
+and open the template in the editor .
 -->
 <html lang="en">
     <head>
@@ -15,7 +15,7 @@ and open the template in the editor .
     <body>
         <ul id="wb-tphp">
             <li class="wb-slc">
-                <a class="wb-sl" href="#homePageContentSection">Skip to available jobs</a>
+                <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
             </li>
         </ul>
         <div class="announcement-banner">
@@ -27,11 +27,12 @@ and open the template in the editor .
 
         <!-- All top-level dialog or overlay elements should be children of this div-->
         <div id="overlays">
+
             <!-- BEGIN - Registration Form Modal Dialog and Overlay-->
             <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
-                <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
-                    <div id='registerFormTitleWrapper' class="dialogTitle">
-                        <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
+                <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
+                    <div id="registerFormTitleWrapper" class="dialogTitle">
+                        <strong id="registerFormTitle" title="Register for Talent Cloud">Register for Talent Cloud</strong>
                         <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
                     </div>
                     <div class="wb-frmvld wb-init dialogWindowInterior" id="registerFormWrapper">
@@ -82,15 +83,16 @@ and open the template in the editor .
                                 <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register(true);">
                             </div>
                             <div class="clear"></div>
-                        </form>  
+                        </form>
                     </div>
                 </div>
             </div>
+
             <!-- BEGIN - Registration Status Dialog and Overlay-->
             <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
-                <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
-                    <div id='registerStatusTitleWrapper' class="dialogTitle">
-                        <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
+                <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
+                    <div id="registerStatusTitleWrapper" class="dialogTitle">
+                        <strong id="registerStatusTitle" title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
                         <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
                     </div>
                     <div class="dialogWindowInterior">
@@ -108,11 +110,12 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+
             <!-- BEGIN - Login Modal Dialog and Overlay-->
             <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
-                <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
-                    <div id='loginFormTitleWrapper' class="dialogTitle">
-                        <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
+                <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
+                    <div id="loginFormTitleWrapper" class="dialogTitle">
+                        <strong id="loginFormTitle" title="Login to TalentCloud">Login to TalentCloud</strong>
                         <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
                     </div>
                     <div class="dialogWindowInterior">
@@ -141,7 +144,7 @@ and open the template in the editor .
                                         <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                                     </div>
                                 </div>
-                            </div>                
+                            </div>
                             <div class="hidden">
                                 <div style="margin: 1em 0 0 0;">
                                     <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
@@ -160,10 +163,12 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+
+            <!-- Profile Photo Modal -->
             <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
-                <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
-                    <div id='profilePicUploadTitleWrapper' class="dialogTitle">
-                        <strong id='profilePicUploadTitle' title="Upload a new profile image">Upload a new profile image</strong>
+                <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
+                    <div id="profilePicUploadTitleWrapper" class="dialogTitle">
+                        <strong id="profilePicUploadTitle" title="Upload a new profile image">Upload a new profile image</strong>
                         <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
                     </div>
                     <div class="fileUpload">
@@ -177,8 +182,8 @@ and open the template in the editor .
                             </div>
                         </div>
                         <div class="rightPane">
-                            <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                                <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
+                            <div id="fileUploadPreviewPanel" class="uploadFileThumbnail" style="min-height:130px;">
+                                <img id="fileUploadPreviewImg" src="/images/user.png"/>
                             </div>
                             <div id="fileUploadButtons">
                                 <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
@@ -191,7 +196,7 @@ and open the template in the editor .
 
             <!-- BEGIN - Standard Yes/No Modal Popup-->
             <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay" role="dialog">
-                <div id="yesNoModalWindow" class="yesNoModalWindow">
+                <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
                     <div class="yesNoModalContent">
                         <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
                         <div id="yesNoModalText" class="yesNoModalText">Text</div>
@@ -203,12 +208,13 @@ and open the template in the editor .
 
             <!-- BEGIN - Update Overlay-->
             <div class="yesNoModalOverlay hidden" id="updateOverlay">
-                <div id="updateWindow" class="yesNoModalWindow">
+                <div id="updateWindow" class="dialogue-modal yesNoModalWindow">
                     <div class="updateContent">
                         <img src="/images/working.gif" alt=""/>
                     </div>
                 </div>
             </div>
+
         </div>
         <main>
             <section class="pageContent" id="homePageContentSection">
@@ -224,7 +230,7 @@ and open the template in the editor .
                                 <div class="page-banner--logo-tagline-divider"></div>
                                 <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
                             </div>
-                            <p class="centered">Changing government through it's people</p>
+                            <p id="adminTagline" class="centered">Changing government through it's people</p>
                         </div>
                     </div>
                 </div>
@@ -278,18 +284,18 @@ and open the template in the editor .
                                     <input type="hidden" id="ManagerProfileId"/>
                                     <input type="hidden" id="ManagerProfileDetailsId"/>
                                     <div id="profileCommon">
-                                        <div style='text-align: center;width:100%;'>
-                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                        <div style="text-align: center;width:100%;">
+                                            <div style="width:500px;margin:1em auto;text-align: center;">
                                                 <span id="createEditProfile_name_preview" class="profileName">name</span>
                                             </div>
                                         </div>
-                                        <div style='text-align: center;width:100%;'>
-                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                        <div style="text-align: center;width:100%;">
+                                            <div style="width:500px;margin:1em auto;text-align: center;">
                                                 <span id="createEditProfile_position_preview" class="managerProfileTitle">position</span>
                                             </div>
                                         </div>
-                                        <div style='text-align: center;width:100%;'>
-                                            <div style='width:500px;margin:1em auto;text-align: center;'>
+                                        <div style="text-align: center;width:100%;">
+                                            <div style="width:500px;margin:1em auto;text-align: center;">
                                                 <span id="createEditProfile_department_preview" class="managerProfileDepartment">department</span>
                                             </div>
                                         </div>
@@ -300,7 +306,7 @@ and open the template in the editor .
                                         <div class="five-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
                                         <div class="five-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
                                         <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
-                                        <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>                                                
+                                        <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>
                                         <div class="five-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
                                             </div>
                                             <div class="tabs">
@@ -312,7 +318,7 @@ and open the template in the editor .
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
-                                            <h3>About Me</h3>
+                                            <h3 id="adminAboutMe">About Me</h3>
                                             <div style="margin-top:2em;">
                                                 <div class="createEditProfileEnglishPane">
                                                     <div class="form-group">
@@ -341,7 +347,7 @@ and open the template in the editor .
                                                         <label for="createEditProfile_position">
                                                             <span id="createEditProfile_position_label">Position</span>
                                                             <strong id="createEditProfile_position_error" class="error hidden">
-                                                                <span id="createEditProfile_position_fr_error_msg" class="label label-danger"></span>
+                                                                <span id="createEditProfile_position_error_msg" class="label label-danger"></span>
                                                             </strong>
                                                         </label>
                                                         <div>
@@ -501,8 +507,8 @@ and open the template in the editor .
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>  
-                                                <div class="steptab inactive"> </div> 
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
@@ -584,10 +590,10 @@ and open the template in the editor .
                                                 <legend>My approach to decision making:</legend>
                                                 <div>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>&nbsp;</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div>
                                                                 <div style="line-height:2em;;font-size: 1.2em !important;">
                                                                     <span style="line-height:2em;vertical-align: middle;display:inline-block;width:20%;text-align: left;">10% or less</span>
@@ -602,72 +608,72 @@ and open the template in the editor .
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span id="createEditProfile_how_often_review_label">How often do you review your teams work before it is shared?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
+                                                                <div id="options" style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
                                                                     <input type="radio" id="option0" name="createEditProfile_how_often_review_options" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')" />
-                                                                    <label for="option0" class='option0Label'>Almost never</label>
+                                                                    <label for="option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="option1" name="createEditProfile_how_often_review_options" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option1" class='option1Label'>Rarely</label>
+                                                                    <label for="option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="option2" name="createEditProfile_how_often_review_options" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="option3" name="createEditProfile_how_often_review_options" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option3" class='option3Label'>Usually</label>
+                                                                    <label for="option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="option4" name="createEditProfile_how_often_review_options" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', this.value, 'review_options')"/>
-                                                                    <label for="option4" class='option4Label'>Almost always</label>
+                                                                    <label for="option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='review_options' class="option0"></div>
+                                                                <div id="review_options" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span id="createEditProfile_how_often_early_label">How often do you get in early or stay late to get some extra work done?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_staylate_options" style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="staylate_option0" name="createEditProfile_staylate" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')" />
-                                                                    <label for="staylate_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="staylate_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="staylate_option1" name="createEditProfile_staylate" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="staylate_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="staylate_option2" name="createEditProfile_staylate" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="staylate_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="staylate_option3" name="createEditProfile_staylate" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option3" class='option3Label'>Usually</label>
+                                                                    <label for="staylate_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="staylate_option4" name="createEditProfile_staylate" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_staylate', this.value, 'staylate')"/>
-                                                                    <label for="staylate_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="staylate_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='staylate' class="option0"></div>
+                                                                <div id="staylate" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you engage your team before responding to management?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_engage_options" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="engage_option0" name="createEditProfile_engage" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')" />
-                                                                    <label for="engage_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="engage_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="engage_option1" name="createEditProfile_engage" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="engage_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="engage_option2" name="createEditProfile_engage" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="engage_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="engage_option3" name="createEditProfile_engage" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option3" class='option3Label'>Usually</label>
+                                                                    <label for="engage_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="engage_option4" name="createEditProfile_engage" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_engage', this.value, 'engage')"/>
-                                                                    <label for="engage_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="engage_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='engage' class="option0"></div>
+                                                                <div id="engage" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -675,48 +681,48 @@ and open the template in the editor .
 
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you approve development opportunities for your employees?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:560px'>
+                                                        <div style="display:inline-block;width:560px">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_devops" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="devops_option0" name="createEditProfile_devops" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')" />
-                                                                    <label for="devops_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="devops_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="devops_option1" name="createEditProfile_devops" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="devops_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="devops_option2" name="createEditProfile_devops" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="devops_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="devops_option3" name="createEditProfile_devops" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option3" class='option3Label'>Usually</label>
+                                                                    <label for="devops_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="devops_option4" name="createEditProfile_devops" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_devops', this.value, 'devops')"/>
-                                                                    <label for="devops_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="devops_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='devops' class="option0"></div>
+                                                                <div id="devops" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span>How often do you refuse low value work requests from management?</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
+                                                        <div style="display:inline-block;width:48%">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_lvwrequests' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_lvwrequests" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')" />
-                                                                    <label for="lvwRequests_option0" class='option0Label'>Almost never</label>
+                                                                    <label for="lvwRequests_option0" class="option0Label">Almost never</label>
                                                                     <input type="radio" id="lvwRequests_option1" name="createEditProfile_lvwrequests" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option1" class='option1Label'>Rarely</label>
+                                                                    <label for="lvwRequests_option1" class="option1Label">Rarely</label>
                                                                     <input type="radio" id="lvwRequests_option2" name="createEditProfile_lvwrequests" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option2" class='option2Label'>Sometimes</label>
+                                                                    <label for="lvwRequests_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="lvwRequests_option3" name="createEditProfile_lvwrequests" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option3" class='option3Label'>Usually</label>
+                                                                    <label for="lvwRequests_option3" class="option3Label">Usually</label>
                                                                     <input type="radio" id="lvwRequests_option4" name="createEditProfile_lvwrequests" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                                                                    <label for="lvwRequests_option4" class='option4Label'>Almost always</label>
+                                                                    <label for="lvwRequests_option4" class="option4Label">Almost always</label>
                                                                 </div>
-                                                                <div id='lvwRequests' class="option0"></div>
+                                                                <div id="lvwRequests" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -751,84 +757,84 @@ and open the template in the editor .
                                         <div class="stepGroupForm">
                                             <h3>Work Environment</h3>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <span id="remoteWork_label">Remote work allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;'>
+                                                        <div style="display:inline-block;">
                                                             <div class="toggle-btn-group clearfix">
-                                                                <div id='createEditProfile_remoteWork' style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
+                                                                <div id="createEditProfile_remoteWork" style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
                                                                     <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
-                                                                    <label id='remoteWork_option0_label' for="remoteWork_option0" class='option0Label'>Yes</label>
+                                                                    <label id="remoteWork_option0_label" for="remoteWork_option0" class="option0Label">Yes</label>
                                                                     <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
-                                                                    <label id='remoteWork_option1_label' for="remoteWork_option1" class='option1Label'>No</label>
+                                                                    <label id="remoteWork_option1_label" for="remoteWork_option1" class="option1Label">No</label>
                                                                 </div>
-                                                                <div id='remoteWork' class="left"></div>
+                                                                <div id="remoteWork" class="left"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
-                                                            <span id='telework_label'>Telework allowed</span>
+                                                        <div class="multi-btn-group-form-group-label">
+                                                            <span id="telework_label">Telework allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
+                                                        <div style="display:inline-block;width:48%">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_telework' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_telework" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="telework_option0" name="createEditProfile_telework" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')" />
-                                                                    <label id='telework_option0_label' for="telework_option0" class='option0Label'>Never</label>
+                                                                    <label id="telework_option0_label" for="telework_option0" class="option0Label">Never</label>
                                                                     <input type="radio" id="telework_option1" name="createEditProfile_telework" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option1_label' for="telework_option1" class='option1Label'>Occasionally</label>
+                                                                    <label id="telework_option1_label" for="telework_option1" class="option1Label">Occasionally</label>
                                                                     <input type="radio" id="telework_option2" name="createEditProfile_telework" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option2_label' for="telework_option2" class='option2Label'>Sometimes</label>
+                                                                    <label id="telework_option2_label" for="telework_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="telework_option3" name="createEditProfile_telework" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option3_label' for="telework_option3" class='option3Label'>Frequently</label>
+                                                                    <label id="telework_option3_label" for="telework_option3" class="option3Label">Frequently</label>
                                                                     <input type="radio" id="telework_option4" name="createEditProfile_telework" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-                                                                    <label id='telework_option4_label' for="telework_option4" class='option4Label'>Most of the time</label>
+                                                                    <label id="telework_option4_label" for="telework_option4" class="option4Label">Most of the time</label>
                                                                 </div>
-                                                                <div id='telework' class="option0"></div>
+                                                                <div id="telework" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="multi-btn-group-form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
-                                                            <span id='flexHours_label'>Flexible hours allowed</span>
+                                                        <div class="multi-btn-group-form-group-label">
+                                                            <span id="flexHours_label">Flexible hours allowed</span>
                                                         </div>
-                                                        <div style='display:inline-block;width:48%'>
+                                                        <div style="display:inline-block;width:48%">
                                                             <div class="multi-btn-group clearfix">
-                                                                <div id='createEditProfile_flexHours' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                                                                <div id="createEditProfile_flexHours" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
                                                                     <input type="radio" id="flexHours_option0" name="createEditProfile_flexHours" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')" />
-                                                                    <label id='flexHours_option0_label' for="flexHours_option0" class='option0Label'>Never</label>
+                                                                    <label id="flexHours_option0_label" for="flexHours_option0" class="option0Label">Never</label>
                                                                     <input type="radio" id="flexHours_option1" name="createEditProfile_flexHours" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option1_label' for="flexHours_option1" class='option1Label'>Occasionally</label>
+                                                                    <label id="flexHours_option1_label" for="flexHours_option1" class="option1Label">Occasionally</label>
                                                                     <input type="radio" id="flexHours_option2" name="createEditProfile_flexHours" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option2_label' for="flexHours_option2" class='option2Label'>Sometimes</label>
+                                                                    <label id="flexHours_option2_label" for="flexHours_option2" class="option2Label">Sometimes</label>
                                                                     <input type="radio" id="flexHours_option3" name="createEditProfile_flexHours" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option3_label' for="flexHours_option3" class='option3Label'>Frequently</label>
+                                                                    <label id="flexHours_option3_label" for="flexHours_option3" class="option3Label">Frequently</label>
                                                                     <input type="radio" id="flexHours_option4" name="createEditProfile_flexHours" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-                                                                    <label id='flexHours_option4_label' for="flexHours_option4" class='option4Label'>Most of the time</label>
+                                                                    <label id="flexHours_option4_label" for="flexHours_option4" class="option4Label">Most of the time</label>
                                                                 </div>
-                                                                <div id='flexHours' class="option0"></div>
+                                                                <div id="flexHours" class="option0"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="workEnvironmentWrapper">
-                                                        <span id='physicalEnvironment_title' class="workEnvironmentTitle">Physical Environment</span>
+                                                        <span id="physicalEnvironment_title" class="workEnvironmentTitle">Physical Environment</span>
                                                         <div class="centered">
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_1' alt="First image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <img id="workEnvironment_photo_1" alt="First image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <label for="workplace_photo_input_1">Image 1</label>
                                                                 <input type="file" id="workplace_photo_input_1" class="fileInput" name="Workplace Photo 1" accept="image/*" /><br>
                                                                 <label for="workplace_photo_caption_1">Description 1: </label>
                                                                 <input id="workplace_photo_caption_1" type="text" name="workplace_photo_caption_1"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_2' alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <img id="workEnvironment_photo_2" alt="Second image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <label for="workplace_photo_input_2">Image 2</label>
                                                                 <input type="file" id="workplace_photo_input_2" class="fileInput" name="Workplace Photo 2" accept="image/*" /><br>
                                                                 <label for="workplace_photo_caption_2">Description 2: </label>
                                                                 <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2"/>
                                                             </div>
                                                             <div class="workEnvironmentImage">
-                                                                <img id='workEnvironment_photo_3' alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
+                                                                <img id="workEnvironment_photo_3" alt="Third image of workplace environment" src="../images/user.png" width="250"><br>
                                                                 <label for="workplace_photo_input_3">Image 3</label>
                                                                 <input type="file" id="workplace_photo_input_3" class="fileInput" name="Workplace Photo 3" accept="image/*" /><br>
                                                                 <label for="workplace_photo_caption_3">Description 3: </label>
@@ -942,20 +948,20 @@ and open the template in the editor .
                                                 <legend>Other</legend>
                                                 <div>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <label for="user_manager_profile_work_experience"><span>Work Experience</span></label>
                                                         </div>
-                                                        <div style='display:inline-block;width:49%'>
+                                                        <div style="display:inline-block;width:49%">
                                                             <div>
                                                                 <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="textAreaInput"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <div class='multi-btn-group-form-group-label'>
+                                                        <div class="multi-btn-group-form-group-label">
                                                             <label for="user_manager_profile_education"><span>Education</span></label>
                                                         </div>
-                                                        <div style='display:inline-block;width:49%'>
+                                                        <div style="display:inline-block;width:49%">
                                                             <div>
                                                                 <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="textAreaInput"></textarea>
                                                             </div>
@@ -1057,7 +1063,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="singlePane">                            
+                                            <div class="singlePane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_city">
                                                         <span>City: *</span>
@@ -1138,7 +1144,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="leftPane">                            
+                                            <div class="leftPane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_impact">
                                                         <span><span id="createJobPoster_impact_labelName">Impact</span>:</span>
@@ -1152,7 +1158,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_keyTasks">
-                                                        <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span>:</span>
+                                                        <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span>: **</span>
                                                         <strong id="createJobPoster_keyTasks_error" class="error hidden">
                                                             <span id="createJobPoster_keyTasks_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1163,7 +1169,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_coreCompetencies">
-                                                        <span><span id="createJobPoster_coreCompetencies_labelName">Core Competencies</span>:</span>
+                                                        <span><span id="createJobPoster_coreCompetencies_labelName">Core Competencies</span>: **</span>
                                                         <strong id="createJobPoster_coreCompetencies_error" class="error hidden">
                                                             <span id="createJobPoster_coreCompetencies_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1174,7 +1180,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_developingCompetencies">
-                                                        <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>:</span>
+                                                        <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>: **</span>
                                                         <strong id="createJobPoster_developingCompetencies_error" class="error hidden">
                                                             <span id="createJobPoster_developingCompetencies_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1185,7 +1191,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_otherRequirements">
-                                                        <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>:</span>
+                                                        <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>: **</span>
                                                         <strong id="createJobPoster_otherRequirements_error" class="error hidden">
                                                             <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1194,8 +1200,19 @@ and open the template in the editor .
                                                         <textarea class="form-control full-width" name="createJobPoster_otherRequirements" id="createJobPoster_otherRequirements"></textarea>
                                                     </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="createJobPoster_questions">
+                                                        <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
+                                                        <strong id="createJobPoster_questions_error" class="error hidden">
+                                                            <span id="createJobPoster_questions_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createJobPoster_questions" id="createJobPoster_questions"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="rightPane">                            
+                                            <div class="rightPane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_impact_fr">
                                                         <span><span id="createJobPoster_impact_fr_labelName">Impact_fr</span>:</span>
@@ -1209,7 +1226,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_keyTasks_fr">
-                                                        <span><span id="createJobPoster_keyTasks_fr_labelName">Key Tasks_fr</span>:</span>
+                                                        <span><span id="createJobPoster_keyTasks_fr_labelName">Key Tasks_fr</span>: **</span>
                                                         <strong id="createJobPoster_keyTasks_fr_error" class="error hidden">
                                                             <span id="createJobPoster_keyTasks_fr_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1220,7 +1237,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_coreCompetencies_fr">
-                                                        <span><span id="createJobPoster_coreCompetencies_fr_labelName">Core Competencies_fr</span>:</span>
+                                                        <span><span id="createJobPoster_coreCompetencies_fr_labelName">Core Competencies_fr</span>: **</span>
                                                         <strong id="createJobPoster_coreCompetencies_fr_error" class="error hidden">
                                                             <span id="createJobPoster_coreCompetencies_fr_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1242,7 +1259,7 @@ and open the template in the editor .
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_otherRequirements_fr">
-                                                        <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements_fr</span>:</span>
+                                                        <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements_fr</span>: **</span>
                                                         <strong id="createJobPoster_otherRequirements_fr_error" class="error hidden">
                                                             <span id="createJobPoster_otherRequirements_fr_error_msg" class="label label-danger"></span>
                                                         </strong>
@@ -1251,11 +1268,23 @@ and open the template in the editor .
                                                         <textarea class="form-control full-width" name="createJobPoster_otherRequirements_fr" id="createJobPoster_otherRequirements_fr"></textarea>
                                                     </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="createJobPoster_questions_fr">
+                                                        <span><span id="createJobPoster_questions_fr_labelName">Open Ended Questions_fr</span> (francais): **</span>
+                                                        <strong id="createJobPoster_questions_fr_error" class="error hidden">
+                                                            <span id="createJobPoster_questions_fr_error_msg" class="label label-danger"></span>
+                                                        </strong>
+                                                    </label>
+                                                    <div>
+                                                        <textarea class="form-control full-width" name="createJobPoster_questions_fr" id="createJobPoster_questions_fr"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </section>
 
                                         <div class="createJobPosterSubmitPane">
                                             <div class="formGroup insert">*Required</div>
+                                            <div class="formGroup insert">**Each line is a new item</div>
                                             <div class="formGroup">
                                                 <input type="button" id="createJobPosterSubmitButton" value="Submit" onclick="CreateJobPosterAPI.validateJobPosterForm()">
                                             </div>
@@ -1265,9 +1294,9 @@ and open the template in the editor .
                                 <div id="createJobPosterOutdatedTab" class="stepGroup hidden">
                                     <div class="tabsWrapper">
                                         <div class="tabsSteps">
-                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
-                                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
-                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
+                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_2">Create</a></div>
+                                            <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_2">Outdated</a></div>
+                                            <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_2">Review</a></div>
                                         </div>
                                         <div class="tabs">
                                             <div class="steptab active"> </div>
@@ -1301,7 +1330,7 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
-                
+
             </section>
         </main>
         <?php include '../inc/footer-admin.php'; ?>

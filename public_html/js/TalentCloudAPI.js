@@ -20,13 +20,17 @@ readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTert
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
+dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
+workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment, dashBoardLink,yourApplicationsTitle,
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt, openEndedQuestions, jobReferenceId,
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
 dashBoardLink,yourApplicationsTitle,
-teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,skipNavText,
 managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
-managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4) {
+managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4
+        ) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -133,12 +137,20 @@ managerProfile_developmentOpportunities_option0, managerProfile_developmentOppor
     this.physicalEnvironment = physicalEnvironment;
     this.dashBoardLink = dashBoardLink;
     this.yourApplicationsTitle = yourApplicationsTitle;
+    this.adminTagline = adminTagline;
+    this.adminAboutMe = adminAboutMe;
+    this.adminProfilePositionLabel = adminProfilePositionLabel;
+    this.adminProfileDepartmentLabel = adminProfileDepartmentLabel;
+    this.adminProfileBranchLabel = adminProfileBranchLabel;
     this.teamCulture = teamCulture;
     this.teamSize = teamSize;
     this.gcDirectoryLink = gcDirectoryLink;
     this.teamSizePrompt = teamSizePrompt;
     this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
     this.teamNarrativePrompt = teamNarrativePrompt;
+    this.openEndedQuestions = openEndedQuestions;
+    this.jobReferenceId = jobReferenceId;
+    this.skipNavText = skipNavText;
     this.managerProfile_review_option0 = managerProfile_review_option0;
     this.managerProfile_review_option1 = managerProfile_review_option1;
     this.managerProfile_review_option2 = managerProfile_review_option2;
@@ -158,7 +170,7 @@ managerProfile_developmentOpportunities_option0, managerProfile_developmentOppor
     this.managerProfile_developmentOpportunities_option1 = managerProfile_developmentOpportunities_option1;
     this.managerProfile_developmentOpportunities_option2 = managerProfile_developmentOpportunities_option2;
     this.managerProfile_developmentOpportunities_option3 = managerProfile_developmentOpportunities_option3;
-    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
+    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;    
 };
 
 TalentCloudAPI.pages = {
@@ -238,6 +250,13 @@ TalentCloudAPI.pages = {
                 url:"#ManagerProfile",
                 state:function(managerProfileId){
                     ManagerProfileAPI.showManagerProfile(managerProfileId);
+                }
+            },
+            CreateJobApplication:{
+                url:"#CreateJobApplication",
+                state:function(jobPosterId) {
+                    JobApplicationAPI.showCreateJobApplication(jobPosterId);
+                    TalentCloudAPI.setNav("browseLinkListItem");
                 }
             }
         };
@@ -487,6 +506,9 @@ TalentCloudAPI.setContent = function(content, isManager){
     document.title = siteContent.title;
     window.title = siteContent.title;
     
+    var skipNavText = document.getElementById("skipNavText");
+    skipNavText.innerHTML = siteContent.skipNavText;
+    
     var announcement = document.getElementById("announcement");
     announcement.innerHTML = siteContent.announcement;
     
@@ -530,6 +552,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
+        CreateJobPosterAPI.localizeCreateJobPosterForm();
         
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
@@ -540,6 +563,21 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var adminPortal = document.getElementById("adminPortal");
         adminPortal.innerHTML = siteContent.adminPortal;
+        
+        var adminTagline = document.getElementById("adminTagline");
+        adminTagline.innerHTML = siteContent.adminTagline;
+        
+        var adminAboutMe = document.getElementById("adminAboutMe");
+        adminAboutMe.innerHTML = siteContent.adminAboutMe;
+        
+        var adminProfilePositionLabel = document.getElementById("createEditProfile_position_label");
+        adminProfilePositionLabel.innerHTML = siteContent.adminProfilePositionLabel;
+        
+        var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
+        adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
+        
+        var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_label");
+        adminProfileBranchLabel.innerHTML = siteContent.adminProfileBranchLabel;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
@@ -650,7 +688,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         JobApplicationAPI.localizeCreateJobApplication();
         WorkEnvironmentAPI.localizeWorkEnvironment();
         TeamCultureAPI.localizeTeamCulture();        
-    
+
         var dashBoardLink = document.getElementById("dashBoardLink");
         dashBoardLink.innerHTML = siteContent.dashBoardLink;
 
@@ -701,6 +739,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
+        
+        var viewJobPosterTitle = document.getElementById("viewJobPosterTitle");
+        viewJobPosterTitle.innerHTML = siteContent.browseTitle;
         
         var dashBoardTitle = document.getElementById("dashBoardTitle");
         dashBoardTitle.innerHTML = siteContent.dashBoardLink;

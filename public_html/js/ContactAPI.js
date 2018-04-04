@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -31,41 +31,41 @@ ContactAPI.Contact = function(id,firstName,lastName,emailAddress,phoneNumber,isF
 };
 
 /**
- * 
+ *
  * @param {type} data
  * @returns {undefined}
  */
 ContactAPI.populateContactObjects = function(data){
-    
+
     Utilities.debug?console.log("populating contact Objects"):null;
     Utilities.debug?console.log(data):null;
-    
+
     var contacts = data.contacts;
-    
+
     for(var contact in contacts){
-        
+
         Utilities.debug?console.log(contacts[contact]):null;
-        
+
         var contact = ContactAPI.populateContactObject(contacts[contact]);
-        
+
         ContactAPI.contacts.push(contact);
     }
-    
+
     ContactAPI.populateContacts();
 };
 
 /**
- * 
+ *
  * @param {type} JSONContact
  * @returns {ContactAPI.Contact|ContactAPI.populateContactObject.contactObj}
  */
 ContactAPI.populateContactObject = function(JSONContact){
-    
+
     Utilities.debug?console.log("populating contact Objects"):null;
     Utilities.debug?console.log(JSONContact):null;
-    
+
     var contact = JSONContact;
-    
+
     Utilities.debug?console.log(contact):null;
 
     var contactObj = new ContactAPI.Contact();
@@ -83,51 +83,51 @@ ContactAPI.populateContactObject = function(JSONContact){
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.populateContacts = function(){
-    
+
     Utilities.debug?console.log("populating contacts"):null;
     var contactsDiv = document.getElementById("contacts");
-    
+
     for(var c = 0; c < ContactAPI.contacts.length; c++){
         var contact = ContactAPI.contacts[c];
-        
+
         ContactAPI.populateContact(contact);
-        
+
     }
-    
+
     //hide no contacts div
     if(ContactAPI.contacts.length > 0){
         var noContacts = document.getElementById("noContacts");
         noContacts.classList.remove("visible");
         noContacts.classList.add("hidden");
     }
-    
+
     /*var addedCards = contactsDiv.getElementsByClassName('contactCardHighlighted');
     for(var cards = 0; cards < addedCards.length; cards++){
         var addedCard = addedCards[cards];
         addedCard.classList.remove("hidden");
     }*/
-    
+
     //hide overlay
     var loadingOverlay = document.getElementById("loadingOverlay");
     document.body.removeChild(loadingOverlay);
     document.body.classList.remove("overFlowHidden");
-    
+
 };
 
 /**
- * 
+ *
  * @param {type} contact
  * @returns {undefined}
  */
 ContactAPI.populateContact = function(contact){
-    
+
     Utilities.debug?console.log("populating contact"):null;
     var contactsDiv = document.getElementById("contacts");
-    
+
     //create card
     var contactCard = document.createElement("div");
     contactCard.setAttribute("id",contact.id);
@@ -163,7 +163,7 @@ ContactAPI.populateContact = function(contact){
     //create contactActionColLeft
     var contactActionColLeft = document.createElement("div");
     contactActionColLeft.setAttribute("class","contactActionColLeft");
-    
+
     if(contact.emailAddress !== ""){
         var contactEmailLink = document.createElement("a");
         contactEmailLink.setAttribute("href","mailto:"+contact.emailAddress);
@@ -185,7 +185,7 @@ ContactAPI.populateContact = function(contact){
     }else{
         contactActionColLeft.appendChild(contactEmailLinkImage);
     }
-    
+
     //create contactActionColRight
     var contactActionColRight = document.createElement("div");
     contactActionColRight.setAttribute("class","contactActionColRight");
@@ -271,21 +271,21 @@ ContactAPI.populateContact = function(contact){
 
 
 /**
- * 
+ *
  * @param {type} contact
  * @returns {undefined}
  */
 ContactAPI.removeContact = function(contactId){
-    
+
     Utilities.debug?console.log("removing contact"):null;
     var contactCard = document.getElementById(contactId);
-    
+
     contactCard.remove();
 
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.showFavourites = function(){
@@ -293,12 +293,12 @@ ContactAPI.showFavourites = function(){
     var noContactsDiv = document.getElementById("noContacts");
     Utilities.debug?console.log("showing favourite contacts"):null;
     Utilities.debug?console.log(ContactAPI.contacts):null;
-    
+
     var showByAlphaLength = 0;
     for(var c = 0; c < ContactAPI.contacts.length; c++){
         var contact = ContactAPI.contacts[c];
         Utilities.debug?console.log(contact):null;
-        
+
             var contactToHide = document.getElementById(contact.id);
         if(!contact.isFavourite){
             contactToHide.classList.add("hidden");
@@ -307,16 +307,16 @@ ContactAPI.showFavourites = function(){
             contactToHide.classList.remove("hidden");
         }
     }
-    
+
     var alphaList = document.getElementById("alphaList");
     var alphas = alphaList.getElementsByClassName("alphaLink alphaLinkActive");
     alphas[0].classList.remove("alphaLinkActive");
-    
+
     var alpha_favs = document.getElementById("alpha_favs");
     alpha_favs.classList.add("alphaLinkActive");
     alpha_favs.getElementsByTagName("img")[0].src = "images/favourite.svg";
-    
-    
+
+
     if(showByAlphaLength > 0){
         noContactsDiv.classList.add("hidden");
         noContactsDiv.classList.remove("visible");
@@ -327,71 +327,71 @@ ContactAPI.showFavourites = function(){
 };
 
 /**
- * 
+ *
  * @param {type} responseText
  * @returns {undefined}
  */
 ContactAPI.toggleFavourite = function(contactId){
     Utilities.debug?console.log(contactId):null;
-    
+
     if(contactId !== ""){
         DataAPI.toggleFavourite(contactId);
     }
 };
 
 ContactAPI.updateFavourite = function(isFav,contactId){
-    
+
     var contactToUpdate = document.getElementById(contactId);
-    
+
     var favImg = contactToUpdate.getElementsByClassName('favouriteImage')[0];
-    
+
     var notFavouriteImage = new Image();
     notFavouriteImage.src = "images/not-favourite.svg";
 
     var favouriteImage = new Image();
     favouriteImage.src = "images/favourite.svg";
-    
+
     if(isFav){
         favImg.src = favouriteImage.src;
     }else{
         favImg.src = notFavouriteImage.src;
     }
-    
+
     Utilities.debug?console.log(favImg.src):null;
 }
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.showAll = function(){
-    
+
     var noContactsDiv = document.getElementById("noContacts");
     Utilities.debug?console.log("showing favourite contacts"):null;
     Utilities.debug?console.log(ContactAPI.contacts):null;
-    
+
     var showByAlphaLength = 0;
     for(var c = 0; c < ContactAPI.contacts.length; c++){
         var contact = ContactAPI.contacts[c];
         Utilities.debug?console.log(contact):null;
-        
+
         showByAlphaLength++;
         var contactToShow = document.getElementById(contact.id);
         contactToShow.classList.remove("hidden");
-        
+
     }
-    
+
     var alphaList = document.getElementById("alphaList");
     var alphas = alphaList.getElementsByClassName("alphaLink alphaLinkActive");
     alphas[0].classList.remove("alphaLinkActive");
-    
+
     var alpha_all = document.getElementById("alpha_all");
     alpha_all.classList.add("alphaLinkActive");
-    
+
     var alpha_favs = document.getElementById("alpha_favs");
     alpha_favs.classList.remove("alphaLinkActive");
     alpha_favs.getElementsByTagName("img")[0].src = "images/favourite_link.svg";
-    
+
     if(showByAlphaLength > 0){
         noContactsDiv.classList.add("hidden");
         noContactsDiv.classList.remove("visible");
@@ -402,7 +402,7 @@ ContactAPI.showAll = function(){
 };
 
 /**
- * 
+ *
  * @param {type} alpha
  * @returns {undefined}
  */
@@ -431,31 +431,31 @@ ContactAPI.showByAlpha = function(alpha){
         noContactsDiv.classList.add("visible");
         noContactsDiv.classList.remove("hidden");
     }
-    
-    
+
+
     var alphaList = document.getElementById("alphaList");
     var alphas = alphaList.getElementsByClassName("alphaLink alphaLinkActive");
     alphas[0].classList.remove("alphaLinkActive");
-    
+
     var alpha_active = document.getElementById("alpha_"+alpha);
     alpha_active.classList.add("alphaLinkActive");
-    
+
     var alpha_favs = document.getElementById("alpha_favs");
     alpha_favs.classList.remove("alphaLinkActive");
     alpha_favs.getElementsByTagName("img")[0].src = "images/favourite_link.svg";
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.search = function(){
-    
+
     Utilities.debug?console.log("searching contacts"):null;
     Utilities.debug?console.log(ContactAPI.contacts):null;
-    
+
     var search = document.getElementById("search");
-    
+
     for(var c = 0; c < ContactAPI.contacts.length; c++){
         var contact = ContactAPI.contacts[c];
         Utilities.debug?console.log(contact.lastName.search(new RegExp(search.value,"i"))):null;
@@ -475,25 +475,25 @@ ContactAPI.search = function(){
         }*/else{
             contactToHide.classList.add("hidden");
         }
-        
+
     }
-    
+
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.showContactForm = function(isAdd){
-    var addContactOverlay = document.getElementById("addContactOverlay");    
+    var addContactOverlay = document.getElementById("addContactOverlay");
     addContactOverlay.classList.remove("hidden");
-    
+
     var addContactForm = document.getElementById("addContactForm");
-    
+
     var submitButton = document.getElementById("submit");
     var updateButton = document.getElementById("update");
     var deleteButton = document.getElementById("delete");
-    
+
     if(!isAdd){
         updateButton.classList.remove('hidden');
         deleteButton.classList.remove('hidden');
@@ -504,27 +504,28 @@ ContactAPI.showContactForm = function(isAdd){
         submitButton.classList.remove('hidden');
         addContactForm.firstName.focus();
     }
-    
-    
+
+    modalSize();
+
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.hideContactForm = function(){
-    var addContactOverlay = document.getElementById("addContactOverlay");    
+    var addContactOverlay = document.getElementById("addContactOverlay");
     addContactOverlay.classList.add("hidden");
     ContactAPI.clearContactForm();
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.clearContactForm = function(){
-    var contactForm = document.getElementById("addContactForm"); 
-    
+    var contactForm = document.getElementById("addContactForm");
+
     var validationMessage_firstName = document.getElementById('validationMessage_firstName');
     validationMessage_firstName.innerHTML = "";
     var validationMessage_lastName = document.getElementById('validationMessage_lastName');
@@ -543,7 +544,7 @@ ContactAPI.clearContactForm = function(){
 };
 
 /**
- * 
+ *
  * @returns {Boolean}
  */
 ContactAPI.addContact = function(){
@@ -583,7 +584,7 @@ ContactAPI.addContact = function(){
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 ContactAPI.refreshContacts = function(){
@@ -591,7 +592,7 @@ ContactAPI.refreshContacts = function(){
 };
 
 /**
- * 
+ *
  * @returns {Boolean}
  */
 ContactAPI.validateContact = function(contactForm){
@@ -610,23 +611,23 @@ ContactAPI.validateContact = function(contactForm){
     }else{
         validationMessage_firstName.innerHTML = "";
     }
-    
+
     if(contactForm.elements.namedItem("lastName").value === ""){
         validlastName = false;
         validationMessage_lastName.innerHTML = "Last name is a required field.";
     }else{
         validationMessage_lastName.innerHTML = "";
     }
-    
+
     /*
     if(contactForm.elements.namedItem("emailAddress").value === ""){
         validEmailAddress = false;
     }else{
-        
+
         var emailAddress = contactForm.elements.namedItem("emailAddress").value;
-        
+
         var validEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-        
+
         //validate email address
         if(emailAddress === ""){
             validationMessage_emailAddress.innerHTML = "Email address is required.";
@@ -634,7 +635,7 @@ ContactAPI.validateContact = function(contactForm){
         }else{
             validationMessage_emailAddress.innerHTML = "";
         }
-        
+
         if(isValid){
             if(!validEmail.test(emailAddress)){
             validationMessage_emailAddress.innerHTML = "Email address is not valid.";
@@ -642,19 +643,19 @@ ContactAPI.validateContact = function(contactForm){
             }
         }
     }*/
-    
+
     if(contactForm.elements.namedItem("phoneNumber").value === ""){
         validPhoneNumber = false;
         validationMessage_phoneNumber.innerHTML = "Phone number is a required field.";
     }else{
         validationMessage_phoneNumber.innerHTML = "";
     }
-    
-    
+
+
     if(!validFirstName || !validlastName || !validEmailAddress || !validPhoneNumber){
         isValid = false;
     }
-    
+
     return isValid;
 };
 
@@ -675,23 +676,23 @@ ContactAPI.validateLogin = function(loginForm){
     }else{
         validationMessage_firstName.innerHTML = "";
     }
-    
+
     if(contactForm.elements.namedItem("lastName").value === ""){
         validlastName = false;
         validationMessage_lastName.innerHTML = "Last name is a required field.";
     }else{
         validationMessage_lastName.innerHTML = "";
     }
-    
+
     /*
     if(contactForm.elements.namedItem("emailAddress").value === ""){
         validEmailAddress = false;
     }else{
-        
+
         var emailAddress = contactForm.elements.namedItem("emailAddress").value;
-        
+
         var validEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-        
+
         //validate email address
         if(emailAddress === ""){
             validationMessage_emailAddress.innerHTML = "Email address is required.";
@@ -699,7 +700,7 @@ ContactAPI.validateLogin = function(loginForm){
         }else{
             validationMessage_emailAddress.innerHTML = "";
         }
-        
+
         if(isValid){
             if(!validEmail.test(emailAddress)){
             validationMessage_emailAddress.innerHTML = "Email address is not valid.";
@@ -707,34 +708,34 @@ ContactAPI.validateLogin = function(loginForm){
             }
         }
     }*/
-    
+
     if(contactForm.elements.namedItem("phoneNumber").value === ""){
         validPhoneNumber = false;
         validationMessage_phoneNumber.innerHTML = "Phone number is a required field.";
     }else{
         validationMessage_phoneNumber.innerHTML = "";
     }
-    
-    
+
+
     if(!validFirstName || !validlastName || !validEmailAddress || !validPhoneNumber){
         isValid = false;
     }
-    
+
     return isValid;
 };
 
 /**
- * 
+ *
  * @param {type} contactId
  * @returns {undefined}
  */
 ContactAPI.editContact = function(contactId){
     Utilities.debug?console.log("edit Contact"):null;
     var contactForm = document.getElementById("addContactForm");
-    
+
     if(contactId !== ""){
         var contactToEdit;
-    
+
         for(var c = 0; c < ContactAPI.contacts.length; c++){
             var contact = ContactAPI.contacts[c];
             Utilities.debug?console.log(contact.lastName.search(new RegExp(search.value,"i"))):null;
@@ -744,7 +745,7 @@ ContactAPI.editContact = function(contactId){
                 break;
             }
         }
-        
+
         contactForm.elements.namedItem("firstName").value = contactToEdit.firstName;
         contactForm.elements.namedItem("lastName").value = contactToEdit.lastName;
         contactForm.elements.namedItem("emailAddress").value = contactToEdit.emailAddress;
@@ -755,34 +756,34 @@ ContactAPI.editContact = function(contactId){
         }
 
         ContactAPI.showContactForm();
-        
+
     }
 };
 
 /**
- * 
+ *
  * @param {type} contactId
  * @returns {undefined}
  */
 ContactAPI.deleteContact = function(contactId){
     Utilities.debug?console.log("delete Contact"):null;
-    
+
     if(contactId !== ""){
-        
+
         DataAPI.deleteContact(contactId);
     }
 };
 
 /**
- * 
+ *
  * @param {type} contactId
  * @returns {undefined}
  */
 ContactAPI.updateContact = function(){
     Utilities.debug?console.log("update Contact"):null;
-    
+
     var contactForm = document.getElementById("addContactForm");
-    
+
     if(ContactAPI.validateContact(contactForm)){
         var updatedContact = new ContactAPI.Contact();
 
@@ -812,33 +813,33 @@ ContactAPI.updateContact = function(){
         }
         ContactAPI.hideContactForm();
     }
-    
+
 };
 
 /**
- * 
+ *
  * @param {type} contactId
  * @returns {undefined}
  */
 ContactAPI.updateContactCard = function(updatedContact){
     Utilities.debug?console.log("update Contact"):null;
     Utilities.debug?console.log(updatedContact):null;
-    
-    
+
+
     if(updatedContact !== undefined){
         var contactToUpdate = document.getElementById(updatedContact.id);
         Utilities.debug?console.log(contactToUpdate):null;
         var contactDetails = contactToUpdate.getElementsByClassName('contactDetails')[0];
         Utilities.debug?console.log(contactDetails):null;
-        
+
         var nameContactRow = contactDetails.getElementsByClassName('contactRow')[0];
         Utilities.debug?console.log(nameContactRow):null;
         nameContactRow.innerHTML = updatedContact.lastName + ", " + updatedContact.firstName;
-        
+
         var contactActionColLeft = contactDetails.getElementsByClassName('contactActionColLeft')[0];
         Utilities.debug?console.log(contactActionColLeft):null;
         var emailLink = contactActionColLeft.firstChild;
-        
+
         if(updatedContact.emailAddress !== ""){
             var contactEmailLink = document.createElement("a");
             contactEmailLink.setAttribute("href","mailto:"+updatedContact.emailAddress);
@@ -860,11 +861,11 @@ ContactAPI.updateContactCard = function(updatedContact){
         }else{
             contactActionColLeft.replaceChild(contactEmailLinkImage,emailLink);
         }
-        
+
         if(updatedContact.phoneNumber !== ""){
-            
+
         }else{
-            
+
         }
     }
 };
@@ -877,11 +878,11 @@ ContactAPI.updateContactCard = function(updatedContact){
  */
 ContactAPI.sortBy = function(sortBy,direction){
     Utilities.debug?console.log("sorting Contacts by firstName"):null;
-    
+
     ContactAPI.contacts.sort();
-    
+
     ContactAPI.contacts.reverse();
-    
+
 };
 
 /**
@@ -892,10 +893,10 @@ ContactAPI.sortBy = function(sortBy,direction){
  */
 ContactAPI.getLocalContactById = function(contactId){
     Utilities.debug?console.log("sorting Contacts by firstName"):null;
-    
+
     var contactToFind;
     if(contactId !== ""){
-    
+
         for(var c = 0; c < ContactAPI.contacts.length; c++){
             var contact = ContactAPI.contacts[c];
             Utilities.debug?console.log(contact.lastName.search(new RegExp(search.value,"i"))):null;
@@ -911,15 +912,15 @@ ContactAPI.getLocalContactById = function(contactId){
 
 ContactAPI.getContactCount = function(){
     Utilities.debug?console.log("getting count of contacts"):null;
-    
+
     DataAPI.getContactCount();
-    
+
 };
 
 ContactAPI.updateContacts = function(count){
-    
+
     var contactCounter = document.getElementById("contactCount");
-    
+
     contactCounter.innerHTML = count;
-    
+
 };

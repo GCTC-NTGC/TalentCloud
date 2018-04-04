@@ -16,6 +16,7 @@
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
 require_once '../model/JobPoster.php';
+require_once '../model/JobPosterQuestion.php';
 require_once '../model/JobPosterNonLocalized.php';
 
 /**
@@ -235,11 +236,23 @@ class JobPosterDAO extends BaseDAO {
             AND locale.locale_id = other_reqs.locale_id
             ;";
         
+        $sqlQuestionsStr = "
+            SELECT 
+                question.id as id, question.question as question
+            FROM 
+                job_poster_question as question, locale
+            WHERE 
+                question.job_poster_id = :job_poster_id
+                AND locale.locale_iso = :locale_iso
+                AND locale.locale_id = question.locale_id
+            ;";
+        
         $link = BaseDAO::getConnection();
         $sqlTasks = $link->prepare($sqlTasksStr);
         $sqlCoreComps = $link->prepare($sqlCoreCompsStr);
         $sqlDevelopingComps = $link->prepare($sqlDevelopingCompsStr);
         $sqlRequirements = $link->prepare($sqlRequirementsStr);
+        $sqlQuestions = $link->prepare($sqlQuestionsStr);
         
         $input_fields = array(':job_poster_id' => $jobPoster->getId(), ':locale_iso' => $locale);
         
@@ -249,17 +262,20 @@ class JobPosterDAO extends BaseDAO {
             $sqlCoreComps->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
             $sqlDevelopingComps->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
             $sqlRequirements->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sqlQuestions->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
             
             $sqlTasks->setFetchMode(PDO::FETCH_NUM);
             $sqlCoreComps->setFetchMode(PDO::FETCH_NUM);
             $sqlDevelopingComps->setFetchMode(PDO::FETCH_NUM);
             $sqlRequirements->setFetchMode(PDO::FETCH_NUM);
+            $sqlQuestions->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPosterQuestion');
             
             //fetch array items
             $tasks = $sqlTasks->fetchAll();
             $core_comps = $sqlCoreComps->fetchAll();
             $developing_comps = $sqlDevelopingComps->fetchAll();
             $other_requirements = $sqlRequirements->fetchAll();
+            $questions = $sqlQuestions->fetchAll();
             
             //merge arrays or make them empty arrays (instead of null)
             $tasks = empty($tasks) ? [] : array_merge(...$tasks);
@@ -271,6 +287,7 @@ class JobPosterDAO extends BaseDAO {
             $jobPoster->setCore_competencies($core_comps);
             $jobPoster->setDeveloping_competencies($developing_comps);
             $jobPoster->setOther_requirements($other_requirements);
+            $jobPoster->setQuestions($questions);
             
         } catch (PDOException $e) {
             BaseDAO::closeConnection($link);
@@ -280,9 +297,9 @@ class JobPosterDAO extends BaseDAO {
     }
     /**
      * 
-     * @param type $jobPosterNonLocalized - contains en and fr fields, and 
+     * @param JobPosterNonLocalized $jobPosterNonLocalized - contains en and fr fields, and 
      *      specifies department, province, etc, by id instead of by name
-     * @return type int job_post_id: id of the newly created job post
+     * @return int job_post_id: id of the newly created job post
      */
     public static function createJobPoster($jobPosterNonLocalized){
         $link = BaseDAO::getConnection();
@@ -388,11 +405,25 @@ class JobPosterDAO extends BaseDAO {
         $sqlStr7 = "INSERT INTO job_poster_other_requirement
             (job_poster_id, locale_id, requirement) VALUES " . 
             implode(',', $requirement_values) . ";";
-                       
+        
+        $question_data = [];
+        $question_values = [];
+        foreach($jobPosterNonLocalized->getQuestions_en() as $question) {
+            $question_values[] = '(@job_post_id, 1, ?)';
+            $question_data[] = $question;
+        }
+        foreach($jobPosterNonLocalized->getQuestions_fr() as $question) {
+            $question_values[] = '(@job_post_id, 2, ?)';
+            $question_data[] = $question;
+        }
+        $sqlQuestionsStr = "INSERT INTO job_poster_question
+            (job_poster_id, locale_id, question) VALUES " .
+            implode(",", $question_values) . ";";
+        
         $sqlManagerStr = "INSERT INTO job_poster_to_manager_user_id
             (job_poster_id, user_id)
             VALUES
-            (@job_post_id, :manager_user_id);";        
+            (@job_post_id, :manager_user_id);";    
         
         $sql1 = $link->prepare($sqlStr1);
         $sql2 = $link->prepare($sqlStr2);
@@ -408,6 +439,9 @@ class JobPosterDAO extends BaseDAO {
             $sql6 = $link->prepare($sqlStr6);
         if (sizeof($requirement_data) > 0)
             $sql7 = $link->prepare($sqlStr7);
+        if (sizeof($question_data) > 0)
+            $sqlQuestions = $link->prepare($sqlQuestionsStr);
+        
         
         $sql1->bindValue(':term_units_id', $jobPosterNonLocalized->getTerm_units_id(), PDO::PARAM_INT);
         $sql1->bindValue(':term_qty', $jobPosterNonLocalized->getTerm_qty(), PDO::PARAM_INT);
@@ -450,6 +484,8 @@ class JobPosterDAO extends BaseDAO {
                 $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
             if (sizeof($requirement_data) > 0)
                 $sql7->execute($requirement_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($question_data) > 0)
+                $sqlQuestions->execute ($question_data) or die("ERROR: " . implode(":", $link->errorInfo()));
             
             $link->commit();
         } catch (PDOException $e) {
