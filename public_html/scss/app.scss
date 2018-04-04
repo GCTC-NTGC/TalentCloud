@@ -1,0 +1,37 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    This is a sample SASS file.
+
+============================================================================= */
+
+/* Vendor Dependencies ====================================================== */
+@import "vendor/cds/mixins";
+@import "vendor/cds/variables";
+@import "vendor/cds/base";
+@import "vendor/cds/layout";
+@import "vendor/cds/nav";
+@import "vendor/cds/components";
+@import "vendor/cds/sections";
+@import "vendor/font-awesome/font-awesome.scss";
+
+/* Core Elements ============================================================ */
+@import "system/media-queries";
+@import "system/grid";
+@import "system/grid-ie";
+@import "system/typography";
+@import "system/palette";
+
+/* Atoms ==================================================================== */
+@import "atoms/buttons";
+@import "atoms/modals";
+
+/* Molecules ================================================================ */
+
+/* Organisms ================================================================ */
+@import "organisms/landing-hero";
+@import "organisms/update-profile";
+
+/* Example Imports ========================================================== */
+@import "organisms/organism-sample-01";

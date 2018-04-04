@@ -1,6 +1,6 @@
 /**
  * Utilities contains common constants and functions for data conversion.
- * 
+ *
  */
 var Utilities = {};
 
@@ -17,7 +17,7 @@ if (!console.log) {
 }
 
 /**
- * 
+ *
  * @param {type} datestr
  * @returns {String}
  */
@@ -41,7 +41,7 @@ Utilities.formatDateTimeLocal = function (date) {
     var ten = function (i) {
             return (i < 10 ? '0' : '') + i;
         };
-    var 
+    var
         YYYY = date.getFullYear(),
         MM = ten(date.getMonth() + 1),
         DD = ten(date.getDate()),
@@ -54,7 +54,7 @@ Utilities.formatDateTimeLocal = function (date) {
 };
 
 /**
- * 
+ *
  * @param {type} days
  * @returns {String}
  */
@@ -82,7 +82,7 @@ Utilities.timeRemaining = function(dateObj){
     var date1 = new Date(dateObj);
     var date2 = formattedDate;
     var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     if(date2 < date1){
         if(diffDays <= 1 ){
             timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseHours;
@@ -94,12 +94,12 @@ Utilities.timeRemaining = function(dateObj){
     }else{
         timeRemaining = 0;
     }
-     
+
     return timeRemaining;
 };
 
 /**
- * 
+ *
  * @param {type} htmlStr
  * @returns {ActiveXObject|xmlData.responseXML|xmlDoc}
  */
@@ -119,7 +119,7 @@ Utilities.stringToHTMLObject = function (htmlStr) {
 };
 
 /**
- * 
+ *
  * @param {type} htmlObj
  * @returns {unresolved}
  */
@@ -133,7 +133,7 @@ Utilities.htmlObjToString = function (htmlObj) {
 };
 
 /**
- * 
+ *
  * @param {type} htmlString
  * @returns {unresolved}
  */
@@ -142,7 +142,7 @@ Utilities.escapeHTMLString = function (htmlString) {
 };
 
 /**
- * 
+ *
  * @param {type} str
  * @returns {unresolved}
  */
@@ -155,7 +155,7 @@ Utilities.decodeHtmlEntity = function (str) {
 
 
 /**
- * 
+ *
  * @param {type} name
  * @returns {String}
  */
@@ -167,7 +167,7 @@ Utilities.getValueByParameterName = function (name) {
 };
 
 /**
- * 
+ *
  * @param {type} str
  * @param {type} delimiter
  * @returns {unresolved}
@@ -183,7 +183,7 @@ Utilities.delimitedStringSort = function (str, delimiter) {
 };
 
 /**
- * 
+ *
  * @param {type} a
  * @param {type} b
  * @returns {Number}
@@ -228,18 +228,18 @@ Utilities.clearFormFields = function(formId){
 
     var inputElementTypesToClear = ["text","email","password","datetime-local"];
     var elementsToClear = ["textarea","select","range"];
-    
+
     var elements = formToClear.getElementsByTagName("input");
     for (var i=0; i < elements.length; i++){
 
         if (inputElementTypesToClear.includes(elements[i].type)){
             elements[i].value = "";
         }
-    
+
         if (elementsToClear.includes(elements[i].tagName)){
             elements[i].value = "";
         }
-    
+
     }
 };
 
@@ -275,3 +275,23 @@ Utilities.clearSelectOptions = function(selectElement)
     blankSelect.setAttribute("selected","selected");
     selectElement.appendChild(blankSelect);
 };
+
+// Modal Height Calculation ====================================================
+function modalSize() {
+    var viewportHeight = window.innerHeight;
+    var dialogueModal = document.querySelectorAll(".dialogue-modal");
+    // console.log(dialogueModal);
+    for (let i of dialogueModal) {
+        var modalHeight = i.offsetHeight;
+        if(modalHeight > viewportHeight) {
+            i.classList.remove("dialogue-modal--viewport");
+            i.classList.add("dialogue-modal--overflow");
+        }
+        else {
+            i.classList.remove("dialogue-modal--overflow");
+            i.classList.add("dialogue-modal--viewport");
+        }
+    }
+}
+
+window.onresize = modalSize;

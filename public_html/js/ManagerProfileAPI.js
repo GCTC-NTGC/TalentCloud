@@ -84,7 +84,7 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     
     //DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
-    FileUploadAPI.refreshProfilePic(user_id, [document.getElementById('managerProfilePic')]);
+    ProfilePicAPI.refreshProfilePic(user_id, document.getElementById('managerProfilePic'));
 }
 
 ManagerProfileAPI.localizeManagerProfile = function() {

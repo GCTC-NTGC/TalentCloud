@@ -1,0 +1,57 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Default Buttons
+
+============================================================================= */
+
+[class*="button--"] {
+    appearance: none;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $font-hk;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 1rem 2rem;
+    transition: all .2s ease;
+
+    &[class*="yellow"] {
+        background: $palette-yellow--light;
+        color: $palette-grey--dark;
+
+        &:hover {
+            background: $palette-yellow--dark;
+        }
+
+        &:focus {
+            color: white;
+            background: $palette-grey--dark;
+            border: 2px solid $palette-yellow--dark;
+        }
+
+    }
+
+    &[class*="grey"] {
+        background: $palette-grey--light;
+        color: $palette-grey--dark;
+
+        &:hover {
+            background: $palette-grey;
+        }
+
+        &:focus {
+            color: white;
+            background: $palette-grey--dark;
+            border: 2px solid $palette-yellow--dark;
+        }
+
+    }
+
+    &:hover {
+        transition: all .2s ease;
+    }
+
+}

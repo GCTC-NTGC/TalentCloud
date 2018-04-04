@@ -47,7 +47,7 @@ JobApplicationAPI.showCreateJobApplication = function(jobPosterId) {
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
         var applicantProfilePic = document.getElementById('createJobApplicationProfilePic');
-        FileUploadAPI.refreshProfilePic(user.user_id, [applicantProfilePic]);
+        ProfilePicAPI.refreshProfilePic(user.user_id, applicantProfilePic);
         JobApplicationAPI.populateApplicationWithUserContent(user);
         
         DataAPI.getJobSeekerProfileByUserId(user.user_id, JobApplicationAPI.populateApplicationWithJobSeekerProfileContent);

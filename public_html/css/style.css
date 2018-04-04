@@ -12,9 +12,9 @@ body{
     width: 100% !important;
     /*max-width:1200px !important;*/
     margin:0px auto !important;
-    
+
     background-image: url('/images/backgrounds/background.jpg');
-    background-position: center -350px; 
+    background-position: center -350px;
     background-repeat: no-repeat;
     background-size: auto;
     position:absolute;
@@ -195,9 +195,9 @@ nav{
 
 .tc-logo{
     width: 100%;
-    height: auto;  
+    height: auto;
     float: right; }
-  
+
 .page-banner--logo-tagline-divider{
     width:3px;
     height: 12em;
@@ -224,7 +224,7 @@ nav{
 .overFlowHidden{
     overflow:hidden;
 }
-    
+
 .transparent{
     background:rgba(0,0,0,0.7);
 }
@@ -309,7 +309,7 @@ nav{
 
 .profilePicLarge {
     width:200px;
-    height:200px;
+    /* height:200px; */
     border: 3px solid #FFCC33;
     border-radius: 100px;
     margin: auto;
@@ -454,11 +454,11 @@ nav{
 }
 
 .jobAPplicationQuestion {
-    
+
 }
 
 .jobApplicationAnswerField {
-    
+
 }
 
 #createJobApplicationButtonWrapper {
@@ -852,7 +852,7 @@ nav{
 }
 
 .profileSubSection {
-    padding-top: 2em; 
+    padding-top: 2em;
     padding-bottom: 2em;
     position: relative;
 }
@@ -886,7 +886,7 @@ nav{
     height: 1.5em;
 }
 
-/* APPLICANT PROFILE */ 
+/* APPLICANT PROFILE */
 
 /* ADMIN PROFILE */
 
@@ -994,7 +994,7 @@ nav{
 }
 
 .viewProfileSlotContent{
-    
+
 }
 
 .viewProfileSlotImg{
@@ -1451,7 +1451,7 @@ div label span{
     background-color: #eee;
     border-radius: 1.5em;
 }
-    
+
 #dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall{
     height: 2.5em;
     line-height: 2.5em;
