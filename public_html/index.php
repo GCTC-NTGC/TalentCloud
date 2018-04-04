@@ -591,7 +591,7 @@ and open the template in the editor .
                     </div>
                     <p id="managerProfileExpectations">These are my employee expectations.</p>
                 </div>
-                <div class='profileSubSection'>
+                <div class='profileSubSection manager-decisions'>
                     <div class='profileSubSectionTitleBar'>
                         <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
                     </div>
@@ -602,7 +602,12 @@ and open the template in the editor .
                         <p id="managerProfile_developmentOpportunities"></p>
                     </div>
                 </div>
-                <div class='profileSubSection'>
+                <div class="manager-decisions-tip">
+                    <p><strong>What is this?</strong></p>
+                    <p>Managers are asked to rate themselves on these four criterias to let applicants better understand their managing style using the following choices:</p>
+                    <p>Almost never, Sometimes, Usually, Almost Always</p>
+                </div>
+                <div class='profileSubSection manager-education'>
                     <div class='profileSubSectionTitleBar'>
                         <h2 id='managerProfileEducationTitle'>Education</h2>
                     </div>

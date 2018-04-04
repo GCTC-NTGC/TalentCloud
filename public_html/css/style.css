@@ -873,6 +873,32 @@ nav{
     padding: 1em 3em;
 }
 
+.manager-decisions{
+    width:70%;
+    float:left;
+}
+
+.manager-decisions strong{
+    color:#2196F3;
+}
+
+.manager-decisions-tip{
+    width:30%;
+    float:left;
+    background-color: #EBEBEB;
+    padding:1.5em;
+}
+
+.manager-decisions-tip p{
+    font-size:1.5em;
+    line-height: 1.5;
+}
+
+.manager-education{
+    display:block;
+    clear:both;
+}
+
 .socialMediaLink{
     margin-top:1.5em;
 }
