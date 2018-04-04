@@ -442,7 +442,7 @@ JobPostAPI.populateJobPoster = function(jobData){
                showMoreAnchor.setAttribute("id", id + "_MoreLink");
                showMoreAnchor.setAttribute("href", "javascript:void(0)");
                showMoreAnchor.setAttribute("onclick", "JobPostAPI.showMoreHiringManagerSummary(\"" + id + "\")");
-               showMoreAnchor.innerHTML = "Read more";
+               showMoreAnchor.innerHTML = "...";
 
                var showLessAnchor = document.createElement("a");
                showLessAnchor.setAttribute("id", id + "_LessLink");
