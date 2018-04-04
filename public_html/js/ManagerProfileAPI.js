@@ -147,10 +147,14 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     document.getElementById("managerProfileLeadershipStyle").innerHTML = profile.lead_style;
     document.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
     
-    SliderAPI.selectOptionByValue("managerProfile_review_options_groupName", profile.review_options, "review_options");
-    SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
-    SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
-    SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
+    document.getElementById('managerProfile_review').innerHTML = SliderAPI.getFrequencySliderLabel(profile.review_options);
+    document.getElementById('managerProfile_stayLate').innerHTML = SliderAPI.getFrequencySliderLabel(profile.stay_late);
+    document.getElementById('managerProfile_engagement').innerHTML = SliderAPI.getFrequencySliderLabel(profile.engagement);
+    document.getElementById('managerProfile_developmentOpportunities').innerHTML = SliderAPI.getFrequencySliderLabel(profile.development_opportunities);
+    
+    //SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
+    //SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
+    //SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
     
     //TODO: treat education and work history as lists
     document.getElementById('managerProfileEducation').innerHTML = profile.education;

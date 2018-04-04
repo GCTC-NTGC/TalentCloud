@@ -22,7 +22,11 @@ howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, create
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
 dashBoardLink,yourApplicationsTitle,
-teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt) {
+teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,
+managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
+managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
+managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
+managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -135,6 +139,26 @@ teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, t
     this.teamSizePrompt = teamSizePrompt;
     this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
     this.teamNarrativePrompt = teamNarrativePrompt;
+    this.managerProfile_review_option0 = managerProfile_review_option0;
+    this.managerProfile_review_option1 = managerProfile_review_option1;
+    this.managerProfile_review_option2 = managerProfile_review_option2;
+    this.managerProfile_review_option3 = managerProfile_review_option3;
+    this.managerProfile_review_option4 = managerProfile_review_option4;
+    this.managerProfile_stayLate_option0 = managerProfile_stayLate_option0;
+    this.managerProfile_stayLate_option1 = managerProfile_stayLate_option1;
+    this.managerProfile_stayLate_option2 = managerProfile_stayLate_option2;
+    this.managerProfile_stayLate_option3 = managerProfile_stayLate_option3;
+    this.managerProfile_stayLate_option4 = managerProfile_stayLate_option4;
+    this.managerProfile_engagement_option0 = managerProfile_engagement_option0;
+    this.managerProfile_engagement_option1 = managerProfile_engagement_option1;
+    this.managerProfile_engagement_option2 = managerProfile_engagement_option2;
+    this.managerProfile_engagement_option3 = managerProfile_engagement_option3;
+    this.managerProfile_engagement_option4 = managerProfile_engagement_option4;
+    this.managerProfile_developmentOpportunities_option0 = managerProfile_developmentOpportunities_option0;
+    this.managerProfile_developmentOpportunities_option1 = managerProfile_developmentOpportunities_option1;
+    this.managerProfile_developmentOpportunities_option2 = managerProfile_developmentOpportunities_option2;
+    this.managerProfile_developmentOpportunities_option3 = managerProfile_developmentOpportunities_option3;
+    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
 };
 
 TalentCloudAPI.pages = {
@@ -710,14 +734,12 @@ TalentCloudAPI.setContent = function(content, isManager){
             usuallyElements[i].innerHTML = siteContent.usually;
         }
         
-        var almostAlwaysElements = document.getElementsByClassName("option4Label");
-        for (var i = 0; i < almostAlwaysElements.length; i++) {
-            almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
-        }
+            var almostAlwaysElements = document.getElementsByClassName("option4Label");
+            for (var i = 0; i < almostAlwaysElements.length; i++) {
+                almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
+            }
         
         //not working yet
-        
-
     }
     
 };

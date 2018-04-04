@@ -692,12 +692,18 @@ and open the template in the editor .
                 </div>
                 <div class='profileSubSection'>
                     <div class='profileSubSectionTitleBar'>
-                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2><!---Queenie TODO->
+                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
+                    </div>
+                    <div>
+                        <p>I<span class="blue-highlight-text" id="managerProfile_review"></span> review your teams work before it is shared.</p>
+                        <p><span id="managerProfile_stayLate_label">I <span class="blue-highlight-text" id="managerProfile_stayLate"></span> get in early or stay late to get some extra work done.</span></p>
+                        <p><span id='managerProfile_engagement_label'>I <span class="blue-highlight-text" id="managerProfile_engagement"></span> engage my team before responding to management.</span></p>
+                        <p><span id='managerProfile_developmentOpportunities_Label'>I <span class="blue-highlight-text" id="managerProfile_developmentOpportunities"></span> approve development opportunities for your employees.</span></p>
                     </div>
                     <div>
                         <div class="multi-btn-group-form-group">
                             <div class='multi-btn-group-form-group-label'>
-                                <span id="managerProfile_review_label">How often do you review your teams work before it is shared?</span>
+                                <span <!--id="managerProfile_review_label"-->>How often do you review your teams work before it is shared?</span>
                             </div>
                             <div style='display:inline-block;width:560px'>
                                 <div class="multi-btn-group clearfix">
@@ -721,7 +727,7 @@ and open the template in the editor .
                     <div>
                         <div class="multi-btn-group-form-group">
                             <div class='multi-btn-group-form-group-label'>
-                                <span id="managerProfile_stayLate_label">How often do you get in early or stay late to get some extra work done?</span>
+                                <span <!--id="managerProfile_stayLate_label"-->>How often do you get in early or stay late to get some extra work done?</span>
                             </div>
                             <div style='display:inline-block;width:560px'>
                                 <div class="multi-btn-group clearfix">
@@ -745,7 +751,7 @@ and open the template in the editor .
                     <div>
                         <div class="multi-btn-group-form-group">
                             <div class='multi-btn-group-form-group-label'>
-                                <span id='managerProfile_engagement_label'>How often do you engage your team before responding to management?</span>
+                                <span <!--id='managerProfile_engagement_label'-->>How often do you engage your team before responding to management?</span>
                             </div>
                             <div style='display:inline-block;width:560px'>
                                 <div class="multi-btn-group clearfix">
@@ -769,7 +775,7 @@ and open the template in the editor .
                     <div>
                         <div class="multi-btn-group-form-group">
                             <div class='multi-btn-group-form-group-label'>
-                                <span id='managerProfile_developmentOpportunities_Label'>How often do you approve development opportunities for your employees?</span>
+                                <span <!--id='managerProfile_developmentOpportunities_Label'-->>How often do you approve development opportunities for your employees?</span>
                             </div>
                             <div style='display:inline-block;width:560px'>
                                 <div class="multi-btn-group clearfix">

@@ -210,7 +210,26 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.teamSizePrompt = content.teamSizePrompt;
     thisContent.gcDirectoryLinkPrompt = content.gcDirectoryLinkPrompt;
     thisContent.teamNarrativePrompt = content.teamNarrativePrompt;
-  
+    thisContent.managerProfile_review_option0 = content.managerProfile_review_option0;
+    thisContent.managerProfile_review_option1 = content.managerProfile_review_option1;
+    thisContent.managerProfile_review_option2 = content.managerProfile_review_option2;
+    thisContent.managerProfile_review_option3 = content.managerProfile_review_option3;
+    thisContent.managerProfile_review_option4 = content.managerProfile_review_option4;
+    thisContent.managerProfile_stayLate_option0 = content.managerProfile_stayLate_option0;
+    thisContent.managerProfile_stayLate_option1 = content.managerProfile_stayLate_option1;
+    thisContent.managerProfile_stayLate_option2 = content.managerProfile_stayLate_option2;
+    thisContent.managerProfile_stayLate_option3 = content.managerProfile_stayLate_option3;
+    thisContent.managerProfile_stayLate_option4 = content.managerProfile_stayLate_option4;
+    thisContent.managerProfile_engagement_option0 = content.managerProfile_engagement_option0;
+    thisContent.managerProfile_engagement_option1 = content.managerProfile_engagement_option1;
+    thisContent.managerProfile_engagement_option2 = content.managerProfile_engagement_option2;
+    thisContent.managerProfile_engagement_option3 = content.managerProfile_engagement_option3;
+    thisContent.managerProfile_engagement_option4 = content.managerProfile_engagement_option4;
+    thisContent.managerProfile_developmentOpportunities_option0 = content.managerProfile_developmentOpportunities_option0;
+    thisContent.managerProfile_developmentOpportunities_option1 = content.managerProfile_developmentOpportunities_option1;
+    thisContent.managerProfile_developmentOpportunities_option2 = content.managerProfile_developmentOpportunities_option2;
+    thisContent.managerProfile_developmentOpportunities_option3 = content.managerProfile_developmentOpportunities_option3;
+    thisContent.managerProfile_developmentOpportunities_option4 = content.managerProfile_developmentOpportunities_option4;
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
