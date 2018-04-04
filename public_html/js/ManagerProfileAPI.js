@@ -95,10 +95,6 @@ ManagerProfileAPI.localizeManagerProfile = function() {
         document.getElementById("managerProfileLeadershipStyleTitle").innerHTML = siteContent.myLeadershipStyle;
         document.getElementById("managerProfileExpectationsTitle").innerHTML = siteContent.myExpectationsOfEmployees;
         document.getElementById("managerProfileDecisionMakingTitle").innerHTML = siteContent.myApproachToDecisionMaking;
-        document.getElementById("managerProfile_review_label").innerHTML = siteContent.howOftenDoYouReview;
-        document.getElementById("managerProfile_stayLate_label").innerHTML = siteContent.howOftenDoYouStayLate;
-        document.getElementById("managerProfile_engagement_label").innerHTML = siteContent.howOftenDoYouEngage;
-        document.getElementById("managerProfile_developmentOpportunities_Label").innerHTML = siteContent.howOftenDoYouApproveDevelopment;
         document.getElementById("managerProfileEducationTitle").innerHTML = siteContent.education;
         document.getElementById("managerProfileExperienceTitle").innerHTML = siteContent.workExperience;
     }
@@ -188,7 +184,7 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
           
     document.getElementById('managerProfile_review').innerHTML = reviewOptions[profile.review_options];
     document.getElementById('managerProfile_stayLate').innerHTML = stayLateOptions[profile.stay_late];
-    document.getElementById('managerProfile_engagement').innerHTML = engagementOptions[profile.engagment];
+    document.getElementById('managerProfile_engagement').innerHTML = engagementOptions[profile.engagement];
     document.getElementById('managerProfile_developmentOpportunities').innerHTML = developmentOpportunityOptions[profile.development_opportunities];
     
     //SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
