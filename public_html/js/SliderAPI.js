@@ -31,5 +31,24 @@ var SliderAPI = {
         } else {
             bgcolor.setAttribute("class", "right");
         }
+    },
+    
+    getYesNoSliderLabel : function(value) {
+        var labelMap = {
+            'option0':siteContent.yes, 
+            'option1':siteContent.no
+        };
+        return labelMap[value];
+    },
+    
+    getFrequencySliderLabel : function(value) {
+        var labelMap = {
+            'option0':siteContent.almostNever,
+            'option1':siteContent.rarely,
+            'option2':siteContent.sometimes,
+            'option3':siteContent.usually,
+            'option4':siteContent.almostAlways
+        };
+        return labelMap[value];
     }
 };
