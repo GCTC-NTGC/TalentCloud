@@ -808,7 +808,7 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
          
-    FileUploadAPI.refreshUserProfilePic();
+    ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
 
     CreateEditProfileAPI.getManagerProfile();
 };
@@ -864,18 +864,18 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
     
     var fileField = document.getElementById('profilePicUploadField');
     var fileDrop = document.getElementById('profilePicUploadDrop');
-    var fileList = document.getElementById('profilePicUploadPreview');
+    var previewImage = document.getElementById('fileUploadPreviewImg');
     var clearBtn = document.getElementById('profilePicUploadClear');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
-    CreateEditProfileAPI.profilePicUploader = new FileUploadAPI.FileUploader(
-            fileField, fileDrop, fileList, 
+    CreateEditProfileAPI.profilePicUploader = new ProfilePicAPI.Uploader(
+            [fileField],
+            fileDrop,
+            previewImage,
             clearBtn,
             uploadBtn,
-            true, 
-            true,
-            FileUploadAPI.makeProfilePicUploadRequest, 
-            CreateEditProfileAPI.onProfilePicUploaded);
-    CreateEditProfileAPI.profilePicUploader.init();
+            UserAPI.getSessionUserAsJSON().user_id,
+            CreateEditProfileAPI.onProfilePicUploaded
+        );
 };
 
 CreateEditProfileAPI.hideUploadProfilePic = function() {
@@ -886,7 +886,7 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
 };
 
 CreateEditProfileAPI.onProfilePicUploaded = function() {
-    FileUploadAPI.refreshUserProfilePic();
+    ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
     CreateEditProfileAPI.hideUploadProfilePic();
 };
 

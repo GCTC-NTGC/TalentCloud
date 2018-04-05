@@ -81,19 +81,20 @@ and open the template in the editor .
                             <div id="loggedOut">
                                 <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a>
                             </div>
-                        </li>    
+                        </li>
                         <li>
                             <div id="loggedIn" class="hidden">
                                 <span id="loggedInUser">Hi <span id="user_fname"></span>!</span>
                                 <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
                             </div>
-                        </li>        
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
+
         <div id="createJobPosterOverlay" class="hidden">
-            <div id="createJobPosterWrapperWindow" class="createJobPosterWrapperWindow">
+            <div id="createJobPosterWrapperWindow" class="dialogue-modal createJobPosterWrapperWindow">
                <div class="closeButton">
                     <a href="javascript:UserAPI.hideJobSeekerProfileForm()" class="closeButtonLink"> </a>
                 </div>
@@ -468,9 +469,9 @@ and open the template in the editor .
                 </div>
             </div>
         </div>
-        
+
         <div id="registerFormOverlay" class="hidden">
-            <div id="registerFormWrapperWindow" class="registerFormWrapperWindow">
+            <div id="registerFormWrapperWindow" class="dialogue-modal registerFormWrapperWindow">
                 <div class="wb-frmvld wb-init">
                     <form name="registerForm" id="registerForm" novalidate="novalidate" onsubmit="return UserAPI.register(true);" method="post" enctype="application/x-www-form-urlencoded">
                         <div style="height:50px;line-height:50px;vertical-align: middle;">
@@ -510,12 +511,13 @@ and open the template in the editor .
                         <div style="margin: 1em 0 0 0;">
                             <p> Already have an account? <a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link">Login</a></p>
                         </div>
-                    </form>  
+                    </form>
                 </div>
             </div>
         </div>
+
         <div id="loginOverlay" class="hidden" role="dialog" aria-labelledby="loginTitle" aria-describedby="loginFormDescription">
-            <div id="loginFormWrapperWindow" class="loginFormWrapperWindow">
+            <div id="loginFormWrapperWindow" class="dialogue-modal loginFormWrapperWindow">
                 <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
                     <div id='loginTitleWrapper'>
                         <h3 id='loginTitle' title="Login to TalentCloud"><img src="images/logo.svg" id="loginLogoImage" alt="Login Logo Image"/> &nbsp; &nbsp;Login</h3>
@@ -557,6 +559,7 @@ and open the template in the editor .
                 </div>
             </div>
         </div>
+
         <main>
             <aside>
                 <div class="section">
@@ -568,7 +571,7 @@ and open the template in the editor .
                             <img src="/images/working.gif" alt="loading job seekers"/>
                         </div>
                         <div id="jobSeekerList" class="jobSeekerList hidden">
-                            
+
                         </div>
                     </div>
                     <div class="jobSeekerCount hidden">
@@ -851,7 +854,7 @@ and open the template in the editor .
                                                         <input type="radio" id="createEditProfile_how_often_early_option_5" name="createEditProfile_how_often_early_options" value="Almost always">Almost always<br>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="createEditProfileFrenchPane">
                                                 <div class="form-group">
@@ -932,9 +935,10 @@ and open the template in the editor .
                 </div>
             </aside>
         </main>
+
         <!-- BEGIN - Standard Yes/No Modal Popup-->
         <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay">
-            <div id="yesNoModalWindow" class="yesNoModalWindow">
+            <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
                 <div class="yesNoModalContent">
                     <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
                     <div id="yesNoModalText" class="yesNoModalText">Text</div>
@@ -943,21 +947,21 @@ and open the template in the editor .
                 </div>
             </div>
         </div>
-        
+
         <div id="viewJobPosterOverlay" class="viewJobPosterOverlay hidden">
-            <div id="viewJobPosterWrapperWindow" class="viewJobPosterWrapperWindow">
+            <div id="viewJobPosterWrapperWindow" class="dialogue-modal viewJobPosterWrapperWindow">
                <div class="closeButton">
                     <a href="javascript:JobPostAPI.hideJobPoster()" class="closeButtonLink"> </a>
                 </div>
                 <div id="jobPoster" class="jobPoster">
-                    
+
                 </div>
             </div>
         </div>
-        
+
         <!-- BEGIN - Add Contact Overlay and Form-->
         <div id="addContactOverlay" class="addContactOverlay hidden">
-            <div id="formWrapperWindow" class="formWrapperWindow">
+            <div id="formWrapperWindow" class="dialogue-modal formWrapperWindow">
                 <form method="post" id="addContactForm" name="addContactForm">
                     <h3>Add Contact</h3>
                     <br/>
@@ -1018,17 +1022,20 @@ and open the template in the editor .
                 </div>
             </div>
         </div>
+
         <footer>
             <div></div>
         </footer>
+
         <!-- BEGIN - Standard Yes/No Modal Popup-->
         <div class="yesNoModalOverlay hidden" id="updateOverlay">
-            <div id="updateWindow" class="yesNoModalWindow">
+            <div id="updateWindow" class="dialogue-modal yesNoModalWindow">
                 <div class="updateContent">
                     <img src="/images/working.gif" alt=""/>
                 </div>
             </div>
         </div>
+
         <!-- BEGIN - Add Contact Overlay and Form-->
         <script src="/js/Messages.js" type="text/javascript"></script>
         <script type="text/javascript">

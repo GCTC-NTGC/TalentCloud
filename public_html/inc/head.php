@@ -11,6 +11,13 @@
 <link href="/css/style.css" rel="stylesheet" type="text/css"/>
 <link href="/css/messaging.css" rel="stylesheet" type="text/css"/>
 <link href="/css/sliderButton.css" rel="stylesheet" type="text/css"/>
+<!-- SASS Sheets -->
+<link href="/css/optimized/app.css" rel="stylesheet" type="text/css"/>
+<!-- jQuery CDN -->
+<!-- <script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script> -->
 <!-- Scripts / APIs -->
 <script src="/js/Utilities.js"></script>
 <script src="/js/TalentCloudAPI.js"></script>
@@ -21,9 +28,9 @@
 <script src="/js/JobPostAPI.js"></script>
 <script src="/js/FormValidationAPI.js"></script>
 <script src="/js/EventsAPI.js"></script>
-<script src="/js/FormsAPI.js"></script>    
+<script src="/js/FormsAPI.js"></script>
 <script src="/js/JobSeekerAPI.js"></script>
-<script src="/js/FileUploadAPI.js"></script>
+<script src="/js/ProfilePicAPI.js"></script>
 <script src="/js/ManagerProfileAPI.js"></script>
 <script src="/js/JobApplicationAPI.js"></script>
 <script src="/js/WorkEnvironmentAPI.js"></script>

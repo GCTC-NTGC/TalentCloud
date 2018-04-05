@@ -3,7 +3,7 @@
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor . 
+and open the template in the editor .
 -->
 <html lang="en">
     <head>
@@ -27,9 +27,10 @@ and open the template in the editor .
 
         <!-- All top-level dialog or overlay elements should be children of this div-->
         <div id="overlays">
+
             <!-- BEGIN - Registration Form Modal Dialog and Overlay-->
             <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
-                <div id="registerFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+                <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
                     <div id="registerFormTitleWrapper" class="dialogTitle">
                         <strong id="registerFormTitle" title="Register for Talent Cloud">Register for Talent Cloud</strong>
                         <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
@@ -82,13 +83,14 @@ and open the template in the editor .
                                 <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register(true);">
                             </div>
                             <div class="clear"></div>
-                        </form>  
+                        </form>
                     </div>
                 </div>
             </div>
+
             <!-- BEGIN - Registration Status Dialog and Overlay-->
             <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
-                <div id="registerStatusWrapperWindow" class="dialogHalfWidthWrapperWindow">
+                <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
                     <div id="registerStatusTitleWrapper" class="dialogTitle">
                         <strong id="registerStatusTitle" title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
                         <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
@@ -108,9 +110,10 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+
             <!-- BEGIN - Login Modal Dialog and Overlay-->
             <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
-                <div id="loginFormWrapperWindow" class="dialogHalfWidthWrapperWindow">
+                <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
                     <div id="loginFormTitleWrapper" class="dialogTitle">
                         <strong id="loginFormTitle" title="Login to TalentCloud">Login to TalentCloud</strong>
                         <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
@@ -141,7 +144,7 @@ and open the template in the editor .
                                         <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                                     </div>
                                 </div>
-                            </div>                
+                            </div>
                             <div class="hidden">
                                 <div style="margin: 1em 0 0 0;">
                                     <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
@@ -160,8 +163,10 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+
+            <!-- Profile Photo Modal -->
             <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
-                <div id="profileBasicInfoEditWrapperWindow" class="dialogThreeQuarterWrapperWindow">
+                <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
                     <div id="profilePicUploadTitleWrapper" class="dialogTitle">
                         <strong id="profilePicUploadTitle" title="Upload a new profile image">Upload a new profile image</strong>
                         <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
@@ -177,8 +182,8 @@ and open the template in the editor .
                             </div>
                         </div>
                         <div class="rightPane">
-                            <div id="fileUploadPreviewPanel" style="min-height:130px;">
-                                <ul id="profilePicUploadPreview" class="filePreviewList"></ul>
+                            <div id="fileUploadPreviewPanel" class="uploadFileThumbnail" style="min-height:130px;">
+                                <img id="fileUploadPreviewImg" src="/images/user.png"/>
                             </div>
                             <div id="fileUploadButtons">
                                 <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
@@ -191,7 +196,7 @@ and open the template in the editor .
 
             <!-- BEGIN - Standard Yes/No Modal Popup-->
             <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay" role="dialog">
-                <div id="yesNoModalWindow" class="yesNoModalWindow">
+                <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
                     <div class="yesNoModalContent">
                         <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
                         <div id="yesNoModalText" class="yesNoModalText">Text</div>
@@ -203,12 +208,13 @@ and open the template in the editor .
 
             <!-- BEGIN - Update Overlay-->
             <div class="yesNoModalOverlay hidden" id="updateOverlay">
-                <div id="updateWindow" class="yesNoModalWindow">
+                <div id="updateWindow" class="dialogue-modal yesNoModalWindow">
                     <div class="updateContent">
                         <img src="/images/working.gif" alt=""/>
                     </div>
                 </div>
             </div>
+
         </div>
         <main>
             <section class="pageContent" id="homePageContentSection">
@@ -300,7 +306,7 @@ and open the template in the editor .
                                         <div class="five-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
                                         <div class="five-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
                                         <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
-                                        <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>                                                
+                                        <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>
                                         <div class="five-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
                                             </div>
                                             <div class="tabs">
@@ -501,8 +507,8 @@ and open the template in the editor .
                                                 <div class="steptab inactive"> </div>
                                                 <div class="steptab active"> </div>
                                                 <div class="steptab inactive"> </div>
-                                                <div class="steptab inactive"> </div>  
-                                                <div class="steptab inactive"> </div> 
+                                                <div class="steptab inactive"> </div>
+                                                <div class="steptab inactive"> </div>
                                             </div>
                                         </div>
                                         <div class="stepGroupForm">
@@ -1057,7 +1063,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="singlePane">                            
+                                            <div class="singlePane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_city">
                                                         <span>City: *</span>
@@ -1138,7 +1144,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="leftPane">                            
+                                            <div class="leftPane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_impact">
                                                         <span><span id="createJobPoster_impact_labelName">Impact</span>:</span>
@@ -1206,7 +1212,7 @@ and open the template in the editor .
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="rightPane">                            
+                                            <div class="rightPane">
                                                 <div class="form-group">
                                                     <label for="createJobPoster_impact_fr">
                                                         <span><span id="createJobPoster_impact_fr_labelName">Impact_fr</span>:</span>
@@ -1324,7 +1330,7 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
-                
+
             </section>
         </main>
         <?php include '../inc/footer-admin.php'; ?>
