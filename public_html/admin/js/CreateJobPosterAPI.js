@@ -10,8 +10,6 @@ var CreateJobPosterAPI = {};
 
 CreateJobPosterAPI.jobPosterObj = null;
 
-CreateJobPosterAPI.lookupMap = {};
-
 CreateJobPosterAPI.JobPostNonLocalized = function(
         id,
         manager_user_id,
@@ -88,11 +86,11 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             jp.title[locale],
             jp.appplicants_to_date, 
             jp.close_date_time, 
-            CreateJobPosterAPI.getLocalizedLookupValueFromId("department", locale, jp.department_id),
+            LookupAPI.getLocalizedLookupValue("department", jp.department_id),
             jp.city[locale],
-            CreateJobPosterAPI.getLocalizedLookupValueFromId("province", locale, jp.province_id),
+            LookupAPI.getLocalizedLookupValue("province", jp.province_id),
             jp.term_qty,
-            CreateJobPosterAPI.getLocalizedLookupValueFromId("jobterm", locale, jp.term_units_id),
+            LookupAPI.getLocalizedLookupValue("jobterm", jp.term_units_id),
             jp.remuneration_type,
             jp.remuneration_range_low,
             jp.remuneration_range_high,
@@ -119,165 +117,13 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
 };
 
 CreateJobPosterAPI.localizeCreateJobPosterForm = function() {
+    LookupAPI.populateDropdown("department", "createJobPoster_department");
+    LookupAPI.populateDropdown("province", "createJobPoster_province");
     if (siteContent) {
         document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
         document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
     }
 }
-
-CreateJobPosterAPI.loadLookupData = function() {
-    //DivisionAPI.getDivisions(locale);
-    //BranchAPI.getBranches(locale);
-    var locales = ["en_CA", "fr_CA"];
-    var lookupTypes = ["department","branch", "division", "province", "jobterm"];
-    for(i in locales) {
-        for (j in lookupTypes) {
-            var locale = locales[i];
-            var lookupType = lookupTypes[j];
-            CreateJobPosterAPI.getLookupData(lookupType, locale);
-        }
-    }
-};
-
-CreateJobPosterAPI.selectedUnit = function(newID){
-    var option = document.getElementById(newID);
-    option.checked = true;
-};
-
-CreateJobPosterAPI.getLookupData = function(lookupType, locale){    
-    var lookup_URL = DataAPI.baseURL+"/"+locale+"/Lookup/"+lookupType;
-    //console.log('Talent cloud url data:   ' + talentcloudData_URL);
-    //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
-    var authToken = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
-    var lookupData_xhr = new XMLHttpRequest();
-    if ("withCredentials" in lookupData_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      lookupData_xhr.open("GET", lookup_URL);
-
-    } else if (typeof XDomainRequest !== "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      lookupData_xhr = new XDomainRequest();
-      lookupData_xhr.open("GET", lookup_URL);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      lookupData_xhr = null;
-
-    }
-    
-    lookupData_xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.talentcloudDataUpdateProgress(evt);
-    },false);
-    lookupData_xhr.addEventListener("load",
-    function(evt){
-        CreateJobPosterAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
-        var userLocale = Utilities.getCookieByName("locale");
-        if (userLocale === undefined) {
-            userLocale = "en_CA";
-        }
-        if (userLocale === locale) {
-            CreateJobPosterAPI.populateLookups(lookupType,lookupData_xhr.response);
-        }
-    },false);
-    lookupData_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    lookupData_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    lookupData_xhr.open('GET',lookup_URL);
-    lookupData_xhr.send(authToken);
-};
-
-CreateJobPosterAPI.addToLookupMap = function(lookupType, locale, response) {
-    if (!CreateJobPosterAPI.lookupMap[lookupType]) {
-        CreateJobPosterAPI.lookupMap[lookupType] = {};
-    }
-    CreateJobPosterAPI.lookupMap[lookupType][locale] = JSON.parse(response);
-};
-
-CreateJobPosterAPI.populateLookups = function(lookupType,response){
-    //console.log(JSON.parse(response));
-    var data = JSON.parse(response);
-    
-    switch(lookupType) {
-        case "department":
-            CreateJobPosterAPI.populateSelect("department","createJobPoster_department",data);
-            break;
-        case "province":
-            CreateJobPosterAPI.populateSelect("province","createJobPoster_province",data);
-            break;
-        case "jobterm":
-            if(document.getElementById("jobterms")){
-                var jobTermSelect = document.getElementById("jobterms");
-                Utilities.clearSelectOptions(jobTermSelect);
-                for(var jobterm in data) {
-                    var jobterm_name = data[jobterm].value;
-                    var optionRow = document.createElement("div");
-                    var option = document.createElement("input");
-                    option.setAttribute("id","jobterm_"+jobterm_name);
-                    option.setAttribute("type","radio");
-                    option.setAttribute("name","createJobPoster_termUnits");
-                    option.value = data[jobterm].id;
-                    var optionLabel = document.createElement("label");
-                    optionLabel.setAttribute("for","jobterm_"+jobterm_name);
-                    optionLabel.value = data[jobterm].id;
-                    optionLabel.innerHTML = jobterm_name;
-                    optionRow.appendChild(option);
-                    optionRow.appendChild(optionLabel);
-                    jobTermSelect.appendChild(optionRow);
-                }
-            }  
-            break;
-        default:
-            break;
-    }
-    
-        
-    
-};
-
-CreateJobPosterAPI.populateSelect = function(lookupType, elementId, data){
-    
-    if(lookupType === lookupType && document.getElementById(elementId)){
-        var select = document.getElementById(elementId);
-        Utilities.clearSelectOptions(select);
-        for(var department in data) {
-            var option = document.createElement("option");
-            option.value = data[department].id;
-            option.innerHTML = data[department].value;
-            select.appendChild(option);
-        }
-    }    
-    
-};
-
-CreateJobPosterAPI.getLocalizedLookupValueFromId = function(lookeupType, locale, id) {
-    var elements = CreateJobPosterAPI.lookupMap[lookeupType][locale];
-    for (i in elements) {
-        if (elements[i].id == id) {
-            return elements[i].value;
-        }
-    }
-    return null;
-};
-
-CreateJobPosterAPI.getLookupIdFromLocalizedValue = function(lookeupType, locale, value) {
-    var elements = CreateJobPosterAPI.lookupMap[lookeupType][locale];
-    for (i in elements) {
-        if (elements[i].value == value) {
-            return elements[i].id;
-        }
-    }
-    return null;
-};
-
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
 CreateJobPosterAPI.goToTab = function(tabId) {
@@ -361,10 +207,8 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var title_fr = document.getElementById("createJobPoster_jobTitle_fr").value; 
     
     var department_id = document.getElementById("createJobPoster_department").value; 
-    //var department_id = CreateJobPosterAPI.getLookupIdFromLocalizedValue("department", locale, department);
     
     var province_id = document.getElementById("createJobPoster_province").value;
-    //var province_id = CreateJobPosterAPI.getLookupIdFromLocalizedValue("province", locale, province);
     
     var city = document.getElementById("createJobPoster_city").value;
     

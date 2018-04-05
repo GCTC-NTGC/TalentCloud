@@ -295,6 +295,7 @@ TalentCloudAPI.loadPublic = function(){
         locale = "en_CA";
         TalentCloudAPI.setLanguageCookie(locale);
     }
+    LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,false);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthToken();
@@ -323,6 +324,7 @@ TalentCloudAPI.loadManager = function(){
         locale = "en_CA";
     }
     //console.log(UserAPI.hasAuthToken());
+    LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthToken();
@@ -365,6 +367,7 @@ TalentCloudAPI.loadAdmin = function(){
         locale = "en_CA";
     }
     //console.log(UserAPI.hasAuthToken());
+    LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
@@ -378,8 +381,6 @@ TalentCloudAPI.loadAdmin = function(){
                 //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.login(credentials);
-                CreateJobPosterAPI.loadLookupData();
-                CreateEditProfileAPI.loadLookupData();
                 //Add log user in automatically
             }else{
                 //DataAPI.getJobSeekers(locale);
@@ -527,6 +528,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
         CreateJobPosterAPI.localizeCreateJobPosterForm();
+        CreateEditProfileAPI.localizeCreateEditProfile();
         
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");

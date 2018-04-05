@@ -74,6 +74,17 @@ LookupAPI.addToLookupMap = function(lookupType, locale, response) {
     LookupAPI.lookupMap[locale][lookupType] = JSON.parse(response);
 };
 
+LookupAPI.getLocalizedLookupValue = function(lookupType, valueId) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var elements = LookupAPI.lookupMap[locale][lookupType];
+    for (i in elements) {
+        if (elements[i].id == valueId) {
+            return elements[i].value;
+        }
+    }
+    return null;
+}
+
 LookupAPI.populateDropdown = function(lookupType, elementId){
     if (LookupAPI.loadsInProgress > 0) {
         LookupAPI.deferPopulate(lookupType, elementId);
