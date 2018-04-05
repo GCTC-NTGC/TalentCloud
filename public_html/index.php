@@ -611,13 +611,13 @@ and open the template in the editor .
                     <div class='profileSubSectionTitleBar'>
                         <h2 id='managerProfileEducationTitle'>Education</h2>
                     </div>
-                    <p class='profileSubSectionBlock' id='managerProfileEducation'>This is my education.</p>
+                    <p id='managerProfileEducation'>This is my education.</p>
                 </div>
                 <div class='profileSubSection'>
                     <div class='profileSubSectionTitleBar'>
                         <h2 id='managerProfileExperienceTitle'>Work History</h2>
                     </div>
-                    <p class='profileSubSectionBlock' id='managerProfileExperience'>This is my work history.</p>
+                    <p id='managerProfileExperience'>This is my work history.</p>
                 </div>
             </div>
         </div>
