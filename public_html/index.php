@@ -591,118 +591,33 @@ and open the template in the editor .
                     </div>
                     <p id="managerProfileExpectations">These are my employee expectations.</p>
                 </div>
-                <div class='profileSubSection'>
+                <div class='profileSubSection manager-decisions'>
                     <div class='profileSubSectionTitleBar'>
                         <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
                     </div>
                     <div>
-                        <div class="multi-btn-group-form-group">
-                            <div class='multi-btn-group-form-group-label'>
-                                <span id="managerProfile_review_label">How often do you review your teams work before it is shared?</span>
-                            </div>
-                            <div style='display:inline-block;width:560px'>
-                                <div class="multi-btn-group clearfix">
-                                    <div id='options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;z-index:100;font-size: 1.2em !important;">
-                                        <input type="radio" id="option0" name="managerProfile_review_options_groupName" value="option0" class="accessAid" />
-                                        <label for="option0" class='option0Label' id="almostNever">Almost never</label>
-                                        <input type="radio" id="option1" name="managerProfile_review_options_groupName" value="option1" class="accessAid" />
-                                        <label for="option1" class='option1Label' id="rarely">Rarely</label>
-                                        <input type="radio" id="option2" name="managerProfile_review_options_groupName" value="option2" class="accessAid" />
-                                        <label for="option2" class='option2Label' id="sometimes">Sometimes</label>
-                                        <input type="radio" id="option3" name="managerProfile_review_options_groupName" value="option3" class="accessAid" />
-                                        <label for="option3" class='option3Label' id="usually">Usually</label>
-                                        <input type="radio" id="option4" name="managerProfile_review_options_groupName" value="option4" class="accessAid" />
-                                        <label for="option4" class='option4Label' id="almostAlways">Almost always</label>
-                                    </div>
-                                    <div id='review_options' class="option0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="multi-btn-group-form-group">
-                            <div class='multi-btn-group-form-group-label'>
-                                <span id="managerProfile_stayLate_label">How often do you get in early or stay late to get some extra work done?</span>
-                            </div>
-                            <div style='display:inline-block;width:560px'>
-                                <div class="multi-btn-group clearfix">
-                                    <div id='managerProfile_staylate_options' style="position:absolute;top:0px;right:0px;width:560px;height:2em;font-size: 1.2em !important;z-index:100">
-                                        <input type="radio" id="staylate_option0" name="managerProfile_staylate_groupName" value="option0" class="accessAid" />
-                                        <label for="staylate_option0" class='option0Label'>Almost never</label>
-                                        <input type="radio" id="staylate_option1" name="managerProfile_staylate_groupName" value="option1" class="accessAid" />
-                                        <label for="staylate_option1" class='option1Label'>Rarely</label>
-                                        <input type="radio" id="staylate_option2" name="managerProfile_staylate_groupName" value="option2" class="accessAid" />
-                                        <label for="staylate_option2" class='option2Label'>Sometimes</label>
-                                        <input type="radio" id="staylate_option3" name="managerProfile_staylate_groupName" value="option3" class="accessAid" />
-                                        <label for="staylate_option3" class='option3Label'>Usually</label>
-                                        <input type="radio" id="staylate_option4" name="managerProfile_staylate_groupName" value="option4" class="accessAid" />
-                                        <label for="staylate_option4" class='option4Label'>Almost always</label>
-                                    </div>
-                                    <div id='staylate' class="option0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="multi-btn-group-form-group">
-                            <div class='multi-btn-group-form-group-label'>
-                                <span id='managerProfile_engagement_label'>How often do you engage your team before responding to management?</span>
-                            </div>
-                            <div style='display:inline-block;width:560px'>
-                                <div class="multi-btn-group clearfix">
-                                    <div id='createEditProfile_engage_options' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
-                                        <input type="radio" id="engage_option0" name="managerProfile_engagement_groupName" value="option0" class="accessAid" />
-                                        <label for="engage_option0" class='option0Label'>Almost never</label>
-                                        <input type="radio" id="engage_option1" name="managerProfile_engagement_groupName" value="option1" class="accessAid" />
-                                        <label for="engage_option1" class='option1Label'>Rarely</label>
-                                        <input type="radio" id="engage_option2" name="managerProfile_engagement_groupName" value="option2" class="accessAid" />
-                                        <label for="engage_option2" class='option2Label'>Sometimes</label>
-                                        <input type="radio" id="engage_option3" name="managerProfile_engagement_groupName" value="option3" class="accessAid" />
-                                        <label for="engage_option3" class='option3Label'>Usually</label>
-                                        <input type="radio" id="engage_option4" name="managerProfile_engagement_groupName" value="option4" class="accessAid" />
-                                        <label for="engage_option4" class='option4Label'>Almost always</label>
-                                    </div>
-                                    <div id='engage' class="option0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="multi-btn-group-form-group">
-                            <div class='multi-btn-group-form-group-label'>
-                                <span id='managerProfile_developmentOpportunities_Label'>How often do you approve development opportunities for your employees?</span>
-                            </div>
-                            <div style='display:inline-block;width:560px'>
-                                <div class="multi-btn-group clearfix">
-                                    <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
-                                        <input type="radio" id="devops_option0" name="managerProfile_developmentOpportunities_groupName" value="option0" class="accessAid" />
-                                        <label for="devops_option0" class='option0Label'>Almost never</label>
-                                        <input type="radio" id="devops_option1" name="managerProfile_developmentOpportunities_groupName" value="option1" class="accessAid" />
-                                        <label for="devops_option1" class='option1Label'>Rarely</label>
-                                        <input type="radio" id="devops_option2" name="managerProfile_developmentOpportunities_groupName" value="option2" class="accessAid" />
-                                        <label for="devops_option2" class='option2Label'>Sometimes</label>
-                                        <input type="radio" id="devops_option3" name="managerProfile_developmentOpportunities_groupName" value="option3" class="accessAid" />
-                                        <label for="devops_option3" class='option3Label'>Usually</label>
-                                        <input type="radio" id="devops_option4" name="managerProfile_developmentOpportunities_groupName" value="option4" class="accessAid" />
-                                        <label for="devops_option4" class='option4Label'>Almost always</label>
-                                    </div>
-                                    <div id='devops' class="option0"></div>
-                                </div>
-                            </div>
-                        </div>
+                        <p id="managerProfile_review"></p>
+                        <p id="managerProfile_stayLate"></p>
+                        <p id="managerProfile_engagement"></p>
+                        <p id="managerProfile_developmentOpportunities"></p>
                     </div>
                 </div>
-                <div class='profileSubSection'>
+                <div class="manager-decisions-tip">
+                    <p><strong>What is this?</strong></p>
+                    <p>Managers are asked to rate themselves on these four criterias to let applicants better understand their managing style using the following choices:</p>
+                    <p>Almost never, Sometimes, Usually, Almost Always</p>
+                </div>
+                <div class='profileSubSection manager-education'>
                     <div class='profileSubSectionTitleBar'>
                         <h2 id='managerProfileEducationTitle'>Education</h2>
                     </div>
-                    <p class='profileSubSectionBlock' id='managerProfileEducation'>This is my education.</p>
+                    <p id='managerProfileEducation'>This is my education.</p>
                 </div>
                 <div class='profileSubSection'>
                     <div class='profileSubSectionTitleBar'>
                         <h2 id='managerProfileExperienceTitle'>Work History</h2>
                     </div>
-                    <p class='profileSubSectionBlock' id='managerProfileExperience'>This is my work history.</p>
+                    <p id='managerProfileExperience'>This is my work history.</p>
                 </div>
             </div>
         </div>
