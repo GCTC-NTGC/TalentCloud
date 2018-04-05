@@ -528,7 +528,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
         CreateJobPosterAPI.localizeCreateJobPosterForm();
-        CreateEditProfileAPI.localizeCreateEditProfile();
+        CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
         
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
@@ -551,9 +551,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
         adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
-        
-        var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_label");
-        adminProfileBranchLabel.innerHTML = siteContent.adminProfileBranchLabel;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;

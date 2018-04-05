@@ -63,11 +63,18 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
     
 };
 
-CreateEditProfileAPI.localizeCreateEditProfile = function() {
+/**
+ * 
+ * @param {TalentCloudAPI.Content} siteContent
+ * @return {undefined}
+ */
+CreateEditProfileAPI.localizeCreateEditProfile = function(siteContent) {
     LookupAPI.populateDropdown("department", "createEditProfile_department");
-    if (siteContent) {
-        //TODO: move localizations here
-    }
+            
+    document.getElementById("createEditProfile_branch_labelName").innerHTML = siteContent.branch;
+    document.getElementById("createEditProfile_branch_fr_labelName").innerHTML = siteContent.branch;
+    document.getElementById("createEditProfile_division_labelName").innerHTML = siteContent.division;
+    document.getElementById("createEditProfile_division_fr_labelName").innerHTML = siteContent.division;
 };
 
 CreateEditProfileAPI.selectedUnit = function(newID){
