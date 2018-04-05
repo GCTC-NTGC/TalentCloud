@@ -1,13 +1,13 @@
 /*
- * 
+ *
  * The DataAPI manages the AJAX calls and callbacks to external data sources.
- * 
+ *
  * Author:		Gregg Bowden - Deloitte (gbowden@deloitte.ca)
  * Owner:			Deloitte
  */
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 var DataAPI = {};
@@ -69,7 +69,7 @@ DataAPI.getTalentCloudUI = function(locale,isManager){
 };
 
 /**
- * 
+ *
  * @param {type} evt
  * @returns {undefined}
  */
@@ -78,17 +78,17 @@ DataAPI.talentcloudDataUpdateProgress = function(evt){
     if(evt.lengthComputable){
         var total = evt.total;
         var value = evt.loaded;
-        
+
         Utilities.debug?console.log(total + "=" + value):null;
-    
+
         var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
         //var loadingProgress = document.getElementById("loadingProgress");
-        //loadingProgress.innerHTML = " " + percentComplete + "%";   
+        //loadingProgress.innerHTML = " " + percentComplete + "%";
     }
 };
 
 /**
- * 
+ *
  * @param {type} responseText
  * @returns {undefined}
  */
@@ -238,14 +238,16 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.managerProfile_developmentOpportunities_option2 = content.managerProfile_developmentOpportunities_option2;
     thisContent.managerProfile_developmentOpportunities_option3 = content.managerProfile_developmentOpportunities_option3;
     thisContent.managerProfile_developmentOpportunities_option4 = content.managerProfile_developmentOpportunities_option4;
+    thisContent.profileBasicInfoEditTitle = content.profileBasicInfoEditTitle;
+
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
-    
+
 };
 
 /**
- * 
+ *
  * @param {type} locale
  * @returns {undefined}
  */
@@ -275,7 +277,7 @@ DataAPI.getJobs = function(locale, responseCallback){
       getJobs_xhr = null;
 
     }
-    
+
     getJobs_xhr.addEventListener("progress",
     function(evt){
         DataAPI.updateProgress(evt);
@@ -313,7 +315,7 @@ DataAPI.getJobSeekers = function(locale){
       getJobSeekers_xhr = null;
 
     }
-    
+
     getJobSeekers_xhr.addEventListener("progress",
     function(evt){
         DataAPI.updateProgress(evt);
@@ -351,7 +353,7 @@ DataAPI.getDepartments = function(locale){
       getDepartments_xhr = null;
 
     }
-    
+
     getDepartments_xhr.addEventListener("progress",
     function(evt){
         DataAPI.updateProgress(evt);
@@ -368,7 +370,7 @@ DataAPI.getDepartments = function(locale){
 };
 
 /**
- * 
+ *
  * @param {int} user_id
  * @param {function} successfulResponseCallback - this will be called if the
  *  request comes back with readyState==4 and status==200
@@ -385,7 +387,7 @@ DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallba
 };
 
 /**
- * 
+ *
  * @param {type} evt
  * @returns {undefined}
  */
@@ -394,23 +396,23 @@ DataAPI.updateProgress = function(evt){
     if(evt.lengthComputable){
         var total = evt.total;
         var value = evt.loaded;
-        
+
         Utilities.debug?console.log(total + "=" + value):null;
-    
+
         var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
         //var loadingProgress = document.getElementById("loadingProgress");
-        //loadingProgress.innerHTML = " " + percentComplete + "%";   
+        //loadingProgress.innerHTML = " " + percentComplete + "%";
     }
 };
 
 DataAPI.loadedManager = function(response){
-    
+
     setTimeout(function(){
         JobSeekerAPI.populateJobSeekerObjects(JSON.parse(response));
         JobSeekerAPI.getJobSeekerCount();
     }
     ,1000);
-    
+
 };
 
 DataAPI.loadedManagerDepartments = function(response){
@@ -421,7 +423,7 @@ DataAPI.loadedManagerDepartments = function(response){
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 DataAPI.transferFailed = function(){
@@ -429,14 +431,14 @@ DataAPI.transferFailed = function(){
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 DataAPI.transferAborted = function(){
 };
 
 /**
- * 
+ *
  * @param {type} contactId
  * @returns {undefined}
  */
@@ -444,7 +446,7 @@ DataAPI.toggleFavourite = function(jobPostId){
     Utilities.debug?console.log("toggle Favourite contact"):null;
     var watchlist_url = DataAPI.baseURL+"/watchlist/toggle/"+jobPostId;
     var jsonData="";
-    
+
     xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
 
@@ -468,7 +470,7 @@ DataAPI.toggleFavourite = function(jobPostId){
 
     xhr.open('PUT',watchlist_url);
     xhr.setRequestHeader("Content-Type","application/json");
-    
+
     xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
     xhr.addEventListener("load",function(){
         DataAPI.toggleFavouriteCallback(jobPostId);
@@ -481,11 +483,11 @@ DataAPI.toggleFavourite = function(jobPostId){
 };
 
 DataAPI.updateToggleProgress = function(evt){
-    
+
 };
 
 /**
- * 
+ *
  * @param {type} contact
  * @returns {undefined}
  */
@@ -505,7 +507,7 @@ DataAPI.toggleFavouriteCallback = function(contact){
                 break;
             }
         };
-        
+
     if(updatedContact.isFavourite){
         ContactAPI.updateFavourite(true, contactToUpdate.id);
     }else{
@@ -514,16 +516,16 @@ DataAPI.toggleFavouriteCallback = function(contact){
 };
 
 /**
- * 
+ *
  * @param {type} evt
  * @returns {undefined}
  */
 DataAPI.updateToggleProgress = function(evt){
-    
+
 };
 
 /**
- * 
+ *
  * @param {type} contact
  * @returns {undefined}
  */
@@ -538,10 +540,10 @@ DataAPI.toggleFavouriteCallback = function(response,jobPostId){
 
 DataAPI.getCSRFTokenValue = function(){
     var csrfToken;
-    
+
     Utilities.debug?console.log("delete contact"):null;
     var csrfToken_url = DataAPI.baseURL+"/delete/"+contactId;
-    
+
     xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
 
@@ -574,19 +576,19 @@ DataAPI.getCSRFTokenValue = function(){
     xhr.addEventListener("abort",DataAPI.transferAborted,false);
 
     xhr.send(null);
-    
+
     return csrfToken;
 };
 
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 DataAPI.getContactCount = function(){
     Utilities.debug?console.log("loading contacts"):null;
     var contacts_url = DataAPI.baseURL+"/count";
-    
+
     xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
 
@@ -607,7 +609,7 @@ DataAPI.getContactCount = function(){
       xhr = null;
 
     }
-    
+
     xhr.addEventListener("progress",
     function(evt){
         //DataAPI.updateProgress(evt);
@@ -633,11 +635,11 @@ DataAPI.getJobPoster = function(locale, jobId, responseCallback){
 };
 
 /**
- * 
+ *
  * @param {String} url - the url endpoint of the request
- * @param {String} restMethod - 'GET', 'PUT', 'POST', or 'DELETE' 
- * @param {String:String map} headersMap - Map of extra reuqest headers for the 
- *      request. By default, Content-type and Accept are set to 'application/json', 
+ * @param {String} restMethod - 'GET', 'PUT', 'POST', or 'DELETE'
+ * @param {String:String map} headersMap - Map of extra reuqest headers for the
+ *      request. By default, Content-type and Accept are set to 'application/json',
  *      though this can be overridden with headersMap.
  * @param {Object} payload - the payload of the request
  * @param {function} requestCallback - this function will be called upon the'load'
@@ -673,7 +675,7 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
     Object.keys(headersMap).forEach(function(key) {
         request.setRequestHeader(key, headersMap[key]);
     });
-    
+
     request.addEventListener("progress", DataAPI.updateProgress, false);
     request.addEventListener("error", DataAPI.transferFailed, false);
     request.addEventListener("abort", DataAPI.transferAborted, false);
@@ -699,7 +701,7 @@ DataAPI.getUser = function(userId, responseCallback) {
 };
 
 /**
- * 
+ *
  * @param {JobApplicationAPI.JobApplication} jobApplication
  * @param {function} responseCallback
  * @return {undefined}
@@ -712,7 +714,7 @@ DataAPI.createJobApplication = function(jobApplication, responseCallback) {
 };
 
 /**
- * 
+ *
  * @param {int} managerProfileId
  * @param {CreateWorkEnvironment.WorkEnvironment} workplaceEnvironment
  * @param {function} responseCallback
@@ -726,7 +728,7 @@ DataAPI.submitWorkplaceEnvironment = function(managerProfileId, workplaceEnviron
 };
 
 /**
- * 
+ *
  * @param {int} managerProfileId
  * @param {function} responseCallback
  * @return {undefined}

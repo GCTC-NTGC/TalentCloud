@@ -668,7 +668,7 @@ and open the template in the editor .
                     <p id="createJobApplicationConfirmationTrackingReminder">
                         Track the application from your Dashboard.
                     </p>
-                    <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="JobPostAPI.showBrowseJobs();">
+                    <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="DashboardAPI.showDashboard();">
                         Continue to Dashboard
                     </button>
                 </div>
