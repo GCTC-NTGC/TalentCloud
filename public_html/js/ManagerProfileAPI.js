@@ -5,14 +5,14 @@ ManagerProfileAPI.ManagerProfile = function(){
     this.manager_profile_id = null;
     this.department_id = null;
     this.position = null;
-    this.branch_id = null;
-    this.division_id = null;
     this.twitter = null;
     this.linkedin = null;
     
     this.locale_id = null;
     this.about_me = null;
     this.accomplishment = null;
+    this.branch = null;
+    this.division = null;
     this.lead_style = null;
     this.employee_learning = null;
     this.expectations = null;
@@ -45,14 +45,14 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response) {
     profile.manager_profile_id = manager_profile.user_manager_profile_id;
     profile.department_id = manager_profile.user_manager_profile_department_id;
     profile.position = manager_profile.user_manager_profile_position;
-    profile.branch_id = manager_profile.user_manager_profile_branch_id;
-    profile.division_id = manager_profile.user_manager_profile_division_id;
     profile.twitter = manager_profile.user_manager_profile_twitter;
     profile.linkedin = manager_profile.user_manager_profile_linkedin;
     
     profile.locale_id = manager_profile_details.locale_id;
     profile.about_me = manager_profile_details.user_manager_profile_details_aboutme;
     profile.accomplishment = manager_profile_details.user_manager_profile_details_proud;
+    profile.branch = manager_profile_details.user_manager_profile_details_branch;
+    profile.division = manager_profile_details.user_manager_profile_details_division;
     profile.lead_style = manager_profile_details.user_manager_profile_details_lead_style;
     profile.employee_learning = manager_profile_details.user_manager_profile_details_emp_learn;
     profile.expectations = manager_profile_details.user_manager_profile_details_expectations;
@@ -130,7 +130,7 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     position.innerHTML = profile.position;
     
     var department = document.getElementById("managerProfileDepartment");
-    department.innerHTML = profile.department_id;
+    department.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile.department_id);
 
     var twitter_link = document.getElementById("managerProfileTwitterLink");
     var twitter_link_wrapper = document.getElementById("managerProfileTwitterLinkWrapper");

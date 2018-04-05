@@ -12,8 +12,6 @@ CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_id, 
         user_manager_profile_department_id,
         user_manager_profile_position,
-        user_manager_profile_branch_id,
-        user_manager_profile_division_id,
         user_manager_profile_twitter,
         user_manager_profile_linkedin,
         user_id,
@@ -21,8 +19,6 @@ CreateEditProfileAPI.ManagerProfile = function(
     this.user_manager_profile_id = user_manager_profile_id;
     this.user_manager_profile_department_id = user_manager_profile_department_id;
     this.user_manager_profile_position = user_manager_profile_position;
-    this.user_manager_profile_branch_id = user_manager_profile_branch_id;
-    this.user_manager_profile_division_id = user_manager_profile_division_id;
     this.user_manager_profile_twitter = user_manager_profile_twitter;
     this.user_manager_profile_linkedin = user_manager_profile_linkedin;
     this.user_id = user_id,
@@ -34,6 +30,8 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
         locale_id,
         user_manager_profile_details_aboutme,
         user_manager_profile_details_proud,
+        user_manager_profile_details_branch,
+        user_manager_profile_details_division,
         user_manager_profile_details_lead_style,
         user_manager_profile_details_emp_learn,
         user_manager_profile_details_expectations,
@@ -49,6 +47,8 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
     this.locale_id = locale_id;
     this.user_manager_profile_details_aboutme = user_manager_profile_details_aboutme;
     this.user_manager_profile_details_proud = user_manager_profile_details_proud;
+    this.user_manager_profile_details_branch = user_manager_profile_details_branch;
+    this.user_manager_profile_details_division = user_manager_profile_details_division;
     this.user_manager_profile_details_lead_style = user_manager_profile_details_lead_style;
     this.user_manager_profile_details_emp_learn = user_manager_profile_details_emp_learn;
     this.user_manager_profile_details_expectations = user_manager_profile_details_expectations;
@@ -263,8 +263,6 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     
     updated_manager_profile.user_manager_profile_position = document.getElementById("createEditProfile_position").value;
     updated_manager_profile.user_manager_profile_department_id = document.getElementById("createEditProfile_department").value;
-    updated_manager_profile.user_manager_profile_division_id = document.getElementById("createEditProfile_division").value;
-    updated_manager_profile.user_manager_profile_branch_id = document.getElementById("createEditProfile_branch").value;
     updated_manager_profile.user_manager_profile_twitter = document.getElementById("createEditProfile_twitter").value;
     updated_manager_profile.user_manager_profile_linkedin = document.getElementById("createEditProfile_linkedin").value;    
     
@@ -280,6 +278,8 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     
     updated_manager_profile_details.user_manager_profile_details_aboutme = document.getElementById("createEditProfile_bio").value;
     updated_manager_profile_details.user_manager_profile_details_proud = document.getElementById("createEditProfile_proudOf").value;
+    updated_manager_profile_details.user_manager_profile_details_branch = document.getElementById("createEditProfile_branch").value;
+    updated_manager_profile_details.user_manager_profile_details_division = document.getElementById("createEditProfile_division").value;
     updated_manager_profile_details.user_manager_profile_details_lead_style = document.getElementById("createEditProfile_leadership_style").value;
     updated_manager_profile_details.user_manager_profile_details_emp_learn = document.getElementById("createEditProfile_app_to_employees").value;
     updated_manager_profile_details.user_manager_profile_details_expectations = document.getElementById("createEditProfile_exp_of_employees").value;
@@ -846,8 +846,6 @@ CreateEditProfileAPI.populateProfile = function(response){
     
     manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
     manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
-    manager_profile.user_manager_profile_division_id = manager_profile_json["user_manager_profile_division_id"];
-    manager_profile.user_manager_profile_branch_id = manager_profile_json["user_manager_profile_branch_id"];
     manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
     manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
     
@@ -856,6 +854,8 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
     manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
     manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
+    manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_branch"];
+    manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_division"];
     manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
     manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
     manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
@@ -900,20 +900,11 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
     createEditProfile_proudOf.value = manager_profile_details.user_manager_profile_details_proud;
     
-    //createEditProfile_leadership_style
-    var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
-    createEditProfile_leadership_style.value = manager_profile_details.user_manager_profile_details_lead_style;
-    
-    var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
-    createEditProfile_app_to_employees.value = manager_profile_details.user_manager_profile_details_emp_learn;
-    
-    var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
-    createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
-    
+    //Position
     var profile_position = manager_profile.user_manager_profile_position;
     var profile_department_id = manager_profile.user_manager_profile_department_id;
-    var profile_division_id = manager_profile.user_manager_profile_division_id;
-    var profile_branch_id = manager_profile.user_manager_profile_branch_id;
+    var profile_division = manager_profile_details.user_manager_profile_details_division;
+    var profile_branch = manager_profile_details.user_manager_profile_details_branch;
     
     if(profile_position !== null){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
@@ -931,25 +922,22 @@ CreateEditProfileAPI.populateProfile = function(response){
         //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
         var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
         createEditProfile_department_preview.innerHTML = createEditProfile_department.innerHTML;
-    }
+    }    
     
-    if(profile_division_id !== null){
-        console.log(profile_division_id);
-        var createEditProfile_division = document.getElementById("createEditProfile_division");
-        createEditProfile_division.value = profile_division_id;
-        //FormsAPI.selectByValue(createEditProfile_division,profile_division_id.toString());
-        //var createEditProfile_division_preview = document.getElementById("createEditProfile_division_preview");
-        //createEditProfile_division_preview.innerHTML = createEditProfile_division.innerHTML;
-    }
+    document.getElementById("createEditProfile_branch").value = profile_branch;
+    document.getElementById("createEditProfile_division").value = profile_division;
     
-    if(profile_branch_id !== null){
-        console.log("profile_branch_id="+profile_branch_id);
-        var createEditProfile_branch = document.getElementById("createEditProfile_branch");
-        createEditProfile_branch.value = profile_branch_id;
-        //FormsAPI.selectByValue(createEditProfile_branch,profile_branch_id.toString());
-        //var createEditProfile_branch_preview = document.getElementById("createEditProfile_branch_preview");
-        //createEditProfile_branch_preview.innerHTML = createEditProfile_branch.innerHTML;
-    }
+    //createEditProfile_leadership_style
+    var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
+    createEditProfile_leadership_style.value = manager_profile_details.user_manager_profile_details_lead_style;
+    
+    var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
+    createEditProfile_app_to_employees.value = manager_profile_details.user_manager_profile_details_emp_learn;
+    
+    var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
+    createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
+    
+    //Social Media
     
     var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
     createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;

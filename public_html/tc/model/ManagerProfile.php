@@ -11,19 +11,15 @@ class ManagerProfile implements JsonSerializable{
     private $user_manager_profile_id;
     private $user_manager_profile_department_id;
     private $user_manager_profile_position;
-    private $user_manager_profile_branch_id;
-    private $user_manager_profile_division_id;
     private $user_manager_profile_twitter;
     private $user_manager_profile_linkedin;
     private $user_id;
     private $profile_pic;
     
-    public function __construct($user_manager_profile_id = null, $user_manager_profile_department_id = null, $user_manager_profile_position = null, $user_manager_profile_branch_id = null, $user_manager_profile_division_id = null, $user_manager_profile_twitter = null, $user_manager_profile_linkedin = null, $user_id = null, $profile_pic = null) {
+    public function __construct($user_manager_profile_id = null, $user_manager_profile_department_id = null, $user_manager_profile_position = null, $user_manager_profile_twitter = null, $user_manager_profile_linkedin = null, $user_id = null, $profile_pic = null) {
         $this->user_manager_profile_id = $user_manager_profile_id;
         $this->user_manager_profile_department_id = $user_manager_profile_department_id;
         $this->user_manager_profile_position = $user_manager_profile_position;
-        $this->user_manager_profile_branch_id = $user_manager_profile_branch_id;
-        $this->user_manager_profile_division_id = $user_manager_profile_division_id;
         $this->user_manager_profile_twitter = $user_manager_profile_twitter;
         $this->user_manager_profile_linkedin = $user_manager_profile_linkedin;
         $this->user_id = $user_id;
@@ -54,14 +50,6 @@ class ManagerProfile implements JsonSerializable{
         return $this->user_manager_profile_position;
     }
 
-    public function getUser_manager_profile_branch_id() {
-        return $this->user_manager_profile_branch_id;
-    }
-
-    public function getUser_manager_profile_division_id() {
-        return $this->user_manager_profile_division_id;
-    }
-
     public function getUser_manager_profile_twitter() {
         return $this->user_manager_profile_twitter;
     }
@@ -88,14 +76,6 @@ class ManagerProfile implements JsonSerializable{
 
     public function setUser_manager_profile_position($user_manager_profile_position) {
         $this->user_manager_profile_position = $user_manager_profile_position;
-    }
-
-    public function setUser_manager_profile_branch_id($user_manager_profile_branch_id) {
-        $this->user_manager_profile_branch_id = $user_manager_profile_branch_id;
-    }
-
-    public function setUser_manager_profile_division_id($user_manager_profile_division_id) {
-        $this->user_manager_profile_division_id = $user_manager_profile_division_id;
     }
 
     public function setUser_manager_profile_twitter($user_manager_profile_twitter) {

@@ -58,8 +58,6 @@
                 $managerProfile->setUser_manager_profile_id($managerProfileJSON["user_manager_profile_id"]);
                 $managerProfile->setUser_manager_profile_position($managerProfileJSON["user_manager_profile_position"]);
                 $managerProfile->setUser_manager_profile_department_id($managerProfileJSON["user_manager_profile_department_id"]);
-                $managerProfile->setUser_manager_profile_branch_id($managerProfileJSON["user_manager_profile_branch_id"]);
-                $managerProfile->setUser_manager_profile_division_id($managerProfileJSON["user_manager_profile_division_id"]);
                 $managerProfile->setUser_manager_profile_twitter($managerProfileJSON["user_manager_profile_twitter"]);
                 $managerProfile->setUser_manager_profile_linkedin($managerProfileJSON["user_manager_profile_linkedin"]);
                 //var_dump($managerProfile);
@@ -69,6 +67,8 @@
                 $managerProfileDetails->setLocale_id($managerProfileDetailsJSON["locale_id"]);
                 $managerProfileDetails->setUser_manager_profile_id($managerProfileDetailsJSON["user_manager_profile_id"]);
                 $managerProfileDetails->setUser_manager_profile_details_aboutme($managerProfileDetailsJSON["user_manager_profile_details_aboutme"]);
+                $managerProfileDetails->setUser_manager_profile_details_branch($managerProfileDetailsJSON["user_manager_profile_details_branch"]);
+                $managerProfileDetails->setUser_manager_profile_details_division($managerProfileDetailsJSON["user_manager_profile_details_division"]);
                 $managerProfileDetails->setUser_manager_profile_details_emp_learn($managerProfileDetailsJSON["user_manager_profile_details_emp_learn"]);
                 $managerProfileDetails->setUser_manager_profile_details_expectations($managerProfileDetailsJSON["user_manager_profile_details_expectations"]);
                 $managerProfileDetails->setUser_manager_profile_details_lead_style($managerProfileDetailsJSON["user_manager_profile_details_lead_style"]);
