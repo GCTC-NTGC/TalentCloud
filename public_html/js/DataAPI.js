@@ -171,7 +171,6 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.taglineTertiary = content.taglineTertiary;
     thisContent.howItWorksHeading = content.howItWorksHeading;
     thisContent.howItWorksLead = content.howItWorksLead;
-    //thisContent.howItWorksMainHtml = content.howItWorksMainHtml;
     thisContent.logoSrc = content.logoSrc;
     thisContent.logoAlt = content.logoAlt;
     thisContent.ownYourStory = content.ownYourStory;
