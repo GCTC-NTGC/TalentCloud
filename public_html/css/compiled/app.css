@@ -4101,6 +4101,246 @@ main .btn-default {
   /* IE9 Compt fix */
   src: local("☺"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.eot?#iefix") format("embedded-opentype"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.woff2") format("woff2"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.woff") format("woff"), url("/webfonts/hk-grotesk/TTF/HKGrotesk-Regular.ttf") format("truetype"); }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Messaging
+    This is refactored code from a legacy file.
+
+============================================================================= */
+.pageOverlay {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 46px;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.85); }
+
+.yesNoModalOverlay {
+  text-align: center;
+  margin-bottom: 10px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.55);
+  z-index: 2000; }
+
+.yesNoModalOverlay:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em;
+  /* Adjusts for spacing */
+  margin-top: -46px; }
+
+.yesNoModalWindow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 33%;
+  height: 300px;
+  min-height: 360px;
+  min-width: 420px;
+  border: 1px solid #cc0000;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px #666;
+  background-color: #fff; }
+
+.yesNoModalContent {
+  margin: 5%;
+  font-size: 100%;
+  vertical-align: middle;
+  position: relative;
+  top: 20%;
+  -ms-transform: translate(0, -20%);
+  transform: translateY(-20%); }
+
+#yesNoModalTitle {
+  font-size: 120%;
+  margin-bottom: 2%;
+  text-decoration: underline; }
+
+#yesNoModalText {
+  margin: 0px auto;
+  margin-top: 3%;
+  text-align: center;
+  overflow: hidden;
+  width: 80%; }
+
+#modalButtons {
+  margin-top: 3%;
+  text-align: center; }
+
+.yesNoModalYesButton,
+.yesNoModalNoButton {
+  color: #000000;
+  padding: 0.5em;
+  border: 1px solid #999;
+  background-color: #ddd;
+  border-radius: 5px;
+  /*float: left;*/
+  font-size: 100%;
+  margin: 0.5em auto;
+  cursor: pointer;
+  min-width: 10em; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Slider Buttons
+    This is refactored code from a legacy file.
+
+============================================================================= */
+.toggle-btn-group {
+  border: #ccc 1px solid;
+  position: relative;
+  width: 6rem;
+  height: 2rem;
+  border-radius: 3px; }
+
+#bgcolor.left {
+  transition: left 0.5s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  width: 3rem;
+  height: 2rem;
+  background-color: #ccc; }
+
+#bgcolor.right {
+  transition: left 0.5s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  left: 3rem;
+  width: 3rem;
+  height: 2rem;
+  background-color: #ccc; }
+
+.toggle-btn-group label {
+  transition: all 0.5s ease-in-out;
+  display: inline-block;
+  width: 2.8rem;
+  height: 2rem;
+  text-align: center;
+  cursor: pointer;
+  color: #ccc;
+  vertical-align: middle;
+  line-height: 2.1rem;
+  font-weight: 400; }
+
+.toggle-btn-group input[type="radio"]:checked + label {
+  color: #000; }
+
+.toggle-btn-group label:hover, .toggle-btn-group label:focus {
+  color: #000; }
+
+/* hide visually */
+.accessAid {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden; }
+
+.multi-btn-group-form-group {
+  display: block;
+  line-height: 3em; }
+
+.multi-btn-group-form-group-label {
+  display: inline-block;
+  width: 560px;
+  line-height: 1.5em;
+  vertical-align: top; }
+
+.multi-btn-group-form-group-label span {
+  line-height: 0em !important;
+  line-height: 1em !important;
+  font-size: 14px !important; }
+
+.multi-btn-group {
+  position: relative;
+  width: 560px;
+  height: 3rem;
+  background-color: #ddd;
+  font-size: 0; }
+
+.multi-btn-group label {
+  transition: all 0.5s ease-in-out;
+  display: inline-block;
+  width: 112px;
+  height: 3rem;
+  text-align: center;
+  cursor: pointer;
+  color: #777;
+  vertical-align: middle;
+  line-height: 3.1rem;
+  font-weight: 400;
+  white-space-collapsing: discard;
+  font-size: 12px !important; }
+
+.multi-btn-group input[type="radio"]:checked + label {
+  color: #000; }
+
+.multi-btn-group label:hover, .multi-btn-group label:focus {
+  color: #000; }
+
+.option0Label,
+.option1Label,
+.option2Label,
+.option3Label,
+.option4Label {
+  /*margin-left:-6px !important;*/ }
+
+#review_options,
+#staylate,
+#engage,
+#devops,
+#lvwRequests {
+  border-bottom: 5px solid #5599e5;
+  height: 3rem;
+  position: absolute;
+  transition: left 0.5s ease-in-out;
+  width: 112px; }
+  #review_options.option0,
+  #staylate.option0,
+  #engage.option0,
+  #devops.option0,
+  #lvwRequests.option0 {
+    top: 0rem;
+    left: 0px; }
+  #review_options.option1,
+  #staylate.option1,
+  #engage.option1,
+  #devops.option1,
+  #lvwRequests.option1 {
+    top: 0rem;
+    left: 112px; }
+  #review_options.option2,
+  #staylate.option2,
+  #engage.option2,
+  #devops.option2,
+  #lvwRequests.option2 {
+    top: 0rem;
+    left: 224px; }
+  #review_options.option3,
+  #staylate.option3,
+  #engage.option3,
+  #devops.option3,
+  #lvwRequests.option3 {
+    top: 0rem;
+    left: 336px; }
+  #review_options.option4,
+  #staylate.option4,
+  #engage.option4,
+  #devops.option4,
+  #lvwRequests.option4 {
+    top: 0rem;
+    left: 448px; }
+
 /* Molecules ================================================================ */
 /* Organisms ================================================================ */
 /* UTILITY */
