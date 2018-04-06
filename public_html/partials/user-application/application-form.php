@@ -66,8 +66,8 @@
                             <form class="form__wrapper">
                                 <!-- DEV-NOTE: Accessibility wise, we'll want to add numeric values to the for and ID values here to ensure there is no repitition. Each skill accordion will require its own set. -->
                                 <label class="form__label" for="selectYearsOfExperience">Years of Experience</label>
-                                <div class="form__select-wrapper" id="selectYearsOfExperience" name="Select Years of Experience">
-                                    <select class="form__select">
+                                <div class="form__select-wrapper">
+                                    <select class="form__select" id="selectYearsOfExperience" name="Select Years of Experience">
                                         <option>1 or Less</option>
                                         <option>2 - 3</option>
                                         <option>4 - 5</option>
