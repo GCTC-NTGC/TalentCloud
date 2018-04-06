@@ -308,15 +308,17 @@ and open the template in the editor .
 
                     <div class="hiringManagerSummaryWrapper">
                         <div id='hiringManagerSummaryImageWrapper'>
-                            <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
-                            <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
+                            <a href="#" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                                <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
+                                <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
+                            </a>
                         </div>
                         <div id='hiringManagerSummaryContentWrapper' >
                             <h4><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></h4>
                             <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
                             <div id='hiringManagerSummaryButtonWrapper'>
                                 <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
-                                    Read More
+                                    Read Profile
                                 </button>
                             </div>
                         </div>
