@@ -428,21 +428,28 @@ JobPostAPI.populateJobPoster = function(jobData){
        document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
        
        /*Truncating Manager About Me*/ 
+        //Get rid of read more feature. User must click read profile to read all information.
        var len = 250;
        if (managerProfile.about_me.length > 0) {
             var fullText = managerProfile.about_me;
             var id = "jobPosterHiringManagerAboutMe";
             var aboutMe = document.getElementById(id);
 
+
+
             if(fullText.length > len){
                var trunc = fullText.substring(0, len).replace(/\w+$/, '');
                var remainder = fullText.substring(len, fullText.length);
 
+                aboutMe.innerHTML = trunc.concat("...");
+
+               /*
+               //Code for repurposing
                var showMoreAnchor = document.createElement("a");
                showMoreAnchor.setAttribute("id", id + "_MoreLink");
                showMoreAnchor.setAttribute("href", "javascript:void(0)");
                showMoreAnchor.setAttribute("onclick", "JobPostAPI.showMoreHiringManagerSummary(\"" + id + "\")");
-               showMoreAnchor.innerHTML = "...";
+               showMoreAnchor.innerHTML = "..."; // Append this to the truncating
 
                var showLessAnchor = document.createElement("a");
                showLessAnchor.setAttribute("id", id + "_LessLink");
@@ -472,8 +479,8 @@ JobPostAPI.populateJobPoster = function(jobData){
                aboutMe.appendChild(space);
                aboutMe.appendChild(showMoreAnchor);
                aboutMe.appendChild(showLessAnchor);
+               */
 
-               //shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="javascript:void(0)" onclick="JobPostAPI.showMoreHiringManagerSummary(\''+ id + '\');">Read More</a><a class="hidden" href="javascript:void(0)" id="' + id + 'LessLink" onclick="JobPostAPI.showLessHiringManagerSummary(\''+ id + '\');">Less</a>';
             } else {
                 aboutMe.innerHTML = fullText;
             }
