@@ -894,7 +894,7 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
         clearBtn,
         uploadBtn,
         UserAPI.getSessionUserAsJSON().user_id,
-        JobSeekerAPI.onProfilePicUploaded
+        CreateEditProfileAPI.onProfilePicUploaded
     );
 
     modalSize();

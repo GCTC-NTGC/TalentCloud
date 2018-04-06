@@ -17,7 +17,7 @@
             <div class="box med-1of7"></div>
 
             <div class="box full update-profile-photo__admin-button-wrapper">
-                <button class="button--grey" id="profileBasicInfoEditCancel" value="Cancel" class="button--grey" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()">Cancel</button>
+                <button class="button--grey" id="profileBasicInfoEditCancel" value="Cancel" class="button--grey" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</button>
                 <button class="button--yellow" id="profilePicUploadBtn">Save Photo</button>
             </div>
 
