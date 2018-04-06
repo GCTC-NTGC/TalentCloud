@@ -165,34 +165,7 @@ and open the template in the editor .
             </div>
 
             <!-- Profile Photo Modal -->
-            <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
-                <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
-                    <div id="profilePicUploadTitleWrapper" class="dialogTitle">
-                        <strong id="profilePicUploadTitle" title="Upload a new profile image">Upload a new profile image</strong>
-                        <div class="hidden" id="profilePicUploadDescription">Upload a new profile image</div>
-                    </div>
-                    <div class="fileUpload">
-                        <div class="leftPane">
-                            <div>
-                                <label for="profilePicUploadField">Profile picture</label>
-                                <input type="file" id="profilePicUploadField" class="fileInput" name="Profile Pic" accept="image/*" />
-                            </div>
-                            <div id="profilePicUploadDrop" class="fileDropZone fileDropZoneNormal">
-                                <p>Drop file here</p>
-                            </div>
-                        </div>
-                        <div class="rightPane">
-                            <div id="fileUploadPreviewPanel" class="uploadFileThumbnail" style="min-height:130px;">
-                                <img id="fileUploadPreviewImg" src="/images/user.png"/>
-                            </div>
-                            <div id="fileUploadButtons">
-                                <a id="profilePicCancelBtn" href="javascript:void(0)" class="btn btn-default" onclick="CreateEditProfileAPI.hideUploadProfilePic()">Cancel</a>
-                                <a id="profilePicUploadBtn" class="btn btn-primary" href="#" title="Upload all files in list">Save</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include '../partials/modals/admin-edit-profile.php';?>
 
             <!-- BEGIN - Standard Yes/No Modal Popup-->
             <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay" role="dialog">
@@ -218,22 +191,10 @@ and open the template in the editor .
         </div>
         <main>
             <section class="pageContent" id="homePageContentSection">
-                <div class="pageBanner">
-                    <div id="logo-container" class="logo-container">
-                        <div class="container">
-                            <div class="page-banner--logo-container flexContainerVerticallyCentered">
-                                <div class="page-banner--logo flexLeftOfCenter">
-                                    <a href="/" aria-label="GC Talent Cloud">
-                                        <img id="logoSrc" class="tc-logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud logo"/>
-                                    </a>
-                                </div>
-                                <div class="page-banner--logo-tagline-divider"></div>
-                                <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
-                            </div>
-                            <p id="adminTagline" class="centered">Changing government through it's people</p>
-                        </div>
-                    </div>
-                </div>
+                
+                <!-- Landing Hero -->
+                <?php include "../partials/landing-hero.php"; ?>
+                
                 <div class="pageBody" id="homePageContent">
                 </div>
             </section>

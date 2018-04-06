@@ -162,7 +162,7 @@ and open the template in the editor .
         </div>
     </div>
 
-    <?php include 'partials/modals/edit-profile.php';?>
+    <?php include 'partials/modals/user-edit-profile.php';?>
 
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
@@ -207,21 +207,10 @@ and open the template in the editor .
 <!-- BEGIN - Main Content Section-->
 <main>
     <section class="pageContent" id="homePageContentSection">
-        <div class="pageBanner">
-            <div id="logo-container" class="logo-container">
-                <div class="container">
-                    <div class="page-banner--logo-container flexContainerVerticallyCentered">
-                        <div class="page-banner--logo flexLeftOfCenter">
-                            <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
-                            </a>
-                        </div>
-                        <div class="landing-hero__tagline-divider page-banner--logo-tagline-divider"></div>
-                        <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        <!-- Landing Hero -->
+        <?php include "partials/landing-hero.php";?>
+
         <div class="pageBody" id="homePageContent">
             <section class="section homepage--intro">
                 <div class="container">
@@ -707,38 +696,10 @@ and open the template in the editor .
             </div>
         </div>
     </section>
-    <section class="pageContent hidden" id="createJobApplicationSection">
-        <div class="pageBanner">
-            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
-            <div class="container centered">
-                <p id="createJobApplicationPositionLabel">for the position of:</p>
-                <h3 id="createJobApplicationPostition">Job title</h3>
-            </div>
-            <input type='hidden' id='createJobApplicationJobApplicationId' />
-            <input type='hidden' id='createJobApplicationJobPosterId' />
-            <input type='hidden' id='createJobApplicationJobSeekerId' />
-        </div>
-        <div class="pageBody">
-            <div class="container centered">
-                <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
-                <div class="profileName">
-                    <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
-                </div>
-            </div>
-            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="container">
-                    <div id="createJobApplicationOpenEndedQuestionsWrapper">
+    
+    <!-- User Application: Application Form -->
+    <?php include "partials/user-application/application-form.php"; ?>
 
-                    </div>
-                </div>
-            </form>
-            <div id='createJobApplicationButtonWrapper'>
-                <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
-                    Submit
-                </button>
-            </div>
-        </div>
-    </section>
     <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
          <div class="pageBanner">
             <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
