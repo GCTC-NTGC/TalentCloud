@@ -1,30 +1,24 @@
-<?php //header('Content-Type: text/html; charset=utf-8'); ?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor . 
+and open the template in the editor .
 -->
 <html lang="en">
 <head>
     <title>GC Talent Cloud</title>
+    <!-- Include for JS files -->
     <?php include 'inc/head.php'; ?>
 </head>
 
 <body>
-<ul id="wb-tphp">
-    <li class="wb-slc">
-        <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
-    </li>
-</ul>
-<div class="announcement-banner">
-    <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
-</div>
 
+<!-- Include for Federal Identity Program (black banner) -->
 <?php include 'inc/fip.php';?>
+<!-- Include for main navigation -->
 <?php include 'inc/nav.php';?>
 
-<!-- A top-level dialog or overlay elements should be children of this div-->
+<!-- BEGIN - All top-level dialog or overlay elements should be children of this div -->
 <div id="overlays">
 
     <!-- BEGIN - Registration Dialog and Overlay-->
@@ -82,7 +76,7 @@ and open the template in the editor .
                         <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register();">
                     </div>
                     <div class="clear"></div>
-                </form>  
+                </form>
             </div>
         </div>
     </div>
@@ -108,6 +102,7 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+    <!-- END - Registration Dialog and Overlay-->
 
     <!-- BEGIN - Login Modal Dialog and Overlay-->
     <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
@@ -142,7 +137,7 @@ and open the template in the editor .
                                 <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
                             </div>
                         </div>
-                    </div>                
+                    </div>
                     <div>
                         <div style="margin: 1em 0 0 0;" class="hidden">
                             <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
@@ -151,7 +146,7 @@ and open the template in the editor .
                             <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
                         </div>
                     </div>
-                                        
+
                     <div class="formButtonWrapper">
                         <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
                         <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
@@ -161,6 +156,7 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+    <!-- END - Login Modal Dialog and Overlay-->
 
     <?php include 'partials/modals/edit-profile.php';?>
 
@@ -189,6 +185,7 @@ and open the template in the editor .
             </div>
         </div>
     </div>
+    <!-- END - About Me Edit Overlay-->
 
     <!-- BEGIN - Standard Yes/No Modal Popup-->
     <div id="yesNoModalOverlay" class="yesNoModalOverlay hidden" role="dialog">
@@ -201,120 +198,17 @@ and open the template in the editor .
             </div>
         </div>
     </div>
-
+    <!-- END - Standard Yes/No Modal Popup-->
+<!-- END - Overlays -->
 </div>
 
 <!-- BEGIN - Main Content Section-->
 <main>
-    <section class="pageContent" id="homePageContentSection">
-        <div class="pageBanner">
-            <div id="logo-container" class="logo-container">
-                <div class="container">
-                    <div class="page-banner--logo-container flexContainerVerticallyCentered">
-                        <div class="page-banner--logo flexLeftOfCenter">
-                            <a href="/" role="img" aria-label="GC Talent Cloud">
-                                <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
-                            </a>
-                        </div>
-                        <div class="landing-hero__tagline-divider page-banner--logo-tagline-divider"></div>
-                        <div class="page-banner--tagline flexRightOfCenter" id="taglineMain">People want meaningful work.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="pageBody" id="homePageContent">
-            <section class="section homepage--intro">
-                <div class="container">
-                    <p class="lead" id="taglineSecondary"><a id="mission"></a>The jobs are real. The platform is experimental.</p>
-                    <p id="taglineTertiary">Help us build a new hiring model for the Government of Canada.</p>
-                </div>
-            </section>
-            <section class="section page-what-we-do">
-                <div class="container">
-                    <h2 class="section--title" id="howItWorksHeading">How It Works</h2>
-                        <p id="howItWorksLead">GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.</p>
-                        <ul class="icon-list">
-                                <li class="item">
-                                        <span class="item-icon"><i class="fa fa-map-signs fa-fw"></i></span>
-                                        <span class="item-text">
-                                            <h3 id="ownYourStory">Own Your Story</h3>
-                                            <p id="ownYourStoryText">Everyone is unique. Participate in a job selection process that lets you tell your story your way.</p>
-                                        </span>
-                                </li>
-                                <li class="item">
-                                        <span class="item-icon"><i class="fa fa-search fa-fw"></i></span>
-                                        <span class="item-text">
-                                            <h3 id="getFound">Get Found</h3>
-                                            <p id="getFoundText">Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.</p>
-                                        </span>
-                                </li>
-                                <li class="item">
-                                        <span class="item-icon"><i class="fa fa-handshake-o"></i></span>
-                                        <span class="item-text">
-                                            <h3 id="contribute">Contribute</h3>
-                                            <p id="contributeText">Find meaningful work that has an impact on Canadians… and be part of the effort to design a better hiring process for Government jobs.</p>
-                                        </span>
-                                </li>
-                        </ul>
-                        <p id="howItWorksLeadOut">We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
-                        <p><span id="howItWorksLast">Interested in chatting about a potential partnership?</span> <a id="contactUs" href="/contact/">Contact us!</a></p>
-                    
-                </div>
-            </section>
-            <section class="section section--featured-video">
-                <div class="container video-container">
 
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <video width="640" height="360" controls id="video_player" controlsList="nodownload">
-                            <source src="videos/1479932728445-v0ch3x.mp4" type="video/mp4">
-                            Your browser does not support the <code>video</code> tag.
-                        </video>
-                        <script type="text/javascript">
-                            var video_player = document.getElementById('video_player');
-                            video_player.volume = 0.5;
-                        </script>
-                    </div>
+<!-- Include for home page content -->
+<?php include "inc/content.php"; ?>
 
-                    <div>
-                        <a id="transcript" href="#video-transcript" title="Video Transcript" class="button small outline dark wb-lbx lbx-modal wb-init wb-lbx-inited" id="wb-auto-2">Transcript</a>
-                    </div>
-
-                    <section id="video-transcript" class="mfp-hide modal-dialog modal-content overlay-def">
-                        <header class="modal-header">
-                            <h2 class="modal-title">Transcript</h2>
-                        </header>
-                        <div class="modal-body">
-                            <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
-                            <p>We're about making it faster, simpler, and easier, to access government services online.</p>
-                            <p>We are bringing together top talent from inside and outside of government that includes developers, designers, data scientists and user experience researchers. We're partnering with departments to solve problems, in order to make services better.</p>
-                            <p>We're working in the open, using agile methods and constantly iterating, while relentlessly focusing on user needs.</p>
-                            <p>CDS is not about IT. It's about service. User centric government services. It's about recognizing services need to be at the centre of our priorities as a government. Our relevance to citizens is in jeopardy if we can't deliver digital services.</p>
-                            <p>We are learning from digital government movements across the globe, and working with the digital community across Canada, to shape a Canadian Digital Service.</p>
-                            <p>Together, we can deliver world-class services that are simple and easy to use. It's what Canadians expect. Open. Agile. And focused on delivery. We are the Canadian Digital Service.</p>
-                        </div>
-                    </section>
-
-                </div>
-            </section>
-            <section class="section homepage--our-team">
-                <div class="page-banner--scrim"></div>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h2 class="section--title" id="ourTeam">Our Team</h2>
-                            <p id="ourTeamText">We are a small but growing team of public servants passionate about the future of talent in Canada. Learn more about us and make your own contribution to GC Talent Cloud by joining us on one of these channels.</p>
-                            <p>
-                                <a href="https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent" target="_blank" class="button yellow">GCcollab</a>
-                                <a href="https://twitter.com/TalentCloudGC" target="_blank" class="button yellow">Twitter</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </section>
-    
+    <!-- BEGIN - Browse Jobs Section -->
     <section class="pageContent hidden" id="browseJobsSection">
         <div class="pageBanner">
             <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
@@ -327,20 +221,22 @@ and open the template in the editor .
                 <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
             </div>
             <div id="jobList" class="jobList hidden">
-                
-            
+
+
             </div>
-            
+
             <div id="jobPosterApplication" class="hidden">
 
             </div>
         </div>
- 
+
         <div class="jobCount hidden">
             <span id="contactCount">0</span> jobs
         </div>
     </section>
-    
+    <!-- END - Browse Jobs Section -->
+
+    <!-- BEGIN - View Job Poster Section -->
     <section class="pageContent hidden" id="viewJobPosterSection">
         <div class="pageBanner">
             <div id="jobPosterHeaderSection" class="container">
@@ -409,8 +305,8 @@ and open the template in the editor .
                 <div class='container'>
                     <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
                     <input type='hidden' id='jobPosterHiringManagerUserId'/>
-                    
-                    <div class="hiringManagerSummaryWrapper">  
+
+                    <div class="hiringManagerSummaryWrapper">
                         <div id='hiringManagerSummaryImageWrapper'>
                             <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
                             <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
@@ -435,7 +331,7 @@ and open the template in the editor .
                         <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
                         <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
                     </div>
-                    <div class="workEnvironmentSummaryWrapper">  
+                    <div class="workEnvironmentSummaryWrapper">
                         <div id='workEnvironmentSummaryImagesWrapper'>
                             <figure>
                                 <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
@@ -470,7 +366,9 @@ and open the template in the editor .
             </div>
         </div>
     </section>
-    
+    <!-- END - View Job Poster Section -->
+
+    <!-- BEGIN - Applicant Profile Section -->
     <section class="pageContent hidden" id="profileSection">
         <div class="pageBanner">
             <div class="profileBannerFiller"></div>
@@ -479,14 +377,14 @@ and open the template in the editor .
             <div class="container">
                 <div id="profileBasicInfo" class="profileBasicInfo centered">
                     <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
-                        <div class="flexLeftOfCenter"> 
-                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                        <div class="flexLeftOfCenter">
+                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks">
                                 <li id="profileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
                                 <li id="profileLinkedinLinkWrapper" class="hidden">
                                     <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
-                                </li>    
+                                </li>
                             </ul>
                         </div>
                         <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
@@ -534,6 +432,9 @@ and open the template in the editor .
             </div>
         </div>
     </section>
+    <!-- END - Applicant Profile Section -->
+
+    <!-- BEGIN - Manager Profile Section -->
     <section class="pageContent hidden" id="managerProfileSection">
         <div class="pageBanner">
             <div class="profileBannerFiller"></div>
@@ -542,14 +443,14 @@ and open the template in the editor .
             <div class="container">
                 <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
                     <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
-                        <div class="flexLeftOfCenter"> 
-                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks"> 
+                        <div class="flexLeftOfCenter">
+                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks">
                                 <li id="managerProfileTwitterLinkWrapper" class="hidden">
                                     <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                                 </li>
                                 <li id="managerProfileLinkedinLinkWrapper" class="hidden">
                                     <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
-                                </li>    
+                                </li>
                             </ul>
                         </div>
                         <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
@@ -622,6 +523,9 @@ and open the template in the editor .
             </div>
         </div>
     </section>
+    <!-- END - Manager Profile Section -->
+
+    <!-- BEGIN - Job Application Section -->
     <section class="pageContent hidden" id="createJobApplicationSection">
         <div class="pageBanner">
             <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
@@ -654,6 +558,9 @@ and open the template in the editor .
             </div>
         </div>
     </section>
+    <!-- END - Job Application Section -->
+
+    <!-- BEGIN - Job Application Confirmation Section -->
     <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
          <div class="pageBanner">
             <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
@@ -684,12 +591,14 @@ and open the template in the editor .
             <div class="container" id="dashboardContainer">
                 <h3 id="yourApplicationsTitle">Your Applications</h3>
                 <div id="yourApplications">
-                    
+
                 </div>
             </div>
         </div>
     </section>
+    <!-- END - Job Application Confirmation Section -->
 </main>
+<!-- Include for footer -->
 <?php include 'inc/footer.php';?>
 </body>
 </html>

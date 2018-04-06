@@ -1,3 +1,13 @@
+<ul id="wb-tphp">
+    <li class="wb-slc">
+        <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
+    </li>
+</ul>
+
+<div class="announcement-banner">
+    <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+</div>
+
 <header>
 <div id="fip">
     <div class="container">
