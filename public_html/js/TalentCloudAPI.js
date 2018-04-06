@@ -527,7 +527,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
-        CreateJobPosterAPI.localizeCreateJobPosterForm();
+        CreateJobPosterAPI.localizeCreateJobPosterForm(siteContent);
         CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
         
         //Admin side only headers

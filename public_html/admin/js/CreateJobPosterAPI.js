@@ -10,6 +10,9 @@ var CreateJobPosterAPI = {};
 
 CreateJobPosterAPI.jobPosterObj = null;
 
+CreateJobPosterAPI.version = "v1";
+CreateJobPosterAPI.baseURL = "/tc/api/"+CreateJobPosterAPI.version+"";
+
 CreateJobPosterAPI.JobPostNonLocalized = function(
         id,
         manager_user_id,
@@ -112,18 +115,43 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     
     document.getElementById("createJobPoster_openDate").value = Utilities.formatDateTimeLocal(new Date());
     
+    CreateJobPosterAPI.getManagerProfile(CreateJobPosterAPI.prepopulateValuesFromManagerProfile);
+    
     var createJobPosterSection = document.getElementById("createJobPosterSection");
     createJobPosterSection.classList.remove("hidden");
 };
 
-CreateJobPosterAPI.localizeCreateJobPosterForm = function() {
+CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {
     LookupAPI.populateDropdown("department", "createJobPoster_department");
     LookupAPI.populateDropdown("province", "createJobPoster_province");
-    if (siteContent) {
-        document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
-        document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
-    }
+    
+    document.getElementById("createJobPoster_branch_labelName").innerHTML = siteContent.branch;
+    document.getElementById("createJobPoster_branch_fr_labelName").innerHTML = siteContent.branch;
+    document.getElementById("createJobPoster_division_labelName").innerHTML = siteContent.division;
+    document.getElementById("createJobPoster_division_fr_labelName").innerHTML = siteContent.division;
+    
+    document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
+    document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
+
 }
+
+CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function(managerProfileResponse) {
+    if (managerProfileResponse) {
+        var response = JSON.parse(managerProfileResponse);
+        
+        document.getElementById("createJobPoster_department").value = response.manager_profile.user_manager_profile_department_id;
+        
+        //TODO: prepopulate french fields as well
+        var branch = response.manager_profile_details.user_manager_profile_details_branch;
+        if (branch) {
+            document.getElementById("createJobPoster_branch").value = branch;
+        }
+        var division = response.manager_profile_details.user_manager_profile_details_division;
+        if (division) {
+            document.getElementById("createJobPoster_division").value = division;
+        }
+    }
+};
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
 CreateJobPosterAPI.goToTab = function(tabId) {
@@ -288,7 +316,7 @@ CreateJobPosterAPI.hideCreateJobPosterForm = function(){
 };
 
 CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
-    var createJobPoster_URL = DataAPI.baseURL+"/createJobPoster";
+    var createJobPoster_URL = CreateJobPosterAPI.baseURL+"/createJobPoster";
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
     var authToken = "";
@@ -340,4 +368,43 @@ CreateJobPosterAPI.postJobPosterComplete = function(response) {
     
     
     
+};
+
+CreateJobPosterAPI.getManagerProfile = function(responseCallback){
+    if (UserAPI.hasSessionUser()) {
+        var user = UserAPI.getSessionUserAsJSON();
+        var authToken = UserAPI.getAuthTokenAsJSON();
+        var user_id = user["user_id"];
+        var manager_profile_url = CreateJobPosterAPI.baseURL + "/getManagerProfile/"+user_id;
+        var manager_profile_xhr = new XMLHttpRequest();
+        if ("withCredentials" in manager_profile_xhr) {
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            manager_profile_xhr.open("GET", manager_profile_url);
+
+        } else if (typeof XDomainRequest != "undefined") {
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            manager_profile_xhr = new XDomainRequest();
+            manager_profile_xhr.open("GET", manager_profile_url);
+        } else {
+            // Otherwise, CORS is not supported by the browser.
+            manager_profile_xhr = null;
+            // TODO: indicate to user that browser is not supported
+        }
+
+        manager_profile_xhr.open('GET', manager_profile_url);
+        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
+        manager_profile_xhr.setRequestHeader("Accept", "application/json");
+        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
+        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
+        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
+        manager_profile_xhr.addEventListener("load", function () {
+            responseCallback(manager_profile_xhr.response);
+        }, false);
+        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
+        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
+
+        manager_profile_xhr.send(null);
+    }
 };

@@ -1045,6 +1045,56 @@ and open the template in the editor .
                                                         <option value="">--</option>
                                                     </select>
                                                 </div>
+                                                <div class="flex-grid top">
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_branch">
+                                                            <span><span id="createJobPoster_branch_labelName">Branch</span> (English):</span>
+                                                            <strong id="createJobPoster_branch_error" class="error hidden">
+                                                                <span id="createJobPoster_branch_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_branch" id="createJobPoster_branch"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="box small-1of11"></div>
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_branch_fr">
+                                                            <span><span id="createJobPoster_branch_fr_labelName">Branch</span> (francais):</span>
+                                                            <strong id="createJobPoster_branch_fr_error" class="error hidden">
+                                                                <span id="createJobPoster_branch_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_branch_fr" id="createJobPoster_branch_fr"/>
+                                                        </div>
+                                                    </div> `
+                                                </div>
+                                                <div class="flex-grid top">
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_division">
+                                                            <span><span id="createJobPoster_division_labelName">Division</span> (English):</span>
+                                                            <strong id="createJobPoster_division_error" class="error hidden">
+                                                                <span id="createJobPoster_division_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_division" id="createJobPoster_division"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box small-1of11"></div>
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_division_fr">
+                                                            <span><span id="createJobPoster_division_fr_labelName">Division</span> (francais):</span>
+                                                            <strong id="createJobPoster_division_fr_error" class="error hidden">
+                                                                <span id="createJobPoster_division_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_division_fr" id="createJobPoster_division_fr"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_province">
                                                         <span><span id="createJobPoster_province_labelName">Province</span>: *</span>
