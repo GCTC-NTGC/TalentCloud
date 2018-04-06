@@ -603,9 +603,8 @@ and open the template in the editor .
                     </div>
                 </div>
                 <div class="manager-decisions-tip">
-                    <p><strong>What is this?</strong></p>
-                    <p>Managers are asked to rate themselves on these four criterias to let applicants better understand their managing style using the following choices:</p>
-                    <p>Almost never, Sometimes, Usually, Almost Always</p>
+                    <p id="managerDecisions_tipWhatis"></p>
+                    <p id="managerDecisions_tipSummary"></p>
                 </div>
                 <div class='profileSubSection manager-education'>
                     <div class='profileSubSectionTitleBar'>

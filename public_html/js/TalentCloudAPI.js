@@ -29,7 +29,7 @@ teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, t
 managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
-managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4
+managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, managerDecisions_tipWhatis, managerDecisions_tipSummary
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -170,7 +170,9 @@ managerProfile_developmentOpportunities_option0, managerProfile_developmentOppor
     this.managerProfile_developmentOpportunities_option1 = managerProfile_developmentOpportunities_option1;
     this.managerProfile_developmentOpportunities_option2 = managerProfile_developmentOpportunities_option2;
     this.managerProfile_developmentOpportunities_option3 = managerProfile_developmentOpportunities_option3;
-    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;    
+    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
+    this.managerDecisions_tipWhatis = managerDecisions_tipWhatis;
+    this.managerDecisions_tipSummary = managerDecisions_tipSummary;
 };
 
 TalentCloudAPI.pages = {
@@ -781,6 +783,14 @@ TalentCloudAPI.setContent = function(content, isManager){
             }
         
         //not working yet
+
+
+        var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
+        managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
+
+        var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
+        managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
+
     }
     
 };

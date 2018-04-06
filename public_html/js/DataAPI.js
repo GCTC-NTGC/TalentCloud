@@ -238,6 +238,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.managerProfile_developmentOpportunities_option2 = content.managerProfile_developmentOpportunities_option2;
     thisContent.managerProfile_developmentOpportunities_option3 = content.managerProfile_developmentOpportunities_option3;
     thisContent.managerProfile_developmentOpportunities_option4 = content.managerProfile_developmentOpportunities_option4;
+    thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
+    thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
