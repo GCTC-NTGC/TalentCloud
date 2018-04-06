@@ -1,0 +1,153 @@
+/* CREATE JOB POSTER */
+
+#createJobPosterOverlay{
+    width:100%;
+    height:100%;
+    z-index:1001;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.createJobPosterWrapperWindow{
+    width:80%;
+    min-width: 900px;
+    height: 80%;
+    margin:0px auto;
+    position:relative;
+    top:25%;
+    transform: translateY(-25%);
+    text-align: left;
+    background-color:#fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px #999;
+    padding:1em 2em 2em 2em;
+}
+
+.createJobPosterEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createJobPosterFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createJobPosterSubmitPane{
+    clear: both;
+}
+
+.createJobPosterDemoAreaEnglish{
+    float: left;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    background-color: #FFF;
+}
+
+.createJobPosterDemoAreaFrench{
+    float: left;
+    background-color: #F8F8F8;
+}
+
+.createJobPosterDemoArea{
+    min-height: 840px;
+    display: inline;
+    white-space: nowrap;
+}
+
+/* JOB POSTER (LONG DESCRIPTION) STYLES */
+
+#jobPosterTitle{
+    font-size:5em;
+    color: #eee;
+}
+
+#jobPosterLocation{
+    color: #eee;
+    float: left;
+}
+
+#jobPosterId{
+    float: right;
+    padding-right:2em;
+    color: #eee;
+}
+
+#jobPosterDatapointsSection{
+    background-color: #777;
+    color: #FFF;
+    padding: 2em;
+}
+
+#jobPosterSalaryRange{
+}
+
+#jobPosterButtonWrapper {
+    text-align: center;
+    background-color: #B9B9B9;
+    margin-top: 2em;
+}
+
+#jobPosterApplyButton{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.jobPosterSection:nth-child(odd){
+    background: #F8F8F8;
+}
+
+#jobPosterWorkEnvironmentLabel{
+    padding-bottom:0.25em;
+}
+
+.workEnvironmentWrapper{
+}
+
+.workEnvironmentSummaryWrapper{
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.jobPosterWorkEnvironmentImage{
+    float: left;
+    display: inline-block;
+    min-width: 25%;
+    max-width: 33%;
+    max-height: 22.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 3rem;
+    width: auto;
+    height: auto;
+}
+
+.workEnvironmentAnswerWrapper{
+    margin-left: 2em;
+}
+
+.workEnvironmentAnswerWrapper p{
+    margin-bottom:0.5em;
+}
+
+.workEnvironmentAnswer{
+    color: #2196F3;
+}
+
+.workEnvironmentTitle{
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 2em;
+}
+
+.workEnvironmentImage{
+    float: left;
+    display: inline;
+    width: 30%;
+    margin-right: 2em;
+}

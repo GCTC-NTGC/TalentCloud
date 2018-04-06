@@ -1,0 +1,115 @@
+/* HIRING MANAGER SUMMARY */
+
+.hiringManagerSummaryWrapper {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.hiringManagerSummaryName{
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+#hiringManagerSummaryImageWrapper {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+#jobPosterHiringManagerProfilePic {
+    width:150px;
+    height:150px;
+    border: 3px solid #FFCC33;
+    border-radius: 75px;
+    margin: auto;
+}
+
+
+#hiringManagerSummaryContentWrapper {
+   flex: 1;
+}
+
+#hiringManagerSummaryButtonWrapper {
+    text-align:right;
+}
+
+#jobPosterHiringManagerButton {
+    margin: 0;
+    padding: 0;
+}
+
+/* ADMIN PROFILE */
+
+.createEditProfileDemoAreaEnglish{
+    float: left;
+}
+
+.createEditProfileDemoAreaFrench{
+    float: right;
+}
+
+.createEditProfileEnglishPane{
+    float: left;
+    width: 45%;
+}
+
+.createEditProfileFrenchPane{
+    float: right;
+    width: 45%;
+    height: 100%;
+}
+
+.createEditProfileSubmitPane{
+    clear: both;
+}
+
+/* VIEW PROFILE (OLD??)  */
+
+.viewProfileContainer{
+    padding: 1em 1em 1em 1em;
+}
+
+.viewProfileLeftPane{
+    float: left;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileRightPane{
+    float: right;
+    width: 45%;
+    padding: 1em 1em 1em 1em;
+    background-color: inherit;
+}
+
+.viewProfileSlot{
+    padding: 0.5em 0em 0.5em 0em;
+}
+
+.viewProfileSlotLabel{
+    font-size: 12px;
+}
+
+.viewProfileSlotContent{
+
+}
+
+.viewProfileSlotImg{
+    float: left;
+}
+
+.viewProfileSlotValue{
+    overflow: hidden;
+    width: 45%;
+    border-bottom: 1px solid grey;
+}
+
+.viewProfileHeightBoost{
+    min-height: 200px;
+}

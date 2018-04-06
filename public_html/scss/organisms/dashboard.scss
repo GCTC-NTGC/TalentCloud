@@ -1,0 +1,99 @@
+/* Applicant Dashboard Styles */
+
+#dashboardSection #yourApplications{
+    width:95%;
+    margin:0px auto;
+    text-align: center;
+}
+
+#dashboardSection .dashboardJobSummary {
+    font-size: 100% !important;
+    border-top: 1px solid #ccc;
+    font-size:1.3rem;
+    line-height: 2.5rem;
+    margin:0;
+    text-align: left;
+}
+
+#dashboardSection .dashboardJobSummaryLast {
+    font-size: 100% !important;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size:1.3rem;
+    line-height: 2.5rem;
+    margin:0;
+    text-align: left;
+}
+
+.dashBoardHiringManagerWrapper {
+    width:20%;
+    display:inline-block;
+}
+
+.dashboardTitleDepartmentWrapper{
+    width:40%;
+    display:inline-block;
+}
+
+.dashboardTitleDepartmentWrapper .dashboardJobSummaryTitle{
+    font-size: 100%;
+    font-size: 1.5em;
+    color: #000;
+    line-height: 2.5em;
+    text-align: left;
+    display:inline;
+
+}
+
+.dashboardTitleDepartmentWrapper .dashboardJobSummaryDepartment{
+    font-size: 100%;
+    font-size: 1.5em;
+    color: #000;
+    line-height: 2.5em;
+    display:inline;
+}
+
+#dashboardSection .dashBoardHiringManagerWrapper {
+    height: 3em;
+    line-height: 3em;
+    background-color: #eee;
+    border-radius: 1.5em;
+}
+
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall{
+    height: 2.5em;
+    line-height: 2.5em;
+    width: 2.5em;
+    border-radius: 1.25em;
+    margin-bottom: 0.5em;
+    display:inline;
+}
+
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerWidget{
+    height: 2.5em;
+    line-height: 2.5em;
+}
+
+#dashboardSection .dashBoardHiringManagerWrapper .hiringManagerName{
+    font-size: 100%;
+    font-size: 1.25em;
+    color: #333;
+    display:inline;
+    padding-left:1em;
+    height: 2.5em;
+    line-height: 2.5em;
+}
+
+#dashboardSection .dashboardJobSubmitted{
+    width:40%;
+    display:inline-block;
+    color:#999;
+}
+
+#dashboardSection .dashboardJobStatus{
+    font-size: 100%;
+    font-size: 1.5em;
+    margin:0;
+    text-align: right;
+    color:#999;
+}
