@@ -27,18 +27,19 @@
                             <div class="update-profile-photo__draggable-area-wrapper">
 
                                 <div class="update-profile-photo__draggable-area-block">
-
+                                    
                                     <img src="images/icon_profile_male.svg" alt="Profile Photo Default Icon" class="update-profile-photo__draggable-area-icon">
 
                                     <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
                                     <span class="update-profile-photo__draggable-area-error--size heading--03">File Larger Than 2MB</span>
 
-                                    <span class="update-profile-photo__draggable-area-error--type heading--03">Please Use .JPG, .JPEG, or .PNG.</span>
-
-                                    <div class="update-profile-photo__draggable-area" id="updateProfilePhotoDraggableArea"></div>
+                                    <span class="update-profile-photo__draggable-area-error--type heading--03">Please Use .JPG, .JPEG, or .PNG.</span>                                    
 
                                     <div class="update-profile-photo__croppie-wrapper" id="updateProfilePhotoCroppieContainer"></div>
+                                    
+                                    <!-- this div, which js attaches drag & drop listeners to, must be the last element in the parent div -->
+                                    <div class="update-profile-photo__draggable-area" id="updateProfilePhotoDraggableArea"></div>
 
                                 </div>
 
