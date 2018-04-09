@@ -10,7 +10,7 @@
 
             <div class="box med-5of7">
 
-                <?php include 'inc/common/edit-photo.php';?>
+                <?php include '../inc/common/edit-photo.php';?>
 
             </div>
 
