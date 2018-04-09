@@ -367,10 +367,6 @@ and open the template in the editor .
                         </button>
                     </div>
                 </div>
-
-                <div class="jobCount hidden">
-                    <span id="contactCount">0</span> jobs
-                </div>
             </section>
             <!-- END - View Job Poster Section -->
 
