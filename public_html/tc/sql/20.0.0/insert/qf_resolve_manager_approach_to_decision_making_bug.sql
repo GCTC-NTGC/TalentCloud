@@ -14,6 +14,9 @@ UPDATE `talentcloud`.`base_content` SET `base_content_value`='J\'examine <strong
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='I <strong>almost always</strong> review my team\'s work before it is shared.' WHERE `base_content_id`='0000001095';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Je revois <strong>presque toujours</strong> le travail de mon équipe avant de le partager.' WHERE `base_content_id`='0000001096';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='I <strong>almost never</strong> get in early or stay late to get some extra work done.' WHERE `base_content_id`='0000001097';
+UPDATE `talentcloud`.`base_content` SET `base_content_key`='managerProfile_engagement_option2' WHERE `base_content_id`='0000001112';
+UPDATE `talentcloud`.`base_content` SET `base_content_key`='managerProfile_engagement_option3' WHERE `base_content_id`='0000001113';
+UPDATE `talentcloud`.`base_content` SET `base_content_key`='managerProfile_engagement_option3' WHERE `base_content_id`='0000001114';
 
 INSERT into base_content
 (base_content_type_id, base_content_key, base_content_value, base_content_locale_id)
