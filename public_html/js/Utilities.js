@@ -295,7 +295,29 @@ function modalSize() {
             i.classList.remove("dialogue-modal--overflow");
             i.classList.add("dialogue-modal--viewport");
         }
+
+        // Cycles targetable elements in the modal.
+        // var modalFirstFocusItem = i.querySelector("[class*='>*:first-child']");
+        var modalFirstFocusItem = i.querySelector(">*:first-child");
+        var modalLastFocusItem = i.querySelector(">*:last-child");
+
+        console.log(modalFirstFocusItem);
+        console.log(modalLastFocusItem);
+
+        modalFirstFocusItem.focus();
+
+        modalLastFocusItem.addEventListener("keyup", function(e) {
+            // Cancels the default action.
+            e.preventDefault();
+            // Checks to see if the key pressed was Enter (13).
+            if (this.hasFocus() && e.keyCode === 9) {
+                e.preventDefault();
+                modalFirstFocusItem.focus();
+            }
+        });
+
     }
+
 }
 
 // Reruns the function each time the viewport changes size.
@@ -330,6 +352,7 @@ window.onload = function(e) {
                 this.nextElementSibling.classList.add("active");
             }
         });
+
         // Checks for an Enter key click.
         i.addEventListener("keyup", function(e) {
             // Cancels the default action.
@@ -340,5 +363,7 @@ window.onload = function(e) {
                 this.click();
             }
         });
+
     }
+
 };
