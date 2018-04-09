@@ -33,13 +33,15 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
  * @param {type} remuneration_range_high
  * @returns {JobPostAPI.JobPost}
  */
-JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements,questions){
+JobPostAPI.JobPost = function(id,manager_user_id,title,applicants_to_date,close_date_time,department,branch,division,location_city,location_province,term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,developing_competencies,other_requirements,questions){
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = title;
     this.applicants_to_date = applicants_to_date;
     this.close_date_time = close_date_time;
     this.department = department;
+    this.branch = branch;
+    this.division = division;
     this.location_city = location_city;
     this.location_province = location_province;
     this.term_qty = term_qty;
@@ -125,6 +127,8 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.applicants_to_date = job.applicants_to_date;
     jobObj.close_date_time = job.close_date;
     jobObj.department = job.department;
+    jobObj.branch = job.branch;
+    jobObj.division = job.division;
     jobObj.location_city = job.location_city;
     jobObj.location_province = job.location_province;
     jobObj.term_qty = job.term_qty;

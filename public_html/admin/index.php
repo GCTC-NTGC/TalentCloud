@@ -368,36 +368,32 @@ and open the template in the editor .
                                                                 </strong>
                                                             </label>
                                                             <div>
-                                                                <input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>
-                                                                <!--select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
+                                                                <!--<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>-->
+                                                                <select class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department">
                                                                     <option value="">--</option>
-                                                                </select-->
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="createEditProfile_branch">
-                                                                <span id="createEditProfile_branch_label">Branch</span>
+                                                                <span><span id="createEditProfile_branch_labelName">Branch</span> (English):</span>
                                                                 <strong id="createEditProfile_branch_error" class="error hidden">
                                                                     <span id="createEditProfile_branch_error_msg" class="label label-danger"></span>
                                                                 </strong>
                                                             </label>
                                                             <div>
-                                                                <select class="form-control full-width" name="createEditProfile_branch" id="createEditProfile_branch">
-                                                                    <option value="">--</option>
-                                                                </select>
+                                                                <input type="text" class="form-control full-width" name="createEditProfile_branch" id="createEditProfile_branch"/>
                                                             </div>
-                                                        </div>
+                                                        </div> 
                                                         <div class="form-group">
                                                             <label for="createEditProfile_division">
-                                                                <span id="createEditProfile_division_label">Division</span>
+                                                                <span><span id="createEditProfile_division_labelName">Division</span> (English):</span>
                                                                 <strong id="createEditProfile_division_error" class="error hidden">
                                                                     <span id="createEditProfile_division_error_msg" class="label label-danger"></span>
                                                                 </strong>
                                                             </label>
                                                             <div>
-                                                                <select class="form-control full-width" name="createEditProfile_division" id="createEditProfile_division">
-                                                                    <option value="">--</option>
-                                                                </select>
+                                                                <input type="text" class="form-control full-width" name="createEditProfile_division" id="createEditProfile_division"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -446,18 +442,18 @@ and open the template in the editor .
                                                                 <textarea class="form-control full-width" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr"></textarea>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group hidden">
-                                                            <label for="createEditProfile_department_fr">
-                                                                <span id="createEditProfile_department_fr_label">Department_fr: *</span>
-                                                                <strong id="createEditProfile_department_fr_error" class="error hidden">
-                                                                    <span id="createEditProfile_department_fr_error_msg" class="label label-danger"></span>
+                                                        <div class="form-group">
+                                                            <label for="createEditProfile_proudOf_fr">
+                                                                <span id="createEditProfile_proudOf_fr_label">What I'm most proud of in my career</span>
+                                                                <strong id="createEditProfile_proudOf_fr_error" class="error hidden">
+                                                                    <span id="createEditProfile_proudOf_fr_error_msg" class="label label-danger"></span>
                                                                 </strong>
                                                             </label>
                                                             <div>
-                                                                <input class="form-control full-width" type="text" name="createEditProfile_department_fr" id="createEditProfile_department_fr"/>
+                                                                <textarea class="form-control full-width" name="createEditProfile_proudOf_fr" id="createEditProfile_proudOf_fr"></textarea>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group hidden">
+                                                        <div class="form-group">
                                                             <label for="createEditProfile_position_fr">
                                                                 <span id="createEditProfile_position_fr_label">Position_fr: *</span>
                                                                 <strong id="createEditProfile_position_fr_error" class="error hidden">
@@ -470,18 +466,18 @@ and open the template in the editor .
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="createEditProfile_branch_fr">
-                                                                <span id="createEditProfile_branch_fr_label">What I'm most proud of in my career_fr</span>
+                                                                <span><span id="createEditProfile_branch_fr_labelName">Branch</span> (francais):</span>
                                                                 <strong id="createEditProfile_branch_fr_error" class="error hidden">
                                                                     <span id="createEditProfile_branch_fr_error_msg" class="label label-danger"></span>
                                                                 </strong>
                                                             </label>
                                                             <div>
-                                                                <textarea class="form-control full-width" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr"></textarea>
+                                                                <input type="text" class="form-control full-width" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr"/>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group hidden">
+                                                        </div> 
+                                                        <div class="form-group">
                                                             <label for="createEditProfile_division_fr">
-                                                                <span id="createEditProfile_division_fr_label">Division_fr: *</span>
+                                                                <span><span id="createEditProfile_division_fr_labelName">Division</span> (English):</span>
                                                                 <strong id="createEditProfile_division_fr_error" class="error hidden">
                                                                     <span id="createEditProfile_division_fr_error_msg" class="label label-danger"></span>
                                                                 </strong>
@@ -997,6 +993,7 @@ and open the template in the editor .
                                             </div>
                                         </div>
                                         <!-- END - Edit Admin Profile Form (Page 5 / Other) -->
+
                                     </form>
                                 </div>
                             </div>
@@ -1070,6 +1067,56 @@ and open the template in the editor .
                                                     <select class="form-control full-width" name="createJobPoster_department" id="createJobPoster_department">
                                                         <option value="">--</option>
                                                     </select>
+                                                </div>
+                                                <div class="flex-grid top">
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_branch">
+                                                            <span><span id="createJobPoster_branch_labelName">Branch</span> (English): *</span>
+                                                            <strong id="createJobPoster_branch_error" class="error hidden">
+                                                                <span id="createJobPoster_branch_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_branch" id="createJobPoster_branch"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="box small-1of11"></div>
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_branch_fr">
+                                                            <span><span id="createJobPoster_branch_fr_labelName">Branch</span> (francais): *</span>
+                                                            <strong id="createJobPoster_branch_fr_error" class="error hidden">
+                                                                <span id="createJobPoster_branch_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_branch_fr" id="createJobPoster_branch_fr"/>
+                                                        </div>
+                                                    </div> `
+                                                </div>
+                                                <div class="flex-grid top">
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_division">
+                                                            <span><span id="createJobPoster_division_labelName">Division</span> (English): *</span>
+                                                            <strong id="createJobPoster_division_error" class="error hidden">
+                                                                <span id="createJobPoster_division_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_division" id="createJobPoster_division"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box small-1of11"></div>
+                                                    <div class="form-group box small-5of11">
+                                                        <label for="createJobPoster_division_fr">
+                                                            <span><span id="createJobPoster_division_fr_labelName">Division</span> (francais): *</span>
+                                                            <strong id="createJobPoster_division_fr_error" class="error hidden">
+                                                                <span id="createJobPoster_division_fr_error_msg" class="label label-danger"></span>
+                                                            </strong>
+                                                        </label>
+                                                        <div>
+                                                            <input type="text" class="form-control full-width" name="createJobPoster_division_fr" id="createJobPoster_division_fr"/>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="createJobPoster_province">
