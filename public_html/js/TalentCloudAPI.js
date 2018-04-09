@@ -31,6 +31,8 @@ managerProfile_engagement_option0, managerProfile_engagement_option1, managerPro
 managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
 managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, changeDisplayPic
         ) {
+managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, managerDecisions_tipWhatis, managerDecisions_tipSummary
+        ) {
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
@@ -171,8 +173,10 @@ managerProfile_developmentOpportunities_option3, managerProfile_developmentOppor
     this.managerProfile_developmentOpportunities_option1 = managerProfile_developmentOpportunities_option1;
     this.managerProfile_developmentOpportunities_option2 = managerProfile_developmentOpportunities_option2;
     this.managerProfile_developmentOpportunities_option3 = managerProfile_developmentOpportunities_option3;
-    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
     this.changeDisplayPic = changeDisplayPic;
+    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
+    this.managerDecisions_tipWhatis = managerDecisions_tipWhatis;
+    this.managerDecisions_tipSummary = managerDecisions_tipSummary;
 };
 
 TalentCloudAPI.pages = {
@@ -323,6 +327,7 @@ TalentCloudAPI.loadPublic = function(){
         locale = "en_CA";
         TalentCloudAPI.setLanguageCookie(locale);
     }
+    LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,false);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthToken();
@@ -351,6 +356,7 @@ TalentCloudAPI.loadManager = function(){
         locale = "en_CA";
     }
     //console.log(UserAPI.hasAuthToken());
+    LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthToken();
@@ -393,6 +399,7 @@ TalentCloudAPI.loadAdmin = function(){
         locale = "en_CA";
     }
     //console.log(UserAPI.hasAuthToken());
+    LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
@@ -406,8 +413,6 @@ TalentCloudAPI.loadAdmin = function(){
                 //credentials.password = sessionUser.password;
                 credentials.authToken = authToken;
                 UserAPI.login(credentials);
-                CreateJobPosterAPI.loadLookupData();
-                CreateEditProfileAPI.loadLookupData();
                 //Add log user in automatically
             }else{
                 //DataAPI.getJobSeekers(locale);
@@ -554,8 +559,9 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
-        CreateJobPosterAPI.localizeCreateJobPosterForm();
-
+        CreateJobPosterAPI.localizeCreateJobPosterForm(siteContent);
+        CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
+        
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
@@ -792,6 +798,14 @@ TalentCloudAPI.setContent = function(content, isManager){
         }
 
         //not working yet
+
+
+        var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
+        managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
+
+        var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
+        managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
+
     }
 
 };

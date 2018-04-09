@@ -27,6 +27,8 @@ class JobPoster implements JsonSerializable {
     private $open_date;
     private $close_date;
     private $department;
+    private $branch;
+    private $division;
     private $location_province;
     private $location_city;
     private $remuneration_range_low;
@@ -38,7 +40,7 @@ class JobPoster implements JsonSerializable {
     private $other_requirements;
     private $questions;
 
-    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null, $questions=[]) {
+    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null, $questions=[]) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -53,6 +55,8 @@ class JobPoster implements JsonSerializable {
         $this->open_date = $open_date;
         $this->close_date = $close_date;
         $this->department = $department;
+        $this->branch = $branch;
+        $this->division = $division;
         $this->location_province = $location_province;
         $this->location_city = $location_city;
         $this->remuneration_range_low = $remuneration_range_low;
@@ -132,6 +136,14 @@ class JobPoster implements JsonSerializable {
         return $this->department;
     }
 
+    public function getBranch() {
+        return $this->branch;
+    }
+
+    public function getDivision() {
+        return $this->division;
+    }
+
     public function getLocation_province() {
         return $this->location_province;
     }
@@ -167,7 +179,7 @@ class JobPoster implements JsonSerializable {
     public function getOther_requirements() {
         return $this->other_requirements;
     }
-    
+
     public function getQuestions() {
         return $this->questions;
     }
@@ -242,6 +254,16 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
+    public function setBranch($branch) {
+        $this->branch = $branch;
+        return $this;
+    }
+
+    public function setDivision($division) {
+        $this->division = $division;
+        return $this;
+    }
+
     public function setLocation_province($location_province) {
         $this->location_province = $location_province;
         return $this;
@@ -286,7 +308,7 @@ class JobPoster implements JsonSerializable {
         $this->other_requirements = $other_requirements;
         return $this;
     }
-    
+
     public function setQuestions($questions) {
         $this->questions = $questions;
         return $this;
