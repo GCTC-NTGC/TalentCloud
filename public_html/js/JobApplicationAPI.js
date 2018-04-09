@@ -117,11 +117,11 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function(jobPosterQuestion, qu
     var wrapper = document.createElement("div");
     wrapper.setAttribute("class", "jobApplicationQuestionAnswerWrapper");
     
-    var label = document.createElement('label');
-    label.setAttribute('class', 'full-width');
+    var label = document.createElement('form');
+    label.setAttribute('class', 'application-form__form');
     
-    var question = document.createElement('p');
-    question.setAttribute('class', 'jobApplicationQuestion');
+    var question = document.createElement('label');
+    question.setAttribute('class', 'jobApplicationQuestion application-form__label heading--03');
     var questionTextNode = document.createTextNode(jobPosterQuestion.question);
     question.appendChild(questionTextNode);
     
@@ -129,7 +129,7 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function(jobPosterQuestion, qu
     var answerId = "jobApplicationAnswerField_number_" + questionNumber;
     answerField.setAttribute("id", answerId);
     answerField.setAttribute('name', 'answer');
-    answerField.setAttribute('class', 'jobApplicationAnswerField full-width');
+    answerField.setAttribute('class', 'jobApplicationAnswerField application-form__textarea form__textarea');
     //answerField.value = jobPosterQuestion.answer;
     
     var questionId = document.createElement('input');

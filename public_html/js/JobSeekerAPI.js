@@ -600,7 +600,7 @@ JobSeekerAPI.showJobSeekerProfileBasicInfoEdit = function() {
     var jobSeekerBasicInfoEditOverlay = document.getElementById("profileBasicInfoEditOverlay");
     jobSeekerBasicInfoEditOverlay.classList.remove("hidden");
 
-    AccessibilityAPI.preventModalEscape("profileEditFirstName", "profileBasicInfoEditCancel");
+    AccessibilityAPI.preventModalEscape("updateProfileChoosePhotoButtonLabel", "profileBasicInfoEditSave");
     AccessibilityAPI.focusElement("updateProfileChoosePhotoButtonLabel");
 
     EventsAPI.hideBodyOverflow(true);
@@ -684,8 +684,8 @@ JobSeekerAPI.showUploadProfilePic = function() {
     var profilePicUploadWrapper = document.getElementById("profilePicUploadWrapper")
     profilePicUploadWrapper.classList.remove("hidden");
 
-    AccessibilityAPI.preventModalEscape("profilePicUploadField", "profilePicUploadBtn");
-    AccessibilityAPI.focusElement("profilePicUploadField");
+    // AccessibilityAPI.preventModalEscape("profilePicUploadField", "profilePicUploadBtn");
+    // AccessibilityAPI.focusElement("profilePicUploadField");
 
     var fileInputButtons = [document.getElementById('updateProfileChoosePhotoButton'),
         document.getElementById('updateProfileChooseAltPhotoButton')];

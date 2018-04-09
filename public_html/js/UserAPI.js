@@ -516,7 +516,7 @@ UserAPI.showRegisterForm = function () {
 
     EventsAPI.setFormFocus("register_email");
     EventsAPI.hideBodyOverflow(true);
-    AccessibilityAPI.preventModalEscape("register_email","registerFormRegisterBtn");
+    AccessibilityAPI.preventModalEscape("profileBasicInfoEditTitle","profileBasicInfoEditSave");
     modalSize();
 };
 

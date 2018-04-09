@@ -26,12 +26,6 @@
             background: $palette-yellow--dark;
         }
 
-        &:focus {
-            color: white;
-            background: $palette-grey--dark;
-            border: 2px solid $palette-yellow--dark;
-        }
-
     }
 
     &[class*="grey"] {
@@ -42,16 +36,26 @@
             background: $palette-grey;
         }
 
-        &:focus {
-            color: white;
-            background: $palette-grey--dark;
-            border: 2px solid $palette-yellow--dark;
+    }
+
+    &[class*="blue"] {
+        background: $palette-blue;
+        color: $white;
+
+        &:hover {
+            background: $palette-blue--dark;
         }
 
     }
 
     &:hover {
         transition: all .2s ease;
+    }
+
+    &:focus {
+        color: $white !important;
+        background: $palette-grey--dark !important;
+        border: 2px solid $palette-yellow--dark !important;
     }
 
 }

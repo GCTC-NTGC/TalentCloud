@@ -6,6 +6,12 @@
 
 ============================================================================= */
 
+/* Standard Colours ========================================================= */
+
+/* White */
+$white: white;
+$black: rgba(51, 51, 51, 1);
+
 /* Brand Colours ============================================================ */
 
 /* Grey */
@@ -16,3 +22,10 @@ $palette-grey--dark: rgba(72, 72, 72, 1);
 /* Yellow */
 $palette-yellow--light: rgba(255, 226, 91, 1);
 $palette-yellow--dark: rgba(255, 210, 0, 1);
+
+/* Blue */
+$palette-blue: rgba(33, 150, 243, 1);
+$palette-blue--dark: rgba(18, 81, 132, 1);
+
+/* Green */
+$palette-green: rgba(59, 181, 25, 1);

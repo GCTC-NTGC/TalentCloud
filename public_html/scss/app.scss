@@ -32,11 +32,13 @@
 @import "atoms/legacy-slider-buttons";
 
 /* Molecules ================================================================ */
+@import "molecules/forms";
 
 /* Organisms ================================================================ */
 @import "organisms/utility";
 @import "organisms/landing-hero";
 @import "organisms/update-profile";
+@import "organisms/user-application";
 @import "organisms/profile-common";
 @import "organisms/profile-manager";
 @import "organisms/profile-pic";
@@ -48,7 +50,3 @@
 @import "organisms/forms";
 @import "organisms/tabs-list";
 @import "organisms/unsorted";
-
-
-/* Example Imports ========================================================== */
-@import "organisms/organism-sample-01";

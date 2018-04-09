@@ -3920,6 +3920,19 @@ body[id*="Trident/7.0"] .box {
 /* Typography =============================================================== */
 /* Font Standard ============================================================ */
 /* 1.414 Scale */
+/* Content Containers: Use this to limit line length for copy. */
+.content-container {
+  margin: 0 auto;
+  max-width: 35rem;
+  width: 90%; }
+
+/* Block Containers: Use this for consistent widths on sections. */
+.block-container {
+  margin: 0 auto;
+  max-width: 80rem;
+  width: 90%; }
+
+/* Font Awesome Mixin */
 /* Temporary Font Scale ===================================================== */
 [class*="heading--"] {
   font-family: HKGrotesk, sans-serif;
@@ -3943,9 +3956,13 @@ body[id*="Trident/7.0"] .box {
     Talent Cloud Palette
 
 ============================================================================= */
+/* Standard Colours ========================================================= */
+/* White */
 /* Brand Colours ============================================================ */
 /* Grey */
 /* Yellow */
+/* Blue */
+/* Green */
 /* Atoms ==================================================================== */
 /* =============================================================================
 
@@ -3970,21 +3987,22 @@ body[id*="Trident/7.0"] .box {
     color: #484848; }
     [class*="button--"][class*="yellow"]:hover {
       background: #ffd200; }
-    [class*="button--"][class*="yellow"]:focus {
-      color: white;
-      background: #484848;
-      border: 2px solid #ffd200; }
   [class*="button--"][class*="grey"] {
     background: #c8c8c8;
     color: #484848; }
     [class*="button--"][class*="grey"]:hover {
       background: #a3a3a3; }
-    [class*="button--"][class*="grey"]:focus {
-      color: white;
-      background: #484848;
-      border: 2px solid #ffd200; }
+  [class*="button--"][class*="blue"] {
+    background: #2196f3;
+    color: white; }
+    [class*="button--"][class*="blue"]:hover {
+      background: #125184; }
   [class*="button--"]:hover {
     transition: all .2s ease; }
+  [class*="button--"]:focus {
+    color: white !important;
+    background: #484848 !important;
+    border: 2px solid #ffd200 !important; }
 
 /* BUTTONS */
 .btn {
@@ -4342,6 +4360,68 @@ main .btn-default {
     left: 448px; }
 
 /* Molecules ================================================================ */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Form Styles
+
+============================================================================= */
+.form__wrapper > *:last-child {
+  margin-bottom: 0; }
+
+.form__label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0 0 .5rem 0; }
+
+[class*="form__input--"] {
+  display: block;
+  margin: 0 0 2rem 0;
+  width: 100%; }
+
+.form__select-wrapper {
+  display: block;
+  margin: 0 0 2rem 0;
+  position: relative;
+  width: 100%; }
+  .form__select-wrapper:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f078";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translate(0, -50%); }
+
+.form__select {
+  appearance: none;
+  color: #333333;
+  font-size: 1.5rem;
+  display: block;
+  padding: 1rem 2rem 1rem 1rem;
+  width: 100%; }
+  .form__select:focus {
+    border: 1px solid #2196f3; }
+
+.form__textarea {
+  color: #333333;
+  display: block;
+  font-size: 1.5rem;
+  margin: 0 0 2rem 0;
+  min-height: 10rem;
+  padding: 1rem;
+  width: 100%; }
+  .form__textarea:focus {
+    border: 1px solid #2196f3; }
+
 /* Organisms ================================================================ */
 /* UTILITY */
 .bold {
@@ -4684,7 +4764,7 @@ nav {
 
 .update-profile__choose-photo-button {
   position: absolute;
-  left: -100vh; }
+  left: -1000vh; }
 
 .update-profile__choose-alt-photo-button-label {
   position: relative; }
@@ -4692,6 +4772,140 @@ nav {
 .update-profile__choose-alt-photo-button {
   position: absolute;
   left: -100vh; }
+
+.update-profile-photo__admin-button-wrapper {
+  margin: 0 0 2rem 0;
+  text-align: center; }
+  .update-profile-photo__admin-button-wrapper.active {
+    display: block; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    The User Application
+
+============================================================================= */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Application Profile
+
+============================================================================= */
+.application-profile__wrapper {
+  text-align: center; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Application Form
+
+============================================================================= */
+.application-form__wrapper {
+  margin-top: 5rem; }
+
+.application-form__label {
+  color: #2196f3;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+
+.application-form__textarea {
+  margin: 0 0 5rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Application Skills
+
+============================================================================= */
+.skills__group-title {
+  color: #2196f3;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+
+.skills__group-copy {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin: 0 0 3rem 0; }
+
+.skills__accordion {
+  border-top: 1px solid #a3a3a3; }
+  .skills__accordion:last-of-type {
+    border-bottom: 1px solid #a3a3a3; }
+
+[class*="skills__accordion-trigger--"] {
+  cursor: pointer;
+  padding: 1rem 2rem; }
+  [class*="skills__accordion-trigger--"][class*="todo"] .skills__status-icon:before {
+    color: #ffd200;
+    content: "\f12a"; }
+  [class*="skills__accordion-trigger--"][class*="edit"] .skills__status-icon:before {
+    color: #2196f3;
+    content: "\f040"; }
+  [class*="skills__accordion-trigger--"][class*="complete"] .skills__status-icon:before {
+    color: #3bb519;
+    content: "\f00c"; }
+  [class*="skills__accordion-trigger--"].active .box:last-child i {
+    transform: rotate(180deg);
+    transition: transform .3s ease; }
+  [class*="skills__accordion-trigger--"] .box:last-child {
+    text-align: right; }
+    [class*="skills__accordion-trigger--"] .box:last-child i {
+      font-size: 2rem;
+      transition: transform .3s ease; }
+
+.skills__status-icon {
+  font-size: 2rem;
+  margin: 0 .5rem 0 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 2rem; }
+
+.skills__skill-title {
+  font-size: 1.5rem;
+  vertical-align: middle; }
+
+.skills__accordion-content {
+  background: #e2e2e2;
+  border-top: 1px solid #a3a3a3;
+  display: none;
+  padding: 2rem; }
+  @media (min-width: 48em) {
+    .skills__accordion-content {
+      padding: 2rem 1rem; } }
+  .skills__accordion-content.active {
+    display: flex; }
+  .skills__accordion-content > .box {
+    padding: 0 0 2rem 0; }
+    @media (min-width: 48em) {
+      .skills__accordion-content > .box {
+        padding: 0 1rem; } }
+    .skills__accordion-content > .box:last-child {
+      padding: 0;
+      text-align: right; }
+      @media (min-width: 48em) {
+        .skills__accordion-content > .box:last-child {
+          padding: 0 1rem; } }
+  .skills__accordion-content .form__textarea {
+    min-height: 12.4rem; }
+  .skills__accordion-content hr {
+    background: #a3a3a3;
+    border: none;
+    height: 1px;
+    width: 100%; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Application Submission Button
+
+============================================================================= */
+.application-button__wrapper {
+  padding: 5rem 0; }
 
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
 .profileBannerFiller {
@@ -5665,45 +5879,3 @@ input[type=button], input[type=submit], input[type=reset] {
 
 .validationMessage {
   color: #ff0000; }
-
-/* Example Imports ========================================================== */
-/* =============================================================================
-
-    Authored by: Talent Cloud
-
-    This is a sample SASS file.
-
-============================================================================= */
-/* =============================================================================
-
-    Authored by: Talent Cloud
-
-    This is a sample SASS file.
-
-============================================================================= */
-/* =============================================================================
-
-    Authored by: Talent Cloud
-
-    This is a sample SASS file.
-
-============================================================================= */
-.block__element--modifier {
-  appearance: none;
-  border-radius: 3px;
-  color: blue;
-  display: block;
-  grid-template-rows: 1fr 1fr; }
-
-/* =============================================================================
-
-    Authored by: Talent Cloud
-
-    This is a sample SASS file.
-
-============================================================================= */
-.block__element--new-modifier {
-  appearance: none;
-  border-radius: 3px;
-  display: block;
-  grid-template-rows: 1fr 1fr; }
