@@ -14,6 +14,10 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $title_fr;
     private $department_id;
     private $province_id;
+    private $branch_en;
+    private $branch_fr;
+    private $division_en;
+    private $division_fr;
     private $city_en;
     private $city_fr;
     private $term_qty;
@@ -45,6 +49,10 @@ class JobPosterNonLocalized implements JsonSerializable {
             $title_fr=null, 
             $department_id=null, 
             $province_id=null, 
+            $branch_en=null,
+            $branch_fr=null,
+            $division_en=null,
+            $division_fr=null,
             $city_en=null, 
             $city_fr=null, 
             $term_qty=null, 
@@ -74,6 +82,10 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->title_fr = $title_fr;
         $this->department_id = $department_id;
         $this->province_id = $province_id;
+        $this->branch_en = $branch_en;
+        $this->branch_fr = $branch_fr;
+        $this->division_en = $division_en;
+        $this->division_fr = $division_fr;
         $this->city_en = $city_en;
         $this->city_fr = $city_fr;
         $this->term_qty = $term_qty;
@@ -133,6 +145,22 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function getProvince_id() {
         return $this->province_id;
+    }
+
+    public function getBranch_en() {
+        return $this->branch_en;
+    }
+
+    public function getBranch_fr() {
+        return $this->branch_fr;
+    }
+
+    public function getDivision_en() {
+        return $this->division_en;
+    }
+
+    public function getDivision_fr() {
+        return $this->division_fr;
     }
 
     public function getCity_en() {
@@ -257,6 +285,26 @@ class JobPosterNonLocalized implements JsonSerializable {
         return $this;
     }
 
+    public function setBranch_en($branch_en) {
+        $this->branch_en = $branch_en;
+        return $this;
+    }
+
+    public function setBranch_fr($branch_fr) {
+        $this->branch_fr = $branch_fr;
+        return $this;
+    }
+
+    public function setDivision_en($division_en) {
+        $this->division_en = $division_en;
+        return $this;
+    }
+
+    public function setDivision_fr($division_fr) {
+        $this->division_fr = $division_fr;
+        return $this;
+    }
+
     public function setCity_en($city_en) {
         $this->city_en = $city_en;
         return $this;
@@ -371,5 +419,4 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->questions_fr = $questions_fr;
         return $this;
     }
-
 }

@@ -100,6 +100,8 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             jp.appplicants_to_date, 
             jp.close_date_time, 
             LookupAPI.getLocalizedLookupValue("department", jp.department_id),
+            jp.branch[locale],
+            jp.division[locale],
             jp.city[locale],
             LookupAPI.getLocalizedLookupValue("province", jp.province_id),
             jp.term_qty,

@@ -58,6 +58,10 @@
                 $jobPoster->setTitle_fr($jobPosterJSON["title"][$fr]);
                 $jobPoster->setDepartment_id($jobPosterJSON["department_id"]);
                 $jobPoster->setProvince_id($jobPosterJSON["province_id"]);
+                $jobPoster->setBranch_en($jobPosterJSON["branch"][$en]);
+                $jobPoster->setBranch_fr($jobPosterJSON["branch"][$fr]);
+                $jobPoster->setDivision_en($jobPosterJSON["division"][$en]);
+                $jobPoster->setDivision_fr($jobPosterJSON["division"][$fr]);
                 $jobPoster->setCity_en($jobPosterJSON["city"][$en]);
                 $jobPoster->setCity_fr($jobPosterJSON["city"][$fr]);
                 $jobPoster->setTerm_qty($jobPosterJSON["term_qty"]);
