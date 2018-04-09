@@ -5,601 +5,601 @@ To change this template file, choose Tools | Templates
 and open the template in the editor .
 -->
 <html lang="en">
-<head>
-    <title>GC Talent Cloud</title>
-    <!-- Include for JS files -->
-    <?php include 'inc/head.php'; ?>
-</head>
+    <head>
+        <title>GC Talent Cloud</title>
+        <!-- Include for JS files -->
+        <?php include 'inc/head.php'; ?>
+    </head>
 
-<body>
+    <body>
 
-<!-- Include for Federal Identity Program (black banner) -->
-<?php include 'inc/fip.php';?>
-<!-- Include for main navigation -->
-<?php include 'inc/nav.php';?>
+        <!-- Include for Federal Identity Program (black banner) -->
+        <?php include 'inc/fip.php'; ?>
+        <!-- Include for main navigation -->
+        <?php include 'inc/nav.php'; ?>
 
-<!-- BEGIN - All top-level dialog or overlay elements should be children of this div -->
-<div id="overlays">
+        <!-- BEGIN - All top-level dialog or overlay elements should be children of this div -->
+        <div id="overlays">
 
-    <!-- BEGIN - Registration Dialog and Overlay-->
-    <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
-        <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
-            <div id='registerFormTitleWrapper' class="dialogTitle">
-                <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
-                <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
-            </div>
-            <div class="wb-frmvld wb-init dialogWindowInterior" id="registerFormWrapper">
-                <form name="registerForm" id="registerForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
-                    <div class="center-block three-quarter-width">
-                        <div class="form-group">
-                            <label for="register_email">
-                                <span>Email:</span>
-                                <strong id="register_email_error" class="error hidden">
-                                    <span id="register_email_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <input class="form-control form-textbox" id="register_email" name="register_email" type="text" required=""/>
-                        </div>
-                        <div class="form-group">
-                            <label for="register_email_confirm">
-                                <span>Re-enter email:</span>
-                                <strong id="register_email_confirm_error" class="error hidden">
-                                    <span id="register_email_confirm_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <input class="form-control form-textbox" id="register_email_confirm" name="register_email_confirm" type="text" required=""/>
-                        </div>
-                        <div class="form-group">
-                            <label for="register_password">
-                                <span>Password:</span>
-                                <strong id="register_password_error" class="error hidden">
-                                    <span id="register_password_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <input class="form-control form-textbox" id="register_password" name="register_password" type="password" required=""/>
-                        </div>
-                        <div class="form-group">
-                            <label for="register_password_confirm">
-                                <span>Re-enter password:</span>
-                                <strong id="register_password_confirm_error" class="error hidden">
-                                    <span id="register_password_confirm_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
-                            <input class="form-control form-textbox" id="register_password_confirm" name="register_password_confirm" type="password" required=""/>
-                        </div>
+            <!-- BEGIN - Registration Dialog and Overlay-->
+            <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
+                <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
+                    <div id='registerFormTitleWrapper' class="dialogTitle">
+                        <strong id='registerFormTitle' title="Register for Talent Cloud">Register for Talent Cloud</strong>
+                        <div class="hidden" id="registerFormDescription">Register for Talent Cloud</div>
                     </div>
-                    <div class="hidden">
-                        <p><a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link" id="switchToLogin" title="Already have an account? Click here to login.">Already have an account? Click here to login</a></p>
+                    <div class="wb-frmvld wb-init dialogWindowInterior" id="registerFormWrapper">
+                        <form name="registerForm" id="registerForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="center-block three-quarter-width">
+                                <div class="form-group">
+                                    <label for="register_email">
+                                        <span>Email:</span>
+                                        <strong id="register_email_error" class="error hidden">
+                                            <span id="register_email_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_email" name="register_email" type="text" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register_email_confirm">
+                                        <span>Re-enter email:</span>
+                                        <strong id="register_email_confirm_error" class="error hidden">
+                                            <span id="register_email_confirm_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_email_confirm" name="register_email_confirm" type="text" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register_password">
+                                        <span>Password:</span>
+                                        <strong id="register_password_error" class="error hidden">
+                                            <span id="register_password_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_password" name="register_password" type="password" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register_password_confirm">
+                                        <span>Re-enter password:</span>
+                                        <strong id="register_password_confirm_error" class="error hidden">
+                                            <span id="register_password_confirm_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form-control form-textbox" id="register_password_confirm" name="register_password_confirm" type="password" required=""/>
+                                </div>
+                            </div>
+                            <div class="hidden">
+                                <p><a href="javascript:void(0)" onclick="UserAPI.hideRegisterForm(); return UserAPI.showLogin(this);" class="ui-link" id="switchToLogin" title="Already have an account? Click here to login.">Already have an account? Click here to login</a></p>
+                            </div>
+                            <div class="formButtonWrapper">
+                                <input type="button" class="btn btn-default" id="registerFormCancelBtn" value="Cancel" onclick="UserAPI.hideRegisterForm()">
+                                <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register();">
+                            </div>
+                            <div class="clear"></div>
+                        </form>
                     </div>
-                    <div class="formButtonWrapper">
-                        <input type="button" class="btn btn-default" id="registerFormCancelBtn" value="Cancel" onclick="UserAPI.hideRegisterForm()">
-                        <input type="button" class="btn btn-primary" id="registerFormRegisterBtn" value="Register" onclick="UserAPI.register();">
+                </div>
+            </div>
+
+            <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
+                <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
+                    <div id='registerStatusTitleWrapper' class="dialogTitle">
+                        <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
+                        <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
                     </div>
-                    <div class="clear"></div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <div class="dialogWindowInterior">
+                        <div id="registrationStatusSuccessMessage">
 
-    <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
-        <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
-            <div id='registerStatusTitleWrapper' class="dialogTitle">
-                <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
-                <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
-            </div>
-            <div class="dialogWindowInterior">
-                <div id="registrationStatusSuccessMessage">
+                        </div>
+                        <div id="registrationStatusEmailConfMessage">
 
+                        </div>
+                        <div class="formButtonWrapper">
+                            <input type="button" class="btn btn-default" id="registerStatusCloseBtn" value="Close" onclick="UserAPI.hideRegisterConf()">
+                            <input type="button" class="btn btn-primary" id="registerStatusLoginBtn" value="Log in" onclick="UserAPI.hideRegisterConf(); return UserAPI.showLogin(this);"/>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
-                <div id="registrationStatusEmailConfMessage">
-
-                </div>
-                <div class="formButtonWrapper">
-                    <input type="button" class="btn btn-default" id="registerStatusCloseBtn" value="Close" onclick="UserAPI.hideRegisterConf()">
-                    <input type="button" class="btn btn-primary" id="registerStatusLoginBtn" value="Log in" onclick="UserAPI.hideRegisterConf(); return UserAPI.showLogin(this);"/>
-                </div>
-                <div class="clear"></div>
             </div>
-        </div>
-    </div>
-    <!-- END - Registration Dialog and Overlay-->
+            <!-- END - Registration Dialog and Overlay-->
 
-    <!-- BEGIN - Login Modal Dialog and Overlay-->
-    <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
-        <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
-            <div id='loginFormTitleWrapper' class="dialogTitle">
-                <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
-                <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
-            </div>
-            <div class="dialogWindowInterior">
-                <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
-                    <div class="label label-danger hidden" id="loginErrors"></div>
-                    <div class="center-block three-quarter-width">
-                        <div class="form-group">
-                            <label for="login_email">
-                                <span>Email:</span>
-                                <strong id="login_email_error" class="error hidden">
-                                    <span id="login_email_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
+            <!-- BEGIN - Login Modal Dialog and Overlay-->
+            <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
+                <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
+                    <div id='loginFormTitleWrapper' class="dialogTitle">
+                        <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
+                        <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
+                    </div>
+                    <div class="dialogWindowInterior">
+                        <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="label label-danger hidden" id="loginErrors"></div>
+                            <div class="center-block three-quarter-width">
+                                <div class="form-group">
+                                    <label for="login_email">
+                                        <span>Email:</span>
+                                        <strong id="login_email_error" class="error hidden">
+                                            <span id="login_email_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login_password">
+                                        <span>Password:</span>
+                                        <strong id="login_password_error" class="error hidden">
+                                            <span id="login_password_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div>
+                                        <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
+                                    </div>
+                                </div>
+                            </div>
                             <div>
-                                <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
+                                <div style="margin: 1em 0 0 0;" class="hidden">
+                                    <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
+                                </div>
+                                <div style="margin: 1em 0 0 0;">
+                                    <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="login_password">
-                                <span>Password:</span>
-                                <strong id="login_password_error" class="error hidden">
-                                    <span id="login_password_error_msg" class="label label-danger"></span>
-                                </strong>
-                            </label>
+
+                            <div class="formButtonWrapper">
+                                <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
+                                <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
+                            </div>
+                            <div class="clear"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- END - Login Modal Dialog and Overlay-->
+
+            <?php include 'partials/modals/edit-profile.php'; ?>
+
+            <!-- BEGIN - About Me Edit Overlay-->
+            <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
+                <div id="profileAboutMeFormWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
+                    <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
+                        <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
+                        <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
+                    </div>
+                    <div class="dialogWindowInterior">
+                        <form name="profileAboutMeForm" id="profileAboutMeForm" method="post" enctype="application/x-www-form-urlencoded">
+                            <div class="form-group">
+                                <label for="profileEditAboutMe">
+                                    <span>About Me:</span>
+                                </label>
+                                <div>
+                                    <textarea class="form-control full-width" name="profileEditAboutMe" id="profileEditAboutMe" form="profileAboutMeForm"></textarea>
+                                </div>
+                            </div>
                             <div>
-                                <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
+                                <input type="button" id="profileAboutMeEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
+                                <input type="button" id="profileAboutMeEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div>
-                        <div style="margin: 1em 0 0 0;" class="hidden">
-                            <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
-                        </div>
-                        <div style="margin: 1em 0 0 0;">
-                            <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
-                        </div>
-                    </div>
-
-                    <div class="formButtonWrapper">
-                        <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
-                        <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
-                    </div>
-                    <div class="clear"></div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- END - Login Modal Dialog and Overlay-->
-
-    <?php include 'partials/modals/edit-profile.php';?>
-
-    <!-- BEGIN - About Me Edit Overlay-->
-    <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
-        <div id="profileAboutMeFormWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
-            <div id='profileAboutMeEditTitleWrapper' class="dialogTitle">
-                <h3 id='profileAboutMeEditTitle' title="Edit your About Me info">Edit your About Me info</h3>
-                <div class="hidden" id="profileAboutMeFormDescription">Edit your About Me info</div>
-            </div>
-            <div class="dialogWindowInterior">
-                <form name="profileAboutMeForm" id="profileAboutMeForm" method="post" enctype="application/x-www-form-urlencoded">
-                    <div class="form-group">
-                        <label for="profileEditAboutMe">
-                            <span>About Me:</span>
-                        </label>
-                        <div>
-                            <textarea class="form-control full-width" name="profileEditAboutMe" id="profileEditAboutMe" form="profileAboutMeForm"></textarea>
-                        </div>
-                    </div>
-                    <div>
-                        <input type="button" id="profileAboutMeEditSave" value="Save" class="btn btn-primary" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()"/>
-                        <input type="button" id="profileAboutMeEditCancel" value="Cancel" class="btn btn-default" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- END - About Me Edit Overlay-->
-
-    <!-- BEGIN - Standard Yes/No Modal Popup-->
-    <div id="yesNoModalOverlay" class="yesNoModalOverlay hidden" role="dialog">
-        <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
-            <div class="yesNoModalContent">
-                <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
-                <div id="yesNoModalText" class="yesNoModalText">Text</div>
-                <div id="modalButtons">
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- END - Standard Yes/No Modal Popup-->
-<!-- END - Overlays -->
-</div>
+            <!-- END - About Me Edit Overlay-->
 
-<!-- BEGIN - Main Content Section-->
-<main>
-
-<!-- Include for home page content -->
-<?php include "inc/content.php"; ?>
-
-    <!-- BEGIN - Browse Jobs Section -->
-    <section class="pageContent hidden" id="browseJobsSection">
-        <div class="pageBanner">
-            <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-        </div>
-        <div id="jobs" class="pageBody">
-            <div id="noJobs" class="hidden">
-                No jobs found
-            </div>
-            <div id="loadingJobs" class="hidden">
-                <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
-            </div>
-            <div id="jobList" class="jobList hidden">
-
-
-            </div>
-
-            <div id="jobPosterApplication" class="hidden">
-
-            </div>
-        </div>
-
-        <div class="jobCount hidden">
-            <span id="contactCount">0</span> jobs
-        </div>
-    </section>
-    <!-- END - Browse Jobs Section -->
-
-    <!-- BEGIN - View Job Poster Section -->
-    <section class="pageContent hidden" id="viewJobPosterSection">
-        <div class="pageBanner">
-            <div id="jobPosterHeaderSection" class="container">
-                <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
-                <h2 id="jobPosterTitle">Job Title</h2>
-                <p id="jobPosterLocation">
-                    <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
-                </p>
-                <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
-                <input id="jobPosterJobId" type="hidden"/>
-            </div>
-        </div>
-        <div class="pageBody">
-            <section id="jobPosterDatapointsSection">
-                <div class="container">
-                    <ul>
-                        <li>
-                            <p id="jobPosterSalaryRange">
-                                <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
-                            </p>
-                        </li>
-                        <li>
-                            <p id="jobPosterTerm">
-                                <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
-                            </p>
-                        </li>
-                        <li>
-                            <p id="jobPosterJobLevel">
-                                <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                    <h3 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h3>
-                    <p id="jobPosterImpact"></p>
-                </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                    <h3 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h3>
-                    <ul id="jobPosterKeyTasks"></ul>
-                </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                    <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
-                    <ul id="jobPosterCoreCompetencies"></ul>
-                </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                   <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
-                    <ul id="jobPosterDevelopingCompetencies"></ul>
-                </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                    <h3 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h3>
-                    <ul id="jobPosterOtherRequirements"></ul>
-                </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class='container'>
-                    <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
-                    <input type='hidden' id='jobPosterHiringManagerUserId'/>
-
-                    <div class="hiringManagerSummaryWrapper">
-                        <div id='hiringManagerSummaryImageWrapper'>
-                            <a href="#" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
-                                <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
-                                <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
-                            </a>
-                        </div>
-                        <div id='hiringManagerSummaryContentWrapper' >
-                            <h4><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></h4>
-                            <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
-                            <div id='hiringManagerSummaryButtonWrapper'>
-                                <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
-                                    Read Profile
-                                </button>
-                            </div>
+            <!-- BEGIN - Standard Yes/No Modal Popup-->
+            <div id="yesNoModalOverlay" class="yesNoModalOverlay hidden" role="dialog">
+                <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
+                    <div class="yesNoModalContent">
+                        <div id="yesNoModalTitle" class="yesNoModalTitle">Title</div>
+                        <div id="yesNoModalText" class="yesNoModalText">Text</div>
+                        <div id="modalButtons">
                         </div>
                     </div>
                 </div>
-            </section>
-            <section class='jobPosterSection'>
-                <div class="container">
-                    <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
-                    <div class="workEnvironmentAnswerWrapper">
-                        <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
-                        <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
-                        <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+            </div>
+            <!-- END - Standard Yes/No Modal Popup-->
+            <!-- END - Overlays -->
+        </div>
+
+        <!-- BEGIN - Main Content Section-->
+        <main>
+
+            <!-- Include for home page content -->
+            <?php include "inc/content.php"; ?>
+
+            <!-- BEGIN - Browse Jobs Section -->
+            <section class="pageContent hidden" id="browseJobsSection">
+                <div class="pageBanner">
+                    <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
+                </div>
+                <div id="jobs" class="pageBody">
+                    <div id="noJobs" class="hidden">
+                        No jobs found
                     </div>
-                    <div class="workEnvironmentSummaryWrapper">
-                        <div id='workEnvironmentSummaryImagesWrapper'>
-                            <figure>
-                                <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
-                                <!--<figcaption>Caption 1</figcaption>-->
-                            </figure>
-                            <figure>
-                                <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
-                                <!--<figcaption>Caption 2</figcaption>-->
-                            </figure>
-                            <figure>
-                                <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
-                                <!--<figcaption>Caption 3</figcaption>-->
-                            </figure>
-                        </div>
+                    <div id="loadingJobs" class="hidden">
+                        <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
                     </div>
-            </section>
-            <section class="jobPosterSection">
-                <div class="container">
-                    <h3 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h3>
-                    <div class="container">
-                        <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
-                        <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
-                        <p><span id="jobPosterTeamNarrativeText"></span></p>
+                    <div id="jobList" class="jobList hidden">
+
+
+                    </div>
+
+                    <div id="jobPosterApplication" class="hidden">
+
                     </div>
                 </div>
+
+                <div class="jobCount hidden">
+                    <span id="contactCount">0</span> jobs
+                </div>
             </section>
+            <!-- END - Browse Jobs Section -->
 
-            <div id="jobPosterButtonWrapper">
-                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
-                    Apply Now
-                </button>
-            </div>
-        </div>
-    </section>
-    <!-- END - View Job Poster Section -->
-
-    <!-- BEGIN - Applicant Profile Section -->
-    <section class="pageContent hidden" id="profileSection">
-        <div class="pageBanner">
-            <div class="profileBannerFiller"></div>
-        </div>
-        <div class="pageBody">
-            <div class="container">
-                <div id="profileBasicInfo" class="profileBasicInfo centered">
-                    <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
-                        <div class="flexLeftOfCenter">
-                            <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks">
-                                <li id="profileTwitterLinkWrapper" class="hidden">
-                                    <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
-                                </li>
-                                <li id="profileLinkedinLinkWrapper" class="hidden">
-                                    <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
-                        <div class="flexRightOfCenter">
-                            <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
-                                <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div id="profileNameWrapper">
-                        <div class="profileName">
-                            <span id="profileFirstName"></span> <span id="profileLastName"></span>
-                        </div>
-                    </div>
-                    <div class="profileTagLineContainer">
-                        <p id="profileTagLine">Default tag line!</p>
-                        <p>
-                        <!--p>
-                            <strong>Available: </strong><span id="profileStartDate"></span>
-                            <br>
-                            <strong>Status: </strong><span id="profileStatus"></span>
-                        </p-->
+            <!-- BEGIN - View Job Poster Section -->
+            <section class="pageContent hidden" id="viewJobPosterSection">
+                <div class="pageBanner">
+                    <div id="jobPosterHeaderSection" class="container">
+                        <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
+                        <h2 id="jobPosterTitle">Job Title</h2>
+                        <p id="jobPosterLocation">
+                            <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
                         </p>
+                        <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
+                        <input id="jobPosterJobId" type="hidden"/>
                     </div>
-                    <input type="hidden" id="profileId"/>
-                    <input type="hidden" id="profileLastUpdated"/>
                 </div>
-                <div id="profileAboutMeWrapper" class="profileSubSection">
-                    <div class="profileSubSectionTitleBar">
-                        <h2 id="aboutMe">About Me</h2>
-                        <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
-                    </div>
-                    <p id="profileAboutMe">This is the about me section.</p>
-                </div>
-                <!--
-                <div id="profileSkillsWrapper" class="profileSubSection">
-                    <div class="profileSubSectionTitleBar">
-                        <h2>My Skills and Knowledge</h2>
-                        <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
-                    </div>
-                    <ul id="profileSkillsList">
-                    </ul>
-                </div>
-                -->
-            </div>
-        </div>
-    </section>
-    <!-- END - Applicant Profile Section -->
-
-    <!-- BEGIN - Manager Profile Section -->
-    <section class="pageContent hidden" id="managerProfileSection">
-        <div class="pageBanner">
-            <div class="profileBannerFiller"></div>
-        </div>
-        <div class="pageBody">
-            <div class="container">
-                <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
-                    <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
-                        <div class="flexLeftOfCenter">
-                            <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks">
-                                <li id="managerProfileTwitterLinkWrapper" class="hidden">
-                                    <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                <div class="pageBody">
+                    <section id="jobPosterDatapointsSection">
+                        <div class="container">
+                            <ul>
+                                <li>
+                                    <p id="jobPosterSalaryRange">
+                                        <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
+                                    </p>
                                 </li>
-                                <li id="managerProfileLinkedinLinkWrapper" class="hidden">
-                                    <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                <li>
+                                    <p id="jobPosterTerm">
+                                        <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p id="jobPosterJobLevel">
+                                        <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
+                                    </p>
                                 </li>
                             </ul>
                         </div>
-                        <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
-                        <div class="flexRightOfCenter"></div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class="container">
+                            <h3 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h3>
+                            <p id="jobPosterImpact"></p>
+                        </div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class="container">
+                            <h3 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h3>
+                            <ul id="jobPosterKeyTasks"></ul>
+                        </div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class="container">
+                            <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
+                            <ul id="jobPosterCoreCompetencies"></ul>
+                        </div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class="container">
+                            <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
+                            <ul id="jobPosterDevelopingCompetencies"></ul>
+                        </div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class="container">
+                            <h3 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h3>
+                            <ul id="jobPosterOtherRequirements"></ul>
+                        </div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class='container'>
+                            <h3 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h3>
+                            <input type='hidden' id='jobPosterHiringManagerUserId'/>
+
+                            <div class="hiringManagerSummaryWrapper">
+                                <div id='hiringManagerSummaryImageWrapper'>
+                                    <a href="#" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                                        <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
+                                        <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
+                                    </a>
+                                </div>
+                                <div id='hiringManagerSummaryContentWrapper' >
+                                    <h4><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></h4>
+                                    <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
+                                    <div id='hiringManagerSummaryButtonWrapper'>
+                                        <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+                                            Read Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class='jobPosterSection'>
+                        <div class="container">
+                            <h3 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h3>
+                            <div class="workEnvironmentAnswerWrapper">
+                                <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
+                                <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
+                                <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+                            </div>
+                            <div class="workEnvironmentSummaryWrapper">
+                                <div id='workEnvironmentSummaryImagesWrapper'>
+                                    <figure>
+                                        <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
+                                        <!--<figcaption>Caption 1</figcaption>-->
+                                    </figure>
+                                    <figure>
+                                        <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
+                                        <!--<figcaption>Caption 2</figcaption>-->
+                                    </figure>
+                                    <figure>
+                                        <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
+                                        <!--<figcaption>Caption 3</figcaption>-->
+                                    </figure>
+                                </div>
+                            </div>
+                    </section>
+                    <section class="jobPosterSection">
+                        <div class="container">
+                            <h3 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h3>
+                            <div class="container">
+                                <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
+                                <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
+                                <p><span id="jobPosterTeamNarrativeText"></span></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div id="jobPosterButtonWrapper">
+                        <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
+                            Apply Now
+                        </button>
                     </div>
-                    <div id="managerProfileNameWrapper">
-                        <div id="managerProfileName" class="profileName">
-                            <span id="managerProfileFirstName"></span> <span id="managerProfileLastName"></span>
+                </div>
+            </section>
+            <!-- END - View Job Poster Section -->
+
+            <!-- BEGIN - Applicant Profile Section -->
+            <section class="pageContent hidden" id="profileSection">
+                <div class="pageBanner">
+                    <div class="profileBannerFiller"></div>
+                </div>
+                <div class="pageBody">
+                    <div class="container">
+                        <div id="profileBasicInfo" class="profileBasicInfo centered">
+                            <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
+                                <div class="flexLeftOfCenter">
+                                    <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks">
+                                        <li id="profileTwitterLinkWrapper" class="hidden">
+                                            <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                                        </li>
+                                        <li id="profileLinkedinLinkWrapper" class="hidden">
+                                            <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/>
+                                <div class="flexRightOfCenter">
+                                    <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()">
+                                        <img src="/images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="profileNameWrapper">
+                                <div class="profileName">
+                                    <span id="profileFirstName"></span> <span id="profileLastName"></span>
+                                </div>
+                            </div>
+                            <div class="profileTagLineContainer">
+                                <p id="profileTagLine">Default tag line!</p>
+                                <p>
+                                    <!--p>
+                                        <strong>Available: </strong><span id="profileStartDate"></span>
+                                        <br>
+                                        <strong>Status: </strong><span id="profileStatus"></span>
+                                    </p-->
+                                </p>
+                            </div>
+                            <input type="hidden" id="profileId"/>
+                            <input type="hidden" id="profileLastUpdated"/>
+                        </div>
+                        <div id="profileAboutMeWrapper" class="profileSubSection">
+                            <div class="profileSubSectionTitleBar">
+                                <h2 id="aboutMe">About Me</h2>
+                                <a href="javascript:void(0)" id="profileAboutMeEdit" class="sectionEditBtn" onclick="JobSeekerAPI.showJobSeekerProfileAboutMeEdit()"><img src="/images/btn_edit_dark.png" alt="Edit About Me" class="editImage"/></a>
+                            </div>
+                            <p id="profileAboutMe">This is the about me section.</p>
+                        </div>
+                        <!--
+                        <div id="profileSkillsWrapper" class="profileSubSection">
+                            <div class="profileSubSectionTitleBar">
+                                <h2>My Skills and Knowledge</h2>
+                                <a href="javascript:void(0)" id="profileSkillsEdit" class="sectionEditBtn"><img src="/images/btn_edit_dark.png" alt="Edit Skills" class="editImage"/></a>
+                            </div>
+                            <ul id="profileSkillsList">
+                            </ul>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </section>
+            <!-- END - Applicant Profile Section -->
+
+            <!-- BEGIN - Manager Profile Section -->
+            <section class="pageContent hidden" id="managerProfileSection">
+                <div class="pageBanner">
+                    <div class="profileBannerFiller"></div>
+                </div>
+                <div class="pageBody">
+                    <div class="container">
+                        <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
+                            <div id="managerProfileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
+                                <div class="flexLeftOfCenter">
+                                    <ul id="managerProfileSocialMediaLinks" class="profileSocialMediaLinks">
+                                        <li id="managerProfileTwitterLinkWrapper" class="hidden">
+                                            <a href="#" id="managerProfileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
+                                        </li>
+                                        <li id="managerProfileLinkedinLinkWrapper" class="hidden">
+                                            <a href="#" id="managerProfileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <img id="managerProfilePic" class="profilePicLarge" src="images/user.png" alt="Manager Profile Pic"/>
+                                <div class="flexRightOfCenter"></div>
+                            </div>
+                            <div id="managerProfileNameWrapper">
+                                <div id="managerProfileName" class="profileName">
+                                    <span id="managerProfileFirstName"></span> <span id="managerProfileLastName"></span>
+                                </div>
+                            </div>
+                            <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
+                                <p><span id="managerProfilePosition" class="bold"></span> <span id="managerProfilePositionAtLabel"></span> <span id="managerProfileDepartment" class="bold"></span></p>
+                            </div>
+                            <input type="hidden" id="managerProfile_managerProfileId"/>
+                            <input type="hidden" id="managerProfile_userId"/>
+                            <input type="hidden" id="managerProfileLastUpdated"/>
+                        </div>
+                        <div class="profileSubSection">
+                            <div class="profileSubSectionTitleBar">
+                                <h2 id="managerProfileAboutMeTitle" >About Me</h2>
+                            </div>
+                            <p id="managerProfileAboutMe">This is the about me section.</p>
+                        </div>
+                        <div class="profileSubSection">
+                            <div class="profileSubSectionTitleBar">
+                                <h2 id="managerProfileAccomplishmentTitle">My Greatest Accomplishment</h2>
+                            </div>
+                            <p id="managerProfileAccomplishment">This is my greatest accomplishment.</p>
+                        </div>
+                        <div class="profileSubSection">
+                            <div class="profileSubSectionTitleBar">
+                                <h2 id="managerProfileLeadershipStyleTitle">My Leadership Style</h2>
+                            </div>
+                            <p id="managerProfileLeadershipStyle">This is my leadership style.</p>
+                        </div>
+                        <div class="profileSubSection">
+                            <div class="profileSubSectionTitleBar">
+                                <h2 id="managerProfileExpectationsTitle">My Expectations of Employees</h2>
+                            </div>
+                            <p id="managerProfileExpectations">These are my employee expectations.</p>
+                        </div>
+                        <div class='profileSubSection manager-decisions'>
+                            <div class='profileSubSectionTitleBar'>
+                                <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
+                            </div>
+                            <div>
+                                <p id="managerProfile_review"></p>
+                                <p id="managerProfile_stayLate"></p>
+                                <p id="managerProfile_engagement"></p>
+                                <p id="managerProfile_developmentOpportunities"></p>
+                            </div>
+                        </div>
+                        <div class="manager-decisions-tip">
+                            <p id="managerDecisions_tipWhatis"></p>
+                            <p id="managerDecisions_tipSummary"></p>
+                        </div>
+                        <div class='profileSubSection manager-education'>
+                            <div class='profileSubSectionTitleBar'>
+                                <h2 id='managerProfileEducationTitle'>Education</h2>
+                            </div>
+                            <p id='managerProfileEducation'>This is my education.</p>
+                        </div>
+                        <div class='profileSubSection'>
+                            <div class='profileSubSectionTitleBar'>
+                                <h2 id='managerProfileExperienceTitle'>Work History</h2>
+                            </div>
+                            <p id='managerProfileExperience'>This is my work history.</p>
                         </div>
                     </div>
-                    <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
-                        <p><span id="managerProfilePosition" class="bold"></span> <span id="managerProfilePositionAtLabel"></span> <span id="managerProfileDepartment" class="bold"></span></p>
-                    </div>
-                    <input type="hidden" id="managerProfile_managerProfileId"/>
-                    <input type="hidden" id="managerProfile_userId"/>
-                    <input type="hidden" id="managerProfileLastUpdated"/>
                 </div>
-                <div class="profileSubSection">
-                    <div class="profileSubSectionTitleBar">
-                        <h2 id="managerProfileAboutMeTitle" >About Me</h2>
-                    </div>
-                    <p id="managerProfileAboutMe">This is the about me section.</p>
-                </div>
-                <div class="profileSubSection">
-                    <div class="profileSubSectionTitleBar">
-                        <h2 id="managerProfileAccomplishmentTitle">My Greatest Accomplishment</h2>
-                    </div>
-                    <p id="managerProfileAccomplishment">This is my greatest accomplishment.</p>
-                </div>
-                <div class="profileSubSection">
-                    <div class="profileSubSectionTitleBar">
-                        <h2 id="managerProfileLeadershipStyleTitle">My Leadership Style</h2>
-                    </div>
-                    <p id="managerProfileLeadershipStyle">This is my leadership style.</p>
-                </div>
-                <div class="profileSubSection">
-                    <div class="profileSubSectionTitleBar">
-                        <h2 id="managerProfileExpectationsTitle">My Expectations of Employees</h2>
-                    </div>
-                    <p id="managerProfileExpectations">These are my employee expectations.</p>
-                </div>
-                <div class='profileSubSection manager-decisions'>
-                    <div class='profileSubSectionTitleBar'>
-                        <h2 id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h2>
-                    </div>
-                    <div>
-                        <p id="managerProfile_review"></p>
-                        <p id="managerProfile_stayLate"></p>
-                        <p id="managerProfile_engagement"></p>
-                        <p id="managerProfile_developmentOpportunities"></p>
-                    </div>
-                </div>
-                <div class="manager-decisions-tip">
-                    <p id="managerDecisions_tipWhatis"></p>
-                    <p id="managerDecisions_tipSummary"></p>
-                </div>
-                <div class='profileSubSection manager-education'>
-                    <div class='profileSubSectionTitleBar'>
-                        <h2 id='managerProfileEducationTitle'>Education</h2>
-                    </div>
-                    <p id='managerProfileEducation'>This is my education.</p>
-                </div>
-                <div class='profileSubSection'>
-                    <div class='profileSubSectionTitleBar'>
-                        <h2 id='managerProfileExperienceTitle'>Work History</h2>
-                    </div>
-                    <p id='managerProfileExperience'>This is my work history.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END - Manager Profile Section -->
+            </section>
+            <!-- END - Manager Profile Section -->
 
-    <!-- BEGIN - Job Application Section -->
-    <section class="pageContent hidden" id="createJobApplicationSection">
-        <div class="pageBanner">
-            <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
-            <div class="container centered">
-                <p id="createJobApplicationPositionLabel">for the position of:</p>
-                <h3 id="createJobApplicationPostition">Job title</h3>
-            </div>
-            <input type='hidden' id='createJobApplicationJobApplicationId' />
-            <input type='hidden' id='createJobApplicationJobPosterId' />
-            <input type='hidden' id='createJobApplicationJobSeekerId' />
-        </div>
-        <div class="pageBody">
-            <div class="container centered">
-                <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
-                <div class="profileName">
-                    <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
+            <!-- BEGIN - Job Application Section -->
+            <section class="pageContent hidden" id="createJobApplicationSection">
+                <div class="pageBanner">
+                    <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+                    <div class="container centered">
+                        <p id="createJobApplicationPositionLabel">for the position of:</p>
+                        <h3 id="createJobApplicationPostition">Job title</h3>
+                    </div>
+                    <input type='hidden' id='createJobApplicationJobApplicationId' />
+                    <input type='hidden' id='createJobApplicationJobPosterId' />
+                    <input type='hidden' id='createJobApplicationJobSeekerId' />
                 </div>
-            </div>
-            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="container">
-                    <div id="createJobApplicationOpenEndedQuestionsWrapper">
+                <div class="pageBody">
+                    <div class="container centered">
+                        <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
+                        <div class="profileName">
+                            <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
+                        </div>
+                    </div>
+                    <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                        <div class="container">
+                            <div id="createJobApplicationOpenEndedQuestionsWrapper">
 
+                            </div>
+                        </div>
+                    </form>
+                    <div id='createJobApplicationButtonWrapper'>
+                        <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
+                            Submit
+                        </button>
                     </div>
                 </div>
-            </form>
-            <div id='createJobApplicationButtonWrapper'>
-                <button id="createJobApplicationSubmitButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
-                    Submit
-                </button>
-            </div>
-        </div>
-    </section>
-    <!-- END - Job Application Section -->
+            </section>
+            <!-- END - Job Application Section -->
 
-    <!-- BEGIN - Job Application Confirmation Section -->
-    <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
-         <div class="pageBanner">
-            <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
-        </div>
-        <div class="pageBody">
-            <div id='createJobApplicationConfirmationBodyWrapper'>
-                <div class="centered container">
-                    <p id="createJobApplicationConfirmationPositionLabel">
-                        You have applied for the position of:
-                    </p>
-                    <h3 id="createJobApplicationConfirmationPostition">Job title</h3>
-                    <p id="createJobApplicationConfirmationTrackingReminder">
-                        Track the application from your Dashboard.
-                    </p>
-                    <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="DashboardAPI.showDashboard();">
-                        Continue to Dashboard
-                    </button>
+            <!-- BEGIN - Job Application Confirmation Section -->
+            <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
+                <div class="pageBanner">
+                    <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
                 </div>
-            </div>
-            <div class="confirmationFramingBar"></div>
-        </div>
-    </section>
-    <section class="pageContent hidden" id="dashboardSection">
-        <div class="pageBanner">
-            <h2 class="section--title" id="dashBoardTitle">Dashboard</h2>
-        </div>
-        <div class="pageBody">
-            <div class="container" id="dashboardContainer">
-                <h3 id="yourApplicationsTitle">Your Applications</h3>
-                <div id="yourApplications">
+                <div class="pageBody">
+                    <div id='createJobApplicationConfirmationBodyWrapper'>
+                        <div class="centered container">
+                            <p id="createJobApplicationConfirmationPositionLabel">
+                                You have applied for the position of:
+                            </p>
+                            <h3 id="createJobApplicationConfirmationPostition">Job title</h3>
+                            <p id="createJobApplicationConfirmationTrackingReminder">
+                                Track the application from your Dashboard.
+                            </p>
+                            <button id="createJobApplicationConfirmationContinueButton" class="btn btn-primary" value="View" onclick="DashboardAPI.showDashboard();">
+                                Continue to Dashboard
+                            </button>
+                        </div>
+                    </div>
+                    <div class="confirmationFramingBar"></div>
+                </div>
+            </section>
+            <section class="pageContent hidden" id="dashboardSection">
+                <div class="pageBanner">
+                    <h2 class="section--title" id="dashBoardTitle">Dashboard</h2>
+                </div>
+                <div class="pageBody">
+                    <div class="container" id="dashboardContainer">
+                        <h3 id="yourApplicationsTitle">Your Applications</h3>
+                        <div id="yourApplications">
 
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- END - Job Application Confirmation Section -->
-</main>
-<!-- Include for footer -->
-<?php include 'inc/footer.php';?>
-</body>
+            </section>
+            <!-- END - Job Application Confirmation Section -->
+        </main>
+        <!-- Include for footer -->
+        <?php include 'inc/footer.php'; ?>
+    </body>
 </html>
