@@ -508,30 +508,6 @@ and open the template in the editor .
                                 <p id="managerProfile_engagement"></p>
                                 <p id="managerProfile_developmentOpportunities"></p>
                             </div>
-                            <div>
-                                <div class="multi-btn-group-form-group">
-                                    <div class='multi-btn-group-form-group-label'>
-                                        <span id='managerProfile_developmentOpportunities_Label'>How often do you approve development opportunities for your employees?</span>
-                                    </div>
-                                    <div style='display:inline-block;width:560px'>
-                                        <div class="multi-btn-group clearfix">
-                                            <div id='createEditProfile_devops' style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
-                                                <input type="radio" id="devops_option0" name="managerProfile_developmentOpportunities_groupName" value="option0" class="accessAid" />
-                                                <label for="devops_option0" class='option0Label'>Almost never</label>
-                                                <input type="radio" id="devops_option1" name="managerProfile_developmentOpportunities_groupName" value="option1" class="accessAid" />
-                                                <label for="devops_option1" class='option1Label'>Rarely</label>
-                                                <input type="radio" id="devops_option2" name="managerProfile_developmentOpportunities_groupName" value="option2" class="accessAid" />
-                                                <label for="devops_option2" class='option2Label'>Sometimes</label>
-                                                <input type="radio" id="devops_option3" name="managerProfile_developmentOpportunities_groupName" value="option3" class="accessAid" />
-                                                <label for="devops_option3" class='option3Label'>Usually</label>
-                                                <input type="radio" id="devops_option4" name="managerProfile_developmentOpportunities_groupName" value="option4" class="accessAid" />
-                                                <label for="devops_option4" class='option4Label'>Almost always</label>
-                                            </div>
-                                            <div id='devops' class="option0"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="manager-decisions-tip">
                             <p id="managerDecisions_tipWhatis"></p>
