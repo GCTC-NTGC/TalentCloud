@@ -297,24 +297,27 @@ function modalSize() {
         }
 
         // Cycles targetable elements in the modal.
-        // var modalFirstFocusItem = i.querySelector("[class*='>*:first-child']");
-        var modalFirstFocusItem = i.querySelector(">*:first-child");
-        var modalLastFocusItem = i.querySelector(">*:last-child");
+        // var focusable = i.querySelectorAll('h1, h2, h3, h4, h5, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
 
-        console.log(modalFirstFocusItem);
-        console.log(modalLastFocusItem);
+        // var modalFirstFocusItem = focusable[0];
+        // var modalLastFocusItem = focusable[focusable.length - 1];
 
-        modalFirstFocusItem.focus();
+        // if (modalFirstFocusItem && modalLastFocusItem) {
+            
+        //     modalFirstFocusItem.focus();
 
-        modalLastFocusItem.addEventListener("keyup", function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            // Checks to see if the key pressed was Enter (13).
-            if (this.hasFocus() && e.keyCode === 9) {
-                e.preventDefault();
-                modalFirstFocusItem.focus();
-            }
-        });
+        //     console.log("focus");
+
+        //     modalLastFocusItem.addEventListener("keyup", function(e) {
+        //         console.log(this);
+        //         e.preventDefault();
+        //         if (this.hasFocus() && e.keyCode === 9) {
+        //             e.preventDefault();
+        //             modalFirstFocusItem.focus();
+        //         }
+        //     });
+
+        // }
 
     }
 
