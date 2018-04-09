@@ -29,6 +29,7 @@ DashboardAPI.showDashboard = function(){
     history.pushState(stateInfo, stateInfo.pageInfo, '#Dashboard');
     
     EventsAPI.hideAllLayouts();
+    window.scrollTo(0,0);
     
     var dashboardSection = document.getElementById("dashboardSection");
     dashboardSection.classList.remove("hidden");

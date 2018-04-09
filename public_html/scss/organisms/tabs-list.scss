@@ -1,0 +1,66 @@
+/* TABS LIST */
+
+.tabsList{
+    line-height: 2em;
+    display: flex;
+    list-style: none !important;
+    width: 100%;
+    margin:0 !important;
+    padding:0 !important;
+}
+.tabsList li{
+    display: inline-block;
+    margin-right: 1em;
+    margin:0 !important;
+    padding:0 !important;
+    text-align: center;
+}
+.tabsList li a {
+    text-align: center;
+}
+.tabs{
+    padding:1em 2em 2em 2em;
+}
+.tabsSteps{
+    font-size: 1em;
+    line-height: 2em;
+    display: flex;
+    color: #777;
+    float: left;
+    cursor: default;
+    width: 100%;
+    position: absolute;
+    background:rgba(0,0,0,0.7);
+}
+.three-step-tab {
+    width: 33%;
+    position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
+}
+.tab-current {
+    color: #fff;
+    border-bottom: 5px solid #999;
+}
+.four-step-tab{
+    width: 25%;
+    position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
+}
+.five-step-tab{
+    width: 20%;
+    position: relative;
+    color: #bbb;
+    font-size:1.25em;
+    text-align: center;
+    line-height:3em;
+}
+.tabbedForm{
+    width: 100%;
+    height: 100%;
+}

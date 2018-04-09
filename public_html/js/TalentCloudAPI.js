@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,20 +10,26 @@ TalentCloudAPI.roles = {jobseeker:"jobseeker", manager:"manager", admin:"admin"}
 
 TalentCloudAPI.Content = function(title,helpLearn,languageSelect,applyNow,loginLink,logoutLink,registerLink,homeLink,profileLink,
 jobPostersLink,teamsLink,jobNumber,jobTitle,jobLocation,jobCity,jobProvince,jobApplicantsSoFar,jobUnitsToCloseHours,
-jobUnitsToCloseDays,jobUnitsToCloseMonths,jobUntilClose,jobTerm,viewButton,jobSalaryRange, submitApplication, step1, step2, 
-step3, review, goToStep2, goToStep1, goToStep3, goToReview, createJobPosterWindowTitle, createProfileWindowTitle, required, 
+jobUnitsToCloseDays,jobUnitsToCloseMonths,jobUntilClose,jobTerm,viewButton,jobSalaryRange, submitApplication, step1, step2,
+step3, review, goToStep2, goToStep1, goToStep3, goToReview, createJobPosterWindowTitle, createProfileWindowTitle, required,
 createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutMe, whatImMostProudOfInCareer, position,
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
 rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
-readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead, //howItWorksMainHtml,
+readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
 dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
 workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment, dashBoardLink,yourApplicationsTitle,
 teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt, openEndedQuestions, jobReferenceId,
-skipNavText
+skipNavText, profileBasicInfoEditTitle, workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
+dashBoardLink,yourApplicationsTitle, teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,skipNavText,
+managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
+managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
+managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
+managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, changeDisplayPic
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -145,6 +151,28 @@ skipNavText
     this.openEndedQuestions = openEndedQuestions;
     this.jobReferenceId = jobReferenceId;
     this.skipNavText = skipNavText;
+    this.profileBasicInfoEditTitle = profileBasicInfoEditTitle;
+    this.managerProfile_review_option0 = managerProfile_review_option0;
+    this.managerProfile_review_option1 = managerProfile_review_option1;
+    this.managerProfile_review_option2 = managerProfile_review_option2;
+    this.managerProfile_review_option3 = managerProfile_review_option3;
+    this.managerProfile_review_option4 = managerProfile_review_option4;
+    this.managerProfile_stayLate_option0 = managerProfile_stayLate_option0;
+    this.managerProfile_stayLate_option1 = managerProfile_stayLate_option1;
+    this.managerProfile_stayLate_option2 = managerProfile_stayLate_option2;
+    this.managerProfile_stayLate_option3 = managerProfile_stayLate_option3;
+    this.managerProfile_stayLate_option4 = managerProfile_stayLate_option4;
+    this.managerProfile_engagement_option0 = managerProfile_engagement_option0;
+    this.managerProfile_engagement_option1 = managerProfile_engagement_option1;
+    this.managerProfile_engagement_option2 = managerProfile_engagement_option2;
+    this.managerProfile_engagement_option3 = managerProfile_engagement_option3;
+    this.managerProfile_engagement_option4 = managerProfile_engagement_option4;
+    this.managerProfile_developmentOpportunities_option0 = managerProfile_developmentOpportunities_option0;
+    this.managerProfile_developmentOpportunities_option1 = managerProfile_developmentOpportunities_option1;
+    this.managerProfile_developmentOpportunities_option2 = managerProfile_developmentOpportunities_option2;
+    this.managerProfile_developmentOpportunities_option3 = managerProfile_developmentOpportunities_option3;
+    this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
+    this.changeDisplayPic = changeDisplayPic;
 };
 
 TalentCloudAPI.pages = {
@@ -236,7 +264,7 @@ TalentCloudAPI.pages = {
         };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 TalentCloudAPI.load = function(){
@@ -271,7 +299,7 @@ TalentCloudAPI.load = function(){
         }
     }
     /*if(window.location.href.indexOf("/"+TalentCloudAPI.roles.manager) > -1) {
-        
+
         managerView = true;
         TalentCloudAPI.loadManager();
         if(pageToReload !== undefined){
@@ -280,15 +308,15 @@ TalentCloudAPI.load = function(){
             window.history.replaceState(stateInfo, stateInfo.pageInfo, "/manager/#");
         }
     }*/
-    
+
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 TalentCloudAPI.loadPublic = function(){
-    
+
     if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
         locale = TalentCloudAPI.getLanguageFromCookie();
     }else{
@@ -308,15 +336,15 @@ TalentCloudAPI.loadPublic = function(){
             UserAPI.login(credentials);
         }
     }
-    
+
 };
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 TalentCloudAPI.loadManager = function(){
-    
+
     if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
         locale = TalentCloudAPI.getLanguageFromCookie();
     }else{
@@ -354,11 +382,11 @@ TalentCloudAPI.loadManager = function(){
 
 
 /**
- * 
+ *
  * @returns {undefined}
  */
 TalentCloudAPI.loadAdmin = function(){
-    
+
     if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
         locale = TalentCloudAPI.getLanguageFromCookie();
     }else{
@@ -393,7 +421,7 @@ TalentCloudAPI.loadAdmin = function(){
 };
 
 /**
- * 
+ *
  * @param {type} locale
  * @returns {undefined}
  */
@@ -402,13 +430,13 @@ TalentCloudAPI.setLanguageCookie = function(locale){
     var currentDate = new Date();
     currentDate = Utilities.addDays(currentDate, 1);
     var path = "/";
-    
+
     Utilities.debug?console.log("cookieDateString=" + currentDate):null;
     Utilities.setCookie(name,locale,currentDate,path);
 };
 
 /**
- * 
+ *
  * @returns {unresolved}
  */
 TalentCloudAPI.getLanguageFromCookie = function(){
@@ -418,7 +446,7 @@ TalentCloudAPI.getLanguageFromCookie = function(){
 };
 
 /**
- * 
+ *
  * @param {type} locale
  * @returns {undefined}
  */
@@ -447,11 +475,11 @@ TalentCloudAPI.hideAllContent = function(){
     var overlays = document.getElementById("overlays").children;
     var sections = document.getElementsByTagName("main")[0].children;
 
-    
+
     for(var i = 0;i < overlays.length;i++){
         overlays[i].classList.add("hidden");
     }
-    
+
     for(var i = 0;i < sections.length;i++){
         sections[i].classList.add("hidden");
     }
@@ -467,7 +495,7 @@ TalentCloudAPI.hideLogo = function(){
 };
 
 /**
- * 
+ *
  * @param {type} content
  * @param {type} isManager
  * @returns {undefined}
@@ -475,45 +503,45 @@ TalentCloudAPI.hideLogo = function(){
 TalentCloudAPI.setContent = function(content, isManager){
     //console.log(content);
     siteContent = content;
-    
+
     // Common headers (both Applicant and Admin)
     document.title = siteContent.title;
     window.title = siteContent.title;
-    
+
     var skipNavText = document.getElementById("skipNavText");
     skipNavText.innerHTML = siteContent.skipNavText;
-    
+
     var announcement = document.getElementById("announcement");
     announcement.innerHTML = siteContent.announcement;
-    
+
     var gctc = document.getElementById("gctc");
     gctc.innerHTML = siteContent.gctc;
-    
+
     var languageLink = document.getElementById("languageSelect");
     languageLink.innerHTML = siteContent.languageSelect;
-    
+
     var loginLink = document.getElementById("loginLink");
     loginLink.innerHTML = siteContent.loginLink;
-    
+
     var logoutLink = document.getElementById("logoutLink");
     logoutLink.innerHTML = siteContent.logoutLink;
-    
+
     var registerLink = document.getElementById("registerLink");
     registerLink.innerHTML = siteContent.registerLink;
-    
+
     var browseLink = document.getElementById("browseLink");
     browseLink.innerHTML = siteContent.browseLink;
-    
+
     var homeLink = document.getElementById("homeLink");
     homeLink.innerHTML = siteContent.homeLink;
 
     var profileLink = document.getElementById("profileLink");
     profileLink.innerHTML = siteContent.profileLink;
-    
+
     var logoSrc = document.getElementById("logoSrc");
     logoSrc.src = siteContent.logoSrc;
     logoSrc.alt = siteContent.logoAlt;
-    
+
     var taglineMain = document.getElementById("taglineMain");
     taglineMain.innerHTML = siteContent.taglineMain;
 
@@ -523,145 +551,145 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     if(isManager){
         console.log(isManager);
-        
+
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
         CreateJobPosterAPI.localizeCreateJobPosterForm();
-        
+
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
 
         var jobPostersLink = document.getElementById("jobPostersLink");
         jobPostersLink.innerHTML = siteContent.jobPostersLink;
-        
+
         var adminPortal = document.getElementById("adminPortal");
         adminPortal.innerHTML = siteContent.adminPortal;
-        
+
         var adminTagline = document.getElementById("adminTagline");
         adminTagline.innerHTML = siteContent.adminTagline;
-        
+
         var adminAboutMe = document.getElementById("adminAboutMe");
         adminAboutMe.innerHTML = siteContent.adminAboutMe;
-        
+
         var adminProfilePositionLabel = document.getElementById("createEditProfile_position_label");
         adminProfilePositionLabel.innerHTML = siteContent.adminProfilePositionLabel;
-        
+
         var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
         adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
-        
+
         var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_label");
         adminProfileBranchLabel.innerHTML = siteContent.adminProfileBranchLabel;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
-        
+
         //Create Job Poster
         //TODO: fix localization of terms for Create Job Poster
         /*
         var createJobPosterWindowTitle = document.getElementById("createJobPosterWindowTitle");
         createJobPosterWindowTitle.innerHTML = siteContent.createJobPosterWindowTitle;
-        
+
         for(var i = 1;i < 4;i++){
             var stepOne = document.getElementById("createJobPosterTabLabel_" + i);
             stepOne.innerHTML = siteContent.step1;
         }
-        
+
         for(var i = 1;i < 4;i++){
             var stepTwo = document.getElementById("createJobPosterTabLabel_" + i);
             stepTwo.innerHTML = siteContent.step2;
         }
-        
+
         for(var i = 1;i < 4;i++){
             var stepThree = document.getElementById("createJobPosterStep3Label_" + i);
             stepThree.innerHTML = siteContent.step3;
         }
-        
+
         for(var i = 1;i < 5;i++){
             var stepFour = document.getElementById("createJobPosterStep4Label_" + i);
             stepFour.innerHTML = siteContent.review;
         }
-        
+
         var goToStep2 = document.getElementById("createJobPoster_goToStep2_1");
         goToStep2.setAttribute("value", siteContent.goToStep2);
-        
+
         var goToStep2_2 = document.getElementById("createJobPoster_goToStep2_2");
         goToStep2_2.setAttribute("value", siteContent.goToStep2);
-        
+
         var goToStep1 = document.getElementById("createJobPoster_goToStep1");
         goToStep1.setAttribute("value", siteContent.goToStep1);
-        
+
         var goToStep3 = document.getElementById("createJobPoster_goToStep3_1");
         goToStep3.setAttribute("value", siteContent.goToStep3);
-        
+
         var goToStep3_2 = document.getElementById("createJobPoster_goToStep3_2");
         goToStep3_2.setAttribute("value", siteContent.goToStep3);
-        
+
         var goToReview = document.getElementById("createJobPoster_goToReview");
         goToReview.setAttribute("value", siteContent.goToReview);
-        
+
         var createJobPoster_submit = document.getElementById("createJobPosterSubmitButton");
         createJobPoster_submit.setAttribute("value", content.submit);
-        
+
         var createJobPosterSubmitInst = document.getElementById("createJobPosterSubmitInstructions");
         createJobPosterSubmitInst.innerHTML = content.createJobPosterSubmitInstructions;
         */
-        
+
         //Create Edit Profile
         var createEditProfile_goToStep2 = document.getElementById("createEditProfile_goToStep2_1");
         createEditProfile_goToStep2.setAttribute("value", content.goToStep2);
-        
+
         var createEditProfile_goToStep1 = document.getElementById("createEditProfile_goToStep1_1");
         createEditProfile_goToStep1.setAttribute("value", content.goToStep1);
-        
+
         var createEditProfile_goToStep3 = document.getElementById("createEditProfile_goToStep3_1");
         createEditProfile_goToStep3.setAttribute("value", content.goToStep3);
-        
+
         var createEditProfile_goToStep2_1 = document.getElementById("createEditProfile_goToStep2_2");
         createEditProfile_goToStep2_1.setAttribute("value", content.goToStep2);
-        
+
         for(var i = 1;i < 4;i++){
             var stepOne = document.getElementById("createEditProfileStep1Label_" + i);
             stepOne.innerHTML = content.step1;
         }
-        
+
         for(var i = 1;i < 4;i++){
             var stepTwo = document.getElementById("createEditProfileStep2Label_" + i);
             stepTwo.innerHTML = content.step2;
         }
-        
+
         for(var i = 1;i < 4;i++){
             var stepThree = document.getElementById("createEditProfileStep3Label_" + i);
             stepThree.innerHTML = content.step3;
         }
-        
+
         //var createEditProfile_title = document.getElementById("createProfileWindowTitle");
         //createEditProfile_title.innerHTML = content.createProfileWindowTitle;
-        
+
         var createEditProfile_required2 = document.getElementById("createEditProfile_requiredStep2");
         createEditProfile_required2.innerHTML = content.required;
-        
+
         var createEditProfile_required1 = document.getElementById("createEditProfile_requiredStep1");
         createEditProfile_required1.innerHTML = content.required;
-        
+
         var createEditProfile_submit = document.getElementById("createEditProfileSubmitButton");
         createEditProfile_submit.setAttribute("value", content.submit);
-        
+
         var createEditProfile_how_often_review_label = document.getElementById("createEditProfile_how_often_review_label");
         createEditProfile_how_often_review_label.innerHTML = content.howOftenDoYouReview + ' *';
-        
+
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
-        
+
     }
-    
+
     if(!isManager){
         //Applicant side only headers
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();
         JobApplicationAPI.localizeCreateJobApplication();
         WorkEnvironmentAPI.localizeWorkEnvironment();
-        TeamCultureAPI.localizeTeamCulture();        
+        TeamCultureAPI.localizeTeamCulture();
 
         var dashBoardLink = document.getElementById("dashBoardLink");
         dashBoardLink.innerHTML = siteContent.dashBoardLink;
@@ -710,57 +738,64 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var contactUs = document.getElementById("contactUs");
         contactUs.innerHTML = siteContent.contactUs;
-        
+
         var browseTitle = document.getElementById("browseTitle");
         browseTitle.innerHTML = siteContent.browseTitle;
-        
+
         var viewJobPosterTitle = document.getElementById("viewJobPosterTitle");
         viewJobPosterTitle.innerHTML = siteContent.browseTitle;
-        
+
         var dashBoardTitle = document.getElementById("dashBoardTitle");
         dashBoardTitle.innerHTML = siteContent.dashBoardLink;
-        
+
         var yourApplicationsTitle = document.getElementById("yourApplicationsTitle");
         yourApplicationsTitle.innerHTML = siteContent.yourApplicationsTitle;
-        
+
         var howItWorksLast = document.getElementById("howItWorksLast");
         howItWorksLast.innerHTML = siteContent.howItWorksLast;
-        
+
         var transcript = document.getElementById("transcript");
         transcript.innerHTML = siteContent.transcript;
-        
+
+        var aboutMe = document.getElementById("aboutMe");
+        aboutMe.innerHTML = siteContent.aboutMe;
+
+        var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
+        profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
+
+        var changeDisplayPic = document.getElementById("changeDisplayPic");
+        changeDisplayPic.innerHTML = siteContent.changeDisplayPic;
+
         var almostNeverElements = document.getElementsByClassName("option0Label");
         for (var i = 0; i < almostNeverElements.length; i++) {
             almostNeverElements[i].innerHTML = siteContent.almostNever;
         }
-        
+
         var rarelyElements = document.getElementsByClassName("option1Label");
         for (var i = 0; i < rarelyElements.length; i++) {
             rarelyElements[i].innerHTML = siteContent.rarely;
         }
-        
+
         var sometimesElements = document.getElementsByClassName("option2Label");
         for (var i = 0; i < sometimesElements.length; i++) {
             sometimesElements[i].innerHTML = siteContent.sometimes;
         }
-        
+
         var usuallyElements = document.getElementsByClassName("option3Label");
         for (var i = 0; i < usuallyElements.length; i++) {
             usuallyElements[i].innerHTML = siteContent.usually;
         }
-        
+
         var almostAlwaysElements = document.getElementsByClassName("option4Label");
         for (var i = 0; i < almostAlwaysElements.length; i++) {
             almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
         }
-        
-        //not working yet
-        
 
+        //not working yet
     }
-    
+
 };
-    
+
 TalentCloudAPI.setNav = function(navItemToHighlightId){
     var navItems = document.getElementsByClassName("top-nav--link active");
     if(navItems.length > 0){
