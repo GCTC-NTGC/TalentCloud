@@ -276,13 +276,17 @@ Utilities.clearSelectOptions = function(selectElement)
     selectElement.appendChild(blankSelect);
 };
 
-// Modal Height Calculation ====================================================
+// Modal Height Calculation ===================================================
 function modalSize() {
+    // Gets the viewport height.
     var viewportHeight = window.innerHeight;
+    // Gets an array of all modals on the page.
     var dialogueModal = document.querySelectorAll(".dialogue-modal");
-    // console.log(dialogueModal);
+    // Loops through all the modals.
     for (let i of dialogueModal) {
+        // Gets the individual modal's content's height.
         var modalHeight = i.offsetHeight;
+        // Compares the content's height to the height of the viewport. If the modal is taller than the viewport, it is assigned a class forcing it to be scrollable.
         if(modalHeight > viewportHeight) {
             i.classList.remove("dialogue-modal--viewport");
             i.classList.add("dialogue-modal--overflow");
@@ -291,7 +295,78 @@ function modalSize() {
             i.classList.remove("dialogue-modal--overflow");
             i.classList.add("dialogue-modal--viewport");
         }
+
+        // Cycles targetable elements in the modal.
+        // var focusable = i.querySelectorAll('h1, h2, h3, h4, h5, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+
+        // var modalFirstFocusItem = focusable[0];
+        // var modalLastFocusItem = focusable[focusable.length - 1];
+
+        // if (modalFirstFocusItem && modalLastFocusItem) {
+            
+        //     modalFirstFocusItem.focus();
+
+        //     console.log("focus");
+
+        //     modalLastFocusItem.addEventListener("keyup", function(e) {
+        //         console.log(this);
+        //         e.preventDefault();
+        //         if (this.hasFocus() && e.keyCode === 9) {
+        //             e.preventDefault();
+        //             modalFirstFocusItem.focus();
+        //         }
+        //     });
+
+        // }
+
     }
+
 }
 
+// Reruns the function each time the viewport changes size.
 window.onresize = modalSize;
+
+// Sitewide Accordion Triggers ================================================
+window.onload = function(e) {
+    // Gets all elements on the page with "accordion-trigger".
+    var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
+    // Loops through all elements.
+    for (let i of accordionTrigger) {
+        // Checks for a click.
+        i.addEventListener('click', function(e) {
+            // Cancels the default action.
+            e.preventDefault();
+            // Checks to see if the accordion is open.
+            if (this.classList.contains("active")) {
+                // Closes all accordions.
+                for (let x of accordionTrigger) {
+                    x.classList.remove("active")
+                    x.nextElementSibling.classList.remove("active");
+                }
+            }
+            else {
+                // Closes all accordions.
+                for (let x of accordionTrigger) {
+                    x.classList.remove("active")
+                    x.nextElementSibling.classList.remove("active");
+                }
+                // Opens this accordion.
+                this.classList.add("active");
+                this.nextElementSibling.classList.add("active");
+            }
+        });
+
+        // Checks for an Enter key click.
+        i.addEventListener("keyup", function(e) {
+            // Cancels the default action.
+            e.preventDefault();
+            // Checks to see if the key pressed was Enter (13).
+            if (e.keyCode === 13) {
+                // Triggers a click, thus activating the click event listener.
+                this.click();
+            }
+        });
+
+    }
+
+};

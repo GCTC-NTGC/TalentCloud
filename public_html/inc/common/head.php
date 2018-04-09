@@ -3,14 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Font Awesome -->
 <script src="https://use.fontawesome.com/9fe1581a5a.js"></script>
-<link href="../css/webfonts.css" rel="stylesheet" type="text/css"/>
 <!-- WET / CDS -->
 <link href="/css/theme.min.css" rel="stylesheet" type="text/css"/>
 <link href="/css/theme.css" rel="stylesheet" type="text/css"/>
-<!-- Custom -->
-<link href="/css/style.css" rel="stylesheet" type="text/css"/>
-<link href="/css/messaging.css" rel="stylesheet" type="text/css"/>
-<link href="/css/sliderButton.css" rel="stylesheet" type="text/css"/>
 <!-- SASS Sheets -->
 <link href="/css/optimized/app.css" rel="stylesheet" type="text/css"/>
 <!-- jQuery CDN -->

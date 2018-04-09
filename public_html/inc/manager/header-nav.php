@@ -30,12 +30,12 @@
                         <div id="loggedOut">
                             <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a>
                         </div>
-                    </li>    
+                    </li>
                     <li class="top-nav--link" id="loginLinkListItem">
                         <div id="loggedIn" class="hidden">
                             <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
                         </div>
-                    </li>        
+                    </li>
                 </ul>
             </div>
         </div>

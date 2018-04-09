@@ -231,7 +231,7 @@
 
 .update-profile__choose-photo-button {
     position: absolute;
-    left: -100vh;
+    left: -1000vh;
 }
 
 .update-profile__choose-alt-photo-button-label {
@@ -244,5 +244,16 @@
 }
 
 .update-profile__cancel-button {
+
+}
+
+.update-profile-photo__admin-button-wrapper {
+    // display: none;
+    margin: 0 0 2rem 0;
+    text-align: center;
+
+    &.active {
+        display: block;
+    }
 
 }

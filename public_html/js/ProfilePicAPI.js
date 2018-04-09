@@ -148,10 +148,6 @@ ProfilePicAPI.Uploader = function(
                     actionWrapperUpload.classList.add("active");
                     draggableArea.classList.add("active");
                     draggableArea.classList.remove("error");
-                    setTimeout(function(e) {
-                        var crImage = document.querySelectorAll(".cr-image");
-                        crImage.setAttribute("alt", "Preview Profile Photo");
-                    }, 2000)
                 } else {
                     // Indicates file is too large.
                     draggableArea.classList.remove("active");
@@ -179,6 +175,8 @@ ProfilePicAPI.Uploader = function(
         croppie.bind({
             url: imageSrc
         }).then(function() {
+            var crImage = croppie.elements.img;
+            crImage.setAttribute("alt", "Preview Profile Photo");
             croppie.setZoom(0.15);
         });
         return croppie;

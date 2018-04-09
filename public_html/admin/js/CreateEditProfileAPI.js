@@ -762,22 +762,48 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
     //document.body.style.overflow = "hidden";
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
     uploadOverlay.classList.remove("hidden");
-    ManagerEventsAPI.setFormFocus("profilePicUploadField");
+    // ManagerEventsAPI.setFormFocus("profilePicUploadField");
     
-    var fileField = document.getElementById('profilePicUploadField');
-    var fileDrop = document.getElementById('profilePicUploadDrop');
-    var previewImage = document.getElementById('fileUploadPreviewImg');
-    var clearBtn = document.getElementById('profilePicUploadClear');
+    // var fileField = document.getElementById('profilePicUploadField');
+    // var fileDrop = document.getElementById('profilePicUploadDrop');
+    // var previewImage = document.getElementById('fileUploadPreviewImg');
+    // var clearBtn = document.getElementById('profilePicUploadClear');
+    // var uploadBtn = document.getElementById('profilePicUploadBtn');
+    // CreateEditProfileAPI.profilePicUploader = new ProfilePicAPI.Uploader(
+    //         [fileField],
+    //         fileDrop,
+    //         previewImage,
+    //         clearBtn,
+    //         uploadBtn,
+    //         UserAPI.getSessionUserAsJSON().user_id,
+    //         CreateEditProfileAPI.onProfilePicUploaded
+    //     );
+
+    AccessibilityAPI.focusElement("updateProfileChoosePhotoButtonLabel");
+
+    EventsAPI.hideBodyOverflow(true);
+
+    var fileInputButtons = [document.getElementById('updateProfileChoosePhotoButton'),
+        document.getElementById('updateProfileChooseAltPhotoButton')];
+    var fileDrop = document.getElementById('updateProfilePhotoDraggableArea');
+    var imagePreview = document.getElementById('updateProfilePhotoCroppieContainer');
+    var clearBtn = document.getElementById('updateProfilePhotoCancelButton');
     var uploadBtn = document.getElementById('profilePicUploadBtn');
-    CreateEditProfileAPI.profilePicUploader = new ProfilePicAPI.Uploader(
-            [fileField],
-            fileDrop,
-            previewImage,
-            clearBtn,
-            uploadBtn,
-            UserAPI.getSessionUserAsJSON().user_id,
-            CreateEditProfileAPI.onProfilePicUploaded
-        );
+
+    //Don't pass in a save button, because there is no dedicated button for pic uploading.
+    //The save button must upload photo, as well as profile info.
+    JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
+        fileInputButtons,
+        fileDrop,
+        imagePreview,
+        clearBtn,
+        uploadBtn,
+        UserAPI.getSessionUserAsJSON().user_id,
+        CreateEditProfileAPI.onProfilePicUploaded
+    );
+
+    modalSize();
+
 };
 
 CreateEditProfileAPI.hideUploadProfilePic = function() {

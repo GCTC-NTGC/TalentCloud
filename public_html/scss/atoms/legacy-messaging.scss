@@ -1,14 +1,13 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 26-Jul-2015, 10:13:36 AM
-    Author     : gregg
-*/
+/* =============================================================================
 
-.pageOverlay{
+    Authored by: Talent Cloud
+
+    Messaging
+    This is refactored code from a legacy file.
+
+============================================================================= */
+
+.pageOverlay {
     overflow:hidden;
     width:100%;
     height:100%;
@@ -18,8 +17,7 @@ and open the template in the editor.
     background-color:rgba(255,255,255,0.85);
 }
 
-
-.yesNoModalOverlay{
+.yesNoModalOverlay {
     text-align: center;
     margin-bottom:10px;
     overflow:hidden;
@@ -32,16 +30,20 @@ and open the template in the editor.
     z-index:2000;
 }
 
-.yesNoModalOverlay:before{
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em; /* Adjusts for spacing */
-    margin-top:-46px;
+.yesNoModalOverlay {
+
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -0.25em; /* Adjusts for spacing */
+        margin-top:-46px;
+    }
+
 }
 
-.yesNoModalWindow{
+.yesNoModalWindow {
     display: inline-block;
     vertical-align: middle;
     width:33%;
@@ -54,7 +56,7 @@ and open the template in the editor.
     background-color:#fff;
 }
 
-.yesNoModalContent{
+.yesNoModalContent {
     margin:5%;
     font-size:100%;
     vertical-align:middle;
@@ -64,13 +66,13 @@ and open the template in the editor.
     transform: translateY(-20%);
 }
 
-#yesNoModalTitle{
+#yesNoModalTitle {
     font-size:120%;
     margin-bottom:2%;
     text-decoration:underline;
 }
 
-#yesNoModalText{
+#yesNoModalText {
     margin:0px auto;
     margin-top:3%;
     text-align:center;
@@ -78,12 +80,13 @@ and open the template in the editor.
     width:80%;
 }
 
-#modalButtons{
+#modalButtons {
     margin-top:3%;
     text-align:center;
 }
 
-.yesNoModalYesButton, .yesNoModalNoButton {
+.yesNoModalYesButton,
+.yesNoModalNoButton {
     color: #000000;
     padding: 0.5em;
     border: 1px solid #999;

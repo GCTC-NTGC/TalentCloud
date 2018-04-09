@@ -37,6 +37,30 @@ $font-hk: HKGrotesk, sans-serif;
 // $font-scale--regular: $font-scale--h5;
 // $font-scale--small: calc(1rem*(#{$font-scale}/2));
 
+/* Content Containers: Use this to limit line length for copy. */
+.content-container {
+    margin: 0 auto;
+    max-width: 35rem;
+    width: 90%;
+}
+
+/* Block Containers: Use this for consistent widths on sections. */
+.block-container {
+    margin: 0 auto;
+    max-width: 80rem;
+    width: 90%;
+}
+
+/* Font Awesome Mixin */
+@mixin fontawesome() {
+    display: inline-block;
+    font: normal normal normal #{$fa-font-size-base}/#{$fa-line-height-base} FontAwesome; // shortening font declaration
+    font-size: inherit; // can't have font-size inherit on line above, so need to override
+    text-rendering: auto; // optimizelegibility throws things off #1094
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 /* Temporary Font Scale ===================================================== */
 [class*="heading--"] {
     font-family: $font-hk;
