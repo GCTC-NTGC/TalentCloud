@@ -165,7 +165,7 @@ and open the template in the editor .
             </div>
 
             <!-- Profile Photo Modal -->
-            <?php include '../partials/modals/admin-edit-profile.php';?>
+            <?php include '../inc/manager/modal-edit-profile.php';?>
 
             <!-- BEGIN - Standard Yes/No Modal Popup-->
             <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay" role="dialog">
@@ -193,7 +193,7 @@ and open the template in the editor .
             <section class="pageContent" id="homePageContentSection">
                 
                 <!-- Landing Hero -->
-                <?php include "../partials/landing-hero.php"; ?>
+                <?php include "../inc/common/landing-hero.php"; ?>
                 
                 <div class="pageBody" id="homePageContent">
                 </div>

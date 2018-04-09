@@ -162,7 +162,7 @@ and open the template in the editor .
         </div>
     </div>
 
-    <?php include 'partials/modals/user-edit-profile.php';?>
+    <?php include 'inc/applicant/modal-edit-profile.php';?>
 
     <!-- BEGIN - About Me Edit Overlay-->
     <div id="profileAboutMeEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileAboutMeEditTitle" aria-describedby="profileAboutMeFormDescription">
@@ -209,7 +209,7 @@ and open the template in the editor .
     <section class="pageContent" id="homePageContentSection">
         
         <!-- Landing Hero -->
-        <?php include "partials/landing-hero.php";?>
+        <?php include "inc/common/landing-hero.php";?>
 
         <div class="pageBody" id="homePageContent">
             <section class="section homepage--intro">
