@@ -43,6 +43,7 @@ and open the template in the editor .
         include "inc/applicant/page-job-application.php";
         include "inc/applicant/page-job-application-confirm.php";
         include "inc/applicant/page-dashboard.php";
+        include "inc/applicant/application-form.php";
         ?>
         <!-- END - Incudes for pages -->
     </main>
