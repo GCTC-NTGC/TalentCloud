@@ -29,9 +29,7 @@ managerProfile_review_option0, managerProfile_review_option1, managerProfile_rev
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
 managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
-managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, changeDisplayPic
-        ) {
-managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, managerDecisions_tipWhatis, managerDecisions_tipSummary
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, changeDisplayPic, managerDecisions_tipWhatis, managerDecisions_tipSummary
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -561,7 +559,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         EditTeamCultureAPI.localizeEditTeamCulture();
         CreateJobPosterAPI.localizeCreateJobPosterForm(siteContent);
         CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
-        
+
         //Admin side only headers
         var profileLink = document.getElementById("profileLink");
         profileLink.innerHTML = siteContent.profileLink;
