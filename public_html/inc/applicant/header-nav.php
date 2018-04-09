@@ -32,12 +32,12 @@
                         <div id="loggedOut">
                             <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a>
                         </div>
-                    </li>    
+                    </li>
                     <li class="top-nav--link">
                         <div id="loggedIn" class="hidden">
                             <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
                         </div>
-                    </li>        
+                    </li>
                 </ul>
             </div>
             <!--div id="logo" class="logo-container">
@@ -46,7 +46,7 @@
                 </a>
                 <div class="h1 col-xs-12 col-sm-7 col-md-6">People have a right to meaningful work.</div>
             </div-->
-            
+
         </div>
     </div>
 </nav>
