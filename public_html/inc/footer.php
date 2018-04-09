@@ -1,4 +1,3 @@
-
 <footer>
     <div id="goc-footer">
         <div class="container">

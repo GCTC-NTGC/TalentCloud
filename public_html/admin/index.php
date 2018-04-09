@@ -1,4 +1,3 @@
-<?php //header('Content-Type: text/html; charset=utf-8');   ?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -8,24 +7,18 @@ and open the template in the editor .
 <html lang="en">
     <head>
         <title>GC Talent Cloud</title>
+        <!-- Includes for JS files -->
         <?php include '../inc/head.php'; ?>
         <?php include '../inc/head-admin.php'; ?>
     </head>
 
     <body>
-        <ul id="wb-tphp">
-            <li class="wb-slc">
-                <a id="skipNavText" class="wb-sl" href="#homePageContentSection">Skip to main content</a>
-            </li>
-        </ul>
-        <div class="announcement-banner">
-            <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
-        </div>
-
+        <!-- Include for Federal Identity Program (black banner) -->
         <?php include '../inc/fip-admin.php'; ?>
+        <!-- Include for main navigation -->
         <?php include '../inc/nav-admin.php'; ?>
 
-        <!-- All top-level dialog or overlay elements should be children of this div-->
+        <!-- BEGIN - All top-level dialog or overlay elements should be children of this div-->
         <div id="overlays">
 
             <!-- BEGIN - Registration Form Modal Dialog and Overlay-->
@@ -87,8 +80,9 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+            <!-- END - Registration Form Modal Dialog and Overlay -->
 
-            <!-- BEGIN - Registration Status Dialog and Overlay-->
+            <!-- BEGIN - Registration Status Dialog and Overlay -->
             <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
                 <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
                     <div id="registerStatusTitleWrapper" class="dialogTitle">
@@ -110,8 +104,9 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+            <!-- END - Registration Status Dialog and Overlay -->
 
-            <!-- BEGIN - Login Modal Dialog and Overlay-->
+            <!-- BEGIN - Login Modal Dialog and Overlay -->
             <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
                 <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
                     <div id="loginFormTitleWrapper" class="dialogTitle">
@@ -163,8 +158,9 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+            <!-- END - Login Modal Dialog and Overlay -->
 
-            <!-- Profile Photo Modal -->
+            <!-- BEGIN - Profile Photo Modal -->
             <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
                 <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
                     <div id="profilePicUploadTitleWrapper" class="dialogTitle">
@@ -194,7 +190,7 @@ and open the template in the editor .
                 </div>
             </div>
 
-            <!-- BEGIN - Standard Yes/No Modal Popup-->
+            <!-- BEGIN - Standard Yes/No Modal Popup -->
             <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay" role="dialog">
                 <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
                     <div class="yesNoModalContent">
@@ -205,8 +201,9 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
+            <!-- END - Standard Yes/No Modal Popup -->
 
-            <!-- BEGIN - Update Overlay-->
+            <!-- BEGIN - Update Overlay -->
             <div class="yesNoModalOverlay hidden" id="updateOverlay">
                 <div id="updateWindow" class="dialogue-modal yesNoModalWindow">
                     <div class="updateContent">
@@ -214,9 +211,11 @@ and open the template in the editor .
                     </div>
                 </div>
             </div>
-
+            <!-- END - Update Overlay -->
+            <!-- END - Overlays -->
         </div>
         <main>
+            <!-- BEGIN - Main Content Section -->
             <section class="pageContent" id="homePageContentSection">
                 <div class="pageBanner">
                     <div id="logo-container" class="logo-container">
@@ -237,6 +236,9 @@ and open the template in the editor .
                 <div class="pageBody" id="homePageContent">
                 </div>
             </section>
+            <!-- END - Main Content Section -->
+
+            <!-- BEGIN - Job Seeker Section -->
             <section class="pageContent hidden" id="jobSeekersSection">
                 <div class="pageBanner">
                     <h2 class="section--title" id="jobSeekersSectionTitle">Job Seekers</h2>
@@ -260,6 +262,9 @@ and open the template in the editor .
                     </div>
                 </div>
             </section>
+            <!-- END - Job Seeker Section -->
+
+            <!-- BEGIN - Edit Admin Profile Section -->
             <section id="createEditProfileSection" class="pageContent hidden">
                 <div class="pageBanner">
                     <div class="profileBannerFiller"></div>
@@ -275,6 +280,7 @@ and open the template in the editor .
                                 </a>
                             </div>
                         </div>
+                        <!-- BEGIN - Edit Admin Profile Form (Page 1 / About Me) -->
                         <div class="wb-frmvld wb-init">
                             <div class="tabbedForm">
                                 <div class="section">
@@ -477,7 +483,7 @@ and open the template in the editor .
                                                                 </strong>
                                                             </label>
                                                             <div>
-                                                                <input type="text" class="form-control full-width" name="createEditProfile_division_fr" id="createEditProfile_division_fr"/>
+                                                                <input class="form-control full-width" type="text" name="createEditProfile_division_fr" id="createEditProfile_division_fr"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -490,6 +496,9 @@ and open the template in the editor .
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- END - Edit Admin Profile Form (Page 1 / About Me) -->
+
+                                        <!-- BEGIN - Edit Admin Profile Form (Page 2 / Leadership Style) -->
                                         <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
                                             <div class="tabsWrapper">
                                                 <div class="tabsSteps">
@@ -733,6 +742,9 @@ and open the template in the editor .
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- END - Edit Admin Profile Form (Page 2 / Leadership Style) -->
+
+                                        <!-- BEGIN - Edit Admin Profile Form (Page 3 / Work Environment) -->
                                         <div id="createEditProfile_workEnvironment" class="stepGroup_createEditProfile hidden">
                                             <div class="tabsWrapper">
                                                 <div class="tabsSteps">
@@ -847,6 +859,9 @@ and open the template in the editor .
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- END - Edit Admin Profile Form (Page 3 / Work Environment) -->
+
+                                        <!-- BEGIN - Edit Admin Profile Form (Page 4 / Team Culture) -->
                                         <div id="createEditProfile_teamCulture" class="stepGroup_createEditProfile hidden">
                                             <div class="tabsWrapper">
                                                 <div class="tabsSteps">
@@ -921,6 +936,9 @@ and open the template in the editor .
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- END - Edit Admin Profile Form (Page 4 / Team Culture) -->
+
+                                        <!-- BEGIN - Edit Admin Profile Form (Page 5 / Other) -->
                                         <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
                                             <div class="tabsWrapper">
                                                 <div class="tabsSteps">
@@ -974,6 +992,8 @@ and open the template in the editor .
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- END - Edit Admin Profile Form (Page 5 / Other) -->
+
                                     </form>
                                 </div>
                             </div>
@@ -981,6 +1001,9 @@ and open the template in the editor .
                     </div>
                 </div>
             </section>
+            <!-- END - Edit Admin Profile Section -->
+
+            <!-- BEGIN - Create Job Poster Section -->
             <section class="pageContent hidden" id="createJobPosterSection">
                 <div class="pageBanner">
                     <h2 class="section--title">Create a new Job Poster</h2>
@@ -1376,9 +1399,10 @@ and open the template in the editor .
                         </div>
                     </div>
                 </div>
-
             </section>
+            <!-- END - Create Job Poster Section -->
         </main>
+        <!-- Include for footer -->
         <?php include '../inc/footer-admin.php'; ?>
     </body>
 </html>

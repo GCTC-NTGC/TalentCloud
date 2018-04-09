@@ -38,22 +38,22 @@ CreateWorkEnvironmentAPI.WorkEnvironment = function(remote_allowed, telework_all
 CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment = function() {
     if (siteContent) {
         document.getElementById('remoteWork_label').innerHTML = siteContent.remoteLocationAllowed;
-        document.getElementById('remoteWork_option0_label').innerHTML = siteContent.yes;
-        document.getElementById('remoteWork_option1_label').innerHTML = siteContent.no;
+        document.getElementById('remoteWork_option0_label').innerHTML = SliderAPI.getYesNoSliderLabel("option0");
+        document.getElementById('remoteWork_option1_label').innerHTML = SliderAPI.getYesNoSliderLabel("option1");
         
         document.getElementById('telework_label').innerHTML = siteContent.teleworkAllowed;
-        document.getElementById('telework_option0_label').innerHTML = siteContent.almostNever;
-        document.getElementById('telework_option1_label').innerHTML = siteContent.rarely;
-        document.getElementById('telework_option2_label').innerHTML = siteContent.sometimes;
-        document.getElementById('telework_option3_label').innerHTML = siteContent.usually;
-        document.getElementById('telework_option4_label').innerHTML = siteContent.almostAlways;
+        document.getElementById('telework_option0_label').innerHTML = SliderAPI.getFrequencySliderLabel("option0");
+        document.getElementById('telework_option1_label').innerHTML = SliderAPI.getFrequencySliderLabel("option1");
+        document.getElementById('telework_option2_label').innerHTML = SliderAPI.getFrequencySliderLabel("option2");
+        document.getElementById('telework_option3_label').innerHTML = SliderAPI.getFrequencySliderLabel("option3");
+        document.getElementById('telework_option4_label').innerHTML = SliderAPI.getFrequencySliderLabel("option4");
         
         document.getElementById('flexHours_label').innerHTML = siteContent.flexHoursAllowed;
-        document.getElementById('flexHours_option0_label').innerHTML = siteContent.almostNever;
-        document.getElementById('flexHours_option1_label').innerHTML = siteContent.rarely;
-        document.getElementById('flexHours_option2_label').innerHTML = siteContent.sometimes;
-        document.getElementById('flexHours_option3_label').innerHTML = siteContent.usually;
-        document.getElementById('flexHours_option4_label').innerHTML = siteContent.almostAlways;
+        document.getElementById('flexHours_option0_label').innerHTML = SliderAPI.getFrequencySliderLabel("option0");
+        document.getElementById('flexHours_option1_label').innerHTML = SliderAPI.getFrequencySliderLabel("option1");
+        document.getElementById('flexHours_option2_label').innerHTML = SliderAPI.getFrequencySliderLabel("option2");
+        document.getElementById('flexHours_option3_label').innerHTML = SliderAPI.getFrequencySliderLabel("option3");
+        document.getElementById('flexHours_option4_label').innerHTML = SliderAPI.getFrequencySliderLabel("option4");
         
         document.getElementById('physicalEnvironment_title').innerHTML = siteContent.physicalEnvironment;
     }

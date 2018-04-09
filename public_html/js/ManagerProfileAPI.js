@@ -95,10 +95,6 @@ ManagerProfileAPI.localizeManagerProfile = function() {
         document.getElementById("managerProfileLeadershipStyleTitle").innerHTML = siteContent.myLeadershipStyle;
         document.getElementById("managerProfileExpectationsTitle").innerHTML = siteContent.myExpectationsOfEmployees;
         document.getElementById("managerProfileDecisionMakingTitle").innerHTML = siteContent.myApproachToDecisionMaking;
-        document.getElementById("managerProfile_review_label").innerHTML = siteContent.howOftenDoYouReview;
-        document.getElementById("managerProfile_stayLate_label").innerHTML = siteContent.howOftenDoYouStayLate;
-        document.getElementById("managerProfile_engagement_label").innerHTML = siteContent.howOftenDoYouEngage;
-        document.getElementById("managerProfile_developmentOpportunities_Label").innerHTML = siteContent.howOftenDoYouApproveDevelopment;
         document.getElementById("managerProfileEducationTitle").innerHTML = siteContent.education;
         document.getElementById("managerProfileExperienceTitle").innerHTML = siteContent.workExperience;
     }
@@ -157,10 +153,43 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     document.getElementById("managerProfileLeadershipStyle").innerHTML = profile.lead_style;
     document.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
     
-    SliderAPI.selectOptionByValue("managerProfile_review_options_groupName", profile.review_options, "review_options");
-    SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
-    SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
-    SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
+    var reviewOptions = {
+            'option0':siteContent.managerProfile_review_option0,
+            'option1':siteContent.managerProfile_review_option1,
+            'option2':siteContent.managerProfile_review_option2,
+            'option3':siteContent.managerProfile_review_option3,
+            'option4':siteContent.managerProfile_review_option4
+        };
+    var stayLateOptions = {
+            'option0':siteContent.managerProfile_stayLate_option0,
+            'option1':siteContent.managerProfile_stayLate_option1,
+            'option2':siteContent.managerProfile_stayLate_option2,
+            'option3':siteContent.managerProfile_stayLate_option3,
+            'option4':siteContent.managerProfile_stayLate_option4
+        };
+    var engagementOptions = {
+            'option0':siteContent.managerProfile_engagement_option0,
+            'option1':siteContent.managerProfile_engagement_option1,
+            'option2':siteContent.managerProfile_engagement_option2,
+            'option3':siteContent.managerProfile_engagement_option3,
+            'option4':siteContent.managerProfile_engagement_option4
+        };
+    var developmentOpportunityOptions = {
+            'option0':siteContent.managerProfile_developmentOpportunities_option0,
+            'option1':siteContent.managerProfile_developmentOpportunities_option1,
+            'option2':siteContent.managerProfile_developmentOpportunities_option2,
+            'option3':siteContent.managerProfile_developmentOpportunities_option3,
+            'option4':siteContent.managerProfile_developmentOpportunities_option4
+        };
+          
+    document.getElementById('managerProfile_review').innerHTML = reviewOptions[profile.review_options];
+    document.getElementById('managerProfile_stayLate').innerHTML = stayLateOptions[profile.stay_late];
+    document.getElementById('managerProfile_engagement').innerHTML = engagementOptions[profile.engagement];
+    document.getElementById('managerProfile_developmentOpportunities').innerHTML = developmentOpportunityOptions[profile.development_opportunities];
+    
+    //SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
+    //SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
+    //SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
     
     //TODO: treat education and work history as lists
     document.getElementById('managerProfileEducation').innerHTML = profile.education;
