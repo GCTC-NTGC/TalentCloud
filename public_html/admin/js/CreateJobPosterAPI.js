@@ -20,6 +20,10 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
         title_fr, 
         department_id, 
         province_id, 
+        branch_en,
+        branch_fr,
+        division_en,
+        division_fr,
         city, 
         city_fr, 
         open_date_time, 
@@ -47,6 +51,12 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.title.fr_CA = title_fr;
     this.department_id = department_id;
     this.province_id = province_id;
+    this.branch = {};
+    this.branch.en_CA = branch_en;
+    this.branch.fr_CA = branch_fr;
+    this.division = {};
+    this.division.en_CA = division_en;
+    this.division.fr_CA = division_fr;
     this.city = {};
     this.city.en_CA = city;
     this.city.fr_CA = city_fr;
@@ -211,7 +221,7 @@ CreateJobPosterAPI.validateJobPosterForm = function() {
     CreateJobPosterAPI.populateJobPosterObjFromForm();
     
     var jp = CreateJobPosterAPI.jobPosterObj;
-    var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty, jp.remuneration_range_low, jp.remuneration_range_high);
+    var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA, jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty, jp.remuneration_range_low, jp.remuneration_range_high);
     if (valid) { 
         CreateJobPosterAPI.submitJobPosterForm(); 
     } 
@@ -237,6 +247,12 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var department_id = document.getElementById("createJobPoster_department").value; 
     
     var province_id = document.getElementById("createJobPoster_province").value;
+    
+    var branch_en = document.getElementById("createJobPoster_branch").value;
+    var branch_fr = document.getElementById("createJobPoster_branch_fr").value;
+    
+    var division_en = document.getElementById("createJobPoster_division").value;
+    var division_fr = document.getElementById("createJobPoster_division_fr").value;
     
     var city = document.getElementById("createJobPoster_city").value;
     
@@ -274,7 +290,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
     var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
         
-    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr, questions_en, questions_fr);
+    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr, questions_en, questions_fr);
 }
 
 CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
