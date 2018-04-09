@@ -22,7 +22,7 @@
 
                         <div class="update-profile-photo__wrapper">
 
-                            <h4 class="update-profile-photo__title heading--04">Change Display Picture</h4>
+                            <h4 class="update-profile-photo__title heading--04" id="changeDisplayPic">Change Display Picture</h4>
 
                             <div class="update-profile-photo__draggable-area-wrapper">
 
