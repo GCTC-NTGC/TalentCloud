@@ -1,0 +1,118 @@
+/* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
+
+.profileBannerFiller {
+    height:18em;
+}
+
+.profileBasicInfo {
+    text-align: center;
+    position: relative;
+    margin-top:-13.5em;
+}
+
+.profileBasicInfoTopBar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    margin-top:-13.5em;
+}
+
+.profileSocialMediaLinks {
+    list-style-type: none;
+    float: right;
+    margin-top: 0em;
+}
+
+.profileSocialMediaLinks li{
+    display: inline;
+    padding-left: 0.5em;
+}
+
+.profileSocialMediaLinks img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.profileBasicInfoEdit {
+    float: left;
+}
+
+.profileName {
+    margin-top: .25em;
+    font-size:3.5em;
+    font-weight:700;
+}
+
+.managerProfileTitle{
+    margin-top: .25em;
+    font-size:2.5em;
+    font-weight:700;
+}
+
+.profileTagLineContainer{
+    background-color:#E5F8FF;
+    margin-top:2em;
+}
+
+.profileSubSection {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    position: relative;
+}
+
+.profileSubSectionTitleBar {
+    margin-bottom: 1em;
+}
+
+.profileSubSectionTitleBar h2{
+    display: inline;
+    font-weight: bold;
+}
+
+.profileSubSectionBlock {
+    background-color: #EBEBEB;
+    width: 90%;
+    margin-bottom: 1em;
+    padding: 1em 3em;
+}
+
+.manager-decisions{
+    width:70%;
+    float:left;
+}
+
+.manager-decisions strong{
+    color:#2196F3;
+}
+
+.manager-decisions-tip{
+    width:30%;
+    float:left;
+    background-color: #EBEBEB;
+    padding:1.5em;
+}
+
+.manager-decisions-tip p{
+    font-size:1.5em;
+    line-height: 1.5;
+}
+
+.manager-education{
+    display:block;
+    clear:both;
+}
+
+.socialMediaLink{
+    margin-top:1.5em;
+}
+
+.sectionEditBtn {
+    float: right;
+}
+
+.sectionEditBtn img{
+    width: 1.5em;
+    height: 1.5em;
+}

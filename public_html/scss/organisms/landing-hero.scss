@@ -13,3 +13,82 @@
 .landing-hero__tagline-divider {
     margin: 2rem 5rem 2rem 2rem;
 }
+
+/* NAVIGATION */
+
+nav{
+    padding:0 !important;
+}
+.nav-container{
+    width: 100%;
+}
+
+.nav-container li a{
+    font-size: 1.5rem;
+    color: #ccc;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* FIP (TOP BLACK) BANNER */
+
+.page-title{
+    font-size: 1.5rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+.cloudicon{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.languageSelectLink{
+    float:right;
+    margin-top: 0.75rem;
+    color: #FFFFFF;
+}
+.languageSelect{
+    color: #FFFFFF;
+    display: inline-block;
+}
+
+#langSelect{
+    color: #FFF;
+}
+
+#topicsMenu{
+    color: #FFF;
+    background: #000;
+}
+
+/* TALENT CLOUD LOGO */
+
+.page-banner--logo-container {
+    height: 30rem;
+    z-index: 1;
+}
+@media (max-width: 768px) {
+    .page-banner--logo-container {
+        height: 20rem;
+        padding-bottom:3rem;
+    }
+}
+
+.page-banner--tagline{
+    font-family: "HKGrotesk", sans-serif;
+    font-size:2rem !important;
+    line-height: 1.35;
+}
+
+.tc-logo{
+    width: 100%;
+    height: auto;
+    float: right; }
+
+.page-banner--logo-tagline-divider{
+    width:3px;
+    height: 12em;
+    background-color: white;
+    margin: 2em;
+}

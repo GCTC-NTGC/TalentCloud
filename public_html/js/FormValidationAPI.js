@@ -204,7 +204,7 @@ FormValidationAPI.validateNewJobPosterForm = function(name, closeDate, id, depar
     return valid;
 };
 
-FormValidationAPI.validateJobPoster = function(title_en, title_fr, city_en, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high) {
+FormValidationAPI.validateJobPoster = function(title_en, title_fr, department_id, branch_en, branch_fr, division_en, division_fr, province_id, city_en, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high) {
     var valid = true;
     
     if(!FormValidationAPI.fieldNotEmpty(title_en)){
@@ -221,6 +221,54 @@ FormValidationAPI.validateJobPoster = function(title_en, title_fr, city_en, city
     }
     else{
         FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_jobTitle_fr_error", "createJobPoster_jobTitle_fr_error_msg", "Error: No Job Title");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(department_id)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_department_error", "createJobPoster_department_error_msg", "Error: No Department Selected");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_department_error", "createJobPoster_department_error_msg", "Error: No Department Selected");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(branch_en)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_branch_error", "createJobPoster_branch_error_msg", "Error: No Branch");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_branch_error", "createJobPoster_branch_error_msg", "Error: Branch");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(branch_fr)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_branch_fr_error", "createJobPoster_branch_fr_error_msg", "Error: No Branch");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_branch_fr_error", "createJobPoster_branch_fr_error_msg", "Error: No Division");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(division_en)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_division_error", "createJobPoster_division_error_msg", "Error: No Division");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_division_error", "createJobPoster_division_error_msg", "Error: No Division");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(division_fr)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_division_fr_error", "createJobPoster_division_fr_error_msg", "Error: No Division");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_division_fr_error", "createJobPoster_division_fr_error_msg", "Error: No Division");
+    }
+    
+    if(!FormValidationAPI.fieldNotEmpty(province_id)){
+        FormValidationAPI.setValidationErrorProperties(true, "createJobPoster_province_error", "createJobPoster_province_error_msg", "Error: No Province Selected");
+        valid = false;
+    }
+    else{
+        FormValidationAPI.setValidationErrorProperties(false, "createJobPoster_province_error", "createJobPoster_province_error_msg", "Error: No Province Selected");
     }
     
     if(!FormValidationAPI.fieldNotEmpty(city_en)){
