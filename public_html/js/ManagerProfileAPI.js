@@ -181,11 +181,20 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
             'option3':siteContent.managerProfile_developmentOpportunities_option3,
             'option4':siteContent.managerProfile_developmentOpportunities_option4
         };
+
+    var acceptLowValueWorkRequestsOptions = {
+        'option0':siteContent.managerProfile_acceptLowValueWorkRequests_option0,
+        'option1':siteContent.managerProfile_acceptLowValueWorkRequests_option1,
+        'option2':siteContent.managerProfile_acceptLowValueWorkRequests_option2,
+        'option3':siteContent.managerProfile_acceptLowValueWorkRequests_option3,
+        'option4':siteContent.managerProfile_acceptLowValueWorkRequests_option4
+    }
           
     document.getElementById('managerProfile_review').innerHTML = reviewOptions[profile.review_options];
     document.getElementById('managerProfile_stayLate').innerHTML = stayLateOptions[profile.stay_late];
     document.getElementById('managerProfile_engagement').innerHTML = engagementOptions[profile.engagement];
     document.getElementById('managerProfile_developmentOpportunities').innerHTML = developmentOpportunityOptions[profile.development_opportunities];
+    document.getElementById('managerProfile_acceptLowValueWorkRequests').innerHTML =acceptLowValueWorkRequestsOptions[profile.low_value_work_requests];
     
     //SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
     //SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
