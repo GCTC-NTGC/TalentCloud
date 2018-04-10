@@ -263,8 +263,6 @@ class ManagerProfileDAO extends BaseDAO{
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
             $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
             $link->commit();
-            $sql->debugDumpParams();
-            $sql2->debugDumpParams();
             $rowsmodified = $sql->rowCount();
             if($rowsmodified > 0){
                 $success = true;
