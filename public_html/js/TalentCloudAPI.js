@@ -582,9 +582,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
         adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
 
-        var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_label");
-        adminProfileBranchLabel.innerHTML = siteContent.adminProfileBranchLabel;
-
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
 

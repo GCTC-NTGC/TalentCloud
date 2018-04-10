@@ -110,7 +110,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="createEditProfile_branch">
-                                                    <span><span id="createEditProfile_branch_labelName">Branch</span> (English):</span>
+                                                    <span><span id="createEditProfile_branch_label">Branch</span> (English):</span>
                                                     <strong id="createEditProfile_branch_error" class="error hidden">
                                                         <span id="createEditProfile_branch_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -121,7 +121,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="createEditProfile_division">
-                                                    <span><span id="createEditProfile_division_labelName">Division</span> (English):</span>
+                                                    <span><span id="createEditProfile_division_label">Division</span> (English):</span>
                                                     <strong id="createEditProfile_division_error" class="error hidden">
                                                         <span id="createEditProfile_division_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -200,7 +200,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="createEditProfile_branch_fr">
-                                                    <span><span id="createEditProfile_branch_fr_labelName">Branch</span> (francais):</span>
+                                                    <span><span id="createEditProfile_branch_fr_label">Branch</span> (francais):</span>
                                                     <strong id="createEditProfile_branch_fr_error" class="error hidden">
                                                         <span id="createEditProfile_branch_fr_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -211,7 +211,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="createEditProfile_division_fr">
-                                                    <span><span id="createEditProfile_division_fr_labelName">Division</span> (English):</span>
+                                                    <span><span id="createEditProfile_division_fr_label">Division</span> (English):</span>
                                                     <strong id="createEditProfile_division_fr_error" class="error hidden">
                                                         <span id="createEditProfile_division_fr_error_msg" class="label label-danger"></span>
                                                     </strong>
