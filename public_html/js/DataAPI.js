@@ -260,6 +260,12 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.profileEditLinkedin = content.profileEditLinkedin;
     thisContent.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
     thisContent.profileBasicInfoEditSave = content.profileBasicInfoEditSave;
+    thisContent.loginFormTitle = content.loginFormTitle;
+    thisContent.loginModalCopySpan = content.loginModalCopySpan;
+    thisContent.switchToRegister = content.switchToRegister;
+    thisContent.loginModalEmailLabelSpan = content.loginModalEmailLabelSpan;
+    thisContent.login_email = content.login_email;
+    thisContent.loginModalPasswordLabelSpan = content.loginModalPasswordLabelSpan;
     thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
     thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
     //if(siteContent){

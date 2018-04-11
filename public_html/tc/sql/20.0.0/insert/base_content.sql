@@ -46,5 +46,17 @@ VALUES
 (1, "profileBasicInfoEditCancel", "Cancel", 1),
 (1, "profileBasicInfoEditCancel", "Annuler", 2),
 (1, "profileBasicInfoEditSave", "Save", 1),
-(1, "profileBasicInfoEditSave", "Enregistrer", 2)
+(1, "profileBasicInfoEditSave", "Enregistrer", 2),
+(1, "loginFormTitle", "Login to TalentCloud", 1),
+(1, "loginFormTitle", "Connectez-vous à TalentCloud", 2),
+(1, "loginModalCopySpan", "Welcome to TalentCloud! ", 1),
+(1, "loginModalCopySpan", "Bienvenue à TalentCloud! ", 2),
+(1, "switchToRegister", "Don't have an account? Click here to register.", 1),
+(1, "switchToRegister", "Vous n'avez pas de compte? Cliquez ici pour vous inscrire.", 2),
+(1, "loginModalEmailLabelSpan", "Your Email:", 1),
+(1, "loginModalEmailLabelSpan", "Votre email:", 2),
+(1, "login_email", "login_email", 1),
+(1, "login_email", "connecter_avec_email", 2),
+(1, "loginModalPasswordLabelSpan", "Your Password:", 1),
+(1, "loginModalPasswordLabelSpan", "Votre mot de passe:", 2)
 ;

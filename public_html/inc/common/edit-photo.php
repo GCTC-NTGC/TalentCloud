@@ -39,7 +39,7 @@
 
             <div class="box small-1of2">
                 <label class="update-profile__choose-alt-photo-button-label button--yellow" role="button" tabindex="0">
-                    <span id="updateProfileChooseAltPhotoButtonLabelSpan">Choose Another File...</span>
+                    <span id="updateProfileChooseAltPhotoButtonLabelSpan">Use Another File...</span>
                     <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
                 </label>
             </div>

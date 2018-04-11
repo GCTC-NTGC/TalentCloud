@@ -6,8 +6,17 @@
 
 ============================================================================= */
 
+.update-profile__grid {
+
+    >.box {
+        padding: 0 1rem;
+    }
+
+}
+
 .update-profile__applicant-profile-form {
-    padding: 0 1rem;
+    margin: 0 -1rem;
+    padding: 0;
 
     >.box {
         padding: 1rem;

@@ -5,20 +5,20 @@
 
         <div id="profileBasicInfoFormWrapper">
 
-            <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle">
-                <strong id='profileBasicInfoEditTitle' title="Edit your basic info">Edit your basic info</strong>
-                <div class="hidden" id="profileBasicInfoFormDescription">Edit your basic info</div>
+            <div id='profileBasicInfoEditTitleWrapper' class="dialogTitle dialogue-modal__title-wrapper">
+                <strong id='profileBasicInfoEditTitle' title="Edit your basic info" class="dialogue-modal__title">Edit Your Basic Info</strong>
+                <div class="hidden" id="profileBasicInfoFormDescription">Edit Your Basic Info</div>
             </div>
 
             <div class="dialogWindowInterior">
 
                 <!-- Modal Flex Grid ======================================= -->
 
-                <div class="flex-grid middle">
+                <div class="dialogue-modal__grid update-profile__grid flex-grid middle">
 
                     <!-- Profile Upload Section (TAL-36) =================== -->
 
-                    <div class="box lg-1of2">
+                    <div class="box lg-2of5">
 
                         <?php include 'inc/common/edit-photo.php';?>
 
@@ -26,7 +26,7 @@
 
                     <!-- Profile Information Form ========================== -->
 
-                    <div class="box lg-1of2">
+                    <div class="box lg-3of5">
 
                         <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded" class="update-profile__applicant-profile-form flex-grid top">
 

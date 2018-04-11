@@ -6,7 +6,7 @@
 
 ============================================================================= */
 
-/* LOGIN AND REGISTRATION FORMS */
+/* LEGACY CODE ============================================================== */
 
 #loginForm,#registerForm{
     margin-left: 0px !important;
@@ -50,6 +50,8 @@ input[type=button],input[type=submit],input[type=reset]{
     height: 30px;
 }
 
+/* ============================================================================= */
+
 .form__wrapper {
 
     >*:last-child {
@@ -66,7 +68,9 @@ input[type=button],input[type=submit],input[type=reset]{
     margin: 0 0 .5rem 0;
 }
 
-[class*="form__input--"] {
+input[type=text][class*="form__input--"],
+input[type=email][class*="form__input--"],
+input[type=password][class*="form__input--"] {
     background: lighten($palette-grey--light, 10%);
     border: none;
     color: $black !important;
@@ -75,6 +79,7 @@ input[type=button],input[type=submit],input[type=reset]{
     font-size: 16px;
     font-weight: 400;
     margin: 0 0 2rem 0;
+    padding: 1rem 2rem 1rem 1rem;
     width: 100%;
 
     &[class*="text"] {
