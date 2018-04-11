@@ -5091,6 +5091,12 @@ nav {
 .viewProfileHeightBoost {
   min-height: 200px; }
 
+/* MANAGER-SIDE "EDIT PROFILE" FORMS*/
+.manager-edit-profile__form.flex-grid {
+  padding: 0px 5px; }
+  .manager-edit-profile__form.flex-grid .box {
+    padding: 0px 5px; }
+
 /* PROFILE PIC AND UPLOAD */
 #profileSection {
   min-height: 500px; }
