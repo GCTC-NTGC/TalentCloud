@@ -3971,39 +3971,6 @@ body[id*="Trident/7.0"] .box {
     Default Buttons
 
 ============================================================================= */
-[class*="button--"] {
-  appearance: none;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  display: inline-block;
-  font-family: HKGrotesk, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  padding: 1rem 2rem;
-  transition: all .2s ease; }
-  [class*="button--"][class*="yellow"] {
-    background: #ffe25b;
-    color: #484848; }
-    [class*="button--"][class*="yellow"]:hover {
-      background: #ffd200; }
-  [class*="button--"][class*="grey"] {
-    background: #c8c8c8;
-    color: #484848; }
-    [class*="button--"][class*="grey"]:hover {
-      background: #a3a3a3; }
-  [class*="button--"][class*="blue"] {
-    background: #2196f3;
-    color: white; }
-    [class*="button--"][class*="blue"]:hover {
-      background: #125184; }
-  [class*="button--"]:hover {
-    transition: all .2s ease; }
-  [class*="button--"]:focus {
-    color: white !important;
-    background: #484848 !important;
-    border: 2px solid #ffd200 !important; }
-
 /* BUTTONS */
 .btn {
   height: 30px;
@@ -4079,6 +4046,49 @@ main .btn-default {
   color: #555;
   background-color: #C8C8C8;
   border-color: transparent; }
+
+[class*="button--"],
+input[type="button"][class*="button--"] {
+  appearance: none;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: auto;
+  padding: 1rem 2rem;
+  transition: all .2s ease; }
+  [class*="button--"][class*="yellow"],
+  input[type="button"][class*="button--"][class*="yellow"] {
+    background: #ffe25b;
+    color: #484848; }
+    [class*="button--"][class*="yellow"]:hover,
+    input[type="button"][class*="button--"][class*="yellow"]:hover {
+      background: #ffd200; }
+  [class*="button--"][class*="grey"],
+  input[type="button"][class*="button--"][class*="grey"] {
+    background: #c8c8c8;
+    color: #484848; }
+    [class*="button--"][class*="grey"]:hover,
+    input[type="button"][class*="button--"][class*="grey"]:hover {
+      background: #a3a3a3; }
+  [class*="button--"][class*="blue"],
+  input[type="button"][class*="button--"][class*="blue"] {
+    background: #2196f3;
+    color: white; }
+    [class*="button--"][class*="blue"]:hover,
+    input[type="button"][class*="button--"][class*="blue"]:hover {
+      background: #125184; }
+  [class*="button--"]:hover,
+  input[type="button"][class*="button--"]:hover {
+    transition: all .2s ease; }
+  [class*="button--"]:focus,
+  input[type="button"][class*="button--"]:focus {
+    color: white !important;
+    background: #484848 !important;
+    border: 2px solid #ffd200 !important; }
 
 /* =============================================================================
 
@@ -4367,6 +4377,45 @@ main .btn-default {
     Form Styles
 
 ============================================================================= */
+/* LOGIN AND REGISTRATION FORMS */
+#loginForm, #registerForm {
+  margin-left: 0px !important;
+  margin-right: 0px !important; }
+
+#loginErrors {
+  white-space: pre-wrap; }
+
+/* FORMS */
+.form-group {
+  color: #555; }
+
+.form-control {
+  color: #555;
+  background-color: #EAEAEA;
+  background-image: none;
+  border: none;
+  border-radius: 0; }
+
+.form-control:focus {
+  border: 1px solid #999;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
+
+.form-textbox {
+  width: 95%; }
+
+form label {
+  font-size: 16px;
+  line-height: 20px; }
+
+input[type=text], input[type=password], select {
+  padding: 0.5em; }
+
+input[type=button], input[type=submit], input[type=reset] {
+  padding: 0.25em;
+  height: 30px; }
+
 .form__wrapper > *:last-child {
   margin-bottom: 0; }
 
@@ -4378,7 +4427,13 @@ main .btn-default {
   margin: 0 0 .5rem 0; }
 
 [class*="form__input--"] {
+  background: #e2e2e2;
+  border: none;
+  color: #333333 !important;
   display: block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   margin: 0 0 2rem 0;
   width: 100%; }
 
@@ -4528,12 +4583,6 @@ main .btn-default {
     The Landing Hero Banner
 
 ============================================================================= */
-.landing-hero__logo {
-  margin-top: -11%; }
-
-.landing-hero__tagline-divider {
-  margin: 2rem 5rem 2rem 2rem; }
-
 /* NAVIGATION */
 nav {
   padding: 0 !important; }
@@ -4598,6 +4647,12 @@ nav {
   height: 12em;
   background-color: white;
   margin: 2em; }
+
+.landing-hero__logo {
+  margin-top: -11%; }
+
+.landing-hero__tagline-divider {
+  margin: 2rem 5rem 2rem 2rem; }
 
 /* =============================================================================
 
@@ -4778,6 +4833,34 @@ nav {
   text-align: center; }
   .update-profile-photo__admin-button-wrapper.active {
     display: block; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update Profile Form (Update Profile Modal)
+
+============================================================================= */
+.update-profile__applicant-profile-form {
+  padding: 0 1rem; }
+  .update-profile__applicant-profile-form > .box {
+    padding: 1rem; }
+    @media (min-width: 48em) {
+      .update-profile__applicant-profile-form > .box {
+        padding: 0 1rem; } }
+  .update-profile__applicant-profile-form > .box:nth-last-child(1),
+  .update-profile__applicant-profile-form > .box:nth-last-child(2) {
+    text-align: center; }
+  @media (min-width: 48em) {
+    .update-profile__applicant-profile-form > .box:nth-last-child(1) {
+      text-align: right; } }
+  @media (min-width: 48em) {
+    .update-profile__applicant-profile-form > .box:nth-last-child(2) {
+      text-align: left; } }
+
+.update-profile__linkedin-label {
+  font-size: 16px;
+  margin-top: 1rem; }
 
 /* =============================================================================
 
@@ -5628,45 +5711,6 @@ nav {
   margin: 0;
   text-align: right;
   color: #999; }
-
-/* LOGIN AND REGISTRATION FORMS */
-#loginForm, #registerForm {
-  margin-left: 0px !important;
-  margin-right: 0px !important; }
-
-#loginErrors {
-  white-space: pre-wrap; }
-
-/* FORMS */
-.form-group {
-  color: #555; }
-
-.form-control {
-  color: #555;
-  background-color: #EAEAEA;
-  background-image: none;
-  border: none;
-  border-radius: 0; }
-
-.form-control:focus {
-  border: 1px solid #999;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
-
-.form-textbox {
-  width: 95%; }
-
-form label {
-  font-size: 16px;
-  line-height: 20px; }
-
-input[type=text], input[type=password], select {
-  padding: 0.5em; }
-
-input[type=button], input[type=submit], input[type=reset] {
-  padding: 0.25em;
-  height: 30px; }
 
 /* TABS LIST */
 .tabsList {

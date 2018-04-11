@@ -13,21 +13,24 @@ var AccessibilityAPI = {};
  * @returns {undefined}
  */
 AccessibilityAPI.preventModalEscape = function(firstFocusableItemId,lastFocusableItemId){
-    AccessibilityAPI.preventModalEscapeBackward(firstFocusableItemId);
-    AccessibilityAPI.preventModalEscapeForward(lastFocusableItemId);
+    AccessibilityAPI.preventModalEscapeBackward(firstFocusableItemId, lastFocusableItemId);
+    AccessibilityAPI.preventModalEscapeForward(firstFocusableItemId, lastFocusableItemId);
 };
 
 /**
  * 
+ * @param {type} firstFocusableItemId
  * @param {type} lastFocusableItemId
  * @returns {undefined}
  */
-AccessibilityAPI.preventModalEscapeForward = function(lastFocusableItemId){
+AccessibilityAPI.preventModalEscapeForward = function(firstFocusableItemId, lastFocusableItemId){
+    var firstFocusableItem = document.getElementById(firstFocusableItemId);
     var lastFocusableItem = document.getElementById(lastFocusableItemId);
     lastFocusableItem.addEventListener("keydown",function(evt){
         var evt = evt || window.event;
         if (evt.which === 9 && !evt.shiftKey) {
             evt.preventDefault();
+            firstFocusableItem.focus();
         }
     });
 };
@@ -35,14 +38,17 @@ AccessibilityAPI.preventModalEscapeForward = function(lastFocusableItemId){
 /**
  * 
  * @param {type} firstFocusableItemId
+ * @param {type} lastFocusableItemId
  * @returns {undefined}
  */
-AccessibilityAPI.preventModalEscapeBackward = function(firstFocusableItemId){
+AccessibilityAPI.preventModalEscapeBackward = function(firstFocusableItemId, lastFocusableItemId){
     var firstFocusableItem = document.getElementById(firstFocusableItemId);
+    var lastFocusableItem = document.getElementById(lastFocusableItemId);
     firstFocusableItem.addEventListener("keydown",function(evt){
         var evt = evt || window.event;
         if (evt.which === 9 && evt.shiftKey) {
             evt.preventDefault();
+            lastFocusableItem.focus();
         }
     });
 };
