@@ -65,6 +65,7 @@
                     <p id="managerProfile_stayLate"></p>
                     <p id="managerProfile_engagement"></p>
                     <p id="managerProfile_developmentOpportunities"></p>
+                    <p id="managerProfile_acceptLowValueWorkRequests"></p>
                 </div>
             </div>
             <div class="manager-decisions-tip">

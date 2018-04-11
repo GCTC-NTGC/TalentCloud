@@ -41,7 +41,7 @@ VALUES
 (1,'managerProfile_engagement_option1','I <strong>rarely</strong> engage my team before responding to management.',1),
 (1,'managerProfile_engagement_option1','J\'engage <strong>rarement</strong> mon équipe avant de répondre à la direction.',2),
 (1,'managerProfile_engagement_option2','I <strong>sometimes</strong> engage my team before responding to management.',1),
-(1,'managerProfile_engagement_option3','J\'engage <strong>parfois</strong> mon équipe avant de répondre à la direction.',2),
+(1,'managerProfile_engagement_option2','J\'engage <strong>parfois</strong> mon équipe avant de répondre à la direction.',2),
 (1,'managerProfile_engagement_option4','I <strong>usually</strong> engage my team before responding to management.',1),
 (1,'managerProfile_engagement_option4','J\'engage <strong>habituellement</strong> mon équipe avant de répondre à la direction.',2),
 (1,'managerProfile_engagement_option4','I <strong>almost always</strong> engage my team before responding to management.',1),
