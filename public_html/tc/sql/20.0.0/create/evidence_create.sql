@@ -1,0 +1,9 @@
+CREATE TABLE `talentcloud`.`evidence` (
+  `id` INT(10) ZEROFILL UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT(10) UNSIGNED ZEROFILL NOT NULL,
+  `skill` VARCHAR(45) NOT NULL,
+  `experience_level_id` INT(10) UNSIGNED ZEROFILL NOT NULL,
+  `skill_level_id` INT(10) UNSIGNED ZEROFILL NOT NULL,
+  `description` LONGTEXT NULL,
+  `last_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
