@@ -60,7 +60,7 @@
                                 <div class="stepGroupForm">
                                     <h3 id="adminAboutMe">About Me</h3>
                                     <div class="flex-grid top manager-edit-profile__form">
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_bio">
                                                 <span id="createEditProfile_bio_label">A little bit about me</span>
                                                 <strong id="createEditProfile_bio_error" class="error hidden">
@@ -71,7 +71,7 @@
                                                 <textarea class="form-control full-width" name="createEditProfile_bio" id="createEditProfile_bio"></textarea>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_bio_fr">
                                                 <span id="createEditProfile_bio_fr_label">A little bit about me_fr: *</span>
                                                 <strong id="createEditProfile_bio_fr_error" class="error hidden">
@@ -82,7 +82,7 @@
                                                 <textarea class="form-control full-width" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr"></textarea>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_proudOf">
                                                 <span id="createEditProfile_proudOf_label">What I'm most proud of in my career</span>
                                                 <strong id="createEditProfile_proudOf_error" class="error hidden">
@@ -93,7 +93,7 @@
                                                 <textarea class="form-control full-width" name="createEditProfile_proudOf" id="createEditProfile_proudOf"></textarea>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_proudOf_fr">
                                                 <span id="createEditProfile_proudOf_fr_label">What I'm most proud of in my career</span>
                                                 <strong id="createEditProfile_proudOf_fr_error" class="error hidden">
@@ -104,7 +104,7 @@
                                                 <textarea class="form-control full-width" name="createEditProfile_proudOf_fr" id="createEditProfile_proudOf_fr"></textarea>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_position">
                                                 <span id="createEditProfile_position_label">Position</span>
                                                 <strong id="createEditProfile_position_error" class="error hidden">
@@ -115,7 +115,7 @@
                                                 <input type="text" class="form-control full-width" name="createEditProfile_position" id="createEditProfile_position"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_position_fr">
                                                 <span id="createEditProfile_position_fr_label">Position_fr: *</span>
                                                 <strong id="createEditProfile_position_fr_error" class="error hidden">
@@ -126,7 +126,7 @@
                                                 <input class="form-control full-width" type="text" name="createEditProfile_position_fr" id="createEditProfile_position_fr"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full form-group">
+                                        <div class="box form-group">
                                             <label for="createEditProfile_department">
                                                 <span id="createEditProfile_department_label">Department</span>
                                                 <strong id="createEditProfile_department_error" class="error hidden">
@@ -140,7 +140,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_branch">
                                                 <span><span id="createEditProfile_branch_label">Branch</span> (English):</span>
                                                 <strong id="createEditProfile_branch_error" class="error hidden">
@@ -151,7 +151,7 @@
                                                 <input type="text" class="form-control full-width" name="createEditProfile_branch" id="createEditProfile_branch"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_branch_fr">
                                                 <span><span id="createEditProfile_branch_fr_label">Branch</span> (francais):</span>
                                                 <strong id="createEditProfile_branch_fr_error" class="error hidden">
@@ -162,7 +162,7 @@
                                                 <input type="text" class="form-control full-width" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_division">
                                                 <span><span id="createEditProfile_division_label">Division</span> (English):</span>
                                                 <strong id="createEditProfile_division_error" class="error hidden">
@@ -173,7 +173,7 @@
                                                 <input type="text" class="form-control full-width" name="createEditProfile_division" id="createEditProfile_division"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full med-1of2 form-group">
+                                        <div class="box med-1of2 form-group">
                                             <label for="createEditProfile_division_fr">
                                                 <span><span id="createEditProfile_division_fr_label">Division</span> (English):</span>
                                                 <strong id="createEditProfile_division_fr_error" class="error hidden">
@@ -184,7 +184,7 @@
                                                 <input class="form-control full-width" type="text" name="createEditProfile_division_fr" id="createEditProfile_division_fr"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full form-group">
+                                        <div class="box form-group">
                                             <label for="createEditProfile_twitter">
                                                 <span id="createEditProfile_twitter_label">Twitter</span>
                                                 <strong id="createEditProfile_twitter_error" class="error hidden">
@@ -195,7 +195,7 @@
                                                 <input class="form-control full-width" type="text" name="createEditProfile_twitter" id="createEditProfile_twitter" placeholder="@Username"/>
                                             </div>
                                         </div>
-                                        <div class="box small-full form-group">
+                                        <div class="box form-group">
                                             <label for="createEditProfile_linkedin">
                                                 <span id="createEditProfile_linkedin_label">LinkedIn</span>
                                                 <strong id="createEditProfile_linkedin_error" class="error hidden">
