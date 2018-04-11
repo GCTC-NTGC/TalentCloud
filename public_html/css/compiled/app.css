@@ -4779,6 +4779,12 @@ nav {
   .update-profile-photo__admin-button-wrapper.active {
     display: block; }
 
+/* MANAGER-SIDE "EDIT PROFILE" FORMS*/
+.manager-edit-profile__form.flex-grid {
+  padding: 0px 10px; }
+  .manager-edit-profile__form.flex-grid .box {
+    padding: 0px 10px; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
