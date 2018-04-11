@@ -71,10 +71,10 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
 CreateEditProfileAPI.localizeCreateEditProfile = function(siteContent) {
     LookupAPI.populateDropdown("department", "createEditProfile_department");
             
-    document.getElementById("createEditProfile_branch_labelName").innerHTML = siteContent.branch;
-    document.getElementById("createEditProfile_branch_fr_labelName").innerHTML = siteContent.branch;
-    document.getElementById("createEditProfile_division_labelName").innerHTML = siteContent.division;
-    document.getElementById("createEditProfile_division_fr_labelName").innerHTML = siteContent.division;
+    document.getElementById("createEditProfile_branch_label").innerHTML = siteContent.branch;
+    document.getElementById("createEditProfile_branch_fr_label").innerHTML = siteContent.branch;
+    document.getElementById("createEditProfile_division_label").innerHTML = siteContent.division;
+    document.getElementById("createEditProfile_division_fr_label").innerHTML = siteContent.division;
 };
 
 CreateEditProfileAPI.selectedUnit = function(newID){
@@ -912,13 +912,25 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     //set hidden field values
     var UserId = document.getElementById("UserId");
-    UserId.value = manager_profile.user_id;
+    if (manager_profile.user_id) {
+        UserId.value = manager_profile.user_id;
+    } else { 
+        UserId.value = "";
+    }
     
-    var ManagerProfileId = document.getElementById("ManagerProfileId");
-    ManagerProfileId.value = manager_profile.user_manager_profile_id;
+    var managerProfileId = document.getElementById("ManagerProfileId");
+    if (manager_profile.user_manager_profile_id) {
+        managerProfileId.value = manager_profile.user_manager_profile_id;
+    } else {
+        managerProfileId.value = "";
+    }
     
-    var ManagerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
-    ManagerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
+    var managerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
+    if (manager_profile_details.user_manager_profile_details_id) {
+        managerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
+    } else {
+        managerProfileDetailsId.value = "";
+    }
     
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
     if(UserAPI.hasSessionUser()){
