@@ -31,7 +31,7 @@ managerProfile_engagement_option0, managerProfile_engagement_option1, managerPro
 managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4,
 managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,  
 managerDecisions_tipWhatis, managerDecisions_tipSummary,
-changeDisplayPic,
+changeDisplayPic
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -773,6 +773,12 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
+        
+        var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
+        managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
+
+        var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
+        managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
 
         var changeDisplayPic = document.getElementById("changeDisplayPic");
         changeDisplayPic.innerHTML = siteContent.changeDisplayPic;
@@ -803,13 +809,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         }
 
         //not working yet
-
-
-        var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
-        managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
-
-        var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
-        managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
 
     }
 

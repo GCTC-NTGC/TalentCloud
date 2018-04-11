@@ -242,10 +242,11 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.managerProfile_acceptLowValueWorkRequests_option2 = content.managerProfile_acceptLowValueWorkRequests_option2;
     thisContent.managerProfile_acceptLowValueWorkRequests_option3 = content.managerProfile_acceptLowValueWorkRequests_option3;
     thisContent.managerProfile_acceptLowValueWorkRequests_option4 = content.managerProfile_acceptLowValueWorkRequests_option4;
-    thisContent.profileBasicInfoEditTitle = content.profileBasicInfoEditTitle;
-    thisContent.changeDisplayPic = content.changeDisplayPic;
     thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
     thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
+    thisContent.profileBasicInfoEditTitle = content.profileBasicInfoEditTitle;
+    thisContent.changeDisplayPic = content.changeDisplayPic;
+
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
