@@ -10,7 +10,7 @@
 
             <span class="update-profile-photo__draggable-area-label heading--03">Drag New Photo</span>
 
-            <span class="update-profile-photo__draggable-area-error--size heading--03">File Larger Than 2MB</span>
+            <span class="update-profile-photo__draggable-area-error--size heading--03">File Larger Than 5MB</span>
 
             <span class="update-profile-photo__draggable-area-error--type heading--03">Please Use .JPG, .JPEG, or .PNG.</span>
 

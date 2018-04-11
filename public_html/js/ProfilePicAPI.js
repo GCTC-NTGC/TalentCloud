@@ -27,7 +27,7 @@ ProfilePicAPI.Uploader = function(
 
     this.photo = null;
     this.croppie = null;
-    this.max_filesize = 2048576;
+    this.max_filesize = 5242880;
     this.defaultPhotoSrc = ProfilePicAPI.defaultProfilePic;
     this.uploadUrl = ProfilePicAPI.baseURL + "/profilePic/" + this.userId;
 
