@@ -79,4 +79,23 @@ class JobApplicationController{
         
         return $jobPosterApplicationId;
     }
+    
+    /**
+     * Returns true if the application status is "Draft"
+     * 
+     * @param type $jobPosterApplicationId
+     * @return boolean
+     */
+    public static function jobApplicationIsDraft($jobPosterApplicationId) {
+        return JobApplicationDAO::jobApplicationIsDraft($jobPosterApplicationId);
+    }
+    
+    /**
+     * Returns the user_id of the creator of the job application
+     * 
+     * @param type $jobPosterApplicationId
+     */
+    public static function getJobApplicationUserId($jobPosterApplicationId) {
+        return JobApplicationDAO::getJobApplicationCreatorUserId($jobPosterApplicationId);
+    }
 }

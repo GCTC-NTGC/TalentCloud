@@ -248,4 +248,57 @@ class JobApplicationDAO extends BaseDAO {
         BaseDAO::closeConnection($link);
         return $rowsmodified;
     }
+    
+    /**
+     * Returns true if the job application status is 'Draft'
+     * 
+     * @param type $jobPosterApplicationId
+     */
+    public static function jobApplicationIsDraft($jobPosterApplicationId) {
+        $link = BaseDAO::getConnection();
+        $sql_str = "
+            SELECT EXISTS (SELECT 1 FROM 
+                job_poster_application jpa, application_status ap
+            WHERE 
+                jpa.job_poster_application_id = :application_id
+                AND jpa.job_poster_application_status_id = ap.application_status_id
+                AND ap.application_status = 'Draft'
+            );
+            ";
+        $sql = $link->prepare($sql_str);
+        $user_id_int = intval($user_id);
+        $sql->bindValue(':application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $found = $sql->fetch()[0];
+        } catch (PDOException $e) {
+            return 'jobApplicationIsDraft failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $found == 1;
+    }
+    
+    public static function getJobApplicationCreatorUserId($jobPosterApplicationId) {
+        $link = BaseDAO::getConnection();
+        $sql_str = "
+            SELECT u.user_id
+            FROM user u, user_job_seeker_profile u_jsp, job_poster_application jpa
+            WHERE 
+                jpa.job_poster_application_id = :application_id
+                AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
+                AND u.user_id = u_jsp.user_id
+            ;";
+        $sql = $link->prepare($sql_str);
+        $sql->bindValue(':application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $user_id = $sql->fetch()[0];
+        } catch (PDOException $e) {
+            return 'getJobApplicationCreatorUserId failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $user_id;
+    }
 }
