@@ -9,7 +9,7 @@
                 <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
                     <div id="createJobPosterCreateTab flex-grid" class="stepGroup">
                         <div class="tabsWrapper box xl-1of1 lg-1of1 small-1of1">
-                            <div class="tabsSteps flex-grid">
+                            <div class="tabsSteps small flex-grid">
                                 <div class="three-step-tab tab-current box xl-1of3 lg-1of3 small-1of1"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
                                 <div class="three-step-tab box xl-1of3 lg-1of3 small-1of1"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
                                 <div class="three-step-tab box xl-1of3 lg-1of3 small-1of1"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
@@ -22,8 +22,8 @@
                         </div>
                         <div class="stepGroupForm box  xl-1of1 lg-1of1 small-1of1">
                             <h3>Details</h3>
-                            <section id ="createJobPosterJobTitleSection">
-                                <div class="leftPane">
+                            <section id ="createJobPosterJobTitleSection" class="flex-grid">
+                                <div class="box xl-5of12 lg-5of12 small-1of1">
                                     <div class="form-group">
                                         <label for="createJobPoster_jobTitle">
                                             <span>Job Title: *</span>
@@ -36,7 +36,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rightPane">
+                                <div class="box xl-2of12 lg-2of12 "></div>
+                                <div class="box xl-5of12 lg-5of12 small-1of1">
                                     <div class="form-group">
                                         <label for="createJobPoster_jobTitle_fr">
                                             <span>Job Title_fr: *</span>
@@ -64,7 +65,7 @@
                                         </select>
                                     </div>
                                     <div class="flex-grid top">
-                                        <div class="form-group box small-5of11">
+                                        <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                             <label for="createJobPoster_branch">
                                                 <span><span id="createJobPoster_branch_labelName">Branch</span> (English): *</span>
                                                 <strong id="createJobPoster_branch_error" class="error hidden">
@@ -75,8 +76,8 @@
                                                 <input type="text" class="form-control full-width" name="createJobPoster_branch" id="createJobPoster_branch"/>
                                             </div>
                                         </div>
-                                        <div class="box small-1of11"></div>
-                                        <div class="form-group box small-5of11">
+                                        <div class="box xl-2of12 lg-2of12 "></div>
+                                        <div class="form-group  box xl-5of12 lg-5of12 small-1of1">
                                             <label for="createJobPoster_branch_fr">
                                                 <span><span id="createJobPoster_branch_fr_labelName">Branch</span> (francais): *</span>
                                                 <strong id="createJobPoster_branch_fr_error" class="error hidden">
@@ -86,10 +87,10 @@
                                             <div>
                                                 <input type="text" class="form-control full-width" name="createJobPoster_branch_fr" id="createJobPoster_branch_fr"/>
                                             </div>
-                                        </div> `
+                                        </div>
                                     </div>
                                     <div class="flex-grid top">
-                                        <div class="form-group box small-5of11">
+                                        <div class="form-group  box xl-5of12 lg-5of12 small-1of1">
                                             <label for="createJobPoster_division">
                                                 <span><span id="createJobPoster_division_labelName">Division</span> (English): *</span>
                                                 <strong id="createJobPoster_division_error" class="error hidden">
@@ -100,8 +101,8 @@
                                                 <input type="text" class="form-control full-width" name="createJobPoster_division" id="createJobPoster_division"/>
                                             </div>
                                         </div>
-                                        <div class="box small-1of11"></div>
-                                        <div class="form-group box small-5of11">
+                                        <div class="box xl-2of12 lg-2of12 "></div>
+                                        <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                             <label for="createJobPoster_division_fr">
                                                 <span><span id="createJobPoster_division_fr_labelName">Division</span> (francais): *</span>
                                                 <strong id="createJobPoster_division_fr_error" class="error hidden">
@@ -208,8 +209,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="leftPane">
-                                    <div class="form-group">
+                                <div class="flex-grid">
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                         <label for="createJobPoster_impact">
                                             <span><span id="createJobPoster_impact_labelName">Impact</span>:</span>
                                             <strong id="createJobPoster_impact_error" class="error hidden">
@@ -220,64 +221,8 @@
                                             <textarea class="form-control full-width" name="createJobPoster_impact" id="createJobPoster_impact"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="createJobPoster_keyTasks">
-                                            <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span>: **</span>
-                                            <strong id="createJobPoster_keyTasks_error" class="error hidden">
-                                                <span id="createJobPoster_keyTasks_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <div>
-                                            <textarea class="form-control full-width" name="createJobPoster_keyTasks" id="createJobPoster_keyTasks"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="createJobPoster_coreCompetencies">
-                                            <span><span id="createJobPoster_coreCompetencies_labelName">Core Competencies</span>: **</span>
-                                            <strong id="createJobPoster_coreCompetencies_error" class="error hidden">
-                                                <span id="createJobPoster_coreCompetencies_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <div>
-                                            <textarea class="form-control full-width" name="createJobPoster_coreCompetencies" id="createJobPoster_coreCompetencies"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="createJobPoster_developingCompetencies">
-                                            <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>: **</span>
-                                            <strong id="createJobPoster_developingCompetencies_error" class="error hidden">
-                                                <span id="createJobPoster_developingCompetencies_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <div>
-                                            <textarea class="form-control full-width" name="createJobPoster_developingCompetencies" id="createJobPoster_developingCompetencies"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="createJobPoster_otherRequirements">
-                                            <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>: **</span>
-                                            <strong id="createJobPoster_otherRequirements_error" class="error hidden">
-                                                <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <div>
-                                            <textarea class="form-control full-width" name="createJobPoster_otherRequirements" id="createJobPoster_otherRequirements"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="createJobPoster_questions">
-                                            <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
-                                            <strong id="createJobPoster_questions_error" class="error hidden">
-                                                <span id="createJobPoster_questions_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <div>
-                                            <textarea class="form-control full-width" name="createJobPoster_questions" id="createJobPoster_questions"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="rightPane">
-                                    <div class="form-group">
+                                    <div class="box xl-2of12 lg-2of12 "></div>
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                         <label for="createJobPoster_impact_fr">
                                             <span><span id="createJobPoster_impact_fr_labelName">Impact_fr</span>:</span>
                                             <strong id="createJobPoster_impact_fr_error" class="error hidden">
@@ -288,7 +233,21 @@
                                             <textarea class="form-control full-width" name="createJobPoster_impact_fr" id="createJobPoster_impact_fr"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                </div>
+                                <div class="flex-grid">
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
+                                        <label for="createJobPoster_keyTasks">
+                                            <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span>: **</span>
+                                            <strong id="createJobPoster_keyTasks_error" class="error hidden">
+                                                <span id="createJobPoster_keyTasks_error_msg" class="label label-danger"></span>
+                                            </strong>
+                                        </label>
+                                        <div>
+                                            <textarea class="form-control full-width" name="createJobPoster_keyTasks" id="createJobPoster_keyTasks"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="box xl-2of12 lg-2of12 "></div>
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                         <label for="createJobPoster_keyTasks_fr">
                                             <span><span id="createJobPoster_keyTasks_fr_labelName">Key Tasks_fr</span>: **</span>
                                             <strong id="createJobPoster_keyTasks_fr_error" class="error hidden">
@@ -299,7 +258,22 @@
                                             <textarea class="form-control full-width" name="createJobPoster_keyTasks_fr" id="createJobPoster_keyTasks_fr"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                </div>
+                                
+                                <div class="flex-grid">
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
+                                        <label for="createJobPoster_coreCompetencies">
+                                            <span><span id="createJobPoster_coreCompetencies_labelName">Core Competencies</span>: **</span>
+                                            <strong id="createJobPoster_coreCompetencies_error" class="error hidden">
+                                                <span id="createJobPoster_coreCompetencies_error_msg" class="label label-danger"></span>
+                                            </strong>
+                                        </label>
+                                        <div>
+                                            <textarea class="form-control full-width" name="createJobPoster_coreCompetencies" id="createJobPoster_coreCompetencies"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="box xl-2of12 lg-2of12 "></div>
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                         <label for="createJobPoster_coreCompetencies_fr">
                                             <span><span id="createJobPoster_coreCompetencies_fr_labelName">Core Competencies_fr</span>: **</span>
                                             <strong id="createJobPoster_coreCompetencies_fr_error" class="error hidden">
@@ -310,9 +284,24 @@
                                             <textarea class="form-control full-width" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_coreCompetencies_fr"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                </div>
+                                
+                                <div class="flex-grid">
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
+                                        <label for="createJobPoster_developingCompetencies">
+                                            <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>: **</span>
+                                            <strong id="createJobPoster_developingCompetencies_error" class="error hidden">
+                                                <span id="createJobPoster_developingCompetencies_error_msg" class="label label-danger"></span>
+                                            </strong>
+                                        </label>
+                                        <div>
+                                            <textarea class="form-control full-width" name="createJobPoster_developingCompetencies" id="createJobPoster_developingCompetencies"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="box xl-2of12 lg-2of12 "></div>
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                         <label for="createJobPoster_developingCompetencies_fr">
-                                            <span><span id="createJobPoster_developingCompetencies_fr_labelName">Developing Competencies</span>:</span>
+                                        <span><span id="createJobPoster_developingCompetencies_fr_labelName">Developing Competencies</span>:</span>
                                             <strong id="createJobPoster_developingCompetencies_fr_error" class="error hidden">
                                                 <span id="createJobPoster_developingCompetencies_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -321,8 +310,23 @@
                                             <textarea class="form-control full-width" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="createJobPoster_otherRequirements_fr">
+                                </div>
+                                
+                                <div class="flex-grid">
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
+                                        <label for="createJobPoster_otherRequirements">
+                                            <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>: **</span>
+                                            <strong id="createJobPoster_otherRequirements_error" class="error hidden">
+                                                <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
+                                            </strong>
+                                        </label>
+                                        <div>
+                                            <textarea class="form-control full-width" name="createJobPoster_otherRequirements" id="createJobPoster_otherRequirements"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="box xl-2of12 lg-2of12 "></div>
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
+                                    <label for="createJobPoster_otherRequirements_fr">
                                             <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements_fr</span>: **</span>
                                             <strong id="createJobPoster_otherRequirements_fr_error" class="error hidden">
                                                 <span id="createJobPoster_otherRequirements_fr_error_msg" class="label label-danger"></span>
@@ -332,7 +336,22 @@
                                             <textarea class="form-control full-width" name="createJobPoster_otherRequirements_fr" id="createJobPoster_otherRequirements_fr"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                </div>
+                                
+                                <div class="flex-grid">
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
+                                        <label for="createJobPoster_questions">
+                                            <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
+                                            <strong id="createJobPoster_questions_error" class="error hidden">
+                                                <span id="createJobPoster_questions_error_msg" class="label label-danger"></span>
+                                            </strong>
+                                        </label>
+                                        <div>
+                                            <textarea class="form-control full-width" name="createJobPoster_questions" id="createJobPoster_questions"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="box xl-2of12 lg-2of12 "></div>
+                                    <div class="form-group box xl-5of12 lg-5of12 small-1of1">
                                         <label for="createJobPoster_questions_fr">
                                             <span><span id="createJobPoster_questions_fr_labelName">Open Ended Questions_fr</span> (francais): **</span>
                                             <strong id="createJobPoster_questions_fr_error" class="error hidden">
