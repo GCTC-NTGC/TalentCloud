@@ -47,11 +47,12 @@
 
                     <div class="flex-grid middle login-modal__button-grid">
                         <div class="box med-1of2">
-                            <input type="button" id="loginFormCancelBtn" value="Cancel" class="button--grey" onclick="UserAPI.cancelLogin()"/>
+                            
                         </div>
                         <div class="box med-1of2">
-                        <input type="button" id="loginFormLoginBtn" value="Log in" class="button--yellow" onclick="return UserAPI.login()"/>
-                    </div>
+                            <input type="button" id="loginFormCancelBtn" value="Cancel" class="button--grey" onclick="UserAPI.cancelLogin()"/>
+                            <input type="button" id="loginFormLoginBtn" value="Login" class="button--yellow" onclick="return UserAPI.login()"/>
+                        </div>
                     </div>
 
                     <div class="clear"></div>

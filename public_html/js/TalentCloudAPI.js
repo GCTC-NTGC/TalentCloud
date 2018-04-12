@@ -29,7 +29,7 @@ managerProfile_review_option0, managerProfile_review_option1, managerProfile_rev
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
 managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
-managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, managerDecisions_tipWhatis, managerDecisions_tipSummary
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave, managerDecisions_tipWhatis, managerDecisions_tipSummary
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -199,6 +199,15 @@ managerProfile_developmentOpportunities_option3, managerProfile_developmentOppor
     this.loginModalEmailLabelSpan = loginModalEmailLabelSpan;
     this.login_email = login_email;
     this.loginModalPasswordLabelSpan = loginModalPasswordLabelSpan;
+    this.login_password = login_password;
+    this.loginFormCancelBtn = loginFormCancelBtn;
+    this.loginFormLoginBtn = loginFormLoginBtn;
+    this.registerFormTitle = registerFormTitle;
+    this.profileAboutMeEditTitle = profileAboutMeEditTitle;
+    this.updateAboutTextareaLabelSpan = updateAboutTextareaLabelSpan;
+    this.profileEditAboutMe = profileEditAboutMe;
+    this.profileAboutMeEditCancel = profileAboutMeEditCancel;
+    this.profileAboutMeEditSave = profileAboutMeEditSave;
     this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
     this.managerDecisions_tipWhatis = managerDecisions_tipWhatis;
     this.managerDecisions_tipSummary = managerDecisions_tipSummary;
@@ -869,6 +878,7 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var switchToRegister = document.getElementById("switchToRegister");
         switchToRegister.innerHTML = siteContent.switchToRegister;
+        switchToRegister.title = siteContent.switchToRegister;
 
         var loginModalEmailLabelSpan = document.getElementById("loginModalEmailLabelSpan");
         loginModalEmailLabelSpan.innerHTML = siteContent.loginModalEmailLabelSpan;
@@ -878,6 +888,33 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var loginModalPasswordLabelSpan = document.getElementById("loginModalPasswordLabelSpan");
         loginModalPasswordLabelSpan.innerHTML = siteContent.loginModalPasswordLabelSpan;
+
+        var login_password = document.getElementById("login_password");
+        login_password.name = siteContent.login_password;
+
+        var loginFormCancelBtn = document.getElementById("loginFormCancelBtn");
+        loginFormCancelBtn.value = siteContent.loginFormCancelBtn;
+
+        var loginFormLoginBtn = document.getElementById("loginFormLoginBtn");
+        loginFormLoginBtn.value = siteContent.loginFormLoginBtn;
+
+        var registerFormTitle = document.getElementById("registerFormTitle");
+        registerFormTitle.innerHTML = siteContent.registerFormTitle;
+
+        var profileAboutMeEditTitle = document.getElementById("profileAboutMeEditTitle");
+        profileAboutMeEditTitle.innerHTML = siteContent.profileAboutMeEditTitle;
+
+        var updateAboutTextareaLabelSpan = document.getElementById("updateAboutTextareaLabelSpan");
+        updateAboutTextareaLabelSpan.innerHTML = siteContent.updateAboutTextareaLabelSpan;
+
+        var profileEditAboutMe = document.getElementById("profileEditAboutMe");
+        profileEditAboutMe.name = siteContent.profileEditAboutMe;
+
+        var profileAboutMeEditCancel = document.getElementById("profileAboutMeEditCancel");
+        profileAboutMeEditCancel.value = siteContent.profileAboutMeEditCancel;
+
+        var profileAboutMeEditSave = document.getElementById("profileAboutMeEditSave");
+        profileAboutMeEditSave.value = siteContent.profileAboutMeEditSave;
 
         var almostNeverElements = document.getElementsByClassName("option0Label");
         for (var i = 0; i < almostNeverElements.length; i++) {

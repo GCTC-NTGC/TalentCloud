@@ -4441,10 +4441,6 @@ input[type="button"][class*="button--"] {
 
 ============================================================================= */
 /* LEGACY CODE ============================================================== */
-#loginForm, #registerForm {
-  margin-left: 0px !important;
-  margin-right: 0px !important; }
-
 #loginErrors {
   white-space: pre-wrap; }
 
@@ -4534,6 +4530,8 @@ input[type=password][class*="form__input--"] {
     border: 1px solid #2196f3; }
 
 .form__textarea {
+  background: #e2e2e2;
+  border: none;
   color: #333333;
   display: block;
   font-size: 1.5rem;
@@ -4567,6 +4565,31 @@ input[type=password][class*="form__input--"] {
       text-align: left; } }
   @media (min-width: 48em) {
     .login-modal__button-grid .box:last-child {
+      text-align: right; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Registration
+
+============================================================================= */
+.registration-modal__copy {
+  font-size: 16px;
+  margin: 0 0 1em 0; }
+
+.registration-modal__form-grid {
+  margin: 0 -1rem; }
+  .registration-modal__form-grid > .box {
+    padding: 0 1rem; }
+
+.registration-modal__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .registration-modal__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .registration-modal__button-grid .box:last-child {
       text-align: right; } }
 
 /* Organisms ================================================================ */
@@ -4960,6 +4983,22 @@ nav {
 .update-profile__linkedin-label {
   font-size: 16px;
   margin-top: 1rem; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update About Modal
+
+============================================================================= */
+.update-about__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .update-about__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .update-about__button-grid .box:last-child {
+      text-align: right; } }
 
 /* =============================================================================
 

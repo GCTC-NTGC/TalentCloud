@@ -91,10 +91,11 @@
                             </div>
 
                             <div class="box med-1of2">
-                                <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="button--grey" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
+                                
                             </div>
 
                             <div class="box med-1of2">
+                                <input type="button" id="profileBasicInfoEditCancel" value="Cancel" class="button--grey" onclick="JobSeekerAPI.hideJobSeekerProfileEditOverlays()"/>
                                 <input type="button" id="profileBasicInfoEditSave" value="Save" class="button--yellow" onclick="JobSeekerAPI.saveJobSeekerProfileChanges()" tabindex="0"/>
                             </div>
 

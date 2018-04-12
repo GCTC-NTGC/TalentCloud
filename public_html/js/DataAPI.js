@@ -266,6 +266,15 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.loginModalEmailLabelSpan = content.loginModalEmailLabelSpan;
     thisContent.login_email = content.login_email;
     thisContent.loginModalPasswordLabelSpan = content.loginModalPasswordLabelSpan;
+    thisContent.login_password = content.login_password;
+    thisContent.loginFormCancelBtn = content.loginFormCancelBtn;
+    thisContent.loginFormLoginBtn = content.loginFormLoginBtn;
+    thisContent.registerFormTitle = content.registerFormTitle;
+    thisContent.profileAboutMeEditTitle = content.profileAboutMeEditTitle;
+    thisContent.updateAboutTextareaLabelSpan = content.updateAboutTextareaLabelSpan;
+    thisContent.profileEditAboutMe = content.profileEditAboutMe;
+    thisContent.profileAboutMeEditCancel = content.profileAboutMeEditCancel;
+    thisContent.profileAboutMeEditSave = content.profileAboutMeEditSave;
     thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
     thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
     //if(siteContent){

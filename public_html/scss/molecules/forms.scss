@@ -9,8 +9,8 @@
 /* LEGACY CODE ============================================================== */
 
 #loginForm,#registerForm{
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+    // margin-left: 0px !important;
+    // margin-right: 0px !important;
 }
 
 #loginErrors{
@@ -121,6 +121,8 @@ input[type=password][class*="form__input--"] {
 }
 
 .form__textarea {
+    background: lighten($palette-grey--light, 10%);
+    border: none;
     color: $black;
     display: block;
     font-size: 1.5rem;
