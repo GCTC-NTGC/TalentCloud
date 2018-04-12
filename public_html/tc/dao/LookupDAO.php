@@ -213,6 +213,87 @@ class LookupDAO extends BaseDAO {
         return $rows;
     }
     
+    public static function getSkillsByLocale($locale) {
+
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            skill.skill_id as id, skill_details.skill_details_name as value
+            FROM 
+            skill, skill_detals, locale
+            WHERE locale.locale_iso = :locale
+            AND skill_details.skill_details_locale_id = locale.locale_id
+            AND skill_details.skill_id = skill.skill_id
+            ORDER BY skill.skill_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getSkillsByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
+    public static function getSkillLevelsByLocale($locale) {
+
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            sl.skill_level_id as id, sld.skill_level_details_name as value
+            FROM 
+            skill_level sl, skill_level_detals sld, locale
+            WHERE locale.locale_iso = :locale
+            AND sld.skill_level_details_locale_id = locale.locale_id
+            AND sld.skill_level_id = sl.skill_level_id
+            ORDER BY sl.skill_level_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getSkillLevelsByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
+    public static function getExperienceLevelsByLocale($locale) {
+
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            el.experience_level_id as id, eld.experience_level_details_name as value
+            FROM 
+            experience_level el, experience_level_details eld, locale
+            WHERE locale.locale_iso = :locale
+            AND eld.experience_level_details_locale_id = locale.locale_id
+            AND eld.experience_level_id = el.experience_level_id
+            ORDER BY el.experience_level_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getExperienceLevelsByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
 }
 
 ?>
