@@ -7,12 +7,12 @@
         <div class="container">
             <div class="wb-frmvld wb-init tabbedForm" id="jobPosterFormWrapper">
                 <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
-                    <div id="createJobPosterCreateTab" class="stepGroup">
-                        <div class="tabsWrapper">
-                            <div class="tabsSteps">
-                                <div class="three-step-tab tab-current"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
-                                <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
-                                <div class="three-step-tab"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
+                    <div id="createJobPosterCreateTab flex-grid" class="stepGroup">
+                        <div class="tabsWrapper box xl-1of1 lg-1of1 small-1of1">
+                            <div class="tabsSteps flex-grid">
+                                <div class="three-step-tab tab-current box xl-1of3 lg-1of3 small-1of1"><a href="javascript:void(0)" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</a></div>
+                                <div class="three-step-tab box xl-1of3 lg-1of3 small-1of1"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_1">Outdated</a></div>
+                                <div class="three-step-tab box xl-1of3 lg-1of3 small-1of1"><a href="javascript:void(0)" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_1">Review</a></div>
                             </div>
                             <div class="tabs">
                                 <div class="steptab active"> </div>
@@ -20,7 +20,7 @@
                                 <div class="steptab inactive"> </div>
                             </div>
                         </div>
-                        <div class="stepGroupForm">
+                        <div class="stepGroupForm box  xl-1of1 lg-1of1 small-1of1">
                             <h3>Details</h3>
                             <section id ="createJobPosterJobTitleSection">
                                 <div class="leftPane">

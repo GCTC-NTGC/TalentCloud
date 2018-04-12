@@ -1,0 +1,8 @@
+#createJobPosterSection > .createJobPosterCreateTab,
+#createJobPosterSection > .tabs,
+#createJobPosterSection > .stepGroupForm{
+    display:block;
+    position:absolute;
+    overflow: hidden;
+    flex-flow: column wrap;
+}
