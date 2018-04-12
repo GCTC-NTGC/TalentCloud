@@ -1,6 +1,10 @@
 <div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
 
     <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
+
+        <div class="dialogue-modal__title-wrapper">
+            <h3 class="dialogue-modal__title">Change Your Profile Photo</h3>
+        </div>
     
         <div class="flex-grid middle">
 

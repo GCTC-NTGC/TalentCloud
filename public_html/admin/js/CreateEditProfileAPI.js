@@ -808,6 +808,7 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
 
 CreateEditProfileAPI.hideUploadProfilePic = function() {
     document.body.style.overflow = "";
+    document.body.classList.remove("overFlowHidden");
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
     uploadOverlay.classList.add("hidden");
     CreateEditProfileAPI.profilePicUploader = null;

@@ -695,14 +695,15 @@ JobSeekerAPI.showUploadProfilePic = function() {
     //var uploadBtn = document.getElementById('profilePicUploadBtn');
 
     JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
-            fileInputButtons,
-            fileDrop,
-            imagePreview,
-            clearBtn,
-            null,
-            UserAPI.getSessionUserAsJSON().user_id,
-            JobSeekerAPI.onProfilePicUploaded
-        );
+        fileInputButtons,
+        fileDrop,
+        imagePreview,
+        clearBtn,
+        null,
+        UserAPI.getSessionUserAsJSON().user_id,
+        JobSeekerAPI.onProfilePicUploaded
+    );
+    
 };
 
 JobSeekerAPI.onProfilePicUploaded = function() {
