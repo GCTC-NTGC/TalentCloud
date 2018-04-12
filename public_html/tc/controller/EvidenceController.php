@@ -18,4 +18,17 @@ class EvidenceController{
         return $evidenceList;
         
     }
+    
+    public static function addEvidenceToJobApplication($jobPosterApplicationId, $evidence) {
+        //TODO
+    }
+    
+    public static function updateEvidenceForJobApplication($jobPosterApplicationId, $oldEvidenceId, $evidence) {
+        //TODO
+    }
+    
+    public static function removeEvidenceFromJobApplication($jobPosterApplicationId, $evidenceId) {
+        //TODO
+    }
+    
 }

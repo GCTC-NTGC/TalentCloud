@@ -12,9 +12,7 @@
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
     require_once '../controller/EvidenceController.php';
-    //require_once '../model/JobApplicationWithAnswers.php';
-    //require_once '../model/JobPosterApplication.php';
-    //require_once '../model/ApplicationQuestionAnswer.php';
+    require_once '../model/Evidence.php';
     require_once '../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -41,47 +39,23 @@
             }
             break;
         case 'POST':
-            //Assemble JobApplicationWithAnswers object from JSON
-            $jsonBody = file_get_contents('php://input');
-            $jsonJobApplicationWithAnswers = json_decode($jsonBody, TRUE);
-       
-            $jsonJobPosterApplication = $jsonJobApplicationWithAnswers["job_poster_application"];
-            
-            $jobPosterApplication = new JobPosterApplication();
-            $jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
-            $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
-            
-            $questionAnswers = [];
-            foreach($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
-                $questionAnswer = new ApplicationQuestionAnswer();
-                $questionAnswer->setJob_poster_question_id($jsonQA['job_poster_question_id']);
-                $questionAnswer->setAnswer($jsonQA['answer']);
-                $questionAnswers[] = $questionAnswer;
-            }
-            
-            $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
-            
-            $jobPosterApplicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
-            $returnMap = array('job_poster_application_id' => $jobPosterApplicationId);
-            $json = json_encode($returnMap, JSON_PRETTY_PRINT);
-            echo($json);
-            
-            break;
-        case 'DELETE':
-            //Here Handle DELETE Request 
-            break;
-        case 'PUT':
-            //Here Handle PUT Request 
-            //$jsonBody = file_get_contents('php://input');
-            /*
             if(strlen($requestParams) > 1){
-                //$jobSeekerJSON = json_decode($jsonBody, TRUE);
-                //var_dump($jobSeekerJSON);
-                $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
-                $jobSeekerProfileId = Utils::getParameterFromRequest($requestParams,5);
-                $jobPosterApplication = JobPosterApplicationController::addJobPosterApplication($jobPosterId,$jobSeekerProfileId);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 
-                $json = json_encode($jobPosterApplication, JSON_PRETTY_PRINT);
+                $jsonBody = file_get_contents('php://input');
+                $evidenceJSON = json_decode($jsonBody, TRUE);
+                
+                $evidence = new Evidence();
+                $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
+                $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
+                $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
+                $evidence->setSkill_level_id($evidenceJSON["skill_level_id"]);
+                $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
+                $evidence->setLast_updated($evidenceJSON["last_updated"]);
+                
+                $result = EvidenceController::addEvidenceToJobApplication($jobPosterApplicationId, $evidence);
+                
+                $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
                 $result = array();
@@ -89,8 +63,47 @@
                 echo($json);
             }
             break;
-             * 
-             */
+        case 'DELETE':
+            if(strlen($requestParams) > 1){
+                $evidenceId = Utils::getParameterFromRequest($requestParams,4);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,6);
+               
+                $result = EvidenceController::removeEvidenceFromJobApplication($jobPosterApplicationId, $evidenceId);
+                
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }else{
+                $result = array();
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }
+            break;
+        case 'PUT':
+            if(strlen($requestParams) > 1){
+                $oldEvidenceId = Utils::getParameterFromRequest($requestParams,4);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,6);
+                
+                $jsonBody = file_get_contents('php://input');
+                $evidenceJSON = json_decode($jsonBody, TRUE);
+                
+                $evidence = new Evidence();
+                $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
+                $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
+                $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
+                $evidence->setSkill_level_id($evidenceJSON["skill_level_id"]);
+                $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
+                $evidence->setLast_updated($evidenceJSON["last_updated"]);
+                
+                $result = EvidenceController::updateEvidenceForJobApplication($jobPosterApplicationId, $oldEvidenceId, $evidence);
+                
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }else{
+                $result = array();
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            }
+            break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
