@@ -18,6 +18,7 @@ require_once '../dao/BaseDAO.php';
 require_once '../model/JobPoster.php';
 require_once '../model/JobPosterQuestion.php';
 require_once '../model/JobPosterNonLocalized.php';
+require_once '../model/Lookup.php';
 
 /**
  * Summary: Data Access Object for Resources
@@ -217,7 +218,9 @@ class JobPosterDAO extends BaseDAO {
             ;";
                 
         $sqlCoreCompsStr = "
-            SELECT core_comps.core_competency
+            SELECT 
+                core_comps.job_poster_core_competency_id as id,
+                core_comps.core_competency as value
             FROM job_poster_core_competency as core_comps, locale
             WHERE core_comps.job_poster_id = :job_poster_id 
             AND locale.locale_iso = :locale_iso
@@ -225,7 +228,9 @@ class JobPosterDAO extends BaseDAO {
             ;";
                 
         $sqlDevelopingCompsStr = "
-            SELECT dev_comps.developing_competency
+            SELECT 
+                dev_comps.job_poster_developing_competency_id as id,
+                dev_comps.developing_competency as value
             FROM job_poster_developing_competency as dev_comps, locale
             WHERE dev_comps.job_poster_id = :job_poster_id 
             AND locale.locale_iso = :locale_iso
@@ -269,8 +274,8 @@ class JobPosterDAO extends BaseDAO {
             $sqlQuestions->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
             
             $sqlTasks->setFetchMode(PDO::FETCH_NUM);
-            $sqlCoreComps->setFetchMode(PDO::FETCH_NUM);
-            $sqlDevelopingComps->setFetchMode(PDO::FETCH_NUM);
+            $sqlCoreComps->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sqlDevelopingComps->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
             $sqlRequirements->setFetchMode(PDO::FETCH_NUM);
             $sqlQuestions->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPosterQuestion');
             
@@ -283,8 +288,6 @@ class JobPosterDAO extends BaseDAO {
             
             //merge arrays or make them empty arrays (instead of null)
             $tasks = empty($tasks) ? [] : array_merge(...$tasks);
-            $core_comps = empty($core_comps) ? [] : array_merge(...$core_comps);
-            $developing_comps = empty($developing_comps) ? [] : array_merge(...$developing_comps);
             $other_requirements = empty($other_requirements) ? [] : array_merge(...$other_requirements);
             
             $jobPoster->setKey_tasks($tasks);

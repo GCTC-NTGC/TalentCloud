@@ -550,16 +550,22 @@ JobPostAPI.populateJobPoster = function(jobData){
     JobPostAPI.setItemsForListElement(keyTaskList, jobData.key_tasks, "keyTaskItem");
     
     var coreCompetencyList = document.getElementById("jobPosterCoreCompetencies");
+    var coreCompetencyValues = [];
     if (jobData.core_competencies.length === 0) {
-        jobData.core_competencies.push("N/A");
+        coreCompetencyValues.push("N/A");
+    } else {
+        jobData.core_competencies.forEach((item)=>coreCompetencyValues.push(item.value));
     }
-    JobPostAPI.setItemsForListElement(coreCompetencyList, jobData.core_competencies, "coreCompetencyItem");
+    JobPostAPI.setItemsForListElement(coreCompetencyList, coreCompetencyValues, "coreCompetencyItem");
     
     var developingCompetencyList = document.getElementById("jobPosterDevelopingCompetencies");
+    var devCompetencyValues = [];
     if (jobData.developing_competencies.length === 0) {
-        jobData.developing_competencies.push("N/A");
+        devCompetencyValues.push("N/A");
+    } else {
+        jobData.developing_competencies.forEach( (item)=> devCompetencyValues.push(item.value));
     }
-    JobPostAPI.setItemsForListElement(developingCompetencyList, jobData.developing_competencies, "developingCompetencyItem");
+    JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
     
     var otherRequirmentList = document.getElementById("jobPosterOtherRequirements");
     if (jobData.other_requirements.length === 0) {
