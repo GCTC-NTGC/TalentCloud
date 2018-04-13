@@ -67,6 +67,8 @@
              */
             break;
         case 'DELETE':
+            //TODO: authenticate user
+            
             if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 $criteriaId = Utils::getParameterFromRequest($requestParams,6);
@@ -82,10 +84,15 @@
             }
             break;
         case 'PUT':
+            //TODO: authenticate user
+            
             if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 $criteriaId = Utils::getParameterFromRequest($requestParams,6);
                 
+                //TODO: ensure application exists
+                //TODO: ensure application is in draft status
+                //TODO: ensure criteriaId is valid for application
                 
                 $jsonBody = file_get_contents('php://input');
                 $payload = json_decode($jsonBody, TRUE);

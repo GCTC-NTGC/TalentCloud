@@ -39,34 +39,10 @@
             }
             break;
         case 'POST':
-            /*
-            if(strlen($requestParams) > 1){
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
-                
-                $jsonBody = file_get_contents('php://input');
-                $evidenceJSON = json_decode($jsonBody, TRUE);
-                
-                $evidence = new SkillDeclaration();
-                $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
-                $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
-                $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
-                $evidence->setSkill_level_id($evidenceJSON["skill_level_id"]);
-                $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
-                $evidence->setLast_updated($evidenceJSON["last_updated"]);
-                
-                $result = SkillDeclarationController::addSkillDeclarationToJobApplication($jobPosterApplicationId, $evidence);
-                
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }else{
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }
-             * 
-             */
             break;
         case 'DELETE':
+            //TODO: authenticate user
+            
             if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 $criteriaId = Utils::getParameterFromRequest($requestParams,6);
@@ -81,10 +57,16 @@
                 echo($json);
             }
             break;
-        case 'PUT':if(strlen($requestParams) > 1){
+        case 'PUT':
+            //TODO: authenticate user
+            
+            if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 $criteriaId = Utils::getParameterFromRequest($requestParams,6);
                 
+                //TODO: ensure application exists
+                //TODO: ensure application is in draft status
+                //TODO: ensure criteriaId is valid for application
                 
                 $jsonBody = file_get_contents('php://input');
                 $payload = json_decode($jsonBody, TRUE);

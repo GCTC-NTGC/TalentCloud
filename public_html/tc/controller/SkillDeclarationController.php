@@ -29,20 +29,24 @@ class SkillDeclarationController{
         return array_merge($essentialDeclarations, $assetDeclarations);        
     }
     
-    public static function putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $essentialCriteriaId, $skillDeclaration) {
-        //TODO
+    public static function putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
+        $declarationId = SkillDeclarationDAO::putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
+        return array("skill_declaration_id"=>$declarationId);
     }
     
-    public static function putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $assetCriteriaId, $skillDeclaration) {
-        //TODO
+    public static function putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
+        $declarationId = SkillDeclarationDAO::putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
+        return array("skill_declaration_id"=>$declarationId);
     }
     
-    public static function removeEssentialSkillDeclarationFromJobApplication($jobPosterApplicationId, $essentialCriteriaId) {
-        //TODO
+    public static function removeEssentialSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId) {
+        SkillDeclarationDAO::removeEssentialSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
+        //TODO - what should this return?
     }
     
-    public static function removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $assetCriteriaId) {
-        //TODO
+    public static function removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId) {
+        SkillDeclarationDAO::removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
+        //TODO - what should this return?
     }
     
 }
