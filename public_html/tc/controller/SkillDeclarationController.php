@@ -10,24 +10,38 @@ require_once '../model/SkillDeclaration.php';
 require_once '../dao/SkillDeclarationDAO.php';
 
 class SkillDeclarationController{
-        
-     public static function getEvidenceForJobApplication($jobPosterApplicationId){
-        
-        $evidenceList = SkillDeclarationDAO::getSkillDeclarationsForJobApplication($jobPosterApplicationId);
-        
-        return $evidenceList;
-        
+    
+    public static function getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId){
+        $declarations = SkillDeclarationDAO::getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId);
+        return $declarations;
     }
     
-    public static function addSkillDeclarationToJobApplication($jobPosterApplicationId, $evidence) {
+    public static function getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId){
+        $declarations = SkillDeclarationDAO::getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId);
+        return $declarations;
+    }
+    
+    public static function getAllSkillDeclarationsForJobApplication($jobPosterApplicationId){
+        
+        $essentialDeclarations = self::getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId);
+        $assetDeclarations = self::getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId);
+        
+        return array_merge($essentialDeclarations, $assetDeclarations);        
+    }
+    
+    public static function putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $essentialCriteriaId, $skillDeclaration) {
         //TODO
     }
     
-    public static function updateSkillDeclarationForJobApplication($jobPosterApplicationId, $oldEvidenceId, $evidence) {
+    public static function putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $assetCriteriaId, $skillDeclaration) {
         //TODO
     }
     
-    public static function removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $evidenceId) {
+    public static function removeEssentialSkillDeclarationFromJobApplication($jobPosterApplicationId, $essentialCriteriaId) {
+        //TODO
+    }
+    
+    public static function removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $assetCriteriaId) {
         //TODO
     }
     

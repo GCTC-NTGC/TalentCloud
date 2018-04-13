@@ -25,24 +25,29 @@ require_once '../model/SkillDeclaration.php';
 class SkillDeclarationDAO extends BaseDAO {
     
     /**
-     * Returns an array of Evidence objects associated with a JobPosterApplication
+     * Returns an array of SkillDeclaration objects associated with the Essential criteria of a JobPosterApplication
      * 
      * @param type $jobPosterApplicationId
      */
-    public static function getSkillDeclarationsForJobApplication($jobPosterApplicationId) {
+    public static function getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId) {
          $link = BaseDAO::getConnection();
         
         $sqlStr = "
             SELECT 
-                e.evidence_id,
-                e.experience_level_id,
-                e.skill_level_id,
-                e.evidence_description,
-                e.last_updated
-            FROM evidence e, application_evidence ae
+                d.skill_declaration_id,
+                cc.core_competency as skill,
+                d.experience_level_id,
+                d.skill_level_id,
+                d.description,
+                d.last_updated
+            FROM 
+                skill_declaration d, 
+                application_essential_skill_declaration asd,
+                job_poster_core_competency cc
             WHERE
-                e.evidence_id = ae.evidence_id
-                AND ae.job_poster_application_id = :job_poster_application_id
+                d.skill_declaration_id = asd.skill_declaration_id
+                AND asd.job_poster_application_id = :job_poster_application_id
+                AND asd.job_poster_core_competency_id = cc.job_poster_core_competency_id
             ;";
         
         $sql = $link->prepare($sqlStr);
@@ -51,53 +56,59 @@ class SkillDeclarationDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             //$link->commit();
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Evidence');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'SkillDeclaration');
             
-            $evidence = $sql->fetchAll();
+            $declarations = $sql->fetchAll();
             
         } catch (PDOException $e) {
-            return 'getEvidenceForJobApplication failed: ' . $e->getMessage();
+            return 'getEssentialSkillDeclarationsForJobApplication failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
-        
-        foreach ($evidence as $e) {
-            self::getSkillIdsForEvidence($e->getEvidence_id());
-        }
-        
-        return $evidence;
+                
+        return $declarations;
     }
     
     /**
-     * Returns an array of skill ids associated with an evidence object
+     * Returns an array of SkillDeclaration objects associated with the Asset criteria of a JobPosterApplication
      * 
-     * @param type $evidence_id
+     * @param type $jobPosterApplicationId
      */
-    public static function getSkillIdsForEvidence($evidence_id) {
-        $link = BaseDAO::getConnection();
+    public static function getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId) {
+         $link = BaseDAO::getConnection();
         
         $sqlStr = "
-            SELECT evidence_skill.skill_id
-            FROM evidence_skill
-            WHERE evidence_skill.evidence_id = :evidence_id;";
+            SELECT 
+                d.skill_declaration_id,
+                dc.core_competency as skill,
+                d.experience_level_id,
+                d.skill_level_id,
+                d.description,
+                d.last_updated
+            FROM 
+                skill_declaration d, 
+                application_asset_skill_declaration asd,
+                job_poster_developing_competency dc
+            WHERE
+                d.skill_declaration_id = asd.skill_declaration_id
+                AND asd.job_poster_application_id = :job_poster_application_id
+                AND asd.job_poster_developing_competency_id = dc.job_poster_developing_competency_id
+            ;";
         
         $sql = $link->prepare($sqlStr);
-        $sql->bindValue(':evidence_id', $evidence_id, PDO::PARAM_INT);
+        $sql->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             //$link->commit();
-            $sql->setFetchMode(PDO::FETCH_NUM);
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'SkillDeclaration');
             
-            $result = $sql->fetchAll(); //is returned as an array of arrays
-            $skill_ids = empty($result) ? [] : array_merge(...$result); //Merge into a single layer array if result is not empty
+            $declarations = $sql->fetchAll();
+            
         } catch (PDOException $e) {
-            return 'getSkillIdsForEvidence failed: ' . $e->getMessage();
+            return 'getAssetSkillDeclarationsForJobApplication failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
-        return $skill_ids;
-    }
-    
-    public static function insertEvidence($evidence) {
-        
+                
+        return $declarations;
     }
 }

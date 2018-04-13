@@ -3,15 +3,15 @@
 class SkillDeclaration implements JsonSerializable{
     
     protected $skill_declaration_id;
-    protected $skills;
+    protected $skill;
     protected $experience_level_id;
     protected $skill_level_id;
     protected $description;
     protected $last_updated;
     
-    public function __construct($skill_declaration_id=null, $skills=[], $experience_level_id=null, $skill_level_id=null, $description=null, $last_updated=null) {
+    public function __construct($skill_declaration_id=null, $skill, $experience_level_id=null, $skill_level_id=null, $description=null, $last_updated=null) {
         $this->skill_declaration_id = $$skill_declaration_id;
-        $this->skills = $skills;
+        $this->skill = $skill;
         $this->experience_level_id = $experience_level_id;
         $this->skill_level_id = $skill_level_id;
         $this->description = $description;
@@ -33,8 +33,8 @@ class SkillDeclaration implements JsonSerializable{
         return $this->skill_declaration_id;
     }
 
-    public function getSkills() {
-        return $this->skills;
+    public function getSkill() {
+        return $this->skill;
     }
 
     public function getExperience_level_id() {
@@ -58,8 +58,8 @@ class SkillDeclaration implements JsonSerializable{
         return $this;
     }
 
-    public function setSkills($skills) {
-        $this->skills = $skills;
+    public function setSkill($skill) {
+        $this->skill = $skill;
         return $this;
     }
 
