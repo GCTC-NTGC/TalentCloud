@@ -5349,13 +5349,12 @@ nav {
   position: relative;
   width: 100%;
   color: #777;
-  font-size: 1.25em;
-  padding-bottom: 1.5em;
-  padding-top: 1.5em;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
   display: flex;
   justify-content: center;
   font-family: "HKGrotesk", sans-serif;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 700; }
 
 .jobSummary:nth-child(odd) {
@@ -5367,17 +5366,20 @@ nav {
   flex-direction: row;
   align-items: center;
   max-width: 1200px; }
+  @media screen and (max-width: 800px) {
+    .jobSummaryTable {
+      flex-direction: column; } }
 
 .hiringManagerProfilePicSmall {
-  width: 70px;
-  height: 70px;
-  clip-path: circle(35px at center);
-  margin-bottom: 0.5em;
+  width: 7rem;
+  height: 7rem;
+  clip-path: circle(3.5rem at center);
+  margin-bottom: 0.5rem;
   margin: auto;
   display: block; }
 
 .hiringManagerLabel {
-  font-size: 1em;
+  font-size: 1.5rem;
   color: #333;
   width: 100%;
   text-align: center;
@@ -5385,32 +5387,49 @@ nav {
   display: block; }
 
 .hiringManagerWrapper {
-  width: 200px; }
+  width: 20rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
 
 .jobSummaryTitle {
-  font-size: 1.2em;
+  font-size: 1.777rem;
   font-weight: bold;
   color: #000;
-  line-height: 1.5em;
+  line-height: 2rem;
   text-align: left; }
+  @media screen and (max-width: 800px) {
+    .jobSummaryTitle {
+      text-align: center; } }
 
 .jobSummarySalaryRange {
-  width: 200px;
-  text-align: center; }
+  width: 15rem;
+  text-align: center;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
 
 .jobSummaryApplicants_to_date {
-  line-height: 1.5em; }
+  padding-bottom: .5rem; }
 
 .jobSummaryTerm_qty {
-  width: 150px;
-  text-align: center; }
+  width: 15rem;
+  text-align: center;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
 
 .titleDepartmentWrapper {
-  width: 225px; }
+  width: 22.5rem; }
+  @media screen and (max-width: 800px) {
+    .titleDepartmentWrapper {
+      text-align: center;
+      width: 80%;
+      padding-top: .25rem;
+      padding-bottom: .25rem; } }
 
 .applicantsCloseDateWrapper {
   text-align: center;
-  width: 200px; }
+  width: 20rem;
+  padding-top: .25rem;
+  padding-bottom: 1rem; }
 
 .viewJobButton {
   color: #fff !important;
@@ -5422,10 +5441,12 @@ nav {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  width: 10%;
   display: block;
-  margin-right: 2em;
-  margin-left: 2em; }
+  margin-right: 2rem;
+  margin-left: 2rem;
+  width: 10rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem; }
 
 /* TODO: deal with empty browseJobs page better */
 #browseJobsSection {
@@ -5434,12 +5455,12 @@ nav {
 #noJobs {
   color: #999;
   text-align: center;
-  font-size: 1.5em; }
+  font-size: 1.5rem; }
 
 .jobCount {
   position: absolute;
-  right: 1em;
-  top: 1em; }
+  right: 1rem;
+  top: 1rem; }
 
 .jobList {
   margin: 0px auto;
