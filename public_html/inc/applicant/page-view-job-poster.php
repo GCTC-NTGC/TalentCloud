@@ -95,18 +95,36 @@
                 </div>
                 <div class="workEnvironmentSummaryWrapper">
                     <div id='workEnvironmentSummaryImagesWrapper'>
-                        <figure>
+
+                        <!-- New Workplace Photo Layout -->
+                        <div class="flex-grid top job-poster__work-environment-photo-grid">
+                            
+
+                            <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
+                                <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_1" title="First image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
+                            </div>
+                            <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
+                                <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_2" title="Second image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
+                            </div>
+                            <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
+                                <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_3" title="Third image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
+                            </div>
+
+                        </div>
+                        
+                        <!-- <figure>
                             <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
-                            <!--<figcaption>Caption 1</figcaption>-->
+                            <figcaption>Caption 1</figcaption>
                         </figure>
                         <figure>
                             <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
-                            <!--<figcaption>Caption 2</figcaption>-->
+                            <figcaption>Caption 2</figcaption>
                         </figure>
                         <figure>
                             <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
-                            <!--<figcaption>Caption 3</figcaption>-->
-                        </figure>
+                            <figcaption>Caption 3</figcaption>
+                        </figure> -->
+
                     </div>
                 </div>
         </section>
