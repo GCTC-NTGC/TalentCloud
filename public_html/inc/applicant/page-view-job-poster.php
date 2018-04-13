@@ -47,13 +47,13 @@
         </section>
         <section class='jobPosterSection'>
             <div class="container">
-                <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Core Competencies</h3>
+                <h3 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Essential Criteria</h3>
                 <ul id="jobPosterCoreCompetencies"></ul>
             </div>
         </section>
         <section class='jobPosterSection'>
             <div class="container">
-               <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Developing Competencies</h3>
+               <h3 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Asset Criteria</h3>
                 <ul id="jobPosterDevelopingCompetencies"></ul>
             </div>
         </section>
