@@ -29,7 +29,7 @@ managerProfile_review_option0, managerProfile_review_option1, managerProfile_rev
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
 managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
-managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave, managerDecisions_tipWhatis, managerDecisions_tipSummary
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave, managerDecisions_tipWhatis, managerDecisions_tipSummary
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -193,6 +193,7 @@ managerProfile_developmentOpportunities_option3, managerProfile_developmentOppor
     this.profileEditLinkedin = profileEditLinkedin;
     this.profileBasicInfoEditCancel = profileBasicInfoEditCancel;
     this.profileBasicInfoEditSave = profileBasicInfoEditSave;
+    this.profilePicUploadBtn = profilePicUploadBtn;
     this.loginFormTitle = loginFormTitle;
     this.loginModalCopySpan = loginModalCopySpan;
     this.switchToRegister = switchToRegister;
@@ -588,13 +589,45 @@ TalentCloudAPI.setContent = function(content, isManager){
     canadaLink.innerHTML = siteContent.canadaLink;
     canadaLink.href = siteContent.canadaLinkHref;
 
+    var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
+    profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
+
+    // Profile Photo Modal
     var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
     updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
+
+    var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
+    updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
+
+    var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
+    updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
+
+    var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
+    updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
+
+    var updateProfileOrCopy = document.getElementById("updateProfileOrCopy");
+    updateProfileOrCopy.innerHTML = siteContent.updateProfileOrCopy;
 
     var updateProfileChoosePhotoButtonLabelSpan = document.getElementById("updateProfileChoosePhotoButtonLabelSpan");
     updateProfileChoosePhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChoosePhotoButtonLabelSpan;
 
+    var updateProfileChoosePhotoButton = document.getElementById("updateProfileChoosePhotoButton");
+    updateProfileChoosePhotoButton.name = siteContent.updateProfileChoosePhotoButton;
 
+    var updateProfileChooseAltPhotoButtonLabelSpan = document.getElementById("updateProfileChooseAltPhotoButtonLabelSpan");
+    updateProfileChooseAltPhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChooseAltPhotoButtonLabelSpan;
+
+    var updateProfileChooseAltPhotoButton = document.getElementById("updateProfileChooseAltPhotoButton");
+    updateProfileChooseAltPhotoButton.name = siteContent.updateProfileChooseAltPhotoButton;
+
+    var updateProfilePhotoCancelButton = document.getElementById("updateProfilePhotoCancelButton");
+    updateProfilePhotoCancelButton.innerHTML = siteContent.updateProfilePhotoCancelButton;
+
+    var profileBasicInfoEditCancel = document.getElementById("profileBasicInfoEditCancel");
+    profileBasicInfoEditCancel.value = siteContent.profileBasicInfoEditCancel;
+
+    var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
+    profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
 
     if(isManager){
         console.log(isManager);
@@ -728,37 +761,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
-
-        var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
-        profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
-
-        // Profile Photo Modal
-
-
-        var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
-        updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
-
-        var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
-        updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
-
-        var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
-        updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
-
-        var updateProfileOrCopy = document.getElementById("updateProfileOrCopy");
-        updateProfileOrCopy.innerHTML = siteContent.updateProfileOrCopy;
-
-
-        var updateProfileChoosePhotoButton = document.getElementById("updateProfileChoosePhotoButton");
-        updateProfileChoosePhotoButton.name = siteContent.updateProfileChoosePhotoButton;
-
-        var updateProfileChooseAltPhotoButtonLabelSpan = document.getElementById("updateProfileChooseAltPhotoButtonLabelSpan");
-        updateProfileChooseAltPhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChooseAltPhotoButtonLabelSpan;
-
-        var updateProfileChooseAltPhotoButton = document.getElementById("updateProfileChooseAltPhotoButton");
-        updateProfileChooseAltPhotoButton.name = siteContent.updateProfileChooseAltPhotoButton;
-
-        var updateProfilePhotoCancelButton = document.getElementById("updateProfilePhotoCancelButton");
-        updateProfilePhotoCancelButton.innerHTML = siteContent.updateProfilePhotoCancelButton;
 
     }
 

@@ -47,6 +47,8 @@ VALUES
 (1, "profileBasicInfoEditCancel", "Annuler", 2),
 (1, "profileBasicInfoEditSave", "Save", 1),
 (1, "profileBasicInfoEditSave", "Enregistrer", 2),
+(1, "profilePicUploadBtn", "Save", 1),
+(1, "profilePicUploadBtn", "Enregistrer", 2),
 (1, "loginFormTitle", "Login to TalentCloud", 1),
 (1, "loginFormTitle", "Connectez-vous à TalentCloud", 2),
 (1, "loginModalCopySpan", "Welcome to TalentCloud! ", 1),
