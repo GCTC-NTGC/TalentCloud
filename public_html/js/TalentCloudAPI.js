@@ -588,6 +588,9 @@ TalentCloudAPI.setContent = function(content, isManager){
     canadaLink.innerHTML = siteContent.canadaLink;
     canadaLink.href = siteContent.canadaLinkHref;
 
+    var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
+    updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
+
     if(isManager){
         console.log(isManager);
 
@@ -725,8 +728,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
 
         // Profile Photo Modal
-        var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
-        updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
+
 
         var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
         updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
