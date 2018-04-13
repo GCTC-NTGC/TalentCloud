@@ -591,6 +591,11 @@ TalentCloudAPI.setContent = function(content, isManager){
     var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
     updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
 
+    var updateProfileChoosePhotoButtonLabelSpan = document.getElementById("updateProfileChoosePhotoButtonLabelSpan");
+    updateProfileChoosePhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChoosePhotoButtonLabelSpan;
+
+
+
     if(isManager){
         console.log(isManager);
 
@@ -742,8 +747,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         var updateProfileOrCopy = document.getElementById("updateProfileOrCopy");
         updateProfileOrCopy.innerHTML = siteContent.updateProfileOrCopy;
 
-        var updateProfileChoosePhotoButtonLabelSpan = document.getElementById("updateProfileChoosePhotoButtonLabelSpan");
-        updateProfileChoosePhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChoosePhotoButtonLabelSpan;
 
         var updateProfileChoosePhotoButton = document.getElementById("updateProfileChoosePhotoButton");
         updateProfileChoosePhotoButton.name = siteContent.updateProfileChoosePhotoButton;
