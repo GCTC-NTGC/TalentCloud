@@ -15,21 +15,21 @@
 
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
-require_once '../model/Evidence.php';
+require_once '../model/SkillDeclaration.php';
 
 /**
  * Summary: Data Access Object for Resources
  * 
  * @extends BaseDAO
  */
-class EvidenceDAO extends BaseDAO {
+class SkillDeclarationDAO extends BaseDAO {
     
     /**
      * Returns an array of Evidence objects associated with a JobPosterApplication
      * 
      * @param type $jobPosterApplicationId
      */
-    public static function getEvidenceForJobApplication($jobPosterApplicationId) {
+    public static function getSkillDeclarationsForJobApplication($jobPosterApplicationId) {
          $link = BaseDAO::getConnection();
         
         $sqlStr = "
@@ -95,5 +95,9 @@ class EvidenceDAO extends BaseDAO {
         }
         BaseDAO::closeConnection($link);
         return $skill_ids;
+    }
+    
+    public static function insertEvidence($evidence) {
+        
     }
 }

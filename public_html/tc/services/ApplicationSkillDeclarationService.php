@@ -11,8 +11,8 @@
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
-    require_once '../controller/EvidenceController.php';
-    require_once '../model/Evidence.php';
+    require_once '../controller/SkillDeclarationController.php';
+    require_once '../model/SkillDeclaration.php';
     require_once '../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -29,7 +29,7 @@
         case 'GET':
             if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
-                $evidence = EvidenceController::getEvidenceForJobApplication($jobPosterApplicationId);
+                $evidence = SkillDeclarationController::getEvidenceForJobApplication($jobPosterApplicationId);
                 $json = json_encode($evidence, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
@@ -45,7 +45,7 @@
                 $jsonBody = file_get_contents('php://input');
                 $evidenceJSON = json_decode($jsonBody, TRUE);
                 
-                $evidence = new Evidence();
+                $evidence = new SkillDeclaration();
                 $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
                 $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
                 $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
@@ -53,7 +53,7 @@
                 $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
                 $evidence->setLast_updated($evidenceJSON["last_updated"]);
                 
-                $result = EvidenceController::addEvidenceToJobApplication($jobPosterApplicationId, $evidence);
+                $result = SkillDeclarationController::addSkillDeclarationToJobApplication($jobPosterApplicationId, $evidence);
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -68,7 +68,7 @@
                 $evidenceId = Utils::getParameterFromRequest($requestParams,4);
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,6);
                
-                $result = EvidenceController::removeEvidenceFromJobApplication($jobPosterApplicationId, $evidenceId);
+                $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $evidenceId);
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -86,7 +86,7 @@
                 $jsonBody = file_get_contents('php://input');
                 $evidenceJSON = json_decode($jsonBody, TRUE);
                 
-                $evidence = new Evidence();
+                $evidence = new SkillDeclaration();
                 $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
                 $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
                 $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
@@ -94,7 +94,7 @@
                 $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
                 $evidence->setLast_updated($evidenceJSON["last_updated"]);
                 
-                $result = EvidenceController::updateEvidenceForJobApplication($jobPosterApplicationId, $oldEvidenceId, $evidence);
+                $result = SkillDeclarationController::updateSkillDeclarationForJobApplication($jobPosterApplicationId, $oldEvidenceId, $evidence);
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
