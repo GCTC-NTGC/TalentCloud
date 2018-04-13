@@ -5344,6 +5344,25 @@ nav {
   width: 30%;
   margin-right: 2em; }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster - Workplace
+
+============================================================================= */
+.job-poster__work-environment-photo-grid {
+  margin: 2rem -2rem; }
+
+.job-poster__work-environment-photo-grid-item {
+  padding: 2rem; }
+
+.job-poster__work-environment-photo {
+  background-color: #c8c8c8;
+  background-position: center;
+  background-size: cover;
+  height: 45vh; }
+
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 .jobSummary {
   position: relative;
