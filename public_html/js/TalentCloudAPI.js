@@ -721,6 +721,40 @@ TalentCloudAPI.setContent = function(content, isManager){
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
 
+        var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
+        profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
+
+        // Profile Photo Modal
+        var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
+        updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
+
+        var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
+        updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
+
+        var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
+        updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
+
+        var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
+        updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
+
+        var updateProfileOrCopy = document.getElementById("updateProfileOrCopy");
+        updateProfileOrCopy.innerHTML = siteContent.updateProfileOrCopy;
+
+        var updateProfileChoosePhotoButtonLabelSpan = document.getElementById("updateProfileChoosePhotoButtonLabelSpan");
+        updateProfileChoosePhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChoosePhotoButtonLabelSpan;
+
+        var updateProfileChoosePhotoButton = document.getElementById("updateProfileChoosePhotoButton");
+        updateProfileChoosePhotoButton.name = siteContent.updateProfileChoosePhotoButton;
+
+        var updateProfileChooseAltPhotoButtonLabelSpan = document.getElementById("updateProfileChooseAltPhotoButtonLabelSpan");
+        updateProfileChooseAltPhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChooseAltPhotoButtonLabelSpan;
+
+        var updateProfileChooseAltPhotoButton = document.getElementById("updateProfileChooseAltPhotoButton");
+        updateProfileChooseAltPhotoButton.name = siteContent.updateProfileChooseAltPhotoButton;
+
+        var updateProfilePhotoCancelButton = document.getElementById("updateProfilePhotoCancelButton");
+        updateProfilePhotoCancelButton.innerHTML = siteContent.updateProfilePhotoCancelButton;
+
     }
 
     if(!isManager){
