@@ -5230,6 +5230,9 @@ nav {
   top: 0;
   left: 0; }
 
+.jobPosterSection h4 {
+  font-size: 2.77rem; }
+
 .createJobPosterWrapperWindow {
   width: 80%;
   min-width: 900px;
@@ -5274,8 +5277,18 @@ nav {
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 #jobPosterTitle {
-  font-size: 5em;
+  font-size: 4rem;
   color: #eee; }
+  @media screen and (max-width: 1000px) {
+    #jobPosterTitle {
+      font-size: 3rem; } }
+
+.hiringManagerSummary {
+  font-size: 2.5rem;
+  font-weight: bold; }
+  @media screen and (max-width: 767px) {
+    .hiringManagerSummary {
+      font-size: 2rem; } }
 
 #jobPosterLocation {
   color: #eee;
