@@ -5406,22 +5406,23 @@ nav {
   text-align: center;
   padding-top: .25rem;
   padding-bottom: .25rem; }
+  @media screen and (max-width: 800px) {
+    .jobSummarySalaryRange {
+      width: 90%; } }
 
 .jobSummaryApplicants_to_date {
   padding-bottom: .5rem; }
 
 .jobSummaryTerm_qty {
   width: 15rem;
-  text-align: center;
-  padding-top: .25rem;
-  padding-bottom: .25rem; }
+  text-align: center; }
 
 .titleDepartmentWrapper {
   width: 22.5rem; }
   @media screen and (max-width: 800px) {
     .titleDepartmentWrapper {
       text-align: center;
-      width: 80%;
+      width: 90%;
       padding-top: .25rem;
       padding-bottom: .25rem; } }
 
@@ -5430,6 +5431,9 @@ nav {
   width: 20rem;
   padding-top: .25rem;
   padding-bottom: 1rem; }
+  @media screen and (max-width: 800px) {
+    .applicantsCloseDateWrapper {
+      width: 90%; } }
 
 .viewJobButton {
   color: #fff !important;
