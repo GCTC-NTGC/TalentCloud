@@ -16,14 +16,11 @@ require_once 'Common/Actions.php';
 class loginTest extends talentCloudTest {
 
     public function testLogin() {
-        print 'Begin Login Test' . PHP_EOL;
+        print PHP_EOL . 'Begin Login Test' . PHP_EOL;
         $this->webDriver->get($this->url);  
         
         Actions::login($this->webDriver);
-        
-        $this->webDriver->wait()->until(
-            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id("logoutLink"))
-        );
+        Actions::wait($this->webDriver,"logoutLink");
         
         print 'get User from sessionstorage' . PHP_EOL;
         $sessionUserArray = $this->webDriver->executeScript('return UserAPI.getSessionUserAsJSON();');
