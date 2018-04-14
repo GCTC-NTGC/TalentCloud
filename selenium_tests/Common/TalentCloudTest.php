@@ -11,7 +11,6 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
  */
 abstract class talentCloudTest extends PHPUnit_Framework_TestCase {
 
-   
     /**
      * @var \RemoteWebDriver
      */
@@ -20,7 +19,7 @@ abstract class talentCloudTest extends PHPUnit_Framework_TestCase {
     protected $session;
     
     //Selenium standalone jar proxy url - after running start.bat
-    protected $host = "http://localhost:4444/wd/hub";
+    protected $host = SELENIUM_HOST_URL;
     
     //site url
     protected $url = SITE_URL;
@@ -56,13 +55,12 @@ abstract class talentCloudTest extends PHPUnit_Framework_TestCase {
             $status = $this->getStatus();
             if ($status == PHPUnit_Runner_BaseTestRunner::STATUS_ERROR || $status == PHPUnit_Runner_BaseTestRunner::STATUS_FAILURE) {
                 if (SCREENSHOTS_DIR !== ''){
-                $now = new DateTime();
-                $dateStr = $now->format('Y-m-d_H-i-s');
+                    $now = new DateTime();
+                    $dateStr = $now->format('Y-m-d_H-i-s');
                     $this->webDriver->takeScreenshot(SCREENSHOTS_DIR.'test_'.$dateStr.'.png');
                 }
             }
             $this->webDriver->close();
         }
     }
-
 }
