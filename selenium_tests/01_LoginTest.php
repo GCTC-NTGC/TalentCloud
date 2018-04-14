@@ -13,7 +13,7 @@ require_once 'Common/Actions.php';
  *
  * @author GBowden
  */
-class loginTest extends talentCloudTest {
+class LoginTest extends talentCloudTest {
 
     public function testLogin() {
         print PHP_EOL . 'Begin Login Test' . PHP_EOL;
