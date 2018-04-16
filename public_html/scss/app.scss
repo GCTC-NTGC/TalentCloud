@@ -33,6 +33,8 @@
 
 /* Molecules ================================================================ */
 @import "molecules/forms";
+@import "molecules/login";
+@import "molecules/registration";
 
 /* Organisms ================================================================ */
 @import "organisms/utility";
@@ -45,8 +47,6 @@
 @import "organisms/job-poster";
 @import "organisms/job-summary";
 @import "organisms/job-application";
-@import "organisms/dialogs";
 @import "organisms/dashboard";
-@import "organisms/forms";
 @import "organisms/tabs-list";
 @import "organisms/unsorted";
