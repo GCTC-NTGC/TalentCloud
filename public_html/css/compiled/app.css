@@ -5840,12 +5840,16 @@ nav {
 .dashboardTitleDepartmentWrapper {
   width: 40%;
   display: inline-block; }
+  @media screen and (max-width: 1205px) {
+    .dashboardTitleDepartmentWrapper {
+      width: 100%;
+      display: block;
+      text-align: center; } }
 
 .dashboardTitleDepartmentWrapper .dashboardJobSummaryTitle {
   font-size: 100%;
   font-size: 1.5em;
   color: #000;
-  line-height: 2.5em;
   text-align: left;
   display: inline; }
 
@@ -5853,7 +5857,6 @@ nav {
   font-size: 100%;
   font-size: 1.5em;
   color: #000;
-  line-height: 2.5em;
   display: inline; }
 
 #dashboardSection .dashBoardHiringManagerWrapper {
@@ -5861,6 +5864,17 @@ nav {
   line-height: 3em;
   background-color: #eee;
   border-radius: 1.5em; }
+  @media screen and (max-width: 1205px) {
+    #dashboardSection .dashBoardHiringManagerWrapper {
+      width: 25%;
+      margin-left: 22rem;
+      margin-bottom: .5rem; } }
+  @media screen and (max-width: 1000px) {
+    #dashboardSection .dashBoardHiringManagerWrapper {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 40%; } }
 
 #dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall {
   height: 2.5em;
@@ -5887,6 +5901,18 @@ nav {
   width: 40%;
   display: inline-block;
   color: #999; }
+  @media screen and (max-width: 1205px) {
+    #dashboardSection .dashboardJobSubmitted {
+      width: 30%;
+      margin-right: 15rem;
+      float: right; } }
+  @media screen and (max-width: 1000px) {
+    #dashboardSection .dashboardJobSubmitted {
+      width: 100%;
+      display: block;
+      float: none;
+      margin-right: auto;
+      margin-left: auto; } }
 
 #dashboardSection .dashboardJobStatus {
   font-size: 100%;
@@ -5894,6 +5920,13 @@ nav {
   margin: 0;
   text-align: right;
   color: #999; }
+  @media screen and (max-width: 1205px) {
+    #dashboardSection .dashboardJobStatus {
+      text-align: left; } }
+  @media screen and (max-width: 1000px) {
+    #dashboardSection .dashboardJobStatus {
+      text-align: center;
+      width: 100%; } }
 
 /* TABS LIST */
 .tabsList {
