@@ -28,7 +28,7 @@ dashBoardLink,yourApplicationsTitle, teamCulture, teamSize, gcDirectoryLink, tea
 managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
-managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,  
+managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,
 managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
 managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave
@@ -634,8 +634,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     var profileBasicInfoEditCancel = document.getElementById("profileBasicInfoEditCancel");
     profileBasicInfoEditCancel.value = siteContent.profileBasicInfoEditCancel;
 
-    var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
-    profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
+
 
     if(isManager){
         console.log(isManager);
@@ -767,6 +766,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
 
+        var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
+        profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
+
     }
 
     if(!isManager){
@@ -848,7 +850,7 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
-        
+
         var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
         managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
 
