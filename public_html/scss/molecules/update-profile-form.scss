@@ -1,0 +1,56 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update Profile Form (Update Profile Modal)
+
+============================================================================= */
+
+.update-profile__grid {
+
+    >.box {
+        padding: 0 1rem;
+    }
+
+}
+
+.update-profile__applicant-profile-form {
+    margin: 0 -1rem;
+    padding: 0;
+
+    >.box {
+        padding: 1rem;
+
+        @media #{$p-tablet} {
+            padding: 0 1rem;
+        }
+
+    }
+
+    >.box:nth-last-child(1),
+    >.box:nth-last-child(2) {
+        text-align: center;
+    }
+
+    >.box:nth-last-child(1) {
+
+        @media #{$p-tablet} {
+            text-align: right;
+        }
+
+    }
+
+    >.box:nth-last-child(2) {
+
+        @media #{$p-tablet} {
+            text-align: left;
+        }
+
+    }
+
+}
+
+.update-profile__linkedin-label {
+    font-size: 16px;
+    margin-top: 1rem;
+}

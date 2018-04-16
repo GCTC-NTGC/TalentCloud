@@ -3971,39 +3971,6 @@ body[id*="Trident/7.0"] .box {
     Default Buttons
 
 ============================================================================= */
-[class*="button--"] {
-  appearance: none;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  display: inline-block;
-  font-family: HKGrotesk, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  padding: 1rem 2rem;
-  transition: all .2s ease; }
-  [class*="button--"][class*="yellow"] {
-    background: #ffe25b;
-    color: #484848; }
-    [class*="button--"][class*="yellow"]:hover {
-      background: #ffd200; }
-  [class*="button--"][class*="grey"] {
-    background: #c8c8c8;
-    color: #484848; }
-    [class*="button--"][class*="grey"]:hover {
-      background: #a3a3a3; }
-  [class*="button--"][class*="blue"] {
-    background: #2196f3;
-    color: white; }
-    [class*="button--"][class*="blue"]:hover {
-      background: #125184; }
-  [class*="button--"]:hover {
-    transition: all .2s ease; }
-  [class*="button--"]:focus {
-    color: white !important;
-    background: #484848 !important;
-    border: 2px solid #ffd200 !important; }
-
 /* BUTTONS */
 .btn {
   height: 30px;
@@ -4080,6 +4047,49 @@ main .btn-default {
   background-color: #C8C8C8;
   border-color: transparent; }
 
+[class*="button--"],
+input[type="button"][class*="button--"] {
+  appearance: none;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: auto;
+  padding: 1rem 2rem;
+  transition: all .2s ease; }
+  [class*="button--"][class*="yellow"],
+  input[type="button"][class*="button--"][class*="yellow"] {
+    background: #ffe25b;
+    color: #484848; }
+    [class*="button--"][class*="yellow"]:hover,
+    input[type="button"][class*="button--"][class*="yellow"]:hover {
+      background: #ffd200; }
+  [class*="button--"][class*="grey"],
+  input[type="button"][class*="button--"][class*="grey"] {
+    background: #c8c8c8;
+    color: #484848; }
+    [class*="button--"][class*="grey"]:hover,
+    input[type="button"][class*="button--"][class*="grey"]:hover {
+      background: #a3a3a3; }
+  [class*="button--"][class*="blue"],
+  input[type="button"][class*="button--"][class*="blue"] {
+    background: #2196f3;
+    color: white; }
+    [class*="button--"][class*="blue"]:hover,
+    input[type="button"][class*="button--"][class*="blue"]:hover {
+      background: #125184; }
+  [class*="button--"]:hover,
+  input[type="button"][class*="button--"]:hover {
+    transition: all .2s ease; }
+  [class*="button--"]:focus,
+  input[type="button"][class*="button--"]:focus {
+    color: white !important;
+    background: #484848 !important;
+    border: 2px solid #ffd200 !important; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -4087,7 +4097,56 @@ main .btn-default {
     Default Modal Styles
 
 ============================================================================= */
+/* LEGACY CODE ============================================================== */
+/* DIALOGS */
+.dialogOverlay {
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: scroll; }
+
+.dialogThreeQuarterWrapperWindow {
+  width: 75%;
+  min-width: 350px;
+  margin: 0px auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px #999;
+  left: 50%; }
+
+.dialogHalfWidthWrapperWindow {
+  width: 50%;
+  min-width: 350px;
+  margin: 0px auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px #999;
+  position: relative; }
+
+.dialogTitle {
+  padding: 0.5em;
+  background-color: #E5F8FF; }
+
+/* ========================================================================== */
 .dialogue-modal {
+  border: 1px solid #333333;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
   width: 90%; }
   @media (min-width: 64.01em) {
     .dialogue-modal {
@@ -4105,6 +4164,20 @@ main .btn-default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); }
+
+.dialogue-modal__grid {
+  padding: 2rem; }
+
+.dialogue-modal__title-wrapper {
+  background: #333333;
+  padding: 1rem 2rem; }
+
+.dialogue-modal__title {
+  color: white;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0; }
 
 /* =============================================================================
 
@@ -4367,6 +4440,42 @@ main .btn-default {
     Form Styles
 
 ============================================================================= */
+/* LEGACY CODE ============================================================== */
+#loginErrors {
+  white-space: pre-wrap; }
+
+/* FORMS */
+.form-group {
+  color: #555; }
+
+.form-control {
+  color: #555;
+  background-color: #EAEAEA;
+  background-image: none;
+  border: none;
+  border-radius: 0; }
+
+.form-control:focus {
+  border: 1px solid #999;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
+
+.form-textbox {
+  width: 95%; }
+
+form label {
+  font-size: 16px;
+  line-height: 20px; }
+
+input[type=text], input[type=password], select {
+  padding: 0.5em; }
+
+input[type=button], input[type=submit], input[type=reset] {
+  padding: 0.25em;
+  height: 30px; }
+
+/* ============================================================================= */
 .form__wrapper > *:last-child {
   margin-bottom: 0; }
 
@@ -4377,9 +4486,18 @@ main .btn-default {
   line-height: 1;
   margin: 0 0 .5rem 0; }
 
-[class*="form__input--"] {
+input[type=text][class*="form__input--"],
+input[type=email][class*="form__input--"],
+input[type=password][class*="form__input--"] {
+  background: #e2e2e2;
+  border: none;
+  color: #333333 !important;
   display: block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   margin: 0 0 2rem 0;
+  padding: 1rem 2rem 1rem 1rem;
   width: 100%; }
 
 .form__select-wrapper {
@@ -4412,6 +4530,8 @@ main .btn-default {
     border: 1px solid #2196f3; }
 
 .form__textarea {
+  background: #e2e2e2;
+  border: none;
   color: #333333;
   display: block;
   font-size: 1.5rem;
@@ -4421,6 +4541,56 @@ main .btn-default {
   width: 100%; }
   .form__textarea:focus {
     border: 1px solid #2196f3; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Login
+
+============================================================================= */
+.login-modal__copy {
+  font-size: 16px;
+  margin: 0 0 1em 0; }
+
+.login-modal__form-grid {
+  margin: 0 -1rem; }
+  .login-modal__form-grid > .box {
+    padding: 0 1rem; }
+
+.login-modal__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .login-modal__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .login-modal__button-grid .box:last-child {
+      text-align: right; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Registration
+
+============================================================================= */
+.registration-modal__copy {
+  font-size: 16px;
+  margin: 0 0 1em 0; }
+
+.registration-modal__form-grid {
+  margin: 0 -1rem; }
+  .registration-modal__form-grid > .box {
+    padding: 0 1rem; }
+
+.registration-modal__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .registration-modal__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .registration-modal__button-grid .box:last-child {
+      text-align: right; } }
 
 /* Organisms ================================================================ */
 /* UTILITY */
@@ -4528,12 +4698,6 @@ main .btn-default {
     The Landing Hero Banner
 
 ============================================================================= */
-.landing-hero__logo {
-  margin-top: -11%; }
-
-.landing-hero__tagline-divider {
-  margin: 2rem 5rem 2rem 2rem; }
-
 /* NAVIGATION */
 nav {
   padding: 0 !important; }
@@ -4616,6 +4780,12 @@ nav {
   background-color: white;
   margin: 2em; }
 
+.landing-hero__logo {
+  margin-top: -11%; }
+
+.landing-hero__tagline-divider {
+  margin: 2rem 5rem 2rem 2rem; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -4647,6 +4817,9 @@ nav {
   margin: 0 auto;
   position: relative;
   width: 60%; }
+  @media (min-width: 64em) {
+    .update-profile-photo__draggable-area-wrapper {
+      width: 80%; } }
   .update-profile-photo__draggable-area-wrapper:after {
     border: 5px dashed #a3a3a3;
     border-radius: 3rem;
@@ -4801,6 +4974,54 @@ nav {
   padding: 0px 10px; }
   .manager-edit-profile__form.flex-grid .box {
     padding: 0px 10px; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update Profile Form (Update Profile Modal)
+
+============================================================================= */
+.update-profile__grid > .box {
+  padding: 0 1rem; }
+
+.update-profile__applicant-profile-form {
+  margin: 0 -1rem;
+  padding: 0; }
+  .update-profile__applicant-profile-form > .box {
+    padding: 1rem; }
+    @media (min-width: 48em) {
+      .update-profile__applicant-profile-form > .box {
+        padding: 0 1rem; } }
+  .update-profile__applicant-profile-form > .box:nth-last-child(1),
+  .update-profile__applicant-profile-form > .box:nth-last-child(2) {
+    text-align: center; }
+  @media (min-width: 48em) {
+    .update-profile__applicant-profile-form > .box:nth-last-child(1) {
+      text-align: right; } }
+  @media (min-width: 48em) {
+    .update-profile__applicant-profile-form > .box:nth-last-child(2) {
+      text-align: left; } }
+
+.update-profile__linkedin-label {
+  font-size: 16px;
+  margin-top: 1rem; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update About Modal
+
+============================================================================= */
+.update-about__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .update-about__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .update-about__button-grid .box:last-child {
+      text-align: right; } }
 
 /* =============================================================================
 
@@ -5589,52 +5810,6 @@ nav {
   padding: 5px;
   display: block; }
 
-/* DIALOGS */
-.dialogOverlay {
-  width: 100%;
-  height: 100%;
-  z-index: 1001;
-  background-color: rgba(255, 255, 255, 0.9);
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-y: scroll; }
-
-.dialogThreeQuarterWrapperWindow {
-  width: 75%;
-  min-width: 350px;
-  margin: 0px auto;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #999;
-  border-radius: 5px;
-  box-shadow: 3px 3px 6px #999;
-  left: 50%; }
-
-.dialogHalfWidthWrapperWindow {
-  width: 50%;
-  min-width: 350px;
-  margin: 0px auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #999;
-  border-radius: 5px;
-  box-shadow: 3px 3px 6px #999;
-  position: relative; }
-
-.dialogWindowInterior {
-  padding: 1em 2em 2em 2em; }
-
-.dialogTitle {
-  padding: 0.5em;
-  background-color: #E5F8FF; }
-
 /* Applicant Dashboard Styles */
 #dashboardSection #yourApplications {
   width: 95%;
@@ -5719,45 +5894,6 @@ nav {
   margin: 0;
   text-align: right;
   color: #999; }
-
-/* LOGIN AND REGISTRATION FORMS */
-#loginForm, #registerForm {
-  margin-left: 0px !important;
-  margin-right: 0px !important; }
-
-#loginErrors {
-  white-space: pre-wrap; }
-
-/* FORMS */
-.form-group {
-  color: #555; }
-
-.form-control {
-  color: #555;
-  background-color: #EAEAEA;
-  background-image: none;
-  border: none;
-  border-radius: 0; }
-
-.form-control:focus {
-  border: 1px solid #999;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
-
-.form-textbox {
-  width: 95%; }
-
-form label {
-  font-size: 16px;
-  line-height: 20px; }
-
-input[type=text], input[type=password], select {
-  padding: 0.5em; }
-
-input[type=button], input[type=submit], input[type=reset] {
-  padding: 0.25em;
-  height: 30px; }
 
 /* TABS LIST */
 .tabsList {

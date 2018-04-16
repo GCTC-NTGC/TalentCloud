@@ -466,9 +466,9 @@ UserAPI.showLogin = function () {
 
     var loginDialog = document.getElementById("loginOverlay");
     loginDialog.classList.remove("hidden");
-    EventsAPI.setFormFocus("login_email");
+    EventsAPI.setFormFocus("switchToRegister");
     EventsAPI.hideBodyOverflow(true);
-    AccessibilityAPI.preventModalEscape("login_email", "loginFormLoginBtn");
+    AccessibilityAPI.preventModalEscape("switchToRegister", "loginFormLoginBtn");
     modalSize();
 };
 
@@ -514,9 +514,9 @@ UserAPI.showRegisterForm = function () {
     var registerDialog = document.getElementById("registerFormOverlay");
     registerDialog.classList.remove("hidden");
 
-    EventsAPI.setFormFocus("register_email");
+    EventsAPI.setFormFocus("switchToLogin");
     EventsAPI.hideBodyOverflow(true);
-    AccessibilityAPI.preventModalEscape("profileBasicInfoEditTitle","profileBasicInfoEditSave");
+    AccessibilityAPI.preventModalEscape("switchToLogin","registerFormRegisterBtn");
     modalSize();
 };
 
