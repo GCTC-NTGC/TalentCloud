@@ -7,6 +7,7 @@
  */
 
 define('SITE_URL','https://talentcloud.localhost/');
+define('SELENIUM_HOST_URL','http://localhost:4444/wd/hub');
 
 define('BROWSER_TO_TEST','chrome');  //replace with firefox or edge
 define('BINARYPATH_CHROME','');  //leave blank for Windows machines

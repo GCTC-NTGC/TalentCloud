@@ -3971,39 +3971,6 @@ body[id*="Trident/7.0"] .box {
     Default Buttons
 
 ============================================================================= */
-[class*="button--"] {
-  appearance: none;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  display: inline-block;
-  font-family: HKGrotesk, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  padding: 1rem 2rem;
-  transition: all .2s ease; }
-  [class*="button--"][class*="yellow"] {
-    background: #ffe25b;
-    color: #484848; }
-    [class*="button--"][class*="yellow"]:hover {
-      background: #ffd200; }
-  [class*="button--"][class*="grey"] {
-    background: #c8c8c8;
-    color: #484848; }
-    [class*="button--"][class*="grey"]:hover {
-      background: #a3a3a3; }
-  [class*="button--"][class*="blue"] {
-    background: #2196f3;
-    color: white; }
-    [class*="button--"][class*="blue"]:hover {
-      background: #125184; }
-  [class*="button--"]:hover {
-    transition: all .2s ease; }
-  [class*="button--"]:focus {
-    color: white !important;
-    background: #484848 !important;
-    border: 2px solid #ffd200 !important; }
-
 /* BUTTONS */
 .btn {
   height: 30px;
@@ -4080,6 +4047,52 @@ main .btn-default {
   background-color: #C8C8C8;
   border-color: transparent; }
 
+[class*="button--"],
+input[type="button"][class*="button--"] {
+  appearance: none;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: auto;
+  padding: 1rem 2rem;
+  transition: all .2s ease; }
+  [class*="button--"][class*="yellow"],
+  input[type="button"][class*="button--"][class*="yellow"] {
+    background: #ffe25b;
+    border: 2px solid #ffe25b !important;
+    color: #484848; }
+    [class*="button--"][class*="yellow"]:hover,
+    input[type="button"][class*="button--"][class*="yellow"]:hover {
+      background: #ffd200; }
+  [class*="button--"][class*="grey"],
+  input[type="button"][class*="button--"][class*="grey"] {
+    background: #c8c8c8;
+    border: 2px solid #c8c8c8 !important;
+    color: #484848; }
+    [class*="button--"][class*="grey"]:hover,
+    input[type="button"][class*="button--"][class*="grey"]:hover {
+      background: #a3a3a3; }
+  [class*="button--"][class*="blue"],
+  input[type="button"][class*="button--"][class*="blue"] {
+    background: #2196f3;
+    border: 2px solid #2196f3 !important;
+    color: white; }
+    [class*="button--"][class*="blue"]:hover,
+    input[type="button"][class*="button--"][class*="blue"]:hover {
+      background: #125184; }
+  [class*="button--"]:hover,
+  input[type="button"][class*="button--"]:hover {
+    transition: all .2s ease; }
+  [class*="button--"]:focus,
+  input[type="button"][class*="button--"]:focus {
+    color: white !important;
+    background: #484848 !important;
+    border: 2px solid #ffd200 !important; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -4087,7 +4100,56 @@ main .btn-default {
     Default Modal Styles
 
 ============================================================================= */
+/* LEGACY CODE ============================================================== */
+/* DIALOGS */
+.dialogOverlay {
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: scroll; }
+
+.dialogThreeQuarterWrapperWindow {
+  width: 75%;
+  min-width: 350px;
+  margin: 0px auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px #999;
+  left: 50%; }
+
+.dialogHalfWidthWrapperWindow {
+  width: 50%;
+  min-width: 350px;
+  margin: 0px auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px #999;
+  position: relative; }
+
+.dialogTitle {
+  padding: 0.5em;
+  background-color: #E5F8FF; }
+
+/* ========================================================================== */
 .dialogue-modal {
+  border: 1px solid #333333;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
   width: 90%; }
   @media (min-width: 64.01em) {
     .dialogue-modal {
@@ -4105,6 +4167,20 @@ main .btn-default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); }
+
+.dialogue-modal__grid {
+  padding: 2rem; }
+
+.dialogue-modal__title-wrapper {
+  background: #333333;
+  padding: 1rem 2rem; }
+
+.dialogue-modal__title {
+  color: white;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0; }
 
 /* =============================================================================
 
@@ -4367,6 +4443,42 @@ main .btn-default {
     Form Styles
 
 ============================================================================= */
+/* LEGACY CODE ============================================================== */
+#loginErrors {
+  white-space: pre-wrap; }
+
+/* FORMS */
+.form-group {
+  color: #555; }
+
+.form-control {
+  color: #555;
+  background-color: #EAEAEA;
+  background-image: none;
+  border: none;
+  border-radius: 0; }
+
+.form-control:focus {
+  border: 1px solid #999;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
+
+.form-textbox {
+  width: 95%; }
+
+form label {
+  font-size: 16px;
+  line-height: 20px; }
+
+input[type=text], input[type=password], select {
+  padding: 0.5em; }
+
+input[type=button], input[type=submit], input[type=reset] {
+  padding: 0.25em;
+  height: 30px; }
+
+/* ============================================================================= */
 .form__wrapper > *:last-child {
   margin-bottom: 0; }
 
@@ -4377,9 +4489,18 @@ main .btn-default {
   line-height: 1;
   margin: 0 0 .5rem 0; }
 
-[class*="form__input--"] {
+input[type=text][class*="form__input--"],
+input[type=email][class*="form__input--"],
+input[type=password][class*="form__input--"] {
+  background: #e2e2e2;
+  border: none;
+  color: #333333 !important;
   display: block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   margin: 0 0 2rem 0;
+  padding: 1rem 2rem 1rem 1rem;
   width: 100%; }
 
 .form__select-wrapper {
@@ -4412,6 +4533,8 @@ main .btn-default {
     border: 1px solid #2196f3; }
 
 .form__textarea {
+  background: #e2e2e2;
+  border: none;
   color: #333333;
   display: block;
   font-size: 1.5rem;
@@ -4421,6 +4544,56 @@ main .btn-default {
   width: 100%; }
   .form__textarea:focus {
     border: 1px solid #2196f3; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Login
+
+============================================================================= */
+.login-modal__copy {
+  font-size: 16px;
+  margin: 0 0 1em 0; }
+
+.login-modal__form-grid {
+  margin: 0 -1rem; }
+  .login-modal__form-grid > .box {
+    padding: 0 1rem; }
+
+.login-modal__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .login-modal__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .login-modal__button-grid .box:last-child {
+      text-align: right; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Registration
+
+============================================================================= */
+.registration-modal__copy {
+  font-size: 16px;
+  margin: 0 0 1em 0; }
+
+.registration-modal__form-grid {
+  margin: 0 -1rem; }
+  .registration-modal__form-grid > .box {
+    padding: 0 1rem; }
+
+.registration-modal__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .registration-modal__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .registration-modal__button-grid .box:last-child {
+      text-align: right; } }
 
 /* Organisms ================================================================ */
 /* UTILITY */
@@ -4515,7 +4688,7 @@ main .btn-default {
 .pageBody {
   background-color: white;
   width: 100%;
-  min-height: 700px;
+  min-height: 750px;
   overflow: visible; }
 
 .formButtonWrapper {
@@ -4528,18 +4701,29 @@ main .btn-default {
     The Landing Hero Banner
 
 ============================================================================= */
-.landing-hero__logo {
-  margin-top: -11%; }
-
-.landing-hero__tagline-divider {
-  margin: 2rem 5rem 2rem 2rem; }
-
 /* NAVIGATION */
 nav {
   padding: 0 !important; }
 
 .nav-container {
   width: 100%; }
+
+@media screen and (max-width: 660px) {
+  .nav-container li {
+    display: block;
+    width: 100%; } }
+
+.navbar-right {
+  float: right; }
+  @media screen and (max-width: 768px) {
+    .navbar-right {
+      margin-top: 1rem;
+      margin-bottom: 1rem; } }
+  @media screen and (max-width: 660px) {
+    .navbar-right {
+      float: none;
+      margin-top: 0;
+      margin-bottom: 0; } }
 
 .nav-container li a {
   font-size: 1.5rem;
@@ -4599,6 +4783,12 @@ nav {
   background-color: white;
   margin: 2em; }
 
+.landing-hero__logo {
+  margin-top: -11%; }
+
+.landing-hero__tagline-divider {
+  margin: 2rem 5rem 2rem 2rem; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -4630,6 +4820,9 @@ nav {
   margin: 0 auto;
   position: relative;
   width: 60%; }
+  @media (min-width: 64em) {
+    .update-profile-photo__draggable-area-wrapper {
+      width: 80%; } }
   .update-profile-photo__draggable-area-wrapper:after {
     border: 5px dashed #a3a3a3;
     border-radius: 3rem;
@@ -4778,6 +4971,70 @@ nav {
   text-align: center; }
   .update-profile-photo__admin-button-wrapper.active {
     display: block; }
+
+/* MANAGER-SIDE "EDIT PROFILE" FORMS*/
+.manager-edit-profile__form.flex-grid {
+  padding: 0px 10px; }
+  .manager-edit-profile__form.flex-grid .box {
+    padding: 0px 10px; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update Profile Form (Update Profile Modal)
+
+============================================================================= */
+.update-profile__grid > .box {
+  padding: 0 1rem; }
+
+.update-profile__applicant-profile-form {
+  margin: 0 -1rem;
+  padding: 0; }
+  .update-profile__applicant-profile-form > .box {
+    padding: 1rem; }
+    @media (min-width: 48em) {
+      .update-profile__applicant-profile-form > .box {
+        padding: 0 1rem; } }
+  .update-profile__applicant-profile-form > .box:nth-last-child(1),
+  .update-profile__applicant-profile-form > .box:nth-last-child(2) {
+    text-align: center; }
+  @media (min-width: 48em) {
+    .update-profile__applicant-profile-form > .box:nth-last-child(1) {
+      text-align: right; } }
+  @media (min-width: 48em) {
+    .update-profile__applicant-profile-form > .box:nth-last-child(2) {
+      text-align: left; } }
+
+.update-profile__linkedin-label {
+  border: 1px solid #e2e2e2;
+  border-right: none;
+  color: #333333 !important;
+  display: block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  padding: calc(1rem - 1px) 1rem calc(1rem - 1px) 1rem; }
+
+.update-profile__linkedin-input {
+  flex: 1; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Update About Modal
+
+============================================================================= */
+.update-about__button-grid .box {
+  text-align: center; }
+  @media (min-width: 48em) {
+    .update-about__button-grid .box:first-child {
+      text-align: left; } }
+  @media (min-width: 48em) {
+    .update-about__button-grid .box:last-child {
+      text-align: right; } }
 
 /* =============================================================================
 
@@ -4973,17 +5230,28 @@ nav {
   padding: 1em 3em; }
 
 .manager-decisions {
-  width: 70%;
-  float: left; }
+  float: left;
+  display: block; }
 
 .manager-decisions strong {
   color: #2196F3; }
 
+.manager-decisions-tip strong {
+  color: #000; }
+
 .manager-decisions-tip {
   width: 30%;
-  float: left;
+  float: right;
   background-color: #EBEBEB;
-  padding: 1.5em; }
+  padding: 1.5em;
+  margin-left: 4em; }
+  @media screen and (max-width: 1000px) {
+    .manager-decisions-tip {
+      width: 100%;
+      float: left;
+      margin-left: 0;
+      margin-top: 1rem;
+      margin-bottom: 1rem; } }
 
 .manager-decisions-tip p {
   font-size: 1.5em;
@@ -5224,6 +5492,9 @@ nav {
   top: 0;
   left: 0; }
 
+.jobPosterSection h4 {
+  font-size: 2.77rem; }
+
 .createJobPosterWrapperWindow {
   width: 80%;
   min-width: 900px;
@@ -5268,8 +5539,18 @@ nav {
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 #jobPosterTitle {
-  font-size: 5em;
+  font-size: 4rem;
   color: #eee; }
+  @media screen and (max-width: 1000px) {
+    #jobPosterTitle {
+      font-size: 3rem; } }
+
+.hiringManagerSummary {
+  font-size: 2.5rem;
+  font-weight: bold; }
+  @media screen and (max-width: 767px) {
+    .hiringManagerSummary {
+      font-size: 2rem; } }
 
 #jobPosterLocation {
   color: #eee;
@@ -5338,18 +5619,36 @@ nav {
   width: 30%;
   margin-right: 2em; }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster - Workplace
+
+============================================================================= */
+.job-poster__work-environment-photo-grid {
+  margin: 2rem -2rem; }
+
+.job-poster__work-environment-photo-grid-item {
+  padding: 2rem; }
+
+.job-poster__work-environment-photo {
+  background-color: #c8c8c8;
+  background-position: center;
+  background-size: cover;
+  height: 45vh; }
+
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 .jobSummary {
   position: relative;
   width: 100%;
   color: #777;
-  font-size: 1.25em;
-  padding-bottom: 1.5em;
-  padding-top: 1.5em;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
   display: flex;
   justify-content: center;
   font-family: "HKGrotesk", sans-serif;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 700; }
 
 .jobSummary:nth-child(odd) {
@@ -5361,17 +5660,20 @@ nav {
   flex-direction: row;
   align-items: center;
   max-width: 1200px; }
+  @media screen and (max-width: 800px) {
+    .jobSummaryTable {
+      flex-direction: column; } }
 
 .hiringManagerProfilePicSmall {
-  width: 70px;
-  height: 70px;
-  clip-path: circle(35px at center);
-  margin-bottom: 0.5em;
+  width: 7rem;
+  height: 7rem;
+  clip-path: circle(3.5rem at center);
+  margin-bottom: 0.5rem;
   margin: auto;
   display: block; }
 
 .hiringManagerLabel {
-  font-size: 1em;
+  font-size: 1.5rem;
   color: #333;
   width: 100%;
   text-align: center;
@@ -5379,32 +5681,53 @@ nav {
   display: block; }
 
 .hiringManagerWrapper {
-  width: 200px; }
+  width: 20rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
 
 .jobSummaryTitle {
-  font-size: 1.2em;
+  font-size: 1.777rem;
   font-weight: bold;
   color: #000;
-  line-height: 1.5em;
+  line-height: 2rem;
   text-align: left; }
+  @media screen and (max-width: 800px) {
+    .jobSummaryTitle {
+      text-align: center; } }
 
 .jobSummarySalaryRange {
-  width: 200px;
-  text-align: center; }
+  width: 15rem;
+  text-align: center;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
+  @media screen and (max-width: 800px) {
+    .jobSummarySalaryRange {
+      width: 90%; } }
 
 .jobSummaryApplicants_to_date {
-  line-height: 1.5em; }
+  padding-bottom: .5rem; }
 
 .jobSummaryTerm_qty {
-  width: 150px;
+  width: 15rem;
   text-align: center; }
 
 .titleDepartmentWrapper {
-  width: 225px; }
+  width: 22.5rem; }
+  @media screen and (max-width: 800px) {
+    .titleDepartmentWrapper {
+      text-align: center;
+      width: 90%;
+      padding-top: .25rem;
+      padding-bottom: .25rem; } }
 
 .applicantsCloseDateWrapper {
   text-align: center;
-  width: 200px; }
+  width: 20rem;
+  padding-top: .25rem;
+  padding-bottom: 1rem; }
+  @media screen and (max-width: 800px) {
+    .applicantsCloseDateWrapper {
+      width: 90%; } }
 
 .viewJobButton {
   color: #fff !important;
@@ -5416,10 +5739,12 @@ nav {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  width: 10%;
   display: block;
-  margin-right: 2em;
-  margin-left: 2em; }
+  margin-right: 2rem;
+  margin-left: 2rem;
+  width: 10rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem; }
 
 /* TODO: deal with empty browseJobs page better */
 #browseJobsSection {
@@ -5428,12 +5753,12 @@ nav {
 #noJobs {
   color: #999;
   text-align: center;
-  font-size: 1.5em; }
+  font-size: 1.5rem; }
 
 .jobCount {
   position: absolute;
-  right: 1em;
-  top: 1em; }
+  right: 1rem;
+  top: 1rem; }
 
 .jobList {
   margin: 0px auto;
@@ -5498,52 +5823,6 @@ nav {
   padding: 5px;
   display: block; }
 
-/* DIALOGS */
-.dialogOverlay {
-  width: 100%;
-  height: 100%;
-  z-index: 1001;
-  background-color: rgba(255, 255, 255, 0.9);
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-y: scroll; }
-
-.dialogThreeQuarterWrapperWindow {
-  width: 75%;
-  min-width: 350px;
-  margin: 0px auto;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #999;
-  border-radius: 5px;
-  box-shadow: 3px 3px 6px #999;
-  left: 50%; }
-
-.dialogHalfWidthWrapperWindow {
-  width: 50%;
-  min-width: 350px;
-  margin: 0px auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #999;
-  border-radius: 5px;
-  box-shadow: 3px 3px 6px #999;
-  position: relative; }
-
-.dialogWindowInterior {
-  padding: 1em 2em 2em 2em; }
-
-.dialogTitle {
-  padding: 0.5em;
-  background-color: #E5F8FF; }
-
 /* Applicant Dashboard Styles */
 #dashboardSection #yourApplications {
   width: 95%;
@@ -5574,12 +5853,16 @@ nav {
 .dashboardTitleDepartmentWrapper {
   width: 40%;
   display: inline-block; }
+  @media screen and (max-width: 1205px) {
+    .dashboardTitleDepartmentWrapper {
+      width: 100%;
+      display: block;
+      text-align: center; } }
 
 .dashboardTitleDepartmentWrapper .dashboardJobSummaryTitle {
   font-size: 100%;
   font-size: 1.5em;
   color: #000;
-  line-height: 2.5em;
   text-align: left;
   display: inline; }
 
@@ -5587,7 +5870,6 @@ nav {
   font-size: 100%;
   font-size: 1.5em;
   color: #000;
-  line-height: 2.5em;
   display: inline; }
 
 #dashboardSection .dashBoardHiringManagerWrapper {
@@ -5595,6 +5877,17 @@ nav {
   line-height: 3em;
   background-color: #eee;
   border-radius: 1.5em; }
+  @media screen and (max-width: 1205px) {
+    #dashboardSection .dashBoardHiringManagerWrapper {
+      width: 25%;
+      margin-left: 22rem;
+      margin-bottom: .5rem; } }
+  @media screen and (max-width: 1000px) {
+    #dashboardSection .dashBoardHiringManagerWrapper {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 40%; } }
 
 #dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall {
   height: 2.5em;
@@ -5621,6 +5914,18 @@ nav {
   width: 40%;
   display: inline-block;
   color: #999; }
+  @media screen and (max-width: 1205px) {
+    #dashboardSection .dashboardJobSubmitted {
+      width: 30%;
+      margin-right: 15rem;
+      float: right; } }
+  @media screen and (max-width: 1000px) {
+    #dashboardSection .dashboardJobSubmitted {
+      width: 100%;
+      display: block;
+      float: none;
+      margin-right: auto;
+      margin-left: auto; } }
 
 #dashboardSection .dashboardJobStatus {
   font-size: 100%;
@@ -5628,45 +5933,13 @@ nav {
   margin: 0;
   text-align: right;
   color: #999; }
-
-/* LOGIN AND REGISTRATION FORMS */
-#loginForm, #registerForm {
-  margin-left: 0px !important;
-  margin-right: 0px !important; }
-
-#loginErrors {
-  white-space: pre-wrap; }
-
-/* FORMS */
-.form-group {
-  color: #555; }
-
-.form-control {
-  color: #555;
-  background-color: #EAEAEA;
-  background-image: none;
-  border: none;
-  border-radius: 0; }
-
-.form-control:focus {
-  border: 1px solid #999;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
-
-.form-textbox {
-  width: 95%; }
-
-form label {
-  font-size: 16px;
-  line-height: 20px; }
-
-input[type=text], input[type=password], select {
-  padding: 0.5em; }
-
-input[type=button], input[type=submit], input[type=reset] {
-  padding: 0.25em;
-  height: 30px; }
+  @media screen and (max-width: 1205px) {
+    #dashboardSection .dashboardJobStatus {
+      text-align: left; } }
+  @media screen and (max-width: 1000px) {
+    #dashboardSection .dashboardJobStatus {
+      text-align: center;
+      width: 100%; } }
 
 /* TABS LIST */
 .tabsList {

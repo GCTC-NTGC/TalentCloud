@@ -1,53 +1,68 @@
-<!-- BEGIN - Login Modal Dialog and Overlay-->
 <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
+
     <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
-        <div id='loginFormTitleWrapper' class="dialogTitle">
-            <strong id='loginFormTitle' title="Login to TalentCloud">Login to TalentCloud</strong>
+
+        <div id='loginFormTitleWrapper' class="dialogTitle dialogue-modal__title-wrapper">
+            <strong id='loginFormTitle' title="Login to TalentCloud" class="dialogue-modal__title">Login to TalentCloud</strong>
             <div class="hidden" id="loginFormDescription">Login to TalentCloud</div>
         </div>
-        <div class="dialogWindowInterior">
-            <form name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="label label-danger hidden" id="loginErrors"></div>
-                <div class="center-block three-quarter-width">
-                    <div class="form-group">
-                        <label for="login_email">
-                            <span>Email:</span>
-                            <strong id="login_email_error" class="error hidden">
-                                <span id="login_email_error_msg" class="label label-danger"></span>
-                            </strong>
-                        </label>
-                        <div>
-                            <input class="form-control full-width" type="email" name="login_email" id="login_email" required=""/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="login_password">
-                            <span>Password:</span>
-                            <strong id="login_password_error" class="error hidden">
-                                <span id="login_password_error_msg" class="label label-danger"></span>
-                            </strong>
-                        </label>
-                        <div>
-                            <input class="form-control full-width" type="password" name="login_password" id="login_password" required=""/>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div style="margin: 1em 0 0 0;" class="hidden">
-                        <a href="javascript:void(0)">Forgot your password? Click here to reset it. (Not working yet.)</a>
-                    </div>
-                    <div style="margin: 1em 0 0 0;">
-                        <p><a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="ui-link" id="switchToRegister" title="Don't have an account? Click here to register.">Don't have an account? Click here to register</a></p>
-                    </div>
-                </div>
 
-                <div class="formButtonWrapper">
-                    <input type="button" id="loginFormCancelBtn" value="Cancel" class="btn btn-default" onclick="UserAPI.cancelLogin()"/>
-                    <input type="button" id="loginFormLoginBtn" value="Log in" class="btn btn-primary" onclick="return UserAPI.login()"/>
-                </div>
-                <div class="clear"></div>
-            </form>
+        <div class="dialogWindowInterior">
+
+            <div class="dialogue-modal__grid login-modal__grid flex-grid middle">
+
+                <form class="box full" name="loginForm" id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
+
+                    <div class="label label-danger hidden" id="loginErrors"></div>
+
+                    <a href="javascript:void(0)" class="hidden">Forgot your password? Click here to reset it. (Not working yet.)</a>
+                    
+                    <p class="login-modal__copy">
+                        <span class="login-modal__copy-span" id="loginModalCopySpan">Welcome to TalentCloud! </span>
+                        <a href="javascript:void(0)" onclick="UserAPI.cancelLogin(); return UserAPI.showRegisterForm(this);" class="login-modal__registration-cta" id="switchToRegister" title="Don't have an account? Click here to register." tabindex="0">Don't have an account? Click here to register.</a>
+                    </p>
+
+                    <div class="flex-grid login-modal__form-grid">
+
+                        <div class="box med-1of2 form-group">
+                            <label for="login_email" class="form__label">
+                                <span id="loginModalEmailLabelSpan">Your Email:</span>
+                                <strong id="login_email_error" class="error hidden">
+                                    <span id="login_email_error_msg" class="label label-danger"></span>
+                                </strong>
+                            </label>
+                            <input class="form__input--text" type="email" name="login_email" id="login_email" required=""/>
+                        </div>
+                        <div class="box med-1of2 form-group">
+                            <label for="login_password" class="form__label">
+                                <span id="loginModalPasswordLabelSpan">Your Password:</span>
+                                <strong id="login_password_error" class="error hidden">
+                                    <span id="login_password_error_msg" class="label label-danger"></span>
+                                </strong>
+                            </label>
+                            <input class="form__input--text" type="password" name="login_password" id="login_password" required=""/>
+                        </div>
+
+                    </div>
+
+                    <div class="flex-grid middle login-modal__button-grid">
+                        <div class="box med-1of2">
+                            
+                        </div>
+                        <div class="box med-1of2">
+                            <input type="button" id="loginFormCancelBtn" value="Cancel" class="button--grey" onclick="UserAPI.cancelLogin()"/>
+                            <input type="button" id="loginFormLoginBtn" value="Login" class="button--yellow" onclick="return UserAPI.login()"/>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+
+                </form>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
-<!-- END - Login Modal Dialog and Overlay-->

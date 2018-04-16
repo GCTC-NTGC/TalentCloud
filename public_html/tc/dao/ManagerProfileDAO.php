@@ -70,8 +70,8 @@ class ManagerProfileDAO extends BaseDAO{
         $locale_id = $managerProfileDetails->getLocale_id();
         $user_manager_profile_details_aboutme = $managerProfileDetails->getUser_manager_profile_details_aboutme();
         $user_manager_profile_details_proud = $managerProfileDetails->getUser_manager_profile_details_proud();
-        $user_manager_profile_details_branch = $managerProfileDetails->getUser_manager_profile_branch();
-        $user_manager_profile_details_division = $managerProfileDetails->getUser_manager_profile_division();
+        $user_manager_profile_details_branch = $managerProfileDetails->getUser_manager_profile_details_branch();
+        $user_manager_profile_details_division = $managerProfileDetails->getUser_manager_profile_details_division();
         $user_manager_profile_details_lead_style = $managerProfileDetails->getUser_manager_profile_details_lead_style();
         $user_manager_profile_details_emp_learn = $managerProfileDetails->getUser_manager_profile_details_emp_learn();
         $user_manager_profile_details_expectations = $managerProfileDetails->getUser_manager_profile_details_expectations();
@@ -147,11 +147,13 @@ class ManagerProfileDAO extends BaseDAO{
             //$result = BaseDAO::executeDBTransaction($link,$sql);
             $link->beginTransaction();
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $profileId = $link->lastInsertId();
             $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+
             $link->commit();
             $rowsmodified = $sql->rowCount();
             if($rowsmodified > 0){
-                $insert_id = $link->lastInsertId();
+                $insert_id = $profileId;
             }
         } catch (PDOException $e) {
             return 'createManagerProfile failed: ' . $e->getMessage();

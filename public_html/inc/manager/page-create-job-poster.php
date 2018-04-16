@@ -39,7 +39,7 @@
                                 <div class="rightPane">
                                     <div class="form-group">
                                         <label for="createJobPoster_jobTitle_fr">
-                                            <span>Job Title_fr: *</span>
+                                            <span>Job Title (Français): *</span>
                                             <strong id="createJobPoster_jobTitle_fr_error" class="error hidden">
                                                 <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -78,7 +78,7 @@
                                         <div class="box small-1of11"></div>
                                         <div class="form-group box small-5of11">
                                             <label for="createJobPoster_branch_fr">
-                                                <span><span id="createJobPoster_branch_fr_labelName">Branch</span> (francais): *</span>
+                                                <span><span id="createJobPoster_branch_fr_labelName">Branch</span> (Français): *</span>
                                                 <strong id="createJobPoster_branch_fr_error" class="error hidden">
                                                     <span id="createJobPoster_branch_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -103,7 +103,7 @@
                                         <div class="box small-1of11"></div>
                                         <div class="form-group box small-5of11">
                                             <label for="createJobPoster_division_fr">
-                                                <span><span id="createJobPoster_division_fr_labelName">Division</span> (francais): *</span>
+                                                <span><span id="createJobPoster_division_fr_labelName">Division</span> (Français): *</span>
                                                 <strong id="createJobPoster_division_fr_error" class="error hidden">
                                                     <span id="createJobPoster_division_fr_error_msg" class="label label-danger"></span>
                                                 </strong>
@@ -211,7 +211,7 @@
                                 <div class="leftPane">
                                     <div class="form-group">
                                         <label for="createJobPoster_impact">
-                                            <span><span id="createJobPoster_impact_labelName">Impact</span>:</span>
+                                            <span><span id="createJobPoster_impact_labelName">Impact</span> (English):</span>
                                             <strong id="createJobPoster_impact_error" class="error hidden">
                                                 <span id="createJobPoster_impact_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -222,7 +222,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_keyTasks">
-                                            <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span>: **</span>
+                                            <span><span id="createJobPoster_keyTasks_labelName">Key Tasks</span> (English): **</span>
                                             <strong id="createJobPoster_keyTasks_error" class="error hidden">
                                                 <span id="createJobPoster_keyTasks_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -233,7 +233,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_coreCompetencies">
-                                            <span><span id="createJobPoster_coreCompetencies_labelName">Core Competencies</span>: **</span>
+                                            <span><span id="createJobPoster_coreCompetencies_labelName">Essential Criteria</span> (English): **</span>
                                             <strong id="createJobPoster_coreCompetencies_error" class="error hidden">
                                                 <span id="createJobPoster_coreCompetencies_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_developingCompetencies">
-                                            <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>: **</span>
+                                            <span><span id="createJobPoster_developingCompetencies_labelName">Asset Criteria</span> (English): **</span>
                                             <strong id="createJobPoster_developingCompetencies_error" class="error hidden">
                                                 <span id="createJobPoster_developingCompetencies_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -255,7 +255,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_otherRequirements">
-                                            <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>: **</span>
+                                            <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span> (English): **</span>
                                             <strong id="createJobPoster_otherRequirements_error" class="error hidden">
                                                 <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -279,7 +279,7 @@
                                 <div class="rightPane">
                                     <div class="form-group">
                                         <label for="createJobPoster_impact_fr">
-                                            <span><span id="createJobPoster_impact_fr_labelName">Impact_fr</span>:</span>
+                                            <span><span id="createJobPoster_impact_fr_labelName">Impact</span> (Français):</span>
                                             <strong id="createJobPoster_impact_fr_error" class="error hidden">
                                                 <span id="createJobPoster_impact_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -290,7 +290,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_keyTasks_fr">
-                                            <span><span id="createJobPoster_keyTasks_fr_labelName">Key Tasks_fr</span>: **</span>
+                                            <span><span id="createJobPoster_keyTasks_fr_labelName">Key Tasks</span> (Français): **</span>
                                             <strong id="createJobPoster_keyTasks_fr_error" class="error hidden">
                                                 <span id="createJobPoster_keyTasks_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -301,7 +301,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_coreCompetencies_fr">
-                                            <span><span id="createJobPoster_coreCompetencies_fr_labelName">Core Competencies_fr</span>: **</span>
+                                            <span><span id="createJobPoster_coreCompetencies_fr_labelName">Essential Criteria</span> (Français): **</span>
                                             <strong id="createJobPoster_coreCompetencies_fr_error" class="error hidden">
                                                 <span id="createJobPoster_coreCompetencies_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -312,7 +312,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_developingCompetencies_fr">
-                                            <span><span id="createJobPoster_developingCompetencies_fr_labelName">Developing Competencies</span>:</span>
+                                            <span><span id="createJobPoster_developingCompetencies_fr_labelName">Asset Criteria</span> (Français):</span>
                                             <strong id="createJobPoster_developingCompetencies_fr_error" class="error hidden">
                                                 <span id="createJobPoster_developingCompetencies_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -323,7 +323,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_otherRequirements_fr">
-                                            <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements_fr</span>: **</span>
+                                            <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements</span> (Français): **</span>
                                             <strong id="createJobPoster_otherRequirements_fr_error" class="error hidden">
                                                 <span id="createJobPoster_otherRequirements_fr_error_msg" class="label label-danger"></span>
                                             </strong>
@@ -334,7 +334,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="createJobPoster_questions_fr">
-                                            <span><span id="createJobPoster_questions_fr_labelName">Open Ended Questions_fr</span> (francais): **</span>
+                                            <span><span id="createJobPoster_questions_fr_labelName">Open Ended Questions</span> (Français): **</span>
                                             <strong id="createJobPoster_questions_fr_error" class="error hidden">
                                                 <span id="createJobPoster_questions_fr_error_msg" class="label label-danger"></span>
                                             </strong>
