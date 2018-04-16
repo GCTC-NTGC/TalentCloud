@@ -85,8 +85,8 @@
                                     </strong>
                                 </label>
                                 <div class="flex-grid top">
-                                    <span class="update-profile__linkedin-label box med-2of3" onclick="document.getElementById('profileEditLinkedin').focus()">https://www.linkedin.com/in/</span>
-                                    <input class="form__input--text box med-1of3" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="example"/>
+                                    <span class="update-profile__linkedin-label" onclick="document.getElementById('profileEditLinkedin').focus()">https://www.linkedin.com/in/</span>
+                                    <input class="form__input--text box update-profile__linkedin-input" type="text" name="profileEditLinkedin" id="profileEditLinkedin" placeholder="example"/>
                                 </div>
                             </div>
 
