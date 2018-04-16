@@ -19,7 +19,7 @@ RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forEssentialCrite
 RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forAssetCriteria/([0-9]{1,10}) services/ApplicationAssetDeclarationService.php
 RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forEssentialCriteria/([0-9]{1,10}) services/ApplicationEssentialDeclarationService.php
 RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forAssetCriteria/([0-9]{1,10}) services/ApplicationAssetDeclarationService.php
-
+RewriteRule ^api/v1/getLatestDeclarationForUser/([0-9]{1,10})/forSkill/([0-9a-zA-Z$_.+!*'(),-]+) services/SkillDeclarationByUser.php
 #non localized services - secured
 RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
 RewriteRule ^api/v1/user/([0-9]{1,10}) services/User.php

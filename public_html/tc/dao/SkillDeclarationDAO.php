@@ -267,4 +267,70 @@ class SkillDeclarationDAO extends BaseDAO {
     public static function removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId) {
         return self::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId, false);
     }
+    
+    public static function getMostRecentDeclarationForUserAndSkill($userId, $skillName) {
+        $link = BaseDAO::getConnection();
+        
+        $sql_str = "
+            SELECT 
+                d.skill_declaration_id,
+                c.developing_competency as skill,
+                d.experience_level_id,
+                d.skill_level_id,
+                d.description,
+                d.last_updated
+            FROM 
+                skill_declaration d, 
+                application_asset_skill_declaration asd,
+                job_poster_developing_competency c,
+                job_poster_application jpa,
+                user_job_seeker_profiles u_jsp
+            WHERE
+                d.skill_declaration_id = asd.skill_declaration_id
+                AND asd.job_poster_application_id = jpa.job_poster_application_id
+                AND asd.job_poster_developing_competency_id = c.job_poster_developing_competency_id
+                AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
+                AND u_jsp.user_id = @user_id := :user_id
+                AND c.developing_competency = @skill_name := :skill_name
+            UNION
+            SELECT 
+               d.skill_declaration_id,
+               c.core_competency as skill,
+               d.experience_level_id,
+               d.skill_level_id,
+               d.description,
+               d.last_updated
+           FROM 
+               skill_declaration d, 
+               application_essential_skill_declaration asd,
+               job_poster_core_competency c,
+               job_poster_application jpa,
+               user_job_seeker_profiles u_jsp
+           WHERE
+               d.skill_declaration_id = asd.skill_declaration_id
+               AND asd.job_poster_application_id = jpa.job_poster_application_id
+               AND asd.job_poster_core_competency_id = c.job_poster_core_competency_id
+               AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
+               AND u_jsp.user_id = @user_id
+               AND c.core_competency = @skill_name := :skill_name
+            ORDER BY last_updated DESC LIMIT 1
+            ;";
+        
+        $sql = $link->prepare($sql_str);
+        $sql->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $sql->bindValue(':skill_name', $skillName, PDO::PARAM_STR);
+        
+        try {     
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            //$link->commit();
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'SkillDeclaration');
+            
+            $declaration = $sql->fetch();
+        } catch (PDOException $e) {
+            return 'getMostRecentDeclarationForUserAndSkill failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+                
+        return $declaration;
+    }
 }

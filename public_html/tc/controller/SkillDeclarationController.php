@@ -49,4 +49,8 @@ class SkillDeclarationController{
         //TODO - what should this return?
     }
     
+    public static function getMostRecentDeclarationForUserAndSkill($userId, $skillName) {
+        return SkillDeclarationDAO::getMostRecentDeclarationForUserAndSkill($userId, $skillName);
+    }
+    
 }
