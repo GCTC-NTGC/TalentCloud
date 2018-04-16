@@ -607,8 +607,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
     updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
 
-    var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
-    updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
+
 
     var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
     updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
@@ -634,6 +633,8 @@ TalentCloudAPI.setContent = function(content, isManager){
     var profileBasicInfoEditCancel = document.getElementById("profileBasicInfoEditCancel");
     profileBasicInfoEditCancel.value = siteContent.profileBasicInfoEditCancel;
 
+    var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
+    updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
 
 
     if(isManager){
@@ -769,6 +770,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
         profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
 
+
+
     }
 
     if(!isManager){
@@ -863,9 +866,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
         updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
-
-        var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
-        updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
 
         var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
         updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
