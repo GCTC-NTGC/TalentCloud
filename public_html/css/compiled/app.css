@@ -4759,29 +4759,39 @@ nav {
 
 /* TALENT CLOUD LOGO */
 .page-banner--logo-container {
-  height: 30rem;
-  z-index: 1; }
+  height: 20vh;
+  z-index: 1;
+  padding-bottom: 3rem; }
 
-@media (max-width: 768px) {
-  .page-banner--logo-container {
-    height: 20rem;
-    padding-bottom: 3rem; } }
+.page-banner--logo {
+  margin-top: 5rem;
+  max-width: 900px;
+  float: right; }
+  @media screen and (max-width: 1025px) {
+    .page-banner--logo {
+      margin-top: 3rem; } }
+
+.page-banner--tagline-container {
+  height: auto; }
 
 .page-banner--tagline {
   font-family: "HKGrotesk", sans-serif;
-  font-size: 2rem !important;
-  line-height: 1.35; }
+  font-size: calc(12px + 1.5vw);
+  line-height: 1.35;
+  margin-top: auto;
+  margin-bottom: auto; }
+  @media screen and (max-width: 1025px) {
+    .page-banner--tagline {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: -1rem;
+      margin-bottom: 2rem; } }
 
 .tc-logo {
   width: 100%;
   height: auto;
   float: right; }
-
-.page-banner--logo-tagline-divider {
-  width: 3px;
-  height: 12em;
-  background-color: white;
-  margin: 2em; }
 
 .landing-hero__logo {
   margin-top: -11%; }
