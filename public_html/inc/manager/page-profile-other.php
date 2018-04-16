@@ -17,31 +17,16 @@
         </div>
     </div>
     <div class="stepGroupForm">
+        <h1>Test Title</h1>
         <fieldset>
             <legend>Other</legend>
                 <div class="form-group">
-                    <div class="flex-grid">
-                        <div class="box xl-5of12 lg-5of12 small-1of1">
-                            <div class="multi-btn-group-form-group-label">
-                                <label for="user_manager_profile_work_experience"><span>Work Experience</span></label>
-                            </div>
-                        </div>
-                        <div class="box xl-5of12 lg-5of12 small-1of1">
-                            <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="textAreaInput"></textarea>
-                        </div>
-                    </div>
+                    <label class="form__label" for="user_manager_profile_work_experience"><span>Work Experience</span></label>
+                    <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="form__textarea textAreaInput"></textarea>
                 </div>
                 <div class="form-group">
-                    <div class="flex-grid">
-                        <div class="box xl-5of12 lg-5of12 small-1of1">
-                            <div class="multi-btn-group-form-group-label">
-                                <label for="user_manager_profile_education"><span>Education</span></label>
-                            </div>
-                        </div>
-                        <div class="box xl-5of12 lg-5of12 small-1of1">
-                            <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="textAreaInput"></textarea>
-                        </div>
-                    </div>
+                    <label class="form__label" for="user_manager_profile_education"><span>Education</span></label>
+                    <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="form__textarea textAreaInput"></textarea>
                 </div>
         </fieldset>
         <div class="createEditProfileSubmitPane">
