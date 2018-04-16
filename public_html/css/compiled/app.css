@@ -4541,6 +4541,23 @@ nav {
 .nav-container {
   width: 100%; }
 
+@media screen and (max-width: 660px) {
+  .nav-container li {
+    display: block;
+    width: 100%; } }
+
+.navbar-right {
+  float: right; }
+  @media screen and (max-width: 768px) {
+    .navbar-right {
+      margin-top: 1rem;
+      margin-bottom: 1rem; } }
+  @media screen and (max-width: 660px) {
+    .navbar-right {
+      float: none;
+      margin-top: 0;
+      margin-bottom: 0; } }
+
 .nav-container li a {
   font-size: 1.5rem;
   color: #ccc;

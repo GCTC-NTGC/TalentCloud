@@ -23,6 +23,27 @@ nav{
     width: 100%;
 }
 
+.nav-container li {
+    @media screen and (max-width: 660px){
+        display: block;
+        width: 100%;
+    }
+}
+
+.navbar-right {
+    float: right;
+    @media screen and (max-width: 768px) {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    @media screen and (max-width: 660px) {
+        float: none;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+
 .nav-container li a{
     font-size: 1.5rem;
     color: #ccc;
