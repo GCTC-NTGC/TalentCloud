@@ -23,7 +23,7 @@
                 </section>
             </div>
             <div class="col-xs-2">
-                <section id="wb-lng" class="visible-sm visible-md visible-lg">
+                <section id="wb-lng" class="visible">
                     <h2 id="langSelect">Language selection</h2>
                     <div id="lang" class="lang">
                         <a href="javascript:void(0)" lang="fr" id="languageSelect" onclick="TalentCloudAPI.setLanguage();">Français</a>

@@ -28,10 +28,10 @@ dashBoardLink,yourApplicationsTitle, teamCulture, teamSize, gcDirectoryLink, tea
 managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
-managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2, managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4,
-managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,  
+managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,
 managerDecisions_tipWhatis, managerDecisions_tipSummary,
-changeDisplayPic
+changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -182,6 +182,44 @@ changeDisplayPic
     this.managerDecisions_tipWhatis = managerDecisions_tipWhatis;
     this.managerDecisions_tipSummary = managerDecisions_tipSummary;
     this.changeDisplayPic = changeDisplayPic;
+    this.updateProfilePhotoTitle = updateProfilePhotoTitle;
+    this.updateProfilePhotoDraggableAreaLabel = updateProfilePhotoDraggableAreaLabel;
+    this.updateProfilePhotoDraggableAreaErrorSize = updateProfilePhotoDraggableAreaErrorSize;
+    this.updateProfilePhotoDraggableAreaErrorType = updateProfilePhotoDraggableAreaErrorType;
+    this.updateProfileOrCopy = updateProfileOrCopy;
+    this.updateProfileChoosePhotoButtonLabelSpan = updateProfileChoosePhotoButtonLabelSpan;
+    this.updateProfileChoosePhotoButton = updateProfileChoosePhotoButton;
+    this.updateProfileChooseAltPhotoButtonLabelSpan = updateProfileChooseAltPhotoButtonLabelSpan;
+    this.updateProfileChooseAltPhotoButton = updateProfileChooseAltPhotoButton;
+    this.updateProfilePhotoCancelButton = updateProfilePhotoCancelButton;
+    this.updateProfileApplicantProfileFormFirstNameLabelSpan = updateProfileApplicantProfileFormFirstNameLabelSpan;
+    this.profileEditFirstName = profileEditFirstName;
+    this.updateProfileApplicantProfileFormLastNameLabelSpan = updateProfileApplicantProfileFormLastNameLabelSpan;
+    this.profileEditLastName = profileEditLastName;
+    this.updateProfileApplicantProfileFormTaglineLabelSpan = updateProfileApplicantProfileFormTaglineLabelSpan;
+    this.profileEditTagline = profileEditTagline;
+    this.updateProfileApplicantProfileFormTwitterLabelSpan = updateProfileApplicantProfileFormTwitterLabelSpan;
+    this.profileEditTwitter = profileEditTwitter;
+    this.updateProfileApplicantProfileFormLinkedinLabelSpan = updateProfileApplicantProfileFormLinkedinLabelSpan;
+    this.profileEditLinkedin = profileEditLinkedin;
+    this.profileBasicInfoEditCancel = profileBasicInfoEditCancel;
+    this.profileBasicInfoEditSave = profileBasicInfoEditSave;
+    this.profilePicUploadBtn = profilePicUploadBtn;
+    this.loginFormTitle = loginFormTitle;
+    this.loginModalCopySpan = loginModalCopySpan;
+    this.switchToRegister = switchToRegister;
+    this.loginModalEmailLabelSpan = loginModalEmailLabelSpan;
+    this.login_email = login_email;
+    this.loginModalPasswordLabelSpan = loginModalPasswordLabelSpan;
+    this.login_password = login_password;
+    this.loginFormCancelBtn = loginFormCancelBtn;
+    this.loginFormLoginBtn = loginFormLoginBtn;
+    this.registerFormTitle = registerFormTitle;
+    this.profileAboutMeEditTitle = profileAboutMeEditTitle;
+    this.updateAboutTextareaLabelSpan = updateAboutTextareaLabelSpan;
+    this.profileEditAboutMe = profileEditAboutMe;
+    this.profileAboutMeEditCancel = profileAboutMeEditCancel;
+    this.profileAboutMeEditSave = profileAboutMeEditSave;
 };
 
 TalentCloudAPI.pages = {
@@ -559,6 +597,45 @@ TalentCloudAPI.setContent = function(content, isManager){
     canadaLink.innerHTML = siteContent.canadaLink;
     canadaLink.href = siteContent.canadaLinkHref;
 
+    var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
+    profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
+
+    // Profile Photo Modal
+    var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
+    updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
+
+    var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
+    updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
+
+    var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
+    updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
+
+    var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
+    updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
+
+    var updateProfileOrCopy = document.getElementById("updateProfileOrCopy");
+    updateProfileOrCopy.innerHTML = siteContent.updateProfileOrCopy;
+
+    var updateProfileChoosePhotoButtonLabelSpan = document.getElementById("updateProfileChoosePhotoButtonLabelSpan");
+    updateProfileChoosePhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChoosePhotoButtonLabelSpan;
+
+    var updateProfileChoosePhotoButton = document.getElementById("updateProfileChoosePhotoButton");
+    updateProfileChoosePhotoButton.name = siteContent.updateProfileChoosePhotoButton;
+
+    var updateProfileChooseAltPhotoButtonLabelSpan = document.getElementById("updateProfileChooseAltPhotoButtonLabelSpan");
+    updateProfileChooseAltPhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChooseAltPhotoButtonLabelSpan;
+
+    var updateProfileChooseAltPhotoButton = document.getElementById("updateProfileChooseAltPhotoButton");
+    updateProfileChooseAltPhotoButton.name = siteContent.updateProfileChooseAltPhotoButton;
+
+    var updateProfilePhotoCancelButton = document.getElementById("updateProfilePhotoCancelButton");
+    updateProfilePhotoCancelButton.innerHTML = siteContent.updateProfilePhotoCancelButton;
+
+    var profileBasicInfoEditCancel = document.getElementById("profileBasicInfoEditCancel");
+    profileBasicInfoEditCancel.value = siteContent.profileBasicInfoEditCancel;
+
+
+
     if(isManager){
         console.log(isManager);
 
@@ -689,6 +766,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
         createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
 
+        var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
+        profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
+
     }
 
     if(!isManager){
@@ -770,15 +850,125 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
-        
+
         var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
         managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
 
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
         managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
 
-        var changeDisplayPic = document.getElementById("changeDisplayPic");
-        changeDisplayPic.innerHTML = siteContent.changeDisplayPic;
+        // Profile Photo Modal
+        var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
+        updateProfilePhotoTitle.innerHTML = siteContent.updateProfilePhotoTitle;
+
+        var updateProfilePhotoDraggableAreaLabel = document.getElementById("updateProfilePhotoDraggableAreaLabel");
+        updateProfilePhotoDraggableAreaLabel.innerHTML = siteContent.updateProfilePhotoDraggableAreaLabel;
+
+        var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
+        updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
+
+        var updateProfilePhotoDraggableAreaErrorType = document.getElementById("updateProfilePhotoDraggableAreaErrorType");
+        updateProfilePhotoDraggableAreaErrorType.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorType;
+
+        var updateProfileOrCopy = document.getElementById("updateProfileOrCopy");
+        updateProfileOrCopy.innerHTML = siteContent.updateProfileOrCopy;
+
+        var updateProfileChoosePhotoButtonLabelSpan = document.getElementById("updateProfileChoosePhotoButtonLabelSpan");
+        updateProfileChoosePhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChoosePhotoButtonLabelSpan;
+
+        var updateProfileChoosePhotoButton = document.getElementById("updateProfileChoosePhotoButton");
+        updateProfileChoosePhotoButton.name = siteContent.updateProfileChoosePhotoButton;
+
+        var updateProfileChooseAltPhotoButtonLabelSpan = document.getElementById("updateProfileChooseAltPhotoButtonLabelSpan");
+        updateProfileChooseAltPhotoButtonLabelSpan.innerHTML = siteContent.updateProfileChooseAltPhotoButtonLabelSpan;
+
+        var updateProfileChooseAltPhotoButton = document.getElementById("updateProfileChooseAltPhotoButton");
+        updateProfileChooseAltPhotoButton.name = siteContent.updateProfileChooseAltPhotoButton;
+
+        var updateProfilePhotoCancelButton = document.getElementById("updateProfilePhotoCancelButton");
+        updateProfilePhotoCancelButton.innerHTML = siteContent.updateProfilePhotoCancelButton;
+
+        var updateProfileApplicantProfileFormFirstNameLabelSpan = document.getElementById("updateProfileApplicantProfileFormFirstNameLabelSpan");
+        updateProfileApplicantProfileFormFirstNameLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormFirstNameLabelSpan;
+
+        var profileEditFirstName = document.getElementById("profileEditFirstName");
+        profileEditFirstName.name = siteContent.profileEditFirstName;
+
+        var updateProfileApplicantProfileFormLastNameLabelSpan = document.getElementById("updateProfileApplicantProfileFormLastNameLabelSpan");
+        updateProfileApplicantProfileFormLastNameLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormLastNameLabelSpan;
+
+        var profileEditLastName = document.getElementById("profileEditLastName");
+        profileEditLastName.name = siteContent.profileEditLastName;
+
+        var updateProfileApplicantProfileFormTaglineLabelSpan = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan");
+        updateProfileApplicantProfileFormTaglineLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormTaglineLabelSpan;
+
+        var profileEditTagline = document.getElementById("profileEditTagline");
+        profileEditTagline.name = siteContent.profileEditTagline;
+
+        var updateProfileApplicantProfileFormTwitterLabelSpan = document.getElementById("updateProfileApplicantProfileFormTwitterLabelSpan");
+        updateProfileApplicantProfileFormTwitterLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormTwitterLabelSpan;
+
+        var profileEditTwitter = document.getElementById("profileEditTwitter");
+        profileEditTwitter.name = siteContent.profileEditTwitter;
+
+        var updateProfileApplicantProfileFormLinkedinLabelSpan = document.getElementById("updateProfileApplicantProfileFormLinkedinLabelSpan");
+        updateProfileApplicantProfileFormLinkedinLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormLinkedinLabelSpan;
+
+        var profileEditLinkedin = document.getElementById("profileEditLinkedin");
+        profileEditLinkedin.name = siteContent.profileEditLinkedin;
+
+        var profileBasicInfoEditCancel = document.getElementById("profileBasicInfoEditCancel");
+        profileBasicInfoEditCancel.value = siteContent.profileBasicInfoEditCancel;
+
+        var profileBasicInfoEditSave = document.getElementById("profileBasicInfoEditSave");
+        profileBasicInfoEditSave.value = siteContent.profileBasicInfoEditSave;
+
+        var loginFormTitle = document.getElementById("loginFormTitle");
+        loginFormTitle.innerHTML = siteContent.loginFormTitle;
+
+        var loginModalCopySpan = document.getElementById("loginModalCopySpan");
+        loginModalCopySpan.innerHTML = siteContent.loginModalCopySpan;
+
+        var switchToRegister = document.getElementById("switchToRegister");
+        switchToRegister.innerHTML = siteContent.switchToRegister;
+        switchToRegister.title = siteContent.switchToRegister;
+
+        var loginModalEmailLabelSpan = document.getElementById("loginModalEmailLabelSpan");
+        loginModalEmailLabelSpan.innerHTML = siteContent.loginModalEmailLabelSpan;
+
+        var login_email = document.getElementById("login_email");
+        login_email.name = siteContent.login_email;
+
+        var loginModalPasswordLabelSpan = document.getElementById("loginModalPasswordLabelSpan");
+        loginModalPasswordLabelSpan.innerHTML = siteContent.loginModalPasswordLabelSpan;
+
+        var login_password = document.getElementById("login_password");
+        login_password.name = siteContent.login_password;
+
+        var loginFormCancelBtn = document.getElementById("loginFormCancelBtn");
+        loginFormCancelBtn.value = siteContent.loginFormCancelBtn;
+
+        var loginFormLoginBtn = document.getElementById("loginFormLoginBtn");
+        loginFormLoginBtn.value = siteContent.loginFormLoginBtn;
+
+        var registerFormTitle = document.getElementById("registerFormTitle");
+        registerFormTitle.innerHTML = siteContent.registerFormTitle;
+
+        var profileAboutMeEditTitle = document.getElementById("profileAboutMeEditTitle");
+        profileAboutMeEditTitle.innerHTML = siteContent.profileAboutMeEditTitle;
+
+        var updateAboutTextareaLabelSpan = document.getElementById("updateAboutTextareaLabelSpan");
+        updateAboutTextareaLabelSpan.innerHTML = siteContent.updateAboutTextareaLabelSpan;
+
+        var profileEditAboutMe = document.getElementById("profileEditAboutMe");
+        profileEditAboutMe.name = siteContent.profileEditAboutMe;
+
+        var profileAboutMeEditCancel = document.getElementById("profileAboutMeEditCancel");
+        profileAboutMeEditCancel.value = siteContent.profileAboutMeEditCancel;
+
+        var profileAboutMeEditSave = document.getElementById("profileAboutMeEditSave");
+        profileAboutMeEditSave.value = siteContent.profileAboutMeEditSave;
 
         var almostNeverElements = document.getElementsByClassName("option0Label");
         for (var i = 0; i < almostNeverElements.length; i++) {
@@ -806,6 +996,13 @@ TalentCloudAPI.setContent = function(content, isManager){
         }
 
         //not working yet
+
+
+        var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
+        managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
+
+        var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
+        managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
 
     }
 

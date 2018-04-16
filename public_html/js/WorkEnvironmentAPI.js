@@ -5,7 +5,7 @@ WorkEnvironmentAPI.photoNameToImgElementId = {'workplace_photo_1' : 'jobPosterWo
     'workplace_photo_2' : 'jobPosterWorkEnvironment_2', 
     'workplace_photo_3' : 'jobPosterWorkEnvironment_3'};
 
-WorkEnvironmentAPI.defaultWorkplacePhoto = '/images/user.png';
+WorkEnvironmentAPI.defaultWorkplacePhoto = '/images/default_workplace_photo.png';
 
 /**
  * 
@@ -88,7 +88,7 @@ WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
     workEnvironment.workplace_photo_captions.forEach(function(caption){
         var imgId = WorkEnvironmentAPI.photoNameToImgElementId[caption.photo_name];
         if (imgId) {
-            document.getElementById(imgId).setAttribute('alt', caption.description);
+            document.getElementById(imgId).setAttribute('title', caption.description);
         } 
     });
 };
@@ -115,9 +115,9 @@ WorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName,
     xhr.addEventListener('load', function() {
         img = document.getElementById(imageElementId);
         if (xhr.status == 200 && xhr.responseURL) {
-            img.src = xhr.responseURL;
+            img.style.backgroundImage = "url("+xhr.responseURL+")";
         } else {
-            img.src = WorkEnvironmentAPI.defaultWorkplacePhoto;
+            img.style.backgroundImage = "url("+WorkEnvironmentAPI.defaultWorkplacePhoto+")"
         }
     });
     xhr.send();

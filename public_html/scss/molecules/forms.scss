@@ -6,6 +6,52 @@
 
 ============================================================================= */
 
+/* LEGACY CODE ============================================================== */
+
+#loginForm,#registerForm{
+    // margin-left: 0px !important;
+    // margin-right: 0px !important;
+}
+
+#loginErrors{
+    white-space: pre-wrap;
+}
+
+/* FORMS */
+
+.form-group{
+    color:#555;
+}
+.form-control{
+    color:#555;
+    background-color:#EAEAEA;
+    background-image:none;
+    border:none;
+    border-radius:0;
+}
+.form-control:focus{
+    border: 1px solid #999;
+    outline:0;
+    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153,153,153,.6);
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(153, 153, 153,.6)
+}
+.form-textbox{
+    width:95%;
+}
+form label{
+    font-size: 16px;
+    line-height:20px;
+}
+input[type=text],input[type=password],select{
+    padding:0.5em;
+}
+input[type=button],input[type=submit],input[type=reset]{
+    padding:0.25em;
+    height: 30px;
+}
+
+/* ============================================================================= */
+
 .form__wrapper {
 
     >*:last-child {
@@ -22,9 +68,18 @@
     margin: 0 0 .5rem 0;
 }
 
-[class*="form__input--"] {
+input[type=text][class*="form__input--"],
+input[type=email][class*="form__input--"],
+input[type=password][class*="form__input--"] {
+    background: lighten($palette-grey--light, 10%);
+    border: none;
+    color: $black !important;
     display: block;
+    font-family: $font-hk;
+    font-size: 16px;
+    font-weight: 400;
     margin: 0 0 2rem 0;
+    padding: 1rem 2rem 1rem 1rem;
     width: 100%;
 
     &[class*="text"] {
@@ -66,6 +121,8 @@
 }
 
 .form__textarea {
+    background: lighten($palette-grey--light, 10%);
+    border: none;
     color: $black;
     display: block;
     font-size: 1.5rem;

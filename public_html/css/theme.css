@@ -2806,11 +2806,14 @@ main {
         font-size: 2.5rem; } }
 
 .top-nav--link {
-  display: block;
+  display: inline-block;
   text-align: center; }
-  @media (max-width: 767px) {
-    .top-nav--link {
-      margin: 2rem 0; } }
+  @media (max-width: 660px) {
+      .top-nav--link {
+          display: block;
+          margin-top: 1.25rem;
+          margin-bottom: .75rem;}
+  }
   @media (min-width: 768px) {
     .top-nav--link {
       display: inline-block;
@@ -2818,11 +2821,9 @@ main {
     /*
       .top-nav--link:first-child {
         display: none; }
-    */
-    }
-  @media (min-width: 992px) {
-    .top-nav--link {
-      margin: 0 1rem; } }
+    */ }
+
+
   .top-nav--link a {
     color: #FFFFFF;
     font-size: 3.5rem;
@@ -2851,7 +2852,7 @@ main {
       bottom: -0.5rem;
       transition: all 0.45s ease-in-out;
       left: 50%;
-      transform: translateX(-50%); }
+  transform: translateX(-50%); }
     @media (min-width: 768px) {
       .top-nav--link a:hover::after {
         width: 100%;
