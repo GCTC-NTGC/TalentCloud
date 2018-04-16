@@ -78,9 +78,8 @@ nav{
 /* TALENT CLOUD LOGO */
 
 .page-banner--logo-container {
-    height: 20vh;
+    max-height: 20vh;
     z-index: 1;
-    padding-bottom: 3rem;
 }
 
 .page-banner--logo {
@@ -88,26 +87,25 @@ nav{
     max-width: 900px;
     float: right;
     @media screen and (max-width: 1025px) {
-        margin-top: 3rem;
+        margin-top: 4rem;
     }
+
 }
 
 .page-banner--tagline-container{
     height: auto;
+    width: auto;
 }
 
 .page-banner--tagline{
     font-family: "HKGrotesk", sans-serif;
     font-size: calc(12px + 1.5vw);
     line-height: 1.35;
-    margin-top: auto;
-    margin-bottom: auto;
     @media screen and (max-width: 1025px) {
         display: block;
         width: 100%;
         text-align: center;
-        margin-top: -1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
 }
 
