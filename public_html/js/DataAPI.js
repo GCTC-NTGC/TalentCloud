@@ -786,3 +786,16 @@ DataAPI.getWorkplaceEnvironment = function(managerProfileId, responseCallback) {
         responseCallback(request.response);
     });
 };
+
+DataAPI.saveSkillDeclaration = function(skillDeclaration, isEssential, criteriaId, applicationId, requestCallback) {
+    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, skillDeclaration, requestCallback);
+};
+
+DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId, requestCallback) {
+    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, null, requestCallback);
+};
+

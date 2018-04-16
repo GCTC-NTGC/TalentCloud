@@ -11,6 +11,21 @@ JobApplicationAPI.ApplicationQuestionAnswer = function(
     this.answer = answer;
 };
 
+JobApplicationAPI.SkillDeclaration = function(
+        skillDeclarationId,
+        skill,
+        experienceLevelId,
+        skillLevelId,
+        description,
+        lastUpdated) {
+    this.skill_declaration_id = skillDeclarationId;
+    this.skill = skill;
+    this.experience_level_id = experienceLevelId;
+    this.skill_level_id = skillLevelId;
+    this.description = description;
+    this.last_updated = lastUpdated;
+};
+
 /*
  * It's recommended to use the costructor for this object, to avoid dealing
  * directly with multilevel JSON
@@ -75,6 +90,17 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function(jobPosterRe
     
     document.getElementById('createJobApplicationPostition').innerHTML = jobPoster.title;
     JobApplicationAPI.populateApplicationWithQuestionContent(jobPoster.questions);
+    
+    var essentialSkillWrapper = document.getElementById("skills__essential-group-wrapper");
+    for (var i=0; i < jobPoster.core_competencies.length; i++) {
+        var skillDeclaration = new JobApplicationAPI.SkillDeclaration();
+        skillDeclaration.skill = jobPoster.core_competencies[i].value;
+        var criteriaId = jobPoster.core_competencies[i].id;
+        var applicationId = 1; //TODO: use real application id!!!
+        var skillDeclarationForm = JobApplicationAPI.makeSkillDeclarationForm(skillDeclaration, true, criteriaId, applicationId);
+        essentialSkillWrapper.appendChild(skillDeclarationForm);
+    }
+    
 };
 
 JobApplicationAPI.populateApplicationWithUserContent = function(user) {
@@ -146,6 +172,119 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function(jobPosterQuestion, qu
     return wrapper;
 };
 
+/**
+ * 
+ * @param {JobApplicationAPI.SkillDeclaration} skillDeclaration
+ * @param {boolean} isEssential
+ * @return {undefined}
+ */
+JobApplicationAPI.makeSkillDeclarationForm = function(skillDeclaration, isEssential, criteriaId, applicationId) {    
+    var baseSkillDeclarationForm = document.querySelector(".skills__accordion");
+    
+    var skillDeclarationForm = baseSkillDeclarationForm.cloneNode(true);
+    skillDeclarationForm.classList.remove("hidden");
+    
+    var idSuffix = "_" + (isEssential ? "essential" : "asset") + "_" + criteriaId;
+    
+    //Find elements
+    var skillTitle = skillDeclarationForm.querySelector(".skills__skill-title");
+    
+    var accordianTrigger = skillDeclarationForm.querySelector(".skills__accordion-trigger--todo");
+    var accordianContent = skillDeclarationForm.querySelector(".skills__accordion-content");
+    
+    var experienceLabel = skillDeclarationForm.querySelector("#selectYearsOfExperience__label");
+    var experienceSelect = skillDeclarationForm.querySelector("#selectYearsOfExperience");
+    var levelLabel = skillDeclarationForm.querySelector("#selectLevel__label");
+    var levelSelect = skillDeclarationForm.querySelector("#selectLevel");
+    var descriptionLabel = skillDeclarationForm.querySelector("#typeExperience__label");
+    var description = skillDeclarationForm.querySelector("#typeExperience");
+    
+    var saveButton = skillDeclarationForm.querySelector("#skills__save-button");
+    var cancelButton = skillDeclarationForm.querySelector("#skills__cancel-button");
+    
+    //Set skill name
+    skillTitle.innerHTML = skillDeclaration.skill;
+    
+    //Make element id's unique       
+    experienceLabel.setAttribute("id", "selectYearsOfExperience__label" + idSuffix);
+    experienceLabel.setAttribute("for", "selectYearsOfExperience" + idSuffix);       
+    experienceSelect.setAttribute("id", "selectYearsOfExperience" + idSuffix);
+    
+    levelLabel.setAttribute("id", "selectLevel__label" + idSuffix);
+    levelLabel.setAttribute("for", "selectLevel" + idSuffix);        
+    levelSelect.setAttribute("id", "selectLevel" + idSuffix);    
+
+    descriptionLabel.setAttribute("id", "typeExperience__label" + idSuffix);
+    descriptionLabel.setAttribute("for", "typeExperience" + idSuffix);        
+    description.setAttribute("id", "typeExperience" + idSuffix);
+    
+    saveButton.setAttribute("id", saveButton.id + idSuffix);
+    cancelButton.setAttribute("id", cancelButton.id + idSuffix);
+    
+    //Populate dropdowns
+    LookupAPI.populateDropdownElement("experience_level", experienceSelect);
+    LookupAPI.populateDropdownElement("skill_level", levelSelect);
+    
+    //Prepopulate form fields 
+    if (skillDeclaration.experience_level_id)
+        experienceSelect.value = skillDeclaration.experience_level_id;
+    if (skillDeclaration.skill_level_id)
+        levelSelect.value = skillDeclaration.skill_level_id;
+    if (skillDeclaration.description)
+        description.value = skillDeclaration.description;
+    
+    function closeAccordian() {
+        accordianTrigger.classList.remove("active");
+        accordianContent.classList.remove("active");
+    }
+    
+    //Assign button functions
+    saveButton.onclick = function() {
+        var newSkillDeclaration = new JobApplicationAPI.SkillDeclaration();
+        newSkillDeclaration.skill_level_id = levelSelect.value;
+        newSkillDeclaration.experience_level_id = experienceSelect.value;
+        newSkillDeclaration.description = description.value;
+        
+        if (newSkillDeclaration.skill_level_id && newSkillDeclaration.experience_level_id && newSkillDeclaration.description) {
+            DataAPI.saveSkillDeclaration(newSkillDeclaration, isEssential, criteriaId, applicationId, function(response) {
+                if (response.status == 200) {
+                    accordianTrigger.classList.remove("skills__accordion-trigger--todo");
+                    accordianTrigger.classList.remove("skills__accordion-trigger--edit");
+                    accordianTrigger.classList.add("skills__accordion-trigger--complete");
+                    closeAccordian();
+                } else {
+                    //TODO: how to respond to failed status?
+                }
+                
+            }) 
+        } else {
+            //TODO: finish validation!
+        }
+    };
+    cancelButton.onclick = function() {        
+        //TODO: finish validation!
+        DataAPI.deleteSkillDeclaration(isEssential, criteriaId, applicationId, function(response) {
+            if (response.status == 200) {
+                accordianTrigger.classList.remove("skills__accordion-trigger--todo");
+                accordianTrigger.classList.add("skills__accordion-trigger--edit");
+                accordianTrigger.classList.remove("skills__accordion-trigger--complete");
+            }
+        }) 
+    };
+    //TODO: will this work?
+    accordianTrigger.onclick = function() {
+        if (accordianTrigger.classList.contains("skills__accordion-trigger--todo")) {
+            accordianTrigger.classList.add("skills__accordion-trigger--edit");
+            accordianTrigger.classList.remove("skills__accordion-trigger--todo");
+        } else if (accordianTrigger.classList.contains("skills__accordion-trigger--edit")) {
+            accordianTrigger.classList.remove("skills__accordion-trigger--edit");
+            accordianTrigger.classList.add("skills__accordion-trigger--todo");
+        }
+    };
+    return skillDeclarationForm;
+    
+};
+
 JobApplicationAPI.submitNewJobApplication = function() {
     var jobApplicationId = document.getElementById('createJobApplicationJobApplicationId').value;
     var jobPosterId = document.getElementById('createJobApplicationJobPosterId').value;
@@ -188,5 +327,4 @@ JobApplicationAPI.showCreateJobConfirmation = function(jobTitle) {
     
     var createJobApplicationSection = document.getElementById('createJobApplicationConfirmationSection');
     createJobApplicationSection.classList.remove('hidden');
-}
-
+};
