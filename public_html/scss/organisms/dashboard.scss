@@ -33,23 +33,25 @@
 .dashboardTitleDepartmentWrapper{
     width:40%;
     display:inline-block;
+    @media screen and (max-width: 1205px) {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
 }
 
 .dashboardTitleDepartmentWrapper .dashboardJobSummaryTitle{
     font-size: 100%;
     font-size: 1.5em;
     color: #000;
-    line-height: 2.5em;
     text-align: left;
     display:inline;
-
 }
 
 .dashboardTitleDepartmentWrapper .dashboardJobSummaryDepartment{
     font-size: 100%;
     font-size: 1.5em;
     color: #000;
-    line-height: 2.5em;
     display:inline;
 }
 
@@ -58,6 +60,17 @@
     line-height: 3em;
     background-color: #eee;
     border-radius: 1.5em;
+    @media screen and (max-width: 1205px) {
+        width: 25%;
+        margin-left: 22rem;
+        margin-bottom: .5rem;
+    }
+    @media screen and (max-width: 1000px) {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+    }
 }
 
 #dashboardSection .dashBoardHiringManagerWrapper .hiringManagerProfilePicSmall{
@@ -67,6 +80,7 @@
     border-radius: 1.25em;
     margin-bottom: 0.5em;
     display:inline;
+
 }
 
 #dashboardSection .dashBoardHiringManagerWrapper .hiringManagerWidget{
@@ -88,6 +102,18 @@
     width:40%;
     display:inline-block;
     color:#999;
+    @media screen and (max-width: 1205px) {
+        width: 30%;
+        margin-right: 15rem;
+        float: right;
+    }
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+        display: block;
+        float: none;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
 
 #dashboardSection .dashboardJobStatus{
@@ -96,4 +122,11 @@
     margin:0;
     text-align: right;
     color:#999;
+    @media screen and (max-width: 1205px) {
+        text-align: left;
+    }
+    @media screen and (max-width: 1000px) {
+        text-align: center;
+        width: 100%;
+    }
 }
