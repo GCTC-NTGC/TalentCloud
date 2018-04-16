@@ -98,11 +98,11 @@
                 $payload = json_decode($jsonBody, TRUE);
                 
                 $skillDeclaration = new SkillDeclaration();
-                $evidence->setSkill_declaration_id($payload["skil_declaration_id"]);
-                $evidence->setExperience_level_id($payload["experience_level_id"]);
-                $evidence->setSkill_level_id($payload["skill_level_id"]);
-                $evidence->setDescription($payload["description"]);
-                $evidence->setLast_updated($payload["last_updated"]);
+                $skillDeclaration->setSkill_declaration_id($payload["skill_declaration_id"]);
+                $skillDeclaration->setExperience_level_id($payload["experience_level_id"]);
+                $skillDeclaration->setSkill_level_id($payload["skill_level_id"]);
+                $skillDeclaration->setDescription($payload["description"]);
+                $skillDeclaration->setLast_updated($payload["last_updated"]);
                 
                 $result = SkillDeclarationController::putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
                 

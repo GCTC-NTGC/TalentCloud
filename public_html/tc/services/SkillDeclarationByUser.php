@@ -30,7 +30,8 @@
             if(strlen($requestParams) > 1){
                 //TODO: authenticate user
                 $userId = Utils::getParameterFromRequest($requestParams,4);
-                $skill = urldecode(Utils::getParameterFromRequest($requestParams, 6));
+                $skillUrlEncoded = Utils::getParameterFromRequest($requestParams, 6);
+                $skill = urldecode($skillUrlEncoded);
                 $result = SkillDeclarationController::getMostRecentDeclarationForUserAndSkill($userId, $skill);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

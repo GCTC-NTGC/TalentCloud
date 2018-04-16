@@ -9,8 +9,8 @@ class SkillDeclaration implements JsonSerializable{
     protected $description;
     protected $last_updated;
     
-    public function __construct($skill_declaration_id=null, $skill, $experience_level_id=null, $skill_level_id=null, $description=null, $last_updated=null) {
-        $this->skill_declaration_id = $$skill_declaration_id;
+    public function __construct($skill_declaration_id=null, $skill=null, $experience_level_id=null, $skill_level_id=null, $description=null, $last_updated=null) {
+        $this->skill_declaration_id = $skill_declaration_id;
         $this->skill = $skill;
         $this->experience_level_id = $experience_level_id;
         $this->skill_level_id = $skill_level_id;

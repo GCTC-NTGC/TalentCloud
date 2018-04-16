@@ -80,7 +80,7 @@ class SkillDeclarationDAO extends BaseDAO {
         $sqlStr = "
             SELECT 
                 d.skill_declaration_id,
-                dc.core_competency as skill,
+                dc.developing_competency as skill,
                 d.experience_level_id,
                 d.skill_level_id,
                 d.description,
@@ -122,7 +122,7 @@ class SkillDeclarationDAO extends BaseDAO {
      * @return type
      */
     public static function putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
-        self::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration, true);
+        return self::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration, true);
     }
     
     /**
@@ -133,7 +133,7 @@ class SkillDeclarationDAO extends BaseDAO {
      * @return type
      */
     public static function putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
-        self::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration, false);
+        return self::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration, false);
     }
     
     /**
@@ -149,7 +149,7 @@ class SkillDeclarationDAO extends BaseDAO {
         
         $sql_str_declaration = "
             INSERT INTO skill_declaration
-                (experience_level_id
+                (experience_level_id,
                 skill_level_id,
                 description)
             VALUES
@@ -186,9 +186,9 @@ class SkillDeclarationDAO extends BaseDAO {
         
         $sql_id = $link->prepare($sql_str_id);
         
-        $sql_str_deactivation = $link->prepare($sql_str_application_declaration);
-        $sql_str_deactivation->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
-        $sql_str_deactivation->bindValue(':criteria_id', $criteriaId, PDO::PARAM_INT);
+        $sql_deactivation = $link->prepare($sql_str_deactivation);
+        $sql_deactivation->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+        $sql_deactivation->bindValue(':criteria_id', $criteriaId, PDO::PARAM_INT);
         
         $sql_application_declaration = $link->prepare($sql_str_application_declaration);
         $sql_application_declaration->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
@@ -200,9 +200,9 @@ class SkillDeclarationDAO extends BaseDAO {
             $sql_declaration->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $declaration_id = $link->lastInsertId();
             $sql_id->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql_str_deactivation->execute() or die("ERROR: " . implode(":", $link->errorInfo()));     
+            $sql_deactivation->execute() or die("ERROR: " . implode(":", $link->errorInfo()));     
             $sql_application_declaration->execute() or die("ERROR: " . implode(":", $link->errorInfo()));            
-            $link->commit();
+            $link->commit();            
                      
         } catch (PDOException $e) {
             return 'putSkillDeclarationForJobApplication failed: ' . $e->getMessage();
@@ -223,7 +223,7 @@ class SkillDeclarationDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         
         $linkingTableName = $isEssential ? "application_essential_skill_declaration" : "application_asset_skill_declaration";
-        $criteriaIdColumn = $isEssential ?  "job_poster_core_competency_id" : "job_poster_developing_competency_id";
+        //$criteriaIdColumn = $isEssential ?  "job_poster_core_competency_id" : "job_poster_developing_competency_id";
         
         $sql_str_deactivation = "
             UPDATE $linkingTableName 
@@ -233,13 +233,13 @@ class SkillDeclarationDAO extends BaseDAO {
                 AND $criteriaId = :criteria_id
             ;";
         
-        $sql_str_deactivation = $link->prepare($sql_str_application_declaration);
-        $sql_str_deactivation->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
-        $sql_str_deactivation->bindValue(':criteria_id', $criteriaId, PDO::PARAM_INT);
+        $sql_deactivation = $link->prepare($sql_str_deactivation);
+        $sql_deactivation->bindValue(':job_poster_application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+        $sql_deactivation->bindValue(':criteria_id', $criteriaId, PDO::PARAM_INT);
         
         try {     
-            $sql_str_deactivation->execute() or die("ERROR: " . implode(":", $link->errorInfo()));     
-            $rows_modified = $sql_str_deactivation->rowCount();    
+            $sql_deactivation->execute() or die("ERROR: " . implode(":", $link->errorInfo()));     
+            $rows_modified = $sql_deactivation->rowCount();    
         } catch (PDOException $e) {
             return 'removeSkillDeclarationFromJobApplication failed: ' . $e->getMessage();
         }
@@ -290,8 +290,8 @@ class SkillDeclarationDAO extends BaseDAO {
                 AND asd.job_poster_application_id = jpa.job_poster_application_id
                 AND asd.job_poster_developing_competency_id = c.job_poster_developing_competency_id
                 AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
-                AND u_jsp.user_id = @user_id := :user_id
-                AND c.developing_competency = @skill_name := :skill_name
+                AND u_jsp.user_id = :user_id
+                AND c.developing_competency = :skill_name
             UNION
             SELECT 
                d.skill_declaration_id,
@@ -311,14 +311,16 @@ class SkillDeclarationDAO extends BaseDAO {
                AND asd.job_poster_application_id = jpa.job_poster_application_id
                AND asd.job_poster_core_competency_id = c.job_poster_core_competency_id
                AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
-               AND u_jsp.user_id = @user_id
-               AND c.core_competency = @skill_name := :skill_name
+               AND u_jsp.user_id = :user_id_2
+               AND c.core_competency = :skill_name_2
             ORDER BY last_updated DESC LIMIT 1
             ;";
         
         $sql = $link->prepare($sql_str);
         $sql->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $sql->bindValue(':skill_name', $skillName, PDO::PARAM_STR);
+        $sql->bindValue(':user_id_2', $userId, PDO::PARAM_INT);
+        $sql->bindValue(':skill_name_2', $skillName, PDO::PARAM_STR);
         
         try {     
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
