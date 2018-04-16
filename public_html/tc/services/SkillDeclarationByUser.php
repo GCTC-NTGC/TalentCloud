@@ -33,6 +33,13 @@
                 $skillUrlEncoded = Utils::getParameterFromRequest($requestParams, 6);
                 $skill = urldecode($skillUrlEncoded);
                 $result = SkillDeclarationController::getMostRecentDeclarationForUserAndSkill($userId, $skill);
+                
+                if ($result === false) {
+                    header('HTTP/1.0 404 Not Found');
+                    echo(json_encode(array("failed"=>"skill declaration not found"),JSON_FORCE_OBJECT));
+                    exit;
+                }
+                
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
