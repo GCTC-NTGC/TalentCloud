@@ -4705,6 +4705,23 @@ nav {
 .nav-container {
   width: 100%; }
 
+@media screen and (max-width: 660px) {
+  .nav-container li {
+    display: block;
+    width: 100%; } }
+
+.navbar-right {
+  float: right; }
+  @media screen and (max-width: 768px) {
+    .navbar-right {
+      margin-top: 1rem;
+      margin-bottom: 1rem; } }
+  @media screen and (max-width: 660px) {
+    .navbar-right {
+      float: none;
+      margin-top: 0;
+      margin-bottom: 0; } }
+
 .nav-container li a {
   font-size: 1.5rem;
   color: #ccc;
@@ -5200,17 +5217,28 @@ nav {
   padding: 1em 3em; }
 
 .manager-decisions {
-  width: 70%;
-  float: left; }
+  float: left;
+  display: block; }
 
 .manager-decisions strong {
   color: #2196F3; }
 
+.manager-decisions-tip strong {
+  color: #000; }
+
 .manager-decisions-tip {
   width: 30%;
-  float: left;
+  float: right;
   background-color: #EBEBEB;
-  padding: 1.5em; }
+  padding: 1.5em;
+  margin-left: 4em; }
+  @media screen and (max-width: 1000px) {
+    .manager-decisions-tip {
+      width: 100%;
+      float: left;
+      margin-left: 0;
+      margin-top: 1rem;
+      margin-bottom: 1rem; } }
 
 .manager-decisions-tip p {
   font-size: 1.5em;
@@ -5451,6 +5479,9 @@ nav {
   top: 0;
   left: 0; }
 
+.jobPosterSection h4 {
+  font-size: 2.77rem; }
+
 .createJobPosterWrapperWindow {
   width: 80%;
   min-width: 900px;
@@ -5495,8 +5526,18 @@ nav {
 
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 #jobPosterTitle {
-  font-size: 5em;
+  font-size: 4rem;
   color: #eee; }
+  @media screen and (max-width: 1000px) {
+    #jobPosterTitle {
+      font-size: 3rem; } }
+
+.hiringManagerSummary {
+  font-size: 2.5rem;
+  font-weight: bold; }
+  @media screen and (max-width: 767px) {
+    .hiringManagerSummary {
+      font-size: 2rem; } }
 
 #jobPosterLocation {
   color: #eee;
@@ -5565,18 +5606,36 @@ nav {
   width: 30%;
   margin-right: 2em; }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster - Workplace
+
+============================================================================= */
+.job-poster__work-environment-photo-grid {
+  margin: 2rem -2rem; }
+
+.job-poster__work-environment-photo-grid-item {
+  padding: 2rem; }
+
+.job-poster__work-environment-photo {
+  background-color: #c8c8c8;
+  background-position: center;
+  background-size: cover;
+  height: 45vh; }
+
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 .jobSummary {
   position: relative;
   width: 100%;
   color: #777;
-  font-size: 1.25em;
-  padding-bottom: 1.5em;
-  padding-top: 1.5em;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
   display: flex;
   justify-content: center;
   font-family: "HKGrotesk", sans-serif;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 700; }
 
 .jobSummary:nth-child(odd) {
@@ -5588,17 +5647,20 @@ nav {
   flex-direction: row;
   align-items: center;
   max-width: 1200px; }
+  @media screen and (max-width: 800px) {
+    .jobSummaryTable {
+      flex-direction: column; } }
 
 .hiringManagerProfilePicSmall {
-  width: 70px;
-  height: 70px;
-  clip-path: circle(35px at center);
-  margin-bottom: 0.5em;
+  width: 7rem;
+  height: 7rem;
+  clip-path: circle(3.5rem at center);
+  margin-bottom: 0.5rem;
   margin: auto;
   display: block; }
 
 .hiringManagerLabel {
-  font-size: 1em;
+  font-size: 1.5rem;
   color: #333;
   width: 100%;
   text-align: center;
@@ -5606,32 +5668,53 @@ nav {
   display: block; }
 
 .hiringManagerWrapper {
-  width: 200px; }
+  width: 20rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
 
 .jobSummaryTitle {
-  font-size: 1.2em;
+  font-size: 1.777rem;
   font-weight: bold;
   color: #000;
-  line-height: 1.5em;
+  line-height: 2rem;
   text-align: left; }
+  @media screen and (max-width: 800px) {
+    .jobSummaryTitle {
+      text-align: center; } }
 
 .jobSummarySalaryRange {
-  width: 200px;
-  text-align: center; }
+  width: 15rem;
+  text-align: center;
+  padding-top: .25rem;
+  padding-bottom: .25rem; }
+  @media screen and (max-width: 800px) {
+    .jobSummarySalaryRange {
+      width: 90%; } }
 
 .jobSummaryApplicants_to_date {
-  line-height: 1.5em; }
+  padding-bottom: .5rem; }
 
 .jobSummaryTerm_qty {
-  width: 150px;
+  width: 15rem;
   text-align: center; }
 
 .titleDepartmentWrapper {
-  width: 225px; }
+  width: 22.5rem; }
+  @media screen and (max-width: 800px) {
+    .titleDepartmentWrapper {
+      text-align: center;
+      width: 90%;
+      padding-top: .25rem;
+      padding-bottom: .25rem; } }
 
 .applicantsCloseDateWrapper {
   text-align: center;
-  width: 200px; }
+  width: 20rem;
+  padding-top: .25rem;
+  padding-bottom: 1rem; }
+  @media screen and (max-width: 800px) {
+    .applicantsCloseDateWrapper {
+      width: 90%; } }
 
 .viewJobButton {
   color: #fff !important;
@@ -5643,10 +5726,12 @@ nav {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  width: 10%;
   display: block;
-  margin-right: 2em;
-  margin-left: 2em; }
+  margin-right: 2rem;
+  margin-left: 2rem;
+  width: 10rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem; }
 
 /* TODO: deal with empty browseJobs page better */
 #browseJobsSection {
@@ -5655,12 +5740,12 @@ nav {
 #noJobs {
   color: #999;
   text-align: center;
-  font-size: 1.5em; }
+  font-size: 1.5rem; }
 
 .jobCount {
   position: absolute;
-  right: 1em;
-  top: 1em; }
+  right: 1rem;
+  top: 1rem; }
 
 .jobList {
   margin: 0px auto;
