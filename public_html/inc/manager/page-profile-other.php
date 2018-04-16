@@ -17,7 +17,6 @@
         </div>
     </div>
     <div class="stepGroupForm">
-        <h1>Test Title</h1>
         <fieldset>
             <legend>Other</legend>
                 <div class="form-group">
