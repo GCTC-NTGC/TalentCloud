@@ -4063,6 +4063,7 @@ input[type="button"][class*="button--"] {
   [class*="button--"][class*="yellow"],
   input[type="button"][class*="button--"][class*="yellow"] {
     background: #ffe25b;
+    border: 2px solid #ffe25b !important;
     color: #484848; }
     [class*="button--"][class*="yellow"]:hover,
     input[type="button"][class*="button--"][class*="yellow"]:hover {
@@ -4070,6 +4071,7 @@ input[type="button"][class*="button--"] {
   [class*="button--"][class*="grey"],
   input[type="button"][class*="button--"][class*="grey"] {
     background: #c8c8c8;
+    border: 2px solid #c8c8c8 !important;
     color: #484848; }
     [class*="button--"][class*="grey"]:hover,
     input[type="button"][class*="button--"][class*="grey"]:hover {
@@ -4077,6 +4079,7 @@ input[type="button"][class*="button--"] {
   [class*="button--"][class*="blue"],
   input[type="button"][class*="button--"][class*="blue"] {
     background: #2196f3;
+    border: 2px solid #2196f3 !important;
     color: white; }
     [class*="button--"][class*="blue"]:hover,
     input[type="button"][class*="button--"][class*="blue"]:hover {
@@ -5004,8 +5007,18 @@ nav {
       text-align: left; } }
 
 .update-profile__linkedin-label {
+  border: 1px solid #e2e2e2;
+  border-right: none;
+  color: #333333 !important;
+  display: block;
+  font-family: HKGrotesk, sans-serif;
   font-size: 16px;
-  margin-top: 1rem; }
+  font-weight: 400;
+  margin: 0;
+  padding: calc(1rem - 1px) 1rem calc(1rem - 1px) 1rem; }
+
+.update-profile__linkedin-input {
+  flex: 1; }
 
 /* =============================================================================
 
