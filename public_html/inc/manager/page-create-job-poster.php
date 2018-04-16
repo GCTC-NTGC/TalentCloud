@@ -34,28 +34,24 @@
 
                             <section id ="createJobPosterJobTitleSection" class="flex-grid manager-poster__edit-form-grid">
 
-                                <div class="box med-1of2">
-                                    <div class="form-group">
-                                        <label class="form__label" for="createJobPoster_jobTitle">
-                                            <span>Job Title: *</span>
-                                            <strong id="createJobPoster_jobTitle_error" class="error hidden">
-                                                <span id="createJobPoster_jobTitle_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <input class="form__input--text" type="text" name="createJobPoster_jobTitle" id="createJobPoster_jobTitle"/>
-                                    </div>
+                               <div class="form-group box med-1of2">
+                                    <label class="form__label" for="createJobPoster_jobTitle">
+                                        <span>Job Title: *</span>
+                                        <strong id="createJobPoster_jobTitle_error" class="error hidden">
+                                            <span id="createJobPoster_jobTitle_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form__input--text" type="text" name="createJobPoster_jobTitle" id="createJobPoster_jobTitle"/>
                                 </div>
 
-                                <div class="box med-1of2">
-                                    <div class="form-group">
-                                        <label class="form__label" for="createJobPoster_jobTitle_fr">
-                                            <span>Job Title_fr: *</span>
-                                            <strong id="createJobPoster_jobTitle_fr_error" class="error hidden">
-                                                <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
-                                            </strong>
-                                        </label>
-                                        <input class="form__input--text" type="text" name="createJobPoster_jobTitle_fr" id="createJobPoster_jobTitle_fr"/>
-                                    </div>
+                                <div class="form-group box med-1of2">
+                                    <label class="form__label" for="createJobPoster_jobTitle_fr">
+                                        <span>Job Title_fr: *</span>
+                                        <strong id="createJobPoster_jobTitle_fr_error" class="error hidden">
+                                            <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form__input--text" type="text" name="createJobPoster_jobTitle_fr" id="createJobPoster_jobTitle_fr"/>
                                 </div>
 
                             </section>

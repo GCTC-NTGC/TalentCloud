@@ -1,5 +1,6 @@
 <!-- BEGIN - Edit Admin Profile Form (Page 2 / Leadership Style) -->
 <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
+
     <div class="tabsWrapper">
         <div class="tabsSteps">
             <div class="five-step-tab"><span id="createEditProfileStep1Label_2">About</span></div>
@@ -16,9 +17,13 @@
             <div class="steptab inactive"> </div>
         </div>
     </div>
+
     <div class="stepGroupForm">
+
         <h3>Leadership Style</h3>
+
         <div class="flex-grid top manager-edit-profile__form">
+
             <div class="box med-1of2 form-group">
                 <label for="createEditProfile_leadership_style">
                     <span id="createEditProfile_leadership_style_label">My leadership style</span>
@@ -30,6 +35,7 @@
                     <textarea class="form-control full-width" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style"></textarea>
                 </div>
             </div>
+
             <div class="box med-1of2 form-group">
                 <label for="createEditProfile_leadership_style_fr">
                     <span id="createEditProfile_leadership_style_fr_label">Leadership Style_fr: *</span>
@@ -41,6 +47,7 @@
                     <textarea class="form-control full-width" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr"></textarea>
                 </div>
             </div>
+
             <div class="box med-1of2 form-group">
                 <label for="createEditProfile_app_to_employees">
                     <span id="createEditProfile_app_to_employees_label">My approach to employee learning and development</span>
@@ -52,6 +59,7 @@
                     <textarea class="form-control full-width" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees"></textarea>
                 </div>
             </div>
+
             <div class="box med-1of2 form-group">
                 <label for="createEditProfile_app_to_employees_fr">
                     <span id="createEditProfile_app_to_employees_fr_label">Approach to employees_fr: *</span>
@@ -63,6 +71,7 @@
                     <textarea class="form-control full-width" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr"></textarea>
                 </div>
             </div>
+
             <div class="box med-1of2 form-group">
                 <label for="createEditProfile_exp_of_employees">
                     <span id="createEditProfile_exp_of_employees_label">My expectations of employees</span>
@@ -74,6 +83,7 @@
                     <textarea class="form-control full-width" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees"></textarea>
                 </div>
             </div>
+
             <div class="box med-1of2 form-group">
                 <label for="createEditProfile_exp_of_employees_fr">
                     <span id="createEditProfile_exp_of_employees_fr_label">Expectation of employees_fr: *</span>
@@ -85,10 +95,15 @@
                     <textarea class="form-control full-width" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr"></textarea>
                 </div>
             </div>
+
         </div>
+
     </div>
+
     <fieldset>
+
         <legend>My approach to decision making:</legend>
+
         <div>
             <div class="form-group">
                 <div class="multi-btn-group-form-group-label">
@@ -107,6 +122,7 @@
                 </div>
             </div>
         </div>
+
         <div>
             <div class="multi-btn-group-form-group">
                 <div class="multi-btn-group-form-group-label">
@@ -131,6 +147,7 @@
                 </div>
             </div>
         </div>
+
         <div>
             <div class="multi-btn-group-form-group">
                 <div class="multi-btn-group-form-group-label">
@@ -155,6 +172,7 @@
                 </div>
             </div>
         </div>
+        
         <div>
             <div class="multi-btn-group-form-group">
                 <div class="multi-btn-group-form-group-label">
@@ -204,30 +222,32 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="multi-btn-group-form-group">
-                <div class="multi-btn-group-form-group-label">
-                    <span>How often do you refuse low value work requests from management?</span>
-                </div>
-                <div style="display:inline-block;width:48%">
-                    <div class="multi-btn-group clearfix">
-                        <div id="createEditProfile_lvwrequests" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
-                            <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')" />
-                            <label for="lvwRequests_option0" class="option0Label">Almost never</label>
-                            <input type="radio" id="lvwRequests_option1" name="createEditProfile_lvwrequests" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                            <label for="lvwRequests_option1" class="option1Label">Rarely</label>
-                            <input type="radio" id="lvwRequests_option2" name="createEditProfile_lvwrequests" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                            <label for="lvwRequests_option2" class="option2Label">Sometimes</label>
-                            <input type="radio" id="lvwRequests_option3" name="createEditProfile_lvwrequests" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                            <label for="lvwRequests_option3" class="option3Label">Usually</label>
-                            <input type="radio" id="lvwRequests_option4" name="createEditProfile_lvwrequests" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
-                            <label for="lvwRequests_option4" class="option4Label">Almost always</label>
-                        </div>
-                        <div id="lvwRequests" class="option0"></div>
+
+        <div class="multi-btn-group-form-group">
+            <div class="multi-btn-group-form-group-label">
+                <span>How often do you refuse low value work requests from management?</span>
+            </div>
+            <div style="display:inline-block;width:48%">
+                <div class="multi-btn-group clearfix">
+                    <div id="createEditProfile_lvwrequests" style="position:absolute;top:0px;right:0px;width:560px;height:3em;font-size: 1.2em !important;z-index:100">
+                        <input type="radio" id="lvwRequests_option0" name="createEditProfile_lvwrequests" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')" />
+                        <label for="lvwRequests_option0" class="option0Label">Almost never</label>
+                        <input type="radio" id="lvwRequests_option1" name="createEditProfile_lvwrequests" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
+                        <label for="lvwRequests_option1" class="option1Label">Rarely</label>
+                        <input type="radio" id="lvwRequests_option2" name="createEditProfile_lvwrequests" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
+                        <label for="lvwRequests_option2" class="option2Label">Sometimes</label>
+                        <input type="radio" id="lvwRequests_option3" name="createEditProfile_lvwrequests" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
+                        <label for="lvwRequests_option3" class="option3Label">Usually</label>
+                        <input type="radio" id="lvwRequests_option4" name="createEditProfile_lvwrequests" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', this.value, 'lvwRequests')"/>
+                        <label for="lvwRequests_option4" class="option4Label">Almost always</label>
                     </div>
+                    <div id="lvwRequests" class="option0"></div>
                 </div>
             </div>
+        </div>
+
     </fieldset>
+
     <div class="createEditProfileSubmitPane">
         <div class="formGroup insert"><span>*</span><span id="createEditProfile_requiredStep2">Required</span></div>
         <div class="formGroup">
@@ -235,6 +255,6 @@
             <input type="button" id="createEditProfile_goToWorkEnvironment_1" value="Go to WorkEnvironment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');">
         </div>
     </div>
-</div>
+
 </div>
 <!-- END - Edit Admin Profile Form (Page 2 / Leadership Style) -->
