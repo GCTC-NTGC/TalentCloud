@@ -40,7 +40,6 @@ and open the template in the editor .
         include "inc/applicant/page-view-job-poster.php";
         include "inc/applicant/page-applicant-profile.php";
         include "inc/applicant/page-manager-profile.php";
-        /* include "inc/applicant/page-job-application.php"; */
         include "inc/applicant/page-application-form.php";        
         include "inc/applicant/page-job-application-confirm.php";
         include "inc/applicant/page-dashboard.php";

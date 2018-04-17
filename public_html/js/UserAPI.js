@@ -468,7 +468,7 @@ UserAPI.showLogin = function () {
     loginDialog.classList.remove("hidden");
     EventsAPI.setFormFocus("switchToRegister");
     EventsAPI.hideBodyOverflow(true);
-    AccessibilityAPI.preventModalEscape("switchToRegister", "loginFormLoginBtn");
+    AccessibilityAPI.preventModalEscape("register_email", "loginFormLoginBtn");
     modalSize();
 };
 

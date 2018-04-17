@@ -15,6 +15,27 @@ nav{
     width: 100%;
 }
 
+.nav-container li {
+    @media screen and (max-width: 660px){
+        display: block;
+        width: 100%;
+    }
+}
+
+.navbar-right {
+    float: right;
+    @media screen and (max-width: 768px) {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    @media screen and (max-width: 660px) {
+        float: none;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+
 .nav-container li a{
     font-size: 1.5rem;
     color: #ccc;
@@ -57,20 +78,35 @@ nav{
 /* TALENT CLOUD LOGO */
 
 .page-banner--logo-container {
-    height: 30rem;
+    max-height: 20vh;
     z-index: 1;
 }
-@media (max-width: 768px) {
-    .page-banner--logo-container {
-        height: 20rem;
-        padding-bottom:3rem;
+
+.page-banner--logo {
+    margin-top: 5rem;
+    max-width: 900px;
+    float: right;
+    @media screen and (max-width: 1025px) {
+        margin-top: 4rem;
     }
+
+}
+
+.page-banner--tagline-container{
+    height: auto;
+    width: auto;
 }
 
 .page-banner--tagline{
     font-family: "HKGrotesk", sans-serif;
-    font-size:2rem !important;
+    font-size: calc(12px + 1.5vw);
     line-height: 1.35;
+    @media screen and (max-width: 1025px) {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
 }
 
 .tc-logo{
@@ -78,12 +114,6 @@ nav{
     height: auto;
     float: right; }
 
-.page-banner--logo-tagline-divider{
-    width:3px;
-    height: 12em;
-    background-color: white;
-    margin: 2em;
-}
 
 .landing-hero__logo {
     margin-top: -11%;

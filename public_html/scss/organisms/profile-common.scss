@@ -79,19 +79,31 @@
 }
 
 .manager-decisions{
-    width:70%;
-    float:left;
+    float: left;
+    display: block;
 }
 
 .manager-decisions strong{
     color:#2196F3;
 }
 
+.manager-decisions-tip strong{
+    color: #000;
+}
+
 .manager-decisions-tip{
     width:30%;
-    float:left;
+    float:right;
     background-color: #EBEBEB;
     padding:1.5em;
+    margin-left: 4em;
+    @media screen and (max-width: 1000px){
+        width: 100%;
+        float: left;
+        margin-left: 0;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 }
 
 .manager-decisions-tip p{
