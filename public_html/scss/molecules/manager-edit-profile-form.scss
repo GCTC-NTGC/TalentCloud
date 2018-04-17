@@ -1,10 +1,58 @@
 /* MANAGER-SIDE "EDIT PROFILE" FORMS*/
-.manager-edit-profile__form {
-    &.flex-grid {
-        padding: 0px 10px;
+// .manager-edit-profile__form {
+//     &.flex-grid {
+//         padding: 0px 10px;
         
-        .box {
-            padding: 0px 10px;
-        }
+//         .box {
+//             padding: 0px 10px;
+//         }
+//     }
+// }
+
+.manager-edit-profile__title {
+    color: $palette-blue;
+    font-weight: 700;
+    margin: 4rem 0 2rem 0;
+}
+
+.manager-edit-profile__required-copy-wrapper {
+    margin: 0 0 2rem 0;
+
+    span {
+        color: red;
+        font-size: 16px;
     }
+
+}
+
+.manager-edit-profile__form {
+    margin: 0 -1rem;
+
+    >.box {
+        padding: 0 1rem;
+    }
+
+}
+
+.manager-edit-profile__divider {
+    appearance: none;
+    background: $black;
+    border: none;
+    height: 1px;
+    width: 100%;
+}
+
+.manager-edit-profile__button-form {
+    margin: 0 -1rem 2rem -1rem;
+
+    >.box {
+        padding: 0 1rem;
+        text-align: center;
+
+        @media #{$p-tablet} {
+            text-align: right;
+        }
+
+    }
+
 }

@@ -3971,39 +3971,6 @@ body[id*="Trident/7.0"] .box {
     Default Buttons
 
 ============================================================================= */
-[class*="button--"] {
-  appearance: none;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  display: inline-block;
-  font-family: HKGrotesk, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  padding: 1rem 2rem;
-  transition: all .2s ease; }
-  [class*="button--"][class*="yellow"] {
-    background: #ffe25b;
-    color: #484848; }
-    [class*="button--"][class*="yellow"]:hover {
-      background: #ffd200; }
-  [class*="button--"][class*="grey"] {
-    background: #c8c8c8;
-    color: #484848; }
-    [class*="button--"][class*="grey"]:hover {
-      background: #a3a3a3; }
-  [class*="button--"][class*="blue"] {
-    background: #2196f3;
-    color: white; }
-    [class*="button--"][class*="blue"]:hover {
-      background: #125184; }
-  [class*="button--"]:hover {
-    transition: all .2s ease; }
-  [class*="button--"]:focus {
-    color: white !important;
-    background: #484848 !important;
-    border: 2px solid #ffd200 !important; }
-
 /* BUTTONS */
 .btn {
   height: 30px;
@@ -4079,6 +4046,52 @@ main .btn-default {
   color: #555;
   background-color: #C8C8C8;
   border-color: transparent; }
+
+[class*="button--"],
+input[type="button"][class*="button--"] {
+  appearance: none;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: HKGrotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: auto;
+  padding: 1rem 2rem;
+  transition: all .2s ease; }
+  [class*="button--"][class*="yellow"],
+  input[type="button"][class*="button--"][class*="yellow"] {
+    background: #ffe25b;
+    border: 2px solid #ffe25b !important;
+    color: #484848; }
+    [class*="button--"][class*="yellow"]:hover,
+    input[type="button"][class*="button--"][class*="yellow"]:hover {
+      background: #ffd200; }
+  [class*="button--"][class*="grey"],
+  input[type="button"][class*="button--"][class*="grey"] {
+    background: #c8c8c8;
+    border: 2px solid #c8c8c8 !important;
+    color: #484848; }
+    [class*="button--"][class*="grey"]:hover,
+    input[type="button"][class*="button--"][class*="grey"]:hover {
+      background: #a3a3a3; }
+  [class*="button--"][class*="blue"],
+  input[type="button"][class*="button--"][class*="blue"] {
+    background: #2196f3;
+    border: 2px solid #2196f3 !important;
+    color: white; }
+    [class*="button--"][class*="blue"]:hover,
+    input[type="button"][class*="button--"][class*="blue"]:hover {
+      background: #125184; }
+  [class*="button--"]:hover,
+  input[type="button"][class*="button--"]:hover {
+    transition: all .2s ease; }
+  [class*="button--"]:focus,
+  input[type="button"][class*="button--"]:focus {
+    color: white !important;
+    background: #484848 !important;
+    border: 2px solid #ffd200 !important; }
 
 /* =============================================================================
 
@@ -4846,10 +4859,37 @@ nav {
     display: block; }
 
 /* MANAGER-SIDE "EDIT PROFILE" FORMS*/
-.manager-edit-profile__form.flex-grid {
-  padding: 0px 10px; }
-  .manager-edit-profile__form.flex-grid .box {
-    padding: 0px 10px; }
+.manager-edit-profile__title {
+  color: #2196f3;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+
+.manager-edit-profile__required-copy-wrapper {
+  margin: 0 0 2rem 0; }
+  .manager-edit-profile__required-copy-wrapper span {
+    color: red;
+    font-size: 16px; }
+
+.manager-edit-profile__form {
+  margin: 0 -1rem; }
+  .manager-edit-profile__form > .box {
+    padding: 0 1rem; }
+
+.manager-edit-profile__divider {
+  appearance: none;
+  background: #333333;
+  border: none;
+  height: 1px;
+  width: 100%; }
+
+.manager-edit-profile__button-form {
+  margin: 0 -1rem 2rem -1rem; }
+  .manager-edit-profile__button-form > .box {
+    padding: 0 1rem;
+    text-align: center; }
+    @media (min-width: 48em) {
+      .manager-edit-profile__button-form > .box {
+        text-align: right; } }
 
 /* =============================================================================
 
