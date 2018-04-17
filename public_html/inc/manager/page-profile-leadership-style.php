@@ -31,7 +31,7 @@
 
         <div class="flex-grid top manager-edit-profile__form">
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_leadership_style" class="form__label">
                     <span id="createEditProfile_leadership_style_label">My leadership style</span>
                     <strong id="createEditProfile_leadership_style_error" class="error hidden">
@@ -41,7 +41,7 @@
                 <textarea class="form__textarea" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_leadership_style_fr" class="form__label">
                     <span id="createEditProfile_leadership_style_fr_label">Leadership Style_fr: *</span>
                     <strong id="createEditProfile_leadership_style_fr_error" class="error hidden">
@@ -51,7 +51,7 @@
                 <textarea class="form__textarea" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_app_to_employees" class="form__label">
                     <span id="createEditProfile_app_to_employees_label">My approach to employee learning and development</span>
                     <strong id="createEditProfile_app_to_employees_error" class="error hidden">
@@ -61,7 +61,7 @@
                 <textarea class="form__textarea" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_app_to_employees_fr" class="form__label">
                     <span id="createEditProfile_app_to_employees_fr_label">Approach to employees_fr: *</span>
                     <strong id="createEditProfile_app_to_employees_fr_error" class="error hidden">
@@ -71,7 +71,7 @@
                 <textarea class="form__textarea" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_exp_of_employees" class="form__label">
                     <span id="createEditProfile_exp_of_employees_label">My expectations of employees</span>
                     <strong id="createEditProfile_exp_of_employees_error" class="error hidden">
@@ -81,7 +81,7 @@
                 <textarea class="form__textarea" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_exp_of_employees_fr" class="form__label">
                     <span id="createEditProfile_exp_of_employees_fr_label">Expectation of employees_fr: *</span>
                     <strong id="createEditProfile_exp_of_employees_fr_error" class="error hidden">
@@ -252,8 +252,8 @@
 
     <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
         <div class="formGroup box full">
-            <input type="button" id="createEditProfile_goToStep1_1" value="Go to Step 2" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
-            <input type="button" id="createEditProfile_goToWorkEnvironment_1" value="Go to WorkEnvironment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');" class="button--yellow">
+            <input type="button" id="createEditProfile_goToStep1_1" value="Return to About" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
+            <input type="button" id="createEditProfile_goToWorkEnvironment_1" value="Go to Work Environment" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');" class="button--yellow">
         </div>
     </div>
 

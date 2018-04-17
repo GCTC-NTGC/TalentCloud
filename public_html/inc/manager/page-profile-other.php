@@ -33,11 +33,11 @@
 
             <div class="flex-grid top manager-edit-profile__form">
 
-                <div class="form-group box full">
+                <div class="box full">
                     <label class="form__label" for="user_manager_profile_work_experience"><span>Work Experience</span></label>
                     <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="form__textarea textAreaInput"></textarea>
                 </div>
-                <div class="form-group box full">
+                <div class="box full">
                     <label class="form__label" for="user_manager_profile_education"><span>Education</span></label>
                     <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="form__textarea textAreaInput"></textarea>
                 </div>

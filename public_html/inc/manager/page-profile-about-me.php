@@ -31,7 +31,7 @@
 
         <div class="flex-grid top manager-edit-profile__form">
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_bio" class="form__label">
                     <span id="createEditProfile_bio_label">A little bit about me</span>
                     <strong id="createEditProfile_bio_error" class="error hidden">
@@ -41,7 +41,7 @@
                 <textarea class="form__textarea" name="createEditProfile_bio" id="createEditProfile_bio"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_bio_fr" class="form__label">
                     <span id="createEditProfile_bio_fr_label">A little bit about me_fr: *</span>
                     <strong id="createEditProfile_bio_fr_error" class="error hidden">
@@ -51,7 +51,7 @@
                 <textarea class="form__textarea" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_proudOf" class="form__label">
                     <span id="createEditProfile_proudOf_label">What I'm most proud of in my career</span>
                     <strong id="createEditProfile_proudOf_error" class="error hidden">
@@ -61,7 +61,7 @@
                 <textarea class="form__textarea" name="createEditProfile_proudOf" id="createEditProfile_proudOf"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_proudOf_fr" class="form__label">
                     <span id="createEditProfile_proudOf_fr_label">What I'm most proud of in my career</span>
                     <strong id="createEditProfile_proudOf_fr_error" class="error hidden">
@@ -71,7 +71,7 @@
                 <textarea class="form__textarea" name="createEditProfile_proudOf_fr" id="createEditProfile_proudOf_fr"></textarea>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_position" class="form__label">
                     <span id="createEditProfile_position_label">Position</span>
                     <strong id="createEditProfile_position_error" class="error hidden">
@@ -81,7 +81,7 @@
                 <input type="text" class="form__input--text" name="createEditProfile_position" id="createEditProfile_position"/>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_position_fr" class="form__label">
                     <span id="createEditProfile_position_fr_label">Position_fr: *</span>
                     <strong id="createEditProfile_position_fr_error" class="error hidden">
@@ -91,7 +91,7 @@
                 <input class="form__input--text" type="text" name="createEditProfile_position_fr" id="createEditProfile_position_fr"/>
             </div>
 
-            <div class="box form-group">
+            <div class="box full">
                 <label for="createEditProfile_department" class="form__label">
                     <span id="createEditProfile_department_label">Department</span>
                     <strong id="createEditProfile_department_error" class="error hidden">
@@ -106,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_branch" class="form__label">
                     <span><span id="createEditProfile_branch_label">Branch</span> (English):</span>
                     <strong id="createEditProfile_branch_error" class="error hidden">
@@ -116,7 +116,7 @@
                 <input type="text" class="form__input--text" name="createEditProfile_branch" id="createEditProfile_branch"/>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_branch_fr" class="form__label">
                     <span><span id="createEditProfile_branch_fr_label">Branch</span> (francais):</span>
                     <strong id="createEditProfile_branch_fr_error" class="error hidden">
@@ -126,7 +126,7 @@
                 <input type="text" class="form__input--text" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr"/>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_division" class="form__label">
                     <span><span id="createEditProfile_division_label">Division</span> (English):</span>
                     <strong id="createEditProfile_division_error" class="error hidden">
@@ -136,7 +136,7 @@
                 <input type="text" class="form__input--text" name="createEditProfile_division" id="createEditProfile_division"/>
             </div>
 
-            <div class="box med-1of2 form-group">
+            <div class="box med-1of2">
                 <label for="createEditProfile_division_fr" class="form__label">
                     <span><span id="createEditProfile_division_fr_label">Division</span> (English):</span>
                     <strong id="createEditProfile_division_fr_error" class="error hidden">
@@ -146,7 +146,7 @@
                 <input class="form__input--text" type="text" name="createEditProfile_division_fr" id="createEditProfile_division_fr"/>
             </div>
 
-            <div class="box form-group">
+            <div class="box full">
                 <label for="createEditProfile_twitter" class="form__label">
                     <span id="createEditProfile_twitter_label">Twitter</span>
                     <strong id="createEditProfile_twitter_error" class="error hidden">
@@ -156,7 +156,7 @@
                 <input class="form__input--text" type="text" name="createEditProfile_twitter" id="createEditProfile_twitter" placeholder="@Username"/>
             </div>
 
-            <div class="box form-group">
+            <div class="box full">
                 <label for="createEditProfile_linkedin" class="form__label">
                     <span id="createEditProfile_linkedin_label">LinkedIn</span>
                     <strong id="createEditProfile_linkedin_error" class="error hidden">
@@ -170,7 +170,7 @@
 
         <div class="createEditProfileSubmitPane flex-grid top manager-edit-profile__button-form">
             <div class="box full">
-                <input class="button--yellow" type="button" id="createEditProfile_goToStep2_1" value="Save" onclick="CreateEditProfileAPI.validateStep1();"/>
+                <input class="button--yellow" type="button" id="createEditProfile_goToStep2_1" value="Go to Leadership" onclick="CreateEditProfileAPI.validateStep1();"/>
             </div>
         </div>
 
