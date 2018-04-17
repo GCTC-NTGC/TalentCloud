@@ -81,24 +81,39 @@
 </div>
 
 <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
+
     <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
-        <div id='registerStatusTitleWrapper' class="dialogTitle">
-            <strong id='registerStatusTitle' title="Talent Cloud Registration Status">Talent Cloud Registration Status</strong>
+
+        <div id='registerStatusTitleWrapper' class="dialogTitle dialogue-modal__title-wrapper">
+            <strong id='registerStatusTitle' title="Talent Cloud Registration Status" class="dialogue-modal__title">Talent Cloud Registration Status</strong>
             <div class="hidden" id="registerStatusDescription">Talent Cloud Registration Status</div>
         </div>
+        
         <div class="dialogWindowInterior">
+
             <div id="registrationStatusSuccessMessage">
 
             </div>
+
             <div id="registrationStatusEmailConfMessage">
 
             </div>
-            <div class="formButtonWrapper">
-                <input type="button" class="btn btn-default" id="registerStatusCloseBtn" value="Close" onclick="UserAPI.hideRegisterConf()">
-                <input type="button" class="btn btn-primary" id="registerStatusLoginBtn" value="Log in" onclick="UserAPI.hideRegisterConf(); return UserAPI.showLogin(this);"/>
+
+            <div class="box full flex-grid middle registration-modal__button-grid">
+                <div class="box med-1of2">
+                    
+                </div>
+                <div class="box med-1of2">
+                    <input type="button" class="button--grey" id="registerStatusCloseBtn" value="Close" onclick="UserAPI.hideRegisterConf()">
+                    <input type="button" class="button--yellow" id="registerStatusLoginBtn" value="Log in" onclick="UserAPI.hideRegisterConf(); return UserAPI.showLogin(this);"/>
+                </div>
             </div>
+
             <div class="clear"></div>
+
         </div>
+
     </div>
+    
 </div>
 <!-- END - Registration Dialog and Overlay-->
