@@ -5031,6 +5031,7 @@ nav {
         .skills__accordion-content > .box:last-child {
           padding: 0 1rem; } }
   .skills__accordion-content .form__textarea {
+    background: white;
     min-height: 12.4rem; }
   .skills__accordion-content hr {
     background: #a3a3a3;
