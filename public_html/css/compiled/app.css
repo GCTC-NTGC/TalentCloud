@@ -4485,6 +4485,17 @@ input[type=date][class*="form__input--"] {
   .form__textarea:focus {
     border: 1px solid #2196f3; }
 
+.form__upload-label {
+  position: relative; }
+  .form__upload-label:focus {
+    color: white;
+    background: #484848;
+    border: 2px solid #ffd200; }
+
+.form__upload-button {
+  position: absolute;
+  left: -1000vh; }
+
 .manager-poster__tab-wrapper {
   padding: 5rem 0; }
 
@@ -4882,8 +4893,26 @@ nav {
   height: 1px;
   width: 100%; }
 
+.manager-edit-profile__workplace-image-grid {
+  margin: 0 -1rem; }
+  .manager-edit-profile__workplace-image-grid > .box {
+    padding: 0 1rem; }
+
+.manager-edit-profile__workplace-image-wrapper > .box:first-child {
+  margin: 0 0 2rem 0; }
+  .manager-edit-profile__workplace-image-wrapper > .box:first-child img {
+    width: 100%; }
+
+.manager-edit-profile__workplace-image-wrapper > .box:last-child {
+  margin-top: auto; }
+
+.manager-edit-profile__photo-upload-wrapper {
+  display: block;
+  margin: 0 0 2rem 0;
+  text-align: center; }
+
 .manager-edit-profile__button-form {
-  margin: 0 -1rem 2rem -1rem; }
+  margin: 2rem -1rem; }
   .manager-edit-profile__button-form > .box {
     padding: 0 1rem;
     text-align: center; }

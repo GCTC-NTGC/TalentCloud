@@ -139,3 +139,19 @@ input[type=date][class*="form__input--"] {
     }
 
 }
+
+.form__upload-label {
+    position: relative;
+
+    &:focus {
+        color: white;
+        background: $palette-grey--dark;
+        border: 2px solid $palette-yellow--dark;
+    }
+
+}
+
+.form__upload-button {
+    position: absolute;
+    left: -1000vh;
+}

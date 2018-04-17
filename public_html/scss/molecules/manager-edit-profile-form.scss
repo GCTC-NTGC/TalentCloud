@@ -42,8 +42,40 @@
     width: 100%;
 }
 
+.manager-edit-profile__workplace-image-grid {
+    margin: 0 -1rem;
+
+    >.box {
+        padding: 0 1rem;
+    }
+
+}
+
+.manager-edit-profile__workplace-image-wrapper {
+
+    >.box:first-child {
+        margin: 0 0 2rem 0;
+
+        img {
+            width: 100%;
+        }
+
+    }
+
+    >.box:last-child {
+        margin-top: auto;
+    }
+
+}
+
+.manager-edit-profile__photo-upload-wrapper {
+    display: block;
+    margin: 0 0 2rem 0;
+    text-align: center;
+}
+
 .manager-edit-profile__button-form {
-    margin: 0 -1rem 2rem -1rem;
+    margin: 2rem -1rem;
 
     >.box {
         padding: 0 1rem;
