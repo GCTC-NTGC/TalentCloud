@@ -9,7 +9,7 @@
 
         <div class="block-container">
 
-            <div class="wb-frmvld wb-init tabbedForm" id="jobPosterFormWrapper">
+            <div class="wb-frmvld wb-init tabbedForm section" id="jobPosterFormWrapper">
 
                 <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
 
