@@ -18,29 +18,38 @@
         </div>
     </div>
 
+    <br>
+
     <div class="stepGroupForm">
 
-        <!-- <h1>Test Title</h1> -->
+        <div class="">
 
-        <br>
+            <h3 class="manager-edit-profile__title heading--03">Other Information</h3>
 
-        <fieldset>
-            <legend>Other</legend>
-            <div class="form-group">
-                <label class="form__label" for="user_manager_profile_work_experience"><span>Work Experience</span></label>
-                <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="form__textarea textAreaInput"></textarea>
+            <div class="manager-edit-profile__required-copy-wrapper">
+                <span>*</span>
+                <span id="createEditProfile_requiredStep2">Required</span>
             </div>
-            <div class="form-group">
-                <label class="form__label" for="user_manager_profile_education"><span>Education</span></label>
-                <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="form__textarea textAreaInput"></textarea>
-            </div>
-        </fieldset>
 
-        <div class="createEditProfileSubmitPane">
-            <div class="formGroup insert"></div>
-            <div class="formGroup">
-                <input id="createEditProfile_goToTeamCulture_2" type="button" value="Go to Team Culture" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')">
-                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();">
+            <div class="flex-grid top manager-edit-profile__form">
+
+                <div class="form-group box full">
+                    <label class="form__label" for="user_manager_profile_work_experience"><span>Work Experience</span></label>
+                    <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="form__textarea textAreaInput"></textarea>
+                </div>
+                <div class="form-group box full">
+                    <label class="form__label" for="user_manager_profile_education"><span>Education</span></label>
+                    <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="form__textarea textAreaInput"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
+            <div class="formGroup box full">
+                <input id="createEditProfile_goToTeamCulture_2" type="button" value="Go to Team Culture" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')" class="button--grey">
+                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();" class="button--yellow">
             </div>
         </div>
         
