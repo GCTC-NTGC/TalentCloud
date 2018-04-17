@@ -16,6 +16,7 @@
 
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
+require_once '../model/Lookup.php';
 
 /**
  * Summary: Data Access Object for Resources
@@ -247,7 +248,7 @@ class LookupDAO extends BaseDAO {
             SELECT 
             sl.skill_level_id as id, sld.skill_level_details_name as value
             FROM 
-            skill_level sl, skill_level_detals sld, locale
+            skill_level sl, skill_level_details sld, locale
             WHERE locale.locale_iso = :locale
             AND sld.skill_level_details_locale_id = locale.locale_id
             AND sld.skill_level_id = sl.skill_level_id
