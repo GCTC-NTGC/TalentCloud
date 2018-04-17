@@ -4675,7 +4675,7 @@ input[type=password][class*="form__input--"] {
 .pageContent {
   margin: 0 auto;
   width: 100%;
-  min-height: 700px;
+  min-height: 80vh;
   overflow: auto; }
 
 .pageBanner {
@@ -4688,7 +4688,7 @@ input[type=password][class*="form__input--"] {
 .pageBody {
   background-color: white;
   width: 100%;
-  min-height: 750px;
+  min-height: 80vh;
   overflow: visible; }
 
 .formButtonWrapper {
@@ -5755,7 +5755,7 @@ nav {
 
 /* TODO: deal with empty browseJobs page better */
 #browseJobsSection {
-  min-height: 800px; }
+  min-height: 90vh; }
 
 #noJobs {
   color: #999;
