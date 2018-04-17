@@ -364,6 +364,7 @@ CREATE TABLE `job_application_answer` (
 
 LOCK TABLES `job_application_answer` WRITE;
 /*!40000 ALTER TABLE `job_application_answer` DISABLE KEYS */;
+INSERT INTO `job_application_answer` VALUES (0000000001,0000000001,'Lots of reasons.'),(0000000002,0000000001,'Personal website, TalentCloud.');
 /*!40000 ALTER TABLE `job_application_answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,7 +413,7 @@ CREATE TABLE `job_poster` (
   `job_poster_remuneration_min` int(9) DEFAULT NULL,
   `job_poster_remuneration_max` int(9) DEFAULT NULL,
   PRIMARY KEY (`job_poster_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -421,6 +422,7 @@ CREATE TABLE `job_poster` (
 
 LOCK TABLES `job_poster` WRITE;
 /*!40000 ALTER TABLE `job_poster` DISABLE KEYS */;
+INSERT INTO `job_poster` VALUES (0000000001,0000000002,'12',0000000001,0000000003,'2018-04-01 00:00:00','2018-05-01 00:00:00','2018-06-01 00:00:00',1,9,100000,120000);
 /*!40000 ALTER TABLE `job_poster` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,7 +439,7 @@ CREATE TABLE `job_poster_application` (
   `application_job_seeker_profile_id` int(10) unsigned zerofill NOT NULL,
   `job_poster_application_status_id` int(10) unsigned zerofill NOT NULL,
   PRIMARY KEY (`job_poster_application_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,6 +448,7 @@ CREATE TABLE `job_poster_application` (
 
 LOCK TABLES `job_poster_application` WRITE;
 /*!40000 ALTER TABLE `job_poster_application` DISABLE KEYS */;
+INSERT INTO `job_poster_application` VALUES (0000000001,0000000001,0000000002,0000000001);
 /*!40000 ALTER TABLE `job_poster_application` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +465,7 @@ CREATE TABLE `job_poster_core_competency` (
   `locale_id` int(10) unsigned zerofill NOT NULL,
   `core_competency` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`job_poster_core_competency_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,6 +474,7 @@ CREATE TABLE `job_poster_core_competency` (
 
 LOCK TABLES `job_poster_core_competency` WRITE;
 /*!40000 ALTER TABLE `job_poster_core_competency` DISABLE KEYS */;
+INSERT INTO `job_poster_core_competency` VALUES (0000000001,0000000001,0000000001,'HTML'),(0000000002,0000000001,0000000001,'Javascript'),(0000000003,0000000001,0000000001,'PHP'),(0000000004,0000000001,0000000002,'HTML'),(0000000005,0000000001,0000000002,'Javascript'),(0000000006,0000000001,0000000002,'PHP');
 /*!40000 ALTER TABLE `job_poster_core_competency` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -491,7 +495,7 @@ CREATE TABLE `job_poster_details` (
   `job_poster_title` varchar(65) COLLATE utf8_unicode_ci NOT NULL,
   `job_poster_impact` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`job_poster_details`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,6 +504,7 @@ CREATE TABLE `job_poster_details` (
 
 LOCK TABLES `job_poster_details` WRITE;
 /*!40000 ALTER TABLE `job_poster_details` DISABLE KEYS */;
+INSERT INTO `job_poster_details` VALUES (0000000001,0000000001,0000000001,'','','Toronto','Web Developper','Improving Hiring\nBetter Talent in Gov'),(0000000002,0000000001,0000000002,'','','Toronto','Dev de Web','Meillure Hiring\nMeillureTalent en Gov');
 /*!40000 ALTER TABLE `job_poster_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -516,7 +521,7 @@ CREATE TABLE `job_poster_developing_competency` (
   `locale_id` int(10) unsigned zerofill NOT NULL,
   `developing_competency` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`job_poster_developing_competency_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -525,6 +530,7 @@ CREATE TABLE `job_poster_developing_competency` (
 
 LOCK TABLES `job_poster_developing_competency` WRITE;
 /*!40000 ALTER TABLE `job_poster_developing_competency` DISABLE KEYS */;
+INSERT INTO `job_poster_developing_competency` VALUES (0000000001,0000000001,0000000001,'CSS'),(0000000002,0000000001,0000000002,'CSS');
 /*!40000 ALTER TABLE `job_poster_developing_competency` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -541,7 +547,7 @@ CREATE TABLE `job_poster_key_task` (
   `locale_id` int(10) unsigned zerofill NOT NULL,
   `task` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`job_poster_key_task_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -550,6 +556,7 @@ CREATE TABLE `job_poster_key_task` (
 
 LOCK TABLES `job_poster_key_task` WRITE;
 /*!40000 ALTER TABLE `job_poster_key_task` DISABLE KEYS */;
+INSERT INTO `job_poster_key_task` VALUES (0000000001,0000000001,0000000001,'Design'),(0000000002,0000000001,0000000001,'Implementation'),(0000000003,0000000001,0000000001,'Maintenence'),(0000000004,0000000001,0000000002,'Design'),(0000000005,0000000001,0000000002,'Implementation'),(0000000006,0000000001,0000000002,'Maintenance_fr');
 /*!40000 ALTER TABLE `job_poster_key_task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -566,7 +573,7 @@ CREATE TABLE `job_poster_other_requirement` (
   `locale_id` int(10) unsigned zerofill NOT NULL,
   `requirement` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`job_poster_other_requirement_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -575,6 +582,7 @@ CREATE TABLE `job_poster_other_requirement` (
 
 LOCK TABLES `job_poster_other_requirement` WRITE;
 /*!40000 ALTER TABLE `job_poster_other_requirement` DISABLE KEYS */;
+INSERT INTO `job_poster_other_requirement` VALUES (0000000001,0000000001,0000000001,'Remote working'),(0000000002,0000000001,0000000001,'Gumption!'),(0000000003,0000000001,0000000002,'Travail a distance'),(0000000004,0000000001,0000000002,'Enthousiasme!');
 /*!40000 ALTER TABLE `job_poster_other_requirement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -591,7 +599,7 @@ CREATE TABLE `job_poster_question` (
   `locale_id` int(10) unsigned zerofill NOT NULL,
   `question` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -600,6 +608,7 @@ CREATE TABLE `job_poster_question` (
 
 LOCK TABLES `job_poster_question` WRITE;
 /*!40000 ALTER TABLE `job_poster_question` DISABLE KEYS */;
+INSERT INTO `job_poster_question` VALUES (0000000001,0000000001,0000000001,'Why are you a good fit?'),(0000000002,0000000001,0000000001,'What relevant projects have you worked on before?'),(0000000003,0000000001,0000000002,'Vous etes un bon candidate pourquoi?'),(0000000004,0000000001,0000000002,'Vous avez travaille sur quelles projets relevents?');
 /*!40000 ALTER TABLE `job_poster_question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -623,6 +632,7 @@ CREATE TABLE `job_poster_to_manager_user_id` (
 
 LOCK TABLES `job_poster_to_manager_user_id` WRITE;
 /*!40000 ALTER TABLE `job_poster_to_manager_user_id` DISABLE KEYS */;
+INSERT INTO `job_poster_to_manager_user_id` VALUES (0000000001,0000000001);
 /*!40000 ALTER TABLE `job_poster_to_manager_user_id` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -681,7 +691,7 @@ CREATE TABLE `job_seeker_profile` (
   `job_seeker_profile_about_me` longtext COLLATE utf8_unicode_ci NOT NULL,
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`job_seeker_profile_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -690,6 +700,7 @@ CREATE TABLE `job_seeker_profile` (
 
 LOCK TABLES `job_seeker_profile` WRITE;
 /*!40000 ALTER TABLE `job_seeker_profile` DISABLE KEYS */;
+INSERT INTO `job_seeker_profile` VALUES (0000000001,'','','','','','My first test account!','','','','2018-04-03 20:33:56'),(0000000002,'','','','','','My first test account!','','','I travel far and wide...','2018-04-03 20:34:18');
 /*!40000 ALTER TABLE `job_seeker_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -787,6 +798,7 @@ CREATE TABLE `manager_profile_to_team_culture` (
 
 LOCK TABLES `manager_profile_to_team_culture` WRITE;
 /*!40000 ALTER TABLE `manager_profile_to_team_culture` DISABLE KEYS */;
+INSERT INTO `manager_profile_to_team_culture` VALUES (0000000001,1);
 /*!40000 ALTER TABLE `manager_profile_to_team_culture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -810,6 +822,7 @@ CREATE TABLE `manager_profile_to_work_environment` (
 
 LOCK TABLES `manager_profile_to_work_environment` WRITE;
 /*!40000 ALTER TABLE `manager_profile_to_work_environment` DISABLE KEYS */;
+INSERT INTO `manager_profile_to_work_environment` VALUES (0000000001,1);
 /*!40000 ALTER TABLE `manager_profile_to_work_environment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -827,7 +840,7 @@ CREATE TABLE `profile_pic` (
   `type` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `size` int(11) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -901,7 +914,7 @@ CREATE TABLE `team_culture` (
   `team_size` int(10) NOT NULL,
   `gc_directory_url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -910,6 +923,7 @@ CREATE TABLE `team_culture` (
 
 LOCK TABLES `team_culture` WRITE;
 /*!40000 ALTER TABLE `team_culture` DISABLE KEYS */;
+INSERT INTO `team_culture` VALUES (0000000001,12,'https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent');
 /*!40000 ALTER TABLE `team_culture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -926,7 +940,7 @@ CREATE TABLE `team_culture_details` (
   `locale_id` int(10) unsigned zerofill NOT NULL,
   `narrative_text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -935,6 +949,7 @@ CREATE TABLE `team_culture_details` (
 
 LOCK TABLES `team_culture_details` WRITE;
 /*!40000 ALTER TABLE `team_culture_details` DISABLE KEYS */;
+INSERT INTO `team_culture_details` VALUES (0000000001,0000000001,0000000001,'Unicorns!'),(0000000002,0000000001,0000000002,'Unicorns_fr!');
 /*!40000 ALTER TABLE `team_culture_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -955,7 +970,7 @@ CREATE TABLE `user` (
   `user_role_id` int(10) unsigned zerofill NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -964,6 +979,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (0000000001,'admin1@test.com','cc03e747a6afbbcbf8be7668acfebee5',NULL,NULL,1,0000000002),(0000000002,'test1@test.com','d41d8cd98f00b204e9800998ecf8427e','Ash','Ketchum',1,0000000001);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -987,6 +1003,7 @@ CREATE TABLE `user_job_seeker_profiles` (
 
 LOCK TABLES `user_job_seeker_profiles` WRITE;
 /*!40000 ALTER TABLE `user_job_seeker_profiles` DISABLE KEYS */;
+INSERT INTO `user_job_seeker_profiles` VALUES (0000000002,0000000001),(0000000002,0000000002);
 /*!40000 ALTER TABLE `user_job_seeker_profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1007,7 +1024,7 @@ CREATE TABLE `user_manager_profile` (
   `user_manager_profile_linkedin` varchar(65) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_id` int(10) NOT NULL,
   PRIMARY KEY (`user_manager_profile_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1016,6 +1033,7 @@ CREATE TABLE `user_manager_profile` (
 
 LOCK TABLES `user_manager_profile` WRITE;
 /*!40000 ALTER TABLE `user_manager_profile` DISABLE KEYS */;
+INSERT INTO `user_manager_profile` VALUES (0000000001,'Treasury Board','TalentCloud Project Manager',3,1,'','',1);
 /*!40000 ALTER TABLE `user_manager_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1043,7 +1061,7 @@ CREATE TABLE `user_manager_profile_details` (
   `user_manager_profile_work_experience` mediumtext COLLATE utf8_unicode_ci,
   `user_manager_profile_education` mediumtext COLLATE utf8_unicode_ci,
   PRIMARY KEY (`user_manager_profile_details_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1052,6 +1070,7 @@ CREATE TABLE `user_manager_profile_details` (
 
 LOCK TABLES `user_manager_profile_details` WRITE;
 /*!40000 ALTER TABLE `user_manager_profile_details` DISABLE KEYS */;
+INSERT INTO `user_manager_profile_details` VALUES (0000000001,1,'I\'m a hiring manager.','Winning that office bet.','Strong','Enthousiastic','High',1,'option4','option3','option2','option2','option1','Government\nTalentCloud','University');
 /*!40000 ALTER TABLE `user_manager_profile_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1142,7 +1161,7 @@ CREATE TABLE `work_environment` (
   `telework_allowed` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `flexible_allowed` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1151,6 +1170,7 @@ CREATE TABLE `work_environment` (
 
 LOCK TABLES `work_environment` WRITE;
 /*!40000 ALTER TABLE `work_environment` DISABLE KEYS */;
+INSERT INTO `work_environment` VALUES (0000000001,'option0','option4','option3');
 /*!40000 ALTER TABLE `work_environment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1167,7 +1187,7 @@ CREATE TABLE `workplace_photo` (
   `mime_type` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `size` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1201,6 +1221,7 @@ CREATE TABLE `workplace_photo_caption` (
 
 LOCK TABLES `workplace_photo_caption` WRITE;
 /*!40000 ALTER TABLE `workplace_photo_caption` DISABLE KEYS */;
+INSERT INTO `workplace_photo_caption` VALUES (0000000001,'workplace_photo_1',0000000001,'Field after winter storm'),(0000000001,'workplace_photo_2',0000000002,'Bonfire on beach'),(0000000001,'workplace_photo_3',0000000003,'Grenoble');
 /*!40000 ALTER TABLE `workplace_photo_caption` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1213,4 +1234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-03 16:50:34
+-- Dump completed on 2018-04-03 16:36:11
