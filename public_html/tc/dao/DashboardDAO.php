@@ -38,10 +38,10 @@ class DashboardDAO extends BaseDAO {
                 jp.job_poster_close_date_time,
                 dd.department_details_name
             FROM 
-				user_job_seeker_profiles ujsp, 
-				user u, 
-				job_seeker_profile jsp, 
-				job_poster_application jpa,
+                user_job_seeker_profiles ujsp, 
+                user u, 
+                job_seeker_profile jsp, 
+                job_poster_application jpa,
                 application_status aps,
                 application_status_details asd,
                 job_poster jp,

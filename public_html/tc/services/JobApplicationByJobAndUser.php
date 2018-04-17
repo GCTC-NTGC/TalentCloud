@@ -30,13 +30,13 @@
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            //Here Handle PUT Request 
-            //$jsonBody = file_get_contents('php://input');
             if(strlen($requestParams) > 1){
-                //$jobSeekerJSON = json_decode($jsonBody, TRUE);
-                //var_dump($jobSeekerJSON);
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
-                $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersById($jobPosterApplicationId);
+                //TODO: authenticate user
+                
+                $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
+                $userId = Utils::getParameterFromRequest($requestParams,6);
+                
+                $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersByJobAndUser($jobPosterId, $userId);
                 
                 $json = json_encode($jobApplicationWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
@@ -47,9 +47,16 @@
             }
             break;
         case 'POST':
+            break;
+        case 'DELETE':
+            //Here Handle DELETE Request 
+            break;
+        case 'PUT':
             //Authenticate that the submitting user owns job seeker profile
+            $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
+            $userId = Utils::getParameterFromRequest($requestParams,6);
             
-            //Assemble JobApplicationWithAnswers object from JSON
+            //Assemble JobApplicationWithAnswers object from JSON payload
             $jsonBody = file_get_contents('php://input');
             $jsonJobApplicationWithAnswers = json_decode($jsonBody, TRUE);
        
@@ -58,6 +65,7 @@
             $jobPosterApplication = new JobPosterApplication();
             $jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
             $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
+            $jobPosterApplication->setJob_poster_application_status_id($jsonJobPosterApplication["job_poster_application_status_id"]);
             
             $questionAnswers = [];
             foreach($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
@@ -69,40 +77,38 @@
             
             $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
             
-            $jobPosterApplicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
-            $returnMap = array('job_poster_application_id' => $jobPosterApplicationId);
-            $json = json_encode($returnMap, JSON_PRETTY_PRINT);
-            echo($json);
-            
-            break;
-        case 'DELETE':
-            //Here Handle DELETE Request 
-            break;
-        case 'PUT':
-            //Here Handle PUT Request 
-            //$jsonBody = file_get_contents('php://input');
-            /*
-            if(strlen($requestParams) > 1){
-                //$jobSeekerJSON = json_decode($jsonBody, TRUE);
-                //var_dump($jobSeekerJSON);
-                $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
-                $jobSeekerProfileId = Utils::getParameterFromRequest($requestParams,5);
-                $jobPosterApplication = JobPosterApplicationController::addJobPosterApplication($jobPosterId,$jobSeekerProfileId);
-                
-                $json = json_encode($jobPosterApplication, JSON_PRETTY_PRINT);
-                echo($json);
-            }else{
-                $result = array();
+            //Check status of possibly pre-existing application:
+            $prevApplication = JobApplicationController::getJobApplicationWithAnswersByJobAndUser($jobPosterId, $userId);
+            if ($prevApplication) {
+                if ($prevApplication->getJob_poster_application()->getJob_poster_application_status_id() == 1) {
+                    //Previous application exists in draft form, so can be updated
+                    
+                    //Ensure id matches prev id
+                    $prevId = $prevApplication->getJob_poster_application()->getJob_poster_application_id();
+                    $jobApplicationWithAnswers->getJob_poster_application()->setJob_poster_application_id($prevId);
+                    
+                    JobApplicationController::updateJobApplicationWithAnswers($jobApplicationWithAnswers); 
+                    $result = JobApplicationController::getJobApplicationWithAnswersById($prevId);
+                    $json = json_encode($result, JSON_PRETTY_PRINT);
+                    echo($json);
+                } else {
+                    //Previous application exist, but is not a draft, so cannot be updated
+                    header('HTTP/1.0 403 Forbidden');
+                    echo json_encode(array("failed"=>"Only Draft applications can be modified."),JSON_FORCE_OBJECT);
+                    exit;
+                } 
+            } else {
+                //No previous application exists, so a new one can be created
+                $applicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
+                $result = JobApplicationController::getJobApplicationWithAnswersById($applicationId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                echo($json);   
             }
             break;
-             * 
-             */
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: GET,POST");
+            header("Access-Control-Allow-Methods: GET,PUT");
             echo("");
             break;
     }
