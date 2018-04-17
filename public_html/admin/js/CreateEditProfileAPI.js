@@ -967,7 +967,7 @@ CreateEditProfileAPI.populateProfile = function(response){
         //createEditProfile_department.value = profile_department_id.toString();
         //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
         var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
-        createEditProfile_department_preview.innerHTML = createEditProfile_department.innerHTML;
+        createEditProfile_department_preview.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile_department_id);
     }    
     
     document.getElementById("createEditProfile_branch").value = profile_branch;
