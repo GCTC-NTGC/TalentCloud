@@ -25,7 +25,7 @@
         <h3 class="manager-edit-profile__title heading--03">Our Work Environment</h3>
 
         <div class="manager-edit-profile__required-copy-wrapper">
-            <span>*</span>
+            <span>* = </span>
             <span>Required</span>
         </div>
 
@@ -98,6 +98,11 @@
         <div class="workEnvironmentWrapper">
 
             <h3 id="physicalEnvironment_title" class="manager-edit-profile__title heading--03">Physical Environment</h3>
+
+            <div class="manager-edit-profile__required-copy-wrapper">
+                <span>* = </span>
+                <span>Required</span>
+            </div>
 
             <div class="flex-grid manager-edit-profile__workplace-image-grid">
 

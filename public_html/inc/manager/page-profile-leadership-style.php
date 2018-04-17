@@ -25,7 +25,7 @@
         <h3 class="manager-edit-profile__title heading--03">My Leadership Style</h3>
 
         <div class="manager-edit-profile__required-copy-wrapper">
-            <span>*</span>
+            <span>* = </span>
             <span id="createEditProfile_requiredStep2">Required</span>
         </div>
 
@@ -102,7 +102,7 @@
         <h3 class="manager-edit-profile__title heading--03">My Approach to Decision Making</h3>
 
         <div class="manager-edit-profile__required-copy-wrapper">
-            <span>*</span>
+            <span>* = </span>
             <span>Required</span>
         </div>
 

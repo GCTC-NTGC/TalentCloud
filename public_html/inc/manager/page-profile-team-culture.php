@@ -25,7 +25,7 @@
         <h3 id="createEditProfile_teamCultureTitle" class="manager-edit-profile__title heading--03">Our Team Culture</h3>
 
         <div class="manager-edit-profile__required-copy-wrapper">
-            <span>*</span>
+            <span>* = </span>
             <span>Required</span>
         </div>
 

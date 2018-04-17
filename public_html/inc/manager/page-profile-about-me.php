@@ -25,7 +25,7 @@
         <h3 id="adminAboutMe" class="manager-edit-profile__title heading--03">About Me</h3>
 
         <div class="manager-edit-profile__required-copy-wrapper">
-            <span>*</span>
+            <span>* = </span>
             <span id="createEditProfile_requiredStep1">Required</span>
         </div>
 
