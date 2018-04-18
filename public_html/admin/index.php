@@ -41,11 +41,7 @@ and open the template in the editor .
         include "../inc/manager/page-home-content.php";
         include "../inc/manager/page-job-seeker.php";
         include "../inc/manager/page-create-job-poster.php";
-        include "../inc/manager/page-profile-about-me.php";
-        include "../inc/manager/page-profile-leadership-style.php";
-        include "../inc/manager/page-profile-work-environment.php";
-        include "../inc/manager/page-profile-team-culture.php";
-        include "../inc/manager/page-profile-other.php";
+        include "../inc/manager/page-profile.php";
         ?>
         <!-- END - Includes for pages -->
     </main>

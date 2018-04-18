@@ -206,7 +206,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     
     // Job summary elements
     var jobSummaryTable = document.createElement("div");
-    jobSummaryTable.setAttribute("class", "jobSummaryTable");
+    jobSummaryTable.setAttribute("class", "jobSummaryTable flex-grid");
     
     var jobIDCell = document.createElement("div");
     jobIDCell.setAttribute("class", "jobId hidden");
@@ -225,7 +225,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     hiringManagerLabel.innerHTML = "Hiring Manager";
     
     var hiringManagerWrapper = document.createElement("div");
-    hiringManagerWrapper.setAttribute("class", "hiringManagerWrapper");
+    hiringManagerWrapper.setAttribute("class", "hiringManagerWrapper box xl-1of12 lg-1of12 small-1of1");
     
     hiringManagerWrapper.appendChild(hiringManagerProfilePic);
     hiringManagerWrapper.appendChild(hiringManagerLabel);
@@ -239,14 +239,14 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummaryDepartment.innerHTML = job.department;
     
     var titleDepartmentWrapper = document.createElement("div");
-    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper");
+    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper box xl-4of12 lg-4of12 small-1of1");
     
     titleDepartmentWrapper.appendChild(jobSummaryTitle);
     titleDepartmentWrapper.appendChild(jobSummaryDepartment);
     
     var jobSummarySalaryRange = document.createElement("div");
     jobSummarySalaryRange.setAttribute("id", "jobSummarySalaryRange"+job.id);
-    jobSummarySalaryRange.setAttribute("class", "jobSummarySalaryRange");
+    jobSummarySalaryRange.setAttribute("class", "jobSummarySalaryRange box xl-2of12 lg-2of12 small-1of1");
     if (locale === "en_CA"){
         jobSummarySalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
     } else {
@@ -254,7 +254,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     }
     
     var jobSummaryTerm_qty = document.createElement("div");
-    jobSummaryTerm_qty.setAttribute("class", "jobSummaryTerm_qty");
+    jobSummaryTerm_qty.setAttribute("class", "jobSummaryTerm_qty box xl-2of12 lg-2of12 small-1of1");
     jobSummaryTerm_qty.innerHTML = job.term_qty + " " + job.term_units + " " + siteContent.jobTerm ;
     
     var jobSummaryApplicants_to_date = document.createElement("div");
@@ -267,7 +267,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummaryClose_date_time.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobUntilClose;
     
     var applicantsCloseDateWrapper = document.createElement("div");
-    applicantsCloseDateWrapper.setAttribute("class", "applicantsCloseDateWrapper");
+    applicantsCloseDateWrapper.setAttribute("class", "applicantsCloseDateWrapper box xl-1of12 lg-1of12 small-1of1");
     
     applicantsCloseDateWrapper.appendChild(jobSummaryApplicants_to_date);
     applicantsCloseDateWrapper.appendChild(jobSummaryClose_date_time);

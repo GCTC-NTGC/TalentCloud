@@ -1,9 +1,6 @@
 /* =============================================================================
-
     Authored by: Talent Cloud
-
     Form Styles
-
 ============================================================================= */
 
 /* LEGACY CODE ============================================================== */
@@ -70,7 +67,8 @@ input[type=button],input[type=submit],input[type=reset]{
 
 input[type=text][class*="form__input--"],
 input[type=email][class*="form__input--"],
-input[type=password][class*="form__input--"] {
+input[type=password][class*="form__input--"],
+input[type=date][class*="form__input--"] {
     background: lighten($palette-grey--light, 10%);
     border: none;
     color: $black !important;
@@ -78,6 +76,7 @@ input[type=password][class*="form__input--"] {
     font-family: $font-hk;
     font-size: 16px;
     font-weight: 400;
+    line-height: 1.2;
     margin: 0 0 2rem 0;
     padding: 1rem 2rem 1rem 1rem;
     width: 100%;
@@ -108,9 +107,12 @@ input[type=password][class*="form__input--"] {
 
 .form__select {
     appearance: none;
+    background: lighten($palette-grey--light, 10%);
+    border: none;
     color: $black;
-    font-size: 1.5rem;
     display: block;
+    font-size: 1.5rem;
+    line-height: 1.2;
     padding: 1rem 2rem 1rem 1rem;
     width: 100%;
 
@@ -126,6 +128,7 @@ input[type=password][class*="form__input--"] {
     color: $black;
     display: block;
     font-size: 1.5rem;
+    line-height: 1.2;
     margin: 0 0 2rem 0;
     min-height: 10rem;
     padding: 1rem;
@@ -135,4 +138,20 @@ input[type=password][class*="form__input--"] {
         border: 1px solid $palette-blue;
     }
 
+}
+
+.form__upload-label {
+    position: relative;
+
+    &:focus {
+        color: white;
+        background: $palette-grey--dark;
+        border: 2px solid $palette-yellow--dark;
+    }
+
+}
+
+.form__upload-button {
+    position: absolute;
+    left: -1000vh;
 }
