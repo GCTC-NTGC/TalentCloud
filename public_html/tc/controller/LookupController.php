@@ -30,29 +30,33 @@ class LookupController {
         switch ($dataType) {
             case 'province':
                 $lookupData = LookupDAO::getProvincesByLocale($locale);
-                return $lookupData;
-            break;
+                break;
             case 'city':
                 $lookupData = LookupDAO::getCitiesByLocale($locale);
-                return $lookupData;
-            break;
+                break;
             case 'department':
                 $lookupData = LookupDAO::getDepartmentsByLocale($locale);
-                return $lookupData;
-            break;
+                break;
             case 'division':
                 $lookupData = LookupDAO::getDivisionsByLocale($locale);
-                return $lookupData;
-            break;
+                break;
             case 'jobterm':
                 $lookupData = LookupDAO::getJobTermsByLocale($locale);
-                return $lookupData;
-            break;
+                break;
             case 'branch':
                 $lookupData = LookupDAO::getBranchesByLocale($locale);
-                return $lookupData;
-            break;
+                break;
+            case 'skill_level':
+                $lookupData = LookupDAO::getSkillLevelsByLocale($locale);
+                break;
+            case 'experience_level':
+                $lookupData = LookupDAO::getExperienceLevelsByLocale($locale);
+                break;
+            case 'skill':
+                $lookupData = LookupDAO::getSkillsByLocale($locale);
+                break;            
         }
+        return $lookupData;
     }
 
 }

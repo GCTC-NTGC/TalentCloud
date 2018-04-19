@@ -47,6 +47,8 @@
             }
             break;
         case 'POST':
+            //Authenticate that the submitting user owns job seeker profile
+            
             //Assemble JobApplicationWithAnswers object from JSON
             $jsonBody = file_get_contents('php://input');
             $jsonJobApplicationWithAnswers = json_decode($jsonBody, TRUE);

@@ -14,6 +14,12 @@ RewriteRule ^api/v1/getManagerProfile/([0-9]{1,10}) services/ManagerProfile.php
 RewriteRule ^api/v1/getWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
 RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 RewriteRule ^api/v1/getTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
+RewriteRule ^api/v1/getDeclarationsForApplication/([0-9]{1,10}) services/ApplicationDeclarationService.php
+RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forEssentialCriteria/([0-9]{1,10}) services/ApplicationEssentialDeclarationService.php
+RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forAssetCriteria/([0-9]{1,10}) services/ApplicationAssetDeclarationService.php
+RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forEssentialCriteria/([0-9]{1,10}) services/ApplicationEssentialDeclarationService.php
+RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forAssetCriteria/([0-9]{1,10}) services/ApplicationAssetDeclarationService.php
+RewriteRule ^api/v1/getLatestDeclarationForUser/([0-9]{1,10})/forSkill/([0-9a-zA-Z$_.+!*'(),-]+) services/SkillDeclarationByUser.php
 
 #non localized services - secured
 RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
@@ -27,11 +33,12 @@ RewriteRule ^api/v1/putJobSeekerProfile services/JobSeekerProfile.php
 RewriteRule ^api/v1/getJobApplication/([0-9]{1,10}) services/JobApplication.php
 RewriteRule ^api/v1/getJobApplicationsByJobPoster/([0-9]{1,10}) services/JobApplicationsByJobPoster.php
 RewriteRule ^api/v1/postJobApplication services/JobApplication.php
+RewriteRule ^api/v1/putApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/JobApplicationByJobAndUser.php
+RewriteRule ^api/v1/getApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/JobApplicationByJobAndUser.php
 RewriteRule ^api/v1/createJobPoster services/JobPoster.php
 RewriteRule ^api/v1/putWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
 RewriteRule ^api/v1/putWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 RewriteRule ^api/v1/putTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
-
 
 #common localized services - public
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
@@ -43,6 +50,9 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/city services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/jobterm services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/division services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/branch services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/skill services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/skill_level services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/experience_level services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCulture.php
 
 #admin localized services - secured

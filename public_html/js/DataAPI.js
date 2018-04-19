@@ -753,13 +753,16 @@ DataAPI.getUser = function(userId, responseCallback) {
  * @param {function} responseCallback
  * @return {undefined}
  */
-DataAPI.createJobApplication = function(jobApplication, responseCallback) {
+DataAPI.createJobApplication = function(jobApplication, requestCallback) {
     var url = DataAPI.baseURL + '/postJobApplication';
-    DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), function(request) {
-        responseCallback(request.response);
-    });
+    DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), requestCallback);
 };
 
+
+DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
+    var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
 /**
  *
  * @param {int} managerProfileId
@@ -786,3 +789,21 @@ DataAPI.getWorkplaceEnvironment = function(managerProfileId, responseCallback) {
         responseCallback(request.response);
     });
 };
+
+DataAPI.getSkillDeclarationsForApplication = function(applicationId, requestCallback) {
+    var url = [DataAPI.baseURL, "getDeclarationsForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveSkillDeclaration = function(skillDeclaration, isEssential, criteriaId, applicationId, requestCallback) {
+    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillDeclaration), requestCallback);
+};
+
+DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId, requestCallback) {
+    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
+

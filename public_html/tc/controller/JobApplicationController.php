@@ -38,6 +38,38 @@ class JobApplicationController{
         return $jobApplication;
     }
     
+    /**
+     * 
+     * @param JobApplicationWithAnswers $jobApplicationWithAnswers
+     * @return rowsModified 
+     */
+    public static function updateJobApplicationWithAnswers($jobApplicationWithAnswers) {
+        $rowsModified = JobApplicationDAO::updateJobPosterApplication($jobApplicationWithAnswers->getJob_poster_application());
+        $applicationId = $jobApplicationWithAnswers->getJob_poster_application()->getJob_poster_application_id();
+        foreach($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
+            $questionAnswer->setJob_poster_application_id($applicationId); //Just to ensure id is correct
+            $rowsModified = $rowsModified + JobApplicationDAO::putApplicationQuestionAnswer($questionAnswer);
+        }
+        return $rowsModified;
+    }
+    
+    /**
+     * 
+     * @param int $jobPosterId
+     * @param int $userId
+     * @return JobApplicationWithAnswers $jobApplicationWithAnswers
+     */
+    public static function getJobApplicationWithAnswersByJobAndUser($jobPosterId, $userId) {    
+        $jobPosterApplication = JobApplicationDAO::getJobApplicationByJobAndUser($jobPosterId, $userId);
+        if ($jobPosterApplication) {
+            $questionAnswers = self::getApplicationQuestionAnswers($jobPosterApplication->getJob_poster_application_id());
+            $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
+            return $jobApplicationWithAnswers;
+        } else {
+            return false;
+        }
+    }
+    
     public static function getJobApplicationsWithAnswersForJobPosterApplications($jobPosterApplications) {
         $jobApplicationsWithAnswers = [];
         
@@ -70,6 +102,9 @@ class JobApplicationController{
      * @return int @jobPosterApplicationId
      */
     public static function createJobApplicationWithAnswers($jobApplicationWithAnswers) {
+        //When creating a new job poster, ensure its in draft status
+        $jobApplicationWithAnswers->getJob_poster_application()->setJob_poster_application_status_id(1);
+        
         $jobPosterApplicationId = JobApplicationDAO::createJobPosterApplication($jobApplicationWithAnswers->getJob_poster_application());
         
         foreach($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
@@ -78,5 +113,24 @@ class JobApplicationController{
         JobApplicationDAO::createApplicationQuestionAnswers($jobApplicationWithAnswers->getApplication_question_answers());
         
         return $jobPosterApplicationId;
+    }
+    
+    /**
+     * Returns true if the application status is "Draft"
+     * 
+     * @param type $jobPosterApplicationId
+     * @return boolean
+     */
+    public static function jobApplicationIsDraft($jobPosterApplicationId) {
+        return JobApplicationDAO::jobApplicationIsDraft($jobPosterApplicationId);
+    }
+    
+    /**
+     * Returns the user_id of the creator of the job application
+     * 
+     * @param type $jobPosterApplicationId
+     */
+    public static function getJobApplicationUserId($jobPosterApplicationId) {
+        return JobApplicationDAO::getJobApplicationCreatorUserId($jobPosterApplicationId);
     }
 }
