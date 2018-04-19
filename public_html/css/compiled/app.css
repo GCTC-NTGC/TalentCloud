@@ -4437,11 +4437,8 @@ input[type="button"][class*="button--"] {
 
 /* Molecules ================================================================ */
 /* =============================================================================
-
     Authored by: Talent Cloud
-
     Form Styles
-
 ============================================================================= */
 /* LEGACY CODE ============================================================== */
 #loginErrors {
@@ -4491,7 +4488,8 @@ input[type=button], input[type=submit], input[type=reset] {
 
 input[type=text][class*="form__input--"],
 input[type=email][class*="form__input--"],
-input[type=password][class*="form__input--"] {
+input[type=password][class*="form__input--"],
+input[type=date][class*="form__input--"] {
   background: #e2e2e2;
   border: none;
   color: #333333 !important;
@@ -4499,6 +4497,7 @@ input[type=password][class*="form__input--"] {
   font-family: HKGrotesk, sans-serif;
   font-size: 16px;
   font-weight: 400;
+  line-height: 1.2;
   margin: 0 0 2rem 0;
   padding: 1rem 2rem 1rem 1rem;
   width: 100%; }
@@ -4524,9 +4523,12 @@ input[type=password][class*="form__input--"] {
 
 .form__select {
   appearance: none;
+  background: #e2e2e2;
+  border: none;
   color: #333333;
-  font-size: 1.5rem;
   display: block;
+  font-size: 1.5rem;
+  line-height: 1.2;
   padding: 1rem 2rem 1rem 1rem;
   width: 100%; }
   .form__select:focus {
@@ -4538,12 +4540,24 @@ input[type=password][class*="form__input--"] {
   color: #333333;
   display: block;
   font-size: 1.5rem;
+  line-height: 1.2;
   margin: 0 0 2rem 0;
   min-height: 10rem;
   padding: 1rem;
   width: 100%; }
   .form__textarea:focus {
     border: 1px solid #2196f3; }
+
+.form__upload-label {
+  position: relative; }
+  .form__upload-label:focus {
+    color: white;
+    background: #484848;
+    border: 2px solid #ffd200; }
+
+.form__upload-button {
+  position: absolute;
+  left: -1000vh; }
 
 /* =============================================================================
 
@@ -4594,6 +4608,22 @@ input[type=password][class*="form__input--"] {
   @media (min-width: 48em) {
     .registration-modal__button-grid .box:last-child {
       text-align: right; } }
+
+.manager-poster__tab-wrapper {
+  padding: 5rem 0; }
+
+.manager-poster__title {
+  color: #2196f3;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+
+.manager-poster__edit-form-grid {
+  margin: 0 -1rem; }
+  .manager-poster__edit-form-grid > .box {
+    padding: 0 1rem; }
+
+.input-container {
+  margin-right: 2em; }
 
 /* Organisms ================================================================ */
 /* UTILITY */
@@ -4980,10 +5010,55 @@ nav {
     display: block; }
 
 /* MANAGER-SIDE "EDIT PROFILE" FORMS*/
-.manager-edit-profile__form.flex-grid {
-  padding: 0px 10px; }
-  .manager-edit-profile__form.flex-grid .box {
-    padding: 0px 10px; }
+.manager-edit-profile__title {
+  color: #2196f3;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+
+.manager-edit-profile__required-copy-wrapper {
+  margin: 0 0 2rem 0; }
+  .manager-edit-profile__required-copy-wrapper span {
+    color: red;
+    font-size: 16px; }
+
+.manager-edit-profile__form {
+  margin: 0 -1rem; }
+  .manager-edit-profile__form > .box {
+    padding: 0 1rem; }
+
+.manager-edit-profile__divider {
+  appearance: none;
+  background: #484848;
+  border: none;
+  height: 1px;
+  width: 100%; }
+
+.manager-edit-profile__workplace-image-grid {
+  margin: 0 -1rem; }
+  .manager-edit-profile__workplace-image-grid > .box {
+    padding: 0 1rem; }
+
+.manager-edit-profile__workplace-image-wrapper > .box:first-child {
+  margin: 0 0 2rem 0; }
+  .manager-edit-profile__workplace-image-wrapper > .box:first-child img {
+    width: 100%; }
+
+.manager-edit-profile__workplace-image-wrapper > .box:last-child {
+  margin-top: auto; }
+
+.manager-edit-profile__photo-upload-wrapper {
+  display: block;
+  margin: 0 0 2rem 0;
+  text-align: center; }
+
+.manager-edit-profile__button-form {
+  margin: 2rem -1rem; }
+  .manager-edit-profile__button-form > .box {
+    padding: 0 1rem;
+    text-align: center; }
+    @media (min-width: 48em) {
+      .manager-edit-profile__button-form > .box {
+        text-align: right; } }
 
 /* =============================================================================
 
@@ -5154,6 +5229,7 @@ nav {
         .skills__accordion-content > .box:last-child {
           padding: 0 1rem; } }
   .skills__accordion-content .form__textarea {
+    background: white;
     min-height: 12.4rem; }
   .skills__accordion-content hr {
     background: #a3a3a3;
@@ -5978,7 +6054,7 @@ nav {
   float: left;
   cursor: default;
   width: 100%;
-  position: absolute;
+  /*position: absolute;*/
   background: rgba(0, 0, 0, 0.7); }
 
 .three-step-tab {
