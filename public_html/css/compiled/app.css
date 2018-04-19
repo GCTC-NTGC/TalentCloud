@@ -3923,7 +3923,7 @@ body[id*="Trident/7.0"] .box {
 /* Content Containers: Use this to limit line length for copy. */
 .content-container {
   margin: 0 auto;
-  max-width: 35rem;
+  max-width: 60rem;
   width: 90%; }
 
 /* Block Containers: Use this for consistent widths on sections. */
@@ -5157,6 +5157,11 @@ nav {
     Application Progress Bar
 
 ============================================================================= */
+.application-progress__container {
+  margin: 0 auto;
+  max-width: 120rem;
+  width: 90%; }
+
 .application-progress {
   background: #e2e2e2;
   padding: 4rem 0; }
@@ -5165,7 +5170,7 @@ nav {
     position: relative; }
     @media (min-width: 48em) {
       .application-progress .flex-grid {
-        margin: 0 -2rem; } }
+        margin: 0 -1rem; } }
     .application-progress .flex-grid:before {
       background: #484848;
       content: " ";
@@ -5184,7 +5189,7 @@ nav {
       z-index: 10; }
       @media (min-width: 48em) {
         .application-progress .flex-grid .box {
-          padding: 0 2rem; } }
+          padding: 0 1rem; } }
 
 .application-progress__item.inactive .application-progress__icon-wrapper {
   background: #a3a3a3; }

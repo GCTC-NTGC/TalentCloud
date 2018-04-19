@@ -6,16 +6,22 @@
 
 ============================================================================= */
 
+.application-progress__container {
+    margin: 0 auto;
+    max-width: 120rem;
+    width: 90%;
+}
+
 .application-progress {
     background: lighten($palette-grey--light, 10%);
     padding: 4rem 0;
-    
+
     .flex-grid {
         margin: -1rem 0;
         position: relative;
 
         @media #{$p-tablet} {
-            margin: 0 -2rem;
+            margin: 0 -1rem;
         }
 
         &:before {
@@ -38,7 +44,7 @@
             z-index: 10;
 
             @media #{$p-tablet} {
-                padding: 0 2rem;
+                padding: 0 1rem;
             }
 
         }
