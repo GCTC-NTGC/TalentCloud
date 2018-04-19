@@ -36,6 +36,8 @@ class SkillDeclarationDAO extends BaseDAO {
             SELECT 
                 d.skill_declaration_id,
                 cc.core_competency as skill,
+                cc.job_poster_core_competency_id as criteria_id,
+                'essential' as criteria_type,
                 d.experience_level_id,
                 d.skill_level_id,
                 d.description,
@@ -73,6 +75,7 @@ class SkillDeclarationDAO extends BaseDAO {
      * Returns an array of SkillDeclaration objects associated with the Asset criteria of a JobPosterApplication
      * 
      * @param type $jobPosterApplicationId
+     * @return SkillDeclaration[] $declarations
      */
     public static function getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId) {
         $link = BaseDAO::getConnection();
@@ -81,6 +84,8 @@ class SkillDeclarationDAO extends BaseDAO {
             SELECT 
                 d.skill_declaration_id,
                 dc.developing_competency as skill,
+                dc.job_poster_developing_competency_id as criteria_id,
+                'asset' as criteria_type,
                 d.experience_level_id,
                 d.skill_level_id,
                 d.description,
@@ -275,6 +280,8 @@ class SkillDeclarationDAO extends BaseDAO {
             SELECT 
                 d.skill_declaration_id,
                 c.developing_competency as skill,
+                c.job_poster_developing_competency_id as criteria_id,
+                'asset' as criteria_type,
                 d.experience_level_id,
                 d.skill_level_id,
                 d.description,
@@ -296,6 +303,8 @@ class SkillDeclarationDAO extends BaseDAO {
             SELECT 
                d.skill_declaration_id,
                c.core_competency as skill,
+               c.job_poster_core_competency_id as criteria_id,
+               'essential' as criteria_type,
                d.experience_level_id,
                d.skill_level_id,
                d.description,

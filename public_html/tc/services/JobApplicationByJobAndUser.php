@@ -38,6 +38,13 @@
                 
                 $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersByJobAndUser($jobPosterId, $userId);
                 
+                if ($jobApplicationWithAnswers === false) {
+                    //job application not found
+                    header('HTTP/1.0 404 Not Found');
+                    echo json_encode(array("failed"=>"Requested application does not exist."),JSON_FORCE_OBJECT);
+                    exit;
+                }
+                
                 $json = json_encode($jobApplicationWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
