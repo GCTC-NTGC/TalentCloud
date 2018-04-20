@@ -17,6 +17,7 @@
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
 require_once '../model/Lookup.php';
+require_once '../model/LookupWithDescription.php'
 
 /**
  * Summary: Data Access Object for Resources
@@ -290,6 +291,34 @@ class LookupDAO extends BaseDAO {
             
         } catch (PDOException $e) {
             return 'getExperienceLevelsByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
+    public static function getJobSeekerProfileQuestionsByLocale($locale) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            q.job_seeker_profile_question_id as id, 
+            qd.question as value,
+            qd.description as description
+            FROM 
+            job_seeker_profile_question q, job_seeker_profile_question_details qd, locale
+            WHERE locale.locale_iso = :locale
+            AND qd.locale_id = locale.locale_id
+            AND q.job_seeker_profile_question_id = qd.job_seeker_profile_question_id
+            ORDER BY q.job_seeker_profile_question_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'LookupWithDescription');
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getJobSeekerProfileQuestionsByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
