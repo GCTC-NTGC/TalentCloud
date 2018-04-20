@@ -4149,6 +4149,7 @@ input[type="button"][class*="button--"] {
   border: 1px solid #333333;
   border-radius: 3px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  max-width: 80rem;
   overflow: hidden;
   width: 90%; }
   @media (min-width: 64.01em) {
@@ -4476,7 +4477,8 @@ input[type=button], input[type=submit], input[type=reset] {
   height: 30px; }
 
 /* ============================================================================= */
-.form__wrapper > *:last-child {
+.form__wrapper > *:last-child,
+.form__wrapper > .box:last-child > *:last-child {
   margin-bottom: 0; }
 
 .form__label {
@@ -4484,12 +4486,13 @@ input[type=button], input[type=submit], input[type=reset] {
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1;
-  margin: 0 0 .5rem 0; }
+  margin: 1rem 0; }
 
 input[type=text][class*="form__input--"],
 input[type=email][class*="form__input--"],
 input[type=password][class*="form__input--"],
-input[type=date][class*="form__input--"] {
+input[type=date][class*="form__input--"],
+input[type=url][class*="form__input--"] {
   background: #e2e2e2;
   border: none;
   color: #333333 !important;
@@ -4558,6 +4561,37 @@ input[type=date][class*="form__input--"] {
 .form__upload-button {
   position: absolute;
   left: -1000vh; }
+
+.form__radio-group {
+  position: relative; }
+
+.form__radio-group-label {
+  cursor: pointer;
+  position: relative; }
+  .form__radio-group-label:first-of-type .form__radio-group-span {
+    border-left: 1px solid #484848; }
+
+.form__radio-group-input {
+  position: absolute;
+  left: -1000vh; }
+  .form__radio-group-input:checked + .form__radio-group-span,
+  .form__radio-group-input:focus + .form__radio-group-span {
+    background: #2196f3;
+    color: white;
+    font-weight: 700; }
+
+.form__radio-group-span {
+  background: white;
+  border-top: 1px solid #484848;
+  border-right: 1px solid #484848;
+  border-bottom: 1px solid #484848;
+  border-left: none;
+  color: #333333;
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 1rem;
+  text-align: center; }
 
 /* =============================================================================
 
@@ -5340,6 +5374,220 @@ nav {
     border: none;
     height: 1px;
     width: 100%; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Application Evidence
+
+============================================================================= */
+.applicant-evidence__container {
+  margin: 0 auto;
+  max-width: 100rem;
+  width: 90%; }
+
+.applicant-evidence__explanation-copy {
+  margin: 4rem 0; }
+
+/* Desktop Menu ============================================================= */
+.applicant-evidence__desktop-menu {
+  display: none;
+  border-top: 1px solid #484848;
+  border-bottom: 1px solid #484848;
+  border-left: 1px solid #484848; }
+  @media (min-width: 64em) {
+    .applicant-evidence__desktop-menu {
+      display: block; } }
+
+.applicant-evidence__desktop-menu-item {
+  appearance: none;
+  background: #e2e2e2;
+  border: none;
+  border-bottom: 1px solid #484848;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2rem 10rem 2rem 2rem;
+  position: relative;
+  text-align: left;
+  transition: background .2s ease;
+  width: 100%; }
+  .applicant-evidence__desktop-menu-item.active {
+    background: #2196f3 !important;
+    color: white !important; }
+    .applicant-evidence__desktop-menu-item.active .applicant-evidence__desktop-icon-wrapper i {
+      color: rgba(255, 255, 255, 0.3); }
+      .applicant-evidence__desktop-menu-item.active .applicant-evidence__desktop-icon-wrapper i.active {
+        color: white; }
+  .applicant-evidence__desktop-menu-item:hover {
+    background: #a3a3a3;
+    transition: background .2s ease; }
+
+.applicant-evidence__desktop-icon-wrapper {
+  padding: 2rem;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%); }
+  .applicant-evidence__desktop-icon-wrapper i {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    margin: 0 .2rem 0 0; }
+    .applicant-evidence__desktop-icon-wrapper i.active {
+      color: #333333; }
+    .applicant-evidence__desktop-icon-wrapper i:last-child {
+      margin: 0; }
+
+/* Accordions =============================================================== */
+.applicant-evidence__form-wrapper {
+  border: 1px solid #484848; }
+
+@media (min-width: 64em) {
+  .applicant-evidence__accordion-wrapper {
+    display: none; } }
+
+@media (min-width: 64em) {
+  .applicant-evidence__accordion-wrapper.active {
+    display: block; } }
+
+/* Trigger */
+.applicant-evidence__accordion-trigger {
+  cursor: pointer; }
+  @media (min-width: 64em) {
+    .applicant-evidence__accordion-trigger {
+      cursor: default; } }
+  .applicant-evidence__accordion-trigger.active .applicant-evidence__accordion-trigger-title {
+    background: #2196f3; }
+    @media (min-width: 64em) {
+      .applicant-evidence__accordion-trigger.active .applicant-evidence__accordion-trigger-title {
+        background: #484848; } }
+
+.applicant-evidence__accordion-trigger-title {
+  background: #484848;
+  border: none;
+  border-bottom: 1px solid #484848;
+  color: white;
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 3rem;
+  position: relative;
+  text-align: center;
+  width: 100%; }
+  @media (min-width: 64em) {
+    .applicant-evidence__accordion-trigger-title {
+      padding: 3rem 12rem 3rem 3rem;
+      text-align: left; } }
+
+.applicant-evidence__accordion-trigger-icon-wrapper {
+  padding: 3rem 3rem 0 3rem; }
+  @media (min-width: 64em) {
+    .applicant-evidence__accordion-trigger-icon-wrapper {
+      padding: 3rem;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(0, -50%); } }
+  .applicant-evidence__accordion-trigger-icon-wrapper i {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 18px;
+    margin: 0 .5rem 0 0; }
+    .applicant-evidence__accordion-trigger-icon-wrapper i:last-child {
+      margin: 0; }
+    .applicant-evidence__accordion-trigger-icon-wrapper i.active {
+      color: white; }
+
+/* Content */
+.applicant-evidence__accordion-content {
+  background: #e2e2e2;
+  display: none; }
+  @media (min-width: 64em) {
+    .applicant-evidence__accordion-content {
+      display: block; } }
+  .applicant-evidence__accordion-content.active {
+    display: block; }
+  .applicant-evidence__accordion-content *[class*="form__input--"], .applicant-evidence__accordion-content *[class*="form__textarea"] {
+    background: white !important;
+    border: 1px solid #484848 !important; }
+  .applicant-evidence__accordion-content .form__select {
+    background: white !important;
+    border: 1px solid #484848 !important; }
+
+/* Content - Required */
+.applicant-evidence__required-wrapper {
+  padding: 3rem; }
+
+.applicant-evidence__skill-description {
+  font-size: 16px;
+  margin: 0 0 2rem 0; }
+
+.applicant-evidence__assessment-warning {
+  color: #2196f3;
+  font-size: 16px;
+  margin: 2.5rem 0 2rem 0;
+  text-align: center; }
+
+.applicant-evidence__section-title {
+  font-size: 22px;
+  margin: 0 0 2rem;
+  text-align: center; }
+  @media (min-width: 64em) {
+    .applicant-evidence__section-title {
+      text-align: left; } }
+  .applicant-evidence__section-title i {
+    color: #2196f3; }
+  .applicant-evidence__section-title a {
+    display: block;
+    font-size: 16px;
+    margin: 1rem 0 0 0;
+    text-decoration: underline;
+    vertical-align: middle; }
+    @media (min-width: 64em) {
+      .applicant-evidence__section-title a {
+        float: right;
+        margin: 0; } }
+
+.applicant-evidence__expertise-wrapper {
+  margin: 0 0 2rem; }
+
+.applicant-evidence__experience-wrapper {
+  margin: 0 0 2rem; }
+
+.evidence__completion-wrapper {
+  display: none;
+  font-size: 16px;
+  margin: 2.5rem 0 0 0;
+  text-align: center; }
+  .evidence__completion-wrapper.active {
+    display: block; }
+  .evidence__completion-wrapper i {
+    color: #2196f3; }
+  .evidence__completion-wrapper span:first-of-type {
+    display: inline-block;
+    font-weight: 700;
+    margin: 0 0 1rem 0; }
+
+/* Content - Optional */
+.applicant-evidence__optional-wrapper {
+  border-top: 1px solid #484848;
+  display: none;
+  padding: 3rem; }
+  .applicant-evidence__optional-wrapper.active {
+    display: block; }
+  .applicant-evidence__optional-wrapper > .flex-grid {
+    margin: 0 -1rem; }
+    .applicant-evidence__optional-wrapper > .flex-grid > .box {
+      padding: 0 1rem; }
+
+.applicant-evidence__content-divider {
+  background: #333333;
+  border: none;
+  height: 1px;
+  margin: 3rem 0;
+  width: 100%; }
 
 /* =============================================================================
 

@@ -340,14 +340,14 @@ window.onload = function(e) {
             if (this.classList.contains("active")) {
                 // Closes all accordions.
                 for (let x of accordionTrigger) {
-                    x.classList.remove("active")
+                    x.classList.remove("active");
                     x.nextElementSibling.classList.remove("active");
                 }
             }
             else {
                 // Closes all accordions.
                 for (let x of accordionTrigger) {
-                    x.classList.remove("active")
+                    x.classList.remove("active");
                     x.nextElementSibling.classList.remove("active");
                 }
                 // Opens this accordion.
@@ -370,3 +370,121 @@ window.onload = function(e) {
     }
 
 };
+
+// Applicant Evidence UI =======================================================
+window.onload = function(e) {
+
+    var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+    var evidencePane = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
+
+    for (let i of desktopEvidenceTrigger) {
+        i.addEventListener('click', function(e) {
+            e.preventDefault();
+            for (let x of desktopEvidenceTrigger) {
+                x.classList.remove("active");
+            }
+            for (let x of evidencePane) {
+                x.classList.remove("active");
+            }
+            this.classList.add("active");
+            var triggerData = this.getAttribute("data-evidence-trigger");
+            for (let x of evidencePane) {
+                if (x.getAttribute("data-evidence-target") == triggerData) {
+                    x.classList.add("active");
+                    x.querySelector(".applicant-evidence__first-target").focus();
+                }
+            }
+        });
+
+        // Checks for an Enter key click.
+        i.addEventListener("keyup", function(e) {
+            // Cancels the default action.
+            e.preventDefault();
+            // Checks to see if the key pressed was Enter (13).
+            if (e.keyCode == 13) {
+                // Triggers a click, thus activating the click event listener.
+                this.click();
+            }
+        });
+
+    }
+
+    var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
+    for (let i of evidenceStartFocus) {
+        // Checks for an Enter key click.
+        i.addEventListener("keyup", function(e) {
+            // Cancels the default action.
+            e.preventDefault();
+            if (e.shiftKey && e.keyCode == 9) {
+                
+            }
+        });
+    }
+
+    var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
+
+    for (let i of evidenceEarlyEndFocus) {
+
+        i.addEventListener("keydown", function(e) {
+
+            if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
+                // Continue on your way.
+            }
+            else {
+                
+                if (!e.shiftKey && e.keyCode == 9) {
+
+                    e.preventDefault();
+
+                    var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+                    
+                    var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+                    
+                    for (let i of desktopEvidenceTrigger) {
+
+                        if (i.getAttribute("data-evidence-trigger") == triggerData) {
+                            i.nextElementSibling.focus();
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+    var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
+
+    for (let i of evidenceEndFocus) {
+
+        i.addEventListener("keydown", function(e) {
+
+            if (!e.shiftKey && e.keyCode == 9) {
+
+                e.preventDefault();
+
+                var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+
+                console.log(triggerData);
+
+                // var thisElement = this.parentElement.querySelector(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+                var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+                
+                for (let i of desktopEvidenceTrigger) {
+
+                    if (i.getAttribute("data-evidence-trigger") == triggerData) {
+                        i.nextElementSibling.focus();
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+}
