@@ -17,7 +17,7 @@
 /** Model Classes */
 require_once '../dao/BaseDAO.php';
 require_once '../model/Lookup.php';
-require_once '../model/LookupWithDescription.php'
+require_once '../model/LookupWithDescription.php';
 
 /**
  * Summary: Data Access Object for Resources

@@ -511,7 +511,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function(){
 JobSeekerAPI.saveJobSeekerProfile = function(jobSeekerProfile){
     var user = UserAPI.getSessionUserAsJSON();
     Utilities.debug?console.log("saving job seeker profile"):null;
-    var saveJobSeekerProfile_url = DataAPI.baseURL+"/putJobSeekerProfile/"+user.user_id;
+    var saveJobSeekerProfile_url = DataAPI.baseURL+"/putJobSeekerProfileByUser/"+user.user_id;
     var jsonData=JSON.stringify(jobSeekerProfile);
 
     var saveJobSeekerProfile_xhr = new XMLHttpRequest();

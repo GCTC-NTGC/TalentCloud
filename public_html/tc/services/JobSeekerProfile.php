@@ -17,6 +17,7 @@ set_include_path(get_include_path(). PATH_SEPARATOR);
 
 require_once '../controller/JobSeekerController.php';
 require_once '../model/JobSeekerProfile.php';
+require_once '../model/JobSeekerProfileAnswer.php';
 require_once '../model/User.php';
 require_once '../utils/Utils.php';
 
@@ -70,19 +71,20 @@ header("Content-Type: application/json; charset=utf-8");
                 $jobSeekerJSON = json_decode($jsonBody, TRUE);
                 //var_dump($jobSeekerJSON);
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
-                $jobSeekerProfile = new JobSeekerProfile(
-                    $jobSeekerJSON["id"],
-                    $jobSeekerJSON["personal_link"],
-                    $jobSeekerJSON["accomplishment"],
-                    $jobSeekerJSON["best_experience"],
-                    $jobSeekerJSON["worst_experience"],
-                    $jobSeekerJSON["superpower"],
-                    $jobSeekerJSON["tagline"],
-                    $jobSeekerJSON["twitter_link"],
-                    $jobSeekerJSON["linkedin_link"],
-                    $jobSeekerJSON["about_me"],
-                    $jobSeekerJSON["last_updated"]
-                );
+                $jobSeekerProfile = new JobSeekerProfile();
+                $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["job_seeker_profile_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["job_seeker_profile_twitter_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_linkedin_link($jobSeekerJSON["job_seeker_profile_linkedin_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_tagline($jobSeekerJSON["job_seeker_profile_tagline"]);
+                $answers = [];
+                foreach($jobSeekerJSON["job_seeker_profile_answers"] as $answerJson) {
+                    $answer = new JobSeekerProfileAnswer();
+                    $answer->setJob_seeker_profile_question_id($answerJson["job_seeker_profile_question_id"]);
+                    $answer->setAnswer($answerJson["answer"]);
+                    $answers[] = $answer;
+                }
+                $jobSeekerProfile->setJob_seeker_profile_answers($answers);
+                
                 //$user = new User();
                 $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile,$user_id);
                 

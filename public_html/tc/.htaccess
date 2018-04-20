@@ -28,8 +28,8 @@ RewriteRule ^api/v1/user/validateEmail services/User.php
 RewriteRule ^api/v1/user/update services/User.php
 RewriteRule ^api/v1/locale services/Locale.php
 RewriteRule ^api/v1/getJobSeekers services/JobSeekers.php
-RewriteRule ^api/v1/getJobSeekerProfile/([0-9]{1,10}) services/JobSeekerProfile.php
-RewriteRule ^api/v1/putJobSeekerProfile services/JobSeekerProfile.php
+RewriteRule ^api/v1/getJobSeekerProfileByUser/([0-9]{1,10}) services/JobSeekerProfile.php
+RewriteRule ^api/v1/putJobSeekerProfileByUser/([0-9]{1,10}) services/JobSeekerProfile.php
 RewriteRule ^api/v1/getJobApplication/([0-9]{1,10}) services/JobApplication.php
 RewriteRule ^api/v1/getJobApplicationsByJobPoster/([0-9]{1,10}) services/JobApplicationsByJobPoster.php
 RewriteRule ^api/v1/postJobApplication services/JobApplication.php
