@@ -437,7 +437,7 @@ window.onload = function(e) {
                     e.preventDefault();
 
                     var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-                    
+
                     var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
                     
                     for (let i of desktopEvidenceTrigger) {
@@ -468,9 +468,6 @@ window.onload = function(e) {
 
                 var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
 
-                console.log(triggerData);
-
-                // var thisElement = this.parentElement.querySelector(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
                 var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
                 
                 for (let i of desktopEvidenceTrigger) {
