@@ -12,7 +12,7 @@
  * @author GBowden
  */
 class JobPoster implements JsonSerializable {
-    
+
     private $id;
     private $locale_id;
     private $manager_user_id;
@@ -23,7 +23,7 @@ class JobPoster implements JsonSerializable {
     private $term_units;
     private $job_min_level;
     private $job_max_level;
-    private $job_start_date;
+    private $start_date;
     private $open_date;
     private $close_date;
     private $department;
@@ -39,8 +39,14 @@ class JobPoster implements JsonSerializable {
     private $developing_competencies;
     private $other_requirements;
     private $questions;
+    private $classification;
+    private $clearance;
+    private $language;
 
-    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null, $questions=[]) {
+    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null,
+    $job_min_level=null, $job_max_level=null, $start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null,
+    $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null,
+    $other_requirements=null, $questions=[], $classification=null, $clearance=null, $language=null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -51,7 +57,7 @@ class JobPoster implements JsonSerializable {
         $this->term_units = $term_units;
         $this->job_min_level = $job_min_level;
         $this->job_max_level = $job_max_level;
-        $this->job_start_date = $job_start_date;
+        $this->start_date = $start_date;
         $this->open_date = $open_date;
         $this->close_date = $close_date;
         $this->department = $department;
@@ -67,8 +73,11 @@ class JobPoster implements JsonSerializable {
         $this->developing_competencies = $developing_competencies;
         $this->other_requirements = $other_requirements;
         $this->questions = $questions;
+        $this->classification = $classification;
+        $this->clearance = $clearance;
+        $this->language = $language;
     }
-    
+
     public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
@@ -79,7 +88,7 @@ class JobPoster implements JsonSerializable {
         }
         return $gettable_attributes;
     }
-   
+
     public function getId() {
         return $this->id;
     }
@@ -120,8 +129,8 @@ class JobPoster implements JsonSerializable {
         return $this->job_max_level;
     }
 
-    public function getJob_start_date() {
-        return $this->job_start_date;
+    public function getStart_date() {
+        return $this->start_date;
     }
 
     public function getOpen_date() {
@@ -184,6 +193,18 @@ class JobPoster implements JsonSerializable {
         return $this->questions;
     }
 
+    public function getClassification() {
+        return $this->classification;
+    }
+
+    public function getClearance() {
+        return $this->clearance;
+    }
+
+    public function getLanguage() {
+        return $this->language;
+    }
+
     public function setId($id) {
         $this->id = $id;
         return $this;
@@ -234,8 +255,8 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
-    public function setJob_start_date($job_start_date) {
-        $this->job_start_date = $job_start_date;
+    public function setStart_date($start_date) {
+        $this->start_date = $start_date;
         return $this;
     }
 
@@ -311,6 +332,21 @@ class JobPoster implements JsonSerializable {
 
     public function setQuestions($questions) {
         $this->questions = $questions;
+        return $this;
+    }
+
+    public function setClassification($classification) {
+        $this->classification = $classification;
+        return $this;
+    }
+
+    public function setClearance($clearance) {
+        $this->clearance = $clearance;
+        return $this;
+    }
+
+    public function setLanguage($language) {
+        $this->language = $language;
         return $this;
     }
 }

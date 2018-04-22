@@ -11,7 +11,7 @@
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
-    
+
     require_once '../controller/JobPosterController.php';
     require_once '../model/JobPosterNonLocalized.php';
     require_once '../utils/Utils.php';
@@ -46,12 +46,12 @@
         case 'POST':
             header("Accept: application/json");
             $jsonBody = file_get_contents('php://input');
-            
+
             if(strlen($jsonBody) > 1){
                 $jobPosterJSON = json_decode($jsonBody, TRUE);
                 $en = "en_CA";
                 $fr = "fr_CA";
-                
+
                 $jobPoster = new JobPosterNonLocalized();
                 $jobPoster->setManager_user_id($jobPosterJSON["manager_user_id"]);
                 $jobPoster->setTitle_en($jobPosterJSON["title"][$en]);
@@ -85,7 +85,12 @@
                 $jobPoster->setOther_requirements_fr($jobPosterJSON["other_requirements"][$fr]);
                 $jobPoster->setQuestions_en($jobPosterJSON["questions"][$en]);
                 $jobPoster->setQuestions_fr($jobPosterJSON["questions"][$fr]);
-                
+                $jobPoster->setClassification($jobPosterJSON["classification"]);
+                $jobPoster->setClearance_en($jobPosterJSON["clearance"][$en]);
+                $jobPoster->setClearance_fr($jobPosterJSON["clearance"][$fr]);
+                $jobPoster->setLanguage_en($jobPosterJSON["language"][$en]);
+                $jobPoster->setLanguage_fr($jobPosterJSON["language"][$fr]);
+
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -94,13 +99,13 @@
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }
-            
+
             break;
         case 'DELETE':
-            //Here Handle DELETE Request 
+            //Here Handle DELETE Request
             break;
         case 'PUT':
-            //Here Handle PUT Request 
+            //Here Handle PUT Request
             break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
@@ -109,5 +114,5 @@
             echo("");
             break;
     }
-   
+
    ?>

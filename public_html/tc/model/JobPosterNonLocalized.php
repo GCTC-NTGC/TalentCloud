@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -41,30 +41,35 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $other_requirements_fr;
     private $questions_en;
     private $questions_fr;
-    
+    private $classification;
+    private $clearance_en;
+    private $clearance_fr;
+    private $language_en;
+    private $language_fr;
+
     public function __construct(
-            $id=null, 
+            $id=null,
             $manager_user_id=null,
-            $title_en=null, 
-            $title_fr=null, 
-            $department_id=null, 
-            $province_id=null, 
+            $title_en=null,
+            $title_fr=null,
+            $department_id=null,
+            $province_id=null,
             $branch_en=null,
             $branch_fr=null,
             $division_en=null,
             $division_fr=null,
-            $city_en=null, 
-            $city_fr=null, 
-            $term_qty=null, 
-            $term_units_id=null, 
-            $open_date=null, 
-            $close_date=null, 
+            $city_en=null,
+            $city_fr=null,
+            $term_qty=null,
+            $term_units_id=null,
+            $open_date=null,
+            $close_date=null,
             $start_date=null,
-            $remuneration_range_low=null, 
-            $remuneration_range_high=null, 
-            $job_min_level_id=null, 
-            $job_max_level_id=null, 
-            $impact_en=null, 
+            $remuneration_range_low=null,
+            $remuneration_range_high=null,
+            $job_min_level_id=null,
+            $job_max_level_id=null,
+            $impact_en=null,
             $impact_fr=null,
             $key_tasks_en=null,
             $key_tasks_fr=null,
@@ -75,7 +80,13 @@ class JobPosterNonLocalized implements JsonSerializable {
             $other_requirements_en=null,
             $other_requirements_fr=null,
             $questions_en=[],
-            $questions_fr=[]) {
+            $questions_fr=[],
+            $classification=null,
+            $clearance_en=null,
+            $clearance_fr=null,
+            $language_en=null,
+            $language_fr=null
+        ) {
         $this->id = $id;
         $this->manager_user_id = $manager_user_id;
         $this->title_en = $title_en;
@@ -109,9 +120,14 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->other_requirements_fr = $other_requirements_fr;
         $this->questions_en = $questions_en;
         $this->questions_fr = $questions_fr;
+        $this->classification = $classification;
+        $this->clearance_en = $clearance_en;
+        $this->clearance_fr = $clearance_fr;
+        $this->language_en = $language_en;
+        $this->language_fr = $language_fr;
     }
 
-    
+
     public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
@@ -122,7 +138,7 @@ class JobPosterNonLocalized implements JsonSerializable {
         }
         return $gettable_attributes;
     }
-    
+
     public function getId() {
         return $this->id;
     }
@@ -253,6 +269,26 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function getQuestions_fr() {
         return $this->questions_fr;
+    }
+
+    public function getClassification() {
+        return $this->classification;
+    }
+
+    public function getClearance_en() {
+        return $this->clearance_en;
+    }
+
+    public function getClearance_fr() {
+        return $this->clearance_fr;
+    }
+
+    public function getLanguage_en() {
+        return $this->language_en;
+    }
+
+    public function getLanguage_fr() {
+        return $this->language_fr;
     }
 
     public function setId($id) {
@@ -417,6 +453,31 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function setQuestions_fr($questions_fr) {
         $this->questions_fr = $questions_fr;
+        return $this;
+    }
+
+    public function setClassification($classification) {
+        $this->classification = $classification;
+        return $this;
+    }
+
+    public function setClearance_en($clearance_en) {
+        $this->clearance_en = $clearance_en;
+        return $this;
+    }
+
+    public function setClearance_fr($clearance_fr) {
+        $this->clearance_fr = $clearance_fr;
+        return $this;
+    }
+
+    public function setLanguage_en($language_en) {
+        $this->language_en = $language_en;
+        return $this;
+    }
+
+    public function setLanguage_fr($language_fr) {
+        $this->language_fr = $language_fr;
         return $this;
     }
 }
