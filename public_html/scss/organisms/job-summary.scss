@@ -67,7 +67,7 @@ $title-font: 1.777rem;
     }
 }
 .jobSummarySalaryRange{
-    width: 15rem;
+    width: 20rem;
     text-align: center;
     padding-top: .25rem;
     padding-bottom: .25rem;
@@ -81,12 +81,12 @@ $title-font: 1.777rem;
 }
 
 .jobSummaryTerm_qty{
-    width: 15rem;
+    width: 20rem;
     text-align: center;
 }
 
 .titleDepartmentWrapper{
-    width: 22.5rem;
+    width: 20rem;
     @media screen and (max-width: $break-small){
         text-align: center;
         width: 90%;
@@ -118,7 +118,7 @@ $title-font: 1.777rem;
     display: block;
     margin-right: 2rem;
     margin-left: 2rem;
-    width: 10rem;
+    width: 15rem;
     padding-top: .5rem;
     padding-bottom: .5rem;
 }
