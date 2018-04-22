@@ -8,27 +8,31 @@
                 <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
             </p>
             <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
+            <p id="jobPosterRemoteWorkHeader">Remote work</p>
             <input id="jobPosterJobId" type="hidden"/>
         </div>
     </div>
     <div class="pageBody">
         <section id="jobPosterDatapointsSection">
             <div class="container">
-                <ul>
+                <ul class="jobPosterDatapoints">
                     <li>
-                        <p id="jobPosterSalaryRange">
-                            <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
-                        </p>
+                        <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
                     </li>
                     <li>
-                        <p id="jobPosterTerm">
-                            <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
-                        </p>
+                        <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
                     </li>
                     <li>
-                        <p id="jobPosterJobLevel">
-                            <span id="jobPosterJobLevelLabel">Job Level</span>: <span id="jobPosterJobLevelValue"></span>
-                        </p>
+                        <span id="jobPosterJobLevelLabel">Classification</span>: <span id="jobPosterJobLevelValue"></span>
+                    </li>
+                    <li>
+                        <span id="jobPosterClearanceLevelLabel">Security clearance level</span>: <span id="jobPosterClearanceLevelValue"></span>
+                    </li>
+                    <li>
+                        <span id="jobPosterLanguageLabel">Language</span>: <span id="jobPosterLanguageValue"></span>
+                    </li>
+                    <li>
+                        <span id="jobPosterStartDateLabel">Target start date</span>: <span id="jobPosterStartDateValue"></span>
                     </li>
                 </ul>
             </div>
@@ -111,20 +115,6 @@
                             </div>
 
                         </div>
-
-                        <!-- <figure>
-                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_1' alt="First image of workplace environment" src="images/user.png" width="300">
-                            <figcaption>Caption 1</figcaption>
-                        </figure>
-                        <figure>
-                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_2' alt="Second image of workplace environment" src="images/user.png" width="300">
-                            <figcaption>Caption 2</figcaption>
-                        </figure>
-                        <figure>
-                            <img class="jobPosterWorkEnvironmentImage" id='jobPosterWorkEnvironment_3' alt="Third image of workplace environment" src="images/user.png" width="300">
-                            <figcaption>Caption 3</figcaption>
-                        </figure> -->
-
                     </div>
                 </div>
         </section>
