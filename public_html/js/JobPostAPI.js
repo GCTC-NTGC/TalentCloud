@@ -544,8 +544,23 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterJobLevelValue").innerHTML = jobData.classification;
     document.getElementById("jobPosterClearanceLevelValue").innerHTML = jobData.clearance;
     document.getElementById("jobPosterLanguageValue").innerHTML = jobData.language;
-    document.getElementById("jobPosterStartDateValue").innerHTML = jobData.start_date;
 
+    // Split timestamp into [ Y, M, D, h, m, s ]
+    var t = jobData.start_date.split(/[- :]/);
+    // Apply each element to the Date function
+    var d = new Date(t[0], t[1]-1, t[2], t[3] || 0, t[4] || 0, t[5] || 0);
+
+    // Get localized month
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    if (locale === "en_CA"){
+        var month = d.toLocaleString("en", {month: "long"});
+    } else {
+        var month = d.toLocaleString("fr", {month: "long"});
+    }
+    // Formatting i.e. April, 2018
+    var startDateFormatted = month + ", " + d.getFullYear();
+
+    document.getElementById("jobPosterStartDateValue").innerHTML = startDateFormatted;
 
     if (jobData.impact === "")
         jobData.impact = "N/A";
