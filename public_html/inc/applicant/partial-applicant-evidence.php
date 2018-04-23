@@ -11,7 +11,7 @@
             <!-- DEV-NOTE: This first box is the acting desktop menu. It needs to be populated with button elements. The "active" class can be applied to the button itself to indicate the currently selected tab. the first tab should always be open on page load by default. The icons grouped within the buttons can also receive an "active" class to indicate their status in the UI. -->
             <div class="box lg-1of4 applicant-evidence__desktop-menu">
                 
-                <button class="applicant-evidence__desktop-menu-item active" data-evidence-trigger="skill01">
+                <button role="tab" aria-selected="true" class="applicant-evidence__desktop-menu-item active" data-evidence-trigger="skill01">
                     Wireframing
                     <div class="applicant-evidence__desktop-icon-wrapper">
                         <i class="fa fa-clipboard active"></i>
@@ -21,7 +21,7 @@
                     </div>
                 </button>
 
-                <button class="applicant-evidence__desktop-menu-item" data-evidence-trigger="skill02">
+                <button role="tab" aria-selected="false" class="applicant-evidence__desktop-menu-item" data-evidence-trigger="skill02">
                     User Interviews
                     <div class="applicant-evidence__desktop-icon-wrapper">
                         <i class="fa fa-clipboard active"></i>
@@ -31,7 +31,7 @@
                     </div>
                 </button>
 
-                <button class="applicant-evidence__desktop-menu-item" data-evidence-trigger="skill03">
+                <button role="tab" aria-selected="false" class="applicant-evidence__desktop-menu-item" data-evidence-trigger="skill03">
                     HTML
                     <div class="applicant-evidence__desktop-icon-wrapper">
                         <i class="fa fa-clipboard active"></i>
@@ -47,9 +47,10 @@
                 
                 <!-- DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). -->
 
-                <div class="applicant-evidence__accordion-wrapper active" data-evidence-target="skill01">
+                <div role="tabpanel" class="applicant-evidence__accordion-wrapper active" data-evidence-target="skill01">
 
-                    <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0">
+                    <!-- DEV-NOTE: Note that these triggers have ARIA-Expanded true/false as necessary. -->
+                    <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
                         <span class="applicant-evidence__accordion-trigger-title">
                             Wireframing - Intermediate
                             <!-- DEV-NOTE: These icons can receive an "active" class to toggle their state in the UI. This should match the icons in the associated tab menu item. -->
@@ -272,9 +273,9 @@
 
                 <!-- DEV-NOTE: The skills below are simply for FED testing. Please reuse the first skill as the markup template. These also act as examples of what the skills look like without the active states on the "completion-wrapper" and "optional-wrapper" elements. -->
 
-                <div class="applicant-evidence__accordion-wrapper" data-evidence-target="skill02">
+                <div role="tabpanel" class="applicant-evidence__accordion-wrapper" data-evidence-target="skill02">
 
-                    <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0">
+                    <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0" aria-expanded="false">
                         <span class="applicant-evidence__accordion-trigger-title">
                             User Research - Master
                             <div class="applicant-evidence__accordion-trigger-icon-wrapper">
@@ -484,9 +485,9 @@
 
                 </div>
 
-                <div class="applicant-evidence__accordion-wrapper" data-evidence-target="skill03">
+                <div role="tabpanel" class="applicant-evidence__accordion-wrapper" data-evidence-target="skill03">
 
-                    <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0">
+                    <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0" aria-expanded="false">
                         <span class="applicant-evidence__accordion-trigger-title">
                             HTML - Intermediate
                             <div class="applicant-evidence__accordion-trigger-icon-wrapper">
