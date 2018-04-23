@@ -3923,7 +3923,7 @@ body[id*="Trident/7.0"] .box {
 /* Content Containers: Use this to limit line length for copy. */
 .content-container {
   margin: 0 auto;
-  max-width: 35rem;
+  max-width: 60rem;
   width: 90%; }
 
 /* Block Containers: Use this for consistent widths on sections. */
@@ -5246,6 +5246,16 @@ nav {
 ============================================================================= */
 .application-button__wrapper {
   padding: 5rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    User Application - Application Preview
+
+============================================================================= */
+.application-preview {
+  background: white; }
 
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
 .profileBannerFiller {

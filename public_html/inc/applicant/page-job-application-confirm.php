@@ -6,7 +6,7 @@
     </div>
 
     <!-- TAL-48 ============================================================ -->
-    <?php include "page-application-preview.php";?>
+    <?php include "page-application-preview.php"; ?>
 
     <div class="pageBody">
         <div id='createJobApplicationConfirmationBodyWrapper'>
