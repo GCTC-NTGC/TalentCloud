@@ -46,7 +46,7 @@
                 
                 <div class="applicant-evidence__accordion-wrapper active" data-evidence-target="skill01">
 
-                    <div class="applicant-evidence__accordion-trigger active">
+                    <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0">
                         <span class="applicant-evidence__accordion-trigger-title">
                             Wireframing - Intermediate
                             <div class="applicant-evidence__accordion-trigger-icon-wrapper">
@@ -159,7 +159,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-user"></i>
                                 Micro-reference (Optional)
-                                <a href="" title="">What is this?</a>
+                                <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -214,7 +214,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-file"></i>
                                 Sample of my Skill (Optional)
-                                <a href="" title="">What is this?</a>
+                                <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -260,11 +260,11 @@
 
                 <div class="applicant-evidence__accordion-wrapper" data-evidence-target="skill02">
 
-                    <div class="applicant-evidence__accordion-trigger">
+                    <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0">
                         <span class="applicant-evidence__accordion-trigger-title">
-                            User Interviews - Master
+                            User Research - Master
                             <div class="applicant-evidence__accordion-trigger-icon-wrapper">
-                                <i class="fa fa-clipboard active"></i>
+                                <i class="fa fa-clipboard"></i>
                                 <i class="fa fa-check active"></i>
                                 <i class="fa fa-user"></i>
                                 <i class="fa fa-file"></i>
@@ -373,7 +373,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-user"></i>
                                 Micro-reference (Optional)
-                                <a href="" title="">What is this?</a>
+                                <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -428,7 +428,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-file"></i>
                                 Sample of my Skill (Optional)
-                                <a href="" title="">What is this?</a>
+                                <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -472,11 +472,11 @@
 
                 <div class="applicant-evidence__accordion-wrapper" data-evidence-target="skill03">
 
-                    <div class="applicant-evidence__accordion-trigger">
+                    <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0">
                         <span class="applicant-evidence__accordion-trigger-title">
-                            HTML - Beginner
+                            HTML - Intermediate
                             <div class="applicant-evidence__accordion-trigger-icon-wrapper">
-                                <i class="fa fa-clipboard active"></i>
+                                <i class="fa fa-clipboard"></i>
                                 <i class="fa fa-check active"></i>
                                 <i class="fa fa-user"></i>
                                 <i class="fa fa-file"></i>
@@ -585,7 +585,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-user"></i>
                                 Micro-reference (Optional)
-                                <a href="" title="">What is this?</a>
+                                <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -640,7 +640,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-file"></i>
                                 Sample of my Skill (Optional)
-                                <a href="" title="">What is this?</a>
+                                <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">

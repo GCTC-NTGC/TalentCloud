@@ -4574,8 +4574,9 @@ input[type=url][class*="form__input--"] {
 .form__radio-group-input {
   position: absolute;
   left: -1000vh; }
-  .form__radio-group-input:checked + .form__radio-group-span,
   .form__radio-group-input:focus + .form__radio-group-span {
+    border-color: #2196f3; }
+  .form__radio-group-input:checked + .form__radio-group-span {
     background: #2196f3;
     color: white;
     font-weight: 700; }
@@ -5388,7 +5389,7 @@ nav {
   width: 90%; }
 
 .applicant-evidence__explanation-copy {
-  margin: 4rem 0; }
+  margin: 4rem auto; }
 
 /* Desktop Menu ============================================================= */
 .applicant-evidence__desktop-menu {
@@ -5467,7 +5468,7 @@ nav {
 .applicant-evidence__accordion-trigger-title {
   background: #484848;
   border: none;
-  border-bottom: 1px solid #484848;
+  border-bottom: 1px solid white;
   color: white;
   display: block;
   font-size: 26px;
@@ -5479,6 +5480,7 @@ nav {
   width: 100%; }
   @media (min-width: 64em) {
     .applicant-evidence__accordion-trigger-title {
+      border-bottom: 1px solid #484848;
       padding: 3rem 12rem 3rem 3rem;
       text-align: left; } }
 

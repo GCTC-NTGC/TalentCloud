@@ -296,29 +296,6 @@ function modalSize() {
             i.classList.add("dialogue-modal--viewport");
         }
 
-        // Cycles targetable elements in the modal.
-        // var focusable = i.querySelectorAll('h1, h2, h3, h4, h5, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-
-        // var modalFirstFocusItem = focusable[0];
-        // var modalLastFocusItem = focusable[focusable.length - 1];
-
-        // if (modalFirstFocusItem && modalLastFocusItem) {
-            
-        //     modalFirstFocusItem.focus();
-
-        //     console.log("focus");
-
-        //     modalLastFocusItem.addEventListener("keyup", function(e) {
-        //         console.log(this);
-        //         e.preventDefault();
-        //         if (this.hasFocus() && e.keyCode === 9) {
-        //             e.preventDefault();
-        //             modalFirstFocusItem.focus();
-        //         }
-        //     });
-
-        // }
-
     }
 
 }
@@ -326,162 +303,184 @@ function modalSize() {
 // Reruns the function each time the viewport changes size.
 window.onresize = modalSize;
 
-// Sitewide Accordion Triggers ================================================
-window.onload = function(e) {
-    // Gets all elements on the page with "accordion-trigger".
-    var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
-    // Loops through all elements.
-    for (let i of accordionTrigger) {
-        // Checks for a click.
-        i.addEventListener('click', function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            // Checks to see if the accordion is open.
-            if (this.classList.contains("active")) {
-                // Closes all accordions.
-                for (let x of accordionTrigger) {
-                    x.classList.remove("active");
-                    x.nextElementSibling.classList.remove("active");
-                }
-            }
-            else {
-                // Closes all accordions.
-                for (let x of accordionTrigger) {
-                    x.classList.remove("active");
-                    x.nextElementSibling.classList.remove("active");
-                }
-                // Opens this accordion.
-                this.classList.add("active");
-                this.nextElementSibling.classList.add("active");
-            }
-        });
-
-        // Checks for an Enter key click.
-        i.addEventListener("keyup", function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            // Checks to see if the key pressed was Enter (13).
-            if (e.keyCode === 13) {
-                // Triggers a click, thus activating the click event listener.
-                this.click();
-            }
-        });
-
-    }
-
-};
-
 // Applicant Evidence UI =======================================================
 window.onload = function(e) {
 
-    var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-    var evidencePane = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
+    function evidenceUI() {
 
-    for (let i of desktopEvidenceTrigger) {
-        i.addEventListener('click', function(e) {
-            e.preventDefault();
-            for (let x of desktopEvidenceTrigger) {
-                x.classList.remove("active");
-            }
-            for (let x of evidencePane) {
-                x.classList.remove("active");
-            }
-            this.classList.add("active");
-            var triggerData = this.getAttribute("data-evidence-trigger");
-            for (let x of evidencePane) {
-                if (x.getAttribute("data-evidence-target") == triggerData) {
-                    x.classList.add("active");
-                    x.querySelector(".applicant-evidence__first-target").focus();
-                }
-            }
-        });
+        var w = window.matchMedia("(min-width: 64em)")
 
-        // Checks for an Enter key click.
-        i.addEventListener("keyup", function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            // Checks to see if the key pressed was Enter (13).
-            if (e.keyCode == 13) {
-                // Triggers a click, thus activating the click event listener.
-                this.click();
-            }
-        });
+        if (w.matches) {
+            
+            var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+            var evidencePane = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
 
-    }
-
-    var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
-    for (let i of evidenceStartFocus) {
-        // Checks for an Enter key click.
-        i.addEventListener("keyup", function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            if (e.shiftKey && e.keyCode == 9) {
-                
-            }
-        });
-    }
-
-    var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
-
-    for (let i of evidenceEarlyEndFocus) {
-
-        i.addEventListener("keydown", function(e) {
-
-            if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
-                // Continue on your way.
-            }
-            else {
-                
-                if (!e.shiftKey && e.keyCode == 9) {
-
+            for (let i of desktopEvidenceTrigger) {
+                i.addEventListener('click', function(e) {
                     e.preventDefault();
+                    for (let x of desktopEvidenceTrigger) {
+                        x.classList.remove("active");
+                    }
+                    for (let x of evidencePane) {
+                        x.classList.remove("active");
+                    }
+                    this.classList.add("active");
+                    var triggerData = this.getAttribute("data-evidence-trigger");
+                    for (let x of evidencePane) {
+                        if (x.getAttribute("data-evidence-target") == triggerData) {
+                            x.classList.add("active");
+                            x.querySelector(".applicant-evidence__first-target").focus();
+                        }
+                    }
+                });
 
-                    var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+                // Checks for an Enter key click.
+                i.addEventListener("keyup", function(e) {
+                    // Cancels the default action.
+                    e.preventDefault();
+                    // Checks to see if the key pressed was Enter (13).
+                    if (e.keyCode == 13) {
+                        // Triggers a click, thus activating the click event listener.
+                        this.click();
+                    }
+                });
 
-                    var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-                    
-                    for (let i of desktopEvidenceTrigger) {
+            }
 
-                        if (i.getAttribute("data-evidence-trigger") == triggerData) {
-                            i.nextElementSibling.focus();
+            var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
+            
+            for (let i of evidenceStartFocus) {
+
+                i.addEventListener("keydown", function(e) {
+
+                    if (e.shiftKey && e.keyCode == 9) {
+
+                        e.preventDefault();
+                        
+                        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+
+                        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+                        
+                        for (let i of desktopEvidenceTrigger) {
+
+                            if (i.getAttribute("data-evidence-trigger") == triggerData) {
+                                i.focus();
+                            }
+
                         }
 
                     }
 
-                }
+                });
 
             }
 
-        });
+            var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
 
-    }
+            for (let i of evidenceEarlyEndFocus) {
 
-    var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
+                i.addEventListener("keydown", function(e) {
 
-    for (let i of evidenceEndFocus) {
+                    if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
+                        // Continue on your way.
+                    }
+                    else {
+                        
+                        if (!e.shiftKey && e.keyCode == 9) {
 
-        i.addEventListener("keydown", function(e) {
+                            var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
 
-            if (!e.shiftKey && e.keyCode == 9) {
+                            var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+                            
+                            for (let i of desktopEvidenceTrigger) {
 
-                e.preventDefault();
+                                if (i.getAttribute("data-evidence-trigger") == triggerData) {
+                                    
+                                    if (i.nextElementSibling) {
+                                        e.preventDefault();
+                                        i.nextElementSibling.focus();
+                                    }
 
-                var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+                                }
 
-                var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-                
-                for (let i of desktopEvidenceTrigger) {
+                            }
 
-                    if (i.getAttribute("data-evidence-trigger") == triggerData) {
-                        i.nextElementSibling.focus();
+                        }
+
                     }
 
-                }
+                });
 
             }
 
-        });
+            var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
+
+            for (let i of evidenceEndFocus) {
+
+                i.addEventListener("keydown", function(e) {
+
+                    if (!e.shiftKey && e.keyCode == 9) {
+
+                        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+
+                        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+                        
+                        for (let i of desktopEvidenceTrigger) {
+
+                            if (i.getAttribute("data-evidence-trigger") == triggerData) {
+
+                                if (i.nextElementSibling) {
+                                    e.preventDefault();
+                                    i.nextElementSibling.focus();
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+        } else {
+            
+            var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence__accordion-trigger");
+
+            for (let i of evidenceAccordionTrigger) {
+
+                i.addEventListener('click', function(e) {
+
+                    if (this.classList.contains("active")) {
+                        // Closes all accordions.
+                        for (let x of evidenceAccordionTrigger) {
+                            x.classList.remove("active")
+                            x.nextElementSibling.classList.remove("active");
+                        }
+
+                    } else {
+                        // Closes all accordions.
+                        for (let x of evidenceAccordionTrigger) {
+                            x.classList.remove("active")
+                            x.nextElementSibling.classList.remove("active");
+                        }
+                        // Opens this accordion.
+                        this.classList.add("active");
+                        this.nextElementSibling.classList.add("active");
+                    }
+
+                });
+
+            }
+
+        }
 
     }
+
+    evidenceUI();
+
+    // Reruns the function each time the viewport changes size.
+    window.onresize = evidenceUI;
 
 }

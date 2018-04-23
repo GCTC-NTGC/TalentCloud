@@ -17,7 +17,7 @@
 }
 
 .applicant-evidence__explanation-copy {
-	margin: 4rem 0;
+	margin: 4rem auto;
 }
 
 /* Desktop Menu ============================================================= */
@@ -153,7 +153,7 @@
 .applicant-evidence__accordion-trigger-title {
 	background: $palette-grey--dark;
 	border: none;
-	border-bottom: 1px solid $palette-grey--dark;
+	border-bottom: 1px solid $white;
 	color: $white;
 	display: block;
 	font-size: 26px;
@@ -165,6 +165,7 @@
 	width: 100%;
 
 	@media #{$l-tablet} {
+		border-bottom: 1px solid $palette-grey--dark;
 		padding: 3rem 12rem 3rem 3rem;
 		text-align: left;
 	}
