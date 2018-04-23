@@ -9,7 +9,7 @@
         <div class="flex-grid">
         
             <!-- DEV-NOTE: This first box is the acting desktop menu. It needs to be populated with button elements. The "active" class can be applied to the button itself to indicate the currently selected tab. the first tab should always be open on page load by default. The icons grouped within the buttons can also receive an "active" class to indicate their status in the UI. -->
-            <div class="box lg-1of4 applicant-evidence__desktop-menu">
+            <div role="tablist" class="box lg-1of4 applicant-evidence__desktop-menu">
                 
                 <button role="tab" aria-selected="true" class="applicant-evidence__desktop-menu-item active" data-evidence-trigger="skill01">
                     Wireframing
@@ -45,9 +45,9 @@
 
             <div class="box lg-3of4 applicant-evidence__form-wrapper">
                 
-                <!-- DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). -->
+                <!-- DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). We're also going to want to set the "aria-labelledby" value to the ID assigned to the tab item in the menu above. -->
 
-                <div role="tabpanel" class="applicant-evidence__accordion-wrapper active" data-evidence-target="skill01">
+                <div role="tabpanel" class="applicant-evidence__accordion-wrapper active" data-evidence-target="skill01" aria-labelledby="">
 
                     <!-- DEV-NOTE: Note that these triggers have ARIA-Expanded true/false as necessary. -->
                     <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
@@ -273,7 +273,7 @@
 
                 <!-- DEV-NOTE: The skills below are simply for FED testing. Please reuse the first skill as the markup template. These also act as examples of what the skills look like without the active states on the "completion-wrapper" and "optional-wrapper" elements. -->
 
-                <div role="tabpanel" class="applicant-evidence__accordion-wrapper" data-evidence-target="skill02">
+                <div role="tabpanel" class="applicant-evidence__accordion-wrapper" data-evidence-target="skill02" aria-labelledby="">
 
                     <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0" aria-expanded="false">
                         <span class="applicant-evidence__accordion-trigger-title">
@@ -485,7 +485,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="applicant-evidence__accordion-wrapper" data-evidence-target="skill03">
+                <div role="tabpanel" class="applicant-evidence__accordion-wrapper" data-evidence-target="skill03" aria-labelledby="">
 
                     <div class="applicant-evidence__accordion-trigger" type="button" tabindex="0" aria-expanded="false">
                         <span class="applicant-evidence__accordion-trigger-title">

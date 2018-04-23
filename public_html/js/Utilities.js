@@ -496,6 +496,7 @@ window.onload = function(e) {
                 i.addEventListener('click', function(e) {
 
                     if (this.classList.contains("active")) {
+
                         // Closes all accordions.
                         for (let x of evidenceAccordionTrigger) {
                             x.classList.remove("active")
@@ -504,16 +505,19 @@ window.onload = function(e) {
                         }
 
                     } else {
+
                         // Closes all accordions.
                         for (let x of evidenceAccordionTrigger) {
                             x.classList.remove("active")
                             x.nextElementSibling.classList.remove("active");
                             x.setAttribute("aria-expanded", "false");
                         }
+
                         // Opens this accordion.
                         this.classList.add("active");
                         this.nextElementSibling.classList.add("active");
                         x.setAttribute("aria-expanded", "true");
+                        
                     }
 
                 });
