@@ -68,12 +68,12 @@ CREATE TABLE IF NOT EXISTS `talentcloud`.`skill_declaration` (
     FOREIGN KEY (`experience_level_id`)
     REFERENCES `talentcloud`.`experience_level` (`experience_level_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_skill_declaration_skill_level_id`
     FOREIGN KEY (`skill_level_id`)
     REFERENCES `talentcloud`.`skill_level` (`skill_level_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_experience_level_id_idx` ON `talentcloud`.`skill_declaration` (`experience_level_id` ASC);
@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `talentcloud`.`experience_level_details` (
   CONSTRAINT `fk_experience_level_details_experience_level_id`
     FOREIGN KEY (`experience_level_id`)
     REFERENCES `talentcloud`.`experience_level` (`experience_level_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_experience_level_id_idx` ON `talentcloud`.`experience_level_details` (`experience_level_id` ASC);
@@ -118,8 +118,8 @@ CREATE TABLE IF NOT EXISTS `talentcloud`.`application_essential_skill_declaratio
   CONSTRAINT `fk_essential_skill_declaration_id`
     FOREIGN KEY (`skill_declaration_id`)
     REFERENCES `talentcloud`.`skill_declaration` (`skill_declaration_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_evidence_id_idx` ON `talentcloud`.`application_essential_skill_declaration` (`skill_declaration_id` ASC);
@@ -139,8 +139,8 @@ CREATE TABLE IF NOT EXISTS `talentcloud`.`skill_level_details` (
   CONSTRAINT `fk_skill_level_details_skill_level_id`
     FOREIGN KEY (`skill_level_id`)
     REFERENCES `talentcloud`.`skill_level` (`skill_level_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_skill_level_id_idx` ON `talentcloud`.`skill_level_details` (`skill_level_id` ASC);
@@ -162,8 +162,8 @@ CREATE TABLE IF NOT EXISTS `talentcloud`.`application_asset_skill_declaration` (
   CONSTRAINT `fk_asset_skill_declaration_id0`
     FOREIGN KEY (`skill_declaration_id`)
     REFERENCES `talentcloud`.`skill_declaration` (`skill_declaration_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_evidence_id_idx` ON `talentcloud`.`application_asset_skill_declaration` (`skill_declaration_id` ASC);
