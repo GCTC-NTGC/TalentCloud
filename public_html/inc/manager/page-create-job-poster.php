@@ -80,12 +80,16 @@
 
                                 <div class="box full">
                                     <label class="form__label" for="createJobPoster_clearance">
-                                        <span id="createJobPoster_clearance_labelName"><span>Security clearance level</span>: *</span>
+                                        <span><span id="createJobPoster_clearance_labelName">Security clearance level</span>: *</span>
                                         <strong id="createJobPoster_clearance_error" class="error hidden">
                                             <span id="createJobPoster_clearance_error_msg" class="label label-danger"></span>
                                         </strong>
                                     </label>
-                                    <input class="form__input--text" type="text" name="createJobPoster_clearance" id="createJobPoster_clearance"/>
+                                    <div class="form__select-wrapper">
+                                        <select class="form__select" name="createJobPoster_clearance" id="createJobPoster_clearance">
+                                            <option value="">--</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="box full">
@@ -95,7 +99,11 @@
                                             <span id="createJobPoster_language_error_msg" class="label label-danger"></span>
                                         </strong>
                                     </label>
-                                    <input class="form__input--text" type="text" name="createJobPoster_language" id="createJobPoster_language"/>
+                                    <div class="form__select-wrapper">
+                                        <select class="form__select" name="createJobPoster_language" id="createJobPoster_language">
+                                            <option value="">--</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="box full">

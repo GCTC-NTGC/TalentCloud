@@ -24,7 +24,7 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
 JobPostAPI.JobPost = function(
     id,manager_user_id,title,applicants_to_date,close_date_time,department,branch,division,location_city,location_province,
     term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,
-    developing_competencies,other_requirements,questions,classification,clearance,language,start_date){
+    developing_competencies,other_requirements,questions,classification,security_clearance,language_requirement,start_date){
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = title;
@@ -49,8 +49,8 @@ JobPostAPI.JobPost = function(
 
     // TAL-150
     this.classification = classification;
-    this.clearance = clearance;
-    this.language = language;
+    this.security_clearance = security_clearance;
+    this.language_requirement = language_requirement;
     this.start_date = start_date;
 };
 
@@ -146,8 +146,8 @@ JobPostAPI.populateJobObject = function(JSONJob){
 
     // TAL-150
     jobObj.classification = job.classification;
-    jobObj.clearance = job.clearance;
-    jobObj.language = job.language;
+    jobObj.security_clearance = job.security_clearance;
+    jobObj.language_requirement = job.language_requirement;
     jobObj.start_date = job.start_date;
 
 
@@ -544,8 +544,8 @@ JobPostAPI.populateJobPoster = function(jobData){
 
     //TAL-150
     document.getElementById("jobPosterJobLevelValue").innerHTML = jobData.classification;
-    document.getElementById("jobPosterClearanceLevelValue").innerHTML = jobData.clearance;
-    document.getElementById("jobPosterLanguageValue").innerHTML = jobData.language;
+    document.getElementById("jobPosterClearanceLevelValue").innerHTML = jobData.security_clearance;
+    document.getElementById("jobPosterLanguageValue").innerHTML = jobData.language_requirement;
 
     // Split timestamp into [ Y, M, D, h, m, s ]
     var t = jobData.start_date.split(/[- :]/);

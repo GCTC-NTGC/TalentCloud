@@ -45,10 +45,8 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
         questions_en,
         questions_fr,
         classification,
-        clearance_en,
-        clearance_fr,
-        language_en,
-        language_fr
+        clearance_id,
+        language_id
     ) {
     this.id = id;
     this.manager_user_id = manager_user_id;
@@ -93,12 +91,8 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
 
     // TAL-150
     this.classification = classification;
-    this.clearance = {};
-    this.clearance.en_CA = clearance_en;
-    this.clearance.fr_CA = clearance_fr;
-    this.language = {};
-    this.language.en_CA = language_en;
-    this.language.fr_CA = language_fr;
+    this.clearance_id = clearance_id;
+    this.language_id = language_id;
 
     this.term_units_id = 2; //default to months for now
     this.job_min_level_id = 1; //default to CS1
@@ -133,8 +127,8 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
 
             //TAL-150
             jp.classification,
-            jp.clearance[locale],
-            jp.language[locale],
+            LookupAPI.getLocalizedLookupValue("clearance", jp.clearance_id),
+            LookupAPI.getLocalizedLookupValue("language", jp.language_id),
             jp.start_date
             );
 };
@@ -157,6 +151,8 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
 CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {
     LookupAPI.populateDropdown("department", "createJobPoster_department");
     LookupAPI.populateDropdown("province", "createJobPoster_province");
+    LookupAPI.populateDropdown("clearance", "createJobPoster_clearance");
+    LookupAPI.populateDropdown("language", "createJobPoster_language");
 
     document.getElementById("createJobPoster_branch_labelName").innerHTML = siteContent.branch;
     document.getElementById("createJobPoster_branch_fr_labelName").innerHTML = siteContent.branch;
@@ -248,7 +244,7 @@ CreateJobPosterAPI.validateJobPosterForm = function() {
     // TAL-150
     var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA,
         jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty,
-        jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance.en_CA, jp.clearance.fr_CA, jp.language.en_CA, jp.language.fr_CA);
+        jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance_id, jp.language_id);
     if (valid) {
         CreateJobPosterAPI.submitJobPosterForm();
     }
@@ -320,17 +316,15 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     // TAL-150
     var classification = document.getElementById("createJobPoster_classification").value;
 
-    var clearance_en = document.getElementById("createJobPoster_clearance").value;
-    var clearance_fr = document.getElementById("createJobPoster_clearance").value;
+    var clearance_id = document.getElementById("createJobPoster_clearance").value;
 
-    var language_en = document.getElementById("createJobPoster_language").value;
-    var language_fr = document.getElementById("createJobPoster_language").value;
+    var language_id = document.getElementById("createJobPoster_language").value;
 
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(
         id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
         close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr,
         core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr,
-        questions_en, questions_fr, classification, clearance_en, clearance_fr, language_en, language_fr);
+        questions_en, questions_fr, classification, clearance_id, language_id);
 }
 
 CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
