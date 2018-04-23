@@ -96,9 +96,11 @@ class JobPosterDAO extends BaseDAO {
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
             AND scd.security_clearance_details_locale_id = l.locale_id
-            AND scd.security_clearance_details_id = sc.security_clearance_id
+            AND scd.security_clearance_id = sc.security_clearance_id
+            AND sc.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
-            AND lrd.language_requirement_details_id = lr.language_requirement_id
+            AND lrd.language_requirement_id = lr.language_requirement_id
+            AND lr.language_requirement_id = jp.job_poster_language_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -200,9 +202,11 @@ class JobPosterDAO extends BaseDAO {
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
             AND scd.security_clearance_details_locale_id = l.locale_id
-            AND scd.security_clearance_details_id = sc.security_clearance_id
+            AND scd.security_clearance_id = sc.security_clearance_id
+            AND sc.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
-            AND lrd.language_requirement_details_id = lr.language_requirement_id
+            AND lrd.language_requirement_id = lr.language_requirement_id
+            AND lr.language_requirement_id = jp.job_poster_language_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -618,9 +622,11 @@ class JobPosterDAO extends BaseDAO {
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
             AND scd.security_clearance_details_locale_id = l.locale_id
-            AND scd.security_clearance_details_id = sc.security_clearance_id
+            AND scd.security_clearance_id = sc.security_clearance_id
+            AND sc.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
-            AND lrd.language_requirement_details_id = lr.language_requirement_id
+            AND lrd.language_requirement_id = lr.language_requirement_id
+            AND lr.language_requirement_id = jp.job_poster_language_id
             ";
 
         $sql = $link->prepare($sqlStr);
