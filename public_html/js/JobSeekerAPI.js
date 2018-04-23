@@ -380,7 +380,7 @@ JobSeekerAPI.twitterUsernameToLink = function(twitterUsername) {
 
 JobSeekerAPI.saveJobSeekerProfileChanges = function(){
     var jobSeekerBasicInfoForm = document.getElementById("profileBasicInfoForm");
-    var jobSeekerAboutMeForm = document.getElementById("profileAboutMeForm");
+    
     var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
     var user = null;
     if(UserAPI.hasSessionUser()){
@@ -530,7 +530,6 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #MyProfile instead of url
 
-
     TalentCloudAPI.hideAllContent();
     //TalentCloudAPI.hideLogo();
 
@@ -539,11 +538,77 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 
     var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
     //profileBasicInfoEdit.focus();
+    
+    LookupAPI.getLookupResponse("job_seeker_profile_question", JobSeekerAPI.addProfileQuestionSections);
 
     EventsAPI.hideBodyOverflow(false);
     //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");
     //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
+    
+    DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
+    JobSeekerAPI.refreshJobSeekerProfilePic();
 
+};
+
+/**
+ * 
+ * @param {type} questionLookupMap - array of objects with .id, .description, .value properties
+ * @return {undefined}
+ */
+JobSeekerAPI.addProfileQuestionSections = function(questionLookupMap) {
+    //Create and populate Profile Question field elements        
+    var questionFragment = document.createDocumentFragment();
+    questionLookupMap.forEach(question => {
+        
+        var questionSection = document.createElement("div");
+        questionSection.classList.add("profile-question");
+        
+        var questionTitleBar = document.createElement("h2");
+        questionTitleBar.classList.add("profile-question__title-bar");
+        
+        var questionTitle = document.createElement("h2");
+        questionTitle.innerHTML = question.value;
+        
+        var questionEditBtn = document.createElement("a");
+        questionEditBtn.classList.add("profile-question__edit-btn");
+        questionEditBtn.setAttribute("role", "button");
+        questionEditBtn.href = "javascript:void(0)";
+        questionEditBtn.onclick = function() {
+            JobSeekerAPI.showEditProfileAnswerModal(question.id, question.value, question.description);
+        };
+        
+        var questionEditBtnImage = document.createElement("img");
+        questionEditBtnImage.src = "/images/btn_edit_dark.png";
+        questionEditBtnImage.alt = "Edit " + question.value;
+        
+        var questionAnswer = document.createElement("p");
+        questionAnswer.classList.add("profile-question__answer");
+        questionAnswer.setAttribute("data-question-id", question.id);
+        
+        //Now put it all together, from the inside out
+        questionEditBtn.appendChild(questionEditBtnImage);
+        
+        questionTitleBar.appendChild(questionTitle);
+        questionTitleBar.appendChild(questionEditBtn);
+        
+        questionSection.appendChild(questionTitleBar);
+        questionSection.appendChild(questionAnswer);
+        
+        //Add to the wrapper fragment
+        questionFragment.appendChild(questionSection);
+    });
+
+    var questionWrapper = document.getElementById("profileQuestionsWrapper");
+    //Clear previous values to avoid doubles
+    questionWrapper.innerHTML = "";
+    
+    //Add questions to wrapper
+    questionWrapper.appendChild(questionFragment);
+};
+
+JobSeekerAPI.showEditProfileAnswerModal = function(questionId, questionName, questionDescription) {
+    //TODO: add real modal!
+    window.alert("edit answer");
 };
 
 JobSeekerAPI.hideJobSeekerProfileForm = function () {

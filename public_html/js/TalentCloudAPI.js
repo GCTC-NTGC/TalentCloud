@@ -848,9 +848,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         var transcript = document.getElementById("transcript");
         transcript.innerHTML = siteContent.transcript;
 
-        var aboutMe = document.getElementById("aboutMe");
-        aboutMe.innerHTML = siteContent.aboutMe;
-
         var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
 
