@@ -1,8 +1,13 @@
 <!-- BEGIN - Job Application Confirmation Section -->
 <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
+
      <div class="pageBanner">
         <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
     </div>
+
+    <!-- TAL-48 ============================================================ -->
+    <?php include "page-application-preview.php";?>
+
     <div class="pageBody">
         <div id='createJobApplicationConfirmationBodyWrapper'>
             <div class="centered container">
@@ -20,4 +25,5 @@
         </div>
         <div class="confirmationFramingBar"></div>
     </div>
+
 </section>
