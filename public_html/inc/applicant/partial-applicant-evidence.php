@@ -9,7 +9,7 @@
         <div class="flex-grid">
         
             <!-- DEV-NOTE: This first box is the acting desktop menu. It needs to be populated with button elements. The "active" class can be applied to the button itself to indicate the currently selected tab. the first tab should always be open on page load by default. The icons grouped within the buttons can also receive an "active" class to indicate their status in the UI. -->
-            <div role="tablist" class="box lg-1of4 applicant-evidence__desktop-menu">
+            <div role="tablist" aria-orientation="vertical" class="box lg-1of4 applicant-evidence__desktop-menu">
                 
                 <button role="tab" aria-selected="true" class="applicant-evidence__desktop-menu-item active" data-evidence-trigger="skill01">
                     Wireframing
@@ -22,7 +22,7 @@
                 </button>
 
                 <button role="tab" aria-selected="false" class="applicant-evidence__desktop-menu-item" data-evidence-trigger="skill02">
-                    User Interviews
+                    User Research
                     <div class="applicant-evidence__desktop-icon-wrapper">
                         <i class="fa fa-clipboard active"></i>
                         <i class="fa fa-check"></i>
@@ -79,6 +79,8 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-check"></i>
                                 My Skill Declaration (Required)
+                                <!-- DEV-NOTE: This anchor should link out to a separate help page. -->
+                                <a href="" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -176,6 +178,8 @@
                                 <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
+                            <p class="applicant-evidence__form-description">Appoint one reference that can vouch for you.</p>
+
                             <form class="form__wrapper flex-grid">
 
                                 <div class="box med-1of2">
@@ -231,6 +235,8 @@
                                 <!-- DEV-NOTE: This anchor should link out to a separate help page. -->
                                 <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
+
+                            <p class="applicant-evidence__form-description">Attach an example of your work that you're proud of.</p>
 
                             <form class="form__wrapper flex-grid">
 
@@ -303,6 +309,8 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-check"></i>
                                 My Skill Declaration (Required)
+                                <!-- DEV-NOTE: This anchor should link out to a separate help page. -->
+                                <a href="" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -391,6 +399,8 @@
                                 <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
+                            <p class="applicant-evidence__form-description">Appoint one reference that can vouch for you.</p>
+
                             <form class="form__wrapper flex-grid">
 
                                 <div class="box med-1of2">
@@ -445,6 +455,8 @@
                                 Sample of my Skill (Optional)
                                 <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
+
+                            <p class="applicant-evidence__form-description">Attach an example of your work that you're proud of.</p>
 
                             <form class="form__wrapper flex-grid">
 
@@ -515,6 +527,8 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-check"></i>
                                 My Skill Declaration (Required)
+                                <!-- DEV-NOTE: This anchor should link out to a separate help page. -->
+                                <a href="" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
                             </h5>
 
                             <form class="form__wrapper flex-grid">
@@ -603,6 +617,8 @@
                                 <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
+                            <p class="applicant-evidence__form-description">Appoint one reference that can vouch for you.</p>
+
                             <form class="form__wrapper flex-grid">
 
                                 <div class="box med-1of2">
@@ -657,6 +673,8 @@
                                 Sample of my Skill (Optional)
                                 <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
+
+                            <p class="applicant-evidence__form-description">Attach an example of your work that you're proud of.</p>
 
                             <form class="form__wrapper flex-grid">
 

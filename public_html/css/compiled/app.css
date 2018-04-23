@@ -5524,6 +5524,7 @@ nav {
 
 .applicant-evidence__skill-description {
   font-size: 16px;
+  line-height: 1.2;
   margin: 0 0 2rem 0; }
 
 .applicant-evidence__assessment-warning {
@@ -5551,6 +5552,11 @@ nav {
       .applicant-evidence__section-title a {
         float: right;
         margin: 0; } }
+
+.applicant-evidence__form-description {
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 3rem 0; }
 
 .applicant-evidence__expertise-wrapper {
   margin: 0 0 2rem; }
