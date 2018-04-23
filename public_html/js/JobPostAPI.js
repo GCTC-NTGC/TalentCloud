@@ -439,6 +439,8 @@ JobPostAPI.populateJobPoster = function(jobData){
     DataAPI.getUser(jobData.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
        document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+       document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+       document.getElementById('jobPosterHiringManagerEmail').innerHTML = managerUser.user.email;
     });
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
@@ -551,7 +553,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     var d = new Date(t[0], t[1]-1, t[2], t[3] || 0, t[4] || 0, t[5] || 0);
 
     // Get localized month
-    var locale = TalentCloudAPI.getLanguageFromCookie();
     if (locale === "en_CA"){
         var month = d.toLocaleString("en", {month: "long"});
     } else {

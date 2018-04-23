@@ -5,10 +5,10 @@
             <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
             <h3 id="jobPosterTitle">Job Title</h3>
             <p id="jobPosterLocation">
-                <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
+                <span id="jobPosterDepartment"></span>
             </p>
             <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
-            <p id="jobPosterRemoteWorkHeader">Remote work</p>
+            <p><span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span> (<span id="jobPosterRemoteWorkHeader">Remote work</span>)</p>
             <input id="jobPosterJobId" type="hidden"/>
         </div>
     </div>
@@ -128,7 +128,18 @@
                 </div>
             </div>
         </section>
-
+        <section class="jobPosterSection">
+            <div class="container">
+                <div class="accommodationRequest">
+                    <p>
+                        <span id="accommodationTextStart">Please advise</span>
+                        <span id="jobPosterHiringManagerNameAccommodation"></span> at
+                        <strong><span id="jobPosterHiringManagerEmail"></span></strong>
+                        <span id="accommodationTextEnd">of any accomodations you may require during the selection.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
         <div id="jobPosterButtonWrapper">
             <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                 Apply Now
