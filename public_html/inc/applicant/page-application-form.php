@@ -127,8 +127,8 @@
         <!-- Some minor structural work was done here during TAL-102 -->
         <div id='createJobApplicationButtonWrapper' class="application-button__wrapper">
 
-            <button id="createJobApplicationSubmitButton" class="button--yellow" value="View" onclick="JobApplicationAPI.submitNewJobApplication();">
-                Submit
+            <button id="createJobApplicationSubmitButton" class="button--yellow" value="View" onclick="JobApplicationAPI.showJobApplicationPreview();">
+                Preview Application
             </button>
 
         </div>

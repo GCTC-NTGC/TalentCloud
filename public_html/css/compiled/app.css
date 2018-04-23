@@ -5257,6 +5257,72 @@ nav {
 .application-preview {
   background: white; }
 
+/* Application Preview Profile */
+.application-preview__profile-wrapper {
+  padding: 4rem 0 0 0;
+  text-align: center; }
+
+.application-preview__profile-image {
+  background-position: center;
+  background-size: cover;
+  border: 0.5rem solid #ffd200;
+  border-radius: 100%;
+  display: inline-block;
+  height: 50vw;
+  max-height: 20rem;
+  max-width: 20rem;
+  width: 50vw; }
+
+/* Application Preview Skills */
+/* Application Preview Questions */
+.application-preview__question-wrapper {
+  padding: 4rem 0; }
+
+.application-preview__question-title {
+  color: #2196f3;
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 2rem 0; }
+
+.application-preview__question-answer {
+  margin: 0 0 4rem 0; }
+  .application-preview__question-answer:last-child {
+    margin: 0; }
+  .application-preview__question-answer p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 2rem 0; }
+    .application-preview__question-answer p:first-child {
+      margin-top: 0; }
+    .application-preview__question-answer p:last-child {
+      margin-bottom: 0; }
+
+/* Application Preview Alert */
+.application-preview__alert {
+  background: #cce5ff;
+  border-radius: 3px;
+  padding: 2rem; }
+  .application-preview__alert > .box:first-child {
+    text-align: center; }
+
+.application-preview__alert-icon {
+  color: #125184;
+  font-size: 5rem; }
+
+.application-preview__alert-copy {
+  color: #125184;
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 0; }
+  @media (min-width: 64em) {
+    .application-preview__alert-copy {
+      padding: 0 0 0 1rem; } }
+
+/* Application Preview Button */
+.application-preview__button-wrapper {
+  padding: 4rem 0;
+  text-align: center; }
+
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
 .profileBannerFiller {
   height: 18em; }

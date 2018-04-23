@@ -392,6 +392,22 @@ JobApplicationAPI.makeSkillDeclarationForm = function (skillDeclaration, isEssen
 
 };
 
+JobApplicationAPI.showJobApplicationPreview = function() {
+    var stateInfo = {pageInfo: 'show_job_application_preview', pageTitle: 'Talent Cloud: Job Application Preview'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#JobApplicationPreview/' + jobPosterId);
+
+    TalentCloudAPI.hideAllContent();
+    window.scrollTo(0, 0);
+
+    var applicationPreviewSection = document.getElementById('applicationPreview');
+    console.log(applicationPreviewSection);
+
+    applicationPreviewSection.classList.remove('hidden');
+
+    locale = TalentCloudAPI.getLanguageFromCookie();
+}
+
 JobApplicationAPI.submitNewJobApplication = function () {
     //TODO: always make sure to get most recent jobPosterId, not what's saved in the html element
 
