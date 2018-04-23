@@ -418,6 +418,7 @@ window.onload = function(e) {
 
             for (let i of evidenceEarlyEndFocus) {
 
+                // Listen for a keydown.
                 i.addEventListener("keydown", function(e) {
 
                     if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
@@ -458,6 +459,7 @@ window.onload = function(e) {
 
             for (let i of evidenceEndFocus) {
 
+                // Listen for a keydown.
                 i.addEventListener("keydown", function(e) {
 
                     if (!e.shiftKey && e.keyCode == 9) {
@@ -485,19 +487,24 @@ window.onload = function(e) {
 
             }
 
-        } else {
+        }
+        else {
 
             // The following code handles the mobile accordion execution of the tab interface.
             
+            // Set a variable for all accordion triggers.
             var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence__accordion-trigger");
 
+            // Enter the loop of triggers.
             for (let i of evidenceAccordionTrigger) {
 
+                // Listen for a click.
                 i.addEventListener('click', function(e) {
 
+                    // Check to see if the trigger is active.
                     if (this.classList.contains("active")) {
 
-                        // Closes all accordions.
+                        // If it is active, close all accordions.
                         for (let x of evidenceAccordionTrigger) {
                             x.classList.remove("active")
                             x.nextElementSibling.classList.remove("active");
@@ -506,18 +513,18 @@ window.onload = function(e) {
 
                     } else {
 
-                        // Closes all accordions.
+                        // Close all accordions.
                         for (let x of evidenceAccordionTrigger) {
                             x.classList.remove("active")
                             x.nextElementSibling.classList.remove("active");
                             x.setAttribute("aria-expanded", "false");
                         }
 
-                        // Opens this accordion.
+                        // Open this accordion.
                         this.classList.add("active");
                         this.nextElementSibling.classList.add("active");
                         x.setAttribute("aria-expanded", "true");
-                        
+
                     }
 
                 });
