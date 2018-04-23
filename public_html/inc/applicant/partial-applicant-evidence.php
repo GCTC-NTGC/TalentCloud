@@ -8,6 +8,7 @@
 
         <div class="flex-grid">
         
+            <!-- DEV-NOTE: This first box is the acting desktop menu. It needs to be populated with button elements. The "active" class can be applied to the button itself to indicate the currently selected tab. the first tab should always be open on page load by default. The icons grouped within the buttons can also receive an "active" class to indicate their status in the UI. -->
             <div class="box lg-1of4 applicant-evidence__desktop-menu">
                 
                 <button class="applicant-evidence__desktop-menu-item active" data-evidence-trigger="skill01">
@@ -44,11 +45,14 @@
 
             <div class="box lg-3of4 applicant-evidence__form-wrapper">
                 
+                <!-- DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). -->
+
                 <div class="applicant-evidence__accordion-wrapper active" data-evidence-target="skill01">
 
                     <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0">
                         <span class="applicant-evidence__accordion-trigger-title">
                             Wireframing - Intermediate
+                            <!-- DEV-NOTE: These icons can receive an "active" class to toggle their state in the UI. This should match the icons in the associated tab menu item. -->
                             <div class="applicant-evidence__accordion-trigger-icon-wrapper">
                                 <i class="fa fa-clipboard active"></i>
                                 <i class="fa fa-check active"></i>
@@ -78,8 +82,14 @@
 
                             <form class="form__wrapper flex-grid">
 
+                                <!-- DEV-NOTE: You'll notice I've purposefully omitted including "for" and "id" attributes on form elements. This is because we'll need to add them in dynamically for each skill anyway to ensure no repetition. -->
+
                                 <div class="box full">
+
                                     <label for="" class="form__label">My Level of Expertise:</label>
+
+                                    <!-- DEV-NOTE: This is the new structure for what were originally called "sliders". You'll notice that I've included the "for" and "id" attributes here due to the radio inputs not working without them. These will still need to be assigned dynamically. -->
+
                                     <div class="applicant-evidence__expertise-wrapper flex-grid">
                                         <label for="skill01expertiseRadio00" class="box small-1of5 form__radio-group-label">
                                             <input type="radio" name="expertise" class="form__radio-group-input applicant-evidence__first-target" id="skill01expertiseRadio00"/>
@@ -145,6 +155,8 @@
 
                             </form>
 
+                            <!-- DEV-NOTE: The "completion-wrapper" and "optional-wrapper" elements below should only receive an "active" class once the form above has been completed. This should occur after completion of the form and before submission. -->
+
                             <div class="evidence__completion-wrapper active">
                                 <i class="fa fa-check-circle"></i>
                                 <span>Done!</span>
@@ -159,6 +171,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-user"></i>
                                 Micro-reference (Optional)
+                                <!-- DEV-NOTE: This anchor should link out to a separate help page. -->
                                 <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
                             </h5>
 
@@ -214,6 +227,7 @@
                             <h5 class="applicant-evidence__section-title">
                                 <i class="fa fa-file"></i>
                                 Sample of my Skill (Optional)
+                                <!-- DEV-NOTE: This anchor should link out to a separate help page. -->
                                 <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
                             </h5>
 
@@ -256,7 +270,7 @@
 
                 </div>
 
-                <!-- DEV-NOTE: The skills below are simply for FED testing. Please reuse the first skill as the markup template. -->
+                <!-- DEV-NOTE: The skills below are simply for FED testing. Please reuse the first skill as the markup template. These also act as examples of what the skills look like without the active states on the "completion-wrapper" and "optional-wrapper" elements. -->
 
                 <div class="applicant-evidence__accordion-wrapper" data-evidence-target="skill02">
 
