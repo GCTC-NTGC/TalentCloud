@@ -53,13 +53,13 @@ class JobPosterDAO extends BaseDAO {
             dd.department_details_name as department,
             jpd.branch as branch,
             jpd.division as division,
-			jpd.classification_id as classification,
-			jpd.clearance_level as clearance,
-			jpd.language_requirement as language,
             pd.province_details_name as location_province,
             cd.city_details_name as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jp.job_poster_classification as classification,
+            scd.security_clearance_details_name as security_clearance,
+            lrd.language_requirement_details_name as language_requirement,
             jpd.job_poster_impact as impact
             FROM job_poster jp, job_poster_details jpd,
                 locale l,
@@ -72,7 +72,11 @@ class JobPosterDAO extends BaseDAO {
                 province p,
                 province_details pd,
                 city c,
-                city_details cd
+                city_details cd,
+                security_clearance sc,
+                security_clearance_details scd,
+                language_requirement lr,
+                language_requirement_details lrd
             WHERE jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
@@ -91,6 +95,10 @@ class JobPosterDAO extends BaseDAO {
             AND cd.city_details_city_id = c.city_id
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
+            AND scd.security_clearance_details_locale_id = l.locale_id
+            AND scd.security_clearance_details_id = sc.security_clearance_id
+            AND lrd.language_requirement_details_locale_id = l.locale_id
+            AND lrd.language_requirement_details_id = lr.language_requirement_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -99,9 +107,10 @@ class JobPosterDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
             $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
-				'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'start_date',
-				'open_date', 'close_date', 'department', 'branch', 'division', 'classification', 'clearance', 'language', 'location_province', 'location_city','remuneration_range_low',
-				'remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications'
+				'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
+                'job_max_level', 'start_date','open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
+                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications',
+                'classification', 'security_clearance', 'language_requirement'
 			));
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);
@@ -146,13 +155,13 @@ class JobPosterDAO extends BaseDAO {
             dd.department_details_name as department,
             jpd.branch as branch,
             jpd.division as division,
-			jpd.classification_id as classification,
-			jpd.clearance_level as clearance,
-			jpd.language_requirement as language,
             pd.province_details_name as location_province,
             cd.city_details_name as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jp.job_poster_classification as classification,
+            scd.security_clearance_details_name as security_clearance,
+            lrd.language_requirement_details_name as language_requirement,
             jpd.job_poster_impact as impact
             FROM job_poster jp,
                 job_poster_details jpd,
@@ -166,7 +175,11 @@ class JobPosterDAO extends BaseDAO {
                 province p,
                 province_details pd,
                 city c,
-                city_details cd
+                city_details cd,
+                security_clearance sc,
+                security_clearance_details scd,
+                language_requirement lr,
+                language_requirement_details lrd
             WHERE jp.job_poster_id = :job_poster_id
             AND jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
@@ -186,6 +199,10 @@ class JobPosterDAO extends BaseDAO {
             AND cd.city_details_city_id = c.city_id
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
+            AND scd.security_clearance_details_locale_id = l.locale_id
+            AND scd.security_clearance_details_id = sc.security_clearance_id
+            AND lrd.language_requirement_details_locale_id = l.locale_id
+            AND lrd.language_requirement_details_id = lr.language_requirement_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -198,9 +215,10 @@ class JobPosterDAO extends BaseDAO {
 
             $sql->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
 
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array('id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date',
-				'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'classification',
-				'clearance', 'language', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact'
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
+                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
+                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
+                'remuneration_range_low','remuneration_range_high','impact','classification','security_clearance', 'language_requirement',
 			));
             $jobPoster = $sql->fetch();
         } catch (PDOException $e) {
@@ -336,7 +354,10 @@ class JobPosterDAO extends BaseDAO {
             job_poster_department_id,
             job_poster_province_id,
             job_poster_remuneration_min,
-            job_poster_remuneration_max
+            job_poster_remuneration_max,
+            job_poster_classification,
+            job_poster_clearance_id,
+            job_poster_language_id
             )
             VALUES
             (
@@ -350,7 +371,10 @@ class JobPosterDAO extends BaseDAO {
             :department_id,
             :province_id,
             :remuneration_range_low,
-            :remuneration_range_high
+            :remuneration_range_high,
+            :classification,
+            :clearance_id,
+            :language_id
             );";
         $sqlStr2 = "SELECT LAST_INSERT_ID() INTO @job_post_id;";
 
@@ -365,14 +389,11 @@ class JobPosterDAO extends BaseDAO {
             job_poster_title,
             job_poster_impact,
             branch,
-            division,
-			classification_id,
-			clearance_level,
-			language_requirement
+            division
             )
             VALUES
-            (@job_post_id,1,'','',:city_en,:title_en, :impact_en, :branch_en, :division_en, :classification, :clearance_en, :language_en),
-            (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr, :branch_fr, :division_fr, 'TEST', :clearance_fr, :language_fr);";
+            (@job_post_id,1,'','',:city_en,:title_en, :impact_en, :branch_en, :division_en),
+            (@job_post_id,2,'','',:city_fr,:title_fr, :impact_fr, :branch_fr, :division_fr);";
 
         //Build bulk insert sql strings for array data
         $key_task_data = [];
@@ -479,6 +500,9 @@ class JobPosterDAO extends BaseDAO {
         $sql1->bindValue(':province_id', $jobPosterNonLocalized->getProvince_id(), PDO::PARAM_INT);
         $sql1->bindValue(':remuneration_range_low', $jobPosterNonLocalized->getRemuneration_range_low(), PDO::PARAM_INT);
         $sql1->bindValue(':remuneration_range_high', $jobPosterNonLocalized->getRemuneration_range_high(), PDO::PARAM_INT);
+        $sql1->bindValue(':classification', $jobPosterNonLocalized->getClassification(), PDO::PARAM_STR);
+        $sql1->bindValue(':clearance_id', $jobPosterNonLocalized->getClearance_id(), PDO::PARAM_INT);
+        $sql1->bindValue(':language_id', $jobPosterNonLocalized->getLanguage_id(), PDO::PARAM_INT);
 
         $jpCity = $jobPosterNonLocalized->getCity_en();
         $sql3->bindValue(':city_en', $jpCity, PDO::PARAM_STR);
@@ -491,11 +515,6 @@ class JobPosterDAO extends BaseDAO {
         $sql3->bindValue(":branch_fr", $jobPosterNonLocalized->getBranch_fr(), PDO::PARAM_STR);
         $sql3->bindValue(":division_en", $jobPosterNonLocalized->getDivision_en(), PDO::PARAM_STR);
         $sql3->bindValue(":division_fr", $jobPosterNonLocalized->getDivision_fr(), PDO::PARAM_STR);
-		$sql3->bindValue(":classification", $jobPosterNonLocalized->getClassification(), PDO::PARAM_STR);
-		$sql3->bindValue(":clearance_en", $jobPosterNonLocalized->getClearance_en(), PDO::PARAM_STR);
-		$sql3->bindValue(":clearance_fr", $jobPosterNonLocalized->getClearance_fr(), PDO::PARAM_STR);
-		$sql3->bindValue(":language_en", $jobPosterNonLocalized->getLanguage_en(), PDO::PARAM_STR);
-		$sql3->bindValue(":language_fr", $jobPosterNonLocalized->getLanguage_fr(), PDO::PARAM_STR);
 
         $sqlManager->bindValue(':manager_user_id', $jobPosterNonLocalized->getManager_user_id(), PDO::PARAM_INT);
 
@@ -556,13 +575,13 @@ class JobPosterDAO extends BaseDAO {
             dd.department_details_name as department,
             jpd.branch as branch,
             jpd.division as division,
-			jpd.classification_id as classification,
-			jpd.clearance_level as clearance,
-			jpd.language_requirement as language,
             pd.province_details_name as location_province,
             cd.city_details_name as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jp.job_poster_classification as classification,
+            scd.security_clearance_details_name as security_clearance,
+            lrd.language_requirement_details_name as language_requirement,
             jpd.job_poster_impact as impact
             FROM job_poster jp, job_poster_details jpd,
                 locale l,
@@ -575,7 +594,11 @@ class JobPosterDAO extends BaseDAO {
                 province p,
                 province_details pd,
                 city c,
-                city_details cd
+                city_details cd,
+                security_clearance sc,
+                security_clearance_details scd,
+                language_requirement lr,
+                language_requirement_details lrd
             WHERE jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
@@ -594,6 +617,10 @@ class JobPosterDAO extends BaseDAO {
             AND cd.city_details_city_id = c.city_id
             AND d.department_city_id = c.city_id
             AND cd.city_details_locale_id = l.locale_id
+            AND scd.security_clearance_details_locale_id = l.locale_id
+            AND scd.security_clearance_details_id = sc.security_clearance_id
+            AND lrd.language_requirement_details_locale_id = l.locale_id
+            AND lrd.language_requirement_details_id = lr.language_requirement_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -601,10 +628,11 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array('id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date',
-				'term_qty', 'term_units', 'job_min_level', 'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'classification', 'clearance',
-				'language', 'division', 'location_province', 'location_city','remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies',
-				'dev_competencies','other_qualifications'
+            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
+                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
+                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
+                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','other_qualifications',
+                'classification', 'security_clearance','language_requirement'
 			));
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);

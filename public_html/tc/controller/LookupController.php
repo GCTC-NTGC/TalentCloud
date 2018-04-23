@@ -15,18 +15,18 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 require_once '../dao/LookupDAO.php';
 
 /**
- * 
+ *
  */
 class LookupController {
 
     /**
-     * 
+     *
      * @param string $page_name
      * @param string $locale
      * @return Page object
      */
     public static function getLookupDataByLocaleAndType($locale,$dataType) {
-        
+
         switch ($dataType) {
             case 'province':
                 $lookupData = LookupDAO::getProvincesByLocale($locale);
@@ -54,7 +54,13 @@ class LookupController {
                 break;
             case 'skill':
                 $lookupData = LookupDAO::getSkillsByLocale($locale);
-                break;            
+                break;
+            case 'clearance':
+                $lookupData = LookupDAO::getClearanceLevelsByLocale($locale);
+                break;
+            case 'language':
+                $lookupData = LookupDAO::getLanguageLevelsByLocale($locale);
+                break;
         }
         return $lookupData;
     }

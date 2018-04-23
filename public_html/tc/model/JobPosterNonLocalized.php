@@ -42,10 +42,8 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $questions_en;
     private $questions_fr;
     private $classification;
-    private $clearance_en;
-    private $clearance_fr;
-    private $language_en;
-    private $language_fr;
+    private $clearance_id;
+    private $language_id;
 
     public function __construct(
             $id=null,
@@ -82,10 +80,8 @@ class JobPosterNonLocalized implements JsonSerializable {
             $questions_en=[],
             $questions_fr=[],
             $classification=null,
-            $clearance_en=null,
-            $clearance_fr=null,
-            $language_en=null,
-            $language_fr=null
+            $clearance_id=null,
+            $language_id=null
         ) {
         $this->id = $id;
         $this->manager_user_id = $manager_user_id;
@@ -121,10 +117,8 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->questions_en = $questions_en;
         $this->questions_fr = $questions_fr;
         $this->classification = $classification;
-        $this->clearance_en = $clearance_en;
-        $this->clearance_fr = $clearance_fr;
-        $this->language_en = $language_en;
-        $this->language_fr = $language_fr;
+        $this->clearance_id = $clearance_id;
+        $this->language_id = $language_id;
     }
 
 
@@ -275,20 +269,12 @@ class JobPosterNonLocalized implements JsonSerializable {
         return $this->classification;
     }
 
-    public function getClearance_en() {
-        return $this->clearance_en;
+    public function getClearance_id() {
+        return $this->clearance_id;
     }
 
-    public function getClearance_fr() {
-        return $this->clearance_fr;
-    }
-
-    public function getLanguage_en() {
-        return $this->language_en;
-    }
-
-    public function getLanguage_fr() {
-        return $this->language_fr;
+    public function getLanguage_id() {
+        return $this->language_id;
     }
 
     public function setId($id) {
@@ -461,23 +447,14 @@ class JobPosterNonLocalized implements JsonSerializable {
         return $this;
     }
 
-    public function setClearance_en($clearance_en) {
-        $this->clearance_en = $clearance_en;
+    public function setClearance_id($clearance_id) {
+        $this->clearance_id = $clearance_id;
         return $this;
     }
 
-    public function setClearance_fr($clearance_fr) {
-        $this->clearance_fr = $clearance_fr;
+    public function setLanguage_id($language_id) {
+        $this->language_id = $language_id;
         return $this;
     }
 
-    public function setLanguage_en($language_en) {
-        $this->language_en = $language_en;
-        return $this;
-    }
-
-    public function setLanguage_fr($language_fr) {
-        $this->language_fr = $language_fr;
-        return $this;
-    }
 }

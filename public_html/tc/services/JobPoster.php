@@ -86,10 +86,8 @@
                 $jobPoster->setQuestions_en($jobPosterJSON["questions"][$en]);
                 $jobPoster->setQuestions_fr($jobPosterJSON["questions"][$fr]);
                 $jobPoster->setClassification($jobPosterJSON["classification"]);
-                $jobPoster->setClearance_en($jobPosterJSON["clearance"][$en]);
-                $jobPoster->setClearance_fr($jobPosterJSON["clearance"][$fr]);
-                $jobPoster->setLanguage_en($jobPosterJSON["language"][$en]);
-                $jobPoster->setLanguage_fr($jobPosterJSON["language"][$fr]);
+                $jobPoster->setClearance_id($jobPosterJSON["clearance_id"]);
+                $jobPoster->setLanguage_id($jobPosterJSON["language_id"]);
 
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);

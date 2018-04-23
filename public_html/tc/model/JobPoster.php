@@ -40,13 +40,13 @@ class JobPoster implements JsonSerializable {
     private $other_requirements;
     private $questions;
     private $classification;
-    private $clearance;
-    private $language;
+    private $security_clearance;
+    private $language_requirement;
 
     public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null,
     $job_min_level=null, $job_max_level=null, $start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null,
     $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null,
-    $other_requirements=null, $questions=[], $classification=null, $clearance=null, $language=null) {
+    $other_requirements=null, $questions=[], $classification=null, $security_clearance=null, $language_requirement=null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -74,8 +74,8 @@ class JobPoster implements JsonSerializable {
         $this->other_requirements = $other_requirements;
         $this->questions = $questions;
         $this->classification = $classification;
-        $this->clearance = $clearance;
-        $this->language = $language;
+        $this->security_clearance = $security_clearance;
+        $this->language_requirement = $language_requirement;
     }
 
     public function jsonSerialize() {
@@ -197,12 +197,12 @@ class JobPoster implements JsonSerializable {
         return $this->classification;
     }
 
-    public function getClearance() {
-        return $this->clearance;
+    public function getSecurity_clearance() {
+        return $this->security_clearance;
     }
 
-    public function getLanguage() {
-        return $this->language;
+    public function getLanguage_requirement() {
+        return $this->language_requirement;
     }
 
     public function setId($id) {
@@ -340,13 +340,13 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
-    public function setClearance($clearance) {
-        $this->clearance = $clearance;
+    public function setSecurity_clearance($security_clearance) {
+        $this->security_clearance = $security_clearance;
         return $this;
     }
 
-    public function setLanguage($language) {
-        $this->language = $language;
+    public function setLanguage_requirement($language_requirement) {
+        $this->language_requirement = $language_requirement;
         return $this;
     }
 }
