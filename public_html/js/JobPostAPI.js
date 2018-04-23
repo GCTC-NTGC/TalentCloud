@@ -24,7 +24,7 @@ JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.versio
 JobPostAPI.JobPost = function(
     id,manager_user_id,title,applicants_to_date,close_date_time,department,branch,division,location_city,location_province,
     term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,
-    developing_competencies,other_requirements,questions,classification,security_clearance,language_requirement,start_date){
+    developing_competencies,questions,classification,security_clearance,language_requirement,start_date){
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = title;
@@ -44,7 +44,6 @@ JobPostAPI.JobPost = function(
     this.key_tasks = key_tasks;
     this.core_competencies = core_competencies;
     this.developing_competencies = developing_competencies;
-    this.other_requirements = other_requirements;
     this.questions = questions;
 
     // TAL-150
@@ -137,7 +136,6 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.key_tasks = job.key_tasks;
     jobObj.core_competencies = job.core_competencies;
     jobObj.developing_competencies = job.developing_competencies;
-    jobObj.other_requirements = job.other_requirements;
     jobObj.questions = [];
     job.questions.forEach(function(q){
         var question = new JobPostAPI.JobPosterQuestion(q.id, q.question);
@@ -590,12 +588,6 @@ JobPostAPI.populateJobPoster = function(jobData){
         jobData.developing_competencies.forEach( (item)=> devCompetencyValues.push(item.value));
     }
     JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
-
-    var otherRequirmentList = document.getElementById("jobPosterOtherRequirements");
-    if (jobData.other_requirements.length === 0) {
-        jobData.other_requirements.push("N/A");
-    }
-    JobPostAPI.setItemsForListElement(otherRequirmentList, jobData.other_requirements, "otherRequirmentItem");
 
     var applyNowButton = document.getElementById("jobPosterApplyButton");
     if(UserAPI.hasSessionUser()){

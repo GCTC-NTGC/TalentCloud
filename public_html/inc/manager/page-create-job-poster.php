@@ -325,26 +325,6 @@
                                 </div>
 
                                 <div class="box med-1of2">
-                                    <label class="form__label" for="createJobPoster_otherRequirements">
-                                        <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>: **</span>
-                                        <strong id="createJobPoster_otherRequirements_error" class="error hidden">
-                                            <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
-                                        </strong>
-                                    </label>
-                                    <textarea class="form__textarea" name="createJobPoster_otherRequirements" id="createJobPoster_otherRequirements"></textarea>
-                                </div>
-
-                                <div class="box med-1of2">
-                                    <label class="form__label" for="createJobPoster_otherRequirements_fr">
-                                        <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements</span> (Français): **</span>
-                                        <strong id="createJobPoster_otherRequirements_fr_error" class="error hidden">
-                                            <span id="createJobPoster_otherRequirements_fr_error_msg" class="label label-danger"></span>
-                                        </strong>
-                                    </label>
-                                    <textarea class="form__textarea" name="createJobPoster_otherRequirements_fr" id="createJobPoster_otherRequirements_fr"></textarea>
-                                </div>
-
-                                <div class="box med-1of2">
                                     <label class="form__label" for="createJobPoster_questions">
                                         <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
                                         <strong id="createJobPoster_questions_error" class="error hidden">

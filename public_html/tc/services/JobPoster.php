@@ -81,8 +81,6 @@
                 $jobPoster->setCore_competencies_fr($jobPosterJSON["core_competencies"][$fr]);
                 $jobPoster->setDeveloping_competencies_en($jobPosterJSON["developing_competencies"][$en]);
                 $jobPoster->setDeveloping_competencies_fr($jobPosterJSON["developing_competencies"][$fr]);
-                $jobPoster->setOther_requirements_en($jobPosterJSON["other_requirements"][$en]);
-                $jobPoster->setOther_requirements_fr($jobPosterJSON["other_requirements"][$fr]);
                 $jobPoster->setQuestions_en($jobPosterJSON["questions"][$en]);
                 $jobPoster->setQuestions_fr($jobPosterJSON["questions"][$fr]);
                 $jobPoster->setClassification($jobPosterJSON["classification"]);

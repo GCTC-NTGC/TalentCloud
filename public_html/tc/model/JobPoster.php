@@ -37,7 +37,6 @@ class JobPoster implements JsonSerializable {
     private $key_tasks;
     private $core_competencies;
     private $developing_competencies;
-    private $other_requirements;
     private $questions;
     private $classification;
     private $security_clearance;
@@ -46,7 +45,7 @@ class JobPoster implements JsonSerializable {
     public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null,
     $job_min_level=null, $job_max_level=null, $start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null,
     $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null,
-    $other_requirements=null, $questions=[], $classification=null, $security_clearance=null, $language_requirement=null) {
+    $questions=[], $classification=null, $security_clearance=null, $language_requirement=null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -71,7 +70,6 @@ class JobPoster implements JsonSerializable {
         $this->key_tasks = $key_tasks;
         $this->core_competencies = $core_competencies;
         $this->developing_competencies = $developing_competencies;
-        $this->other_requirements = $other_requirements;
         $this->questions = $questions;
         $this->classification = $classification;
         $this->security_clearance = $security_clearance;
@@ -183,10 +181,6 @@ class JobPoster implements JsonSerializable {
 
     public function getDeveloping_competencies() {
         return $this->developing_competencies;
-    }
-
-    public function getOther_requirements() {
-        return $this->other_requirements;
     }
 
     public function getQuestions() {
@@ -322,11 +316,6 @@ class JobPoster implements JsonSerializable {
 
     public function setDeveloping_competencies($developing_competencies) {
         $this->developing_competencies = $developing_competencies;
-        return $this;
-    }
-
-    public function setOther_requirements($other_requirements) {
-        $this->other_requirements = $other_requirements;
         return $this;
     }
 

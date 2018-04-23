@@ -62,12 +62,6 @@
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="container">
-                <h4 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h4>
-                <ul id="jobPosterOtherRequirements"></ul>
-            </div>
-        </section>
-        <section class='jobPosterSection'>
             <div class='container'>
                 <h4 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h4>
                 <input type='hidden' id='jobPosterHiringManagerUserId'/>

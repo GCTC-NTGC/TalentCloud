@@ -37,8 +37,6 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $core_competencies_fr;
     private $developing_competencies_en;
     private $developing_competencies_fr;
-    private $other_requirements_en;
-    private $other_requirements_fr;
     private $questions_en;
     private $questions_fr;
     private $classification;
@@ -75,8 +73,6 @@ class JobPosterNonLocalized implements JsonSerializable {
             $core_competencies_fr=null,
             $developing_competencies_en=null,
             $developing_competencies_fr=null,
-            $other_requirements_en=null,
-            $other_requirements_fr=null,
             $questions_en=[],
             $questions_fr=[],
             $classification=null,
@@ -112,8 +108,6 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->core_competencies_fr = $core_competencies_fr;
         $this->developing_competencies_en = $developing_competencies_en;
         $this->developing_competencies_fr = $developing_competencies_fr;
-        $this->other_requirements_en = $other_requirements_en;
-        $this->other_requirements_fr = $other_requirements_fr;
         $this->questions_en = $questions_en;
         $this->questions_fr = $questions_fr;
         $this->classification = $classification;
@@ -247,14 +241,6 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function getDeveloping_competencies_fr() {
         return $this->developing_competencies_fr;
-    }
-
-    public function getOther_requirements_en() {
-        return $this->other_requirements_en;
-    }
-
-    public function getOther_requirements_fr() {
-        return $this->other_requirements_fr;
     }
 
     public function getQuestions_en() {
@@ -419,16 +405,6 @@ class JobPosterNonLocalized implements JsonSerializable {
 
     public function setDeveloping_competencies_fr($developing_competencies_fr) {
         $this->developing_competencies_fr = $developing_competencies_fr;
-        return $this;
-    }
-
-    public function setOther_requirements_en($other_requirements_en) {
-        $this->other_requirements_en = $other_requirements_en;
-        return $this;
-    }
-
-    public function setOther_requirements_fr($other_requirements_fr) {
-        $this->other_requirements_fr = $other_requirements_fr;
         return $this;
     }
 
