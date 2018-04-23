@@ -7,7 +7,6 @@
 
 var JobSeekerAPI = {};
 JobSeekerAPI.jobSeekers = [];
-JobSeekerAPI.jobSeekerProfile = null;
 JobSeekerAPI.profilePicUploader = null;
 JobSeekerAPI.defaultFirstName = "Jane";
 JobSeekerAPI.defaultLastName = "Doe";
@@ -284,6 +283,7 @@ JobSeekerAPI.refreshJobSeekerProfilePic = function() {
 JobSeekerAPI.populateJobSeekerProfile = function(response){
     var jobSeekerJSON = JSON.parse(response);
     var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
+    
     if (jobSeekerJSON) {
         jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(jobSeekerJSON);
     } else {
@@ -299,14 +299,36 @@ JobSeekerAPI.populateJobSeekerProfile = function(response){
         jobSeekerProfile.last_updated = "";
     }
 
-    //Set profile state
-    JobSeekerAPI.jobSeekerProfile = jobSeekerProfile;
+    var profile_id = document.getElementById("profileId");
+    profile_id.value = jobSeekerProfile.id;
 
-    JobSeekerAPI.resetVisibleProfile();
-    JobSeekerAPI.resetProfileEditValues();
-};
+    var last_updated = document.getElementById("profileLastUpdated");
+    last_updated.value = jobSeekerProfile.last_updated;
 
-JobSeekerAPI.resetVisibleProfile = function() {
+    var profile_tagline = document.getElementById("profileTagLine");
+    Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
+
+    var twitter_link = document.getElementById("profileTwitterLink");
+    var twitter_link_wrapper = document.getElementById("profileTwitterLinkWrapper");
+    if (jobSeekerProfile.twitter_link == null || jobSeekerProfile.twitter_link == "") {
+        twitter_link_wrapper.classList.add("hidden");
+        twitter_link.href = "#";
+    } else {
+        twitter_link_wrapper.classList.remove("hidden");
+        twitter_link.href = jobSeekerProfile.twitter_link;
+    }
+
+    var linkedin_link = document.getElementById("profileLinkedinLink");
+    var linkedin_link_wrapper = document.getElementById("profileLinkedinLinkWrapper");
+    if (jobSeekerProfile.linkedin_link == null || jobSeekerProfile.linkedin_link == "") {
+        linkedin_link_wrapper.classList.add("hidden");
+        linkedin_link.href = "#";
+    } else {
+        linkedin_link_wrapper.classList.remove("hidden");
+        linkedin_link.href = unescape("https://www.linkedin.com/in/"+jobSeekerProfile.linkedin_link);
+    }
+
+    //Populate user name
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
 
@@ -316,63 +338,9 @@ JobSeekerAPI.resetVisibleProfile = function() {
         var profile_last_name = document.getElementById("profileLastName");
         Utilities.replaceElementText(profile_last_name, sessionUser.lastname!=null?sessionUser.lastname:JobSeekerAPI.defaultLastName);
     }
-
-    if (JobSeekerAPI.jobSeekerProfile) {
-        var profile_id = document.getElementById("profileId");
-        profile_id.value = JobSeekerAPI.jobSeekerProfile.id;
-
-        var last_updated = document.getElementById("profileLastUpdated");
-        last_updated.value = JobSeekerAPI.jobSeekerProfile.last_updated;
-
-        var profile_tagline = document.getElementById("profileTagLine");
-        Utilities.replaceElementText(profile_tagline, JobSeekerAPI.jobSeekerProfile.tagline);
-
-        var twitter_link = document.getElementById("profileTwitterLink");
-        var twitter_link_wrapper = document.getElementById("profileTwitterLinkWrapper");
-        if (JobSeekerAPI.jobSeekerProfile.twitter_link == null || JobSeekerAPI.jobSeekerProfile.twitter_link == "") {
-            twitter_link_wrapper.classList.add("hidden");
-            twitter_link.href = "#";
-        } else {
-            twitter_link_wrapper.classList.remove("hidden");
-            twitter_link.href = JobSeekerAPI.jobSeekerProfile.twitter_link;
-        }
-
-        var linkedin_link = document.getElementById("profileLinkedinLink");
-        var linkedin_link_wrapper = document.getElementById("profileLinkedinLinkWrapper");
-        if (JobSeekerAPI.jobSeekerProfile.linkedin_link == null || JobSeekerAPI.jobSeekerProfile.linkedin_link == "") {
-            linkedin_link_wrapper.classList.add("hidden");
-            linkedin_link.href = "#";
-        } else {
-            linkedin_link_wrapper.classList.remove("hidden");
-            linkedin_link.href = unescape("https://www.linkedin.com/in/"+JobSeekerAPI.jobSeekerProfile.linkedin_link);
-        }
-
-        
-
-        /*
-        var about_me = document.getElementById("profileAboutMe");
-        Utilities.replaceElementText(about_me, JobSeekerAPI.jobSeekerProfile.about_me);
-        
-        console.log(jobSeekerJSON.job_seeker_profile_link);
-        if(jobSeekerJSON.job_seeker_profile_link !== undefined){
-            var profile_link = document.getElementById("profile_link");
-            profile_link.value = unescape(jobSeekerProfile.profile_link);
-        }
-
-        var profile_accomplishment = document.getElementById("profile_accomplishment");
-        profile_accomplishment.value = jobSeekerProfile.profile_accomp;
-
-        var profile_best_experience = document.getElementById("profile_best_experience");
-        profile_best_experience.value = jobSeekerProfile.profile_best_exp;
-
-        var profile_worst_experience = document.getElementById("profile_worst_experience");
-        profile_worst_experience.value = jobSeekerProfile.profile_worst_exp;
-
-        var profile_superpower = document.getElementById("profile_superpower");
-        profile_superpower.value = jobSeekerProfile.profile_superpower;
-        */
-    }
-}
+    
+    JobSeekerAPI.resetProfileEditValues();
+};
 
 JobSeekerAPI.resetProfileEditValues = function() {
     if (UserAPI.hasSessionUser()) {
@@ -384,17 +352,14 @@ JobSeekerAPI.resetProfileEditValues = function() {
         var profile_edit_last_name = document.getElementById("profileEditLastName");
         profile_edit_last_name.value = sessionUser.lastname!=null?sessionUser.lastname:JobSeekerAPI.defaultLastName;
     }
+    var profile_edit_tagline = document.getElementById("profileEditTagline");
+    profile_edit_tagline.value = document.getElementById("profileTagLine").innerHTML;
 
-    if (JobSeekerAPI.jobSeekerProfile) {
-        var profile_edit_tagline = document.getElementById("profileEditTagline");
-        profile_edit_tagline.value = JobSeekerAPI.jobSeekerProfile.tagline;
+    var profile_edit_twitter = document.getElementById("profileEditTwitter");
+    profile_edit_twitter.value = JobSeekerAPI.twitterLinkToUsername(document.getElementById("profileTwitterLink").href);
 
-        var profile_edit_twitter = document.getElementById("profileEditTwitter");
-        profile_edit_twitter.value = JobSeekerAPI.twitterLinkToUsername(JobSeekerAPI.jobSeekerProfile.twitter_link);
-
-        var profile_edit_linkedin = document.getElementById("profileEditLinkedin");
-        profile_edit_linkedin.value = unescape(JobSeekerAPI.jobSeekerProfile.linkedin_link);
-    }
+    var profile_edit_linkedin = document.getElementById("profileEditLinkedin");
+    profile_edit_linkedin.value = unescape(document.getElementById("profileLinkedinLink").href);
 };
 
 JobSeekerAPI.twitterLinkToUsername = function(twitterLink) {
@@ -485,7 +450,13 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function(){
             if (oldUser.firstname != user.firstname ||
                 oldUser.lastname != user.lastname) {
                 UserAPI.updateUser(user, function() {
-                    JobSeekerAPI.resetVisibleProfile();
+                    var sessionUser = UserAPI.getSessionUserAsJSON();
+                    var profile_first_name = document.getElementById("profileFirstName");
+                    Utilities.replaceElementText(profile_first_name, sessionUser.firstname!=null?sessionUser.firstname:JobSeekerAPI.defaultFirstName);
+
+                    var profile_last_name = document.getElementById("profileLastName");
+                    Utilities.replaceElementText(profile_last_name, sessionUser.lastname!=null?sessionUser.lastname:JobSeekerAPI.defaultLastName);
+                    
                     JobSeekerAPI.resetProfileEditValues();
                 });
             }
