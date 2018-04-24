@@ -5060,6 +5060,10 @@ nav {
       .manager-edit-profile__button-form > .box {
         text-align: right; } }
 
+.stepGroup_createEditProfile .tab-current {
+  background: #2196f3;
+  color: white; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
