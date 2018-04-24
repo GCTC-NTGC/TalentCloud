@@ -54,28 +54,24 @@ class JobPosterDAO extends BaseDAO {
             jpd.branch as branch,
             jpd.division as division,
             pd.province_details_name as location_province,
-            cd.city_details_name as location_city,
+            jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
             lrd.language_requirement_details_name as language_requirement,
             jpd.job_poster_impact as impact
-            FROM job_poster jp, job_poster_details jpd,
+            FROM 
+                job_poster jp, 
+                job_poster_details jpd,
                 locale l,
                 job_poster_to_manager_user_id jp_to_user,
                 job_term_details jtd,
                 job_level jl_1,
                 job_level jl_2,
-                department d,
                 department_details dd,
-                province p,
-                province_details pd,
-                city c,
-                city_details cd,
-                security_clearance sc,
+                province_details pd,                
                 security_clearance_details scd,
-                language_requirement lr,
                 language_requirement_details lrd
             WHERE jpd.job_poster_id = jp.job_poster_id
             AND l.locale_iso = :locale_iso
@@ -85,22 +81,14 @@ class JobPosterDAO extends BaseDAO {
             AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
             AND jl_2.job_level_id = jp.job_poster_job_max_level_id
-            AND d.department_id = jp.job_poster_department_id
-            AND dd.department_id = d.department_id
+            AND dd.department_id = jp.job_poster_department_id
             AND dd.department_details_locale_id = l.locale_id
-            AND jp.job_poster_department_id = d.department_id
             AND pd.province_details_locale_id = l.locale_id
-            AND pd.province_details_province_id = p.province_id
-            AND p.province_id = d.department_province_id
-            AND cd.city_details_city_id = c.city_id
-            AND d.department_city_id = c.city_id
-            AND cd.city_details_locale_id = l.locale_id
+            AND pd.province_details_province_id = jp.job_poster_province_id
             AND scd.security_clearance_details_locale_id = l.locale_id
-            AND scd.security_clearance_id = sc.security_clearance_id
-            AND sc.security_clearance_id = jp.job_poster_clearance_id
+            AND scd.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
-            AND lrd.language_requirement_id = lr.language_requirement_id
-            AND lr.language_requirement_id = jp.job_poster_language_id
+            AND lrd.language_requirement_id = jp.job_poster_language_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -158,32 +146,28 @@ class JobPosterDAO extends BaseDAO {
             jpd.branch as branch,
             jpd.division as division,
             pd.province_details_name as location_province,
-            cd.city_details_name as location_city,
+            jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
             lrd.language_requirement_details_name as language_requirement,
             jpd.job_poster_impact as impact
-            FROM job_poster jp,
+            FROM 
+                job_poster jp, 
                 job_poster_details jpd,
                 locale l,
                 job_poster_to_manager_user_id jp_to_user,
                 job_term_details jtd,
                 job_level jl_1,
                 job_level jl_2,
-                department d,
                 department_details dd,
-                province p,
-                province_details pd,
-                city c,
-                city_details cd,
-                security_clearance sc,
+                province_details pd,                
                 security_clearance_details scd,
-                language_requirement lr,
                 language_requirement_details lrd
-            WHERE jp.job_poster_id = :job_poster_id
-            AND jpd.job_poster_id = jp.job_poster_id
+            WHERE 
+            jp.job_poster_id = :job_poster_id 
+            AND jpd.job_poster_id = jp.job_poster_id 
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
             AND jp_to_user.job_poster_id = jp.job_poster_id
@@ -191,22 +175,14 @@ class JobPosterDAO extends BaseDAO {
             AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
             AND jl_2.job_level_id = jp.job_poster_job_max_level_id
-            AND d.department_id = jp.job_poster_department_id
-            AND dd.department_id = d.department_id
+            AND dd.department_id = jp.job_poster_department_id
             AND dd.department_details_locale_id = l.locale_id
-            AND jp.job_poster_department_id = d.department_id
             AND pd.province_details_locale_id = l.locale_id
-            AND pd.province_details_province_id = p.province_id
-            AND p.province_id = d.department_province_id
-            AND cd.city_details_city_id = c.city_id
-            AND d.department_city_id = c.city_id
-            AND cd.city_details_locale_id = l.locale_id
+            AND pd.province_details_province_id = jp.job_poster_province_id
             AND scd.security_clearance_details_locale_id = l.locale_id
-            AND scd.security_clearance_id = sc.security_clearance_id
-            AND sc.security_clearance_id = jp.job_poster_clearance_id
+            AND scd.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
-            AND lrd.language_requirement_id = lr.language_requirement_id
-            AND lr.language_requirement_id = jp.job_poster_language_id
+            AND lrd.language_requirement_id = jp.job_poster_language_id
             ";
 
         $sql = $link->prepare($sqlStr);
@@ -548,30 +524,28 @@ class JobPosterDAO extends BaseDAO {
             jpd.branch as branch,
             jpd.division as division,
             pd.province_details_name as location_province,
-            cd.city_details_name as location_city,
+            jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
             lrd.language_requirement_details_name as language_requirement,
             jpd.job_poster_impact as impact
-            FROM job_poster jp, job_poster_details jpd,
+            FROM 
+                job_poster jp, 
+                job_poster_details jpd,
                 locale l,
                 job_poster_to_manager_user_id jp_to_user,
                 job_term_details jtd,
                 job_level jl_1,
                 job_level jl_2,
-                department d,
                 department_details dd,
-                province p,
-                province_details pd,
-                city c,
-                city_details cd,
-                security_clearance sc,
+                province_details pd,                
                 security_clearance_details scd,
-                language_requirement lr,
                 language_requirement_details lrd
-            WHERE jpd.job_poster_id = jp.job_poster_id
+            WHERE 
+            jp_to_user.user_id = :manager_id
+            AND jpd.job_poster_id = jp.job_poster_id 
             AND l.locale_iso = :locale_iso
             AND jpd.locale_id = l.locale_id
             AND jp_to_user.job_poster_id = jp.job_poster_id
@@ -579,26 +553,19 @@ class JobPosterDAO extends BaseDAO {
             AND jtd.job_term_locale_id = l.locale_id
             AND jl_1.job_level_id = jp.job_poster_job_min_level_id
             AND jl_2.job_level_id = jp.job_poster_job_max_level_id
-            AND d.department_id = jp.job_poster_department_id
-            AND dd.department_id = d.department_id
+            AND dd.department_id = jp.job_poster_department_id
             AND dd.department_details_locale_id = l.locale_id
-            AND jp.job_poster_department_id = d.department_id
             AND pd.province_details_locale_id = l.locale_id
-            AND pd.province_details_province_id = p.province_id
-            AND p.province_id = d.department_province_id
-            AND cd.city_details_city_id = c.city_id
-            AND d.department_city_id = c.city_id
-            AND cd.city_details_locale_id = l.locale_id
+            AND pd.province_details_province_id = jp.job_poster_province_id
             AND scd.security_clearance_details_locale_id = l.locale_id
-            AND scd.security_clearance_id = sc.security_clearance_id
-            AND sc.security_clearance_id = jp.job_poster_clearance_id
+            AND scd.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
-            AND lrd.language_requirement_id = lr.language_requirement_id
-            AND lr.language_requirement_id = jp.job_poster_language_id
+            AND lrd.language_requirement_id = jp.job_poster_language_id
             ";
 
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':locale_iso', $locale, PDO::PARAM_STR);
+        $sql->bindValue(':locale_iso', $locale, PDO::PARAM_STR);
+        $sql->bindValue(':manager_id', $managerId, PDO::PARAM_INT);
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
