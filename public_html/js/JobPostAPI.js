@@ -438,7 +438,14 @@ JobPostAPI.populateJobPoster = function(jobData){
        var managerUser = JSON.parse(response);
        document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
        document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+
+       if (locale === "en_CA"){
+           var subject = "?subject=TalentCloud Accommodation Request for Job ID #" + jobData.id;
+       } else {
+           var subject = "?subject=Demande d'hébergement TalentCloud pour le numéro d'identification du travail " + jobData.id;
+       }
        document.getElementById('jobPosterHiringManagerEmail').innerHTML = managerUser.user.email;
+       document.getElementById('jobPosterHiringManagerEmail').href = "mailto:" + managerUser.user.email + subject;
     });
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');

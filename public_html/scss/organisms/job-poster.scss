@@ -104,7 +104,6 @@
 #jobPosterButtonWrapper {
     text-align: center;
     background-color: #B9B9B9;
-    margin-top: 2em;
 }
 
 #jobPosterApplyButton{
@@ -171,6 +170,19 @@
     display: inline;
     width: 30%;
     margin-right: 2em;
+}
+
+.accommodationRequest{
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.accommodationRequestText{
+    text-align: left;
+    font-size: 2rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 @import "molecules/job-poster-workplace";

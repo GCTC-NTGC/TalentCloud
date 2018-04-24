@@ -57,7 +57,7 @@
         </section>
         <section class='jobPosterSection'>
             <div class="container">
-               <h4 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Asset Criteria</h4>
+                <h4 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Asset Criteria</h4>
                 <ul id="jobPosterDevelopingCompetencies"></ul>
             </div>
         </section>
@@ -111,34 +111,38 @@
                         </div>
                     </div>
                 </div>
-        </section>
-        <section class="jobPosterSection">
-            <div class="container">
-                <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
+            </section>
+            <section class="jobPosterSection">
                 <div class="container">
-                    <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
-                    <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
-                    <p><span id="jobPosterTeamNarrativeText"></span></p>
+                    <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
+                    <div class="container">
+                        <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
+                        <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
+                        <p><span id="jobPosterTeamNarrativeText"></span></p>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <section class="jobPosterSection">
-            <div class="container">
-                <div class="accommodationRequest">
-                    <p>
-                        <span id="accommodationTextStart">Please advise</span>
-                        <span id="jobPosterHiringManagerNameAccommodation"></span> at
-                        <strong><span id="jobPosterHiringManagerEmail"></span></strong>
-                        <span id="accommodationTextEnd">of any accomodations you may require during the selection.</span>
-                    </p>
+            </section>
+            <section class="jobPosterSection">
+                <div class="container">
+                    <div class="accommodationRequest flex-grid middle">
+                        <div class="box small-2of10 lg-1of10">
+                            <i class="fas fa-hand-holding-heart fa-4x"></i>
+                        </div>
+                        <div class="box small-8of10 lg-9of10 accommodationRequestText">
+                            <span id="accommodationTextStart">Please advise</span>
+                            <span id="jobPosterHiringManagerNameAccommodation"></span>
+                            <span id="accommodationRequestAt">at</span>
+                            <a id="jobPosterHiringManagerEmail"></a>
+                            <span id="accommodationTextEnd">of any accomodations you may require during the selection.</span>
+                        </div>
+                    </div>
                 </div>
+            </section>
+            <div id="jobPosterButtonWrapper">
+                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
+                    Apply Now
+                </button>
             </div>
-        </section>
-        <div id="jobPosterButtonWrapper">
-            <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
-                Apply Now
-            </button>
         </div>
-    </div>
-</section>
-<!-- END - View Job Poster Section -->
+    </section>
+    <!-- END - View Job Poster Section -->
