@@ -1,4 +1,4 @@
-TRUNCATE `talentcloud`.`skill_level`;
+DELETE FROM `talentcloud`.`skill_level`;
 INSERT INTO `talentcloud`.`skill_level`
 (`skill_level_id`, `skill_level_common_name`)
 VALUES
@@ -7,7 +7,7 @@ VALUES
 (3, 'Expert'),
 (4, 'Master');
 
-TRUNCATE `talentcloud`.`skill_level_details`;
+DELETE FROM `talentcloud`.`skill_level_details`;
 INSERT INTO `talentcloud`.`skill_level_details`
 (`skill_level_id`, `skill_level_details_locale_id`, `skill_level_details_name`)
 VALUES
@@ -20,7 +20,7 @@ VALUES
 (4, 1, 'Master'),
 (4, 2, 'Maître');
 
-TRUNCATE `talentcloud`.`experience_level`;
+DELETE FROM `talentcloud`.`experience_level`;
 INSERT INTO `talentcloud`.`experience_level`
 (`experience_level_id`, `experience_level_common`)
 VALUES
@@ -30,7 +30,7 @@ VALUES
 (4, '6 - 7 years'),
 (5, '8 or More years');
 
-TRUNCATE `talentcloud`.`experience_level_details`;
+DELETE FROM `talentcloud`.`experience_level_details`;
 INSERT INTO `talentcloud`.`experience_level_details`
 (`experience_level_id`, `experience_level_details_locale_id`, `experience_level_details_name`)
 VALUES
