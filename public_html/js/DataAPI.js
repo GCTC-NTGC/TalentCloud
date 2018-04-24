@@ -242,8 +242,49 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.managerProfile_acceptLowValueWorkRequests_option2 = content.managerProfile_acceptLowValueWorkRequests_option2;
     thisContent.managerProfile_acceptLowValueWorkRequests_option3 = content.managerProfile_acceptLowValueWorkRequests_option3;
     thisContent.managerProfile_acceptLowValueWorkRequests_option4 = content.managerProfile_acceptLowValueWorkRequests_option4;
+    thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
+    thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
     thisContent.profileBasicInfoEditTitle = content.profileBasicInfoEditTitle;
     thisContent.changeDisplayPic = content.changeDisplayPic;
+    thisContent.updateProfilePhotoTitle = content.updateProfilePhotoTitle;
+    thisContent.updateProfilePhotoDraggableAreaLabel = content.updateProfilePhotoDraggableAreaLabel;
+    thisContent.updateProfilePhotoDraggableAreaErrorSize = content.updateProfilePhotoDraggableAreaErrorSize;
+    thisContent.updateProfilePhotoDraggableAreaErrorType = content.updateProfilePhotoDraggableAreaErrorType;
+    thisContent.updateProfileOrCopy = content.updateProfileOrCopy;
+    thisContent.updateProfileChoosePhotoButtonLabelSpan = content.updateProfileChoosePhotoButtonLabelSpan;
+    thisContent.updateProfileChoosePhotoButton = content.updateProfileChoosePhotoButton;
+    thisContent.updateProfileChooseAltPhotoButtonLabelSpan = content.updateProfileChooseAltPhotoButtonLabelSpan;
+    thisContent.updateProfileChooseAltPhotoButton = content.updateProfileChooseAltPhotoButton;
+    thisContent.updateProfilePhotoCancelButton = content.updateProfilePhotoCancelButton;
+    thisContent.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
+    thisContent.updateProfileApplicantProfileFormFirstNameLabelSpan = content.updateProfileApplicantProfileFormFirstNameLabelSpan;
+    thisContent.profileEditFirstName = content.profileEditFirstName;
+    thisContent.updateProfileApplicantProfileFormLastNameLabelSpan = content.updateProfileApplicantProfileFormLastNameLabelSpan;
+    thisContent.profileEditLastName = content.profileEditLastName;
+    thisContent.updateProfileApplicantProfileFormTaglineLabelSpan = content.updateProfileApplicantProfileFormTaglineLabelSpan;
+    thisContent.profileEditTagline = content.profileEditTagline;
+    thisContent.updateProfileApplicantProfileFormTwitterLabelSpan = content.updateProfileApplicantProfileFormTwitterLabelSpan;
+    thisContent.profileEditTwitter = content.profileEditTwitter;
+    thisContent.updateProfileApplicantProfileFormLinkedinLabelSpan = content.updateProfileApplicantProfileFormLinkedinLabelSpan;
+    thisContent.profileEditLinkedin = content.profileEditLinkedin;
+    thisContent.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
+    thisContent.profileBasicInfoEditSave = content.profileBasicInfoEditSave;
+    thisContent.profilePicUploadBtn = content.profilePicUploadBtn;
+    thisContent.loginFormTitle = content.loginFormTitle;
+    thisContent.loginModalCopySpan = content.loginModalCopySpan;
+    thisContent.switchToRegister = content.switchToRegister;
+    thisContent.loginModalEmailLabelSpan = content.loginModalEmailLabelSpan;
+    thisContent.login_email = content.login_email;
+    thisContent.loginModalPasswordLabelSpan = content.loginModalPasswordLabelSpan;
+    thisContent.login_password = content.login_password;
+    thisContent.loginFormCancelBtn = content.loginFormCancelBtn;
+    thisContent.loginFormLoginBtn = content.loginFormLoginBtn;
+    thisContent.registerFormTitle = content.registerFormTitle;
+    thisContent.profileAboutMeEditTitle = content.profileAboutMeEditTitle;
+    thisContent.updateAboutTextareaLabelSpan = content.updateAboutTextareaLabelSpan;
+    thisContent.profileEditAboutMe = content.profileEditAboutMe;
+    thisContent.profileAboutMeEditCancel = content.profileAboutMeEditCancel;
+    thisContent.profileAboutMeEditSave = content.profileAboutMeEditSave;
     thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
     thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
     //if(siteContent){
@@ -713,13 +754,16 @@ DataAPI.getUser = function(userId, responseCallback) {
  * @param {function} responseCallback
  * @return {undefined}
  */
-DataAPI.createJobApplication = function(jobApplication, responseCallback) {
+DataAPI.createJobApplication = function(jobApplication, requestCallback) {
     var url = DataAPI.baseURL + '/postJobApplication';
-    DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), function(request) {
-        responseCallback(request.response);
-    });
+    DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), requestCallback);
 };
 
+
+DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
+    var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
 /**
  *
  * @param {int} managerProfileId
@@ -746,3 +790,21 @@ DataAPI.getWorkplaceEnvironment = function(managerProfileId, responseCallback) {
         responseCallback(request.response);
     });
 };
+
+DataAPI.getSkillDeclarationsForApplication = function(applicationId, requestCallback) {
+    var url = [DataAPI.baseURL, "getDeclarationsForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveSkillDeclaration = function(skillDeclaration, isEssential, criteriaId, applicationId, requestCallback) {
+    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillDeclaration), requestCallback);
+};
+
+DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId, requestCallback) {
+    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
+

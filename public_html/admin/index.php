@@ -89,6 +89,18 @@ if($query_string !== ""){
                     echo("var idToken = '".$_SESSION["idToken"]."';");
                     echo("UserAPI.storeOpenIDToken(idToken);");
                 }
+    <!-- BEGIN - Page Content-->
+    <main>
+        <!-- BEGIN - Includes for pages -->
+        <?php
+        include "../inc/manager/page-home-content.php";
+        include "../inc/manager/page-job-seeker.php";
+        include "../inc/manager/page-create-job-poster.php";
+        include "../inc/manager/page-profile.php";
+        ?>
+        <!-- END - Includes for pages -->
+    </main>
+    <!-- END - Page Content -->
 
                 if($_SESSION["refreshToken"] !== null){
                     echo("var refreshToken = '".$_SESSION["refreshToken"]."';");

@@ -202,7 +202,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     
     // Job summary elements
     var jobSummaryTable = document.createElement("div");
-    jobSummaryTable.setAttribute("class", "jobSummaryTable");
+    jobSummaryTable.setAttribute("class", "jobSummaryTable flex-grid");
     
     var jobIDCell = document.createElement("div");
     jobIDCell.setAttribute("class", "jobId hidden");
@@ -221,7 +221,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     hiringManagerLabel.innerHTML = "Hiring Manager";
     
     var hiringManagerWrapper = document.createElement("div");
-    hiringManagerWrapper.setAttribute("class", "hiringManagerWrapper");
+    hiringManagerWrapper.setAttribute("class", "hiringManagerWrapper box med-1of12");
     
     hiringManagerWrapper.appendChild(hiringManagerProfilePic);
     hiringManagerWrapper.appendChild(hiringManagerLabel);
@@ -235,14 +235,14 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummaryDepartment.innerHTML = job.department;
     
     var titleDepartmentWrapper = document.createElement("div");
-    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper");
+    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper box med-3of12");
     
     titleDepartmentWrapper.appendChild(jobSummaryTitle);
     titleDepartmentWrapper.appendChild(jobSummaryDepartment);
     
     var jobSummarySalaryRange = document.createElement("div");
     jobSummarySalaryRange.setAttribute("id", "jobSummarySalaryRange"+job.id);
-    jobSummarySalaryRange.setAttribute("class", "jobSummarySalaryRange");
+    jobSummarySalaryRange.setAttribute("class", "jobSummarySalaryRange box med-2of12");
     if (locale === "en_CA"){
         jobSummarySalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
     } else {
@@ -250,7 +250,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     }
     
     var jobSummaryTerm_qty = document.createElement("div");
-    jobSummaryTerm_qty.setAttribute("class", "jobSummaryTerm_qty");
+    jobSummaryTerm_qty.setAttribute("class", "jobSummaryTerm_qty box med-1of12");
     jobSummaryTerm_qty.innerHTML = job.term_qty + " " + job.term_units + " " + siteContent.jobTerm ;
     
     var jobSummaryApplicants_to_date = document.createElement("div");
@@ -263,7 +263,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     jobSummaryClose_date_time.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobUntilClose;
     
     var applicantsCloseDateWrapper = document.createElement("div");
-    applicantsCloseDateWrapper.setAttribute("class", "applicantsCloseDateWrapper");
+    applicantsCloseDateWrapper.setAttribute("class", "applicantsCloseDateWrapper box med-2of12");
     
     applicantsCloseDateWrapper.appendChild(jobSummaryApplicants_to_date);
     applicantsCloseDateWrapper.appendChild(jobSummaryClose_date_time);
@@ -546,16 +546,22 @@ JobPostAPI.populateJobPoster = function(jobData){
     JobPostAPI.setItemsForListElement(keyTaskList, jobData.key_tasks, "keyTaskItem");
     
     var coreCompetencyList = document.getElementById("jobPosterCoreCompetencies");
+    var coreCompetencyValues = [];
     if (jobData.core_competencies.length === 0) {
-        jobData.core_competencies.push("N/A");
+        coreCompetencyValues.push("N/A");
+    } else {
+        jobData.core_competencies.forEach((item)=>coreCompetencyValues.push(item.value));
     }
-    JobPostAPI.setItemsForListElement(coreCompetencyList, jobData.core_competencies, "coreCompetencyItem");
+    JobPostAPI.setItemsForListElement(coreCompetencyList, coreCompetencyValues, "coreCompetencyItem");
     
     var developingCompetencyList = document.getElementById("jobPosterDevelopingCompetencies");
+    var devCompetencyValues = [];
     if (jobData.developing_competencies.length === 0) {
-        jobData.developing_competencies.push("N/A");
+        devCompetencyValues.push("N/A");
+    } else {
+        jobData.developing_competencies.forEach( (item)=> devCompetencyValues.push(item.value));
     }
-    JobPostAPI.setItemsForListElement(developingCompetencyList, jobData.developing_competencies, "developingCompetencyItem");
+    JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
     
     var otherRequirmentList = document.getElementById("jobPosterOtherRequirements");
     if (jobData.other_requirements.length === 0) {

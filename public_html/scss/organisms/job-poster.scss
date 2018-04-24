@@ -9,6 +9,10 @@
     left:0;
 }
 
+.jobPosterSection h4 {
+    font-size: 2.77rem;
+}
+
 .createJobPosterWrapperWindow{
     width:80%;
     min-width: 900px;
@@ -61,8 +65,19 @@
 /* JOB POSTER (LONG DESCRIPTION) STYLES */
 
 #jobPosterTitle{
-    font-size:5em;
+    font-size:4rem;
     color: #eee;
+    @media screen and (max-width: 1000px){
+        font-size: 3rem;
+    }
+}
+
+.hiringManagerSummary{
+    font-size: 2.5rem;
+    font-weight: bold;
+    @media screen and (max-width: 767px){
+        font-size: 2rem;
+    }
 }
 
 #jobPosterLocation{
@@ -151,3 +166,5 @@
     width: 30%;
     margin-right: 2em;
 }
+
+@import "molecules/job-poster-workplace";

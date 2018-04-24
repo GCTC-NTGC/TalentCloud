@@ -147,11 +147,13 @@ class ManagerProfileDAO extends BaseDAO{
             //$result = BaseDAO::executeDBTransaction($link,$sql);
             $link->beginTransaction();
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $profileId = $link->lastInsertId();
             $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+
             $link->commit();
             $rowsmodified = $sql->rowCount();
             if($rowsmodified > 0){
-                $insert_id = $link->lastInsertId();
+                $insert_id = $profileId;
             }
         } catch (PDOException $e) {
             return 'createManagerProfile failed: ' . $e->getMessage();

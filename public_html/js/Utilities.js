@@ -3,7 +3,6 @@
  *
  */
 var Utilities = {};
-
 Utilities.debug = false;
 
 /*
@@ -39,18 +38,18 @@ Utilities.formatDate = function (datestr) {
 
 Utilities.formatDateTimeLocal = function (date) {
     var ten = function (i) {
-            return (i < 10 ? '0' : '') + i;
-        };
+        return (i < 10 ? '0' : '') + i;
+    };
     var
-        YYYY = date.getFullYear(),
-        MM = ten(date.getMonth() + 1),
-        DD = ten(date.getDate()),
-        HH = ten(date.getHours()),
-        II = ten(date.getMinutes()),
-        SS = ten(date.getSeconds())
-        ;
+            YYYY = date.getFullYear(),
+            MM = ten(date.getMonth() + 1),
+            DD = ten(date.getDate()),
+            HH = ten(date.getHours()),
+            II = ten(date.getMinutes()),
+            SS = ten(date.getSeconds())
+            ;
     return YYYY + '-' + MM + '-' + DD + 'T' +
-             HH + ':' + II + ':' + SS;
+            HH + ':' + II + ':' + SS;
 };
 
 /**
@@ -73,25 +72,25 @@ Utilities.convertDaysToYears = function (days) {
  * @param {type} dateObj
  * @returns {String}
  */
-Utilities.timeRemaining = function(dateObj){
+Utilities.timeRemaining = function (dateObj) {
     //console.log(dateObj);
     var timeRemaining = "";
     var now = new Date();
-    var formattedDate = new Date(now.getFullYear()  + "-" + (now.getMonth()+1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
+    var formattedDate = new Date(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds());
 
     var date1 = new Date(dateObj);
     var date2 = formattedDate;
     var timeDiff = Math.abs(date2.getTime() - date1.getTime());
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    if(date2 < date1){
-        if(diffDays <= 1 ){
+    if (date2 < date1) {
+        if (diffDays <= 1) {
             timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseHours;
-        }else if(diffDays > 1 && diffDays < 32){
+        } else if (diffDays > 1 && diffDays < 32) {
             timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseDays;
-        }else{
-            timeRemaining = Math.round(diffDays/30) + " " + siteContent.jobUnitsToCloseMonths;
+        } else {
+            timeRemaining = Math.round(diffDays / 30) + " " + siteContent.jobUnitsToCloseMonths;
         }
-    }else{
+    } else {
         timeRemaining = 0;
     }
 
@@ -162,7 +161,7 @@ Utilities.decodeHtmlEntity = function (str) {
 Utilities.getValueByParameterName = function (name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-    results = regex.exec(location.search);
+            results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
@@ -202,15 +201,15 @@ Utilities.sortAlphaNum = function (a, b) {
     }
 };
 
-Utilities.setCookie = function(name, value, exdate, path) {
+Utilities.setCookie = function (name, value, exdate, path) {
     var escapedValue = escape(value);
     var expDate = new Date(exdate).toUTCString();
     var cookieStr = name + "=" + escapedValue + "; expires=" + expDate + "; path=" + path;
-    Utilities.debug?console.log("cookieString=" + cookieStr):null;
+    Utilities.debug ? console.log("cookieString=" + cookieStr) : null;
     document.cookie = cookieStr;
 };
 
-Utilities.getCookieByName = function(name){
+Utilities.getCookieByName = function (name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length === 2) {
@@ -218,61 +217,66 @@ Utilities.getCookieByName = function(name){
     }
 };
 
-Utilities.addDays = function(date,days) {
+Utilities.addDays = function (date, days) {
     date.setDate(date.getDate() + days);
     return date;
 };
 
-Utilities.clearFormFields = function(formId){
-   var formToClear = document.getElementById(formId);
+Utilities.clearFormFields = function (formId) {
+    var formToClear = document.getElementById(formId);
 
-    var inputElementTypesToClear = ["text","email","password","datetime-local"];
-    var elementsToClear = ["textarea","select","range"];
+    var inputElementTypesToClear = ["text", "email", "password", "datetime-local"];
+    var elementsToClear = ["textarea", "select", "range"];
 
     var elements = formToClear.getElementsByTagName("input");
-    for (var i=0; i < elements.length; i++){
+    for (var i = 0; i < elements.length; i++) {
 
-        if (inputElementTypesToClear.includes(elements[i].type)){
+        if (inputElementTypesToClear.includes(elements[i].type)) {
             elements[i].value = "";
         }
 
-        if (elementsToClear.includes(elements[i].tagName)){
+        if (elementsToClear.includes(elements[i].tagName)) {
             elements[i].value = "";
         }
 
     }
 };
 
-Utilities.serialize = function(obj, prefix) {
-  var str = [], p;
-  for(p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-      str.push((v !== null && typeof v === "object") ?
-        Utilities.serialize(v, k) :
-        k + "=" + v);
+Utilities.serialize = function (obj, prefix) {
+    var str = [], p;
+    for (p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+            str.push((v !== null && typeof v === "object") ?
+                    Utilities.serialize(v, k) :
+                    k + "=" + v);
+        }
     }
-  }
-  return str.join("&");
+    return str.join("&");
 };
 
-Utilities.replaceElementText = function(element, newText) {
-    while( element.firstChild )
-        element.removeChild( element.firstChild );
-    element.appendChild( document.createTextNode(newText) );
+Utilities.replaceElementText = function (element, newText) {
+    while (element.firstChild)
+        element.removeChild(element.firstChild);
+    element.appendChild(document.createTextNode(newText));
 };
 
-Utilities.clearSelectOptions = function(selectElement)
+Utilities.removeChildNodes = function (element) {
+    while (element.firstChild)
+        element.removeChild(element.firstChild);
+}
+
+Utilities.clearSelectOptions = function (selectElement)
 {
     var i;
-    for(i = selectElement.options.length - 1 ; i >= 0 ; i--)
+    for (i = selectElement.options.length - 1; i >= 0; i--)
     {
         selectElement.remove(i);
     }
     var blankSelect = document.createElement("option");
-    blankSelect.value="";
+    blankSelect.value = "";
     blankSelect.innerHTML = "--";
-    blankSelect.setAttribute("selected","selected");
+    blankSelect.setAttribute("selected", "selected");
     selectElement.appendChild(blankSelect);
 };
 
@@ -287,11 +291,10 @@ function modalSize() {
         // Gets the individual modal's content's height.
         var modalHeight = i.offsetHeight;
         // Compares the content's height to the height of the viewport. If the modal is taller than the viewport, it is assigned a class forcing it to be scrollable.
-        if(modalHeight > viewportHeight) {
+        if (modalHeight > viewportHeight) {
             i.classList.remove("dialogue-modal--viewport");
             i.classList.add("dialogue-modal--overflow");
-        }
-        else {
+        } else {
             i.classList.remove("dialogue-modal--overflow");
             i.classList.add("dialogue-modal--viewport");
         }
@@ -303,7 +306,7 @@ function modalSize() {
         // var modalLastFocusItem = focusable[focusable.length - 1];
 
         // if (modalFirstFocusItem && modalLastFocusItem) {
-            
+
         //     modalFirstFocusItem.focus();
 
         //     console.log("focus");
@@ -327,46 +330,51 @@ function modalSize() {
 window.onresize = modalSize;
 
 // Sitewide Accordion Triggers ================================================
-window.onload = function(e) {
+Utilities.accordionClickListener = function (e) {
+    var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
+    // Cancels the default action.
+    e.preventDefault();
+    // Checks to see if the accordion is open.
+    if (this.classList.contains("active")) {
+        // Closes all accordions.
+        for (let x of accordionTrigger) {
+            x.classList.remove("active")
+            x.nextElementSibling.classList.remove("active");
+        }
+    } else {
+        // Closes all accordions.
+        for (let x of accordionTrigger) {
+            x.classList.remove("active")
+            x.nextElementSibling.classList.remove("active");
+        }
+        // Opens this accordion.
+        this.classList.add("active");
+        this.nextElementSibling.classList.add("active");
+    }
+};
+
+Utilities.accordionKeyupListener = function (e) {
+    // Cancels the default action.
+    e.preventDefault();
+    // Checks to see if the key pressed was Enter (13).
+    if (e.keyCode === 13) {
+        // Triggers a click, thus activating the click event listener.
+        this.click();
+    }
+}
+
+Utilities.setAccordionTriggers = function () {
     // Gets all elements on the page with "accordion-trigger".
     var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
     // Loops through all elements.
     for (let i of accordionTrigger) {
         // Checks for a click.
-        i.addEventListener('click', function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            // Checks to see if the accordion is open.
-            if (this.classList.contains("active")) {
-                // Closes all accordions.
-                for (let x of accordionTrigger) {
-                    x.classList.remove("active")
-                    x.nextElementSibling.classList.remove("active");
-                }
-            }
-            else {
-                // Closes all accordions.
-                for (let x of accordionTrigger) {
-                    x.classList.remove("active")
-                    x.nextElementSibling.classList.remove("active");
-                }
-                // Opens this accordion.
-                this.classList.add("active");
-                this.nextElementSibling.classList.add("active");
-            }
-        });
-
+        i.addEventListener('click', Utilities.accordionClickListener);
         // Checks for an Enter key click.
-        i.addEventListener("keyup", function(e) {
-            // Cancels the default action.
-            e.preventDefault();
-            // Checks to see if the key pressed was Enter (13).
-            if (e.keyCode === 13) {
-                // Triggers a click, thus activating the click event listener.
-                this.click();
-            }
-        });
-
+        i.addEventListener("keyup", Utilities.accordionKeyupListener);
     }
+};
 
+window.onload = function (e) {
+    Utilities.setAccordionTriggers();
 };

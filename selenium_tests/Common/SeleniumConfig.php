@@ -6,17 +6,11 @@
  * and open the template in the editor.
  */
 
+define('SITE_URL','https://talentcloud.localhost/');
 define('SELENIUM_HOST_URL','http://localhost:4444/wd/hub');
-
-define('SITE_URL','https://tc.gccollab.ca/');
 
 define('BROWSER_TO_TEST','chrome');  //replace with firefox or edge
 define('BINARYPATH_CHROME','');  //leave blank for Windows machines
 define('BINARYPATH_FIREFOX','');    //leave blank for Windows machines
 
 define('SCREENSHOTS_DIR',"C:/dev/Selenium/screenshots/");
-
-define('HOST','127.0.0.1');
-define('USERNAME','talentcloud');
-define('PASSWORD','talentcloud');
-define('DBNAME','talentcloud');

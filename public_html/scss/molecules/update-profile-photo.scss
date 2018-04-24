@@ -28,6 +28,10 @@
     position: relative;
     width: 60%;
 
+    @media #{$l-tablet} {
+        width: 80%;
+    }
+
     &:after {
         border: 5px dashed $palette-grey;
         border-radius: 3rem;

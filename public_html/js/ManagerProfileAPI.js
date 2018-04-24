@@ -178,12 +178,12 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
         };
 
     var acceptLowValueWorkRequestsOptions = {
-        'option0':siteContent.managerProfile_acceptLowValueWorkRequests_option0,
-        'option1':siteContent.managerProfile_acceptLowValueWorkRequests_option1,
-        'option2':siteContent.managerProfile_acceptLowValueWorkRequests_option2,
-        'option3':siteContent.managerProfile_acceptLowValueWorkRequests_option3,
-        'option4':siteContent.managerProfile_acceptLowValueWorkRequests_option4
-    }
+            'option0':siteContent.managerProfile_acceptLowValueWorkRequests_option0,
+            'option1':siteContent.managerProfile_acceptLowValueWorkRequests_option1,
+            'option2':siteContent.managerProfile_acceptLowValueWorkRequests_option2,
+            'option3':siteContent.managerProfile_acceptLowValueWorkRequests_option3,
+            'option4':siteContent.managerProfile_acceptLowValueWorkRequests_option4
+        };
           
     document.getElementById('managerProfile_review').innerHTML = reviewOptions[profile.review_options];
     document.getElementById('managerProfile_stayLate').innerHTML = stayLateOptions[profile.stay_late];

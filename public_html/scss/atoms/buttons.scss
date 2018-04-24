@@ -6,60 +6,6 @@
 
 ============================================================================= */
 
-[class*="button--"] {
-    appearance: none;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: $font-hk;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 1rem 2rem;
-    transition: all .2s ease;
-
-    &[class*="yellow"] {
-        background: $palette-yellow--light;
-        color: $palette-grey--dark;
-
-        &:hover {
-            background: $palette-yellow--dark;
-        }
-
-    }
-
-    &[class*="grey"] {
-        background: $palette-grey--light;
-        color: $palette-grey--dark;
-
-        &:hover {
-            background: $palette-grey;
-        }
-
-    }
-
-    &[class*="blue"] {
-        background: $palette-blue;
-        color: $white;
-
-        &:hover {
-            background: $palette-blue--dark;
-        }
-
-    }
-
-    &:hover {
-        transition: all .2s ease;
-    }
-
-    &:focus {
-        color: $white !important;
-        background: $palette-grey--dark !important;
-        border: 2px solid $palette-yellow--dark !important;
-    }
-
-}
-
 /* BUTTONS */
 
 .btn{
@@ -136,4 +82,63 @@ main .btn-default {
     color:#555;
     background-color:#C8C8C8;
     border-color:transparent;
+}
+
+[class*="button--"],
+input[type="button"][class*="button--"] {
+    appearance: none;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $font-hk;
+    font-size: 16px;
+    font-weight: 400;
+    height: auto;
+    padding: 1rem 2rem;
+    transition: all .2s ease;
+
+    &[class*="yellow"] {
+        background: $palette-yellow--light;
+        border: 2px solid $palette-yellow--light !important;
+        color: $palette-grey--dark;
+
+        &:hover {
+            background: $palette-yellow--dark;
+        }
+
+    }
+
+    &[class*="grey"] {
+        background: $palette-grey--light;
+        border: 2px solid $palette-grey--light !important;
+        color: $palette-grey--dark;
+
+        &:hover {
+            background: $palette-grey;
+        }
+
+    }
+
+    &[class*="blue"] {
+        background: $palette-blue;
+        border: 2px solid $palette-blue !important;
+        color: $white;
+
+        &:hover {
+            background: $palette-blue--dark;
+        }
+
+    }
+
+    &:hover {
+        transition: all .2s ease;
+    }
+
+    &:focus {
+        color: $white !important;
+        background: $palette-grey--dark !important;
+        border: 2px solid $palette-yellow--dark !important;
+    }
+
 }
