@@ -10,9 +10,11 @@
                     <div class="flexLeftOfCenter">
                         <ul id="profileSocialMediaLinks" class="profileSocialMediaLinks">
                             <li id="profileTwitterLinkWrapper" class="hidden">
+                                <input type="hidden" id="profileTwitterUsername" value=""/>
                                 <a href="#" id="profileTwitterLink" target="_blank"><img src="/images/Twitter_icon_white.svg" class="socialMediaLink" alt="Twitter logo"/></a>
                             </li>
                             <li id="profileLinkedinLinkWrapper" class="hidden">
+                                <input type="hidden" id="profileLinkedInUsername" value=""/>
                                 <a href="#" id="profileLinkedinLink" target="_blank"><img src="/images/Linkedin_icon_white.svg" class="socialMediaLink" alt="LinkedIn logo"/></a>
                             </li>
                         </ul>

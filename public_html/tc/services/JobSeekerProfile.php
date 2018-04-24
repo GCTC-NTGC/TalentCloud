@@ -73,13 +73,13 @@ header("Content-Type: application/json; charset=utf-8");
                 $user_id = Utils::getParameterFromRequest($requestParams,4);
                 $jobSeekerProfile = new JobSeekerProfile();
                 $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["personal_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["twitter_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_linkedin_link($jobSeekerJSON["linkedin_link"]);
+                $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["twitter_username"]);
+                $jobSeekerProfile->setJob_seeker_profile_linkedin_link($jobSeekerJSON["linkedin_username"]);
                 $jobSeekerProfile->setJob_seeker_profile_tagline($jobSeekerJSON["tagline"]);
                 $answers = [];
                 foreach($jobSeekerJSON["answers"] as $answerJson) {
                     $answer = new JobSeekerProfileAnswer();
-                    $answer->setJob_seeker_profile_question_id($answerJson["question_id"]);
+                    $answer->setJob_seeker_profile_question_id($answerJson["job_seeker_profile_question_id"]);
                     $answer->setAnswer($answerJson["answer"]);
                     $answers[] = $answer;
                 }
