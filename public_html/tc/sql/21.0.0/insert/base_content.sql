@@ -25,4 +25,5 @@ VALUES
 (1,'jobPosterTermLabel','Duration :', 2)
 ;
 
-UPDATE `talentcloud`.`base_content` SET `base_content_value`='Salary range' WHERE `base_content_id`='0000000052';
+UPDATE `talentcloud`.`base_content` SET `base_content_value`='Salary range:' WHERE `base_content_id`='0000000052';
+UPDATE `talentcloud`.`base_content` SET `base_content_value`='Offre d\'emploi :' WHERE `base_content_id`='0000000053';

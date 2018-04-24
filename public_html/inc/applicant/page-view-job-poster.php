@@ -17,22 +17,22 @@
             <div class="container">
                 <ul class="jobPosterDatapoints">
                     <li>
-                        <span id="jobPosterJobLevelLabel">Classification</span>: <span id="jobPosterJobLevelValue"></span>
+                        <span id="jobPosterJobLevelLabel">Classification</span> <span id="jobPosterJobLevelValue"></span>
                     </li>
                     <li>
-                        <span id="jobPosterSalaryRangeLabel">Compensation</span>: <span id="jobPosterSalaryRangeValue"></span>
+                        <span id="jobPosterSalaryRangeLabel">Compensation</span> <span id="jobPosterSalaryRangeValue"></span>
                     </li>
                     <li>
-                        <span id="jobPosterClearanceLevelLabel">Security clearance level</span>: <span id="jobPosterClearanceLevelValue"></span>
+                        <span id="jobPosterClearanceLevelLabel">Security clearance level</span> <span id="jobPosterClearanceLevelValue"></span>
                     </li>
                     <li>
-                        <span id="jobPosterLanguageLabel">Language</span>: <span id="jobPosterLanguageValue"></span>
+                        <span id="jobPosterLanguageLabel">Language</span> <span id="jobPosterLanguageValue"></span>
                     </li>
                     <li>
-                        <span id="jobPosterTermLabel">Duration</span>: <span id="jobPosterTermValue"></span>
+                        <span id="jobPosterTermLabel">Duration</span> <span id="jobPosterTermValue"></span>
                     </li>
                     <li>
-                        <span id="jobPosterStartDateLabel">Target start date</span>: <span id="jobPosterStartDateValue"></span>
+                        <span id="jobPosterStartDateLabel">Target start date</span> <span id="jobPosterStartDateValue"></span>
                     </li>
                 </ul>
             </div>

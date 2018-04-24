@@ -31,7 +31,7 @@ managerProfile_engagement_option0, managerProfile_engagement_option1, managerPro
 managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,
 managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
-managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave, accommodationTextStart, accommodationTextEnd, jobPosterKeyTasksLabel, jobPosterCoreCompetenciesLabel, jobPosterHiringManagerLabel, jobPosterClearanceLevelLabel, jobPosterStartDateLabel, jobPosterJobLevelLabel, jobPosterLanguageLabel, jobPosterTermLabel
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -220,6 +220,16 @@ managerProfile_developmentOpportunities_option3, managerProfile_developmentOppor
     this.profileEditAboutMe = profileEditAboutMe;
     this.profileAboutMeEditCancel = profileAboutMeEditCancel;
     this.profileAboutMeEditSave = profileAboutMeEditSave;
+    this.accommodationTextStart = accommodationTextStart;
+    this.accommodationTextEnd = accommodationTextEnd;
+    this.jobPosterKeyTasksLabel = jobPosterKeyTasksLabel;
+    this.jobPosterCoreCompetenciesLabel = jobPosterCoreCompetenciesLabel;
+    this.jobPosterHiringManagerLabel = jobPosterHiringManagerLabel;
+    this.jobPosterClearanceLevelLabel = jobPosterClearanceLevelLabel;
+    this.jobPosterStartDateLabel = jobPosterStartDateLabel;
+    this.jobPosterJobLevelLabel = jobPosterJobLevelLabel;
+    this.jobPosterLanguageLabel = jobPosterLanguageLabel;
+    this.jobPosterTermLabel = jobPosterTermLabel;
 };
 
 TalentCloudAPI.pages = {
@@ -667,15 +677,16 @@ TalentCloudAPI.setContent = function(content, isManager){
         var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
         adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
 
+        var createJobPosterWindowTitle = document.getElementById("createJobPosterWindowTitle");
+        createJobPosterWindowTitle.innerHTML = siteContent.createJobPosterWindowTitle;
+
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
 
         //Create Job Poster
         //TODO: fix localization of terms for Create Job Poster
-        /*
-        var createJobPosterWindowTitle = document.getElementById("createJobPosterWindowTitle");
-        createJobPosterWindowTitle.innerHTML = siteContent.createJobPosterWindowTitle;
 
+        /*
         for(var i = 1;i < 4;i++){
             var stepOne = document.getElementById("createJobPosterTabLabel_" + i);
             stepOne.innerHTML = siteContent.step1;
@@ -995,14 +1006,44 @@ TalentCloudAPI.setContent = function(content, isManager){
             almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
         }
 
-        //not working yet
-
-
         var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
         managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
 
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
         managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
+
+        var accommodationTextStart = document.getElementById("accommodationTextStart");
+        accommodationTextStart.innerHTML = siteContent.accommodationTextStart;
+
+        var accommodationTextEnd = document.getElementById("accommodationTextEnd");
+        accommodationTextEnd.innerHTML = siteContent.accommodationTextEnd;
+
+        var jobPosterKeyTasksLabel = document.getElementById("jobPosterKeyTasksLabel");
+        jobPosterKeyTasksLabel.innerHTML = siteContent.jobPosterKeyTasksLabel;
+
+        var jobPosterCoreCompetenciesLabel = document.getElementById("jobPosterCoreCompetenciesLabel");
+        jobPosterCoreCompetenciesLabel.innerHTML = siteContent.jobPosterCoreCompetenciesLabel;
+
+        var jobPosterDevelopingCompetenciesLabel = document.getElementById("jobPosterDevelopingCompetenciesLabel");
+        jobPosterDevelopingCompetenciesLabel.innerHTML = siteContent.jobPosterDevelopingCompetenciesLabel;
+
+        var jobPosterHiringManagerLabel = document.getElementById("jobPosterHiringManagerLabel");
+        jobPosterHiringManagerLabel.innerHTML = siteContent.jobPosterHiringManagerLabel;
+
+        var jobPosterClearanceLevelLabel = document.getElementById("jobPosterClearanceLevelLabel");
+        jobPosterClearanceLevelLabel.innerHTML = siteContent.jobPosterClearanceLevelLabel;
+
+        var jobPosterStartDateLabel = document.getElementById("jobPosterStartDateLabel");
+        jobPosterStartDateLabel.innerHTML = siteContent.jobPosterStartDateLabel;
+
+        var jobPosterJobLevelLabel = document.getElementById("jobPosterJobLevelLabel");
+        jobPosterJobLevelLabel.innerHTML = siteContent.jobPosterJobLevelLabel;
+
+        var jobPosterLanguageLabel = document.getElementById("jobPosterLanguageLabel");
+        jobPosterLanguageLabel.innerHTML = siteContent.jobPosterLanguageLabel;
+
+        var jobPosterTermLabel = document.getElementById("jobPosterTermLabel");
+        jobPosterTermLabel.innerHTML = siteContent.jobPosterTermLabel;
 
     }
 
