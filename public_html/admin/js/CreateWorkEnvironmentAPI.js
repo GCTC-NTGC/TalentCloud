@@ -154,9 +154,36 @@ CreateWorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, phot
 };
 
 CreateWorkEnvironmentAPI.saveWorkEnvironment = function(managerProfileId) {
+    var defultOption = "option0";
     var remoteAllowed = document.querySelector('input[name="createEditProfile_remoteWork"]:checked').value;
+    
+    if (remoteAllowed == null){
+        
+        remoteAllowed = defaultOption;
+    }
+    else{
+        remoteAllowed = document.querySelector('input[name="createEditProfile_remoteWork"]:checked').value;
+    }
+    
     var teleworkAllowed = document.querySelector('input[name="createEditProfile_telework"]:checked').value;
+    
+    if (teleworkAllowed == null){
+        
+        teleworkAllowed = defaultOption;
+    }
+    else{
+        teleworkAllowed = document.querySelector('input[name="createEditProfile_telework"]:checked').value;
+    }
+    
     var flexibleAllowed = document.querySelector('input[name="createEditProfile_flexHours"]:checked').value;
+    
+    if (flexibleAllowed == null){
+        
+        flexibleAllowed = defaultOption;
+    }
+    else{
+        flexibleAllowed = document.querySelector('input[name="createEditProfile_flexHours"]:checked').value;
+    }
     
     var workEnvironment = new CreateWorkEnvironmentAPI.WorkEnvironment(remoteAllowed, teleworkAllowed, flexibleAllowed, []);
     
