@@ -5209,7 +5209,7 @@ nav {
     .application-progress .flex-grid:before {
       background: #484848;
       content: " ";
-      display: block;
+      display: none;
       height: 1px;
       position: absolute;
       top: 50%;
@@ -5217,6 +5217,9 @@ nav {
       transform: translate(-50%, -50%);
       width: 50%;
       z-index: 5; }
+      @media (min-width: 48em) {
+        .application-progress .flex-grid:before {
+          display: block; } }
     .application-progress .flex-grid .box {
       padding: 1rem 0;
       position: relative;
@@ -5390,6 +5393,9 @@ nav {
 
 .applicant-evidence__explanation-copy {
   margin: 4rem auto; }
+  .applicant-evidence__explanation-copy p {
+    font-size: 16px;
+    line-height: 1.5; }
 
 /* Desktop Menu ============================================================= */
 .applicant-evidence__desktop-menu {
@@ -5524,7 +5530,7 @@ nav {
 
 .applicant-evidence__skill-description {
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 1.5;
   margin: 0 0 2rem 0; }
 
 .applicant-evidence__assessment-warning {
@@ -5555,7 +5561,7 @@ nav {
 
 .applicant-evidence__form-description {
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 1.5;
   margin: 3rem 0; }
 
 .applicant-evidence__expertise-wrapper {
@@ -5682,6 +5688,228 @@ nav {
 .application-preview__button-wrapper {
   padding: 4rem 0;
   text-align: center; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    User Application - Application Preview (Evidence)
+
+============================================================================= */
+.applicant-evidence-preview {
+  background: #e2e2e2;
+  margin: 4rem 0 0 0;
+  padding: 3rem 0; }
+  @media (min-width: 64em) {
+    .applicant-evidence-preview {
+      padding: 6rem 0; } }
+
+.applicant-evidence-preview__container {
+  margin: 0 auto;
+  max-width: 100rem;
+  width: 90%; }
+
+.applicant-evidence-preview__explanation-copy {
+  margin: 4rem auto; }
+
+/* Desktop Menu ============================================================= */
+.applicant-evidence-preview__desktop-menu {
+  display: none; }
+  @media (min-width: 64em) {
+    .applicant-evidence-preview__desktop-menu {
+      display: block; } }
+
+.applicant-evidence-preview__desktop-menu-title {
+  color: #2196f3;
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 4rem 0 1rem 0; }
+  .applicant-evidence-preview__desktop-menu-title:first-child {
+    margin-top: 2.5rem; }
+  .applicant-evidence-preview__desktop-menu-title + .applicant-evidence-preview__desktop-menu-item {
+    border-top: 1px solid #484848; }
+
+.applicant-evidence-preview__desktop-menu-item {
+  appearance: none;
+  background: #e2e2e2;
+  border: none;
+  border-bottom: 1px solid #484848;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2rem 10rem 2rem 2rem;
+  position: relative;
+  text-align: left;
+  transition: background .2s ease;
+  width: 100%; }
+  .applicant-evidence-preview__desktop-menu-item.active {
+    background: #2196f3 !important;
+    color: white !important; }
+    .applicant-evidence-preview__desktop-menu-item.active .applicant-evidence-preview__desktop-icon-wrapper i {
+      color: rgba(255, 255, 255, 0.3); }
+      .applicant-evidence-preview__desktop-menu-item.active .applicant-evidence-preview__desktop-icon-wrapper i.active {
+        color: white; }
+  .applicant-evidence-preview__desktop-menu-item:hover {
+    background: #a3a3a3;
+    transition: background .2s ease; }
+
+/* Accordions =============================================================== */
+@media (min-width: 64em) {
+  .applicant-evidence-preview__form-wrapper {
+    border-left: 1px solid #484848; } }
+
+@media (min-width: 64em) {
+  .applicant-evidence-preview__accordion-wrapper {
+    display: none; } }
+
+@media (min-width: 64em) {
+  .applicant-evidence-preview__accordion-wrapper.active {
+    display: block; } }
+
+.applicant-evidence-preview__accordion-wrapper:first-child .applicant-evidence-preview__accordion-trigger {
+  border-top: none !important; }
+
+/* Trigger */
+.applicant-evidence-preview__accordion-trigger {
+  cursor: pointer;
+  border-top: 1px solid #484848; }
+  @media (min-width: 64em) {
+    .applicant-evidence-preview__accordion-trigger {
+      cursor: default;
+      border: none; } }
+  .applicant-evidence-preview__accordion-trigger.active {
+    border-top: none; }
+    .applicant-evidence-preview__accordion-trigger.active .applicant-evidence-preview__accordion-trigger-title {
+      background: #2196f3;
+      color: white; }
+      @media (min-width: 64em) {
+        .applicant-evidence-preview__accordion-trigger.active .applicant-evidence-preview__accordion-trigger-title {
+          background: none;
+          color: #333333; } }
+
+.applicant-evidence-preview__accordion-trigger-title {
+  border: none;
+  color: #333333;
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 3rem;
+  position: relative;
+  text-align: center;
+  text-decoration: underline;
+  width: 100%; }
+  @media (min-width: 64em) {
+    .applicant-evidence-preview__accordion-trigger-title {
+      padding: 3rem 12rem 3rem 3rem;
+      text-align: left;
+      text-decoration: none; } }
+
+/* Content */
+.applicant-evidence-preview__accordion-content {
+  display: none;
+  padding-top: 3rem; }
+  @media (min-width: 64em) {
+    .applicant-evidence-preview__accordion-content {
+      display: block;
+      padding-top: 0; } }
+  .applicant-evidence-preview__accordion-content.active {
+    display: block; }
+
+/* Content - Required */
+.applicant-evidence-preview__experience-wrapper {
+  padding: 0 3rem; }
+
+.applicant-evidence-preview__experience-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 0; }
+
+.applicant-evidence-preview__divider {
+  background: #484848;
+  border: none;
+  height: 1px;
+  margin: 3rem 0;
+  width: 100%; }
+
+.applicant-evidence-preview__reference-wrapper {
+  padding: 0 3rem; }
+
+.applicant-evidence-preview__reference-metadata {
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 2rem 0; }
+
+.applicant-evidence-preview__reference-status {
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 2rem 0; }
+  .applicant-evidence-preview__reference-status i.fa-check-circle {
+    color: #2196f3; }
+  .applicant-evidence-preview__reference-status i.fa-exclamation-triangle {
+    color: #ffd200; }
+
+.applicant-evidence-preview__reference-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 2rem;
+  margin-bottom: 0; }
+
+.applicant-evidence-preview__reference-null {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 2rem;
+  margin-bottom: 0; }
+
+.applicant-evidence-preview__evidence-wrapper {
+  padding: 0 3rem 3rem; }
+
+.applicant-evidence-preview__evidence-metadata {
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 2rem 0; }
+
+.applicant-evidence-preview__evidence-status {
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 2rem 0; }
+  .applicant-evidence-preview__evidence-status i.fa-check-circle {
+    color: #2196f3; }
+  .applicant-evidence-preview__evidence-status i.fa-exclamation-triangle {
+    color: #ffd200; }
+
+.applicant-evidence-preview__evidence-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 2rem 0; }
+
+.applicant-evidence-preview__evidence-null {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 2rem;
+  margin-bottom: 0; }
+
+.applicant-evidence-preview__section-title {
+  font-size: 22px;
+  margin: 0 0 2rem;
+  text-align: center; }
+  @media (min-width: 64em) {
+    .applicant-evidence-preview__section-title {
+      text-align: left; } }
+  .applicant-evidence-preview__section-title i {
+    color: #2196f3; }
+  .applicant-evidence-preview__section-title a {
+    display: block;
+    font-size: 16px;
+    margin: 1rem 0 0 0;
+    text-decoration: underline;
+    vertical-align: middle; }
+    @media (min-width: 64em) {
+      .applicant-evidence-preview__section-title a {
+        float: right;
+        margin: 0; } }
 
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
 .profileBannerFiller {

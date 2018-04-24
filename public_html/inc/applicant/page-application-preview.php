@@ -38,9 +38,11 @@
 
 		</div>
 
-		<div class="application-preview__skills-wrapper">
+	</div>
 
-		</div>
+	<?php include "partial-applicant-evidence-preview.php"; ?>
+
+	<div class="content-container">
 
 		<div class="application-preview__question-wrapper">
 
