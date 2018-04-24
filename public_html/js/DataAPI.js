@@ -383,6 +383,7 @@ DataAPI.getDepartments = function(locale){
  * @return {undefined}
  */
 DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallback){
+    console.log("getJobSeekerProfileByUserId");
     Utilities.debug?console.log("loading job seekers"):null;
     var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfile/"+user_id;
     DataAPI.sendRequest(jobSeekers_url, "GET", {}, null, function(request) {

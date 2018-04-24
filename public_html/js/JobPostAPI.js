@@ -10,12 +10,8 @@ var JobPostAPI = {};
 
 
 JobPostAPI.version = "v1";
-//Live URL
-//DataAPI.baseURL = "http://localhost:8080/contacts/api/"+DataAPI.version+"";
-//Dev URL
+//API url
 JobPostAPI.baseURL = "/tc/api/"+JobPostAPI.version+"";
-//Live REST API URL - TODO remove mok url
-JobPostAPI.mockURL = "https://localhost:8083/talentcloud/api/"+JobPostAPI.version+"";
 
 /**
  * 
@@ -298,7 +294,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     //Load Hiring Manager Name
     DataAPI.getUser(job.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
-       hiringManagerLabel.innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+       hiringManagerLabel.innerHTML = managerUser.user.name;
     });
     
     //Load Hiring Manager Image

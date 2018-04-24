@@ -94,26 +94,9 @@ FormValidationAPI.validateRegisterForm = function(email, email_confirm, password
     return valid;
 };
 
-FormValidationAPI.validateUpdateProfileBasicInfo = function(firstName, lastName, twitter, linkedin) {
+FormValidationAPI.validateUpdateProfileBasicInfo = function(twitter, linkedin) {
     var valid = true;
-    
-    if(!FormValidationAPI.fieldNotEmpty(firstName)) {
-        FormValidationAPI.setValidationErrorProperties(true, "profileEditFirstNameError", "profileEditFirstNameErrorMsg", "Error: No First Name");
-        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditFirstName");
-        valid = false;
-    } else {
-        FormValidationAPI.setValidationErrorProperties(false, "profileEditFirstNameError", "profileEditFirstNameErrorMsg", "Error: No First Name");
-    }
-    
-    if(!FormValidationAPI.fieldNotEmpty(lastName)) {
-        FormValidationAPI.setValidationErrorProperties(true, "profileEditLastNameError", "profileEditLastNameErrorMsg", "Error: No Last Name");
-        FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditLastName");
-        valid = false;
-    } else {
-        FormValidationAPI.setValidationErrorProperties(false, "profileEditLastNameError", "profileEditLastNameErrorMsg", "Error: No Last Name");
-    }
-    
-    
+        
     if(FormValidationAPI.fieldNotEmpty(twitter) && !FormValidationAPI.validateTwitterUsername(twitter)) {
         FormValidationAPI.setValidationErrorProperties(true, "profileEditTwitterError", "profileEditTwitterErrorMsg", "Error: Invalid Twitter Username");
         FormValidationAPI.focusIfFirstInvalidField(valid, "profileEditTwitter")

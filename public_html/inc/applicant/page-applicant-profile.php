@@ -26,7 +26,7 @@
                 </div>
                 <div id="profileNameWrapper">
                     <div class="profileName">
-                        <span id="profileFirstName"></span> <span id="profileLastName"></span>
+                        <span id="profileName"></span>
                     </div>
                 </div>
                 <div class="profileTagLineContainer">

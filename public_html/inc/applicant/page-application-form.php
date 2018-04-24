@@ -76,9 +76,9 @@
                                     </select>
                                 </div>
                                 <!-- DEV-NOTE: Same accessibility statement as above here. -->
-                                <label class="form__label" for="selectLevel">Level</label>
+                                <label class="form__label" for="selectLevel1">Level</label>
                                 <div class="form__select-wrapper">
-                                    <select class="form__select" id="selectLevel" name="Select Level">
+                                    <select class="form__select" id="selectLevel1" name="Select Level">
                                         <option>Beginner</option>
                                         <option>Intermediate</option>
                                         <option>Expert</option>
@@ -90,8 +90,8 @@
                         <div class="box med-1of2 lg-3of5">
                             <form class="form__wrapper">
                                 <!-- DEV-NOTE: Same accessibility statement as above here. -->
-                                <label class="form__label" for="typeExperience">Tell us about your experience:</label>
-                                <textarea class="form__textarea" id="typeExperience" name="Type your Experience" placeholder="How did you get this experience? What lessons did you learn?"></textarea>
+                                <label class="form__label" for="typeExperience1">Tell us about your experience:</label>
+                                <textarea class="form__textarea" id="typeExperience1" name="Type your Experience" placeholder="How did you get this experience? What lessons did you learn?"></textarea>
                             </form>
                         </div>
                         <div class="box full">
@@ -133,9 +133,9 @@
                                     </select>
                                 </div>
                                 <!-- DEV-NOTE: Same accessibility statement as above here. -->
-                                <label class="form__label" for="selectLevel">Level</label>
+                                <label class="form__label" for="selectLevel2">Level</label>
                                 <div class="form__select-wrapper">
-                                    <select class="form__select" id="selectLevel" name="Select Level">
+                                    <select class="form__select" id="selectLevel2" name="Select Level">
                                         <option>Beginner</option>
                                         <option>Intermediate</option>
                                         <option>Expert</option>
@@ -147,8 +147,8 @@
                         <div class="box med-1of2 lg-3of5">
                             <form class="form__wrapper">
                                 <!-- DEV-NOTE: Same accessibility statement as above here. -->
-                                <label class="form__label" for="typeExperience">Tell us about your experience:</label>
-                                <textarea class="form__textarea" id="typeExperience" name="Type your Experience" placeholder="How did you get this experience? What lessons did you learn?"></textarea>
+                                <label class="form__label" for="typeExperience2">Tell us about your experience:</label>
+                                <textarea class="form__textarea" id="typeExperience2" name="Type your Experience" placeholder="How did you get this experience? What lessons did you learn?"></textarea>
                             </form>
                         </div>
                         <div class="box full">

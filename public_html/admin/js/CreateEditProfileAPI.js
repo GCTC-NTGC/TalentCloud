@@ -909,7 +909,6 @@ CreateEditProfileAPI.populateProfile = function(response){
     //Initialize Team Culture
     EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
 
-
     //set hidden field values
     var UserId = document.getElementById("UserId");
     UserId.value = manager_profile.user_id;
@@ -923,7 +922,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
     if(UserAPI.hasSessionUser()){
         var session_user = UserAPI.getSessionUserAsJSON();
-        createEditProfile_name_preview.innerHTML = session_user.firstname + " " + session_user.lastname;
+        createEditProfile_name_preview.innerHTML = session_user.name;
     }
     
     //AboutMe

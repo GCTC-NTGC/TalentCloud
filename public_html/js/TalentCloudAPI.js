@@ -6,7 +6,7 @@
 
 var TalentCloudAPI = {};
 var siteContent;
-TalentCloudAPI.roles = {jobseeker:"jobseeker", manager:"manager", admin:"admin"};
+TalentCloudAPI.roles = {jobseeker:"jobseeker", manager:"manager", admin:"administrator"};
 
 TalentCloudAPI.Content = function(title,helpLearn,languageSelect,applyNow,loginLink,logoutLink,registerLink,homeLink,profileLink,
 jobPostersLink,teamsLink,jobNumber,jobTitle,jobLocation,jobCity,jobProvince,jobApplicantsSoFar,jobUnitsToCloseHours,
@@ -285,14 +285,14 @@ TalentCloudAPI.load = function(){
     //console.log(location);
     //event.preventDefault();
     location_elements = location.split('\/');
-    console.log(location_elements[0]);
+    //console.log(location_elements[0]);
     data = location_elements[1];
     //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
-    if(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin) > -1) {
+    if(window.location.href.indexOf("/admin") > -1) {
         adminView = true;
         location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["adminhome"];
         TalentCloudAPI.loadAdmin();
-        console.log(pageToReload);
+        console.log(adminView);
         if(pageToReload !== undefined){
             pageToReload.state(data);
         }else{
@@ -334,16 +334,10 @@ TalentCloudAPI.loadPublic = function(){
     }
     LookupAPI.loadLookupData();
     DataAPI.getTalentCloudUI(locale,false);
+    //console(UserAPI.hasAuthToken());
     if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthToken();
         if(UserAPI.hasSessionUser()){
-            var credentials = {};
-            sessionUser = UserAPI.getSessionUserAsJSON();
-            //console.log(sessionUser);
-            credentials.email = sessionUser.email;
-            //credentials.password = sessionUser.password;
-            credentials.authToken = authToken;
-            UserAPI.login(credentials);
+            UserAPI.login();
         }
     }
 
@@ -365,27 +359,15 @@ TalentCloudAPI.loadManager = function(){
     DataAPI.getTalentCloudUI(locale,true);
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthToken();
-        //console.log(authToken);
-        //if(!UserAPI.hasAuthTokenExpired()){
-            if(UserAPI.hasSessionUser()){
-                var credentials = {};
-                sessionUser = UserAPI.getSessionUserAsJSON();
-                //console.log(sessionUser);
-                credentials.email = sessionUser.email;
-                //credentials.password = sessionUser.password;
-                credentials.authToken = authToken;
-                //console.log(credentials);
-                UserAPI.login(credentials);
-                DataAPI.getJobSeekers(locale);
-                DepartmentAPI.getDepartments(locale);
-                DivisionAPI.getDivisions(locale);
-                //Add log user in automatically
-            }else{
-                DataAPI.getJobSeekers(locale);
-            }
-        /*}else{
+        if(UserAPI.hasSessionUser()){
+            UserAPI.login(true);
             DataAPI.getJobSeekers(locale);
-        }*/
+            DepartmentAPI.getDepartments(locale);
+            DivisionAPI.getDivisions(locale);
+            //Add log user in automatically
+        }else{
+            DataAPI.getJobSeekers(locale);
+        }
     }else{
         DataAPI.getJobSeekers(locale);
     }
@@ -560,7 +542,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     canadaLink.href = siteContent.canadaLinkHref;
 
     if(isManager){
-        console.log(isManager);
+        //console.log(isManager);
 
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
@@ -583,13 +565,13 @@ TalentCloudAPI.setContent = function(content, isManager){
         var adminAboutMe = document.getElementById("adminAboutMe");
         adminAboutMe.innerHTML = siteContent.adminAboutMe;
 
-        var adminProfilePositionLabel = document.getElementById("createEditProfile_position_label");
+        var adminProfilePositionLabel = document.getElementById("createEditProfile_position_labelName");
         adminProfilePositionLabel.innerHTML = siteContent.adminProfilePositionLabel;
 
-        var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_label");
+        var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_labelName");
         adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
 
-        var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_label");
+        var adminProfileBranchLabel =  document.getElementById("createEditProfile_branch_labelName");
         adminProfileBranchLabel.innerHTML = siteContent.adminProfileBranchLabel;
 
         //var teamsLink = document.getElementById("teamsLink");
@@ -775,7 +757,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
 
         var changeDisplayPic = document.getElementById("changeDisplayPic");
-        changeDisplayPic.innerHTML = siteContent.changeDisplayPic;
+        //changeDisplayPic.innerHTML = siteContent.changeDisplayPic;
 
         var almostNeverElements = document.getElementsByClassName("option0Label");
         for (var i = 0; i < almostNeverElements.length; i++) {
@@ -806,10 +788,10 @@ TalentCloudAPI.setContent = function(content, isManager){
 
 
         var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
-        managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
+        //managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
 
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
-        managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
+        //managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
 
     }
 

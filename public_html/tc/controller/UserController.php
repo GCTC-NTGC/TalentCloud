@@ -24,6 +24,7 @@ require_once '../dao/UserDAO.php';
 
 class UserController{
     
+    //TO-DO : remove - should not be used
     /**
      * 
      * @global type $dbResourcesArray
@@ -35,9 +36,37 @@ class UserController{
         return $authUser;
     }
     
+    /**
+     * 
+     * @param User $user
+     * @return type
+     */
     public static function getUserById(User $user){
-        $user = UserDAO::getUserById($user);
-        return $user;
+        $existingUser = UserDAO::getUserById($user);
+        return $existingUser;
+    }
+    
+    /**
+     * 
+     * @param User $user
+     * @return type
+     */
+    public static function getUserByOpenId(User $user){
+        //get existing user by openId
+        $existingUser = UserDAO::getUserOpenById($user);
+        //get user_id from user
+        $existingUserId = $existingUser->getUser_id();
+        //if user_id is null, then the user is not registered and we should register them automatically
+        if($existingUserId == null){
+            //register new user
+            $newUser = UserController::registerUser($user);
+            if($newUser["userRegistered"]){
+                $user = UserDAO::getUserOpenById($user);
+            }
+            return $user;
+        }else{
+            return $existingUser;
+        }
     }
     
     public static function registerUser(User $newUser){

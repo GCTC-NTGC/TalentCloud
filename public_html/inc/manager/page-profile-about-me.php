@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="createEditProfile_position">
-                                                    <span id="createEditProfile_position_label">Position</span>
+                                                    <span id="createEditProfile_position_labelName">Position</span>
                                                     <strong id="createEditProfile_position_error" class="error hidden">
                                                         <span id="createEditProfile_position_error_msg" class="label label-danger"></span>
                                                     </strong>
@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="createEditProfile_department">
-                                                    <span id="createEditProfile_department_label">Department</span>
+                                                    <span id="createEditProfile_department_labelName">Department</span>
                                                     <strong id="createEditProfile_department_error" class="error hidden">
                                                         <span id="createEditProfile_department_error_msg" class="label label-danger"></span>
                                                     </strong>

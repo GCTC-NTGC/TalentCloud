@@ -28,7 +28,7 @@
 
         <label class="update-profile__choose-photo-button-label button--yellow" id="updateProfileChoosePhotoButtonLabel" role="button" tabindex="0">
             Choose File...
-            <input id="updateProfileChoosePhotoButton" name="User Pr" type="file" class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" />
+            <input id="updateProfileChoosePhotoButton" type="file" class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" />
         </label>
 
     </div>

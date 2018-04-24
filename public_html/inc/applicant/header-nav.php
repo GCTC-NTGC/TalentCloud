@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 <nav id="wb-sm">
     <div class="topbar transparent" id="site--topbar">
         <h2 id="topicsMenu">Topics menu</h2>
@@ -25,17 +29,39 @@
                     </li>
                     <li class="top-nav--link">
                         <div id="register">
-                            <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this);">Register</a>
+                            <!--a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this);">Register</a-->
+                            <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"registerLink\">Register</a>"); ?>
                         </div>
                     </li>
                     <li class="top-nav--link">
-                        <div id="loggedOut">
-                            <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a>
+                        <?php
+                            $hasUser = null;
+                            if (isset($oidc)) {
+                                $hasUser = $oidc->requestUserInfo("name");
+                            }
+                        ?>
+                        <div id="loggedOut" class="<?php echo($hasUser!=null?"hidden":""); ?>">
+                            <!--a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a-->
+                            <?php //echo("<a href=\"".AUTH_URI."?client_id=".CLIENT_ID."&redirect_uri=".REDIRECT_URI."&scope=openid%20profile%20email&response_type=id_token%20token&state=123456&prompt=consent\" id=\"loginLink\">Login</a>"); ?>
+                            <?php 
+                            $loginLink = "";
+                            $loginLink .= OPENID_URI.AUTH_URI;
+                            $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
+                            $loginLink .= "&redirect_uri=".urlencode(REDIRECT_URI);
+                            $loginLink .= "&nonce=".$nonce;
+                            $loginLink .= "&state=".$state;
+                            $loginLink .= "&client_id=".CLIENT_ID;
+                            $loginLink .= "&scope=".SCOPE;
+                            $loginLink .= "&prompt=consent";
+                            echo("<a href=\"".$loginLink."\" id=\"loginLink\">Login</a>"); 
+                            
+                            ?>
                         </div>
                     </li>
                     <li class="top-nav--link">
-                        <div id="loggedIn" class="hidden">
-                            <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
+                        
+                        <div id="loggedIn" class="<?php echo($hasUser==null?"hidden":""); ?>">
+                            <a href="javascript:void(0)" id ="logoutLink" onclick="UserAPI.logout()">Logout</a>
                         </div>
                     </li>
                 </ul>
