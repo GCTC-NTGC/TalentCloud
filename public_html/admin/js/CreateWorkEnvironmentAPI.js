@@ -155,7 +155,7 @@ CreateWorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, phot
 
 CreateWorkEnvironmentAPI.saveWorkEnvironment = function(managerProfileId) {
     var defultOption = "option0";
-    var remoteAllowed = document.querySelector('input[name="createEditProfile_remoteWork"]:checked').value;
+    var remoteAllowed = document.querySelector('input[name="createEditProfile_remoteWork"]:checked');
     
     if (remoteAllowed == null){
         
@@ -165,7 +165,7 @@ CreateWorkEnvironmentAPI.saveWorkEnvironment = function(managerProfileId) {
         remoteAllowed = document.querySelector('input[name="createEditProfile_remoteWork"]:checked').value;
     }
     
-    var teleworkAllowed = document.querySelector('input[name="createEditProfile_telework"]:checked').value;
+    var teleworkAllowed = document.querySelector('input[name="createEditProfile_telework"]:checked');
     
     if (teleworkAllowed == null){
         
@@ -175,7 +175,7 @@ CreateWorkEnvironmentAPI.saveWorkEnvironment = function(managerProfileId) {
         teleworkAllowed = document.querySelector('input[name="createEditProfile_telework"]:checked').value;
     }
     
-    var flexibleAllowed = document.querySelector('input[name="createEditProfile_flexHours"]:checked').value;
+    var flexibleAllowed = document.querySelector('input[name="createEditProfile_flexHours"]:checked');
     
     if (flexibleAllowed == null){
         
