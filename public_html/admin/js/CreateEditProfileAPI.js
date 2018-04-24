@@ -291,11 +291,20 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     updated_manager_profile_details.user_manager_profile_details_emp_learn = document.getElementById("createEditProfile_app_to_employees").value;
     updated_manager_profile_details.user_manager_profile_details_expectations = document.getElementById("createEditProfile_exp_of_employees").value;
 
-    updated_manager_profile_details.user_manager_profile_review_options = document.querySelector('input[name="createEditProfile_how_often_review_options"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_staylate = document.querySelector('input[name="createEditProfile_staylate"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_engage = document.querySelector('input[name="createEditProfile_engage"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_devops = document.querySelector('input[name="createEditProfile_devops"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_lvwrequests = document.querySelector('input[name="createEditProfile_lvwrequests"]:checked').value;
+    if(document.querySelector('input[name="createEditProfile_how_often_review_options"]:checked').value== null&&document.querySelector('input[name="createEditProfile_staylate"]:checked').value==null&&document.querySelector('input[name="createEditProfile_engage"]:checked').value==null&&document.querySelector('input[name="createEditProfile_devops"]:checked').value==null&&document.querySelector('input[name="createEditProfile_lvwrequests"]:checked').value==null){
+        updated_manager_profile_details.user_manager_profile_review_options = document.querySelector('input[name="createEditProfile_how_often_review_options"]').value = "option0";
+        updated_manager_profile_details.user_manager_profile_staylate = document.querySelector('input[name="createEditProfile_staylate"]').value = "option0";
+        updated_manager_profile_details.user_manager_profile_engage = document.querySelector('input[name="createEditProfile_engage"]').value = "option0";
+        updated_manager_profile_details.user_manager_profile_devops = document.querySelector('input[name="createEditProfile_devops"]').value = "option0";
+        updated_manager_profile_details.user_manager_profile_lvwrequests = document.querySelector('input[name="createEditProfile_lvwrequests"]').value = "option0";
+       }
+    else{
+        updated_manager_profile_details.user_manager_profile_review_options = document.querySelector('input[name="createEditProfile_how_often_review_options"]:checked').value;
+        updated_manager_profile_details.user_manager_profile_staylate = document.querySelector('input[name="createEditProfile_staylate"]:checked').value;
+        updated_manager_profile_details.user_manager_profile_engage = document.querySelector('input[name="createEditProfile_engage"]:checked').value;
+        updated_manager_profile_details.user_manager_profile_devops = document.querySelector('input[name="createEditProfile_devops"]:checked').value;
+        updated_manager_profile_details.user_manager_profile_lvwrequests = document.querySelector('input[name="createEditProfile_lvwrequests"]:checked').value;
+    }
 
     updated_manager_profile_details.user_manager_profile_work_experience = document.getElementById("user_manager_profile_work_experience").value;
     updated_manager_profile_details.user_manager_profile_education = document.getElementById("user_manager_profile_education").value;
