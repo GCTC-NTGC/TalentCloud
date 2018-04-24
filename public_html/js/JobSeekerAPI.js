@@ -33,6 +33,13 @@ JobSeekerAPI.JobSeeker = function(
     this.last_updated = last_updated;
 };
 
+JobSeekerAPI.localizeJobSeekerProfile = function() {
+    if (siteContent) {
+        document.getElementById("profileEditAnswerCancel").value = siteContent.cancel;
+        document.getElementById("profileEditAnswerSave").value = siteContent.save;
+    }
+}
+
 JobSeekerAPI.populateJobSeekerObjects = function(data){
     Utilities.debug?console.log("populating job seeker Objects"):null;
     Utilities.debug?console.log(data):null;
@@ -606,10 +613,49 @@ JobSeekerAPI.addProfileQuestionSections = function(questionLookupMap) {
     questionWrapper.appendChild(questionFragment);
 };
 
-JobSeekerAPI.showEditProfileAnswerModal = function(questionId, questionName, questionDescription) {
-    //TODO: add real modal!
-    window.alert("edit answer");
+JobSeekerAPI.showEditProfileAnswerModal = function(questionId, questionName, questionDescription) { 
+    if (siteContent) {
+        var title = siteContent.editYour + " \"" + questionName + "\"";
+    } else {
+        var title = "Edit your \"" + questionName + "\"";
+    }
+    
+    
+    document.getElementById("profileEditAnswerTitle").title = title;
+    document.getElementById("profileEditAnswerTitle").innerHTML = title;
+    document.getElementById("profileEditAnswerFormDescription").innerHTML = title;
+    document.getElementById("profile-edit-answer__question-id").value = questionId;
+    document.getElementById("profileEditAnswerLabel").innerHTML = questionName;
+    document.getElementById("profileEditAnswer").setAttribute("placeholder", questionDescription);
+
+    var answerField = document.querySelector('.profile-question__answer[data-question-id="' + questionId + '"]');
+    if (answerField && answerField.innerHTML) {
+        document.getElementById("profileEditAnswer").value = answerField.innerHTML;
+    }
+
+    var jobSeekerAboutMeEditOverlay = document.getElementById("profileEditAnswerOverlay");
+    jobSeekerAboutMeEditOverlay.classList.remove("hidden");
+
+    AccessibilityAPI.preventModalEscape("profileEditAnswer", "profileEditAnswerSave");
+    AccessibilityAPI.focusElement("profileEditAnswer");
+
+    EventsAPI.hideBodyOverflow(true);
+
+    modalSize();
 };
+
+JobSeekerAPI.saveJobSeekerProfileAnswer = function() {
+    var questionId = document.getElementById("profile-edit-answer__question-id").value;
+    if (questionId) {
+        var answerField = document.querySelector('.profile-question__answer[data-question-id="' + questionId + '"]');
+        var answerText = document.getElementById("profileEditAnswer");
+        if (answerField && answerText) {            
+            Utilities.replaceElementText(answerField, answerText.value);
+            JobSeekerAPI.saveJobSeekerProfileChanges();
+        }
+    }
+    JobSeekerAPI.hideJobSeekerProfileEditAnswerModal();
+}
 
 JobSeekerAPI.hideJobSeekerProfileForm = function () {
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
@@ -665,25 +711,9 @@ JobSeekerAPI.hideJobSeekerProfileBasicInfoEdit = function() {
     EventsAPI.hideBodyOverflow(false);
 };
 
-JobSeekerAPI.showJobSeekerProfileAboutMeEdit = function() {
-    //TODO: push state info to history
-
-    var jobSeekerAboutMeEditOverlay = document.getElementById("profileAboutMeEditOverlay");
-    jobSeekerAboutMeEditOverlay.classList.remove("hidden");
-
-    AccessibilityAPI.preventModalEscape("profileEditAboutMe", "profileAboutMeEditSave");
-    AccessibilityAPI.focusElement("profileEditAboutMe");
-
-    EventsAPI.hideBodyOverflow(true);
-
-    modalSize();
-    
-}
-
-JobSeekerAPI.hideJobSeekerProfileAboutMeEdit = function() {
-    //TODO modify state info history ?
-    var jobSeekerAboutMeEditOverlay = document.getElementById("profileAboutMeEditOverlay");
-    jobSeekerAboutMeEditOverlay.classList.add("hidden");
+JobSeekerAPI.hideJobSeekerProfileEditAnswerModal = function() {
+    var jobSeekerEditAnswerOverlay = document.getElementById("profileEditAnswerOverlay");
+    jobSeekerEditAnswerOverlay.classList.add("hidden");
 
     JobSeekerAPI.resetProfileEditValues();
 
@@ -693,9 +723,9 @@ JobSeekerAPI.hideJobSeekerProfileAboutMeEdit = function() {
 JobSeekerAPI.hideJobSeekerProfileEditOverlays = function() {
     var jobSeekerBasicInfoEditOverlay = document.getElementById("profileBasicInfoEditOverlay");
     jobSeekerBasicInfoEditOverlay.classList.add("hidden");
-
-    var jobSeekerAboutMeEditOverlay = document.getElementById("profileAboutMeEditOverlay");
-    jobSeekerAboutMeEditOverlay.classList.add("hidden");
+    
+    var jobSeekerEditAnswerOverlay = document.getElementById("profileEditAnswerOverlay");
+    jobSeekerEditAnswerOverlay.classList.add("hidden");
 
     JobSeekerAPI.resetProfileEditValues();
 

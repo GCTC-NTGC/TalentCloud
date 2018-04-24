@@ -287,6 +287,9 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.profileAboutMeEditSave = content.profileAboutMeEditSave;
     thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
     thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
+    thisContent.save = content.save;
+    thisContent.cancel = content.cancel;
+    thisContent.editYour = content.editYour;
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}

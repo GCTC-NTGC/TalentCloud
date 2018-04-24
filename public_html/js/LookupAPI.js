@@ -91,6 +91,9 @@ LookupAPI.addToLookupMap = function(lookupType, locale, response) {
  */
 LookupAPI.getLookupResponse = function(lookupType, lookupCallback) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
+    if (!LookupAPI.lookupMap[locale]) {
+        LookupAPI.lookupMap[locale] = {};
+    }
     if (LookupAPI.lookupMap[locale][lookupType]) {
         lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
     } else {
