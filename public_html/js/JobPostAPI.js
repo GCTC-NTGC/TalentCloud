@@ -414,6 +414,7 @@ JobPostAPI.viewJobPoster = function(jobId){
 JobPostAPI.localizeJobPoster = function() {
     if (siteContent) {
         document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
+        document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
         document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
     }
