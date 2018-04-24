@@ -29,6 +29,10 @@ class JobApplicationWithAnswers implements JsonSerializable{
         return $gettable_attributes;
     }
     
+    /**
+     * 
+     * @return JobPosterApplication
+     */
     public function getJob_poster_application() {
         return $this->job_poster_application;
     }

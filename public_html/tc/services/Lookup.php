@@ -32,9 +32,6 @@ header("Content-Type: application/json; charset=utf-8");
                 $locale = Utils::getLocaleFromRequest($requestParams);
                 $lookupType = Utils::getParameterFromRequest($requestParams,5);
                 $result = LookupController::getLookupDataByLocaleAndType($locale,$lookupType);
-                array_walk_recursive($result, function(&$value){
-                    $value = utf8_encode($value);
-                });
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }else{
