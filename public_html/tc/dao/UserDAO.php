@@ -147,6 +147,7 @@ class UserDAO extends BaseDAO{
             $name = $user->getName();
             $is_confirmed = $user->getIs_confirmed();
             $user_role = $user->getUser_role();
+            $open_id = $user->getOpen_id();
             
             $link = BaseDAO::getConnection();
             $sqlStr = "INSERT INTO user 

@@ -100,7 +100,7 @@ ManagerProfileAPI.localizeManagerProfile = function() {
 ManagerProfileAPI.populateManagerProfileName = function(response) {
     var user = UserAPI.parseUserResponse(response);
     
-    document.getElementById("managerProfileFirstName").innerHTML = user.name;
+    document.getElementById("managerProfileName").innerHTML = user.name;
 };
 
 ManagerProfileAPI.populateManagerProfile = function(response) {

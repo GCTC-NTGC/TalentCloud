@@ -27,16 +27,19 @@
                         </div>
                     </li>
                     <li class="top-nav--link">
-                        <?php
-                            $hasUser = null;
-                            if (isset($oidc)) {
-                                $hasUser = $oidc->requestUserInfo("name");
-                            }
-                        ?>
                         <div id="loggedOut" class="<?php echo($hasUser!=null?"hidden":""); ?>">
-                            <!--a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a-->
-                            <?php //echo("<a href=\"".AUTH_URI."?client_id=".CLIENT_ID."&redirect_uri=".REDIRECT_URI."&scope=openid%20profile%20email&response_type=id_token%20token&state=123456&prompt=consent\" id=\"loginLink\">Login</a>"); ?>
-                            <?php echo("<a href=\"https://account.gccollab.ca/openid/authorize?response_type=code&redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2Fadmin&nonce=".$nonce."&state=".$state."&client_id=800830&scope=openid+profile+email&prompt=consent\" id=\"loginLink\">Login</a>"); ?>
+                            <?php 
+                                $loginLink = "";
+                                $loginLink .= OPENID_URI.AUTH_URI;
+                                $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
+                                $loginLink .= "&redirect_uri=".urlencode(REDIRECT_URI_ADMIN);
+                                $loginLink .= "&nonce=".$nonce;
+                                $loginLink .= "&state=".$state;
+                                $loginLink .= "&client_id=".CLIENT_ID;
+                                $loginLink .= "&scope=".SCOPE;
+                                $loginLink .= "&prompt=consent";
+                                echo("<a href=\"".$loginLink."\" id=\"loginLink\">Login</a>"); 
+                            ?>
                         </div>
                     </li>
                     <li class="top-nav--link">

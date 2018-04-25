@@ -315,7 +315,7 @@ JobSeekerAPI.resetVisibleProfile = function() {
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
 
-        var profile_name = document.getElementById("profileName");
+        var profile_name = document.getElementById("updateProfileApplicantProfileFormNameLabelSpan");
         Utilities.replaceElementText(profile_name, sessionUser.name);
     }
 
@@ -326,7 +326,7 @@ JobSeekerAPI.resetVisibleProfile = function() {
         var last_updated = document.getElementById("profileLastUpdated");
         last_updated.value = JobSeekerAPI.jobSeekerProfile.last_updated;
 
-        var profile_tagline = document.getElementById("profileTagLine");
+        var profile_tagline = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan");
         Utilities.replaceElementText(profile_tagline, JobSeekerAPI.jobSeekerProfile.tagline);
 
         var twitter_link = document.getElementById("profileTwitterLink");

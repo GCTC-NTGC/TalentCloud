@@ -54,33 +54,32 @@ class UserController{
     public static function getUserByOpenId(User $user){
         //get existing user by openId
         $existingUser = UserDAO::getUserOpenById($user);
-        //get user_id from user
-        $existingUserId = $existingUser->getUser_id();
-        //if user_id is null, then the user is not registered and we should register them automatically
-        if($existingUserId == null){
+        //var_dump($existingUser);
+        //get user_id from existing user
+        //if user_id is not null, then log the user in automatically
+        if($existingUser){
+            return $existingUser;
+        }else{
+            //if user_id is null, then the user is not registered and we should register them automatically
             //register new user
             $newUser = UserController::registerUser($user);
-            if($newUser["userRegistered"]){
-                $user = UserDAO::getUserOpenById($user);
-            }
-            return $user;
-        }else{
-            return $existingUser;
+            return $newUser;
         }
     }
     
     public static function registerUser(User $newUser){
         //$newUser->setUser_role('jobseeker');
         //This is a temporary automatic confirmation until the mail server is setup
+        var_dump($newUser);
         $newUser->setIs_confirmed(true);
         $userRegistered = false;
-        $confEmailSent = false;
+        $confEmailSent = true;
         $registeredUser = UserDAO::registerUser($newUser);
         if($registeredUser instanceof User && $registeredUser->getUser_id() !== null){
             $userRegistered = true;
-            $confEmailSent = UserController::confirmEmail($registeredUser);
+            //$confEmailSent = UserController::confirmEmail($registeredUser);
         }
-        return array("userRegistered"=>$userRegistered,"confEmailSent"=>$confEmailSent);
+        return $registeredUser;
         
     }
     

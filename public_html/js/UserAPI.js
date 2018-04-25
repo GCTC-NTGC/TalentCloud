@@ -50,6 +50,10 @@ UserAPI.login = function (isAdmin) {
         if (UserAPI.hasAuthToken() && credentials !== null) {
             idToken = UserAPI.getOpenIDToken();
             credentials.idToken = idToken;
+            credentials.user_role = TalentCloudAPI.roles.jobseeker;
+            if(isAdmin){
+                credentials.user_role = TalentCloudAPI.roles.admin;
+            }
             UserAPI.authenticate(credentials,isAdmin);
         }
     } else {
@@ -63,7 +67,6 @@ UserAPI.login = function (isAdmin) {
  * @returns {undefined}
  */
 UserAPI.authenticate = function (credentials,isAdmin) {
-    authToken = credentials.idToken;
     
     var auth_url = UserAPI.baseURL + "/authenticate";
     var xhr = new XMLHttpRequest();
@@ -86,7 +89,7 @@ UserAPI.authenticate = function (credentials,isAdmin) {
     xhr.open('POST', auth_url);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer " + authToken);
+    xhr.setRequestHeader("Authorization", "Bearer " + credentials.idToken);
     xhr.addEventListener("progress", UserAPI.updateProgress, false);
     xhr.addEventListener("load", function () {
         UserAPI.loaded(xhr.response,isAdmin);

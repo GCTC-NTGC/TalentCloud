@@ -37,7 +37,7 @@ if(!isset($_SESSION)){
 
             if(strlen($requestParams) > 1){
 
-                if(strlen($user_id) > 0){
+                if(strlen($open_id) > 0){
 
                     $user = new User();
 
@@ -81,16 +81,17 @@ if(!isset($_SESSION)){
             if(strlen($jsonBody) > 1){
                 
                 $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
-
+                //var_dump($credentials);
                 if($credentials !== null){
-                    
+
+                    $user = new User();
+
+                    $user->setOpen_id($credentials["sub"]);
+                    $user->setName($credentials["name"]);
+                    $user->setEmail($credentials["email"]);
+                    $user->setUser_role($credentials["user_role"]);
+
                     if(JWTUtils::validateJWT($jwt, $user)){
-
-                        $user = new User();
-
-                        $user->setOpen_id($credentials["sub"]);
-                        $user->setName($credentials["name"]);
-                        $user->setEmail($credentials["email"]);
                         
                         $result = UserController::getUserByOpenId($user);
 

@@ -31,7 +31,7 @@ managerProfile_engagement_option0, managerProfile_engagement_option1, managerPro
 managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,
 managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
-managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormNameLabelSpan, profileEditName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -192,10 +192,8 @@ managerProfile_developmentOpportunities_option3, managerProfile_developmentOppor
     this.updateProfileChooseAltPhotoButtonLabelSpan = updateProfileChooseAltPhotoButtonLabelSpan;
     this.updateProfileChooseAltPhotoButton = updateProfileChooseAltPhotoButton;
     this.updateProfilePhotoCancelButton = updateProfilePhotoCancelButton;
-    this.updateProfileApplicantProfileFormFirstNameLabelSpan = updateProfileApplicantProfileFormFirstNameLabelSpan;
-    this.profileEditFirstName = profileEditFirstName;
-    this.updateProfileApplicantProfileFormLastNameLabelSpan = updateProfileApplicantProfileFormLastNameLabelSpan;
-    this.profileEditLastName = profileEditLastName;
+    this.updateProfileApplicantProfileFormNameLabelSpan = updateProfileApplicantProfileFormNameLabelSpan;
+    this.profileEditName = profileEditName;
     this.updateProfileApplicantProfileFormTaglineLabelSpan = updateProfileApplicantProfileFormTaglineLabelSpan;
     this.profileEditTagline = profileEditTagline;
     this.updateProfileApplicantProfileFormTwitterLabelSpan = updateProfileApplicantProfileFormTwitterLabelSpan;
@@ -644,10 +642,10 @@ TalentCloudAPI.setContent = function(content, isManager){
         adminAboutMe.innerHTML = siteContent.adminAboutMe;
 
         var adminProfilePositionLabel = document.getElementById("createEditProfile_position_labelName");
-        adminProfilePositionLabel.innerHTML = siteContent.adminProfilePositionLabel;
+        //adminProfilePositionLabel.innerHTML = siteContent.adminProfilePositionLabel;
 
         var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_labelName");
-        adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
+        //adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
 
         //var teamsLink = document.getElementById("teamsLink");
         //teamsLink.innerHTML = siteContent.teamsLink;
@@ -870,17 +868,11 @@ TalentCloudAPI.setContent = function(content, isManager){
         var updateProfilePhotoCancelButton = document.getElementById("updateProfilePhotoCancelButton");
         updateProfilePhotoCancelButton.innerHTML = siteContent.updateProfilePhotoCancelButton;
 
-        var updateProfileApplicantProfileFormFirstNameLabelSpan = document.getElementById("updateProfileApplicantProfileFormFirstNameLabelSpan");
-        updateProfileApplicantProfileFormFirstNameLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormFirstNameLabelSpan;
+        var updateProfileApplicantProfileFormNameLabelSpan = document.getElementById("updateProfileApplicantProfileFormNameLabelSpan");
+        updateProfileApplicantProfileFormNameLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormNameLabelSpan;
 
-        var profileEditFirstName = document.getElementById("profileEditFirstName");
-        profileEditFirstName.name = siteContent.profileEditFirstName;
-
-        var updateProfileApplicantProfileFormLastNameLabelSpan = document.getElementById("updateProfileApplicantProfileFormLastNameLabelSpan");
-        updateProfileApplicantProfileFormLastNameLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormLastNameLabelSpan;
-
-        var profileEditLastName = document.getElementById("profileEditLastName");
-        profileEditLastName.name = siteContent.profileEditLastName;
+        var profileEditName = document.getElementById("profileEditName");
+        profileEditName.name = siteContent.profileEditName;
 
         var updateProfileApplicantProfileFormTaglineLabelSpan = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan");
         updateProfileApplicantProfileFormTaglineLabelSpan.innerHTML = siteContent.updateProfileApplicantProfileFormTaglineLabelSpan;

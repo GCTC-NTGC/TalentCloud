@@ -431,7 +431,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     //Load Hiring Manager Name
     DataAPI.getUser(jobData.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
-       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.name;
     });    
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');

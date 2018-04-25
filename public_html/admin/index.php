@@ -33,13 +33,13 @@ if($query_string !== ""){
         $oidc->setClientSecret(CLIENT_SECRET);
         $oidc->addScope("openid profile email");
         $oidc->setVerifyPeer(false);
-        $oidc->setRedirectURL(REDIRECT_URI."admin");
-        if($_SESSION["refreshToken"]){
+        $oidc->setRedirectURL(REDIRECT_URI_ADMIN);
+        /*if($_SESSION["refreshToken"]){
             $oidc->refreshToken($_SESSION["refreshToken"]);
         }
         if($_SESSION["accessToken"]){
             $oidc->setAccessToken($_SESSION["accessToken"]);
-        }
+        }*/
         
         try{
             $oidc->authenticate();
@@ -59,8 +59,7 @@ if($query_string !== ""){
                 $_SESSION["expires_at"] = $expires_at;
             }
         }
-        //var_dump($oidc);
-        header("Refresh:0; url=\"".REDIRECT_URI."admin");
+        header("Refresh:0; url=\"".REDIRECT_URI_ADMIN."\"");
     }
 }else{
     $_SESSION['openid_connect_state'] = $state;
@@ -89,19 +88,7 @@ if($query_string !== ""){
                     echo("var idToken = '".$_SESSION["idToken"]."';");
                     echo("UserAPI.storeOpenIDToken(idToken);");
                 }
-    <!-- BEGIN - Page Content-->
-    <main>
-        <!-- BEGIN - Includes for pages -->
-        <?php
-        include "../inc/manager/page-home-content.php";
-        include "../inc/manager/page-job-seeker.php";
-        include "../inc/manager/page-create-job-poster.php";
-        include "../inc/manager/page-profile.php";
-        ?>
-        <!-- END - Includes for pages -->
-    </main>
-    <!-- END - Page Content -->
-
+    
                 if($_SESSION["refreshToken"] !== null){
                     echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
                     echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
@@ -121,10 +108,10 @@ if($query_string !== ""){
 
                 if($userInfo !== null){
                     echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
-                    echo("UserAPI.login();");
+                    echo("UserAPI.login(true);");
                 }
             }else{
-                echo("UserAPI.login();");
+                echo("UserAPI.login(true);");
             }
             ?>
 

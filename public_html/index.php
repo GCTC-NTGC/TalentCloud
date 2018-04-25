@@ -34,12 +34,12 @@ if($query_string !== ""){
         $oidc->addScope("openid profile email");
         $oidc->setVerifyPeer(false);
         $oidc->setRedirectURL(REDIRECT_URI);
-        if($_SESSION["refreshToken"]){
+        /*if($_SESSION["refreshToken"]){
             $oidc->refreshToken($_SESSION["refreshToken"]);
         }
         if($_SESSION["accessToken"]){
             $oidc->setAccessToken($_SESSION["accessToken"]);
-        }
+        }*/
         
         try{
             $oidc->authenticate();
