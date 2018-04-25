@@ -5060,8 +5060,13 @@ nav {
       .manager-edit-profile__button-form > .box {
         text-align: right; } }
 
+.stepGroup_createEditProfile a {
+  color: #333; }
+
 .stepGroup_createEditProfile .tab-current {
-  background: #2196f3;
+  background: #2196f3; }
+
+.stepGroup_createEditProfile .tab-current a {
   color: white; }
 
 /* =============================================================================
