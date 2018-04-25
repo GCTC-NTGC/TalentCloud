@@ -62,20 +62,22 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
     Utilities.debug ? console.log(jobSeekerJSON) : null;
 
     var jobSeekerObj = new JobSeekerAPI.JobSeeker();
+    
+    if (jobSeekerJSON) {
+        jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
+        jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
+        jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
+        jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
+        jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
+        jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
 
-    jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
-    jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
-    jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
-    jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
-    jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
-    jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
-
-    var answers = [];
-    jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
-        var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
-        answers.push(answer);
-    });
-    jobSeekerObj.answers = answers;
+        var answers = [];
+        jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
+            var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
+            answers.push(answer);
+        });
+        jobSeekerObj.answers = answers;
+    }    
 
     Utilities.debug ? console.log(jobSeekerObj) : null;
 
