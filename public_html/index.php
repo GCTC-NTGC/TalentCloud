@@ -24,7 +24,7 @@ and open the template in the editor .
         include 'inc/applicant/modal-registration.php';
         include 'inc/applicant/modal-login.php';
         include 'inc/applicant/modal-edit-profile.php';
-        include 'inc/applicant/modal-about-me.php';
+        include 'inc/applicant/modal-edit-profile-answer.php';
         include 'inc/applicant/modal-yes-no.php';
         ?>
         <!-- END - Modal dialogs -->

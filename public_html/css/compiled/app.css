@@ -5095,6 +5095,10 @@ nav {
       .manager-edit-profile__button-form > .box {
         text-align: right; } }
 
+.stepGroup_createEditProfile .tab-current {
+  background: #2196f3;
+  color: white; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -5912,6 +5916,23 @@ nav {
         margin: 0; } }
 
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
+.profile-question {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  position: relative; }
+
+.profile-question__title-bar {
+  margin-bottom: 1em; }
+  .profile-question__title-bar h2 {
+    display: inline;
+    /* font-weight: bold; */ }
+
+.profile-question__edit-btn {
+  float: right; }
+  .profile-question__edit-btn img {
+    width: 1em;
+    height: 1em; }
+
 .profileBannerFiller {
   height: 18em; }
 
