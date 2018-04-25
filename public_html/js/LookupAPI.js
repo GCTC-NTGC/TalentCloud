@@ -15,13 +15,13 @@ LookupAPI.loadLookupData = function() {
         for (j in lookupTypes) {
             var locale = locales[i];
             var lookupType = lookupTypes[j];
-            LookupAPI.getLookupData(lookupType, locale);
+            LookupAPI.getLookupData(lookupType, locale, null);
         }
     }
 };
 
 
-LookupAPI.getLookupData = function(lookupType, locale){    
+LookupAPI.getLookupData = function(lookupType, locale, requestCallback){    
     var lookup_URL = DataAPI.baseURL+"/"+locale+"/Lookup/"+lookupType;
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
@@ -59,6 +59,9 @@ LookupAPI.getLookupData = function(lookupType, locale){
             LookupAPI.processDeferredPopulates();
             LookupAPI.processDeferredPopulateElements();
         }
+        if (requestCallback) {
+            requestCallback(lookupData_xhr);
+        }
     },false);
     lookupData_xhr.addEventListener("error",DataAPI.transferFailed,false);
     lookupData_xhr.addEventListener("abort",DataAPI.transferAborted,false);
@@ -75,6 +78,31 @@ LookupAPI.addToLookupMap = function(lookupType, locale, response) {
         LookupAPI.lookupMap[locale][lookupType] = {};
     }
     LookupAPI.lookupMap[locale][lookupType] = JSON.parse(response);
+};
+
+/**
+ * If the requested lookupType is already in the lookupMap, send it to the lookupCallback
+ * immediately. If not, request the lookup data, then call lookupCallback with
+ * the response.
+ * 
+ * @param {string} lookupType
+ * @param {function} lookupCallback
+ * @return {undefined}
+ */
+LookupAPI.getLookupResponse = function(lookupType, lookupCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    if (!LookupAPI.lookupMap[locale]) {
+        LookupAPI.lookupMap[locale] = {};
+    }
+    if (LookupAPI.lookupMap[locale][lookupType]) {
+        lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
+    } else {
+        LookupAPI.getLookupData(lookupType, locale, function(request) {
+            if (request.status === 200) {
+                lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
+            }
+        });
+    }
 };
 
 LookupAPI.getLocalizedLookupValue = function(lookupType, valueId) {

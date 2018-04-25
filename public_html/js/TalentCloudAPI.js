@@ -31,7 +31,8 @@ managerProfile_engagement_option0, managerProfile_engagement_option1, managerPro
 managerProfile_acceptLowValueWorkRequests_option0, managerProfile_acceptLowValueWorkRequests_option1, managerProfile_acceptLowValueWorkRequests_option2, managerProfile_acceptLowValueWorkRequests_option3, managerProfile_acceptLowValueWorkRequests_option4,
 managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
-managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave
+managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave,
+cancel, save, editYour
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -220,6 +221,9 @@ managerProfile_developmentOpportunities_option3, managerProfile_developmentOppor
     this.profileEditAboutMe = profileEditAboutMe;
     this.profileAboutMeEditCancel = profileAboutMeEditCancel;
     this.profileAboutMeEditSave = profileAboutMeEditSave;
+    this.cancel = cancel;
+    this.save = save;
+    this.editYour = editYour;
 };
 
 TalentCloudAPI.pages = {
@@ -781,6 +785,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         JobApplicationAPI.localizeCreateJobApplication();
         WorkEnvironmentAPI.localizeWorkEnvironment();
         TeamCultureAPI.localizeTeamCulture();
+        JobSeekerAPI.localizeJobSeekerProfile();
 
         var dashBoardLink = document.getElementById("dashBoardLink");
         dashBoardLink.innerHTML = siteContent.dashBoardLink;
@@ -847,9 +852,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var transcript = document.getElementById("transcript");
         transcript.innerHTML = siteContent.transcript;
-
-        var aboutMe = document.getElementById("aboutMe");
-        aboutMe.innerHTML = siteContent.aboutMe;
 
         var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
@@ -954,21 +956,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var registerFormTitle = document.getElementById("registerFormTitle");
         registerFormTitle.innerHTML = siteContent.registerFormTitle;
-
-        var profileAboutMeEditTitle = document.getElementById("profileAboutMeEditTitle");
-        profileAboutMeEditTitle.innerHTML = siteContent.profileAboutMeEditTitle;
-
-        var updateAboutTextareaLabelSpan = document.getElementById("updateAboutTextareaLabelSpan");
-        updateAboutTextareaLabelSpan.innerHTML = siteContent.updateAboutTextareaLabelSpan;
-
-        var profileEditAboutMe = document.getElementById("profileEditAboutMe");
-        profileEditAboutMe.name = siteContent.profileEditAboutMe;
-
-        var profileAboutMeEditCancel = document.getElementById("profileAboutMeEditCancel");
-        profileAboutMeEditCancel.value = siteContent.profileAboutMeEditCancel;
-
-        var profileAboutMeEditSave = document.getElementById("profileAboutMeEditSave");
-        profileAboutMeEditSave.value = siteContent.profileAboutMeEditSave;
 
         var almostNeverElements = document.getElementsByClassName("option0Label");
         for (var i = 0; i < almostNeverElements.length; i++) {

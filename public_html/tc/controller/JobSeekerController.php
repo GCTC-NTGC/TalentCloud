@@ -38,6 +38,10 @@ class  JobSeekerController {
      */
     public static function getJobSeekerProfileByUserId($user_id) {
         $jobSeekerProfile = JobSeekerDAO::getJobSeekerProfileByUserId($user_id);
+        if ($jobSeekerProfile && $jobSeekerProfile->getJob_seeker_profile_id()) {
+            $answers = JobSeekerDAO::getJobSeekerProfileAnswers($jobSeekerProfile->getJob_seeker_profile_id());
+            $jobSeekerProfile->setJob_seeker_profile_answers($answers);
+        }
         return $jobSeekerProfile;
     }
     
@@ -54,6 +58,10 @@ class  JobSeekerController {
     
     public static function getJobSeekers(){
         $jobSeekerProfiles = JobSeekerDAO::getJobSeekers();
+        foreach($jobSeekerProfiles as $profile) {
+            $answers = JobSeekerDAO::getJobSeekerProfileAnswers($profile->getJob_seeker_profile_id());
+            $profile->setJob_seeker_profile_answers($answers);
+        }
         return $jobSeekerProfiles;
     }
     
