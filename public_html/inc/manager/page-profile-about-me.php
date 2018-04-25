@@ -3,11 +3,11 @@
 
     <div class="tabsWrapper">
         <div class="tabsSteps">
-            <div class="five-step-tab tab-current"><span id="createEditProfileStep1Label_1">About</span></div>
-            <div class="five-step-tab"><span id="createEditProfileStep2Label_1">Leadership</span></div>
-            <div class="five-step-tab"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></div>
-            <div class="five-step-tab"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></div>
-            <div class="five-step-tab"><span id="createEditProfileStep3Label_1">Other</span></div>
+            <div class="five-step-tab tab-current"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_1">About</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_1">Leadership</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_1">Other</span></a></div>
         </div>
         <div class="tabs">
             <div class="steptab active"> </div>
@@ -170,7 +170,7 @@
 
         <div class="createEditProfileSubmitPane flex-grid top manager-edit-profile__button-form">
             <div class="box full">
-                <input class="button--yellow" type="button" id="createEditProfile_goToStep2_1" value="Go to Leadership" onclick="CreateEditProfileAPI.validateStep1();"/>
+                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
             </div>
         </div>
 

@@ -115,7 +115,6 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     document.getElementById("managerProfileName").innerHTML = profile.name;
 
     //var last_updated = document.getElementById("profileLastUpdated");
-    //last_updated.value = JobSeekerAPI.jobSeekerProfile.last_updated;
 
     var position = document.getElementById("managerProfilePosition");
     position.innerHTML = profile.position;
