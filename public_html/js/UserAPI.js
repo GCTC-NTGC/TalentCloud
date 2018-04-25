@@ -353,13 +353,13 @@ UserAPI.loaded = function (response) {
             //var user_fname = document.getElementById("user_fname");
             //user_fname.innerHTML = authJSON.firstname;
 
-            var loggedIn = document.getElementById("loggedIn");
+            var loggedIn = document.getElementById("navigationLogoutLinkWrapper");
             loggedIn.classList.remove("hidden");
 
-            var loggedOut = document.getElementById("loggedOut");
+            var loggedOut = document.getElementById("navigationLoginLinkWrapper");
             loggedOut.classList.add("hidden");
 
-            var registerLink = document.getElementById("register");
+            var registerLink = document.getElementById("navigationRegisterLinkWrapper");
             registerLink.classList.add("hidden");
 
             var registerFormOverlay = document.getElementById("registerFormOverlay");
@@ -371,22 +371,22 @@ UserAPI.loaded = function (response) {
             EventsAPI.hideBodyOverflow(false);
 
             if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
-                var dashBoardLink = document.getElementById("dashBoardLink");
+                var dashBoardLink = document.getElementById("navigationDashboardLinkWrapper");
 
                 if (dashBoardLink !== null) {
-                    var dashBoardLinkListItem = document.getElementById("dashBoardLinkListItem");
+                    var dashBoardLinkListItem = document.getElementById("navigationDashboardLinkWrapper");
                     dashBoardLink.classList.remove("hidden");
                     dashBoardLinkListItem.setAttribute("aria-hidden", "false");
                 }
             }
 
-                var myProfileLink = document.getElementById("profileLink");
+                var myProfileLink = document.getElementById("navigationProfileLinkWrapper");
 
                 if (myProfileLink !== null) {
-                    var profileLinkListItem = document.getElementById("profileLinkListItem");
+                    var profileLinkListItem = document.getElementById("navigationProfileLinkWrapper");
                     myProfileLink.classList.remove("hidden");
                     profileLinkListItem.setAttribute("aria-hidden", "false");
-                    AccessibilityAPI.focusElement("profileLinkListItem");
+                    AccessibilityAPI.focusElement("navigationProfileLinkWrapper");
                 }
 
             if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {

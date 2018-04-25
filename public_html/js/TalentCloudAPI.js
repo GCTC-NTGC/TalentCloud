@@ -231,21 +231,21 @@ TalentCloudAPI.pages = {
                 url: "#",
                 state: function(){
                     TalentCloudAPI.loadPublic();
-                    TalentCloudAPI.setNav("homeLinkListItem");
+                    TalentCloudAPI.setNav("navigationHomeLinkWrapper");
                 }
             },
             adminhome: {
                 url: "#",
                 state: function(){
                     TalentCloudAPI.loadAdmin();
-                    TalentCloudAPI.setNav("homeLinkListItem");
+                    TalentCloudAPI.setNav("navigationHomeLinkWrapper");
                 }
             },
             BrowseJobs: {
                 url: "#BrowseJobs",
                 state: function(){
                     JobPostAPI.showBrowseJobs();
-                    TalentCloudAPI.setNav("browseLinkListItem");
+                    TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                     AccessibilityAPI.focusElement("browseTitle");
                 }
             },
@@ -253,21 +253,21 @@ TalentCloudAPI.pages = {
                 url: "#Login",
                 state: function(){
                     UserAPI.showLogin();
-                    TalentCloudAPI.setNav("loginLinkListItem");
+                    TalentCloudAPI.setNav("navigationLoginLinkWrapper");
                 }
             },
             Register: {
                 url: "#Register",
                 state: function(){
                     UserAPI.showRegisterForm();
-                    document.getElementById("registerLinkListItem");
+                    document.getElementById("navigationRegisterLinkWrapper");
                 }
             },
             MyProfile: {
                 url: "#MyProfile",
                 state: function(){
                     JobSeekerAPI.showJobSeekerProfile();
-                    TalentCloudAPI.setNav("profileLinkListItem");
+                    TalentCloudAPI.setNav("navigationProfileLinkWrapper");
                     AccessibilityAPI.focusElement("myProfilePic");
                 }
             },
@@ -275,21 +275,21 @@ TalentCloudAPI.pages = {
                 url: "#Job",
                 state: function(jobPostId){
                     JobPostAPI.viewJobPoster(jobPostId);
-                    TalentCloudAPI.setNav("browseLinkListItem");
+                    TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                 }
             },
             CreateEditProfile:{
                 url:"#CreateEditProfile",
                 state: function(){
                     CreateEditProfileAPI.showCreateEditProfile();
-                    TalentCloudAPI.setNav("profileLinkListItem");
+                    TalentCloudAPI.setNav("navigationProfileLinkWrapper");
                 }
             },
             Dashboard:{
                 url:"#Dashboard",
                 state: function(){
                     DashboardAPI.showDashboard();
-                    TalentCloudAPI.setNav("dashBoardLinkListItem");
+                    TalentCloudAPI.setNav("navigationDashboardLinkWrapper");
                 }
             },
             CreateJobPoster:{
@@ -309,7 +309,7 @@ TalentCloudAPI.pages = {
                 url:"#CreateJobApplication",
                 state:function(jobPosterId) {
                     JobApplicationAPI.showCreateJobApplication(jobPosterId);
-                    TalentCloudAPI.setNav("browseLinkListItem");
+                    TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                 }
             }
         };
