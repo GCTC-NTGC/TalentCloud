@@ -48,11 +48,11 @@
                                     </div>
                                 </div>
 
-                                <div style="text-align: center;width:100%;">
+                                <!--<div style="text-align: center;width:100%;">
                                     <div style="width:500px;margin:1em auto;text-align: center;">
                                         <span id="createEditProfile_department_preview" class="managerProfileDepartment">department</span>
                                     </div>
-                                </div>
+                                </div>-->
 
                             </div>
 
