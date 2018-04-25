@@ -89,7 +89,14 @@
 
 }
 
+.stepGroup_createEditProfile a{
+    color:#333; 
+}
+
 .stepGroup_createEditProfile .tab-current{
     background: $palette-blue;
+}
+
+.stepGroup_createEditProfile .tab-current a{
     color:white;
 }

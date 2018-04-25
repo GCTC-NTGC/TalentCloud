@@ -3,11 +3,11 @@
 
     <div class="tabsWrapper">
         <div class="tabsSteps">
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_3">About</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_3">Leadership</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></a></div>
-            <div class="five-step-tab "><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_3">Team Culture</span></a></div>
-            <div class="five-step-tab tab-current"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_3">Other</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_3">About</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_3">Leadership</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_3">Work Environment</span></a></div>
+            <div class="five-step-tab "><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_3">Team Culture</span></a></div>
+            <div class="five-step-tab tab-current"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_3">Other</span></a></div>
         </div>
         <div class="tabs">
             <div class="steptab inactive"> </div>

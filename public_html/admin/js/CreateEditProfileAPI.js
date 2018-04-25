@@ -964,8 +964,9 @@ CreateEditProfileAPI.populateProfile = function(response){
     //Position
     var profile_position = manager_profile.user_manager_profile_position;
     var profile_department_id = manager_profile.user_manager_profile_department_id;
-    var profile_division = manager_profile_details.user_manager_profile_details_division;
     var profile_branch = manager_profile_details.user_manager_profile_details_branch;
+    var profile_division = manager_profile_details.user_manager_profile_details_division;
+    
     
     if(profile_position !== null){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
