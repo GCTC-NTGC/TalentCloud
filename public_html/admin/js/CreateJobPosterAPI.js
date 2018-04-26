@@ -83,8 +83,6 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.questions = {};
     this.questions.en_CA = questions_en;
     this.questions.fr_CA = questions_fr;
-
-    // TAL-150
     this.classification = classification;
     this.clearance_id = clearance_id;
     this.language_id = language_id;
@@ -118,8 +116,6 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             jp.core_competencies[locale],
             jp.developing_competencies[locale],
             jp.questions[locale],
-
-            //TAL-150
             jp.classification,
             LookupAPI.getLocalizedLookupValue("clearance", jp.clearance_id),
             LookupAPI.getLocalizedLookupValue("language", jp.language_id),
