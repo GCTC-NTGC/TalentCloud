@@ -170,7 +170,7 @@
 
         <div class="createEditProfileSubmitPane flex-grid top manager-edit-profile__button-form">
             <div class="box full">
-                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateAboutMe();">
             </div>
         </div>
 
