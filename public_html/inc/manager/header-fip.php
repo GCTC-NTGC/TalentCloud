@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-xs-2">
                 <a href="https://www.canada.ca/en.html" class="fip-logo gl-FIP" aria-label="Government of Canada">
-                    <object type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
+                    <object tabindex="-1" type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
                 </a>
             </div>
             <div class="col-xs-8">

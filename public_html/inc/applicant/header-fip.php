@@ -14,12 +14,12 @@
         <div class="row">
             <div class="col-xs-2">
                 <a href="https://www.canada.ca/en.html" class="fip-logo gl-FIP" aria-label="Government of Canada">
-                    <object type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
+                    <object tabindex="-1" type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
                 </a>
             </div>
             <div class="col-xs-8">
                 <section class="visible-md visible-lg">
-                    <h1 class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <span id="applicantPortal">Applicant Portal</span></h1>
+                    <h1 class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon"></i> <span id="applicantPortal">Applicant Portal</span></h1>
                 </section>
             </div>
             <div class="col-xs-2">

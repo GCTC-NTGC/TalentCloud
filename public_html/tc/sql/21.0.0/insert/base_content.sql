@@ -27,3 +27,6 @@ VALUES
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Salary range:' WHERE `base_content_id`='0000000052';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Offre d\'emploi :' WHERE `base_content_id`='0000000053';
+
+UPDATE `talentcloud`.`base_content` SET `base_content_value`='Your Manager' WHERE `base_content_id`='0000000396';
+UPDATE `talentcloud`.`base_content` SET `base_content_value`='Votre gestionnaire' WHERE `base_content_id`='0000000397';
