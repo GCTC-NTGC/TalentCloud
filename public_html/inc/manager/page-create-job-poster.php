@@ -2,7 +2,7 @@
 <section class="pageContent hidden" id="createJobPosterSection">
 
     <div class="pageBanner">
-        <h2 class="section--title">Create a new Job Poster</h2>
+        <h2 class="section--title" id="createJobPosterWindowTitle">Create new Job Poster</h2>
     </div>
 
     <div class="pageBody">
@@ -69,6 +69,44 @@
                             <section id="createJobPosterDetailsSection" class="flex-grid manager-poster__edit-form-grid">
 
                                 <div class="box full">
+                                    <label class="form__label" for="createJobPoster_classification">
+                                        <span id="createJobPoster_classification_labelName"><span>Classification</span>: *</span>
+                                        <strong id="createJobPoster_classification_error" class="error hidden">
+                                            <span id="createJobPoster_classification_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form__input--text" type="text" name="createJobPoster_classification" id="createJobPoster_classification"/>
+                                </div>
+
+                                <div class="box full">
+                                    <label class="form__label" for="createJobPoster_clearance">
+                                        <span><span id="createJobPoster_clearance_labelName">Security clearance level</span>: *</span>
+                                        <strong id="createJobPoster_clearance_error" class="error hidden">
+                                            <span id="createJobPoster_clearance_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div class="form__select-wrapper">
+                                        <select class="form__select" name="createJobPoster_clearance" id="createJobPoster_clearance">
+                                            <option value="">--</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="box full">
+                                    <label class="form__label" for="createJobPoster_language">
+                                        <span id="createJobPoster_language_labelName"><span>Language</span>: *</span>
+                                        <strong id="createJobPoster_language_error" class="error hidden">
+                                            <span id="createJobPoster_language_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <div class="form__select-wrapper">
+                                        <select class="form__select" name="createJobPoster_language" id="createJobPoster_language">
+                                            <option value="">--</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="box full">
                                     <label class="form__label" for="createJobPoster_department">
                                         <span><span id="createJobPoster_department_labelName">Department</span>: *</span>
                                         <strong id="createJobPoster_department_error" class="error hidden">
@@ -91,7 +129,7 @@
                                     </label>
                                     <input type="text" class="form__input--text" name="createJobPoster_branch" id="createJobPoster_branch"/>
                                 </div>
-                                
+
                                 <div class="box med-1of2">
                                     <label class="form__label" for="createJobPoster_branch_fr">
                                         <span><span id="createJobPoster_branch_fr_labelName">Branch</span> (Français): *</span>
@@ -121,7 +159,7 @@
                                     </label>
                                     <input type="text" class="form__input--text" name="createJobPoster_division_fr" id="createJobPoster_division_fr"/>
                                 </div>
-                                
+
                                 <div class="box full">
                                     <label class="form__label" for="createJobPoster_province">
                                         <span><span id="createJobPoster_province_labelName">Province</span>: *</span>
@@ -265,7 +303,7 @@
                                     </label>
                                     <textarea class="form__textarea" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_coreCompetencies_fr"></textarea>
                                 </div>
-                                
+
                                 <div class="box med-1of2">
                                     <label class="form__label" for="createJobPoster_developingCompetencies">
                                         <span><span id="createJobPoster_developingCompetencies_labelName">Developing Competencies</span>: **</span>
@@ -285,27 +323,7 @@
                                     </label>
                                     <textarea class="form__textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr"></textarea>
                                 </div>
-                                
-                                <div class="box med-1of2">
-                                    <label class="form__label" for="createJobPoster_otherRequirements">
-                                        <span><span id="createJobPoster_otherRequirements_labelName">Other Requirements</span>: **</span>
-                                        <strong id="createJobPoster_otherRequirements_error" class="error hidden">
-                                            <span id="createJobPoster_otherRequirements_error_msg" class="label label-danger"></span>
-                                        </strong>
-                                    </label>
-                                    <textarea class="form__textarea" name="createJobPoster_otherRequirements" id="createJobPoster_otherRequirements"></textarea>
-                                </div>
 
-                                <div class="box med-1of2">
-                                    <label class="form__label" for="createJobPoster_otherRequirements_fr">
-                                        <span><span id="createJobPoster_otherRequirements_fr_labelName">Other Requirements</span> (Français): **</span>
-                                        <strong id="createJobPoster_otherRequirements_fr_error" class="error hidden">
-                                            <span id="createJobPoster_otherRequirements_fr_error_msg" class="label label-danger"></span>
-                                        </strong>
-                                    </label>
-                                    <textarea class="form__textarea" name="createJobPoster_otherRequirements_fr" id="createJobPoster_otherRequirements_fr"></textarea>
-                                </div>
-                                
                                 <div class="box med-1of2">
                                     <label class="form__label" for="createJobPoster_questions">
                                         <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>

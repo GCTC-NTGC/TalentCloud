@@ -1,6 +1,6 @@
 <?php
 
-	
+
     date_default_timezone_set('America/Toronto');
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
@@ -21,7 +21,7 @@ require_once '../model/LookupWithDescription.php';
 
 /**
  * Summary: Data Access Object for Resources
- * 
+ *
  * @extends BaseDAO
  */
 class LookupDAO extends BaseDAO {
@@ -34,9 +34,9 @@ class LookupDAO extends BaseDAO {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
+            SELECT
             p.province_id as id, pd.province_details_name as value
-            FROM 
+            FROM
             province p, province_details pd, locale l
             WHERE l.locale_iso = :locale
             AND pd.province_details_province_id = p.province_id
@@ -44,12 +44,12 @@ class LookupDAO extends BaseDAO {
             ORDER BY pd.province_details_name;";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getContentByLocale failed: ' . $e->getMessage();
         }
@@ -65,9 +65,9 @@ class LookupDAO extends BaseDAO {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
+            SELECT
             c.city_id as id, cd.city_details_name as value
-            FROM 
+            FROM
             city c, city_details cd, locale l
             WHERE l.locale_iso = :locale
             AND cd.city_details_city_id = c.city_id
@@ -76,19 +76,19 @@ class LookupDAO extends BaseDAO {
             ";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getContentByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
     /**
      * Summary: obtains content and template for request page_name, locale and language
      * @return object Page
@@ -97,9 +97,9 @@ class LookupDAO extends BaseDAO {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
+            SELECT
             d.department_id as id, dd.department_details_name as value
-            FROM 
+            FROM
             department d, department_details dd, locale l
             WHERE l.locale_iso = :locale
             AND dd.department_id = d.department_id
@@ -108,19 +108,19 @@ class LookupDAO extends BaseDAO {
             ";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getContentByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
     /**
      * Summary: obtains content and template for request page_name, locale and language
      * @return object Page
@@ -128,11 +128,11 @@ class LookupDAO extends BaseDAO {
     public static function getDivisionsByLocale($locale) {
 
         $link = BaseDAO::getConnection();
-        
+
         $sqlStr = "
-            SELECT 
+            SELECT
                 d.division_id as id, dd.division_name as value
-                FROM 
+                FROM
                 division d, division_details dd, locale l
                 WHERE l.locale_iso = :locale
                 AND dd.division_id = d.division_id
@@ -141,19 +141,19 @@ class LookupDAO extends BaseDAO {
             ";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getDivisionsByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
     /**
      * Summary: obtains content and template for request page_name, locale and language
      * @return object Page
@@ -169,20 +169,20 @@ class LookupDAO extends BaseDAO {
             ";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getContentByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
-    
+
+
     /**
      * Summary: obtains content and template for request page_name, locale and language
      * @return object Page
@@ -190,9 +190,9 @@ class LookupDAO extends BaseDAO {
     public static function getBranchesByLocale($locale) {
 
         $link = BaseDAO::getConnection();
-        
+
         $sqlStr = "
-            SELECT 
+            SELECT
             b.branch_id as id, bd.branch_details_name as value
             FROM branch b, branch_details bd, locale l
             WHERE l.locale_iso = :locale
@@ -202,26 +202,26 @@ class LookupDAO extends BaseDAO {
             ";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getBranchesByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
     public static function getSkillsByLocale($locale) {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
+            SELECT
             skill.skill_id as id, skill_details.skill_details_name as value
-            FROM 
+            FROM
             skill, skill_detals, locale
             WHERE locale.locale_iso = :locale
             AND skill_details.skill_details_locale_id = locale.locale_id
@@ -229,26 +229,26 @@ class LookupDAO extends BaseDAO {
             ORDER BY skill.skill_id";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getSkillsByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
     public static function getSkillLevelsByLocale($locale) {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
+            SELECT
             sl.skill_level_id as id, sld.skill_level_details_name as value
-            FROM 
+            FROM
             skill_level sl, skill_level_details sld, locale
             WHERE locale.locale_iso = :locale
             AND sld.skill_level_details_locale_id = locale.locale_id
@@ -256,26 +256,26 @@ class LookupDAO extends BaseDAO {
             ORDER BY sl.skill_level_id";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getSkillLevelsByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
     public static function getExperienceLevelsByLocale($locale) {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
+            SELECT
             el.experience_level_id as id, eld.experience_level_details_name as value
-            FROM 
+            FROM
             experience_level el, experience_level_details eld, locale
             WHERE locale.locale_iso = :locale
             AND eld.experience_level_details_locale_id = locale.locale_id
@@ -283,18 +283,73 @@ class LookupDAO extends BaseDAO {
             ORDER BY el.experience_level_id";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getExperienceLevelsByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
+
+	public static function getClearanceLevelsByLocale($locale) {
+
+		$link = BaseDAO::getConnection();
+		$sqlStr = "
+			SELECT
+			sc.security_clearance_id as id, scd.security_clearance_details_name as value
+			FROM
+			security_clearance sc, security_clearance_details scd, locale
+			WHERE locale.locale_iso = :locale
+			AND scd.security_clearance_details_locale_id = locale.locale_id
+			AND scd.security_clearance_id = sc.security_clearance_id
+			ORDER BY sc.security_clearance_id";
+		$sql = $link->prepare($sqlStr);
+		$sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+
+		try {
+			$sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+			$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+			$rows = $sql->fetchAll();
+
+		} catch (PDOException $e) {
+			return 'getClearanceLevelsByLocale failed: ' . $e->getMessage();
+		}
+		BaseDAO::closeConnection($link);
+		return $rows;
+	}
+
+	public static function getLanguageLevelsByLocale($locale) {
+
+		$link = BaseDAO::getConnection();
+		$sqlStr = "
+			SELECT
+			lr.language_requirement_id as id, lrd.language_requirement_details_name as value
+			FROM
+			language_requirement lr, language_requirement_details lrd, locale
+			WHERE locale.locale_iso = :locale
+			AND lrd.language_requirement_details_locale_id = locale.locale_id
+			AND lrd.language_requirement_id = lr.language_requirement_id
+			ORDER BY lr.language_requirement_id";
+		$sql = $link->prepare($sqlStr);
+		$sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+
+		try {
+			$sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+			$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+			$rows = $sql->fetchAll();
+
+		} catch (PDOException $e) {
+			return 'getLanguageLevelsByLocale failed: ' . $e->getMessage();
+		}
+		BaseDAO::closeConnection($link);
+		return $rows;
+	}
+
     
     public static function getJobSeekerProfileQuestionsByLocale($locale) {
         $link = BaseDAO::getConnection();
@@ -324,6 +379,7 @@ class LookupDAO extends BaseDAO {
         return $rows;
     }
     
+
 }
 
 ?>

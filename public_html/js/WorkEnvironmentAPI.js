@@ -2,13 +2,13 @@ var WorkEnvironmentAPI = {};
 WorkEnvironmentAPI.baseURL = "/tc/api/v1";
 
 WorkEnvironmentAPI.photoNameToImgElementId = {'workplace_photo_1' : 'jobPosterWorkEnvironment_1',
-    'workplace_photo_2' : 'jobPosterWorkEnvironment_2', 
+    'workplace_photo_2' : 'jobPosterWorkEnvironment_2',
     'workplace_photo_3' : 'jobPosterWorkEnvironment_3'};
 
 WorkEnvironmentAPI.defaultWorkplacePhoto = '/images/default_workplace_photo.png';
 
 /**
- * 
+ *
  * @param {string} photo_name
  * @param {string} description
  * @return {WorkEnvironment.WorkplacePhotoCaption}
@@ -19,7 +19,7 @@ WorkEnvironmentAPI.WorkplacePhotoCaption = function(photo_name, description) {
 };
 
 /**
- * 
+ *
  * @param {string} remote_allowed
  * @param {string} telework_allowed
  * @param {string} flexible_allowed
@@ -55,7 +55,7 @@ WorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
 WorkEnvironmentAPI.localizeWorkEnvironment = function() {
     if (siteContent) {
         document.getElementById('jobPosterWorkEnvironmentLabel').innerHTML = siteContent.workEnvironment;
-        
+
         document.getElementById('jobPosterRemoteWork_label').innerHTML = siteContent.remoteLocationAllowed;
         document.getElementById('jobPosterTelework_label').innerHTML = siteContent.teleworkAllowed;
         document.getElementById('jobPosterFlexHours_label').innerHTML = siteContent.flexHoursAllowed;
@@ -75,22 +75,37 @@ WorkEnvironmentAPI.loadWorkEnvironmentSummary = function(managerProfileId) {
 };
 
 /**
- * 
+ *
  * @param {WorkEnvironment.WorkEnvironment} workEnvironment
  * @return {undefined}
  */
 WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
-    
+
     document.getElementById('jobPosterRemoteWork').innerHTML = SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed);
     document.getElementById('jobPosterTelework').innerHTML = SliderAPI.getFrequencySliderLabel(workEnvironment.telework_allowed);
     document.getElementById('jobPosterFlexHours').innerHTML = SliderAPI.getFrequencySliderLabel(workEnvironment.flexible_allowed);
-    
+
     workEnvironment.workplace_photo_captions.forEach(function(caption){
         var imgId = WorkEnvironmentAPI.photoNameToImgElementId[caption.photo_name];
         if (imgId) {
             document.getElementById(imgId).setAttribute('title', caption.description);
-        } 
+        }
     });
+
+    // TAL-150 - Remote work values for heading section
+    if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Yes'){
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work allowed';
+    }
+    else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Oui') {
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Travail à distance autorisé';
+    }
+    else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'No') {
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work not allowed';
+    }
+    else {
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Travail à distance non autorisé';
+    }
+
 };
 
 WorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName, imageElementId) {
@@ -110,8 +125,8 @@ WorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName,
       // Otherwise, CORS is not supported by the browser.
       xhr = null;
       // TODO: indicate to user that browser is not supported
-    } 
-    xhr.setRequestHeader("Accept","image/*"); 
+    }
+    xhr.setRequestHeader("Accept","image/*");
     xhr.addEventListener('load', function() {
         img = document.getElementById(imageElementId);
         if (xhr.status == 200 && xhr.responseURL) {
