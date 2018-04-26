@@ -3,7 +3,7 @@
  *
  */
 var Utilities = {};
-Utilities.debug = false;
+Utilities.debug = true;
 
 /*
  * Fix for IE9 bit able to handle console.log
@@ -553,7 +553,7 @@ function evidenceAccordionTriggerClick(e) {
         // Open this accordion.
         this.classList.add("active");
         this.nextElementSibling.classList.add("active");
-        x.setAttribute("aria-expanded", "true");
+        this.setAttribute("aria-expanded", "true");
 
     }
 
@@ -636,7 +636,7 @@ function evidencePreviewAccordionClick(e) {
         // Open this accordion.
         this.classList.add("active");
         this.nextElementSibling.classList.add("active");
-        x.setAttribute("aria-expanded", "true");
+        this.setAttribute("aria-expanded", "true");
 
     }
 

@@ -762,6 +762,11 @@ DataAPI.createJobApplication = function(jobApplication, requestCallback) {
 };
 
 
+DataAPI.saveJobApplicationByJobAndUser = function(jobApplication, jobPosterId, userId, requestCallback) {
+    var url = [DataAPI.baseURL, "putApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(jobApplication), requestCallback);
+};
+
 DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
     var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
@@ -798,8 +803,18 @@ DataAPI.getSkillDeclarationsForApplication = function(applicationId, requestCall
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 
-DataAPI.saveSkillDeclaration = function(skillDeclaration, isEssential, criteriaId, applicationId, requestCallback) {
-    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
+DataAPI.saveSkillDeclaration = function(skillDeclaration, criteriaType, criteriaId, applicationId, requestCallback) {
+    switch(criteriaType) {
+        case "essential":
+            var criteriaPath = "forEssentialCriteria";
+            break;
+        case "asset":
+            var criteriaPath = "forAssetCriteria";
+            break;
+        default:
+            console.log("Cannot submit skill declaration of type: " + criteriaType);
+            return false;
+    }
     var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
     DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillDeclaration), requestCallback);
 };

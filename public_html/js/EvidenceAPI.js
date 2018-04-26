@@ -11,6 +11,8 @@ EvidenceAPI.menuItemId = function (criteriaId, criteriaType) {
 
 EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, criteriaType, criteriaName) {
     var menuItem = document.getElementById("applicantEvidenceMenuItemTemplate").firstElementChild.cloneNode(true);
+    
+    menuItem.classList.remove("template");
 
     var triggerName = EvidenceAPI.evidenceTriggerName(criteriaId, criteriaType);
     var menuItemId = EvidenceAPI.menuItemId(criteriaId, criteriaType);
@@ -29,6 +31,8 @@ EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, crite
 
 EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteriaType, criteriaName, criteriaDescription) {
     var evidencePanel = document.getElementById("applicantEvidencePanelTemplate").firstElementChild.cloneNode(true);
+
+    evidencePanel.classList.remove("template");
 
     var triggerName = EvidenceAPI.evidenceTriggerName(criteriaId, criteriaType);
     var menuItemId = EvidenceAPI.menuItemId(criteriaId, criteriaType);
@@ -93,6 +97,9 @@ EvidenceAPI.instantiateApplicationEvidenceExperienceItem = function (criteriaId,
 
 EvidenceAPI.instantiateApplicationEvidenceRadioItem = function (templateId, inputId, textValue, outputValue, numberOfItems) {
     var itemLabel = document.getElementById(templateId).firstElementChild.cloneNode(true);
+    
+    itemLabel.classList.remove("template");
+    
     var itemInput = itemLabel.querySelector("input");
     var itemText = itemLabel.querySelector(".form__radio-group-span");
 

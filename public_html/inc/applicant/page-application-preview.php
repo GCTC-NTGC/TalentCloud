@@ -92,7 +92,7 @@
 
 		<div class="application-preview__button-wrapper">
 			<button class="button--grey">Edit Application</button>
-			<button class="button--yellow" onclick="JobApplicationAPI.submitNewJobApplication();">Submit</button>
+			<button class="button--yellow" onclick="JobApplicationAPI.saveJobApplication();">Submit</button>
 		</div>
 
 	</div>

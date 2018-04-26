@@ -5615,7 +5615,8 @@ nav {
 
 ============================================================================= */
 .application-button__wrapper {
-  padding: 5rem 0; }
+  padding: 5rem 0;
+  text-align: center; }
 
 /* =============================================================================
 
@@ -6542,9 +6543,6 @@ nav {
 
 #createJobApplicationOpenEndedQuestionsWrapper {
   margin-top: 2em; }
-
-#createJobApplicationButtonWrapper {
-  text-align: center; }
 
 /* CREATE JOB APPLICATION CONFIRMATION */
 #createJobApplicationConfirmationBodyWrapper {

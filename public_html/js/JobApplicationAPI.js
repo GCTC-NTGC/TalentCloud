@@ -35,6 +35,12 @@ JobApplicationAPI.JobApplication = function (
 };
 
 JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
+    if (!UserAPI.hasSessionUser()) {
+        //TODO: this page should not be accessible if not logged in
+        window.alert("You must log in before submitting a job application.");
+        return;
+    }
+    
     var stateInfo = {pageInfo: 'create_job_application', pageTitle: 'Talent Cloud: Create Job Application'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobApplication/' + jobPosterId);
@@ -44,14 +50,12 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
 
     var createJobApplicationSection = document.getElementById('createJobApplicationSection');
     createJobApplicationSection.classList.remove('hidden');
+    
+    JobApplicationAPI.showApplicationSection("my-information");
 
     locale = TalentCloudAPI.getLanguageFromCookie();
 
     document.getElementById('createJobApplicationJobPosterId').value = jobPosterId;
-
-    if (!UserAPI.hasSessionUser()) {
-        //TODO: this page should not be accessible if not logged in
-    }
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
@@ -79,7 +83,7 @@ JobApplicationAPI.localizeCreateJobApplication = function () {
         document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
         document.getElementById('createJobApplicationConfirmationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
         document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
-        document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
+        //document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
 
         //Localize confirmation page at same time
         document.getElementById('createJobApplicationConfirmationPositionLabel').innerHTML = siteContent.createJobApplicationConfirmationPositionLabel;
@@ -98,7 +102,7 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
     JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "essential", "applicationEssentialEvidenceMenu", "applicationEssentialEvidenceFormWrapper");
     
     //TODO: create applicationAssetEvidence wrapper divs
-    //JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
+    JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
     
     Utilities.setEvidenceUiEventListeners();
     
@@ -161,8 +165,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         document.getElementById("createJobApplicationJobApplicationId").value = jobApplication.job_poster_application.job_poster_application_id;
 
         //Load saved skill declarations using application id
-        DataAPI.getSkillDeclarationsForApplication(jobApplication.job_poster_application.job_poster_application_id,
-                SkillDeclarationAPI.populateApplicationWithSavedSkillDeclarations);
+        SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
 
         //Set saved question answer content
         jobApplication.application_question_answers.forEach(value => {
@@ -310,6 +313,52 @@ JobApplicationAPI.submitNewJobApplication = function () {
     });
 };
 
+JobApplicationAPI.saveJobApplicationAndPreview = function() {
+    
+};
+
+/**
+ * Saves the current Job Application.
+ * Call onSuccess if application is saved successfully
+ * 
+ * @param {function} onSuccess
+ * @return {undefined}
+ */
+JobApplicationAPI.saveJobApplication = function(onSuccess) {
+    
+    var jobApplicationId = document.getElementById('createJobApplicationJobApplicationId').value;
+    var jobPosterId = document.getElementById('createJobApplicationJobPosterId').value;
+    var jobSeekerId = document.getElementById('createJobApplicationJobSeekerId').value;
+
+    //get all Question answers
+    var applicationQuestionAnswers = [];
+    var questionAnswerSection = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
+    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('jobApplicationQuestionAnswerWrapper');
+    for (var i = 0; i < questionAnswerWrappers.length; i++) {
+        var questionId = questionAnswerWrappers[i].querySelector('input[name="job_poster_question_id"]').value;
+        var answer = questionAnswerWrappers[i].getElementsByTagName('textarea')[0].value;
+        var question = questionAnswerWrappers[i].getElementsByClassName('jobApplicationQuestion')[0].innerHTML;
+
+        var questionAnswer = new JobApplicationAPI.ApplicationQuestionAnswer(
+                null, questionId, question, answer);
+        applicationQuestionAnswers.push(questionAnswer);
+    }
+
+    var applicationStatus = 1; //draft status
+    var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationStatus, applicationQuestionAnswers);
+
+    DataAPI.saveJobApplicationByJobAndUser(jobApplication, jobPosterId, UserAPI.getSessionUserAsJSON().user_id, function (request) {
+        if (request.status === 403) {
+            var message = JSON.parse(request.response).failed;
+            window.alert(message);
+        } else if (request.status === 200) {
+            if (onSuccess) {
+                onSuccess();
+            }
+        }
+    });
+}
+
 JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var stateInfo = {pageInfo: 'create_job_application_confirmation', pageTitle: 'Talent Cloud: New Job Application Confirmed'};
     document.title = stateInfo.pageTitle;
@@ -323,3 +372,51 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var createJobApplicationSection = document.getElementById('createJobApplicationConfirmationSection');
     createJobApplicationSection.classList.remove('hidden');
 };
+
+JobApplicationAPI.showPreviousApplicationSection = function() {
+    JobApplicationAPI.shiftApplicationSection(-1);
+};
+
+JobApplicationAPI.showNextApplicationSection = function() {
+    JobApplicationAPI.shiftApplicationSection(1);
+};
+
+JobApplicationAPI.shiftApplicationSection = function(shift) {    
+    var progressItems = document.querySelectorAll(".application-progress__item");
+    
+    for (var i=0; i<progressItems.length; i++) {
+        if (!progressItems[i].classList.contains("inactive")) {
+            //This item is not inactive, therefore it is the current section
+            var shiftedIndex = i + shift;
+            if (shiftedIndex < progressItems.length && shiftedIndex >= 0) {
+                //as long as this would shift us to a valid index, show the new section
+                
+                var newSection = progressItems[shiftedIndex].getAttribute("data-application-section");
+                JobApplicationAPI.showApplicationSection(newSection);
+            }
+            break; //Ensuer this loop doesn't continue executing after we've switched sections
+        }
+    }
+};
+
+JobApplicationAPI.showApplicationSection = function(applicationSection) {
+    //Hide all application-sections except for selected one
+    var applicationSections = document.querySelectorAll(".application-section");
+    applicationSections.forEach(section => {
+       if (section.getAttribute("data-application-section") === applicationSection) {
+           section.classList.remove("hidden");
+       } else {
+           section.classList.add("hidden");
+       }
+    });
+    
+    //Set progress tracking bar to match
+    var progressItems = document.querySelectorAll(".application-progress__item");
+    progressItems.forEach( item => {
+       if (item.getAttribute("data-application-section") === applicationSection) {
+           item.classList.remove("inactive");
+       } else {
+           item.classList.add("inactive");
+       }
+    });
+}
