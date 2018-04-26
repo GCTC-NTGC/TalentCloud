@@ -2356,10 +2356,6 @@ body {
   width: 100% !important;
   /*max-width:1200px !important;*/
   margin: 0px auto !important;
-  background-image: url("/images/backgrounds/background.jpg");
-  background-position: center -350px;
-  background-repeat: no-repeat;
-  background-size: auto;
   position: absolute; }
 
 main {
@@ -4850,6 +4846,25 @@ nav {
 
 .subpage-hero__poster-id {
   color: white;
+  margin: 0; }
+
+.subpage-hero__application-metadata {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 3rem;
+  position: relative;
+  text-align: center;
+  z-index: 10; }
+
+.subpage-hero__application-label {
+  color: #484848;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 0 1rem 0; }
+
+.subpage-hero__application-job {
+  color: #333333;
+  font-size: 25px;
+  font-weight: 600;
   margin: 0; }
 
 /* Organisms ================================================================ */

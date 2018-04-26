@@ -108,18 +108,22 @@
 
             </div>
 
-            <!-- Application Form Metadata -->
-            <div class="flex-grid hidden subpage-hero__application-metadata" id="applicationHeroMetadata">
+        </div>
 
-                <div class="box full">
-<div class="container centered">
-<p id="createJobApplicationPositionLabel">for the position of:</p>
-<h3 id="createJobApplicationPostition">Job title</h3>
-</div>
-<input type='hidden' id='createJobApplicationJobApplicationId' />
-<input type='hidden' id='createJobApplicationJobPosterId' />
-<input type='hidden' id='createJobApplicationJobSeekerId' />
-<input type='hidden' id='createJobApplicationJobApplicationStatusId' />
+        <!-- Application Form Metadata -->
+        <div class="flex-grid hidden subpage-hero__application-metadata" id="applicationHeroMetadata">
+
+            <div class="box full">
+
+                <div class="block-container">
+                
+                    <p class="subpage-hero__application-label" id="createJobApplicationPositionLabel">for the position of:</p>
+                    <h3 class="subpage-hero__application-job" id="createJobApplicationPostition">Job title</h3>
+                    <input type='hidden' id='createJobApplicationJobApplicationId' />
+                    <input type='hidden' id='createJobApplicationJobPosterId' />
+                    <input type='hidden' id='createJobApplicationJobSeekerId' />
+                    <input type='hidden' id='createJobApplicationJobApplicationStatusId' />
+
                 </div>
 
             </div>
