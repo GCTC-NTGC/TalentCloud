@@ -4656,6 +4656,7 @@ input[type=date][class*="form__input--"] {
       padding: 2rem;
       position: relative;
       text-align: center;
+      text-decoration: none;
       text-transform: uppercase;
       transition: all .2s ease; }
       .page-hero__navigation > .flex-grid > .box > a:hover {
@@ -4801,6 +4802,12 @@ nav {
       border-left: 0.5rem solid white;
       padding: 2rem 0 2rem 4rem; } }
 
+.landing-hero__admin-tagline {
+  color: white;
+  font-size: 20px;
+  margin: 4rem 0 0 0;
+  text-align: center; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -4827,6 +4834,8 @@ nav {
     bottom: -2rem;
     transform: translate(-50%, 0);
     width: 15rem; }
+  .subpage-hero__title#profileHeroTitle, .subpage-hero__title#managerProfileHeroTitle {
+    margin: 7rem 0 22rem; }
 
 .subpage-hero__poster-metadata {
   padding: 0 0 3rem 0;
@@ -4949,6 +4958,8 @@ nav {
   width: 100%;
   min-height: 80vh;
   overflow: auto; }
+  .pageContent#profileSection, .pageContent#managerProfileSection {
+    overflow: visible; }
 
 .pageBanner {
   background: rgba(0, 0, 0, 0.7);

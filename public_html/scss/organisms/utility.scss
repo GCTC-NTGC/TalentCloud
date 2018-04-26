@@ -98,6 +98,12 @@
     width: 100%;
     min-height: 80vh;
     overflow:auto;
+
+    &#profileSection,
+    &#managerProfileSection {
+        overflow: visible;
+    }
+
 }
 
 .pageBanner {

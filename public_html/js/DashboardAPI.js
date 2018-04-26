@@ -40,6 +40,8 @@ DashboardAPI.showDashboard = function(){
 
     Utilities.getHeroElements();
 
+    TalentCloudAPI.setNav("navigationDashboardLinkWrapper");
+
     var dashboardHeroTitle = document.getElementById("dashboardHeroTitle");
     dashboardHeroTitle.classList.remove("hidden");
     dashboardHeroTitle.setAttribute("aria-hidden", "false");

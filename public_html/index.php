@@ -15,7 +15,7 @@ and open the template in the editor .
     <!-- Include for Federal Identity Program (black banner) -->
     <?php include 'inc/applicant/header-fip.php';?>
     <!-- Include for main navigation -->
-    <?php include 'inc/applicant/header-nav.php';?>
+    <?php include 'inc/common/header-nav.php';?>
 
     <!-- BEGIN - Overlays (all should be children of this div) -->
     <div id="overlays">

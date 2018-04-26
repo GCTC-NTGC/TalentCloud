@@ -435,6 +435,7 @@ JobApplicationAPI.submitNewJobApplication = function () {
         var jobTitle = document.getElementById('createJobApplicationPostition').innerHTML;
         JobApplicationAPI.showCreateJobConfirmation(jobTitle);
     });
+
 };
 
 JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
@@ -449,4 +450,13 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
 
     var createJobApplicationSection = document.getElementById('createJobApplicationConfirmationSection');
     createJobApplicationSection.classList.remove('hidden');
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var applicationHeroTitle = document.getElementById("applicationHeroTitle");
+    applicationHeroTitle.classList.remove("hidden");
+    applicationHeroTitle.setAttribute("aria-hidden", "false");
+    
 };
