@@ -75,6 +75,9 @@ class UserController{
         $oldUser = UserController::getUserById($oldUser);
         //Only update if user with this id already exists
         if ($oldUser) {
+            //Don't change password
+            $updatedUser->setPassword($oldUser->getPassword());
+            
             //Confirm email if it has changed
             if ($oldUser->getEmail() != $updatedUser->getEmail()) {
                 $confEmailSent = UserController::confirmEmail($updatedUser);

@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -37,34 +37,35 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $core_competencies_fr;
     private $developing_competencies_en;
     private $developing_competencies_fr;
-    private $other_requirements_en;
-    private $other_requirements_fr;
     private $questions_en;
     private $questions_fr;
-    
+    private $classification;
+    private $clearance_id;
+    private $language_id;
+
     public function __construct(
-            $id=null, 
+            $id=null,
             $manager_user_id=null,
-            $title_en=null, 
-            $title_fr=null, 
-            $department_id=null, 
-            $province_id=null, 
+            $title_en=null,
+            $title_fr=null,
+            $department_id=null,
+            $province_id=null,
             $branch_en=null,
             $branch_fr=null,
             $division_en=null,
             $division_fr=null,
-            $city_en=null, 
-            $city_fr=null, 
-            $term_qty=null, 
-            $term_units_id=null, 
-            $open_date=null, 
-            $close_date=null, 
+            $city_en=null,
+            $city_fr=null,
+            $term_qty=null,
+            $term_units_id=null,
+            $open_date=null,
+            $close_date=null,
             $start_date=null,
-            $remuneration_range_low=null, 
-            $remuneration_range_high=null, 
-            $job_min_level_id=null, 
-            $job_max_level_id=null, 
-            $impact_en=null, 
+            $remuneration_range_low=null,
+            $remuneration_range_high=null,
+            $job_min_level_id=null,
+            $job_max_level_id=null,
+            $impact_en=null,
             $impact_fr=null,
             $key_tasks_en=null,
             $key_tasks_fr=null,
@@ -72,10 +73,12 @@ class JobPosterNonLocalized implements JsonSerializable {
             $core_competencies_fr=null,
             $developing_competencies_en=null,
             $developing_competencies_fr=null,
-            $other_requirements_en=null,
-            $other_requirements_fr=null,
             $questions_en=[],
-            $questions_fr=[]) {
+            $questions_fr=[],
+            $classification=null,
+            $clearance_id=null,
+            $language_id=null
+        ) {
         $this->id = $id;
         $this->manager_user_id = $manager_user_id;
         $this->title_en = $title_en;
@@ -105,13 +108,14 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->core_competencies_fr = $core_competencies_fr;
         $this->developing_competencies_en = $developing_competencies_en;
         $this->developing_competencies_fr = $developing_competencies_fr;
-        $this->other_requirements_en = $other_requirements_en;
-        $this->other_requirements_fr = $other_requirements_fr;
         $this->questions_en = $questions_en;
         $this->questions_fr = $questions_fr;
+        $this->classification = $classification;
+        $this->clearance_id = $clearance_id;
+        $this->language_id = $language_id;
     }
 
-    
+
     public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
@@ -122,7 +126,7 @@ class JobPosterNonLocalized implements JsonSerializable {
         }
         return $gettable_attributes;
     }
-    
+
     public function getId() {
         return $this->id;
     }
@@ -239,20 +243,24 @@ class JobPosterNonLocalized implements JsonSerializable {
         return $this->developing_competencies_fr;
     }
 
-    public function getOther_requirements_en() {
-        return $this->other_requirements_en;
-    }
-
-    public function getOther_requirements_fr() {
-        return $this->other_requirements_fr;
-    }
-
     public function getQuestions_en() {
         return $this->questions_en;
     }
 
     public function getQuestions_fr() {
         return $this->questions_fr;
+    }
+
+    public function getClassification() {
+        return $this->classification;
+    }
+
+    public function getClearance_id() {
+        return $this->clearance_id;
+    }
+
+    public function getLanguage_id() {
+        return $this->language_id;
     }
 
     public function setId($id) {
@@ -400,16 +408,6 @@ class JobPosterNonLocalized implements JsonSerializable {
         return $this;
     }
 
-    public function setOther_requirements_en($other_requirements_en) {
-        $this->other_requirements_en = $other_requirements_en;
-        return $this;
-    }
-
-    public function setOther_requirements_fr($other_requirements_fr) {
-        $this->other_requirements_fr = $other_requirements_fr;
-        return $this;
-    }
-
     public function setQuestions_en($questions_en) {
         $this->questions_en = $questions_en;
         return $this;
@@ -419,4 +417,20 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->questions_fr = $questions_fr;
         return $this;
     }
+
+    public function setClassification($classification) {
+        $this->classification = $classification;
+        return $this;
+    }
+
+    public function setClearance_id($clearance_id) {
+        $this->clearance_id = $clearance_id;
+        return $this;
+    }
+
+    public function setLanguage_id($language_id) {
+        $this->language_id = $language_id;
+        return $this;
+    }
+
 }

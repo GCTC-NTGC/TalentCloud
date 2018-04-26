@@ -371,10 +371,6 @@ UserAPI.loaded = function (response) {
             EventsAPI.hideBodyOverflow(false);
 
             if (authJSON.user_role === TalentCloudAPI.roles.jobseeker) {
-                DataAPI.getJobSeekerProfileByUserId(authJSON.user_id, JobSeekerAPI.populateJobSeekerProfile);
-                JobSeekerAPI.refreshJobSeekerProfilePic();
-
-
                 var dashBoardLink = document.getElementById("dashBoardLink");
 
                 if (dashBoardLink !== null) {

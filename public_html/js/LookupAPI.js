@@ -10,18 +10,17 @@ LookupAPI.loadLookupData = function() {
     //BranchAPI.getBranches(locale);
     var locales = ["en_CA", "fr_CA"];
     //var lookupTypes = ["department", "branch", "division", "province", "jobterm"];
-    var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level"];
+    var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level", "clearance", "language"];
     for(i in locales) {
         for (j in lookupTypes) {
             var locale = locales[i];
             var lookupType = lookupTypes[j];
-            LookupAPI.getLookupData(lookupType, locale);
+            LookupAPI.getLookupData(lookupType, locale, null);
         }
     }
 };
 
-
-LookupAPI.getLookupData = function(lookupType, locale){    
+LookupAPI.getLookupData = function(lookupType, locale, requestCallback){    
     var lookup_URL = DataAPI.baseURL+"/"+locale+"/Lookup/"+lookupType;
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
@@ -46,7 +45,7 @@ LookupAPI.getLookupData = function(lookupType, locale){
       lookupData_xhr = null;
 
     }
-    
+
     lookupData_xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);
@@ -58,6 +57,9 @@ LookupAPI.getLookupData = function(lookupType, locale){
         if (LookupAPI.loadsInProgress == 0) {
             LookupAPI.processDeferredPopulates();
             LookupAPI.processDeferredPopulateElements();
+        }
+        if (requestCallback) {
+            requestCallback(lookupData_xhr);
         }
     },false);
     lookupData_xhr.addEventListener("error",DataAPI.transferFailed,false);
@@ -77,6 +79,31 @@ LookupAPI.addToLookupMap = function(lookupType, locale, response) {
     LookupAPI.lookupMap[locale][lookupType] = JSON.parse(response);
 };
 
+/**
+ * If the requested lookupType is already in the lookupMap, send it to the lookupCallback
+ * immediately. If not, request the lookup data, then call lookupCallback with
+ * the response.
+ * 
+ * @param {string} lookupType
+ * @param {function} lookupCallback
+ * @return {undefined}
+ */
+LookupAPI.getLookupResponse = function(lookupType, lookupCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    if (!LookupAPI.lookupMap[locale]) {
+        LookupAPI.lookupMap[locale] = {};
+    }
+    if (LookupAPI.lookupMap[locale][lookupType]) {
+        lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
+    } else {
+        LookupAPI.getLookupData(lookupType, locale, function(request) {
+            if (request.status === 200) {
+                lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
+            }
+        });
+    }
+};
+
 LookupAPI.getLocalizedLookupValue = function(lookupType, valueId) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
     var elements = LookupAPI.lookupMap[locale][lookupType];
@@ -93,8 +120,8 @@ LookupAPI.populateDropdown = function(lookupType, elementId){
     if (LookupAPI.loadsInProgress > 0) {
         LookupAPI.deferPopulate(lookupType, elementId);
     } else {
-        var selectElem = document.getElementById(elementId);    
-        if(selectElem){        
+        var selectElem = document.getElementById(elementId);
+        if(selectElem){
             var locale = TalentCloudAPI.getLanguageFromCookie();
             var lookupList = LookupAPI.lookupMap[locale][lookupType];
             if (lookupList) {
@@ -126,7 +153,7 @@ LookupAPI.populateDropdownElement = function(lookupType, element){
     if (LookupAPI.loadsInProgress > 0) {
         LookupAPI.deferPopulateElements(lookupType, element);
     } else {
-        if(element){        
+        if(element){
             var locale = TalentCloudAPI.getLanguageFromCookie();
             var lookupList = LookupAPI.lookupMap[locale][lookupType];
             if (lookupList) {
