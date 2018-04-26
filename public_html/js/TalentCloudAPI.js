@@ -8,23 +8,23 @@ var TalentCloudAPI = {};
 var siteContent;
 TalentCloudAPI.roles = {jobseeker:"jobseeker", manager:"manager", admin:"admin"};
 
-TalentCloudAPI.Content = function(title,helpLearn,languageSelect,applyNow,loginLink,logoutLink,registerLink,homeLink,profileLink,
+TalentCloudAPI.Content = function(title,helpLearn,languageSelect,applyNow,navigationLoginLink,navigationLogoutLink,navigationRegisterLink,navigationHomeLink,navigationProfileLink,
 jobPostersLink,teamsLink,jobNumber,jobTitle,jobLocation,jobCity,jobProvince,jobApplicantsSoFar,jobUnitsToCloseHours,
 jobUnitsToCloseDays,jobUnitsToCloseMonths,jobUntilClose,jobTerm,viewButton,jobSalaryRange, submitApplication, step1, step2,
 step3, review, goToStep2, goToStep1, goToStep3, goToReview, createJobPosterWindowTitle, createProfileWindowTitle, required,
 createJobPosterSubmitInstructions, generalInformation, aboutMe, aLittleBitAboutMe, whatImMostProudOfInCareer, position,
 department, branch, division, leadershipStyle, myLeadershipStyle, myApproachToEmployee, myExpectationsOfEmployees,
 myApproachToDecisionMaking, workExperience, education, howOftenDoYouReview, howOftenDoYouStayLate, almostNever,
-rarely, sometimes, usually, almostAlways, name, browseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
+rarely, sometimes, usually, almostAlways, name, navigationBrowseLink, gctc, at, howOftenDoYouEngage, howOftenDoYouApproveDevelopment,
 readMore, canadaLink, canadaLinkHref, taglineMain, taglineSecondary, taglineTertiary, howItWorksHeading, howItWorksLead,
 logoSrc, logoAlt, ownYourStory, ownYourStoryText, getFound, getFoundText, contribute, contributeText, howItWorksLeadOut,
 howItWorksLast, contactUs, transcript, ourTeam, ourTeamText, browseTitle, createJobApplicationWindowTitle, createJobApplicationJobTitleLabel,
 createJobApplicationConfirmationPositionLabel, jobApplicationConfirmationTrackingReminder,continueToDashboard, announcement, applicantPortal, adminPortal,
-dashBoardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
-workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment, dashBoardLink,yourApplicationsTitle,
+navigationDashboardLink,yourApplicationsTitle, adminTagline, adminAboutMe, adminProfilePositionLabel, adminProfileDepartmentLabel, adminProfileBranchLabel,
+workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment, navigationDashboardLink,yourApplicationsTitle,
 teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt, openEndedQuestions, jobReferenceId,
 skipNavText, profileBasicInfoEditTitle, workEnvironment, remoteLocationAllowed, teleworkAllowed, flexHoursAllowed, yes, no, physicalEnvironment,
-dashBoardLink,yourApplicationsTitle, teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,skipNavText,
+navigationDashboardLink,yourApplicationsTitle, teamCulture, teamSize, gcDirectoryLink, teamSizePrompt, gcDirectoryLinkPrompt, teamNarrativePrompt,skipNavText,
 managerProfile_review_option0, managerProfile_review_option1, managerProfile_review_option2, managerProfile_review_option3, managerProfile_review_option4,
 managerProfile_stayLate_option0, managerProfile_stayLate_option1, managerProfile_stayLate_option2, managerProfile_stayLate_option3, managerProfile_stayLate_option4,
 managerProfile_engagement_option0, managerProfile_engagement_option1, managerProfile_engagement_option2, managerProfile_engagement_option3, managerProfile_engagement_option4,
@@ -37,12 +37,12 @@ cancel, save, editYour
     this.title = title;
     this.helpLearn = helpLearn;
     this.languageSelect = languageSelect;
-    this.loginLink = loginLink;
-    this.logoutLink = logoutLink;
-    this.registerLink = registerLink;
+    this.navigationLoginLink = navigationLoginLink;
+    this.navigationLogoutLink = navigationLogoutLink;
+    this.navigationRegisterLink = navigationRegisterLink;
     this.applyNow = applyNow;
-    this.homeLink = homeLink;
-    this.profileLink = profileLink;
+    this.navigationHomeLink = navigationHomeLink;
+    this.navigationProfileLink = navigationProfileLink;
     this.jobPostersLink = jobPostersLink;
     this.teamsLink = teamsLink;
     this.jobNumber = jobNumber;
@@ -96,7 +96,7 @@ cancel, save, editYour
     this.usually = usually;
     this.almostAlways = almostAlways;
     this.name = name;
-    this.browseLink = browseLink;
+    this.navigationBrowseLink = navigationBrowseLink;
     this.gctc = gctc;
     this.at = at;
     this.readMore = readMore;
@@ -138,7 +138,7 @@ cancel, save, editYour
     this.yes = yes;
     this.no = no;
     this.physicalEnvironment = physicalEnvironment;
-    this.dashBoardLink = dashBoardLink;
+    this.navigationDashboardLink = navigationDashboardLink;
     this.yourApplicationsTitle = yourApplicationsTitle;
     this.adminTagline = adminTagline;
     this.adminAboutMe = adminAboutMe;
@@ -253,7 +253,7 @@ TalentCloudAPI.pages = {
                 url: "#Login",
                 state: function(){
                     UserAPI.showLogin();
-                    TalentCloudAPI.setNav("navigationLoginLinkWrapper");
+                    TalentCloudAPI.setNav("navigationnavigationLoginLinkWrapper");
                 }
             },
             Register: {
@@ -572,23 +572,23 @@ TalentCloudAPI.setContent = function(content, isManager){
     var languageLink = document.getElementById("languageSelect");
     languageLink.innerHTML = siteContent.languageSelect;
 
-    var loginLink = document.getElementById("loginLink");
-    loginLink.innerHTML = siteContent.loginLink;
+    var navigationLoginLink = document.getElementById("navigationLoginLink");
+    navigationLoginLink.innerHTML = siteContent.navigationLoginLink;
 
-    var logoutLink = document.getElementById("logoutLink");
-    logoutLink.innerHTML = siteContent.logoutLink;
+    var navigationLogoutLink = document.getElementById("navigationLogoutLink");
+    navigationLogoutLink.innerHTML = siteContent.navigationLogoutLink;
 
-    var registerLink = document.getElementById("registerLink");
-    registerLink.innerHTML = siteContent.registerLink;
+    var navigationRegisterLink = document.getElementById("navigationRegisterLink");
+    navigationRegisterLink.innerHTML = siteContent.navigationRegisterLink;
 
-    var browseLink = document.getElementById("browseLink");
-    browseLink.innerHTML = siteContent.browseLink;
+    var navigationBrowseLink = document.getElementById("navigationBrowseLink");
+    navigationBrowseLink.innerHTML = siteContent.navigationBrowseLink;
 
-    var homeLink = document.getElementById("homeLink");
-    homeLink.innerHTML = siteContent.homeLink;
+    var navigationHomeLink = document.getElementById("navigationHomeLink");
+    navigationHomeLink.innerHTML = siteContent.navigationHomeLink;
 
-    var profileLink = document.getElementById("profileLink");
-    profileLink.innerHTML = siteContent.profileLink;
+    var navigationProfileLink = document.getElementById("navigationProfileLink");
+    navigationProfileLink.innerHTML = siteContent.navigationProfileLink;
 
     var logoSrc = document.getElementById("logoSrc");
     logoSrc.src = siteContent.logoSrc;
@@ -650,8 +650,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
 
         //Admin side only headers
-        var profileLink = document.getElementById("profileLink");
-        profileLink.innerHTML = siteContent.profileLink;
+        var navigationProfileLink = document.getElementById("navigationProfileLink");
+        navigationProfileLink.innerHTML = siteContent.navigationProfileLink;
 
         var jobPostersLink = document.getElementById("jobPostersLink");
         jobPostersLink.innerHTML = siteContent.jobPostersLink;
@@ -787,8 +787,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         TeamCultureAPI.localizeTeamCulture();
         JobSeekerAPI.localizeJobSeekerProfile();
 
-        var dashBoardLink = document.getElementById("dashBoardLink");
-        dashBoardLink.innerHTML = siteContent.dashBoardLink;
+        var navigationDashboardLink = document.getElementById("navigationDashboardLink");
+        navigationDashboardLink.innerHTML = siteContent.navigationDashboardLink;
 
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
@@ -842,7 +842,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         viewJobPosterTitle.innerHTML = siteContent.browseTitle;
 
         var dashBoardTitle = document.getElementById("dashBoardTitle");
-        dashBoardTitle.innerHTML = siteContent.dashBoardLink;
+        dashBoardTitle.innerHTML = siteContent.navigationDashboardLink;
 
         var yourApplicationsTitle = document.getElementById("yourApplicationsTitle");
         yourApplicationsTitle.innerHTML = siteContent.yourApplicationsTitle;
@@ -996,7 +996,7 @@ TalentCloudAPI.setContent = function(content, isManager){
 };
 
 TalentCloudAPI.setNav = function(navItemToHighlightId){
-    var navItems = document.getElementsByClassName("top-nav--link active");
+    var navItems = document.getElementsByClassName("page-hero__navigation-item active");
     if(navItems.length > 0){
         navItems[0].classList.remove("active");
     }

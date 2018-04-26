@@ -76,6 +76,15 @@ JobPostAPI.showBrowseJobs = function() {
     
     var locale = TalentCloudAPI.getLanguageFromCookie();
     DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var browseHeroTitle = document.getElementById("browseHeroTitle");
+    browseHeroTitle.classList.remove("hidden");
+    browseHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 /**
@@ -408,6 +417,17 @@ JobPostAPI.viewJobPoster = function(jobId){
         // focus top of page
         window.scrollTo(0,0);
     });
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var browseHeroTitle = document.getElementById("browseHeroTitle");
+    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    browseHeroTitle.classList.remove("hidden");
+    browseHeroTitle.setAttribute("aria-hidden", "false");
+    browseHeroPosterMetaData.classList.remove("hidden");
+
 };
 
 JobPostAPI.localizeJobPoster = function() {

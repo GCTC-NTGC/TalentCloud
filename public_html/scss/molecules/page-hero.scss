@@ -6,9 +6,79 @@
 
 ============================================================================= */
 .page-hero {
+	background-image: url("/images/backgrounds/background.jpg");
+	background-position: center;
+	background-size: cover;
+	position: relative;
+
+	&:before {
+		background: rgba(0, 0, 0, .7);
+		content: " ";
+		display: block;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
 
 }
 
 .page-hero__navigation {
+	background: rgba(0, 0, 0, .5);
+	position: relative;
+	z-index: 10;
 	
+	>.flex-grid {
+		justify-content: flex-end;
+
+		>.box {
+
+			>a {
+				display: block;
+				color: $white;
+				font-size: 14px;
+				padding: 2rem;
+				position: relative;
+				text-align: center;
+				text-transform: uppercase;
+				transition: all .2s ease;
+
+				&:hover {
+					// background: $palette-yellow--dark;
+					color: $palette-yellow--dark;
+					transition: all .2s ease;
+				}
+
+			}
+
+			&.active {
+
+				>a {
+
+					&:before {
+						background: $palette-yellow--dark;
+						content: " ";
+						display: block;
+						height: .5rem;
+						max-width: 10rem;
+						position: absolute;
+						left: 50%;
+						bottom: 0;
+						transform: translate(-50%, 0);
+						width: 100%;
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
 }
+
+@import "../atoms/landing-hero";
+
+@import "../atoms/subpage-hero";

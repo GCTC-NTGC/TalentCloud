@@ -559,6 +559,14 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
     JobSeekerAPI.refreshJobSeekerProfilePic();
 
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var profileHeroTitle = document.getElementById("profileHeroTitle");
+    profileHeroTitle.classList.remove("hidden");
+    profileHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 /**

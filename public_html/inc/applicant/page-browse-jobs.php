@@ -1,8 +1,8 @@
 <!-- BEGIN - Browse Jobs Section -->
 <section class="pageContent hidden" id="browseJobsSection">
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-    </div>
+    </div> -->
     <div id="jobs" class="pageBody">
         <div id="noJobs" class="hidden">
             No jobs found

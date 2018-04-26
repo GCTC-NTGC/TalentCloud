@@ -378,3 +378,20 @@ Utilities.setAccordionTriggers = function () {
 window.onload = function (e) {
     Utilities.setAccordionTriggers();
 };
+
+Utilities.getHeroElements = function() {
+
+    var landingHero = document.getElementById("landingHero");
+    landingHero.classList.add("hidden");
+
+    var subpageTitles = document.querySelectorAll(".subpage-hero__title");
+    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
+    for (let i of subpageTitles) {
+        i.classList.add("hidden");
+        i.setAttribute("aria-hidden", "true");
+    }
+    browseHeroPosterMetaData.classList.add("hidden");
+    applicationHeroMetadata.classList.add("hidden");
+
+}

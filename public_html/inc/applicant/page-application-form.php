@@ -1,6 +1,6 @@
 <section class="pageContent hidden" id="createJobApplicationSection">
 
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
         <div class="container centered">
             <p id="createJobApplicationPositionLabel">for the position of:</p>
@@ -10,7 +10,7 @@
         <input type='hidden' id='createJobApplicationJobPosterId' />
         <input type='hidden' id='createJobApplicationJobSeekerId' />
         <input type='hidden' id='createJobApplicationJobApplicationStatusId' />
-    </div>
+    </div> -->
 
     <div class="pageBody">
 

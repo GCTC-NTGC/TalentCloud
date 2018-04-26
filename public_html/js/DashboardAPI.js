@@ -35,6 +35,15 @@ DashboardAPI.showDashboard = function(){
     dashboardSection.classList.remove("hidden");
     
     DashboardAPI.getApplicationsByUuserId();
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var dashboardHeroTitle = document.getElementById("dashboardHeroTitle");
+    dashboardHeroTitle.classList.remove("hidden");
+    dashboardHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 /**

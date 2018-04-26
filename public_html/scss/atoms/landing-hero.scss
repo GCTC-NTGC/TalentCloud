@@ -114,11 +114,53 @@ nav{
     height: auto;
     float: right; }
 
+/* New Landing Hero ========================================================= */
 
-.landing-hero__logo {
-    margin-top: -11%;
+.landing-hero {
+    position: relative;
+    z-index: 10;
 }
 
-.landing-hero__tagline-divider {
-    margin: 2rem 5rem 2rem 2rem;
+.landing-hero__container {
+    margin: 0 auto;
+    max-width: 100rem;
+    padding: 9rem 0 7rem;
+    width: 90%;
+
+    >.flex-grid {
+
+        >.box {
+
+        }
+
+    }
+
+}
+
+.landing-hero__link {
+    display: block;
+
+    @media #{$l-tablet} {
+        padding: 0 1rem 0 0;
+        text-align: right;
+    }
+
+}
+
+.landing-hero__logo {
+    display: inline-block;
+    margin: -8% 0 0 0;
+    max-width: 50rem;
+    width: 100%;
+}
+
+.landing-hero__tagline {
+    color: $white;
+    font-size: 25px;
+
+    @media #{$l-tablet} {
+        border-left: .5rem solid $white;
+        padding: 2rem 0 2rem 4rem;
+    }
+
 }

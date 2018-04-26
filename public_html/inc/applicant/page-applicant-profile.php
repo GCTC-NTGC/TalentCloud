@@ -1,8 +1,8 @@
 <!-- BEGIN - Applicant Profile Section -->
 <section class="pageContent hidden" id="profileSection">
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <div class="profileBannerFiller"></div>
-    </div>
+    </div> -->
     <div class="pageBody">
         <div class="container">
             <div id="profileBasicInfo" class="profileBasicInfo centered">

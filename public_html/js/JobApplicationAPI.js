@@ -89,6 +89,17 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         })
 
     });
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var applicationHeroTitle = document.getElementById("applicationHeroTitle");
+    var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
+    applicationHeroTitle.classList.remove("hidden");
+    applicationHeroTitle.setAttribute("aria-hidden", "false");
+    applicationHeroMetadata.classList.remove("hidden");
+
 };
 
 JobApplicationAPI.localizeCreateJobApplication = function () {
