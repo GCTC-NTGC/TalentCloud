@@ -11,27 +11,117 @@ CreateEditProfileAPI.managerProfileObj = {};
 CreateEditProfileAPI.ManagerProfile = function(
         user_manager_profile_id,
         user_manager_profile_department_id,
-        user_manager_profile_position,
         user_manager_profile_twitter,
         user_manager_profile_linkedin,
         user_id,
         profile_pic){
     this.user_manager_profile_id = user_manager_profile_id;
     this.user_manager_profile_department_id = user_manager_profile_department_id;
-    this.user_manager_profile_position = user_manager_profile_position;
     this.user_manager_profile_twitter = user_manager_profile_twitter;
     this.user_manager_profile_linkedin = user_manager_profile_linkedin;
     this.user_id = user_id,
     this.profile_pic = profile_pic;
 };
 
+CreateEditProfileAPI.ManagerProfileDetailsNonLocalized = function(
+        user_manager_profile_details_id,
+        user_manager_profile_details_aboutme,
+        user_manager_profile_details_aboutme_fr,
+        user_manager_profile_details_proud,
+        user_manager_profile_details_proud_fr,
+        user_manager_profile_details_branch,
+        user_manager_profile_details_branch_fr,
+        user_manager_profile_details_division,
+        user_manager_profile_details_division_fr,
+        user_manager_profile_details_position,
+        user_manager_profile_details_position_fr,
+        user_manager_profile_details_lead_style,
+        user_manager_profile_details_lead_style_fr,
+        user_manager_profile_details_emp_learn,
+        user_manager_profile_details_emp_learn_fr,
+        user_manager_profile_details_expectations,
+        user_manager_profile_details_expectations_fr,
+        user_manager_profile_id,
+        user_manager_profile_review_options,
+        user_manager_profile_staylate,
+        user_manager_profile_engage,
+        user_manager_profile_devops,
+        user_manager_profile_lvwrequests,
+        user_manager_profile_work_experience,
+        user_manager_profile_work_experience_fr,
+        user_manager_profile_education,
+        user_manager_profile_education_fr){
+    this.user_manager_profile_details_id = user_manager_profile_details_id;
+    this.user_manager_profile_details_aboutme = {};
+    this.user_manager_profile_details_aboutme.en_CA = user_manager_profile_details_aboutme;
+    this.user_manager_profile_details_aboutme.fr_CA = user_manager_profile_details_aboutme_fr;
+    this.user_manager_profile_details_proud = {};
+    this.user_manager_profile_details_proud.en_CA = user_manager_profile_details_proud;
+    this.user_manager_profile_details_proud.fr_CA = user_manager_profile_details_proud_fr;
+    this.user_manager_profile_details_branch = {};
+    this.user_manager_profile_details_branch.en_CA = user_manager_profile_details_branch;
+    this.user_manager_profile_details_branch.fr_CA = user_manager_profile_details_branch_fr;
+    this.user_manager_profile_details_division = {};
+    this.user_manager_profile_details_division.en_CA = user_manager_profile_details_division;
+    this.user_manager_profile_details_division.fr_CA = user_manager_profile_details_division_fr;
+    this.user_manager_profile_details_position = {};
+    this.user_manager_profile_details_position.en_CA = user_manager_profile_details_position;
+    this.user_manager_profile_details_position.fr_CA = user_manager_profile_details_position_fr;
+    this.user_manager_profile_details_lead_style = {};
+    this.user_manager_profile_details_lead_style.en_CA = user_manager_profile_details_lead_style;
+    this.user_manager_profile_details_lead_style.fr_CA = user_manager_profile_details_lead_style_fr;
+    this.user_manager_profile_details_emp_learn = {};
+    this.user_manager_profile_details_emp_learn.en_CA = user_manager_profile_details_emp_learn;
+    this.user_manager_profile_details_emp_learn.fr_CA = user_manager_profile_details_emp_learn_fr;
+    this.user_manager_profile_details_expectations = {};
+    this.user_manager_profile_details_expectations.en_CA = user_manager_profile_details_expectations;
+    this.user_manager_profile_details_expectations.fr_CA = user_manager_profile_details_expectations_fr;
+    this.user_manager_profile_id = user_manager_profile_id;
+    this.user_manager_profile_review_options = user_manager_profile_review_options;
+    this.user_manager_profile_staylate = user_manager_profile_staylate;
+    this.user_manager_profile_engage = user_manager_profile_engage;
+    this.user_manager_profile_devops = user_manager_profile_devops;
+    this.user_manager_profile_lvwrequests = user_manager_profile_lvwrequests;
+    this.user_manager_profile_work_experience = {};
+    this.user_manager_profile_work_experience.en_CA = user_manager_profile_work_experience;
+    this.user_manager_profile_work_experience.fr_CA = user_manager_profile_work_experience_fr;
+    this.user_manager_profile_education = {};
+    this.user_manager_profile_education.en_CA = user_manager_profile_education;
+    this.user_manager_profile_education.fr_CA = user_manager_profile_education_fr;
+
+};
+
+CreateEditProfileAPI.localizeManagerProfile = function(ManagerProfileDetailsNonLocalized, locale) {
+    var md = managerDetailsNonLocalized;
+
+    return new CreateEditProfileAPI.ManagerProfileDetails(
+            md.user_manager_profile_details_id,
+            md.user_manager_profile_details_aboutme[locale],
+            md.user_manager_profile_details_proud[locale],
+            md.user_manager_profile_details_branch[locale],
+            md.user_manager_profile_details_division[locale],
+            md.user_manager_profile_details_position[locale],
+            md.user_manager_profile_details_lead_style[locale],
+            md.user_manager_profile_details_emp_learn[locale],
+            md.user_manager_profile_details_expectations[locale],
+            md.user_manager_profile_id,
+            md.user_manager_profile_review_options,
+            md.user_manager_profile_staylate,
+            md.user_manager_profile_engage,
+            md.user_manager_profile_devops,
+            md.user_manager_profile_lvwrequests,
+            md.user_manager_profile_work_experience[locale],
+            md.user_manager_profile_education[locale]
+            );
+};
+
 CreateEditProfileAPI.ManagerProfileDetails = function(
         user_manager_profile_details_id,
-        locale_id,
         user_manager_profile_details_aboutme,
         user_manager_profile_details_proud,
         user_manager_profile_details_branch,
         user_manager_profile_details_division,
+        user_manager_profile_details_position,
         user_manager_profile_details_lead_style,
         user_manager_profile_details_emp_learn,
         user_manager_profile_details_expectations,
@@ -44,7 +134,6 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
         user_manager_profile_work_experience,
         user_manager_profile_education){
     this.user_manager_profile_details_id = user_manager_profile_details_id;
-    this.locale_id = locale_id;
     this.user_manager_profile_details_aboutme = user_manager_profile_details_aboutme;
     this.user_manager_profile_details_proud = user_manager_profile_details_proud;
     this.user_manager_profile_details_branch = user_manager_profile_details_branch;
@@ -126,31 +215,50 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
 
     updated_manager_profile.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
 
-    updated_manager_profile.user_manager_profile_position = document.getElementById("createEditProfile_position").value;
+    //updated_manager_profile.user_manager_profile_position = document.getElementById("createEditProfile_position").value;
     updated_manager_profile.user_manager_profile_department_id = document.getElementById("createEditProfile_department").value;
     updated_manager_profile.user_manager_profile_twitter = document.getElementById("createEditProfile_twitter").value;
     updated_manager_profile.user_manager_profile_linkedin = document.getElementById("createEditProfile_linkedin").value;
 
     console.log(updated_manager_profile);
 
-    var updated_manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
+    var updated_manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetailsNonLocalized();
 
     updated_manager_profile_details.user_manager_profile_details_id = document.getElementById("ManagerProfileDetailsId").value;
 
-    updated_manager_profile_details.locale_id = 1;
+    //updated_manager_profile_details.locale_id = 1;
 
     updated_manager_profile_details.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
 
     updated_manager_profile_details.user_manager_profile_details_aboutme = document.getElementById("createEditProfile_bio").value;
+    updated_manager_profile_details.user_manager_profile_details_aboutme_fr = document.getElementById("createEditProfile_bio_fr").value;
+
     updated_manager_profile_details.user_manager_profile_details_proud = document.getElementById("createEditProfile_proudOf").value;
+    updated_manager_profile_details.user_manager_profile_details_proud_fr = document.getElementById("createEditProfile_proudOf_fr").value;
+
     updated_manager_profile_details.user_manager_profile_details_branch = document.getElementById("createEditProfile_branch").value;
+    updated_manager_profile_details.user_manager_profile_details_branch_fr = document.getElementById("createEditProfile_branch_fr").value;
+
     updated_manager_profile_details.user_manager_profile_details_division = document.getElementById("createEditProfile_division").value;
+    updated_manager_profile_details.user_manager_profile_details_division_fr = document.getElementById("createEditProfile_division_fr").value;
+
+    updated_manager_profile_details.user_manager_profile_details_position = document.getElementById("createEditProfile_position").value;
+    updated_manager_profile_details.user_manager_profile_details_position_fr = document.getElementById("createEditProfile_position_fr").value;
+
     updated_manager_profile_details.user_manager_profile_details_lead_style = document.getElementById("createEditProfile_leadership_style").value;
+    updated_manager_profile_details.user_manager_profile_details_lead_style_fr = document.getElementById("createEditProfile_leadership_style_fr").value;
+
     updated_manager_profile_details.user_manager_profile_details_emp_learn = document.getElementById("createEditProfile_app_to_employees").value;
+    updated_manager_profile_details.user_manager_profile_details_emp_learn_fr = document.getElementById("createEditProfile_app_to_employees_fr").value;
+
     updated_manager_profile_details.user_manager_profile_details_expectations = document.getElementById("createEditProfile_exp_of_employees").value;
+    updated_manager_profile_details.user_manager_profile_details_expectations_fr = document.getElementById("createEditProfile_exp_of_employees_fr").value;
 
     updated_manager_profile_details.user_manager_profile_work_experience = document.getElementById("user_manager_profile_work_experience").value;
+    updated_manager_profile_details.user_manager_profile_work_experience_fr = document.getElementById("user_manager_profile_work_experience_fr").value;
+
     updated_manager_profile_details.user_manager_profile_education = document.getElementById("user_manager_profile_education").value;
+    updated_manager_profile_details.user_manager_profile_education_fr = document.getElementById("user_manager_profile_education_fr").value;
 
 
     //Get slider option values, and default to "option0" if any NOTHING in a slider is selected, default to "option0"
@@ -171,14 +279,20 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     var lvwrequestSelected = document.querySelector('input[name="createEditProfile_lvwrequests"]:checked');
     updated_manager_profile_details.user_manager_profile_lvwrequests = (lvwrequestSelected ? lvwrequestSelected.value : defaultOption);
 
-
-
     console.log(updated_manager_profile_details);
+
+    var profile_en = CreateEditProfileAPI.localizeManagerProfile(CreateEditProfileAPI.ManagerProfileDetailsNonLocalized, "en_CA");
+    var profile_fr = CreateEditProfileAPI.localizeManagerProfile(CreateEditProfileAPI.ManagerProfileDetailsNonLocalized, "fr_CA");
 
     var complete_manager_profile = {};
 
     complete_manager_profile.manager_profile = updated_manager_profile;
-    complete_manager_profile.manager_profile_details = updated_manager_profile_details;
+
+    if (locale === "en_CA"){
+        complete_manager_profile.updated_manager_profile_details = profile_en;
+    } else {
+        complete_manager_profile.updated_manager_profile_details = profile_fr;
+    }
 
     CreateEditProfileAPI.saveManagerProfile(complete_manager_profile);
 
