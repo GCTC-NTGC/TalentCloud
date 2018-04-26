@@ -291,15 +291,30 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     updated_manager_profile_details.user_manager_profile_details_emp_learn = document.getElementById("createEditProfile_app_to_employees").value;
     updated_manager_profile_details.user_manager_profile_details_expectations = document.getElementById("createEditProfile_exp_of_employees").value;
 
-    updated_manager_profile_details.user_manager_profile_review_options = document.querySelector('input[name="createEditProfile_how_often_review_options"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_staylate = document.querySelector('input[name="createEditProfile_staylate"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_engage = document.querySelector('input[name="createEditProfile_engage"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_devops = document.querySelector('input[name="createEditProfile_devops"]:checked').value;
-    updated_manager_profile_details.user_manager_profile_lvwrequests = document.querySelector('input[name="createEditProfile_lvwrequests"]:checked').value;
-
     updated_manager_profile_details.user_manager_profile_work_experience = document.getElementById("user_manager_profile_work_experience").value;
     updated_manager_profile_details.user_manager_profile_education = document.getElementById("user_manager_profile_education").value;
 
+    
+    //Get slider option values, and default to "option0" if any NOTHING in a slider is selected, default to "option0"
+    var defaultOption = "option0";
+
+    var reviewSelected = document.querySelector('input[name="createEditProfile_how_often_review_options"]:checked');
+    updated_manager_profile_details.user_manager_profile_review_options = (reviewSelected ? reviewSelected.value : defaultOption); //Ternary Operator
+    
+    var staylateSelected = document.querySelector('input[name="createEditProfile_staylate"]:checked');
+    updated_manager_profile_details.user_manager_profile_staylate = (staylateSelected ? staylateSelected.value : defaultOption);
+    
+    var engageSelected = document.querySelector('input[name="createEditProfile_engage"]:checked');
+    updated_manager_profile_details.user_manager_profile_engage = (engageSelected ? engageSelected.value : defaultOption);
+    
+    var devopsSelected = document.querySelector('input[name="createEditProfile_devops"]:checked');
+    updated_manager_profile_details.user_manager_profile_devops = (devopsSelected ? devopsSelected.value : defaultOption);
+    
+    var lvwrequestSelected = document.querySelector('input[name="createEditProfile_lvwrequests"]:checked');
+    updated_manager_profile_details.user_manager_profile_lvwrequests = (lvwrequestSelected ? lvwrequestSelected.value : defaultOption);
+
+    
+    
     console.log(updated_manager_profile_details);
     
     var complete_manager_profile = {};
@@ -888,8 +903,8 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
     manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
     manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
-    manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_branch"];
-    manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_division"];
+    manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_division"];
+    manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_branch"];
     manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
     manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
     manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
@@ -949,8 +964,9 @@ CreateEditProfileAPI.populateProfile = function(response){
     //Position
     var profile_position = manager_profile.user_manager_profile_position;
     var profile_department_id = manager_profile.user_manager_profile_department_id;
-    var profile_division = manager_profile_details.user_manager_profile_details_division;
     var profile_branch = manager_profile_details.user_manager_profile_details_branch;
+    var profile_division = manager_profile_details.user_manager_profile_details_division;
+    
     
     if(profile_position !== null){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");

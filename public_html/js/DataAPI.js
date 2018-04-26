@@ -298,6 +298,9 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.jobPosterJobLevelLabel = content.jobPosterJobLevelLabel;
     thisContent.jobPosterLanguageLabel = content.jobPosterLanguageLabel;
     thisContent.jobPosterTermLabel = content.jobPosterTermLabel;
+    thisContent.save = content.save;
+    thisContent.cancel = content.cancel;
+    thisContent.editYour = content.editYour;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
@@ -437,7 +440,7 @@ DataAPI.getDepartments = function(locale){
  */
 DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallback){
     Utilities.debug?console.log("loading job seekers"):null;
-    var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfile/"+user_id;
+    var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfileByUser/"+user_id;
     DataAPI.sendRequest(jobSeekers_url, "GET", {}, null, function(request) {
         if(request.readyState === 4 && request.status === 200){
             successfulResponseCallback(request.response);

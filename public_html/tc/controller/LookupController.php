@@ -60,6 +60,9 @@ class LookupController {
                 break;
             case 'language':
                 $lookupData = LookupDAO::getLanguageLevelsByLocale($locale);
+                break;    
+            case 'job_seeker_profile_question':
+                $lookupData = LookupDao::getJobSeekerProfileQuestionsByLocale($locale);
                 break;
         }
         return $lookupData;

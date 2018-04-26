@@ -25,11 +25,10 @@ require_once '../model/JobSeekerProfile.php';
  */
 class JobSeekerDAO extends BaseDAO {
 
-    
     /**
      * 
-     * @param type $user_id
-     * @return type array of JobSeekerProfiles
+     * @param int $user_id
+     * @return JobSeekerProfile
      */
     public static function getJobSeekerProfileByUserId($user_id) {
 
@@ -37,14 +36,9 @@ class JobSeekerDAO extends BaseDAO {
         $sqlStr = "
             SELECT jsp.job_seeker_profile_id,
                 jsp.job_seeker_profile_link,
-                jsp.job_seeker_profile_accomp,
-                jsp.job_seeker_profile_best_exp,
-                jsp.job_seeker_profile_worst_exp,
-                jsp.job_seeker_profile_superpower,
                 jsp.job_seeker_profile_tagline,
                 jsp.job_seeker_profile_twitter_link,
                 jsp.job_seeker_profile_linkedin_link,
-                jsp.job_seeker_profile_about_me,
                 jsp.last_updated as last_updated
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE u.user_id = :user_id
@@ -57,7 +51,7 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','job_seeker_profile_tagline','job_seeker_profile_twitter_link','job_seeker_profile_linkedin_link','job_seeker_profile_about_me','last_updated'));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
             $rows = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -67,51 +61,70 @@ class JobSeekerDAO extends BaseDAO {
         return $rows;
     }
     
+    /**
+     * 
+     * @param int $jobSeekerProfileId
+     * @return JobSeekerProfileAnswer[]
+     */
+    public static function getJobSeekerProfileAnswers($jobSeekerProfileId) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+                a.job_seeker_profile_question_id,
+                a.answer
+            FROM job_seeker_profile_answer a
+            WHERE a.job_seeker_profile_id = :job_seeker_profile_id
+            ORDER BY a.job_seeker_profile_question_id ASC
+            ";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':job_seeker_profile_id', $jobSeekerProfileId, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfileAnswer');
+            $rows = $sql->fetchAll();
+            //var_dump($rows);
+        } catch (PDOException $e) {
+            return 'getJobSeekerProfileAnswers failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
+    /**
+     * 
+     * @param JobSeekerProfile $jobSeekerProfile
+     * @param int $user_id
+     * @return int job_seeker_profile_id
+     */
     public static function addJobSeekerProfile($jobSeekerProfile,$user_id){
         
         $user_id_int = intval($user_id);
         $jobSeekerProfile_link = $jobSeekerProfile->getJob_seeker_profile_link();
-        $jobSeekerProfile_profile_accomp = $jobSeekerProfile->getJob_seeker_profile_accomp();
-        $jobSeekerProfile_profile_best_exp = $jobSeekerProfile->getJob_seeker_profile_best_exp();
-        $jobSeekerProfile_profile_worst_exp = $jobSeekerProfile->getJob_seeker_profile_worst_exp();
-        $jobSeekerProfile_profile_superpower = $jobSeekerProfile->getJob_seeker_profile_superpower();
         $jobSeekerProfile_tagline = $jobSeekerProfile->getJob_seeker_profile_tagline();
         $jobSeekerProfile_twitter_link = $jobSeekerProfile->getJob_seeker_profile_twitter_link();
         $jobSeekerProfile_linkedin_link = $jobSeekerProfile->getJob_seeker_profile_linkedin_link();
-        $jobSeekerProfile_about_me = $jobSeekerProfile->getJob_seeker_profile_about_me();
-        
         
         $link = BaseDAO::getConnection();
         
-        $sqlStr = "
-                
+        $sqlStr = "                
                 INSERT INTO job_seeker_profile
                 (job_seeker_profile_link,
-                job_seeker_profile_accomp,
-                job_seeker_profile_best_exp,
-                job_seeker_profile_worst_exp,
-                job_seeker_profile_superpower,
                 job_seeker_profile_tagline,
                 job_seeker_profile_twitter_link,
                 job_seeker_profile_linkedin_link,
-                job_seeker_profile_about_me,
                 last_updated)
                 VALUES
                 (
                 :job_seeker_profile_link,
-                :job_seeker_profile_accomp,
-                :job_seeker_profile_best_exp,
-                :job_seeker_profile_worst_exp,
-                :job_seeker_profile_superpower,
                 :job_seeker_profile_tagline,
                 :job_seeker_profile_twitter_link,
                 :job_seeker_profile_linkedin_link,
-                :job_seeker_profile_about_me,
                 now()
                 );
             ";
-        
-        $sqlStr2 = "
+        $sqlStr_id = "SELECT LAST_INSERT_ID() INTO @job_seeker_profile_id;";
+        $sqlStr_user2profile = "
                 INSERT INTO user_job_seeker_profiles
                 (
                 user_id,
@@ -120,54 +133,56 @@ class JobSeekerDAO extends BaseDAO {
                 VALUES
                 (
                 :user_id,
-                last_insert_id()
+                @job_seeker_profile_id
                 );
-
             ";
+        $answer_value_strings = [];
+        $answer_data = [];
+        foreach($jobSeekerProfile->getJob_seeker_profile_answers() as $answer) {
+            $answer_value_strings[] = '(@job_seeker_profile_id, ?, ?)';
+            $answer_data[] = $answer->getJob_seeker_profile_question_id();
+            $answer_data[] = $answer->getAnswer();
+        }
+        $sqlStr_answers = "INSERT INTO job_seeker_profile_answer
+            (job_seeker_profile_id, job_seeker_profile_question_id, answer) VALUES " . 
+            implode(',', $answer_value_strings) . ";";
+        
         $sql = $link->prepare($sqlStr);
-        $sql2 = $link->prepare($sqlStr2);
+        $sql_id = $link->prepare($sqlStr_id);
+        $sql_user2profile = $link->prepare($sqlStr_user2profile);
         //$sql->bindParam(':job_seeker_profile_id', $jobSeekerProfile_id, PDO::PARAM_INT);
         $sql->bindParam(':job_seeker_profile_link', $jobSeekerProfile_link, PDO::PARAM_STR);
-        $sql->bindParam(':job_seeker_profile_accomp', $jobSeekerProfile_profile_accomp, PDO::PARAM_STR);
-        $sql->bindParam(':job_seeker_profile_best_exp', $jobSeekerProfile_profile_best_exp, PDO::PARAM_STR);
-        $sql->bindParam(':job_seeker_profile_worst_exp', $jobSeekerProfile_profile_worst_exp, PDO::PARAM_STR);
-        $sql->bindParam(':job_seeker_profile_superpower', $jobSeekerProfile_profile_superpower, PDO::PARAM_STR);
         $sql->bindParam(':job_seeker_profile_tagline', $jobSeekerProfile_tagline, PDO::PARAM_STR);
         $sql->bindParam(':job_seeker_profile_twitter_link', $jobSeekerProfile_twitter_link, PDO::PARAM_STR);
         $sql->bindParam(':job_seeker_profile_linkedin_link', $jobSeekerProfile_linkedin_link, PDO::PARAM_STR);
-        $sql->bindParam(':job_seeker_profile_about_me', $jobSeekerProfile_about_me, PDO::PARAM_STR);
-        $sql2->bindParam(':user_id', $user_id_int, PDO::PARAM_INT);
-
-        $rowsmodified = 0;
+        $sql_user2profile->bindParam(':user_id', $user_id_int, PDO::PARAM_INT);
+        if (sizeof($answer_data) > 0) {
+            $sql_answers = $link->prepare($sqlStr_answers);
+        }
         
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
             $link->beginTransaction();
-            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $link->commit();
-            $rowsmodified = $sql->rowCount();
-            //$sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            //$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile',array('job_seeker_profile_id','job_seeker_profile_link','job_seeker_profile_accomp','job_seeker_profile_best_exp','job_seeker_profile_worst_exp','job_seeker_profile_superpower','last_updated'));
-            //$rows = $sql->fetchAll();
-            //var_dump($rows);
-            //$result->
-            //var_dump($result);
-            if($rowsmodified > 0){
-                $insert_id = $link->lastInsertId();
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $job_seeker_profile_id = $link->lastInsertId();
+            $sql_id->execute()or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql_user2profile->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($answer_data) > 0) {
+                $sql_answers->execute($answer_data) or die("ERROR: " . implode(":", $link->errorInfo()));
             }
+            $link->commit(); 
+            
         } catch (PDOException $e) {
-            return 'getJobSeekersByUserId failed: ' . $e->getMessage();
+            return 'addJobSeekerProfile failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
-        return $insert_id;
+        return $job_seeker_profile_id;
     }
     
     
     /**
      * 
-     * @param type $user_id
-     * @return type array of JobSeekerProfiles
+     * @return JobSeekerProfile[]
      */
     public static function getJobSeekers() {
 
@@ -177,14 +192,9 @@ class JobSeekerDAO extends BaseDAO {
             SELECT u.firstname,
                     u.lastname,
                     jsp.job_seeker_profile_link,
-                    jsp.job_seeker_profile_accomp,
-                    jsp.job_seeker_profile_best_exp,
-                    jsp.job_seeker_profile_worst_exp,
-                    jsp.job_seeker_profile_superpower,
                     jsp.job_seeker_profile_tagline,
                     jsp.job_seeker_profile_twitter_link,
                     jsp.job_seeker_profile_linkedin_link,
-                    jsp.job_seeker_profile_about_me,
                     max(jsp.last_updated) as last_updated
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE ujsp.user_id = u.user_id
