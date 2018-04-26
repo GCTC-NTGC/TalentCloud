@@ -48,10 +48,10 @@
 
         <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
             <div class="formGroup box full">
-                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();" class="button--yellow">
+                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateOther();" class="button--yellow">
             </div>
         </div>
-        
+
     </div>
 
 </div>

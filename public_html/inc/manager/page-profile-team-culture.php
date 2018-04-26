@@ -78,7 +78,7 @@
     <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
 
         <div class="box full">
-            <input class="button--yellow" id="teamCultureSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+            <input class="button--yellow" id="teamCultureSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateTeamCulture();">
         </div>
 
     </div>

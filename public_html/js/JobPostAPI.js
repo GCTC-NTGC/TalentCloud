@@ -455,7 +455,9 @@ JobPostAPI.populateJobPoster = function(jobData){
     DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
-       document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
+
+       var managerDepartment = document.getElementById("jobPosterHiringManagerDepartment");
+       managerDepartment.innerHTML = LookupAPI.getLocalizedLookupValue("department", managerProfile.department_id);
 
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.
