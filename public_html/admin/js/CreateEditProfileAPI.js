@@ -961,9 +961,12 @@ CreateEditProfileAPI.populateProfile = function(response){
     //Position
     var profile_position = manager_profile.user_manager_profile_position;
     var profile_department_id = manager_profile.user_manager_profile_department_id;
-    var profile_branch = manager_profile_details.user_manager_profile_details_branch;
-    var profile_division = manager_profile_details.user_manager_profile_details_division;
 
+    var createEditProfile_branch = document.getElementById("createEditProfile_branch");
+    createEditProfile_branch.value = manager_profile_details.user_manager_profile_details_branch;
+
+    var createEditProfile_division = document.getElementById("createEditProfile_division");
+    createEditProfile_division.value = manager_profile_details.user_manager_profile_details_division;
 
     if(profile_position !== null){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
@@ -982,9 +985,6 @@ CreateEditProfileAPI.populateProfile = function(response){
         //var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
         //createEditProfile_department_preview.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile_department_id);
     }
-
-    document.getElementById("createEditProfile_branch").value = profile_branch;
-    document.getElementById("createEditProfile_division").value = profile_division;
 
     //createEditProfile_leadership_style
     var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
