@@ -252,7 +252,7 @@ DashboardAPI.populateManagerProfile = function(application){
     DataAPI.getUser(application.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
        console.log(managerUser);
-       document.getElementById("ya_manager_name_"+application.job_poster_id).innerHTML = managerUser.user.firstname + ' ' + managerUser.user.lastname;
+       document.getElementById("ya_manager_name_"+application.job_poster_id).innerHTML = managerUser.user.name;
     });
     
     var ya_job_poster_manager_element = document.getElementById("ya_manager_"+application.job_poster_id);

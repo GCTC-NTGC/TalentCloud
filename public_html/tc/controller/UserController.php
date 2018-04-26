@@ -24,6 +24,7 @@ require_once '../dao/UserDAO.php';
 
 class UserController{
     
+    //TO-DO : remove - should not be used
     /**
      * 
      * @global type $dbResourcesArray
@@ -35,23 +36,50 @@ class UserController{
         return $authUser;
     }
     
+    /**
+     * 
+     * @param User $user
+     * @return type
+     */
     public static function getUserById(User $user){
-        $user = UserDAO::getUserById($user);
-        return $user;
+        $existingUser = UserDAO::getUserById($user);
+        return $existingUser;
+    }
+    
+    /**
+     * 
+     * @param User $user
+     * @return type
+     */
+    public static function getUserByOpenId(User $user){
+        //get existing user by openId
+        $existingUser = UserDAO::getUserOpenById($user);
+        //var_dump($existingUser);
+        //get user_id from existing user
+        //if user_id is not null, then log the user in automatically
+        if($existingUser){
+            return $existingUser;
+        }else{
+            //if user_id is null, then the user is not registered and we should register them automatically
+            //register new user
+            $newUser = UserController::registerUser($user);
+            return $newUser;
+        }
     }
     
     public static function registerUser(User $newUser){
         //$newUser->setUser_role('jobseeker');
         //This is a temporary automatic confirmation until the mail server is setup
+        var_dump($newUser);
         $newUser->setIs_confirmed(true);
         $userRegistered = false;
-        $confEmailSent = false;
+        $confEmailSent = true;
         $registeredUser = UserDAO::registerUser($newUser);
         if($registeredUser instanceof User && $registeredUser->getUser_id() !== null){
             $userRegistered = true;
-            $confEmailSent = UserController::confirmEmail($registeredUser);
+            //$confEmailSent = UserController::confirmEmail($registeredUser);
         }
-        return array("userRegistered"=>$userRegistered,"confEmailSent"=>$confEmailSent);
+        return $registeredUser;
         
     }
     

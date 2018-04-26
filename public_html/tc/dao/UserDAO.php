@@ -40,7 +40,7 @@ class UserDAO extends BaseDAO{
         //var_dump(urldecode($email_address));
         //var_dump($enc_password);
         $sqlStr = "
-            SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
+            SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, ur.user_role as user_role 
             FROM user u, user_role ur
             WHERE u.email = :email_address
             AND u.password = :password
@@ -62,10 +62,10 @@ class UserDAO extends BaseDAO{
     }
     
     public static function getUserById(User $user) {
-        $link = BaseDAO::getConnection();   
+        $link = BaseDAO::getConnection();
         $user_id = $user->getUser_id();
         $sqlStr = "
-            SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
+            SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, u.open_id as open_id, ur.user_role as user_role 
             FROM user u, user_role ur
             WHERE 
                 u.user_id = :user_id AND
@@ -73,7 +73,32 @@ class UserDAO extends BaseDAO{
             ;";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
+        $row = null;
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+            $row = $sql->fetch();
+            //var_dump($row);
+        } catch (PDOException $e) {
+            return 'getUserById failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $row;
+    }
+    
+    public static function getUserOpenById(User $user) {
+        $link = BaseDAO::getConnection();
+        $open_id = $user->getOpen_id();
+        $sqlStr = "
+            SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, u.open_id, ur.user_role as user_role 
+            FROM user u, user_role ur
+            WHERE 
+                u.open_id = :open_id AND
+                ur.user_role_id = u.user_role_id
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':open_id', $open_id, PDO::PARAM_INT);
+        $row = null;
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
@@ -94,7 +119,7 @@ class UserDAO extends BaseDAO{
     public static function getUserByManagerProfileId($managerProfileId) {
         $link = BaseDAO::getConnection();   
         $sqlStr = "
-            SELECT u.user_id as user_id, u.email as email, u.firstname as firstname, u.lastname as lastname, u.is_confirmed as is_confirmed, ur.user_role as user_role 
+            SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, ur.user_role as user_role 
             FROM user u, user_role ur, talentcloud.user_manager_profile ump
             WHERE 
                 u.user_id = ump.user_id
@@ -119,32 +144,35 @@ class UserDAO extends BaseDAO{
     public static function registerUser(User $user){
         
             $email = $user->getEmail();
-            $password = $user->getPassword();
-            $md5_password = md5($password);
+            $name = $user->getName();
             $is_confirmed = $user->getIs_confirmed();
             $user_role = $user->getUser_role();
+            $open_id = $user->getOpen_id();
             
             $link = BaseDAO::getConnection();
             $sqlStr = "INSERT INTO user 
                 (
                 email,
-                password,
+                name,
                 is_confirmed,
-                user_role_id
+                user_role_id,
+                open_id
                 )
                 VALUES 
                 (
                 :email,
-                :password,
+                :name,
                 :is_confirmed,
-                (SELECT ur.user_role_id FROM user_role ur WHERE ur.user_role = :user_role)
+                (SELECT ur.user_role_id FROM user_role ur WHERE ur.user_role = :user_role),
+                :open_id
                 )";
 
             $sql = $link->prepare($sqlStr);
             $sql->bindParam(':email', $email, PDO::PARAM_STR);
-            $sql->bindParam(':password', $md5_password, PDO::PARAM_STR);
+            $sql->bindParam(':name', $name, PDO::PARAM_STR);
             $sql->bindParam(':is_confirmed', $is_confirmed, PDO::PARAM_INT);
             $sql->bindParam(':user_role', $user_role, PDO::PARAM_STR);
+            $sql->bindParam(':open_id', $open_id, PDO::PARAM_INT);
             //var_dump($sql);
 
             $count = 0;
@@ -165,6 +193,7 @@ class UserDAO extends BaseDAO{
         
     }
     
+    ///Likely unused due to OpenID integration
     /**
      * Updates all columns except user_role
      * @param User $updatedUser

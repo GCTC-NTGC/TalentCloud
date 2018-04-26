@@ -27,13 +27,25 @@
                         </div>
                     </li>
                     <li class="top-nav--link">
-                        <div id="loggedOut">
-                            <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a>
+                        <div id="loggedOut" class="<?php echo($hasUser!=null?"hidden":""); ?>">
+                            <?php 
+                                $loginLink = "";
+                                $loginLink .= OPENID_URI.AUTH_URI;
+                                $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
+                                $loginLink .= "&redirect_uri=".urlencode(REDIRECT_URI_ADMIN);
+                                $loginLink .= "&nonce=".$nonce;
+                                $loginLink .= "&state=".$state;
+                                $loginLink .= "&client_id=".CLIENT_ID;
+                                $loginLink .= "&scope=".SCOPE;
+                                $loginLink .= "&prompt=consent";
+                                echo("<a href=\"".$loginLink."\" id=\"loginLink\">Login</a>"); 
+                            ?>
                         </div>
                     </li>
-                    <li class="top-nav--link" id="loginLinkListItem">
-                        <div id="loggedIn" class="hidden">
-                            <a href="javascript:void(0)" id="logoutLink" onclick="UserAPI.logout()">Logout</a>
+                    <li class="top-nav--link">
+                        
+                        <div id="loggedIn" class="<?php echo($hasUser==null?"hidden":""); ?>">
+                            <a href="javascript:void(0)" id ="logoutLink" onclick="UserAPI.logout()">Logout</a>
                         </div>
                     </li>
                 </ul>

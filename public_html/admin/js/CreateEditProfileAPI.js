@@ -722,7 +722,7 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     
     TalentCloudAPI.hideAllContent();
     
-    var createEditProfile = document.getElementById("createEditProfileSection");
+    var createEditProfile = document.getElementById("createEditProfile_step1");
     createEditProfile.classList.remove("hidden");
          
     ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
@@ -883,150 +883,229 @@ CreateEditProfileAPI.userLoaded = function(response){
 
 CreateEditProfileAPI.populateProfile = function(response){
     var manager_profile_with_details_json = JSON.parse(response);
-    
     var manager_profile_json = manager_profile_with_details_json["manager_profile"];
+    if(manager_profile_json["user_manager_profile_id"] !== null){
     
-    var manager_profile_details_json = manager_profile_with_details_json["manager_profile_details"];
-    
-    var manager_profile = new CreateEditProfileAPI.ManagerProfile();
-    
-    manager_profile.user_id = manager_profile_json["user_id"];
-    manager_profile.user_manager_profile_id = manager_profile_json["user_manager_profile_id"];
-    
-    manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
-    manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
-    manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
-    manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
-    
-    var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
-    manager_profile_details.user_manager_profile_details_id = manager_profile_details_json["user_manager_profile_details_id"];
-    manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
-    manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
-    manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
-    manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_division"];
-    manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_branch"];
-    manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
-    manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
-    manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
-    manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
-    
-    manager_profile_details.user_manager_profile_review_options = manager_profile_details_json["user_manager_profile_review_options"];
-    manager_profile_details.user_manager_profile_staylate = manager_profile_details_json["user_manager_profile_staylate"];
-    manager_profile_details.user_manager_profile_engage = manager_profile_details_json["user_manager_profile_engage"];
-    manager_profile_details.user_manager_profile_devops = manager_profile_details_json["user_manager_profile_devops"];
-    manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
-    manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
-    manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
-    
-    
-    //Initialize Work Environment
-    CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
-    
-    //Initialize Team Culture
-    EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
+        var manager_profile_details_json = manager_profile_with_details_json["manager_profile_details"];
+
+        var manager_profile = new CreateEditProfileAPI.ManagerProfile();
+
+        manager_profile.user_id = manager_profile_json["user_id"];
+        manager_profile.user_manager_profile_id = manager_profile_json["user_manager_profile_id"];
+
+        manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
+        manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
+        manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
+        manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
+
+        var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
+        manager_profile_details.user_manager_profile_details_id = manager_profile_details_json["user_manager_profile_details_id"];
+        manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
+        manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
+        manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
+        manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_division"];
+        manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_branch"];
+        manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
+        manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
+        manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
+        manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
+
+        manager_profile_details.user_manager_profile_review_options = manager_profile_details_json["user_manager_profile_review_options"];
+        manager_profile_details.user_manager_profile_staylate = manager_profile_details_json["user_manager_profile_staylate"];
+        manager_profile_details.user_manager_profile_engage = manager_profile_details_json["user_manager_profile_engage"];
+        manager_profile_details.user_manager_profile_devops = manager_profile_details_json["user_manager_profile_devops"];
+        manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
+        manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
+        manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
 
 
-    //set hidden field values
-    var UserId = document.getElementById("UserId");
-    if (manager_profile.user_id) {
-        UserId.value = manager_profile.user_id;
-    } else { 
-        UserId.value = "";
-    }
-    
-    var managerProfileId = document.getElementById("ManagerProfileId");
-    if (manager_profile.user_manager_profile_id) {
-        managerProfileId.value = manager_profile.user_manager_profile_id;
-    } else {
-        managerProfileId.value = "";
-    }
-    
-    var managerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
-    if (manager_profile_details.user_manager_profile_details_id) {
-        managerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
-    } else {
-        managerProfileDetailsId.value = "";
-    }
-    
-    var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
-    if(UserAPI.hasSessionUser()){
-        var session_user = UserAPI.getSessionUserAsJSON();
-        createEditProfile_name_preview.innerHTML = session_user.firstname + " " + session_user.lastname;
-    }
-    
-    //AboutMe
-    var createEditProfile_bio = document.getElementById("createEditProfile_bio");
-    createEditProfile_bio.value = manager_profile_details.user_manager_profile_details_aboutme;
-    
-    var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
-    createEditProfile_proudOf.value = manager_profile_details.user_manager_profile_details_proud;
-    
-    //Position
-    var profile_position = manager_profile.user_manager_profile_position;
-    var profile_department_id = manager_profile.user_manager_profile_department_id;
-    var profile_branch = manager_profile_details.user_manager_profile_details_branch;
-    var profile_division = manager_profile_details.user_manager_profile_details_division;
-    
-    
-    if(profile_position !== null){
-        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
-        createEditProfile_position_preview.innerHTML = profile_position;
+        //Initialize Work Environment
+        CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
 
-        var createEditProfile_position = document.getElementById("createEditProfile_position");
-        createEditProfile_position.value = profile_position;
+        //Initialize Team Culture
+        EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
+
+            var manager_profile = new CreateEditProfileAPI.ManagerProfile();
+
+        //set hidden field values
+        var UserId = document.getElementById("UserId");
+        if (manager_profile.user_id) {
+            UserId.value = manager_profile.user_id;
+        } else { 
+            UserId.value = "";
+        }
+
+        var managerProfileId = document.getElementById("ManagerProfileId");
+        if (manager_profile.user_manager_profile_id) {
+            managerProfileId.value = manager_profile.user_manager_profile_id;
+        } else {
+            managerProfileId.value = "";
+        }
+
+        var managerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
+        if (manager_profile_details.user_manager_profile_details_id) {
+            managerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
+        } else {
+            managerProfileDetailsId.value = "";
+        }
+
+        var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
+        if(UserAPI.hasSessionUser()){
+            var session_user = UserAPI.getSessionUserAsJSON();
+            createEditProfile_name_preview.innerHTML = session_user.firstname + " " + session_user.lastname;
+        }
+
+        //AboutMe
+        var createEditProfile_bio = document.getElementById("createEditProfile_bio");
+        createEditProfile_bio.value = manager_profile_details.user_manager_profile_details_aboutme;
+
+        var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
+        createEditProfile_proudOf.value = manager_profile_details.user_manager_profile_details_proud;
+
+        //Position
+        var profile_position = manager_profile.user_manager_profile_position;
+        var profile_department_id = manager_profile.user_manager_profile_department_id;
+        var profile_branch = manager_profile_details.user_manager_profile_details_branch;
+        var profile_division = manager_profile_details.user_manager_profile_details_division;
+    
+    
+        if(profile_position !== null){
+            var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+            createEditProfile_position_preview.innerHTML = profile_position;
+
+            manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
+            manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
+            manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
+            manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
+
+            var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
+            manager_profile_details.user_manager_profile_details_id = manager_profile_details_json["user_manager_profile_details_id"];
+            manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
+            manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
+            manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
+            manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_branch"];
+            manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_division"];
+            manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
+            manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
+            manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
+            manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
+
+            manager_profile_details.user_manager_profile_review_options = manager_profile_details_json["user_manager_profile_review_options"];
+            manager_profile_details.user_manager_profile_staylate = manager_profile_details_json["user_manager_profile_staylate"];
+            manager_profile_details.user_manager_profile_engage = manager_profile_details_json["user_manager_profile_engage"];
+            manager_profile_details.user_manager_profile_devops = manager_profile_details_json["user_manager_profile_devops"];
+            manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
+            manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
+            manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
+
+
+            //Initialize Work Environment
+            CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id); 
+
+            //Initialize Team Culture
+            EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
+
+            //set hidden field values
+            var UserId = document.getElementById("UserId");
+            if (manager_profile.user_id) {
+                UserId.value = manager_profile.user_id;
+            } else { 
+                UserId.value = "";
+            }
+
+            var managerProfileId = document.getElementById("ManagerProfileId");
+            if (manager_profile.user_manager_profile_id) {
+                managerProfileId.value = manager_profile.user_manager_profile_id;
+            } else {
+                managerProfileId.value = "";
+            }
+
+            var managerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
+            if (manager_profile_details.user_manager_profile_details_id) {
+                managerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
+            } else {
+                managerProfileDetailsId.value = "";
+            }
+
+            var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
+            if(UserAPI.hasSessionUser()){
+                var session_user = UserAPI.getSessionUserAsJSON();
+                createEditProfile_name_preview.innerHTML = session_user.name;
+            }
+
+            //AboutMe
+            var createEditProfile_bio = document.getElementById("createEditProfile_bio");
+            createEditProfile_bio.value = manager_profile_details.user_manager_profile_details_aboutme;
+
+            var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
+            createEditProfile_proudOf.value = manager_profile_details.user_manager_profile_details_proud;
+
+            //Position
+            var profile_position = manager_profile.user_manager_profile_position;
+            var profile_department_id = manager_profile.user_manager_profile_department_id;
+            var profile_division = manager_profile_details.user_manager_profile_details_division;
+            var profile_branch = manager_profile_details.user_manager_profile_details_branch;
+
+            if(profile_position !== null){
+                var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+                createEditProfile_position_preview.innerHTML = profile_position;
+
+                var createEditProfile_position = document.getElementById("createEditProfile_position");
+                createEditProfile_position.value = profile_position;
+            }
+
+            if(profile_department_id !== null){
+                console.log("profile_department="+profile_department_id);
+                var createEditProfile_department = document.getElementById("createEditProfile_department");
+                createEditProfile_department.value = profile_department_id;
+                //createEditProfile_department.value = profile_department_id.toString();
+                //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
+                var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
+                createEditProfile_department_preview.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile_department_id);
+            }    
+
+            document.getElementById("createEditProfile_branch").value = profile_branch;
+            document.getElementById("createEditProfile_division").value = profile_division;
+
+            //createEditProfile_leadership_style
+            var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
+            createEditProfile_leadership_style.value = manager_profile_details.user_manager_profile_details_lead_style;
+
+            var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
+            createEditProfile_app_to_employees.value = manager_profile_details.user_manager_profile_details_emp_learn;
+
+            var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
+            createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
+
+            //Social Media
+
+            var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
+            createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;
+
+            var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
+            createEditProfile_linkedin.value = manager_profile.user_manager_profile_linkedin;
+
+            //Multiple choice slider questions
+
+            SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', manager_profile_details.user_manager_profile_review_options, 'review_options');
+
+            SliderAPI.selectOptionByValue('createEditProfile_staylate', manager_profile_details.user_manager_profile_staylate, 'staylate');
+
+            SliderAPI.selectOptionByValue('createEditProfile_engage', manager_profile_details.user_manager_profile_engage, 'engage');
+
+            SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details.user_manager_profile_devops, 'devops');
+
+            SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
+
+            SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details.user_manager_profile_telework, 'telework');
+
+            SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details.user_manager_profile_flexHours, 'flexHours');
+
+            var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
+            user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;
+
+            var user_manager_profile_education = document.getElementById('user_manager_profile_education');
+            user_manager_profile_education.value = manager_profile_details.user_manager_profile_education;
+        }
     }
-    
-    if(profile_department_id !== null){
-        console.log("profile_department="+profile_department_id);
-        var createEditProfile_department = document.getElementById("createEditProfile_department");
-        createEditProfile_department.value = profile_department_id;
-        //createEditProfile_department.value = profile_department_id.toString();
-        //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
-        var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
-        createEditProfile_department_preview.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile_department_id);
-    }    
-    
-    document.getElementById("createEditProfile_branch").value = profile_branch;
-    document.getElementById("createEditProfile_division").value = profile_division;
-    
-    //createEditProfile_leadership_style
-    var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
-    createEditProfile_leadership_style.value = manager_profile_details.user_manager_profile_details_lead_style;
-    
-    var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
-    createEditProfile_app_to_employees.value = manager_profile_details.user_manager_profile_details_emp_learn;
-    
-    var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
-    createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
-    
-    //Social Media
-    
-    var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
-    createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;
-    
-    var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
-    createEditProfile_linkedin.value = manager_profile.user_manager_profile_linkedin;
-    
-    //Multiple choice slider questions
-
-    SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', manager_profile_details.user_manager_profile_review_options, 'review_options');
-
-    SliderAPI.selectOptionByValue('createEditProfile_staylate', manager_profile_details.user_manager_profile_staylate, 'staylate');
-    
-    SliderAPI.selectOptionByValue('createEditProfile_engage', manager_profile_details.user_manager_profile_engage, 'engage');
-    
-    SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details.user_manager_profile_devops, 'devops');
-    
-    SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
-    
-    SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details.user_manager_profile_telework, 'telework');
-    
-    SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details.user_manager_profile_flexHours, 'flexHours');
-    
-    var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
-    user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;
-    
-    var user_manager_profile_education = document.getElementById('user_manager_profile_education');
-    user_manager_profile_education.value = manager_profile_details.user_manager_profile_education;
-    
 };

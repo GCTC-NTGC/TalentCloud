@@ -257,10 +257,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.updateProfileChooseAltPhotoButton = content.updateProfileChooseAltPhotoButton;
     thisContent.updateProfilePhotoCancelButton = content.updateProfilePhotoCancelButton;
     thisContent.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
-    thisContent.updateProfileApplicantProfileFormFirstNameLabelSpan = content.updateProfileApplicantProfileFormFirstNameLabelSpan;
-    thisContent.profileEditFirstName = content.profileEditFirstName;
-    thisContent.updateProfileApplicantProfileFormLastNameLabelSpan = content.updateProfileApplicantProfileFormLastNameLabelSpan;
-    thisContent.profileEditLastName = content.profileEditLastName;
+    thisContent.updateProfileApplicantProfileFormNameLabelSpan = content.updateProfileApplicantProfileFormNameLabelSpan;
+    thisContent.profileEditName = content.profileEditName;
     thisContent.updateProfileApplicantProfileFormTaglineLabelSpan = content.updateProfileApplicantProfileFormTaglineLabelSpan;
     thisContent.profileEditTagline = content.profileEditTagline;
     thisContent.updateProfileApplicantProfileFormTwitterLabelSpan = content.updateProfileApplicantProfileFormTwitterLabelSpan;
@@ -439,6 +437,7 @@ DataAPI.getDepartments = function(locale){
  * @return {undefined}
  */
 DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallback){
+    console.log("getJobSeekerProfileByUserId");
     Utilities.debug?console.log("loading job seekers"):null;
     var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfileByUser/"+user_id;
     DataAPI.sendRequest(jobSeekers_url, "GET", {}, null, function(request) {
