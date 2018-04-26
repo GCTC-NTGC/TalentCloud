@@ -280,6 +280,27 @@ Utilities.clearSelectOptions = function (selectElement)
     selectElement.appendChild(blankSelect);
 };
 
+/**
+ * Adds a new event listener without overriding previously added events.
+ * 
+ * Note: adding the same named (ie not anonymous) function more than once will
+ * have no effect.
+ * 
+ * @param {String} event - eg "load" or "resize", NOT "onload" or "onresize"
+ * @param {function} myFunction - function to be called when event happens
+ * @return {undefined}
+ */
+Utilities.addWindowEventListener = function (event, myFunction) {
+    if (window.addEventListener) // W3C standard
+    {
+        window.addEventListener(event, myFunction, false);
+    } else if (window.attachEvent) // Microsoft
+    {
+        var onEvent = "on" + event;
+        window.attachEvent(onEvent, myFunction);
+    }
+}
+
 // Modal Height Calculation ===================================================
 function modalSize() {
     // Gets the viewport height.
@@ -304,233 +325,199 @@ function modalSize() {
 }
 
 // Reruns the function each time the viewport changes size.
-window.onresize = modalSize;
+Utilities.addWindowEventListener("resize", modalSize);
 
 // Applicant Evidence UI =======================================================
-window.onload = function(e) {
+Utilities.setEvidenceUiEventListeners = function (e) {
 
-    function evidenceUI() {
+    // Set the landscape tablet media query.
+    var w = window.matchMedia("(min-width: 64em)")
 
-        // Set the landscape tablet media query.
-        var w = window.matchMedia("(min-width: 64em)")
+    // Check to see if the screen is larger than a landscape tablet (this indicates that the desktop tab menu will be showing).
+    if (w.matches) {
 
-        // Check to see if the screen is larger than a landscape tablet (this indicates that the desktop tab menu will be showing).
-        if (w.matches) {
-            
-            // Set variables for the desktop menu items and the associated evidence panes.
+        // Set variables for the desktop menu items and the associated evidence panes.
+        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+
+        // Enter the loop of desktop tab menu items.
+        for (let i of desktopEvidenceTrigger) {
+
+            // Check for a click on each tab.
+            i.addEventListener('click', evidenceMenuItemClick);
+            // Checks for a key press.
+            i.addEventListener("keyup", evidenceMenuItemKeyup);
+
+        }
+
+        // The following code handles the tab order of sending a user back to the tab list when they reach the top of the tab's pane.
+
+        // Set a variable for the first element in the evidence panes based on a class.
+        var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
+
+        // Enter the loop of elements.
+        for (let i of evidenceStartFocus) {
+
+            // Listen for a keydown.
+            i.addEventListener("keydown", evidenceFirstTargetKeydown);
+        }
+
+        // The following code sends the user to the next tab in the event that they reach the end of the collapsed version of the pane.
+
+        var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
+
+        for (let i of evidenceEarlyEndFocus) {
+
+            // Listen for a keydown.
+            i.addEventListener("keydown", evidenceEarlyLastTargetKeydown);
+        }
+
+        // The following code sends the user to the next tab in the event that they reach the end of the expanded version of the pane.
+
+        var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
+
+        for (let i of evidenceEndFocus) {
+
+            // Listen for a keydown.
+            i.addEventListener("keydown", evidenceLastTargetKeydown);
+        }
+
+    } else {
+
+        // The following code handles the mobile accordion execution of the tab interface.
+
+        // Set a variable for all accordion triggers.
+        var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence__accordion-trigger");
+
+        // Enter the loop of triggers.
+        for (let i of evidenceAccordionTrigger) {
+
+            // Listen for a click.
+            i.addEventListener('click', evidenceAccordionTriggerClick);
+        }
+
+    }
+
+};
+
+function evidenceMenuItemClick(e) {
+
+    var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+    var evidencePane = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
+
+    // Prevent the default action.
+    e.preventDefault();
+    // Enter the loop for desktop tab menu items and remove the active class from all of them.
+    for (let x of desktopEvidenceTrigger) {
+        x.classList.remove("active");
+        x.setAttribute("aria-selected", "false");
+    }
+
+    // Enter the loop for evidence panes and remove the active class from all of them.
+    for (let x of evidencePane) {
+        x.classList.remove("active");
+    }
+
+    // Add the active class to the tab that has been clicked.
+    this.classList.add("active");
+    this.setAttribute("aria-selected", "true");
+
+    // Set a variable for that tab's data attribute.
+    var triggerData = this.getAttribute("data-evidence-trigger");
+
+    // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
+    for (let x of evidencePane) {
+        if (x.getAttribute("data-evidence-target") == triggerData) {
+            x.classList.add("active");
+            x.querySelector(".applicant-evidence__first-target").focus();
+        }
+    }
+
+}
+
+function evidenceMenuItemKeyup(e) {
+
+    // Cancels the default action.
+    e.preventDefault();
+
+    // Checks to see if the key pressed was Enter (13).
+    if (e.keyCode == 13) {
+
+        // Triggers a click, thus activating the click event listener.
+        this.click();
+
+    }
+
+}
+
+function evidenceFirstTargetKeydown(e) {
+
+    // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
+    if (e.shiftKey && e.keyCode == 9) {
+
+        // Prevent the default action.
+        e.preventDefault();
+        // Set a variable that gets the element's parent's data attribute.
+        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+
+        // Set a variable that gets all desktop tab items.
+        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
+
+        // Enter the loop for desktop tab items.
+        for (let i of desktopEvidenceTrigger) {
+
+            // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
+            if (i.getAttribute("data-evidence-trigger") == triggerData) {
+                i.focus();
+            }
+
+        }
+
+    }
+}
+
+function evidenceEarlyLastTargetKeydown(e) {
+    if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
+        // Continue on your way.
+    } else {
+
+        if (!e.shiftKey && e.keyCode == 9) {
+
+            var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
             var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-            var evidencePane = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
 
-            // Enter the loop of desktop tab menu items.
             for (let i of desktopEvidenceTrigger) {
 
-                // Check for a click on each tab.
-                i.addEventListener('click', function(e) {
+                if (i.getAttribute("data-evidence-trigger") == triggerData) {
 
-                    // Prevent the default action.
-                    e.preventDefault();
-
-                    // Enter the loop for desktop tab menu items and remove the active class from all of them.
-                    for (let x of desktopEvidenceTrigger) {
-                        x.classList.remove("active");
-                        x.setAttribute("aria-selected", "false");
-                    }
-
-                    // Enter the loop for evidence panes and remove the active class from all of them.
-                    for (let x of evidencePane) {
-                        x.classList.remove("active");
-                    }
-
-                    // Add the active class to the tab that has been clicked.
-                    this.classList.add("active");
-                    this.setAttribute("aria-selected", "true");
-
-                    // Set a variable for that tab's data attribute.
-                    var triggerData = this.getAttribute("data-evidence-trigger");
-
-                    // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
-                    for (let x of evidencePane) {
-                        if (x.getAttribute("data-evidence-target") == triggerData) {
-                            x.classList.add("active");
-                            x.querySelector(".applicant-evidence__first-target").focus();
-                        }
-                    }
-
-                });
-
-                // Checks for a key press.
-                i.addEventListener("keyup", function(e) {
-
-                    // Cancels the default action.
-                    e.preventDefault();
-
-                    // Checks to see if the key pressed was Enter (13).
-                    if (e.keyCode == 13) {
-
-                        // Triggers a click, thus activating the click event listener.
-                        this.click();
-
-                    }
-
-                });
-
-            }
-
-            // The following code handles the tab order of sending a user back to the tab list when they reach the top of the tab's pane.
-
-            // Set a variable for the first element in the evidence panes based on a class.
-            var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
-            
-            // Enter the loop of elements.
-            for (let i of evidenceStartFocus) {
-
-                // Listen for a keydown.
-                i.addEventListener("keydown", function(e) {
-
-                    // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
-                    if (e.shiftKey && e.keyCode == 9) {
-
-                        // Prevent the default action.
+                    if (i.nextElementSibling) {
                         e.preventDefault();
-                        
-                        // Set a variable that gets the element's parent's data attribute.
-                        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-
-                        // Set a variable that gets all desktop tab items.
-                        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-                        
-                        // Enter the loop for desktop tab items.
-                        for (let i of desktopEvidenceTrigger) {
-
-                            // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
-                            if (i.getAttribute("data-evidence-trigger") == triggerData) {
-                                i.focus();
-                            }
-
-                        }
-
+                        i.nextElementSibling.focus();
                     }
 
-                });
-
-            }
-
-            // The following code sends the user to the next tab in the event that they reach the end of the collapsed version of the pane.
-
-            var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
-
-            for (let i of evidenceEarlyEndFocus) {
-
-                // Listen for a keydown.
-                i.addEventListener("keydown", function(e) {
-
-                    if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
-                        // Continue on your way.
-                    }
-                    else {
-                        
-                        if (!e.shiftKey && e.keyCode == 9) {
-
-                            var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-
-                            var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-                            
-                            for (let i of desktopEvidenceTrigger) {
-
-                                if (i.getAttribute("data-evidence-trigger") == triggerData) {
-                                    
-                                    if (i.nextElementSibling) {
-                                        e.preventDefault();
-                                        i.nextElementSibling.focus();
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                });
-
-            }
-
-            // The following code sends the user to the next tab in the event that they reach the end of the expanded version of the pane.
-
-            var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
-
-            for (let i of evidenceEndFocus) {
-
-                // Listen for a keydown.
-                i.addEventListener("keydown", function(e) {
-
-                    if (!e.shiftKey && e.keyCode == 9) {
-
-                        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-
-                        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-                        
-                        for (let i of desktopEvidenceTrigger) {
-
-                            if (i.getAttribute("data-evidence-trigger") == triggerData) {
-
-                                if (i.nextElementSibling) {
-                                    e.preventDefault();
-                                    i.nextElementSibling.focus();
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                });
+                }
 
             }
 
         }
-        else {
 
-            // The following code handles the mobile accordion execution of the tab interface.
-            
-            // Set a variable for all accordion triggers.
-            var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence__accordion-trigger");
+    }
+}
 
-            // Enter the loop of triggers.
-            for (let i of evidenceAccordionTrigger) {
+function evidenceLastTargetKeydown(e) {
 
-                // Listen for a click.
-                i.addEventListener('click', function(e) {
+    if (!e.shiftKey && e.keyCode == 9) {
 
-                    // Check to see if the trigger is active.
-                    if (this.classList.contains("active")) {
+        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
-                        // If it is active, close all accordions.
-                        for (let x of evidenceAccordionTrigger) {
-                            x.classList.remove("active")
-                            x.nextElementSibling.classList.remove("active");
-                            x.setAttribute("aria-expanded", "false");
-                        }
+        for (let i of desktopEvidenceTrigger) {
 
-                    } else {
+            if (i.getAttribute("data-evidence-trigger") == triggerData) {
 
-                        // Close all accordions.
-                        for (let x of evidenceAccordionTrigger) {
-                            x.classList.remove("active")
-                            x.nextElementSibling.classList.remove("active");
-                            x.setAttribute("aria-expanded", "false");
-                        }
-
-                        // Open this accordion.
-                        this.classList.add("active");
-                        this.nextElementSibling.classList.add("active");
-                        x.setAttribute("aria-expanded", "true");
-
-                    }
-
-                });
+                if (i.nextElementSibling) {
+                    e.preventDefault();
+                    i.nextElementSibling.focus();
+                }
 
             }
 
@@ -538,197 +525,212 @@ window.onload = function(e) {
 
     }
 
-    evidenceUI();
+}
 
-    // Reruns the function each time the viewport changes size.
-    window.onresize = evidenceUI;
+function evidenceAccordionTriggerClick(e) {
 
-};
+    var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence__accordion-trigger");
+
+    // Check to see if the trigger is active.
+    if (this.classList.contains("active")) {
+
+        // If it is active, close all accordions.
+        for (let x of evidenceAccordionTrigger) {
+            x.classList.remove("active")
+            x.nextElementSibling.classList.remove("active");
+            x.setAttribute("aria-expanded", "false");
+        }
+
+    } else {
+
+        // Close all accordions.
+        for (let x of evidenceAccordionTrigger) {
+            x.classList.remove("active")
+            x.nextElementSibling.classList.remove("active");
+            x.setAttribute("aria-expanded", "false");
+        }
+
+        // Open this accordion.
+        this.classList.add("active");
+        this.nextElementSibling.classList.add("active");
+        x.setAttribute("aria-expanded", "true");
+
+    }
+
+}
+
+Utilities.addWindowEventListener("load", Utilities.setEvidenceUiEventListeners);
+Utilities.addWindowEventListener("resize", Utilities.setEvidenceUiEventListeners);
 
 // Applicant Evidence Preview UI ===============================================
-window.onload = function(e) {
+Utilities.setEvidencePreviewUiEventListeners = function () {
+    // Set the landscape tablet media query.
+    var w = window.matchMedia("(min-width: 64em)")
 
-    function evidencePreviewUI() {
+    // Check to see if the screen is larger than a landscape tablet (this indicates that the desktop tab menu will be showing).
+    if (w.matches) {
 
-        // Set the landscape tablet media query.
-        var w = window.matchMedia("(min-width: 64em)")
+        // Set variables for the desktop menu items and the associated evidence panes.
+        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
 
-        // Check to see if the screen is larger than a landscape tablet (this indicates that the desktop tab menu will be showing).
-        if (w.matches) {
-            
-            // Set variables for the desktop menu items and the associated evidence panes.
-            var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
-            var evidencePane = document.querySelectorAll(".applicant-evidence-preview__accordion-wrapper");
+        // Enter the loop of desktop tab menu items.
+        for (let i of desktopEvidenceTrigger) {
 
-            // Enter the loop of desktop tab menu items.
-            for (let i of desktopEvidenceTrigger) {
-
-                // Check for a click on each tab.
-                i.addEventListener('click', function(e) {
-
-                    // Prevent the default action.
-                    e.preventDefault();
-
-                    // Enter the loop for desktop tab menu items and remove the active class from all of them.
-                    for (let x of desktopEvidenceTrigger) {
-                        x.classList.remove("active");
-                        x.setAttribute("aria-selected", "false");
-                    }
-
-                    // Enter the loop for evidence panes and remove the active class from all of them.
-                    for (let x of evidencePane) {
-                        x.classList.remove("active");
-                    }
-
-                    // Add the active class to the tab that has been clicked.
-                    this.classList.add("active");
-                    this.setAttribute("aria-selected", "true");
-
-                    // Set a variable for that tab's data attribute.
-                    var triggerData = this.getAttribute("data-evidence-trigger");
-
-                    // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
-                    for (let x of evidencePane) {
-                        if (x.getAttribute("data-evidence-target") == triggerData) {
-                            x.classList.add("active");
-                            var evidenceLink = x.querySelector(".applicant-evidence-preview__evidence-link");
-                            if (evidenceLink !== null) {
-                                evidenceLink.focus();
-                            }
-                        
-                        }
-                    }
-
-                });
-
-                // Checks for a key press.
-                i.addEventListener("keyup", function(e) {
-
-                    // Cancels the default action.
-                    e.preventDefault();
-
-                    // Checks to see if the key pressed was Enter (13).
-                    if (e.keyCode == 13) {
-
-                        // Triggers a click, thus activating the click event listener.
-                        this.click();
-
-                    }
-
-                });
-
-            }
-
-            // The following code handles the tab order of sending a user back to the tab list when they reach the top of the tab's pane.
-
-            // Set a variable for the first element in the evidence panes based on a class.
-            var evidenceStartFocus = document.querySelectorAll(".applicant-evidence-preview__evidence-link");
-            
-            // Enter the loop of elements.
-            for (let i of evidenceStartFocus) {
-
-                // Listen for a keydown.
-                i.addEventListener("keydown", function(e) {
-
-                    // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
-                    if (e.shiftKey && e.keyCode == 9) {
-
-                        // Prevent the default action.
-                        e.preventDefault();
-                        
-                        // Set a variable that gets the element's parent's data attribute.
-                        var triggerData = this.closest(".applicant-evidence-preview__accordion-wrapper").getAttribute("data-evidence-target");
-
-                        // Set a variable that gets all desktop tab items.
-                        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
-                        
-                        // Enter the loop for desktop tab items.
-                        for (let i of desktopEvidenceTrigger) {
-
-                            // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
-                            if (i.getAttribute("data-evidence-trigger") == triggerData) {
-                                i.focus();
-                            }
-
-                        }
-
-                    }
-                    else if (!e.shiftKey && e.keyCode == 9) {
-
-                        var triggerData = this.closest(".applicant-evidence-preview__accordion-wrapper").getAttribute("data-evidence-target");
-
-                        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
-                        
-                        for (let i of desktopEvidenceTrigger) {
-
-                            if (i.getAttribute("data-evidence-trigger") == triggerData) {
-
-                                if (i.nextElementSibling) {
-                                    e.preventDefault();
-                                    i.closest(".applicant-evidence-preview__desktop-menu-item").focus();
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                });
-
-            }
+            // Check for a click on each tab.
+            i.addEventListener('click', evidencePreviewMenuItemClick);
+            // Checks for a key press.
+            i.addEventListener("keyup", evidencePreviewMenuItemKeyup);
 
         }
-        else {
 
-            // The following code handles the mobile accordion execution of the tab interface.
-            
-            // Set a variable for all accordion triggers.
-            var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence-preview__accordion-trigger");
+        // The following code handles the tab order of sending a user back to the tab list when they reach the top of the tab's pane.
 
-            // Enter the loop of triggers.
-            for (let i of evidenceAccordionTrigger) {
+        // Set a variable for the first element in the evidence panes based on a class.
+        var evidenceStartFocus = document.querySelectorAll(".applicant-evidence-preview__evidence-link");
 
-                // Listen for a click.
-                i.addEventListener('click', function(e) {
-
-                    // Check to see if the trigger is active.
-                    if (this.classList.contains("active")) {
-
-                        // If it is active, close all accordions.
-                        for (let x of evidenceAccordionTrigger) {
-                            x.classList.remove("active")
-                            x.nextElementSibling.classList.remove("active");
-                            x.setAttribute("aria-expanded", "false");
-                        }
-
-                    } else {
-
-                        // Close all accordions.
-                        for (let x of evidenceAccordionTrigger) {
-                            x.classList.remove("active")
-                            x.nextElementSibling.classList.remove("active");
-                            x.setAttribute("aria-expanded", "false");
-                        }
-
-                        // Open this accordion.
-                        this.classList.add("active");
-                        this.nextElementSibling.classList.add("active");
-                        x.setAttribute("aria-expanded", "true");
-
-                    }
-
-                });
-
-            }
-
+        // Enter the loop of elements.
+        for (let i of evidenceStartFocus) {
+            // Listen for a keydown.
+            i.addEventListener("keydown", evidencePreviewLinkKeydown);
         }
+
+    } else {
+        // The following code handles the mobile accordion execution of the tab interface.
+
+        // Set a variable for all accordion triggers.
+        var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence-preview__accordion-trigger");
+
+        // Enter the loop of triggers.
+        for (let i of evidenceAccordionTrigger) {
+
+            // Listen for a click.
+            i.addEventListener('click', evidencePreviewAccordionClick);
+        }
+    }
+};
+
+//Define Preview UI event listeners
+function evidencePreviewAccordionClick(e) {
+    
+    var evidenceAccordionTrigger = document.querySelectorAll(".applicant-evidence-preview__accordion-trigger");
+
+    // Check to see if the trigger is active.
+    if (this.classList.contains("active")) {
+
+        // If it is active, close all accordions.
+        for (let x of evidenceAccordionTrigger) {
+            x.classList.remove("active")
+            x.nextElementSibling.classList.remove("active");
+            x.setAttribute("aria-expanded", "false");
+        }
+
+    } else {
+
+        // Close all accordions.
+        for (let x of evidenceAccordionTrigger) {
+            x.classList.remove("active")
+            x.nextElementSibling.classList.remove("active");
+            x.setAttribute("aria-expanded", "false");
+        }
+
+        // Open this accordion.
+        this.classList.add("active");
+        this.nextElementSibling.classList.add("active");
+        x.setAttribute("aria-expanded", "true");
 
     }
 
-    evidencePreviewUI();
+}
 
-    // Reruns the function each time the viewport changes size.
-    window.onresize = evidencePreviewUI;
+function evidencePreviewMenuItemClick(e) {
+    // Set variables for the desktop menu items and the associated evidence panes.
+    var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
+    var evidencePane = document.querySelectorAll(".applicant-evidence-preview__accordion-wrapper");
 
-};
+    // Prevent the default action.
+    e.preventDefault();
+
+    // Enter the loop for desktop tab menu items and remove the active class from all of them.
+    for (let x of desktopEvidenceTrigger) {
+        x.classList.remove("active");
+        x.setAttribute("aria-selected", "false");
+    }
+
+    // Enter the loop for evidence panes and remove the active class from all of them.
+    for (let x of evidencePane) {
+        x.classList.remove("active");
+    }
+
+    // Add the active class to the tab that has been clicked.
+    this.classList.add("active");
+    this.setAttribute("aria-selected", "true");
+
+    // Set a variable for that tab's data attribute.
+    var triggerData = this.getAttribute("data-evidence-trigger");
+
+    // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
+    for (let x of evidencePane) {
+        if (x.getAttribute("data-evidence-target") == triggerData) {
+            x.classList.add("active");
+            var evidenceLink = x.querySelector(".applicant-evidence-preview__evidence-link");
+            if (evidenceLink !== null) {
+                evidenceLink.focus();
+            }
+
+        }
+    }
+}
+
+function evidencePreviewMenuItemKeyup(e) {
+    // Cancels the default action.
+    e.preventDefault();
+
+    // Checks to see if the key pressed was Enter (13).
+    if (e.keyCode == 13) {
+        // Triggers a click, thus activating the click event listener.
+        this.click();
+    }
+}
+
+function evidencePreviewLinkKeydown(e) {
+    // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
+    if (e.shiftKey && e.keyCode == 9) {
+
+        // Prevent the default action.
+        e.preventDefault();
+        // Set a variable that gets the element's parent's data attribute.
+        var triggerData = this.closest(".applicant-evidence-preview__accordion-wrapper").getAttribute("data-evidence-target");
+
+        // Set a variable that gets all desktop tab items.
+        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
+
+        // Enter the loop for desktop tab items.
+        for (let i of desktopEvidenceTrigger) {
+
+            // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
+            if (i.getAttribute("data-evidence-trigger") == triggerData) {
+                i.focus();
+            }
+        }
+
+    } else if (!e.shiftKey && e.keyCode == 9) {
+
+        var triggerData = this.closest(".applicant-evidence-preview__accordion-wrapper").getAttribute("data-evidence-target");
+
+        var desktopEvidenceTrigger = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
+
+        for (let i of desktopEvidenceTrigger) {
+
+            if (i.getAttribute("data-evidence-trigger") == triggerData) {
+
+                if (i.nextElementSibling) {
+                    e.preventDefault();
+                    i.closest(".applicant-evidence-preview__desktop-menu-item").focus();
+                }
+            }
+        }
+    }
+}
+
+Utilities.addWindowEventListener("load", Utilities.setEvidencePreviewUiEventListeners);
+Utilities.addWindowEventListener("resize", Utilities.setEvidencePreviewUiEventListeners);
