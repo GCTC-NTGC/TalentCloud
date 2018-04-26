@@ -45,14 +45,12 @@
 }
 
 .createJobPosterDemoAreaEnglish{
-    float: left;
     margin-bottom: 1em;
     margin-top: 1em;
     background-color: #FFF;
 }
 
 .createJobPosterDemoAreaFrench{
-    float: left;
     background-color: #F8F8F8;
 }
 
@@ -82,33 +80,40 @@
 
 #jobPosterLocation{
     color: #eee;
-    float: left;
+    margin-bottom: .5rem;
 }
 
 #jobPosterId{
     float: right;
     padding-right:2em;
     color: #eee;
+    margin-bottom: 1.5rem;
+}
+
+#jobPosterRemoteWorkHeader{
+    color: #eee;
+    margin-bottom: 1.5rem;
 }
 
 #jobPosterDatapointsSection{
-    background-color: #777;
+    background-color: #333;
     color: #FFF;
     padding: 2em;
-}
-
-#jobPosterSalaryRange{
 }
 
 #jobPosterButtonWrapper {
     text-align: center;
     background-color: #B9B9B9;
-    margin-top: 2em;
 }
 
 #jobPosterApplyButton{
     margin-top: 2em;
     margin-bottom: 2em;
+}
+
+.jobPosterDatapoints{
+    margin-bottom: 0;
+    font-size: 2rem;
 }
 
 .jobPosterSection:nth-child(odd){
@@ -165,6 +170,19 @@
     display: inline;
     width: 30%;
     margin-right: 2em;
+}
+
+.accommodationRequest{
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.accommodationRequestText{
+    text-align: left;
+    font-size: 2rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 @import "molecules/job-poster-workplace";

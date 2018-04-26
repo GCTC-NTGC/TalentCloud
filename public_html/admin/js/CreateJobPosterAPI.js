@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,23 +16,23 @@ CreateJobPosterAPI.baseURL = "/tc/api/"+CreateJobPosterAPI.version+"";
 CreateJobPosterAPI.JobPostNonLocalized = function(
         id,
         manager_user_id,
-        title, 
-        title_fr, 
-        department_id, 
-        province_id, 
+        title,
+        title_fr,
+        department_id,
+        province_id,
         branch_en,
         branch_fr,
         division_en,
         division_fr,
-        city, 
-        city_fr, 
-        open_date_time, 
-        close_date_time, 
-        start_date, 
-        term_qty, 
-        remuneration_range_low, 
-        remuneration_range_high, 
-        impact, 
+        city,
+        city_fr,
+        open_date_time,
+        close_date_time,
+        start_date,
+        term_qty,
+        remuneration_range_low,
+        remuneration_range_high,
+        impact,
         impact_fr,
         key_tasks_en,
         key_tasks_fr,
@@ -40,10 +40,12 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
         core_competencies_fr,
         developing_competencies_en,
         developing_competencies_fr,
-        other_requirments_en,
-        other_requirments_fr,
         questions_en,
-        questions_fr) {
+        questions_fr,
+        classification,
+        clearance_id,
+        language_id
+    ) {
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = {};
@@ -78,13 +80,15 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.developing_competencies = {};
     this.developing_competencies.en_CA = developing_competencies_en;
     this.developing_competencies.fr_CA = developing_competencies_fr;
-    this.other_requirements = {};
-    this.other_requirements.en_CA = other_requirments_en;
-    this.other_requirements.fr_CA = other_requirments_fr;    
     this.questions = {};
     this.questions.en_CA = questions_en;
     this.questions.fr_CA = questions_fr;
-    
+
+    // TAL-150
+    this.classification = classification;
+    this.clearance_id = clearance_id;
+    this.language_id = language_id;
+
     this.term_units_id = 2; //default to months for now
     this.job_min_level_id = 1; //default to CS1
     this.job_max_level_id = 3; //default to CS3
@@ -92,13 +96,13 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
 
 CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
     var jp = jobPostNonLocalized;
-   
+
     return new JobPostAPI.JobPost(
-            jp.id, 
+            jp.id,
             jp.manager_user_id,
             jp.title[locale],
-            jp.appplicants_to_date, 
-            jp.close_date_time, 
+            jp.appplicants_to_date,
+            jp.close_date_time,
             LookupAPI.getLocalizedLookupValue("department", jp.department_id),
             jp.branch[locale],
             jp.division[locale],
@@ -113,8 +117,13 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             jp.key_tasks[locale],
             jp.core_competencies[locale],
             jp.developing_competencies[locale],
-            jp.other_requirements[locale],
-            jp.questions[locale]
+            jp.questions[locale],
+
+            //TAL-150
+            jp.classification,
+            LookupAPI.getLocalizedLookupValue("clearance", jp.clearance_id),
+            LookupAPI.getLocalizedLookupValue("language", jp.language_id),
+            jp.start_date
             );
 };
 
@@ -122,13 +131,13 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     var stateInfo = {pageInfo: 'create_job_poster', pageTitle: 'Talent Cloud: Create Job Poster'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');
-    
+
     ManagerEventsAPI.hideAllLayouts();
-    
+
     document.getElementById("createJobPoster_openDate").value = Utilities.formatDateTimeLocal(new Date());
-    
+
     CreateJobPosterAPI.getManagerProfile(CreateJobPosterAPI.prepopulateValuesFromManagerProfile);
-    
+
     var createJobPosterSection = document.getElementById("createJobPosterSection");
     createJobPosterSection.classList.remove("hidden");
 };
@@ -136,12 +145,14 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
 CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {
     LookupAPI.populateDropdown("department", "createJobPoster_department");
     LookupAPI.populateDropdown("province", "createJobPoster_province");
-    
+    LookupAPI.populateDropdown("clearance", "createJobPoster_clearance");
+    LookupAPI.populateDropdown("language", "createJobPoster_language");
+
     document.getElementById("createJobPoster_branch_labelName").innerHTML = siteContent.branch;
     document.getElementById("createJobPoster_branch_fr_labelName").innerHTML = siteContent.branch;
     document.getElementById("createJobPoster_division_labelName").innerHTML = siteContent.division;
     document.getElementById("createJobPoster_division_fr_labelName").innerHTML = siteContent.division;
-    
+
     document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
     document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
 
@@ -150,9 +161,9 @@ CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {
 CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function(managerProfileResponse) {
     if (managerProfileResponse) {
         var response = JSON.parse(managerProfileResponse);
-        
+
         document.getElementById("createJobPoster_department").value = response.manager_profile.user_manager_profile_department_id;
-        
+
         //TODO: prepopulate french fields as well
         var branch = response.manager_profile_details.user_manager_profile_details_branch;
         if (branch) {
@@ -169,11 +180,11 @@ CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function(managerProfile
 CreateJobPosterAPI.goToTab = function(tabId) {
     var stepGroups = document.getElementsByClassName('stepGroup');
     //console.log("+   " + stepGroups);
-    
+
     if (tabId === "createJobPosterReviewTab") {
         CreateJobPosterAPI.populateReviewTab();
     }
-    
+
     for (var s = 0; s < stepGroups.length; s++) {
         var stepGroup = stepGroups[s];
         //console.log(stepGroup);
@@ -188,7 +199,7 @@ CreateJobPosterAPI.goToTab = function(tabId) {
 
 CreateJobPosterAPI.populateReviewTab = function() {
     CreateJobPosterAPI.populateJobPosterObjFromForm();
-    
+
     if (CreateJobPosterAPI.jobPosterObj) {
         var demoAreaEnglish = document.getElementById("createJobPosterDemoAreaEnglish");
         demoAreaEnglish.innerHTML = "";
@@ -214,19 +225,23 @@ CreateJobPosterAPI.stepHighlight = function(stepID){
     s3.classList.remove("create-job-poster-tab-current");
     var s4 = document.getElementById("createJobPosterStep4Label");
     s4.classList.remove("create-job-poster-tab-current");
-    
+
     var current = document.getElementById(stepID);
     current.classList.add("create-job-poster-tab-current");
 };
 
-CreateJobPosterAPI.validateJobPosterForm = function() { 
+CreateJobPosterAPI.validateJobPosterForm = function() {
     CreateJobPosterAPI.populateJobPosterObjFromForm();
-    
+
     var jp = CreateJobPosterAPI.jobPosterObj;
-    var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA, jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty, jp.remuneration_range_low, jp.remuneration_range_high);
-    if (valid) { 
-        CreateJobPosterAPI.submitJobPosterForm(); 
-    } 
+
+    // TAL-150
+    var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA,
+        jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty,
+        jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance_id, jp.language_id);
+    if (valid) {
+        CreateJobPosterAPI.submitJobPosterForm();
+    }
 };
 
 CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
@@ -235,64 +250,72 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     if (CreateJobPosterAPI.jobPosterObj) {
         id = CreateJobPosterAPI.jobPosterObj.id;
     }
-    
+
     var manager_user_id = 0;
     if (UserAPI.hasSessionUser()) {
         //For now, assume there is a one-to-one relation between users and hiring managers
         manager_user_id = UserAPI.getSessionUserAsJSON().user_id;
-    } 
-     
-    var title = document.getElementById("createJobPoster_jobTitle").value; 
-     
-    var title_fr = document.getElementById("createJobPoster_jobTitle_fr").value; 
-    
-    var department_id = document.getElementById("createJobPoster_department").value; 
-    
+    }
+
+    var title = document.getElementById("createJobPoster_jobTitle").value;
+
+    var title_fr = document.getElementById("createJobPoster_jobTitle_fr").value;
+
+    var department_id = document.getElementById("createJobPoster_department").value;
+
     var province_id = document.getElementById("createJobPoster_province").value;
-    
+
     var branch_en = document.getElementById("createJobPoster_branch").value;
     var branch_fr = document.getElementById("createJobPoster_branch_fr").value;
-    
+
     var division_en = document.getElementById("createJobPoster_division").value;
     var division_fr = document.getElementById("createJobPoster_division_fr").value;
-    
+
     var city = document.getElementById("createJobPoster_city").value;
-    
+
     var city_fr = document.getElementById("createJobPoster_city").value;
-    
-    var open_date_time = document.getElementById("createJobPoster_openDate").value; 
-     
-    var close_date_time = document.getElementById("createJobPoster_closeDate").value; 
-    
-    var start_date = document.getElementById("createJobPoster_startDate").value; 
-    
+
+    var open_date_time = document.getElementById("createJobPoster_openDate").value;
+
+    var close_date_time = document.getElementById("createJobPoster_closeDate").value;
+
+    var start_date = document.getElementById("createJobPoster_startDate").value;
+
     var term_qty = document.getElementById("createJobPoster_termQuantity").value;
-    
+
     var remuneration_range_low = document.getElementById("createJobPoster_remunerationLowRange").value;
-    
+
     var remuneration_range_high = document.getElementById("createJobPoster_remunerationHighRange").value;
-    
+
     var impact = document.getElementById("createJobPoster_impact").value;
-    
+
     var impact_fr = document.getElementById("createJobPoster_impact_fr").value;
-    
+
     //TODO: actually get list items from ui
     var key_tasks_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_keyTasks");
-    var key_tasks_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_keyTasks_fr"); 
-    
+    var key_tasks_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_keyTasks_fr");
+
     var core_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_coreCompetencies");
     var core_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_coreCompetencies_fr");
-    
+
     var developing_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies");
     var developing_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies_fr");
-    
-    var other_requirements_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements");
-    var other_requirements_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_otherRequirements_fr");
-    
+
     var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
     var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
-        
-    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time, close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr, core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, other_requirements_en, other_requirements_fr, questions_en, questions_fr);
+
+    // TAL-150
+    var classification = document.getElementById("createJobPoster_classification").value;
+
+    var clearance_id = document.getElementById("createJobPoster_clearance").value;
+
+    var language_id = document.getElementById("createJobPoster_language").value;
+
+    CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(
+        id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
+        close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr,
+        core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questions_en, questions_fr, classification,
+        clearance_id, language_id);
 }
 
 CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
@@ -308,10 +331,10 @@ CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
 
 
 CreateJobPosterAPI.submitJobPosterForm = function() {
-    
+
     if (CreateJobPosterAPI.jobPosterObj) {
         var jobPosterJson = JSON.stringify(CreateJobPosterAPI.jobPosterObj);
-        
+
         //TODO: use the following code instead when updateJobPoster is ready
         /*
         if (CreateJobPosterAPI.jobObj.id > 0) {
@@ -320,7 +343,7 @@ CreateJobPosterAPI.submitJobPosterForm = function() {
             CreateJobPosterAPI.createJobPoster(jobPosterJson);
         }
         */
-       
+
         CreateJobPosterAPI.createJobPoster(jobPosterJson);
         return true;
     } else {
@@ -329,7 +352,7 @@ CreateJobPosterAPI.submitJobPosterForm = function() {
 };
 
 CreateJobPosterAPI.hideCreateJobPosterForm = function(){
-    var jobPosterCreation = document.getElementById("createJobPosterOverlay");    
+    var jobPosterCreation = document.getElementById("createJobPosterOverlay");
     jobPosterCreation.classList.add("hidden");
 };
 
@@ -363,7 +386,7 @@ CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
     }
     xhr.open('POST',createJobPoster_URL);
     xhr.setRequestHeader('x-access-token', authToken.access_token);
-    
+
     xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);
@@ -381,11 +404,11 @@ CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
 CreateJobPosterAPI.postJobPosterComplete = function(response) {
     //TODO
     CreateJobPosterAPI.jobPosterObj.id = JSON.parse(response).job_poster_id;
-    
+
     CreateJobPosterAPI.goToTab("createJobPosterReviewTab");
-    
-    
-    
+
+
+
 };
 
 CreateJobPosterAPI.getManagerProfile = function(responseCallback){
