@@ -93,7 +93,7 @@ CreateEditProfileAPI.ManagerProfileDetailsNonLocalized = function(
 
 };
 
-CreateEditProfileAPI.localizeManagerProfile = function(ManagerProfileDetailsNonLocalized, locale) {
+CreateEditProfileAPI.localizeManagerProfile = function(managerDetailsNonLocalized, locale) {
     var md = managerDetailsNonLocalized;
 
     return new CreateEditProfileAPI.ManagerProfileDetails(
@@ -286,17 +286,17 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
 
     console.log(updated_manager_profile_details);
 
-    var profile_en = CreateEditProfileAPI.localizeManagerProfile(CreateEditProfileAPI.ManagerProfileDetailsNonLocalized, "en_CA");
-    profile_en.updated_manager_profile_details.user_manager_profile_details_locale_id = 1;
-    var profile_fr = CreateEditProfileAPI.localizeManagerProfile(CreateEditProfileAPI.ManagerProfileDetailsNonLocalized, "fr_CA");
-    profile_fr.updated_manager_profile_details.user_manager_profile_details_locale_id = 2;
+    var profile_en = CreateEditProfileAPI.localizeManagerProfile(updated_manager_profile_details, "en_CA");
+    profile_en.user_manager_profile_details_locale_id = 1;
+    var profile_fr = CreateEditProfileAPI.localizeManagerProfile(updated_manager_profile_details, "fr_CA");
+    profile_fr.user_manager_profile_details_locale_id = 2;
 
     var complete_manager_profile = {};
 
     complete_manager_profile.manager_profile = updated_manager_profile;
 
-    complete_manager_profile.updated_manager_profile_details.en_CA = profile_en;
-    complete_manager_profile.updated_manager_profile_details.fr_CA = profile_fr;
+    complete_manager_profile.en_CA = profile_en;
+    complete_manager_profile.fr_CA = profile_fr;
 
     CreateEditProfileAPI.saveManagerProfile(complete_manager_profile);
 
