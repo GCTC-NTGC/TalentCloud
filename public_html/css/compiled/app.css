@@ -2350,6 +2350,7 @@ html {
   position: relative; }
 
 body {
+  background: white;
   font-size: 100% !important;
   height: 100% !important;
   color: #333 !important;
@@ -4958,7 +4959,7 @@ nav {
   width: 100%;
   min-height: 80vh;
   overflow: auto; }
-  .pageContent#profileSection, .pageContent#managerProfileSection {
+  .pageContent#profileSection, .pageContent#managerProfileSection, .pageContent#createEditProfileSection {
     overflow: visible; }
 
 .pageBanner {
@@ -4969,7 +4970,6 @@ nav {
   color: #FFFFFF; }
 
 .pageBody {
-  background-color: white;
   width: 100%;
   min-height: 80vh;
   overflow: visible; }

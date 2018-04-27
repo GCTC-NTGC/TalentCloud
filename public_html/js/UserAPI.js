@@ -391,14 +391,16 @@ UserAPI.loaded = function (response) {
 
             if (authJSON.user_role === TalentCloudAPI.roles.manager || authJSON.user_role === TalentCloudAPI.roles.admin) {
 
-                var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
-                if (jobPostersLinkListItem){
+                var jobPostersLink = document.getElementById("navigationPosterLinkWrapper");
+                if (jobPostersLink){
+                    var jobPostersLinkListItem = document.getElementById("navigationPosterLinkWrapper");
+                    jobPostersLinkListItem.classList.remove("hidden");
                     jobPostersLinkListItem.setAttribute("aria-hidden", "false");
                 }
-                var jobPostersLink = document.getElementById("jobPostersLink");
-                if (jobPostersLink){
-                    jobPostersLink.classList.remove("hidden");
-                }
+                // var jobPostersLink = document.getElementById("jobPostersLink");
+                // if (jobPostersLink){
+                //     jobPostersLink.classList.remove("hidden");
+                // }
             }
 
             EventsAPI.hideBodyOverflow(false);

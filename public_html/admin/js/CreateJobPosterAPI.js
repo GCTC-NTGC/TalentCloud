@@ -131,6 +131,15 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     
     var createJobPosterSection = document.getElementById("createJobPosterSection");
     createJobPosterSection.classList.remove("hidden");
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var posterHeroTitle = document.getElementById("posterHeroTitle");
+    posterHeroTitle.classList.remove("hidden");
+    posterHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {

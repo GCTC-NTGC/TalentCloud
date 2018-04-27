@@ -728,6 +728,15 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
 
     CreateEditProfileAPI.getManagerProfile();
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var profileHeroTitle = document.getElementById("profileHeroTitle");
+    profileHeroTitle.classList.remove("hidden");
+    profileHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 CreateEditProfileAPI.showViewProfile = function(linkElement){

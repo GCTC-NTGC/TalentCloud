@@ -32,7 +32,7 @@
             <!-- Dashboard -->
             <div class="page-hero__navigation-item box med-1of5 lg-1of7 hidden" id="navigationDashboardLinkWrapper" aria-hidden="true">
                 <a href="javascript:void(0)" id="navigationDashboardLink" onclick="DashboardAPI.showDashboard(this);TalentCloudAPI.setNav('navigationDashboardLinkWrapper');">
-                    Dashboard
+                    My Applications
                 </a>
             </div>
 
@@ -56,7 +56,7 @@
             <?php $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
             <?php if (strpos($url,'admin') !== false) : ?>
                 <!-- Create Job Poster -->
-                <div class="page-hero__navigation-item box med-1of5 lg-1of7" id="navigationPosterLinkWrapper" aria-hidden="false">
+                <div class="page-hero__navigation-item box med-1of5 lg-1of7 hidden" id="navigationPosterLinkWrapper" aria-hidden="true">
                     <a href="javascript:void(0)" id="navigationPosterLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this);TalentCloudAPI.setNav('navigationPosterLinkWrapper');">Job Poster
                     </a>
                 </div>
@@ -135,6 +135,8 @@
                     <h1 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true">My Job Application</h1>
 
                     <h1 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h1>
+
+                    <h1 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h1>
 
                 </div>
 

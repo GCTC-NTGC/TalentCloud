@@ -296,7 +296,7 @@ TalentCloudAPI.pages = {
                 url:"#CreateJobPoster",
                 state: function(){
                     CreateJobPosterAPI.showCreateJobPosterForm();
-                    TalentCloudAPI.setNav("jobPostersLinkListItem");
+                    TalentCloudAPI.setNav("navigationPosterLinkWrapper");
                 }
             },
             ManagerProfile:{

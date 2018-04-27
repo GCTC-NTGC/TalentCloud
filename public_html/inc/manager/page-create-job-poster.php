@@ -1,9 +1,9 @@
 <!-- BEGIN - Create Job Poster Section -->
 <section class="pageContent hidden" id="createJobPosterSection">
 
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <h2 class="section--title">Create a new Job Poster</h2>
-    </div>
+    </div> -->
 
     <div class="pageBody">
 
