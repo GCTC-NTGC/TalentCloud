@@ -296,53 +296,47 @@ class LookupDAO extends BaseDAO {
         return $rows;
     }
 
-	public static function getClearanceLevelsByLocale($locale) {
-
+    public static function getClearanceLevelsByLocale($locale) {
 		$link = BaseDAO::getConnection();
 		$sqlStr = "
 			SELECT
-			scd.security_clearance_id as id, scd.security_clearance_details_name as value
+			sc.security_clearance_id as id, scd.security_clearance_details_name as value
 			FROM
-			security_clearance_details scd, locale
+			security_clearance sc, security_clearance_details scd, locale
 			WHERE locale.locale_iso = :locale
 			AND scd.security_clearance_details_locale_id = locale.locale_id
-			AND scd.security_clearance_id = scd.security_clearance_id
-			ORDER BY scd.security_clearance_id";
+			AND scd.security_clearance_id = sc.security_clearance_id
+			ORDER BY sc.security_clearance_id";
 		$sql = $link->prepare($sqlStr);
 		$sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-
 		try {
 			$sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
 			$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
 			$rows = $sql->fetchAll();
-
 		} catch (PDOException $e) {
 			return 'getClearanceLevelsByLocale failed: ' . $e->getMessage();
 		}
 		BaseDAO::closeConnection($link);
 		return $rows;
 	}
-
+    
 	public static function getLanguageLevelsByLocale($locale) {
-
 		$link = BaseDAO::getConnection();
 		$sqlStr = "
 			SELECT
-			lrd.language_requirement_id as id, lrd.language_requirement_details_name as value
+			lr.language_requirement_id as id, lrd.language_requirement_details_name as value
 			FROM
-			language_requirement_details lrd, locale
+			language_requirement lr, language_requirement_details lrd, locale
 			WHERE locale.locale_iso = :locale
 			AND lrd.language_requirement_details_locale_id = locale.locale_id
-			AND lrd.language_requirement_id = lrd.language_requirement_id
-			ORDER BY lrd.language_requirement_id";
+			AND lrd.language_requirement_id = lr.language_requirement_id
+			ORDER BY lr.language_requirement_id";
 		$sql = $link->prepare($sqlStr);
 		$sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-
 		try {
 			$sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
 			$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
 			$rows = $sql->fetchAll();
-
 		} catch (PDOException $e) {
 			return 'getLanguageLevelsByLocale failed: ' . $e->getMessage();
 		}
