@@ -865,31 +865,38 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     manager_profile.user_id = manager_profile_json["user_id"];
     manager_profile.user_manager_profile_id = manager_profile_json["user_manager_profile_id"];
-
-    manager_profile.user_manager_profile_position = manager_profile_json["user_manager_profile_position"];
     manager_profile.user_manager_profile_department_id = manager_profile_json["user_manager_profile_department_id"];
     manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
     manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
 
-    var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetails();
+    var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetailsNonLocalized();
     manager_profile_details.user_manager_profile_details_id = manager_profile_details_json["user_manager_profile_details_id"];
     manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
     manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
+    manager_profile_details.user_manager_profile_details_aboutme_fr = manager_profile_details_json["user_manager_profile_details_aboutme_fr"];
     manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
+    manager_profile_details.user_manager_profile_details_proud_fr = manager_profile_details_json["user_manager_profile_details_proud_fr"];
     manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_division"];
+    manager_profile_details.user_manager_profile_details_division_fr = manager_profile_details_json["user_manager_profile_details_division_fr"];
     manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_branch"];
+    manager_profile_details.user_manager_profile_details_branch_fr = manager_profile_details_json["user_manager_profile_details_branch_fr"];
     manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
+    manager_profile_details.user_manager_profile_details_lead_style_fr = manager_profile_details_json["user_manager_profile_details_lead_style_fr"];
     manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
+    manager_profile_details.user_manager_profile_details_emp_learn_fr = manager_profile_details_json["user_manager_profile_details_emp_learn_fr"];
     manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
-    manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
+    manager_profile_details.user_manager_profile_details_expectations_fr = manager_profile_details_json["user_manager_profile_details_expectations_fr"];
 
+    manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
     manager_profile_details.user_manager_profile_review_options = manager_profile_details_json["user_manager_profile_review_options"];
     manager_profile_details.user_manager_profile_staylate = manager_profile_details_json["user_manager_profile_staylate"];
     manager_profile_details.user_manager_profile_engage = manager_profile_details_json["user_manager_profile_engage"];
     manager_profile_details.user_manager_profile_devops = manager_profile_details_json["user_manager_profile_devops"];
     manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
     manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
+    manager_profile_details.user_manager_profile_work_experience_fr = manager_profile_details_json["user_manager_profile_work_experience_fr"];
     manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
+    manager_profile_details.user_manager_profile_education_fr = manager_profile_details_json["user_manager_profile_education_fr"];
 
 
     //Initialize Work Environment
