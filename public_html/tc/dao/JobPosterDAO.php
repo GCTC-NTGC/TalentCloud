@@ -219,30 +219,38 @@ class JobPosterDAO extends BaseDAO {
                 
         $sqlCoreCompsStr = "
             SELECT 
-                core_comps.job_poster_core_competency_id as id,
-                core_comps.core_competency as value
-            FROM job_poster_core_competency as core_comps, locale
-            WHERE core_comps.job_poster_id = :job_poster_id 
+                criteria.criteria_id as id,
+                criteria.criteria_name as value
+            FROM criteria, locale, criteria_type
+            WHERE criteria.job_poster_id = :job_poster_id 
             AND locale.locale_iso = :locale_iso
-            AND locale.locale_id = core_comps.locale_id
+            AND locale.locale_id = criteria.locale_id
+            AND criteria.criteria_type_id = criteria_type.criteria_type_id
+            AND criteria_type.criteria_type = 'essential'
             ;";
                 
         $sqlDevelopingCompsStr = "
             SELECT 
-                dev_comps.job_poster_developing_competency_id as id,
-                dev_comps.developing_competency as value
-            FROM job_poster_developing_competency as dev_comps, locale
-            WHERE dev_comps.job_poster_id = :job_poster_id 
+                criteria.criteria_id as id,
+                criteria.criteria_name as value
+            FROM criteria, locale, criteria_type
+            WHERE criteria.job_poster_id = :job_poster_id 
             AND locale.locale_iso = :locale_iso
-            AND locale.locale_id = dev_comps.locale_id
+            AND locale.locale_id = criteria.locale_id
+            AND criteria.criteria_type_id = criteria_type.criteria_type_id
+            AND criteria_type.criteria_type = 'asset'
             ;";
         
         $sqlRequirementsStr = "
-            SELECT other_reqs.requirement
-            FROM job_poster_other_requirement as other_reqs, locale
-            WHERE other_reqs.job_poster_id = :job_poster_id 
+            SELECT 
+                criteria.criteria_id as id,
+                criteria.criteria_name as value
+            FROM criteria, locale, criteria_type
+            WHERE criteria.job_poster_id = :job_poster_id 
             AND locale.locale_iso = :locale_iso
-            AND locale.locale_id = other_reqs.locale_id
+            AND locale.locale_id = criteria.locale_id
+            AND criteria.criteria_type_id = criteria_type.criteria_type_id
+            AND criteria_type.criteria_type = 'other'
             ;";
         
         $sqlQuestionsStr = "
@@ -373,32 +381,36 @@ class JobPosterDAO extends BaseDAO {
             (job_poster_id, locale_id, task) VALUES " . 
             implode(',', $key_task_values) . ";";
             
+        
+        $sqlStr_EssentialType = '(SELECT ct.criteria_type_id INTO @essential_type FROM criteria_type ct WHERE ct.criteria_type = "essential")';
         $core_competency_data = [];
         $core_competency_values = [];
         foreach($jobPosterNonLocalized->getCore_competencies_en() as $core_competency) {
-            $core_competency_values[] = '(@job_post_id, 1, ?)';
+            $core_competency_values[] = '(@job_post_id, 1, @essential_type, ?)';
             $core_competency_data[] = $core_competency;
         }
         foreach($jobPosterNonLocalized->getCore_competencies_fr() as $core_competency) {
-            $core_competency_values[] = '(@job_post_id, 2, ?)';
+            $core_competency_values[] = '(@job_post_id, 2, @essential_type, ?)';
             $core_competency_data[] = $core_competency;
         }
-        $sqlStr5 = "INSERT INTO job_poster_core_competency
-            (job_poster_id, locale_id, core_competency) VALUES " . 
+        $sqlStr5 = "INSERT INTO criteria
+            (job_poster_id, locale_id, criteria_type_id, criteria_name) VALUES " . 
             implode(',', $core_competency_values) . ";";
+        
+        $sqlStr_AssetType = '(SELECT ct.criteria_type_id INTO @asset_type FROM criteria_type ct WHERE ct.criteria_type = "asset")';
         
         $dev_competency_data = [];
         $dev_competency_values = [];
         foreach($jobPosterNonLocalized->getDeveloping_competencies_en() as $dev_competency) {
-            $dev_competency_values[] = '(@job_post_id, 1, ?)';
+            $dev_competency_values[] = '(@job_post_id, 1, @asset_type, ?)';
             $dev_competency_data[] = $dev_competency;
         }
         foreach($jobPosterNonLocalized->getDeveloping_competencies_fr() as $dev_competency) {
-            $dev_competency_values[] = '(@job_post_id, 2, ?)';
+            $dev_competency_values[] = '(@job_post_id, 2,  @asset_type, ?)';
             $dev_competency_data[] = $dev_competency;
         }
-        $sqlStr6 = "INSERT INTO job_poster_developing_competency
-            (job_poster_id, locale_id, developing_competency) VALUES " . 
+        $sqlStr6 = "INSERT INTO criteria
+            (job_poster_id, locale_id, criteria_type_id, criteria_name) VALUES " . 
             implode(',', $dev_competency_values) . ";";
             
         $requirement_data = [];
@@ -439,6 +451,8 @@ class JobPosterDAO extends BaseDAO {
         $sql3 = $link->prepare($sqlStr3);
         
         $sqlManager = $link->prepare($sqlManagerStr);
+        $sqlEssentialType = $link->prepare($sqlStr_EssentialType);
+        $sqlAssetType = $link->prepare($sqlStr_AssetType);
         
         if (sizeof($key_task_data) > 0)
             $sql4 = $link->prepare($sqlStr4);
@@ -488,6 +502,9 @@ class JobPosterDAO extends BaseDAO {
             $sql3->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             
             $sqlManager->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            
+            $sqlEssentialType->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sqlAssetType->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             
             if (sizeof($key_task_data) > 0)
                  $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));

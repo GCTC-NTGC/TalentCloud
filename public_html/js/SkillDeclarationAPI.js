@@ -108,7 +108,7 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
         if (applicationId &&
                 newSkillDeclaration.isValid()) {
             submittedRequests = submittedRequests + 1;
-            DataAPI.saveSkillDeclaration(newSkillDeclaration, criteriaType, newSkillDeclaration.criteria_id, applicationId, function (response) {
+            DataAPI.saveSkillDeclaration(newSkillDeclaration, newSkillDeclaration.criteria_id, applicationId, function (response) {
                 if (response.status === 200) {
                     submittedRequests = submittedRequests - 1;
 

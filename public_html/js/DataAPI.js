@@ -803,25 +803,13 @@ DataAPI.getSkillDeclarationsForApplication = function(applicationId, requestCall
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 
-DataAPI.saveSkillDeclaration = function(skillDeclaration, criteriaType, criteriaId, applicationId, requestCallback) {
-    switch(criteriaType) {
-        case "essential":
-            var criteriaPath = "forEssentialCriteria";
-            break;
-        case "asset":
-            var criteriaPath = "forAssetCriteria";
-            break;
-        default:
-            console.log("Cannot submit skill declaration of type: " + criteriaType);
-            return false;
-    }
-    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+DataAPI.saveSkillDeclaration = function(skillDeclaration, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillDeclaration), requestCallback);
 };
 
-DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId, requestCallback) {
-    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
-    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+DataAPI.deleteSkillDeclaration = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };
 

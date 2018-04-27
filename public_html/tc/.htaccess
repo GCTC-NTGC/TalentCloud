@@ -15,10 +15,8 @@ RewriteRule ^api/v1/getWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/Wo
 RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 RewriteRule ^api/v1/getTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
 RewriteRule ^api/v1/getDeclarationsForApplication/([0-9]{1,10}) services/ApplicationDeclarationService.php
-RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forEssentialCriteria/([0-9]{1,10}) services/ApplicationEssentialDeclarationService.php
-RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forAssetCriteria/([0-9]{1,10}) services/ApplicationAssetDeclarationService.php
-RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forEssentialCriteria/([0-9]{1,10}) services/ApplicationEssentialDeclarationService.php
-RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forAssetCriteria/([0-9]{1,10}) services/ApplicationAssetDeclarationService.php
+RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationDeclarationService.php
+RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationDeclarationService.php
 RewriteRule ^api/v1/getLatestDeclarationForUser/([0-9]{1,10})/forSkill/([0-9a-zA-Z$_.+!*'(),-]+) services/SkillDeclarationByUser.php
 
 #non localized services - secured

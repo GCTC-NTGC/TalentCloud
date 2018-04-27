@@ -189,8 +189,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
                 DataAPI.createJobApplication(newApplication, function (request) {
                     if (request.status === 200) {
                         //Draft application was successfully created - save application id
-                        var jobApplication = JSON.parse(request.response);
-                        document.getElementById("createJobApplicationJobApplicationId").value = jobApplication.job_poster_application.job_poster_application_id;
+                        document.getElementById("createJobApplicationJobApplicationId").value = JSON.parse(request.response).job_poster_application_id;
                     }
                 });
             } else {
