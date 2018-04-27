@@ -5431,7 +5431,7 @@ nav {
     .applicant-evidence__desktop-menu-item.active .applicant-evidence__desktop-icon-wrapper i {
       color: rgba(255, 255, 255, 0.3); }
       .applicant-evidence__desktop-menu-item.active .applicant-evidence__desktop-icon-wrapper i.active {
-        color: white; }
+        color: #49df4b; }
   .applicant-evidence__desktop-menu-item:hover {
     background: #a3a3a3;
     transition: background .2s ease; }
@@ -5447,7 +5447,7 @@ nav {
     font-size: 14px;
     margin: 0 .2rem 0 0; }
     .applicant-evidence__desktop-icon-wrapper i.active {
-      color: #333333; }
+      color: #49df4b; }
     .applicant-evidence__desktop-icon-wrapper i:last-child {
       margin: 0; }
 
@@ -5510,7 +5510,7 @@ nav {
     .applicant-evidence__accordion-trigger-icon-wrapper i:last-child {
       margin: 0; }
     .applicant-evidence__accordion-trigger-icon-wrapper i.active {
-      color: white; }
+      color: #49df4b; }
 
 /* Content */
 .applicant-evidence__accordion-content {

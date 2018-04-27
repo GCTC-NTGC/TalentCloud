@@ -62,7 +62,6 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         var applicantProfilePic = document.getElementById('createJobApplicationProfilePic');
         ProfilePicAPI.refreshProfilePic(user.user_id, applicantProfilePic);
         JobApplicationAPI.populateApplicationWithUserContent(user);
-
         DataAPI.getJobSeekerProfileByUserId(user.user_id, JobApplicationAPI.populateApplicationWithJobSeekerProfileContent);
     }
 
@@ -76,6 +75,7 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         })
 
     });
+
 };
 
 JobApplicationAPI.localizeCreateJobApplication = function () {
@@ -293,7 +293,18 @@ JobApplicationAPI.showJobApplicationPreview = function(jobPosterId) {
     
     //Load this user's Application for this Job Poster, directing server response to a callback function
     DataAPI.getJobApplicationByJobAndUser(jobPosterId, userId, JobApplicationAPI.populatePreviewApplicationWithApplicationContent);
-    
+
+    if (UserAPI.hasSessionUser()) {
+
+        var user = UserAPI.getSessionUserAsJSON();
+        var userProfilePhoto = document.getElementById('applicationPreviewProfileImage');
+        
+        ProfilePicAPI.refreshProfilePicBackground(user.user_id, userProfilePhoto);
+        
+        JobApplicationAPI.populatePreviewApplicationWithUserContent(user);
+
+    }
+
     //Load user's Profile data, directing server response to another callback function
     DataAPI.getJobSeekerProfileByUserId(userId, JobApplicationAPI.populatePreviewApplicationWithProfileContent);
     
@@ -301,11 +312,11 @@ JobApplicationAPI.showJobApplicationPreview = function(jobPosterId) {
 
 JobApplicationAPI.populatePreviewApplicationWithPosterContent = function(jobPosterResponse) {
 
-    var jobPoster = JSON.parse(jobPosterResponse);
+    var jobPoster = JobPostAPI.populateJobObject(JSON.parse(jobPosterResponse));
 
-    console.log(jobPoster);
+    // console.log(jobPoster);
 
-    // document.getElementById('applicationPreviewHeaderPosition').innerHTML = jobPoster.title;
+    document.getElementById('applicationPreviewHeaderPosition').innerHTML = jobPoster.title;
 
 }
 
@@ -348,11 +359,13 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
            
            //Some stub code for method (1):
            var answerElement = document.createElement("div"); 
-           answerElement.setAttribute("class", "your-class");
-           var questionText = document.createElement("h3");
+           answerElement.setAttribute("class", "application-preview__question");
+           var questionText = document.createElement("h5");
+           questionText.setAttribute("class", "application-preview__question-title");
            questionText.innerHTML = answer.question;
-           var answerText = document.createElement("p");
-           answerText.innerHTML = answer.answer;
+           var answerText = document.createElement("div");
+           answerText.setAttribute("class", "application-preview__question-answer");
+           answerText.innerHTML = "<p>"+answer.answer+"</p>";
            
            //Place child elements appropriately, and in order
            answerElement.appendChild(questionText);
@@ -363,9 +376,9 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
         });
         //Now, add the documentFragment to the document
         //eg:
-        //var answerWrapper = document.getElementById("applicationPreviewAnswerWrapper");
-        //answerWrapper.innerHTML = ""; //Removes old elements
-        //answerWrapper.appendChild(answerFragment);       
+        var answerWrapper = document.getElementById("applicationPreviewQuestionWrapper");
+        answerWrapper.innerHTML = ""; //Removes old elements
+        answerWrapper.appendChild(answerFragment);       
         
     } else if (httpRequest.status === 404) {
         //No application exists for the current user and specified job
@@ -382,10 +395,23 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
  * @param {type} response
  * @return {undefined}
  */
+JobApplicationAPI.populatePreviewApplicationWithUserContent = function(user) { 
+    
+    // var jobSeeker = JSON.parse(user);
+
+    console.log(user);
+    
+    //Do something with the response data
+    document.getElementById('applicationPreviewProfileName').innerHTML = user.firstname;
+
+};
+
 JobApplicationAPI.populatePreviewApplicationWithProfileContent = function(response) { 
     var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
     
     //Do something with the response data
+    document.getElementById('applicationPreviewProfileTagline').innerHTML = jobSeeker.tagline;
+
 };
 
 JobApplicationAPI.populatePreviewApplicationWithSkillDeclarationContent = function(httpRequest) {

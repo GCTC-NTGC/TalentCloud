@@ -58,7 +58,7 @@
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="SkillDeclarationAPI.saveSkillDeclarations('asset', JobApplicationAPI.showJobApplicationPreview());">
+        <button class="button--yellow" value="View" onclick="SkillDeclarationAPI.saveSkillDeclarations('asset', JobApplicationAPI.showJobApplicationPreview(document.getElementById('createJobApplicationJobPosterId').value));">
             Save and Preview
         </button>
 
