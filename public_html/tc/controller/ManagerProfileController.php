@@ -11,6 +11,7 @@ require_once '../model/ManagerProfileDetails.php';
 require_once '../model/ManagerProfileDetailsNonLocalized.php';
 require_once '../model/ManagerProfileWithDetails.php';
 require_once '../model/User.php';
+require_once '../model/LocalizedValues.php';
 require_once '../controller/UserController.php';
 require_once '../dao/ManagerProfileDAO.php';
 
@@ -50,9 +51,12 @@ class ManagerProfileController{
 
         $profile = ManagerProfileController::getManagerProfile($managerProfile);
 
-        $details = ManagerProfileController::getManagerProfileDetailsByLocale($profile, $locale);
+        $details_en = ManagerProfileController::getManagerProfileDetailsByLocale($profile, "en_CA");
+        $details_fr = ManagerProfileController::getManagerProfileDetailsByLocale($profile, "fr_CA");
+        
+        $localizedDetails = new LocalizedValues($details_en, $details_fr);
 
-        $managerProfileWithDetails = new ManagerProfileWithDetails($profile,$details,$managerUser);
+        $managerProfileWithDetails = new ManagerProfileWithDetails($profile,$localizedDetails,$managerUser);
 
         $response = $managerProfileWithDetails;
 

@@ -121,7 +121,7 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
 
     var updated_manager_profile = new CreateEditProfileAPI.ManagerProfile();
 
-    updated_manager_profile.user_id = document.getElementById("UserId").value;
+    updated_manager_profile.user_id = UserAPI.getSessionUserAsJSON().user_id;
 
     updated_manager_profile.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
 
@@ -204,6 +204,7 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
 
     complete_manager_profile.manager_profile = updated_manager_profile;
 
+    complete_manager_profile.manager_profile_details = {};
     complete_manager_profile.manager_profile_details.en_CA = updated_manager_profile_details_en;
     complete_manager_profile.manager_profile_details.fr_CA = updated_manager_profile_details_fr;
 
@@ -768,7 +769,8 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     var manager_profile_json = manager_profile_with_details_json["manager_profile"];
 
-    var manager_profile_details_json = manager_profile_with_details_json["manager_profile_details"];
+    var profile_details_json_en = manager_profile_with_details_json["manager_profile_details"]["en_CA"];
+    var profile_details_json_fr = manager_profile_with_details_json["manager_profile_details"]["fr_CA"];
 
     var manager_profile = new CreateEditProfileAPI.ManagerProfile();
 
@@ -778,34 +780,37 @@ CreateEditProfileAPI.populateProfile = function(response){
     manager_profile.user_manager_profile_twitter = manager_profile_json["user_manager_profile_twitter"];
     manager_profile.user_manager_profile_linkedin = manager_profile_json["user_manager_profile_linkedin"];
 
-    var manager_profile_details = new CreateEditProfileAPI.ManagerProfileDetailsNonLocalized();
-    manager_profile_details.user_manager_profile_details_id = manager_profile_details_json["user_manager_profile_details_id"];
-    manager_profile_details.locale_id = manager_profile_details_json["locale_id"];
-    manager_profile_details.user_manager_profile_details_aboutme = manager_profile_details_json["user_manager_profile_details_aboutme"];
-    manager_profile_details.user_manager_profile_details_aboutme_fr = manager_profile_details_json["user_manager_profile_details_aboutme_fr"];
-    manager_profile_details.user_manager_profile_details_proud = manager_profile_details_json["user_manager_profile_details_proud"];
-    manager_profile_details.user_manager_profile_details_proud_fr = manager_profile_details_json["user_manager_profile_details_proud_fr"];
-    manager_profile_details.user_manager_profile_details_division = manager_profile_details_json["user_manager_profile_details_division"];
-    manager_profile_details.user_manager_profile_details_division_fr = manager_profile_details_json["user_manager_profile_details_division_fr"];
-    manager_profile_details.user_manager_profile_details_branch = manager_profile_details_json["user_manager_profile_details_branch"];
-    manager_profile_details.user_manager_profile_details_branch_fr = manager_profile_details_json["user_manager_profile_details_branch_fr"];
-    manager_profile_details.user_manager_profile_details_lead_style = manager_profile_details_json["user_manager_profile_details_lead_style"];
-    manager_profile_details.user_manager_profile_details_lead_style_fr = manager_profile_details_json["user_manager_profile_details_lead_style_fr"];
-    manager_profile_details.user_manager_profile_details_emp_learn = manager_profile_details_json["user_manager_profile_details_emp_learn"];
-    manager_profile_details.user_manager_profile_details_emp_learn_fr = manager_profile_details_json["user_manager_profile_details_emp_learn_fr"];
-    manager_profile_details.user_manager_profile_details_expectations = manager_profile_details_json["user_manager_profile_details_expectations"];
-    manager_profile_details.user_manager_profile_details_expectations_fr = manager_profile_details_json["user_manager_profile_details_expectations_fr"];
+    var manager_profile_details_en = new CreateEditProfileAPI.ManagerProfileDetails();
+    var manager_profile_details_fr = new CreateEditProfileAPI.ManagerProfileDetails();
+    
+    manager_profile_details_en.user_manager_profile_details_id = profile_details_json_en["user_manager_profile_details_id"];
+    manager_profile_details_en.locale_id = profile_details_json_en["locale_id"];
+    manager_profile_details_en.user_manager_profile_details_aboutme = profile_details_json_en["user_manager_profile_details_aboutme"];
+    manager_profile_details_fr.user_manager_profile_details_aboutme = profile_details_json_fr["user_manager_profile_details_aboutme"];
+    manager_profile_details_en.user_manager_profile_details_proud = profile_details_json_en["user_manager_profile_details_proud"];
+    manager_profile_details_fr.user_manager_profile_details_proud = profile_details_json_fr["user_manager_profile_details_proud"];
+    manager_profile_details_en.user_manager_profile_details_division = profile_details_json_en["user_manager_profile_details_division"];
+    manager_profile_details_fr.user_manager_profile_details_division = profile_details_json_fr["user_manager_profile_details_division"];
+    manager_profile_details_en.user_manager_profile_details_branch = profile_details_json_en["user_manager_profile_details_branch"];
+    manager_profile_details_fr.user_manager_profile_details_branch = profile_details_json_fr["user_manager_profile_details_branch"];
+    manager_profile_details_en.user_manager_profile_details_lead_style = profile_details_json_en["user_manager_profile_details_lead_style"];
+    manager_profile_details_fr.user_manager_profile_details_lead_style = profile_details_json_fr["user_manager_profile_details_lead_style"];
+    manager_profile_details_en.user_manager_profile_details_emp_learn = profile_details_json_en["user_manager_profile_details_emp_learn"];
+    manager_profile_details_fr.user_manager_profile_details_emp_learn = profile_details_json_fr["user_manager_profile_details_emp_learn"];
+    manager_profile_details_en.user_manager_profile_details_expectations = profile_details_json_en["user_manager_profile_details_expectations"];
+    manager_profile_details_fr.user_manager_profile_details_expectations = profile_details_json_fr["user_manager_profile_details_expectations"];
 
-    manager_profile_details.user_manager_profile_id = manager_profile_details_json["user_manager_profile_id"];
-    manager_profile_details.user_manager_profile_review_options = manager_profile_details_json["user_manager_profile_review_options"];
-    manager_profile_details.user_manager_profile_staylate = manager_profile_details_json["user_manager_profile_staylate"];
-    manager_profile_details.user_manager_profile_engage = manager_profile_details_json["user_manager_profile_engage"];
-    manager_profile_details.user_manager_profile_devops = manager_profile_details_json["user_manager_profile_devops"];
-    manager_profile_details.user_manager_profile_lvwrequests = manager_profile_details_json["user_manager_profile_lvwrequests"];
-    manager_profile_details.user_manager_profile_work_experience = manager_profile_details_json["user_manager_profile_work_experience"];
-    manager_profile_details.user_manager_profile_work_experience_fr = manager_profile_details_json["user_manager_profile_work_experience_fr"];
-    manager_profile_details.user_manager_profile_education = manager_profile_details_json["user_manager_profile_education"];
-    manager_profile_details.user_manager_profile_education_fr = manager_profile_details_json["user_manager_profile_education_fr"];
+    manager_profile_details_en.user_manager_profile_id = profile_details_json_en["user_manager_profile_id"];
+    manager_profile_details_en.user_manager_profile_review_options = profile_details_json_en["user_manager_profile_review_options"];
+    manager_profile_details_en.user_manager_profile_staylate = profile_details_json_en["user_manager_profile_staylate"];
+    manager_profile_details_en.user_manager_profile_engage = profile_details_json_en["user_manager_profile_engage"];
+    manager_profile_details_en.user_manager_profile_devops = profile_details_json_en["user_manager_profile_devops"];
+    manager_profile_details_en.user_manager_profile_lvwrequests = profile_details_json_en["user_manager_profile_lvwrequests"];
+    
+    manager_profile_details_en.user_manager_profile_work_experience = profile_details_json_en["user_manager_profile_work_experience"];
+    manager_profile_details_fr.user_manager_profile_work_experience = profile_details_json_fr["user_manager_profile_work_experience"];
+    manager_profile_details_en.user_manager_profile_education = profile_details_json_en["user_manager_profile_education"];
+    manager_profile_details_fr.user_manager_profile_education = profile_details_json_fr["user_manager_profile_education"];
 
 
     //Initialize Work Environment
@@ -831,8 +836,8 @@ CreateEditProfileAPI.populateProfile = function(response){
     }
 
     var managerProfileDetailsId = document.getElementById("ManagerProfileDetailsId");
-    if (manager_profile_details.user_manager_profile_details_id) {
-        managerProfileDetailsId.value = manager_profile_details.user_manager_profile_details_id;
+    if (manager_profile_details_en.user_manager_profile_details_id) {
+        managerProfileDetailsId.value = manager_profile_details_en.user_manager_profile_details_id;
     } else {
         managerProfileDetailsId.value = "";
     }
@@ -845,20 +850,20 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     //AboutMe
     var createEditProfile_bio = document.getElementById("createEditProfile_bio");
-    createEditProfile_bio.value = manager_profile_details.user_manager_profile_details_aboutme;
+    createEditProfile_bio.value = manager_profile_details_en.user_manager_profile_details_aboutme;
 
     var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
-    createEditProfile_proudOf.value = manager_profile_details.user_manager_profile_details_proud;
+    createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
 
     //Position
     var profile_position = manager_profile.user_manager_profile_position;
     var profile_department_id = manager_profile.user_manager_profile_department_id;
 
     var createEditProfile_branch = document.getElementById("createEditProfile_branch");
-    createEditProfile_branch.value = manager_profile_details.user_manager_profile_details_branch;
+    createEditProfile_branch.value = manager_profile_details_en.user_manager_profile_details_branch;
 
     var createEditProfile_division = document.getElementById("createEditProfile_division");
-    createEditProfile_division.value = manager_profile_details.user_manager_profile_details_division;
+    createEditProfile_division.value = manager_profile_details_en.user_manager_profile_details_division;
 
     if(profile_position !== null){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
@@ -880,13 +885,13 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     //createEditProfile_leadership_style
     var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
-    createEditProfile_leadership_style.value = manager_profile_details.user_manager_profile_details_lead_style;
+    createEditProfile_leadership_style.value = manager_profile_details_en.user_manager_profile_details_lead_style;
 
     var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
-    createEditProfile_app_to_employees.value = manager_profile_details.user_manager_profile_details_emp_learn;
+    createEditProfile_app_to_employees.value = manager_profile_details_en.user_manager_profile_details_emp_learn;
 
     var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
-    createEditProfile_exp_of_employees.value = manager_profile_details.user_manager_profile_details_expectations;
+    createEditProfile_exp_of_employees.value = manager_profile_details_en.user_manager_profile_details_expectations;
 
     //Social Media
 
@@ -898,25 +903,25 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     //Multiple choice slider questions
 
-    SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', manager_profile_details.user_manager_profile_review_options, 'review_options');
+    SliderAPI.selectOptionByValue('createEditProfile_how_often_review_options', manager_profile_details_en.user_manager_profile_review_options, 'review_options');
 
-    SliderAPI.selectOptionByValue('createEditProfile_staylate', manager_profile_details.user_manager_profile_staylate, 'staylate');
+    SliderAPI.selectOptionByValue('createEditProfile_staylate', manager_profile_details_en.user_manager_profile_staylate, 'staylate');
 
-    SliderAPI.selectOptionByValue('createEditProfile_engage', manager_profile_details.user_manager_profile_engage, 'engage');
+    SliderAPI.selectOptionByValue('createEditProfile_engage', manager_profile_details_en.user_manager_profile_engage, 'engage');
 
-    SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details.user_manager_profile_devops, 'devops');
+    SliderAPI.selectOptionByValue('createEditProfile_devops', manager_profile_details_en.user_manager_profile_devops, 'devops');
 
-    SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details.user_manager_profile_lvwrequests, 'lvwRequests');
+    SliderAPI.selectOptionByValue('createEditProfile_lvwrequests', manager_profile_details_en.user_manager_profile_lvwrequests, 'lvwRequests');
 
-    SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details.user_manager_profile_telework, 'telework');
+    SliderAPI.selectOptionByValue('createEditProfile_telework', manager_profile_details_en.user_manager_profile_telework, 'telework');
 
-    SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details.user_manager_profile_flexHours, 'flexHours');
+    SliderAPI.selectOptionByValue('createEditProfile_flexHours', manager_profile_details_en.user_manager_profile_flexHours, 'flexHours');
 
     var user_manager_profile_work_experience = document.getElementById('user_manager_profile_work_experience');
-    user_manager_profile_work_experience.value = manager_profile_details.user_manager_profile_work_experience;
+    user_manager_profile_work_experience.value = manager_profile_details_en.user_manager_profile_work_experience;
 
     var user_manager_profile_education = document.getElementById('user_manager_profile_education');
-    user_manager_profile_education.value = manager_profile_details.user_manager_profile_education;
+    user_manager_profile_education.value = manager_profile_details_en.user_manager_profile_education;
 
 };
 

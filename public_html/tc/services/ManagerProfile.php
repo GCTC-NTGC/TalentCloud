@@ -69,7 +69,7 @@
                 
                 $managerProfileDetails = new ManagerProfileDetailsNonLocalized();
                 
-                $managerProfileDetails->setLocale_id($detailsEn["locale_id"]);
+                $managerProfileDetails->setLocale_id($detailsEn["user_manager_profile_details_locale_id"]);
                 $managerProfileDetails->setUser_manager_profile_id($detailsEn["user_manager_profile_id"]);
                 $managerProfileDetails->setUser_manager_profile_details_aboutme($detailsEn["user_manager_profile_details_aboutme"]);
                 $managerProfileDetails->setUser_manager_profile_details_aboutme_fr($detailsFr["user_manager_profile_details_aboutme"]);
@@ -85,7 +85,7 @@
                 $managerProfileDetails->setUser_manager_profile_details_expectations_fr($detailsFr["user_manager_profile_details_expectations"]);
                 $managerProfileDetails->setUser_manager_profile_details_lead_style($detailsEn["user_manager_profile_details_lead_style"]);
                 $managerProfileDetails->setUser_manager_profile_details_lead_style_fr($detailsFr["user_manager_profile_details_lead_style"]);
-                $managerProfileDetails->setUser_manager_profile_details_proud($detailsEn["user_manager_profile_details_proud"][$en]);
+                $managerProfileDetails->setUser_manager_profile_details_proud($detailsEn["user_manager_profile_details_proud"]);
                 $managerProfileDetails->setUser_manager_profile_details_proud_fr($detailsFr["user_manager_profile_details_proud"]);
                 $managerProfileDetails->setUser_manager_profile_review_options($detailsEn['user_manager_profile_review_options']);
                 $managerProfileDetails->setUser_manager_profile_staylate($detailsEn['user_manager_profile_staylate']);
@@ -95,7 +95,7 @@
                 $managerProfileDetails->setUser_manager_profile_work_experience($detailsEn['user_manager_profile_work_experience']);
                 $managerProfileDetails->setUser_manager_profile_work_experience_fr($detailsFr['user_manager_profile_work_experience']);
                 $managerProfileDetails->setUser_manager_profile_education($detailsEn['user_manager_profile_education']);
-                $managerProfileDetails->setUser_manager_profile_education_fr($detailsFr['user_manager_profile_education_fr']);
+                $managerProfileDetails->setUser_manager_profile_education_fr($detailsFr['user_manager_profile_education']);
 
                 //var_dump($managerProfileDetailsJSON);
 

@@ -115,49 +115,57 @@ class ManagerProfileDAO extends BaseDAO{
             user_manager_profile_education
             )
             VALUES
-            (1,':user_manager_profile_details_aboutme',':user_manager_profile_details_proud',:user_manager_profile_details_branch,:user_manager_profile_details_division, :user_manager_profile_details_position, :user_manager_profile_details_lead_style, :user_manager_profile_details_emp_learn, :user_manager_profile_details_expectations, @user_manager_profile_id, :user_manager_profile_review_options, :user_manager_profile_staylate, :user_manager_profile_engage, :user_manager_profile_devops, :user_manager_profile_lvwrequests, :user_manager_profile_work_experience, :user_manager_profile_education),
-            (2,':user_manager_profile_details_aboutme_fr',':user_manager_profile_details_proud_fr',:user_manager_profile_details_branch_fr,:user_manager_profile_details_division_fr, :user_manager_profile_details_position_fr, :user_manager_profile_details_lead_style_fr, :user_manager_profile_details_emp_learn_fr, :user_manager_profile_details_expectations_fr, @user_manager_profile_id, 'test', 'test', 'test', 'test', 'test', :user_manager_profile_work_experience_fr, :user_manager_profile_education_fr);
+            (1,:user_manager_profile_details_aboutme,:user_manager_profile_details_proud,:user_manager_profile_details_branch,:user_manager_profile_details_division, :user_manager_profile_details_position, :user_manager_profile_details_lead_style, :user_manager_profile_details_emp_learn, :user_manager_profile_details_expectations, @user_manager_profile_id, :user_manager_profile_review_options, :user_manager_profile_staylate, :user_manager_profile_engage, :user_manager_profile_devops, :user_manager_profile_lvwrequests, :user_manager_profile_work_experience, :user_manager_profile_education),
+            (2,:user_manager_profile_details_aboutme_fr,:user_manager_profile_details_proud_fr,:user_manager_profile_details_branch_fr,:user_manager_profile_details_division_fr, :user_manager_profile_details_position_fr, :user_manager_profile_details_lead_style_fr, :user_manager_profile_details_emp_learn_fr, :user_manager_profile_details_expectations_fr, @user_manager_profile_id, :user_manager_profile_review_options_fr, :user_manager_profile_staylate_fr, :user_manager_profile_engage_fr, :user_manager_profile_devops_fr, :user_manager_profile_lvwrequests_fr, :user_manager_profile_work_experience_fr, :user_manager_profile_education_fr);
         ";
 
         $sqlS = $link->prepare($sqlSelect);
         $sql2 = $link->prepare($sql2Str);
 
-        //$sql2->bindParam(':locale_id', $locale_id, PDO::PARAM_INT);
-        $sql2->bindParam(':user_manager_profile_details_aboutme', $user_manager_profile_details_aboutme, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_aboutme_fr', $user_manager_profile_details_aboutme_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_proud', $user_manager_profile_details_proud, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_proud_fr', $user_manager_profile_details_proud_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_branch', $user_manager_profile_details_branch, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_branch_fr', $user_manager_profile_details_branch_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_division', $user_manager_profile_details_division, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_division_fr', $user_manager_profile_details_division_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_position', $user_manager_profile_details_position, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_position_fr', $user_manager_profile_details_position_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_lead_style', $user_manager_profile_details_lead_style, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_lead_style_fr', $user_manager_profile_details_lead_style_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_emp_learn', $user_manager_profile_details_emp_learn, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_emp_learn_fr', $user_manager_profile_details_emp_learn_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_expectations', $user_manager_profile_details_expectations, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_details_expectations_fr', $user_manager_profile_details_expectations_fr, PDO::PARAM_STR);
+        //$sql2->bindValue(':locale_id', $locale_id, PDO::PARAM_INT);
+        $sql2->bindValue(':user_manager_profile_details_aboutme', $user_manager_profile_details_aboutme, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_aboutme_fr', $user_manager_profile_details_aboutme_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_proud', $user_manager_profile_details_proud, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_proud_fr', $user_manager_profile_details_proud_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_branch', $user_manager_profile_details_branch, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_branch_fr', $user_manager_profile_details_branch_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_division', $user_manager_profile_details_division, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_division_fr', $user_manager_profile_details_division_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_position', $user_manager_profile_details_position, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_position_fr', $user_manager_profile_details_position_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_lead_style', $user_manager_profile_details_lead_style, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_lead_style_fr', $user_manager_profile_details_lead_style_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_emp_learn', $user_manager_profile_details_emp_learn, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_emp_learn_fr', $user_manager_profile_details_emp_learn_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_expectations', $user_manager_profile_details_expectations, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_expectations_fr', $user_manager_profile_details_expectations_fr, PDO::PARAM_STR);
 
-        $sql2->bindParam(':user_manager_profile_review_options', $user_manager_profile_review_options, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_staylate', $user_manager_profile_staylate, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_engage', $user_manager_profile_engage, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_devops', $user_manager_profile_devops, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_lvwrequests', $user_manager_profile_lvwrequests, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_work_experience', $user_manager_profile_work_experience, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_work_experience_fr', $user_manager_profile_work_experience_fr, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_education', $user_manager_profile_education, PDO::PARAM_STR);
-        $sql2->bindParam(':user_manager_profile_education_fr', $user_manager_profile_education_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_review_options', $user_manager_profile_review_options, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_staylate', $user_manager_profile_staylate, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_engage', $user_manager_profile_engage, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_devops', $user_manager_profile_devops, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_lvwrequests', $user_manager_profile_lvwrequests, PDO::PARAM_STR);
+
+        $sql2->bindValue(':user_manager_profile_review_options_fr', $user_manager_profile_review_options, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_staylate_fr', $user_manager_profile_staylate, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_engage_fr', $user_manager_profile_engage, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_devops_fr', $user_manager_profile_devops, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_lvwrequests_fr', $user_manager_profile_lvwrequests, PDO::PARAM_STR);
+
+        $sql2->bindValue(':user_manager_profile_work_experience', $user_manager_profile_work_experience, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_work_experience_fr', $user_manager_profile_work_experience_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_education', $user_manager_profile_education, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_education_fr', $user_manager_profile_education_fr, PDO::PARAM_STR);
 
         $rowsmodified = 0;
 
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
             $link->beginTransaction();
-            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $profileId = $link->lastInsertId();
-            $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sqlS->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql2->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
 
             $link->commit();
             $rowsmodified = $sql->rowCount();
@@ -188,7 +196,8 @@ class ManagerProfileDAO extends BaseDAO{
             FROM
                 user u
                 LEFT JOIN user_manager_profile ump on ump.user_id = u.user_id
-            WHERE u.user_id = :user_id";
+            WHERE u.user_id = :user_id
+            ORDER BY ump.user_manager_profile_id DESC;";
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
@@ -252,7 +261,7 @@ class ManagerProfileDAO extends BaseDAO{
             FROM talentcloud.user_manager_profile_details mpd,
                 talentcloud.locale l
             WHERE mpd.user_manager_profile_id = :managerProfile_id
-            AND user_manager_profile_details.locale_id = locale.locale_id
+            AND mpd.locale_id = l.locale_id
             AND l.locale_iso = :locale_iso
             ";
         $sql = $link->prepare($sqlStr);
@@ -264,7 +273,7 @@ class ManagerProfileDAO extends BaseDAO{
             $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfileDetails',array(
                 'user_manager_profile_id', 'locale_id', 'user_manager_profile_details_aboutme', 'user_manager_profile_details_proud', 'user_manager_profile_details_branch', 'user_manager_profile_details_division', 'user_manager_profile_details_lead_style', 'user_manager_profile_details_emp_learn', 'user_manager_profile_details_expectations', 'user_manager_profile_details_id', 'user_manager_profile_review_options','user_manager_profile_staylate', 'user_manager_profile_engage', 'user_manager_profile_devops', 'user_manager_profile_lvwRequests', 'user_manager_profile_work_experience', 'user_manager_profile_education'
             ));
-            $managerProfileDetails = $sql->fetchAll();
+            $managerProfileDetails = $sql->fetch();
 
             //var_dump($row);
         } catch (PDOException $e) {

@@ -33,11 +33,11 @@ ManagerProfileAPI.ManagerProfile = function(){
  * @param {XMLHttpRequest} response - returned from http request
  * @return {MangagerProfileAPI.ManagerProfile}
  */
-ManagerProfileAPI.parseManagerProfileResponse = function(response) {
+ManagerProfileAPI.parseManagerProfileResponse = function(response, locale) {
     var manager_profile_with_details_json = JSON.parse(response);
     
     var manager_profile = manager_profile_with_details_json.manager_profile;
-    var manager_profile_details = manager_profile_with_details_json.manager_profile_details;
+    var manager_profile_details = manager_profile_with_details_json.manager_profile_details.locale;
     var manager_user = manager_profile_with_details_json.user;
     
     var profile = new ManagerProfileAPI.ManagerProfile();
@@ -108,7 +108,8 @@ ManagerProfileAPI.populateManagerProfileName = function(response) {
 };
 
 ManagerProfileAPI.populateManagerProfile = function(response) {
-    var profile = ManagerProfileAPI.parseManagerProfileResponse(response);
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var profile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
     
     var user_id = document.getElementById("managerProfile_userId");
     user_id.value = profile.user_id;

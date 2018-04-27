@@ -453,7 +453,8 @@ JobPostAPI.populateJobPoster = function(jobData){
     ProfilePicAPI.refreshProfilePic(jobData.manager_user_id, hiringManagerProfilePic);
     //Load Other Hiring Manager Data
     DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
-       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
+       var locale = TalentCloudAPI.getLanguageFromCookie();
+       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
 
        var managerDepartment = document.getElementById("jobPosterHiringManagerDepartment");
