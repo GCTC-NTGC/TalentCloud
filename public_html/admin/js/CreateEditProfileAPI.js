@@ -744,6 +744,25 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
     viewProfileElement.appendChild(CreateEditProfileAPI.viewProfile(tempProfileObj));
 };
 
+CreateEditProfileAPI.hideViewProfile = function(linkElement){
+    var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
+    document.title = stateInfo.pageTitle;
+    history.replaceState(stateInfo, stateInfo.pageInfo, '/admin/#');
+
+    EventsAPI.hideAllLayouts();
+
+    var content = document.getElementById("homePageContentSection");
+    content.classList.remove("hidden");
+
+    var active = document.getElementById("homeLinkListItem");
+    homeLinkListItem.classList.add("active");
+
+    var inactive = document.getElementById("profileLinkListItem");
+    profileLinkListItem.classList.remove("active");
+
+    window.scrollTo(0,0);
+};
+
 CreateEditProfileAPI.profilePicUploader = null;
 
 CreateEditProfileAPI.showUploadProfilePic = function() {
