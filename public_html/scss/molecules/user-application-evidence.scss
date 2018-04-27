@@ -65,7 +65,7 @@
 				color: rgba(255, 255, 255, .3);
 
 				&.active {
-					color: $white;
+					color: rgba(73, 223, 75, 1);
 				}
 
 			}
@@ -98,7 +98,7 @@
 		margin: 0 .2rem 0 0;
 
 		&.active {
-			color: $black;
+			color: rgba(73, 223, 75, 1);;
 		}
 
 		&:last-child {
@@ -199,7 +199,7 @@
 		}
 
 		&.active {
-			color: $white;
+			color: rgba(73, 223, 75, 1);;
 		}
 
 	}
