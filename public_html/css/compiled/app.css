@@ -5468,6 +5468,9 @@ nav {
 .viewProfileHeightBoost {
   min-height: 200px; }
 
+#createEditProfileCloseButton {
+  float: left; }
+
 /* PROFILE PIC AND UPLOAD */
 #profileSection {
   min-height: 500px; }
