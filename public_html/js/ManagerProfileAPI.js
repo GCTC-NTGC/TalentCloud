@@ -37,7 +37,7 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response, locale) {
     var manager_profile_with_details_json = JSON.parse(response);
     
     var manager_profile = manager_profile_with_details_json.manager_profile;
-    var manager_profile_details = manager_profile_with_details_json.manager_profile_details.locale;
+    var manager_profile_details = manager_profile_with_details_json.manager_profile_details[locale];
     var manager_user = manager_profile_with_details_json.user;
     
     var profile = new ManagerProfileAPI.ManagerProfile();
