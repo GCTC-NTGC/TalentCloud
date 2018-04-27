@@ -261,7 +261,17 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion, q
     return wrapper;
 };
 
-JobApplicationAPI.showJobApplicationPreview = function() {
+JobApplicationAPI.showJobApplicationPreview = function(jobPosterId) {
+
+    console.log(jobPosterId);
+
+    if (!jobPosterId) {
+        //If not passed a non-zero non-null jobPosterId, the correct preview can't be loaded
+        //TODO: use warning modal instead of window alert
+        window.alert("Cannot show Job Application Preview without a Job Poster Id");
+        return;
+    }
+    
     var stateInfo = {pageInfo: 'show_job_application_preview', pageTitle: 'Talent Cloud: Job Application Preview'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#JobApplicationPreview/' + jobPosterId);
@@ -270,12 +280,121 @@ JobApplicationAPI.showJobApplicationPreview = function() {
     window.scrollTo(0, 0);
 
     var applicationPreviewSection = document.getElementById('applicationPreview');
-    console.log(applicationPreviewSection);
+    // console.log(applicationPreviewSection);
 
     applicationPreviewSection.classList.remove('hidden');
 
     locale = TalentCloudAPI.getLanguageFromCookie();
+
+    //Get current user id
+    var userId = UserAPI.getSessionUserAsJSON().user_id;
+
+    DataAPI.getJobPoster(locale, jobPosterId, JobApplicationAPI.populatePreviewApplicationWithPosterContent);
+    
+    //Load this user's Application for this Job Poster, directing server response to a callback function
+    DataAPI.getJobApplicationByJobAndUser(jobPosterId, userId, JobApplicationAPI.populatePreviewApplicationWithApplicationContent);
+    
+    //Load user's Profile data, directing server response to another callback function
+    DataAPI.getJobSeekerProfileByUserId(userId, JobApplicationAPI.populatePreviewApplicationWithProfileContent);
+    
+};
+
+JobApplicationAPI.populatePreviewApplicationWithPosterContent = function(jobPosterResponse) {
+
+    var jobPoster = JSON.parse(jobPosterResponse);
+
+    console.log(jobPoster);
+
+    // document.getElementById('applicationPreviewHeaderPosition').innerHTML = jobPoster.title;
+
 }
+
+JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(httpRequest) {
+
+    if (httpRequest.status === 200) {
+        //The JobApplication was loaded as expected
+        
+        //jobApplication should match JobApplicationAPI.JobApplication in structure
+        var jobApplication = JSON.parse(httpRequest.response);
+        
+        //Application data is stored in jobApplication object properties
+        var applicationId = jobApplication.job_poster_application.job_poster_application_id;
+        var jobPosterId = jobApplication.job_poster_application.application_job_poster_id;
+        var profileId = jobApplication.job_poster_application.application_job_seeker_profile_id;
+        var applicationStatus = jobApplication.job_poster_application.job_poster_application_status_id;
+        
+        //answers is an array of JobApplicationAPI.ApplicationQuestionAnswer objects
+        var answers = jobApplication.application_question_answers;
+        
+        //This data may now be used to launch further data requests:
+        DataAPI.getSkillDeclarationsForApplication (applicationId, JobApplicationAPI.populatePreviewApplicationWithSkillDeclarationContent);
+        
+        
+        //JobApplication data may now be used to set UI 
+        //eg:
+        //document.getElementById("applicationPreviewJobPosterId").innerHTML = jobPosterId;
+
+        //NOTE: Adding data to the UI that comes from a list is much more complicated. 
+        //Since we don't know number of items beforehand, we need to create the HTML for each element at runtime
+        
+        //Create a DocumentFragment to hold html elements for now - this will be faster than adding elements directly to the document DOM
+        var answerFragment = document.createDocumentFragment();
+        //Iterate through answer objects
+        answers.forEach( answer => {
+           //Create the html elements which display a question-answer pair
+           //This can be done 2 ways:
+           //(1) Entirely in js: see JobApplicationAPI.makeQuestionAnswerHtmlElement as an example
+           //(2) You can clone a template already in the DOM and modify it: see JobApplicationAPI.makeSkillDeclarationForm as an example
+           
+           //Some stub code for method (1):
+           var answerElement = document.createElement("div"); 
+           answerElement.setAttribute("class", "your-class");
+           var questionText = document.createElement("h3");
+           questionText.innerHTML = answer.question;
+           var answerText = document.createElement("p");
+           answerText.innerHTML = answer.answer;
+           
+           //Place child elements appropriately, and in order
+           answerElement.appendChild(questionText);
+           answerElement.appendChild(answerText);
+           
+           //Regardless of method used, add the root element to the documentFragment
+           answerFragment.appendChild(answerElement);
+        });
+        //Now, add the documentFragment to the document
+        //eg:
+        //var answerWrapper = document.getElementById("applicationPreviewAnswerWrapper");
+        //answerWrapper.innerHTML = ""; //Removes old elements
+        //answerWrapper.appendChild(answerFragment);       
+        
+    } else if (httpRequest.status === 404) {
+        //No application exists for the current user and specified job
+    } else {
+        //Something went wrong retrieving the saved applciation
+    }
+};
+
+/**
+ * Note: because of the way DataAPI.getJobSeekerProfileByUserId is written, this
+ * function only gets passed the httpRequest response, not the httpRequest itself.
+ * This function must assume it is getting good data, instead of checking the httpRequest.status itself.
+ * 
+ * @param {type} response
+ * @return {undefined}
+ */
+JobApplicationAPI.populatePreviewApplicationWithProfileContent = function(response) { 
+    var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
+    
+    //Do something with the response data
+};
+
+JobApplicationAPI.populatePreviewApplicationWithSkillDeclarationContent = function(httpRequest) {
+    if (httpRequest.status === 200) {
+        var skillDeclarations = JSON.parse(httpRequest.response);
+        
+        //Add skill declarations to ui
+    }
+};
 
 JobApplicationAPI.submitNewJobApplication = function () {
     //TODO: always make sure to get most recent jobPosterId, not what's saved in the html element
