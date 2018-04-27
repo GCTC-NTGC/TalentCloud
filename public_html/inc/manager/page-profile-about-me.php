@@ -168,8 +168,11 @@
 
         </div>
 
-        <div class="createEditProfileSubmitPane flex-grid top manager-edit-profile__button-form">
-            <div class="box full">
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="createEditProfileCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey">
+            </div>
+            <div class="formGroup box med-1of2">
                 <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateAboutMe();">
             </div>
         </div>

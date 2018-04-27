@@ -243,15 +243,17 @@
             &nbsp;
             <br>
             &nbsp;
-            <br>
-            &nbsp;
 
         </div>
 
     </div>
 
-    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
-        <div class="formGroup box full">
+    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+        <div class="formGroup box med-1of2">
+            <input id="createEditProfileCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey">
+        </div>
+        <div class="formGroup box med-1of2">
+            <input id="createEditProfileBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
             <input class="button--yellow" id="leadershipSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateLeadership();">
         </div>
     </div>
