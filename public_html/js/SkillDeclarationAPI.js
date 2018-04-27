@@ -17,6 +17,16 @@ SkillDeclarationAPI.SkillDeclaration = function (
     this.skill_level_id = skillLevelId;
     this.description = description;
     this.last_updated = lastUpdated;
+
+    /**
+     * This is valid if experience_level_id, skill_level_id, and description 
+     * are not empty.
+     * 
+     * @return {Boolean}
+     */
+    this.isValid = function () {
+        return (this.skill_level_id != "" && this.experience_level_id != "" && this.description != "");
+    };
 };
 
 SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication = function (jobApplicationId) {
@@ -57,13 +67,10 @@ SkillDeclarationAPI.populateApplicationUiSkillDeclarations = function (skillDecl
 };
 
 /**
- * Saves all skill declarations of given type. 
- * If criteriaType is undefined, it saves ALL skill declarations.
+ * Saves all completed skill declarations of given type. 
+ * If criteriaType is undefined, it saves ALL completed skill declarations.
  * 
  * Call onSuccess if application is saved successfully
- * 
- * NOTE: this function does not do any validation. It saves declarations with 
- * empty values if they exist on the page but have not been filled out.
  * 
  * @param {string} criteriaType
  * @param {function} onSuccess
@@ -79,25 +86,34 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
         return;
     }
 
+    var submittedRequests = 0; //to keep track of number of PUT calls in progress
+
     evidencePanels.forEach(panel => {
         var newSkillDeclaration = new SkillDeclarationAPI.SkillDeclaration();
-        
+
         newSkillDeclaration.criteria_type = panel.getAttribute("data-criteria-type");
         newSkillDeclaration.criteria_id = panel.getAttribute("data-criteria-id");
-        
-        var experienceSelect = panel.querySelector('input[name="experience"][checked]'); //This will come back null, if no radio button has been selected yet
+
+        var experienceSelect = panel.querySelector('input[name="experience"]:checked'); //This will come back null, if no radio button has been selected yet
         newSkillDeclaration.experience_level_id = experienceSelect ? experienceSelect.value : ""; //Default to an empty string if nothing has been selected
-        
-        var skillLevelSelect = panel.querySelector('input[name="expertise"][checked]'); //This will come back null, if no radio button has been selected yet
-        newSkillDeclaration.skill_level_id = skillLevelSelect ? skillLevelSelect : ""; //Default to an empty string if nothing has been selected
-        
-        newSkillDeclaration.description = panel.querySelector('.applicant-evidence__skill-declaration-text');
+
+        var skillLevelSelect = panel.querySelector('input[name="expertise"]:checked'); //This will come back null, if no radio button has been selected yet
+        newSkillDeclaration.skill_level_id = skillLevelSelect ? skillLevelSelect.value : ""; //Default to an empty string if nothing has been selected
+
+        newSkillDeclaration.description = panel.querySelector('.applicant-evidence__skill-declaration-text').value;
 
         var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
-        if (applicationId) {
+
+        //Only save if this declaration is complete
+        if (applicationId &&
+                newSkillDeclaration.isValid()) {
+            submittedRequests = submittedRequests + 1;
             DataAPI.saveSkillDeclaration(newSkillDeclaration, criteriaType, newSkillDeclaration.criteria_id, applicationId, function (response) {
-                if (response.status == 200) {
-                    if (onSuccess) {
+                if (response.status === 200) {
+                    submittedRequests = submittedRequests - 1;
+
+                    if (onSuccess && submittedRequests === 0) {
+                        //Only call onSuccess if all skills have been saved successfully
                         onSuccess();
                     }
                 } else {
@@ -105,6 +121,10 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
                 }
             });
         }
-
     });
+
+    if (onSuccess && submittedRequests === 0) {
+        //If no skills were even attempted to be saved, call onSuccess
+        onSuccess();
+    }
 };

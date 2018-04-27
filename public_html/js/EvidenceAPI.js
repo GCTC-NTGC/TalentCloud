@@ -115,47 +115,48 @@ EvidenceAPI.instantiateApplicationEvidenceRadioItem = function (templateId, inpu
 };
 
 /**
- * Sets evidence panel for specified criteria to active. All other evidence 
+ * Sets first evidence specified criteria to active. All other evidence 
  * panels with matching criteriaType will be set to inactive.
  * 
- * @param {int} criteriaId
  * @param {string} criteriaType
  * @return {undefined}
  */
-EvidenceAPI.setActiveEvidencePanel = function (criteriaId, criteriaType) {
+EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
 
     //Deactivate all panels of same criteriaType, except one with correct criteria id
     var menuItems = document.querySelectorAll(".applicant-evidence__desktop-menu-item[data-criteria-type=\"" + criteriaType + "\"]");
     var panels = document.querySelectorAll(".applicant-evidence__accordion-wrapper[data-criteria-type=\"" + criteriaType + "\"]");
 
-    menuItems.forEach(item => {
-        if (item.getAttribute("data-criteria-id") == criteriaId) {
-            //Set active
+    for (var i=0; i<menuItems.length; i++) {
+        var item = menuItems[i];
+        if (i === 0) {
+            //Set first one to active
             item.classList.add("active");
             item.setAttribute("aria-selected", true);
         } else {
-            //Deactivate
+            //Deactivate others
             item.classList.remove("active");
             item.setAttribute("aria-selected", false);
         }
-    });
-
-    panels.forEach(panel => {
+    }
+    
+    for (var i=0; i<panels.length; i++) {
+        var panel = panels[i];
         var panelTrigger = panel.querySelector(".applicant-evidence__accordion-trigger");
         var panelContent = panel.querySelector(".applicant-evidence__accordion-content");
 
-        if (panel.getAttribute("data-criteria-id") == criteriaId) {
-            //Set active
+        if (i === 0) {
+            //Set first panel active
             panel.classList.add("active");
             panelTrigger.classList.add("active");
             panelTrigger.setAttribute("aria-expanded", true);
             panelContent.classList.add("active");
         } else {
-            //Deactivate
+            //Deactivate others
             panel.classList.remove("active");
             panelTrigger.classList.remove("active");
             panelTrigger.setAttribute("aria-expanded", false);
             panelContent.classList.remove("active");
         }
-    });
+    }
 };

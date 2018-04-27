@@ -173,7 +173,7 @@ class SkillDeclarationDAO extends BaseDAO {
             SET is_active=0 
             WHERE 
                 job_poster_application_id = :job_poster_application_id
-                AND $criteriaId = :criteria_id
+                AND $criteriaIdColumn = :criteria_id
             ;";
         
         $sql_str_application_declaration = "
@@ -228,14 +228,14 @@ class SkillDeclarationDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         
         $linkingTableName = $isEssential ? "application_essential_skill_declaration" : "application_asset_skill_declaration";
-        //$criteriaIdColumn = $isEssential ?  "job_poster_core_competency_id" : "job_poster_developing_competency_id";
+        $criteriaIdColumn = $isEssential ?  "job_poster_core_competency_id" : "job_poster_developing_competency_id";
         
         $sql_str_deactivation = "
             UPDATE $linkingTableName 
             SET is_active=0 
             WHERE 
                 job_poster_application_id = :job_poster_application_id
-                AND $criteriaId = :criteria_id
+                AND $criteriaIdColumn = :criteria_id
             ;";
         
         $sql_deactivation = $link->prepare($sql_str_deactivation);

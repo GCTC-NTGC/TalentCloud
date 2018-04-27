@@ -29,7 +29,7 @@ JobApplicationAPI.JobApplication = function (
     this.job_poster_application.job_poster_application_id = jobApplicationId;
     this.job_poster_application.application_job_poster_id = jobPosterId;
     this.job_poster_application.application_job_seeker_profile_id = jobSeekerProfileId;
-    this.job_poster_application_status_id = jobApplicationStatusId;
+    this.job_poster_application.job_poster_application_status_id = jobApplicationStatusId;
 
     this.application_question_answers = applicationQuestionAnswers;
 };
@@ -102,7 +102,7 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
     JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "essential", "applicationEssentialEvidenceMenu", "applicationEssentialEvidenceFormWrapper");
     
     //TODO: create applicationAssetEvidence wrapper divs
-    JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
+    JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.developing_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
     
     Utilities.setEvidenceUiEventListeners();
     
@@ -142,10 +142,8 @@ JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, 
     }
     evidenceMenu.appendChild(menuFragment);
     evidenceFormWrapper.appendChild(panelsFragment);
-    if (firstCriteriaId) {
-        //Set the first panel to active
-        EvidenceAPI.setActiveEvidencePanel(firstCriteriaId, criteriaType);
-    }    
+    
+    EvidenceAPI.activateFirstEvidencePanel(criteriaType);
 };
 
 JobApplicationAPI.populateApplicationWithUserContent = function (user) {
@@ -419,4 +417,13 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
            item.classList.add("inactive");
        }
     });
+    
+    //TODO: select focus properly
+    
+    //Activate first evidence panel
+    if (applicationSection === "essential-criteria") {
+        EvidenceAPI.activateFirstEvidencePanel("essential");
+    } else if (applicationSection === "asset-criteria") {
+        EvidenceAPI.activateFirstEvidencePanel("asset");
+    }
 }
