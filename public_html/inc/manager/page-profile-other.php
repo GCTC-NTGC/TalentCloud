@@ -57,11 +57,11 @@
 
         <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
             <div class="formGroup box med-1of2">
-                <input id="createEditProfileCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey">
+                <input id="otherCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
             </div>
             <div class="formGroup box med-1of2">
-                <input id="createEditProfileBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');" class="button--grey">
-                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateOther();" class="button--yellow">
+                <input id="otherBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');" class="button--grey">
+                <input id="otherSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateOther();" class="button--yellow">
             </div>
         </div>
 

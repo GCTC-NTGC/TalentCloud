@@ -250,10 +250,10 @@
 
     <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
         <div class="formGroup box med-1of2">
-            <input id="createEditProfileCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey">
+            <input id="leadershipStyleCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
         </div>
         <div class="formGroup box med-1of2">
-            <input id="createEditProfileBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
+            <input id="leadershipStyleBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
             <input class="button--yellow" id="leadershipSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateLeadership();">
         </div>
     </div>
