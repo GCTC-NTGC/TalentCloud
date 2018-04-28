@@ -4,15 +4,15 @@ ManagerProfileAPI.ManagerProfile = function(){
     this.user_id = null,
     this.manager_profile_id = null;
     this.department_id = null;
-    this.position = null;
     this.twitter = null;
     this.linkedin = null;
-    
+
     this.locale_id = null;
     this.about_me = null;
     this.accomplishment = null;
     this.branch = null;
     this.division = null;
+    this.position = null;
     this.lead_style = null;
     this.employee_learning = null;
     this.expectations = null;
@@ -23,36 +23,36 @@ ManagerProfileAPI.ManagerProfile = function(){
     this.low_value_work_requests = null;
     this.work_experience = null;
     this.education = null;
-    
+
     this.firstname = null;
     this.lastname = null;
 };
 
 /**
- * 
+ *
  * @param {XMLHttpRequest} response - returned from http request
  * @return {MangagerProfileAPI.ManagerProfile}
  */
 ManagerProfileAPI.parseManagerProfileResponse = function(response, locale) {
     var manager_profile_with_details_json = JSON.parse(response);
-    
+
     var manager_profile = manager_profile_with_details_json.manager_profile;
     var manager_profile_details = manager_profile_with_details_json.manager_profile_details[locale];
     var manager_user = manager_profile_with_details_json.user;
-    
+
     var profile = new ManagerProfileAPI.ManagerProfile();
     profile.user_id = manager_profile.user_id;
     profile.manager_profile_id = manager_profile.user_manager_profile_id;
     profile.department_id = manager_profile.user_manager_profile_department_id;
-    profile.position = manager_profile.user_manager_profile_position;
     profile.twitter = manager_profile.user_manager_profile_twitter;
     profile.linkedin = manager_profile.user_manager_profile_linkedin;
-    
+
     profile.locale_id = manager_profile_details.locale_id;
     profile.about_me = manager_profile_details.user_manager_profile_details_aboutme;
     profile.accomplishment = manager_profile_details.user_manager_profile_details_proud;
     profile.branch = manager_profile_details.user_manager_profile_details_branch;
     profile.division = manager_profile_details.user_manager_profile_details_division;
+    profile.position = manager_profile_details.user_manager_profile_details_position;
     profile.lead_style = manager_profile_details.user_manager_profile_details_lead_style;
     profile.employee_learning = manager_profile_details.user_manager_profile_details_emp_learn;
     profile.expectations = manager_profile_details.user_manager_profile_details_expectations;
@@ -63,10 +63,10 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response, locale) {
     profile.low_value_work_requests = manager_profile_details.user_manager_profile_lvwrequests;
     profile.work_experience = manager_profile_details.user_manager_profile_work_experience;
     profile.education = manager_profile_details.user_manager_profile_education;
-    
+
     profile.firstname = manager_user.firstname;
     profile.lastname = manager_user.lastname;
-    
+
     return profile;
 };
 
@@ -74,14 +74,14 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     var stateInfo = {pageInfo: 'manager_profile', pageTitle: 'Talent Cloud: Manager Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#ManagerProfile/' + user_id);
-    
+
     // focus top of page
     window.scrollTo(0,0);
-    
+
     TalentCloudAPI.hideAllContent();
     var managerProfileSection = document.getElementById('managerProfileSection');
     managerProfileSection.classList.remove('hidden');
-    
+
     //DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
     ProfilePicAPI.refreshProfilePic(user_id, document.getElementById('managerProfilePic'));
@@ -102,7 +102,7 @@ ManagerProfileAPI.localizeManagerProfile = function() {
 
 ManagerProfileAPI.populateManagerProfileName = function(response) {
     var user = UserAPI.parseUserResponse(response);
-    
+
     document.getElementById("managerProfileFirstName").innerHTML = user.firstname;
     document.getElementById("managerProfileLastName").innerHTML = user.lastname;
 };
@@ -110,10 +110,10 @@ ManagerProfileAPI.populateManagerProfileName = function(response) {
 ManagerProfileAPI.populateManagerProfile = function(response) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
     var profile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
-    
+
     var user_id = document.getElementById("managerProfile_userId");
     user_id.value = profile.user_id;
-    
+
     var manager_id = document.getElementById("managerProfile_managerProfileId");
     manager_id.value = profile.manager_profile_id;
 
@@ -124,7 +124,7 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
 
     var position = document.getElementById("managerProfilePosition");
     position.innerHTML = profile.position;
-    
+
     var department = document.getElementById("managerProfileDepartment");
     department.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile.department_id);
 
@@ -146,13 +146,13 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
     } else {
         linkedin_link_wrapper.classList.remove("hidden");
         linkedin_link.href = ManagerProfileAPI.linkedInHandleToLink(profile.linkedin);
-    } 
-    
+    }
+
     document.getElementById("managerProfileAboutMe").innerHTML = profile.about_me;
     document.getElementById("managerProfileAccomplishment").innerHTML = profile.accomplishment;
     document.getElementById("managerProfileLeadershipStyle").innerHTML = profile.lead_style;
     document.getElementById("managerProfileExpectations").innerHTML = profile.expectations;
-    
+
     var reviewOptions = {
             'option0':siteContent.managerProfile_review_option0,
             'option1':siteContent.managerProfile_review_option1,
@@ -189,17 +189,17 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
             'option3':siteContent.managerProfile_acceptLowValueWorkRequests_option3,
             'option4':siteContent.managerProfile_acceptLowValueWorkRequests_option4
         };
-          
+
     document.getElementById('managerProfile_review').innerHTML = reviewOptions[profile.review_options];
     document.getElementById('managerProfile_stayLate').innerHTML = stayLateOptions[profile.stay_late];
     document.getElementById('managerProfile_engagement').innerHTML = engagementOptions[profile.engagement];
     document.getElementById('managerProfile_developmentOpportunities').innerHTML = developmentOpportunityOptions[profile.development_opportunities];
     document.getElementById('managerProfile_acceptLowValueWorkRequests').innerHTML =acceptLowValueWorkRequestsOptions[profile.low_value_work_requests];
-    
+
     //SliderAPI.selectOptionByValue("managerProfile_staylate_groupName", profile.stay_late, "staylate");
     //SliderAPI.selectOptionByValue("managerProfile_engagement_groupName", profile.engagement, "engage");
     //SliderAPI.selectOptionByValue("managerProfile_developmentOpportunities_groupName", profile.development_opportunities, "devops");
-    
+
     //TODO: treat education and work history as lists
     document.getElementById('managerProfileEducation').innerHTML = profile.education;
     document.getElementById('managerProfileExperience').innerHTML = profile.work_experience;
@@ -216,4 +216,3 @@ ManagerProfileAPI.twitterUsernameToLink = function(twitterUsername) {
 ManagerProfileAPI.linkedInHandleToLink = function(linkedInHandle) {
     return "https://www.linkedin.com/in/"+linkedInHandle;
 }
-

@@ -246,6 +246,7 @@ class ManagerProfileDAO extends BaseDAO{
                 mpd.user_manager_profile_details_proud,
                 mpd.user_manager_profile_details_branch,
                 mpd.user_manager_profile_details_division,
+                mpd.user_manager_profile_details_position,
                 mpd.user_manager_profile_details_lead_style,
                 mpd.user_manager_profile_details_emp_learn,
                 mpd.user_manager_profile_details_expectations,
@@ -271,7 +272,7 @@ class ManagerProfileDAO extends BaseDAO{
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
             $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfileDetails',array(
-                'user_manager_profile_id', 'locale_id', 'user_manager_profile_details_aboutme', 'user_manager_profile_details_proud', 'user_manager_profile_details_branch', 'user_manager_profile_details_division', 'user_manager_profile_details_lead_style', 'user_manager_profile_details_emp_learn', 'user_manager_profile_details_expectations', 'user_manager_profile_details_id', 'user_manager_profile_review_options','user_manager_profile_staylate', 'user_manager_profile_engage', 'user_manager_profile_devops', 'user_manager_profile_lvwRequests', 'user_manager_profile_work_experience', 'user_manager_profile_education'
+                'user_manager_profile_id', 'locale_id', 'user_manager_profile_details_aboutme', 'user_manager_profile_details_proud', 'user_manager_profile_details_branch', 'user_manager_profile_details_division', 'user_manager_profile_details_position', 'user_manager_profile_details_lead_style', 'user_manager_profile_details_emp_learn', 'user_manager_profile_details_expectations', 'user_manager_profile_details_id', 'user_manager_profile_review_options','user_manager_profile_staylate', 'user_manager_profile_engage', 'user_manager_profile_devops', 'user_manager_profile_lvwRequests', 'user_manager_profile_work_experience', 'user_manager_profile_education'
             ));
             $managerProfileDetails = $sql->fetch();
 
