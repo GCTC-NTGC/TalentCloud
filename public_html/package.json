@@ -9,11 +9,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "autoprefixer": "^8.4.1",
+    "autoprefixer": "^8.1.0",
     "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
     "gulp-notify": "^3.2.0",
     "gulp-postcss": "^7.0.1",
-    "gulp-sass": "^3.2.1"
+    "gulp-sass": "^3.1.0"
   }
 }
