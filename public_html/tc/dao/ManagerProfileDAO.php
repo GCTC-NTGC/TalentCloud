@@ -180,6 +180,172 @@ class ManagerProfileDAO extends BaseDAO{
 
     }
 
+        /**
+     *
+     * @param ManagerProfile $managerProfile
+     * @param ManagerProfileDetails $managerProfileDetails
+     * @return boolean
+     */
+    public static function updateManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
+
+        //var_dump($managerProfile->getUser_manager_profile_id());
+
+        $link = BaseDAO::getConnection();
+
+        $user_manager_profile_department_id = $managerProfile->getUser_manager_profile_department_id();
+        $user_manager_profile_twitter = $managerProfile->getUser_manager_profile_twitter();
+        $user_manager_profile_linkedin = $managerProfile->getUser_manager_profile_linkedin();
+        $user_id = intval($managerProfile->getUser_id());
+
+        $sqlStr="UPDATE talentcloud.user_manager_profile
+            SET
+                user_manager_profile_department_id = :user_manager_profile_department_id,
+                user_manager_profile_twitter = :user_manager_profile_twitter,
+                user_manager_profile_linkedin = :user_manager_profile_linkedin,
+                user_id = :user_id
+            WHERE user_manager_profile_id = :user_manager_profile_id;
+        ";
+
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':user_manager_profile_department_id', $user_manager_profile_department_id, PDO::PARAM_STR);
+        $sql->bindParam(':user_manager_profile_twitter', $user_manager_profile_twitter, PDO::PARAM_STR);
+        $sql->bindParam(':user_manager_profile_linkedin', $user_manager_profile_linkedin, PDO::PARAM_STR);
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $sql->bindParam(':user_manager_profile_id', $user_manager_profile_id, PDO::PARAM_INT);
+
+        //$locale_id = $managerProfileDetails->getLocale_id();
+        $user_manager_profile_details_aboutme = $managerProfileDetails->getUser_manager_profile_details_aboutme();
+        $user_manager_profile_details_aboutme_fr = $managerProfileDetails->getUser_manager_profile_details_aboutme_fr();
+        $user_manager_profile_details_proud = $managerProfileDetails->getUser_manager_profile_details_proud();
+        $user_manager_profile_details_proud_fr = $managerProfileDetails->getUser_manager_profile_details_proud_fr();
+        $user_manager_profile_details_branch = $managerProfileDetails->getUser_manager_profile_details_branch();
+        $user_manager_profile_details_branch_fr = $managerProfileDetails->getUser_manager_profile_details_branch_fr();
+        $user_manager_profile_details_division = $managerProfileDetails->getUser_manager_profile_details_division();
+        $user_manager_profile_details_division_fr = $managerProfileDetails->getUser_manager_profile_details_division_fr();
+        $user_manager_profile_details_position = $managerProfileDetails->getUser_manager_profile_details_position();
+        $user_manager_profile_details_position_fr = $managerProfileDetails->getUser_manager_profile_details_position_fr();
+        $user_manager_profile_details_lead_style = $managerProfileDetails->getUser_manager_profile_details_lead_style();
+        $user_manager_profile_details_lead_style_fr = $managerProfileDetails->getUser_manager_profile_details_lead_style_fr();
+        $user_manager_profile_details_emp_learn = $managerProfileDetails->getUser_manager_profile_details_emp_learn();
+        $user_manager_profile_details_emp_learn_fr = $managerProfileDetails->getUser_manager_profile_details_emp_learn_fr();
+        $user_manager_profile_details_expectations = $managerProfileDetails->getUser_manager_profile_details_expectations();
+        $user_manager_profile_details_expectations_fr = $managerProfileDetails->getUser_manager_profile_details_expectations_fr();
+
+        $user_manager_profile_review_options = $managerProfileDetails->getUser_manager_profile_review_options();
+        $user_manager_profile_staylate = $managerProfileDetails->getUser_manager_profile_staylate();
+        $user_manager_profile_engage = $managerProfileDetails->getUser_manager_profile_engage();
+        $user_manager_profile_devops = $managerProfileDetails->getUser_manager_profile_devops();
+        $user_manager_profile_lvwrequests = $managerProfileDetails->getUser_manager_profile_lvwRequests();
+        $user_manager_profile_work_experience = $managerProfileDetails->getUser_manager_profile_work_experience();
+        $user_manager_profile_work_experience_fr = $managerProfileDetails->getUser_manager_profile_work_experience_fr();
+        $user_manager_profile_education = $managerProfileDetails->getUser_manager_profile_education();
+        $user_manager_profile_education_fr = $managerProfileDetails->getUser_manager_profile_education_fr();
+
+        $sql2Str="UPDATE
+            user_manager_profile up,
+            user_manager_profile_details upd_en,
+            user_manager_profile_details upd_fr,
+            locale l_en,
+            locale l_fr
+            SET
+                upd_en.user_manager_profile_details_aboutme = :user_manager_profile_details_aboutme,
+                upd_en.user_manager_profile_details_proud = :user_manager_profile_details_proud,
+                upd_en.user_manager_profile_details_branch = :user_manager_profile_details_branch,
+                upd_en.user_manager_profile_details_division = :user_manager_profile_details_division,
+                upd_en.user_manager_profile_details_position = :user_manager_profile_details_position,
+                upd_en.user_manager_profile_details_lead_style = :user_manager_profile_details_lead_style,
+                upd_en.user_manager_profile_details_emp_learn = :user_manager_profile_details_emp_learn,
+                upd_en.user_manager_profile_details_expectations = :user_manager_profile_details_expectations,
+                upd_en.user_manager_profile_review_options = :user_manager_profile_review_options,
+                upd_en.user_manager_profile_staylate = :user_manager_profile_staylate,
+                upd_en.user_manager_profile_engage = :user_manager_profile_engage,
+                upd_en.user_manager_profile_devops = :user_manager_profile_devops,
+                upd_en.user_manager_profile_lvwrequests = :user_manager_profile_lvwrequests,
+                upd_en.user_manager_profile_work_experience = :user_manager_profile_work_experience,
+                upd_en.user_manager_profile_education = :user_manager_profile_education,
+
+                upd_fr.user_manager_profile_details_aboutme = :user_manager_profile_details_aboutme_fr,
+                upd_fr.user_manager_profile_details_proud = :user_manager_profile_details_proud_fr,
+                upd_fr.user_manager_profile_details_branch = :user_manager_profile_details_branch_fr,
+                upd_fr.user_manager_profile_details_division = :user_manager_profile_details_division_fr,
+                upd_fr.user_manager_profile_details_position = :user_manager_profile_details_position_fr,
+                upd_fr.user_manager_profile_details_lead_style = :user_manager_profile_details_lead_style_fr,
+                upd_fr.user_manager_profile_details_emp_learn = :user_manager_profile_details_emp_learn_fr,
+                upd_fr.user_manager_profile_details_expectations = :user_manager_profile_details_expectations_fr,
+                upd_fr.user_manager_profile_review_options = :user_manager_profile_review_options_fr,
+                upd_fr.user_manager_profile_staylate = :user_manager_profile_staylate_fr,
+                upd_fr.user_manager_profile_engage = :user_manager_profile_engage_fr,
+                upd_fr.user_manager_profile_devops = :user_manager_profile_devops_fr,
+                upd_fr.user_manager_profile_lvwrequests = :user_manager_profile_lvwrequests_fr,
+                upd_fr.user_manager_profile_work_experience = :user_manager_profile_work_experience_fr,
+                upd_fr.user_manager_profile_education = :user_manager_profile_education_fr
+
+            WHERE upd_en.user_manager_profile_id = up.user_manager_profile_id
+            AND upd_fr.user_manager_profile_id = up.user_manager_profile_id
+            AND upd_en.locale_id = l_en.locale_id
+            AND l_en.locale_iso = :en_iso
+            AND upd_fr.locale_id = l_fr.locale_id
+            AND l_fr.locale_iso = :fr_iso
+        ";
+
+        $sql2 = $link->prepare($sql2Str);
+
+        $sql2->bindValue(':en_iso', "en_CA", PDO::PARAM_STR);
+        $sql2->bindValue(':fr_iso', "fr_CA", PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_aboutme', $user_manager_profile_details_aboutme, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_aboutme_fr', $user_manager_profile_details_aboutme_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_proud', $user_manager_profile_details_proud, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_proud_fr', $user_manager_profile_details_proud_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_branch', $user_manager_profile_details_branch, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_branch_fr', $user_manager_profile_details_branch_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_division', $user_manager_profile_details_division, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_division_fr', $user_manager_profile_details_division_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_position', $user_manager_profile_details_position, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_position_fr', $user_manager_profile_details_position_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_lead_style', $user_manager_profile_details_lead_style, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_lead_style_fr', $user_manager_profile_details_lead_style_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_emp_learn', $user_manager_profile_details_emp_learn, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_emp_learn_fr', $user_manager_profile_details_emp_learn_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_expectations', $user_manager_profile_details_expectations, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_details_expectations_fr', $user_manager_profile_details_expectations_fr, PDO::PARAM_STR);
+
+        $sql2->bindValue(':user_manager_profile_review_options', $user_manager_profile_review_options, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_staylate', $user_manager_profile_staylate, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_engage', $user_manager_profile_engage, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_devops', $user_manager_profile_devops, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_lvwrequests', $user_manager_profile_lvwrequests, PDO::PARAM_STR);
+
+        $sql2->bindValue(':user_manager_profile_review_options_fr', $user_manager_profile_review_options, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_staylate_fr', $user_manager_profile_staylate, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_engage_fr', $user_manager_profile_engage, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_devops_fr', $user_manager_profile_devops, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_lvwrequests_fr', $user_manager_profile_lvwrequests, PDO::PARAM_STR);
+
+        $sql2->bindValue(':user_manager_profile_work_experience', $user_manager_profile_work_experience, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_work_experience_fr', $user_manager_profile_work_experience_fr, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_education', $user_manager_profile_education, PDO::PARAM_STR);
+        $sql2->bindValue(':user_manager_profile_education_fr', $user_manager_profile_education_fr, PDO::PARAM_STR);
+
+        $rowsmodified = 0;
+        $success = false;
+        try {
+            //$result = BaseDAO::executeDBTransaction($link,$sql);
+            $link->beginTransaction();
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $link->commit();
+            $rowsmodified = $sql->rowCount();
+            if($rowsmodified > 0){
+                $success = true;
+            }
+        } catch (PDOException $e) {
+            return 'createManagerProfile failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $success;
+
+    }
+
     public static function getManagerProfile(ManagerProfile $managerProfile){
 
         $link = BaseDAO::getConnection();

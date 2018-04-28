@@ -18,9 +18,12 @@ require_once '../dao/ManagerProfileDAO.php';
 class ManagerProfileController{
 
     public static function createManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
-        //var_dump("manager profile id = ".$managerProfile->getUser_manager_profile_id());
+    //var_dump("manager profile id = ".$managerProfile->getUser_manager_profile_id());
+    if($managerProfile->getUser_manager_profile_id() != null){
+       $response = ManagerProfileDAO::updateManagerProfile($managerProfile, $managerProfileDetails);
+    }else{
         $response = ManagerProfileDAO::createManagerProfile($managerProfile, $managerProfileDetails);
-
+    }
         return $response;
 
     }
@@ -53,7 +56,7 @@ class ManagerProfileController{
 
         $details_en = ManagerProfileController::getManagerProfileDetailsByLocale($profile, "en_CA");
         $details_fr = ManagerProfileController::getManagerProfileDetailsByLocale($profile, "fr_CA");
-        
+
         $localizedDetails = new LocalizedValues($details_en, $details_fr);
 
         $managerProfileWithDetails = new ManagerProfileWithDetails($profile,$localizedDetails,$managerUser);
