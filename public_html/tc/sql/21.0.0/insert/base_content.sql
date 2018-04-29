@@ -22,7 +22,9 @@ VALUES
 (1,'jobPosterLanguageLabel','Language:', 1),
 (1,'jobPosterLanguageLabel','Langage :', 2),
 (1,'jobPosterTermLabel','Duration:', 1),
-(1,'jobPosterTermLabel','Duration :', 2)
+(1,'jobPosterTermLabel','Duration :', 2),
+(1,'jobPosterTeamNarrativeText_label','About the team:', 1),
+(1,'jobPosterTeamNarrativeText_label','À propos de l\'équipe :', 2)
 ;
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Salary range:' WHERE `base_content_id`='0000000052';

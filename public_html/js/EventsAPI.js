@@ -112,3 +112,7 @@ EventsAPI.setFormFocus = function(fieldId){
     var fieldToFocus = document.getElementById(fieldId);
     fieldToFocus.focus();
 };
+
+EventsAPI.goBack = function(){
+    window.history.back();
+}

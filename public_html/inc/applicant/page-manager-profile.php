@@ -84,6 +84,11 @@
                 </div>
                 <p id='managerProfileExperience'>This is my work history.</p>
             </div>
+            <div class="profileSubSection centered">
+                <button id="jobPosterBackButton" class="btn btn-default" value="Back" onclick="EventsAPI.goBack();">
+                    Back to Job Poster
+                </button>
+            </div>
         </div>
     </div>
 </section>

@@ -75,12 +75,14 @@
 
     </div>
 
-    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
-
-        <div class="box full">
-            <input class="button--yellow" id="teamCultureSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+        <div class="formGroup box med-1of2">
+            <input id="teamCultureCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
         </div>
-
+        <div class="formGroup box med-1of2">
+            <input id="teamCultureBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');" class="button--grey">
+            <input class="button--yellow" id="teamCultureSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateTeamCulture();">
+        </div>
     </div>
 
 </div>

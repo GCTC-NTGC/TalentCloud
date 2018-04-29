@@ -118,7 +118,7 @@
                     <div class="container">
                         <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
                         <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
-                        <p><span id="jobPosterTeamNarrativeText"></span></p>
+                        <p><span id="jobPosterTeamNarrativeText_label">About the team:</span> <span id="jobPosterTeamNarrativeText"></span></p>
                     </div>
                 </div>
             </section>

@@ -15,7 +15,8 @@
     border-radius: 3px;
 }
 
-#bgcolor {
+#bgcolor,
+#remoteWork {
 
     &.left {
         transition:left 0.5s ease-in-out;
@@ -181,7 +182,9 @@
 #staylate,
 #engage,
 #devops,
-#lvwRequests {
+#lvwRequests,
+#telework,
+#flexHours {
     border-bottom: 5px solid #5599e5;
     height: 3rem;
     position:absolute;
