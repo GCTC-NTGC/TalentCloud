@@ -8,7 +8,7 @@
             <?php $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
 
             <!-- Home -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of7" id="navigationHomeLinkWrapper" aria-hidden="false">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationHomeLinkWrapper" aria-hidden="false">
                 <?php if (strpos($url,'admin') !== false) : ?>
                     <a href="/admin/" id="navigationHomeLink">Home</a>
                 <?php else : ?>
@@ -22,7 +22,7 @@
                 <!-- No link for you! -->
             <?php else : ?>
                 <!-- Browse Jobs -->
-                <div class="page-hero__navigation-item box med-1of5 lg-1of7" id="navigationBrowseLinkWrapper" aria-hidden="false">
+                <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationBrowseLinkWrapper" aria-hidden="false">
                     <a href="#BrowseJobs" id="navigationBrowseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('navigationBrowseLinkWrapper');">
                         Browse Jobs
                     </a>
@@ -30,14 +30,14 @@
             <?php endif; ?>
 
             <!-- Dashboard -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of7 hidden" id="navigationDashboardLinkWrapper" aria-hidden="true">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationDashboardLinkWrapper" aria-hidden="true">
                 <a href="javascript:void(0)" id="navigationDashboardLink" onclick="DashboardAPI.showDashboard(this);TalentCloudAPI.setNav('navigationDashboardLinkWrapper');">
                     My Applications
                 </a>
             </div>
 
             <!-- My Profile -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of7 hidden" id="navigationProfileLinkWrapper" aria-hidden="true">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationProfileLinkWrapper" aria-hidden="true">
 
                 <!-- Checks to see if the page is the admin portal and then displays the admin profile link. -->
                 <?php if (strpos($url,'admin') !== false) : ?>
@@ -56,7 +56,7 @@
             <?php $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
             <?php if (strpos($url,'admin') !== false) : ?>
                 <!-- Create Job Poster -->
-                <div class="page-hero__navigation-item box med-1of5 lg-1of7 hidden" id="navigationPosterLinkWrapper" aria-hidden="true">
+                <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationPosterLinkWrapper" aria-hidden="true">
                     <a href="javascript:void(0)" id="navigationPosterLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this);TalentCloudAPI.setNav('navigationPosterLinkWrapper');">Job Poster
                     </a>
                 </div>
@@ -65,21 +65,21 @@
             <?php endif; ?>
 
             <!-- Register -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of7" id="navigationRegisterLinkWrapper" aria-hidden="false">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
                 <a href="javascript:void(0)" id="navigationRegisterLink" onclick="UserAPI.showRegisterForm(this);">
                     Register
                 </a>
             </div>
 
             <!-- Login -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of7" id="navigationLoginLinkWrapper" aria-hidden="false">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
                 <a href="javascript:void(0)" id="navigationLoginLink" onclick="UserAPI.showLogin(this)">
                     Login
                 </a>
             </div>
 
             <!-- Logout -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of7 hidden" id="navigationLogoutLinkWrapper" aria-hidden="true">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLogoutLinkWrapper" aria-hidden="true">
                 <a href="javascript:void(0)" id="navigationLogoutLink" onclick="UserAPI.logout()">
                     Logout
                 </a>
@@ -128,7 +128,7 @@
 
                     <h1 class="subpage-hero__title hidden" id="browseHeroTitle" aria-hidden="true">Browse Jobs</h1>
 
-                    <h1 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">Dashboard</h1>
+                    <h1 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">My Applications</h1>
 
                     <h1 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h1>
 
