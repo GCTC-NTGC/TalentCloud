@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8affbea1832b3260bd4ac6247618fa2",
+    "content-hash": "1a77c15e9bb5f6ea00d4278bb915e659",
     "packages": [
         {
             "name": "jumbojett/openid-connect-php",
-            "version": "v0.5.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jumbojett/OpenID-Connect-PHP.git",
-                "reference": "5ccd26d02307002a1b599800eaa79dfddfb98145"
+                "reference": "c6319d64881788cfc4816ab8ca3f3742d81ec20c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jumbojett/OpenID-Connect-PHP/zipball/5ccd26d02307002a1b599800eaa79dfddfb98145",
-                "reference": "5ccd26d02307002a1b599800eaa79dfddfb98145",
+                "url": "https://api.github.com/repos/jumbojett/OpenID-Connect-PHP/zipball/c6319d64881788cfc4816ab8ca3f3742d81ec20c",
+                "reference": "c6319d64881788cfc4816ab8ca3f3742d81ec20c",
                 "shasum": ""
             },
             "require": {
@@ -34,7 +34,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Bare-bones OpenID Connect client",
-            "time": "2018-04-09T13:30:22+00:00"
+            "time": "2018-02-16T11:52:30+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -905,23 +905,23 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
-                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
@@ -964,7 +964,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-19T10:16:54+00:00"
+            "time": "2018-04-18T13:57:24+00:00"
         },
         {
             "name": "phpunit/dbunit",

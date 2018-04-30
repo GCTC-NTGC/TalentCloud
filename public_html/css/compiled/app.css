@@ -4826,6 +4826,27 @@ nav {
 .landing-hero__tagline-divider {
   margin: 2rem 5rem 2rem 2rem; }
 
+.alert-banner .box:first-child {
+  padding: 0 0 1rem 0; }
+  @media (min-width: 64em) {
+    .alert-banner .box:first-child {
+      padding: 0;
+      text-align: left; } }
+
+@media (min-width: 64em) {
+  .alert-banner .box:last-child {
+    text-align: right; } }
+
+.alert-banner__icon {
+  color: #125184;
+  font-size: 12px !important; }
+
+[class*="alert-banner__copy"] {
+  color: #125184;
+  font-size: 12px !important; }
+  [class*="alert-banner__copy"] a {
+    cursor: pointer; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud

@@ -1,0 +1,40 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Alert Banner
+
+============================================================================= */
+
+.alert-banner {
+
+    .box {
+
+        &:first-child {
+
+            @media #{$l-tablet} {
+                text-align: left;
+            }
+
+        }
+
+        &:last-child {
+
+            @media #{$l-tablet} {
+                text-align: right;
+            }
+
+        }
+
+    }
+
+}
+
+.alert-banner__icon {
+    font-size: 12px !important;
+    color: $palette-blue--dark;
+}
+
+.alert-banner__copy {
+    font-size: 12px !important;
+}
