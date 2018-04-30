@@ -25,7 +25,7 @@ SkillDeclarationAPI.SkillDeclaration = function (
      * @return {Boolean}
      */
     this.isValid = function () {
-        return (this.skill_level_id != "" && this.experience_level_id != "" && this.description != "");
+        return (this.skill_level_id != false && this.experience_level_id != false && this.description != false);
     };
 };
 
@@ -62,6 +62,9 @@ SkillDeclarationAPI.populateApplicationUiSkillDeclarations = function (skillDecl
             if (description) {
                 description.value = declaration.description;
             }
+            
+            //Run status change handler, because declartion may now be complete
+            SkillDeclarationAPI.onStatusChange(declaration.criteria_id);
         }
     });
 };
@@ -126,5 +129,72 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
     if (onSuccess && submittedRequests === 0) {
         //If no skills were even attempted to be saved, call onSuccess
         onSuccess();
+    }
+};
+
+SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel = function (panel) {
+    var skillDeclaration = new SkillDeclarationAPI.SkillDeclaration();
+
+    skillDeclaration.criteria_type = panel.getAttribute("data-criteria-type");
+    skillDeclaration.criteria_id = panel.getAttribute("data-criteria-id");
+
+    skillDeclaration.skill = panel.querySelector(".applicant-evidence__accordion-trigger-title-text").innerHTML;
+
+    var experienceSelect = panel.querySelector('input[name="experience"]:checked'); //This will come back null, if no radio button has been selected yet
+    skillDeclaration.experience_level_id = experienceSelect ? experienceSelect.value : ""; //Default to an empty string if nothing has been selected
+
+    var skillLevelSelect = panel.querySelector('input[name="expertise"]:checked'); //This will come back null, if no radio button has been selected yet
+    skillDeclaration.skill_level_id = skillLevelSelect ? skillLevelSelect.value : ""; //Default to an empty string if nothing has been selected
+
+    skillDeclaration.description = panel.querySelector('.applicant-evidence__skill-declaration-text').value;
+
+    return skillDeclaration;
+};
+
+SkillDeclarationAPI.onStatusChange = function (criteriaId) {
+    var panel = document.querySelector(".applicant-evidence__accordion-wrapper[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+
+    var skillDeclaration = SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel(panel);
+
+    if (skillDeclaration.isValid()) {
+        SkillDeclarationAPI.setDeclarationStatus(criteriaId, true);
+        //Un-hide optional fields
+        panel.querySelector(".applicant-evidence__optional-wrapper").classList.add("active");
+    } else {
+        SkillDeclarationAPI.setDeclarationStatus(criteriaId, false);
+        //Hide optional fields
+        panel.querySelector(".applicant-evidence__optional-wrapper").classList.remove("active");
+    }
+};
+
+SkillDeclarationAPI.setDeclarationStatus = function (criteriaId, isComplete) {
+    var panel = document.querySelector(".applicant-evidence__accordion-wrapper[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+
+    if (isComplete) {
+        //Activate icon in accordion trigger
+        var check = panel.querySelector(".applicant-evidence__accordion-trigger-icon-wrapper .fa-check");
+        check.classList.add("active");
+
+        //Activate icon in menu item
+        var menuItem = document.querySelector(".applicant-evidence__desktop-menu-item[data-criteria-id=\"" + criteriaId + "\"]");
+        var menuCheck = menuItem.querySelector(".applicant-evidence__desktop-icon-wrapper .fa-check");
+        menuCheck.classList.add("active");
+
+        //Activate completion message
+        var completionMsg = panel.querySelector(".evidence__completion-wrapper");
+        completionMsg.classList.add("active");
+    } else {
+        //Deactivate icon in accordion trigger
+        var check = panel.querySelector(".applicant-evidence__accordion-trigger-icon-wrapper .fa-check");
+        check.classList.remove("active");
+
+        //Deactivate icon in menu item
+        var menuItem = document.querySelector(".applicant-evidence__desktop-menu-item[data-criteria-id=\"" + criteriaId + "\"]");
+        var menuCheck = menuItem.querySelector(".applicant-evidence__desktop-icon-wrapper .fa-check");
+        menuCheck.classList.remove("active");
+
+        //Deactivate completion message
+        var completionMsg = panel.querySelector(".evidence__completion-wrapper");
+        completionMsg.classList.remove("active");
     }
 };

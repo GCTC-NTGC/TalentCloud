@@ -39,17 +39,30 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.setAttribute("data-evidence-target", triggerName);
     evidencePanel.setAttribute("aria-labelledby", menuItemId);
 
-    //Set data attributes
+    //SET DATA ATTRIBUTES
     evidencePanel.setAttribute("data-criteria-type", criteriaType);
     evidencePanel.setAttribute("data-criteria-id", criteriaId);
 
-    //Set title and description
+    //SET SKILL TITLE AND DESCRIPTION
     evidencePanel.querySelector(".applicant-evidence__accordion-trigger-title-text").innerHTML = criteriaName;
     if (criteriaDescription) {
         evidencePanel.querySelector(".applicant-evidence__skill-description").innerHTML = criteriaDescription;
     }
+    
+    //MODIFY IDs FOR UNIQUENESS
+    var idSuffix = "_" + triggerName;
+    
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceName", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceEmail", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceRelationship", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceFrom", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceUntil", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceExpLevel", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceStory", idSuffix);
 
-    //Populate "sliders"
+
+
+    //POPULATE "SLIDERS"
     //DEV-NOTE: Beware copy-paste errors, and confusing EXPERTISE with EXPERIENCE
 
     var expertiseSelector = evidencePanel.querySelector(".applicant-evidence__expertise-wrapper");
@@ -79,8 +92,22 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
         }
         experienceSelector.appendChild(fragment);
     });
+    
+    //POPULATE SELECT INPUTS
+    var relationshipSelect = evidencePanel.querySelector("#applicationEvidenceReferenceRelationship" + idSuffix);
+    LookupAPI.populateDropdownElement("relationship", relationshipSelect);
+    var refExperienceLevel = evidencePanel.querySelector("#applicationEvidenceReferenceExpLevel" + idSuffix);
+    LookupAPI.populateDropdownElement("experience_level", refExperienceLevel);
 
     return evidencePanel;
+};
+
+EvidenceAPI.addSuffixToElementId = function(rootElement, originalId, suffix) {
+    var element = rootElement.querySelector("#" + originalId);
+    var label = rootElement.querySelector("label[for=\""+originalId + "\"]");
+    element.id = originalId + suffix;
+    if (label)
+        label.for = element.id;
 };
 
 EvidenceAPI.instantiateApplicationEvidenceExpertiseItem = function (criteriaId, criteriaType, expertiseId, expertiseValue, outputValue, numberOfItems) {

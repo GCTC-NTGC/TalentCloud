@@ -324,6 +324,33 @@ class LookupDAO extends BaseDAO {
         return $rows;
     }
     
+    public static function getRelationshipsByLocale($locale) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            r.relationship_id as id, 
+            rd.relationship_details_name as value
+            FROM 
+            relationship r, relationship_details rd, locale
+            WHERE locale.locale_iso = :locale
+            AND rd.locale_id = locale.locale_id
+            AND r.relationship_id = rd.relationship_id
+            ORDER BY r.relationship_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getRelationshipsByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
 }
 
 ?>
