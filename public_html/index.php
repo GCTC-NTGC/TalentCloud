@@ -146,6 +146,7 @@ if($query_string !== ""){
         include "inc/applicant/page-application-form.php";        
         include "inc/applicant/page-job-application-confirm.php";
         include "inc/applicant/page-dashboard.php";
+        include "inc/common/faq.php";
         ?>
         <!-- END - Incudes for pages -->
     </main>

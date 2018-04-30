@@ -1,0 +1,17 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template
+
+============================================================================= */
+
+.faq {
+	background: lighten($palette-grey--light, 10%);
+	padding: 4rem 0;
+}
+
+@import "../molecules/faq-subnav";
+@import "../molecules/faq-introduction";
+@import "../molecules/faq-accordion";
+@import "../molecules/faq-text";
