@@ -41,8 +41,6 @@ JobPostAPI.JobPost = function(
     this.core_competencies = core_competencies;
     this.developing_competencies = developing_competencies;
     this.questions = questions;
-
-    // TAL-150
     this.classification = classification;
     this.security_clearance = security_clearance;
     this.language_requirement = language_requirement;
@@ -434,6 +432,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     DataAPI.getUser(jobData.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
        document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.name;
+       document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.name;
 
        if (locale === "en_CA"){
            var subject = "?subject=TalentCloud Accommodation Request for Job ID #" + jobData.id;
