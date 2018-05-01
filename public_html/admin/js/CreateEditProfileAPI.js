@@ -604,8 +604,8 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateEditProfile');
 
     TalentCloudAPI.hideAllContent();
-    
-    var createEditProfile = document.getElementById("createEditProfile_step1");
+
+    var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
 
     ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
