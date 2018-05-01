@@ -6316,3 +6316,149 @@ nav {
 
 .validationMessage {
   color: #ff0000; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template
+
+============================================================================= */
+.faq {
+  background: #e2e2e2;
+  padding: 4rem 0; }
+
+.faq__category-title {
+  border-bottom: 1px solid #484848;
+  color: #333333;
+  font-size: 26px;
+  font-weight: 700;
+  margin: .5rem 0 2rem 0;
+  padding: 0 0 2rem 0; }
+
+.faq__section-title {
+  color: #2196f3;
+  font-size: 22px;
+  font-weight: 700;
+  margin: .5rem 0 2rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Subnav
+
+============================================================================= */
+@media (min-width: 64em) {
+  .faq__subnav-wrapper {
+    position: sticky; } }
+
+.faq_subnav-label {
+  color: #2196f3;
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+  .faq_subnav-label:first-child {
+    margin-top: 0; }
+
+.faq__subnav-item {
+  color: #333333 !important;
+  display: block;
+  font-size: 16px;
+  margin: 0 0 1rem 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .faq__subnav-item:hover {
+    color: #2196f3 !important;
+    text-decoration: underline;
+    transition: color .2s ease; }
+
+@media (min-width: 64em) {
+  .faq__content-wrapper {
+    padding: 0 0 0 3rem; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Introduction
+
+============================================================================= */
+.faq__introduction-wrapper {
+  margin: 0 0 4rem 0; }
+  .faq__introduction-wrapper:last-child {
+    margin-bottom: 0; }
+  .faq__introduction-wrapper p {
+    font-size: 16px;
+    line-height: 1.5; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Accordion
+
+============================================================================= */
+.faq__accordion-wrapper {
+  margin: 0 0 4rem 0; }
+  .faq__accordion-wrapper:last-child {
+    margin-bottom: 0; }
+
+.faq__accordion {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
+  margin: 2rem 0; }
+  .faq__accordion:first-child {
+    margin-top: 0; }
+  .faq__accordion:last-child {
+    margin-bottom: 0; }
+
+.faq__accordion-trigger {
+  background: #2196f3;
+  cursor: pointer;
+  padding: 2rem; }
+  .faq__accordion-trigger i {
+    color: white;
+    display: inline-block;
+    font-size: 22px;
+    margin: 0 1rem 0 0;
+    transition: all .2s ease;
+    vertial-align: middle; }
+  .faq__accordion-trigger span {
+    color: white;
+    font-size: 22px; }
+  .faq__accordion-trigger.active i {
+    transform: rotate(180deg);
+    transition: all .2s ease; }
+
+.faq__accordion-content {
+  background: white;
+  display: none;
+  padding: 2rem; }
+  .faq__accordion-content.active {
+    display: block; }
+  .faq__accordion-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 2rem 0; }
+    .faq__accordion-content p:first-child {
+      margin-top: 0; }
+    .faq__accordion-content p:last-child {
+      margin-bottom: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Text
+
+============================================================================= */
+.faq__text-title {
+  margin: 3rem 0 1rem 0; }
+
+.faq__text-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 2rem 0; }
+  .faq__text-copy:last-child {
+    margin-bottom: 0; }

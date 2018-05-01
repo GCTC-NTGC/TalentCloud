@@ -1,0 +1,33 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template
+
+============================================================================= */
+
+.faq {
+	background: lighten($palette-grey--light, 10%);
+	padding: 4rem 0;
+}
+
+.faq__category-title {
+	border-bottom: 1px solid $palette-grey--dark;
+	color: $black;
+	font-size: 26px;
+	font-weight: 700;
+	margin: .5rem 0 2rem 0;
+	padding: 0 0 2rem 0;
+}
+
+.faq__section-title {
+	color: $palette-blue;
+	font-size: 22px;
+	font-weight: 700;
+	margin: .5rem 0 2rem 0;
+}
+
+@import "../molecules/faq-subnav";
+@import "../molecules/faq-introduction";
+@import "../molecules/faq-accordion";
+@import "../molecules/faq-text";
