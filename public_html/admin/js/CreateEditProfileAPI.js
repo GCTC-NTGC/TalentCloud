@@ -867,7 +867,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
     if(UserAPI.hasSessionUser()){
         var session_user = UserAPI.getSessionUserAsJSON();
-        createEditProfile_name_preview.innerHTML = session_user.firstname + " " + session_user.lastname;
+        createEditProfile_name_preview.innerHTML = session_user.name;
     }
 
     //About Me (page 1)
@@ -903,6 +903,13 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_position_fr = document.getElementById("createEditProfile_position_fr");
     createEditProfile_position_fr.value = manager_profile_details_fr.user_manager_profile_details_position;
 
+    if (locale === "en_CA"){
+        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+        createEditProfile_position_preview.innerHTML = manager_profile_details_en.user_manager_profile_details_position;
+    } else {
+        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+        createEditProfile_position_preview.innerHTML = manager_profile_details_fr.user_manager_profile_details_position;
+    }
     var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
     createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;
 
