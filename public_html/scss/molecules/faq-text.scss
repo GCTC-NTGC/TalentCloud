@@ -1,0 +1,31 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Text
+
+============================================================================= */
+
+.faq__text {
+
+}
+
+.faq__text-title {
+	margin: 3rem 0 1rem 0;
+
+	// &:first-of-type {
+	// 	margin-top: 2rem;
+	// }
+
+}
+
+.faq__text-copy {
+	font-size: 16px;
+	line-height: 1.5;
+	margin: 2rem 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+}
