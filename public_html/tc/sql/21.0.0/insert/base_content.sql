@@ -22,7 +22,15 @@ VALUES
 (1,'jobPosterLanguageLabel','Language:', 1),
 (1,'jobPosterLanguageLabel','Langage :', 2),
 (1,'jobPosterTermLabel','Duration:', 1),
-(1,'jobPosterTermLabel','Duration :', 2)
+(1,'jobPosterTermLabel','Duration :', 2),
+(1,'jobPosterTeamNarrativeText_label','About the team:', 1),
+(1,'jobPosterTeamNarrativeText_label','À propos de l\'équipe :', 2),
+(1,'jobPosterOperatingContext_label','Our operating context:', 1),
+(1,'jobPosterOperatingContext_label','Notre contexte d\'exploitation :', 2),
+(1,'jobPosterWhatWeValue_label','What we value:', 1),
+(1,'jobPosterWhatWeValue_label','Ce que nous apprécions :', 2),
+(1,'jobPosterHowWeWork_label','How we work:', 1),
+(1,'jobPosterHowWeWork_label','Comment nous travaillons :', 2)
 ;
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Salary range:' WHERE `base_content_id`='0000000052';
@@ -30,3 +38,6 @@ UPDATE `talentcloud`.`base_content` SET `base_content_value`='Offre d\'emploi :'
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Your Manager' WHERE `base_content_id`='0000000396';
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Votre gestionnaire' WHERE `base_content_id`='0000000397';
+
+UPDATE `talentcloud`.`base_content` SET `base_content_value`='Taille d\'équippe :' WHERE `base_content_id`='0000000221';
+UPDATE `talentcloud`.`base_content` SET `base_content_value`='Team size:' WHERE `base_content_id`='0000000220';

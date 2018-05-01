@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor .
 -->
-<?php 
+<?php
 date_default_timezone_set('America/Toronto');
 
 error_reporting(E_ALL);
@@ -40,13 +40,13 @@ if($query_string !== ""){
         if($_SESSION["accessToken"]){
             $oidc->setAccessToken($_SESSION["accessToken"]);
         }*/
-        
+
         try{
             $oidc->authenticate();
         }catch(Jumbojett\OpenIDConnectClientException $e){
             echo($e->getMessage());
         }
-        
+
         //set session variables for openid info
         if (isset($oidc)) {
             if ($oidc->getAccessToken() !== "NULL") {
@@ -88,7 +88,7 @@ if($query_string !== ""){
                     echo("var idToken = '".$_SESSION["idToken"]."';");
                     echo("UserAPI.storeOpenIDToken(idToken);");
                 }
-    
+
                 if($_SESSION["refreshToken"] !== null){
                     echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
                     echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
@@ -143,11 +143,7 @@ if($query_string !== ""){
             include "../inc/manager/page-home-content.php";
             include "../inc/manager/page-job-seeker.php";
             include "../inc/manager/page-create-job-poster.php";
-            include "../inc/manager/page-profile-about-me.php";
-            include "../inc/manager/page-profile-leadership-style.php";
-            include "../inc/manager/page-profile-work-environment.php";
-            include "../inc/manager/page-profile-team-culture.php";
-            include "../inc/manager/page-profile-other.php";
+            include "../inc/manager/page-profile.php";
             ?>
             <!-- END - Includes for pages -->
         </main>

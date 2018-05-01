@@ -296,8 +296,7 @@ class LookupDAO extends BaseDAO {
         return $rows;
     }
 
-	public static function getClearanceLevelsByLocale($locale) {
-
+    public static function getClearanceLevelsByLocale($locale) {
 		$link = BaseDAO::getConnection();
 		$sqlStr = "
 			SELECT
@@ -310,21 +309,18 @@ class LookupDAO extends BaseDAO {
 			ORDER BY sc.security_clearance_id";
 		$sql = $link->prepare($sqlStr);
 		$sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-
 		try {
 			$sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
 			$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
 			$rows = $sql->fetchAll();
-
 		} catch (PDOException $e) {
 			return 'getClearanceLevelsByLocale failed: ' . $e->getMessage();
 		}
 		BaseDAO::closeConnection($link);
 		return $rows;
 	}
-
+    
 	public static function getLanguageLevelsByLocale($locale) {
-
 		$link = BaseDAO::getConnection();
 		$sqlStr = "
 			SELECT
@@ -337,12 +333,10 @@ class LookupDAO extends BaseDAO {
 			ORDER BY lr.language_requirement_id";
 		$sql = $link->prepare($sqlStr);
 		$sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-
 		try {
 			$sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
 			$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
 			$rows = $sql->fetchAll();
-
 		} catch (PDOException $e) {
 			return 'getLanguageLevelsByLocale failed: ' . $e->getMessage();
 		}
@@ -350,15 +344,15 @@ class LookupDAO extends BaseDAO {
 		return $rows;
 	}
 
-    
+
     public static function getJobSeekerProfileQuestionsByLocale($locale) {
         $link = BaseDAO::getConnection();
         $sqlStr = "
-            SELECT 
-            q.job_seeker_profile_question_id as id, 
+            SELECT
+            q.job_seeker_profile_question_id as id,
             qd.question as value,
             qd.description as description
-            FROM 
+            FROM
             job_seeker_profile_question q, job_seeker_profile_question_details qd, locale
             WHERE locale.locale_iso = :locale
             AND qd.locale_id = locale.locale_id
@@ -366,19 +360,19 @@ class LookupDAO extends BaseDAO {
             ORDER BY q.job_seeker_profile_question_id";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
-        
+
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'LookupWithDescription');
             $rows = $sql->fetchAll();
-            
+
         } catch (PDOException $e) {
             return 'getJobSeekerProfileQuestionsByLocale failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $rows;
     }
-    
+
 
 }
 

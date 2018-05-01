@@ -98,7 +98,7 @@
     <hr class="manager-edit-profile__divider">
 
     <div class="">
-        
+
         <h3 class="manager-edit-profile__title heading--03">My Approach to Decision Making</h3>
 
         <div class="manager-edit-profile__required-copy-wrapper">
@@ -107,7 +107,7 @@
         </div>
 
         <div class="flex-grid top manager-edit-profile__form">
-            
+
             <div class="form-group box full">
                 <div class="multi-btn-group-form-group-label">
                     <span>&nbsp;</span>
@@ -170,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="multi-btn-group-form-group box full">
                 <div class="multi-btn-group-form-group-label">
                     <span>How often do you engage your team before responding to management?</span>
@@ -243,16 +243,18 @@
             &nbsp;
             <br>
             &nbsp;
-            <br>
-            &nbsp;
 
         </div>
 
     </div>
 
-    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
-        <div class="formGroup box full">
-            <input class="button--yellow" id="leadershipSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+        <div class="formGroup box med-1of2">
+            <input id="leadershipStyleCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+        </div>
+        <div class="formGroup box med-1of2">
+            <input id="leadershipStyleBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
+            <input class="button--yellow" id="leadershipSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateLeadership();">
         </div>
     </div>
 

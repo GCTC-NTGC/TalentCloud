@@ -83,8 +83,6 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.questions = {};
     this.questions.en_CA = questions_en;
     this.questions.fr_CA = questions_fr;
-
-    // TAL-150
     this.classification = classification;
     this.clearance_id = clearance_id;
     this.language_id = language_id;
@@ -118,8 +116,6 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             jp.core_competencies[locale],
             jp.developing_competencies[locale],
             jp.questions[locale],
-
-            //TAL-150
             jp.classification,
             LookupAPI.getLocalizedLookupValue("clearance", jp.clearance_id),
             LookupAPI.getLocalizedLookupValue("language", jp.language_id),
@@ -164,15 +160,11 @@ CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function(managerProfile
 
         document.getElementById("createJobPoster_department").value = response.manager_profile.user_manager_profile_department_id;
 
-        //TODO: prepopulate french fields as well
-        var branch = response.manager_profile_details.user_manager_profile_details_branch;
-        if (branch) {
-            document.getElementById("createJobPoster_branch").value = branch;
-        }
-        var division = response.manager_profile_details.user_manager_profile_details_division;
-        if (division) {
-            document.getElementById("createJobPoster_division").value = division;
-        }
+        document.getElementById("createJobPoster_branch").value = response.manager_profile_details.en_CA.user_manager_profile_details_branch;
+        document.getElementById("createJobPoster_branch_fr").value = response.manager_profile_details.fr_CA.user_manager_profile_details_branch;
+        document.getElementById("createJobPoster_division").value = response.manager_profile_details.en_CA.user_manager_profile_details_division;
+        document.getElementById("createJobPoster_division_fr").value = response.manager_profile_details.fr_CA.user_manager_profile_details_division;
+
     }
 };
 

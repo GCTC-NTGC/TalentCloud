@@ -33,7 +33,7 @@ managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
 accommodationTextStart, accommodationTextEnd, jobPosterKeyTasksLabel, jobPosterCoreCompetenciesLabel, jobPosterHiringManagerLabel, jobPosterClearanceLevelLabel, jobPosterStartDateLabel, jobPosterJobLevelLabel, jobPosterLanguageLabel, jobPosterTermLabel,
 managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave,
-cancel, save, editYour
+cancel, save, editYour, jobPosterTeamNarrativeText_label, jobPosterOperatingContext_label, jobPosterWhatWeValue_label, jobPosterHowWeWork_label, updateProfileApplicantProfileFormNameLabelSpan, profileEditName
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -108,7 +108,6 @@ cancel, save, editYour
     this.taglineTertiary = taglineTertiary;
     this.howItWorksHeading = howItWorksHeading;
     this.howItWorksLead = howItWorksLead;
-    //this.howItWorksMainHtml = howItWorksMainHtml;
     this.logoSrc = logoSrc;
     this.logoAlt = logoAlt;
     this.ownYourStory = ownYourStory;
@@ -233,6 +232,10 @@ cancel, save, editYour
     this.cancel = cancel;
     this.save = save;
     this.editYour = editYour;
+    this.jobPosterTeamNarrativeText_label = jobPosterTeamNarrativeText_label;
+    this.jobPosterOperatingContext_label = jobPosterOperatingContext_label;
+    this.jobPosterWhatWeValue_label = jobPosterWhatWeValue_label;
+    this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
 };
 
 TalentCloudAPI.pages = {
@@ -668,89 +671,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         var adminProfileDepartmentLabel = document.getElementById("createEditProfile_department_labelName");
         //adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
 
-        var createJobPosterWindowTitle = document.getElementById("createJobPosterWindowTitle");
-        createJobPosterWindowTitle.innerHTML = siteContent.createJobPosterWindowTitle;
-
-        //var teamsLink = document.getElementById("teamsLink");
-        //teamsLink.innerHTML = siteContent.teamsLink;
-
-        //Create Job Poster
-        //TODO: fix localization of terms for Create Job Poster
-
-        /*
-        for(var i = 1;i < 4;i++){
-            var stepOne = document.getElementById("createJobPosterTabLabel_" + i);
-            stepOne.innerHTML = siteContent.step1;
-        }
-
-        for(var i = 1;i < 4;i++){
-            var stepTwo = document.getElementById("createJobPosterTabLabel_" + i);
-            stepTwo.innerHTML = siteContent.step2;
-        }
-
-        for(var i = 1;i < 4;i++){
-            var stepThree = document.getElementById("createJobPosterStep3Label_" + i);
-            stepThree.innerHTML = siteContent.step3;
-        }
-
-        for(var i = 1;i < 5;i++){
-            var stepFour = document.getElementById("createJobPosterStep4Label_" + i);
-            stepFour.innerHTML = siteContent.review;
-        }
-
-        var goToStep2 = document.getElementById("createJobPoster_goToStep2_1");
-        goToStep2.setAttribute("value", siteContent.goToStep2);
-
-        var goToStep2_2 = document.getElementById("createJobPoster_goToStep2_2");
-        goToStep2_2.setAttribute("value", siteContent.goToStep2);
-
-        var goToStep1 = document.getElementById("createJobPoster_goToStep1");
-        goToStep1.setAttribute("value", siteContent.goToStep1);
-
-        var goToStep3 = document.getElementById("createJobPoster_goToStep3_1");
-        goToStep3.setAttribute("value", siteContent.goToStep3);
-
-        var goToStep3_2 = document.getElementById("createJobPoster_goToStep3_2");
-        goToStep3_2.setAttribute("value", siteContent.goToStep3);
-
-        var goToReview = document.getElementById("createJobPoster_goToReview");
-        goToReview.setAttribute("value", siteContent.goToReview);
-
-        var createJobPoster_submit = document.getElementById("createJobPosterSubmitButton");
-        createJobPoster_submit.setAttribute("value", content.submit);
-
-        var createJobPosterSubmitInst = document.getElementById("createJobPosterSubmitInstructions");
-        createJobPosterSubmitInst.innerHTML = content.createJobPosterSubmitInstructions;
-        */
-
-        //Create Edit Profile
-        var createEditProfile_goToStep2 = document.getElementById("createEditProfile_goToStep2_1");
-        createEditProfile_goToStep2.setAttribute("value", content.goToStep2);
-
-        var createEditProfile_goToStep1 = document.getElementById("createEditProfile_goToStep1_1");
-        createEditProfile_goToStep1.setAttribute("value", content.goToStep1);
-
-        var createEditProfile_goToStep3 = document.getElementById("createEditProfile_goToStep3_1");
-        createEditProfile_goToStep3.setAttribute("value", content.goToStep3);
-
-        var createEditProfile_goToStep2_1 = document.getElementById("createEditProfile_goToStep2_2");
-        createEditProfile_goToStep2_1.setAttribute("value", content.goToStep2);
-
-        for(var i = 1;i < 4;i++){
-            var stepOne = document.getElementById("createEditProfileStep1Label_" + i);
-            stepOne.innerHTML = content.step1;
-        }
-
-        for(var i = 1;i < 4;i++){
-            var stepTwo = document.getElementById("createEditProfileStep2Label_" + i);
-            stepTwo.innerHTML = content.step2;
-        }
-
-        for(var i = 1;i < 4;i++){
-            var stepThree = document.getElementById("createEditProfileStep3Label_" + i);
-            stepThree.innerHTML = content.step3;
-        }
-
         //var createEditProfile_title = document.getElementById("createProfileWindowTitle");
         //createEditProfile_title.innerHTML = content.createProfileWindowTitle;
 
@@ -771,8 +691,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
         profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
-
-
 
     }
 
@@ -1012,6 +930,18 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterTermLabel = document.getElementById("jobPosterTermLabel");
         jobPosterTermLabel.innerHTML = siteContent.jobPosterTermLabel;
+
+        var jobPosterTeamNarrativeText_label = document.getElementById("jobPosterTeamNarrativeText_label");
+        jobPosterTeamNarrativeText_label.innerHTML = siteContent.jobPosterTeamNarrativeText_label;
+
+        var jobPosterOperatingContext_label = document.getElementById("jobPosterOperatingContext_label");
+        jobPosterOperatingContext_label.innerHTML = siteContent.jobPosterOperatingContext_label;
+
+        var jobPosterWhatWeValue_label = document.getElementById("jobPosterWhatWeValue_label");
+        jobPosterWhatWeValue_label.innerHTML = siteContent.jobPosterWhatWeValue_label;
+
+        var jobPosterHowWeWork_label = document.getElementById("jobPosterHowWeWork_label");
+        jobPosterHowWeWork_label.innerHTML = siteContent.jobPosterHowWeWork_label;
 
     }
 

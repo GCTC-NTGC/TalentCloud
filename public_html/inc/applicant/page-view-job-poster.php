@@ -116,9 +116,12 @@
                 <div class="container">
                     <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                     <div class="container">
-                        <p><span id='jobPosterTeamSize_label'>Team size</span>: <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
+                        <p><span id='jobPosterTeamSize_label'>Team size:</span> <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
                         <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
-                        <p><span id="jobPosterTeamNarrativeText"></span></p>
+                        <p><span id="jobPosterTeamNarrativeText_label">About the team:</span> <span id="jobPosterTeamNarrativeText"></span></p>
+                        <p><span id="jobPosterOperatingContext_label">Our operating context:</span> <span id="jobPosterOperatingContext_text"></span></p>
+                        <p><span id="jobPosterWhatWeValue_label">What we value:</span> <span id="jobPosterWhatWeValue_text"></span></p>
+                        <p><span id="jobPosterHowWeWork_label">How we work:</span> <span id="jobPosterHowWeWork_text"></span></p>
                     </div>
                 </div>
             </section>

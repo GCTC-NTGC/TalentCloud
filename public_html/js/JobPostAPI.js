@@ -41,8 +41,6 @@ JobPostAPI.JobPost = function(
     this.core_competencies = core_competencies;
     this.developing_competencies = developing_competencies;
     this.questions = questions;
-
-    // TAL-150
     this.classification = classification;
     this.security_clearance = security_clearance;
     this.language_requirement = language_requirement;
@@ -434,6 +432,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     DataAPI.getUser(jobData.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
        document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.name;
+       document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.name;
 
        if (locale === "en_CA"){
            var subject = "?subject=TalentCloud Accommodation Request for Job ID #" + jobData.id;
@@ -448,9 +447,12 @@ JobPostAPI.populateJobPoster = function(jobData){
     ProfilePicAPI.refreshProfilePic(jobData.manager_user_id, hiringManagerProfilePic);
     //Load Other Hiring Manager Data
     DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
-       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response);
+       var locale = TalentCloudAPI.getLanguageFromCookie();
+       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
-       document.getElementById('jobPosterHiringManagerDepartment').innerHTML = managerProfile.department;
+
+       var managerDepartment = document.getElementById("jobPosterHiringManagerDepartment");
+       managerDepartment.innerHTML = LookupAPI.getLocalizedLookupValue("department", managerProfile.department_id);
 
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.

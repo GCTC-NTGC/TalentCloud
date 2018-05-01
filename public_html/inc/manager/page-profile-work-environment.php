@@ -68,7 +68,7 @@
             </div>
 
         </div>
-        
+
         <!--Tabs for Flexible Work-->
         <div class="form-group box full">
 
@@ -93,7 +93,7 @@
         </div>
 
         <hr class="manager-edit-profile__divider">
-        
+
         <!--Work Envorinment Photo Upload-->
         <div class="workEnvironmentWrapper">
 
@@ -137,7 +137,7 @@
                         <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2" class="form__input--text"/>
                     </div>
                 </div>
-                
+
                 <div class="box lg-1of3 flex-grid manager-edit-profile__workplace-image-wrapper">
                     <div class="box full">
                         <img id="workEnvironment_photo_3" alt="Third image of workplace environment" src="../images/user.png" width="250">
@@ -158,9 +158,13 @@
 
         </div>
 
-        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
-            <div class="box full">
-               <input class="button--yellow" id="workEnvironmentSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="workEnvironmentCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+            </div>
+            <div class="formGroup box med-1of2">
+                <input id="workEnvironmentBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');" class="button--grey">
+                <input class="button--yellow" id="workEnvironmentSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateWorkEnvironment();">
             </div>
         </div>
 

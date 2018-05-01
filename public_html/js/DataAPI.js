@@ -299,6 +299,10 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.save = content.save;
     thisContent.cancel = content.cancel;
     thisContent.editYour = content.editYour;
+    thisContent.jobPosterTeamNarrativeText_label = content.jobPosterTeamNarrativeText_label;
+    thisContent.jobPosterOperatingContext_label = content.jobPosterOperatingContext_label;
+    thisContent.jobPosterWhatWeValue_label = content.jobPosterWhatWeValue_label;
+    thisContent.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

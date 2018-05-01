@@ -6,18 +6,26 @@
  * and open the template in the editor.
  */
 
-class ManagerProfileDetails implements JsonSerializable{
+class ManagerProfileDetailsNonLocalized implements JsonSerializable{
 
     private $user_manager_profile_details_id;
     private $locale_id;
     private $user_manager_profile_details_aboutme;
+    private $user_manager_profile_details_aboutme_fr;
     private $user_manager_profile_details_proud;
+    private $user_manager_profile_details_proud_fr;
     private $user_manager_profile_details_branch;
+    private $user_manager_profile_details_branch_fr;
     private $user_manager_profile_details_division;
+    private $user_manager_profile_details_division_fr;
     private $user_manager_profile_details_position;
+    private $user_manager_profile_details_position_fr;
     private $user_manager_profile_details_lead_style;
+    private $user_manager_profile_details_lead_style_fr;
     private $user_manager_profile_details_emp_learn;
+    private $user_manager_profile_details_emp_learn_fr;
     private $user_manager_profile_details_expectations;
+    private $user_manager_profile_details_expectations_fr;
     private $user_manager_profile_id;
     private $user_manager_profile_review_options;
     private $user_manager_profile_staylate;
@@ -25,19 +33,29 @@ class ManagerProfileDetails implements JsonSerializable{
     private $user_manager_profile_devops;
     private $user_manager_profile_lvwRequests;
     private $user_manager_profile_work_experience;
+    private $user_manager_profile_work_experience_fr;
     private $user_manager_profile_education;
+    private $user_manager_profile_education_fr;
 
     public function __construct(
             $user_manager_profile_details_id = null,
             $locale_id = null,
             $user_manager_profile_details_aboutme = null,
+            $user_manager_profile_details_aboutme_fr = null,
             $user_manager_profile_details_proud = null,
+            $user_manager_profile_details_proud_fr = null,
             $user_manager_profile_details_branch = null,
+            $user_manager_profile_details_branch_fr = null,
             $user_manager_profile_details_division = null,
+            $user_manager_profile_details_division_fr = null,
             $user_manager_profile_details_position = null,
+            $user_manager_profile_details_position_fr = null,
             $user_manager_profile_details_lead_style = null,
+            $user_manager_profile_details_lead_style_fr = null,
             $user_manager_profile_details_emp_learn = null,
+            $user_manager_profile_details_emp_learn_fr = null,
             $user_manager_profile_details_expectations = null,
+            $user_manager_profile_details_expectations_fr = null,
             $user_manager_profile_id = null,
             $user_manager_profile_review_options = null,
             $user_manager_profile_staylate = null,
@@ -45,18 +63,28 @@ class ManagerProfileDetails implements JsonSerializable{
             $user_manager_profile_devops = null,
             $user_manager_profile_lvwRequests = null,
             $user_manager_profile_work_experience = null,
-            $user_manager_profile_education = null
+            $user_manager_profile_work_experience_fr = null,
+            $user_manager_profile_education = null,
+            $user_manager_profile_education_fr = null
             ) {
         $this->user_manager_profile_details_id = $user_manager_profile_details_id;
         $this->locale_id = $locale_id;
         $this->user_manager_profile_details_aboutme = $user_manager_profile_details_aboutme;
+        $this->user_manager_profile_details_aboutme_fr = $user_manager_profile_details_aboutme_fr;
         $this->user_manager_profile_details_proud = $user_manager_profile_details_proud;
+        $this->user_manager_profile_details_proud_fr = $user_manager_profile_details_proud_fr;
         $this->user_manager_profile_details_branch = $user_manager_profile_details_branch;
+        $this->user_manager_profile_details_branch_fr = $user_manager_profile_details_branch_fr;
         $this->user_manager_profile_details_division = $user_manager_profile_details_division;
+        $this->user_manager_profile_details_division_fr = $user_manager_profile_details_division_fr;
         $this->user_manager_profile_details_position = $user_manager_profile_details_position;
+        $this->user_manager_profile_details_position_fr = $user_manager_profile_details_position_fr;
         $this->user_manager_profile_details_lead_style = $user_manager_profile_details_lead_style;
+        $this->user_manager_profile_details_lead_style_fr = $user_manager_profile_details_lead_style_fr;
         $this->user_manager_profile_details_emp_learn = $user_manager_profile_details_emp_learn;
+        $this->user_manager_profile_details_emp_learn_fr = $user_manager_profile_details_emp_learn_fr;
         $this->user_manager_profile_details_expectations = $user_manager_profile_details_expectations;
+        $this->user_manager_profile_details_expectations_fr = $user_manager_profile_details_expectations_fr;
         $this->user_manager_profile_id = $user_manager_profile_id;
         $this->user_manager_profile_review_options = $user_manager_profile_review_options;
         $this->user_manager_profile_staylate = $user_manager_profile_staylate;
@@ -64,7 +92,9 @@ class ManagerProfileDetails implements JsonSerializable{
         $this->user_manager_profile_devops = $user_manager_profile_devops;
         $this->user_manager_profile_lvwRequests = $user_manager_profile_lvwRequests;
         $this->user_manager_profile_work_experience = $user_manager_profile_work_experience;
+        $this->user_manager_profile_work_experience_fr = $user_manager_profile_work_experience_fr;
         $this->user_manager_profile_education = $user_manager_profile_education;
+        $this->user_manager_profile_education_fr = $user_manager_profile_education_fr;
     }
 
     public function jsonSerialize() {
@@ -90,32 +120,64 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this->user_manager_profile_details_aboutme;
     }
 
+    public function getUser_manager_profile_details_aboutme_fr() {
+        return $this->user_manager_profile_details_aboutme_fr;
+    }
+
     public function getUser_manager_profile_details_proud() {
         return $this->user_manager_profile_details_proud;
+    }
+
+    public function getUser_manager_profile_details_proud_fr() {
+        return $this->user_manager_profile_details_proud_fr;
     }
 
     public function getUser_manager_profile_details_branch() {
         return $this->user_manager_profile_details_branch;
     }
 
+    public function getUser_manager_profile_details_branch_fr() {
+        return $this->user_manager_profile_details_branch_fr;
+    }
+
     public function getUser_manager_profile_details_division() {
         return $this->user_manager_profile_details_division;
+    }
+
+    public function getUser_manager_profile_details_division_fr() {
+        return $this->user_manager_profile_details_division_fr;
     }
 
     public function getUser_manager_profile_details_position() {
         return $this->user_manager_profile_details_position;
     }
 
+    public function getUser_manager_profile_details_position_fr() {
+        return $this->user_manager_profile_details_position_fr;
+    }
+
     public function getUser_manager_profile_details_lead_style() {
         return $this->user_manager_profile_details_lead_style;
+    }
+
+    public function getUser_manager_profile_details_lead_style_fr() {
+        return $this->user_manager_profile_details_lead_style_fr;
     }
 
     public function getUser_manager_profile_details_emp_learn() {
         return $this->user_manager_profile_details_emp_learn;
     }
 
+    public function getUser_manager_profile_details_emp_learn_fr() {
+        return $this->user_manager_profile_details_emp_learn_fr;
+    }
+
     public function getUser_manager_profile_details_expectations() {
         return $this->user_manager_profile_details_expectations;
+    }
+
+    public function getUser_manager_profile_details_expectations_fr() {
+        return $this->user_manager_profile_details_expectations_fr;
     }
 
     public function getUser_manager_profile_id() {
@@ -146,8 +208,16 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this->user_manager_profile_work_experience;
     }
 
+    public function getUser_manager_profile_work_experience_fr() {
+        return $this->user_manager_profile_work_experience_fr;
+    }
+
     public function getUser_manager_profile_education() {
         return $this->user_manager_profile_education;
+    }
+
+    public function getUser_manager_profile_education_fr() {
+        return $this->user_manager_profile_education_fr;
     }
 
     public function setUser_manager_profile_details_id($user_manager_profile_details_id) {
@@ -165,8 +235,18 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this;
     }
 
+    public function setUser_manager_profile_details_aboutme_fr($user_manager_profile_details_aboutme_fr) {
+        $this->user_manager_profile_details_aboutme_fr = $user_manager_profile_details_aboutme_fr;
+        return $this;
+    }
+
     public function setUser_manager_profile_details_proud($user_manager_profile_details_proud) {
         $this->user_manager_profile_details_proud = $user_manager_profile_details_proud;
+        return $this;
+    }
+
+    public function setUser_manager_profile_details_proud_fr($user_manager_profile_details_proud_fr) {
+        $this->user_manager_profile_details_proud_fr = $user_manager_profile_details_proud_fr;
         return $this;
     }
 
@@ -175,8 +255,18 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this;
     }
 
+    public function setUser_manager_profile_details_branch_fr($user_manager_profile_details_branch_fr) {
+        $this->user_manager_profile_details_branch_fr = $user_manager_profile_details_branch_fr;
+        return $this;
+    }
+
     public function setUser_manager_profile_details_division($user_manager_profile_details_division) {
         $this->user_manager_profile_details_division = $user_manager_profile_details_division;
+        return $this;
+    }
+
+    public function setUser_manager_profile_details_division_fr($user_manager_profile_details_division_fr) {
+        $this->user_manager_profile_details_division_fr = $user_manager_profile_details_division_fr;
         return $this;
     }
 
@@ -185,8 +275,19 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this;
     }
 
+    public function setUser_manager_profile_details_position_fr($user_manager_profile_details_position_fr) {
+        $this->user_manager_profile_details_position_fr = $user_manager_profile_details_position_fr;
+        return $this;
+    }
+
+
     public function setUser_manager_profile_details_lead_style($user_manager_profile_details_lead_style) {
         $this->user_manager_profile_details_lead_style = $user_manager_profile_details_lead_style;
+        return $this;
+    }
+
+    public function setUser_manager_profile_details_lead_style_fr($user_manager_profile_details_lead_style_fr) {
+        $this->user_manager_profile_details_lead_style_fr = $user_manager_profile_details_lead_style_fr;
         return $this;
     }
 
@@ -195,8 +296,18 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this;
     }
 
+    public function setUser_manager_profile_details_emp_learn_fr($user_manager_profile_details_emp_learn_fr) {
+        $this->user_manager_profile_details_emp_learn_fr = $user_manager_profile_details_emp_learn_fr;
+        return $this;
+    }
+
     public function setUser_manager_profile_details_expectations($user_manager_profile_details_expectations) {
         $this->user_manager_profile_details_expectations = $user_manager_profile_details_expectations;
+        return $this;
+    }
+
+    public function setUser_manager_profile_details_expectations_fr($user_manager_profile_details_expectations_fr) {
+        $this->user_manager_profile_details_expectations_fr = $user_manager_profile_details_expectations_fr;
         return $this;
     }
 
@@ -235,8 +346,18 @@ class ManagerProfileDetails implements JsonSerializable{
         return $this;
     }
 
+    public function setUser_manager_profile_work_experience_fr($user_manager_profile_work_experience_fr) {
+        $this->user_manager_profile_work_experience_fr = $user_manager_profile_work_experience_fr;
+        return $this;
+    }
+
     public function setUser_manager_profile_education($user_manager_profile_education) {
         $this->user_manager_profile_education = $user_manager_profile_education;
+        return $this;
+    }
+
+    public function setUser_manager_profile_education_fr($user_manager_profile_education_fr) {
+        $this->user_manager_profile_education_fr = $user_manager_profile_education_fr;
         return $this;
     }
 }
