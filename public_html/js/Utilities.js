@@ -331,7 +331,8 @@ window.onresize = modalSize;
 
 // Sitewide Accordion Triggers ================================================
 Utilities.accordionClickListener = function (e) {
-    var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
+    var accordionTrigger = document.querySelectorAll("[data-accordion-trigger]");
+    var accordionContent = document.querySelectorAll("[data-accordion-target]");
     // Cancels the default action.
     e.preventDefault();
     // Checks to see if the accordion is open.
@@ -339,17 +340,32 @@ Utilities.accordionClickListener = function (e) {
         // Closes all accordions.
         for (let x of accordionTrigger) {
             x.classList.remove("active")
-            x.nextElementSibling.classList.remove("active");
+            x.setAttribute("aria-expanded", "false");
+            for (let y of accordionContent) {
+                y.classList.remove("active");
+                y.setAttribute("aria-hidden", "true");
+            }
         }
     } else {
         // Closes all accordions.
         for (let x of accordionTrigger) {
             x.classList.remove("active")
-            x.nextElementSibling.classList.remove("active");
+            x.setAttribute("aria-expanded", "false");
+            for (let y of accordionContent) {
+                y.classList.remove("active");
+                y.setAttribute("aria-hidden", "true");
+            }
         }
         // Opens this accordion.
         this.classList.add("active");
-        this.nextElementSibling.classList.add("active");
+        this.setAttribute("aria-expanded", "true");
+        var thisAccordion = this.getAttribute("data-accordion-trigger");
+        for (let y of accordionContent) {
+            if (y.getAttribute("data-accordion-target") == thisAccordion) {
+                y.classList.add("active");
+                y.setAttribute("aria-hidden", "false");
+            }
+        }
     }
 };
 
@@ -365,7 +381,7 @@ Utilities.accordionKeyupListener = function (e) {
 
 Utilities.setAccordionTriggers = function () {
     // Gets all elements on the page with "accordion-trigger".
-    var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
+    var accordionTrigger = document.querySelectorAll("[data-accordion-trigger]");
     // Loops through all elements.
     for (let i of accordionTrigger) {
         // Checks for a click.
