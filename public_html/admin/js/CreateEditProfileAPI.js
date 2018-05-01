@@ -840,6 +840,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     //Initialize Team Culture
     EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
 
+        var manager_profile = new CreateEditProfileAPI.ManagerProfile();
 
     //set hidden field values
     var UserId = document.getElementById("UserId");

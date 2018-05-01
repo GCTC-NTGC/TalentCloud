@@ -4,11 +4,10 @@ class User implements JsonSerializable{
 
     protected $user_id;
     protected $email;
-    protected $password;
-    protected $firstname;
-    protected $lastname;
+    protected $name;
     protected $is_confirmed;
     protected $user_role;
+    protected $open_id;
 
     /**
      * Defines the User Object
@@ -18,15 +17,15 @@ class User implements JsonSerializable{
      * @param type $lastname
      * @param type $is_confirmed
      * @param type $user_role
+     * @param type $open_id
      */
-    function __construct($user_id = null, $email = null, $password = null, $firstname = null, $lastname = null, $is_confirmed = 0, $user_role = null) {
+    function __construct($user_id = null, $email = null, $name = null, $is_confirmed = 0, $user_role = null, $open_id = null) {
         $this->user_id = $user_id;
         $this->email = $email;
-        $this->password = $password;
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
+        $this->name = $name;
         $this->is_confirmed = $is_confirmed;
         $this->user_role = $user_role;
+        $this->open_id = $open_id;
     }
 
     public function jsonSerialize() {
@@ -47,15 +46,7 @@ class User implements JsonSerializable{
     public function setUser_id($user_id) {
         $this->user_id = $user_id;
     }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
+    
     public function getEmail() {
         return $this->email;
     }
@@ -64,20 +55,12 @@ class User implements JsonSerializable{
         $this->email = $email;
     }
 
-    public function getFirstname() {
-        return $this->firstname;
+    public function getName() {
+        return $this->name;
     }
 
-    public function setFirstname($firstname) {
-        $this->firstname = $firstname;
-    }
-
-    public function getLastname() {
-        return $this->lastname;
-    }
-
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
+    public function setName($name) {
+        $this->name = $name;
     }
 
     public function getIs_confirmed() {
@@ -95,6 +78,15 @@ class User implements JsonSerializable{
     public function setUser_role($user_role) {
         $this->user_role = $user_role;
     }
+    
+    public function getOpen_id() {
+        return $this->open_id;
+    }
+
+    public function setOpen_id($open_id) {
+        $this->open_id = $open_id;
+    }
+
 }
 
 ?>

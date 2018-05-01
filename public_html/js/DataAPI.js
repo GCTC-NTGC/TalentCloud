@@ -257,10 +257,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.updateProfileChooseAltPhotoButton = content.updateProfileChooseAltPhotoButton;
     thisContent.updateProfilePhotoCancelButton = content.updateProfilePhotoCancelButton;
     thisContent.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
-    thisContent.updateProfileApplicantProfileFormFirstNameLabelSpan = content.updateProfileApplicantProfileFormFirstNameLabelSpan;
-    thisContent.profileEditFirstName = content.profileEditFirstName;
-    thisContent.updateProfileApplicantProfileFormLastNameLabelSpan = content.updateProfileApplicantProfileFormLastNameLabelSpan;
-    thisContent.profileEditLastName = content.profileEditLastName;
+    thisContent.updateProfileApplicantProfileFormNameLabelSpan = content.updateProfileApplicantProfileFormNameLabelSpan;
+    thisContent.profileEditName = content.profileEditName;
     thisContent.updateProfileApplicantProfileFormTaglineLabelSpan = content.updateProfileApplicantProfileFormTaglineLabelSpan;
     thisContent.profileEditTagline = content.profileEditTagline;
     thisContent.updateProfileApplicantProfileFormTwitterLabelSpan = content.updateProfileApplicantProfileFormTwitterLabelSpan;
@@ -302,6 +300,9 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.cancel = content.cancel;
     thisContent.editYour = content.editYour;
     thisContent.jobPosterTeamNarrativeText_label = content.jobPosterTeamNarrativeText_label;
+    thisContent.jobPosterOperatingContext_label = content.jobPosterOperatingContext_label;
+    thisContent.jobPosterWhatWeValue_label = content.jobPosterWhatWeValue_label;
+    thisContent.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
@@ -440,6 +441,7 @@ DataAPI.getDepartments = function(locale){
  * @return {undefined}
  */
 DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallback){
+    console.log("getJobSeekerProfileByUserId");
     Utilities.debug?console.log("loading job seekers"):null;
     var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfileByUser/"+user_id;
     DataAPI.sendRequest(jobSeekers_url, "GET", {}, null, function(request) {

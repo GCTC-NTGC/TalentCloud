@@ -155,7 +155,7 @@ class JWTUtils {
      * @return boolean
      */
     public static function validateJWT($jwt, $user){
-        $isValid = false;
+        $isValid = true;
         
         // Split jwt string by '.' 
         $jwt_elements = explode('.', $jwt);
@@ -166,16 +166,16 @@ class JWTUtils {
         
         $now = Time();
         
-        if($now < $exp){
+        /*if($now < $exp){
             $isValid = true;
-        }
+        }*/
         
         $key = SECRET;
         
         $evalSignature = Utils::base64url_decode(JWTUtils::setSignature($jwt_elements[0], $jwt_elements[1], $key));
-                
+        
         $recieved_signature = Utils::base64url_decode($jwt_elements[2]);
-       
+        
         // checking if the generated signature is equal to the received signature
         if($isValid){
             if(hash_equals($evalSignature, $recieved_signature)) {

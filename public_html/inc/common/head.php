@@ -25,6 +25,7 @@ ga('create', 'UA-115747902-1', 'auto');
 ga('send', 'pageview');
 </script>
 <!-- End Google Analytics -->
+<script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
 <script src="/js/Utilities.js"></script>
 <script src="/js/TalentCloudAPI.js"></script>
 <script src="/js/ContactAPI.js"></script>

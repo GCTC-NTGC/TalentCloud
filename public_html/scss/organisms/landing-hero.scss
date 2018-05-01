@@ -122,3 +122,44 @@ nav{
 .landing-hero__tagline-divider {
     margin: 2rem 5rem 2rem 2rem;
 }
+
+.alert-banner {
+
+    .box {
+
+        &:first-child {
+            padding: 0 0 1rem 0;
+
+            @media #{$l-tablet} {
+                padding: 0;
+                text-align: left;
+            }
+
+        }
+
+        &:last-child {
+
+            @media #{$l-tablet} {
+                text-align: right;
+            }
+
+        }
+
+    }
+
+}
+
+.alert-banner__icon {
+    color: $palette-blue--dark;
+    font-size: 12px !important;
+}
+
+[class*="alert-banner__copy"] {
+    color: $palette-blue--dark;
+    font-size: 12px !important;
+
+    a {
+        cursor: pointer;
+    }
+
+}

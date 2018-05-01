@@ -30,33 +30,18 @@
 
                         <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded" class="update-profile__applicant-profile-form flex-grid top">
 
-                            <div class="box med-1of2">
-                                <label for="profileEditFirstName" class="form__label">
-                                    <span id="updateProfileApplicantProfileFormFirstNameLabelSpan">First Name:</span>
-                                    <strong id="profileEditFirstNameError" class="error hidden">
-                                        <span id="profileEditFirstNameErrorMsg" class="label label-danger"></span>
-                                    </strong>
+                            <div class="form-group leftPane">
+                                <label for="profileEditFirstName">
+                                    <span>Name:</span>
                                 </label>
                                 <div>
-                                    <input class="form__input--text" type="text" name="profileEditFirstName" id="profileEditFirstName" required=""/>
+                                    <input class="form-control full-width" type="text" name="profileEditName" id="profileEditName" readonly=""/>
+                                    <a href="https://account.gccollab.ca/profile/" target="_blank">Edit My OpenId Profile</a>
                                 </div>
                             </div>
-
-                            <div class="box med-1of2">
-                                <label for="profileEditLastName" class="form__label">
-                                    <span id="updateProfileApplicantProfileFormLastNameLabelSpan">Last Name:</span>
-                                    <strong id="profileEditLastNameError" class="error hidden">
-                                        <span id="profileEditLastNameErrorMsg" class="label label-danger"></span>
-                                    </strong>
-                                </label>
-                                <div>
-                                    <input class="form__input--text" type="text" name="profileEditLastName" id="profileEditLastName" required=""/>
-                                </div>
-                            </div>
-
-                            <div class="box full">
-                                <label for="profileEditTagline" class="form__label">
-                                    <span id="updateProfileApplicantProfileFormTaglineLabelSpan">Tagline:</span>
+                            <div class="form-group clear">
+                                <label for="profileEditTagline">
+                                    <span>Tagline:</span>
                                 </label>
                                 <div>
                                     <input class="form__input--text" type="text" name="profileEditTagline" id="profileEditTagline"/>
