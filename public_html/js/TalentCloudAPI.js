@@ -33,7 +33,7 @@ managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
 accommodationTextStart, accommodationTextEnd, jobPosterKeyTasksLabel, jobPosterCoreCompetenciesLabel, jobPosterHiringManagerLabel, jobPosterClearanceLevelLabel, jobPosterStartDateLabel, jobPosterJobLevelLabel, jobPosterLanguageLabel, jobPosterTermLabel,
 managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave,
-cancel, save, editYour, jobPosterTeamNarrativeText_label
+cancel, save, editYour, jobPosterTeamNarrativeText_label, jobPosterOperatingContext_label, jobPosterWhatWeValue_label, jobPosterHowWeWork_label
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -233,6 +233,9 @@ cancel, save, editYour, jobPosterTeamNarrativeText_label
     this.save = save;
     this.editYour = editYour;
     this.jobPosterTeamNarrativeText_label = jobPosterTeamNarrativeText_label;
+    this.jobPosterOperatingContext_label = jobPosterOperatingContext_label;
+    this.jobPosterWhatWeValue_label = jobPosterWhatWeValue_label;
+    this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
 };
 
 TalentCloudAPI.pages = {
@@ -930,6 +933,15 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterTeamNarrativeText_label = document.getElementById("jobPosterTeamNarrativeText_label");
         jobPosterTeamNarrativeText_label.innerHTML = siteContent.jobPosterTeamNarrativeText_label;
+
+        var jobPosterOperatingContext_label = document.getElementById("jobPosterOperatingContext_label");
+        jobPosterOperatingContext_label.innerHTML = siteContent.jobPosterOperatingContext_label;
+
+        var jobPosterWhatWeValue_label = document.getElementById("jobPosterWhatWeValue_label");
+        jobPosterWhatWeValue_label.innerHTML = siteContent.jobPosterWhatWeValue_label;
+
+        var jobPosterHowWeWork_label = document.getElementById("jobPosterHowWeWork_label");
+        jobPosterHowWeWork_label.innerHTML = siteContent.jobPosterHowWeWork_label;
 
     }
 
