@@ -497,12 +497,18 @@ TalentCloudAPI.setLanguage = function(locale){
     var currentLocale = TalentCloudAPI.getLanguageFromCookie();
     if(currentLocale !== undefined){
         Utilities.debug?console.log("currentLocale=" + currentLocale):null;
+        var feedbackLinkFrench = document.querySelector(".alert-banner__copy--francais");
+        var feedbackLinkEnglish = document.querySelector(".alert-banner__copy--english");
         if(currentLocale === "en_CA"){
             currentLocale = "fr_CA";
             TalentCloudAPI.setLanguageCookie("fr_CA");
+            feedbackLinkFrench.classList.remove("hidden");
+            feedbackLinkEnglish.classList.add("hidden");
         }else{
             currentLocale = "en_CA";
             TalentCloudAPI.setLanguageCookie("en_CA");
+            feedbackLinkFrench.classList.add("hidden");
+            feedbackLinkEnglish.classList.remove("hidden");
         }
     }else{
         TalentCloudAPI.setLanguageCookie(locale);

@@ -4,8 +4,20 @@
     </li>
 </ul>
 
-<div class="announcement-banner">
-    <span class="fa fa-bullhorn fa-2x"></span> <span id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+<div class="announcement-banner alert-banner flex-grid middle">
+    <div class="box lg-1of2">
+        <i class="alert-banner__icon fa fa-bullhorn fa-2x"></i><span class="alert-banner__copy" id="announcement">This site is under construction. The jobs are not in fact real at the moment.</span>
+    </div>
+    <div class="box lg-1of2">
+        <span class="hidden alert-banner__copy--francais">
+            Aidez-nous à améliorer TalentCloud.
+            <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca?subject=Soumettre%20des%20commentaires%20à%20TalentCloud&body=Merci%20de%20votre%20intérêt%20pour%20TalentCloud!%20Votre%20volonté%20de%20soumettre%20vos%20commentaires%20est%20extrêmement%20importante%20pour%20nous.%20Veuillez%20fournir%20autant%20d'informations%20que%20possible%20:%0D%0A%0D%0APage%20actuelle%20:%20[URL%20içi]%0D%0A%0D%0AType%20de%20commentaire:%20[par%20ex.%20suggestion,%20bug,%20etc.]%0D%0A%0D%0AVotre%20message:%20[écrivez%20içi]%0D%0A%0D%0AMerci!%0D%0A%0D%0A">Soumettre des commentaires.</a>
+        </span>
+        <span class="alert-banner__copy--english">
+            Help us improve TalentCloud.
+            <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca?subject=Submit%20Feedback%20to%20Talent%20Cloud&body=Thanks%20for%20your%20interest%20in%20TalentCloud!%20Your%20willingness%20to%20submit%20feedback%20is%20incredibly%20important%20to%20us.%20Please%20supply%20as%20much%20information%20as%20possible:%0D%0A%0D%0ACurrent%20Page:%20[URL%20Here]%0D%0A%0D%0AType%20of%20Feedback:%20[e.g.%20Suggestion,%20Bug,%20etc.]%0D%0A%0D%0AYour%20Message:%20[Type%20here.]%0D%0A%0D%0AThanks%20again!%0D%0A%0D%0A">Submit feedback.</a>
+        </span>
+    </div>
 </div>
 
 <header>

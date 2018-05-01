@@ -9,7 +9,7 @@
     ],
     "require": {
         "phpseclib/phpseclib": "2.0.1",
-        "jumbojett/openid-connect-php": "0.4.1"
+        "jumbojett/openid-connect-php": "^0.4.1"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
