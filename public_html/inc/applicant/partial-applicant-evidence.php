@@ -20,11 +20,11 @@
 
     <div class="application-button__wrapper">
         
-        <button class="button--grey" value="View" onclick="SkillDeclarationAPI.saveSkillDeclarations('essential', JobApplicationAPI.showPreviousApplicationSection());">
+        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showPreviousApplicationSection);">
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="SkillDeclarationAPI.saveSkillDeclarations('essential', JobApplicationAPI.showNextApplicationSection());">
+        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showNextApplicationSection);">
             Save and continue
         </button>
 
@@ -54,11 +54,11 @@
     
     <div class="application-button__wrapper">
         
-        <button class="button--grey" value="View" onclick="SkillDeclarationAPI.saveSkillDeclarations('asset', JobApplicationAPI.showPreviousApplicationSection());">
+        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('asset', JobApplicationAPI.showPreviousApplicationSection);">
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="SkillDeclarationAPI.saveSkillDeclarations('asset', JobApplicationAPI.showJobApplicationPreview(document.getElementById('createJobApplicationJobPosterId').value));">
+        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('asset', JobApplicationAPI.showJobApplicationPreview(document.getElementById('createJobApplicationJobPosterId').value));">
             Save and Preview
         </button>
 
@@ -238,19 +238,19 @@
                 <form class="form__wrapper flex-grid">
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceReferenceName" id="applicationEvidenceReferenceNameLabel" class="form__label">Reference's Name:</label>
-                        <input type="text" class="form__input--text" id="applicationEvidenceReferenceName"/>
+                        <label for="applicationEvidenceReferenceName" class="form__label">Reference's Name:</label>
+                        <input name="reference_name" type="text" class="form__input--text" id="applicationEvidenceReferenceName"/>
                     </div>
 
                     <div class="box med-1of2">
                         <label for="applicationEvidenceReferenceEmail" class="form__label">Reference's Email:</label>
-                        <input type="email" class="form__input--email" id="applicationEvidenceReferenceEmail" />
+                        <input name="reference_email" type="email" class="form__input--email" id="applicationEvidenceReferenceEmail" />
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceReferenceRelationship" class="form__label">Your Relationship to this Reference:</label>
+                        <label for="applicationEvidenceReferenceStory" class="form__label">Your Relationship to this Reference:</label>
                         <div class="form__select-wrapper">
-                            <select class="form__select" id="applicationEvidenceReferenceRelationship">
+                            <select name="reference_relationship" class="form__select" id="applicationEvidenceReferenceRelationship">
                                 <option>Option 01</option>
                             </select>
                         </div>
@@ -258,18 +258,18 @@
 
                     <div class="box med-1of2">
                         <label for="applicationEvidenceReferenceFrom" class="form__label">Observed From:</label>
-                        <input type="date" class="form__input--date" id="applicationEvidenceReferenceFrom"/>
+                        <input type="date" name="reference_from_date" class="form__input--date" id="applicationEvidenceReferenceFrom"/>
                     </div>
 
                     <div class="box med-1of2">
                         <label for="applicationEvidenceReferenceUntil" class="form__label">Observed To:</label>
-                        <input type="date" class="form__input--date" id="applicationEvidenceReferenceUntil" />
+                        <input type="date" name="reference_until_date" class="form__input--date" id="applicationEvidenceReferenceUntil" />
                     </div>
 
                     <div class="box full">
                         <label for="applicationEvidenceReferenceExpLevel" class="form__label">Your Experience Level at the Time:</label>
                         <div class="form__select-wrapper">
-                            <select class="form__select" id="applicationEvidenceReferenceExpLevel">
+                            <select name="reference_exp_level" class="form__select" id="applicationEvidenceReferenceExpLevel">
                                 <option>Option 01</option>
                             </select>
                         </div>
@@ -277,7 +277,7 @@
 
                     <div class="box full">
                         <label for="applicationEvidenceReferenceStory" class="form__label">Tell Us What You Did:</label>
-                        <textarea class="form__textarea" id="applicationEvidenceReferenceStory" placeholder="Provide a sentence or two about the role you played and what you're asking this micro-reference to validate."></textarea>
+                        <textarea name="reference_story" class="form__textarea" id="applicationEvidenceReferenceStory" placeholder="Provide a sentence or two about the role you played and what you're asking this micro-reference to validate."></textarea>
                     </div>
 
                 </form>

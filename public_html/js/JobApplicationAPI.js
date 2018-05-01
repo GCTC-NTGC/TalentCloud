@@ -164,6 +164,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
 
         //Load saved skill declarations using application id
         SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
+        MicroReferenceAPI.loadSavedMicroReferenecesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
 
         //Set saved question answer content
         jobApplication.application_question_answers.forEach(value => {

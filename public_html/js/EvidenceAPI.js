@@ -99,6 +99,40 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     var refExperienceLevel = evidencePanel.querySelector("#applicationEvidenceReferenceExpLevel" + idSuffix);
     LookupAPI.populateDropdownElement("experience_level", refExperienceLevel);
 
+    //ADD EVENT HANDLERS
+    
+    //define a function to check skill declaration status
+    function declarationOnChange() {
+        SkillDeclarationAPI.onStatusChange(criteriaId);
+    }
+    //Add handler to experienence inputs
+    var experienceInputs = evidencePanel.querySelectorAll("input[name=experience]");
+    experienceInputs.forEach(item => {
+        item.onclick = declarationOnChange;
+    });
+    //Add handler to expertise inputs
+    var expertiseInputs = evidencePanel.querySelectorAll("input[name=expertise]");
+    expertiseInputs.forEach(item => {
+        item.onclick = declarationOnChange;
+    });
+    //Add handler to Skill Declaration story text
+    var declarationText = evidencePanel.querySelector(".applicant-evidence__skill-declaration-text");
+    declarationText.onchange = declarationOnChange; 
+    
+    //define a function to check micro-reference status
+    function referenceOnChange() {
+        MicroReferenceAPI.onStatusChange(criteriaId);
+    }
+    //Add onChange handler to all micro-reference inputs
+    evidencePanel.querySelector("input[name=\"reference_name\"]").onchange = referenceOnChange;
+    evidencePanel.querySelector("input[name=\"reference_email\"]").onchange = referenceOnChange;
+    evidencePanel.querySelector("select[name=\"reference_relationship\"]").onchange = referenceOnChange;
+    evidencePanel.querySelector("input[name=\"reference_from_date\"]").onchange = referenceOnChange;
+    evidencePanel.querySelector("input[name=\"reference_until_date\"]").onchange = referenceOnChange;
+    evidencePanel.querySelector("select[name=\"reference_exp_level\"]").onchange = referenceOnChange;
+    evidencePanel.querySelector("textarea[name=\"reference_story\"]").onchange = referenceOnChange;
+    
+
     return evidencePanel;
 };
 
@@ -186,4 +220,77 @@ EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
             panelContent.classList.remove("active");
         }
     }
+};
+
+/**
+ * 
+ * @param {int} criteriaId
+ * @param {string} iconClass - Should be "fa-check", "fa-user", or "fa-file"
+ * @param {boolean} isActive
+ * @return {undefined}
+ */
+EvidenceAPI.setEvidenceIconStatus = function(criteriaId, iconClass, isActive) {
+    var panel = document.querySelector(".applicant-evidence__accordion-wrapper[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+    if (isActive) {
+        //Activate icon in accordion trigger
+        var check = panel.querySelector(".applicant-evidence__accordion-trigger-icon-wrapper ." + iconClass);
+        check.classList.add("active");
+
+        //Activate icon in menu item
+        var menuItem = document.querySelector(".applicant-evidence__desktop-menu-item[data-criteria-id=\"" + criteriaId + "\"]");
+        var menuCheck = menuItem.querySelector(".applicant-evidence__desktop-icon-wrapper ." + iconClass);
+        menuCheck.classList.add("active");
+    } else {
+        //Deactivate icon in accordion trigger
+        var check = panel.querySelector(".applicant-evidence__accordion-trigger-icon-wrapper ." + iconClass);
+        check.classList.remove("active");
+
+        //Deactivate icon in menu item
+        var menuItem = document.querySelector(".applicant-evidence__desktop-menu-item[data-criteria-id=\"" + criteriaId + "\"]");
+        var menuCheck = menuItem.querySelector(".applicant-evidence__desktop-icon-wrapper ." + iconClass);
+        menuCheck.classList.remove("active");
+    }
+};
+
+/**
+ * Saves all completed evidence peices, and deletes incomplete ones from the saved applciation.
+ * 
+ * If criteriaType is defined, it saves/deletes evidence of the matching criteriaType.
+ * If criteriaType is undefined, it saves/deletes ALL completed skill declarations.
+ * 
+ * Calls onSuccess if all evidence pieces are saved/deleted successfully.
+ * 
+ * @param {string} criteriaType
+ * @param {function} onSuccess
+ * @return {undefined}
+ */
+EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
+    var pendingRequests = 2;
+    var everythingSuccessful = true;
+    
+    function saveSuccessful() {
+        pendingRequests = pendingRequests - 1;
+        if (pendingRequests == 0) {
+            if (everythingSuccessful) 
+                onSuccess();
+            else {
+                window.alert("Something went wrong saving evidence!");
+            }  
+        }
+    }
+    
+    function saveFailed() {
+        everythingSuccessful = false;
+        pendingRequests = pendingRequests - 1;
+        if (pendingRequests == 0) {
+            if (everythingSuccessful) 
+                onSuccess();
+            else {
+                window.alert("Something went wrong while saving evidence!");
+            }                
+        }
+    }
+    
+    SkillDeclarationAPI.saveSkillDeclarations(criteriaType, saveSuccessful, saveFailed); 
+    MicroReferenceAPI.saveMicroReferences(criteriaType, saveSuccessful, saveFailed);
 };
