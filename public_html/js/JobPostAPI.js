@@ -451,8 +451,6 @@ JobPostAPI.populateJobPoster = function(jobData){
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
 
-       var managerDepartment = document.getElementById("jobPosterHiringManagerDepartment");
-       managerDepartment.innerHTML = LookupAPI.getLocalizedLookupValue("department", managerProfile.department_id);
 
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.
@@ -549,6 +547,8 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterJobLevelValue").innerHTML = jobData.classification;
     document.getElementById("jobPosterClearanceLevelValue").innerHTML = jobData.security_clearance;
     document.getElementById("jobPosterLanguageValue").innerHTML = jobData.language_requirement;
+
+    document.getElementById("jobPosterHiringManagerDepartment").innerHTML = jobData.department;
 
     // Split timestamp into [ Y, M, D, h, m, s ]
     var t = jobData.start_date.split(/[- :]/);
