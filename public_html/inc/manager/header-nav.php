@@ -27,6 +27,12 @@
                         </div>
                     </li>
                     <li class="top-nav--link">
+                        <?php
+                            $hasUser = null;
+                            if (isset($oidc)) {
+                                $hasUser = $oidc->requestUserInfo("name");
+                            }
+                        ?>
                         <div id="loggedOut" class="<?php echo($hasUser!=null?"hidden":""); ?>">
                             <?php 
                                 $loginLink = "";
