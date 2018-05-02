@@ -7,13 +7,13 @@
   },
   "author": "Talent Cloud",
   "license": "ISC",
-  "description": "",
+  "description": "Welcome to the documentation for the Talent Cloud front-end development environment. Congrats on getting your primary dev environment set up. This document contains everything you need to get set up for writing, compiling, and optimizing your CSS.",
   "devDependencies": {
-    "autoprefixer": "^8.1.0",
+    "autoprefixer": "^8.4.1",
     "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
     "gulp-notify": "^3.2.0",
     "gulp-postcss": "^7.0.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.2.1"
   }
 }

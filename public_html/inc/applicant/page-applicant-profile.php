@@ -28,11 +28,11 @@
                 </div>
                 <div id="profileNameWrapper">
                     <div class="profileName">
-                        <span id="profileFirstName"></span> <span id="profileLastName"></span>
+                        <span id="updateProfileApplicantProfileFormNameLabelSpan"></span>
                     </div>
                 </div>
                 <div class="profileTagLineContainer">
-                    <p id="profileTagLine">Default tag line!</p>
+                    <p id="updateProfileApplicantProfileFormTaglineLabelSpan">Default tag line!</p>
                     <p>
                     <!--p>
                         <strong>Available: </strong><span id="profileStartDate"></span>

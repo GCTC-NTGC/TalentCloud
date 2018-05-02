@@ -22,7 +22,7 @@
                 </div>
                 <div id="managerProfileNameWrapper">
                     <div id="managerProfileName" class="profileName">
-                        <span id="managerProfileFirstName"></span> <span id="managerProfileLastName"></span>
+                        <span id="managerProfileName"></span>
                     </div>
                 </div>
                 <div id="managerProfilePositionWrapper" class="profileTagLineContainer">
@@ -83,6 +83,11 @@
                     <h2 id='managerProfileExperienceTitle'>Work History</h2>
                 </div>
                 <p id='managerProfileExperience'>This is my work history.</p>
+            </div>
+            <div class="profileSubSection centered">
+                <button id="jobPosterBackButton" class="btn btn-default" value="Back" onclick="EventsAPI.goBack();">
+                    Back to Job Poster
+                </button>
             </div>
         </div>
     </div>

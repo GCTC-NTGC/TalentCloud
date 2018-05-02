@@ -124,7 +124,7 @@ nav{
 .landing-hero__container {
     margin: 0 auto;
     max-width: 100rem;
-    padding: 9rem 0 7rem;
+    padding: 9rem 0 8rem;
     width: 90%;
 
     >.flex-grid {
@@ -149,7 +149,7 @@ nav{
 
 .landing-hero__logo {
     display: inline-block;
-    margin: -8% 0 0 0;
+    margin: -10% 0 0 0;
     max-width: 50rem;
     width: 100%;
 }
@@ -170,4 +170,45 @@ nav{
     font-size: 20px;
     margin: 4rem 0 0 0;
     text-align: center;
+}
+
+.alert-banner {
+
+    .box {
+
+        &:first-child {
+            padding: 0 0 1rem 0;
+
+            @media #{$l-tablet} {
+                padding: 0;
+                text-align: left;
+            }
+
+        }
+
+        &:last-child {
+
+            @media #{$l-tablet} {
+                text-align: right;
+            }
+
+        }
+
+    }
+
+}
+
+.alert-banner__icon {
+    color: $palette-blue--dark;
+    font-size: 12px !important;
+}
+
+[class*="alert-banner__copy"] {
+    color: $palette-blue--dark;
+    font-size: 12px !important;
+
+    a {
+        cursor: pointer;
+    }
+
 }

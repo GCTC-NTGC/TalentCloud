@@ -52,8 +52,6 @@
 
             </div>
 
-            <!-- Checks to see if the page is the admin portal and then displays the admin job poster link. -->
-            <?php $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
             <?php if (strpos($url,'admin') !== false) : ?>
                 <!-- Create Job Poster -->
                 <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationPosterLinkWrapper" aria-hidden="true">
@@ -66,17 +64,60 @@
 
             <!-- Register -->
             <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
-                <a href="javascript:void(0)" id="navigationRegisterLink" onclick="UserAPI.showRegisterForm(this);">
-                    Register
-                </a>
+                <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"navigationRegisterLink\">Register</a>"); ?>
             </div>
 
             <!-- Login -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
-                <a href="javascript:void(0)" id="navigationLoginLink" onclick="UserAPI.showLogin(this)">
-                    Login
-                </a>
-            </div>
+            <?php
+                $hasUser = null;
+                if (isset($oidc)) {
+                    $hasUser = $oidc->requestUserInfo("name");
+                }
+            ?>
+
+            <?php if (strpos($url,'admin') !== false) : ?>
+                
+                <?php if ($hasUser!=null) : ?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLoginLinkWrapper" aria-hidden="true">
+                <?php else :?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
+                <?php endif; ?>
+                        <?php 
+                            $loginLink = "";
+                            $loginLink .= OPENID_URI.AUTH_URI;
+                            $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
+                            $loginLink .= "&redirect_uri=".urlencode(REDIRECT_URI_ADMIN);
+                            $loginLink .= "&nonce=".$nonce;
+                            $loginLink .= "&state=".$state;
+                            $loginLink .= "&client_id=".CLIENT_ID;
+                            $loginLink .= "&scope=".SCOPE;
+                            $loginLink .= "&prompt=consent";
+                            echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>"); 
+                        ?>
+                    </div>
+
+            <?php else : ?>
+
+                <?php if ($hasUser!=null) : ?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLoginLinkWrapper" aria-hidden="true">
+                <?php else :?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
+                <?php endif; ?>
+                        <?php 
+                            $loginLink = "";
+                            $loginLink .= OPENID_URI.AUTH_URI;
+                            $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
+                            $loginLink .= "&redirect_uri=".urlencode(REDIRECT_URI);
+                            $loginLink .= "&nonce=".$nonce;
+                            $loginLink .= "&state=".$state;
+                            $loginLink .= "&client_id=".CLIENT_ID;
+                            $loginLink .= "&scope=".SCOPE;
+                            $loginLink .= "&prompt=consent";
+                            echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>");     
+                        ?>
+                    </div>
+
+            <?php endif; ?>
 
             <!-- Logout -->
             <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLogoutLinkWrapper" aria-hidden="true">
@@ -137,6 +178,8 @@
                     <h1 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h1>
 
                     <h1 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h1>
+
+                    <h1 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h1>
 
                 </div>
 

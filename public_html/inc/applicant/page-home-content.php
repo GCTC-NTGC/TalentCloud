@@ -90,5 +90,28 @@
                 </div>
             </div>
         </section>
+
+        <section class="temp-faq">
+
+            <div class="copy-container centered">
+                <br>
+                &nbsp;
+                <br>
+                &nbsp;
+                <br>
+                &nbsp;
+                <br>
+                <a href="javascript:void(0)" onclick="FAQAPI.showFAQ();" class="button--yellow">View Temp FAQ</a>
+                <br>
+                &nbsp;
+                <br>
+                &nbsp;
+                <br>
+                &nbsp;
+                <br>
+            </div>
+
+        </section>
+
     </div>
 </section>

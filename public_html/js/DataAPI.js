@@ -98,15 +98,27 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     var content = data.content;
 
     var thisContent = new TalentCloudAPI.Content();
-    thisContent.title = content.title;
-    thisContent.helpLearn = content.helpLearn;
-    thisContent.languageSelect = content.languageSelect;
+    // Navigation Links
     thisContent.navigationLoginLink = content.navigationLoginLink;
     thisContent.navigationLogoutLink = content.navigationLogoutLink;
     thisContent.navigationRegisterLink = content.navigationRegisterLink;
-    thisContent.applyNow = content.applyNow;
     thisContent.navigationHomeLink = content.navigationHomeLink;
     thisContent.navigationProfileLink = content.navigationProfileLink;
+    thisContent.navigationBrowseLink = content.navigationBrowseLink;
+    thisContent.navigationDashboardLink = content.navigationDashboardLink;
+    // Subpage Titles
+    thisContent.browseHeroTitle = content.browseHeroTitle;
+    thisContent.dashboardHeroTitle = content.dashboardHeroTitle;
+    thisContent.profileHeroTitle = content.profileHeroTitle;
+    thisContent.applicationHeroTitle = content.applicationHeroTitle;
+    thisContent.managerProfileHeroTitle = content.managerProfileHeroTitle;
+    thisContent.posterHeroTitle = content.posterHeroTitle;
+    thisContent.faqHeroTitle = content.faqHeroTitle;
+    // Others
+    thisContent.title = content.title;
+    thisContent.helpLearn = content.helpLearn;
+    thisContent.languageSelect = content.languageSelect;
+    thisContent.applyNow = content.applyNow;
     thisContent.jobPostersLink = content.jobPostersLink;
     thisContent.teamsLink = content.teamsLink;
     thisContent.jobNumber = content.jobNumber;
@@ -160,7 +172,6 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.usually = content.usually;
     thisContent.almostAlways = content.almostAlways;
     thisContent.name = content.name;
-    thisContent.navigationBrowseLink = content.navigationBrowseLink;
     thisContent.gctc = content.gctc;
     thisContent.at = content.at;
     thisContent.readMore = content.readMore;
@@ -194,7 +205,6 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.announcement = content.announcement;
     thisContent.adminPortal = content.adminPortal;
     thisContent.applicantPortal = content.applicantPortal;
-    thisContent.navigationDashboardLink = content.navigationDashboardLink;
     thisContent.yourApplicationsTitle = content.yourApplicationsTitle;
     thisContent.workEnvironment = content.workEnvironment;
     thisContent.remoteLocationAllowed = content.remoteLocationAllowed;
@@ -257,10 +267,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.updateProfileChooseAltPhotoButton = content.updateProfileChooseAltPhotoButton;
     thisContent.updateProfilePhotoCancelButton = content.updateProfilePhotoCancelButton;
     thisContent.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
-    thisContent.updateProfileApplicantProfileFormFirstNameLabelSpan = content.updateProfileApplicantProfileFormFirstNameLabelSpan;
-    thisContent.profileEditFirstName = content.profileEditFirstName;
-    thisContent.updateProfileApplicantProfileFormLastNameLabelSpan = content.updateProfileApplicantProfileFormLastNameLabelSpan;
-    thisContent.profileEditLastName = content.profileEditLastName;
+    thisContent.updateProfileApplicantProfileFormNameLabelSpan = content.updateProfileApplicantProfileFormNameLabelSpan;
+    thisContent.profileEditName = content.profileEditName;
     thisContent.updateProfileApplicantProfileFormTaglineLabelSpan = content.updateProfileApplicantProfileFormTaglineLabelSpan;
     thisContent.profileEditTagline = content.profileEditTagline;
     thisContent.updateProfileApplicantProfileFormTwitterLabelSpan = content.updateProfileApplicantProfileFormTwitterLabelSpan;
@@ -287,9 +295,25 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.profileAboutMeEditSave = content.profileAboutMeEditSave;
     thisContent.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
     thisContent.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
+    thisContent.accommodationTextStart = content.accommodationTextStart;
+    thisContent.accommodationTextEnd = content.accommodationTextEnd;
+    thisContent.jobPosterKeyTasksLabel = content.jobPosterKeyTasksLabel;
+    thisContent.jobPosterCoreCompetenciesLabel = content.jobPosterCoreCompetenciesLabel;
+    thisContent.jobPosterDevelopingCompetenciesLabel = content.jobPosterDevelopingCompetenciesLabel;
+    thisContent.jobPosterHiringManagerLabel = content.jobPosterHiringManagerLabel;
+    thisContent.jobPosterClearanceLevelLabel = content.jobPosterClearanceLevelLabel;
+    thisContent.jobPosterStartDateLabel = content.jobPosterStartDateLabel;
+    thisContent.jobPosterJobLevelLabel = content.jobPosterJobLevelLabel;
+    thisContent.jobPosterLanguageLabel = content.jobPosterLanguageLabel;
+    thisContent.jobPosterTermLabel = content.jobPosterTermLabel;
     thisContent.save = content.save;
     thisContent.cancel = content.cancel;
     thisContent.editYour = content.editYour;
+    thisContent.jobPosterTeamNarrativeText_label = content.jobPosterTeamNarrativeText_label;
+    thisContent.jobPosterOperatingContext_label = content.jobPosterOperatingContext_label;
+    thisContent.jobPosterWhatWeValue_label = content.jobPosterWhatWeValue_label;
+    thisContent.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
+
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
     //}
@@ -427,6 +451,7 @@ DataAPI.getDepartments = function(locale){
  * @return {undefined}
  */
 DataAPI.getJobSeekerProfileByUserId = function(user_id, successfulResponseCallback){
+    console.log("getJobSeekerProfileByUserId");
     Utilities.debug?console.log("loading job seekers"):null;
     var jobSeekers_url = DataAPI.baseURL+"/getJobSeekerProfileByUser/"+user_id;
     DataAPI.sendRequest(jobSeekers_url, "GET", {}, null, function(request) {
@@ -809,4 +834,3 @@ DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId
     var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };
-

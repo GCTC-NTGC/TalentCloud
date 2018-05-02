@@ -4295,7 +4295,8 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   border-radius: 3px; }
 
-#bgcolor.left {
+#bgcolor.left,
+#remoteWork.left {
   transition: left 0.5s ease-in-out;
   position: absolute;
   top: 0rem;
@@ -4304,7 +4305,8 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   background-color: #ccc; }
 
-#bgcolor.right {
+#bgcolor.right,
+#remoteWork.right {
   transition: left 0.5s ease-in-out;
   position: absolute;
   top: 0rem;
@@ -4390,7 +4392,9 @@ input[type="button"][class*="button--"] {
 #staylate,
 #engage,
 #devops,
-#lvwRequests {
+#lvwRequests,
+#telework,
+#flexHours {
   border-bottom: 5px solid #5599e5;
   height: 3rem;
   position: absolute;
@@ -4400,35 +4404,45 @@ input[type="button"][class*="button--"] {
   #staylate.option0,
   #engage.option0,
   #devops.option0,
-  #lvwRequests.option0 {
+  #lvwRequests.option0,
+  #telework.option0,
+  #flexHours.option0 {
     top: 0rem;
     left: 0px; }
   #review_options.option1,
   #staylate.option1,
   #engage.option1,
   #devops.option1,
-  #lvwRequests.option1 {
+  #lvwRequests.option1,
+  #telework.option1,
+  #flexHours.option1 {
     top: 0rem;
     left: 112px; }
   #review_options.option2,
   #staylate.option2,
   #engage.option2,
   #devops.option2,
-  #lvwRequests.option2 {
+  #lvwRequests.option2,
+  #telework.option2,
+  #flexHours.option2 {
     top: 0rem;
     left: 224px; }
   #review_options.option3,
   #staylate.option3,
   #engage.option3,
   #devops.option3,
-  #lvwRequests.option3 {
+  #lvwRequests.option3,
+  #telework.option3,
+  #flexHours.option3 {
     top: 0rem;
     left: 336px; }
   #review_options.option4,
   #staylate.option4,
   #engage.option4,
   #devops.option4,
-  #lvwRequests.option4 {
+  #lvwRequests.option4,
+  #telework.option4,
+  #flexHours.option4 {
     top: 0rem;
     left: 448px; }
 
@@ -4651,9 +4665,12 @@ input[type=date][class*="form__input--"] {
   .page-hero__navigation > .flex-grid {
     justify-content: flex-end; }
     .page-hero__navigation > .flex-grid > .box > a {
-      display: block;
+      align-items: center;
+      display: flex;
       color: white;
       font-size: 14px;
+      height: 100%;
+      justify-content: center;
       padding: 2rem;
       position: relative;
       text-align: center;
@@ -4779,7 +4796,7 @@ nav {
 .landing-hero__container {
   margin: 0 auto;
   max-width: 100rem;
-  padding: 9rem 0 7rem;
+  padding: 9rem 0 8rem;
   width: 90%; }
 
 .landing-hero__link {
@@ -4791,7 +4808,7 @@ nav {
 
 .landing-hero__logo {
   display: inline-block;
-  margin: -8% 0 0 0;
+  margin: -10% 0 0 0;
   max-width: 50rem;
   width: 100%; }
 
@@ -4808,6 +4825,27 @@ nav {
   font-size: 20px;
   margin: 4rem 0 0 0;
   text-align: center; }
+
+.alert-banner .box:first-child {
+  padding: 0 0 1rem 0; }
+  @media (min-width: 64em) {
+    .alert-banner .box:first-child {
+      padding: 0;
+      text-align: left; } }
+
+@media (min-width: 64em) {
+  .alert-banner .box:last-child {
+    text-align: right; } }
+
+.alert-banner__icon {
+  color: #125184;
+  font-size: 12px !important; }
+
+[class*="alert-banner__copy"] {
+  color: #125184;
+  font-size: 12px !important; }
+  [class*="alert-banner__copy"] a {
+    cursor: pointer; }
 
 /* =============================================================================
 
@@ -5619,6 +5657,9 @@ nav {
 .viewProfileHeightBoost {
   min-height: 200px; }
 
+.closeProfileButton {
+  float: left; }
+
 /* PROFILE PIC AND UPLOAD */
 #profileSection {
   min-height: 500px; }
@@ -5783,13 +5824,11 @@ nav {
   clear: both; }
 
 .createJobPosterDemoAreaEnglish {
-  float: left;
   margin-bottom: 1em;
   margin-top: 1em;
   background-color: #FFF; }
 
 .createJobPosterDemoAreaFrench {
-  float: left;
   background-color: #F8F8F8; }
 
 .createJobPosterDemoArea {
@@ -5814,26 +5853,34 @@ nav {
 
 #jobPosterLocation {
   color: #eee;
-  float: left; }
+  margin-bottom: .5rem; }
 
 #jobPosterId {
   float: right;
   padding-right: 2em;
-  color: #eee; }
+  color: #eee;
+  margin-bottom: 1.5rem; }
+
+#jobPosterRemoteWorkHeader {
+  color: #eee;
+  margin-bottom: 1.5rem; }
 
 #jobPosterDatapointsSection {
-  background-color: #777;
+  background-color: #333;
   color: #FFF;
   padding: 2em; }
 
 #jobPosterButtonWrapper {
   text-align: center;
-  background-color: #B9B9B9;
-  margin-top: 2em; }
+  background-color: #B9B9B9; }
 
 #jobPosterApplyButton {
   margin-top: 2em;
   margin-bottom: 2em; }
+
+.jobPosterDatapoints {
+  margin-bottom: 0;
+  font-size: 2rem; }
 
 .jobPosterSection:nth-child(odd) {
   background: #F8F8F8; }
@@ -5878,6 +5925,17 @@ nav {
   display: inline;
   width: 30%;
   margin-right: 2em; }
+
+.accommodationRequest {
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 2em; }
+
+.accommodationRequestText {
+  text-align: left;
+  font-size: 2rem;
+  padding-top: 1em;
+  padding-bottom: 1em; }
 
 /* =============================================================================
 
@@ -5956,7 +6014,7 @@ nav {
       text-align: center; } }
 
 .jobSummarySalaryRange {
-  width: 15rem;
+  width: 20rem;
   text-align: center;
   padding-top: .25rem;
   padding-bottom: .25rem; }
@@ -5968,11 +6026,11 @@ nav {
   padding-bottom: .5rem; }
 
 .jobSummaryTerm_qty {
-  width: 15rem;
+  width: 20rem;
   text-align: center; }
 
 .titleDepartmentWrapper {
-  width: 22.5rem; }
+  width: 20rem; }
   @media screen and (max-width: 800px) {
     .titleDepartmentWrapper {
       text-align: center;
@@ -6002,7 +6060,7 @@ nav {
   display: block;
   margin-right: 2rem;
   margin-left: 2rem;
-  width: 10rem;
+  width: 15rem;
   padding-top: .5rem;
   padding-bottom: .5rem; }
 
@@ -6412,3 +6470,149 @@ nav {
 
 .validationMessage {
   color: #ff0000; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template
+
+============================================================================= */
+.faq {
+  background: #e2e2e2;
+  padding: 4rem 0; }
+
+.faq__category-title {
+  border-bottom: 1px solid #484848;
+  color: #333333;
+  font-size: 26px;
+  font-weight: 700;
+  margin: .5rem 0 2rem 0;
+  padding: 0 0 2rem 0; }
+
+.faq__section-title {
+  color: #2196f3;
+  font-size: 22px;
+  font-weight: 700;
+  margin: .5rem 0 2rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Subnav
+
+============================================================================= */
+@media (min-width: 64em) {
+  .faq__subnav-wrapper {
+    position: sticky; } }
+
+.faq_subnav-label {
+  color: #2196f3;
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+  .faq_subnav-label:first-child {
+    margin-top: 0; }
+
+.faq__subnav-item {
+  color: #333333 !important;
+  display: block;
+  font-size: 16px;
+  margin: 0 0 1rem 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .faq__subnav-item:hover {
+    color: #2196f3 !important;
+    text-decoration: underline;
+    transition: color .2s ease; }
+
+@media (min-width: 64em) {
+  .faq__content-wrapper {
+    padding: 0 0 0 3rem; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Introduction
+
+============================================================================= */
+.faq__introduction-wrapper {
+  margin: 0 0 4rem 0; }
+  .faq__introduction-wrapper:last-child {
+    margin-bottom: 0; }
+  .faq__introduction-wrapper p {
+    font-size: 16px;
+    line-height: 1.5; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Accordion
+
+============================================================================= */
+.faq__accordion-wrapper {
+  margin: 0 0 4rem 0; }
+  .faq__accordion-wrapper:last-child {
+    margin-bottom: 0; }
+
+.faq__accordion {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
+  margin: 2rem 0; }
+  .faq__accordion:first-child {
+    margin-top: 0; }
+  .faq__accordion:last-child {
+    margin-bottom: 0; }
+
+.faq__accordion-trigger {
+  background: #2196f3;
+  cursor: pointer;
+  padding: 2rem; }
+  .faq__accordion-trigger i {
+    color: white;
+    display: inline-block;
+    font-size: 22px;
+    margin: 0 1rem 0 0;
+    transition: all .2s ease;
+    vertial-align: middle; }
+  .faq__accordion-trigger span {
+    color: white;
+    font-size: 22px; }
+  .faq__accordion-trigger.active i {
+    transform: rotate(180deg);
+    transition: all .2s ease; }
+
+.faq__accordion-content {
+  background: white;
+  display: none;
+  padding: 2rem; }
+  .faq__accordion-content.active {
+    display: block; }
+  .faq__accordion-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 2rem 0; }
+    .faq__accordion-content p:first-child {
+      margin-top: 0; }
+    .faq__accordion-content p:last-child {
+      margin-bottom: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Text
+
+============================================================================= */
+.faq__text-title {
+  margin: 3rem 0 1rem 0; }
+
+.faq__text-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 2rem 0; }
+  .faq__text-copy:last-child {
+    margin-bottom: 0; }

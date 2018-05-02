@@ -10,7 +10,7 @@ LookupAPI.loadLookupData = function() {
     //BranchAPI.getBranches(locale);
     var locales = ["en_CA", "fr_CA"];
     //var lookupTypes = ["department", "branch", "division", "province", "jobterm"];
-    var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level"];
+    var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level", "clearance", "language"];
     for(i in locales) {
         for (j in lookupTypes) {
             var locale = locales[i];
@@ -19,7 +19,6 @@ LookupAPI.loadLookupData = function() {
         }
     }
 };
-
 
 LookupAPI.getLookupData = function(lookupType, locale, requestCallback){    
     var lookup_URL = DataAPI.baseURL+"/"+locale+"/Lookup/"+lookupType;
@@ -46,7 +45,7 @@ LookupAPI.getLookupData = function(lookupType, locale, requestCallback){
       lookupData_xhr = null;
 
     }
-    
+
     lookupData_xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);
@@ -121,8 +120,8 @@ LookupAPI.populateDropdown = function(lookupType, elementId){
     if (LookupAPI.loadsInProgress > 0) {
         LookupAPI.deferPopulate(lookupType, elementId);
     } else {
-        var selectElem = document.getElementById(elementId);    
-        if(selectElem){        
+        var selectElem = document.getElementById(elementId);
+        if(selectElem){
             var locale = TalentCloudAPI.getLanguageFromCookie();
             var lookupList = LookupAPI.lookupMap[locale][lookupType];
             if (lookupList) {
@@ -154,7 +153,7 @@ LookupAPI.populateDropdownElement = function(lookupType, element){
     if (LookupAPI.loadsInProgress > 0) {
         LookupAPI.deferPopulateElements(lookupType, element);
     } else {
-        if(element){        
+        if(element){
             var locale = TalentCloudAPI.getLanguageFromCookie();
             var lookupList = LookupAPI.lookupMap[locale][lookupType];
             if (lookupList) {
