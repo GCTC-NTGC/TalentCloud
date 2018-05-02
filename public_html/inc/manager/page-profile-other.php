@@ -28,7 +28,7 @@
 
             <div class="manager-edit-profile__required-copy-wrapper">
                 <span>* = </span>
-                <span id="createEditProfile_requiredStep2">Required</span>
+                <span id="createEditProfile_requiredStep3">Required</span>
             </div>
 
             <div class="flex-grid top manager-edit-profile__form">

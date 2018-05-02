@@ -5797,7 +5797,8 @@ nav {
   padding: 2rem; }
 
 .job-poster__work-environment-photo {
-  background-color: #c8c8c8;
+  /* hiding work environment photos when not present
+    background-color: $palette-grey--light; */
   background-position: center;
   background-size: cover;
   height: 45vh; }

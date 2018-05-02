@@ -117,11 +117,13 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
 
     //var last_updated = document.getElementById("profileLastUpdated");
 
-    var position = document.getElementById("managerProfilePosition");
-    position.innerHTML = profile.position;
+    document.getElementById("managerProfilePosition").innerHTML = profile.position;
 
-    var department = document.getElementById("managerProfileDepartment");
-    department.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile.department_id);
+    var dept_id = parseInt(profile.department_id);
+
+    var department_text = LookupAPI.getLocalizedLookupValue("department", dept_id);
+
+    document.getElementById("managerProfileDepartment").innerHTML = department_text;
 
     var twitter_link = document.getElementById("managerProfileTwitterLink");
     var twitter_link_wrapper = document.getElementById("managerProfileTwitterLinkWrapper");

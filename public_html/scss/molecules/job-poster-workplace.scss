@@ -15,7 +15,8 @@
 }
 
 .job-poster__work-environment-photo {
-    background-color: $palette-grey--light;
+    /* hiding work environment photos when not present
+    background-color: $palette-grey--light; */
     background-position: center;
     background-size: cover;
     height: 45vh;
