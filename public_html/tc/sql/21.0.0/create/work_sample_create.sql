@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `talentcloud`.`application_work_sample` (
   `job_poster_application_id` INT(10) UNSIGNED ZEROFILL NOT NULL,
   `criteria_id` INT(10) UNSIGNED ZEROFILL NOT NULL,
   `work_sample_id` INT(10) UNSIGNED ZEROFILL NOT NULL,
+  `is_active` TINYINT NOT NULL DEFAULT 1, 
   PRIMARY KEY (`application_work_sample_id`),
   INDEX `fk_application_work_sample_application_id_idx` (`job_poster_application_id` ASC),
   INDEX `fk_application_work_sample_criteria_id_idx` (`criteria_id` ASC),
