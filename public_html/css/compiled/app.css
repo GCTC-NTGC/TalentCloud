@@ -4725,8 +4725,13 @@ input[type=date][class*="form__input--"] {
   z-index: 50; }
   @media (min-width: 64em) {
     .page-hero__navigation-menu {
+      background: none;
       display: flex;
-      transform: translate(0, 0); } }
+      height: auto;
+      padding: 0;
+      position: relative;
+      transform: translate(0, 0);
+      width: 100%; } }
   .page-hero__navigation-menu.active {
     transform: translate(0, 0);
     transition: transform .2s ease; }

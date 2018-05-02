@@ -121,8 +121,13 @@
 	z-index: 50;
 
 	@media #{$l-tablet} {
+		background: none;
 		display: flex;
+		height: auto;
+		padding: 0;
+		position: relative;
 		transform: translate(0, 0);
+		width: 100%;
 	}
 
 	&.active {
