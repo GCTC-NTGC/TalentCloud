@@ -102,8 +102,11 @@ WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
     else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'No') {
         document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work not allowed';
     }
-    else {
+    else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Non') {
         document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Travail à distance non autorisé';
+    }
+    else {
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work not specified';
     }
 
 };
@@ -129,10 +132,15 @@ WorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName,
     xhr.setRequestHeader("Accept","image/*");
     xhr.addEventListener('load', function() {
         img = document.getElementById(imageElementId);
+        i = 0;
         if (xhr.status == 200 && xhr.responseURL) {
             img.style.backgroundImage = "url("+xhr.responseURL+")";
         } else {
-            img.style.backgroundImage = "url("+WorkEnvironmentAPI.defaultWorkplacePhoto+")"
+            img.setAttribute('style','display:none;');
+            i++;
+            //img.style.backgroundImage = "url("+WorkEnvironmentAPI.defaultWorkplacePhoto+")"
+        } if (i = 3) {
+            document.getElementById("workEnvironmentSummaryImagesWrapper").setAttribute('style','display:none;');
         }
     });
     xhr.send();

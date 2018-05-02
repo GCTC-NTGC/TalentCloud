@@ -849,7 +849,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     //Initialize Team Culture
     EditTeamCultureAPI.initializeTeamCultureForm(manager_profile.user_manager_profile_id);
 
-        var manager_profile = new CreateEditProfileAPI.ManagerProfile();
+    var manager_profile = new CreateEditProfileAPI.ManagerProfile();
 
     //set hidden field values
     var UserId = document.getElementById("UserId");
@@ -876,15 +876,37 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
     if(UserAPI.hasSessionUser()){
         var session_user = UserAPI.getSessionUserAsJSON();
-        createEditProfile_name_preview.innerHTML = session_user.name;
+        createEditProfile_name_preview.value = session_user.name;
+    }
+
+    var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
+    if (createEditProfile_twitter) {
+        createEditProfile_twitter.value = manager_profile_json.user_manager_profile_twitter;
+    } else {
+        createEditProfile_twitter.value = "";
+    }
+
+    var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
+    if (createEditProfile_linkedin) {
+        createEditProfile_linkedin.value = manager_profile_json.user_manager_profile_linkedin;
+    } else {
+        createEditProfile_linkedin.value = "";
     }
 
     //About Me (page 1)
     var createEditProfile_bio = document.getElementById("createEditProfile_bio");
-    createEditProfile_bio.value = manager_profile_details_en.user_manager_profile_details_aboutme;
+    if (createEditProfile_bio) {
+        createEditProfile_bio.value = manager_profile_details_en.user_manager_profile_details_aboutme;
+    } else {
+        createEditProfile_bio.value = "";
+    }
 
     var createEditProfile_bio_fr = document.getElementById("createEditProfile_bio_fr");
-    createEditProfile_bio_fr.value = manager_profile_details_fr.user_manager_profile_details_aboutme;
+    if (createEditProfile_bio_fr) {
+        createEditProfile_bio_fr.value = manager_profile_details_fr.user_manager_profile_details_aboutme;
+    } else {
+        createEditProfile_bio_fr.value = "";
+    }
 
     var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
     createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
@@ -901,10 +923,36 @@ CreateEditProfileAPI.populateProfile = function(response){
     createEditProfile_branch_fr.value = manager_profile_details_fr.user_manager_profile_details_branch;
 
     var createEditProfile_division = document.getElementById("createEditProfile_division");
-    createEditProfile_division.value = manager_profile_details_en.user_manager_profile_details_division;
+    if (createEditProfile_division) {
+        createEditProfile_division.value = manager_profile_details_en.user_manager_profile_details_division;
+    } else {
+        createEditProfile_division.value = "";
+    }
 
     var createEditProfile_division_fr = document.getElementById("createEditProfile_division_fr");
-    createEditProfile_division_fr.value = manager_profile_details_fr.user_manager_profile_details_division;
+    if (createEditProfile_division_fr) {
+        createEditProfile_division_fr.value = manager_profile_details_en.user_manager_profile_details_division;
+    } else {
+        createEditProfile_division_fr.value = "";
+    }
+
+    var createEditProfile_position = document.getElementById("createEditProfile_position");
+    if (createEditProfile_position) {
+        createEditProfile_position.value = manager_profile_details_en.user_manager_profile_details_position;
+    } else {
+        createEditProfile_position.value = "";
+    }
+
+    var createEditProfile_position_fr = document.getElementById("createEditProfile_position_fr");
+    if (createEditProfile_position_fr) {
+        createEditProfile_position_fr.value = manager_profile_details_fr.user_manager_profile_details_position;
+    } else {
+        createEditProfile_position_fr.value = "";
+    }
+
+
+
+
 
     var createEditProfile_position = document.getElementById("createEditProfile_position");
     createEditProfile_position.value = manager_profile_details_en.user_manager_profile_details_position;
