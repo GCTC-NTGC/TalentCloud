@@ -117,7 +117,7 @@
 	overflow: auto;
 	transform: translate(-100%, 0);
 	transition: transform .2s ease;
-	width: 80vw;
+	width: 100vw;
 	z-index: 50;
 
 	@media #{$l-tablet} {
