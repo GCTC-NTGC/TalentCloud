@@ -17,6 +17,7 @@ TalentCloudAPI.Content = function(
     navigationProfileLink,
     navigationBrowseLink,
     navigationDashboardLink,
+    navigationPosterLink,
     // Subpage Titles
     browseHeroTitle,
     dashboardHeroTitle,
@@ -248,6 +249,7 @@ TalentCloudAPI.Content = function(
         this.navigationProfileLink = navigationProfileLink;
         this.navigationBrowseLink = navigationBrowseLink;
         this.navigationDashboardLink = navigationDashboardLink;
+        this.navigationPosterLink = navigationPosterLink;
         // Subpage Titles
         this.browseHeroTitle = browseHeroTitle;
         this.dashboardHeroTitle = dashboardHeroTitle;
@@ -791,9 +793,6 @@ TalentCloudAPI.setContent = function(content, isManager){
     var navigationProfileLink = document.getElementById("navigationProfileLink");
     navigationProfileLink.innerHTML = siteContent.navigationProfileLink;
 
-    var navigationBrowseLink = document.getElementById("navigationBrowseLink");
-    navigationBrowseLink.innerHTML = siteContent.navigationBrowseLink;
-
     // Common Subpage Titles ===================================================
     var browseHeroTitle = document.getElementById("browseHeroTitle");
     browseHeroTitle.innerHTML = siteContent.browseHeroTitle;
@@ -889,13 +888,12 @@ TalentCloudAPI.setContent = function(content, isManager){
         CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
 
         // Admin Navigation ====================================================
+        var navigationPosterLink = document.getElementById("navigationPosterLink");
+        navigationPosterLink.innerHTML = siteContent.navigationPosterLink;
 
         // Admin Subpage Titles ================================================
 
         // Others ==============================================================
-        var jobPostersLink = document.getElementById("jobPostersLink");
-        jobPostersLink.innerHTML = siteContent.jobPostersLink;
-
         var adminPortal = document.getElementById("adminPortal");
         adminPortal.innerHTML = siteContent.adminPortal;
 
@@ -949,6 +947,9 @@ TalentCloudAPI.setContent = function(content, isManager){
         var navigationDashboardLink = document.getElementById("navigationDashboardLink");
         navigationDashboardLink.innerHTML = siteContent.navigationDashboardLink;
 
+        var navigationBrowseLink = document.getElementById("navigationBrowseLink");
+        navigationBrowseLink.innerHTML = siteContent.navigationBrowseLink;
+
         // Applicant Subpage Titles ============================================
 
         // Others ==============================================================
@@ -996,15 +997,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var contactUs = document.getElementById("contactUs");
         contactUs.innerHTML = siteContent.contactUs;
-
-        var browseTitle = document.getElementById("browseTitle");
-        browseTitle.innerHTML = siteContent.browseTitle;
-
-        var viewJobPosterTitle = document.getElementById("viewJobPosterTitle");
-        viewJobPosterTitle.innerHTML = siteContent.browseTitle;
-
-        var yourApplicationsTitle = document.getElementById("yourApplicationsTitle");
-        yourApplicationsTitle.innerHTML = siteContent.yourApplicationsTitle;
 
         var howItWorksLast = document.getElementById("howItWorksLast");
         howItWorksLast.innerHTML = siteContent.howItWorksLast;

@@ -106,6 +106,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.navigationProfileLink = content.navigationProfileLink;
     thisContent.navigationBrowseLink = content.navigationBrowseLink;
     thisContent.navigationDashboardLink = content.navigationDashboardLink;
+    thisContent.navigationPosterLink = content.navigationPosterLink;
     // Subpage Titles
     thisContent.browseHeroTitle = content.browseHeroTitle;
     thisContent.dashboardHeroTitle = content.dashboardHeroTitle;

@@ -313,7 +313,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     last_updated.value = jobSeekerProfile.last_updated;
 
     var profile_tagline = document.getElementById("profileTagLine");
-    Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
+    // Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
 
     var twitter_name = document.getElementById("profileTwitterUsername");
     var twitter_link = document.getElementById("profileTwitterLink");
@@ -370,7 +370,7 @@ JobSeekerAPI.resetProfileEditValues = function() {
         profile_edit_name.value = sessionUser.name;
     }
     var profile_edit_tagline = document.getElementById("profileEditTagline");
-    profile_edit_tagline.value = document.getElementById("profileTagLine").innerHTML;
+    // profile_edit_tagline.value = document.getElementById("profileTagLine").innerHTML;
 
     var profile_edit_twitter = document.getElementById("profileEditTwitter");
     profile_edit_twitter.value = document.getElementById("profileTwitterUsername").value;
