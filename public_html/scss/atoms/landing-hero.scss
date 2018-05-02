@@ -151,16 +151,20 @@ nav{
     display: inline-block;
     margin: -10% 0 0 0;
     max-width: 50rem;
+    text-align: center;
     width: 100%;
 }
 
 .landing-hero__tagline {
     color: $white;
+    display: block;
     font-size: 25px;
+    text-align: center;
 
     @media #{$l-tablet} {
         border-left: .5rem solid $white;
         padding: 2rem 0 2rem 4rem;
+        text-align: left;
     }
 
 }

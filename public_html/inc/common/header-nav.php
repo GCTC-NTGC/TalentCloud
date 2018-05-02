@@ -2,7 +2,12 @@
 
     <nav class="page-hero__navigation">
 
-        <div class="flex-grid">
+        <div class="page-hero__mobile-trigger" role="button" tabindex="0">
+            <i class="fa fa-navicon"></i>
+            Menu
+        </div>
+
+        <div class="page-hero__navigation-menu active flex-grid">
 
             <!-- Checks to see if the page is the admin portal and then displays the admin home link. -->
             <?php $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
