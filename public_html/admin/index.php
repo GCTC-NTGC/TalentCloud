@@ -71,51 +71,44 @@ if($query_string !== ""){
         <title>GC Talent Cloud</title>
         <?php // Includes for metadata / scripts ?>
         <?php
-        include '../inc/common/head.php';
-        include '../inc/manager/head-admin.php';
-        ?>
-    </head>
-    <body>
-        <script type="text/javascript">
-            <?php
-            if (isset($oidc)) {
-                if($_SESSION["accessToken"] !== null){
-                    echo("var accessToken = '".$_SESSION["accessToken"]."';");
-                    echo("UserAPI.storeOpenIDAccessToken(accessToken);");
-                }
+        if (isset($oidc)) {
+            if($_SESSION["accessToken"] !== null){
+                echo("var accessToken = '".$_SESSION["accessToken"]."';");
+                echo("UserAPI.storeOpenIDAccessToken(accessToken);");
+            }
 
-                if($_SESSION["idToken"] !== null){
-                    echo("var idToken = '".$_SESSION["idToken"]."';");
-                    echo("UserAPI.storeOpenIDToken(idToken);");
-                }
+            if($_SESSION["idToken"] !== null){
+                echo("var idToken = '".$_SESSION["idToken"]."';");
+                echo("UserAPI.storeOpenIDToken(idToken);");
+            }
 
-                if($_SESSION["refreshToken"] !== null){
-                    echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
-                    echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
-                }
+            if($_SESSION["refreshToken"] !== null){
+                echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
+                echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
+            }
 
-                if($_SESSION["expires_in"] !== null){
-                    echo("var expires_in = '".$_SESSION["expires_in"]."';");
-                    echo("UserAPI.storeOpenIDExpiry(expires_in);");
-                }
+            if($_SESSION["expires_in"] !== null){
+                echo("var expires_in = '".$_SESSION["expires_in"]."';");
+                echo("UserAPI.storeOpenIDExpiry(expires_in);");
+            }
 
-                if($_SESSION["expires_at"] !== null){
-                    echo("var expires_at = '".$_SESSION["expires_at"]."';");
-                    echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
-                }
+            if($_SESSION["expires_at"] !== null){
+                echo("var expires_at = '".$_SESSION["expires_at"]."';");
+                echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
+            }
 
-                $userInfo = $oidc->requestUserInfo();
+            $userInfo = $oidc->requestUserInfo();
 
-                if($userInfo !== null){
-                    echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
-                    echo("UserAPI.login(true);");
-                }
-            }else{
+            if($userInfo !== null){
+                echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
                 echo("UserAPI.login(true);");
             }
-            ?>
+        }else{
+            echo("UserAPI.login(true);");
+        }
+        ?>
 
-            //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
+        //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
         </script>
         <?php // Include for Federal Identity Program (black banner) ?>
         <?php include '../inc/manager/header-fip.php'; ?>

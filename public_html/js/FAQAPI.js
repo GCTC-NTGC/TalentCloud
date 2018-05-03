@@ -14,4 +14,12 @@ FAQAPI.showFAQ = function() {
 
     var locale = TalentCloudAPI.getLanguageFromCookie();
 
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var faqHeroTitle = document.getElementById("faqHeroTitle");
+    faqHeroTitle.classList.remove("hidden");
+    faqHeroTitle.setAttribute("aria-hidden", "false");
+
 };

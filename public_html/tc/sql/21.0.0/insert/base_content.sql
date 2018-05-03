@@ -30,7 +30,39 @@ VALUES
 (1,'jobPosterWhatWeValue_label','What we value:', 1),
 (1,'jobPosterWhatWeValue_label','Ce que nous apprécions :', 2),
 (1,'jobPosterHowWeWork_label','How we work:', 1),
-(1,'jobPosterHowWeWork_label','Comment nous travaillons :', 2)
+(1,'jobPosterHowWeWork_label','Comment nous travaillons :', 2),
+/* Navigation Links */
+(1,'navigationHomeLink','Home',1),
+(1,'navigationHomeLink','Accueil',2),
+(1,'navigationBrowseLink','Browse Jobs',1),
+(1,'navigationBrowseLink','Parcourir Les Travaux',2),
+(1,'navigationDashboardLink','My Applications',1),
+(1,'navigationDashboardLink','Mes applications',2),
+(1,'navigationProfileLink','My Profile',1),
+(1,'navigationProfileLink','Mon Profil',2),
+(1,'navigationRegisterLink','Register',1),
+(1,'navigationRegisterLink','Enregistrer',2),
+(1,'navigationLoginLink','Login',1),
+(1,'navigationLoginLink','S\'Identifier',2),
+(1,'navigationLogoutLink','Logout',1),
+(1,'navigationLogoutLink','Se Déconnecter',2),
+(1,'navigationPosterLink','Job Poster',1),
+(1,'navigationPosterLink','Mes affiches',2),
+/* Subpage Titles */
+(1,'browseHeroTitle','Browse Jobs', 1),
+(1,'browseHeroTitle','Parcourir les travaux', 2),
+(1,'dashboardHeroTitle','My Applications', 1),
+(1,'dashboardHeroTitle','Mes applications', 2),
+(1,'profileHeroTitle','My Profile', 1),
+(1,'profileHeroTitle','Mon profil', 2),
+(1,'applicationHeroTitle','My Job Application', 1),
+(1,'applicationHeroTitle','Ma demande d\'emploi', 2),
+(1,'managerProfileHeroTitle','Manager Profile', 1),
+(1,'managerProfileHeroTitle','Profil du gestionnaire', 2),
+(1,'posterHeroTitle','My Job Posters', 1),
+(1,'posterHeroTitle','Mes affiches', 2),
+(1,'faqHeroTitle','FAQs &amp; Information', 1),
+(1,'faqHeroTitle','FAQ et informations', 2)
 ;
 
 UPDATE `talentcloud`.`base_content` SET `base_content_value`='Salary range:' WHERE `base_content_id`='0000000052';

@@ -6,4 +6,5 @@ VALUES
 (1,'cancel','Cancel',1),
 (1,'cancel','Annuler',2),
 (1,'editYour','Edit your',1),
-(1,'editYour','Modifiez votre',2);
+(1,'editYour','Modifiez votre',2)
+;

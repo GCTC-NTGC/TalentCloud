@@ -34,13 +34,24 @@ DashboardAPI.showDashboard = function(){
     var dashboardSection = document.getElementById("dashboardSection");
     dashboardSection.classList.remove("hidden");
 
-    var active = document.getElementById("dashBoardLinkListItem");
-    dashBoardLinkListItem.classList.add("active");
+    var active = document.getElementById("navigationDashboardLinkWrapper");
+    navigationDashboardLinkWrapper.classList.add("active");
 
-    var inactive = document.getElementById("browseLinkListItem");
-    browseLinkListItem.classList.remove("active");
+    var inactive = document.getElementById("navigationBrowseLinkWrapper");
+    navigationBrowseLinkWrapper.classList.remove("active");
 
     DashboardAPI.getApplicationsByUuserId();
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    TalentCloudAPI.setNav("navigationDashboardLinkWrapper");
+
+    var dashboardHeroTitle = document.getElementById("dashboardHeroTitle");
+    dashboardHeroTitle.classList.remove("hidden");
+    dashboardHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 /**
