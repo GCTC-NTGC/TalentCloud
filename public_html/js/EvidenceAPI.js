@@ -11,7 +11,7 @@ EvidenceAPI.menuItemId = function (criteriaId, criteriaType) {
 
 EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, criteriaType, criteriaName) {
     var menuItem = document.getElementById("applicantEvidenceMenuItemTemplate").firstElementChild.cloneNode(true);
-    
+
     menuItem.classList.remove("template");
 
     var triggerName = EvidenceAPI.evidenceTriggerName(criteriaId, criteriaType);
@@ -48,10 +48,11 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     if (criteriaDescription) {
         evidencePanel.querySelector(".applicant-evidence__skill-description").innerHTML = criteriaDescription;
     }
-    
+
     //MODIFY IDs FOR UNIQUENESS
     var idSuffix = "_" + triggerName;
-    
+
+    // MICRO-REFERENCE IDs
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceName", idSuffix);
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceEmail", idSuffix);
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceRelationship", idSuffix);
@@ -60,6 +61,12 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceExpLevel", idSuffix);
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceStory", idSuffix);
 
+    // SKILL SAMPLE IDs
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleName", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleType", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleDateCreated", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleHttpLink", idSuffix);
+    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleStory", idSuffix);
 
 
     //POPULATE "SLIDERS"
@@ -92,7 +99,7 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
         }
         experienceSelector.appendChild(fragment);
     });
-    
+
     //POPULATE SELECT INPUTS
     var relationshipSelect = evidencePanel.querySelector("#applicationEvidenceReferenceRelationship" + idSuffix);
     LookupAPI.populateDropdownElement("relationship", relationshipSelect);
@@ -100,7 +107,7 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     LookupAPI.populateDropdownElement("experience_level", refExperienceLevel);
 
     //ADD EVENT HANDLERS
-    
+
     //define a function to check skill declaration status
     function declarationOnChange() {
         SkillDeclarationAPI.onStatusChange(criteriaId);
@@ -117,8 +124,8 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     });
     //Add handler to Skill Declaration story text
     var declarationText = evidencePanel.querySelector(".applicant-evidence__skill-declaration-text");
-    declarationText.onchange = declarationOnChange; 
-    
+    declarationText.onchange = declarationOnChange;
+
     //define a function to check micro-reference status
     function referenceOnChange() {
         MicroReferenceAPI.onStatusChange(criteriaId);
@@ -131,7 +138,17 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.querySelector("input[name=\"reference_until_date\"]").onchange = referenceOnChange;
     evidencePanel.querySelector("select[name=\"reference_exp_level\"]").onchange = referenceOnChange;
     evidencePanel.querySelector("textarea[name=\"reference_story\"]").onchange = referenceOnChange;
-    
+
+    //define a function to check skill sample status
+    function sampleOnChange() {
+        SkillSampleAPI.onStatusChange(sampleId);
+    }
+    //Add onChange handler to all skill sample inputs
+    evidencePanel.querySelector("input[name=\"sample_name\"]").onchange = sampleOnChange;
+    evidencePanel.querySelector("select[name=\"sample_type\"]").onchange = sampleOnChange;
+    evidencePanel.querySelector("input[name=\"sample_date_created\"]").onchange = sampleOnChange;
+    evidencePanel.querySelector("input[name=\"sample_http_link\"]").onchange = sampleOnChange;
+    evidencePanel.querySelector("textarea[name=\"sample_story\"]").onchange = sampleOnChange;
 
     return evidencePanel;
 };
@@ -158,9 +175,9 @@ EvidenceAPI.instantiateApplicationEvidenceExperienceItem = function (criteriaId,
 
 EvidenceAPI.instantiateApplicationEvidenceRadioItem = function (templateId, inputId, textValue, outputValue, numberOfItems) {
     var itemLabel = document.getElementById(templateId).firstElementChild.cloneNode(true);
-    
+
     itemLabel.classList.remove("template");
-    
+
     var itemInput = itemLabel.querySelector("input");
     var itemText = itemLabel.querySelector(".form__radio-group-span");
 
@@ -176,9 +193,9 @@ EvidenceAPI.instantiateApplicationEvidenceRadioItem = function (templateId, inpu
 };
 
 /**
- * Sets first evidence specified criteria to active. All other evidence 
+ * Sets first evidence specified criteria to active. All other evidence
  * panels with matching criteriaType will be set to inactive.
- * 
+ *
  * @param {string} criteriaType
  * @return {undefined}
  */
@@ -200,7 +217,7 @@ EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
             item.setAttribute("aria-selected", false);
         }
     }
-    
+
     for (var i=0; i<panels.length; i++) {
         var panel = panels[i];
         var panelTrigger = panel.querySelector(".applicant-evidence__accordion-trigger");
@@ -223,7 +240,7 @@ EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
 };
 
 /**
- * 
+ *
  * @param {int} criteriaId
  * @param {string} iconClass - Should be "fa-check", "fa-user", or "fa-file"
  * @param {boolean} isActive
@@ -254,12 +271,12 @@ EvidenceAPI.setEvidenceIconStatus = function(criteriaId, iconClass, isActive) {
 
 /**
  * Saves all completed evidence peices, and deletes incomplete ones from the saved applciation.
- * 
+ *
  * If criteriaType is defined, it saves/deletes evidence of the matching criteriaType.
  * If criteriaType is undefined, it saves/deletes ALL completed skill declarations.
- * 
+ *
  * Calls onSuccess if all evidence pieces are saved/deleted successfully.
- * 
+ *
  * @param {string} criteriaType
  * @param {function} onSuccess
  * @return {undefined}

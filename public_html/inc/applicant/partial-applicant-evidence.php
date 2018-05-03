@@ -12,14 +12,14 @@
             <div id="applicationEssentialEvidenceMenu" role="tablist" aria-orientation="vertical" class="box lg-1of4 applicant-evidence__desktop-menu">
             </div>
 
-            <div id="applicationEssentialEvidenceFormWrapper" class="box lg-3of4 applicant-evidence__form-wrapper">               
+            <div id="applicationEssentialEvidenceFormWrapper" class="box lg-3of4 applicant-evidence__form-wrapper">
             </div>
         </div>
 
     </div>
 
     <div class="application-button__wrapper">
-        
+
         <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showPreviousApplicationSection);">
             Save and return
         </button>
@@ -46,14 +46,14 @@
             <div id="applicationAssetEvidenceMenu" role="tablist" aria-orientation="vertical" class="box lg-1of4 applicant-evidence__desktop-menu">
             </div>
 
-            <div id="applicationAssetEvidenceFormWrapper" class="box lg-3of4 applicant-evidence__form-wrapper">               
+            <div id="applicationAssetEvidenceFormWrapper" class="box lg-3of4 applicant-evidence__form-wrapper">
             </div>
         </div>
 
     </div>
-    
+
     <div class="application-button__wrapper">
-        
+
         <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('asset', JobApplicationAPI.showPreviousApplicationSection);">
             Save and return
         </button>
@@ -296,32 +296,32 @@
                 <form class="form__wrapper flex-grid">
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Project/Document Name:</label>
-                        <input type="text" class="form__input--text" />
+                        <label for="applicationEvidenceSampleName" class="form__label">Project/Document Name:</label>
+                        <input name="sample_name" type="text" class="form__input--text" id="applicationEvidenceSampleName" />
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Type of File:</label>
+                        <label for="applicationEvidenceSampleType" class="form__label">Type of File:</label>
                         <div class="form__select-wrapper">
-                            <select class="form__select">
+                            <select name="sample_type" class="form__select" id="applicationEvidenceSampleType">
                                 <option>Option 01</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Date Created:</label>
-                        <input type="date" class="form__input--date" />
+                        <label for="applicationEvidenceSampleDateCreated" class="form__label">Date Created:</label>
+                        <input name="sample_date_created" type="date" class="form__input--date" id="applicationEvidenceSampleDateCreated" />
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Link to Evidence:</label>
-                        <input type="url" class="form__input--url" />
+                        <label for="applicationEvidenceSampleHttpLink" class="form__label">Link to Evidence:</label>
+                        <input name="sample_http_link" type="url" class="form__input--url" id="applicationEvidenceSampleHttpLink" />
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Story:</label>
-                        <textarea class="form__textarea applicant-evidence__last-target" placeholder="Tell us about this piece of evidence and your role in creating it."></textarea>
+                        <label for="applicationEvidenceSampleStory" class="form__label">Story:</label>
+                        <textarea name="sample_story" class="form__textarea applicant-evidence__last-target" placeholder="Tell us about this piece of evidence and your role in creating it." id="applicationEvidenceSampleStory"></textarea>
                     </div>
 
                 </form>
