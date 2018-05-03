@@ -69,7 +69,8 @@ if($query_string !== ""){
 <html lang="en">
     <head>
         <title>GC Talent Cloud</title>
-        <?php // Includes for metadata / scripts ?>
+        <?php // Include for metadata / scripts ?>
+        <?php include '../inc/common/head.php'; ?>
         <?php
         if (isset($oidc)) {
             if($_SESSION["accessToken"] !== null){
@@ -113,7 +114,7 @@ if($query_string !== ""){
         <?php // Include for Federal Identity Program (black banner) ?>
         <?php include '../inc/manager/header-fip.php'; ?>
         <?php // Include for main navigation ?>
-        <?php include '../inc/manager/header-nav.php'; ?>
+        <?php include '../inc/common/header-nav.php'; ?>
 
         <?php // BEGIN - Overlays (all should be children of this div) ?>
         <div id="overlays">
