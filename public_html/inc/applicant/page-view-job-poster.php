@@ -1,4 +1,4 @@
-<!-- BEGIN - View Job Poster Section -->
+<?php // BEGIN - View Job Poster Section ?>
 <section class="pageContent hidden" id="viewJobPosterSection">
     <div class="pageBanner">
         <div id="jobPosterHeaderSection" class="container">
@@ -94,7 +94,7 @@
                 <div class="workEnvironmentSummaryWrapper">
                     <div id='workEnvironmentSummaryImagesWrapper'>
 
-                        <!-- New Workplace Photo Layout -->
+                        <?php // New Workplace Photo Layout ?>
                         <div class="flex-grid top job-poster__work-environment-photo-grid">
 
 
@@ -148,4 +148,4 @@
             </div>
         </div>
     </section>
-    <!-- END - View Job Poster Section -->
+    <?php // END - View Job Poster Section ?>

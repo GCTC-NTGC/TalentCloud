@@ -1,4 +1,4 @@
-<!-- BEGIN - Edit Admin Profile Form (Page 4 / Team Culture) -->
+<?php // BEGIN - Edit Admin Profile Form (Page 4 / Team Culture) ?>
 <div id="createEditProfile_teamCulture" class="stepGroup_createEditProfile hidden">
 
     <div class="tabsWrapper">
@@ -146,4 +146,4 @@
     </div>
 
 </div>
-<!-- END - Edit Admin Profile Form (Page 4 / Team Culture) -->
+<?php // END - Edit Admin Profile Form (Page 4 / Team Culture) ?>

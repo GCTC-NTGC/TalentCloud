@@ -1,4 +1,4 @@
-<!-- BEGIN - Registration Form Modal Dialog and Overlay-->
+<?php // BEGIN - Registration Form Modal Dialog and Overlay ?>
 <div id="registerFormOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerFormTitle" aria-describedby="registerFormDescription">
     <div id="registerFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
         <div id="registerFormTitleWrapper" class="dialogTitle">
@@ -57,9 +57,9 @@
         </div>
     </div>
 </div>
-<!-- END - Registration Form Modal Dialog and Overlay -->
+<?php // END - Registration Form Modal Dialog and Overlay  ?>
 
-<!-- BEGIN - Registration Status Dialog and Overlay -->
+<?php // BEGIN - Registration Status Dialog and Overlay  ?>
 <div id="registerStatusOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="registerStatusTitle" aria-describedby="registerStatusDescription">
     <div id="registerStatusWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
         <div id="registerStatusTitleWrapper" class="dialogTitle">
@@ -81,4 +81,4 @@
         </div>
     </div>
 </div>
-<!-- END - Registration Status Dialog and Overlay -->
+<?php // END - Registration Status Dialog and Overlay  ?>
