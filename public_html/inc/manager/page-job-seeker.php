@@ -1,4 +1,4 @@
-<!-- BEGIN - Job Seeker Section -->
+<?php // BEGIN - Job Seeker Section ?>
 <section class="pageContent hidden" id="jobSeekersSection">
     <div class="pageBanner">
         <h2 class="section--title" id="jobSeekersSectionTitle">Job Seekers</h2>
@@ -22,4 +22,4 @@
         </div>
     </div>
 </section>
-<!-- END - Job Seeker Section -->
+<?php // END - Job Seeker Section ?>

@@ -70,7 +70,7 @@ if($query_string !== ""){
 <html lang="en">
 <head>
     <title>GC Talent Cloud</title>
-    <!-- Include for metadata / scripts -->
+    <?php // Include for metadata / scripts ?>
     <?php include 'inc/common/head.php'; ?>
 </head>
 <body>
@@ -115,14 +115,14 @@ if($query_string !== ""){
             
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
     </script>
-    <!-- Include for Federal Identity Program (black banner) -->
+    <?php // Include for Federal Identity Program (black banner) ?>
     <?php include 'inc/applicant/header-fip.php';?>
     <!-- Include for main navigation -->
     <?php include 'inc/common/header-nav.php';?>
 
-    <!-- BEGIN - Overlays (all should be children of this div) -->
+    <?php // BEGIN - Overlays (all should be children of this div) ?>
     <div id="overlays">
-        <!-- BEGIN - Includes for modal dialogs -->
+        <?php // BEGIN - Includes for modal dialogs ?>
         <?php
         include 'inc/applicant/modal-registration.php';
         include 'inc/applicant/modal-login.php';
@@ -130,13 +130,13 @@ if($query_string !== ""){
         include 'inc/applicant/modal-edit-profile-answer.php';
         include 'inc/applicant/modal-yes-no.php';
         ?>
-        <!-- END - Modal dialogs -->
+        <?php // END - Modal dialogs ?>
     </div>
-    <!-- END - Overlays -->
+    <?php // END - Overlays ?>
 
-    <!-- BEGIN - Page Content-->
+    <?php // BEGIN - Page Content?>
     <main>
-        <!-- BEGIN - Includes for pages -->
+        <?php // BEGIN - Includes for pages ?>
         <?php
         include "inc/applicant/page-home-content.php";
         include "inc/applicant/page-browse-jobs.php";
@@ -148,11 +148,11 @@ if($query_string !== ""){
         include "inc/applicant/page-dashboard.php";
         include "inc/common/faq.php";
         ?>
-        <!-- END - Incudes for pages -->
+        <?php // END - Incudes for pages ?>
     </main>
-    <!-- END - Page Content -->
+    <?php // END - Page Content ?>
 
-    <!-- Include for footer -->
+    <?php // Include for footer ?>
     <?php include 'inc/applicant/footer.php';?>
 </body>
 </html>
