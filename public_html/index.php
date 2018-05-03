@@ -117,8 +117,8 @@ if($query_string !== ""){
     </script>
     <?php // Include for Federal Identity Program (black banner) ?>
     <?php include 'inc/applicant/header-fip.php';?>
-    <?php // Include for main navigation ?>
-    <?php include 'inc/applicant/header-nav.php';?>
+    <!-- Include for main navigation -->
+    <?php include 'inc/common/header-nav.php';?>
 
     <?php // BEGIN - Overlays (all should be children of this div) ?>
     <div id="overlays">

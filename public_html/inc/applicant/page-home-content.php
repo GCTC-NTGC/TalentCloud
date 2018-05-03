@@ -1,7 +1,4 @@
 <section class="pageContent" id="homePageContentSection">
-
-     <?php // Landing Hero ?>
-     <?php include "inc/common/landing-hero.php"; ?>
      
     <div class="pageBody" id="homePageContent">
         <section class="section homepage--intro">

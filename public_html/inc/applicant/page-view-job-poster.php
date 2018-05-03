@@ -1,6 +1,6 @@
 <?php // BEGIN - View Job Poster Section ?>
 <section class="pageContent hidden" id="viewJobPosterSection">
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <div id="jobPosterHeaderSection" class="container">
             <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
             <h3 id="jobPosterTitle">Job Title</h3>
@@ -11,10 +11,10 @@
             <p><span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span> (<span id="jobPosterRemoteWorkHeader">Remote work</span>)</p>
             <input id="jobPosterJobId" type="hidden"/>
         </div>
-    </div>
+    </div> -->
     <div class="pageBody">
         <section id="jobPosterDatapointsSection">
-            <div class="container">
+            <div class="block-container">
                 <ul class="jobPosterDatapoints">
                     <li>
                         <span id="jobPosterJobLevelLabel">Classification</span> <span id="jobPosterJobLevelValue"></span>
@@ -38,31 +38,37 @@
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="container">
+            <div class="block-container">
                 <h4 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h4>
                 <p id="jobPosterImpact"></p>
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="container">
+            <div class="block-container">
                 <h4 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h4>
                 <ul id="jobPosterKeyTasks"></ul>
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="container">
+            <div class="block-container">
                 <h4 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Essential Criteria</h4>
                 <ul id="jobPosterCoreCompetencies"></ul>
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="container">
+            <div class="block-container">
                 <h4 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Asset Criteria</h4>
                 <ul id="jobPosterDevelopingCompetencies"></ul>
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class='container'>
+            <div class="block-container">
+                <h4 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h4>
+                <ul id="jobPosterOtherRequirements"></ul>
+            </div>
+        </section>
+        <section class='jobPosterSection'>
+            <div class='block-container'>
                 <h4 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h4>
                 <input type='hidden' id='jobPosterHiringManagerUserId'/>
 
@@ -84,7 +90,7 @@
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="container">
+            <div class="block-container">
                 <h4 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h4>
                 <div class="workEnvironmentAnswerWrapper">
                     <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
@@ -111,8 +117,10 @@
                         </div>
                     </div>
                 </div>
-            </section>
-            <section class="jobPosterSection">
+        </section>
+        <section class="jobPosterSection">
+            <div class="block-container">
+                <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                 <div class="container">
                     <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                     <div class="container">
