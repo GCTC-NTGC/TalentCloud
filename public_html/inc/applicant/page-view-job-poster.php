@@ -1,17 +1,5 @@
-<!-- BEGIN - View Job Poster Section -->
+<?php // BEGIN - View Job Poster Section ?>
 <section class="pageContent hidden" id="viewJobPosterSection">
-    <!-- <div class="pageBanner">
-        <div id="jobPosterHeaderSection" class="container">
-            <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
-            <h3 id="jobPosterTitle">Job Title</h3>
-            <p id="jobPosterLocation">
-                <span id="jobPosterDepartment"></span>
-            </p>
-            <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
-            <p><span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span> (<span id="jobPosterRemoteWorkHeader">Remote work</span>)</p>
-            <input id="jobPosterJobId" type="hidden"/>
-        </div>
-    </div> -->
     <div class="pageBody">
         <section id="jobPosterDatapointsSection">
             <div class="block-container">
@@ -62,12 +50,6 @@
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h4>
-                <ul id="jobPosterOtherRequirements"></ul>
-            </div>
-        </section>
-        <section class='jobPosterSection'>
             <div class='block-container'>
                 <h4 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h4>
                 <input type='hidden' id='jobPosterHiringManagerUserId'/>
@@ -100,7 +82,7 @@
                 <div class="workEnvironmentSummaryWrapper">
                     <div id='workEnvironmentSummaryImagesWrapper'>
 
-                        <!-- New Workplace Photo Layout -->
+                        <?php // New Workplace Photo Layout ?>
                         <div class="flex-grid top job-poster__work-environment-photo-grid">
 
 
@@ -122,7 +104,6 @@
             <div class="block-container">
                 <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                 <div class="container">
-                    <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                     <div class="container">
                         <p><span id='jobPosterTeamSize_label'>Team size:</span> <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
                         <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
@@ -156,4 +137,4 @@
             </div>
         </div>
     </section>
-    <!-- END - View Job Poster Section -->
+    <?php // END - View Job Poster Section ?>
