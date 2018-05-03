@@ -1,4 +1,4 @@
-<!-- BEGIN - Browse Jobs Section -->
+<?php // BEGIN - Browse Jobs Section ?>
 <section class="pageContent hidden" id="browseJobsSection">
     <div class="pageBanner">
         <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
@@ -24,4 +24,4 @@
         <span id="contactCount">0</span> jobs
     </div>
 </section>
-<!-- END - Browse Jobs Section -->
+<?php // END - Browse Jobs Section ?>

@@ -1,4 +1,4 @@
-<!-- BEGIN - Standard Yes/No Modal Popup -->
+<?php // BEGIN - Standard Yes/No Modal Popup ?>
 <div class="yesNoModalOverlay hidden" id="yesNoModalOverlay" role="dialog">
     <div id="yesNoModalWindow" class="dialogue-modal yesNoModalWindow">
         <div class="yesNoModalContent">
@@ -9,4 +9,4 @@
         </div>
     </div>
 </div>
-<!-- END - Standard Yes/No Modal Popup -->
+<?php // END - Standard Yes/No Modal Popup ?>

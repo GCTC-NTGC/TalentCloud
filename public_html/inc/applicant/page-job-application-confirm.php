@@ -1,4 +1,4 @@
-<!-- BEGIN - Job Application Confirmation Section -->
+<?php // BEGIN - Job Application Confirmation Section ?>
 <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
      <div class="pageBanner">
         <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>

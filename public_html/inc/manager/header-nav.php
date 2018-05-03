@@ -18,9 +18,11 @@
                     <li class="top-nav--link" id="jobPostersLinkListItem" aria-hidden="true">
                         <a href="javascript:void(0)" class="hidden" id="jobPostersLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this);TalentCloudAPI.setNav('jobPostersLinkListItem');">JobPoster</a>
                     </li>
-                    <!--li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
+                    <?php /*
+                    <li class="top-nav--link" id="teamsLinkListItem" aria-hidden="true">
                         <a href="#" class="hidden" id="teamsLink">My Teams</a>
-                    </li-->
+                    </li>
+                    */?>
                     <li class="top-nav--link" id="registerLinkListItem">
                         <div id="register">
                             <a href="javascript:void(0)" id="registerLink" onclick="UserAPI.showRegisterForm(this)">Register</a>
