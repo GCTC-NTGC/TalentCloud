@@ -164,7 +164,8 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
 
         //Load saved skill declarations using application id
         SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
-        MicroReferenceAPI.loadSavedMicroReferenecesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
+        MicroReferenceAPI.loadSavedMicroReferencesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
+        SkillSampleAPI.loadSavedSkillSamplesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
 
         //Set saved question answer content
         jobApplication.application_question_answers.forEach(value => {
@@ -356,9 +357,9 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
            //This can be done 2 ways:
            //(1) Entirely in js: see JobApplicationAPI.makeQuestionAnswerHtmlElement as an example
            //(2) You can clone a template already in the DOM and modify it: see JobApplicationAPI.makeSkillDeclarationForm as an example
-           
+
            //Some stub code for method (1):
-           var answerElement = document.createElement("div"); 
+           var answerElement = document.createElement("div");
            answerElement.setAttribute("class", "application-preview__question");
            var questionText = document.createElement("h5");
            questionText.setAttribute("class", "application-preview__question-title");
@@ -366,11 +367,11 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
            var answerText = document.createElement("div");
            answerText.setAttribute("class", "application-preview__question-answer");
            answerText.innerHTML = "<p>"+answer.answer+"</p>";
-           
+
            //Place child elements appropriately, and in order
            answerElement.appendChild(questionText);
            answerElement.appendChild(answerText);
-           
+
            //Regardless of method used, add the root element to the documentFragment
            answerFragment.appendChild(answerElement);
         });
@@ -378,8 +379,8 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
         //eg:
         var answerWrapper = document.getElementById("applicationPreviewQuestionWrapper");
         answerWrapper.innerHTML = ""; //Removes old elements
-        answerWrapper.appendChild(answerFragment);       
-        
+        answerWrapper.appendChild(answerFragment);
+
     } else if (httpRequest.status === 404) {
         //No application exists for the current user and specified job
     } else {
@@ -391,24 +392,24 @@ JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(ht
  * Note: because of the way DataAPI.getJobSeekerProfileByUserId is written, this
  * function only gets passed the httpRequest response, not the httpRequest itself.
  * This function must assume it is getting good data, instead of checking the httpRequest.status itself.
- * 
+ *
  * @param {type} response
  * @return {undefined}
  */
-JobApplicationAPI.populatePreviewApplicationWithUserContent = function(user) { 
-    
+JobApplicationAPI.populatePreviewApplicationWithUserContent = function(user) {
+
     // var jobSeeker = JSON.parse(user);
 
     console.log(user);
-    
+
     //Do something with the response data
     document.getElementById('applicationPreviewProfileName').innerHTML = user.firstname;
 
 };
 
-JobApplicationAPI.populatePreviewApplicationWithProfileContent = function(response) { 
+JobApplicationAPI.populatePreviewApplicationWithProfileContent = function(response) {
     var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
-    
+
     //Do something with the response data
     document.getElementById('applicationPreviewProfileTagline').innerHTML = jobSeeker.tagline;
 
@@ -417,7 +418,7 @@ JobApplicationAPI.populatePreviewApplicationWithProfileContent = function(respon
 JobApplicationAPI.populatePreviewApplicationWithSkillDeclarationContent = function(httpRequest) {
     if (httpRequest.status === 200) {
         var skillDeclarations = JSON.parse(httpRequest.response);
-        
+
         //Add skill declarations to ui
     }
 };
@@ -457,18 +458,18 @@ JobApplicationAPI.submitNewJobApplication = function () {
 };
 
 JobApplicationAPI.saveJobApplicationAndPreview = function() {
-    
+
 };
 
 /**
  * Saves the current Job Application.
  * Call onSuccess if application is saved successfully
- * 
+ *
  * @param {function} onSuccess
  * @return {undefined}
  */
 JobApplicationAPI.saveJobApplication = function(onSuccess) {
-    
+
     var jobApplicationId = document.getElementById('createJobApplicationJobApplicationId').value;
     var jobPosterId = document.getElementById('createJobApplicationJobPosterId').value;
     var jobSeekerId = document.getElementById('createJobApplicationJobSeekerId').value;
@@ -524,16 +525,16 @@ JobApplicationAPI.showNextApplicationSection = function() {
     JobApplicationAPI.shiftApplicationSection(1);
 };
 
-JobApplicationAPI.shiftApplicationSection = function(shift) {    
+JobApplicationAPI.shiftApplicationSection = function(shift) {
     var progressItems = document.querySelectorAll(".application-progress__item");
-    
+
     for (var i=0; i<progressItems.length; i++) {
         if (!progressItems[i].classList.contains("inactive")) {
             //This item is not inactive, therefore it is the current section
             var shiftedIndex = i + shift;
             if (shiftedIndex < progressItems.length && shiftedIndex >= 0) {
                 //as long as this would shift us to a valid index, show the new section
-                
+
                 var newSection = progressItems[shiftedIndex].getAttribute("data-application-section");
                 JobApplicationAPI.showApplicationSection(newSection);
             }
@@ -552,7 +553,7 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
            section.classList.add("hidden");
        }
     });
-    
+
     //Set progress tracking bar to match
     var progressItems = document.querySelectorAll(".application-progress__item");
     progressItems.forEach( item => {
@@ -562,9 +563,9 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
            item.classList.add("inactive");
        }
     });
-    
+
     //TODO: select focus properly
-    
+
     //Activate first evidence panel
     if (applicationSection === "essential-criteria") {
         EvidenceAPI.activateFirstEvidencePanel("essential");

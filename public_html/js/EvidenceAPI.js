@@ -267,30 +267,31 @@ EvidenceAPI.setEvidenceIconStatus = function(criteriaId, iconClass, isActive) {
 EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
     var pendingRequests = 2;
     var everythingSuccessful = true;
-    
+
     function saveSuccessful() {
         pendingRequests = pendingRequests - 1;
         if (pendingRequests == 0) {
-            if (everythingSuccessful) 
+            if (everythingSuccessful)
                 onSuccess();
             else {
                 window.alert("Something went wrong saving evidence!");
-            }  
+            }
         }
     }
-    
+
     function saveFailed() {
         everythingSuccessful = false;
         pendingRequests = pendingRequests - 1;
         if (pendingRequests == 0) {
-            if (everythingSuccessful) 
+            if (everythingSuccessful)
                 onSuccess();
             else {
                 window.alert("Something went wrong while saving evidence!");
-            }                
+            }
         }
     }
-    
-    SkillDeclarationAPI.saveSkillDeclarations(criteriaType, saveSuccessful, saveFailed); 
+
+    SkillDeclarationAPI.saveSkillDeclarations(criteriaType, saveSuccessful, saveFailed);
     MicroReferenceAPI.saveMicroReferences(criteriaType, saveSuccessful, saveFailed);
+    SkillSampleAPI.saveSkillSamples(criteriaType, saveSuccessful, saveFailed);
 };

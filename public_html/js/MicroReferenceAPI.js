@@ -31,7 +31,7 @@ MicroReferenceAPI.MicroReference = function (
     };
 };
 
-MicroReferenceAPI.loadSavedMicroReferenecesForJobApplication = function (jobApplicationId) {
+MicroReferenceAPI.loadSavedMicroReferencesForJobApplication = function (jobApplicationId) {
     DataAPI.getMicroReferencesForApplication(jobApplicationId, function (request) {
         //Check that request returned a valid response
         if (request.status === 200 && request.response) {
@@ -88,14 +88,14 @@ MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
 
 
 /**
- * Saves all completed references for criteria of given type, 
- * while Deleteing all incomplete references of the given type. 
- * 
+ * Saves all completed references for criteria of given type,
+ * while Deleteing all incomplete references of the given type.
+ *
  * If criteriaType is undefined, it saves/deletes ALL completed skill declarations.
- * 
+ *
  * Call onSuccess if all microreferences are saved/deleted successfully
  * Call onFailure if some/all requests returned with unexpected status
- * 
+ *
  * @param {string} criteriaType
  * @param {function} onSuccess
  * @return {undefined}

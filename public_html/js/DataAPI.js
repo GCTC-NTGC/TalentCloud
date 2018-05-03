@@ -827,3 +827,18 @@ DataAPI.deleteMicroReference = function(criteriaId, applicationId, requestCallba
     var url = DataAPI.baseURL + "/deleteReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };
+
+DataAPI.getSkillSamplesForApplication = function(applicationId, requestCallback) {
+    var url = [DataAPI.baseURL, "getSamplesForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveSkillSample = function(skillSample, sampleId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putSamplesForApplication/" + applicationId + "/forCriteria/" + sampleId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillSample), requestCallback);
+};
+
+DataAPI.deleteSkillSample = function(sampleId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteSampleForApplication/" + applicationId + "/forCriteria/" + sampleId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
