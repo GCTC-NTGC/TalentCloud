@@ -107,9 +107,10 @@ if($query_string !== ""){
         }else{
             echo("UserAPI.login(true);");
         }
-        ?>
 
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
+        ?>
+
         </script>
         <?php // Include for Federal Identity Program (black banner) ?>
         <?php include '../inc/manager/header-fip.php'; ?>

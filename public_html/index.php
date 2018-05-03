@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor .
 -->
-<?php 
+<?php
 date_default_timezone_set('America/Toronto');
 
 error_reporting(E_ALL);
@@ -40,13 +40,13 @@ if($query_string !== ""){
         if($_SESSION["accessToken"]){
             $oidc->setAccessToken($_SESSION["accessToken"]);
         }*/
-        
+
         try{
             $oidc->authenticate();
         }catch(Jumbojett\OpenIDConnectClientException $e){
             echo($e->getMessage());
         }
-        
+
         //set session variables for openid info
         if (isset($oidc)) {
             if ($oidc->getAccessToken() !== "NULL") {
@@ -59,7 +59,7 @@ if($query_string !== ""){
                 $_SESSION["expires_at"] = $expires_at;
             }
         }
-        
+
         header("Refresh:0; url=\"".REDIRECT_URI."");
     }
 }else{
@@ -103,7 +103,7 @@ if($query_string !== ""){
             }
 
             $userInfo = $oidc->requestUserInfo();
-            
+
             if($userInfo !== null){
                 echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
                 echo("UserAPI.login();");
@@ -111,9 +111,9 @@ if($query_string !== ""){
         }else{
             echo("UserAPI.login();");
         }
-        ?>
-            
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
+        ?>
+
     </script>
     <?php // Include for Federal Identity Program (black banner) ?>
     <?php include 'inc/applicant/header-fip.php';?>
@@ -143,7 +143,7 @@ if($query_string !== ""){
         include "inc/applicant/page-view-job-poster.php";
         include "inc/applicant/page-applicant-profile.php";
         include "inc/applicant/page-manager-profile.php";
-        include "inc/applicant/page-application-form.php";        
+        include "inc/applicant/page-application-form.php";
         include "inc/applicant/page-job-application-confirm.php";
         include "inc/applicant/page-dashboard.php";
         include "inc/common/faq.php";
