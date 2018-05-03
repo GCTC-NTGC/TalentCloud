@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 <nav id="wb-sm">
     <div class="topbar transparent" id="site--topbar">
         <h2 id="topicsMenu">Topics menu</h2>
@@ -13,11 +9,7 @@
                             <a href="/" id="homeLink">Home</a>
                         </div>
                     </li>
-                    <?php/*
-                    <li class="top-nav--link">
-                        <a href="/about">FAQ</a>
-                    </li>
-                    */?>
+                    <?php // <!--<li class="top-nav--link"><a href="/about">FAQ</a></li> --> ?>
                     <li class="top-nav--link" id="browseLinkListItem">
                         <div id="browse">
                             <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('browseLinkListItem');">Browse Jobs</a>
@@ -43,9 +35,7 @@
                             }
                         ?>
                         <div id="loggedOut" class="<?php echo($hasUser!=null?"hidden":""); ?>">
-                            <?php/*
-                            <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a>
-                            */?>
+                            <?php // <!-- <a href="javascript:void(0)" id="loginLink" onclick="UserAPI.showLogin(this)">Login</a> --> ?>
                             <?php //echo("<a href=\"".AUTH_URI."?client_id=".CLIENT_ID."&redirect_uri=".REDIRECT_URI."&scope=openid%20profile%20email&response_type=id_token%20token&state=123456&prompt=consent\" id=\"loginLink\">Login</a>"); ?>
                             <?php 
                             $loginLink = "";
