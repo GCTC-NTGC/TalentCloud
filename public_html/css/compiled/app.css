@@ -4659,7 +4659,7 @@ input[type=date][class*="form__input--"] {
     width: 100%; }
 
 .page-hero__navigation {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5) !important;
   position: relative;
   z-index: 15; }
   .page-hero__navigation > .flex-grid {
@@ -4709,6 +4709,12 @@ input[type=date][class*="form__input--"] {
       display: none; } }
   .page-hero__mobile-trigger i {
     margin: 0 .5rem 0 0; }
+    .page-hero__mobile-trigger i.fa-times {
+      display: none; }
+  .page-hero__mobile-trigger.active i.fa-navicon {
+    display: none; }
+  .page-hero__mobile-trigger.active i.fa-times {
+    display: inline-block; }
 
 .page-hero__navigation-menu {
   background: rgba(0, 0, 0, 0.9);

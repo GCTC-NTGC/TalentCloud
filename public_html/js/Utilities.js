@@ -391,8 +391,36 @@ Utilities.setAccordionTriggers = function () {
     }
 };
 
+Utilities.mobileNavClickListener = function(e) {
+
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    var mainMenu = document.getElementById("pageHeroNavigationMenu");
+
+    e.preventDefault();
+
+    if (this.classList.contains("active")) {
+        this.classList.remove("active");
+        mainMenu.classList.remove("active");
+    }
+    else {
+        this.classList.add("active");
+        mainMenu.classList.add("active");
+    }
+
+}
+
+Utilities.setMobileNavTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    // Checks for a click.
+    mobileMenuTrigger.addEventListener('click', Utilities.mobileNavClickListener);
+    // Checks for an Enter key click.
+    mobileMenuTrigger.addEventListener("keyup", Utilities.accordionKeyupListener);
+};
+
 window.onload = function (e) {
     Utilities.setAccordionTriggers();
+    Utilities.setMobileNavTriggers();
 };
 
 Utilities.getHeroElements = function() {

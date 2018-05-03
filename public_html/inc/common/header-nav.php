@@ -1,16 +1,16 @@
 <section class="page-hero">
 
-    <nav class="page-hero__navigation">
+    <nav class="page-hero__navigation" id="wb-sm">
 
-        <!-- <h2 id="topicsMenu">Topics menu</h2> -->
+        <h2 id="topicsMenu">Topics menu</h2>
 
-        <div class="page-hero__mobile-trigger" role="button" tabindex="0">
+        <div class="page-hero__mobile-trigger" id="pageHeroMobileTrigger" role="button" tabindex="0">
             <i class="fa fa-navicon"></i>
             <i class="fa fa-times"></i>
             Menu
         </div>
 
-        <div class="page-hero__navigation-menu flex-grid">
+        <div class="page-hero__navigation-menu flex-grid" id="pageHeroNavigationMenu">
 
             <!-- Checks to see if the page is the admin portal and then displays the admin home link. -->
             <?php $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>

@@ -25,7 +25,7 @@
 }
 
 .page-hero__navigation {
-	background: rgba(0, 0, 0, .5);
+	background: rgba(0, 0, 0, .5) !important;
 	position: relative;
 	z-index: 15;
 	
@@ -102,6 +102,31 @@
 
 	i {
 		margin: 0 .5rem 0 0;
+
+		&.fa-navicon {
+
+		}
+
+		&.fa-times {
+			display: none;
+		}
+
+	}
+
+	&.active {
+
+		i {
+
+			&.fa-navicon {
+				display: none;
+			}
+
+			&.fa-times {
+				display: inline-block;
+			}
+
+		}
+
 	}
 
 }
