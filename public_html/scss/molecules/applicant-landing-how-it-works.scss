@@ -72,11 +72,17 @@
 	height: 10rem;
 	margin: 0;
 	position: absolute;
-	top: 50%;
-	left: 0;
-	transform: translate(0, -50%);
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
 	width: 10rem;
 	vertical-align: middle;
+
+	@media #{$p-tablet} {
+		top: 50%;
+		left: 0;
+		transform: translate(0, -50%);
+	}
 
 	i {
 		font-size: 4rem;
@@ -89,7 +95,13 @@
 }
 
 .applicant-landing__how-it-works-copy-wrapper {
-	padding: 0 0 0 15rem;
+	padding: 15rem 0 0 0;
+	text-align: center;
+
+	@media #{$p-tablet} {
+		padding: 0 0 0 15rem;
+		text-align: left;
+	}
 	
 	h3 {
 		font-size: 22px;

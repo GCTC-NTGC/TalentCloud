@@ -6785,11 +6785,16 @@ nav {
   height: 10rem;
   margin: 0;
   position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translate(0, -50%);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 10rem;
   vertical-align: middle; }
+  @media (min-width: 48em) {
+    .applicant-landing__how-it-works-icon-wrapper {
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%); } }
   .applicant-landing__how-it-works-icon-wrapper i {
     font-size: 4rem;
     position: absolute;
@@ -6798,7 +6803,12 @@ nav {
     transform: translate(-50%, -50%); }
 
 .applicant-landing__how-it-works-copy-wrapper {
-  padding: 0 0 0 15rem; }
+  padding: 15rem 0 0 0;
+  text-align: center; }
+  @media (min-width: 48em) {
+    .applicant-landing__how-it-works-copy-wrapper {
+      padding: 0 0 0 15rem;
+      text-align: left; } }
   .applicant-landing__how-it-works-copy-wrapper h3 {
     font-size: 22px;
     font-weight: 700;
@@ -6854,10 +6864,10 @@ nav {
 .applicant-landing__video-wrapper {
   margin: 0 0 4rem; }
 
-.applicant-landing__video-transcript-trigger-wrapper.active #transcriptView {
+.applicant-landing__video-transcript-trigger-wrapper button.active #transcriptView {
   display: none; }
 
-.applicant-landing__video-transcript-trigger-wrapper.active #transcriptHide {
+.applicant-landing__video-transcript-trigger-wrapper button.active #transcriptHide {
   display: inline-block; }
 
 .applicant-landing__video-transcript-trigger-wrapper #transcriptView {

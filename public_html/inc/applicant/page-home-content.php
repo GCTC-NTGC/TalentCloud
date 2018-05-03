@@ -119,14 +119,14 @@
             <div class="content-container">
 
                 <div class="applicant-landing__video-transcript-trigger-wrapper">
-                    <button class="button--yellow">
+                    <button class="button--yellow" id="applicantLandingVideoTranscriptTrigger" aria-expanded="false">
                         <span id="transcriptView">View </span>
                         <span id="transcriptHide">Hide </span>
                         Transcript
                     </button>
                 </div>
 
-                <div class="applicant-landing__video-transcript-wrapper">
+                <div class="applicant-landing__video-transcript-wrapper" id="applicantLandingVideoTranscript" aria-hidden="true">
                     <h3>Transcript</h3>
                     <p>Digital isn't just about building apps, or using the latest technology. It's about putting people first, by designing services that are focused on what users need.</p>
                     <p>We're about making it faster, simpler, and easier, to access government services online.</p>

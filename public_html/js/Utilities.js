@@ -387,7 +387,7 @@ Utilities.setAccordionTriggers = function () {
         // Checks for a click.
         i.addEventListener('click', Utilities.accordionClickListener);
         // Checks for an Enter key click.
-        i.addEventListener("keyup", Utilities.accordionKeyupListener);
+        i.addEventListener("keydown", Utilities.accordionKeyupListener);
     }
 };
 
@@ -415,12 +415,44 @@ Utilities.setMobileNavTriggers = function () {
     // Checks for a click.
     mobileMenuTrigger.addEventListener('click', Utilities.mobileNavClickListener);
     // Checks for an Enter key click.
-    mobileMenuTrigger.addEventListener("keyup", Utilities.accordionKeyupListener);
+    mobileMenuTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
+};
+
+Utilities.applicantLandingVideoClickListener = function(e) {
+
+    var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
+    var landingVideoTranscript = document.getElementById("applicantLandingVideoTranscript");
+
+    e.preventDefault();
+
+    if (this.classList.contains("active")) {
+        this.classList.remove("active");
+        this.setAttribute("aria-expanded", "false");
+        landingVideoTranscript.classList.remove("active");
+        landingVideoTranscript.setAttribute("aria-hidden", "true");
+    }
+    else {
+        this.classList.add("active");
+        this.setAttribute("aria-expanded", "true");
+        landingVideoTranscript.classList.add("active");
+        landingVideoTranscript.setAttribute("aria-hidden", "false");
+    }
+
+}
+
+Utilities.setApplicantLandingVideoTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
+    // Checks for a click.
+    landingVideoTrigger.addEventListener('click', Utilities.applicantLandingVideoClickListener);
+    // Checks for an Enter key click.
+    landingVideoTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
 };
 
 window.onload = function (e) {
     Utilities.setAccordionTriggers();
     Utilities.setMobileNavTriggers();
+    Utilities.setApplicantLandingVideoTriggers();
 };
 
 Utilities.getHeroElements = function() {

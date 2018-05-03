@@ -956,8 +956,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
 
-        var taglineSecondary = document.getElementById("taglineSecondary");
-        taglineSecondary.innerHTML = siteContent.taglineSecondary;
+        // var taglineSecondary = document.getElementById("taglineSecondary");
+        // taglineSecondary.innerHTML = siteContent.taglineSecondary;
 
         var taglineTertiary = document.getElementById("taglineTertiary");
         taglineTertiary.innerHTML = siteContent.taglineTertiary;
@@ -1001,8 +1001,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         var howItWorksLast = document.getElementById("howItWorksLast");
         howItWorksLast.innerHTML = siteContent.howItWorksLast;
 
-        var transcript = document.getElementById("transcript");
-        transcript.innerHTML = siteContent.transcript;
+        // var transcript = document.getElementById("transcript");
+        // transcript.innerHTML = siteContent.transcript;
 
         var profileBasicInfoEditTitle = document.getElementById("profileBasicInfoEditTitle");
         profileBasicInfoEditTitle.innerHTML = siteContent.profileBasicInfoEditTitle;
