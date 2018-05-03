@@ -387,10 +387,89 @@ Utilities.setAccordionTriggers = function () {
         // Checks for a click.
         i.addEventListener('click', Utilities.accordionClickListener);
         // Checks for an Enter key click.
-        i.addEventListener("keyup", Utilities.accordionKeyupListener);
+        i.addEventListener("keydown", Utilities.accordionKeyupListener);
+    }
+};
+
+Utilities.mobileNavClickListener = function(e) {
+
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    var mainMenu = document.getElementById("pageHeroNavigationMenu");
+
+    e.preventDefault();
+
+    if (this.classList.contains("active")) {
+        this.classList.remove("active");
+        mainMenu.classList.remove("active");
+    }
+    else {
+        this.classList.add("active");
+        mainMenu.classList.add("active");
+    }
+
+}
+
+Utilities.setMobileNavTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    // Checks for a click.
+    mobileMenuTrigger.addEventListener('click', Utilities.mobileNavClickListener);
+    // Checks for an Enter key click.
+    mobileMenuTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
+};
+
+Utilities.applicantLandingVideoClickListener = function(e) {
+
+    var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
+    var landingVideoTranscript = document.getElementById("applicantLandingVideoTranscript");
+
+    e.preventDefault();
+
+    if (this.classList.contains("active")) {
+        this.classList.remove("active");
+        this.setAttribute("aria-expanded", "false");
+        landingVideoTranscript.classList.remove("active");
+        landingVideoTranscript.setAttribute("aria-hidden", "true");
+    }
+    else {
+        this.classList.add("active");
+        this.setAttribute("aria-expanded", "true");
+        landingVideoTranscript.classList.add("active");
+        landingVideoTranscript.setAttribute("aria-hidden", "false");
+    }
+
+}
+
+Utilities.setApplicantLandingVideoTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
+    if (landingVideoTrigger != null) {
+        // Checks for a click.
+        landingVideoTrigger.addEventListener('click', Utilities.applicantLandingVideoClickListener);
+        // Checks for an Enter key click.
+        landingVideoTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
     }
 };
 
 window.onload = function (e) {
     Utilities.setAccordionTriggers();
+    Utilities.setMobileNavTriggers();
+    Utilities.setApplicantLandingVideoTriggers();
 };
+
+Utilities.getHeroElements = function() {
+
+    var landingHero = document.getElementById("landingHero");
+    landingHero.classList.add("hidden");
+
+    var subpageTitles = document.querySelectorAll(".subpage-hero__title");
+    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
+    for (let i of subpageTitles) {
+        i.classList.add("hidden");
+        i.setAttribute("aria-hidden", "true");
+    }
+    browseHeroPosterMetaData.classList.add("hidden");
+    applicationHeroMetadata.classList.add("hidden");
+
+}

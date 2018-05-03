@@ -82,6 +82,15 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     //DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
     ProfilePicAPI.refreshProfilePic(user_id, document.getElementById('managerProfilePic'));
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var managerProfileHeroTitle = document.getElementById("managerProfileHeroTitle");
+    managerProfileHeroTitle.classList.remove("hidden");
+    managerProfileHeroTitle.setAttribute("aria-hidden", "false");
+
 }
 
 ManagerProfileAPI.localizeManagerProfile = function() {

@@ -30,16 +30,15 @@
 
                         <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded" class="update-profile__applicant-profile-form flex-grid top">
 
-                            <div class="form-group leftPane">
+                            <div class="box full">
                                 <label for="profileEditFirstName">
                                     <span>Name:</span>
                                 </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="profileEditName" id="profileEditName" readonly=""/>
-                                    <a href="https://account.gccollab.ca/profile/" target="_blank">Edit My OpenId Profile</a>
-                                </div>
+                                <input class="form-control full-width" type="text" name="profileEditName" id="profileEditName" readonly=""/>
+                                <a href="https://account.gccollab.ca/profile/" target="_blank">Edit My OpenId Profile</a>
                             </div>
-                            <div class="form-group clear">
+
+                            <div class="box full">
                                 <label for="profileEditTagline">
                                     <span>Tagline:</span>
                                 </label>
