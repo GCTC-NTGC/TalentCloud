@@ -443,10 +443,12 @@ Utilities.applicantLandingVideoClickListener = function(e) {
 Utilities.setApplicantLandingVideoTriggers = function () {
     // Gets all elements on the page with "accordion-trigger".
     var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
-    // Checks for a click.
-    landingVideoTrigger.addEventListener('click', Utilities.applicantLandingVideoClickListener);
-    // Checks for an Enter key click.
-    landingVideoTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
+    if (landingVideoTrigger != null) {
+        // Checks for a click.
+        landingVideoTrigger.addEventListener('click', Utilities.applicantLandingVideoClickListener);
+        // Checks for an Enter key click.
+        landingVideoTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
+    }
 };
 
 window.onload = function (e) {

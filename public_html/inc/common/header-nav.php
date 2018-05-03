@@ -145,7 +145,12 @@
             <div class="flex-grid middle">
 
                 <div class="box lg-1of2">
-                    <a href="/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
+                    <!-- Checks to see if the page is the admin portal and then displays the admin tagline. -->
+                    <?php if (strpos($url,'admin') !== false) : ?>
+                        <a href="/admin/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
+                    <?php else : ?>
+                        <a href="/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
+                    <?php endif ?>
                         <img id="logoSrc" class="landing-hero__logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
                     </a>
                 </div>
