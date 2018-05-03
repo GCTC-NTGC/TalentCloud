@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-            <!-- Checks to see if the page is the admin portal and then displays the admin tagline. -->
+            <?php // Checks to see if the page is the admin portal and then displays the admin tagline. ?>
             <?php
                 $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
                 if (strpos($url,'admin') !== false) {

@@ -1,4 +1,4 @@
-<!-- BEGIN - Create Job Poster Section -->
+<?php // BEGIN - Create Job Poster Section ?>
 <section class="pageContent hidden" id="createJobPosterSection">
 
     <div class="pageBanner">
@@ -405,4 +405,4 @@
     </div>
 
 </section>
-<!-- END - Create Job Poster Section -->
+<?php // END - Create Job Poster Section ?>

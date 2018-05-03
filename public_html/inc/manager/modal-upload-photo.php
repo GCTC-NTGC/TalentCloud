@@ -8,7 +8,7 @@
     
         <div class="flex-grid middle">
 
-            <!-- Profile Upload Section (TAL-36) =================== -->
+            <?php // Profile Upload Section (TAL-36) =================== ?>
 
             <div class="box med-1of7"></div>
 
