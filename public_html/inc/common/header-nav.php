@@ -84,13 +84,13 @@
             ?>
 
             <?php if (strpos($url,'admin') !== false) : ?>
-                
+
                 <?php if ($hasUser!=null) : ?>
                     <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLoginLinkWrapper" aria-hidden="true">
                 <?php else :?>
                     <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
                 <?php endif; ?>
-                        <?php 
+                        <?php
                             $loginLink = "";
                             $loginLink .= OPENID_URI.AUTH_URI;
                             $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
@@ -100,7 +100,7 @@
                             $loginLink .= "&client_id=".CLIENT_ID;
                             $loginLink .= "&scope=".SCOPE;
                             $loginLink .= "&prompt=consent";
-                            echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>"); 
+                            echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>");
                         ?>
                     </div>
 
@@ -111,7 +111,7 @@
                 <?php else :?>
                     <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
                 <?php endif; ?>
-                        <?php 
+                        <?php
                             $loginLink = "";
                             $loginLink .= OPENID_URI.AUTH_URI;
                             $loginLink .= "?response_type=".URL_RESPONSE_TYPES;
@@ -121,7 +121,7 @@
                             $loginLink .= "&client_id=".CLIENT_ID;
                             $loginLink .= "&scope=".SCOPE;
                             $loginLink .= "&prompt=consent";
-                            echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>");     
+                            echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>");
                         ?>
                     </div>
 
@@ -199,7 +199,8 @@
                 <div class="box lg-2of3">
                     <h3 class="subpage-hero__poster-job" id="jobPosterTitle">Job Title</h3>
                     <p class="subpage-hero__poster-department" id="jobPosterLocation">
-                        <span id="jobPosterDepartment"></span> - <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span>
+                        <span id="jobPosterDepartment"></span><br>
+                        <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span> (<span id="jobPosterRemoteWorkHeader">Remote work</span>)
                     </p>
                 </div>
 
@@ -219,7 +220,7 @@
             <div class="box full">
 
                 <div class="block-container">
-                
+
                     <p class="subpage-hero__application-label" id="createJobApplicationPositionLabel">for the position of:</p>
                     <h3 class="subpage-hero__application-job" id="createJobApplicationPostition">Job title</h3>
                     <input type='hidden' id='createJobApplicationJobApplicationId' />
