@@ -57,6 +57,7 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/skill_level services/Lookup.p
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/experience_level services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/job_seeker_profile_question services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/relationship services/Lookup.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/file_type services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCulture.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllWorkSamplesForApplication/([0-9]{1,10}) services/ApplicationWorkSample.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllMicroReferencesForApplication/([0-9]{1,10}) services/ApplicationMicroReferenceService.php

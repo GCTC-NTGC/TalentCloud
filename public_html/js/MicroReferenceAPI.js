@@ -31,11 +31,34 @@ MicroReferenceAPI.MicroReference = function (
     };
 };
 
+MicroReferenceAPI.parseApplicationMicroReferenceResponse = function(response) {
+    var references = [];
+    var responseJson = JSON.parse(response);
+    responseJson.forEach(item => {
+        var itemRef = item.micro_reference;
+        
+        var criteria_id = item.criteria_id;
+        var name = itemRef.micro_reference_id;
+        var email = itemRef.micro_reference_email;
+        var relationship = itemRef.relationship;
+        var observed_from_date = itemRef.observed_from_date;
+        var observed_until_date = itemRef.observed_until_date;
+        var experience_level = itemRef.experience_level;
+        var story = itemRef.micro_reference_story;
+       
+        var ref = new MicroReferenceAPI.MicroReference(criteria_id, name, email,
+                relationship, observed_from_date, observed_until_date, 
+                experience_level, story);
+        references.push(ref);
+    });
+    return references;
+};
+
 MicroReferenceAPI.loadSavedMicroReferencesForJobApplication = function (jobApplicationId) {
     DataAPI.getMicroReferencesForApplication(jobApplicationId, function (request) {
         //Check that request returned a valid response
         if (request.status === 200 && request.response) {
-            var references = JSON.parse(request.response);
+            var references = MicroReferenceAPI.parseApplicationMicroReferenceResponse(request.response);
             MicroReferenceAPI.populateApplicationUiMicroReferences(references);
         }
     });

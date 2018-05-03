@@ -1,9 +1,6 @@
 var LookupAPI = {};
 
 LookupAPI.lookupMap = {};
-LookupAPI.loadsInProgress = 0;
-LookupAPI.deferredPopulates = [];
-LookupAPI.deferredPopulateElements = [];
 
 LookupAPI.loadLookupData = function () {
     //DivisionAPI.getDivisions(locale);
@@ -54,11 +51,6 @@ LookupAPI.getLookupData = function (lookupType, locale, requestCallback) {
     lookupData_xhr.addEventListener("load",
             function (evt) {
                 LookupAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
-                LookupAPI.loadsInProgress = LookupAPI.loadsInProgress - 1;
-                if (LookupAPI.loadsInProgress == 0) {
-                    LookupAPI.processDeferredPopulates();
-                    LookupAPI.processDeferredPopulateElements();
-                }
                 if (requestCallback) {
                     requestCallback(lookupData_xhr);
                 }
@@ -66,7 +58,6 @@ LookupAPI.getLookupData = function (lookupType, locale, requestCallback) {
     lookupData_xhr.addEventListener("error", DataAPI.transferFailed, false);
     lookupData_xhr.addEventListener("abort", DataAPI.transferAborted, false);
 
-    LookupAPI.loadsInProgress = LookupAPI.loadsInProgress + 1;
     lookupData_xhr.send();
 };
 
@@ -117,7 +108,7 @@ LookupAPI.getLocalizedLookupValue = function (lookupType, valueId) {
 }
 
 // populates elements passed by element id
-LookupAPI.populateDropdown = function (lookupType, elementId) {
+LookupAPI.populateDropdown = function (lookupType, elementId, useLookupValueAsOptionValue) {
     var selectElem = document.getElementById(elementId);
     if (selectElem) {
         var locale = TalentCloudAPI.getLanguageFromCookie();
@@ -126,14 +117,18 @@ LookupAPI.populateDropdown = function (lookupType, elementId) {
             Utilities.clearSelectOptions(selectElem);
             for (var item in lookupList) {
                 var option = document.createElement("option");
-                option.value = lookupList[item].id;
+                if (useLookupValueAsOptionValue === true) {
+                    option.value = lookupList[item].value;
+                } else {
+                    option.value = lookupList[item].id;
+                }
                 option.innerHTML = lookupList[item].value;
                 selectElem.appendChild(option);
             }
         } else {
             LookupAPI.getLookupData(lookupType, locale, function (request) {
                 if (LookupAPI.lookupMap[locale][lookupType]) {
-                    LookupAPI.populateDropdown(lookupType, elementId);
+                    LookupAPI.populateDropdown(lookupType, elementId, useLookupValueAsOptionValue);
                 }
             });
         }
@@ -141,19 +136,8 @@ LookupAPI.populateDropdown = function (lookupType, elementId) {
 
 };
 
-LookupAPI.deferPopulate = function (lookupType, elementId) {
-    LookupAPI.deferredPopulates.push({lookupType: lookupType, elementId: elementId});
-};
-
-LookupAPI.processDeferredPopulates = function () {
-    while (LookupAPI.deferredPopulates.length > 0) {
-        var populate = LookupAPI.deferredPopulates.pop();
-        LookupAPI.populateDropdown(populate.lookupType, populate.elementId);
-    }
-};
-
 //Populates select elements passed directly
-LookupAPI.populateDropdownElement = function (lookupType, element) {
+LookupAPI.populateDropdownElement = function (lookupType, element, useLookupValueAsOptionValue) {
     if (element) {
         var locale = TalentCloudAPI.getLanguageFromCookie();
         var lookupList = LookupAPI.lookupMap[locale][lookupType];
@@ -161,27 +145,20 @@ LookupAPI.populateDropdownElement = function (lookupType, element) {
             Utilities.clearSelectOptions(element);
             for (var item in lookupList) {
                 var option = document.createElement("option");
-                option.value = lookupList[item].id;
+                if (useLookupValueAsOptionValue === true) {
+                    option.value = lookupList[item].value;
+                } else {
+                    option.value = lookupList[item].id;
+                }
                 option.innerHTML = lookupList[item].value;
                 element.appendChild(option);
             }
         } else {
             LookupAPI.getLookupData(lookupType, locale, function (request) {
                 if (LookupAPI.lookupMap[locale][lookupType]) {
-                    LookupAPI.populateDropdownElement(lookupType, element);
+                    LookupAPI.populateDropdownElement(lookupType, element, useLookupValueAsOptionValue);
                 }
             });
         }
-    }
-};
-
-LookupAPI.deferPopulateElements = function (lookupType, element) {
-    LookupAPI.deferredPopulateElements.push({lookupType: lookupType, element: element});
-};
-
-LookupAPI.processDeferredPopulateElements = function () {
-    while (LookupAPI.deferredPopulateElements.length > 0) {
-        var populate = LookupAPI.deferredPopulateElements.pop();
-        LookupAPI.populateDropdownElement(populate.lookupType, populate.element);
     }
 };

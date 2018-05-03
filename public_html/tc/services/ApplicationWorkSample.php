@@ -79,11 +79,11 @@ switch ($requestMethod) {
             $payload = json_decode($jsonBody, TRUE);
 
             $workSample = new WorkSample();
-            $workSample->setWork_sample_name($payload['work_sample_name']);
-            $workSample->setWork_sample_date_created($payload['work_sample_date_created']);
-            $workSample->setFile_type($payload['file_type']);
-            $workSample->setWork_sample_url($payload['work_sample_url']);
-            $workSample->setWork_sample_story($payload['work_sample_story']);
+            $workSample->setWork_sample_name($payload['name']);
+            $workSample->setWork_sample_date_created($payload['date_created']);
+            $workSample->setFile_type($payload['type']);
+            $workSample->setWork_sample_url($payload['http_link']);
+            $workSample->setWork_sample_story($payload['story']);
 
             $result = WorkSampleController::putWorkSampleForJobApplication($jobPosterApplicationId, $criteriaId, $workSample);
 

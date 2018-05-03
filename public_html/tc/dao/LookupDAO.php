@@ -351,6 +351,33 @@ class LookupDAO extends BaseDAO {
         return $rows;
     }
     
+    public static function getFileTypesByLocale($locale) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            f.file_type_id as id, 
+            fd.file_type_details_name as value
+            FROM 
+            file_type f, file_type_details fd, locale
+            WHERE locale.locale_iso = :locale
+            AND fd.locale_id = locale.locale_id
+            AND f.file_type_id = fd.file_type_id
+            ORDER BY f.file_type_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+        
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $rows = $sql->fetchAll();
+            
+        } catch (PDOException $e) {
+            return 'getFileTypesByLocale failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
+    
 }
 
 ?>

@@ -102,9 +102,12 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
 
     //POPULATE SELECT INPUTS
     var relationshipSelect = evidencePanel.querySelector("#applicationEvidenceReferenceRelationship" + idSuffix);
-    LookupAPI.populateDropdownElement("relationship", relationshipSelect);
+    LookupAPI.populateDropdownElement("relationship", relationshipSelect, true);
     var refExperienceLevel = evidencePanel.querySelector("#applicationEvidenceReferenceExpLevel" + idSuffix);
-    LookupAPI.populateDropdownElement("experience_level", refExperienceLevel);
+    LookupAPI.populateDropdownElement("experience_level", refExperienceLevel, true);
+    
+    var sampleFileTypeSelect = evidencePanel.querySelector("select[name=\"sample_type\"]");
+    LookupAPI.populateDropdownElement("file_type", sampleFileTypeSelect, true);
 
     //ADD EVENT HANDLERS
 
@@ -141,7 +144,7 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
 
     //define a function to check skill sample status
     function sampleOnChange() {
-        SkillSampleAPI.onStatusChange(sampleId);
+        SkillSampleAPI.onStatusChange(criteriaId);
     }
     //Add onChange handler to all skill sample inputs
     evidencePanel.querySelector("input[name=\"sample_name\"]").onchange = sampleOnChange;

@@ -61,6 +61,9 @@ class LookupController {
             case 'relationship':
                 $lookupData = LookupDAO::getRelationshipsByLocale($locale);
                 break;
+            case 'file_type':
+                $lookupData = LookupDAO::getFileTypesByLocale($locale);
+                break;
         }
         return $lookupData;
     }

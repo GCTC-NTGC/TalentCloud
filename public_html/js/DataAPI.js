@@ -814,31 +814,33 @@ DataAPI.deleteSkillDeclaration = function(criteriaId, applicationId, requestCall
 };
 
 DataAPI.getMicroReferencesForApplication = function(applicationId, requestCallback) {
-    var url = [DataAPI.baseURL, "getReferencesForApplication", applicationId].join("/");
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getAllMicroReferencesForApplication", applicationId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 
 DataAPI.saveMicroReference = function(microReference, criteriaId, applicationId, requestCallback) {
-    var url = DataAPI.baseURL + "/putReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    var url = DataAPI.baseURL + "/putMicroReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(microReference), requestCallback);
 };
 
 DataAPI.deleteMicroReference = function(criteriaId, applicationId, requestCallback) {
-    var url = DataAPI.baseURL + "/deleteReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    var url = DataAPI.baseURL + "/deleteMicroReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };
 
 DataAPI.getSkillSamplesForApplication = function(applicationId, requestCallback) {
-    var url = [DataAPI.baseURL, "getSamplesForApplication", applicationId].join("/");
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getAllWorkSamplesForApplication", applicationId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 
-DataAPI.saveSkillSample = function(skillSample, sampleId, applicationId, requestCallback) {
-    var url = DataAPI.baseURL + "/putSamplesForApplication/" + applicationId + "/forCriteria/" + sampleId;
+DataAPI.saveSkillSample = function(skillSample, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putWorkSampleForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillSample), requestCallback);
 };
 
-DataAPI.deleteSkillSample = function(sampleId, applicationId, requestCallback) {
-    var url = DataAPI.baseURL + "/deleteSampleForApplication/" + applicationId + "/forCriteria/" + sampleId;
+DataAPI.deleteSkillSample = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteWorkSampleForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };
