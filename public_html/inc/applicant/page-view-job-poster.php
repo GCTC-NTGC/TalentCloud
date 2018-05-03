@@ -62,12 +62,6 @@
             </div>
         </section>
         <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterOtherRequirementsLabel" class="jobPosterSectionTitle">Other Requirements</h4>
-                <ul id="jobPosterOtherRequirements"></ul>
-            </div>
-        </section>
-        <section class='jobPosterSection'>
             <div class='block-container'>
                 <h4 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h4>
                 <input type='hidden' id='jobPosterHiringManagerUserId'/>
@@ -122,7 +116,6 @@
             <div class="block-container">
                 <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                 <div class="container">
-                    <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
                     <div class="container">
                         <p><span id='jobPosterTeamSize_label'>Team size:</span> <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
                         <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
