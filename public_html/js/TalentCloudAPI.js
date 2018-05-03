@@ -33,7 +33,7 @@ managerDecisions_tipWhatis, managerDecisions_tipSummary,
 changeDisplayPic, managerProfile_developmentOpportunities_option0, managerProfile_developmentOpportunities_option1, managerProfile_developmentOpportunities_option2,
 accommodationTextStart, accommodationTextEnd, jobPosterKeyTasksLabel, jobPosterCoreCompetenciesLabel, jobPosterHiringManagerLabel, jobPosterClearanceLevelLabel, jobPosterStartDateLabel, jobPosterJobLevelLabel, jobPosterLanguageLabel, jobPosterTermLabel,
 managerProfile_developmentOpportunities_option3, managerProfile_developmentOpportunities_option4, updateProfilePhotoTitle, updateProfilePhotoDraggableAreaLabel, updateProfilePhotoDraggableAreaErrorSize, updateProfilePhotoDraggableAreaErrorType, updateProfileOrCopy, updateProfileChoosePhotoButtonLabelSpan, updateProfileChoosePhotoButton, updateProfileChooseAltPhotoButtonLabelSpan, updateProfileChooseAltPhotoButton, updateProfilePhotoCancelButton, updateProfileApplicantProfileFormFirstNameLabelSpan, profileEditFirstName, updateProfileApplicantProfileFormLastNameLabelSpan, profileEditLastName, updateProfileApplicantProfileFormTaglineLabelSpan, profileEditTagline, updateProfileApplicantProfileFormTwitterLabelSpan, profileEditTwitter, updateProfileApplicantProfileFormLinkedinLabelSpan,profileEditLinkedin, profileBasicInfoEditCancel, profileBasicInfoEditSave, profilePicUploadBtn, loginFormTitle, loginModalCopySpan, switchToRegister, loginModalEmailLabelSpan, login_email, loginModalPasswordLabelSpan, login_password, loginFormCancelBtn, loginFormLoginBtn, registerFormTitle, profileAboutMeEditTitle, updateAboutTextareaLabelSpan, profileEditAboutMe, profileAboutMeEditCancel, profileAboutMeEditSave,
-cancel, save, editYour, jobPosterTeamNarrativeText_label, jobPosterOperatingContext_label, jobPosterWhatWeValue_label, jobPosterHowWeWork_label, updateProfileApplicantProfileFormNameLabelSpan, profileEditName
+cancel, save, editYour, jobPosterTeamNarrativeText_label, jobPosterOperatingContext_label, jobPosterWhatWeValue_label, jobPosterHowWeWork_label, updateProfileApplicantProfileFormNameLabelSpan, profileEditName, termsAndConditions, privacy, visitCanadaWebsite
         ) {
     this.title = title;
     this.helpLearn = helpLearn;
@@ -236,6 +236,9 @@ cancel, save, editYour, jobPosterTeamNarrativeText_label, jobPosterOperatingCont
     this.jobPosterOperatingContext_label = jobPosterOperatingContext_label;
     this.jobPosterWhatWeValue_label = jobPosterWhatWeValue_label;
     this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
+    this.termsAndConditions = termsAndConditions;
+    this.privacy = privacy;
+    this.visitCanadaWebsite = visitCanadaWebsite;
 };
 
 TalentCloudAPI.pages = {
@@ -942,6 +945,15 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterHowWeWork_label = document.getElementById("jobPosterHowWeWork_label");
         jobPosterHowWeWork_label.innerHTML = siteContent.jobPosterHowWeWork_label;
+        
+        var termsAndConditions = document.getElementById("termsAndConditions");
+        termsAndConditions.innerHTML = siteContent.termsAndConditions;
+        
+        var privacy = document.getElementById("privacy");
+        privacy.innerHTML = siteContent.privacy;
+        
+        var visitCanadaWebsite = document.getElementById("visitCanadaWebsite");
+        visitCanadaWebsite.innerHTML = siteContent.visitCanadaWebsite;
 
     }
 
