@@ -1,17 +1,17 @@
 <?php
 
-require_once '../model/WorkSample.php';
+require_once '../model/MicroReference.php';
 
-class ApplicationWorkSample implements JsonSerializable{
+class ApplicationMicroReference implements JsonSerializable{
     
     protected $criteria_id;
     protected $job_poster_appliction_id;
-    protected $work_sample;
+    protected $micro_reference;
     
-    public function __construct($criteria_id=null,$job_poster_appliction_id=null,WorkSample $work_sample=null) {
+    public function __construct($criteria_id=null, $job_poster_appliction_id=null, MicroReference $micro_reference=null) {
         $this->criteria_id = $criteria_id;
         $this->job_poster_appliction_id = $job_poster_appliction_id;
-        $this->work_sample = $work_sample;
+        $this->micro_reference = $micro_reference;
     }
 
     public function jsonSerialize() {
@@ -33,8 +33,8 @@ class ApplicationWorkSample implements JsonSerializable{
         return $this->job_poster_appliction_id;
     }
 
-    public function getWork_sample() {
-        return $this->work_sample;
+    public function getMicro_reference() {
+        return $this->micro_reference;
     }
 
     public function setCriteria_id($criteria_id) {
@@ -47,8 +47,10 @@ class ApplicationWorkSample implements JsonSerializable{
         return $this;
     }
 
-    public function setWork_sample($work_sample) {
-        $this->work_sample = $work_sample;
+    public function setMicro_reference($micro_reference) {
+        $this->micro_reference = $micro_reference;
         return $this;
     }
+
 }
+

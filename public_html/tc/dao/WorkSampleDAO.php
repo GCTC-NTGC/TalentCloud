@@ -84,7 +84,7 @@ class WorkSampleDAO extends BaseDAO {
                 $basicWorkSample->setWork_sample_url($workSampleArray['work_sample_url']);
                 $basicWorkSample->setWork_sample_story($workSampleArray['work_sample_story']);
                 
-                $applicationWorkSample = new ApplicationWorkSample($workSampleArray['criteria_id'], $basicWorkSample);
+                $applicationWorkSample = new ApplicationWorkSample($workSampleArray['criteria_id'], $jobPosterApplicationId, $basicWorkSample);
                 $workSamples[] = $applicationWorkSample;
             }            
         } catch (PDOException $e) {

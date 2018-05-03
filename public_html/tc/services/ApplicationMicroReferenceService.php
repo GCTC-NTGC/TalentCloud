@@ -12,8 +12,8 @@ if (!isset($_SESSION)) {
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../controller/WorkSampleController.php';
-require_once '../model/WorkSample.php';
+require_once '../controller/MicroReferenceController.php';
+require_once '../model/MicroReference.php';
 require_once '../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -31,7 +31,7 @@ switch ($requestMethod) {
         if (strlen($requestParams) > 1) {
             $locale = Utils::getLocaleFromRequest($requestParams);
             $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 5);
-            $result = WorkSampleController::getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale);
+            $result = MicroReferenceController::getAllMicroReferencesForJobApplication($jobPosterApplicationId, $locale);
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
         } else {
@@ -54,7 +54,7 @@ switch ($requestMethod) {
             //TODO: ensure application is in draft status
             //TODO: ensure criteriaId is valid for application
 
-            $result = WorkSampleController::removeWorkSampleFromJobApplication($jobPosterApplicationId, $criteriaId);
+            $result = MicroReferenceController::removeMicroReferenceFromJobApplication($jobPosterApplicationId, $criteriaId);
 
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
@@ -77,15 +77,17 @@ switch ($requestMethod) {
 
             $jsonBody = file_get_contents('php://input');
             $payload = json_decode($jsonBody, TRUE);
+            
+            $microReference = new MicroReference();
+            $microReference->setMicro_reference_name($payload['name']);
+            $microReference->setMicro_reference_email($payload['email']);
+            $microReference->setRelationship($payload['relationship']);
+            $microReference->setOberserved_from_date($payload['oberserved_from_date']);
+            $microReference->setOberserved_until_date($payload['oberserved_until_date']);
+            $microReference->setExperience_level($payload['experience_level']);
+            $microReference->setMicro_reference_story($payload['story']);
 
-            $workSample = new WorkSample();
-            $workSample->setWork_sample_name($payload['work_sample_name']);
-            $workSample->setWork_sample_date_created($payload['work_sample_date_created']);
-            $workSample->setFile_type($payload['file_type']);
-            $workSample->setWork_sample_url($payload['work_sample_url']);
-            $workSample->setWork_sample_story($payload['work_sample_story']);
-
-            $result = WorkSampleController::putWorkSampleForJobApplication($jobPosterApplicationId, $criteriaId, $workSample);
+            $result = MicroReferenceController::putMicroReferenceForJobApplication($jobPosterApplicationId, $criteriaId, $microReference);
 
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
