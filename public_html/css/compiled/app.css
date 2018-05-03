@@ -4645,7 +4645,7 @@ input[type=date][class*="form__input--"] {
 ============================================================================= */
 .page-hero {
   background-image: url("/images/backgrounds/background.jpg");
-  background-position: center;
+  background-position: top center;
   background-size: cover;
   position: relative; }
   .page-hero:before {
@@ -4850,7 +4850,8 @@ nav {
   width: 90%; }
 
 .landing-hero__link {
-  display: block; }
+  display: block;
+  text-align: center; }
   @media (min-width: 64em) {
     .landing-hero__link {
       padding: 0 1rem 0 0;
@@ -5330,6 +5331,9 @@ nav {
     @media (min-width: 48em) {
       .update-profile__applicant-profile-form > .box {
         padding: 0 1rem; } }
+    .update-profile__applicant-profile-form > .box a {
+      display: block;
+      margin: .5rem 0 1rem 0; }
   .update-profile__applicant-profile-form > .box:nth-last-child(1),
   .update-profile__applicant-profile-form > .box:nth-last-child(2) {
     text-align: center; }
@@ -5348,6 +5352,7 @@ nav {
   font-family: HKGrotesk, sans-serif;
   font-size: 16px;
   font-weight: 400;
+  line-height: 1.2;
   margin: 0;
   padding: calc(1rem - 1px) 1rem calc(1rem - 1px) 1rem; }
 

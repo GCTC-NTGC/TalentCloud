@@ -139,6 +139,7 @@ nav{
 
 .landing-hero__link {
     display: block;
+    text-align: center;
 
     @media #{$l-tablet} {
         padding: 0 1rem 0 0;

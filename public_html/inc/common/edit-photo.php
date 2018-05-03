@@ -28,7 +28,7 @@
 
         <label class="update-profile__choose-photo-button-label button--yellow" id="updateProfileChoosePhotoButtonLabel" role="button" tabindex="0">
             <span id="updateProfileChoosePhotoButtonLabelSpan">Choose File...</span>
-            <input id="updateProfileChoosePhotoButton" type="file" class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" />
+            <input id="updateProfileChoosePhotoButton" type="file" class="update-profile__choose-photo-button" name="User Profile Photo" accept="image/*" aria-hidden="true" tabindex="-1" />
         </label>
 
     </div>
@@ -40,7 +40,7 @@
             <div class="box small-1of2">
                 <label class="update-profile__choose-alt-photo-button-label button--yellow" role="button" tabindex="0">
                     <span id="updateProfileChooseAltPhotoButtonLabelSpan">Use Another File...</span>
-                    <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" />
+                    <input id="updateProfileChooseAltPhotoButton" type="file" class="update-profile__choose-alt-photo-button" name="User Profile Photo" accept="image/*" aria-hidden="true" tabindex="-1" />
                 </label>
             </div>
 

@@ -107,9 +107,9 @@
             <?php else : ?>
 
                 <?php if ($hasUser!=null) : ?>
-                    <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLoginLinkWrapper" aria-hidden="true">
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLoginLinkWrapper">
                 <?php else :?>
-                    <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper">
                 <?php endif; ?>
                         <?php 
                             $loginLink = "";
@@ -128,7 +128,7 @@
             <?php endif; ?>
 
             <!-- Logout -->
-            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLogoutLinkWrapper" aria-hidden="true">
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLogoutLinkWrapper">
                 <a href="javascript:void(0)" id="navigationLogoutLink" onclick="UserAPI.logout()">
                     Logout
                 </a>
