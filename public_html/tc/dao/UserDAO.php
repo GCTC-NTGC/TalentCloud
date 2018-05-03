@@ -166,15 +166,15 @@ class UserDAO extends BaseDAO{
     }
     
     /**
-     * Updates all columns except user_role
+     * Updates all columns except user_role and password
      * @param User $updatedUser
      * @return boolean Whether updatedUser matched an existing user which could be updated
      */
     public static function updateUser($updatedUser) {
         $user_id = $updatedUser->getUser_id();
         $email = $updatedUser->getEmail();
-        $password = $updatedUser->getPassword();
-        $md5_password = md5($password);
+        //$password = $updatedUser->getPassword();
+        //$md5_password = md5($password);
         $is_confirmed = $updatedUser->getIs_confirmed();
         $user_role = $updatedUser->getUser_role();
         $first_name = $updatedUser->getFirstname();
@@ -184,7 +184,7 @@ class UserDAO extends BaseDAO{
         $sqlStr = "UPDATE user 
             SET
                 email = :email,
-                password = :password,
+                
                 is_confirmed = :is_confirmed,
                 firstname = :firstname,
                 lastname = :lastname
@@ -195,7 +195,7 @@ class UserDAO extends BaseDAO{
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $sql->bindParam(':email', $email, PDO::PARAM_STR);
-        $sql->bindParam(':password', $md5_password, PDO::PARAM_STR);
+        //$sql->bindParam(':password', $md5_password, PDO::PARAM_STR);
         $sql->bindParam(':is_confirmed', $is_confirmed, PDO::PARAM_INT);
         $sql->bindParam(":firstname", $first_name, PDO::PARAM_STR);
         $sql->bindParam(":lastname", $last_name, PDO::PARAM_STR);
