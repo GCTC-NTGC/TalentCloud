@@ -69,8 +69,11 @@ if($query_string !== ""){
 <html lang="en">
     <head>
         <title>GC Talent Cloud</title>
-        <?php // Include for metadata / scripts ?>
-        <?php include '../inc/common/head.php'; ?>
+        <?php // Include for metadata / scripts
+                include '../inc/common/head.php';
+                include '../inc/manager/head-admin.php'; ?>
+
+    <script type="text/javascript">
         <?php
         if (isset($oidc)) {
             if($_SESSION["accessToken"] !== null){
@@ -102,10 +105,10 @@ if($query_string !== ""){
 
             if($userInfo !== null){
                 echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
-                //echo("UserAPI.login(true);");
+                echo("UserAPI.login(true);");
             }
             }else{
-                ///echo("UserAPI.login(false);");
+                echo("UserAPI.login(false);");
             }
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
         ?>
