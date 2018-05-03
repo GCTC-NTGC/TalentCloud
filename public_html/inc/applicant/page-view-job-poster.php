@@ -1,17 +1,5 @@
 <?php // BEGIN - View Job Poster Section ?>
 <section class="pageContent hidden" id="viewJobPosterSection">
-    <!-- <div class="pageBanner">
-        <div id="jobPosterHeaderSection" class="container">
-            <h2 class="section--title" id="viewJobPosterTitle">Browse Jobs</h2>
-            <h3 id="jobPosterTitle">Job Title</h3>
-            <p id="jobPosterLocation">
-                <span id="jobPosterDepartment"></span>
-            </p>
-            <p id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
-            <p><span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span> (<span id="jobPosterRemoteWorkHeader">Remote work</span>)</p>
-            <input id="jobPosterJobId" type="hidden"/>
-        </div>
-    </div> -->
     <div class="pageBody">
         <section id="jobPosterDatapointsSection">
             <div class="block-container">
