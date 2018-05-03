@@ -3920,7 +3920,7 @@ body[id*="Trident/7.0"] .box {
 /* Content Containers: Use this to limit line length for copy. */
 .content-container {
   margin: 0 auto;
-  max-width: 35rem;
+  max-width: 60rem;
   width: 90%; }
 
 /* Block Containers: Use this for consistent widths on sections. */
@@ -6671,3 +6671,267 @@ nav {
   margin: 2rem 0; }
   .faq__text-copy:last-child {
     margin-bottom: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing
+
+============================================================================= */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: Intro
+
+============================================================================= */
+.applicant-landing__intro {
+  background: #e2e2e2;
+  padding: 4rem 0;
+  text-align: center; }
+
+.applicant-landing__intro-alert-wrapper {
+  background: white;
+  border: 0.5rem solid #e2e2e2;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
+  margin: 0 auto;
+  max-width: 70rem;
+  padding: 3rem; }
+
+.applicant-landing__intro-alert-icon-wrapper {
+  border: 0.5rem solid #ffe25b;
+  border-radius: 100%;
+  display: inline-block;
+  height: 10rem;
+  margin: 0 0 2rem;
+  position: relative;
+  width: 10rem; }
+  .applicant-landing__intro-alert-icon-wrapper i {
+    font-size: 5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+.applicant-landing__intro-alert-copy {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0; }
+
+.applicant-landing__intro-tagline {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 4rem 0 2rem 0; }
+
+.applicant-landing__intro-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 4rem 0 2rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: How It Works
+
+============================================================================= */
+.applicant-landing__how-it-works {
+  padding: 4rem 0; }
+  .applicant-landing__how-it-works .content-container {
+    text-align: center; }
+
+.applicant-landing__how-it-works-title {
+  font-size: 35px;
+  margin: 0 0 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__how-it-works-title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+
+.applicant-landing__how-it-works-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0; }
+
+.applicant-landing__how-it-works-icon-section-wrapper {
+  padding: 4rem 0 6rem;
+  text-align: left; }
+
+.applicant-landing__how-it-works-icon-section-item {
+  margin: 5rem 0;
+  position: relative; }
+  .applicant-landing__how-it-works-icon-section-item:first-child {
+    margin-top: 0; }
+  .applicant-landing__how-it-works-icon-section-item:last-child {
+    margin-bottom: 0; }
+
+.applicant-landing__how-it-works-icon-wrapper {
+  border: 0.5rem solid #ffe25b;
+  border-radius: 100%;
+  display: inline-block;
+  height: 10rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  width: 10rem;
+  vertical-align: middle; }
+  .applicant-landing__how-it-works-icon-wrapper i {
+    font-size: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+.applicant-landing__how-it-works-copy-wrapper {
+  padding: 0 0 0 15rem; }
+  .applicant-landing__how-it-works-copy-wrapper h3 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: .5rem 0 1rem 0; }
+  .applicant-landing__how-it-works-copy-wrapper p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0; }
+
+.applicant-landing__how-it-works-base-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 2rem 0; }
+
+.applicant-landing__how-it-works-contact {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: Video
+
+============================================================================= */
+.applicant-landing__video {
+  background: #e2e2e2;
+  padding: 4rem 0;
+  text-align: center; }
+
+.applicant-landing__video-title {
+  color: #333333;
+  font-size: 35px;
+  margin: 0 0 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__video-title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+
+.applicant-landing__video-wrapper {
+  margin: 0 0 4rem; }
+
+.applicant-landing__video-transcript-trigger-wrapper.active #transcriptView {
+  display: none; }
+
+.applicant-landing__video-transcript-trigger-wrapper.active #transcriptHide {
+  display: inline-block; }
+
+.applicant-landing__video-transcript-trigger-wrapper #transcriptView {
+  display: inline-block; }
+
+.applicant-landing__video-transcript-trigger-wrapper #transcriptHide {
+  display: none; }
+
+.applicant-landing__video-transcript-wrapper {
+  display: none;
+  padding: 4rem 0 0 0; }
+  .applicant-landing__video-transcript-wrapper.active {
+    display: block; }
+  .applicant-landing__video-transcript-wrapper h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 2rem 0; }
+  .applicant-landing__video-transcript-wrapper p {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0 2rem 0; }
+    .applicant-landing__video-transcript-wrapper p:last-child {
+      margin: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: Our Team
+
+============================================================================= */
+.applicant-landing__our-team {
+  background-image: url("/images/backgrounds/background.jpg");
+  background-position: center;
+  background-size: cover;
+  padding: 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__our-team:before {
+    background: rgba(0, 0, 0, 0.7);
+    content: " ";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5; }
+  .applicant-landing__our-team .content-container {
+    position: relative;
+    z-index: 10; }
+
+.applicant-landing__our-team-title {
+  color: white;
+  font-size: 35px;
+  margin: 0 0 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__our-team-title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+
+.applicant-landing__our-team-copy {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 4rem 0; }
