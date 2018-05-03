@@ -102,12 +102,11 @@ if($query_string !== ""){
 
             if($userInfo !== null){
                 echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
-                echo("UserAPI.login(true);");
+                //echo("UserAPI.login(true);");
             }
-        }else{
-            echo("UserAPI.login(true);");
-        }
-
+            }else{
+                ///echo("UserAPI.login(false);");
+            }
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
         ?>
 
