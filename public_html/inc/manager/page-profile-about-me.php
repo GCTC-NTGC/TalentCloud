@@ -1,4 +1,4 @@
-<!-- BEGIN - Edit Admin Profile Form (Page 1 / About Me) -->
+<?php // BEGIN - Edit Admin Profile Form (Page 1 / About Me) ?>
 <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
 
     <div class="tabsWrapper">
@@ -99,7 +99,7 @@
                     </strong>
                 </label>
                 <div class="form__select-wrapper">
-                    <!--<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>-->
+                    <?php //<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>?>
                     <select class="form__select" name="createEditProfile_department" id="createEditProfile_department">
                         <option value="">--</option>
                     </select>
@@ -180,4 +180,4 @@
     </div>
 
 </div>
-<!-- END - Edit Admin Profile Form (Page 1 / About Me) -->
+<?php // END - Edit Admin Profile Form (Page 1 / About Me) ?>

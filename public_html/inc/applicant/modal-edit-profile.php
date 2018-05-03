@@ -1,4 +1,4 @@
-<!-- BEGIN - Profile Basic Info Edit Overlay-->
+<?php // BEGIN - Profile Basic Info Edit Overlay?>
 <div id="profileBasicInfoEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
 
     <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
@@ -12,11 +12,11 @@
 
             <div class="dialogWindowInterior">
 
-                <!-- Modal Flex Grid ======================================= -->
+                <?php // Modal Flex Grid ======================================= ?>
 
                 <div class="dialogue-modal__grid update-profile__grid flex-grid middle">
 
-                    <!-- Profile Upload Section (TAL-36) =================== -->
+                    <?php // Profile Upload Section (TAL-36) =================== ?>
 
                     <div class="box lg-2of5">
 
@@ -24,7 +24,7 @@
 
                     </div>
 
-                    <!-- Profile Information Form ========================== -->
+                    <?php // Profile Information Form ========================== ?>
 
                     <div class="box lg-3of5">
 
