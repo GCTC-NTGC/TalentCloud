@@ -20,6 +20,7 @@ MicroReferenceAPI.MicroReference = function (
     this.story = story;
 
     this.isValid = function () {
+        //!= instead of !== is on purpose; want to check that none are empty strings or null
         return (this.criteria_id != false &&
                 this.name != false &&
                 this.email != false &&
@@ -78,11 +79,7 @@ MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
             if (email) {
                 email.value = ref.email;
             }
-            var relationship = panel.querySelector('input[name=\"reference_relationship\"]');
-            if (relationship) {
-                relationship.value = ref.relationship;
-            }
-            var relationship = panel.querySelector('input[name=\"reference_relationship\"]');
+            var relationship = panel.querySelector('select[name=\"reference_relationship\"]');
             if (relationship) {
                 relationship.value = ref.relationship;
             }
@@ -94,11 +91,11 @@ MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
             if (until_date) {
                 until_date.value = ref.observed_until_date;
             }
-            var exp_level = panel.querySelector('input[name=\"reference_exp_level\"]');
+            var exp_level = panel.querySelector('select[name=\"reference_exp_level\"]');
             if (exp_level) {
                 exp_level.value = ref.experience_level;
             }
-            var story = panel.querySelector('input[name=\"reference_story\"]');
+            var story = panel.querySelector('textarea[name=\"reference_story\"]');
             if (story) {
                 story.value = ref.story;
             }

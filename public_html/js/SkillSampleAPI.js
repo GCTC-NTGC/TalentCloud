@@ -67,7 +67,7 @@ SkillSampleAPI.populateApplicationUiSkillSamples = function (samples) {
             if (name) {
                 name.value = ref.name;
             }
-            var type = panel.querySelector('input[select=\"sample_type\"]');
+            var type = panel.querySelector('select[name=\"sample_type\"]');
             if (type) {
                 type.value = ref.type;
             }
