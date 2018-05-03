@@ -6,17 +6,17 @@ class MicroReference implements JsonSerializable {
     protected $micro_reference_name;
     protected $micro_reference_email;
     protected $relationship;
-    protected $oberserved_from_date;
+    protected $observed_from_date;
     protected $observed_until_date;
     protected $experience_level;
     protected $micro_reference_story;
 
-    public function __construct($micro_reference_id=null, $micro_reference_name=null, $micro_reference_email=null, $relationship=null, $oberserved_from_date=null, $observed_until_date=null, $experience_level=null, $micro_reference_story=null) {
+    public function __construct($micro_reference_id=null, $micro_reference_name=null, $micro_reference_email=null, $relationship=null, $observed_from_date=null, $observed_until_date=null, $experience_level=null, $micro_reference_story=null) {
         $this->micro_reference_id = $micro_reference_id;
         $this->micro_reference_name = $micro_reference_name;
         $this->micro_reference_email = $micro_reference_email;
         $this->relationship = $relationship;
-        $this->oberserved_from_date = $oberserved_from_date;
+        $this->observed_from_date = $observed_from_date;
         $this->observed_until_date = $observed_until_date;
         $this->experience_level = $experience_level;
         $this->micro_reference_story = $micro_reference_story;
@@ -48,8 +48,8 @@ class MicroReference implements JsonSerializable {
         return $this->relationship;
     }
 
-    public function getOberserved_from_date() {
-        return $this->oberserved_from_date;
+    public function getObserved_from_date() {
+        return $this->observed_from_date;
     }
 
     public function getObserved_until_date() {
@@ -84,8 +84,8 @@ class MicroReference implements JsonSerializable {
         return $this;
     }
 
-    public function setOberserved_from_date($oberserved_from_date) {
-        $this->oberserved_from_date = $oberserved_from_date;
+    public function setObserved_from_date($oberserved_from_date) {
+        $this->observed_from_date = $oberserved_from_date;
         return $this;
     }
 

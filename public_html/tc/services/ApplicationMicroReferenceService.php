@@ -82,8 +82,8 @@ switch ($requestMethod) {
             $microReference->setMicro_reference_name($payload['name']);
             $microReference->setMicro_reference_email($payload['email']);
             $microReference->setRelationship($payload['relationship']);
-            $microReference->setOberserved_from_date($payload['oberserved_from_date']);
-            $microReference->setOberserved_until_date($payload['oberserved_until_date']);
+            $microReference->setObserved_from_date($payload['observed_from_date']);
+            $microReference->setObserved_until_date($payload['observed_until_date']);
             $microReference->setExperience_level($payload['experience_level']);
             $microReference->setMicro_reference_story($payload['story']);
 

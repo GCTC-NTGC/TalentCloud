@@ -58,7 +58,7 @@ class MicroReferenceDAO extends BaseDAO {
                 AND relationship_details.locale_id = locale.locale_id
                 AND locale.locale_iso = :locale
                 AND micro_reference.micro_reference_experience_level_id = experience_level_details.experience_level_id
-                AND experience_level_details.locale_id = locale.locale_id
+                AND experience_level_details.experience_level_details_locale_id = locale.locale_id
                 AND application_micro_reference.is_active = 1
                 AND application_micro_reference.application_micro_reference_id IN (
                     SELECT MAX(application_micro_reference_id)
@@ -86,7 +86,7 @@ class MicroReferenceDAO extends BaseDAO {
                 $basicReference->setMicro_reference_name($referenceArray['micro_reference_name']);
                 $basicReference->setMicro_reference_email($referenceArray['micro_reference_email']);
                 $basicReference->setRelationship($referenceArray['relationship']);
-                $basicReference->setOberserved_from_date($referenceArray['oberserved_from_date']);
+                $basicReference->setObserved_from_date($referenceArray['observed_from_date']);
                 $basicReference->setObserved_until_date($referenceArray['observed_until_date']);
                 $basicReference->setExperience_level($referenceArray['experience_level']);
                 $basicReference->setMicro_reference_story($referenceArray['micro_reference_story']);
@@ -115,7 +115,7 @@ class MicroReferenceDAO extends BaseDAO {
         $sql_str_micro_reference = "
             INSERT INTO micro_reference
                 (micro_reference_name,
-                micro_refernce_email,
+                micro_reference_email,
                 micro_reference_relationship_id,
                 micro_reference_observed_from_date,
                 micro_reference_observed_until_date,
@@ -151,7 +151,7 @@ class MicroReferenceDAO extends BaseDAO {
         $sql_micro_reference->bindValue(':name', $microReference->getMicro_reference_name(), PDO::PARAM_STR);
         $sql_micro_reference->bindValue(':email', $microReference->getMicro_reference_email(), PDO::PARAM_STR);
         $sql_micro_reference->bindValue(':relationship', $microReference->getRelationship(), PDO::PARAM_STR);
-        $sql_micro_reference->bindValue(':from_date', $microReference->getOberserved_from_date(), PDO::PARAM_STR);
+        $sql_micro_reference->bindValue(':from_date', $microReference->getObserved_from_date(), PDO::PARAM_STR);
         $sql_micro_reference->bindValue(':until_date', $microReference->getObserved_until_date(), PDO::PARAM_STR);
         $sql_micro_reference->bindValue(':experience_level', $microReference->getExperience_level(), PDO::PARAM_STR);
         $sql_micro_reference->bindValue(':story', $microReference->getMicro_reference_story(), PDO::PARAM_STR);
