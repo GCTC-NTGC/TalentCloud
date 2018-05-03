@@ -46,7 +46,7 @@ SkillSampleAPI.populateApplicationUiSkillSamples = function (samples) {
             if (name) {
                 name.value = ref.name;
             }
-            var type = panel.querySelector('input[name=\"sample_type\"]');
+            var type = panel.querySelector('input[select=\"sample_type\"]');
             if (type) {
                 type.value = ref.type;
             }
@@ -58,7 +58,7 @@ SkillSampleAPI.populateApplicationUiSkillSamples = function (samples) {
             if (http_link) {
                 http_link.value = ref.http_link;
             }
-            var story = panel.querySelector('input[name=\"sample_story\"]');
+            var story = panel.querySelector('textarea[name=\"sample_story\"]');
             if (story) {
                 story.value = ref.story;
             }
@@ -158,11 +158,11 @@ SkillSampleAPI.getSkillSampleFromEvidencePanel = function (panel) {
     if (name) {
         sample.name = name.value;
     }
-    var type = panel.querySelector('input[name=\"sample_type\"]');
+    var type = panel.querySelector('input[select=\"sample_type\"]');
     if (type) {
         sample.type = type.value;
     }
-    var date_created = panel.querySelector('select[name=\"sample_date_created\"]');
+    var date_created = panel.querySelector('input[name=\"sample_date_created\"]');
     if (date_created) {
         sample.date_created = date_created.value;
     }
