@@ -4,7 +4,7 @@
 
         <div class="flex-grid">
 
-            <!-- DEV-NOTE: application-progress__item classes can be paired with an inactive class to make them grey when their respective content is not in use. See below for an example. -->
+            <?php // DEV-NOTE: application-progress__item classes can be paired with an inactive class to make them grey when their respective content is not in use. See below for an example. ?>
 
             <div class="box med-1of4 application-progress__item inactive" data-application-section="my-information">
                 <div class="application-progress__background-wrapper">
