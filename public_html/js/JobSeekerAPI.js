@@ -439,7 +439,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
     //function(firstName, lastName, tagline, twitter, linkedin) {
     if (FormValidationAPI.validateUpdateProfileBasicInfo(
             //user.firstname, user.lastname,
-            jobSeekerProfile.twitter_link, jobSeekerProfile.linkedin_link)) {
+            jobSeekerProfile.twitter_username, jobSeekerProfile.linkedin_username)) {
         //Also trigger photo upload
         if (JobSeekerAPI.profilePicUploader) {
             JobSeekerAPI.profilePicUploader.uploadPhoto();
