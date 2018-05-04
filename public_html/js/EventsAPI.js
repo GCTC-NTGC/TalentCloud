@@ -32,7 +32,7 @@ EventsAPI.onLoadEvents = function(){
             TalentCloudAPI.hideAllContent();
             if(e.state.pageInfo === 'talent_cloud'){
                 EventsAPI.hideAllLayouts();
-                document.getElementById("homeLinkListItem").classList.add("active");
+                document.getElementById("navigationHomeLinkWrapper").classList.add("active");
                 //static content for home page
             } else if(e.state.pageInfo === 'talent_cloud_admin'){
                 EventsAPI.hideAllLayouts();
@@ -47,12 +47,12 @@ EventsAPI.onLoadEvents = function(){
             } else if(e.state.pageInfo === 'register'){
                 var registerFormOverlay = document.getElementById("registerFormOverlay");
                 registerFormOverlay.classList.remove("hidden");
-                document.getElementById("registerLinkListItem").classList.add("active");
+                document.getElementById("navigationRegisterLinkWrapper").classList.add("active");
                 modalSize();
             } else if(e.state.pageInfo === 'user_login'){
                 var loginAccount = document.getElementById("loginOverlay");
                 loginAccount.classList.remove("hidden");
-                document.getElementById("loginLinkListItem").classList.add("active");
+                document.getElementById("navigationLoginLinkWrapper").classList.add("active");
                 modalSize();
             } else if(e.state.pageInfo === 'create_job_poster'){
                 EventsAPI.hideAllLayouts();
@@ -69,7 +69,7 @@ EventsAPI.onLoadEvents = function(){
             } else if(e.state.pageInfo === 'browse_jobs') {
                 EventsAPI.hideAllLayouts();
                 JobPostAPI.showBrowseJobs();
-                document.getElementById("browseLinkListItem").classList.add("active");
+                document.getElementById("navigationBrowseLinkWrapper").classList.add("active");
             } else if(e.state.pageInfo === 'view_job_poster'){
                 EventsAPI.hideAllLayouts();
                 JobPostAPI.viewJobPoster(e.state.jobId);
@@ -112,3 +112,7 @@ EventsAPI.setFormFocus = function(fieldId){
     var fieldToFocus = document.getElementById(fieldId);
     fieldToFocus.focus();
 };
+
+EventsAPI.goBack = function(){
+    window.history.back();
+}

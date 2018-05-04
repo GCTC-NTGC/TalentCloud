@@ -12,7 +12,7 @@
  * @author GBowden
  */
 class JobPoster implements JsonSerializable {
-    
+
     private $id;
     private $locale_id;
     private $manager_user_id;
@@ -23,7 +23,7 @@ class JobPoster implements JsonSerializable {
     private $term_units;
     private $job_min_level;
     private $job_max_level;
-    private $job_start_date;
+    private $start_date;
     private $open_date;
     private $close_date;
     private $department;
@@ -37,10 +37,15 @@ class JobPoster implements JsonSerializable {
     private $key_tasks;
     private $core_competencies;
     private $developing_competencies;
-    private $other_requirements;
     private $questions;
+    private $classification;
+    private $security_clearance;
+    private $language_requirement;
 
-    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null, $job_min_level=null, $job_max_level=null, $job_start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null, $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null, $other_requirements=null, $questions=[]) {
+    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null,
+    $job_min_level=null, $job_max_level=null, $start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null,
+    $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null,
+    $questions=[], $classification=null, $security_clearance=null, $language_requirement=null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -51,7 +56,7 @@ class JobPoster implements JsonSerializable {
         $this->term_units = $term_units;
         $this->job_min_level = $job_min_level;
         $this->job_max_level = $job_max_level;
-        $this->job_start_date = $job_start_date;
+        $this->start_date = $start_date;
         $this->open_date = $open_date;
         $this->close_date = $close_date;
         $this->department = $department;
@@ -65,10 +70,12 @@ class JobPoster implements JsonSerializable {
         $this->key_tasks = $key_tasks;
         $this->core_competencies = $core_competencies;
         $this->developing_competencies = $developing_competencies;
-        $this->other_requirements = $other_requirements;
         $this->questions = $questions;
+        $this->classification = $classification;
+        $this->security_clearance = $security_clearance;
+        $this->language_requirement = $language_requirement;
     }
-    
+
     public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
@@ -79,7 +86,7 @@ class JobPoster implements JsonSerializable {
         }
         return $gettable_attributes;
     }
-   
+
     public function getId() {
         return $this->id;
     }
@@ -120,8 +127,8 @@ class JobPoster implements JsonSerializable {
         return $this->job_max_level;
     }
 
-    public function getJob_start_date() {
-        return $this->job_start_date;
+    public function getStart_date() {
+        return $this->start_date;
     }
 
     public function getOpen_date() {
@@ -176,12 +183,20 @@ class JobPoster implements JsonSerializable {
         return $this->developing_competencies;
     }
 
-    public function getOther_requirements() {
-        return $this->other_requirements;
-    }
-
     public function getQuestions() {
         return $this->questions;
+    }
+
+    public function getClassification() {
+        return $this->classification;
+    }
+
+    public function getSecurity_clearance() {
+        return $this->security_clearance;
+    }
+
+    public function getLanguage_requirement() {
+        return $this->language_requirement;
     }
 
     public function setId($id) {
@@ -234,8 +249,8 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
-    public function setJob_start_date($job_start_date) {
-        $this->job_start_date = $job_start_date;
+    public function setStart_date($start_date) {
+        $this->start_date = $start_date;
         return $this;
     }
 
@@ -304,13 +319,23 @@ class JobPoster implements JsonSerializable {
         return $this;
     }
 
-    public function setOther_requirements($other_requirements) {
-        $this->other_requirements = $other_requirements;
+    public function setQuestions($questions) {
+        $this->questions = $questions;
         return $this;
     }
 
-    public function setQuestions($questions) {
-        $this->questions = $questions;
+    public function setClassification($classification) {
+        $this->classification = $classification;
+        return $this;
+    }
+
+    public function setSecurity_clearance($security_clearance) {
+        $this->security_clearance = $security_clearance;
+        return $this;
+    }
+
+    public function setLanguage_requirement($language_requirement) {
+        $this->language_requirement = $language_requirement;
         return $this;
     }
 }

@@ -1,13 +1,13 @@
-<!-- BEGIN - Edit Admin Profile Form (Page 3 / Work Environment) -->
+<?php // BEGIN - Edit Admin Profile Form (Page 3 / Work Environment) ?>
 <div id="createEditProfile_workEnvironment" class="stepGroup_createEditProfile hidden">
 
     <div class="tabsWrapper">
         <div class="tabsSteps">
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_WE">About</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_WE">Leadership</span></a></div>
-            <div class="five-step-tab tab-current"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_WE">Work Environment</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_WE">Team Culture</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_WE">Other</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_WE">About</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_WE">Leadership</span></a></div>
+            <div class="five-step-tab tab-current"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_WE">Work Environment</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_WE">Team Culture</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_WE">Other</span></a></div>
         </div>
         <div class="tabs">
             <div class="steptab inactive"> </div>
@@ -29,7 +29,7 @@
             <span>Required</span>
         </div>
 
-        <!--Tabs for remote work-->
+        <?php // Tabs for remote work ?>
         <div class="form-group box full">
 
             <label id="remoteWork_label" for="createEditProfile_remoteWork" class="form__label">Is remote work allowed?</label>
@@ -46,7 +46,7 @@
 
         </div>
 
-        <!--Tabs for Telework-->
+        <?php // Tabs for Telework ?>
         <div class="form-group box full">
 
             <label id="telework_label" for="createEditProfile_telework" class="form__label">Is telework allowed?</label>
@@ -68,8 +68,8 @@
             </div>
 
         </div>
-        
-        <!--Tabs for Flexible Work-->
+
+        <?php // Tabs for Flexible Work ?>
         <div class="form-group box full">
 
             <label id="flexHours_label" for="createEditProfile_flexHours" class="form__label">Are flexible hours available?</label>
@@ -93,8 +93,8 @@
         </div>
 
         <hr class="manager-edit-profile__divider">
-        
-        <!--Work Envorinment Photo Upload-->
+
+        <?php // Work Envorinment Photo Upload ?>
         <div class="workEnvironmentWrapper">
 
             <h3 id="physicalEnvironment_title" class="manager-edit-profile__title heading--03">Physical Environment</h3>
@@ -137,7 +137,7 @@
                         <input id="workplace_photo_caption_2" type="text" name="workplace_photo_caption_2" class="form__input--text"/>
                     </div>
                 </div>
-                
+
                 <div class="box lg-1of3 flex-grid manager-edit-profile__workplace-image-wrapper">
                     <div class="box full">
                         <img id="workEnvironment_photo_3" alt="Third image of workplace environment" src="../images/user.png" width="250">
@@ -158,13 +158,17 @@
 
         </div>
 
-        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
-            <div class="box full">
-               <input class="button--yellow" id="workEnvironmentSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="workEnvironmentCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+            </div>
+            <div class="formGroup box med-1of2">
+                <input id="workEnvironmentBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');" class="button--grey">
+                <input class="button--yellow" id="workEnvironmentSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateWorkEnvironment();">
             </div>
         </div>
 
     </div>
 
 </div>
-<!-- END - Edit Admin Profile Form (Page 3 / Work Environment) -->
+<?php // END - Edit Admin Profile Form (Page 3 / Work Environment) ?>

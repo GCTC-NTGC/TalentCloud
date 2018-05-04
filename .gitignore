@@ -6,3 +6,4 @@ public_html/tc/dao/BaseDAO\.php
 vendor/
 public_html/node_modules/
 composer.lock
+/public_html/nbproject/private/

@@ -1,13 +1,13 @@
-<!-- BEGIN - Edit Admin Profile Form (Page 1 / About Me) -->
+<?php // BEGIN - Edit Admin Profile Form (Page 1 / About Me) ?>
 <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
 
     <div class="tabsWrapper">
         <div class="tabsSteps">
-            <div class="five-step-tab tab-current"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_1">About</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_1">Leadership</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></a></div>
-            <div class="five-step-tab"><a onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_1">Other</span></a></div>
+            <div class="five-step-tab tab-current"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_1">About</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_1">Leadership</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_1">Team Culture</span></a></div>
+            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_1">Other</span></a></div>
         </div>
         <div class="tabs">
             <div class="steptab active"> </div>
@@ -99,7 +99,7 @@
                     </strong>
                 </label>
                 <div class="form__select-wrapper">
-                    <!--<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>-->
+                    <?php //<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>?>
                     <select class="form__select" name="createEditProfile_department" id="createEditProfile_department">
                         <option value="">--</option>
                     </select>
@@ -168,13 +168,16 @@
 
         </div>
 
-        <div class="createEditProfileSubmitPane flex-grid top manager-edit-profile__button-form">
-            <div class="box full">
-                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="aboutMeCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+            </div>
+            <div class="formGroup box med-1of2">
+                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateAboutMe();">
             </div>
         </div>
 
     </div>
 
 </div>
-<!-- END - Edit Admin Profile Form (Page 1 / About Me) -->
+<?php // END - Edit Admin Profile Form (Page 1 / About Me) ?>

@@ -327,6 +327,149 @@ function modalSize() {
 // Reruns the function each time the viewport changes size.
 Utilities.addWindowEventListener("resize", modalSize);
 
+// Sitewide Accordion Triggers ================================================
+Utilities.accordionClickListener = function (e) {
+    var accordionTrigger = document.querySelectorAll("[data-accordion-trigger]");
+    var accordionContent = document.querySelectorAll("[data-accordion-target]");
+    // Cancels the default action.
+    e.preventDefault();
+    // Checks to see if the accordion is open.
+    if (this.classList.contains("active")) {
+        // Closes all accordions.
+        for (let x of accordionTrigger) {
+            x.classList.remove("active")
+            x.setAttribute("aria-expanded", "false");
+            for (let y of accordionContent) {
+                y.classList.remove("active");
+                y.setAttribute("aria-hidden", "true");
+            }
+        }
+    } else {
+        // Closes all accordions.
+        for (let x of accordionTrigger) {
+            x.classList.remove("active")
+            x.setAttribute("aria-expanded", "false");
+            for (let y of accordionContent) {
+                y.classList.remove("active");
+                y.setAttribute("aria-hidden", "true");
+            }
+        }
+        // Opens this accordion.
+        this.classList.add("active");
+        this.setAttribute("aria-expanded", "true");
+        var thisAccordion = this.getAttribute("data-accordion-trigger");
+        for (let y of accordionContent) {
+            if (y.getAttribute("data-accordion-target") == thisAccordion) {
+                y.classList.add("active");
+                y.setAttribute("aria-hidden", "false");
+            }
+        }
+    }
+};
+
+Utilities.accordionKeyupListener = function (e) {
+    // Cancels the default action.
+    e.preventDefault();
+    // Checks to see if the key pressed was Enter (13).
+    if (e.keyCode === 13) {
+        // Triggers a click, thus activating the click event listener.
+        this.click();
+    }
+}
+
+Utilities.setAccordionTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var accordionTrigger = document.querySelectorAll("[data-accordion-trigger]");
+    // Loops through all elements.
+    for (let i of accordionTrigger) {
+        // Checks for a click.
+        i.addEventListener('click', Utilities.accordionClickListener);
+        // Checks for an Enter key click.
+        i.addEventListener("keydown", Utilities.accordionKeyupListener);
+    }
+};
+
+Utilities.mobileNavClickListener = function(e) {
+
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    var mainMenu = document.getElementById("pageHeroNavigationMenu");
+
+    e.preventDefault();
+
+    if (this.classList.contains("active")) {
+        this.classList.remove("active");
+        mainMenu.classList.remove("active");
+    }
+    else {
+        this.classList.add("active");
+        mainMenu.classList.add("active");
+    }
+
+}
+
+Utilities.setMobileNavTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    // Checks for a click.
+    mobileMenuTrigger.addEventListener('click', Utilities.mobileNavClickListener);
+    // Checks for an Enter key click.
+    mobileMenuTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
+};
+
+Utilities.applicantLandingVideoClickListener = function(e) {
+
+    var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
+    var landingVideoTranscript = document.getElementById("applicantLandingVideoTranscript");
+
+    e.preventDefault();
+
+    if (this.classList.contains("active")) {
+        this.classList.remove("active");
+        this.setAttribute("aria-expanded", "false");
+        landingVideoTranscript.classList.remove("active");
+        landingVideoTranscript.setAttribute("aria-hidden", "true");
+    }
+    else {
+        this.classList.add("active");
+        this.setAttribute("aria-expanded", "true");
+        landingVideoTranscript.classList.add("active");
+        landingVideoTranscript.setAttribute("aria-hidden", "false");
+    }
+
+}
+
+Utilities.setApplicantLandingVideoTriggers = function () {
+    // Gets all elements on the page with "accordion-trigger".
+    var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
+    if (landingVideoTrigger != null) {
+        // Checks for a click.
+        landingVideoTrigger.addEventListener('click', Utilities.applicantLandingVideoClickListener);
+        // Checks for an Enter key click.
+        landingVideoTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
+    }
+};
+
+Utilities.addWindowEventListener("load", Utilities.setAccordionTriggers);
+Utilities.addWindowEventListener("load", Utilities.setMobileNavTriggers);
+Utilities.addWindowEventListener("load", Utilities.setApplicantLandingVideoTriggers);
+
+Utilities.getHeroElements = function() {
+
+    var landingHero = document.getElementById("landingHero");
+    landingHero.classList.add("hidden");
+
+    var subpageTitles = document.querySelectorAll(".subpage-hero__title");
+    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
+    for (let i of subpageTitles) {
+        i.classList.add("hidden");
+        i.setAttribute("aria-hidden", "true");
+    }
+    browseHeroPosterMetaData.classList.add("hidden");
+    applicationHeroMetadata.classList.add("hidden");
+
+}
+
 // Applicant Evidence UI =======================================================
 Utilities.setEvidenceUiEventListeners = function (e) {
 

@@ -1,15 +1,24 @@
 <section class="pageContent hidden" id="createJobApplicationSection">
 
-    <div class="pageBanner">
-
+    <!-- <div class="pageBanner">
         <h2 class="section--title" id="createJobApplicationTitle">My Job Application</h2>
+        <div class="container centered">
+            <p id="createJobApplicationPositionLabel">for the position of:</p>
+            <h3 id="createJobApplicationPostition">Job title</h3>
+        </div>
+        <input type='hidden' id='createJobApplicationJobApplicationId' />
+        <input type='hidden' id='createJobApplicationJobPosterId' />
+        <input type='hidden' id='createJobApplicationJobSeekerId' />
+        <input type='hidden' id='createJobApplicationJobApplicationStatusId' />
+    </div> -->
 
-        <!-- Restructured during TAL-103 -->
-        <div class="application-header__position-wrapper">
+    <!-- Restructured during TAL-103 -->
+    <div class="application-header__position-wrapper">
 
-            <div class="content-container">
+        <div class="content-container">
 
-                <span id="createJobApplicationPositionLabel" class="application-header__position-copy">for the position of:</span>
+            <?php // Some aesthetic rework was done here during TAL-102 ?>
+            <div class="application-profile__wrapper block-container">
 
                 <h3 id="createJobApplicationPostition" class="application-header__position">Job title</h3>
 
@@ -62,7 +71,7 @@
 
         <!-- TAL-103 ====================================================== -->
         <?php include "partial-applicant-evidence.php"; ?>
-        
+
     </div>
 
 </section>

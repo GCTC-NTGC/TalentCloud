@@ -2350,16 +2350,13 @@ html {
   position: relative; }
 
 body {
+  background: white;
   font-size: 100% !important;
   height: 100% !important;
   color: #333 !important;
   width: 100% !important;
   /*max-width:1200px !important;*/
   margin: 0px auto !important;
-  background-image: url("/images/backgrounds/background.jpg");
-  background-position: center -350px;
-  background-repeat: no-repeat;
-  background-size: auto;
   position: absolute; }
 
 main {
@@ -3929,7 +3926,7 @@ body[id*="Trident/7.0"] .box {
 /* Block Containers: Use this for consistent widths on sections. */
 .block-container {
   margin: 0 auto;
-  max-width: 80rem;
+  max-width: 100rem;
   width: 90%; }
 
 /* Font Awesome Mixin */
@@ -4299,7 +4296,8 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   border-radius: 3px; }
 
-#bgcolor.left {
+#bgcolor.left,
+#remoteWork.left {
   transition: left 0.5s ease-in-out;
   position: absolute;
   top: 0rem;
@@ -4308,7 +4306,8 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   background-color: #ccc; }
 
-#bgcolor.right {
+#bgcolor.right,
+#remoteWork.right {
   transition: left 0.5s ease-in-out;
   position: absolute;
   top: 0rem;
@@ -4394,7 +4393,9 @@ input[type="button"][class*="button--"] {
 #staylate,
 #engage,
 #devops,
-#lvwRequests {
+#lvwRequests,
+#telework,
+#flexHours {
   border-bottom: 5px solid #5599e5;
   height: 3rem;
   position: absolute;
@@ -4404,35 +4405,45 @@ input[type="button"][class*="button--"] {
   #staylate.option0,
   #engage.option0,
   #devops.option0,
-  #lvwRequests.option0 {
+  #lvwRequests.option0,
+  #telework.option0,
+  #flexHours.option0 {
     top: 0rem;
     left: 0px; }
   #review_options.option1,
   #staylate.option1,
   #engage.option1,
   #devops.option1,
-  #lvwRequests.option1 {
+  #lvwRequests.option1,
+  #telework.option1,
+  #flexHours.option1 {
     top: 0rem;
     left: 112px; }
   #review_options.option2,
   #staylate.option2,
   #engage.option2,
   #devops.option2,
-  #lvwRequests.option2 {
+  #lvwRequests.option2,
+  #telework.option2,
+  #flexHours.option2 {
     top: 0rem;
     left: 224px; }
   #review_options.option3,
   #staylate.option3,
   #engage.option3,
   #devops.option3,
-  #lvwRequests.option3 {
+  #lvwRequests.option3,
+  #telework.option3,
+  #flexHours.option3 {
     top: 0rem;
     left: 336px; }
   #review_options.option4,
   #staylate.option4,
   #engage.option4,
   #devops.option4,
-  #lvwRequests.option4 {
+  #lvwRequests.option4,
+  #telework.option4,
+  #flexHours.option4 {
     top: 0rem;
     left: 448px; }
 
@@ -4660,104 +4671,111 @@ input[type=url][class*="form__input--"] {
 .input-container {
   margin-right: 2em; }
 
-/* Organisms ================================================================ */
-/* UTILITY */
-.bold {
-  font-weight: bold; }
+/* =============================================================================
 
-.clear {
-  clear: both; }
+    Authored by: Talent Cloud
 
-.clearfix {
-  content: "";
-  display: table;
-  clear: both; }
+    Page Hero
 
-.overFlowHidden {
-  overflow: hidden; }
-
-.transparent {
-  background: rgba(0, 0, 0, 0.7); }
-
-.hidden {
-  transition: all 1s ease-in-out !important;
-  opacity: 0;
-  max-height: 0;
-  max-width: 0;
-  display: none;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  overflow: hidden; }
-
-.visible {
-  max-height: 4000px;
-  max-width: 4000px;
-  display: static;
-  opacity: 1;
-  transition: opacity 1s ease-in-out; }
-
-.half-width {
-  width: 50%; }
-
-.three-quarter-width {
-  width: 75%; }
-
-.leftPane {
-  width: 45%;
-  float: left; }
-
-.rightPane {
-  width: 45%;
-  float: right; }
-
-.singlePane {
-  width: 100%;
-  clear: both; }
-
-.blue-highlight-text {
-  color: #2196F3; }
-
-.flexContainerVerticallyCentered {
-  display: flex;
-  align-items: center; }
-
-.flexLeftOfCenter {
-  width: 50%;
-  float: right; }
-
-.flexRightOfCenter {
-  width: 50%;
-  float: left; }
-
-.centered {
-  text-align: center; }
-
-/* CONTAINERS / OVERLAYS */
-#overlays {
+============================================================================= */
+.page-hero {
+  background-image: url("/images/backgrounds/background.jpg");
+  background-position: top center;
+  background-size: cover;
   position: relative; }
+  .page-hero:before {
+    background: rgba(0, 0, 0, 0.7);
+    content: " ";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; }
 
-.pageContent {
-  margin: 0 auto;
-  width: 100%;
-  min-height: 80vh;
-  overflow: auto; }
+.page-hero__navigation {
+  background: rgba(0, 0, 0, 0.5) !important;
+  position: relative;
+  z-index: 15; }
+  .page-hero__navigation > .flex-grid {
+    justify-content: flex-end; }
+    .page-hero__navigation > .flex-grid > .box > a {
+      align-items: center;
+      display: flex;
+      color: white;
+      font-size: 14px;
+      height: 100%;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all .2s ease; }
+      .page-hero__navigation > .flex-grid > .box > a:hover {
+        color: #ffd200;
+        transition: all .2s ease; }
+    .page-hero__navigation > .flex-grid > .box.active > a:before {
+      background: #ffd200;
+      content: " ";
+      display: block;
+      height: .5rem;
+      max-width: 10rem;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 0);
+      width: 100%; }
 
-.pageBanner {
-  background: rgba(0, 0, 0, 0.7);
-  min-height: 10%;
-  width: 100%;
+.page-hero__mobile-trigger {
+  background: #ffe25b;
+  border-radius: 3px 0 0 3px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
+  color: #333333;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 1.5rem 2rem;
+  position: fixed;
+  right: 0;
+  bottom: 4rem;
+  z-index: 100; }
+  @media (min-width: 64em) {
+    .page-hero__mobile-trigger {
+      display: none; } }
+  .page-hero__mobile-trigger i {
+    margin: 0 .5rem 0 0; }
+    .page-hero__mobile-trigger i.fa-times {
+      display: none; }
+  .page-hero__mobile-trigger.active i.fa-navicon {
+    display: none; }
+  .page-hero__mobile-trigger.active i.fa-times {
+    display: inline-block; }
+
+.page-hero__navigation-menu {
+  background: rgba(0, 0, 0, 0.9);
+  display: block;
+  height: 100vh;
+  padding: 5rem 0 0 0;
+  position: fixed;
+  top: 0;
+  left: 0;
   overflow: auto;
-  color: #FFFFFF; }
-
-.pageBody {
-  background-color: white;
-  width: 100%;
-  min-height: 80vh;
-  overflow: visible; }
-
-.formButtonWrapper {
-  float: right; }
+  transform: translate(-100%, 0);
+  transition: transform .2s ease;
+  width: 100vw;
+  z-index: 50; }
+  @media (min-width: 64em) {
+    .page-hero__navigation-menu {
+      background: none;
+      display: flex;
+      height: auto;
+      padding: 0;
+      position: relative;
+      transform: translate(0, 0);
+      width: 100%; } }
+  .page-hero__navigation-menu.active {
+    transform: translate(0, 0);
+    transition: transform .2s ease; }
 
 /* =============================================================================
 
@@ -4855,11 +4873,237 @@ nav {
   height: auto;
   float: right; }
 
-.landing-hero__logo {
-  margin-top: -11%; }
+/* New Landing Hero ========================================================= */
+.landing-hero {
+  position: relative;
+  z-index: 10; }
 
-.landing-hero__tagline-divider {
-  margin: 2rem 5rem 2rem 2rem; }
+.landing-hero__container {
+  margin: 0 auto;
+  max-width: 100rem;
+  padding: 9rem 0 8rem;
+  width: 90%; }
+
+.landing-hero__link {
+  display: block;
+  text-align: center; }
+  @media (min-width: 64em) {
+    .landing-hero__link {
+      padding: 0 1rem 0 0;
+      text-align: right; } }
+
+.landing-hero__logo {
+  display: inline-block;
+  margin: -10% 0 0 0;
+  max-width: 50rem;
+  text-align: center;
+  width: 100%; }
+
+.landing-hero__tagline {
+  color: white;
+  display: block;
+  font-size: 25px;
+  text-align: center; }
+  @media (min-width: 64em) {
+    .landing-hero__tagline {
+      border-left: 0.5rem solid white;
+      padding: 2rem 0 2rem 4rem;
+      text-align: left; } }
+
+.landing-hero__admin-tagline {
+  color: white;
+  font-size: 20px;
+  margin: 4rem 0 0 0;
+  text-align: center; }
+
+.alert-banner .box:first-child {
+  padding: 0 0 1rem 0; }
+  @media (min-width: 64em) {
+    .alert-banner .box:first-child {
+      padding: 0;
+      text-align: left; } }
+
+@media (min-width: 64em) {
+  .alert-banner .box:last-child {
+    text-align: right; } }
+
+.alert-banner__icon {
+  color: #125184;
+  font-size: 12px !important; }
+
+[class*="alert-banner__copy"] {
+  color: #125184;
+  font-size: 12px !important; }
+  [class*="alert-banner__copy"] a {
+    cursor: pointer; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    The Subpage Hero Banner
+
+============================================================================= */
+.subpage-hero .flex-grid + .subpage-hero__poster-metadata {
+  margin-top: -2rem; }
+
+.subpage-hero__title {
+  font-size: 50px;
+  margin: 0;
+  margin: 7rem 0 9rem;
+  position: relative;
+  text-align: center; }
+  .subpage-hero__title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+  .subpage-hero__title#profileHeroTitle, .subpage-hero__title#managerProfileHeroTitle {
+    margin: 7rem 0 22rem; }
+
+.subpage-hero__poster-metadata {
+  padding: 0 0 3rem 0;
+  position: relative;
+  z-index: 10; }
+  @media (min-width: 64em) {
+    .subpage-hero__poster-metadata .box:last-of-type {
+      text-align: right; } }
+
+.subpage-hero__poster-job {
+  color: white !important;
+  margin: 0 0 1rem 0; }
+
+.subpage-hero__poster-department {
+  color: white;
+  margin: 0; }
+
+.subpage-hero__poster-id {
+  color: white;
+  margin: 0; }
+
+.subpage-hero__application-metadata {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 3rem;
+  position: relative;
+  text-align: center;
+  z-index: 10; }
+
+.subpage-hero__application-label {
+  color: #484848;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 0 1rem 0; }
+
+.subpage-hero__application-job {
+  color: #333333;
+  font-size: 25px;
+  font-weight: 600;
+  margin: 0; }
+
+/* Organisms ================================================================ */
+/* UTILITY */
+.bold {
+  font-weight: bold; }
+
+.clear {
+  clear: both; }
+
+.clearfix {
+  content: "";
+  display: table;
+  clear: both; }
+
+.overFlowHidden {
+  overflow: hidden; }
+
+.transparent {
+  background: rgba(0, 0, 0, 0.7); }
+
+.hidden {
+  transition: all 1s ease-in-out !important;
+  opacity: 0;
+  max-height: 0;
+  max-width: 0;
+  display: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  overflow: hidden; }
+
+.visible {
+  max-height: 4000px;
+  max-width: 4000px;
+  display: static;
+  opacity: 1;
+  transition: opacity 1s ease-in-out; }
+
+.half-width {
+  width: 50%; }
+
+.three-quarter-width {
+  width: 75%; }
+
+.leftPane {
+  width: 45%;
+  float: left; }
+
+.rightPane {
+  width: 45%;
+  float: right; }
+
+.singlePane {
+  width: 100%;
+  clear: both; }
+
+.blue-highlight-text {
+  color: #2196F3; }
+
+.flexContainerVerticallyCentered {
+  display: flex;
+  align-items: center; }
+
+.flexLeftOfCenter {
+  width: 50%;
+  float: right; }
+
+.flexRightOfCenter {
+  width: 50%;
+  float: left; }
+
+.centered {
+  text-align: center; }
+
+/* CONTAINERS / OVERLAYS */
+#overlays {
+  position: relative; }
+
+.pageContent {
+  margin: 0 auto;
+  width: 100%;
+  min-height: 80vh;
+  overflow: auto; }
+  .pageContent#profileSection, .pageContent#managerProfileSection, .pageContent#createEditProfileSection {
+    overflow: visible; }
+
+.pageBanner {
+  background: rgba(0, 0, 0, 0.7);
+  min-height: 10%;
+  width: 100%;
+  overflow: auto;
+  color: #FFFFFF; }
+
+.pageBody {
+  width: 100%;
+  min-height: 80vh;
+  overflow: visible; }
+
+.formButtonWrapper {
+  float: right; }
 
 /* =============================================================================
 
@@ -5095,8 +5339,13 @@ nav {
       .manager-edit-profile__button-form > .box {
         text-align: right; } }
 
+.stepGroup_createEditProfile a {
+  color: #333; }
+
 .stepGroup_createEditProfile .tab-current {
-  background: #2196f3;
+  background: #2196f3; }
+
+.stepGroup_createEditProfile .tab-current a {
   color: white; }
 
 /* =============================================================================
@@ -5117,6 +5366,9 @@ nav {
     @media (min-width: 48em) {
       .update-profile__applicant-profile-form > .box {
         padding: 0 1rem; } }
+    .update-profile__applicant-profile-form > .box a {
+      display: block;
+      margin: .5rem 0 1rem 0; }
   .update-profile__applicant-profile-form > .box:nth-last-child(1),
   .update-profile__applicant-profile-form > .box:nth-last-child(2) {
     text-align: center; }
@@ -5135,6 +5387,7 @@ nav {
   font-family: HKGrotesk, sans-serif;
   font-size: 16px;
   font-weight: 400;
+  line-height: 1.2;
   margin: 0;
   padding: calc(1rem - 1px) 1rem calc(1rem - 1px) 1rem; }
 
@@ -6128,6 +6381,9 @@ nav {
 .viewProfileHeightBoost {
   min-height: 200px; }
 
+.closeProfileButton {
+  float: left; }
+
 /* PROFILE PIC AND UPLOAD */
 #profileSection {
   min-height: 500px; }
@@ -6292,13 +6548,11 @@ nav {
   clear: both; }
 
 .createJobPosterDemoAreaEnglish {
-  float: left;
   margin-bottom: 1em;
   margin-top: 1em;
   background-color: #FFF; }
 
 .createJobPosterDemoAreaFrench {
-  float: left;
   background-color: #F8F8F8; }
 
 .createJobPosterDemoArea {
@@ -6323,26 +6577,34 @@ nav {
 
 #jobPosterLocation {
   color: #eee;
-  float: left; }
+  margin-bottom: .5rem; }
 
 #jobPosterId {
   float: right;
   padding-right: 2em;
-  color: #eee; }
+  color: #eee;
+  margin-bottom: 1.5rem; }
+
+#jobPosterRemoteWorkHeader {
+  color: #eee;
+  margin-bottom: 1.5rem; }
 
 #jobPosterDatapointsSection {
-  background-color: #777;
+  background-color: #333;
   color: #FFF;
   padding: 2em; }
 
 #jobPosterButtonWrapper {
   text-align: center;
-  background-color: #B9B9B9;
-  margin-top: 2em; }
+  background-color: #B9B9B9; }
 
 #jobPosterApplyButton {
   margin-top: 2em;
   margin-bottom: 2em; }
+
+.jobPosterDatapoints {
+  margin-bottom: 0;
+  font-size: 2rem; }
 
 .jobPosterSection:nth-child(odd) {
   background: #F8F8F8; }
@@ -6388,6 +6650,17 @@ nav {
   width: 30%;
   margin-right: 2em; }
 
+.accommodationRequest {
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 2em; }
+
+.accommodationRequestText {
+  text-align: left;
+  font-size: 2rem;
+  padding-top: 1em;
+  padding-bottom: 1em; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -6402,7 +6675,8 @@ nav {
   padding: 2rem; }
 
 .job-poster__work-environment-photo {
-  background-color: #c8c8c8;
+  /* hiding work environment photos when not present
+    background-color: $palette-grey--light; */
   background-position: center;
   background-size: cover;
   height: 45vh; }
@@ -6465,7 +6739,7 @@ nav {
       text-align: center; } }
 
 .jobSummarySalaryRange {
-  width: 15rem;
+  width: 20rem;
   text-align: center;
   padding-top: .25rem;
   padding-bottom: .25rem; }
@@ -6477,11 +6751,11 @@ nav {
   padding-bottom: .5rem; }
 
 .jobSummaryTerm_qty {
-  width: 15rem;
+  width: 20rem;
   text-align: center; }
 
 .titleDepartmentWrapper {
-  width: 22.5rem; }
+  width: 20rem; }
   @media screen and (max-width: 800px) {
     .titleDepartmentWrapper {
       text-align: center;
@@ -6511,7 +6785,7 @@ nav {
   display: block;
   margin-right: 2rem;
   margin-left: 2rem;
-  width: 10rem;
+  width: 15rem;
   padding-top: .5rem;
   padding-bottom: .5rem; }
 
@@ -6918,3 +7192,423 @@ nav {
 
 .validationMessage {
   color: #ff0000; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template
+
+============================================================================= */
+.faq {
+  background: #e2e2e2;
+  padding: 4rem 0; }
+
+.faq__category-title {
+  border-bottom: 1px solid #484848;
+  color: #333333;
+  font-size: 26px;
+  font-weight: 700;
+  margin: .5rem 0 2rem 0;
+  padding: 0 0 2rem 0; }
+
+.faq__section-title {
+  color: #2196f3;
+  font-size: 22px;
+  font-weight: 700;
+  margin: .5rem 0 2rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Subnav
+
+============================================================================= */
+@media (min-width: 64em) {
+  .faq__subnav-wrapper {
+    position: sticky; } }
+
+.faq_subnav-label {
+  color: #2196f3;
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+  .faq_subnav-label:first-child {
+    margin-top: 0; }
+
+.faq__subnav-item {
+  color: #333333 !important;
+  display: block;
+  font-size: 16px;
+  margin: 0 0 1rem 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .faq__subnav-item:hover {
+    color: #2196f3 !important;
+    text-decoration: underline;
+    transition: color .2s ease; }
+
+@media (min-width: 64em) {
+  .faq__content-wrapper {
+    padding: 0 0 0 3rem; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Introduction
+
+============================================================================= */
+.faq__introduction-wrapper {
+  margin: 0 0 4rem 0; }
+  .faq__introduction-wrapper:last-child {
+    margin-bottom: 0; }
+  .faq__introduction-wrapper p {
+    font-size: 16px;
+    line-height: 1.5; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Accordion
+
+============================================================================= */
+.faq__accordion-wrapper {
+  margin: 0 0 4rem 0; }
+  .faq__accordion-wrapper:last-child {
+    margin-bottom: 0; }
+
+.faq__accordion {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
+  margin: 2rem 0; }
+  .faq__accordion:first-child {
+    margin-top: 0; }
+  .faq__accordion:last-child {
+    margin-bottom: 0; }
+
+.faq__accordion-trigger {
+  background: #2196f3;
+  cursor: pointer;
+  padding: 2rem; }
+  .faq__accordion-trigger i {
+    color: white;
+    display: inline-block;
+    font-size: 22px;
+    margin: 0 1rem 0 0;
+    transition: all .2s ease;
+    vertial-align: middle; }
+  .faq__accordion-trigger span {
+    color: white;
+    font-size: 22px; }
+  .faq__accordion-trigger.active i {
+    transform: rotate(180deg);
+    transition: all .2s ease; }
+
+.faq__accordion-content {
+  background: white;
+  display: none;
+  padding: 2rem; }
+  .faq__accordion-content.active {
+    display: block; }
+  .faq__accordion-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 2rem 0; }
+    .faq__accordion-content p:first-child {
+      margin-top: 0; }
+    .faq__accordion-content p:last-child {
+      margin-bottom: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Text
+
+============================================================================= */
+.faq__text-title {
+  margin: 3rem 0 1rem 0; }
+
+.faq__text-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 2rem 0; }
+  .faq__text-copy:last-child {
+    margin-bottom: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing
+
+============================================================================= */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: Intro
+
+============================================================================= */
+.applicant-landing__intro {
+  background: #e2e2e2;
+  padding: 4rem 0;
+  text-align: center; }
+
+.applicant-landing__intro-alert-wrapper {
+  background: white;
+  border: 0.5rem solid #e2e2e2;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
+  margin: 0 auto;
+  max-width: 70rem;
+  padding: 3rem; }
+
+.applicant-landing__intro-alert-icon-wrapper {
+  border: 0.5rem solid #ffe25b;
+  border-radius: 100%;
+  display: inline-block;
+  height: 10rem;
+  margin: 0 0 2rem;
+  position: relative;
+  width: 10rem; }
+  .applicant-landing__intro-alert-icon-wrapper i {
+    font-size: 5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+.applicant-landing__intro-alert-copy {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0; }
+
+.applicant-landing__intro-tagline {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 4rem 0 2rem 0; }
+
+.applicant-landing__intro-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 4rem 0 2rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: How It Works
+
+============================================================================= */
+.applicant-landing__how-it-works {
+  padding: 4rem 0; }
+  .applicant-landing__how-it-works .content-container {
+    text-align: center; }
+
+.applicant-landing__how-it-works-title {
+  font-size: 35px;
+  margin: 0 0 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__how-it-works-title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+
+.applicant-landing__how-it-works-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0; }
+
+.applicant-landing__how-it-works-icon-section-wrapper {
+  padding: 4rem 0 6rem;
+  text-align: left; }
+
+.applicant-landing__how-it-works-icon-section-item {
+  margin: 5rem 0;
+  position: relative; }
+  .applicant-landing__how-it-works-icon-section-item:first-child {
+    margin-top: 0; }
+  .applicant-landing__how-it-works-icon-section-item:last-child {
+    margin-bottom: 0; }
+
+.applicant-landing__how-it-works-icon-wrapper {
+  border: 0.5rem solid #ffe25b;
+  border-radius: 100%;
+  display: inline-block;
+  height: 10rem;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 10rem;
+  vertical-align: middle; }
+  @media (min-width: 48em) {
+    .applicant-landing__how-it-works-icon-wrapper {
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%); } }
+  .applicant-landing__how-it-works-icon-wrapper i {
+    font-size: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+.applicant-landing__how-it-works-copy-wrapper {
+  padding: 15rem 0 0 0;
+  text-align: center; }
+  @media (min-width: 48em) {
+    .applicant-landing__how-it-works-copy-wrapper {
+      padding: 0 0 0 15rem;
+      text-align: left; } }
+  .applicant-landing__how-it-works-copy-wrapper h3 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: .5rem 0 1rem 0; }
+  .applicant-landing__how-it-works-copy-wrapper p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0; }
+
+.applicant-landing__how-it-works-base-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 2rem 0; }
+
+.applicant-landing__how-it-works-contact {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: Video
+
+============================================================================= */
+.applicant-landing__video {
+  background: #e2e2e2;
+  padding: 4rem 0;
+  text-align: center; }
+
+.applicant-landing__video-title {
+  color: #333333;
+  font-size: 35px;
+  margin: 0 0 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__video-title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+
+.applicant-landing__video-wrapper {
+  margin: 0 0 4rem; }
+
+.applicant-landing__video-transcript-trigger-wrapper button.active #transcriptView {
+  display: none; }
+
+.applicant-landing__video-transcript-trigger-wrapper button.active #transcriptHide {
+  display: inline-block; }
+
+.applicant-landing__video-transcript-trigger-wrapper #transcriptView {
+  display: inline-block; }
+
+.applicant-landing__video-transcript-trigger-wrapper #transcriptHide {
+  display: none; }
+
+.applicant-landing__video-transcript-wrapper {
+  display: none;
+  padding: 4rem 0 0 0; }
+  .applicant-landing__video-transcript-wrapper.active {
+    display: block; }
+  .applicant-landing__video-transcript-wrapper h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 2rem 0; }
+  .applicant-landing__video-transcript-wrapper p {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0 2rem 0; }
+    .applicant-landing__video-transcript-wrapper p:last-child {
+      margin: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Applicant Landing: Our Team
+
+============================================================================= */
+.applicant-landing__our-team {
+  background-image: url("/images/backgrounds/background.jpg");
+  background-position: center;
+  background-size: cover;
+  padding: 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__our-team:before {
+    background: rgba(0, 0, 0, 0.7);
+    content: " ";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5; }
+  .applicant-landing__our-team .content-container {
+    position: relative;
+    z-index: 10; }
+
+.applicant-landing__our-team-title {
+  color: white;
+  font-size: 35px;
+  margin: 0 0 6rem;
+  position: relative;
+  text-align: center; }
+  .applicant-landing__our-team-title:after {
+    background: #ffd200;
+    content: " ";
+    display: block;
+    height: .5rem;
+    position: absolute;
+    left: 50%;
+    bottom: -2rem;
+    transform: translate(-50%, 0);
+    width: 15rem; }
+
+.applicant-landing__our-team-copy {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 4rem 0; }

@@ -76,14 +76,24 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
 
     });
 
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var applicationHeroTitle = document.getElementById("applicationHeroTitle");
+    var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
+    applicationHeroTitle.classList.remove("hidden");
+    applicationHeroTitle.setAttribute("aria-hidden", "false");
+    applicationHeroMetadata.classList.remove("hidden");
+
 };
 
 JobApplicationAPI.localizeCreateJobApplication = function () {
     if (siteContent) {
-        document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
-        document.getElementById('createJobApplicationConfirmationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
-        document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
-        //document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
+        // document.getElementById('createJobApplicationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
+        // document.getElementById('createJobApplicationConfirmationTitle').innerHTML = siteContent.createJobApplicationWindowTitle;
+        // document.getElementById('createJobApplicationPositionLabel').innerHTML = siteContent.createJobApplicationJobTitleLabel;
+        // document.getElementById('createJobApplicationSubmitButton').innerHTML = siteContent.submitApplication;
 
         //Localize confirmation page at same time
         document.getElementById('createJobApplicationConfirmationPositionLabel').innerHTML = siteContent.createJobApplicationConfirmationPositionLabel;
@@ -455,6 +465,7 @@ JobApplicationAPI.submitNewJobApplication = function () {
         var jobTitle = document.getElementById('createJobApplicationPostition').innerHTML;
         JobApplicationAPI.showCreateJobConfirmation(jobTitle);
     });
+
 };
 
 JobApplicationAPI.saveJobApplicationAndPreview = function() {
@@ -515,6 +526,15 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
 
     var createJobApplicationSection = document.getElementById('createJobApplicationConfirmationSection');
     createJobApplicationSection.classList.remove('hidden');
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var applicationHeroTitle = document.getElementById("applicationHeroTitle");
+    applicationHeroTitle.classList.remove("hidden");
+    applicationHeroTitle.setAttribute("aria-hidden", "false");
+    
 };
 
 JobApplicationAPI.showPreviousApplicationSection = function() {

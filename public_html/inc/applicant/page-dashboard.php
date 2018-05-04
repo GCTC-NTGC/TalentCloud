@@ -1,7 +1,7 @@
 <section class="pageContent hidden" id="dashboardSection">
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <h2 class="section--title" id="dashBoardTitle">Dashboard</h2>
-    </div>
+    </div> -->
     <div class="pageBody">
         <div class="container" id="dashboardContainer">
             <h3 id="yourApplicationsTitle">Your Applications</h3>

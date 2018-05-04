@@ -315,7 +315,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     last_updated.value = jobSeekerProfile.last_updated;
 
     var profile_tagline = document.getElementById("profileTagLine");
-    Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
+    // Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
 
     var twitter_name = document.getElementById("profileTwitterUsername");
     var twitter_link = document.getElementById("profileTwitterLink");
@@ -357,28 +357,22 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
 
-        var profile_first_name = document.getElementById("profileFirstName");
-        Utilities.replaceElementText(profile_first_name, sessionUser.firstname != null ? sessionUser.firstname : JobSeekerAPI.defaultFirstName);
-
-        var profile_last_name = document.getElementById("profileLastName");
-        Utilities.replaceElementText(profile_last_name, sessionUser.lastname != null ? sessionUser.lastname : JobSeekerAPI.defaultLastName);
+        var profile_name = document.getElementById("updateProfileApplicantProfileFormNameLabelSpan");
+        Utilities.replaceElementText(profile_name, sessionUser.name);
     }
 
     JobSeekerAPI.resetProfileEditValues();
 };
 
-JobSeekerAPI.resetProfileEditValues = function () {
+JobSeekerAPI.resetProfileEditValues = function() {
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
 
-        var profile_edit_first_name = document.getElementById("profileEditFirstName");
-        profile_edit_first_name.value = sessionUser.firstname != null ? sessionUser.firstname : JobSeekerAPI.defaultFirstName;
-
-        var profile_edit_last_name = document.getElementById("profileEditLastName");
-        profile_edit_last_name.value = sessionUser.lastname != null ? sessionUser.lastname : JobSeekerAPI.defaultLastName;
+        var profile_edit_name = document.getElementById("profileEditName");
+        profile_edit_name.value = sessionUser.name;
     }
     var profile_edit_tagline = document.getElementById("profileEditTagline");
-    profile_edit_tagline.value = document.getElementById("profileTagLine").innerHTML;
+    // profile_edit_tagline.value = document.getElementById("profileTagLine").innerHTML;
 
     var profile_edit_twitter = document.getElementById("profileEditTwitter");
     profile_edit_twitter.value = document.getElementById("profileTwitterUsername").value;
@@ -414,8 +408,8 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
         user = UserAPI.User();
     }
 
-    user.firstname = jobSeekerBasicInfoForm.elements.profileEditFirstName.value;
-    user.lastname = jobSeekerBasicInfoForm.elements.profileEditLastName.value;
+    /*user.firstname = jobSeekerBasicInfoForm.elements.profileEditFirstName.value;
+    user.lastname = jobSeekerBasicInfoForm.elements.profileEditLastName.value;*/
 
     jobSeekerProfile.id = document.getElementById("profileId").value;
 
@@ -444,8 +438,8 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
 
     //function(firstName, lastName, tagline, twitter, linkedin) {
     if (FormValidationAPI.validateUpdateProfileBasicInfo(
-            user.firstname, user.lastname,
-            jobSeekerProfile.twitter_username, jobSeekerProfile.linkedin_username)) {
+            //user.firstname, user.lastname,
+            jobSeekerProfile.twitter_link, jobSeekerProfile.linkedin_link)) {
         //Also trigger photo upload
         if (JobSeekerAPI.profilePicUploader) {
             JobSeekerAPI.profilePicUploader.uploadPhoto();
@@ -458,7 +452,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
 
         //Update user if names have been changed
 
-        if (UserAPI.hasSessionUser()) {
+        /*if (UserAPI.hasSessionUser()) {
             var oldUser = UserAPI.getSessionUserAsJSON();
             if (oldUser.firstname != user.firstname ||
                     oldUser.lastname != user.lastname) {
@@ -473,7 +467,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
                     JobSeekerAPI.resetProfileEditValues();
                 });
             }
-        }
+        }*/
     }
 };
 
@@ -560,6 +554,14 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
     JobSeekerAPI.refreshJobSeekerProfilePic();
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var profileHeroTitle = document.getElementById("profileHeroTitle");
+    profileHeroTitle.classList.remove("hidden");
+    profileHeroTitle.setAttribute("aria-hidden", "false");
 
 };
 
