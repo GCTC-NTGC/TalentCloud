@@ -51,7 +51,8 @@ input[type=button],input[type=submit],input[type=reset]{
 
 .form__wrapper {
 
-    >*:last-child {
+    >*:last-child,
+    >.box:last-child >*:last-child {
         margin-bottom: 0;
     }
 
@@ -62,13 +63,14 @@ input[type=button],input[type=submit],input[type=reset]{
     font-size: 1.2rem;
     font-weight: 700;
     line-height: 1;
-    margin: 0 0 .5rem 0;
+    margin: 1rem 0;
 }
 
 input[type=text][class*="form__input--"],
 input[type=email][class*="form__input--"],
 input[type=password][class*="form__input--"],
-input[type=date][class*="form__input--"] {
+input[type=date][class*="form__input--"],
+input[type=url][class*="form__input--"] {
     background: lighten($palette-grey--light, 10%);
     border: none;
     color: $black !important;
@@ -154,4 +156,53 @@ input[type=date][class*="form__input--"] {
 .form__upload-button {
     position: absolute;
     left: -1000vh;
+}
+
+.form__radio-group {
+    position: relative;
+}
+
+.form__radio-group-label {
+    cursor: pointer;
+    position: relative;
+
+    &:first-of-type {
+
+        .form__radio-group-span {
+            border-left: 1px solid $palette-grey--dark;
+        }
+
+    }
+
+}
+
+.form__radio-group-input {
+    position: absolute;
+    left: -1000vh;
+
+    &:focus + .form__radio-group-span {
+        border-color: $palette-blue;
+    }
+
+    &:checked + .form__radio-group-span{
+        background: $palette-blue;
+        // border-color: $palette-grey--dark;
+        color: $white;
+        font-weight: 700;
+    }
+
+}
+
+.form__radio-group-span {
+    background: $white;
+    border-top: 1px solid $palette-grey--dark;
+    border-right: 1px solid $palette-grey--dark;
+    border-bottom: 1px solid $palette-grey--dark;
+    border-left: none;
+    color: $black;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 1rem;
+    text-align: center;
 }

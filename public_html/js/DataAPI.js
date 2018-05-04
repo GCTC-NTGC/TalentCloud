@@ -788,6 +788,11 @@ DataAPI.createJobApplication = function(jobApplication, requestCallback) {
 };
 
 
+DataAPI.saveJobApplicationByJobAndUser = function(jobApplication, jobPosterId, userId, requestCallback) {
+    var url = [DataAPI.baseURL, "putApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(jobApplication), requestCallback);
+};
+
 DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
     var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
@@ -824,14 +829,44 @@ DataAPI.getSkillDeclarationsForApplication = function(applicationId, requestCall
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 
-DataAPI.saveSkillDeclaration = function(skillDeclaration, isEssential, criteriaId, applicationId, requestCallback) {
-    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
-    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+DataAPI.saveSkillDeclaration = function(skillDeclaration, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillDeclaration), requestCallback);
 };
 
-DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId, requestCallback) {
-    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
-    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+DataAPI.deleteSkillDeclaration = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
+
+DataAPI.getMicroReferencesForApplication = function(applicationId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getAllMicroReferencesForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveMicroReference = function(microReference, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putMicroReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(microReference), requestCallback);
+};
+
+DataAPI.deleteMicroReference = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteMicroReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
+
+DataAPI.getSkillSamplesForApplication = function(applicationId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getAllWorkSamplesForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveSkillSample = function(skillSample, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putWorkSampleForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillSample), requestCallback);
+};
+
+DataAPI.deleteSkillSample = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteWorkSampleForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };

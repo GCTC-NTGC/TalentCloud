@@ -20,4 +20,5 @@
         </div>
         <div class="confirmationFramingBar"></div>
     </div>
+
 </section>
