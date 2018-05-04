@@ -6564,8 +6564,9 @@ nav {
 
 ============================================================================= */
 @media (min-width: 64em) {
-  .faq__subnav-wrapper {
-    position: sticky; } }
+  .faq__subnav-sticky-wrapper {
+    position: sticky;
+    top: 4rem; } }
 
 .faq_subnav-label {
   color: #2196f3;

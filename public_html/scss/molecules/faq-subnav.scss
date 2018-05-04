@@ -9,7 +9,16 @@
 .faq__subnav-wrapper {
 
 	@media #{$l-tablet} {
+		// position: sticky;
+	}
+
+}
+
+.faq__subnav-sticky-wrapper {
+
+	@media #{$l-tablet} {
 		position: sticky;
+		top: 4rem;
 	}
 
 }

@@ -1,5 +1,30 @@
 <?php // BEGIN - View Job Poster Section ?>
 <section class="pageContent hidden" id="viewJobPosterSection">
+
+    <div class="block-container">
+
+        <div class="flex-grid">
+
+            <div class="box lg-1of4">
+                <div class="">
+                    <span class="faq_subnav-label">About This Job:</span>
+                    <a href="#" class="">Basics</a>
+                    <a href="#" class="">Impact</a>
+                    <a href="#" class="">Tasks</a>
+                    <a href="#" class="">Criteria</a>
+                    <a href="#" class="">Culture</a>
+                    <a href="#" class="">Apply</a>
+                </div>
+            </div>
+
+            <div class="box lg-3of4">
+
+            </div>
+
+        </div>
+
+    </div>
+
     <div class="pageBody">
         <section id="jobPosterDatapointsSection">
             <div class="block-container">
@@ -131,7 +156,7 @@
                 </div>
             </section>
             <div id="jobPosterButtonWrapper">
-                <button id="jobPosterApplyButton" class="btn btn-primary" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
+                <button id="jobPosterApplyButton" class="button--yellow" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                     Apply Now
                 </button>
             </div>
