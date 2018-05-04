@@ -157,8 +157,7 @@ JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, 
 };
 
 JobApplicationAPI.populateApplicationWithUserContent = function (user) {
-    document.getElementById('createJobApplicationFirstName').innerHTML = user.firstname;
-    document.getElementById('createJobApplicationLastName').innerHTML = user.lastname;
+    document.getElementById('createJobApplicationName').innerHTML = user.name;
 };
 
 JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (jobSeekerProfileResponse) {
@@ -413,7 +412,7 @@ JobApplicationAPI.populatePreviewApplicationWithUserContent = function(user) {
     console.log(user);
 
     //Do something with the response data
-    document.getElementById('applicationPreviewProfileName').innerHTML = user.firstname;
+    document.getElementById('applicationPreviewProfileName').innerHTML = user.name;
 
 };
 

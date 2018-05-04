@@ -45,7 +45,8 @@
                 <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
 
                 <div class="profileName">
-                    <span id="createJobApplicationFirstName"></span> <span id="createJobApplicationLastName"></span>
+                    <span id="createJobApplicationName"></span>
+
                 </div>
 
             </div>
