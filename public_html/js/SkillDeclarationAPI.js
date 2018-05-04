@@ -95,7 +95,7 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
     var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
 
     evidencePanels.forEach(panel => {
-        var newSkillDeclaration = new SkillDeclarationAPI.SkillDeclaration();
+        var newSkillDeclaration = new SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel(panel);
 
         if (applicationId) {
             //Only save if this declaration is complete
