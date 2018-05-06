@@ -240,7 +240,8 @@ TalentCloudAPI.Content = function(
     jobPosterWhatWeValue_label,
     jobPosterHowWeWork_label,
     updateProfileApplicantProfileFormNameLabelSpan,
-    profileEditName) {
+    profileEditName,
+    createJobApplicationPositionLabel) {
         // Navigation Links
         this.navigationLoginLink = navigationLoginLink;
         this.navigationLogoutLink = navigationLogoutLink;
@@ -453,6 +454,7 @@ TalentCloudAPI.Content = function(
         this.jobPosterOperatingContext_label = jobPosterOperatingContext_label;
         this.jobPosterWhatWeValue_label = jobPosterWhatWeValue_label;
         this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
+        this.createJobApplicationPositionLabel = createJobApplicationPositionLabel;
     };
 
 TalentCloudAPI.pages = {
@@ -956,8 +958,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
 
-        // var taglineSecondary = document.getElementById("taglineSecondary");
-        // taglineSecondary.innerHTML = siteContent.taglineSecondary;
+        var taglineSecondary = document.getElementById("taglineSecondary");
+        taglineSecondary.innerHTML = siteContent.taglineSecondary;
 
         var taglineTertiary = document.getElementById("taglineTertiary");
         taglineTertiary.innerHTML = siteContent.taglineTertiary;
@@ -1012,6 +1014,9 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
         managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
+        
+        var createJobApplicationPositionLabel = document.getElementById("createJobApplicationPositionLabel");
+        createJobApplicationPositionLabel.innerHTML = siteContent.createJobApplicationPositionLabel;
 
         // Profile Photo Modal
         var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
