@@ -281,7 +281,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     //jobSummaryLocation.innerHTML = job.location_city + " (" + job.location_province + ")";
 
     var viewJobButton = document.createElement("button");
-    viewJobButton.setAttribute("class","viewJobButton");
+    viewJobButton.setAttribute("class","button--yellow");
     viewJobButton.setAttribute("value",siteContent.viewButton);
     viewJobButton.innerHTML = siteContent.viewButton;
     viewJobButton.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
