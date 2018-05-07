@@ -25,6 +25,33 @@ require_once '../model/JobSeekerProfile.php';
  */
 class JobSeekerDAO extends BaseDAO {
 
+    public static function getJobSeekerProfileById($job_seeker_profile_id) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT jsp.job_seeker_profile_id,
+                jsp.job_seeker_profile_link,
+                jsp.job_seeker_profile_tagline,
+                jsp.job_seeker_profile_twitter_link,
+                jsp.job_seeker_profile_linkedin_link,
+                jsp.last_updated as last_updated
+            FROM job_seeker_profile jsp
+            WHERE jsp.job_seeker_profile_id = :job_seeker_profile_id
+            ";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindParam(':job_seeker_profile_id', $job_seeker_profile_id, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
+            $profile = $sql->fetch();
+            //var_dump($rows);
+        } catch (PDOException $e) {
+            return 'getJobSeekerProfileById failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $profile;
+    }
+    
     /**
      * 
      * @param int $user_id

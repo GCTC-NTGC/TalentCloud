@@ -9,7 +9,12 @@
 require_once '../model/JobPosterApplication.php';
 require_once '../model/ApplicationQuestionAnswer.php';
 require_once '../model/JobApplicationWithAnswers.php';
+require_once '../model/FullJobApplication.php';
 require_once '../dao/JobApplicationDAO.php';
+require_once '../controller/JobSeekerController.php';
+require_once '../controller/SkillDeclarationController.php';
+require_once '../controller/MicroReferenceController.php';
+require_once '../controller/WorkSampleController.php';
 
 class JobApplicationController{
         
@@ -133,4 +138,27 @@ class JobApplicationController{
     public static function getJobApplicationUserId($jobPosterApplicationId) {
         return JobApplicationDAO::getJobApplicationCreatorUserId($jobPosterApplicationId);
     }
+    
+    /**
+     * 
+     * @param int $jobPosterId
+     * @param int $userId
+     * @return FullJobApplication $fullJobApplication
+     */
+    public static function getFullJobApplicationByJobAndUser($jobPosterId, $userId, $locale) {    
+        $jobPosterApplication = JobApplicationDAO::getJobApplicationByJobAndUser($jobPosterId, $userId);
+        if ($jobPosterApplication) {
+            $jobPosterApplicationId = $jobPosterApplication->getJob_poster_application_id();
+            $jobSeekerProfile = JobSeekerController::getJobSeekerById($jobPosterApplication->getApplication_job_seeker_profile_id());
+            $questionAnswers = self::getApplicationQuestionAnswers($jobPosterApplicationId);
+            $skillDeclarations = SkillDeclarationController::getAllSkillDeclarationsForJobApplication($jobPosterApplicationId);
+            $microReferences = MicroReferenceController::getAllMicroReferencesForJobApplication($jobPosterApplicationId, $locale);
+            $workSamples = WorkSampleController::getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale);
+            
+            return new FullJobApplication($jobPosterApplication, $jobSeekerProfile, $questionAnswers, $skillDeclarations, $microReferences, $workSamples);
+        } else {
+            return false;
+        }
+    }
+    
 }

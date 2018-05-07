@@ -797,6 +797,12 @@ DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCal
     var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
+
+DataAPI.getFullJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getFullApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
 /**
  *
  * @param {int} managerProfileId
