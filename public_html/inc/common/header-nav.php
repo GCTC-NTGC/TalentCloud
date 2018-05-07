@@ -198,25 +198,6 @@
 
             </div>
 
-            <?php /* Job Poster Metadata */ ?>
-            <?php /* <div class="flex-grid bottom hidden subpage-hero__poster-metadata" id="browseHeroPosterMetaData">
-
-                <div class="box lg-2of3">
-                    <h3 class="subpage-hero__poster-job" id="jobPosterTitle">Job Title</h3>
-                    <p class="subpage-hero__poster-department" id="jobPosterLocation">
-                        <span id="jobPosterDepartment"></span><br>
-                        <span id="jobPosterCity"></span>, <span id="jobPosterProvince"></span> (<span id="jobPosterRemoteWorkHeader">Remote work</span>)
-                    </p>
-                </div>
-
-                <div class="box lg-1of3">
-                    <p class="subpage-hero__poster-id" id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
-                </div>
-
-                <input id="jobPosterJobId" type="hidden"/>
-
-            </div> */ ?>
-
         </div>
 
         <?php /* Application Form Metadata */ ?>

@@ -7,9 +7,10 @@
 ============================================================================= */
 
 .job-poster__subnav-wrapper {
+	display: none;
 
 	@media #{$l-tablet} {
-		// position: sticky;
+		display: block;
 	}
 
 }
@@ -28,7 +29,8 @@
 	display: block;
 	font-size: 16px;
 	font-weight: 700;
-	margin: 0 0 .5rem 0;
+	line-height: 1.2;
+	margin: 0;
 }
 
 .job-poster__subnav-department {

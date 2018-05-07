@@ -67,12 +67,13 @@
              */
             break;
         case 'DELETE':
-            /*
+            //TODO: authenticate user
+            
             if(strlen($requestParams) > 1){
-                $evidenceId = Utils::getParameterFromRequest($requestParams,4);
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,6);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+                $criteriaId = Utils::getParameterFromRequest($requestParams,6);
                
-                $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $evidenceId);
+                $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -81,27 +82,29 @@
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }
-             * 
-             */
             break;
         case 'PUT':
-            /*
+            //TODO: authenticate user
+            
             if(strlen($requestParams) > 1){
-                $oldEvidenceId = Utils::getParameterFromRequest($requestParams,4);
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,6);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+                $criteriaId = Utils::getParameterFromRequest($requestParams,6);
+                
+                //TODO: ensure application exists
+                //TODO: ensure application is in draft status
+                //TODO: ensure criteriaId is valid for application
                 
                 $jsonBody = file_get_contents('php://input');
-                $evidenceJSON = json_decode($jsonBody, TRUE);
+                $payload = json_decode($jsonBody, TRUE);
                 
-                $evidence = new SkillDeclaration();
-                $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
-                $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
-                $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
-                $evidence->setSkill_level_id($evidenceJSON["skill_level_id"]);
-                $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
-                $evidence->setLast_updated($evidenceJSON["last_updated"]);
+                $skillDeclaration = new SkillDeclaration();
+                //$skillDeclaration->setSkill_declaration_id($payload["skill_declaration_id"]);
+                $skillDeclaration->setExperience_level_id($payload["experience_level_id"]);
+                $skillDeclaration->setSkill_level_id($payload["skill_level_id"]);
+                $skillDeclaration->setDescription($payload["description"]);
+                //$skillDeclaration->setLast_updated($payload["last_updated"]);
                 
-                $result = SkillDeclarationController::updateSkillDeclarationForJobApplication($jobPosterApplicationId, $oldEvidenceId, $evidence);
+                $result = SkillDeclarationController::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -110,13 +113,11 @@
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }
-             * 
-             */
             break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: GET");
+            header("Access-Control-Allow-Methods: GET,PUT,DELETE");
             echo("");
             break;
     }

@@ -241,6 +241,10 @@ ProfilePicAPI.refreshProfilePic = function(userId, imageElement) {
     ProfilePicAPI.refreshMultipleProfilePics(userId, [imageElement]);
 };
 
+ProfilePicAPI.refreshProfilePicBackground = function(userId, imageElement) {
+    ProfilePicAPI.refreshMultipleProfilePicsBackground(userId, [imageElement]);
+};
+
 ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
     var xhr = new XMLHttpRequest();
     var pic_url = ProfilePicAPI.baseURL+'/profilePic/'+userId;
@@ -269,6 +273,40 @@ ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
         } else {
             for (var i=0; i<imageElements.length;i++) {
                 imageElements[i].src = ProfilePicAPI.defaultProfilePic;
+            }
+        }
+    });
+    xhr.send();
+};
+
+ProfilePicAPI.refreshMultipleProfilePicsBackground = function(userId, imageElements) {
+    var xhr = new XMLHttpRequest();
+    var pic_url = ProfilePicAPI.baseURL+'/profilePic/'+userId;
+    if ("withCredentials" in xhr) {
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      xhr.open("GET", pic_url);
+
+    } else if (typeof XDomainRequest != "undefined") {
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      xhr = new XDomainRequest();
+      xhr.open("GET", pic_url);
+    } else {
+      // Otherwise, CORS is not supported by the browser.
+      xhr = null;
+      // TODO: indicate to user that browser is not supported
+    }
+    xhr.open('GET', pic_url);
+    xhr.setRequestHeader("Accept","image/*");
+    xhr.addEventListener('load', function() {
+        if (xhr.status == 200) {
+            for (var i=0; i<imageElements.length;i++) {
+                imageElements[i].style.backgroundImage = "url("+xhr.responseURL+")";
+            }
+        } else {
+            for (var i=0; i<imageElements.length;i++) {
+                imageElements[i].style.backgroundImage = "url("+ProfilePicAPI.defaultProfilePic+")";
             }
         }
     });

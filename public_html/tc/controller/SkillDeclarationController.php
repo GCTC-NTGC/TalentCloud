@@ -11,41 +11,20 @@ require_once '../dao/SkillDeclarationDAO.php';
 
 class SkillDeclarationController{
     
-    public static function getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId){
-        $declarations = SkillDeclarationDAO::getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId);
-        return $declarations;
-    }
-    
-    public static function getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId){
-        $declarations = SkillDeclarationDAO::getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId);
-        return $declarations;
-    }
-    
     public static function getAllSkillDeclarationsForJobApplication($jobPosterApplicationId){
         
-        $essentialDeclarations = self::getEssentialSkillDeclarationsForJobApplication($jobPosterApplicationId);
-        $assetDeclarations = self::getAssetSkillDeclarationsForJobApplication($jobPosterApplicationId);
-        
-        return array_merge($essentialDeclarations, $assetDeclarations);        
+        $skillDeclarations = SkillDeclarationDAO::getSkillDeclarationsForJobApplication($jobPosterApplicationId);
+                
+        return $skillDeclarations;
     }
     
-    public static function putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
-        $declarationId = SkillDeclarationDAO::putEssentialSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
+    public static function putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
+        $declarationId = SkillDeclarationDAO::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
         return array("skill_declaration_id"=>$declarationId);
     }
     
-    public static function putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration) {
-        $declarationId = SkillDeclarationDAO::putAssetSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
-        return array("skill_declaration_id"=>$declarationId);
-    }
-    
-    public static function removeEssentialSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId) {
-        SkillDeclarationDAO::removeEssentialSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
-        //TODO - what should this return?
-    }
-    
-    public static function removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId) {
-        SkillDeclarationDAO::removeAssetSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
+    public static function removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId) {
+        SkillDeclarationDAO::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
         //TODO - what should this return?
     }
     

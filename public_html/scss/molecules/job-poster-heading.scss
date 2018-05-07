@@ -13,6 +13,12 @@
 	background-repeat: repeat;
 	background-size: 75px;
 	padding: 6rem 0;
+	text-align: center;
+
+	@media #{$l-tablet} {
+		text-align: left;
+	}
+
 }
 
 .job-poster__job-title {
@@ -39,6 +45,14 @@
 		font-weight: 400;
 		line-height: 1.2;
 		margin: 0;
+	}
+
+}
+
+.job-poster__reference-id-wrapper {
+
+	@media #{$l-tablet} {
+		text-align: right;
 	}
 
 }

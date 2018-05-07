@@ -63,19 +63,21 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
 
     var jobSeekerObj = new JobSeekerAPI.JobSeeker();
 
-    jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
-    jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
-    jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
-    jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
-    jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
-    jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
+    if (jobSeekerJSON) {
+        jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
+        jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
+        jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
+        jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
+        jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
+        jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
 
-    var answers = [];
-    jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
-        var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
-        answers.push(answer);
-    });
-    jobSeekerObj.answers = answers;
+        var answers = [];
+        jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
+            var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
+            answers.push(answer);
+        });
+        jobSeekerObj.answers = answers;
+    }
 
     Utilities.debug ? console.log(jobSeekerObj) : null;
 
@@ -115,7 +117,7 @@ JobSeekerAPI.populateJobSeekers = function () {
 
     //hide overlay
     /*var loadingJobs = document.getElementById("loadingJobs");
-     
+
      if(loadingJobs.classList.contains("visible")){
      loadingJobs.classList.remove("visible");
      loadingJobs.classList.add("hidden");
@@ -312,8 +314,8 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     var last_updated = document.getElementById("profileLastUpdated");
     last_updated.value = jobSeekerProfile.last_updated;
 
-    var profile_tagline = document.getElementById("profileTagLine");
-    // Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
+    var profile_tagline = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan");
+    profile_tagline.innerHTML = jobSeekerProfile.tagline;
 
     var twitter_name = document.getElementById("profileTwitterUsername");
     var twitter_link = document.getElementById("profileTwitterLink");
@@ -370,7 +372,7 @@ JobSeekerAPI.resetProfileEditValues = function() {
         profile_edit_name.value = sessionUser.name;
     }
     var profile_edit_tagline = document.getElementById("profileEditTagline");
-    // profile_edit_tagline.value = document.getElementById("profileTagLine").innerHTML;
+    profile_edit_tagline.value = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan").innerHTML;
 
     var profile_edit_twitter = document.getElementById("profileEditTwitter");
     profile_edit_twitter.value = document.getElementById("profileTwitterUsername").value;
@@ -413,7 +415,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
 
     jobSeekerProfile.last_updated = document.getElementById("profileLastUpdated").value;
 
-    jobSeekerProfile.tagline = jobSeekerBasicInfoForm.elements.profileEditTagline.value;
+    jobSeekerProfile.tagline = document.getElementById("profileEditTagline").value;
 
     jobSeekerProfile.twitter_username = jobSeekerBasicInfoForm.elements.profileEditTwitter.value;
 
@@ -437,7 +439,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
     //function(firstName, lastName, tagline, twitter, linkedin) {
     if (FormValidationAPI.validateUpdateProfileBasicInfo(
             //user.firstname, user.lastname,
-            jobSeekerProfile.twitter_link, jobSeekerProfile.linkedin_link)) {
+            jobSeekerProfile.twitter_username, jobSeekerProfile.linkedin_username)) {
         //Also trigger photo upload
         if (JobSeekerAPI.profilePicUploader) {
             JobSeekerAPI.profilePicUploader.uploadPhoto();
@@ -564,12 +566,12 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 };
 
 /**
- * 
+ *
  * @param {type} questionLookupMap - array of objects with .id, .description, .value properties
  * @return {undefined}
  */
 JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
-    //Create and populate Profile Question field elements        
+    //Create and populate Profile Question field elements
     var questionFragment = document.createDocumentFragment();
     questionLookupMap.forEach(question => {
 
@@ -643,7 +645,7 @@ JobSeekerAPI.showEditProfileAnswerModal = function (questionId, questionName, qu
         document.getElementById("profileEditAnswer").value = "";
     }
 
-    //Unhide modal 
+    //Unhide modal
     var jobSeekerAboutMeEditOverlay = document.getElementById("profileEditAnswerOverlay");
     jobSeekerAboutMeEditOverlay.classList.remove("hidden");
 

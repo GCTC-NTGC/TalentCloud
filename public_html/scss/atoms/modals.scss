@@ -66,11 +66,16 @@
     border: 1px solid $black;
     border-radius: 3px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, .5);
+    max-width: 80rem;
     overflow: hidden;
     width: 90%;
 
     @media #{$desktop} {
         width: 75%;
+    }
+
+    &#profileBasicInfoEditWrapperWindow {
+        max-width: 125rem;
     }
 
     &[class*="--overflow"] {

@@ -11,24 +11,7 @@ JobApplicationAPI.ApplicationQuestionAnswer = function (
     this.answer = answer;
 };
 
-JobApplicationAPI.SkillDeclaration = function (
-        skillDeclarationId,
-        skill,
-        criteriaId,
-        criteriaType,
-        experienceLevelId,
-        skillLevelId,
-        description,
-        lastUpdated) {
-    this.skill_declaration_id = skillDeclarationId;
-    this.skill = skill;
-    this.criteria_id = criteriaId;
-    this.criteria_type = criteriaType;
-    this.experience_level_id = experienceLevelId;
-    this.skill_level_id = skillLevelId;
-    this.description = description;
-    this.last_updated = lastUpdated;
-};
+
 
 /*
  * It's recommended to use the costructor for this object, to avoid dealing
@@ -46,12 +29,18 @@ JobApplicationAPI.JobApplication = function (
     this.job_poster_application.job_poster_application_id = jobApplicationId;
     this.job_poster_application.application_job_poster_id = jobPosterId;
     this.job_poster_application.application_job_seeker_profile_id = jobSeekerProfileId;
-    this.job_poster_application_status_id = jobApplicationStatusId;
+    this.job_poster_application.job_poster_application_status_id = jobApplicationStatusId;
 
     this.application_question_answers = applicationQuestionAnswers;
 };
 
 JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
+    if (!UserAPI.hasSessionUser()) {
+        //TODO: this page should not be accessible if not logged in
+        window.alert("You must log in before submitting a job application.");
+        return;
+    }
+    
     var stateInfo = {pageInfo: 'create_job_application', pageTitle: 'Talent Cloud: Create Job Application'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobApplication/' + jobPosterId);
@@ -61,21 +50,18 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
 
     var createJobApplicationSection = document.getElementById('createJobApplicationSection');
     createJobApplicationSection.classList.remove('hidden');
+    
+    JobApplicationAPI.showApplicationSection("my-information");
 
     locale = TalentCloudAPI.getLanguageFromCookie();
 
     document.getElementById('createJobApplicationJobPosterId').value = jobPosterId;
-
-    if (!UserAPI.hasSessionUser()) {
-        //TODO: this page should not be accessible if not logged in
-    }
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
         var applicantProfilePic = document.getElementById('createJobApplicationProfilePic');
         ProfilePicAPI.refreshProfilePic(user.user_id, applicantProfilePic);
         JobApplicationAPI.populateApplicationWithUserContent(user);
-
         DataAPI.getJobSeekerProfileByUserId(user.user_id, JobApplicationAPI.populateApplicationWithJobSeekerProfileContent);
     }
 
@@ -122,38 +108,56 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
     document.getElementById('createJobApplicationPostition').innerHTML = jobPoster.title;
     JobApplicationAPI.populateApplicationWithQuestionContent(jobPoster.questions);
 
-    var essentialSkillWrapper = document.getElementById("skills__essential-accordion-wrapper");
-    Utilities.removeChildNodes(essentialSkillWrapper);
-    var essentialFragment = document.createDocumentFragment();
-    for (var i = 0; i < jobPoster.core_competencies.length; i++) {
-        var skillDeclaration = new JobApplicationAPI.SkillDeclaration();
-        skillDeclaration.skill = jobPoster.core_competencies[i].value;
-        var criteriaId = jobPoster.core_competencies[i].id;
-        var skillDeclarationForm = JobApplicationAPI.makeSkillDeclarationForm(skillDeclaration, true, criteriaId);
-        essentialFragment.appendChild(skillDeclarationForm);
-    }
-    essentialSkillWrapper.appendChild(essentialFragment);
-
-    var assetSkillWrapper = document.getElementById("skills__asset-accordion-wrapper");
-    Utilities.removeChildNodes(assetSkillWrapper);
-    var assetFragment = document.createDocumentFragment();
-    for (var i = 0; i < jobPoster.developing_competencies.length; i++) {
-        var skillDeclaration = new JobApplicationAPI.SkillDeclaration();
-        skillDeclaration.skill = jobPoster.developing_competencies[i].value;
-        var criteriaId = jobPoster.developing_competencies[i].id;
-        var skillDeclarationForm = JobApplicationAPI.makeSkillDeclarationForm(skillDeclaration, false, criteriaId);
-        assetFragment.appendChild(skillDeclarationForm);
-    }
-    assetSkillWrapper.appendChild(assetFragment);
+    //Create Evidence Panels 
+    JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "essential", "applicationEssentialEvidenceMenu", "applicationEssentialEvidenceFormWrapper");
     
-    //setTimeout(Utilities.setAccordionTriggers, 1);
-    Utilities.setAccordionTriggers();
+    //TODO: create applicationAssetEvidence wrapper divs
+    JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.developing_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
+    
+    Utilities.setEvidenceUiEventListeners();
+    
+    //TODO: call Utilities function to set up triggers    
+};
 
+JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, evidenceMenuId, evidenceFormWrapperId) {
+    var evidenceMenu = document.getElementById(evidenceMenuId);
+    var evidenceFormWrapper = document.getElementById(evidenceFormWrapperId);
+    evidenceMenu.innerHTML = "";
+    evidenceFormWrapper.innerHTML = "";
+    var menuFragment = document.createDocumentFragment();
+    var panelsFragment = document.createDocumentFragment();
+    
+    var firstCriteriaId = false;
+    
+    for (var i = 0; i < criteria.length; i++) {
+        var criterion = criteria[i];
+        var criteriaId = criterion.id;
+        var criteriaName = criterion.value;
+        if (criterion.description) {
+            var criteriaDescription = criterion.description;
+        } else {
+            var criteriaDescription = criterion.description = "";
+        }
+        
+        //Save first criteria for later
+        if (i === 0) {
+            firstCriteriaId = criteriaId;
+        }
+        
+        var menuItem = EvidenceAPI.instantiateApplicationEvidenceMenuItem(criteriaId, criteriaType, criteriaName)
+        var panelItem = EvidenceAPI.instantiateApplicationEvidencePanel(criteriaId, criteriaType, criteriaName, criteriaDescription);
+        
+        menuFragment.appendChild(menuItem);
+        panelsFragment.appendChild(panelItem);
+    }
+    evidenceMenu.appendChild(menuFragment);
+    evidenceFormWrapper.appendChild(panelsFragment);
+    
+    EvidenceAPI.activateFirstEvidencePanel(criteriaType);
 };
 
 JobApplicationAPI.populateApplicationWithUserContent = function (user) {
-    document.getElementById('createJobApplicationFirstName').innerHTML = user.firstname;
-    document.getElementById('createJobApplicationLastName').innerHTML = user.lastname;
+    document.getElementById('createJobApplicationName').innerHTML = user.name;
 };
 
 JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (jobSeekerProfileResponse) {
@@ -168,8 +172,9 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         document.getElementById("createJobApplicationJobApplicationId").value = jobApplication.job_poster_application.job_poster_application_id;
 
         //Load saved skill declarations using application id
-        DataAPI.getSkillDeclarationsForApplication(jobApplication.job_poster_application.job_poster_application_id,
-                JobApplicationAPI.populateApplicationWithSavedSkillDeclarations);
+        SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
+        MicroReferenceAPI.loadSavedMicroReferencesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
+        SkillSampleAPI.loadSavedSkillSamplesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
 
         //Set saved question answer content
         jobApplication.application_question_answers.forEach(value => {
@@ -195,8 +200,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
                 DataAPI.createJobApplication(newApplication, function (request) {
                     if (request.status === 200) {
                         //Draft application was successfully created - save application id
-                        var jobApplication = JSON.parse(request.response);
-                        document.getElementById("createJobApplicationJobApplicationId").value = jobApplication.job_poster_application.job_poster_application_id;
+                        document.getElementById("createJobApplicationJobApplicationId").value = JSON.parse(request.response).job_poster_application_id;
                     }
                 });
             } else {
@@ -206,30 +210,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
     }
 };
 
-JobApplicationAPI.populateApplicationWithSavedSkillDeclarations = function (request) {
-    if (request.response) {
-        var declarations = JSON.parse(request.response);
-        declarations.forEach(declaration => {
-            //find appropriate skill declaration
-            var element = document.querySelector('.skills__accordion[data-criteria-id="' + declaration.criteria_id + '"][data-criteria-type="' + declaration.criteria_type + '"]');
-            //if skill declaration exists, set values
-            if (element) {
-                var experienceSelect = element.querySelector('select[id^="selectYearsOfExperience"]');
-                experienceSelect.value = declaration.experience_level_id;
-                var skillLevelSelect = element.querySelector('select[id^="selectLevel"]');
-                skillLevelSelect.value = declaration.skill_level_id;
-                var description = element.querySelector('textarea[id^="typeExperience"]');
-                description.value = declaration.description;
 
-                //Set icon to indicate this has been completed and saved
-                var accordionTrigger = element.querySelector("[class*=skills__accordion-trigger]");
-                accordionTrigger.classList.remove("skills__accordion-trigger--todo");
-                accordionTrigger.classList.remove("skills__accordion-trigger--edit");
-                accordionTrigger.classList.add("skills__accordion-trigger--complete");
-            }
-        });
-    }
-}
 
 /**
  *
@@ -290,117 +271,165 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion, q
     return wrapper;
 };
 
-/**
- * 
- * @param {JobApplicationAPI.SkillDeclaration} skillDeclaration
- * @param {boolean} isEssential
- * @return {undefined}
- */
-JobApplicationAPI.makeSkillDeclarationForm = function (skillDeclaration, isEssential, criteriaId) {
-    var baseSkillDeclarationForm = document.querySelector("#skills__accordion-template");
+JobApplicationAPI.showJobApplicationPreview = function(jobPosterId) {
 
-    var skillDeclarationForm = baseSkillDeclarationForm.cloneNode(true);
-    skillDeclarationForm.classList.remove("hidden");
-    skillDeclarationForm.removeAttribute("id");
+    console.log(jobPosterId);
 
-    var idSuffix = "_" + (isEssential ? "essential" : "asset") + "_" + criteriaId;
+    if (!jobPosterId) {
+        //If not passed a non-zero non-null jobPosterId, the correct preview can't be loaded
+        //TODO: use warning modal instead of window alert
+        window.alert("Cannot show Job Application Preview without a Job Poster Id");
+        return;
+    }
+    
+    var stateInfo = {pageInfo: 'show_job_application_preview', pageTitle: 'Talent Cloud: Job Application Preview'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#JobApplicationPreview/' + jobPosterId);
 
-    //Add data identifiers to root element
-    skillDeclarationForm.setAttribute("data-criteria-id", criteriaId);
-    skillDeclarationForm.setAttribute("data-criteria-type", (isEssential ? "essential" : "asset"));
+    TalentCloudAPI.hideAllContent();
+    window.scrollTo(0, 0);
 
-    //Find elements
-    var skillTitle = skillDeclarationForm.querySelector(".skills__skill-title");
+    var applicationPreviewSection = document.getElementById('applicationPreview');
+    // console.log(applicationPreviewSection);
 
-    var accordionTrigger = skillDeclarationForm.querySelector("[class*='accordion-trigger']");
-    var accordionContent = skillDeclarationForm.querySelector(".skills__accordion-content");
+    applicationPreviewSection.classList.remove('hidden');
 
-    var experienceLabel = skillDeclarationForm.querySelector("#selectYearsOfExperience__label");
-    var experienceSelect = skillDeclarationForm.querySelector("#selectYearsOfExperience");
-    var levelLabel = skillDeclarationForm.querySelector("#selectLevel__label");
-    var levelSelect = skillDeclarationForm.querySelector("#selectLevel");
-    var descriptionLabel = skillDeclarationForm.querySelector("#typeExperience__label");
-    var description = skillDeclarationForm.querySelector("#typeExperience");
+    locale = TalentCloudAPI.getLanguageFromCookie();
 
-    var saveButton = skillDeclarationForm.querySelector("#skills__save-button");
-    var cancelButton = skillDeclarationForm.querySelector("#skills__cancel-button");
+    //Get current user id
+    var userId = UserAPI.getSessionUserAsJSON().user_id;
 
-    //Set skill name
-    skillTitle.innerHTML = skillDeclaration.skill;
+    DataAPI.getJobPoster(locale, jobPosterId, JobApplicationAPI.populatePreviewApplicationWithPosterContent);
+    
+    //Load this user's Application for this Job Poster, directing server response to a callback function
+    DataAPI.getJobApplicationByJobAndUser(jobPosterId, userId, JobApplicationAPI.populatePreviewApplicationWithApplicationContent);
 
-    //Make element id's unique       
-    experienceLabel.setAttribute("id", "selectYearsOfExperience__label" + idSuffix);
-    experienceLabel.setAttribute("for", "selectYearsOfExperience" + idSuffix);
-    experienceSelect.setAttribute("id", "selectYearsOfExperience" + idSuffix);
+    if (UserAPI.hasSessionUser()) {
 
-    levelLabel.setAttribute("id", "selectLevel__label" + idSuffix);
-    levelLabel.setAttribute("for", "selectLevel" + idSuffix);
-    levelSelect.setAttribute("id", "selectLevel" + idSuffix);
+        var user = UserAPI.getSessionUserAsJSON();
+        var userProfilePhoto = document.getElementById('applicationPreviewProfileImage');
+        
+        ProfilePicAPI.refreshProfilePicBackground(user.user_id, userProfilePhoto);
+        
+        JobApplicationAPI.populatePreviewApplicationWithUserContent(user);
 
-    descriptionLabel.setAttribute("id", "typeExperience__label" + idSuffix);
-    descriptionLabel.setAttribute("for", "typeExperience" + idSuffix);
-    description.setAttribute("id", "typeExperience" + idSuffix);
-
-    saveButton.setAttribute("id", saveButton.id + idSuffix);
-    cancelButton.setAttribute("id", cancelButton.id + idSuffix);
-
-    //Populate dropdowns
-    LookupAPI.populateDropdownElement("experience_level", experienceSelect);
-    LookupAPI.populateDropdownElement("skill_level", levelSelect);
-
-    //Prepopulate form fields 
-    if (skillDeclaration.experience_level_id)
-        experienceSelect.value = skillDeclaration.experience_level_id;
-    if (skillDeclaration.skill_level_id)
-        levelSelect.value = skillDeclaration.skill_level_id;
-    if (skillDeclaration.description)
-        description.value = skillDeclaration.description;
-
-    function closeAccordian() {
-        accordionTrigger.classList.remove("active");
-        accordionContent.classList.remove("active");
     }
 
-    //Assign button functions
-    saveButton.onclick = function () {
-        var newSkillDeclaration = new JobApplicationAPI.SkillDeclaration();
-        newSkillDeclaration.skill_level_id = levelSelect.value;
-        newSkillDeclaration.experience_level_id = experienceSelect.value;
-        newSkillDeclaration.description = description.value;
+    //Load user's Profile data, directing server response to another callback function
+    DataAPI.getJobSeekerProfileByUserId(userId, JobApplicationAPI.populatePreviewApplicationWithProfileContent);
+    
+};
 
-        if (newSkillDeclaration.skill_level_id && newSkillDeclaration.experience_level_id && newSkillDeclaration.description) {
-            var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
-            if (applicationId) {
-                DataAPI.saveSkillDeclaration(newSkillDeclaration, isEssential, criteriaId, applicationId, function (response) {
-                    if (response.status == 200) {
-                        accordionTrigger.classList.remove("skills__accordion-trigger--todo");
-                        accordionTrigger.classList.remove("skills__accordion-trigger--edit");
-                        accordionTrigger.classList.add("skills__accordion-trigger--complete");
-                        closeAccordian();
-                    } else {
-                        //TODO: how to respond to failed status?
-                    }
-                });
-            }
-        } else {
-            //TODO: finish validation!
-        }
-    };
-    cancelButton.onclick = function () {
-        //TODO: finish validation!
-        var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
-        if (applicationId) {
-            DataAPI.deleteSkillDeclaration(isEssential, criteriaId, applicationId, function (response) {
-                if (response.status == 200) {
-                    accordionTrigger.classList.add("skills__accordion-trigger--todo");
-                    accordionTrigger.classList.remove("skills__accordion-trigger--edit");
-                    accordionTrigger.classList.remove("skills__accordion-trigger--complete");
-                }
-            });
-        }
-    };
-    return skillDeclarationForm;
+JobApplicationAPI.populatePreviewApplicationWithPosterContent = function(jobPosterResponse) {
 
+    var jobPoster = JobPostAPI.populateJobObject(JSON.parse(jobPosterResponse));
+
+    // console.log(jobPoster);
+
+    document.getElementById('applicationPreviewHeaderPosition').innerHTML = jobPoster.title;
+
+}
+
+JobApplicationAPI.populatePreviewApplicationWithApplicationContent = function(httpRequest) {
+
+    if (httpRequest.status === 200) {
+        //The JobApplication was loaded as expected
+        
+        //jobApplication should match JobApplicationAPI.JobApplication in structure
+        var jobApplication = JSON.parse(httpRequest.response);
+        
+        //Application data is stored in jobApplication object properties
+        var applicationId = jobApplication.job_poster_application.job_poster_application_id;
+        var jobPosterId = jobApplication.job_poster_application.application_job_poster_id;
+        var profileId = jobApplication.job_poster_application.application_job_seeker_profile_id;
+        var applicationStatus = jobApplication.job_poster_application.job_poster_application_status_id;
+        
+        //answers is an array of JobApplicationAPI.ApplicationQuestionAnswer objects
+        var answers = jobApplication.application_question_answers;
+        
+        //This data may now be used to launch further data requests:
+        DataAPI.getSkillDeclarationsForApplication (applicationId, JobApplicationAPI.populatePreviewApplicationWithSkillDeclarationContent);
+        
+        
+        //JobApplication data may now be used to set UI 
+        //eg:
+        //document.getElementById("applicationPreviewJobPosterId").innerHTML = jobPosterId;
+
+        //NOTE: Adding data to the UI that comes from a list is much more complicated. 
+        //Since we don't know number of items beforehand, we need to create the HTML for each element at runtime
+        
+        //Create a DocumentFragment to hold html elements for now - this will be faster than adding elements directly to the document DOM
+        var answerFragment = document.createDocumentFragment();
+        //Iterate through answer objects
+        answers.forEach( answer => {
+           //Create the html elements which display a question-answer pair
+           //This can be done 2 ways:
+           //(1) Entirely in js: see JobApplicationAPI.makeQuestionAnswerHtmlElement as an example
+           //(2) You can clone a template already in the DOM and modify it: see JobApplicationAPI.makeSkillDeclarationForm as an example
+
+           //Some stub code for method (1):
+           var answerElement = document.createElement("div");
+           answerElement.setAttribute("class", "application-preview__question");
+           var questionText = document.createElement("h5");
+           questionText.setAttribute("class", "application-preview__question-title");
+           questionText.innerHTML = answer.question;
+           var answerText = document.createElement("div");
+           answerText.setAttribute("class", "application-preview__question-answer");
+           answerText.innerHTML = "<p>"+answer.answer+"</p>";
+
+           //Place child elements appropriately, and in order
+           answerElement.appendChild(questionText);
+           answerElement.appendChild(answerText);
+
+           //Regardless of method used, add the root element to the documentFragment
+           answerFragment.appendChild(answerElement);
+        });
+        //Now, add the documentFragment to the document
+        //eg:
+        var answerWrapper = document.getElementById("applicationPreviewQuestionWrapper");
+        answerWrapper.innerHTML = ""; //Removes old elements
+        answerWrapper.appendChild(answerFragment);
+
+    } else if (httpRequest.status === 404) {
+        //No application exists for the current user and specified job
+    } else {
+        //Something went wrong retrieving the saved applciation
+    }
+};
+
+/**
+ * Note: because of the way DataAPI.getJobSeekerProfileByUserId is written, this
+ * function only gets passed the httpRequest response, not the httpRequest itself.
+ * This function must assume it is getting good data, instead of checking the httpRequest.status itself.
+ *
+ * @param {type} response
+ * @return {undefined}
+ */
+JobApplicationAPI.populatePreviewApplicationWithUserContent = function(user) {
+
+    // var jobSeeker = JSON.parse(user);
+
+    console.log(user);
+
+    //Do something with the response data
+    document.getElementById('applicationPreviewProfileName').innerHTML = user.name;
+
+};
+
+JobApplicationAPI.populatePreviewApplicationWithProfileContent = function(response) {
+    var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
+
+    //Do something with the response data
+    document.getElementById('applicationPreviewProfileTagline').innerHTML = jobSeeker.tagline;
+
+};
+
+JobApplicationAPI.populatePreviewApplicationWithSkillDeclarationContent = function(httpRequest) {
+    if (httpRequest.status === 200) {
+        var skillDeclarations = JSON.parse(httpRequest.response);
+
+        //Add skill declarations to ui
+    }
 };
 
 JobApplicationAPI.submitNewJobApplication = function () {
@@ -438,6 +467,52 @@ JobApplicationAPI.submitNewJobApplication = function () {
 
 };
 
+JobApplicationAPI.saveJobApplicationAndPreview = function() {
+
+};
+
+/**
+ * Saves the current Job Application.
+ * Call onSuccess if application is saved successfully
+ *
+ * @param {function} onSuccess
+ * @return {undefined}
+ */
+JobApplicationAPI.saveJobApplication = function(onSuccess) {
+
+    var jobApplicationId = document.getElementById('createJobApplicationJobApplicationId').value;
+    var jobPosterId = document.getElementById('createJobApplicationJobPosterId').value;
+    var jobSeekerId = document.getElementById('createJobApplicationJobSeekerId').value;
+
+    //get all Question answers
+    var applicationQuestionAnswers = [];
+    var questionAnswerSection = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
+    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('jobApplicationQuestionAnswerWrapper');
+    for (var i = 0; i < questionAnswerWrappers.length; i++) {
+        var questionId = questionAnswerWrappers[i].querySelector('input[name="job_poster_question_id"]').value;
+        var answer = questionAnswerWrappers[i].getElementsByTagName('textarea')[0].value;
+        var question = questionAnswerWrappers[i].getElementsByClassName('jobApplicationQuestion')[0].innerHTML;
+
+        var questionAnswer = new JobApplicationAPI.ApplicationQuestionAnswer(
+                null, questionId, question, answer);
+        applicationQuestionAnswers.push(questionAnswer);
+    }
+
+    var applicationStatus = 1; //draft status
+    var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationStatus, applicationQuestionAnswers);
+
+    DataAPI.saveJobApplicationByJobAndUser(jobApplication, jobPosterId, UserAPI.getSessionUserAsJSON().user_id, function (request) {
+        if (request.status === 403) {
+            var message = JSON.parse(request.response).failed;
+            window.alert(message);
+        } else if (request.status === 200) {
+            if (onSuccess) {
+                onSuccess();
+            }
+        }
+    });
+}
+
 JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var stateInfo = {pageInfo: 'create_job_application_confirmation', pageTitle: 'Talent Cloud: New Job Application Confirmed'};
     document.title = stateInfo.pageTitle;
@@ -460,3 +535,60 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     
 };
+
+JobApplicationAPI.showPreviousApplicationSection = function() {
+    JobApplicationAPI.shiftApplicationSection(-1);
+};
+
+JobApplicationAPI.showNextApplicationSection = function() {
+    JobApplicationAPI.shiftApplicationSection(1);
+};
+
+JobApplicationAPI.shiftApplicationSection = function(shift) {
+    var progressItems = document.querySelectorAll(".application-progress__item");
+
+    for (var i=0; i<progressItems.length; i++) {
+        if (!progressItems[i].classList.contains("inactive")) {
+            //This item is not inactive, therefore it is the current section
+            var shiftedIndex = i + shift;
+            if (shiftedIndex < progressItems.length && shiftedIndex >= 0) {
+                //as long as this would shift us to a valid index, show the new section
+
+                var newSection = progressItems[shiftedIndex].getAttribute("data-application-section");
+                JobApplicationAPI.showApplicationSection(newSection);
+            }
+            break; //Ensuer this loop doesn't continue executing after we've switched sections
+        }
+    }
+};
+
+JobApplicationAPI.showApplicationSection = function(applicationSection) {
+    //Hide all application-sections except for selected one
+    var applicationSections = document.querySelectorAll(".application-section");
+    applicationSections.forEach(section => {
+       if (section.getAttribute("data-application-section") === applicationSection) {
+           section.classList.remove("hidden");
+       } else {
+           section.classList.add("hidden");
+       }
+    });
+
+    //Set progress tracking bar to match
+    var progressItems = document.querySelectorAll(".application-progress__item");
+    progressItems.forEach( item => {
+       if (item.getAttribute("data-application-section") === applicationSection) {
+           item.classList.remove("inactive");
+       } else {
+           item.classList.add("inactive");
+       }
+    });
+
+    //TODO: select focus properly
+
+    //Activate first evidence panel
+    if (applicationSection === "essential-criteria") {
+        EvidenceAPI.activateFirstEvidencePanel("essential");
+    } else if (applicationSection === "asset-criteria") {
+        EvidenceAPI.activateFirstEvidencePanel("asset");
+    }
+}

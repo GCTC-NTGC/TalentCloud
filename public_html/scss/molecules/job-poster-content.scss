@@ -28,6 +28,14 @@
 
 }
 
+.job-poster__content-label {
+	color: $black;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.2;
+	margin: 0;
+}
+
 .job-poster__content-copy {
 	color: $black;
 	font-size: 16px;
@@ -39,6 +47,23 @@
 		margin-bottom: 0;
 	}
 
+	&.truncate {
+		margin-top: 2rem;
+	}
+
+	a {
+		color: $black;
+		text-decoration: underline;
+
+		&:hover {
+
+			color: $palette-blue;
+			text-decoration: underline;
+			transition: color .2s ease;
+		}
+
+	}
+
 }
 
 .job-poster__content-list {
@@ -46,6 +71,8 @@
 	padding: 0 0 0 2rem;
 
 	li {
+		font-size: 16px !important;
+		line-height: 1.5 !important;
 
 		&:last-child p {
 			margin-bottom: 0 !important;
@@ -55,7 +82,7 @@
 			font-size: 16px;
 			font-weight: 400;
 			line-height: 1.5;
-			margin: 0 0 .5rem 0 !important;
+			margin: 0 !important;
 		}
 
 	}
@@ -116,6 +143,75 @@
 /* Culture */
 .job-poster__culture {
 	margin: 0 0 4rem 0;
+
+	.flex-grid {
+		margin: 0 -1rem;
+
+		.box {
+			padding: 0 1rem;
+
+			&:not(:first-child) .job-poster__content-subtitle {
+				margin-top: 3rem;
+			}
+
+			p:last-child {
+				margin-bottom: 2rem;
+			}
+
+		}
+
+	}
+
+}
+
+.job-poster__culture-manager-profile-photo-wrapper {
+	text-align: center;
+}
+
+.job-poster__culture-manager-profile-photo {
+	background-color: $white;
+	background-position: center;
+	background-size: cover;
+	border: .5rem solid $palette-blue;
+	border-radius: 100%;
+	display: inline-block;
+	height: 12rem;
+	width: 12rem;
+}
+
+.job-poster__culture-manager-name {
+	color: $black;
+	font-size: 25px;
+	font-weight: 700;
+	margin: 0 0 1rem 0;
+}
+
+.job-poster__culture-manager-meta {
+	color: $black;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	margin: 0 0 1rem 0;
+}
+
+.job-poster__culture-manager-profile-link {
+	appearance: none;
+	background: none;
+	border: none;
+	color: $black;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	margin: 0;
+	text-decoration: underline;
+	transition: color .2s ease;
+
+	&:hover {
+		color: $palette-blue;
+		text-decoration: underline;
+		transition: color .2s ease;
+	}
+
 }
 
 /* Need to Know */

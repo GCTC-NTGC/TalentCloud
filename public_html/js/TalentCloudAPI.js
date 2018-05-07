@@ -26,6 +26,22 @@ TalentCloudAPI.Content = function(
     managerProfileHeroTitle,
     posterHeroTitle,
     faqHeroTitle,
+    // Job Poster Content
+    jobPosterSubnavLabel,
+    jobPosterSubnavItemBasics,
+    jobPosterSubnavItemImpact,
+    jobPosterSubnavItemWork,
+    jobPosterSubnavItemCriteria,
+    jobPosterSubnavItemCulture,
+    jobPosterSubnavItemKnow,
+    jobPosterSubnavItemApply,
+    jobPosterContentTitleBasics,
+    jobPosterContentTitleImpact,
+    jobPosterContentTitleWork,
+    jobPosterContentTitleCriteria,
+    jobPosterContentTitleCulture,
+    jobPosterContentTitleKnow,
+    jobPosterContentTitleApply,
     // Others
     title,
     helpLearn,
@@ -258,6 +274,22 @@ TalentCloudAPI.Content = function(
         this.managerProfileHeroTitle = managerProfileHeroTitle;
         this.posterHeroTitle = posterHeroTitle;
         this.faqHeroTitle = faqHeroTitle;
+        // Job Poster Content
+        this.jobPosterSubnavLabel = jobPosterSubnavLabel;
+        this.jobPosterSubnavItemBasics = jobPosterSubnavItemBasics;
+        this.jobPosterSubnavItemImpact = jobPosterSubnavItemImpact;
+        this.jobPosterSubnavItemWork = jobPosterSubnavItemWork;
+        this.jobPosterSubnavItemCriteria = jobPosterSubnavItemCriteria;
+        this.jobPosterSubnavItemCulture = jobPosterSubnavItemCulture;
+        this.jobPosterSubnavItemKnow = jobPosterSubnavItemKnow;
+        this.jobPosterSubnavItemApply = jobPosterSubnavItemApply;
+        this.jobPosterContentTitleBasics = jobPosterContentTitleBasics;
+        this.jobPosterContentTitleImpact = jobPosterContentTitleImpact;
+        this.jobPosterContentTitleWork = jobPosterContentTitleWork;
+        this.jobPosterContentTitleCriteria = jobPosterContentTitleCriteria;
+        this.jobPosterContentTitleCulture = jobPosterContentTitleCulture;
+        this.jobPosterContentTitleKnow = jobPosterContentTitleKnow;
+        this.jobPosterContentTitleApply = jobPosterContentTitleApply;
         // Others
         this.title = title;
         this.helpLearn = helpLearn;
@@ -952,6 +984,52 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         // Applicant Subpage Titles ============================================
 
+        // Applicant Job Poster Content ========================================
+        var jobPosterSubnavLabel = document.getElementById("jobPosterSubnavLabel");
+        jobPosterSubnavLabel.innerHTML = siteContent.jobPosterSubnavLabel;
+
+        var jobPosterSubnavItemBasics = document.getElementById("jobPosterSubnavItemBasics");
+        jobPosterSubnavItemBasics.innerHTML = siteContent.jobPosterSubnavItemBasics;
+
+        var jobPosterSubnavItemImpact = document.getElementById("jobPosterSubnavItemImpact");
+        jobPosterSubnavItemImpact.innerHTML = siteContent.jobPosterSubnavItemImpact;
+
+        var jobPosterSubnavItemWork = document.getElementById("jobPosterSubnavItemWork");
+        jobPosterSubnavItemWork.innerHTML = siteContent.jobPosterSubnavItemWork;
+
+        var jobPosterSubnavItemCriteria = document.getElementById("jobPosterSubnavItemCriteria");
+        jobPosterSubnavItemCriteria.innerHTML = siteContent.jobPosterSubnavItemCriteria;
+
+        var jobPosterSubnavItemCulture = document.getElementById("jobPosterSubnavItemCulture");
+        jobPosterSubnavItemCulture.innerHTML = siteContent.jobPosterSubnavItemCulture;
+
+        var jobPosterSubnavItemKnow = document.getElementById("jobPosterSubnavItemKnow");
+        jobPosterSubnavItemKnow.innerHTML = siteContent.jobPosterSubnavItemKnow;
+
+        var jobPosterSubnavItemApply = document.getElementById("jobPosterSubnavItemApply");
+        jobPosterSubnavItemApply.innerHTML = siteContent.jobPosterSubnavItemApply;
+
+        var jobPosterContentTitleBasics = document.getElementById("jobPosterContentTitleBasics");
+        jobPosterContentTitleBasics.innerHTML = siteContent.jobPosterContentTitleBasics;
+
+        var jobPosterContentTitleImpact = document.getElementById("jobPosterContentTitleImpact");
+        jobPosterContentTitleImpact.innerHTML = siteContent.jobPosterContentTitleImpact;
+
+        var jobPosterContentTitleWork = document.getElementById("jobPosterContentTitleWork");
+        jobPosterContentTitleWork.innerHTML = siteContent.jobPosterContentTitleWork;
+
+        var jobPosterContentTitleCriteria = document.getElementById("jobPosterContentTitleCriteria");
+        jobPosterContentTitleCriteria.innerHTML = siteContent.jobPosterContentTitleCriteria;
+
+        var jobPosterContentTitleCulture = document.getElementById("jobPosterContentTitleCulture");
+        jobPosterContentTitleCulture.innerHTML = siteContent.jobPosterContentTitleCulture;
+
+        var jobPosterContentTitleKnow = document.getElementById("jobPosterContentTitleKnow");
+        jobPosterContentTitleKnow.innerHTML = siteContent.jobPosterContentTitleKnow;
+
+        var jobPosterContentTitleApply = document.getElementById("jobPosterContentTitleApply");
+        jobPosterContentTitleApply.innerHTML = siteContent.jobPosterContentTitleApply;
+
         // Others ==============================================================
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
@@ -1133,14 +1211,14 @@ TalentCloudAPI.setContent = function(content, isManager){
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
         //managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
 
-        var accommodationTextStart = document.getElementById("accommodationTextStart");
-        accommodationTextStart.innerHTML = siteContent.accommodationTextStart;
+        // var accommodationTextStart = document.getElementById("accommodationTextStart");
+        // accommodationTextStart.innerHTML = siteContent.accommodationTextStart;
 
-        var accommodationTextEnd = document.getElementById("accommodationTextEnd");
-        accommodationTextEnd.innerHTML = siteContent.accommodationTextEnd;
+        // var accommodationTextEnd = document.getElementById("accommodationTextEnd");
+        // accommodationTextEnd.innerHTML = siteContent.accommodationTextEnd;
 
-        var jobPosterKeyTasksLabel = document.getElementById("jobPosterKeyTasksLabel");
-        jobPosterKeyTasksLabel.innerHTML = siteContent.jobPosterKeyTasksLabel;
+        // var jobPosterKeyTasksLabel = document.getElementById("jobPosterKeyTasksLabel");
+        // jobPosterKeyTasksLabel.innerHTML = siteContent.jobPosterKeyTasksLabel;
 
         var jobPosterCoreCompetenciesLabel = document.getElementById("jobPosterCoreCompetenciesLabel");
         jobPosterCoreCompetenciesLabel.innerHTML = siteContent.jobPosterCoreCompetenciesLabel;

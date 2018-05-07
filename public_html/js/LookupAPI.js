@@ -1,11 +1,8 @@
 var LookupAPI = {};
 
 LookupAPI.lookupMap = {};
-LookupAPI.loadsInProgress = 0;
-LookupAPI.deferredPopulates = [];
-LookupAPI.deferredPopulateElements = [];
 
-LookupAPI.loadLookupData = function() {
+LookupAPI.loadLookupData = function () {
     //DivisionAPI.getDivisions(locale);
     //BranchAPI.getBranches(locale);
     var locales = ["en_CA", "fr_CA"];
@@ -20,56 +17,51 @@ LookupAPI.loadLookupData = function() {
     }
 };
 
-LookupAPI.getLookupData = function(lookupType, locale, requestCallback){    
-    var lookup_URL = DataAPI.baseURL+"/"+locale+"/Lookup/"+lookupType;
+
+LookupAPI.getLookupData = function (lookupType, locale, requestCallback) {
+    var lookup_URL = DataAPI.baseURL + "/" + locale + "/Lookup/" + lookupType;
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
 
     var lookupData_xhr = new XMLHttpRequest();
     if ("withCredentials" in lookupData_xhr) {
 
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      lookupData_xhr.open("GET", lookup_URL);
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        lookupData_xhr.open("GET", lookup_URL);
 
     } else if (typeof XDomainRequest !== "undefined") {
 
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      lookupData_xhr = new XDomainRequest();
-      lookupData_xhr.open("GET", lookup_URL);
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        lookupData_xhr = new XDomainRequest();
+        lookupData_xhr.open("GET", lookup_URL);
 
     } else {
 
-      // Otherwise, CORS is not supported by the browser.
-      lookupData_xhr = null;
+        // Otherwise, CORS is not supported by the browser.
+        lookupData_xhr = null;
 
     }
 
     lookupData_xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.talentcloudDataUpdateProgress(evt);
-    },false);
+            function (evt) {
+                DataAPI.talentcloudDataUpdateProgress(evt);
+            }, false);
     lookupData_xhr.addEventListener("load",
-    function(evt){
-        LookupAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
-        LookupAPI.loadsInProgress = LookupAPI.loadsInProgress - 1;
-        if (LookupAPI.loadsInProgress == 0) {
-            LookupAPI.processDeferredPopulates();
-            LookupAPI.processDeferredPopulateElements();
-        }
-        if (requestCallback) {
-            requestCallback(lookupData_xhr);
-        }
-    },false);
-    lookupData_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    lookupData_xhr.addEventListener("abort",DataAPI.transferAborted,false);
+            function (evt) {
+                LookupAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
+                if (requestCallback) {
+                    requestCallback(lookupData_xhr);
+                }
+            }, false);
+    lookupData_xhr.addEventListener("error", DataAPI.transferFailed, false);
+    lookupData_xhr.addEventListener("abort", DataAPI.transferAborted, false);
 
-    LookupAPI.loadsInProgress = LookupAPI.loadsInProgress + 1;
     lookupData_xhr.send();
 };
 
-LookupAPI.addToLookupMap = function(lookupType, locale, response) {
+LookupAPI.addToLookupMap = function (lookupType, locale, response) {
     if (!LookupAPI.lookupMap[locale]) {
         LookupAPI.lookupMap[locale] = {};
     }
@@ -88,7 +80,7 @@ LookupAPI.addToLookupMap = function(lookupType, locale, response) {
  * @param {function} lookupCallback
  * @return {undefined}
  */
-LookupAPI.getLookupResponse = function(lookupType, lookupCallback) {
+LookupAPI.getLookupResponse = function (lookupType, lookupCallback) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
     if (!LookupAPI.lookupMap[locale]) {
         LookupAPI.lookupMap[locale] = {};
@@ -96,7 +88,7 @@ LookupAPI.getLookupResponse = function(lookupType, lookupCallback) {
     if (LookupAPI.lookupMap[locale][lookupType]) {
         lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
     } else {
-        LookupAPI.getLookupData(lookupType, locale, function(request) {
+        LookupAPI.getLookupData(lookupType, locale, function (request) {
             if (request.status === 200) {
                 lookupCallback(LookupAPI.lookupMap[locale][lookupType]);
             }
@@ -104,7 +96,7 @@ LookupAPI.getLookupResponse = function(lookupType, lookupCallback) {
     }
 };
 
-LookupAPI.getLocalizedLookupValue = function(lookupType, valueId) {
+LookupAPI.getLocalizedLookupValue = function (lookupType, valueId) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
     var elements = LookupAPI.lookupMap[locale][lookupType];
     for (i in elements) {
@@ -116,66 +108,57 @@ LookupAPI.getLocalizedLookupValue = function(lookupType, valueId) {
 }
 
 // populates elements passed by element id
-LookupAPI.populateDropdown = function(lookupType, elementId){
-    if (LookupAPI.loadsInProgress > 0) {
-        LookupAPI.deferPopulate(lookupType, elementId);
-    } else {
-        var selectElem = document.getElementById(elementId);
-        if(selectElem){
-            var locale = TalentCloudAPI.getLanguageFromCookie();
-            var lookupList = LookupAPI.lookupMap[locale][lookupType];
-            if (lookupList) {
-                Utilities.clearSelectOptions(selectElem);
-                for(var item in lookupList) {
-                    var option = document.createElement("option");
+LookupAPI.populateDropdown = function (lookupType, elementId, useLookupValueAsOptionValue) {
+    var selectElem = document.getElementById(elementId);
+    if (selectElem) {
+        var locale = TalentCloudAPI.getLanguageFromCookie();
+        var lookupList = LookupAPI.lookupMap[locale][lookupType];
+        if (lookupList) {
+            Utilities.clearSelectOptions(selectElem);
+            for (var item in lookupList) {
+                var option = document.createElement("option");
+                if (useLookupValueAsOptionValue === true) {
+                    option.value = lookupList[item].value;
+                } else {
                     option.value = lookupList[item].id;
-                    option.innerHTML = lookupList[item].value;
-                    selectElem.appendChild(option);
                 }
+                option.innerHTML = lookupList[item].value;
+                selectElem.appendChild(option);
             }
+        } else {
+            LookupAPI.getLookupData(lookupType, locale, function (request) {
+                if (LookupAPI.lookupMap[locale][lookupType]) {
+                    LookupAPI.populateDropdown(lookupType, elementId, useLookupValueAsOptionValue);
+                }
+            });
         }
     }
-};
 
-LookupAPI.deferPopulate = function(lookupType, elementId) {
-    LookupAPI.deferredPopulates.push({lookupType : lookupType, elementId :elementId});
-};
-
-LookupAPI.processDeferredPopulates = function() {
-    while (LookupAPI.deferredPopulates.length > 0) {
-        var populate = LookupAPI.deferredPopulates.pop();
-        LookupAPI.populateDropdown(populate.lookupType, populate.elementId);
-    }
 };
 
 //Populates select elements passed directly
-LookupAPI.populateDropdownElement = function(lookupType, element){
-    if (LookupAPI.loadsInProgress > 0) {
-        LookupAPI.deferPopulateElements(lookupType, element);
-    } else {
-        if(element){
-            var locale = TalentCloudAPI.getLanguageFromCookie();
-            var lookupList = LookupAPI.lookupMap[locale][lookupType];
-            if (lookupList) {
-                Utilities.clearSelectOptions(element);
-                for(var item in lookupList) {
-                    var option = document.createElement("option");
+LookupAPI.populateDropdownElement = function (lookupType, element, useLookupValueAsOptionValue) {
+    if (element) {
+        var locale = TalentCloudAPI.getLanguageFromCookie();
+        var lookupList = LookupAPI.lookupMap[locale][lookupType];
+        if (lookupList) {
+            Utilities.clearSelectOptions(element);
+            for (var item in lookupList) {
+                var option = document.createElement("option");
+                if (useLookupValueAsOptionValue === true) {
+                    option.value = lookupList[item].value;
+                } else {
                     option.value = lookupList[item].id;
-                    option.innerHTML = lookupList[item].value;
-                    element.appendChild(option);
                 }
+                option.innerHTML = lookupList[item].value;
+                element.appendChild(option);
             }
+        } else {
+            LookupAPI.getLookupData(lookupType, locale, function (request) {
+                if (LookupAPI.lookupMap[locale][lookupType]) {
+                    LookupAPI.populateDropdownElement(lookupType, element, useLookupValueAsOptionValue);
+                }
+            });
         }
-    }
-};
-
-LookupAPI.deferPopulateElements = function(lookupType, element) {
-    LookupAPI.deferredPopulateElements.push({lookupType : lookupType, element :element});
-};
-
-LookupAPI.processDeferredPopulateElements = function() {
-    while (LookupAPI.deferredPopulateElements.length > 0) {
-        var populate = LookupAPI.deferredPopulateElements.pop();
-        LookupAPI.populateDropdownElement(populate.lookupType, populate.element);
     }
 };
