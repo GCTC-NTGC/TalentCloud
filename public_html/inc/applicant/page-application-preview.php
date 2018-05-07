@@ -15,12 +15,6 @@
 
 		</div>
 
-	</div>
-
-	<?php include "partial-applicant-evidence-preview.php"; ?>
-
-	<div class="content-container">
-
 		<div class="application-preview__question-wrapper" id="applicationPreviewQuestionWrapper">
 
 			<?php /* Example Question ==============================
@@ -42,6 +36,12 @@
 			*/ ?>
 
 		</div>
+
+	</div>
+
+	<?php include "partial-applicant-evidence-preview.php"; ?>
+
+	<div class="content-container">
 
 		<div class="application-preview__alert flex-grid middle">
 

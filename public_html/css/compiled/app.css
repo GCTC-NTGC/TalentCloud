@@ -5963,7 +5963,7 @@ nav {
 ============================================================================= */
 .applicant-evidence-preview {
   background: #e2e2e2;
-  margin: 4rem 0 0 0;
+  margin: 0 0 4rem 0;
   padding: 3rem 0; }
   @media (min-width: 64em) {
     .applicant-evidence-preview {
@@ -6999,7 +6999,6 @@ nav {
   margin: 0 !important;
   padding: 2rem 3rem;
   text-align: center;
-  text-decoration: underline;
   transition: background .2s ease;
   width: 100%; }
   .job-poster__apply-button:hover {
