@@ -418,10 +418,10 @@ JobPostAPI.viewJobPoster = function(jobId){
     Utilities.getHeroElements();
 
     var browseHeroTitle = document.getElementById("browseHeroTitle");
-    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    // var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
-    browseHeroPosterMetaData.classList.remove("hidden");
+    // browseHeroPosterMetaData.classList.remove("hidden");
 
 };
 

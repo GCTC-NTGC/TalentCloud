@@ -1,0 +1,180 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster: Content
+
+============================================================================= */
+
+.job-poster__content-title {
+	border-bottom: 1px solid $black;
+	color: $black;
+	font-size: 35px;
+	font-weight: 700;
+	margin: 0 0 4rem 0;
+	padding: 0 0 2rem 0;
+}
+
+
+.job-poster__content-subtitle {
+	color: $palette-blue;
+	font-size: 25px;
+	font-weight: 700;
+	margin: 0 0 2rem 0;
+
+	&:not(:first-child) {
+		margin-top: 4rem;
+	}
+
+}
+
+.job-poster__content-copy {
+	color: $black;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	margin: 0 0 2rem 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+}
+
+.job-poster__content-list {
+	margin: 0;
+	padding: 0 0 0 2rem;
+
+	li {
+
+		&:last-child p {
+			margin-bottom: 0 !important;
+		}
+
+		p {
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 1.5;
+			margin: 0 0 .5rem 0 !important;
+		}
+
+	}
+
+}
+
+/* Basic Information */
+.job-poster__basics {
+	background: rgba(0, 0, 0, .8);
+	border-radius: 3px;
+	margin: 0 0 4rem 0;
+	padding: 3rem;
+}
+
+.job-poster__basics-title {
+	color: $white;
+	font-size: 30px;
+	font-weight: 700;
+	margin: 0 0 2rem 0;
+}
+
+.job-poster__basics-label {
+	color: $palette-blue;
+	display: block;
+	font-size: 22px;
+	font-weight: 700;
+	margin: 0 0 1rem 0;
+}
+
+.job-poster__basics-content {
+	color: $white;
+	display: block;
+	font-size: 16px;
+	font-weight: 400;
+	margin: 0 0 2rem 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+}
+
+/* Impact */
+.job-poster__impact {
+	margin: 0 0 4rem 0;
+}
+
+/* Your Work */
+.job-poster__work {
+	margin: 0 0 4rem 0;
+}
+
+/* Criteria */
+.job-poster__criteria {
+	margin: 0 0 4rem 0;
+}
+
+/* Culture */
+.job-poster__culture {
+	margin: 0 0 4rem 0;
+}
+
+/* Need to Know */
+.job-poster__know {
+	margin: 0 0 4rem 0;
+}
+
+/* Apply to this Job */
+.job-poster__apply {
+	
+}
+
+.job-poster__apply-accommodation-wrapper {
+	background: rgba(0, 0, 0, .8);
+	border-radius: 3px 3px 0 0;
+	padding: 3rem;
+
+	i {
+		color: $white;
+		font-size: 5rem;
+		text-align: center;
+		width: 100%;
+	}
+
+}
+
+.job-poster__apply-title {
+	color: $white;
+	font-size: 30px;
+	font-weight: 700;
+	margin: 0 0 2rem 0;
+}
+
+.job-poster__apply-content {
+	color: $white;
+	display: block;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.5;
+	margin: 2rem 0;
+}
+
+.job-poster__apply-button {
+	background: $palette-blue;
+	border: none;
+	border-radius: 0 0 3px 3px;
+	color: $white;
+	font-size: 25px;
+	font-weight: 700;
+	margin: 0 !important;
+	padding: 2rem 3rem;
+	text-align: center;
+	text-decoration: underline;
+	transition: background .2s ease;
+	width: 100%;
+
+	&:hover {
+		background: $palette-blue--dark;
+		transition: background .2s ease;
+	}
+
+}

@@ -1,3 +1,11 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster
+
+============================================================================= */
+
 /* CREATE JOB POSTER */
 
 #createJobPosterOverlay{
@@ -80,7 +88,7 @@
 
 #jobPosterLocation{
     color: #eee;
-    margin-bottom: .5rem;
+    // margin-bottom: .5rem;
 }
 
 #jobPosterId{
@@ -186,3 +194,17 @@
 }
 
 @import "molecules/job-poster-workplace";
+
+/* New Job Poster Styles ==================================================== */
+
+.job-poster {
+    background: lighten($palette-grey--light, 10%);
+}
+
+.job-poster__section-wrapper {
+    padding: 4rem 0;
+}
+
+@import "molecules/job-poster-heading";
+@import "molecules/job-poster-subnav";
+@import "molecules/job-poster-content";

@@ -455,6 +455,9 @@ window.onload = function (e) {
     Utilities.setAccordionTriggers();
     Utilities.setMobileNavTriggers();
     Utilities.setApplicantLandingVideoTriggers();
+    var ua = navigator.userAgent;
+    ua = ua.toString();
+    document.body.setAttribute("id", ua);
 };
 
 Utilities.getHeroElements = function() {
@@ -463,13 +466,13 @@ Utilities.getHeroElements = function() {
     landingHero.classList.add("hidden");
 
     var subpageTitles = document.querySelectorAll(".subpage-hero__title");
-    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    // var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
     var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
     for (let i of subpageTitles) {
         i.classList.add("hidden");
         i.setAttribute("aria-hidden", "true");
     }
-    browseHeroPosterMetaData.classList.add("hidden");
+    // browseHeroPosterMetaData.classList.add("hidden");
     applicationHeroMetadata.classList.add("hidden");
 
 }

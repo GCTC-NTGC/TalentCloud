@@ -5843,6 +5843,13 @@ nav {
   width: 0%;
   background-color: orange; }
 
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster
+
+============================================================================= */
 /* CREATE JOB POSTER */
 #createJobPosterOverlay {
   width: 100%;
@@ -5911,8 +5918,7 @@ nav {
       font-size: 2rem; } }
 
 #jobPosterLocation {
-  color: #eee;
-  margin-bottom: .5rem; }
+  color: #eee; }
 
 #jobPosterId {
   float: right;
@@ -6015,6 +6021,240 @@ nav {
   background-position: center;
   background-size: cover;
   height: 45vh; }
+
+/* New Job Poster Styles ==================================================== */
+.job-poster {
+  background: #e2e2e2; }
+
+.job-poster__section-wrapper {
+  padding: 4rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster: Heading
+
+============================================================================= */
+.job-poster__heading {
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(/images/backgrounds/bg_lightning_dark.png);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 75px;
+  padding: 6rem 0; }
+
+.job-poster__job-title {
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0 0 1rem 0; }
+
+.job-poster__department {
+  margin: 0; }
+  .job-poster__department #jobPosterDepartment {
+    color: #2196f3;
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0 0 1rem 0; }
+  .job-poster__department span {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0; }
+
+.job-poster__reference-id {
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 !important; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster: Subnav
+
+============================================================================= */
+@media (min-width: 64em) {
+  .job-poster__subnav-sticky-wrapper {
+    position: sticky;
+    top: 4rem; } }
+
+.job-poster__subnav-job-title {
+  color: #333333;
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 .5rem 0; }
+
+.job-poster__subnav-department {
+  color: #333333;
+  display: block;
+  font-size: 16px;
+  margin: 0; }
+
+.job-poster_subnav-label {
+  color: #2196f3;
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+  .job-poster_subnav-label:first-child {
+    margin-top: 0; }
+
+.job-poster__subnav-item {
+  color: #333333 !important;
+  display: block;
+  font-size: 16px;
+  margin: 0 0 1rem 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .job-poster__subnav-item:hover {
+    color: #2196f3 !important;
+    text-decoration: underline;
+    transition: color .2s ease; }
+
+@media (min-width: 64em) {
+  .job-poster__content-wrapper {
+    padding: 0 0 0 3rem; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Job Poster: Content
+
+============================================================================= */
+.job-poster__content-title {
+  border-bottom: 1px solid #333333;
+  color: #333333;
+  font-size: 35px;
+  font-weight: 700;
+  margin: 0 0 4rem 0;
+  padding: 0 0 2rem 0; }
+
+.job-poster__content-subtitle {
+  color: #2196f3;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+  .job-poster__content-subtitle:not(:first-child) {
+    margin-top: 4rem; }
+
+.job-poster__content-copy {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 2rem 0; }
+  .job-poster__content-copy:last-child {
+    margin-bottom: 0; }
+
+.job-poster__content-list {
+  margin: 0;
+  padding: 0 0 0 2rem; }
+  .job-poster__content-list li:last-child p {
+    margin-bottom: 0 !important; }
+  .job-poster__content-list li p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0 .5rem 0 !important; }
+
+/* Basic Information */
+.job-poster__basics {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  margin: 0 0 4rem 0;
+  padding: 3rem; }
+
+.job-poster__basics-title {
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+
+.job-poster__basics-label {
+  color: #2196f3;
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 1rem 0; }
+
+.job-poster__basics-content {
+  color: white;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 2rem 0; }
+  .job-poster__basics-content:last-child {
+    margin-bottom: 0; }
+
+/* Impact */
+.job-poster__impact {
+  margin: 0 0 4rem 0; }
+
+/* Your Work */
+.job-poster__work {
+  margin: 0 0 4rem 0; }
+
+/* Criteria */
+.job-poster__criteria {
+  margin: 0 0 4rem 0; }
+
+/* Culture */
+.job-poster__culture {
+  margin: 0 0 4rem 0; }
+
+/* Need to Know */
+.job-poster__know {
+  margin: 0 0 4rem 0; }
+
+/* Apply to this Job */
+.job-poster__apply-accommodation-wrapper {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px 3px 0 0;
+  padding: 3rem; }
+  .job-poster__apply-accommodation-wrapper i {
+    color: white;
+    font-size: 5rem;
+    text-align: center;
+    width: 100%; }
+
+.job-poster__apply-title {
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+
+.job-poster__apply-content {
+  color: white;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 2rem 0; }
+
+.job-poster__apply-button {
+  background: #2196f3;
+  border: none;
+  border-radius: 0 0 3px 3px;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 !important;
+  padding: 2rem 3rem;
+  text-align: center;
+  text-decoration: underline;
+  transition: background .2s ease;
+  width: 100%; }
+  .job-poster__apply-button:hover {
+    background: #125184;
+    transition: background .2s ease; }
 
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 .jobSummary {
@@ -6543,11 +6783,11 @@ nav {
   padding: 4rem 0; }
 
 .faq__category-title {
-  border-bottom: 1px solid #484848;
+  border-bottom: 1px solid #333333;
   color: #333333;
-  font-size: 26px;
+  font-size: 35px;
   font-weight: 700;
-  margin: .5rem 0 2rem 0;
+  margin: 0 0 4rem 0;
   padding: 0 0 2rem 0; }
 
 .faq__section-title {
