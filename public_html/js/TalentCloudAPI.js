@@ -1267,4 +1267,8 @@ TalentCloudAPI.setNav = function(navItemToHighlightId){
     }
     var navItemToHighlight = document.getElementById(navItemToHighlightId);
     navItemToHighlight.classList.add("active");
+    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
+    var mainMenu = document.getElementById("pageHeroNavigationMenu");
+    mobileMenuTrigger.classList.remove("active");
+    mainMenu.classList.remove("active");
 };
