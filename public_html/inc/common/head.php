@@ -37,6 +37,7 @@ ga('send', 'pageview');
 <script src="/js/ProfilePicAPI.js"></script>
 <script src="/js/ManagerProfileAPI.js"></script>
 <script src="/js/JobApplicationAPI.js"></script>
+<script src="/js/JobApplicationPreviewAPI.js"></script>
 <script src="/js/SkillDeclarationAPI.js"></script>
 <script src="/js/MicroReferenceAPI.js"></script>
 <script src="/js/SkillSampleAPI.js"></script>

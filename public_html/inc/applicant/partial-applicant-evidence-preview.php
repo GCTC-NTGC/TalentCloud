@@ -8,11 +8,11 @@
 
                 <span class="applicant-evidence-preview__desktop-menu-title">Essential Criteria</span>
 
-                <div id="applicationPreviewEssentialEvidenceWrapper"></div>
+                <div id="applicationPreviewEssentialEvidenceMenuWrapper"></div>
 
                 <span class="applicant-evidence-preview__desktop-menu-title">Asset Criteria</span>
 
-                <div id="applicationPreviewEssentialEvidenceWrapper"></div>
+                <div id="applicationPreviewAssetEvidenceMenuWrapper"></div>
 
                 <div class="hidden" id="applicationPrevierwEvidenceMenuItemTemplate">
                     <button role="tab" aria-selected="true" class="applicant-evidence-preview__desktop-menu-item template" data-evidence-trigger="">
@@ -21,7 +21,7 @@
 
             </div>
 
-            <div class="box lg-3of4 applicant-evidence-preview__form-wrapper">   
+            <div id="applicationPreviewEvidencePanelWrapper" class="box lg-3of4 applicant-evidence-preview__form-wrapper">   
                 <?php //This wrapper will be populated with Preview Evidence panels at runtime ?>
             </div>
 

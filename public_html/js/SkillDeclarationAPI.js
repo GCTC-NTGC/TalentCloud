@@ -69,6 +69,35 @@ SkillDeclarationAPI.populateApplicationUiSkillDeclarations = function (skillDecl
     });
 };
 
+SkillDeclarationAPI.populateApplicationPreviewUiSkillDeclarations = function(skillDeclarations) {
+    skillDeclarations.forEach(declaration => {
+        //find appropriate Evidence Panel
+        var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + declaration.criteria_id + '"]');
+        //if panel exists, set skill declaration values
+        if (panel) {
+            var experience = panel.querySelector('.applicant-evidence-preview__experience');
+            if (declaration.experience_level_id) {
+                experience.innerHTML = LookupAPI.getLocalizedLookupValue("experience_level", declaration.experience_level_id) + " Years";
+            } else {
+                experience.innerHTML = "";
+            }
+            var skillLevel = panel.querySelector('.applicant-evidence-preview__expertise');
+            if (declaration.skill_level_id) {
+                skillLevel.innerHTML = LookupAPI.getLocalizedLookupValue("skill_level", declaration.skill_level_id);
+            } else {
+                skillLevel.innerHTML = "";
+            }
+
+            var description = panel.querySelector('.applicant-evidence-preview__experience-copy');
+            if (declaration.description) {
+                description.innerHTML = declaration.description;
+            } else {
+                description.innerHTML = "";
+            }
+        }
+    });
+};
+
 /**
  * Saves all completed skill declarations of given type. 
  * If criteriaType is undefined, it saves ALL completed skill declarations.

@@ -4,9 +4,18 @@ EvidenceAPI.evidenceTriggerName = function (criteriaId, criteriaType) {
     return criteriaType + "-" + criteriaId;
 };
 
+EvidenceAPI.evidencePreviewTriggerName = function (criteriaId, criteriaType) {
+    return "preview-" + criteriaType + "-" + criteriaId;
+};
+
 EvidenceAPI.menuItemId = function (criteriaId, criteriaType) {
     var triggerName = EvidenceAPI.evidenceTriggerName(criteriaId, criteriaType);
     return "applicationEvidenceMenuItem_" + triggerName;
+};
+
+EvidenceAPI.previewMenuItemId = function (criteriaId, criteriaType) {
+    var triggerName = EvidenceAPI.evidencePreviewTriggerName(criteriaId, criteriaType);
+    return "applicationPreviewEvidenceMenuItem_" + triggerName;
 };
 
 EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, criteriaType, criteriaName) {
@@ -25,6 +34,25 @@ EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, crite
 
     var title = menuItem.querySelector(".applicant-evidence__desktop-item-title");
     title.innerHTML = criteriaName;
+
+    return menuItem;
+};
+
+EvidenceAPI.instantiateApplicationPreviewEvidenceMenuItem = function (criteriaId, criteriaType, criteriaName) {
+    var menuItem = document.getElementById("applicationPrevierwEvidenceMenuItemTemplate").firstElementChild.cloneNode(true);
+
+    menuItem.classList.remove("template");
+
+    var triggerName = EvidenceAPI.evidencePreviewTriggerName(criteriaId, criteriaType);
+    var menuItemId = EvidenceAPI.previewMenuItemId(criteriaId, criteriaType);
+    menuItem.id = menuItemId;
+    menuItem.setAttribute("data-evidence-trigger", triggerName);
+
+    //Set data attributes
+    menuItem.setAttribute("data-criteria-type", criteriaType);
+    menuItem.setAttribute("data-criteria-id", criteriaId);
+
+    menuItem.innerHTML = criteriaName;
 
     return menuItem;
 };
@@ -153,6 +181,26 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.querySelector("input[name=\"sample_http_link\"]").onchange = sampleOnChange;
     evidencePanel.querySelector("textarea[name=\"sample_story\"]").onchange = sampleOnChange;
 
+    return evidencePanel;
+};
+
+EvidenceAPI.instantiateApplicationPreviewEvidencePanel = function (criteriaId, criteriaType, criteriaName) {
+    var evidencePanel = document.getElementById("applicationPreviewEvidencePanelTemplate").firstElementChild.cloneNode(true);
+
+    evidencePanel.classList.remove("template");
+
+    var triggerName = EvidenceAPI.evidencePreviewTriggerName(criteriaId, criteriaType);
+    var menuItemId = EvidenceAPI.previewMenuItemId(criteriaId, criteriaType);
+    evidencePanel.setAttribute("data-evidence-target", triggerName);
+    evidencePanel.setAttribute("aria-labelledby", menuItemId);
+
+    //SET DATA ATTRIBUTES
+    evidencePanel.setAttribute("data-criteria-type", criteriaType);
+    evidencePanel.setAttribute("data-criteria-id", criteriaId);
+
+    //SET SKILL TITLE
+    evidencePanel.querySelector(".applicant-evidence-preview__criteria-name").innerHTML = criteriaName;
+    
     return evidencePanel;
 };
 
