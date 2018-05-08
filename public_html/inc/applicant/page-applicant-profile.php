@@ -1,10 +1,27 @@
-<?php // BEGIN - Applicant Profile Section ?>
-<section class="pageContent hidden" id="profileSection">
-    <!-- <div class="pageBanner">
-        <div class="profileBannerFiller"></div>
-    </div> -->
+<section class="applicant-profile hidden" id="profileSection">
+
+    <?php /* <div class="applicant-profile__heading">
+
+        <div class="applicant-profile__photo-wrapper">
+
+        </div>
+
+        <div class="block-container">
+
+
+
+        </div>
+
+    </div>
+
+    <div class="applicant-profile__content">
+
+    </div> */ ?>
+
     <div class="pageBody">
+
         <div class="container">
+
             <div id="profileBasicInfo" class="profileBasicInfo centered">
                 <div id="profileBasicInfoTopBar" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                     <div class="flexLeftOfCenter">
@@ -46,8 +63,13 @@
                 <input type="hidden" id="profileId"/>
                 <input type="hidden" id="profileLastUpdated"/>
             </div>
-            <div id="profileQuestionsWrapper"></div>
+
+            <div class="block-container" id="profileQuestionsWrapper">
+                <?php /* Questions & Answers go here */ ?>
+            </div>
+
         </div>
+
     </div>
+
 </section>
-<?php // END - Applicant Profile Section ?>

@@ -16,9 +16,10 @@
                     <div class="box full">
                         <label for="profileEditAnswer" class="form__label">
                             <span id="profileEditAnswerLabel"></span>
+                            <p class="dialogue-modal__support-copy" id="dialogueModalSupportCopy"></p>
                         </label>
                         <div>
-                            <textarea class="form__textarea" name="profileEditAnswer" id="profileEditAnswer" form="profileEditAnswerForm"></textarea>
+                            <textarea class="form__textarea" name="profileEditAnswer" id="profileEditAnswer" form="profileEditAnswerForm" placeholder="Enter your answer here..."></textarea>
                         </div>
                     </div>
                     <div class="box full flex-grid update-about__button-grid">
