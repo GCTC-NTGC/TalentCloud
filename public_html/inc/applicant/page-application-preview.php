@@ -1,28 +1,9 @@
 <!-- TAL-48 ================================================================ -->
 <section class="hidden application-preview" id="applicationPreview">
 
-    <div class="pageBanner">
-
-        <h2 class="section--title" id="applicationPreviewHeaderTitle">Application Preview</h2>
-
-        <!-- Restructured during TAL-103 -->
-        <div class="application-header__position-wrapper">
-
-            <div class="content-container">
-
-                <span id="applicationPreviewHeaderCopy" class="application-header__position-copy">for the position of:</span>
-
-                <h3 id="applicationPreviewHeaderPosition" class="application-header__position">Job title</h3>
-
-            </div>
-
-        </div>
+    <div class="content-container">
 
         <input type='hidden' id='jobApplicationPreviewJobPosterId' />
-
-    </div>
-
-    <div class="content-container">
 
         <div class="application-preview__profile-wrapper">
 
@@ -43,6 +24,9 @@
         <div class="application-preview__question-wrapper" id="applicationPreviewQuestionWrapper">
 
             <?php /* Example Question ==============================
+              =======
+              <div class="application-preview__question-wrapper" id="applicationPreviewQuestionWrapper">
+              >>>>>>> master
 
               <div class="application-preview__question">
 
@@ -65,25 +49,35 @@
 
     <?php include "partial-applicant-evidence-preview.php"; ?>
 
+    <<<<<<< HEAD
+    <div class="content-container">
+        =======
+    </div>
+
+    <?php include "partial-applicant-evidence-preview.php"; ?>
+
     <div class="content-container">
 
         <div class="application-preview__alert flex-grid middle">
+            >>>>>>> master
 
-            <div class="box lg-1of6">
-                <i class="application-preview__alert-icon fa fa-address-card"></i>
+            <div class="application-preview__alert flex-grid middle">
+
+                <div class="box lg-1of6">
+                    <i class="application-preview__alert-icon fa fa-address-card"></i>
+                </div>
+
+                <div class="box lg-5of6">
+                    <p class="application-preview__alert-copy">Remember that hiring managers can view your full profile when you submit an application. By filling out your profile you increase your chances of getting hired.</p>
+                </div>
+
             </div>
 
-            <div class="box lg-5of6">
-                <p class="application-preview__alert-copy">Remember that hiring managers can view your full profile when you submit an application. By filling out your profile you increase your chances of getting hired.</p>
+            <div class="application-preview__button-wrapper">
+                <button class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationPreviewJobPosterId').value)">Edit Application</button>
+                <button class="button--yellow" onclick="JobApplicationAPI.saveJobApplication();">Submit</button>
             </div>
 
         </div>
-
-        <div class="application-preview__button-wrapper">
-            <button class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationPreviewJobPosterId').value)">Edit Application</button>
-            <button class="button--yellow" onclick="JobApplicationAPI.saveJobApplication();">Submit</button>
-        </div>
-
-    </div>
 
 </section>	

@@ -115,6 +115,22 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.managerProfileHeroTitle = content.managerProfileHeroTitle;
     thisContent.posterHeroTitle = content.posterHeroTitle;
     thisContent.faqHeroTitle = content.faqHeroTitle;
+    // Job Poster Content
+    thisContent.jobPosterSubnavLabel = content.jobPosterSubnavLabel;
+    thisContent.jobPosterSubnavItemBasics = content.jobPosterSubnavItemBasics;
+    thisContent.jobPosterSubnavItemImpact = content.jobPosterSubnavItemImpact;
+    thisContent.jobPosterSubnavItemWork = content.jobPosterSubnavItemWork;
+    thisContent.jobPosterSubnavItemCriteria = content.jobPosterSubnavItemCriteria;
+    thisContent.jobPosterSubnavItemCulture = content.jobPosterSubnavItemCulture;
+    thisContent.jobPosterSubnavItemKnow = content.jobPosterSubnavItemKnow;
+    thisContent.jobPosterSubnavItemApply = content.jobPosterSubnavItemApply;
+    thisContent.jobPosterContentTitleBasics = content.jobPosterContentTitleBasics;
+    thisContent.jobPosterContentTitleImpact = content.jobPosterContentTitleImpact;
+    thisContent.jobPosterContentTitleWork = content.jobPosterContentTitleWork;
+    thisContent.jobPosterContentTitleCriteria = content.jobPosterContentTitleCriteria;
+    thisContent.jobPosterContentTitleCulture = content.jobPosterContentTitleCulture;
+    thisContent.jobPosterContentTitleKnow = content.jobPosterContentTitleKnow;
+    thisContent.jobPosterContentTitleApply = content.jobPosterContentTitleApply;
     // Others
     thisContent.title = content.title;
     thisContent.helpLearn = content.helpLearn;

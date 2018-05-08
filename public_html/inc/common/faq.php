@@ -5,14 +5,16 @@
 		<div class="flex-grid">
 
 			<div class="faq__subnav-wrapper box lg-1of4">
-				<span class="faq_subnav-label">Example Category</span>
-				<a href="#faqIntroduction" class="faq__subnav-item">Intro Example</a>
-				<a href="#faqAccordion" class="faq__subnav-item">Accordion Example</a>
-				<a href="#faqText" class="faq__subnav-item">Text Example</a>
-				<span class="faq_subnav-label">Example Category</span>
-				<a href="#faqIntroduction" class="faq__subnav-item">Intro Example</a>
-				<a href="#faqAccordion" class="faq__subnav-item">Accordion Example</a>
-				<a href="#faqText" class="faq__subnav-item">Text Example</a>
+				<div class="faq__subnav-sticky-wrapper">
+					<span class="faq_subnav-label">Example Category</span>
+					<a href="#faqIntroduction" class="faq__subnav-item">Intro Example</a>
+					<a href="#faqAccordion" class="faq__subnav-item">Accordion Example</a>
+					<a href="#faqText" class="faq__subnav-item">Text Example</a>
+					<span class="faq_subnav-label">Example Category</span>
+					<a href="#faqIntroduction" class="faq__subnav-item">Intro Example</a>
+					<a href="#faqAccordion" class="faq__subnav-item">Accordion Example</a>
+					<a href="#faqText" class="faq__subnav-item">Text Example</a>
+				</div>
 			</div>
 
 			<div class="faq__content-wrapper box lg-3of4">

@@ -221,7 +221,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
 
     var hiringManagerProfilePic = document.createElement("img");
     hiringManagerProfilePic.setAttribute("class", "hiringManagerProfilePicSmall");
-    hiringManagerProfilePic.setAttribute("alt", "Image of Hiring Manager");
+    hiringManagerProfilePic.setAttribute("title", "Image of Hiring Manager");
     hiringManagerProfilePic.src = hiringManagerProfilePicImg.src;
 
     var hiringManagerLabel = document.createElement("span");
@@ -281,7 +281,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     //jobSummaryLocation.innerHTML = job.location_city + " (" + job.location_province + ")";
 
     var viewJobButton = document.createElement("button");
-    viewJobButton.setAttribute("class","viewJobButton");
+    viewJobButton.setAttribute("class","button--yellow");
     viewJobButton.setAttribute("value",siteContent.viewButton);
     viewJobButton.innerHTML = siteContent.viewButton;
     viewJobButton.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
@@ -418,17 +418,17 @@ JobPostAPI.viewJobPoster = function(jobId){
     Utilities.getHeroElements();
 
     var browseHeroTitle = document.getElementById("browseHeroTitle");
-    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    // var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
-    browseHeroPosterMetaData.classList.remove("hidden");
+    // browseHeroPosterMetaData.classList.remove("hidden");
 
 };
 
 JobPostAPI.localizeJobPoster = function() {
     if (siteContent) {
         document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
-        document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
+        // document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
         document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
     }
@@ -452,19 +452,26 @@ JobPostAPI.populateJobPoster = function(jobData){
     DataAPI.getUser(jobData.manager_user_id, function(response) {
        var managerUser = JSON.parse(response);
        document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.name;
-       document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.name;
+       // document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.name;
 
        if (locale === "en_CA"){
            var subject = "?subject=TalentCloud Accommodation Request for Job ID #" + jobData.id;
        } else {
            var subject = "?subject=Demande d'hébergement TalentCloud pour le numéro d'identification du travail " + jobData.id;
        }
-       document.getElementById('jobPosterHiringManagerEmail').innerHTML = managerUser.user.email;
-       document.getElementById('jobPosterHiringManagerEmail').href = "mailto:" + managerUser.user.email + subject;
+       // document.getElementById('jobPosterHiringManagerEmail').innerHTML = managerUser.user.email;
+       // document.getElementById('jobPosterHiringManagerEmail').href = "mailto:" + managerUser.user.email + subject;
     });
+
+    // Subnav Content
+    var jobPosterSubnavJobTitle = document.getElementById("jobPosterSubnavJobTitle");
+    var jobPosterSubnavDepartment = document.getElementById("jobPosterSubnavDepartment");
+    jobPosterSubnavJobTitle.innerHTML = jobData.title;
+    jobPosterSubnavDepartment.innerHTML = jobData.department;
+
     //Load Hiring Manager Image
-    var hiringManagerProfilePic = document.getElementById('jobPosterHiringManagerProfilePic');
-    ProfilePicAPI.refreshProfilePic(jobData.manager_user_id, hiringManagerProfilePic);
+    var hiringManagerProfilePic = document.getElementById('jobPosterCultureManagerProfilePhoto');
+    ProfilePicAPI.refreshProfilePicBackground(jobData.manager_user_id, hiringManagerProfilePic);
     //Load Other Hiring Manager Data
     DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
        var locale = TalentCloudAPI.getLanguageFromCookie();

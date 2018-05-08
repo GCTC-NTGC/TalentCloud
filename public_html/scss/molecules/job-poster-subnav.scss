@@ -2,19 +2,20 @@
 
     Authored by: Talent Cloud
 
-    FAQ Template: Subnav
+    Job Poster: Subnav
 
 ============================================================================= */
 
-.faq__subnav-wrapper {
+.job-poster__subnav-wrapper {
+	display: none;
 
 	@media #{$l-tablet} {
-		// position: sticky;
+		display: block;
 	}
 
 }
 
-.faq__subnav-sticky-wrapper {
+.job-poster__subnav-sticky-wrapper {
 
 	@media #{$l-tablet} {
 		position: sticky;
@@ -23,7 +24,23 @@
 
 }
 
-.faq_subnav-label {
+.job-poster__subnav-job-title {
+	color: $black ;
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.2;
+	margin: 0;
+}
+
+.job-poster__subnav-department {
+	color: $black;
+	display: block;
+	font-size: 16px;
+	margin: 0;
+}
+
+.job-poster_subnav-label {
 	color: $palette-blue;
 	display: block;
 	font-size: 22px;
@@ -36,7 +53,7 @@
 
 }
 
-.faq__subnav-item {
+.job-poster__subnav-item {
 	color: $black !important;
 	display: block;
 	font-size: 16px;
@@ -52,7 +69,7 @@
 
 }
 
-.faq__content-wrapper {
+.job-poster__content-wrapper {
 	
 	@media #{$l-tablet} {
 		padding: 0 0 0 3rem;	

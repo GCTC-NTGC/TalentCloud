@@ -42,6 +42,15 @@
 	padding: 4rem 0;
 }
 
+.application-preview__question {
+	margin: 0 0 4rem 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+}
+
 .application-preview__question-title {
 	color: $palette-blue;
 	font-size: 22px;

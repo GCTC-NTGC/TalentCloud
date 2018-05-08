@@ -74,6 +74,10 @@
         width: 75%;
     }
 
+    &#profileBasicInfoEditWrapperWindow {
+        max-width: 125rem;
+    }
+
     &[class*="--overflow"] {
         position: relative;
         top: 5rem;

@@ -449,9 +449,16 @@ Utilities.setApplicantLandingVideoTriggers = function () {
     }
 };
 
+Utilities.setUserAgent = function () {
+    var ua = navigator.userAgent;
+        ua = ua.toString();
+        document.body.setAttribute("id", ua);
+}
+
 Utilities.addWindowEventListener("load", Utilities.setAccordionTriggers);
 Utilities.addWindowEventListener("load", Utilities.setMobileNavTriggers);
 Utilities.addWindowEventListener("load", Utilities.setApplicantLandingVideoTriggers);
+Utilities.addWindowEventListener("load", Utilities.setUserAgent);
 
 Utilities.getHeroElements = function() {
 
@@ -459,13 +466,13 @@ Utilities.getHeroElements = function() {
     landingHero.classList.add("hidden");
 
     var subpageTitles = document.querySelectorAll(".subpage-hero__title");
-    var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
+    // var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
     var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
     for (let i of subpageTitles) {
         i.classList.add("hidden");
         i.setAttribute("aria-hidden", "true");
     }
-    browseHeroPosterMetaData.classList.add("hidden");
+    // browseHeroPosterMetaData.classList.add("hidden");
     applicationHeroMetadata.classList.add("hidden");
 
 }

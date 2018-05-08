@@ -140,7 +140,7 @@ WorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName,
             i++;
             //img.style.backgroundImage = "url("+WorkEnvironmentAPI.defaultWorkplacePhoto+")"
         } if (i = 3) {
-            document.getElementById("workEnvironmentSummaryImagesWrapper").setAttribute('style','display:none;');
+            // document.getElementById("workEnvironmentSummaryImagesWrapper").setAttribute('style','display:none;');
         }
     });
     xhr.send();

@@ -54,6 +54,7 @@ ga('send', 'pageview');
 <?php // Libraries ?>
 <link rel="stylesheet" href="/libraries/croppie.css" />
 <script src="/libraries/croppie.js"></script>
+<?php /* <script src="/libraries/modernizr.js"></script> */ ?>
 
 <?php // Favicons ?>
 <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
