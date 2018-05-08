@@ -659,7 +659,7 @@ JobSeekerAPI.showEditProfileAnswerModal = function (questionId, questionName, qu
     document.getElementById("profileEditAnswerFormDescription").innerHTML = title;
     document.getElementById("profile-edit-answer__question-id").value = questionId;
     document.getElementById("profileEditAnswerLabel").innerHTML = questionName;
-    document.getElementById("profileEditAnswer").setAttribute("placeholder", questionDescription);
+    document.getElementById("dialogueModalSupportCopy").innerHTML = questionDescription;
 
     var answerField = document.querySelector('.profile-question__answer[data-question-id="' + questionId + '"]');
     if (answerField && answerField.innerHTML) {

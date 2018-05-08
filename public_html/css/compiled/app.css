@@ -4182,6 +4182,13 @@ input[type="button"][class*="button--"] {
   font-weight: 700;
   margin: 0; }
 
+.dialogue-modal__support-copy {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 1rem 0; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
