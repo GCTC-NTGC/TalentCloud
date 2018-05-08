@@ -1,45 +1,42 @@
 <section class="hidden" id="createJobApplicationSection">
 
-    <div class="content-container">
+    <!-- Application Progress Tracker -->
+    <?php include "partial-applicant-progress-tracker.php"; ?>
 
-        <!-- Application Progress Tracker -->
-        <?php include "partial-applicant-progress-tracker.php"; ?>
+    <section id="applcationMyInformationSection" class="application-section" data-application-section="my-information">
+        <!-- Some aesthetic rework was done here during TAL-102 -->
+        <div class="application-profile__wrapper block-container">
 
-        <section id="applcationMyInformationSection" class="application-section" data-application-section="my-information">
-            <!-- Some aesthetic rework was done here during TAL-102 -->
-            <div class="application-profile__wrapper block-container">
+            <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
 
-                <img id="createJobApplicationProfilePic" class="profilePicLarge" src="images/user.png" alt="My Profile Pic"/>
-
-                <div class="profileName">
-                    <span id="createJobApplicationName"></span>
-
-                </div>
+            <div class="profileName">
+                <span id="createJobApplicationName"></span>
 
             </div>
 
-            <div class="application-form__wrapper block-container">
+        </div>
 
-                <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="application-form__wrapper block-container">
 
-                    <div id="createJobApplicationOpenEndedQuestionsWrapper"></div>
+            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
 
-                </form>
+                <div id="createJobApplicationOpenEndedQuestionsWrapper"></div>
 
-            </div>
+            </form>
 
-            <div class="application-button__wrapper">
+        </div>
 
-                <button class="button--yellow" value="View" onclick="JobApplicationAPI.saveJobApplication(JobApplicationAPI.showNextApplicationSection());">
-                    Save and continue
-                </button>
+        <div class="application-button__wrapper">
 
-            </div>
-        </section>
+            <button class="button--yellow" value="View" onclick="JobApplicationAPI.saveJobApplication(JobApplicationAPI.showNextApplicationSection());">
+                Save and continue
+            </button>
 
-        <!-- TAL-103 ====================================================== -->
-        <?php include "partial-applicant-evidence.php"; ?>
+        </div>
+    </section>
 
-    </div>
+    <!-- TAL-103 ====================================================== -->
+    <?php include "partial-applicant-evidence.php"; ?>
+
 
 </section>
