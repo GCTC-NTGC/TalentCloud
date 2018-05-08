@@ -63,24 +63,21 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
 
     var jobSeekerObj = new JobSeekerAPI.JobSeeker();
 
-    jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
-    jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
-    jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
-    jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
-    jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
-    jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
+    if (jobSeekerJSON) {
+        jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
+        jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
+        jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
+        jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
+        jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
+        jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
 
-    var answers = [];
-    
-    var job_seeker_profile_answers = jobSeekerJSON.job_seeker_profile_answers;
-    for (var i = 0; i < job_seeker_profile_answers.length; i++) {
-        answers.push(job_seeker_profile_answers[i].value);
+        var answers = [];
+        jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
+            var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
+            answers.push(answer);
+        });
+        jobSeekerObj.answers = answers;
     }
-    /*jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
-        var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
-        answers.push(answer);
-    });*/
-    jobSeekerObj.answers = answers;
 
     Utilities.debug ? console.log(jobSeekerObj) : null;
 
@@ -120,7 +117,7 @@ JobSeekerAPI.populateJobSeekers = function () {
 
     //hide overlay
     /*var loadingJobs = document.getElementById("loadingJobs");
-     
+
      if(loadingJobs.classList.contains("visible")){
      loadingJobs.classList.remove("visible");
      loadingJobs.classList.add("hidden");
@@ -318,7 +315,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     last_updated.value = jobSeekerProfile.last_updated;
 
     var profile_tagline = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan");
-    Utilities.replaceElementText(profile_tagline, jobSeekerProfile.tagline);
+    profile_tagline.innerHTML = jobSeekerProfile.tagline;
 
     var twitter_name = document.getElementById("profileTwitterUsername");
     var twitter_link = document.getElementById("profileTwitterLink");
@@ -430,7 +427,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
 
     jobSeekerProfile.last_updated = document.getElementById("profileLastUpdated").value;
 
-    jobSeekerProfile.tagline = jobSeekerBasicInfoForm.elements.profileEditTagline.value;
+    jobSeekerProfile.tagline = document.getElementById("profileEditTagline").value;
 
     jobSeekerProfile.twitter_username = jobSeekerBasicInfoForm.elements.profileEditTwitter.value;
 
@@ -579,15 +576,23 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     AccessibilityAPI.addEscapeListener(event, "JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
     JobSeekerAPI.refreshJobSeekerProfilePic();
 
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var profileHeroTitle = document.getElementById("profileHeroTitle");
+    profileHeroTitle.classList.remove("hidden");
+    profileHeroTitle.setAttribute("aria-hidden", "false");
+
 };
 
 /**
- * 
+ *
  * @param {type} questionLookupMap - array of objects with .id, .description, .value properties
  * @return {undefined}
  */
 JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
-    //Create and populate Profile Question field elements        
+    //Create and populate Profile Question field elements
     var questionFragment = document.createDocumentFragment();
     
     
@@ -665,7 +670,7 @@ JobSeekerAPI.showEditProfileAnswerModal = function (questionId, questionName, qu
         document.getElementById("profileEditAnswer").value = "";
     }
 
-    //Unhide modal 
+    //Unhide modal
     var jobSeekerAboutMeEditOverlay = document.getElementById("profileEditAnswerOverlay");
     jobSeekerAboutMeEditOverlay.classList.remove("hidden");
 

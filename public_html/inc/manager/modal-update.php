@@ -1,4 +1,4 @@
-<!-- BEGIN - Update Overlay -->
+<?php // BEGIN - Update Overlay ?>
 <div class="yesNoModalOverlay hidden" id="updateOverlay">
     <div id="updateWindow" class="dialogue-modal yesNoModalWindow">
         <div class="updateContent">
@@ -6,4 +6,4 @@
         </div>
     </div>
 </div>
-<!-- END - Update Overlay -->
+<?php // END - Update Overlay ?>

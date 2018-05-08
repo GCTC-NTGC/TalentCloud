@@ -1,4 +1,4 @@
-<!-- BEGIN - Edit Admin Profile Form (Page 5 / Other) -->
+<?php // BEGIN - Edit Admin Profile Form (Page 5 / Other) ?>
 <div id="createEditProfile_step3" class="stepGroup_createEditProfile hidden">
 
     <div class="tabsWrapper">
@@ -28,31 +28,44 @@
 
             <div class="manager-edit-profile__required-copy-wrapper">
                 <span>* = </span>
-                <span id="createEditProfile_requiredStep2">Required</span>
+                <span id="createEditProfile_requiredStep3">Required</span>
             </div>
 
             <div class="flex-grid top manager-edit-profile__form">
 
-                <div class="box full">
+                <div class="box med-1of2">
                     <label class="form__label" for="user_manager_profile_work_experience"><span>Work Experience</span></label>
                     <textarea id="user_manager_profile_work_experience" name="user_manager_profile_work_experience" class="form__textarea textAreaInput"></textarea>
                 </div>
-                <div class="box full">
+                <div class="box med-1of2">
+                    <label class="form__label" for="user_manager_profile_work_experience_fr"><span>Work Experience_fr</span></label>
+                    <textarea id="user_manager_profile_work_experience_fr" name="user_manager_profile_work_experience_fr" class="form__textarea textAreaInput"></textarea>
+                </div>
+
+                <div class="box med-1of2">
                     <label class="form__label" for="user_manager_profile_education"><span>Education</span></label>
                     <textarea id="user_manager_profile_education" name="user_manager_profile_education" class="form__textarea textAreaInput"></textarea>
+                </div>
+                <div class="box med-1of2">
+                    <label class="form__label" for="user_manager_profile_education_fr"><span>Education_fr</span></label>
+                    <textarea id="user_manager_profile_education_fr" name="user_manager_profile_education_fr" class="form__textarea textAreaInput"></textarea>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid top">
-            <div class="formGroup box full">
-                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateStep3();" class="button--yellow">
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="otherCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+            </div>
+            <div class="formGroup box med-1of2">
+                <input id="otherBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');" class="button--grey">
+                <input id="createEditProfileSubmitButton" type="button" value="Submit" onclick="CreateEditProfileAPI.validateOther();" class="button--yellow">
             </div>
         </div>
-        
+
     </div>
 
 </div>
-<!-- END - Edit Admin Profile Form (Page 5 / Other) -->
+<?php // END - Edit Admin Profile Form (Page 5 / Other) ?>

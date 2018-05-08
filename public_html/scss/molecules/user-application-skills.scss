@@ -139,8 +139,17 @@
 
     }
 
+    .form__select-wrapper {
+        border: 1px solid $palette-grey--dark;
+    }
+
+    .form__select {
+        background: $white;
+    }
+
     .form__textarea {
         background: $white;
+        border: 1px solid $palette-grey--dark;
         min-height: 12.4rem;
     }
 

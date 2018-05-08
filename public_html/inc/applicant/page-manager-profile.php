@@ -1,8 +1,8 @@
-<!-- BEGIN - Manager Profile Section -->
+<?php // BEGIN - Manager Profile Section ?>
 <section class="pageContent hidden" id="managerProfileSection">
-    <div class="pageBanner">
+    <!-- <div class="pageBanner">
         <div class="profileBannerFiller"></div>
-    </div>
+    </div> -->
     <div class="pageBody">
         <div class="container">
             <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
@@ -84,7 +84,12 @@
                 </div>
                 <p id='managerProfileExperience'>This is my work history.</p>
             </div>
+            <div class="profileSubSection centered">
+                <button id="jobPosterBackButton" class="btn btn-default" value="Back" onclick="EventsAPI.goBack();">
+                    Back to Job Poster
+                </button>
+            </div>
         </div>
     </div>
 </section>
-<!-- END - Manager Profile Section -->
+<?php // END - Manager Profile Section ?>

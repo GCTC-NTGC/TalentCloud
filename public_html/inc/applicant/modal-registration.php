@@ -116,4 +116,4 @@
     </div>
     
 </div>
-<!-- END - Registration Dialog and Overlay-->
+<?php // END - Registration Dialog and Overlay ?>

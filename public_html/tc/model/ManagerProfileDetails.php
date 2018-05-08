@@ -1,19 +1,20 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 class ManagerProfileDetails implements JsonSerializable{
-    
+
     private $user_manager_profile_details_id;
     private $locale_id;
     private $user_manager_profile_details_aboutme;
     private $user_manager_profile_details_proud;
     private $user_manager_profile_details_branch;
     private $user_manager_profile_details_division;
+    private $user_manager_profile_details_position;
     private $user_manager_profile_details_lead_style;
     private $user_manager_profile_details_emp_learn;
     private $user_manager_profile_details_expectations;
@@ -25,16 +26,17 @@ class ManagerProfileDetails implements JsonSerializable{
     private $user_manager_profile_lvwRequests;
     private $user_manager_profile_work_experience;
     private $user_manager_profile_education;
-    
+
     public function __construct(
             $user_manager_profile_details_id = null,
-            $locale_id = null, 
-            $user_manager_profile_details_aboutme = null, 
+            $locale_id = null,
+            $user_manager_profile_details_aboutme = null,
             $user_manager_profile_details_proud = null,
             $user_manager_profile_details_branch = null,
             $user_manager_profile_details_division = null,
-            $user_manager_profile_details_lead_style = null, 
-            $user_manager_profile_details_emp_learn = null, 
+            $user_manager_profile_details_position = null,
+            $user_manager_profile_details_lead_style = null,
+            $user_manager_profile_details_emp_learn = null,
             $user_manager_profile_details_expectations = null,
             $user_manager_profile_id = null,
             $user_manager_profile_review_options = null,
@@ -51,6 +53,7 @@ class ManagerProfileDetails implements JsonSerializable{
         $this->user_manager_profile_details_proud = $user_manager_profile_details_proud;
         $this->user_manager_profile_details_branch = $user_manager_profile_details_branch;
         $this->user_manager_profile_details_division = $user_manager_profile_details_division;
+        $this->user_manager_profile_details_position = $user_manager_profile_details_position;
         $this->user_manager_profile_details_lead_style = $user_manager_profile_details_lead_style;
         $this->user_manager_profile_details_emp_learn = $user_manager_profile_details_emp_learn;
         $this->user_manager_profile_details_expectations = $user_manager_profile_details_expectations;
@@ -74,7 +77,7 @@ class ManagerProfileDetails implements JsonSerializable{
         }
         return $gettable_attributes;
     }
-    
+
     public function getUser_manager_profile_details_id() {
         return $this->user_manager_profile_details_id;
     }
@@ -97,6 +100,10 @@ class ManagerProfileDetails implements JsonSerializable{
 
     public function getUser_manager_profile_details_division() {
         return $this->user_manager_profile_details_division;
+    }
+
+    public function getUser_manager_profile_details_position() {
+        return $this->user_manager_profile_details_position;
     }
 
     public function getUser_manager_profile_details_lead_style() {
@@ -170,6 +177,11 @@ class ManagerProfileDetails implements JsonSerializable{
 
     public function setUser_manager_profile_details_division($user_manager_profile_details_division) {
         $this->user_manager_profile_details_division = $user_manager_profile_details_division;
+        return $this;
+    }
+
+    public function setUser_manager_profile_details_position($user_manager_profile_details_position) {
+        $this->user_manager_profile_details_position = $user_manager_profile_details_position;
         return $this;
     }
 

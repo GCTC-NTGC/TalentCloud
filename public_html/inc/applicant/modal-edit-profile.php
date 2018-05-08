@@ -1,4 +1,4 @@
-<!-- BEGIN - Profile Basic Info Edit Overlay-->
+<?php // BEGIN - Profile Basic Info Edit Overlay?>
 <div id="profileBasicInfoEditOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle" aria-describedby="profileBasicInfoFormDescription">
 
     <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
@@ -12,11 +12,11 @@
 
             <div class="dialogWindowInterior">
 
-                <!-- Modal Flex Grid ======================================= -->
+                <?php // Modal Flex Grid ======================================= ?>
 
                 <div class="dialogue-modal__grid update-profile__grid flex-grid middle">
 
-                    <!-- Profile Upload Section (TAL-36) =================== -->
+                    <?php // Profile Upload Section (TAL-36) =================== ?>
 
                     <div class="box lg-2of5">
 
@@ -24,22 +24,21 @@
 
                     </div>
 
-                    <!-- Profile Information Form ========================== -->
+                    <?php // Profile Information Form ========================== ?>
 
                     <div class="box lg-3of5">
 
                         <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded" class="update-profile__applicant-profile-form flex-grid top">
 
-                            <div class="form-group leftPane">
+                            <div class="box full">
                                 <label for="profileEditFirstName">
                                     <span>Name:</span>
                                 </label>
-                                <div>
-                                    <input class="form-control full-width" type="text" name="profileEditName" id="profileEditName" readonly=""/>
-                                    <a href="https://account.gccollab.ca/profile/" target="_blank">Edit My OpenId Profile</a>
-                                </div>
+                                <input class="form-control full-width" type="text" name="profileEditName" id="profileEditName" readonly=""/>
+                                <a href="https://account.gccollab.ca/profile/" target="_blank">Edit My OpenId Profile</a>
                             </div>
-                            <div class="form-group clear">
+
+                            <div class="box full">
                                 <label for="profileEditTagline">
                                     <span>Tagline:</span>
                                 </label>

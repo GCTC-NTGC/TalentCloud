@@ -11,7 +11,7 @@
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
-    
+
     require_once '../controller/TeamCultureController.php';
     require_once '../controller/UserController.php';
     require_once '../model/TeamCultureNonLocalized.php';
@@ -32,7 +32,7 @@
         case 'GET':
             if(strlen($requestParams) > 1){
                 $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
-                
+
                 $result = TeamCultureController::getTeamCultureNonLocalizedByManagerProfileId($managerProfileId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -43,24 +43,24 @@
             }
             break;
         case 'POST':
-            
+
             break;
         case 'DELETE':
-            //Here Handle DELETE Request 
+            //Here Handle DELETE Request
             break;
-        case 'PUT':            
+        case 'PUT':
             if(isset($_SERVER["HTTP_AUTHORIZATION"])){
                 $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
-            
+
                 if(strlen($requestParams) > 1){
-                    
+
                     $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
 
                     if(strlen($managerProfileId) > 0){
 
                         $user = UserController::getUserByManagerProfileId($managerProfileId);
 
-                        if(JWTUtils::validateJWT($jwt, $user)){  
+                        if(JWTUtils::validateJWT($jwt, $user)){
                             $json = json_decode(file_get_contents('php://input'), TRUE);
 
                             $teamCulture = new TeamCultureNonLocalized();
@@ -68,11 +68,17 @@
                             $teamCulture->setGc_directory_url($json['gc_directory_url']);
                             $teamCulture->setNarrative_text_en($json['narrative_text_en']);
                             $teamCulture->setNarrative_text_fr($json['narrative_text_fr']);
-                           
+                            $teamCulture->setOperating_context_en($json['operating_context_en']);
+                            $teamCulture->setOperating_context_fr($json['operating_context_fr']);
+                            $teamCulture->setWhat_we_value_en($json['what_we_value_en']);
+                            $teamCulture->setWhat_we_value_fr($json['what_we_value_fr']);
+                            $teamCulture->setHow_we_work_en($json['how_we_work_en']);
+                            $teamCulture->setHow_we_work_fr($json['how_we_work_fr']);
+
                             $result = TeamCultureController::setTeamCultureByManagerProfileId($teamCulture, $managerProfileId);
                             $resultJson = json_encode($result, JSON_PRETTY_PRINT);
-                            echo($resultJson);                
-                            
+                            echo($resultJson);
+
                         }else{
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);

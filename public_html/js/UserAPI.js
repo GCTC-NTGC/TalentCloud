@@ -328,13 +328,13 @@ UserAPI.loaded = function (response,isAdmin) {
         
         if (sessionUser.user_id !== "") {
 
-            var loggedIn = document.getElementById("loggedIn");
+            var loggedIn = document.getElementById("navigationLogoutLinkWrapper");
             loggedIn.classList.remove("hidden");
 
-            var loggedOut = document.getElementById("loggedOut");
+            var loggedOut = document.getElementById("navigationLoginLinkWrapper");
             loggedOut.classList.add("hidden");
 
-            var registerLink = document.getElementById("register");
+            var registerLink = document.getElementById("navigationRegisterLinkWrapper");
             registerLink.classList.add("hidden");
 
             EventsAPI.hideBodyOverflow(false);
@@ -344,32 +344,38 @@ UserAPI.loaded = function (response,isAdmin) {
                 DataAPI.getJobSeekerProfileByUserId(sessionUser.user_id, JobSeekerAPI.populateJobSeekerProfile);
                 JobSeekerAPI.refreshJobSeekerProfilePic();
 
-                var dashBoardLink = document.getElementById("dashBoardLink");
+                var dashBoardLink = document.getElementById("navigationDashboardLinkWrapper");
 
                 if (dashBoardLink !== null) {
-                    var dashBoardLinkListItem = document.getElementById("dashBoardLinkListItem");
+                    var dashBoardLinkListItem = document.getElementById("navigationDashboardLinkWrapper");
                     dashBoardLink.classList.remove("hidden");
                     dashBoardLinkListItem.setAttribute("aria-hidden", "false");
                 }
             }
 
-            var myProfileLink = document.getElementById("profileLink");
+            var myProfileLink = document.getElementById("navigationProfileLinkWrapper");
 
             if (myProfileLink !== null) {
-                var profileLinkListItem = document.getElementById("profileLinkListItem");
+                var profileLinkListItem = document.getElementById("navigationProfileLinkWrapper");
                 myProfileLink.classList.remove("hidden");
                 profileLinkListItem.setAttribute("aria-hidden", "false");
-                AccessibilityAPI.focusElement("profileLinkListItem");
+                AccessibilityAPI.focusElement("navigationProfileLinkWrapper");
             }
             if (sessionUser.user_role === TalentCloudAPI.roles.admin || sessionUser.user_role === TalentCloudAPI.roles.manager) {
-                var jobPostersLinkListItem = document.getElementById("jobPostersLinkListItem");
+                var jobPostersLinkListItem = document.getElementById("navigationPosterLinkWrapper");
                 if (jobPostersLinkListItem){
                     jobPostersLinkListItem.setAttribute("aria-hidden", "false");
                 }
-                var jobPostersLink = document.getElementById("jobPostersLink");
+                var jobPostersLink = document.getElementById("navigationPosterLinkWrapper");
                 if (jobPostersLink){
-                    jobPostersLink.classList.remove("hidden");
+                    var jobPostersLinkListItem = document.getElementById("navigationPosterLinkWrapper");
+                    jobPostersLinkListItem.classList.remove("hidden");
+                    jobPostersLinkListItem.setAttribute("aria-hidden", "false");
                 }
+                // var jobPostersLink = document.getElementById("jobPostersLink");
+                // if (jobPostersLink){
+                //     jobPostersLink.classList.remove("hidden");
+                // }
             }
 
             EventsAPI.hideBodyOverflow(false);

@@ -98,15 +98,44 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     var content = data.content;
 
     var thisContent = new TalentCloudAPI.Content();
+    // Navigation Links
+    thisContent.navigationLoginLink = content.navigationLoginLink;
+    thisContent.navigationLogoutLink = content.navigationLogoutLink;
+    thisContent.navigationRegisterLink = content.navigationRegisterLink;
+    thisContent.navigationHomeLink = content.navigationHomeLink;
+    thisContent.navigationProfileLink = content.navigationProfileLink;
+    thisContent.navigationBrowseLink = content.navigationBrowseLink;
+    thisContent.navigationDashboardLink = content.navigationDashboardLink;
+    thisContent.navigationPosterLink = content.navigationPosterLink;
+    // Subpage Titles
+    thisContent.browseHeroTitle = content.browseHeroTitle;
+    thisContent.dashboardHeroTitle = content.dashboardHeroTitle;
+    thisContent.profileHeroTitle = content.profileHeroTitle;
+    thisContent.applicationHeroTitle = content.applicationHeroTitle;
+    thisContent.managerProfileHeroTitle = content.managerProfileHeroTitle;
+    thisContent.posterHeroTitle = content.posterHeroTitle;
+    thisContent.faqHeroTitle = content.faqHeroTitle;
+    // Job Poster Content
+    thisContent.jobPosterSubnavLabel = content.jobPosterSubnavLabel;
+    thisContent.jobPosterSubnavItemBasics = content.jobPosterSubnavItemBasics;
+    thisContent.jobPosterSubnavItemImpact = content.jobPosterSubnavItemImpact;
+    thisContent.jobPosterSubnavItemWork = content.jobPosterSubnavItemWork;
+    thisContent.jobPosterSubnavItemCriteria = content.jobPosterSubnavItemCriteria;
+    thisContent.jobPosterSubnavItemCulture = content.jobPosterSubnavItemCulture;
+    thisContent.jobPosterSubnavItemKnow = content.jobPosterSubnavItemKnow;
+    thisContent.jobPosterSubnavItemApply = content.jobPosterSubnavItemApply;
+    thisContent.jobPosterContentTitleBasics = content.jobPosterContentTitleBasics;
+    thisContent.jobPosterContentTitleImpact = content.jobPosterContentTitleImpact;
+    thisContent.jobPosterContentTitleWork = content.jobPosterContentTitleWork;
+    thisContent.jobPosterContentTitleCriteria = content.jobPosterContentTitleCriteria;
+    thisContent.jobPosterContentTitleCulture = content.jobPosterContentTitleCulture;
+    thisContent.jobPosterContentTitleKnow = content.jobPosterContentTitleKnow;
+    thisContent.jobPosterContentTitleApply = content.jobPosterContentTitleApply;
+    // Others
     thisContent.title = content.title;
     thisContent.helpLearn = content.helpLearn;
     thisContent.languageSelect = content.languageSelect;
-    thisContent.loginLink = content.loginLink;
-    thisContent.logoutLink = content.logoutLink;
-    thisContent.registerLink = content.registerLink;
     thisContent.applyNow = content.applyNow;
-    thisContent.homeLink = content.homeLink;
-    thisContent.profileLink = content.profileLink;
     thisContent.jobPostersLink = content.jobPostersLink;
     thisContent.teamsLink = content.teamsLink;
     thisContent.jobNumber = content.jobNumber;
@@ -160,7 +189,6 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.usually = content.usually;
     thisContent.almostAlways = content.almostAlways;
     thisContent.name = content.name;
-    thisContent.browseLink = content.browseLink;
     thisContent.gctc = content.gctc;
     thisContent.at = content.at;
     thisContent.readMore = content.readMore;
@@ -194,7 +222,6 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.announcement = content.announcement;
     thisContent.adminPortal = content.adminPortal;
     thisContent.applicantPortal = content.applicantPortal;
-    thisContent.dashBoardLink = content.dashBoardLink;
     thisContent.yourApplicationsTitle = content.yourApplicationsTitle;
     thisContent.workEnvironment = content.workEnvironment;
     thisContent.remoteLocationAllowed = content.remoteLocationAllowed;
@@ -299,6 +326,10 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.save = content.save;
     thisContent.cancel = content.cancel;
     thisContent.editYour = content.editYour;
+    thisContent.jobPosterTeamNarrativeText_label = content.jobPosterTeamNarrativeText_label;
+    thisContent.jobPosterOperatingContext_label = content.jobPosterOperatingContext_label;
+    thisContent.jobPosterWhatWeValue_label = content.jobPosterWhatWeValue_label;
+    thisContent.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
@@ -773,6 +804,11 @@ DataAPI.createJobApplication = function(jobApplication, requestCallback) {
 };
 
 
+DataAPI.saveJobApplicationByJobAndUser = function(jobApplication, jobPosterId, userId, requestCallback) {
+    var url = [DataAPI.baseURL, "putApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(jobApplication), requestCallback);
+};
+
 DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
     var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
@@ -809,14 +845,44 @@ DataAPI.getSkillDeclarationsForApplication = function(applicationId, requestCall
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 
-DataAPI.saveSkillDeclaration = function(skillDeclaration, isEssential, criteriaId, applicationId, requestCallback) {
-    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
-    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+DataAPI.saveSkillDeclaration = function(skillDeclaration, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putDeclarationForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillDeclaration), requestCallback);
 };
 
-DataAPI.deleteSkillDeclaration = function(isEssential, criteriaId, applicationId, requestCallback) {
-    var criteriaPath = isEssential ? "forEssentialCriteria" : "forAssetCriteria"
-    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/" + criteriaPath + "/" + criteriaId;
+DataAPI.deleteSkillDeclaration = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteDeclarationForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
+
+DataAPI.getMicroReferencesForApplication = function(applicationId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getAllMicroReferencesForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveMicroReference = function(microReference, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putMicroReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(microReference), requestCallback);
+};
+
+DataAPI.deleteMicroReference = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteMicroReferenceForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
+};
+
+DataAPI.getSkillSamplesForApplication = function(applicationId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getAllWorkSamplesForApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.saveSkillSample = function(skillSample, criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/putWorkSampleForApplication/" + applicationId + "/forCriteria/" + criteriaId;
+    DataAPI.sendRequest(url, 'PUT', {}, JSON.stringify(skillSample), requestCallback);
+};
+
+DataAPI.deleteSkillSample = function(criteriaId, applicationId, requestCallback) {
+    var url = DataAPI.baseURL + "/deleteWorkSampleForApplication/" + applicationId + "/forCriteria/" + criteriaId;
     DataAPI.sendRequest(url, 'DELETE', {}, null, requestCallback);
 };

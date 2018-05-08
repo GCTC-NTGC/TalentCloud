@@ -1,4 +1,4 @@
-<!-- BEGIN - Login Modal Dialog and Overlay -->
+<?php // BEGIN - Login Modal Dialog and Overlay ?>
 <div id="loginOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="loginFormTitle" aria-describedby="loginFormDescription">
     <div id="loginFormWrapperWindow" class="dialogue-modal dialogHalfWidthWrapperWindow">
         <div id="loginFormTitleWrapper" class="dialogTitle">
@@ -50,4 +50,4 @@
         </div>
     </div>
 </div>
-<!-- END - Login Modal Dialog and Overlay -->
+<?php // END - Login Modal Dialog and Overlay ?>

@@ -1,4 +1,4 @@
-<!-- BEGIN - Edit Admin Profile Form (Page 1 / About Me) -->
+<?php // BEGIN - Edit Admin Profile Form (Page 1 / About Me) ?>
 <div id="createEditProfile_step1" class="stepGroup_createEditProfile">
 
     <div class="tabsWrapper">
@@ -99,7 +99,7 @@
                     </strong>
                 </label>
                 <div class="form__select-wrapper">
-                    <!--<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>-->
+                    <?php //<input type="text" class="form-control full-width" name="createEditProfile_department" id="createEditProfile_department"/>?>
                     <select class="form__select" name="createEditProfile_department" id="createEditProfile_department">
                         <option value="">--</option>
                     </select>
@@ -168,13 +168,16 @@
 
         </div>
 
-        <div class="createEditProfileSubmitPane flex-grid top manager-edit-profile__button-form">
-            <div class="box full">
-                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateStep3();">
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="aboutMeCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+            </div>
+            <div class="formGroup box med-1of2">
+                <input class="button--yellow" id="aboutMeSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateAboutMe();">
             </div>
         </div>
 
     </div>
 
 </div>
-<!-- END - Edit Admin Profile Form (Page 1 / About Me) -->
+<?php // END - Edit Admin Profile Form (Page 1 / About Me) ?>

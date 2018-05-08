@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor .
 -->
-<?php 
+<?php
 date_default_timezone_set('America/Toronto');
 
 error_reporting(E_ALL);
@@ -40,13 +40,13 @@ if($query_string !== ""){
         if($_SESSION["accessToken"]){
             $oidc->setAccessToken($_SESSION["accessToken"]);
         }*/
-        
+
         try{
             $oidc->authenticate();
         }catch(Jumbojett\OpenIDConnectClientException $e){
             echo($e->getMessage());
         }
-        
+
         //set session variables for openid info
         if (isset($oidc)) {
             if ($oidc->getAccessToken() !== "NULL") {
@@ -69,62 +69,59 @@ if($query_string !== ""){
 <html lang="en">
     <head>
         <title>GC Talent Cloud</title>
-        <!-- Includes for metadata / scripts -->
+        <?php // Include for metadata / scripts
+                include '../inc/common/head.php';
+                include '../inc/manager/head-admin.php'; ?>
+
+    <script type="text/javascript">
         <?php
-        include '../inc/common/head.php';
-        include '../inc/manager/head-admin.php';
-        ?>
-    </head>
-    <body>
-        <script type="text/javascript">
-            <?php
-            if (isset($oidc)) {
-                if($_SESSION["accessToken"] !== null){
-                    echo("var accessToken = '".$_SESSION["accessToken"]."';");
-                    echo("UserAPI.storeOpenIDAccessToken(accessToken);");
-                }
+        if (isset($oidc)) {
+            if($_SESSION["accessToken"] !== null){
+                echo("var accessToken = '".$_SESSION["accessToken"]."';");
+                echo("UserAPI.storeOpenIDAccessToken(accessToken);");
+            }
 
-                if($_SESSION["idToken"] !== null){
-                    echo("var idToken = '".$_SESSION["idToken"]."';");
-                    echo("UserAPI.storeOpenIDToken(idToken);");
-                }
-    
-                if($_SESSION["refreshToken"] !== null){
-                    echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
-                    echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
-                }
+            if($_SESSION["idToken"] !== null){
+                echo("var idToken = '".$_SESSION["idToken"]."';");
+                echo("UserAPI.storeOpenIDToken(idToken);");
+            }
 
-                if($_SESSION["expires_in"] !== null){
-                    echo("var expires_in = '".$_SESSION["expires_in"]."';");
-                    echo("UserAPI.storeOpenIDExpiry(expires_in);");
-                }
+            if($_SESSION["refreshToken"] !== null){
+                echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
+                echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
+            }
 
-                if($_SESSION["expires_at"] !== null){
-                    echo("var expires_at = '".$_SESSION["expires_at"]."';");
-                    echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
-                }
+            if($_SESSION["expires_in"] !== null){
+                echo("var expires_in = '".$_SESSION["expires_in"]."';");
+                echo("UserAPI.storeOpenIDExpiry(expires_in);");
+            }
 
-                $userInfo = $oidc->requestUserInfo();
+            if($_SESSION["expires_at"] !== null){
+                echo("var expires_at = '".$_SESSION["expires_at"]."';");
+                echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
+            }
 
-                if($userInfo !== null){
-                    echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
-                    echo("UserAPI.login(true);");
-                }
-            }else{
+            $userInfo = $oidc->requestUserInfo();
+
+            if($userInfo !== null){
+                echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
                 echo("UserAPI.login(true);");
             }
-            ?>
+            }else{
+                echo("UserAPI.login(false);");
+            }
+        //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
+        ?>
 
-            //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
         </script>
-        <!-- Include for Federal Identity Program (black banner) -->
+        <?php // Include for Federal Identity Program (black banner) ?>
         <?php include '../inc/manager/header-fip.php'; ?>
-        <!-- Include for main navigation -->
-        <?php include '../inc/manager/header-nav.php'; ?>
+        <?php // Include for main navigation ?>
+        <?php include '../inc/common/header-nav.php'; ?>
 
-        <!-- BEGIN - Overlays (all should be children of this div) -->
+        <?php // BEGIN - Overlays (all should be children of this div) ?>
         <div id="overlays">
-            <!-- BEGIN - Includes for modal dialogs -->
+            <?php // BEGIN - Includes for modal dialogs ?>
             <?php
             include '../inc/manager/modal-registration.php';
             include '../inc/manager/modal-login.php';
@@ -132,28 +129,24 @@ if($query_string !== ""){
             include '../inc/manager/modal-yes-no.php';
             include '../inc/manager/modal-update.php';
             ?>
-            <!-- END - Modal dialogs -->
+            <?php //  END - Modal dialogs ?>
         </div>
-        <!-- END - Overlays -->
+        <?php //  END - Overlays ?>
 
-        <!-- BEGIN - Page Content-->
+        <?php //  BEGIN - Page Content?>
         <main>
-            <!-- BEGIN - Includes for pages -->
+            <?php //  BEGIN - Includes for pages ?>
             <?php
             include "../inc/manager/page-home-content.php";
             include "../inc/manager/page-job-seeker.php";
             include "../inc/manager/page-create-job-poster.php";
-            include "../inc/manager/page-profile-about-me.php";
-            include "../inc/manager/page-profile-leadership-style.php";
-            include "../inc/manager/page-profile-work-environment.php";
-            include "../inc/manager/page-profile-team-culture.php";
-            include "../inc/manager/page-profile-other.php";
+            include "../inc/manager/page-profile.php";
             ?>
-            <!-- END - Includes for pages -->
+            <?php //  END - Includes for pages ?>
         </main>
-        <!-- END - Page Content -->
+        <?php //  END - Page Content ?>
 
-        <!-- Include for footer -->
+        <?php //  Include for footer ?>
         <?php include '../inc/manager/footer.php'; ?>
     </body>
 </html>
