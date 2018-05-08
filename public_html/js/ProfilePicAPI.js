@@ -263,19 +263,21 @@ ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
       xhr = null;
       // TODO: indicate to user that browser is not supported
     }
-    xhr.open('GET', pic_url);
     xhr.setRequestHeader("Accept","image/*");
     xhr.addEventListener('load', function() {
-        if (xhr.status == 200) {
-            for (var i=0; i<imageElements.length;i++) {
-                imageElements[i].src = xhr.responseURL;
-            }
-        } else {
-            for (var i=0; i<imageElements.length;i++) {
-                imageElements[i].src = ProfilePicAPI.defaultProfilePic;
+        if(xhr.readyState === 4){
+            if (xhr.status === 200) {
+                for (var i=0; i<imageElements.length;i++) {
+                    imageElements[i].src = xhr.responseURL;
+                }
+            } else {
+                for (var i=0; i<imageElements.length;i++) {
+                    imageElements[i].src = ProfilePicAPI.defaultProfilePic;
+                }
             }
         }
     });
+    xhr.open('GET', pic_url);
     xhr.send();
 };
 

@@ -177,14 +177,18 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         SkillSampleAPI.loadSavedSkillSamplesForJobApplication(jobApplication.job_poster_application.job_poster_application_id);
 
         //Set saved question answer content
-        jobApplication.application_question_answers.forEach(value => {
+        var application_question_answers = jobApplication.application_question_answers;
+        for (var i = 0; i < application_question_answers.length; i++) {
+        //questionLookupMap.forEach(question => {
+            var value = application_question_answers[i];
+            //jobApplication.application_question_answers.forEach(value => {
             //find appropriate question textarea
             var element = document.querySelector('.application-form__open-answer[data-question-id="' + value.job_poster_question_id + '"]');
             //if textarea exists, set value with saved value
             if (element) {
                 element.value = value.answer;
             }
-        })
+        }
     } else if (jobApplicationRequestResponse.status === 404) {
         //An application for this job and user doesn't exist yet, so create a new draft application
 

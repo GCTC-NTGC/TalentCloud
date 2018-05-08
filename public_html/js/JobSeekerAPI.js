@@ -344,14 +344,26 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     }
 
     //Populate answer fields
-    jobSeekerProfile.answers.forEach(answer => {
+    
+    var job_seeker_profile_answers = jobSeekerProfile.answers;
+    for (var i = 0; i < job_seeker_profile_answers.length; i++) {
+        if(job_seeker_profile_answers[i] !== undefined){
+            var questionId = job_seeker_profile_answers[i].job_seeker_profile_question_id;
+            var selector = ".profile-question__answer[data-question-id=\"" + questionId + "\"]";
+            var answerField = document.querySelector(selector);
+            if (answerField) {
+                answerField.innerHTML = job_seeker_profile_answers[i].answer;
+            }
+        }
+    }
+    /*jobSeekerProfile.answers.forEach(answer => {
         var questionId = answer.job_seeker_profile_question_id;
         var selector = ".profile-question__answer[data-question-id=\"" + questionId + "\"]";
         var answerField = document.querySelector(selector);
         if (answerField) {
             answerField.innerHTML = answer.answer;
         }
-    });
+    });*/
 
     //Populate user name
     if (UserAPI.hasSessionUser()) {
@@ -390,7 +402,7 @@ JobSeekerAPI.twitterLinkToUsername = function (twitterLink) {
 };
 
 JobSeekerAPI.twitterUsernameToLink = function (twitterUsername) {
-    if (twitterUsername.startsWith('@')) {
+    if (twitterUsername.indexOf('@') == 0) {
         return "https://twitter.com/" + twitterUsername.substring(1);
     } else {
         return twitterUsername;
@@ -424,13 +436,21 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
     //Get answer values
     var answers = [];
     var answerFields = document.querySelectorAll(".profile-question__answer");
-    answerFields.forEach(field => {
+    
+    for (var i = 0; i < answerFields.length; i++) {
+        var questionId = answerFields[i].getAttribute("data-question-id");
+        var answerText = answerFields[i].innerHTML;
+        if (questionId) {
+            answers.push(new JobSeekerAPI.JobSeekerProfileAnswer(questionId, answerText));
+        }
+    }
+    /*answerFields.forEach(field => {
         var questionId = field.getAttribute("data-question-id");
         var answerText = field.innerHTML;
         if (questionId) {
             answers.push(new JobSeekerAPI.JobSeekerProfileAnswer(questionId, answerText));
         }
-    });
+    });*/
     jobSeekerProfile.answers = answers;
 
     jobSeekerProfile.personal_link = "";
@@ -553,6 +573,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
 
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
+    AccessibilityAPI.addEscapeListener(event, "JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
     JobSeekerAPI.refreshJobSeekerProfilePic();
 
     // New Subpage Hero Scripts
@@ -573,7 +594,11 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
     //Create and populate Profile Question field elements
     var questionFragment = document.createDocumentFragment();
-    questionLookupMap.forEach(question => {
+    
+    
+    for (var i = 0; i < questionLookupMap.length; i++) {
+    //questionLookupMap.forEach(question => {
+        var question = questionLookupMap[i];
 
         var questionSection = document.createElement("div");
         questionSection.classList.add("applicant-profile__question");
@@ -613,7 +638,7 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
 
         //Add to the wrapper fragment
         questionFragment.appendChild(questionSection);
-    });
+    }
 
     var questionWrapper = document.getElementById("profileQuestionsWrapper");
     //Clear previous values to avoid doubles
