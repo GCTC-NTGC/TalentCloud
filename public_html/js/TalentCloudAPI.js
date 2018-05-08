@@ -507,7 +507,7 @@ TalentCloudAPI.pages = {
                 state: function(){
                     JobPostAPI.showBrowseJobs();
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
-                    AccessibilityAPI.focusElement("browseTitle");
+                    AccessibilityAPI.focusElement("browseHeroTitle");
                 }
             },
             Login: {

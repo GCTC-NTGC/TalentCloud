@@ -326,7 +326,7 @@ function modalSize() {
 
     }
 
-}
+};
 
 // Reruns the function each time the viewport changes size.
 Utilities.addWindowEventListener("resize", modalSize);
@@ -392,12 +392,11 @@ Utilities.setAccordionTriggers = function () {
     //lets are not ie11 compatible
     for (var i in accordionTrigger) {
         // Checks for a click.
-        Utilities.addEventListener('click', i, Utilities.accordionClickListener);
+        i.addEventListener('click', Utilities.accordionClickListener);
         // Checks for an Enter key click.
         i.addEventListener("keydown", Utilities.accordionKeyupListener);
     }
 };
-
 
 Utilities.mobileNavClickListener = function(e) {
 
