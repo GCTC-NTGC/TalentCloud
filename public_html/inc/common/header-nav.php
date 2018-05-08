@@ -207,12 +207,12 @@
 
                 <div class="block-container">
 
-                    <p class="subpage-hero__application-label" id="createJobApplicationPositionLabel">for the position of:</p>
-                    <h3 class="subpage-hero__application-job" id="createJobApplicationPostition">Job title</h3>
-                    <input type='hidden' id='createJobApplicationJobApplicationId' />
-                    <input type='hidden' id='createJobApplicationJobPosterId' />
-                    <input type='hidden' id='createJobApplicationJobSeekerId' />
-                    <input type='hidden' id='createJobApplicationJobApplicationStatusId' />
+                    <p class="subpage-hero__application-label" id="jobApplicationPositionLabel">for the position of:</p>
+                    <h3 class="subpage-hero__application-job" id="jobApplicationPostition">Job title</h3>
+                    <input type='hidden' id='jobApplicationJobApplicationId' />
+                    <input type='hidden' id='jobApplicationJobPosterId' />
+                    <input type='hidden' id='jobApplicationJobSeekerId' />
+                    <input type='hidden' id='jobApplicationJobApplicationStatusId' />
 
                 </div>
 

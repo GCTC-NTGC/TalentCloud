@@ -11,7 +11,7 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
         return;
     }
 
-    var stateInfo = {pageInfo: 'show_job_application_preview', pageTitle: 'Talent Cloud: Job Application Preview'};
+    var stateInfo = {pageInfo: 'job_application_preview', pageTitle: 'Talent Cloud: Job Application Preview'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#JobApplicationPreview/' + jobPosterId);
 
@@ -33,7 +33,8 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
     DataAPI.getJobPoster(locale, jobPosterId, function (response) {
         var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
 
-        document.getElementById('applicationPreviewHeaderPosition').innerHTML = jobPoster.title;
+        //document.getElementById('applicationPreviewHeaderPosition').innerHTML = jobPoster.title;
+        document.getElementById('jobApplicationPostition').innerHTML = jobPoster.title;
 
         //Create Evidence Panels 
         var evidenceFormWrapper = document.getElementById("applicationPreviewEvidencePanelWrapper");
@@ -57,6 +58,48 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
         document.getElementById('applicationPreviewProfileName').innerHTML = user.name;
     }
 
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var applicationHeroTitle = document.getElementById("applicationHeroTitle");
+    var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
+    applicationHeroTitle.classList.remove("hidden");
+    applicationHeroTitle.setAttribute("aria-hidden", "false");
+    applicationHeroMetadata.classList.remove("hidden");
+
+};
+
+JobApplicationPreviewAPI.localizeJobApplicationPreview = function () {
+    if (siteContent) {
+        document.getElementById("jobApplicationPositionLabel").innerHTML = siteContent.applicationPositionLabel;
+        
+        document.getElementById("applicationPreviewProfileImage").title = siteContent.applicationPreviewProfilePhotoTitle;
+        document.getElementById("applicationPreviewProfileAlert").innerHTML = siteContent.applicationPreviewProfileAlert;
+        document.getElementById("applicationPreviewEditApplicationButton").innerHTML = siteContent.editApplication;
+        document.getElementById("applicationPreviewSubmitApplicationButton").innerHTML = siteContent.submit;
+        
+        document.getElementById("applicationPreviewEssentialMenuTitle").innerHTML = siteContent.essentialCriteria;
+        document.getElementById("applicationPreviewAssetMenuTitle").innerHTML = siteContent.assetCriteria;
+        
+        function setInnerHtmlOnMatchingElements(query, content) {
+            var elements = document.querySelectorAll(query);
+            for (var i=0; i<elements.length; i++) {
+                elements[i].innerHTML = content;
+            }
+        }
+        
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__experience-title-text", siteContent.applicationPreviewDeclarationStoryTitle);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__reference-title-text", siteContent.microReference);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__reference-status-label", siteContent.status);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__reference-null", siteContent.applicationPreviewReferenceMissing);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__evidence-title-text", siteContent.skillSample);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__evidence-status-label", siteContent.status);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__evidence-copy-label", siteContent.applicationPreviewSkillSampleStoryLabel);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__evidence-link", siteContent.applicationPreviewSkillSampleLink);
+        setInnerHtmlOnMatchingElements(".applicant-evidence-preview__evidence-null", siteContent.applicationPreviewSkillSampleMissing);
+        
+    }
 };
 
 JobApplicationPreviewAPI.createEvidencePanelsOnPage = function (criteria, criteriaType, evidenceMenuId, evidenceFormWrapperId) {
@@ -88,12 +131,14 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
 
         var fullJobApplication = JSON.parse(httpRequest.response);
 
-        //Application data is stored in jobApplication object properties 
+        
         var jobPosterApplication = fullJobApplication.job_poster_application;
-        var applicationId = jobPosterApplication.job_poster_application_id;
-        var jobPosterId = jobPosterApplication.application_job_poster_id;
-        var profileId = jobPosterApplication.application_job_seeker_profile_id;
-        var applicationStatus = jobPosterApplication.job_poster_application_status_id;
+        
+        //Store metadata
+        document.getElementById("jobApplicationJobApplicationId").value = jobPosterApplication.job_poster_application_id;
+        document.getElementById("jobApplicationJobPosterId").value = jobPosterApplication.application_job_poster_id;
+        document.getElementById("jobApplicationJobSeekerId").value = jobPosterApplication.application_job_seeker_profile_id;
+        document.getElementById("jobApplicationJobApplicationStatusId").value = jobPosterApplication.job_poster_application_status_id;
 
         //answers is an array of JobApplicationAPI.ApplicationQuestionAnswer objects 
         var answers = fullJobApplication.application_question_answers;

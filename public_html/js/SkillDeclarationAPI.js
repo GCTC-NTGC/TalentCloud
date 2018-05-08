@@ -121,7 +121,7 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
     var submittedRequests = 0; //to keep track of number of PUT calls in progress
     var requestsSuccessful = true;
     
-    var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
+    var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
 
     evidencePanels.forEach(panel => {
         var newSkillDeclaration = new SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel(panel);

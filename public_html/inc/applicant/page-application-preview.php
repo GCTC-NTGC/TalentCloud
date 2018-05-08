@@ -47,20 +47,13 @@
         </div>
     </div>
 
-    <?php include "partial-applicant-evidence-preview.php"; ?>
 
-    <<<<<<< HEAD
     <div class="content-container">
-        =======
+        <?php include "partial-applicant-evidence-preview.php"; ?>
     </div>
 
-    <?php include "partial-applicant-evidence-preview.php"; ?>
-
     <div class="content-container">
-
-        <div class="application-preview__alert flex-grid middle">
-            >>>>>>> master
-
+        
             <div class="application-preview__alert flex-grid middle">
 
                 <div class="box lg-1of6">
@@ -68,14 +61,14 @@
                 </div>
 
                 <div class="box lg-5of6">
-                    <p class="application-preview__alert-copy">Remember that hiring managers can view your full profile when you submit an application. By filling out your profile you increase your chances of getting hired.</p>
+                    <p id="applicationPreviewProfileAlert" class="application-preview__alert-copy">Remember that hiring managers can view your full profile when you submit an application. By filling out your profile you increase your chances of getting hired.</p>
                 </div>
 
             </div>
 
             <div class="application-preview__button-wrapper">
-                <button class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationPreviewJobPosterId').value)">Edit Application</button>
-                <button class="button--yellow" onclick="JobApplicationAPI.saveJobApplication();">Submit</button>
+                <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationPreviewJobPosterId').value)">Edit Application</button>
+                <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.saveJobApplication();">Submit</button>
             </div>
 
         </div>

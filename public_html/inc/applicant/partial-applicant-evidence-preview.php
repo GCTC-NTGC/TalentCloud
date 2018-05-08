@@ -6,11 +6,11 @@
 
             <div role="tablist" aria-orientation="vertical" class="box lg-1of4 applicant-evidence-preview__desktop-menu">
 
-                <span class="applicant-evidence-preview__desktop-menu-title">Essential Criteria</span>
+                <span id="applicationPreviewEssentialMenuTitle" class="applicant-evidence-preview__desktop-menu-title">Essential Criteria</span>
 
                 <div id="applicationPreviewEssentialEvidenceMenuWrapper"></div>
 
-                <span class="applicant-evidence-preview__desktop-menu-title">Asset Criteria</span>
+                <span id="applicationPreviewAssetMenuTitle" class="applicant-evidence-preview__desktop-menu-title">Asset Criteria</span>
 
                 <div id="applicationPreviewAssetEvidenceMenuWrapper"></div>
 
@@ -43,7 +43,7 @@
 
                             <h5 class="applicant-evidence-preview__section-title">
                                 <i class="fa fa-check"></i>
-                                Experience &amp; Knowledge
+                                <span class="applicant-evidence-preview__experience-title-text">Experience &amp; Knowledge</span>
                             </h5>
 
                             <p class="applicant-evidence-preview__experience-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</p>
@@ -56,7 +56,7 @@
 
                             <h5 class="applicant-evidence-preview__section-title">
                                 <i class="fa fa-user"></i>
-                                Micro-reference
+                                <span classe="applicant-evidence-preview__reference-title-text">Micro-reference</span>
                             </h5>
 
                             <div class="applicant-evidence-preview__reference-content hidden">
@@ -69,7 +69,7 @@
                                 </p>
 
                                 <p class="applicant-evidence-preview__reference-status">
-                                    <strong>Status: </strong>
+                                    <strong><span class="applicant-evidence-preview__reference-status-label">Status</span>: </strong>
                                     <span><i class="fa fa-check-circle"></i> Response Received</span>
                                 </p>
 
@@ -87,7 +87,7 @@
 
                             <h5 class="applicant-evidence-preview__section-title">
                                 <i class="fa fa-file"></i>
-                                Skill Sample
+                                <span class="applicant-evidence-preview__evidence-title-text">Skill Sample</span>
                             </h5>
 
                             <div class="applicant-evidence-preview__evidence-content hidden">
@@ -98,11 +98,11 @@
                                 </p>
 
                                 <p class="applicant-evidence-preview__evidence-status">
-                                    <strong>Status: </strong>
+                                    <strong><span class="applicant-evidence-preview__evidence-status-label">Status</span>: </strong>
                                     <span><i class="fa fa-exclamation-triangle"></i> Awaiting Corroboration</span>
                                 </p>
 
-                                <p class="applicant-evidence-preview__evidence-copy"><strong>Contribution:</strong> <span class="applicant-evidence-preview__evidence-story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</span></p> 
+                                <p class="applicant-evidence-preview__evidence-copy"><strong><span class="applicant-evidence-preview__evidence-copy-label">Contribution</span>:</strong> <span class="applicant-evidence-preview__evidence-story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</span></p> 
 
                                 <a href="" title="View this evidence." target="_blank" class="applicant-evidence-preview__evidence-link button--blue">View Evidence</a>
 

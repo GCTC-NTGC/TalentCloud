@@ -180,7 +180,7 @@ MicroReferenceAPI.saveMicroReferences = function (criteriaType, onSuccess, onFai
     var submittedRequests = 0; //to keep track of number of HTTP calls in progress
     var requestsSuccessful = true;
 
-    var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
+    var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
 
     if (!applicationId) {
         Utilities.debug ? console.log("Cannot save Micro References without an Application Id") : null;
