@@ -12,6 +12,7 @@
 	background-position: center;
 	background-repeat: repeat;
 	background-size: 75px;
+	box-shadow: 0 0 25px rgba(0, 0, 0, 1);
 	padding: 6rem 0;
 	text-align: center;
 
@@ -22,7 +23,7 @@
 }
 
 .job-poster__job-title {
-	font-size: 50px;
+	font-size: 50px !important;
 	font-weight: 900;
 	line-height: 1.2;
 	margin: 0 0 1rem 0;

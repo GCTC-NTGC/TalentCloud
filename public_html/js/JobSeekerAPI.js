@@ -285,7 +285,7 @@ JobSeekerAPI.refreshJobSeekerProfilePic = function () {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
         //profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
         profile_pic_elements = [document.getElementById("myProfilePic")];
-        ProfilePicAPI.refreshMultipleProfilePics(user_id, profile_pic_elements);
+        ProfilePicAPI.refreshMultipleProfilePicsBackground(user_id, profile_pic_elements);
     }
 };
 
@@ -576,25 +576,27 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
     questionLookupMap.forEach(question => {
 
         var questionSection = document.createElement("div");
-        questionSection.classList.add("profile-question");
+        questionSection.classList.add("applicant-profile__question");
 
         var questionTitleBar = document.createElement("h2");
-        questionTitleBar.classList.add("profile-question__title-bar");
+        questionTitleBar.classList.add("applicant-profile__question-title-wrapper");
 
-        var questionTitle = document.createElement("h2");
+        var questionTitle = document.createElement("span");
         questionTitle.innerHTML = question.value;
 
         var questionEditBtn = document.createElement("a");
-        questionEditBtn.classList.add("profile-question__edit-btn");
+        questionEditBtn.classList.add("applicant-profile__edit-trigger");
         questionEditBtn.setAttribute("role", "button");
         questionEditBtn.href = "javascript:void(0)";
         questionEditBtn.onclick = function () {
             JobSeekerAPI.showEditProfileAnswerModal(question.id, question.value, question.description);
         };
 
-        var questionEditBtnImage = document.createElement("img");
-        questionEditBtnImage.src = "/images/btn_edit_dark.png";
-        questionEditBtnImage.alt = "Edit " + question.value;
+        var questionEditBtnImage = document.createElement("i");
+        questionEditBtnImage.classList.add("fa");
+        questionEditBtnImage.classList.add("fa-pencil-square");
+        // questionEditBtnImage.src = "/images/btn_edit_dark.png";
+        // questionEditBtnImage.alt = "Edit " + question.value;
 
         var questionAnswer = document.createElement("p");
         questionAnswer.classList.add("profile-question__answer");
