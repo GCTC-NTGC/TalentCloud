@@ -540,7 +540,7 @@ TalentCloudAPI.pages = {
                 state: function(){
                     JobPostAPI.showBrowseJobs();
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
-                    AccessibilityAPI.focusElement("browseTitle");
+                    AccessibilityAPI.focusElement("browseHeroTitle");
                 }
             },
             Login: {
@@ -1302,9 +1302,9 @@ TalentCloudAPI.setContent = function(content, isManager){
 };
 
 TalentCloudAPI.setNav = function(navItemToHighlightId){
-    var navItems = document.getElementsByClassName("page-hero__navigation-item active");
-    if(navItems.length > 0){
-        navItems[0].classList.remove("active");
+    var navItems = document.querySelectorAll(".page-hero__navigation-item"), i;
+    for (i = 0; i < navItems.length; ++i) {
+        navItems[i].classList.remove("active");
     }
     var navItemToHighlight = document.getElementById(navItemToHighlightId);
     navItemToHighlight.classList.add("active");

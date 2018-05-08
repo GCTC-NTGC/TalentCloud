@@ -107,3 +107,41 @@ AccessibilityAPI.enableTabIndex = function(elementId){
         ele.setAttribute("tabIndex","0");
     }
 };
+
+/**
+ * 
+ * @param {type} evt
+ * @param {type} callback
+ * @param {type} params
+ * @returns {undefined}
+ */
+AccessibilityAPI.addEscapeListener = function(evt,callback, params){
+    console.log("escaping");
+    !evt?evt=window.event:null;
+    document.onkeydown = function(evt){
+        AccessibilityAPI.escapeModal(evt,callback, params);
+    };
+};
+
+/**
+ * 
+ * @param {type} evt
+ * @param {type} callback
+ * @param {type} params
+ * @return {undefined}
+ */
+AccessibilityAPI.escapeModal = function(evt, callback, params){
+    if((evt.key==='Escape'||evt.key==='Esc'||evt.keyCode===27)){
+        eval(callback)(params);
+
+        // IE and compatible
+        evt.cancelBubble = true;
+        evt.returnValue = false;
+
+        // FF and compatible
+        if (evt.stopPropagation) {
+            evt.stopPropagation();
+            evt.preventDefault();
+        }
+    }
+};

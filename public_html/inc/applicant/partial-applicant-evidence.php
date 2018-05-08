@@ -148,7 +148,7 @@
 
                         <?php // DEV-NOTE: a template radio button item can be used to populate the experience "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
                         <div class="hidden" id="applicationEvidenceExperienceItemTemplate">
-                            <label for="" class="box small-1of7 form__radio-group-label template">
+                            <label for="" class="box small-1of5 form__radio-group-label template">
                                 <input type="radio" name="experience" class="form__radio-group-input"/>
                                 <span class="form__radio-group-span">0</span>
                             </label>
