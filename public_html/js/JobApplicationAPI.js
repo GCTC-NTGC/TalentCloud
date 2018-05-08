@@ -161,14 +161,18 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
                 JobApplicationAPI.populateApplicationWithSavedSkillDeclarations);
 
         //Set saved question answer content
-        jobApplication.application_question_answers.forEach(value => {
+        var application_question_answers = jobApplication.application_question_answers;
+        for (var i = 0; i < application_question_answers.length; i++) {
+        //questionLookupMap.forEach(question => {
+            var value = application_question_answers[i];
+            //jobApplication.application_question_answers.forEach(value => {
             //find appropriate question textarea
             var element = document.querySelector('.application-form__open-answer[data-question-id="' + value.job_poster_question_id + '"]');
             //if textarea exists, set value with saved value
             if (element) {
                 element.value = value.answer;
             }
-        })
+        }
     } else if (jobApplicationRequestResponse.status === 404) {
         //An application for this job and user doesn't exist yet, so create a new draft application
 
@@ -198,7 +202,11 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
 JobApplicationAPI.populateApplicationWithSavedSkillDeclarations = function (request) {
     if (request.response) {
         var declarations = JSON.parse(request.response);
-        declarations.forEach(declaration => {
+        
+        for (var i = 0; i < declarations.length; i++) {
+        //questionLookupMap.forEach(question => {
+            var declaration = declarations[i];
+        //declarations.forEach(declaration => {
             //find appropriate skill declaration
             var element = document.querySelector('.skills__accordion[data-criteria-id="' + declaration.criteria_id + '"][data-criteria-type="' + declaration.criteria_type + '"]');
             //if skill declaration exists, set values
@@ -216,7 +224,7 @@ JobApplicationAPI.populateApplicationWithSavedSkillDeclarations = function (requ
                 accordionTrigger.classList.remove("skills__accordion-trigger--edit");
                 accordionTrigger.classList.add("skills__accordion-trigger--complete");
             }
-        });
+        }
     }
 }
 

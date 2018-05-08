@@ -27,7 +27,6 @@ ga('send', 'pageview');
 <!-- End Google Analytics -->
 <script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
 <script src="/js/Utilities.js"></script>
-<script src="/js/TalentCloudAPI.js"></script>
 <script src="/js/ContactAPI.js"></script>
 <script src="/js/DataAPI.js"></script>
 <script src="/js/UserAPI.js"></script>
@@ -44,6 +43,7 @@ ga('send', 'pageview');
 <script src="/js/TeamCultureAPI.js"></script>
 <script src="/js/DashboardAPI.js" type="text/javascript"></script>
 <script src="/js/LookupAPI.js" type="text/javascript"></script>
+<script src="/js/TalentCloudAPI.js"></script>
 <script>
     var loadingImage = new Image();
     loadingImage.src = "/images/logo.svg";

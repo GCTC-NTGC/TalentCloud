@@ -35,6 +35,7 @@ WorkEnvironmentAPI.WorkEnvironment = function(remote_allowed, telework_allowed,
 };
 
 WorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
+    console.log(response);
     var json = JSON.parse(response);
     var workEnvironment = new WorkEnvironmentAPI.WorkEnvironment(
             json.basic_work_environment.remote_allowed,

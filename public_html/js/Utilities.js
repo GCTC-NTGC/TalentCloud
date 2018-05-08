@@ -256,9 +256,11 @@ Utilities.serialize = function (obj, prefix) {
 };
 
 Utilities.replaceElementText = function (element, newText) {
-    while (element.firstChild)
-        element.removeChild(element.firstChild);
-    element.appendChild(document.createTextNode(newText));
+    if(element){
+        while (element.firstChild)
+            element.removeChild(element.firstChild);
+        element.appendChild(document.createTextNode(newText));
+    }
 };
 
 Utilities.removeChildNodes = function (element) {
@@ -287,16 +289,18 @@ function modalSize() {
     // Gets an array of all modals on the page.
     var dialogueModal = document.querySelectorAll(".dialogue-modal");
     // Loops through all the modals.
-    for (let i of dialogueModal) {
+    //lets are not ie11 compatible
+    for (var i = 0; i < dialogueModal.length; i++) {
         // Gets the individual modal's content's height.
-        var modalHeight = i.offsetHeight;
+        var modalHeight = dialogueModal[i].offsetHeight;
         // Compares the content's height to the height of the viewport. If the modal is taller than the viewport, it is assigned a class forcing it to be scrollable.
+        console.log(dialogueModal[i]);
         if (modalHeight > viewportHeight) {
-            i.classList.remove("dialogue-modal--viewport");
-            i.classList.add("dialogue-modal--overflow");
+            dialogueModal[i].classList.remove("dialogue-modal--viewport");
+            dialogueModal[i].classList.add("dialogue-modal--overflow");
         } else {
-            i.classList.remove("dialogue-modal--overflow");
-            i.classList.add("dialogue-modal--viewport");
+            dialogueModal[i].classList.remove("dialogue-modal--overflow");
+            dialogueModal[i].classList.add("dialogue-modal--viewport");
         }
 
         // Cycles targetable elements in the modal.
@@ -331,21 +335,23 @@ window.onresize = modalSize;
 
 // Sitewide Accordion Triggers ================================================
 Utilities.accordionClickListener = function (e) {
-    var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
+    var accordionTriggers = document.querySelectorAll("[class*='accordion-trigger']");
     // Cancels the default action.
     e.preventDefault();
     // Checks to see if the accordion is open.
     if (this.classList.contains("active")) {
         // Closes all accordions.
-        for (let x of accordionTrigger) {
-            x.classList.remove("active")
-            x.nextElementSibling.classList.remove("active");
+        //lets are not ie11 compatible
+        for (var x = 0; x < accordionTriggers.length; x++) {
+            accordionTriggers[x].classList.remove("active");
+            accordionTriggers[x].nextElementSibling.classList.remove("active");
         }
     } else {
         // Closes all accordions.
-        for (let x of accordionTrigger) {
-            x.classList.remove("active")
-            x.nextElementSibling.classList.remove("active");
+        //lets are not ie11 compatible
+        for (var x = 0; x < accordionTriggers.length; x++) {
+            accordionTriggers[x].classList.remove("active");
+            accordionTriggers[x].nextElementSibling.classList.remove("active");
         }
         // Opens this accordion.
         this.classList.add("active");
@@ -361,20 +367,29 @@ Utilities.accordionKeyupListener = function (e) {
         // Triggers a click, thus activating the click event listener.
         this.click();
     }
-}
+};
 
 Utilities.setAccordionTriggers = function () {
     // Gets all elements on the page with "accordion-trigger".
     var accordionTrigger = document.querySelectorAll("[class*='accordion-trigger']");
     // Loops through all elements.
-    for (let i of accordionTrigger) {
+    //lets are not ie11 compatible
+    for (var i in accordionTrigger) {
         // Checks for a click.
-        i.addEventListener('click', Utilities.accordionClickListener);
+        Utilities.addEventListener('click', i, Utilities.accordionClickListener);
         // Checks for an Enter key click.
-        i.addEventListener("keyup", Utilities.accordionKeyupListener);
+        Utilities.addEventListener("keyup", i, Utilities.accordionKeyupListener);
     }
 };
 
 window.onload = function (e) {
     Utilities.setAccordionTriggers();
+};
+
+Utilities.addEventListener = function(eventName, element, callback){
+    if (element.addEventListener){
+        element.addEventListener(eventName, callback, false); 
+    } else if (element.attachEvent){
+        element.attachEvent(eventName, callback);
+    }
 };

@@ -89,6 +89,8 @@ class JobPosterDAO extends BaseDAO {
             AND scd.security_clearance_id = jp.job_poster_clearance_id
             AND lrd.language_requirement_details_locale_id = l.locale_id
             AND lrd.language_requirement_id = jp.job_poster_language_id
+            AND DATE(jp.job_poster_open_date_time) < DATE(NOW())
+            AND DATE(jp.job_poster_close_date_time) > DATE(NOW())
             ";
 
         $sql = $link->prepare($sqlStr);

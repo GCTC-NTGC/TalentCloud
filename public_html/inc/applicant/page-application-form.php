@@ -40,7 +40,6 @@
 
             <!-- Repeatable Skill Accordion -->
 
-            <!-- DEV-NOTE: This accordion can be used over and over for each skill. The two included in the HTML below here are simply there for reference. One class will have to be altered depending on the state of the user's interaction with the skill. This occurs on the "skills__accordion-trigger". There are 3 modifiers that can be applied to change their icon state: "skills__accordion-trigger--todo", "skills__accordion-trigger--edit", and "skills__accordion-trigger--complete". These will need to be applied based on the state of the content entry. All accordions should begin with the "--todo" modifier. -->
             <div id="skills__accordion-template" class="skills__accordion hidden">                    
                 <div class="skills__accordion-trigger--todo flex-grid middle" role="button" tabindex="0">
                     <div class="box small-1of2">

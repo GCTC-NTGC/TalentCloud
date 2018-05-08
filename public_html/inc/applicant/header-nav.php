@@ -13,9 +13,6 @@
                             <a href="/" id="homeLink">Home</a>
                         </div>
                     </li>
-                    <!--li class="top-nav--link">
-                        <a href="/about">FAQ</a>
-                    </li>-->
                     <li class="top-nav--link" id="browseLinkListItem">
                         <div id="browse">
                             <a href="#BrowseJobs" id="browseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('browseLinkListItem');">Browse Jobs</a>
