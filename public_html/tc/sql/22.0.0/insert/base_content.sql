@@ -30,6 +30,6 @@ VALUES
 (1,'applicationPreviewSkillSampleStoryLabel','(TRANSLATION NEEDED) Contribution',2),
 (1,'applicationPreviewSkillSampleLink','View Evidence',1),
 (1,'applicationPreviewSkillSampleLink','(TRANSLATION NEEDED)View Evidence',2),
-(1,'applicationPreviewSkillSampleMissing','View Evidence',1),
-(1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED)View Evidence',2)
+(1,'applicationPreviewSkillSampleMissing','No skill sample provided.',1),
+(1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED) No skill sample provided.',2)
 ;
