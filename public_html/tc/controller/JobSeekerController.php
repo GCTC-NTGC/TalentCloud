@@ -27,7 +27,12 @@ class  JobSeekerController {
      * @return Page object
      */
     public static function getJobSeekerById($job_seeker_profile_id) {
-        
+        $jobSeekerProfile = JobSeekerDAO::getJobSeekerProfileById($job_seeker_profile_id);
+        if ($jobSeekerProfile) {
+            $answers = JobSeekerDAO::getJobSeekerProfileAnswers($job_seeker_profile_id);
+            $jobSeekerProfile->setJob_seeker_profile_answers($answers);
+        }
+        return $jobSeekerProfile;
     }
     
     /**

@@ -26,9 +26,8 @@ SkillSampleAPI.SkillSample = function (
     };
 };
 
-SkillSampleAPI.parseApplicationSkillSampleResponse = function(response) {
+SkillSampleAPI.parseApplicationSkillSampleResponse = function(responseJson) {
     var samples = [];
-    var responseJson = JSON.parse(response);
     responseJson.forEach(applicationItem => {
         var item = applicationItem.work_sample;
         
@@ -50,7 +49,7 @@ SkillSampleAPI.loadSavedSkillSamplesForJobApplication = function (jobApplication
     DataAPI.getSkillSamplesForApplication(jobApplicationId, function (request) {
         //Check that request returned a valid response
         if (request.status === 200 && request.response) {
-            var samples = SkillSampleAPI.parseApplicationSkillSampleResponse(request.response);
+            var samples = SkillSampleAPI.parseApplicationSkillSampleResponse(JSON.parse(request.response));
             SkillSampleAPI.populateApplicationUiSkillSamples(samples);
         }
     });
@@ -90,6 +89,46 @@ SkillSampleAPI.populateApplicationUiSkillSamples = function (samples) {
     });
 };
 
+SkillSampleAPI.populateApplicationPreviewUiSkillSamples = function (samples) {
+    samples.forEach(ref => {
+
+        //find appropriate Evidence Panel
+        var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + ref.criteria_id + '"]');
+        //if panel exists, set saved values
+        if (panel) {
+            var name = panel.querySelector('.applicant-evidence-preview__evidence-name');
+            if (name) {
+                name.innerHTML = ref.name;
+            }
+            /*
+            var type = panel.querySelector('select[name=\"sample_type\"]');
+            if (type) {
+                type.innerHTML = ref.type;
+            }
+            */
+            var date_created = panel.querySelector('.applicant-evidence-preview__evidence-date');
+            if (date_created) {
+                date_created.innerHTML = ref.date_created;
+            }
+            var http_link = panel.querySelector('.applicant-evidence-preview__evidence-link');
+            if (http_link) {
+                http_link.href = ref.http_link;
+            }
+            var story = panel.querySelector('.applicant-evidence-preview__evidence-story');
+            if (story) {
+                story.innerHTML = ref.story;
+            }
+
+            //Hide null-response, and show data
+            var refContent = panel.querySelector('.applicant-evidence-preview__evidence-content');
+            refContent.classList.remove("hidden");
+            var nullResponse = panel.querySelector('.applicant-evidence-preview__evidence-null');
+            nullResponse.classList.add("hidden");
+        }
+    });
+};
+
+
 
 /**
  * Saves all completed samples for criteria of given type,
@@ -117,7 +156,7 @@ SkillSampleAPI.saveSkillSamples = function (criteriaType, onSuccess, onFailure) 
     var submittedRequests = 0; //to keep track of number of HTTP calls in progress
     var requestsSuccessful = true;
 
-    var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
+    var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
 
     if (!applicationId) {
         Utilities.debug ? console.log("Cannot save Skill Samples without an Application Id") : null;

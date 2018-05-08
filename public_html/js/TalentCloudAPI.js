@@ -42,6 +42,23 @@ TalentCloudAPI.Content = function(
     jobPosterContentTitleCulture,
     jobPosterContentTitleKnow,
     jobPosterContentTitleApply,
+    // Job Application
+    essentialCriteria,
+    assetCriteria,
+    microReference,
+    skillSample,
+    applicationPositionLabel,
+    // Application Preview
+    editApplication,
+    editApplication,
+    applicationPreviewProfilePhotoTitle,
+    applicationPreviewProfileAlert,
+    applicationPreviewDeclarationStoryTitle,
+    applicationPreviewMicroReferenceTitle,
+    applicationPreviewReferenceMissing,
+    applicationPreviewSkillSampleStoryLabel,
+    applicationPreviewSkillSampleLink,
+    applicationPreviewSkillSampleMissing,
     // Others
     title,
     helpLearn,
@@ -220,10 +237,6 @@ TalentCloudAPI.Content = function(
     updateProfileChooseAltPhotoButtonLabelSpan,
     updateProfileChooseAltPhotoButton,
     updateProfilePhotoCancelButton,
-    updateProfileApplicantProfileFormFirstNameLabelSpan,
-    profileEditFirstName,
-    updateProfileApplicantProfileFormLastNameLabelSpan,
-    profileEditLastName,
     updateProfileApplicantProfileFormTaglineLabelSpan,
     profileEditTagline,
     updateProfileApplicantProfileFormTwitterLabelSpan,
@@ -256,7 +269,9 @@ TalentCloudAPI.Content = function(
     jobPosterWhatWeValue_label,
     jobPosterHowWeWork_label,
     updateProfileApplicantProfileFormNameLabelSpan,
-    profileEditName) {
+    profileEditName,
+    years,
+    status) {
         // Navigation Links
         this.navigationLoginLink = navigationLoginLink;
         this.navigationLogoutLink = navigationLogoutLink;
@@ -290,6 +305,22 @@ TalentCloudAPI.Content = function(
         this.jobPosterContentTitleCulture = jobPosterContentTitleCulture;
         this.jobPosterContentTitleKnow = jobPosterContentTitleKnow;
         this.jobPosterContentTitleApply = jobPosterContentTitleApply;
+        // Job Application
+        this.essentialCriteria = essentialCriteria;
+        this.assetCriteria = assetCriteria;
+        this.microReference = microReference;
+        this.skillSample = skillSample;
+        this.applicationPositionLabel = applicationPositionLabel;
+        // Application Preview
+        this.editApplication = editApplication;
+        this.applicationPreviewProfilePhotoTitle = applicationPreviewProfilePhotoTitle;
+        this.applicationPreviewProfileAlert = applicationPreviewProfileAlert;
+        this.applicationPreviewDeclarationStoryTitle = applicationPreviewDeclarationStoryTitle;
+        this.applicationPreviewMicroReferenceTitle = applicationPreviewMicroReferenceTitle;
+        this.applicationPreviewReferenceMissing = applicationPreviewReferenceMissing;
+        this.applicationPreviewSkillSampleStoryLabel = applicationPreviewSkillSampleStoryLabel;
+        this.applicationPreviewSkillSampleLink = applicationPreviewSkillSampleLink;
+        this.applicationPreviewSkillSampleMissing = applicationPreviewSkillSampleMissing;    
         // Others
         this.title = title;
         this.helpLearn = helpLearn;
@@ -485,6 +516,8 @@ TalentCloudAPI.Content = function(
         this.jobPosterOperatingContext_label = jobPosterOperatingContext_label;
         this.jobPosterWhatWeValue_label = jobPosterWhatWeValue_label;
         this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
+        this.years = years;
+        this.status = status;
     };
 
 TalentCloudAPI.pages = {
@@ -566,10 +599,17 @@ TalentCloudAPI.pages = {
                     ManagerProfileAPI.showManagerProfile(managerProfileId);
                 }
             },
-            CreateJobApplication:{
-                url:"#CreateJobApplication",
+            JobApplication:{
+                url:"#JobApplication",
                 state:function(jobPosterId) {
                     JobApplicationAPI.showCreateJobApplication(jobPosterId);
+                    TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
+                }
+            },
+            JobApplicationPreview:{
+                url:"JobApplicationPreview",
+                state:function(jobPosterId) {
+                    JobApplicationPreviewAPI.showJobApplicationPreview(jobPosterId);
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                 }
             }
@@ -942,22 +982,22 @@ TalentCloudAPI.setContent = function(content, isManager){
         //adminProfileDepartmentLabel.innerHTML = siteContent.adminProfileDepartmentLabel;
 
         //var createEditProfile_title = document.getElementById("createProfileWindowTitle");
-        //createEditProfile_title.innerHTML = content.createProfileWindowTitle;
+        //createEditProfile_title.innerHTML = createProfileWindowTitle;
 
         var createEditProfile_required2 = document.getElementById("createEditProfile_requiredStep2");
-        createEditProfile_required2.innerHTML = content.required;
+        createEditProfile_required2.innerHTML = required;
 
         var createEditProfile_required1 = document.getElementById("createEditProfile_requiredStep1");
-        createEditProfile_required1.innerHTML = content.required;
+        createEditProfile_required1.innerHTML = required;
 
         var createEditProfile_submit = document.getElementById("createEditProfileSubmitButton");
-        createEditProfile_submit.setAttribute("value", content.submit);
+        createEditProfile_submit.setAttribute("value", submit);
 
         var createEditProfile_how_often_review_label = document.getElementById("createEditProfile_how_often_review_label");
-        createEditProfile_how_often_review_label.innerHTML = content.howOftenDoYouReview + ' *';
+        createEditProfile_how_often_review_label.innerHTML = howOftenDoYouReview + ' *';
 
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
-        createEditProfile_how_often_early_label.innerHTML = content.howOftenDoYouStayLate + ' *';
+        createEditProfile_how_often_early_label.innerHTML = howOftenDoYouStayLate + ' *';
 
         var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
         profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
@@ -974,6 +1014,7 @@ TalentCloudAPI.setContent = function(content, isManager){
         WorkEnvironmentAPI.localizeWorkEnvironment();
         TeamCultureAPI.localizeTeamCulture();
         JobSeekerAPI.localizeJobSeekerProfile();
+        JobApplicationPreviewAPI.localizeJobApplicationPreview();
 
         // Applicant Navigation ================================================
         var navigationDashboardLink = document.getElementById("navigationDashboardLink");
