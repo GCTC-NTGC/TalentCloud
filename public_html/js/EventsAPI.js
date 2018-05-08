@@ -22,7 +22,7 @@ EventsAPI.onLoadEvents = function(){
             TalentCloudAPI.setLanguageCookie("en_CA");
         }
         TalentCloudAPI.load();
-    });
+    
 
     //Handle what happens when new history state popped off stack
     window.onpopstate = function(e){
@@ -32,7 +32,7 @@ EventsAPI.onLoadEvents = function(){
             TalentCloudAPI.hideAllContent();
             if(e.state.pageInfo === 'talent_cloud'){
                 EventsAPI.hideAllLayouts();
-                document.getElementById("navigationHomeLinkWrapper").classList.add("active");
+                    document.getElementById("homeLinkListItem").classList.add("active");
                 //static content for home page
             } else if(e.state.pageInfo === 'talent_cloud_admin'){
                 EventsAPI.hideAllLayouts();
@@ -47,12 +47,12 @@ EventsAPI.onLoadEvents = function(){
             } else if(e.state.pageInfo === 'register'){
                 var registerFormOverlay = document.getElementById("registerFormOverlay");
                 registerFormOverlay.classList.remove("hidden");
-                document.getElementById("navigationRegisterLinkWrapper").classList.add("active");
+                    document.getElementById("registerLinkListItem").classList.add("active");
                 modalSize();
             } else if(e.state.pageInfo === 'user_login'){
                 var loginAccount = document.getElementById("loginOverlay");
                 loginAccount.classList.remove("hidden");
-                document.getElementById("navigationLoginLinkWrapper").classList.add("active");
+                    document.getElementById("loginLinkListItem").classList.add("active");
                 modalSize();
             } else if(e.state.pageInfo === 'create_job_poster'){
                 EventsAPI.hideAllLayouts();
@@ -69,7 +69,7 @@ EventsAPI.onLoadEvents = function(){
             } else if(e.state.pageInfo === 'browse_jobs') {
                 EventsAPI.hideAllLayouts();
                 JobPostAPI.showBrowseJobs();
-                document.getElementById("navigationBrowseLinkWrapper").classList.add("active");
+                    document.getElementById("browseLinkListItem").classList.add("active");
             } else if(e.state.pageInfo === 'view_job_poster'){
                 EventsAPI.hideAllLayouts();
                 JobPostAPI.viewJobPoster(e.state.jobId);
@@ -85,9 +85,10 @@ EventsAPI.onLoadEvents = function(){
                 viewJobPosterOverlay.classList.remove("hidden");
                 modalSize();
             }
-            document.title = e.state.pageTitle;
-        }
-    };
+                document.title = e.state.pageTitle;
+            }
+        };
+    });
 };
 
 EventsAPI.hideAllLayouts = function(){

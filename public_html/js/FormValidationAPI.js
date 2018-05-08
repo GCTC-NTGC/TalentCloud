@@ -124,14 +124,14 @@ FormValidationAPI.focusIfFirstInvalidField = function(isFirstInvalidField, field
 
 FormValidationAPI.validateUpdateProfileStep1 = function(name, link, accomplishment, accomplishment_fr) {
     var valid = true;
-    if(!FormValidationAPI.fieldNotEmpty(name)){
+    /*if(!FormValidationAPI.fieldNotEmpty(name)){
         FormValidationAPI.setValidationErrorProperties(true, "createEditProfile_name_error", "createEditProfile_name_error_msg", "Error: No Name");
         valid = false;
     }
     else{
         FormValidationAPI.setValidationErrorProperties(false, "createEditProfile_name_error", "createEditProfile_name_error_msg", "Error: No Name");
     }
-
+*/
     if(!FormValidationAPI.fieldNotEmpty(link)){
         FormValidationAPI.setValidationErrorProperties(true, "createEditProfile_link_error", "createEditProfile_link_error_msg", "Error: Need valid link");
         valid = false;

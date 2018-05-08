@@ -70,7 +70,7 @@ class UserController{
     public static function registerUser(User $newUser){
         //$newUser->setUser_role('jobseeker');
         //This is a temporary automatic confirmation until the mail server is setup
-        var_dump($newUser);
+        //var_dump($newUser);
         $newUser->setIs_confirmed(true);
         $userRegistered = false;
         $confEmailSent = true;

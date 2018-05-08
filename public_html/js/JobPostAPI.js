@@ -482,7 +482,7 @@ JobPostAPI.populateJobPoster = function(jobData){
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.
        var len = 250;
-       if (managerProfile.about_me.length > 0) {
+       if (managerProfile.about_me !== null && managerProfile.about_me.length > 0) {
             var fullText = managerProfile.about_me;
             var id = "jobPosterHiringManagerAboutMe";
             var aboutMe = document.getElementById(id);
@@ -536,11 +536,13 @@ JobPostAPI.populateJobPoster = function(jobData){
             } else {
                 aboutMe.innerHTML = fullText;
             }
+            /*End Truncating*/
         }
-       /*End Truncating*/
 
-       WorkEnvironmentAPI.loadWorkEnvironmentSummary(managerProfile.manager_profile_id);
-       TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
+        if(managerProfile.manager_profile_id !== null){
+            WorkEnvironmentAPI.loadWorkEnvironmentSummary(managerProfile.manager_profile_id);
+            TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
+        }
     });
 
     //Set language-specific labels
@@ -606,7 +608,10 @@ JobPostAPI.populateJobPoster = function(jobData){
     if (jobData.core_competencies.length === 0) {
         coreCompetencyValues.push("N/A");
     } else {
-        jobData.core_competencies.forEach((item)=>coreCompetencyValues.push(item.value));
+        var core_competencies = jobData.core_competencies;
+        for (var i = 0; i < core_competencies.length; i++) {
+            coreCompetencyValues.push(core_competencies[i].value);
+        }
     }
     JobPostAPI.setItemsForListElement(coreCompetencyList, coreCompetencyValues, "coreCompetencyItem");
 
@@ -615,7 +620,11 @@ JobPostAPI.populateJobPoster = function(jobData){
     if (jobData.developing_competencies.length === 0) {
         devCompetencyValues.push("N/A");
     } else {
-        jobData.developing_competencies.forEach( (item)=> devCompetencyValues.push(item.value));
+        var developing_competencies = jobData.developing_competencies;
+        for (var i = 0; i < developing_competencies.length; i++) {
+            devCompetencyValues.push(developing_competencies[i].value);
+        }
+        //jobData.developing_competencies.forEach( (item)=> devCompetencyValues.push(item.value));
     }
     JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
 
