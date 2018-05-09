@@ -191,9 +191,8 @@
                     </div>
                 </section>
 
-                <?php /* Hidden until ready for dev.
                 <a id="know" aria-hidden="true"></a>
-                <section class="job-poster__know">
+                <section class="job-poster__know hidden">
                     <h3 class="job-poster__content-title" id="jobPosterContentTitleKnow">Need to Know</h3>
                     <h4 class="job-poster__content-subtitle">What You Need for Security Clearance</h4>
                     <p class="job-poster__content-copy" id="jobPosterImpact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.</p>
@@ -202,7 +201,6 @@
                     <h4 class="job-poster__content-subtitle">Other Paperwork & Preparation</h4>
                     <p class="job-poster__content-copy" id="jobPosterImpact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.</p>
                 </section>
-                */ ?>
 
                 <a id="apply" aria-hidden="true"></a>
                 <section class="job-poster__apply">

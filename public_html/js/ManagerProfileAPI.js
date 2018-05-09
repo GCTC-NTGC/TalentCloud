@@ -81,7 +81,7 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
 
     //DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
-    ProfilePicAPI.refreshProfilePic(user_id, document.getElementById('managerProfilePic'));
+    ProfilePicAPI.refreshProfilePicBackground(user_id, document.getElementById('managerProfilePic'));
 
     // New Subpage Hero Scripts
 
