@@ -4972,8 +4972,6 @@ nav {
     bottom: -2rem;
     transform: translate(-50%, 0);
     width: 15rem; }
-  .subpage-hero__title#managerProfileHeroTitle {
-    margin: 7rem 0 22rem; }
 
 .subpage-hero__poster-metadata {
   padding: 0 0 3rem 0;
@@ -6525,6 +6523,164 @@ nav {
 .closeProfileButton {
   float: left; }
 
+/* New Public Manager Profile =============================================== */
+.public-manager-profile {
+  background: #e2e2e2; }
+
+.public-manager-profile__heading {
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(/images/backgrounds/bg_lightning_dark.png);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 75px;
+  box-shadow: 0 0 25px black;
+  padding: 6rem 0;
+  text-align: center; }
+  @media (min-width: 64em) {
+    .public-manager-profile__heading {
+      text-align: left; } }
+  .public-manager-profile__heading > .content-container {
+    position: relative; }
+
+.public-manager-profile__heading-photo-wrapper {
+  position: relative; }
+  @media (min-width: 64em) {
+    .public-manager-profile__heading-photo-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(calc(-100% + -5rem), -50%); } }
+
+.public-manager-profile__photo {
+  background-color: white;
+  background-position: center;
+  background-size: cover;
+  border: 0.5rem solid #2196f3;
+  border-radius: 100%;
+  height: 15rem;
+  margin: 0 auto 4rem auto;
+  width: 15rem; }
+  @media (min-width: 64em) {
+    .public-manager-profile__photo {
+      margin: 0; } }
+
+.public-manager-profile__name {
+  color: white;
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0 0 1rem 0; }
+
+.public-manager-profile__tagline {
+  color: #2196f3;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 400;
+  margin: 0 0 1rem 0; }
+
+.public-manager-profile__social-wrapper {
+  list-style: none;
+  margin: 0 0 0 -.5rem;
+  padding: 0; }
+  .public-manager-profile__social-wrapper li {
+    display: inline-block;
+    padding: 0 .5rem; }
+    .public-manager-profile__social-wrapper li a i {
+      color: white;
+      font-size: 2rem;
+      transition: color .2s ease; }
+    .public-manager-profile__social-wrapper li a:hover i {
+      color: #2196f3;
+      transition: color .2s ease; }
+
+.public-manager-profile__question-wrapper {
+  padding: 4rem 0; }
+
+.public-manager-profile__back-link {
+  appearance: none;
+  background: none;
+  border: none;
+  color: #2196f3;
+  display: block;
+  font-size: 16px;
+  padding: 0;
+  margin: 0 0 4rem 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .public-manager-profile__back-link:hover {
+    color: #125184;
+    transition: color .2s ease; }
+    .public-manager-profile__back-link:hover i {
+      transform: translate(-20%, 0);
+      transition: transform .2s ease; }
+  .public-manager-profile__back-link:last-child {
+    margin-bottom: 0; }
+  .public-manager-profile__back-link i {
+    font-size: 12px;
+    margin: 0 .5rem 0 0;
+    transform: translate(0, 0);
+    transition: transform .2s ease; }
+
+.public-manager-profile__question {
+  margin: 0 0 4rem 0; }
+  .public-manager-profile__question:last-child {
+    margin-bottom: 0; }
+
+.public-manager-profile__question-title {
+  border-bottom: 1px solid #333333;
+  color: #333333;
+  font-size: 35px;
+  font-weight: 700;
+  margin: 0 0 4rem 0;
+  padding: 0 0 2rem 0;
+  position: relative; }
+
+.public-manager-profile__question-subtitle {
+  color: #2196f3;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 0 2rem 0; }
+
+.public-manager-profile__question-answer {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0; }
+
+@media (min-width: 64em) {
+  .public-manager-profile__decision-wrapper {
+    transform: translate(-25%, 0);
+    width: 150%; } }
+
+@media (min-width: 64em) {
+  .public-manager-profile__decision-wrapper .box:first-child {
+    padding: 0 4rem 0 0; } }
+
+.public-manager-profile__decision-support {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  margin: 0 0 2rem 0;
+  padding: 1.5rem; }
+  @media (min-width: 64em) {
+    .public-manager-profile__decision-support {
+      margin: -4.5rem 0 0 0; } }
+  .public-manager-profile__decision-support p {
+    color: white;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0; }
+    .public-manager-profile__decision-support p:first-child {
+      color: #2196f3;
+      margin: 0 0 .5rem 0; }
+
+.public-manager-profile__decision-answer {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 1rem 0; }
+  .public-manager-profile__decision-answer:last-child {
+    margin-bottom: 0; }
+  .public-manager-profile__decision-answer strong {
+    color: #2196f3; }
+
 /* PROFILE PIC AND UPLOAD */
 #profileSection {
   min-height: 500px; }
@@ -7068,6 +7224,7 @@ nav {
 
 .job-poster__culture-manager-name {
   color: #333333;
+  display: block;
   font-size: 25px;
   font-weight: 700;
   margin: 0 0 1rem 0; }
@@ -7126,7 +7283,7 @@ nav {
 
 .job-poster__apply-button {
   background: #2196f3;
-  border: none;
+  border: 0.5rem solid #2196f3;
   border-radius: 0 0 3px 3px;
   color: white;
   font-size: 25px;
@@ -7134,11 +7291,16 @@ nav {
   margin: 0 !important;
   padding: 2rem 3rem;
   text-align: center;
-  transition: background .2s ease;
+  transition: all .2s ease;
   width: 100%; }
   .job-poster__apply-button:hover {
     background: #125184;
-    transition: background .2s ease; }
+    border-color: #125184;
+    transition: all .2s ease; }
+  .job-poster__apply-button:focus {
+    background: #484848;
+    border: 0.5rem solid #ffe25b;
+    transition: all .2s ease; }
 
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 .jobSummary {

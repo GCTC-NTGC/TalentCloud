@@ -46,7 +46,7 @@
                     <a href="#work" class="job-poster__subnav-item" id="jobPosterSubnavItemWork">Your Work</a>
                     <a href="#criteria" class="job-poster__subnav-item" id="jobPosterSubnavItemCriteria">Criteria</a>
                     <a href="#culture" class="job-poster__subnav-item" id="jobPosterSubnavItemCulture">Culture</a>
-                    <a href="#know" class="job-poster__subnav-item" id="jobPosterSubnavItemKnow">Need to Know</a>
+                    <a href="#know" class="job-poster__subnav-item hidden" id="jobPosterSubnavItemKnow">Need to Know</a>
                     <a href="#apply" class="job-poster__subnav-item" id="jobPosterSubnavItemApply">Apply for this Job</a>
                 </div>
             </div>
@@ -60,20 +60,20 @@
                             <h3 class="job-poster__basics-title" id="jobPosterContentTitleBasics">Basic Information</h3>
                         </div>
                         <div class="box med-1of2">
-                            <h4 class="job-poster__basics-label" id="jobPosterJobLevelLabel">Classification</h4>
-                            <span class="job-poster__basics-content" id="jobPosterJobLevelValue">CS1</span>
-                            <h4 class="job-poster__basics-label" id="jobPosterClearanceLevelLabel">Security Clearance</h4>
-                            <span class="job-poster__basics-content" id="jobPosterClearanceLevelValue">CS1</span>
-                            <h4 class="job-poster__basics-label" id="jobPosterTermLabel">Duration</h4>
+                            <span class="job-poster__basics-label" id="jobPosterSalaryRangeLabel">Salary Range</span>
+                            <span class="job-poster__basics-content" id="jobPosterSalaryRangeValue">CS1</span>
+                            <span class="job-poster__basics-label" id="jobPosterTermLabel">Duration</span>
                             <span class="job-poster__basics-content" id="jobPosterTermValue">CS1</span>
+                            <span class="job-poster__basics-label" id="jobPosterStartDateLabel">Target Start</span>
+                            <span class="job-poster__basics-content" id="jobPosterStartDateValue">CS1</span>
                         </div>
                         <div class="box med-1of2">
-                            <h4 class="job-poster__basics-label" id="jobPosterSalaryRangeLabel">Salary Range</h4>
-                            <span class="job-poster__basics-content" id="jobPosterSalaryRangeValue">CS1</span>
-                            <h4 class="job-poster__basics-label" id="jobPosterLanguageLabel">Language</h4>
+                            <span class="job-poster__basics-label" id="jobPosterLanguageLabel">Language</span>
                             <span class="job-poster__basics-content" id="jobPosterLanguageValue">CS1</span>
-                            <h4 class="job-poster__basics-label" id="jobPosterStartDateLabel">Target Start Date</h4>
-                            <span class="job-poster__basics-content" id="jobPosterStartDateValue">CS1</span>
+                            <span class="job-poster__basics-label" id="jobPosterClearanceLevelLabel">Security Clearance</span>
+                            <span class="job-poster__basics-content" id="jobPosterClearanceLevelValue">CS1</span>
+                            <span class="job-poster__basics-label" id="jobPosterJobLevelLabel">Classification</span>
+                            <span class="job-poster__basics-content" id="jobPosterJobLevelValue">CS1</span>
                         </div>
                     </div>
                 </section>
@@ -120,7 +120,7 @@
                             <div class="job-poster__culture-manager-profile-photo" id="jobPosterCultureManagerProfilePhoto" title="This manager's profile photo."></div>
                         </div>
                         <div class="box med-3of4">
-                            <h5 class="job-poster__culture-manager-name" id="jobPosterHiringManagerName"></h5>
+                            <span class="job-poster__culture-manager-name" id="jobPosterHiringManagerName"></span>
                             <div class="job-poster__culture-manager-meta">
                                 <span id="jobPosterHiringManagerTitle"></span> 
                                 <span id="jobPosterHiringManagerPositionAtLabel">at</span> 
@@ -133,50 +133,20 @@
                         <div class="box full">
                                 <p class="job-poster__content-copy truncate" id="jobPosterHiringManagerAboutMe"></p>
                             </div>
-                        <?php /* Team Culture ============================ */ ?>
-                        <div class="box full">
-                            <h4 class="job-poster__content-subtitle" id="jobPosterTeamCultureLabel">Team Culture</h4>
-                        </div>
-                        <div class="box med-1of2">
-                            <h5 class="job-poster__content-label" id="jobPosterTeamSize_label">Team Size</h5>
-                            <p class="job-poster__content-copy" id="jobPosterTeamSize"></p>
-                        </div>
-                        <div class="box med-1of2">
-                            <h5 class="job-poster__content-label" id="jobPosterGcDirLink_label">Team on GC Directory</h5>
-                            <p class="job-poster__content-copy">
-                                <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a>
-                            </p>
-                        </div>
-                        <div class="box full">
-                            <h5 class="job-poster__content-label" id="jobPosterTeamNarrativeText_label">About the Team</h5>
-                            <p class="job-poster__content-copy" id="jobPosterTeamNarrativeText"></p>
-                        </div>
-                        <div class="box full">
-                            <h5 class="job-poster__content-label" id="jobPosterOperatingContext_label">Our Operating Context</h5>
-                            <p class="job-poster__content-copy" id="jobPosterOperatingContext_text"></p>
-                        </div>
-                        <div class="box full">
-                            <h5 class="job-poster__content-label" id="jobPosterWhatWeValue_label">What We Value</h5>
-                            <p class="job-poster__content-copy" id="jobPosterWhatWeValue_text"></p>
-                        </div>
-                        <div class="box full">
-                            <h5 class="job-poster__content-label" id="jobPosterHowWeWork_label">How We Work</h5>
-                            <p class="job-poster__content-copy" id="jobPosterHowWeWork_text"></p>
-                        </div>
                         <?php /* Work Environment ======================== */ ?>
                         <div class="box full">
                             <h4 class="job-poster__content-subtitle" id="jobPosterWorkEnvironmentLabel">Work Environment</h4>
                         </div>
                         <div class="box med-1of2">
-                            <h5 class="job-poster__content-label" id="jobPosterRemoteWork_label">Remote Location Allowed</h5>
+                            <span class="job-poster__content-label" id="jobPosterRemoteWork_label">Remote Location Allowed</span>
                             <p class="job-poster__content-copy" id="jobPosterRemoteWork"></p>
                         </div>
                         <div class="box med-1of2">
-                            <h5 class="job-poster__content-label" id="jobPosterTelework_label">Telework Allowed</h5>
+                            <span class="job-poster__content-label" id="jobPosterTelework_label">Telework Allowed</span>
                             <p class="job-poster__content-copy" id="jobPosterTelework"></p>
                         </div>
                         <div class="box full">
-                            <h5 class="job-poster__content-label" id="jobPosterFlexHours_label">Flexible Hours Allowed</h5>
+                            <span class="job-poster__content-label" id="jobPosterFlexHours_label">Flexible Hours Allowed</span>
                             <p class="job-poster__content-copy" id="jobPosterFlexHours"></p>
                         </div>
                         <div class="box med-1of2 lg-1of3">
@@ -188,9 +158,40 @@
                         <div class="box med-1of2 lg-1of3">
                             <div class="job-poster__work-environment-photo" id="jobPosterWorkEnvironment_3" title="Third image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
                         </div>
+                        <?php /* Team Culture ============================ */ ?>
+                        <div class="box full">
+                            <h4 class="job-poster__content-subtitle" id="jobPosterTeamCultureLabel">Team Culture</h4>
+                        </div>
+                        <div class="box med-1of2">
+                            <span class="job-poster__content-label" id="jobPosterTeamSize_label">Team Size</span>
+                            <p class="job-poster__content-copy" id="jobPosterTeamSize"></p>
+                        </div>
+                        <div class="box med-1of2">
+                            <span class="job-poster__content-label" id="jobPosterGcDirLink_label">Team on GC Directory</span>
+                            <p class="job-poster__content-copy">
+                                <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a>
+                            </p>
+                        </div>
+                        <div class="box full">
+                            <span class="job-poster__content-label" id="jobPosterTeamNarrativeText_label">About the Team</span>
+                            <p class="job-poster__content-copy" id="jobPosterTeamNarrativeText"></p>
+                        </div>
+                        <div class="box full">
+                            <span class="job-poster__content-label" id="jobPosterOperatingContext_label">Our Operating Context</span>
+                            <p class="job-poster__content-copy" id="jobPosterOperatingContext_text"></p>
+                        </div>
+                        <div class="box full">
+                            <span class="job-poster__content-label" id="jobPosterWhatWeValue_label">What We Value</span>
+                            <p class="job-poster__content-copy" id="jobPosterWhatWeValue_text"></p>
+                        </div>
+                        <div class="box full">
+                            <span class="job-poster__content-label" id="jobPosterHowWeWork_label">How We Work</span>
+                            <p class="job-poster__content-copy" id="jobPosterHowWeWork_text"></p>
+                        </div>
                     </div>
                 </section>
 
+                <?php /* Hidden until ready for dev.
                 <a id="know" aria-hidden="true"></a>
                 <section class="job-poster__know">
                     <h3 class="job-poster__content-title" id="jobPosterContentTitleKnow">Need to Know</h3>
@@ -201,6 +202,7 @@
                     <h4 class="job-poster__content-subtitle">Other Paperwork & Preparation</h4>
                     <p class="job-poster__content-copy" id="jobPosterImpact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.</p>
                 </section>
+                */ ?>
 
                 <a id="apply" aria-hidden="true"></a>
                 <section class="job-poster__apply">

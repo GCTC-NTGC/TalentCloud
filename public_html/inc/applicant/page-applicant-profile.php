@@ -6,7 +6,6 @@
 
             <div class="applicant-profile__heading-photo-wrapper">
                 <div class="applicant-profile__photo" id="myProfilePic"></div>
-                <!-- <img id="myProfilePic" class="profilePicLarge" src="images/user.png" alt="Profile Pic"/> -->
             </div>
 
             <h2 class="applicant-profile__name" id="updateProfileApplicantProfileFormNameLabelSpan"></h2>

@@ -603,7 +603,7 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
         var questionSection = document.createElement("div");
         questionSection.classList.add("applicant-profile__question");
 
-        var questionTitleBar = document.createElement("h2");
+        var questionTitleBar = document.createElement("h3");
         questionTitleBar.classList.add("applicant-profile__question-title-wrapper");
 
         var questionTitle = document.createElement("span");
