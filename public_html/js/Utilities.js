@@ -266,7 +266,7 @@ Utilities.replaceElementText = function (element, newText) {
 Utilities.removeChildNodes = function (element) {
     while (element.firstChild)
         element.removeChild(element.firstChild);
-}
+};
 
 Utilities.clearSelectOptions = function (selectElement)
 {
@@ -301,7 +301,7 @@ Utilities.addWindowEventListener = function (event, myFunction) {
         var onEvent = "on" + event;
         window.attachEvent(onEvent, myFunction);
     }
-}
+};
 
 // Modal Height Calculation ===================================================
 function modalSize() {
@@ -414,7 +414,7 @@ Utilities.mobileNavClickListener = function(e) {
         mainMenu.classList.add("active");
     }
 
-}
+};
 
 Utilities.setMobileNavTriggers = function () {
     // Gets all elements on the page with "accordion-trigger".
@@ -445,7 +445,7 @@ Utilities.applicantLandingVideoClickListener = function(e) {
         landingVideoTranscript.setAttribute("aria-hidden", "false");
     }
 
-}
+};
 
 Utilities.setApplicantLandingVideoTriggers = function () {
     // Gets all elements on the page with "accordion-trigger".
@@ -462,7 +462,7 @@ Utilities.setUserAgent = function () {
     var ua = navigator.userAgent;
         ua = ua.toString();
         document.body.setAttribute("id", ua);
-}
+};
 
 Utilities.addWindowEventListener("load", Utilities.setAccordionTriggers);
 Utilities.addWindowEventListener("load", Utilities.setMobileNavTriggers);
@@ -484,7 +484,7 @@ Utilities.getHeroElements = function() {
     // browseHeroPosterMetaData.classList.add("hidden");
     applicationHeroMetadata.classList.add("hidden");
 
-}
+};
 
 // Applicant Evidence UI =======================================================
 Utilities.setEvidenceUiEventListeners = function (e) {
@@ -591,7 +591,7 @@ function evidenceMenuItemClick(e) {
         }
     }
 
-}
+};
 
 function evidenceMenuItemKeyup(e) {
 
@@ -606,7 +606,7 @@ function evidenceMenuItemKeyup(e) {
 
     }
 
-}
+};
 
 function evidenceFirstTargetKeydown(e) {
 
@@ -632,7 +632,7 @@ function evidenceFirstTargetKeydown(e) {
         }
 
     }
-}
+};
 
 function evidenceEarlyLastTargetKeydown(e) {
     if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
@@ -660,7 +660,7 @@ function evidenceEarlyLastTargetKeydown(e) {
         }
 
     }
-}
+};
 
 function evidenceLastTargetKeydown(e) {
 
@@ -684,7 +684,7 @@ function evidenceLastTargetKeydown(e) {
 
     }
 
-}
+};
 
 function evidenceAccordionTriggerClick(e) {
 
@@ -716,7 +716,7 @@ function evidenceAccordionTriggerClick(e) {
 
     }
 
-}
+};
 
 Utilities.addWindowEventListener("load", Utilities.setEvidenceUiEventListeners);
 Utilities.addWindowEventListener("resize", Utilities.setEvidenceUiEventListeners);
@@ -799,7 +799,7 @@ function evidencePreviewAccordionClick(e) {
 
     }
 
-}
+};
 
 function evidencePreviewMenuItemClick(e) {
     // Set variables for the desktop menu items and the associated evidence panes.
@@ -838,7 +838,7 @@ function evidencePreviewMenuItemClick(e) {
 
         }
     }
-}
+};
 
 function evidencePreviewMenuItemKeyup(e) {
     // Cancels the default action.
@@ -849,7 +849,7 @@ function evidencePreviewMenuItemKeyup(e) {
         // Triggers a click, thus activating the click event listener.
         this.click();
     }
-}
+};
 
 function evidencePreviewLinkKeydown(e) {
     // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
@@ -889,7 +889,7 @@ function evidencePreviewLinkKeydown(e) {
             }
         }
     }
-}
+};
 
 Utilities.addWindowEventListener("load", Utilities.setEvidencePreviewUiEventListeners);
 Utilities.addWindowEventListener("resize", Utilities.setEvidencePreviewUiEventListeners);
