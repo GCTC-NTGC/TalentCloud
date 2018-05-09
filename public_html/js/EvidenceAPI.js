@@ -145,14 +145,14 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     }
     //Add handler to experienence inputs
     var experienceInputs = evidencePanel.querySelectorAll("input[name=experience]");
-    experienceInputs.forEach(item => {
-        item.onclick = declarationOnChange;
-    });
+    for(var i=0; i<experienceInputs.length; i++) {
+        experienceInputs[i].onclick = declarationOnChange;
+    }
     //Add handler to expertise inputs
     var expertiseInputs = evidencePanel.querySelectorAll("input[name=expertise]");
-    expertiseInputs.forEach(item => {
-        item.onclick = declarationOnChange;
-    });
+    for(var i=0; i<expertiseInputs.length; i++) {
+        expertiseInputs[i].onclick = declarationOnChange;
+    }
     //Add handler to Skill Declaration story text
     var declarationText = evidencePanel.querySelector(".applicant-evidence__skill-declaration-text");
     declarationText.onchange = declarationOnChange;

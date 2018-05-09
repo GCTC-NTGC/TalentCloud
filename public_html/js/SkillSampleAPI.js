@@ -28,7 +28,8 @@ SkillSampleAPI.SkillSample = function (
 
 SkillSampleAPI.parseApplicationSkillSampleResponse = function(responseJson) {
     var samples = [];
-    responseJson.forEach(applicationItem => {
+    for (var i=0; i<responseJson.length; i++) {
+        var applicationItem = responseJson[i];
         var item = applicationItem.work_sample;
         
         var criteria_id = applicationItem.criteria_id;
@@ -41,7 +42,7 @@ SkillSampleAPI.parseApplicationSkillSampleResponse = function(responseJson) {
         var sample = new SkillSampleAPI.SkillSample(criteria_id, name, type,
                 date_created, http_link, story);
         samples.push(sample);
-    });
+    }
     return samples;
 };
 
@@ -56,49 +57,51 @@ SkillSampleAPI.loadSavedSkillSamplesForJobApplication = function (jobApplication
 };
 
 SkillSampleAPI.populateApplicationUiSkillSamples = function (samples) {
-    samples.forEach(ref => {
+    for (var i=0; i<samples.length; i++) {
+        var sample = samples[i];
 
         //find appropriate Evidence Panel
-        var panel = document.querySelector('.applicant-evidence__accordion-wrapper[data-criteria-id="' + ref.criteria_id + '"]');
+        var panel = document.querySelector('.applicant-evidence__accordion-wrapper[data-criteria-id="' + sample.criteria_id + '"]');
         //if panel exists, set saved values
         if (panel) {
             var name = panel.querySelector('input[name=\"sample_name\"]');
             if (name) {
-                name.value = ref.name;
+                name.value = sample.name;
             }
             var type = panel.querySelector('select[name=\"sample_type\"]');
             if (type) {
-                type.value = ref.type;
+                type.value = sample.type;
             }
             var date_created = panel.querySelector('input[name=\"sample_date_created\"]');
             if (date_created) {
-                date_created.value = ref.date_created;
+                date_created.value = sample.date_created;
             }
             var http_link = panel.querySelector('input[name=\"sample_http_link\"]');
             if (http_link) {
-                http_link.value = ref.http_link;
+                http_link.value = sample.http_link;
             }
             var story = panel.querySelector('textarea[name=\"sample_story\"]');
             if (story) {
-                story.value = ref.story;
+                story.value = sample.story;
             }
 
             //Run status change handler, because declartion may now be complete
-            SkillSampleAPI.onStatusChange(ref.criteria_id);
+            SkillSampleAPI.onStatusChange(sample.criteria_id);
         }
-    });
+    }
 };
 
 SkillSampleAPI.populateApplicationPreviewUiSkillSamples = function (samples) {
-    samples.forEach(ref => {
+    for (var i=0; i<samples.length; i++) {
+        var sample = samples[i];
 
         //find appropriate Evidence Panel
-        var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + ref.criteria_id + '"]');
+        var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + sample.criteria_id + '"]');
         //if panel exists, set saved values
         if (panel) {
             var name = panel.querySelector('.applicant-evidence-preview__evidence-name');
             if (name) {
-                name.innerHTML = ref.name;
+                name.innerHTML = sample.name;
             }
             /*
             var type = panel.querySelector('select[name=\"sample_type\"]');
@@ -108,15 +111,15 @@ SkillSampleAPI.populateApplicationPreviewUiSkillSamples = function (samples) {
             */
             var date_created = panel.querySelector('.applicant-evidence-preview__evidence-date');
             if (date_created) {
-                date_created.innerHTML = ref.date_created;
+                date_created.innerHTML = sample.date_created;
             }
             var http_link = panel.querySelector('.applicant-evidence-preview__evidence-link');
             if (http_link) {
-                http_link.href = ref.http_link;
+                http_link.href = sample.http_link;
             }
             var story = panel.querySelector('.applicant-evidence-preview__evidence-story');
             if (story) {
-                story.innerHTML = ref.story;
+                story.innerHTML = sample.story;
             }
 
             //Hide null-response, and show data
@@ -125,7 +128,7 @@ SkillSampleAPI.populateApplicationPreviewUiSkillSamples = function (samples) {
             var nullResponse = panel.querySelector('.applicant-evidence-preview__evidence-null');
             nullResponse.classList.add("hidden");
         }
-    });
+    }
 };
 
 
@@ -163,7 +166,8 @@ SkillSampleAPI.saveSkillSamples = function (criteriaType, onSuccess, onFailure) 
         return;
     }
 
-    evidencePanels.forEach(panel => {
+    for (var i=0; i<evidencePanels.length; i++) {
+        var panel = evidencePanels[i];
         var sample = SkillSampleAPI.getSkillSampleFromEvidencePanel(panel);
 
         //Only save if this sample is complete
@@ -201,7 +205,7 @@ SkillSampleAPI.saveSkillSamples = function (criteriaType, onSuccess, onFailure) 
                 }
             });
         }
-    });
+    }
 
     if (onSuccess && submittedRequests === 0) {
         //If no requests were made, call onSuccess

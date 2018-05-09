@@ -171,7 +171,8 @@ JobApplicationPreviewAPI.populateApplicationPreviewAnswers = function (answers) 
     //Create a DocumentFragment to hold html elements for now - this will be faster than adding elements directly to the document DOM 
     var answerFragment = document.createDocumentFragment();
     //Iterate through answer objects 
-    answers.forEach(answer => {
+    for (var i=0; i < answers.length; i++) {
+        var answer = answers[i];
         //Create the html elements which display a question-answer pair 
         //This can be done 2 ways: 
         //(1) Entirely in js: see JobApplicationAPI.makeQuestionAnswerHtmlElement as an example 
@@ -193,7 +194,7 @@ JobApplicationPreviewAPI.populateApplicationPreviewAnswers = function (answers) 
 
         //Regardless of method used, add the root element to the documentFragment 
         answerFragment.appendChild(answerElement);
-    });
+    };
     //Now, add the documentFragment to the document 
     //eg: 
     var answerWrapper = document.getElementById("applicationPreviewQuestionWrapper");

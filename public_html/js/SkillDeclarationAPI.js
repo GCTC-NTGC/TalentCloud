@@ -40,7 +40,8 @@ SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication = function (jobA
 };
 
 SkillDeclarationAPI.populateApplicationUiSkillDeclarations = function (skillDeclarations) {
-    skillDeclarations.forEach(declaration => {
+    for (var i=0; i<skillDeclarations.length; i++) {
+        var declaration = skillDeclarations[i];
         //find appropriate Evidence Panel
         var panel = document.querySelector('.applicant-evidence__accordion-wrapper[data-criteria-id="' + declaration.criteria_id + '"][data-criteria-type="' + declaration.criteria_type + '"]');
         //if panel exists, set skill declaration values
@@ -66,11 +67,12 @@ SkillDeclarationAPI.populateApplicationUiSkillDeclarations = function (skillDecl
             //Run status change handler, because declartion may now be complete
             SkillDeclarationAPI.onStatusChange(declaration.criteria_id);
         }
-    });
+    }
 };
 
 SkillDeclarationAPI.populateApplicationPreviewUiSkillDeclarations = function(skillDeclarations) {
-    skillDeclarations.forEach(declaration => {
+    for (var i=0; i<skillDeclarations.length; i++) {
+        var declaration = skillDeclarations[i];
         //find appropriate Evidence Panel
         var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + declaration.criteria_id + '"]');
         //if panel exists, set skill declaration values
@@ -95,7 +97,7 @@ SkillDeclarationAPI.populateApplicationPreviewUiSkillDeclarations = function(ski
                 description.innerHTML = "";
             }
         }
-    });
+    }
 };
 
 /**
@@ -123,7 +125,8 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
     
     var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
 
-    evidencePanels.forEach(panel => {
+    for (var i=0; i<evidencePanels.length; i++) {
+        var panel = evidencePanels[i];
         var newSkillDeclaration = new SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel(panel);
 
         if (applicationId) {
@@ -163,7 +166,7 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
                 });
             }
         }
-    });
+    }
 
     if (onSuccess && submittedRequests === 0) {
         //If no skills were even attempted to be saved, call onSuccess
