@@ -7302,7 +7302,7 @@ nav {
     border: 0.5rem solid #ffe25b;
     transition: all .2s ease; }
 
-.job-poster__loggin-button {
+.job-poster__login-button {
   background: #ffe25b;
   border: 0.5rem solid #ffe25b;
   border-radius: 0 0 3px 3px;
@@ -7314,11 +7314,11 @@ nav {
   text-align: center;
   transition: all .2s ease;
   width: 100%; }
-  .job-poster__loggin-button:hover {
+  .job-poster__login-button:hover {
     background: #ffd200;
     border-color: #ffd200;
     transition: all .2s ease; }
-  .job-poster__loggin-button:focus {
+  .job-poster__login-button:focus {
     background: #484848;
     border: 0.5rem solid #ffe25b;
     transition: all .2s ease; }
