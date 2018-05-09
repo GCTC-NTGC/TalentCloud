@@ -8,7 +8,7 @@ LookupAPI.loadLookupData = function () {
     var locales = ["en_CA", "fr_CA"];
     //var lookupTypes = ["department", "branch", "division", "province", "jobterm"];
     var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level", "clearance", "language"];
-    for(i in locales) {
+    for (i in locales) {
         for (j in lookupTypes) {
             var locale = locales[i];
             var lookupType = lookupTypes[j];
@@ -99,11 +99,25 @@ LookupAPI.getLookupResponse = function (lookupType, lookupCallback) {
 LookupAPI.getLocalizedLookupValue = function (lookupType, valueId) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
     var elements = LookupAPI.lookupMap[locale][lookupType];
-    for (i in elements) {
-        if (elements[i].id == valueId) {
-            return elements[i].value;
+    if (elements) {
+        for (i in elements) {
+            if (elements[i].id == valueId) {
+                return elements[i].value;
+            }
         }
+    } else {
+        LookupAPI.getLookupData(lookupType, locale, function (request) {
+            if (request.status === 200 && LookupAPI.lookupMap[locale][lookupType]) {
+                elements = LookupAPI.lookupMap[locale][lookupType];
+                for (i in elements) {
+                    if (elements[i].id == valueId) {
+                        return elements[i].value;
+                    }
+                }
+            }
+        });
     }
+
     return null;
 }
 

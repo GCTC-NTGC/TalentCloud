@@ -66,6 +66,7 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllMicroReferencesForApplication/
 
 #admin localized services - secured
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/dashboard/([0-9]{1,10}) services/Dashboard.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getFullApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/FullJobApplicationByJobAndUser.php
 
 #Require all granted
 #Require ip 127.0.0.1

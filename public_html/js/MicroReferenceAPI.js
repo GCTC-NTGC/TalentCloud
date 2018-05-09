@@ -32,14 +32,13 @@ MicroReferenceAPI.MicroReference = function (
     };
 };
 
-MicroReferenceAPI.parseApplicationMicroReferenceResponse = function(response) {
+MicroReferenceAPI.parseApplicationMicroReferenceResponse = function(responseJson) {
     var references = [];
-    var responseJson = JSON.parse(response);
     responseJson.forEach(item => {
         var itemRef = item.micro_reference;
         
         var criteria_id = item.criteria_id;
-        var name = itemRef.micro_reference_id;
+        var name = itemRef.micro_reference_name;
         var email = itemRef.micro_reference_email;
         var relationship = itemRef.relationship;
         var observed_from_date = itemRef.observed_from_date;
@@ -59,7 +58,7 @@ MicroReferenceAPI.loadSavedMicroReferencesForJobApplication = function (jobAppli
     DataAPI.getMicroReferencesForApplication(jobApplicationId, function (request) {
         //Check that request returned a valid response
         if (request.status === 200 && request.response) {
-            var references = MicroReferenceAPI.parseApplicationMicroReferenceResponse(request.response);
+            var references = MicroReferenceAPI.parseApplicationMicroReferenceResponse(JSON.parse(request.response));
             MicroReferenceAPI.populateApplicationUiMicroReferences(references);
         }
     });
@@ -106,6 +105,54 @@ MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
     });
 };
 
+MicroReferenceAPI.populateApplicationPreviewUiMicroReferences = function (references) {
+    references.forEach(ref => {
+        //find appropriate Evidence Panel
+        var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + ref.criteria_id + '"]');
+        //if panel exists, set saved values
+        if (panel) {
+            var name = panel.querySelector('.applicant-evidence-preview__reference-name');
+            if (name) {
+                name.innerHTML = ref.name;
+            }
+            /*
+            var email = panel.querySelector('input[name=\"reference_email\"]');
+            if (email) {
+                email.value = ref.email;
+            }
+            */
+            var relationship = panel.querySelector('.applicant-evidence-preview__reference-relationship');
+            if (relationship) {
+                relationship.innerHTML = ref.relationship;
+            }
+            var from_date = panel.querySelector('.applicant-evidence-preview__reference-start-date');
+            if (from_date) {
+                from_date.innerHTML = ref.observed_from_date;
+            }
+            var until_date = panel.querySelector('.applicant-evidence-preview__reference-end-date');
+            if (until_date) {
+                until_date.innerHTML = ref.observed_until_date;
+            }
+            /*
+            var exp_level = panel.querySelector('select[name=\"reference_exp_level\"]');
+            if (exp_level) {
+                exp_level.value = ref.experience_level;
+            }
+            */
+            var story = panel.querySelector('.applicant-evidence-preview__reference-copy');
+            if (story) {
+                story.innerHTML = ref.story;
+            }
+
+            //Hide null-response, and show data
+            var refContent = panel.querySelector('.applicant-evidence-preview__reference-content');
+            refContent.classList.remove("hidden");
+            var nullResponse = panel.querySelector('.applicant-evidence-preview__reference-null');
+            nullResponse.classList.add("hidden");
+        }
+    });
+};
+
 
 /**
  * Saves all completed references for criteria of given type,
@@ -133,7 +180,7 @@ MicroReferenceAPI.saveMicroReferences = function (criteriaType, onSuccess, onFai
     var submittedRequests = 0; //to keep track of number of HTTP calls in progress
     var requestsSuccessful = true;
 
-    var applicationId = document.getElementById("createJobApplicationJobApplicationId").value;
+    var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
 
     if (!applicationId) {
         Utilities.debug ? console.log("Cannot save Micro References without an Application Id") : null;

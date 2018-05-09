@@ -131,6 +131,22 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.jobPosterContentTitleCulture = content.jobPosterContentTitleCulture;
     thisContent.jobPosterContentTitleKnow = content.jobPosterContentTitleKnow;
     thisContent.jobPosterContentTitleApply = content.jobPosterContentTitleApply;
+    // Job Application
+    thisContent.essentialCriteria = content.essentialCriteria;
+    thisContent.assetCriteria = content.assetCriteria;
+    thisContent.microReference = content.microReference;
+    thisContent.skillSample = content.skillSample;
+    thisContent.applicationPositionLabel = content.applicationPositionLabel;
+    // Application Preview
+    thisContent.editApplication = content.editApplication;
+    thisContent.applicationPreviewProfilePhotoTitle = content.applicationPreviewProfilePhotoTitle;
+    thisContent.applicationPreviewProfileAlert = content.applicationPreviewProfileAlert;
+    thisContent.applicationPreviewDeclarationStoryTitle = content.applicationPreviewDeclarationStoryTitle;
+    thisContent.applicationPreviewMicroReferenceTitle = content.applicationPreviewMicroReferenceTitle;
+    thisContent.applicationPreviewReferenceMissing = content.applicationPreviewReferenceMissing;
+    thisContent.applicationPreviewSkillSampleStoryLabel = content.applicationPreviewSkillSampleStoryLabel;
+    thisContent.applicationPreviewSkillSampleLink = content.applicationPreviewSkillSampleLink;
+    thisContent.applicationPreviewSkillSampleMissing = content.applicationPreviewSkillSampleMissing;
     // Others
     thisContent.title = content.title;
     thisContent.helpLearn = content.helpLearn;
@@ -330,6 +346,8 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.jobPosterOperatingContext_label = content.jobPosterOperatingContext_label;
     thisContent.jobPosterWhatWeValue_label = content.jobPosterWhatWeValue_label;
     thisContent.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
+    thisContent.years = content.years;
+    thisContent.status = content.status;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
@@ -811,6 +829,12 @@ DataAPI.saveJobApplicationByJobAndUser = function(jobApplication, jobPosterId, u
 
 DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
     var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.getFullJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getFullApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
 /**
