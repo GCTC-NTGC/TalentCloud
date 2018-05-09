@@ -404,7 +404,6 @@ JobPostAPI.updateFavourite = function(isFav,jobPosterId){
  * @returns {Boolean}
  */
 JobPostAPI.viewJobPoster = function(jobId){
-
     DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
         var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
         JobPostAPI.populateJobPoster(jobPoster);
@@ -431,7 +430,16 @@ JobPostAPI.localizeJobPoster = function() {
         // document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
         document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
-    }
+        
+        //Set language-specific labels
+        document.getElementById("jobPosterSalaryRangeLabel").innerHTML = siteContent.jobSalaryRange;
+        var applyButton = document.getElementById("jobPosterApplyButton");
+        if (applyButton)
+            applyButton.innerHTML = siteContent.applyNow;
+        var loginButton = document.getElementById("jobPosterLoginButton");
+        if (loginButton) 
+            loginButton.innerHTML = siteContent.navigationLoginLink;
+        }
 };
 
 /** LONG JOB DESCRIPTIONS (VIEW JOB POSTER)
@@ -446,7 +454,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     //console.log("asdfasdfsd = "+history.state.pageInfo);
 
     TalentCloudAPI.hideAllContent();
-
+    
     //Start requests for Hiring Manager data
     //Load Hiring Manager Name
     DataAPI.getUser(jobData.manager_user_id, function(response) {
@@ -544,10 +552,7 @@ JobPostAPI.populateJobPoster = function(jobData){
             TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
         }
     });
-
-    //Set language-specific labels
-    document.getElementById("jobPosterSalaryRangeLabel").innerHTML = siteContent.jobSalaryRange;
-    document.getElementById("jobPosterApplyButton").innerHTML = siteContent.applyNow;
+    
     //TODO: add more
 
    //set hidden values
@@ -628,12 +633,16 @@ JobPostAPI.populateJobPoster = function(jobData){
     }
     JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
 
+    /*
+    Setting Apply button vs login button now done in php
+    
     var applyNowButton = document.getElementById("jobPosterApplyButton");
     if(UserAPI.hasSessionUser()){
         applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");
     }else{
         applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
     }
+    */
 
     document.getElementById("viewJobPosterSection").classList.remove("hidden");
 

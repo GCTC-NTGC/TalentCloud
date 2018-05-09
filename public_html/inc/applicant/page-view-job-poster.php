@@ -52,7 +52,7 @@
             </div>
 
             <div class="job-poster__content-wrapper box lg-3of4">
-                
+
                 <a id="basics" aria-hidden="true"></a>
                 <section class="job-poster__basics">
                     <div class="flex-grid">
@@ -131,8 +131,8 @@
                             </a>
                         </div>
                         <div class="box full">
-                                <p class="job-poster__content-copy truncate" id="jobPosterHiringManagerAboutMe"></p>
-                            </div>
+                            <p class="job-poster__content-copy truncate" id="jobPosterHiringManagerAboutMe"></p>
+                        </div>
                         <?php /* Work Environment ======================== */ ?>
                         <div class="box full">
                             <h4 class="job-poster__content-subtitle" id="jobPosterWorkEnvironmentLabel">Work Environment</h4>
@@ -217,10 +217,38 @@
                             </div>
                         </div>
                     </div>
-                    <button class="job-poster__apply-button" id="jobPosterApplyButton" value="
-                    Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
-                        Apply Now
-                    </button>
+
+                    <?php /* Login */ ?>
+                    <?php
+                    $hasUser = null;
+                    if (isset($oidc)) {
+                        $hasUser = $oidc->requestUserInfo("name");
+                    }
+                    ?>
+                    <?php if ($hasUser != null) : ?>
+                        <button class="job-poster__apply-button" id="jobPosterApplyButton" value="Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
+                            Apply Now
+                        </button>
+                    <?php else : ?>                   
+                        <?php
+                        /* Not logged in */
+                        $loginLink = "";
+                        $loginLink .= OPENID_URI . AUTH_URI;
+                        $loginLink .= "?response_type=" . URL_RESPONSE_TYPES;
+                        if (strpos($url, 'admin') !== false) {
+                            $loginLink .= "&redirect_uri=" . urlencode(REDIRECT_URI_ADMIN);
+                        } else {
+                            $loginLink .= "&redirect_uri=" . urlencode(REDIRECT_URI);
+                        }
+                        $loginLink .= "&nonce=" . $nonce;
+                        $loginLink .= "&state=" . $state;
+                        $loginLink .= "&client_id=" . CLIENT_ID;
+                        $loginLink .= "&scope=" . SCOPE;
+                        $loginLink .= "&prompt=consent";
+                        echo("<a href=\"" . $loginLink . " class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
+                        ?>
+                    <?php endif; ?>
+
                 </section>
 
             </div>
@@ -234,161 +262,161 @@
 
 
 
-    <?php /* Old Job Poster */ ?>
+<?php /* Old Job Poster */ ?>
 
-        <?php /*
-        <section id="jobPosterDatapointsSection">
-            <div class="block-container">
-                <ul class="jobPosterDatapoints">
-                    <li>
-                        <span id="jobPosterJobLevelLabel">Classification</span> <span id="jobPosterJobLevelValue"></span>
-                    </li>
-                    <li>
-                        <span id="jobPosterSalaryRangeLabel">Compensation</span> <span id="jobPosterSalaryRangeValue"></span>
-                    </li>
-                    <li>
-                        <span id="jobPosterClearanceLevelLabel">Security clearance level</span> <span id="jobPosterClearanceLevelValue"></span>
-                    </li>
-                    <li>
-                        <span id="jobPosterLanguageLabel">Language</span> <span id="jobPosterLanguageValue"></span>
-                    </li>
-                    <li>
-                        <span id="jobPosterTermLabel">Duration</span> <span id="jobPosterTermValue"></span>
-                    </li>
-                    <li>
-                        <span id="jobPosterStartDateLabel">Target start date</span> <span id="jobPosterStartDateValue"></span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        */ ?>
+<?php /*
+  <section id="jobPosterDatapointsSection">
+  <div class="block-container">
+  <ul class="jobPosterDatapoints">
+  <li>
+  <span id="jobPosterJobLevelLabel">Classification</span> <span id="jobPosterJobLevelValue"></span>
+  </li>
+  <li>
+  <span id="jobPosterSalaryRangeLabel">Compensation</span> <span id="jobPosterSalaryRangeValue"></span>
+  </li>
+  <li>
+  <span id="jobPosterClearanceLevelLabel">Security clearance level</span> <span id="jobPosterClearanceLevelValue"></span>
+  </li>
+  <li>
+  <span id="jobPosterLanguageLabel">Language</span> <span id="jobPosterLanguageValue"></span>
+  </li>
+  <li>
+  <span id="jobPosterTermLabel">Duration</span> <span id="jobPosterTermValue"></span>
+  </li>
+  <li>
+  <span id="jobPosterStartDateLabel">Target start date</span> <span id="jobPosterStartDateValue"></span>
+  </li>
+  </ul>
+  </div>
+  </section>
+ */ ?>
 
-        <?php /*
-        <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h4>
-                <p id="jobPosterImpact"></p>
-            </div>
-        </section>
-        */ ?>
+<?php /*
+  <section class='jobPosterSection'>
+  <div class="block-container">
+  <h4 id="jobPosterImpactLabel" class="jobPosterSectionTitle">Impact</h4>
+  <p id="jobPosterImpact"></p>
+  </div>
+  </section>
+ */ ?>
 
-        <?php /*
-        <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h4>
-                <ul id="jobPosterKeyTasks"></ul>
-            </div>
-        </section>
-        <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Essential Criteria</h4>
-                <ul id="jobPosterCoreCompetencies"></ul>
-            </div>
-        </section>
-        <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Asset Criteria</h4>
-                <ul id="jobPosterDevelopingCompetencies"></ul>
-            </div>
-        </section>
-        */ ?>
+<?php /*
+  <section class='jobPosterSection'>
+  <div class="block-container">
+  <h4 id="jobPosterKeyTasksLabel" class="jobPosterSectionTitle">Key Tasks</h4>
+  <ul id="jobPosterKeyTasks"></ul>
+  </div>
+  </section>
+  <section class='jobPosterSection'>
+  <div class="block-container">
+  <h4 id="jobPosterCoreCompetenciesLabel" class="jobPosterSectionTitle">Essential Criteria</h4>
+  <ul id="jobPosterCoreCompetencies"></ul>
+  </div>
+  </section>
+  <section class='jobPosterSection'>
+  <div class="block-container">
+  <h4 id="jobPosterDevelopingCompetenciesLabel" class="jobPosterSectionTitle">Asset Criteria</h4>
+  <ul id="jobPosterDevelopingCompetencies"></ul>
+  </div>
+  </section>
+ */ ?>
 
-        <?php /*
-        <section class='jobPosterSection'>
-            <div class='block-container'>
-                <h4 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h4>
-                <input type='hidden' id='jobPosterHiringManagerUserId'/>
+<?php /*
+  <section class='jobPosterSection'>
+  <div class='block-container'>
+  <h4 id="jobPosterHiringManagerLabel" class="jobPosterSectionTitle">Hiring Manager</h4>
+  <input type='hidden' id='jobPosterHiringManagerUserId'/>
 
-                <div class="hiringManagerSummaryWrapper">
-                    <div id='hiringManagerSummaryImageWrapper'>
-                        <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
-                        <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
-                    </div>
-                    <div id='hiringManagerSummaryContentWrapper' >
-                        <div class="hiringManagerSummary"><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></div>
-                        <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
-                        <div id='hiringManagerSummaryButtonWrapper'>
-                            <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
-                                Read More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        */ ?>
+  <div class="hiringManagerSummaryWrapper">
+  <div id='hiringManagerSummaryImageWrapper'>
+  <img id='jobPosterHiringManagerProfilePic' alt="Hiring Manager" src="images/user.png">
+  <p id='jobPosterHiringManagerName' class="hiringManagerSummaryName"></p>
+  </div>
+  <div id='hiringManagerSummaryContentWrapper' >
+  <div class="hiringManagerSummary"><span id='jobPosterHiringManagerTitle'></span> <span id="jobPosterHiringManagerPositionAtLabel">at</span> <span id='jobPosterHiringManagerDepartment'></span></div>
+  <p id='jobPosterHiringManagerAboutMe' class="truncate"></p>
+  <div id='hiringManagerSummaryButtonWrapper'>
+  <button id="jobPosterHiringManagerButton" class="btn btn-primary" onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value);">
+  Read More
+  </button>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+ */ ?>
 
-        <?php /*
-        <section class='jobPosterSection'>
-            <div class="block-container">
-                <h4 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h4>
-                <div class="workEnvironmentAnswerWrapper">
-                    <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
-                    <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
-                    <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
-                </div>
-                <div class="workEnvironmentSummaryWrapper">
-                    <div id='workEnvironmentSummaryImagesWrapper'>
+<?php /*
+  <section class='jobPosterSection'>
+  <div class="block-container">
+  <h4 id="jobPosterWorkEnvironmentLabel" class="jobPosterSectionTitle">Work Environment</h4>
+  <div class="workEnvironmentAnswerWrapper">
+  <p><span id='jobPosterRemoteWork_label'>Remote location allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterRemoteWork"></span></p>
+  <p><span id='jobPosterTelework_label'>Telework allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterTelework"></span></p>
+  <p><span id='jobPosterFlexHours_label'>Flexible hours allowed</span>: <span class="workEnvironmentAnswer" id="jobPosterFlexHours"></span></p>
+  </div>
+  <div class="workEnvironmentSummaryWrapper">
+  <div id='workEnvironmentSummaryImagesWrapper'>
 
-                        <?php // New Workplace Photo Layout ?>
-                        <div class="flex-grid top job-poster__work-environment-photo-grid">
+  <?php // New Workplace Photo Layout ?>
+  <div class="flex-grid top job-poster__work-environment-photo-grid">
 
 
-                            <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
-                                <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_1" title="First image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
-                            </div>
-                            <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
-                                <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_2" title="Second image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
-                            </div>
-                            <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
-                                <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_3" title="Third image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
-                            </div>
+  <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
+  <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_1" title="First image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
+  </div>
+  <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
+  <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_2" title="Second image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
+  </div>
+  <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo-grid-item">
+  <div class="box med-1of2 lg-1of3 job-poster__work-environment-photo" id="jobPosterWorkEnvironment_3" title="Third image of workplace environment" style="background-image: url('images/default_workplace_photo.png');"></div>
+  </div>
 
-                        </div>
-                    </div>
-                </div>
-        </section>
-        
-        <section class="jobPosterSection">
-            <div class="block-container">
-                <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
-                <div class="container">
-                    <div class="container">
-                        <p><span id='jobPosterTeamSize_label'>Team size:</span> <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
-                        <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
-                        <p><span id="jobPosterTeamNarrativeText_label">About the team:</span> <span id="jobPosterTeamNarrativeText"></span></p>
-                        <p><span id="jobPosterOperatingContext_label">Our operating context:</span> <span id="jobPosterOperatingContext_text"></span></p>
-                        <p><span id="jobPosterWhatWeValue_label">What we value:</span> <span id="jobPosterWhatWeValue_text"></span></p>
-                        <p><span id="jobPosterHowWeWork_label">How we work:</span> <span id="jobPosterHowWeWork_text"></span></p>
-                    </div>
-                </div>
-            </section>
+  </div>
+  </div>
+  </div>
+  </section>
 
-            */ ?>
+  <section class="jobPosterSection">
+  <div class="block-container">
+  <h4 id="jobPosterTeamCultureLabel" class="jobPosterSectionTitle">Team Culture</h4>
+  <div class="container">
+  <div class="container">
+  <p><span id='jobPosterTeamSize_label'>Team size:</span> <span class="blue-highlight-text" id="jobPosterTeamSize"></span></p>
+  <p><span id='jobPosterGcDirLink_label'>Meet the team in</span> <a id="jobPosterGcDirLink" href="#" target="_blank">GCdirectory</a></p>
+  <p><span id="jobPosterTeamNarrativeText_label">About the team:</span> <span id="jobPosterTeamNarrativeText"></span></p>
+  <p><span id="jobPosterOperatingContext_label">Our operating context:</span> <span id="jobPosterOperatingContext_text"></span></p>
+  <p><span id="jobPosterWhatWeValue_label">What we value:</span> <span id="jobPosterWhatWeValue_text"></span></p>
+  <p><span id="jobPosterHowWeWork_label">How we work:</span> <span id="jobPosterHowWeWork_text"></span></p>
+  </div>
+  </div>
+  </section>
 
-            <?php /*
-            <section class="jobPosterSection">
-                <div class="container">
-                    <div class="accommodationRequest flex-grid middle">
-                        <div class="box small-2of10 lg-1of10">
-                            <i class="fas fa-hand-holding-heart fa-4x"></i>
-                        </div>
-                        <div class="box small-8of10 lg-9of10 accommodationRequestText">
-                            <span id="accommodationTextStart">Please advise</span>
-                            <span id="jobPosterHiringManagerNameAccommodation"></span>
-                            <span id="accommodationRequestAt">at</span>
-                            <a id="jobPosterHiringManagerEmail"></a>
-                            <span id="accommodationTextEnd">of any accomodations you may require during the selection.</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            */ ?>
+ */ ?>
 
-            <?php /*
-            <div id="jobPosterButtonWrapper">
-                <button id="jobPosterApplyButton" class="button--yellow" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
-                    Apply Now
-                </button>
-            </div>
-            */ ?>
+<?php /*
+  <section class="jobPosterSection">
+  <div class="container">
+  <div class="accommodationRequest flex-grid middle">
+  <div class="box small-2of10 lg-1of10">
+  <i class="fas fa-hand-holding-heart fa-4x"></i>
+  </div>
+  <div class="box small-8of10 lg-9of10 accommodationRequestText">
+  <span id="accommodationTextStart">Please advise</span>
+  <span id="jobPosterHiringManagerNameAccommodation"></span>
+  <span id="accommodationRequestAt">at</span>
+  <a id="jobPosterHiringManagerEmail"></a>
+  <span id="accommodationTextEnd">of any accomodations you may require during the selection.</span>
+  </div>
+  </div>
+  </div>
+  </section>
+ */ ?>
+
+<?php /*
+  <div id="jobPosterButtonWrapper">
+  <button id="jobPosterApplyButton" class="button--yellow" value="View" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
+  Apply Now
+  </button>
+  </div>
+ */ ?>

@@ -281,3 +281,29 @@
 	}
 
 }
+
+.job-poster__loggin-button {
+	background: $palette-yellow--light;
+	border: .5rem solid $palette-yellow--light;
+	border-radius: 0 0 3px 3px;
+	color: $white;
+	font-size: 25px;
+	font-weight: 700;
+	margin: 0 !important;
+	padding: 2rem 3rem;
+	text-align: center;
+	transition: all .2s ease;
+	width: 100%;
+
+	&:hover {
+		background: $palette-yellow--dark;
+		border-color: $palette-yellow--dark;
+		transition: all .2s ease;
+	}
+
+	&:focus {
+		background: $palette-grey--dark;
+		border: .5rem solid $palette-yellow--light;
+		transition: all .2s ease;
+	}
+}
