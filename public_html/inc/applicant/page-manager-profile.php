@@ -1,8 +1,5 @@
 <?php // BEGIN - Manager Profile Section ?>
 <section class="pageContent hidden" id="managerProfileSection">
-    <!-- <div class="pageBanner">
-        <div class="profileBannerFiller"></div>
-    </div> -->
     <div class="pageBody">
         <div class="container">
             <div id="managerProfileBasicInfo" class="profileBasicInfo centered">
