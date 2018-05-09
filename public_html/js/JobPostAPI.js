@@ -408,10 +408,16 @@ JobPostAPI.viewJobPoster = function(jobId){
     DataAPI.getJobPoster(TalentCloudAPI.getLanguageFromCookie(),jobId, function(response) {
         var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
         JobPostAPI.populateJobPoster(jobPoster);
-
-        // focus top of page
-        window.scrollTo(0,0);
     });
+
+    // focus top of page
+    window.scrollTo(0,0);
+    
+    if(UserAPI.hasSessionUser()) {
+        document.getElementById("jobPosterButtonWrapper").classList.add("logged-in");
+    } else {
+        document.getElementById("jobPosterButtonWrapper").classList.remove("logged-in");
+    }
 
     // New Subpage Hero Scripts
 

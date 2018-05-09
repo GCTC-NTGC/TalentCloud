@@ -7281,6 +7281,18 @@ nav {
   line-height: 1.5;
   margin: 2rem 0; }
 
+.job-poster__button-wrapper .job-poster__apply-button {
+  display: none; }
+
+.job-poster__button-wrapper .job-poster__login-button {
+  display: block; }
+
+.job-poster__button-wrapper.logged-in .job-poster__apply-button {
+  display: block; }
+
+.job-poster__button-wrapper.logged-in .job-poster__login-button {
+  display: none; }
+
 .job-poster__apply-button {
   background: #2196f3;
   border: 0.5rem solid #2196f3;

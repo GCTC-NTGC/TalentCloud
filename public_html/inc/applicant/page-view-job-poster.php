@@ -218,18 +218,12 @@
                         </div>
                     </div>
 
-                    <?php /* Login */ ?>
-                    <?php
-                    $hasUser = null;
-                    if (isset($oidc)) {
-                        $hasUser = $oidc->requestUserInfo("name");
-                    }
-                    ?>
-                    <?php if ($hasUser != null) : ?>
+                    <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?>
+                    <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in">
                         <button class="job-poster__apply-button" id="jobPosterApplyButton" value="Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                             Apply Now
                         </button>
-                    <?php else : ?>                   
+                    
                         <?php
                         /* Not logged in */
                         $loginLink = "";
@@ -245,9 +239,9 @@
                         $loginLink .= "&client_id=" . CLIENT_ID;
                         $loginLink .= "&scope=" . SCOPE;
                         $loginLink .= "&prompt=consent";
-                        echo("<a href=\"" . $loginLink . " class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
+                        echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
                         ?>
-                    <?php endif; ?>
+                    </div>
 
                 </section>
 

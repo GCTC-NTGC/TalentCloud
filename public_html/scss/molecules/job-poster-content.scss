@@ -255,6 +255,24 @@
 	margin: 2rem 0;
 }
 
+.job-poster__button-wrapper {
+        .job-poster__apply-button {
+            display: none;
+        }
+        .job-poster__login-button {
+            display: block;
+        }
+    
+        &.logged-in {
+            .job-poster__apply-button {
+                display: block;
+            }
+            .job-poster__login-button {
+                display: none;
+            }
+        }
+}
+
 .job-poster__apply-button {
 	background: $palette-blue;
 	border: .5rem solid $palette-blue;
