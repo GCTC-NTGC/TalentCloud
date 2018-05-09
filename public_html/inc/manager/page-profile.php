@@ -1,10 +1,6 @@
 <!-- BEGIN - Edit Admin Profile Section -->
 <section id="createEditProfileSection" class="pageContent hidden">
 
-    <!-- <div class="pageBanner">
-        <div class="profileBannerFiller"></div>
-    </div> -->
-
     <div class="pageBody">
 
         <div class="block-container">

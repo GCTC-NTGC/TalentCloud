@@ -187,9 +187,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         //Set saved question answer content
         var application_question_answers = jobApplication.application_question_answers;
         for (var i = 0; i < application_question_answers.length; i++) {
-        //questionLookupMap.forEach(question => {
             var value = application_question_answers[i];
-            //jobApplication.application_question_answers.forEach(value => {
             //find appropriate question textarea
             var element = document.querySelector('.application-form__open-answer[data-question-id="' + value.job_poster_question_id + '"]');
             //if textarea exists, set value with saved value
@@ -415,23 +413,25 @@ JobApplicationAPI.shiftApplicationSection = function(shift) {
 JobApplicationAPI.showApplicationSection = function(applicationSection) {
     //Hide all application-sections except for selected one
     var applicationSections = document.querySelectorAll(".application-section");
-    applicationSections.forEach(section => {
-       if (section.getAttribute("data-application-section") === applicationSection) {
+    for (var i=0; i< applicationSections.length; i++) {
+        var section = applicationSections[i];
+        if (section.getAttribute("data-application-section") === applicationSection) {
            section.classList.remove("hidden");
        } else {
            section.classList.add("hidden");
        }
-    });
+    }
 
     //Set progress tracking bar to match
     var progressItems = document.querySelectorAll(".application-progress__item");
-    progressItems.forEach( item => {
-       if (item.getAttribute("data-application-section") === applicationSection) {
+    for (var i=0; i < progressItems.length; i++) {
+        var item = progressItems[i];
+        if (item.getAttribute("data-application-section") === applicationSection) {
            item.classList.remove("inactive");
        } else {
            item.classList.add("inactive");
        }
-    });
+    }
 
     //TODO: select focus properly
 

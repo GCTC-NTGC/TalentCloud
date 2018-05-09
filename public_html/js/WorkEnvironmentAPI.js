@@ -43,13 +43,14 @@ WorkEnvironmentAPI.parseWorkEnvironmentResponse = function(response) {
             json.basic_work_environment.flexible_allowed,
             []
     );
-    json.workplace_photo_captions.forEach(function(caption) {
+    for (var i=0; i<json.workplace_photo_captions.length; i++) {
+        var caption = json.workplace_photo_captions[i];
         var workplacePhotoCaption = new WorkEnvironmentAPI.WorkplacePhotoCaption(
                caption.photo_name,
                caption.description
         );
         workEnvironment.workplace_photo_captions.push(workplacePhotoCaption);
-    });
+    }
     return workEnvironment;
 };
 
@@ -86,12 +87,13 @@ WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
     document.getElementById('jobPosterTelework').innerHTML = SliderAPI.getFrequencySliderLabel(workEnvironment.telework_allowed);
     document.getElementById('jobPosterFlexHours').innerHTML = SliderAPI.getFrequencySliderLabel(workEnvironment.flexible_allowed);
 
-    workEnvironment.workplace_photo_captions.forEach(function(caption){
+    for(var i=0; i<workEnvironment.workplace_photo_captions.length; i++) {
+        var caption = workEnvironment.workplace_photo_captions[i];
         var imgId = WorkEnvironmentAPI.photoNameToImgElementId[caption.photo_name];
         if (imgId) {
             document.getElementById(imgId).setAttribute('title', caption.description);
         }
-    });
+    }
 
     // TAL-150 - Remote work values for heading section
     if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Yes'){

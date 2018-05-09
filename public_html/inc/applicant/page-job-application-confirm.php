@@ -1,8 +1,5 @@
 <?php // BEGIN - Job Application Confirmation Section ?>
 <section class="pageContent hidden" id="createJobApplicationConfirmationSection">
-     <!-- <div class="pageBanner">
-        <h2 class="section--title" id="createJobApplicationConfirmationTitle">My Job Application</h2>
-    </div> -->
     <div class="pageBody">
         <div id='createJobApplicationConfirmationBodyWrapper'>
             <div class="centered container">
