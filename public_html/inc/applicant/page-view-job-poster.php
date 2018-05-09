@@ -40,7 +40,7 @@
                 <div class="job-poster__subnav-sticky-wrapper">
                     <span class="job-poster__subnav-job-title" id="jobPosterSubnavJobTitle">User Experience Designer</span>
                     <span class="job-poster__subnav-department" id="jobPosterSubnavDepartment">Transport Canada</span>
-                    <span class="job-poster_subnav-label" id="jobPosterSubnavLabel">About This Job:</span>
+                    <h3 class="job-poster_subnav-label" id="jobPosterSubnavLabel">About This Job:</h3>
                     <a href="#basics" class="job-poster__subnav-item" id="jobPosterSubnavItemBasics">Basic Information</a>
                     <a href="#impact" class="job-poster__subnav-item" id="jobPosterSubnavItemImpact">Impact</a>
                     <a href="#work" class="job-poster__subnav-item" id="jobPosterSubnavItemWork">Your Work</a>

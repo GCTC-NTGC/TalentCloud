@@ -4,12 +4,36 @@
         <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
     </div> -->
     <div id="jobs" class="pageBody">
+
         <div id="noJobs" class="hidden">
             No jobs found
         </div>
+
         <div id="loadingJobs" class="hidden">
             <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
         </div>
+
+        <div class="block-container">
+
+            <a class="job-card">
+
+                <div class="flex-grid job-card__title-wrapper">
+                    <h3>Web Developer</h3>
+                    <span>Treasury Board of Canada Secretariat</span>
+                </div>
+
+                <div class="flex-grid job-card__content-wrapper">
+
+                </div>
+
+                <div class="flex-grid job-card__footer-wrapper">
+
+                </div>
+
+            </a>
+
+        </div>
+
         <div id="jobList" class="jobList hidden">
 
 
@@ -18,10 +42,12 @@
         <div id="jobPosterApplication" class="hidden">
 
         </div>
+
     </div>
 
     <div class="jobCount hidden">
         <span id="contactCount">0</span> jobs
     </div>
+
 </section>
 <?php // END - Browse Jobs Section ?>
