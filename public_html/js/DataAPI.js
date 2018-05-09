@@ -782,9 +782,11 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
         var authToken = UserAPI.getAuthToken();
         request.setRequestHeader("Authorization", "Bearer " + authToken);
     }
-    Object.keys(headersMap).forEach(function(key) {
-        request.setRequestHeader(key, headersMap[key]);
-    });
+    //Set custom headers
+    var keys = Object.keys(headersMap)
+    for (var i=0; i<keys.length; i++) {
+        request.setRequestHeader(keys[i], headersMap[keys[i]]);
+    }
 
     request.addEventListener("progress", DataAPI.updateProgress, false);
     request.addEventListener("error", DataAPI.transferFailed, false);

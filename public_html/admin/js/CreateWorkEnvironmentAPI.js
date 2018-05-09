@@ -67,13 +67,15 @@ CreateWorkEnvironmentAPI.parseWorkEnvironmentResponse = function (response) {
             json.basic_work_environment.flexible_allowed,
             []
             );
-    json.workplace_photo_captions.forEach(function (caption) {
+    var captions = json.workplace_photo_captions;
+    for (var i=0; i<captions.length; i++) {
+        var caption = captions[i];
         var workplacePhotoCaption = new CreateWorkEnvironmentAPI.WorkplacePhotoCaption(
                 caption.photo_name,
                 caption.description
                 );
         workEnvironment.workplace_photo_captions.push(workplacePhotoCaption);
-    });
+    }
     return workEnvironment;
 };
 
@@ -114,13 +116,14 @@ CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function (workEnvironment
     SliderAPI.selectOptionByValue("createEditProfile_remoteWork", workEnvironment.remote_allowed, "remoteWork");
     SliderAPI.selectOptionByValue("createEditProfile_telework", workEnvironment.telework_allowed, "telework");
     SliderAPI.selectOptionByValue("createEditProfile_flexHours", workEnvironment.flexible_allowed, "flexHours");
-
-    workEnvironment.workplace_photo_captions.forEach(function (caption) {
+    var captions = workEnvironment.workplace_photo_captions;
+    for (var i=0; i<captions.length; i++) {
+        var caption = captions[i];
         var captionFormElementId = CreateWorkEnvironmentAPI.photoNameToCaptionFormId[caption.photo_name];
         if (captionFormElementId) {
             document.getElementById(captionFormElementId).value = caption.description;
         }
-    });
+    }
 };
 
 CreateWorkEnvironmentAPI.refreshWorkplacePhoto = function (managerProfileId, photoName, previewImageElementId) {
@@ -186,8 +189,10 @@ CreateWorkEnvironmentAPI.saveWorkEnvironment = function (managerProfileId) {
     }
 
     DataAPI.submitWorkplaceEnvironment(managerProfileId, workEnvironment, function () {}); //TODO add response callback
-
-    CreateWorkEnvironmentAPI.workplacePhotoUploaders.forEach(uploader => uploader.uploadPhoto());
+    
+    for (var i=0; i < CreateWorkEnvironmentAPI.workplacePhotoUploaders.length; i++) {
+        CreateWorkEnvironmentAPI.workplacePhotoUploaders[i].uploadPhoto();
+    }
 }
 
 CreateWorkEnvironmentAPI.makeWorkplacePhotoUploader = function (managerProfileId, photoName, inputId, dropzoneId, previewId) {

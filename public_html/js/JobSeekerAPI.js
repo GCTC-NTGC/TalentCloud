@@ -72,10 +72,11 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
         jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
 
         var answers = [];
-        jobSeekerJSON.job_seeker_profile_answers.forEach(value => {
-            var answer = new JobSeekerAPI.JobSeekerProfileAnswer(value.job_seeker_profile_question_id, value.answer);
+        for (var i=0; i<jobSeekerJSON.job_seeker_profile_answers.length; i++) {
+            var jsonAnswer = jobSeekerJSON.job_seeker_profile_answers[i];
+            var answer = new JobSeekerAPI.JobSeekerProfileAnswer(jsonAnswer.job_seeker_profile_question_id, jsonAnswer.answer);
             answers.push(answer);
-        });
+        }
         jobSeekerObj.answers = answers;
     }
 
@@ -356,15 +357,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
             }
         }
     }
-    /*jobSeekerProfile.answers.forEach(answer => {
-        var questionId = answer.job_seeker_profile_question_id;
-        var selector = ".profile-question__answer[data-question-id=\"" + questionId + "\"]";
-        var answerField = document.querySelector(selector);
-        if (answerField) {
-            answerField.innerHTML = answer.answer;
-        }
-    });*/
-
+    
     //Populate user name
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
@@ -444,13 +437,6 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
             answers.push(new JobSeekerAPI.JobSeekerProfileAnswer(questionId, answerText));
         }
     }
-    /*answerFields.forEach(field => {
-        var questionId = field.getAttribute("data-question-id");
-        var answerText = field.innerHTML;
-        if (questionId) {
-            answers.push(new JobSeekerAPI.JobSeekerProfileAnswer(questionId, answerText));
-        }
-    });*/
     jobSeekerProfile.answers = answers;
 
     jobSeekerProfile.personal_link = "";
@@ -597,7 +583,6 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
     
     
     for (var i = 0; i < questionLookupMap.length; i++) {
-    //questionLookupMap.forEach(question => {
         var question = questionLookupMap[i];
 
         var questionSection = document.createElement("div");
