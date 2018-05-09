@@ -218,14 +218,26 @@
                         </div>
                     </div>
 
+<<<<<<< Updated upstream
                     <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?>
                     <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in">
+=======
+                    <?php /* Login */ ?>
+                    <?php
+                    $hasUser = null;
+                    if (isset($oidc)) {
+                        $hasUser = $oidc->requestUserInfo("name");
+                    }
+                    ?>
+                    <?php /*
+                    <?php if ($hasUser != null) : ?>
+>>>>>>> Stashed changes
                         <button class="job-poster__apply-button" id="jobPosterApplyButton" value="Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                             Apply Now
                         </button>
                     
                         <?php
-                        /* Not logged in */
+                        // Not logged in
                         $loginLink = "";
                         $loginLink .= OPENID_URI . AUTH_URI;
                         $loginLink .= "?response_type=" . URL_RESPONSE_TYPES;
@@ -239,10 +251,19 @@
                         $loginLink .= "&client_id=" . CLIENT_ID;
                         $loginLink .= "&scope=" . SCOPE;
                         $loginLink .= "&prompt=consent";
+<<<<<<< Updated upstream
                         echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
                         ?>
                     </div>
 
+=======
+                        echo("<a href=\"" . $loginLink . " class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \ role=\"button\">Login</a>");
+                        ?>
+                    <?php endif; ?>
+                    */
+                    ?>
+                    <a class="job-poster__login-button box full">test</a>
+>>>>>>> Stashed changes
                 </section>
 
             </div>
