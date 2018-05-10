@@ -1,32 +1,65 @@
 <?php // BEGIN - Browse Jobs Section ?>
-<section class="pageContent hidden" id="browseJobsSection">
-    <!-- <div class="pageBanner">
-        <h2 class="section--title" id="browseTitle">Browse Jobs</h2>
-    </div> -->
-    <div id="jobs" class="pageBody">
+<section class="browse-jobs hidden" id="browseJobsSection">
 
-        <div id="noJobs" class="hidden">
-            No jobs found
-        </div>
+    <?php /* <div class="browse-jobs__filter-wrapper">
 
-        <div id="loadingJobs" class="hidden">
-            <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
-        </div>
+    </div> */ ?>
 
-        <div class="block-container">
+    <div id="noJobs" class="hidden">
+        No jobs found
+    </div>
 
-            <a class="job-card">
+    <div id="loadingJobs" class="hidden">
+        <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
+    </div>
 
-                <div class="flex-grid job-card__title-wrapper">
-                    <h3>Web Developer</h3>
-                    <span>Treasury Board of Canada Secretariat</span>
-                </div>
+    <div class="browse-jobs__list-wrapper hidden" id="jobList">
 
-                <div class="flex-grid job-card__content-wrapper">
+        <?php /* Example Job Card */ ?>
 
-                </div>
+        <div class="flex-grid" id="browseJobsList">
 
-                <div class="flex-grid job-card__footer-wrapper">
+            <a class="job-card box med-1of2 lg-1of3" id="" href="">
+
+                <div class="job-card__wrapper">
+
+                    <div class="job-card__title-wrapper">
+                        <h3 class="job-card__title">Web Developer</h3>
+                        <span class="job-card__department">Treasury Board of Canada Secretariat</span>
+                    </div>
+
+                    <div class="job-card__content-wrapper flex-grid">
+                        <div class="box small-1of2">
+                            <span>Location</span>
+                            <p>
+                                <span>Ottawa</span>, 
+                                <span>Ontario</span>
+                            </p>
+                        </div>
+                        <div class="box small-1of2">
+                            <span>Salary</span>
+                            <p>$100,000 - $120,000</p>
+                        </div>
+                        <div class="box small-1of2">
+                            <span>Duration</span>
+                            <p>12 months</p>
+                        </div>
+                        <div class="box small-1of2">
+                            <span>Remote Work</span>
+                            <p>Allowed</p>
+                        </div>
+                    </div>
+
+                    <div class="job-card__footer-wrapper flex-grid">
+                        <div class="box med-1of2">
+                            <span>12 Days Remaining</span>
+                        </div>
+                        <div class="box med-1of2">
+                            <span>2 Applications Received</span>
+                        </div>
+                    </div>
+
+                    <button class="job-card__view-button">View Job</button>
 
                 </div>
 
@@ -34,20 +67,12 @@
 
         </div>
 
-        <div id="jobList" class="jobList hidden">
-
-
-        </div>
-
-        <div id="jobPosterApplication" class="hidden">
-
-        </div>
-
     </div>
+
+    <div id="jobPosterApplication" class="hidden"></div>
 
     <div class="jobCount hidden">
         <span id="contactCount">0</span> jobs
     </div>
 
 </section>
-<?php // END - Browse Jobs Section ?>

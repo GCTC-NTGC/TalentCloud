@@ -63,6 +63,37 @@ WorkEnvironmentAPI.localizeWorkEnvironment = function() {
     }
 };
 
+WorkEnvironmentAPI.loadWorkEnvironmentBrowseJobs = function(managerProfileId, labelID) {
+
+    DataAPI.getWorkplaceEnvironment(managerProfileId, function(response) {
+        var workEnv = WorkEnvironmentAPI.parseWorkEnvironmentResponse(response);
+        WorkEnvironmentAPI.populateWorkEnvironmentBrowseJobs(workEnv, labelID);
+    })
+
+}
+
+WorkEnvironmentAPI.populateWorkEnvironmentBrowseJobs = function(workEnvironment, labelID) {
+
+    var jobCardRemote = document.getElementById(labelID);
+
+    if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Yes'){
+        jobCardRemote.innerHTML = 'Allowed';
+    }
+    else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Oui') {
+        jobCardRemote.innerHTML = 'Autorisé';
+    }
+    else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'No') {
+        jobCardRemote.innerHTML = 'Not Allowed';
+    }
+    else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Non') {
+        jobCardRemote.innerHTML = 'Non autorisé';
+    }
+    else {
+        jobCardRemote.innerHTML = 'Not Specified';
+    }
+
+}
+
 WorkEnvironmentAPI.loadWorkEnvironmentSummary = function(managerProfileId) {
     //Fill text fields
     DataAPI.getWorkplaceEnvironment(managerProfileId, function(response) {
@@ -95,19 +126,19 @@ WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
 
     // TAL-150 - Remote work values for heading section
     if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Yes'){
-        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work allowed';
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote Work Allowed';
     }
     else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Oui') {
         document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Travail à distance autorisé';
     }
     else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'No') {
-        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work not allowed';
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote Work Not Allowed';
     }
     else if (SliderAPI.getYesNoSliderLabel(workEnvironment.remote_allowed) === 'Non') {
         document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Travail à distance non autorisé';
     }
     else {
-        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote work not specified';
+        document.getElementById('jobPosterRemoteWorkHeader').innerHTML = 'Remote Work Not Specified';
     }
 
 };

@@ -613,6 +613,7 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
         questionEditBtn.classList.add("applicant-profile__edit-trigger");
         questionEditBtn.setAttribute("role", "button");
         questionEditBtn.href = "javascript:void(0)";
+        questionEditBtn.setAttribute("title", 'Edit "'+question.value+'"');
         questionEditBtn.onclick = function () {
             JobSeekerAPI.showEditProfileAnswerModal(question.id, question.value, question.description);
         };

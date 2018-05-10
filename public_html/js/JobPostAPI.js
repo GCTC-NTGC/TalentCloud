@@ -163,7 +163,8 @@ JobPostAPI.populateJobObject = function(JSONJob){
  */
 JobPostAPI.populateJobs = function(jobPosts){
     Utilities.debug?console.log("populating jobs"):null;
-    var jobsDiv = document.getElementById("jobList");
+    var jobsWrapper = document.getElementById("jobList");
+    var jobsDiv = document.getElementById("browseJobsList");
     var noJobs = document.getElementById("noJobs");
     var loadingJobs = document.getElementById("loadingJobs");
 
@@ -182,10 +183,10 @@ JobPostAPI.populateJobs = function(jobPosts){
 
     loadingJobs.classList.add("hidden");
     if(jobPosts.length > 0){
-        jobsDiv.classList.remove("hidden");
+        jobsWrapper.classList.remove("hidden");
         noJobs.classList.add("hidden");
     } else {
-        jobsDiv.classList.add("hidden");
+        jobsWrapper.classList.add("hidden");
         noJobs.classList.remove("hidden");
     }
 
@@ -200,115 +201,172 @@ JobPostAPI.populateJobs = function(jobPosts){
  * @returns {Element|JobPostAPI.populateJobSummary.jobCard}
  */
 JobPostAPI.populateJobSummary = function(job, demo, locale){
+
     Utilities.debug?console.log("populating job"):null;
 
-    // Create a job summary
-    var jobSummary = document.createElement("div");
-    jobSummary.setAttribute("id", "jobId_"+job.id);
-    jobSummary.setAttribute("class", "jobSummary");
-    //jobSummary.setAttribute("tabindex",0);
+    // Create a job-card.
+    var jobCard = document.createElement("div");
+    jobCard.setAttribute("class", "job-card box med-1of2 lg-1of3");
+    jobCard.setAttribute("id", "jobId_"+job.id);
+    // jobCard.setAttribute("value", siteContent.viewButton);
+    // jobCard.innerHTML = siteContent.viewButton;
+    jobCard.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
 
-    // Job summary elements
-    var jobSummaryTable = document.createElement("div");
-    jobSummaryTable.setAttribute("class", "jobSummaryTable");
+    var jobCardID = document.createElement("div");
+    jobCardID.setAttribute("class", "jobId hidden");
+    jobCardID.innerHTML = job.id;
 
-    var jobIDCell = document.createElement("div");
-    jobIDCell.setAttribute("class", "jobId hidden");
-    jobIDCell.innerHTML = job.id;
+    var jobCardWrapper = document.createElement("div");
+    jobCardWrapper.setAttribute("class", "job-card__wrapper");
 
-    var hiringManagerProfilePicImg = new Image();
-    hiringManagerProfilePicImg.src = "/images/user.png";
+    // Create a job-card__title-wrapper.
+    var jobCardTitleWrapper = document.createElement("div");
+    jobCardTitleWrapper.setAttribute("class", "job-card__title-wrapper");
 
-    var hiringManagerProfilePic = document.createElement("img");
-    hiringManagerProfilePic.setAttribute("class", "hiringManagerProfilePicSmall");
-    hiringManagerProfilePic.setAttribute("title", "Image of Hiring Manager");
-    hiringManagerProfilePic.src = hiringManagerProfilePicImg.src;
+    var jobCardTitle = document.createElement("h3");
+    jobCardTitle.setAttribute("class", "job-card__title");
+    jobCardTitle.innerHTML = job.title;
 
-    var hiringManagerLabel = document.createElement("span");
-    hiringManagerLabel.setAttribute("class", "hiringManagerLabel");
-    hiringManagerLabel.innerHTML = "Hiring Manager";
+    var jobCardDepartment = document.createElement("span");
+    jobCardDepartment.setAttribute("class", "job-card__department");
+    jobCardDepartment.innerHTML = job.department;
 
-    var hiringManagerWrapper = document.createElement("div");
-    hiringManagerWrapper.setAttribute("class", "hiringManagerWrapper");
+    // Create a job-card__content-wrapper.
+    var jobCardContentWrapper = document.createElement("div");
+    jobCardContentWrapper.setAttribute("class", "job-card__content-wrapper flex-grid");
 
-    hiringManagerWrapper.appendChild(hiringManagerProfilePic);
-    hiringManagerWrapper.appendChild(hiringManagerLabel);
+    var jobCardContentBox1 = document.createElement("div");
+    var jobCardContentBox2 = document.createElement("div");
+    var jobCardContentBox3 = document.createElement("div");
+    var jobCardContentBox4 = document.createElement("div");
 
-    var jobSummaryTitle = document.createElement("div");
-    jobSummaryTitle.setAttribute("class", "jobSummaryTitle");
-    jobSummaryTitle.innerHTML = job.title;
+    jobCardContentBox1.setAttribute("class", "box small-1of2");
+    jobCardContentBox2.setAttribute("class", "box small-1of2");
+    jobCardContentBox3.setAttribute("class", "box small-1of2");
+    jobCardContentBox4.setAttribute("class", "box small-1of2");
 
-    var jobSummaryDepartment = document.createElement("div");
-    jobSummaryDepartment.setAttribute("class", "jobSummaryDepartment");
-    jobSummaryDepartment.innerHTML = job.department;
-
-    var titleDepartmentWrapper = document.createElement("div");
-    titleDepartmentWrapper.setAttribute("class", "titleDepartmentWrapper");
-
-    titleDepartmentWrapper.appendChild(jobSummaryTitle);
-    titleDepartmentWrapper.appendChild(jobSummaryDepartment);
-
-    var jobSummarySalaryRange = document.createElement("div");
-    jobSummarySalaryRange.setAttribute("id", "jobSummarySalaryRange"+job.id);
-    jobSummarySalaryRange.setAttribute("class", "jobSummarySalaryRange");
-    if (locale === "en_CA"){
-        jobSummarySalaryRange.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + " ~ $" + job.remuneration_range_high.toLocaleString('en');
+    var jobCardLocationLabel = document.createElement("span");
+    if (locale === "fr_CA" ){
+        jobCardLocationLabel.innerHTML = "Emplacement";
     } else {
-        jobSummarySalaryRange.innerHTML = job.remuneration_range_low.toLocaleString('fr') + " $ ~ " + job.remuneration_range_high.toLocaleString('fr') + " $";
+        jobCardLocationLabel.innerHTML = "Location";
+    }
+    var jobCardSalaryLabel = document.createElement("span");
+    if (locale === "fr_CA" ){
+        jobCardSalaryLabel.innerHTML = "Offre d'emploi";
+    } else {
+        jobCardSalaryLabel.innerHTML = "Salary";
+    }
+    var jobCardDurationLabel = document.createElement("span");
+    if (locale === "fr_CA" ){
+        jobCardDurationLabel.innerHTML = "Duration";
+    } else {
+        jobCardDurationLabel.innerHTML = "Duration";
+    }
+    var jobCardRemoteLabel = document.createElement("span");
+    if (locale === "fr_CA" ){
+        jobCardRemoteLabel.innerHTML = "Travail à distance";
+    } else {
+        jobCardRemoteLabel.innerHTML = "Remote Work";
     }
 
-    var jobSummaryTerm_qty = document.createElement("div");
-    jobSummaryTerm_qty.setAttribute("class", "jobSummaryTerm_qty");
-    jobSummaryTerm_qty.innerHTML = job.term_qty + " " + job.term_units + " " + siteContent.jobTerm ;
+    var jobCardLocationWrapper = document.createElement("p");
+    var jobCardLocationCity = document.createElement("span");
+    jobCardLocationCity.innerHTML = job.location_city + "," + "&nbsp";
+    var jobCardLocationProvince = document.createElement("span");
+    jobCardLocationProvince.innerHTML = job.location_province;
 
-    var jobSummaryApplicants_to_date = document.createElement("div");
-    jobSummaryApplicants_to_date.setAttribute("class", "jobSummaryApplicants_to_date");
-    jobSummaryApplicants_to_date.innerHTML = job.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
+    var jobCardSalary = document.createElement("p");
+    jobCardSalary.setAttribute("id", "jobCardSalary"+job.id);
+    if (locale === "en_CA"){
+        jobCardSalary.innerHTML = "$" + job.remuneration_range_low.toLocaleString('en') + "–$" + job.remuneration_range_high.toLocaleString('en');
+    } else {
+        jobCardSalary.innerHTML = job.remuneration_range_low.toLocaleString('fr') + " $–" + job.remuneration_range_high.toLocaleString('fr') + " $";
+    }
 
-    var jobSummaryClose_date_time = document.createElement("div");
-    jobSummaryClose_date_time.setAttribute("class", "jobSummaryClose_date_time");
-    //console.log(job.close_date_time);
-    jobSummaryClose_date_time.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobUntilClose;
+    var jobCardDuration = document.createElement("p");
+    jobCardDuration.innerHTML = job.term_qty + " " + job.term_units + " " + siteContent.jobTerm ;
 
-    var applicantsCloseDateWrapper = document.createElement("div");
-    applicantsCloseDateWrapper.setAttribute("class", "applicantsCloseDateWrapper");
-
-    applicantsCloseDateWrapper.appendChild(jobSummaryApplicants_to_date);
-    applicantsCloseDateWrapper.appendChild(jobSummaryClose_date_time);
-
-    //var jobSummaryLocation = document.createElement("div");
-    //jobSummaryLocation.setAttribute("class", "jobSummaryLocation");
-    //jobSummaryLocation.innerHTML = job.location_city + " (" + job.location_province + ")";
-
-    var viewJobButton = document.createElement("button");
-    viewJobButton.setAttribute("class","button--yellow");
-    viewJobButton.setAttribute("value",siteContent.viewButton);
-    viewJobButton.innerHTML = siteContent.viewButton;
-    viewJobButton.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
-
-    // Job summary order of elements
-    jobSummaryTable.appendChild(jobIDCell);
-    jobSummaryTable.appendChild(hiringManagerWrapper);
-    jobSummaryTable.appendChild(titleDepartmentWrapper);
-    jobSummaryTable.appendChild(jobSummarySalaryRange);
-    jobSummaryTable.appendChild(jobSummaryTerm_qty);
-    jobSummaryTable.appendChild(applicantsCloseDateWrapper);
-    jobSummaryTable.appendChild(viewJobButton);
-
-    //Append job to the jobcard
-    jobSummary.appendChild(jobSummaryTable);
-    //jobSummary.appendChild(JobPostAPI.addFavouriteLink(job.id));
-
-    //Load Hiring Manager Name
-    DataAPI.getUser(job.manager_user_id, function(response) {
-       var managerUser = JSON.parse(response);
-       hiringManagerLabel.innerHTML = managerUser.user.name;
+    var jobCardRemote = document.createElement("p");
+    var jobCardRemoteID = "jobCardRemote" + jobCardID;
+    jobCardRemote.setAttribute("id", jobCardRemoteID)
+    //Load Other Hiring Manager Data
+    DataAPI.getManagerProfile(job.manager_user_id, function(response) {
+       var locale = TalentCloudAPI.getLanguageFromCookie();
+       var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
+       WorkEnvironmentAPI.loadWorkEnvironmentBrowseJobs(managerProfile.manager_profile_id, jobCardRemoteID);
     });
 
-    //Load Hiring Manager Image
-    ProfilePicAPI.refreshProfilePic(job.manager_user_id, hiringManagerProfilePic);
+    // Create a job-card__footer-wrapper.
+    var jobCardFooterWrapper = document.createElement("div");
+    jobCardFooterWrapper.setAttribute("class", "job-card__footer-wrapper flex-grid");
 
-    return jobSummary;
+    var jobCardFooterBox1 = document.createElement("div");
+    var jobCardFooterBox2 = document.createElement("div");
+
+    jobCardFooterBox1.setAttribute("class", "box med-1of2");
+    jobCardFooterBox2.setAttribute("class", "box med-1of2");
+
+    var jobCardDayValue = document.createElement("span");
+    var jobCardApplicationValue = document.createElement("span");
+
+    jobCardDayValue.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobUntilClose;
+    jobCardApplicationValue.innerHTML = job.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
+
+    // Create a job-card__view-button.
+    var jobCardViewButton = document.createElement("button");
+    jobCardViewButton.setAttribute("class", "job-card__view-button");
+    if (locale === "fr_CA" ){
+        jobCardViewButton.innerHTML = "Voir le travail";
+    } else {
+        jobCardViewButton.innerHTML = "View Job";
+    }
+
+    // Build the job-card.
+
+    // Build the job-card__title-wrapper.
+    jobCardTitleWrapper.appendChild(jobCardTitle);
+    jobCardTitleWrapper.appendChild(jobCardDepartment);
+
+    // Build the job-card__content-wrapper.
+    jobCardContentBox1.appendChild(jobCardLocationLabel);
+
+    jobCardLocationWrapper.appendChild(jobCardLocationCity);
+    jobCardLocationWrapper.appendChild(jobCardLocationProvince);
+    jobCardContentBox1.appendChild(jobCardLocationWrapper);
+
+    jobCardContentBox2.appendChild(jobCardSalaryLabel);
+    jobCardContentBox2.appendChild(jobCardSalary);
+
+    jobCardContentBox3.appendChild(jobCardDurationLabel);
+    jobCardContentBox3.appendChild(jobCardDuration);
+
+    jobCardContentBox4.appendChild(jobCardRemoteLabel);
+    jobCardContentBox4.appendChild(jobCardRemote);
+
+    jobCardContentWrapper.appendChild(jobCardContentBox1);
+    jobCardContentWrapper.appendChild(jobCardContentBox2);
+    jobCardContentWrapper.appendChild(jobCardContentBox3);
+    jobCardContentWrapper.appendChild(jobCardContentBox4);
+
+    // Build the job-card__footer-wrapper.
+    jobCardFooterBox1.appendChild(jobCardDayValue);
+    jobCardFooterBox2.appendChild(jobCardApplicationValue);
+
+    jobCardFooterWrapper.appendChild(jobCardFooterBox1);
+    jobCardFooterWrapper.appendChild(jobCardFooterBox2);
+
+    // Build the job-card__wrapper.
+    jobCardWrapper.appendChild(jobCardTitleWrapper);
+    jobCardWrapper.appendChild(jobCardContentWrapper);
+    jobCardWrapper.appendChild(jobCardFooterWrapper);
+    jobCardWrapper.appendChild(jobCardViewButton);
+
+    // Build the job-card.
+    jobCard.appendChild(jobCardID);
+    jobCard.appendChild(jobCardWrapper);
+
+    return jobCard;
 
 };
 
