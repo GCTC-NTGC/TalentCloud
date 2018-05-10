@@ -218,14 +218,14 @@
                         </div>
                     </div>
 
-                    <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?>
-                    <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in">
+
+                    <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?> 
+                    <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in"> 
                         <button class="job-poster__apply-button" id="jobPosterApplyButton" value="Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                             Apply Now
                         </button>
-                    
                         <?php
-                        /* Not logged in */
+                        // Not logged in
                         $loginLink = "";
                         $loginLink .= OPENID_URI . AUTH_URI;
                         $loginLink .= "?response_type=" . URL_RESPONSE_TYPES;
@@ -239,10 +239,10 @@
                         $loginLink .= "&client_id=" . CLIENT_ID;
                         $loginLink .= "&scope=" . SCOPE;
                         $loginLink .= "&prompt=consent";
-                        echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
+
+                        echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>"); 
                         ?>
                     </div>
-
                 </section>
 
             </div>
