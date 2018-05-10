@@ -1,14 +1,26 @@
 <?php // Admin scripts ?>
 <?php // Google Analytics ?>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-115747902-1', 'auto');
+
+// Replace the following lines with the plugins you want to use.
+ga('require', 'cleanUrlTracker');
+ga('require', 'eventTracker');
+ga('require', 'impressionTracker');
+ga('require', 'maxScrollTracker');
+ga('require', 'mediaQueryTracker');
+ga('require', 'outboundFormTracker');
+ga('require', 'outboundLinkTracker');
+ga('require', 'pageVisibilityTracker');
+ga('require', 'socialWidgetTracker');
+ga('require', 'urlChangeTracker');
+// ...
+
 ga('send', 'pageview');
 </script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script async src="/js/autotrack.js"></script>
 <?php // End Google Analytics ?>
 <script src="/admin/js/CreateJobPosterAPI.js"></script>
 <script src="/admin/js/CreateEditProfileAPI.js"></script>
