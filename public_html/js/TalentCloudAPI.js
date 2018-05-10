@@ -985,19 +985,19 @@ TalentCloudAPI.setContent = function(content, isManager){
         //createEditProfile_title.innerHTML = createProfileWindowTitle;
 
         var createEditProfile_required2 = document.getElementById("createEditProfile_requiredStep2");
-        createEditProfile_required2.innerHTML = required;
+        createEditProfile_required2.innerHTML = siteContent.required;
 
         var createEditProfile_required1 = document.getElementById("createEditProfile_requiredStep1");
-        createEditProfile_required1.innerHTML = required;
+        createEditProfile_required1.innerHTML = siteContent.required;
 
         var createEditProfile_submit = document.getElementById("createEditProfileSubmitButton");
-        createEditProfile_submit.setAttribute("value", submit);
+        createEditProfile_submit.setAttribute("value", siteContent.submit);
 
         var createEditProfile_how_often_review_label = document.getElementById("createEditProfile_how_often_review_label");
-        createEditProfile_how_often_review_label.innerHTML = howOftenDoYouReview + ' *';
+        createEditProfile_how_often_review_label.innerHTML = siteContent.howOftenDoYouReview + ' *';
 
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
-        createEditProfile_how_often_early_label.innerHTML = howOftenDoYouStayLate + ' *';
+        createEditProfile_how_often_early_label.innerHTML = siteContent.howOftenDoYouStayLate + ' *';
 
         var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
         profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
