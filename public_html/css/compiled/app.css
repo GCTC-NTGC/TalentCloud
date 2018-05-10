@@ -6330,8 +6330,8 @@ nav {
     .applicant-profile__heading-photo-wrapper {
       position: absolute;
       top: 50%;
-      left: 0;
-      transform: translate(calc(-100% + -5rem), -50%); } }
+      left: -5rem;
+      transform: translate(-100%, -50%); } }
 
 .applicant-profile__photo {
   background-color: white;
@@ -6384,8 +6384,8 @@ nav {
     .applicant-profile__heading-edit-wrapper {
       top: 50%;
       left: auto;
-      right: 0;
-      transform: translate(calc(100% + 5rem), -50%); } }
+      right: -5rem;
+      transform: translate(100%, -50%); } }
   .applicant-profile__heading-edit-wrapper a {
     color: white;
     font-size: 25px;
@@ -8282,12 +8282,12 @@ nav {
 .job-card__wrapper {
   background: white;
   border-radius: 3px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   transform: translate(0, 0) scale(1);
   transition: all .2s ease; }
   .job-card__wrapper:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
     transform: translate(0, 0) scale(1.025);
     transition: all .2s ease; }
     .job-card__wrapper:hover .job-card__view-button {

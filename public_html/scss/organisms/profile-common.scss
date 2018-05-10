@@ -163,8 +163,8 @@
     @media #{$l-tablet} {
         position: absolute;
         top: 50%;
-        left: 0;
-        transform: translate(calc(-100% + -5rem), -50%);
+        left: -5rem;
+        transform: translate(-100%, -50%);
     }
 
 }
@@ -242,8 +242,8 @@
     @media #{$l-tablet} {
         top: 50%;
         left: auto;
-        right: 0;
-        transform: translate(calc(100% + 5rem), -50%);
+        right: -5rem;
+        transform: translate(100%, -50%);
     }
 
     a {

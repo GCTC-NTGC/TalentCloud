@@ -32,11 +32,12 @@ MicroReferenceAPI.MicroReference = function (
     };
 };
 
-MicroReferenceAPI.parseApplicationMicroReferenceResponse = function(responseJson) {
+MicroReferenceAPI.parseApplicationMicroReferenceResponse = function (responseJson) {
     var references = [];
-    responseJson.forEach(item => {
+    for (var i = 0; i < responseJson.length; i++) {
+        var item = responseJson[i];
         var itemRef = item.micro_reference;
-        
+
         var criteria_id = item.criteria_id;
         var name = itemRef.micro_reference_name;
         var email = itemRef.micro_reference_email;
@@ -45,12 +46,12 @@ MicroReferenceAPI.parseApplicationMicroReferenceResponse = function(responseJson
         var observed_until_date = itemRef.observed_until_date;
         var experience_level = itemRef.experience_level;
         var story = itemRef.micro_reference_story;
-       
+
         var ref = new MicroReferenceAPI.MicroReference(criteria_id, name, email,
-                relationship, observed_from_date, observed_until_date, 
+                relationship, observed_from_date, observed_until_date,
                 experience_level, story);
         references.push(ref);
-    });
+    }
     return references;
 };
 
@@ -65,7 +66,8 @@ MicroReferenceAPI.loadSavedMicroReferencesForJobApplication = function (jobAppli
 };
 
 MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
-    references.forEach(ref => {
+    for (var i = 0; i < references.length; i++) {
+        var ref = references[i];
         //find appropriate Evidence Panel
         var panel = document.querySelector('.applicant-evidence__accordion-wrapper[data-criteria-id="' + ref.criteria_id + '"]');
         //if panel exists, set saved values
@@ -102,11 +104,12 @@ MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
             //Run status change handler, because declartion may now be complete
             MicroReferenceAPI.onStatusChange(ref.criteria_id);
         }
-    });
+    }
 };
 
 MicroReferenceAPI.populateApplicationPreviewUiMicroReferences = function (references) {
-    references.forEach(ref => {
+    for (var i=0; i<references.length; i++) {
+        var ref = references[i];
         //find appropriate Evidence Panel
         var panel = document.querySelector('.applicant-evidence-preview__accordion-wrapper[data-criteria-id="' + ref.criteria_id + '"]');
         //if panel exists, set saved values
@@ -116,11 +119,11 @@ MicroReferenceAPI.populateApplicationPreviewUiMicroReferences = function (refere
                 name.innerHTML = ref.name;
             }
             /*
-            var email = panel.querySelector('input[name=\"reference_email\"]');
-            if (email) {
-                email.value = ref.email;
-            }
-            */
+             var email = panel.querySelector('input[name=\"reference_email\"]');
+             if (email) {
+             email.value = ref.email;
+             }
+             */
             var relationship = panel.querySelector('.applicant-evidence-preview__reference-relationship');
             if (relationship) {
                 relationship.innerHTML = ref.relationship;
@@ -134,11 +137,11 @@ MicroReferenceAPI.populateApplicationPreviewUiMicroReferences = function (refere
                 until_date.innerHTML = ref.observed_until_date;
             }
             /*
-            var exp_level = panel.querySelector('select[name=\"reference_exp_level\"]');
-            if (exp_level) {
-                exp_level.value = ref.experience_level;
-            }
-            */
+             var exp_level = panel.querySelector('select[name=\"reference_exp_level\"]');
+             if (exp_level) {
+             exp_level.value = ref.experience_level;
+             }
+             */
             var story = panel.querySelector('.applicant-evidence-preview__reference-copy');
             if (story) {
                 story.innerHTML = ref.story;
@@ -150,7 +153,7 @@ MicroReferenceAPI.populateApplicationPreviewUiMicroReferences = function (refere
             var nullResponse = panel.querySelector('.applicant-evidence-preview__reference-null');
             nullResponse.classList.add("hidden");
         }
-    });
+    }
 };
 
 
@@ -186,8 +189,8 @@ MicroReferenceAPI.saveMicroReferences = function (criteriaType, onSuccess, onFai
         Utilities.debug ? console.log("Cannot save Micro References without an Application Id") : null;
         return;
     }
-
-    evidencePanels.forEach(panel => {
+    for (var i=0; i<evidencePanels.length; i++) {
+        var panel = evidencePanels[i];
         var reference = MicroReferenceAPI.getMicroReferenceFromEvidencePanel(panel);
 
         //Only save if this reference is complete
@@ -225,8 +228,7 @@ MicroReferenceAPI.saveMicroReferences = function (criteriaType, onSuccess, onFai
                 }
             });
         }
-    });
-
+    }
     if (onSuccess && submittedRequests === 0) {
         //If no requests were made, call onSuccess
         onSuccess();

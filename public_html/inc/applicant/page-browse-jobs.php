@@ -1,4 +1,3 @@
-<?php // BEGIN - Browse Jobs Section ?>
 <section class="browse-jobs hidden" id="browseJobsSection">
 
     <?php /* <div class="browse-jobs__filter-wrapper">

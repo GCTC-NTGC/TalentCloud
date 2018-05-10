@@ -140,11 +140,12 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.core_competencies = job.core_competencies;
     jobObj.developing_competencies = job.developing_competencies;
     jobObj.questions = [];
-    job.questions.forEach(function(q){
-        var question = new JobPostAPI.JobPosterQuestion(q.id, q.question);
+    for(var i=0; i<job.questions.length; i++) {
+        var jsonQuesion = job.questions[i];
+        var question = new JobPostAPI.JobPosterQuestion(jsonQuesion.id, jsonQuesion.question);
         jobObj.questions.push(question);
-    })
-
+    }
+    
     // TAL-150
     jobObj.classification = job.classification;
     jobObj.security_clearance = job.security_clearance;
@@ -682,7 +683,6 @@ JobPostAPI.populateJobPoster = function(jobData){
         for (var i = 0; i < developing_competencies.length; i++) {
             devCompetencyValues.push(developing_competencies[i].value);
         }
-        //jobData.developing_competencies.forEach( (item)=> devCompetencyValues.push(item.value));
     }
     JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
 

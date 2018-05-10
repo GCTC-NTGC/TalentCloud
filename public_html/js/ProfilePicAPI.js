@@ -34,9 +34,9 @@ ProfilePicAPI.Uploader = function(
     var self = this;
 
     self.init = function() {
-        self.fileInputButtons.forEach(function(button) {
-            button.onchange = self.addFiles;
-        });
+        for (var i=0; i<fileInputButtons.length; i++) {
+            fileInputButtons[i].onchange = self.addFiles;
+        }
         if (self.saveButton) {
             self.saveButton.onclick = self.uploadPhoto;
         }
@@ -119,9 +119,9 @@ ProfilePicAPI.Uploader = function(
         self.croppieContainer.classList.remove("croppie-container");
 
         //Clear input button value
-        self.fileInputButtons.forEach(function(button) {
-            button.value = null;
-        });
+        for (var i=0; i<self.fileInputButtons.length; i++) {
+            self.fileInputButtons[i].value = null;
+        }
 
         // UI Changes
         actionWrapperDefault.classList.remove("hidden");
