@@ -693,6 +693,12 @@ JobPostAPI.populateJobPoster = function(jobData){
         applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
     }
 
+    // Show Time Remaining & Number of Applicants
+    var jobTimeRemaining = document.getElementById("jobPosterTimeRemaining");
+    jobTimeRemaining.innerHTML = Utilities.timeRemaining(jobData.close_date_time) + " " + siteContent.jobUntilClose;
+    var jobApplicants = document.getElementById("jobPosterApplicants");
+    jobApplicants.innerHTML = jobData.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
+
     document.getElementById("viewJobPosterSection").classList.remove("hidden");
 
     //TODO: fix this when working on jobPoserApplications

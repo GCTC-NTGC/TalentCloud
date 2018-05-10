@@ -22,6 +22,19 @@
 
 }
 
+.job-poster__heading-meta {
+	color: $palette-blue;
+	display: block;
+	font-size: 16px;
+	line-height: 1.5;
+	margin: 0 0 1.5rem 0;
+
+	span {
+		color: $white;
+	}
+
+}
+
 .job-poster__job-title {
 	font-size: 50px !important;
 	font-weight: 900;

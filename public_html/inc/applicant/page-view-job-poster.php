@@ -9,6 +9,9 @@
             <div class="flex-grid bottom">
 
                 <div class="box lg-2of3">
+                    <p class="job-poster__heading-meta">
+                        <span id="jobPosterTimeRemaining"></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span id="jobPosterApplicants"></span>
+                    </p>
                     <h2 class="job-poster__job-title" id="jobPosterTitle">Job Title</h2>
                     <p class="job-poster__department" id="jobPosterLocation">
                         <span id="jobPosterDepartment"></span>

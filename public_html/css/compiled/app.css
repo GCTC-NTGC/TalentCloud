@@ -7005,6 +7005,15 @@ nav {
     .job-poster__heading {
       text-align: left; } }
 
+.job-poster__heading-meta {
+  color: #2196f3;
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0; }
+  .job-poster__heading-meta span {
+    color: white; }
+
 .job-poster__job-title {
   font-size: 50px !important;
   font-weight: 900;
