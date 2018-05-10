@@ -31,5 +31,7 @@ VALUES
 (1,'applicationPreviewSkillSampleLink','View Evidence',1),
 (1,'applicationPreviewSkillSampleLink','(TRANSLATION NEEDED)View Evidence',2),
 (1,'applicationPreviewSkillSampleMissing','No skill sample provided.',1),
-(1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED) No skill sample provided.',2)
+(1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED) No skill sample provided.',2),
+(1,'jobPosterTeamNarrativeText_label','Things to Know',1),
+(1,'jobPosterTeamNarrativeText_label','À savoir',2)
 ;

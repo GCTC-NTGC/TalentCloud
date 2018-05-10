@@ -4,11 +4,15 @@
 
     </div> */ ?>
 
-    <div id="noJobs" class="hidden">
-        No jobs found
+    <div class="browse-jobs__null-state" id="noJobs">
+
+        <div class="content-container">
+            <span id="browseJobsNullStateCopy">Sorry, there aren't any jobs posted at the moment.</span>
+        </div>
+
     </div>
 
-    <div id="loadingJobs" class="hidden">
+    <div class="hidden" id="loadingJobs">
         <img class="center-block" src="/images/working.gif" alt="Loading jobs"/>
     </div>
 

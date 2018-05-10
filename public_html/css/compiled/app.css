@@ -8258,6 +8258,13 @@ nav {
     .browse-jobs__filter-wrapper {
       text-align: left; } }
 
+.browse-jobs__null-state {
+  padding: 6rem 0; }
+  .browse-jobs__null-state span {
+    color: #484848;
+    font-size: 16px;
+    font-weight: 700; }
+
 .browse-jobs__list-wrapper {
   margin: 0 auto;
   max-width: 125rem;

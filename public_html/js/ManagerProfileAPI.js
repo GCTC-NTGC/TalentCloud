@@ -67,7 +67,8 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response, locale) {
     return profile;
 };
 
-ManagerProfileAPI.showManagerProfile = function(user_id) {
+ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
+
     var stateInfo = {pageInfo: 'manager_profile', pageTitle: 'Talent Cloud: Manager Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#ManagerProfile/' + user_id);
@@ -82,6 +83,17 @@ ManagerProfileAPI.showManagerProfile = function(user_id) {
     //DataAPI.getUser(user_id, ManagerProfileAPI.populateManagerProfileName);
     DataAPI.getManagerProfile(user_id, ManagerProfileAPI.populateManagerProfile);
     ProfilePicAPI.refreshProfilePicBackground(user_id, document.getElementById('managerProfilePic'));
+
+    if (jobPosterID) {
+
+        var backToPosterButtons = document.querySelectorAll(".public-manager-profile__back-link");
+        
+        for (var i = 0; i < backToPosterButtons.length; i++) {
+            var x = backToPosterButtons[i];
+            x.classList.remove("hidden");
+        }
+
+    }
 
     // New Subpage Hero Scripts
 
