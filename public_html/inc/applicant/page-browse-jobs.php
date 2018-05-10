@@ -4,7 +4,7 @@
 
     </div> */ ?>
 
-    <div class="browse-jobs__null-state" id="noJobs">
+    <div class="browse-jobs__null-state hidden" id="noJobs">
 
         <div class="content-container">
             <span id="browseJobsNullStateCopy">Sorry, there aren't any jobs posted at the moment.</span>

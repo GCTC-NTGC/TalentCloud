@@ -47,10 +47,7 @@
         </div>
     </div>
 
-
-    <div class="content-container">
-        <?php include "partial-applicant-evidence-preview.php"; ?>
-    </div>
+    <?php include "partial-applicant-evidence-preview.php"; ?>
 
     <div class="content-container">
         

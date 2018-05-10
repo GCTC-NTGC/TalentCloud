@@ -393,6 +393,7 @@ JobApplicationAPI.showNextApplicationSection = function() {
 };
 
 JobApplicationAPI.shiftApplicationSection = function(shift) {
+    window.scrollTo(0, 0);
     var progressItems = document.querySelectorAll(".application-progress__item");
 
     for (var i=0; i<progressItems.length; i++) {

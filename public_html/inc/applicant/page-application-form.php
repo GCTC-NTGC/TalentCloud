@@ -16,7 +16,7 @@
 
         </div>
 
-        <div class="application-form__wrapper block-container">
+        <div class="application-form__wrapper content-container">
 
             <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
 
