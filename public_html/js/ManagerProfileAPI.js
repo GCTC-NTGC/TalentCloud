@@ -95,8 +95,6 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
 
     }
 
-    alert(user_id);
-
     // New Subpage Hero Scripts
 
     Utilities.getHeroElements();
