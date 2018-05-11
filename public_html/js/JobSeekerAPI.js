@@ -570,6 +570,11 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     profileHeroTitle.classList.remove("hidden");
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/my-profile');
+    ga('send', 'pageview');
+
 };
 
 /**

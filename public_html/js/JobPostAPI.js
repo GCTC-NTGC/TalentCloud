@@ -75,6 +75,11 @@ JobPostAPI.showBrowseJobs = function() {
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/browse-jobs');
+    ga('send', 'pageview');
+
 };
 
 /**
@@ -481,6 +486,11 @@ JobPostAPI.viewJobPoster = function(jobId){
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
     // browseHeroPosterMetaData.classList.remove("hidden");
+
+    // Google Analytics
+
+    ga('set', 'page', '/browse-jobs/'+jobId);
+    ga('send', 'pageview');
 
 };
 
