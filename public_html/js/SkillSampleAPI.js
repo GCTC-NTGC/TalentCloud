@@ -188,22 +188,7 @@ SkillSampleAPI.saveSkillSamples = function (criteriaType, onSuccess, onFailure) 
                 }
             });
         } else {
-            //If sample is not valid (ie not complete) delete it from the application
-            submittedRequests = submittedRequests + 1;
-            DataAPI.deleteSkillSample(sample.criteria_id, applicationId, function (response) {
-                if (response.status !== 200) {
-                    requestsSuccessful = false;
-                }
-                submittedRequests = submittedRequests - 1;
-                if (submittedRequests === 0) {
-                    if (onSuccess && requestsSuccessful) {
-                        //Only call onSuccess if all requests have been successful
-                        onSuccess();
-                    } else if (onFailure && !requestsSuccessful) {
-                        onFailure();
-                    }
-                }
-            });
+            //If sample is not valid (ie not complete), do nothing
         }
     }
 

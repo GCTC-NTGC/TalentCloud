@@ -173,7 +173,7 @@
 
             </div>
 
-            <div class="applicant-evidence__optional-wrapper">
+            <div class="applicant-evidence__optional-wrapper active">
 
                 <h5 class="applicant-evidence__section-title">
                     <i class="fa fa-user"></i>
