@@ -100,7 +100,7 @@ JobApplicationAPI.localizeCreateJobApplication = function () {
         document.getElementById('createJobApplicationConfirmationTrackingReminder').innerHTML = siteContent.jobApplicationConfirmationTrackingReminder;
         document.getElementById('createJobApplicationConfirmationContinueButton').innerHTML = siteContent.continueToDashboard;
     }
-}
+};
 
 JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterResponse) {
     var jobPoster = JobPostAPI.populateJobObject(JSON.parse(jobPosterResponse));
@@ -359,7 +359,7 @@ JobApplicationAPI.saveJobApplication = function(onSuccess) {
             }
         }
     });
-}
+};
 
 JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var stateInfo = {pageInfo: 'create_job_application_confirmation', pageTitle: 'Talent Cloud: New Job Application Confirmed'};
@@ -442,4 +442,6 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
     } else if (applicationSection === "asset-criteria") {
         EvidenceAPI.activateFirstEvidencePanel("asset");
     }
-}
+};
+
+
