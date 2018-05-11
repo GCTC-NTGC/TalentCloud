@@ -95,6 +95,8 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
 
     }
 
+    alert(user_id);
+
     // New Subpage Hero Scripts
 
     Utilities.getHeroElements();
@@ -102,6 +104,11 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
     var managerProfileHeroTitle = document.getElementById("managerProfileHeroTitle");
     managerProfileHeroTitle.classList.remove("hidden");
     managerProfileHeroTitle.setAttribute("aria-hidden", "false");
+
+    // Google Analytics
+
+    ga('set', 'page', '/managers/'+user_id);
+    ga('send', 'pageview');
 
 }
 

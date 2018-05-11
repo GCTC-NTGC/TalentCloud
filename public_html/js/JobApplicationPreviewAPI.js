@@ -68,6 +68,11 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     applicationHeroMetadata.classList.remove("hidden");
 
+    // Google Analytics
+
+    ga('set', 'page', '/apply/preview');
+    ga('send', 'pageview');
+
 };
 
 JobApplicationPreviewAPI.localizeJobApplicationPreview = function () {

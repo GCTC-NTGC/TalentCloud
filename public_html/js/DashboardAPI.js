@@ -52,6 +52,11 @@ DashboardAPI.showDashboard = function(){
     dashboardHeroTitle.classList.remove("hidden");
     dashboardHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/my-applications');
+    ga('send', 'pageview');
+
 };
 
 /**
