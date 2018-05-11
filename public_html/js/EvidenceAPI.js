@@ -180,6 +180,13 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.querySelector("input[name=\"sample_date_created\"]").onchange = sampleOnChange;
     evidencePanel.querySelector("input[name=\"sample_http_link\"]").onchange = sampleOnChange;
     evidencePanel.querySelector("textarea[name=\"sample_story\"]").onchange = sampleOnChange;
+    
+    
+    //SET TEXTAREA FIELDS TO EMPTY
+    //This is to override IE11's habit of setting textarea values with their placeholder text
+    evidencePanel.querySelector(".applicant-evidence__skill-declaration-text").value = "";
+    evidencePanel.querySelector("textarea[name=\"reference_story\"]").value = "";
+    evidencePanel.querySelector("textarea[name=\"sample_story\"]").value = "";    
 
     return evidencePanel;
 };
