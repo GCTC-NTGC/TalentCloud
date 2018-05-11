@@ -22,7 +22,7 @@ EventsAPI.onLoadEvents = function(){
             TalentCloudAPI.setLanguageCookie("en_CA");
         }
         TalentCloudAPI.load();
-    
+
 
     //Handle what happens when new history state popped off stack
     window.onpopstate = function(e){
@@ -113,7 +113,3 @@ EventsAPI.setFormFocus = function(fieldId){
     var fieldToFocus = document.getElementById(fieldId);
     fieldToFocus.focus();
 };
-
-EventsAPI.goBack = function(){
-    window.history.back();
-}

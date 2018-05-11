@@ -33,5 +33,7 @@ VALUES
 (1,'applicationPreviewSkillSampleMissing','No skill sample provided.',1),
 (1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED) No skill sample provided.',2),
 (1,'jobPosterTeamNarrativeText_label','Things to Know',1),
-(1,'jobPosterTeamNarrativeText_label','À savoir',2)
+(1,'jobPosterTeamNarrativeText_label','À savoir',2),
+(1,'jobPosterBackButtonText','Back to Job Poster',1),
+(1,'jobPosterBackButtonText','Retour à l\'affiche de l\'emploi',2)
 ;
