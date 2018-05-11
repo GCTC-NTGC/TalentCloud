@@ -37,8 +37,13 @@
                 $managerProfile = new ManagerProfile();
                 $managerProfile->setUser_id($user_id);
                 $result = ManagerProfileController::getManagerProfileWithDetails($managerProfile);
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                if ($result === false) {
+                    header('HTTP/1.0 404 Not Found');
+                    echo json_encode(array("failed" => "Manager Profile does not exist for specified user"), JSON_FORCE_OBJECT);
+                } else {
+                    $json = json_encode($result, JSON_PRETTY_PRINT);
+                    echo($json);
+                }
             }else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
@@ -99,7 +104,7 @@
 
                 //var_dump($managerProfileDetailsJSON);
 
-                $result = ManagerProfileController::createManagerProfile($managerProfile, $managerProfileDetails);
+                $result = ManagerProfileController::putManagerProfile($managerProfile, $managerProfileDetails);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
 
