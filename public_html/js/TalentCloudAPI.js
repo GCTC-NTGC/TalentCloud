@@ -82,20 +82,20 @@ TalentCloudAPI.Content = function(
     submitApplication,
     step1,
     step2,
-    step3, 
-    review, 
-    goToStep2, 
-    goToStep1, 
-    goToStep3, 
-    goToReview, 
-    createJobPosterWindowTitle, 
-    createProfileWindowTitle, 
+    step3,
+    review,
+    goToStep2,
+    goToStep1,
+    goToStep3,
+    goToReview,
+    createJobPosterWindowTitle,
+    createProfileWindowTitle,
     required,
     createJobPosterSubmitInstructions,
-    generalInformation, 
-    aboutMe, 
-    aLittleBitAboutMe, 
-    whatImMostProudOfInCareer, 
+    generalInformation,
+    aboutMe,
+    aLittleBitAboutMe,
+    whatImMostProudOfInCareer,
     position,
     department,
     branch,
@@ -271,7 +271,9 @@ TalentCloudAPI.Content = function(
     updateProfileApplicantProfileFormNameLabelSpan,
     profileEditName,
     years,
-    status) {
+    status,
+    jobPosterBackButtonText
+) {
         // Navigation Links
         this.navigationLoginLink = navigationLoginLink;
         this.navigationLogoutLink = navigationLogoutLink;
@@ -320,7 +322,7 @@ TalentCloudAPI.Content = function(
         this.applicationPreviewReferenceMissing = applicationPreviewReferenceMissing;
         this.applicationPreviewSkillSampleStoryLabel = applicationPreviewSkillSampleStoryLabel;
         this.applicationPreviewSkillSampleLink = applicationPreviewSkillSampleLink;
-        this.applicationPreviewSkillSampleMissing = applicationPreviewSkillSampleMissing;    
+        this.applicationPreviewSkillSampleMissing = applicationPreviewSkillSampleMissing;
         // Others
         this.title = title;
         this.helpLearn = helpLearn;
@@ -518,6 +520,7 @@ TalentCloudAPI.Content = function(
         this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
         this.years = years;
         this.status = status;
+        this.jobPosterBackButtonText = jobPosterBackButtonText;
     };
 
 TalentCloudAPI.pages = {
@@ -985,19 +988,19 @@ TalentCloudAPI.setContent = function(content, isManager){
         //createEditProfile_title.innerHTML = createProfileWindowTitle;
 
         var createEditProfile_required2 = document.getElementById("createEditProfile_requiredStep2");
-        createEditProfile_required2.innerHTML = required;
+        createEditProfile_required2.innerHTML = siteContent.required;
 
         var createEditProfile_required1 = document.getElementById("createEditProfile_requiredStep1");
-        createEditProfile_required1.innerHTML = required;
+        createEditProfile_required1.innerHTML = siteContent.required;
 
         var createEditProfile_submit = document.getElementById("createEditProfileSubmitButton");
-        createEditProfile_submit.setAttribute("value", submit);
+        createEditProfile_submit.setAttribute("value", siteContent.submit);
 
         var createEditProfile_how_often_review_label = document.getElementById("createEditProfile_how_often_review_label");
-        createEditProfile_how_often_review_label.innerHTML = howOftenDoYouReview + ' *';
+        createEditProfile_how_often_review_label.innerHTML = siteContent.howOftenDoYouReview + ' *';
 
         var createEditProfile_how_often_early_label = document.getElementById("createEditProfile_how_often_early_label");
-        createEditProfile_how_often_early_label.innerHTML = howOftenDoYouStayLate + ' *';
+        createEditProfile_how_often_early_label.innerHTML = siteContent.howOftenDoYouStayLate + ' *';
 
         var profilePicUploadBtn = document.getElementById("profilePicUploadBtn");
         profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
@@ -1221,31 +1224,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         var registerFormTitle = document.getElementById("registerFormTitle");
         registerFormTitle.innerHTML = siteContent.registerFormTitle;
 
-        var almostNeverElements = document.getElementsByClassName("option0Label");
-        for (var i = 0; i < almostNeverElements.length; i++) {
-            almostNeverElements[i].innerHTML = siteContent.almostNever;
-        }
-
-        var rarelyElements = document.getElementsByClassName("option1Label");
-        for (var i = 0; i < rarelyElements.length; i++) {
-            rarelyElements[i].innerHTML = siteContent.rarely;
-        }
-
-        var sometimesElements = document.getElementsByClassName("option2Label");
-        for (var i = 0; i < sometimesElements.length; i++) {
-            sometimesElements[i].innerHTML = siteContent.sometimes;
-        }
-
-        var usuallyElements = document.getElementsByClassName("option3Label");
-        for (var i = 0; i < usuallyElements.length; i++) {
-            usuallyElements[i].innerHTML = siteContent.usually;
-        }
-
-        var almostAlwaysElements = document.getElementsByClassName("option4Label");
-        for (var i = 0; i < almostAlwaysElements.length; i++) {
-            almostAlwaysElements[i].innerHTML = siteContent.almostAlways;
-        }
-
         var managerDecisions_tipWhatis = document.getElementById("managerDecisions_tipWhatis");
         //managerDecisions_tipWhatis.innerHTML = siteContent.managerDecisions_tipWhatis;
 
@@ -1296,6 +1274,12 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterHowWeWork_label = document.getElementById("jobPosterHowWeWork_label");
         jobPosterHowWeWork_label.innerHTML = siteContent.jobPosterHowWeWork_label;
+
+        var jobPosterBackButtonText = document.getElementById("jobPosterBackButtonText");
+        jobPosterBackButtonText.innerHTML = siteContent.jobPosterBackButtonText;
+
+        var jobPosterBackButtonText2 = document.getElementById("jobPosterBackButtonText2");
+        jobPosterBackButtonText2.innerHTML = siteContent.jobPosterBackButtonText;
 
     }
 

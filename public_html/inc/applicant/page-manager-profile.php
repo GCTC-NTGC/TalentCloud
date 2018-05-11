@@ -46,7 +46,7 @@
             <div class="public-manager-profile__question-wrapper" id="">
 
                 <button class="public-manager-profile__back-link" id="jobPosterBackButton" value="Back" onclick="">
-                    <i class="fa fa-chevron-left"></i><span>Back to Job Poster</span>
+                    <i class="fa fa-chevron-left"></i><span id="jobPosterBackButtonText">Back to Job Poster</span>
                 </button>
 
                 <h3 class="public-manager-profile__question-title" id="" >My Approach as a Manager</h3>
@@ -108,7 +108,7 @@
                 </div>
 
                 <button class="public-manager-profile__back-link" id="jobPosterBackButton2" value="Back" onclick="">
-                    <i class="fa fa-chevron-left"></i><span>Back to Job Poster</span>
+                    <i class="fa fa-chevron-left"></i><span id="jobPosterBackButtonText2">Back to Job Poster</span>
                 </button>
 
             </div>

@@ -162,6 +162,7 @@ class TeamCultureDAO extends BaseDAO {
     public static function getTeamCultureForManagerProfile($managerProfileId, $locale) {
         $link = BaseDAO::getConnection();
         $sqlStr = "SELECT
+                tc.id as team_culture_id,
                 tc.team_size as team_size,
                 tc.gc_directory_url as gc_directory_url,
                 tc_details.narrative_text as narrative_text,
@@ -207,6 +208,7 @@ class TeamCultureDAO extends BaseDAO {
     public static function getTeamCultureNonLocalizedForManagerProfile($managerProfileId) {
         $link = BaseDAO::getConnection();
         $sqlStr = "SELECT
+                tc.id as team_culture_id,
                 tc.team_size as team_size,
                 tc.gc_directory_url as gc_directory_url,
                 tcd_en.narrative_text as narrative_text_en,
@@ -252,5 +254,31 @@ class TeamCultureDAO extends BaseDAO {
         }
         BaseDAO::closeConnection($link);
         return $teamCulture;
+    }
+    
+    /**
+     * 
+     * @param int $managerProfileId
+     * @param int $teamCultureId
+     * @return int $rowsModified
+     */
+    public static function addManagerProfileIdForTeamCulture($managerProfileId, $teamCultureId) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "INSERT INTO `talentcloud`.`manager_profile_to_team_culture`
+            (`user_manager_profile_id`, `team_culture_id`)
+            VALUES
+            (:manager_profile_id,:team_culture_id);";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(":manager_profile_id", $managerProfileId, PDO::PARAM_INT);
+        $sql->bindValue(":team_culture_id", $teamCultureId, PDO::PARAM_INT);
+
+         try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $rowsModified = $sql->rowCount();
+        } catch (PDOException $e) {
+            BaseDAO::closeConnection($link);
+            return 'addManagerProfileIdForTeamCulture failed: ' . $e->getMessage();
+        }
+        return $rowsModified;
     }
 }

@@ -2,6 +2,7 @@
 
 class TeamCultureNonLocalized implements JsonSerializable {
 
+    private $team_culture_id;
     private $team_size;
     private $gc_directory_url;
     private $narrative_text_en;
@@ -26,7 +27,8 @@ class TeamCultureNonLocalized implements JsonSerializable {
      * @param string $how_we_work_en
      * @param string $how_we_work_fr
      */
-    public function __construct($team_size=null,$gc_directory_url=null,$narrative_text_en=null,$narrative_text_fr=null,$operating_context_en=null,$operating_context_fr=null,$what_we_value_en=null,$what_we_value_fr=null,$how_we_work_en=null,$how_we_work_fr=null) {
+    public function __construct($team_culture_id=null, $team_size=null,$gc_directory_url=null,$narrative_text_en=null,$narrative_text_fr=null,$operating_context_en=null,$operating_context_fr=null,$what_we_value_en=null,$what_we_value_fr=null,$how_we_work_en=null,$how_we_work_fr=null) {
+        $this->team_culture_id = $team_culture_id;
         $this->team_size = $team_size;
         $this->gc_directory_url = $gc_directory_url;
         $this->narrative_text_en = $narrative_text_en;
@@ -50,6 +52,10 @@ class TeamCultureNonLocalized implements JsonSerializable {
         return $gettable_attributes;
     }
 
+    public function getTeam_culture_id() {
+        return $this->team_culture_id;
+    }
+    
     public function getTeam_size() {
         return $this->team_size;
     }
@@ -90,6 +96,11 @@ class TeamCultureNonLocalized implements JsonSerializable {
         return $this->how_we_work_fr;
     }
 
+    public function setTeam_culture_id($team_culture_id) {
+        $this->team_culture_id = $team_culture_id;
+        return $this;
+    }
+    
     public function setTeam_size($team_size) {
         $this->team_size = $team_size;
         return $this;

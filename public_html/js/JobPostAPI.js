@@ -528,6 +528,12 @@ JobPostAPI.populateJobPoster = function(jobData){
     jobPosterSubnavJobTitle.innerHTML = jobData.title;
     jobPosterSubnavDepartment.innerHTML = jobData.department;
 
+    //Return to job poster from hiring manager profile
+     var jobPosterBack1 = document.getElementById("jobPosterBackButton");
+     jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
+     var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
+     jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")"); 
+
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterCultureManagerProfilePhoto');
     ProfilePicAPI.refreshProfilePicBackground(jobData.manager_user_id, hiringManagerProfilePic);
