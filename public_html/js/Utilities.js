@@ -781,7 +781,7 @@ function evidencePreviewAccordionClick(e) {
     if (this.classList.contains("active")) {
 
         // If it is active, close all accordions.
-        for (var i=0; i<evidenceAccordionTriggers; i++) {
+        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
             var trigger = evidenceAccordionTriggers[i];
             trigger.classList.remove("active")
             trigger.nextElementSibling.classList.remove("active");
@@ -791,7 +791,7 @@ function evidencePreviewAccordionClick(e) {
     } else {
 
         // Close all accordions.
-        for (var i=0; i<evidenceAccordionTriggers; i++) {
+        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
             var trigger = evidenceAccordionTriggers[i];
             trigger.classList.remove("active")
             trigger.nextElementSibling.classList.remove("active");
@@ -816,7 +816,7 @@ function evidencePreviewMenuItemClick(e) {
     e.preventDefault();
 
     // Enter the loop for desktop tab menu items and remove the active class from all of them.
-    for (var i=0; i<desktopEvidenceTriggers; i++) {
+    for (var i=0; i<desktopEvidenceTriggers.length; i++) {
             var trigger = desktopEvidenceTriggers[i];
         trigger.classList.remove("active");
         trigger.setAttribute("aria-selected", "false");
