@@ -163,7 +163,7 @@ JobApplicationAPI.populateApplicationWithUserContent = function (user) {
 JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (jobSeekerProfileResponse) {
     var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(jobSeekerProfileResponse));
 
-    document.getElementById('createJobApplicationJobSeekerId').value = jobSeeker.id;
+    document.getElementById('jobApplicationJobSeekerId').value = jobSeeker.id;
 };
 
 JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (jobApplicationRequestResponse) {
