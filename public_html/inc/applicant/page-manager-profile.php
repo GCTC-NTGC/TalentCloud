@@ -11,8 +11,8 @@
             <h2 class="public-manager-profile__name" id="managerProfileName"></h2>
 
             <p class="public-manager-profile__tagline" id="managerProfilePositionWrapper">
-                <span id="managerProfilePosition"></span> 
-                <span id="managerProfilePositionAtLabel"></span> 
+                <span id="managerProfilePosition"></span>
+                <span id="managerProfilePositionAtLabel"></span>
                 <span id="managerProfileDepartment"></span>
             </p>
 
@@ -45,7 +45,7 @@
 
             <div class="public-manager-profile__question-wrapper" id="">
 
-                <button class="public-manager-profile__back-link hidden" id="jobPosterBackButton" value="Back" onclick="EventsAPI.goBack();">
+                <button class="public-manager-profile__back-link" id="jobPosterBackButton" value="Back" onclick="">
                     <i class="fa fa-chevron-left"></i><span>Back to Job Poster</span>
                 </button>
 
@@ -107,7 +107,7 @@
                     <p class="public-manager-profile__question-answer" id="managerProfileExperience">This is my work history.</p>
                 </div>
 
-                <button class="public-manager-profile__back-link hidden" id="" value="Back" onclick="EventsAPI.goBack();">
+                <button class="public-manager-profile__back-link" id="jobPosterBackButton2" value="Back" onclick="">
                     <i class="fa fa-chevron-left"></i><span>Back to Job Poster</span>
                 </button>
 

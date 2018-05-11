@@ -145,7 +145,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
         var question = new JobPostAPI.JobPosterQuestion(jsonQuesion.id, jsonQuesion.question);
         jobObj.questions.push(question);
     }
-    
+
     // TAL-150
     jobObj.classification = job.classification;
     jobObj.security_clearance = job.security_clearance;
@@ -536,6 +536,12 @@ JobPostAPI.populateJobPoster = function(jobData){
        var locale = TalentCloudAPI.getLanguageFromCookie();
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
+
+    //Return to job poster from hiring manager profile
+    var jobPosterBack1 = document.getElementById("jobPosterBackButton");
+    jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
+    var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
+    jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
 
 
        /*Truncating Manager About Me*/
