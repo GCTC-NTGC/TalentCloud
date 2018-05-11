@@ -256,7 +256,7 @@ Utilities.serialize = function (obj, prefix) {
 };
 
 Utilities.replaceElementText = function (element, newText) {
-    if(element){
+    if (element) {
         while (element.firstChild)
             element.removeChild(element.firstChild);
         element.appendChild(document.createTextNode(newText));
@@ -281,6 +281,30 @@ Utilities.clearSelectOptions = function (selectElement)
     blankSelect.setAttribute("selected", "selected");
     selectElement.appendChild(blankSelect);
 };
+
+/** 
+ * Polyfill .closest() 
+ * Define element.closest() for browsers that don't support it 
+ * 
+ * NOTE: This still won't work for IE8 or less, because of .matches() support 
+ */
+if (!Element.prototype.matches)
+    Element.prototype.matches = Element.prototype.msMatchesSelector ||
+            Element.prototype.webkitMatchesSelector;
+
+if (!Element.prototype.closest)
+    Element.prototype.closest = function (s) {
+        var el = this;
+        if (!document.documentElement.contains(el))
+            return null;
+        do {
+            if (el.matches(s))
+                return el;
+            el = el.parentElement || el.parentNode;
+        } while (el !== null && el.nodeType === 1);
+        return null;
+    };
+
 
 /**
  * Adds a new event listener without overriding previously added events.
@@ -326,14 +350,15 @@ function modalSize() {
 
     }
 
-};
+}
+;
 
 // Reruns the function each time the viewport changes size.
 Utilities.addWindowEventListener("resize", modalSize);
 
 // Sitewide Accordion Triggers ================================================
 Utilities.accordionClickListener = function (e) {
-    
+
     var accordionTriggers = document.querySelectorAll("[class*='accordion-trigger']");
     var accordionContents = document.querySelectorAll("[data-accordion-target]");
 
@@ -366,7 +391,7 @@ Utilities.accordionClickListener = function (e) {
         this.classList.add("active");
         this.setAttribute("aria-expanded", "true");
         var thisAccordion = this.getAttribute("data-accordion-trigger");
-        for (var i =0; i<accordionContents.length; i++) {
+        for (var i = 0; i < accordionContents.length; i++) {
             if (accordionContents[i].getAttribute("data-accordion-target") == thisAccordion) {
                 accordionContents[i].classList.add("active");
                 accordionContents[i].setAttribute("aria-hidden", "false");
@@ -390,7 +415,7 @@ Utilities.setAccordionTriggers = function () {
     var accordionTriggers = document.querySelectorAll("[data-accordion-trigger]");
     // Loops through all elements.
     //lets are not ie11 compatible
-    for (var i=0; i<accordionTriggers.length; i++) {
+    for (var i = 0; i < accordionTriggers.length; i++) {
         // Checks for a click.
         accordionTriggers[i].addEventListener('click', Utilities.accordionClickListener);
         // Checks for an Enter key click.
@@ -398,7 +423,7 @@ Utilities.setAccordionTriggers = function () {
     }
 };
 
-Utilities.mobileNavClickListener = function(e) {
+Utilities.mobileNavClickListener = function (e) {
 
     var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
     var mainMenu = document.getElementById("pageHeroNavigationMenu");
@@ -408,8 +433,7 @@ Utilities.mobileNavClickListener = function(e) {
     if (this.classList.contains("active")) {
         this.classList.remove("active");
         mainMenu.classList.remove("active");
-    }
-    else {
+    } else {
         this.classList.add("active");
         mainMenu.classList.add("active");
     }
@@ -425,7 +449,7 @@ Utilities.setMobileNavTriggers = function () {
     mobileMenuTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
 };
 
-Utilities.applicantLandingVideoClickListener = function(e) {
+Utilities.applicantLandingVideoClickListener = function (e) {
 
     var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
     var landingVideoTranscript = document.getElementById("applicantLandingVideoTranscript");
@@ -437,8 +461,7 @@ Utilities.applicantLandingVideoClickListener = function(e) {
         this.setAttribute("aria-expanded", "false");
         landingVideoTranscript.classList.remove("active");
         landingVideoTranscript.setAttribute("aria-hidden", "true");
-    }
-    else {
+    } else {
         this.classList.add("active");
         this.setAttribute("aria-expanded", "true");
         landingVideoTranscript.classList.add("active");
@@ -460,8 +483,8 @@ Utilities.setApplicantLandingVideoTriggers = function () {
 
 Utilities.setUserAgent = function () {
     var ua = navigator.userAgent;
-        ua = ua.toString();
-        document.body.setAttribute("id", ua);
+    ua = ua.toString();
+    document.body.setAttribute("id", ua);
 };
 
 Utilities.addWindowEventListener("load", Utilities.setAccordionTriggers);
@@ -469,7 +492,7 @@ Utilities.addWindowEventListener("load", Utilities.setMobileNavTriggers);
 Utilities.addWindowEventListener("load", Utilities.setApplicantLandingVideoTriggers);
 Utilities.addWindowEventListener("load", Utilities.setUserAgent);
 
-Utilities.getHeroElements = function() {
+Utilities.getHeroElements = function () {
 
     var landingHero = document.getElementById("landingHero");
     landingHero.classList.add("hidden");
@@ -477,7 +500,7 @@ Utilities.getHeroElements = function() {
     var subpageTitles = document.querySelectorAll(".subpage-hero__title");
     // var browseHeroPosterMetaData = document.getElementById("browseHeroPosterMetaData");
     var applicationHeroMetadata = document.getElementById("applicationHeroMetadata");
-    for (var i = 0; i<subpageTitles.length; i++) {
+    for (var i = 0; i < subpageTitles.length; i++) {
         subpageTitles[i].classList.add("hidden");
         subpageTitles[i].setAttribute("aria-hidden", "true");
     }
@@ -499,7 +522,7 @@ Utilities.setEvidenceUiEventListeners = function (e) {
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
         // Enter the loop of desktop tab menu items.
-        for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
 
             // Check for a click on each tab.
             desktopEvidenceTriggers[i].addEventListener('click', evidenceMenuItemClick);
@@ -514,9 +537,10 @@ Utilities.setEvidenceUiEventListeners = function (e) {
         var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
 
         // Enter the loop of elements.
-        for (var i=0; i<evidenceStartFocus.length; i++) {
+        for (var i = 0; i < evidenceStartFocus.length; i++) {
 
             // Listen for a keydown.
+
             evidenceStartFocus[i].addEventListener("keydown", evidenceFirstTargetKeydown);
         }
 
@@ -524,7 +548,7 @@ Utilities.setEvidenceUiEventListeners = function (e) {
 
         var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
 
-        for (var i=0; i<evidenceEarlyEndFocus.length; i++) {
+        for (var i = 0; i < evidenceEarlyEndFocus.length; i++) {
 
             // Listen for a keydown.
             evidenceEarlyEndFocus[i].addEventListener("keydown", evidenceEarlyLastTargetKeydown);
@@ -534,7 +558,7 @@ Utilities.setEvidenceUiEventListeners = function (e) {
 
         var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
 
-        for (var i=0; i<evidenceEndFocus.length; i++) {
+        for (var i = 0; i < evidenceEndFocus.length; i++) {
 
             // Listen for a keydown.
             evidenceEndFocus[i].addEventListener("keydown", evidenceLastTargetKeydown);
@@ -548,7 +572,7 @@ Utilities.setEvidenceUiEventListeners = function (e) {
         var evidenceAccordionTriggers = document.querySelectorAll(".applicant-evidence__accordion-trigger");
 
         // Enter the loop of triggers.
-        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
+        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
 
             // Listen for a click.
             evidenceAccordionTriggers[i].addEventListener('click', evidenceAccordionTriggerClick);
@@ -566,13 +590,13 @@ function evidenceMenuItemClick(e) {
     // Prevent the default action.
     e.preventDefault();
     // Enter the loop for desktop tab menu items and remove the active class from all of them.
-    for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+    for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
         desktopEvidenceTriggers[i].classList.remove("active");
         desktopEvidenceTriggers[i].setAttribute("aria-selected", "false");
     }
 
     // Enter the loop for evidence panes and remove the active class from all of them.
-    for (var i=0; i<evidencePanes.length; i++) {
+    for (var i = 0; i < evidencePanes.length; i++) {
         evidencePanes[i].classList.remove("active");
     }
 
@@ -584,7 +608,7 @@ function evidenceMenuItemClick(e) {
     var triggerData = this.getAttribute("data-evidence-trigger");
 
     // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
-    for (var i=0; i<evidencePanes.length; i++) {
+    for (var i = 0; i < evidencePanes.length; i++) {
         var panel = evidencePanes[i];
         if (panel.getAttribute("data-evidence-target") == triggerData) {
             panel.classList.add("active");
@@ -592,7 +616,8 @@ function evidenceMenuItemClick(e) {
         }
     }
 
-};
+}
+;
 
 function evidenceMenuItemKeyup(e) {
 
@@ -607,7 +632,8 @@ function evidenceMenuItemKeyup(e) {
 
     }
 
-};
+}
+;
 
 function evidenceFirstTargetKeydown(e) {
 
@@ -623,7 +649,7 @@ function evidenceFirstTargetKeydown(e) {
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
         // Enter the loop for desktop tab items.
-        for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
 
             // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
             if (desktopEvidenceTriggers[i].getAttribute("data-evidence-trigger") == triggerData) {
@@ -633,7 +659,8 @@ function evidenceFirstTargetKeydown(e) {
         }
 
     }
-};
+}
+;
 
 function evidenceEarlyLastTargetKeydown(e) {
     if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
@@ -645,7 +672,7 @@ function evidenceEarlyLastTargetKeydown(e) {
             var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
             var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
-            for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+            for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
                 var trigger = desktopEvidenceTriggers[i];
                 if (trigger.getAttribute("data-evidence-trigger") == triggerData) {
 
@@ -661,7 +688,8 @@ function evidenceEarlyLastTargetKeydown(e) {
         }
 
     }
-};
+}
+;
 
 function evidenceLastTargetKeydown(e) {
 
@@ -670,7 +698,7 @@ function evidenceLastTargetKeydown(e) {
         var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
-        for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
             var trigger = desktopEvidenceTriggers[i];
             if (trigger.getAttribute("data-evidence-trigger") == triggerData) {
 
@@ -685,7 +713,8 @@ function evidenceLastTargetKeydown(e) {
 
     }
 
-};
+}
+;
 
 function evidenceAccordionTriggerClick(e) {
 
@@ -695,7 +724,7 @@ function evidenceAccordionTriggerClick(e) {
     if (this.classList.contains("active")) {
 
         // If it is active, close all accordions.
-        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
+        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
             var trigger = evidenceAccordionTriggers[i];
             trigger.classList.remove("active")
             trigger.nextElementSibling.classList.remove("active");
@@ -705,7 +734,7 @@ function evidenceAccordionTriggerClick(e) {
     } else {
 
         // Close all accordions.
-        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
+        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
             var trigger = evidenceAccordionTriggers[i];
             trigger.classList.remove("active")
             trigger.nextElementSibling.classList.remove("active");
@@ -719,7 +748,8 @@ function evidenceAccordionTriggerClick(e) {
 
     }
 
-};
+}
+;
 
 Utilities.addWindowEventListener("load", Utilities.setEvidenceUiEventListeners);
 Utilities.addWindowEventListener("resize", Utilities.setEvidenceUiEventListeners);
@@ -736,7 +766,7 @@ Utilities.setEvidencePreviewUiEventListeners = function () {
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
 
         // Enter the loop of desktop tab menu items.
-        for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
             var trigger = desktopEvidenceTriggers[i];
 
             // Check for a click on each tab.
@@ -752,7 +782,7 @@ Utilities.setEvidencePreviewUiEventListeners = function () {
         var evidenceStartFocus = document.querySelectorAll(".applicant-evidence-preview__evidence-link");
 
         // Enter the loop of elements.
-        for (var i=0; i<evidenceStartFocus.length; i++) {
+        for (var i = 0; i < evidenceStartFocus.length; i++) {
             // Listen for a keydown.
             evidenceStartFocus[i].addEventListener("keydown", evidencePreviewLinkKeydown);
         }
@@ -764,7 +794,7 @@ Utilities.setEvidencePreviewUiEventListeners = function () {
         var evidenceAccordionTriggers = document.querySelectorAll(".applicant-evidence-preview__accordion-trigger");
 
         // Enter the loop of triggers.
-        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
+        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
 
             // Listen for a click.
             evidenceAccordionTriggers[0].addEventListener('click', evidencePreviewAccordionClick);
@@ -774,14 +804,14 @@ Utilities.setEvidencePreviewUiEventListeners = function () {
 
 //Define Preview UI event listeners
 function evidencePreviewAccordionClick(e) {
-    
+
     var evidenceAccordionTriggers = document.querySelectorAll(".applicant-evidence-preview__accordion-trigger");
 
     // Check to see if the trigger is active.
     if (this.classList.contains("active")) {
 
         // If it is active, close all accordions.
-        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
+        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
             var trigger = evidenceAccordionTriggers[i];
             trigger.classList.remove("active")
             trigger.nextElementSibling.classList.remove("active");
@@ -791,7 +821,7 @@ function evidencePreviewAccordionClick(e) {
     } else {
 
         // Close all accordions.
-        for (var i=0; i<evidenceAccordionTriggers.length; i++) {
+        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
             var trigger = evidenceAccordionTriggers[i];
             trigger.classList.remove("active")
             trigger.nextElementSibling.classList.remove("active");
@@ -805,7 +835,8 @@ function evidencePreviewAccordionClick(e) {
 
     }
 
-};
+}
+;
 
 function evidencePreviewMenuItemClick(e) {
     // Set variables for the desktop menu items and the associated evidence panes.
@@ -816,14 +847,14 @@ function evidencePreviewMenuItemClick(e) {
     e.preventDefault();
 
     // Enter the loop for desktop tab menu items and remove the active class from all of them.
-    for (var i=0; i<desktopEvidenceTriggers.length; i++) {
-            var trigger = desktopEvidenceTriggers[i];
+    for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
+        var trigger = desktopEvidenceTriggers[i];
         trigger.classList.remove("active");
         trigger.setAttribute("aria-selected", "false");
     }
 
     // Enter the loop for evidence panes and remove the active class from all of them.
-    for (var i=0; i<evidencePanes.length; i++) {
+    for (var i = 0; i < evidencePanes.length; i++) {
         evidencePanes[i].classList.remove("active");
     }
 
@@ -835,7 +866,7 @@ function evidencePreviewMenuItemClick(e) {
     var triggerData = this.getAttribute("data-evidence-trigger");
 
     // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
-    for (var i=0; i<evidencePanes.length; i++) {
+    for (var i = 0; i < evidencePanes.length; i++) {
         var pane = evidencePanes[i];
         if (pane.getAttribute("data-evidence-target") == triggerData) {
             pane.classList.add("active");
@@ -846,7 +877,8 @@ function evidencePreviewMenuItemClick(e) {
 
         }
     }
-};
+}
+;
 
 function evidencePreviewMenuItemKeyup(e) {
     // Cancels the default action.
@@ -857,7 +889,8 @@ function evidencePreviewMenuItemKeyup(e) {
         // Triggers a click, thus activating the click event listener.
         this.click();
     }
-};
+}
+;
 
 function evidencePreviewLinkKeydown(e) {
     // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
@@ -872,8 +905,8 @@ function evidencePreviewLinkKeydown(e) {
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
 
         // Enter the loop for desktop tab items.
-        for (var i=0; i<desktopEvidenceTriggers.length; i++) {
-            
+        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
+
             // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
             if (desktopEvidenceTriggers[i].getAttribute("data-evidence-trigger") == triggerData) {
                 desktopEvidenceTriggers[i].focus();
@@ -886,7 +919,7 @@ function evidencePreviewLinkKeydown(e) {
 
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence-preview__desktop-menu-item");
 
-        for (var i=0; i<desktopEvidenceTriggers.length; i++) {
+        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
             var trigger = desktopEvidenceTriggers[i];
             if (trigger.getAttribute("data-evidence-trigger") == triggerData) {
 
@@ -897,7 +930,8 @@ function evidencePreviewLinkKeydown(e) {
             }
         }
     }
-};
+}
+;
 
 Utilities.addWindowEventListener("load", Utilities.setEvidencePreviewUiEventListeners);
 Utilities.addWindowEventListener("resize", Utilities.setEvidencePreviewUiEventListeners);
