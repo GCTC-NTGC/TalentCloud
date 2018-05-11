@@ -550,13 +550,6 @@ JobPostAPI.populateJobPoster = function(jobData){
        //Assign to HTML element
        document.getElementById("jobPosterHiringManagerDepartment").innerHTML = department_text;
 
-       //Return to job poster from hiring manager profile
-       var jobPosterBack1 = document.getElementById("jobPosterBackButton");
-       jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
-       var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
-       jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
-
-
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.
        var len = 250;
