@@ -145,7 +145,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
         var question = new JobPostAPI.JobPosterQuestion(jsonQuesion.id, jsonQuesion.question);
         jobObj.questions.push(question);
     }
-    
+
     // TAL-150
     jobObj.classification = job.classification;
     jobObj.security_clearance = job.security_clearance;
@@ -527,6 +527,12 @@ JobPostAPI.populateJobPoster = function(jobData){
     var jobPosterSubnavDepartment = document.getElementById("jobPosterSubnavDepartment");
     jobPosterSubnavJobTitle.innerHTML = jobData.title;
     jobPosterSubnavDepartment.innerHTML = jobData.department;
+
+    //Return to job poster from hiring manager profile
+     var jobPosterBack1 = document.getElementById("jobPosterBackButton");
+     jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
+     var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
+     jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")"); 
 
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterCultureManagerProfilePhoto');

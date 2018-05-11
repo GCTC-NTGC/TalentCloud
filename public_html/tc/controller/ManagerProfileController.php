@@ -13,25 +13,43 @@ require_once '../model/ManagerProfileWithDetails.php';
 require_once '../model/User.php';
 require_once '../model/LocalizedValues.php';
 require_once '../controller/UserController.php';
+require_once '../controller/TeamCultureController.php';
+require_once '../controller/WorkEnvironmentController.php';
 require_once '../dao/ManagerProfileDAO.php';
 
 class ManagerProfileController{
 
-    public static function createManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
-    //var_dump("manager profile id = ".$managerProfile->getUser_manager_profile_id());
-    if($managerProfile->getUser_manager_profile_id() != null){
-       $response = ManagerProfileDAO::updateManagerProfile($managerProfile, $managerProfileDetails);
-    }else{
-        $response = ManagerProfileDAO::createManagerProfile($managerProfile, $managerProfileDetails);
+    public static function putManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
+        //Check if previious manager profile exists
+        $oldProfile = self::getManagerProfileByUser($managerProfile->getUser_id());
+        if ($oldProfile) {
+            $oldProfileId = $oldProfile->getUser_manager_profile_id();
+            
+            //Get Team Culture and Work Environment associated with old profile
+            $teamCulture = TeamCultureController::getTeamCultureNonLocalizedByManagerProfileId($oldProfileId);
+            $workEnvironment = WorkEnvironmentController::getWorkEnivronmentByManagerProfile($oldProfileId);
+            
+            $profileId = ManagerProfileDAO::createManagerProfile($managerProfile, $managerProfileDetails);
+            
+            //Add old teamCulture and WorkEnviornment to new profile as well
+            if ($teamCulture) {
+                TeamCultureController::addManagerProfileIdForTeamCulture($profileId, $teamCulture->getTeam_culture_id());
+            }
+            if ($workEnvironment && $workEnvironment->getBasic_work_environment()) {
+                WorkEnvironmentController::addManagerProfileIdForWorkEnvironment($profileId, $workEnvironment->getBasic_work_environment()->getId());
+            }
+            
+            return ["manager_profile_id"=>$profileId];
+        } else {
+            $profileId = ManagerProfileDAO::createManagerProfile($managerProfile, $managerProfileDetails);
+            return ["manager_profile_id"=>$profileId];
+        }
     }
-        return $response;
 
-    }
+    public static function getManagerProfileByUser($userId){
 
-    public static function getManagerProfile($managerProfile){
-
-        $response = ManagerProfileDAO::getManagerProfile($managerProfile);
-
+        $response = ManagerProfileDAO::getManagerProfileByUser($userId);
+        
         return $response;
 
     }
@@ -49,7 +67,12 @@ class ManagerProfileController{
         $user->setUser_id($managerProfile->getUser_id());
 
         $managerUser = UserController::getUserById($user);
-        $profile = ManagerProfileController::getManagerProfile($managerProfile);
+        $profile = ManagerProfileController::getManagerProfileByUser($managerProfile->getUser_id());
+        
+        if (!$profile) {
+            //No profile exists
+            return false;
+        }
 
         $details_en = ManagerProfileController::getManagerProfileDetailsByLocale($profile, "en_CA");
         $details_fr = ManagerProfileController::getManagerProfileDetailsByLocale($profile, "fr_CA");

@@ -582,10 +582,26 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
     var questionFragment = document.createDocumentFragment();
     
     
-    for (var i = 0; i < questionLookupMap.length; i++) {
+    for (var i = 0; i < questionLookupMap.length; i++) {        
         var question = questionLookupMap[i];
 
-        var questionSection = document.createElement("div");
+        var questionSection = JobSeekerAPI.createQuestionSectionElement(question);
+        
+        //Add to the wrapper fragment
+        questionFragment.appendChild(questionSection);
+    }
+
+    var questionWrapper = document.getElementById("profileQuestionsWrapper");
+    //Clear previous values to avoid doubles
+    questionWrapper.innerHTML = "";
+
+    //Add questions to wrapper
+    questionWrapper.appendChild(questionFragment);
+};
+
+
+JobSeekerAPI.createQuestionSectionElement = function(question) {
+    var questionSection = document.createElement("div");
         questionSection.classList.add("applicant-profile__question");
 
         var questionTitleBar = document.createElement("h3");
@@ -599,8 +615,16 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
         questionEditBtn.setAttribute("role", "button");
         questionEditBtn.href = "javascript:void(0)";
         questionEditBtn.setAttribute("title", 'Edit "'+question.value+'"');
+        
+        questionEditBtn.setAttribute("data-question-id", question.id);
+        questionEditBtn.setAttribute("data-question-value", question.value);
+        questionEditBtn.setAttribute("data-question-description", question.description);
+        
         questionEditBtn.onclick = function () {
-            JobSeekerAPI.showEditProfileAnswerModal(question.id, question.value, question.description);
+            var id = this.getAttribute("data-question-id");
+            var value = this.getAttribute("data-question-value");
+            var description = this.getAttribute("data-question-description");
+            JobSeekerAPI.showEditProfileAnswerModal(id, value, description);
         };
 
         var questionEditBtnImage = document.createElement("i");
@@ -621,17 +645,8 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
 
         questionSection.appendChild(questionTitleBar);
         questionSection.appendChild(questionAnswer);
-
-        //Add to the wrapper fragment
-        questionFragment.appendChild(questionSection);
-    }
-
-    var questionWrapper = document.getElementById("profileQuestionsWrapper");
-    //Clear previous values to avoid doubles
-    questionWrapper.innerHTML = "";
-
-    //Add questions to wrapper
-    questionWrapper.appendChild(questionFragment);
+        
+        return questionSection;
 };
 
 JobSeekerAPI.showEditProfileAnswerModal = function (questionId, questionName, questionDescription) {

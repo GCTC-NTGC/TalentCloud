@@ -35,5 +35,12 @@ class TeamCultureController {
     public static function getTeamCultureNonLocalizedByManagerProfileId($managerProfileId) {
         return TeamCultureDAO::getTeamCultureNonLocalizedForManagerProfile($managerProfileId);
     }
+    
+    /**
+     * Adds a new Manager Profile Id to be associated with a given Team Culture id
+     */
+    public static function addManagerProfileIdForTeamCulture($managerProfileId, $teamCultureId) {
+        return TeamCultureDAO::addManagerProfileIdForTeamCulture($managerProfileId, $teamCultureId);
+    }
 }
 
