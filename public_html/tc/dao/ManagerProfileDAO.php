@@ -32,7 +32,7 @@ class ManagerProfileDAO extends BaseDAO{
      *
      * @param ManagerProfile $managerProfile
      * @param ManagerProfileDetails $managerProfileDetails
-     * @return type int insert_id
+     * @return int $profileId
      */
     public static function createManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
 
@@ -169,14 +169,12 @@ class ManagerProfileDAO extends BaseDAO{
 
             $link->commit();
             $rowsmodified = $sql->rowCount();
-            if($rowsmodified > 0){
-                $insert_id = $profileId;
-            }
+            
         } catch (PDOException $e) {
             return 'createManagerProfile failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
-        return $insert_id;
+        return $profileId;
 
     }
 
@@ -184,7 +182,7 @@ class ManagerProfileDAO extends BaseDAO{
      *
      * @param ManagerProfile $managerProfile
      * @param ManagerProfileDetails $managerProfileDetails
-     * @return boolean
+     * @return int $profileId
      */
     public static function updateManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
 
@@ -327,7 +325,6 @@ class ManagerProfileDAO extends BaseDAO{
         $sql2->bindValue(':user_manager_profile_education_fr', $user_manager_profile_education_fr, PDO::PARAM_STR);
 
         $rowsmodified = 0;
-        $success = false;
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
             $link->beginTransaction();
@@ -346,11 +343,9 @@ class ManagerProfileDAO extends BaseDAO{
 
     }
 
-    public static function getManagerProfile(ManagerProfile $managerProfile){
+    public static function getManagerProfileByUser($userId){
 
         $link = BaseDAO::getConnection();
-
-        $user_id = $managerProfile->getUser_id();
 
         $sqlStr = "
             SELECT
@@ -358,37 +353,27 @@ class ManagerProfileDAO extends BaseDAO{
                 ump.user_manager_profile_department_id,
                 ump.user_manager_profile_twitter,
                 ump.user_manager_profile_linkedin,
-                u.user_id
+                ump.user_id
             FROM
-                user u
-                LEFT JOIN user_manager_profile ump on ump.user_id = u.user_id
-            WHERE u.user_id = :user_id
-            ORDER BY ump.user_manager_profile_id DESC;";
+                user_manager_profile ump
+            WHERE ump.user_id = :user_id
+            ORDER BY ump.user_manager_profile_id DESC LIMIT 1;";
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $sql->bindParam(':user_id', $userId, PDO::PARAM_INT);
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            /*$sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfile', array(
-                'user_manager_profile_id',
-                'user_manager_profile_department_id',
-                'user_manager_profile_position_id',
-                'user_manager_profile_branch_id',
-                'user_manager_profile_division_id',
-                'user_manager_profile_twitter',
-                'user_manager_profile_linkedin',
-                'user_id',
-                'profile_pic'));*/
-
-            $row = $sql->fetch();
-
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfile');
+            $managerProfile = $sql->fetch();
+            
+            /*
             $managerProfile->setUser_manager_profile_id($row['user_manager_profile_id']);
             $managerProfile->setUser_manager_profile_department_id($row['user_manager_profile_department_id']);
             $managerProfile->setUser_manager_profile_twitter($row['user_manager_profile_twitter']);
             $managerProfile->setUser_manager_profile_linkedin($row['user_manager_profile_linkedin']);
             //$managerProfile->setProfile_pic(base64_encode($row['profile_pic']));
-
-            //var_dump($row);
+            */
+            
         } catch (PDOException $e) {
             return 'getContentByLocale failed: ' . $e->getMessage();
         }

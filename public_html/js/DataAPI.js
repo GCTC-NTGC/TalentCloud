@@ -348,6 +348,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
     thisContent.years = content.years;
     thisContent.status = content.status;
+    thisContent.jobPosterBackButtonText = content.jobPosterBackButtonText;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);

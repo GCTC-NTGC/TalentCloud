@@ -129,6 +129,10 @@ class WorkEnvironmentController{
             return NULL;            
     }
     
-    
-    
+    /**
+     * Adds a new Manager Profile Id to be associated with a given Work Environment id object
+     */
+    public static function addManagerProfileIdForWorkEnvironment($managerProfileId, $workEnvironmentId) {
+        return WorkEnvironmentDAO::addManagerProfileIdForWorkEnvironment($managerProfileId, $workEnvironmentId);
+    } 
 }
