@@ -75,6 +75,11 @@ JobPostAPI.showBrowseJobs = function() {
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/browse-jobs');
+    ga('send', 'pageview');
+
 };
 
 /**
@@ -482,6 +487,11 @@ JobPostAPI.viewJobPoster = function(jobId){
     browseHeroTitle.setAttribute("aria-hidden", "false");
     // browseHeroPosterMetaData.classList.remove("hidden");
 
+    // Google Analytics
+
+    ga('set', 'page', '/browse-jobs/'+jobId);
+    ga('send', 'pageview');
+
 };
 
 JobPostAPI.localizeJobPoster = function() {
@@ -549,13 +559,6 @@ JobPostAPI.populateJobPoster = function(jobData){
        var department_text = LookupAPI.getLocalizedLookupValue("department", dept_id);
        //Assign to HTML element
        document.getElementById("jobPosterHiringManagerDepartment").innerHTML = department_text;
-
-       //Return to job poster from hiring manager profile
-       var jobPosterBack1 = document.getElementById("jobPosterBackButton");
-       jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
-       var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
-       jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
-
 
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.
