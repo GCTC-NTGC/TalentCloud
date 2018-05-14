@@ -14,8 +14,8 @@
                         <i class="fa fa-flask"></i>
                     </div>
                     <p class="applicant-landing__intro-alert-copy">
-                        The jobs are real.
-                        <br>The platform is experimental.
+                        <span id="taglineSecondary">The jobs are not real (for now)</span>
+                        <br><span id="taglineTertiary">The platform is experimental.</span>
                     </p>
                 </div>
 

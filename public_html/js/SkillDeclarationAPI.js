@@ -110,7 +110,7 @@ SkillDeclarationAPI.populateApplicationPreviewUiSkillDeclarations = function(ski
  * @param {function} onSuccess
  * @return {undefined}
  */
-SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
+SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess, onFailure) {
     if (criteriaType) {
         var evidencePanels = document.querySelectorAll(".applicant-evidence__accordion-wrapper[data-criteria-type=\"" + criteriaType + "\"]:not(.template)")
     } else if (criteriaType === undefined) {
@@ -148,22 +148,7 @@ SkillDeclarationAPI.saveSkillDeclarations = function (criteriaType, onSuccess) {
                     }
                 });
             } else {
-                //If declaration is not valid (ie not complete) delete it from the application
-                submittedRequests = submittedRequests + 1;
-                DataAPI.deleteSkillDeclaration(newSkillDeclaration.criteria_id, applicationId, function (response) {
-                    if (response.status !== 200) {
-                    requestsSuccessful = false;
-                }
-                submittedRequests = submittedRequests - 1;
-                if (submittedRequests === 0) {
-                    if (onSuccess && requestsSuccessful) {
-                        //Only call onSuccess if all requests have been successful
-                        onSuccess();
-                    } else if (onFailure && !requestsSuccessful) {
-                        onFailure();
-                    }
-                }
-                });
+                //If declaration is not valid (ie not complete), do nothing
             }
         }
     }
@@ -205,9 +190,6 @@ SkillDeclarationAPI.onStatusChange = function (criteriaId) {
         //Activate completion message
         var completionMsg = panel.querySelector(".evidence__completion-wrapper");
         completionMsg.classList.add("active");
-
-        //Un-hide optional fields
-        panel.querySelector(".applicant-evidence__optional-wrapper").classList.add("active");
     } else {
         //Deactivate check icons
         EvidenceAPI.setEvidenceIconStatus(criteriaId, "fa-check", false);
@@ -215,8 +197,5 @@ SkillDeclarationAPI.onStatusChange = function (criteriaId) {
         //Deactivate completion message
         var completionMsg = panel.querySelector(".evidence__completion-wrapper");
         completionMsg.classList.remove("active");
-
-        //Hide optional fields
-        panel.querySelector(".applicant-evidence__optional-wrapper").classList.remove("active");
     }
 };

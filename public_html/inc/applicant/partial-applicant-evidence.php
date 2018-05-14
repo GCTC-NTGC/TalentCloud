@@ -87,7 +87,7 @@
         <?php // DEV-NOTE: Note that these triggers have ARIA-Expanded true/false as necessary. ?>
         <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
             <span class="applicant-evidence__accordion-trigger-title">
-                <span class="applicant-evidence__accordion-trigger-title-text">Wireframing - Intermediate</span>
+                <span class="applicant-evidence__accordion-trigger-title-text"></span>
                 <?php // DEV-NOTE: These icons can receive an "active" class to toggle their state in the UI. This should match the icons in the associated tab menu item. ?>
                 <div class="applicant-evidence__accordion-trigger-icon-wrapper">
                     <?php // <i class="fa fa-clipboard active"></i> ?>
@@ -135,7 +135,7 @@
                         <div class="hidden" id="applicationEvidenceExpertiseItemTemplate">
                             <label for="" class="box form__radio-group-label template">
                                 <input type="radio" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
-                                <span class="form__radio-group-span">N/A</span>
+                                <span class="form__radio-group-span"></span>
                             </label>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                         <div class="hidden" id="applicationEvidenceExperienceItemTemplate">
                             <label for="" class="box small-1of5 form__radio-group-label template">
                                 <input type="radio" name="experience" class="form__radio-group-input"/>
-                                <span class="form__radio-group-span">0</span>
+                                <span class="form__radio-group-span"></span>
                             </label>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
 
             </div>
 
-            <div class="applicant-evidence__optional-wrapper">
+            <div class="applicant-evidence__optional-wrapper active">
 
                 <h5 class="applicant-evidence__section-title">
                     <i class="fa fa-user"></i>
@@ -219,7 +219,6 @@
                         <label for="applicationEvidenceReferenceExpLevel" class="form__label">Your Experience Level at the Time:</label>
                         <div class="form__select-wrapper">
                             <select name="reference_exp_level" class="form__select" id="applicationEvidenceReferenceExpLevel">
-                                <option>Option 01</option>
                             </select>
                         </div>
                     </div>
@@ -253,7 +252,6 @@
                         <label for="applicationEvidenceSampleType" class="form__label">Type of File:</label>
                         <div class="form__select-wrapper">
                             <select name="sample_type" class="form__select" id="applicationEvidenceSampleType">
-                                <option>Option 01</option>
                             </select>
                         </div>
                     </div>

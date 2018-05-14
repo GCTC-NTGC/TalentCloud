@@ -374,7 +374,6 @@ class JobApplicationDAO extends BaseDAO {
             );
             ";
         $sql = $link->prepare($sql_str);
-        $user_id_int = intval($user_id);
         $sql->bindValue(':application_id', $jobPosterApplicationId, PDO::PARAM_INT);
 
         try {
@@ -391,7 +390,7 @@ class JobApplicationDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         $sql_str = "
             SELECT u.user_id
-            FROM user u, user_job_seeker_profile u_jsp, job_poster_application jpa
+            FROM user u, user_job_seeker_profiles u_jsp, job_poster_application jpa
             WHERE 
                 jpa.job_poster_application_id = :application_id
                 AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
@@ -408,5 +407,28 @@ class JobApplicationDAO extends BaseDAO {
         }
         BaseDAO::closeConnection($link);
         return $user_id;
+    }
+    
+    public static function setJobAppliationStatus($jobPosterApplicationId, $status) {
+        $link = BaseDAO::getConnection();
+        $sql_str = "
+            UPDATE job_poster_application jpa
+            SET jpa.job_poster_application_status_id = 
+                (SELECT asd.application_status_id 
+                FROM application_status_details asd
+                WHERE asd.application_status = :status)
+            WHERE jpa.job_poster_application_id = :application_id;";
+        $sql = $link->prepare($sql_str);
+        $sql->bindValue(':application_id', $jobPosterApplicationId, PDO::PARAM_INT);
+        $sql->bindValue(':status', $status, PDO::PARAM_STR);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $rowsModified = $sql->rowCount();
+        } catch (PDOException $e) {
+            return 'setJobAppliationStatus failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $rowsModified;
     }
 }

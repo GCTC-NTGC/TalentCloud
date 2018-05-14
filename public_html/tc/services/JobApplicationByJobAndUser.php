@@ -59,7 +59,7 @@
             //Here Handle DELETE Request 
             break;
         case 'PUT':
-            //Authenticate that the submitting user owns job seeker profile
+            //TODO: Authenticate that the submitting user owns job seeker profile
             $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
             $userId = Utils::getParameterFromRequest($requestParams,6);
             
@@ -70,7 +70,9 @@
             $jsonJobPosterApplication = $jsonJobApplicationWithAnswers["job_poster_application"];
             
             $jobPosterApplication = new JobPosterApplication();
-            $jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
+            //$jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
+            $jobPosterApplication->setApplication_job_poster_id($jobPosterId);
+            //TODO: ensure jobSeekerProfile belongs to userId
             $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
             $jobPosterApplication->setJob_poster_application_status_id($jsonJobPosterApplication["job_poster_application_status_id"]);
             

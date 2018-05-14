@@ -349,6 +349,10 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.years = content.years;
     thisContent.status = content.status;
     thisContent.jobPosterBackButtonText = content.jobPosterBackButtonText;
+    thisContent.termsAndConditions = content.termsAndConditions;
+    thisContent.privacy = content.privacy;
+    thisContent.visitCanadaWebsite = content.visitCanadaWebsite;
+    thisContent.createJobApplicationPositionLabel = content.createJobApplicationPositionLabel;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
@@ -833,6 +837,11 @@ DataAPI.saveJobApplicationByJobAndUser = function(jobApplication, jobPosterId, u
 DataAPI.getJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
     var url = [DataAPI.baseURL, "getApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.submitJobApplication = function(applicationId, requestCallback) {
+    var url = [DataAPI.baseURL, "submitJobApplication", applicationId].join("/");
+    DataAPI.sendRequest(url, "POST", {}, null, requestCallback);
 };
 
 DataAPI.getFullJobApplicationByJobAndUser = function(jobPosterId, userId, requestCallback) {
