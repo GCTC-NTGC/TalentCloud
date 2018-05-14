@@ -398,6 +398,7 @@ JobApplicationAPI.showNextApplicationSection = function(jobPosterId) {
 };
 
 JobApplicationAPI.shiftApplicationSection = function(shift, jobPosterId) {
+
     window.scrollTo(0, 0);
     var progressItems = document.querySelectorAll(".application-progress__item");
 
@@ -434,8 +435,10 @@ JobApplicationAPI.showApplicationSection = function(applicationSection, jobPoste
         var item = progressItems[i];
         if (item.getAttribute("data-application-section") === applicationSection) {
            item.classList.remove("inactive");
+           item.setAttribute("aria-hidden", "false");
        } else {
            item.classList.add("inactive");
+           item.setAttribute("aria-hidden", "true");
        }
     }
 
