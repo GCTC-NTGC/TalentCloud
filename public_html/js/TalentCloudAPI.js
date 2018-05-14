@@ -274,6 +274,8 @@ TalentCloudAPI.Content = function(
     status,
     jobPosterBackButtonText
 ) {
+    profileEditName,
+    createJobApplicationPositionLabel) {
         // Navigation Links
         this.navigationLoginLink = navigationLoginLink;
         this.navigationLogoutLink = navigationLogoutLink;
@@ -521,6 +523,7 @@ TalentCloudAPI.Content = function(
         this.years = years;
         this.status = status;
         this.jobPosterBackButtonText = jobPosterBackButtonText;
+        this.createJobApplicationPositionLabel = createJobApplicationPositionLabel;
     };
 
 TalentCloudAPI.pages = {
@@ -1078,8 +1081,8 @@ TalentCloudAPI.setContent = function(content, isManager){
         var applicantPortal = document.getElementById("applicantPortal");
         applicantPortal.innerHTML = siteContent.applicantPortal;
 
-        // var taglineSecondary = document.getElementById("taglineSecondary");
-        // taglineSecondary.innerHTML = siteContent.taglineSecondary;
+        var taglineSecondary = document.getElementById("taglineSecondary");
+        taglineSecondary.innerHTML = siteContent.taglineSecondary;
 
         var taglineTertiary = document.getElementById("taglineTertiary");
         taglineTertiary.innerHTML = siteContent.taglineTertiary;
@@ -1134,6 +1137,9 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
         managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
+        
+        var createJobApplicationPositionLabel = document.getElementById("createJobApplicationPositionLabel");
+        createJobApplicationPositionLabel.innerHTML = siteContent.createJobApplicationPositionLabel;
 
         // Profile Photo Modal
         var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
@@ -1274,6 +1280,15 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterHowWeWork_label = document.getElementById("jobPosterHowWeWork_label");
         jobPosterHowWeWork_label.innerHTML = siteContent.jobPosterHowWeWork_label;
+        
+        var termsAndConditions = document.getElementById("termsAndConditions");
+        termsAndConditions.innerHTML = siteContent.termsAndConditions;
+        
+        var privacy = document.getElementById("privacy");
+        privacy.innerHTML = siteContent.privacy;
+        
+        var visitCanadaWebsite = document.getElementById("visitCanadaWebsite");
+        visitCanadaWebsite.innerHTML = siteContent.visitCanadaWebsite;
 
         var jobPosterBackButtonText = document.getElementById("jobPosterBackButtonText");
         jobPosterBackButtonText.innerHTML = siteContent.jobPosterBackButtonText;

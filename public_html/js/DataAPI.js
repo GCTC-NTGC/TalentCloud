@@ -349,6 +349,10 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     thisContent.years = content.years;
     thisContent.status = content.status;
     thisContent.jobPosterBackButtonText = content.jobPosterBackButtonText;
+    thisContent.termsAndConditions = content.termsAndConditions;
+    thisContent.privacy = content.privacy;
+    thisContent.visitCanadaWebsite = content.visitCanadaWebsite;
+    thisContent.createJobApplicationPositionLabel = content.createJobApplicationPositionLabel;
 
     //if(siteContent){
         TalentCloudAPI.setContent(thisContent,isManager);
