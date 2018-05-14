@@ -408,10 +408,12 @@ Utilities.mobileNavClickListener = function(e) {
     if (this.classList.contains("active")) {
         this.classList.remove("active");
         mainMenu.classList.remove("active");
+        document.body.style.overflowY = "auto";
     }
     else {
         this.classList.add("active");
         mainMenu.classList.add("active");
+        document.body.style.overflowY = "hidden";
     }
 
 };
