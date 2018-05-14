@@ -444,4 +444,34 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
     }
 };
 
+JobApplicationAPI.submitJobApplication = function(jobPosterId) {
+    if (jobPosterId && jobPosterId.length > 0 && UserAPI.hasSessionUser()) {
+        var userId = UserAPI.getSessionUserAsJSON().user_id;
+        
+        //Load current job appliction to verify its ready for submission
+        DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {
+            if (request.status === 200) {
+                var fullJobApplication = JSON.parse(request.response);
+                 
+                //TODO: validate fullJobApplication
+                
+                //TODO: validate that application is still in draft status.
+                if (fullJobApplication.job_poster_application.job_poster_application_status_id === 1) {
+                    DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function(request) {
+                        if (request.status === 200) {
+                            var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
+                            JobApplicationAPI.showCreateJobConfirmation(jobTitle);
+                        } else {
+                            //TODO: post message 
+                            window.alert(request.response);
+                        }
+                    });         
+                } else {
+                    window.alert("You cannot edit an application that has already been saved.")
+                }                       
+            }
+        });
+    }
+};
+
 

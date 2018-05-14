@@ -161,4 +161,12 @@ class JobApplicationController{
         }
     }
     
+    public static function submitJobApplication($jobPosterApplicationId) {
+        $isDraft = self::jobApplicationIsDraft($jobPosterApplicationId);
+        if ($isDraft) {
+            return JobApplicationDAO::setJobAppliationStatus($jobPosterApplicationId, "Submitted");
+        } else {
+            return ["false"=>"Cannot submit an application which is not a draft"];
+        }
+    }
 }

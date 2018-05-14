@@ -141,6 +141,35 @@ class UserDAO extends BaseDAO{
         return $user;
     }
     
+    /**
+     * 
+     * @param int $jobSeekerProfileId
+     * @return User $user
+     */
+    public static function getUserByJobSeekerProfileId($jobSeekerProfileId) {
+        $link = BaseDAO::getConnection();   
+        $sqlStr = "
+            SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, ur.user_role as user_role 
+            FROM talentcloud.user u, talentcloud.user_role ur, talentcloud.user_job_seeker_profiles ujsp
+            WHERE 
+                u.user_id = ujsp.user_id
+                AND ur.user_role_id = u.user_role_id
+                AND ujsp.job_seeker_profile_id = :job_seeker_profile_id)                
+            ;";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':job_seeker_profile_id', $jobSeekerProfileId, PDO::PARAM_INT);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+            $user = $sql->fetch();
+        } catch (PDOException $e) {
+            return 'getUserByJobSeekerProfileId failed: ' . $e->getMessage();
+        }
+        BaseDAO::closeConnection($link);
+        return $user;
+    }
+    
     public static function registerUser(User $user){
         
             $email = $user->getEmail();

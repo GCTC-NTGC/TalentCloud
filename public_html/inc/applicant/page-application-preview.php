@@ -64,8 +64,8 @@
             </div>
 
             <div class="application-preview__button-wrapper">
-                <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationPreviewJobPosterId').value)">Edit Application</button>
-                <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.saveJobApplication();">Submit</button>
+                <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
+                <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.submitJobApplication(document.getElementById('jobApplicationJobPosterId').value);">Submit</button>
             </div>
 
         </div>
