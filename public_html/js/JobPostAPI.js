@@ -542,7 +542,7 @@ JobPostAPI.populateJobPoster = function(jobData){
      var jobPosterBack1 = document.getElementById("jobPosterBackButton");
      jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
      var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
-     jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")"); 
+     jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
 
     //Load Hiring Manager Image
     var hiringManagerProfilePic = document.getElementById('jobPosterCultureManagerProfilePhoto');
@@ -553,6 +553,12 @@ JobPostAPI.populateJobPoster = function(jobData){
        var managerProfile = ManagerProfileAPI.parseManagerProfileResponse(response, locale);
        document.getElementById('jobPosterHiringManagerTitle').innerHTML = managerProfile.position;
 
+       //Get department ID
+       var dept_id = parseInt(managerProfile.department_id);
+       //Convert to localized value
+       var department_text = LookupAPI.getLocalizedLookupValue("department", dept_id);
+       //Assign to HTML element
+       document.getElementById("jobPosterHiringManagerDepartment").innerHTML = department_text;
 
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.
@@ -650,7 +656,8 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterJobLevelValue").innerHTML = jobData.classification;
     document.getElementById("jobPosterClearanceLevelValue").innerHTML = jobData.security_clearance;
     document.getElementById("jobPosterLanguageValue").innerHTML = jobData.language_requirement;
-    document.getElementById("jobPosterHiringManagerDepartment").innerHTML = jobData.department;
+
+
 
     // Split timestamp into [ Y, M, D, h, m, s ]
     var t = jobData.start_date.split(/[- :]/);

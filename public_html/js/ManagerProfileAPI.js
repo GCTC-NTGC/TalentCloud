@@ -61,9 +61,9 @@ ManagerProfileAPI.parseManagerProfileResponse = function(response, locale) {
     profile.low_value_work_requests = manager_profile_details.user_manager_profile_lvwrequests;
     profile.work_experience = manager_profile_details.user_manager_profile_work_experience;
     profile.education = manager_profile_details.user_manager_profile_education;
-    
+
     profile.name = manager_user.name;
-    
+
     return profile;
 };
 
@@ -87,7 +87,7 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
     if (jobPosterID) {
 
         var backToPosterButtons = document.querySelectorAll(".public-manager-profile__back-link");
-        
+
         for (var i = 0; i < backToPosterButtons.length; i++) {
             var x = backToPosterButtons[i];
             x.classList.remove("hidden");
@@ -125,7 +125,7 @@ ManagerProfileAPI.localizeManagerProfile = function() {
 
 ManagerProfileAPI.populateManagerProfileName = function(response) {
     var user = UserAPI.parseUserResponse(response);
-    
+
     document.getElementById("managerProfileName").innerHTML = user.name;
 };
 
@@ -145,10 +145,11 @@ ManagerProfileAPI.populateManagerProfile = function(response) {
 
     document.getElementById("managerProfilePosition").innerHTML = profile.position;
 
+    //Get department ID
     var dept_id = parseInt(profile.department_id);
-
+    //Convert to localized value
     var department_text = LookupAPI.getLocalizedLookupValue("department", dept_id);
-
+    //Assign to HTML element
     document.getElementById("managerProfileDepartment").innerHTML = department_text;
 
     var twitter_link = document.getElementById("managerProfileTwitterLink");
