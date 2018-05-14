@@ -890,7 +890,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
     if(UserAPI.hasSessionUser()){
         var session_user = UserAPI.getSessionUserAsJSON();
-        createEditProfile_name_preview.value = session_user.name;
+        createEditProfile_name_preview.innerHTML = session_user.name;
     }
 
     //About Me (page 1)
@@ -989,7 +989,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     var profile_department_id = manager_profile_json.user_manager_profile_department_id;
 
     if (profile_department_id) {
-        var dept_select = document.getElementById("createEditProfile_department");
+    var dept_select = document.getElementById("createEditProfile_department");
         dept_select.value = profile_department_id;
     }
 
