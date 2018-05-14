@@ -288,11 +288,13 @@ class LookupDAO extends BaseDAO {
     public static function getClearanceLevelsByLocale($locale) {
         $link = BaseDAO::getConnection();
         $sqlStr = "
-			SELECT
-			scd.security_clearance_details_id as id, scd.security_clearance_details_name as value
-			FROM
-			security_clearance_details scd
-			ORDER BY scd.security_clearance_details_id";
+            SELECT
+            scd.security_clearance_details_id as id, scd.security_clearance_details_name as value
+            FROM
+            security_clearance_details scd, locale
+            WHERE locale.locale_iso = :locale
+            AND scd.security_clearance_details_locale_id = locale.locale_id
+            ORDER BY scd.security_clearance_details_id";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
         try {
@@ -309,11 +311,13 @@ class LookupDAO extends BaseDAO {
     public static function getLanguageLevelsByLocale($locale) {
         $link = BaseDAO::getConnection();
         $sqlStr = "
-			SELECT
-			lrd.language_requirement_details_id as id, lrd.language_requirement_details_name as value
-			FROM
-			language_requirement_details lrd, locale
-			ORDER BY lrd.language_requirement_details_id";
+            SELECT
+            lrd.language_requirement_details_id as id, lrd.language_requirement_details_name as value
+            FROM
+            language_requirement_details lrd, locale
+            WHERE locale.locale_iso = :locale
+            AND lrd.language_requirement_details_locale_id = locale.locale_id
+            ORDER BY lrd.language_requirement_details_id";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
         try {
