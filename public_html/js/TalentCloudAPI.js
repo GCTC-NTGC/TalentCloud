@@ -1281,9 +1281,6 @@ TalentCloudAPI.setContent = function(content, isManager){
         
         var privacy = document.getElementById("privacy");
         privacy.innerHTML = siteContent.privacy;
-        
-        var visitCanadaWebsite = document.getElementById("visitCanadaWebsite");
-        visitCanadaWebsite.innerHTML = siteContent.visitCanadaWebsite;
 
         var jobPosterBackButtonText = document.getElementById("jobPosterBackButtonText");
         jobPosterBackButtonText.innerHTML = siteContent.jobPosterBackButtonText;
