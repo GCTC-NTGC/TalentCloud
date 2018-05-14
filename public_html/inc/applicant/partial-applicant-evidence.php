@@ -122,9 +122,9 @@
 
                     <?php // DEV-NOTE: You'll notice I've purposefully omitted including "for" and "id" attributes on form elements. This is because we'll need to add them in dynamically for each skill anyway to ensure no repetition. ?>
 
-                    <div class="box full">
+                    <div class="applicant-evidence__expertise-radiogroup box full" role="radiogroup" aria-labelledby="">
 
-                        <label for="" class="form__label">My Level of Expertise:</label>
+                        <label for="" class="applicant-evidence__expertise-radiogroup-title form__label" id="">My Level of Expertise:</label>
 
                         <?php // DEV-NOTE: This is the new structure for what were originally called "sliders". You'll notice that I've included the "for" and "id" attributes here due to the radio inputs not working without them. These will still need to be assigned dynamically. ?>
                         <div class="applicant-evidence__expertise-wrapper flex-grid">
@@ -140,8 +140,10 @@
                         </div>
                     </div>
 
-                    <div class="box full">
-                        <label for="" class="form__label">My Years of Experience:</label>
+                    <div class="applicant-evidence__experience-radiogroup box full" role="radiogroup" aria-labelledby="">
+
+                        <label for="" class="applicant-evidence__experience-radiogroup-title form__label">My Years of Experience:</label>
+
                         <div class="applicant-evidence__experience-wrapper flex-grid">
                            
                         </div>

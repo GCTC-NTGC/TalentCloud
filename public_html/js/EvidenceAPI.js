@@ -96,11 +96,14 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleHttpLink", idSuffix);
     EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleStory", idSuffix);
 
-
-    //POPULATE "SLIDERS"
-    //DEV-NOTE: Beware copy-paste errors, and confusing EXPERTISE with EXPERIENCE
+    // POPULATE "SLIDERS"
+    // DEV-NOTE: Beware copy-paste errors, and confusing EXPERTISE with EXPERIENCE
 
     var expertiseSelector = evidencePanel.querySelector(".applicant-evidence__expertise-wrapper");
+    var expertiseRadioGroup = evidencePanel.querySelector(".applicant-evidence__expertise-radiogroup");
+    var expertiseRadioGroupTitle = evidencePanel.querySelector(".applicant-evidence__expertise-radiogroup-title");
+    expertiseRadioGroupTitle.setAttribute("id", "expertiseRadioGroupTitle"+idSuffix);
+    expertiseRadioGroup.setAttribute("aria-labelledby", "expertiseRadioGroupTitle"+idSuffix);
     expertiseSelector.innerHTML = ""; //clear template items
     LookupAPI.getLookupResponse("skill_level", function (items) {
         var numberOfItems = items.length;
@@ -115,6 +118,10 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     });
 
     var experienceSelector = evidencePanel.querySelector(".applicant-evidence__experience-wrapper");
+    var experienceRadioGroup = evidencePanel.querySelector(".applicant-evidence__experience-radiogroup");
+    var experienceRadioGroupTitle = evidencePanel.querySelector(".applicant-evidence__experience-radiogroup-title");
+    expertiseRadioGroupTitle.setAttribute("id", "expertiseRadioGroupTitle"+idSuffix);
+    expertiseRadioGroup.setAttribute("aria-labelledby", "expertiseRadioGroupTitle"+idSuffix);
     experienceSelector.innerHTML = ""; //clear template items
     LookupAPI.getLookupResponse("experience_level", function (items) {
         var numberOfItems = items.length;
