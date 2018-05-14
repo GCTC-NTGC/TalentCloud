@@ -7311,6 +7311,27 @@ nav {
     border: 0.5rem solid #ffe25b;
     transition: all .2s ease; }
 
+.job-poster__loggin-button {
+  background: #ffe25b;
+  border: 0.5rem solid #ffe25b;
+  border-radius: 0 0 3px 3px;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 !important;
+  padding: 2rem 3rem;
+  text-align: center;
+  transition: all .2s ease;
+  width: 100%; }
+  .job-poster__loggin-button:hover {
+    background: #ffd200;
+    border-color: #ffd200;
+    transition: all .2s ease; }
+  .job-poster__loggin-button:focus {
+    background: #484848;
+    border: 0.5rem solid #ffe25b;
+    transition: all .2s ease; }
+
 /* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
 .jobSummary {
   position: relative;
