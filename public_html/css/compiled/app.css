@@ -8294,6 +8294,13 @@ nav {
   display: block;
   margin: 0;
   padding: 1rem; }
+  .job-card:focus .job-card__wrapper {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    transform: translate(0, 0) scale(1.025);
+    transition: all .2s ease; }
+    .job-card:focus .job-card__wrapper .job-card__view-button {
+      background: #125184;
+      transition: all .2s ease; }
 
 .job-card__wrapper {
   background: white;

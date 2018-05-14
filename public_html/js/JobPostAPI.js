@@ -211,9 +211,11 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     Utilities.debug?console.log("populating job"):null;
 
     // Create a job-card.
-    var jobCard = document.createElement("div");
+    var jobCard = document.createElement("a");
     jobCard.setAttribute("class", "job-card box med-1of2 lg-1of3");
     jobCard.setAttribute("id", "jobId_"+job.id);
+    jobCard.setAttribute("title", job.title);
+    jobCard.setAttribute("tabindex", 0);
     // jobCard.setAttribute("value", siteContent.viewButton);
     // jobCard.innerHTML = siteContent.viewButton;
     jobCard.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
@@ -322,6 +324,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     // Create a job-card__view-button.
     var jobCardViewButton = document.createElement("button");
     jobCardViewButton.setAttribute("class", "job-card__view-button");
+    jobCardViewButton.setAttribute("tabindex", "-1");
     if (locale === "fr_CA" ){
         jobCardViewButton.innerHTML = "Voir le travail";
     } else {
