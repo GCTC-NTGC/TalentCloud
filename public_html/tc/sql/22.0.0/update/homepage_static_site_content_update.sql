@@ -40,4 +40,3 @@ UPDATE `base_content` SET `base_content_value`='pour le poste de' WHERE `base_co
 
 /*My Applications*/
 UPDATE `base_content` SET `base_content_value`='Mes demandes' WHERE `base_content_key`='dashboardHeroTitle' AND base_content_locale_id=2;
-

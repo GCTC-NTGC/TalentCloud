@@ -255,6 +255,24 @@
 	margin: 2rem 0;
 }
 
+.job-poster__button-wrapper {
+        .job-poster__apply-button {
+            display: none;
+        }
+        .job-poster__login-button {
+            display: block;
+        }
+    
+        &.logged-in {
+            .job-poster__apply-button {
+                display: block;
+            }
+            .job-poster__login-button {
+                display: none;
+            }
+        }
+}
+
 .job-poster__apply-button {
 	background: $palette-blue;
 	border: .5rem solid $palette-blue;
@@ -279,5 +297,32 @@
 		border: .5rem solid $palette-yellow--light;
 		transition: all .2s ease;
 	}
+
+}
+
+.job-poster__login-button {
+	background: $palette-yellow--light;
+	border: .5rem solid $palette-yellow--light;
+	border-radius: 0 0 3px 3px;
+	color: $white !important;
+	font-size: 25px;
+	font-weight: 700;
+	margin: 0 !important;
+	text-align: center;
+	transition: all .2s ease;
+	width: 100%;
+    
+	&:hover {
+		background: $palette-yellow--dark;
+		border-color: $palette-yellow--dark;
+		transition: all .2s ease;
+	}
+
+	&:focus {
+		background: $palette-grey--dark;
+		border: .5rem solid $palette-yellow--light;
+		transition: all .2s ease;
+	}
+
 
 }

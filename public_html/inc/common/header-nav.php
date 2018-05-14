@@ -71,10 +71,22 @@
             <?php endif; ?>
 
             <?php /* Register */ ?>
+            <?php 
+            
+            // Removing register on admin - invites only!
+            
+            if (strpos($url,'admin') !== false) :
+            
+            
+            ?>
+            
+            <?php else : ?>
             <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
                 <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"navigationRegisterLink\">Register</a>"); ?>
             </div>
-
+            <?php endif; ?>
+            
+            
             <?php /* Login */ ?>
             <?php
                 $hasUser = null;

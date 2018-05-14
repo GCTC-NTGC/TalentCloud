@@ -7290,6 +7290,18 @@ nav {
   line-height: 1.5;
   margin: 2rem 0; }
 
+.job-poster__button-wrapper .job-poster__apply-button {
+  display: none; }
+
+.job-poster__button-wrapper .job-poster__login-button {
+  display: block; }
+
+.job-poster__button-wrapper.logged-in .job-poster__apply-button {
+  display: block; }
+
+.job-poster__button-wrapper.logged-in .job-poster__login-button {
+  display: none; }
+
 .job-poster__apply-button {
   background: #2196f3;
   border: 0.5rem solid #2196f3;
@@ -7307,6 +7319,26 @@ nav {
     border-color: #125184;
     transition: all .2s ease; }
   .job-poster__apply-button:focus {
+    background: #484848;
+    border: 0.5rem solid #ffe25b;
+    transition: all .2s ease; }
+
+.job-poster__login-button {
+  background: #ffe25b;
+  border: 0.5rem solid #ffe25b;
+  border-radius: 0 0 3px 3px;
+  color: white !important;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 !important;
+  text-align: center;
+  transition: all .2s ease;
+  width: 100%; }
+  .job-poster__login-button:hover {
+    background: #ffd200;
+    border-color: #ffd200;
+    transition: all .2s ease; }
+  .job-poster__login-button:focus {
     background: #484848;
     border: 0.5rem solid #ffe25b;
     transition: all .2s ease; }

@@ -55,7 +55,7 @@
             </div>
 
             <div class="job-poster__content-wrapper box lg-3of4">
-                
+
                 <a id="basics" aria-hidden="true"></a>
                 <section class="job-poster__basics">
                     <div class="flex-grid">
@@ -134,8 +134,8 @@
                             </a>
                         </div>
                         <div class="box full">
-                                <p class="job-poster__content-copy truncate" id="jobPosterHiringManagerAboutMe"></p>
-                            </div>
+                            <p class="job-poster__content-copy truncate" id="jobPosterHiringManagerAboutMe"></p>
+                        </div>
                         <?php /* Work Environment ======================== */ ?>
                         <div class="box full">
                             <h4 class="job-poster__content-subtitle" id="jobPosterWorkEnvironmentLabel">Work Environment</h4>
@@ -220,10 +220,32 @@
                             </div>
                         </div>
                     </div>
-                    <button class="job-poster__apply-button" id="jobPosterApplyButton" value="
-                    Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
-                        Apply Now
-                    </button>
+
+
+                    <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?> 
+                    <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in"> 
+                        <button class="job-poster__apply-button" id="jobPosterApplyButton" value="Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
+                            Apply Now
+                        </button>
+                        <?php
+                        // Not logged in
+                        $loginLink = "";
+                        $loginLink .= OPENID_URI . AUTH_URI;
+                        $loginLink .= "?response_type=" . URL_RESPONSE_TYPES;
+                        if (strpos($url, 'admin') !== false) {
+                            $loginLink .= "&redirect_uri=" . urlencode(REDIRECT_URI_ADMIN);
+                        } else {
+                            $loginLink .= "&redirect_uri=" . urlencode(REDIRECT_URI);
+                        }
+                        $loginLink .= "&nonce=" . $nonce;
+                        $loginLink .= "&state=" . $state;
+                        $loginLink .= "&client_id=" . CLIENT_ID;
+                        $loginLink .= "&scope=" . SCOPE;
+                        $loginLink .= "&prompt=consent";
+
+                        echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>"); 
+                        ?>
+                    </div>
                 </section>
 
             </div>
