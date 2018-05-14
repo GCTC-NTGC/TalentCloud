@@ -987,51 +987,11 @@ CreateEditProfileAPI.populateProfile = function(response){
     }
 
     var profile_department_id = manager_profile_json.user_manager_profile_department_id;
-    alert(profile_department_id);
 
-    if (profile_department_id != null) {
+    if (profile_department_id) {
         var dept_select = document.getElementById("createEditProfile_department");
         dept_select.value = profile_department_id;
-
-        //var val = parseInt(dept_select.options[profile_department_id].value);
-        //alert(val);
-        //alert(profile_department_id);
-
-        //var newval = val - 1;<option value="0000000005">Employment and Social Development Canada</option>
-
-        //dept_select.options.remove(0);
-        //if (profile_department_id == dept_select)
-
-        //for (i = 0; i < dept_select.length; i++) {
-        //    var option[i]
-        //    if (dept_select.options[i].value == profile_department_id) {
-        //        dept_select.selectedIndex = i;
-        //        alert(i);
-        //    }
-        //}
-        //alert(DepartmentAPI.departments[profile_department_id]);
-
-
-        //if (dept_select.options)
-
-        //dept_select.selectedIndex = dept_select.options[profile_department_id].value; //val;
-
-        //select.selectedIndex = 1;
-        //select.options[1].selected = true;
-
-
     }
-
-/*
-    if(profile_department_id){
-        //console.log("profile_department="+profile_department_id);
-        var select = document.getElementById("createEditProfile_department");
-        var option = select.options[profile_department_id];
-        alert(option.value);
-        alert(profile_department_id);
-
-        option.setAttribute("selected", true);
-    }*/
 
     //Leadership style (page 2)
     var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
