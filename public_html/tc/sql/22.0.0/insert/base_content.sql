@@ -7,7 +7,7 @@ VALUES
 (1,'status','Status',1), 
 (1,'status','Status (FR)',2), 
 (1,'applicationPositionLabel', 'for the position of',1), 
-(1,'applicationPositionLabel', 'pour le position de',2), 
+(1,'applicationPositionLabel', 'pour le poste de',2), 
 (1,'essentialCriteria','Essential Criteria',1), 
 (1,'essentialCriteria','Essential Criteria (FR)',2), 
 (1,'assetCriteria','Asset Criteria',1), 
@@ -44,7 +44,5 @@ VALUES
 (1,'privacy','Privacy',1), 
 (1,'privacy','Protection des renseignements personnels',2), 
 (1,'Canadalink','Visit Canada.ca',1), 
-(1,'canadaLink','Visitez Canada.ca',2), 
-(1,'createJobApplicationPositionLabel','for the position of:',1), 
-(1,'createJobApplicationPositionLabel','pour le poste de',2) 
+(1,'canadaLink','Visitez Canada.ca',2)
 ;

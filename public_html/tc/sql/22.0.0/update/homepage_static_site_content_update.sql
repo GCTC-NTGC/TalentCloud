@@ -36,7 +36,7 @@ UPDATE `base_content` SET `base_content_value`='Ce site est en construction. Les
 
 /*Job Applied*/
 UPDATE `base_content` SET `base_content_value`='Ma demande d’emploi' WHERE `base_content_key`='applicationHeroTitle' AND base_content_locale_id=2;
-UPDATE `base_content` SET `base_content_value`='pour le poste de' WHERE `base_content_key`='createJobApplicationPositionLabel' AND base_content_locale_id=2;
+UPDATE `base_content` SET `base_content_value`='pour le poste de' WHERE `base_content_key`='jobApplicationPositionLabel' AND base_content_locale_id=2;
 
 /*My Applications*/
 UPDATE `base_content` SET `base_content_value`='Mes demandes' WHERE `base_content_key`='dashboardHeroTitle' AND base_content_locale_id=2;

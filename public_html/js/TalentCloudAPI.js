@@ -274,7 +274,6 @@ TalentCloudAPI.Content = function(
     status,
     jobPosterBackButtonText,
     profileEditName,
-    createJobApplicationPositionLabel
     ) {
         // Navigation Links
         this.navigationLoginLink = navigationLoginLink;
@@ -523,7 +522,6 @@ TalentCloudAPI.Content = function(
         this.years = years;
         this.status = status;
         this.jobPosterBackButtonText = jobPosterBackButtonText;
-        this.createJobApplicationPositionLabel = createJobApplicationPositionLabel;
     };
 
 TalentCloudAPI.pages = {
@@ -1137,9 +1135,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var managerDecisions_tipSummary = document.getElementById("managerDecisions_tipSummary");
         managerDecisions_tipSummary.innerHTML = siteContent.managerDecisions_tipSummary;
-        
-        var createJobApplicationPositionLabel = document.getElementById("createJobApplicationPositionLabel");
-        createJobApplicationPositionLabel.innerHTML = siteContent.createJobApplicationPositionLabel;
 
         // Profile Photo Modal
         var updateProfilePhotoTitle = document.getElementById("updateProfilePhotoTitle");
