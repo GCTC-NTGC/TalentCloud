@@ -41,6 +41,8 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         return;
     }
     
+    document.getElementById("jobApplicationJobPosterId").value = jobPosterId
+    
     var stateInfo = {pageInfo: 'job_application', pageTitle: 'Talent Cloud: Job Application'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#JobApplication/' + jobPosterId);
@@ -71,7 +73,7 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         //After all application form elements have been created, populate with saved content
         var userId = UserAPI.getSessionUserAsJSON().user_id;
         DataAPI.getJobApplicationByJobAndUser(jobPosterId, userId, function (request) {
-            JobApplicationAPI.populateApplicationWithSavedApplicationContent(request);
+            JobApplicationAPI.populateApplicationWithSavedApplicationContent(request, jobPosterId);
         })
 
     });
@@ -171,7 +173,7 @@ JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (job
     document.getElementById('jobApplicationJobSeekerId').value = jobSeeker.id;
 };
 
-JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (jobApplicationRequestResponse) {
+JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (jobApplicationRequestResponse, jobPosterId) {
     if (jobApplicationRequestResponse.status === 200) {
         
         var jobApplication = JSON.parse(jobApplicationRequestResponse.response);
@@ -204,7 +206,6 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         //An application for this job and user doesn't exist yet, so create a new draft application
 
         var status = 1; //draft status id
-        var jobPosterId = document.getElementById('jobApplicationJobPosterId').value;
 
         //Need an up-to-date profile id
         var user = UserAPI.getSessionUserAsJSON();
