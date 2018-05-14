@@ -246,12 +246,12 @@ CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
         manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
         manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
-        
+
         manager_profile_xhr.addEventListener("load", function(){
             if (manager_profile_xhr.status === 200) {
                 var response = JSON.parse(manager_profile_xhr.responseText);
                 document.getElementById("ManagerProfileId").value = response.manager_profile_id;
-            }            
+            }
         }, false);
 
         manager_profile_xhr.send(complete_manager_profileJSON);
@@ -893,20 +893,6 @@ CreateEditProfileAPI.populateProfile = function(response){
         createEditProfile_name_preview.value = session_user.name;
     }
 
-    var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
-    if (createEditProfile_twitter) {
-        createEditProfile_twitter.value = manager_profile_json.user_manager_profile_twitter;
-    } else {
-        createEditProfile_twitter.value = "";
-    }
-
-    var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
-    if (createEditProfile_linkedin) {
-        createEditProfile_linkedin.value = manager_profile_json.user_manager_profile_linkedin;
-    } else {
-        createEditProfile_linkedin.value = "";
-    }
-
     //About Me (page 1)
     var createEditProfile_bio = document.getElementById("createEditProfile_bio");
     if (createEditProfile_bio) {
@@ -923,18 +909,32 @@ CreateEditProfileAPI.populateProfile = function(response){
     }
 
     var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
-    createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
+    if (createEditProfile_proudOf) {
+        createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
+    } else {
+        createEditProfile_proudOf.value = "";
+    }
 
     var createEditProfile_proudOf_fr = document.getElementById("createEditProfile_proudOf_fr");
-    createEditProfile_proudOf_fr.value = manager_profile_details_fr.user_manager_profile_details_proud;
-
-    var profile_department_id = manager_profile.user_manager_profile_department_id;
+    if (createEditProfile_proudOf_fr) {
+        createEditProfile_proudOf_fr.value = manager_profile_details_fr.user_manager_profile_details_proud;
+    } else {
+        createEditProfile_proudOf_fr.value = "";
+    }
 
     var createEditProfile_branch = document.getElementById("createEditProfile_branch");
-    createEditProfile_branch.value = manager_profile_details_en.user_manager_profile_details_branch;
+    if (createEditProfile_branch) {
+        createEditProfile_branch.value = manager_profile_details_en.user_manager_profile_details_branch;
+    } else {
+        createEditProfile_branch.value = "";
+    }
 
     var createEditProfile_branch_fr = document.getElementById("createEditProfile_branch_fr");
-    createEditProfile_branch_fr.value = manager_profile_details_fr.user_manager_profile_details_branch;
+    if (createEditProfile_branch_fr) {
+        createEditProfile_branch_fr.value = manager_profile_details_fr.user_manager_profile_details_branch;
+    } else {
+        createEditProfile_branch_fr.value = "";
+    }
 
     var createEditProfile_division = document.getElementById("createEditProfile_division");
     if (createEditProfile_division) {
@@ -945,7 +945,7 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     var createEditProfile_division_fr = document.getElementById("createEditProfile_division_fr");
     if (createEditProfile_division_fr) {
-        createEditProfile_division_fr.value = manager_profile_details_en.user_manager_profile_details_division;
+        createEditProfile_division_fr.value = manager_profile_details_fr.user_manager_profile_details_division;
     } else {
         createEditProfile_division_fr.value = "";
     }
@@ -964,16 +964,6 @@ CreateEditProfileAPI.populateProfile = function(response){
         createEditProfile_position_fr.value = "";
     }
 
-
-
-
-
-    var createEditProfile_position = document.getElementById("createEditProfile_position");
-    createEditProfile_position.value = manager_profile_details_en.user_manager_profile_details_position;
-
-    var createEditProfile_position_fr = document.getElementById("createEditProfile_position_fr");
-    createEditProfile_position_fr.value = manager_profile_details_fr.user_manager_profile_details_position;
-
     if (locale === "en_CA"){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
         createEditProfile_position_preview.innerHTML = manager_profile_details_en.user_manager_profile_details_position;
@@ -981,21 +971,66 @@ CreateEditProfileAPI.populateProfile = function(response){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
         createEditProfile_position_preview.innerHTML = manager_profile_details_fr.user_manager_profile_details_position;
     }
+
     var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
-    createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;
+    if (createEditProfile_twitter) {
+        createEditProfile_twitter.value = manager_profile_json.user_manager_profile_twitter;
+    } else {
+        createEditProfile_twitter.value = "";
+    }
 
     var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
-    createEditProfile_linkedin.value = manager_profile.user_manager_profile_linkedin;
-
-    if(profile_department_id !== null){
-        console.log("profile_department="+profile_department_id);
-        var createEditProfile_department = document.getElementById("createEditProfile_department");
-        createEditProfile_department.value = profile_department_id;
-        //createEditProfile_department.value = profile_department_id.toString();
-        //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
-        //var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
-        //createEditProfile_department.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile_department_id);
+    if (createEditProfile_linkedin) {
+        createEditProfile_linkedin.value = manager_profile_json.user_manager_profile_linkedin;
+    } else {
+        createEditProfile_linkedin.value = "";
     }
+
+    var profile_department_id = manager_profile_json.user_manager_profile_department_id;
+    alert(profile_department_id);
+
+    if (profile_department_id != null) {
+        var dept_select = document.getElementById("createEditProfile_department");
+
+        //var val = parseInt(dept_select.options[profile_department_id].value);
+        //alert(val);
+        //alert(profile_department_id);
+
+        //var newval = val - 1;<option value="0000000005">Employment and Social Development Canada</option>
+
+        //dept_select.options.remove(0);
+        //if (profile_department_id == dept_select)
+
+        //for (i = 0; i < dept_select.length; i++) {
+        //    var option[i]
+        //    if (dept_select.options[i].value == profile_department_id) {
+        //        dept_select.selectedIndex = i;
+        //        alert(i);
+        //    }
+        //}
+        alert(DepartmentAPI.departments[profile_department_id]);
+
+
+        //if (dept_select.options)
+
+        dept_select.selectedIndex = dept_select.options[profile_department_id].value; //val;
+
+        //select.selectedIndex = 1;
+        //select.options[1].selected = true;
+
+
+    }
+
+/*
+    if(profile_department_id){
+        //console.log("profile_department="+profile_department_id);
+        var select = document.getElementById("createEditProfile_department");
+        var option = select.options[profile_department_id];
+        alert(option.value);
+        alert(profile_department_id);
+
+        option.setAttribute("selected", true);
+    }*/
 
     //Leadership style (page 2)
     var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
