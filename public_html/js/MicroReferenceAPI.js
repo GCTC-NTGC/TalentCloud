@@ -19,8 +19,13 @@ MicroReferenceAPI.MicroReference = function (
     this.experience_level = experience_level;
     this.story = story;
 
+    /**
+     * Return true if it is safe to save this to the server
+     * @return {Boolean}
+     */
     this.isValid = function () {
-        //!= instead of !== is on purpose; want to check that none are empty strings or null
+        //All fields except story must be non-empty strings.
+        //Story must be defined, but may be empty
         return (this.criteria_id != false &&
                 this.name != false &&
                 this.email != false &&
@@ -28,7 +33,7 @@ MicroReferenceAPI.MicroReference = function (
                 this.observed_from_date != false &&
                 this.observed_until_date != false &&
                 this.experience_level != false &&
-                this.story != false);
+                this.story !== undefined);
     };
 };
 
@@ -211,22 +216,7 @@ MicroReferenceAPI.saveMicroReferences = function (criteriaType, onSuccess, onFai
                 }
             });
         } else {
-            //If reference is not valid (ie not complete) delete it from the application
-            submittedRequests = submittedRequests + 1;
-            DataAPI.deleteMicroReference(reference.criteria_id, applicationId, function (response) {
-                if (response.status !== 200) {
-                    requestsSuccessful = false;
-                }
-                submittedRequests = submittedRequests - 1;
-                if (submittedRequests === 0) {
-                    if (onSuccess && requestsSuccessful) {
-                        //Only call onSuccess if all requests have been successful
-                        onSuccess();
-                    } else if (onFailure && !requestsSuccessful) {
-                        onFailure();
-                    }
-                }
-            });
+            //If reference is not valid (ie not complete) do nothing
         }
     }
     if (onSuccess && submittedRequests === 0) {

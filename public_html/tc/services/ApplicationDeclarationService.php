@@ -12,6 +12,7 @@
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
     require_once '../controller/SkillDeclarationController.php';
+    require_once '../controller/JobApplicationController.php';
     require_once '../model/SkillDeclaration.php';
     require_once '../utils/Utils.php';
 
@@ -72,11 +73,19 @@
             if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 $criteriaId = Utils::getParameterFromRequest($requestParams,6);
-               
-                $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
                 
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                if (JobApplicationController::jobApplicationIsDraft($jobPosterApplicationId)) {
+                    $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
+                
+                    $json = json_encode($result, JSON_PRETTY_PRINT);
+                    echo($json);
+                } else {
+                    header('HTTP/1.0 403 Forbidden');
+                    echo json_encode(array("failed"=>"Only Draft applications can be modified."),JSON_FORCE_OBJECT);
+                    exit;
+                }
+               
+                
             }else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
@@ -91,23 +100,29 @@
                 $criteriaId = Utils::getParameterFromRequest($requestParams,6);
                 
                 //TODO: ensure application exists
-                //TODO: ensure application is in draft status
                 //TODO: ensure criteriaId is valid for application
                 
-                $jsonBody = file_get_contents('php://input');
-                $payload = json_decode($jsonBody, TRUE);
+                if (JobApplicationController::jobApplicationIsDraft($jobPosterApplicationId)) {
+                    $jsonBody = file_get_contents('php://input');
+                    $payload = json_decode($jsonBody, TRUE);
+
+                    $skillDeclaration = new SkillDeclaration();
+                    //$skillDeclaration->setSkill_declaration_id($payload["skill_declaration_id"]);
+                    $skillDeclaration->setExperience_level_id($payload["experience_level_id"]);
+                    $skillDeclaration->setSkill_level_id($payload["skill_level_id"]);
+                    $skillDeclaration->setDescription($payload["description"]);
+                    //$skillDeclaration->setLast_updated($payload["last_updated"]);
+
+                    $result = SkillDeclarationController::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
+
+                    $json = json_encode($result, JSON_PRETTY_PRINT);
+                    echo($json);
+                } else {
+                    header('HTTP/1.0 403 Forbidden');
+                    echo json_encode(array("failed"=>"Only Draft applications can be modified."),JSON_FORCE_OBJECT);
+                    exit;
+                }        
                 
-                $skillDeclaration = new SkillDeclaration();
-                //$skillDeclaration->setSkill_declaration_id($payload["skill_declaration_id"]);
-                $skillDeclaration->setExperience_level_id($payload["experience_level_id"]);
-                $skillDeclaration->setSkill_level_id($payload["skill_level_id"]);
-                $skillDeclaration->setDescription($payload["description"]);
-                //$skillDeclaration->setLast_updated($payload["last_updated"]);
-                
-                $result = SkillDeclarationController::putSkillDeclarationForJobApplication($jobPosterApplicationId, $criteriaId, $skillDeclaration);
-                
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
             }else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
