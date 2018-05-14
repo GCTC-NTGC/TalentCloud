@@ -145,6 +145,11 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
     posterHeroTitle.classList.remove("hidden");
     posterHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/admin/create-job');
+    ga('send', 'pageview');
+
 };
 
 CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {

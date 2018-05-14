@@ -68,6 +68,11 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     applicationHeroMetadata.classList.remove("hidden");
 
+    // Google Analytics
+
+    ga('set', 'page', '/apply/preview');
+    ga('send', 'pageview');
+
 };
 
 JobApplicationPreviewAPI.localizeJobApplicationPreview = function () {
@@ -158,7 +163,7 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
         //No application exists for the current user and specified job 
 
         //TODO: replace alert with a modal message
-        window.alert("You have not yet submitted an applicaiton to this job.");
+        window.alert("You have not yet submitted an application to this job.");
     } else {
         //Something went wrong retrieving the saved applciation 
     }

@@ -31,9 +31,9 @@
 
                     <div class="applicant-evidence-preview__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
                         <span class="applicant-evidence-preview__accordion-trigger-title">
-                            <span class="applicant-evidence-preview__criteria-name">Wireframing</span> - 
-                            <span class="applicant-evidence-preview__expertise">Intermediate</span> - 
-                            <span class="applicant-evidence-preview__experience">3-5 Years</span>
+                            <span class="applicant-evidence-preview__criteria-name"></span> - 
+                            <span class="applicant-evidence-preview__expertise"></span> - 
+                            <span class="applicant-evidence-preview__experience"></span>
                         </span>
                     </div>
 
@@ -46,7 +46,7 @@
                                 <span class="applicant-evidence-preview__experience-title-text">Experience &amp; Knowledge</span>
                             </h5>
 
-                            <p class="applicant-evidence-preview__experience-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</p>
+                            <p class="applicant-evidence-preview__experience-copy"></p>
 
                         </div>
 
@@ -62,10 +62,10 @@
                             <div class="applicant-evidence-preview__reference-content hidden">
 
                                 <p class="applicant-evidence-preview__reference-metadata">
-                                    <strong class="applicant-evidence-preview__reference-name">Reference Name</strong> - 
-                                    <span class="applicant-evidence-preview__reference-relationship">Relationship</span> - 
-                                    <span class="applicant-evidence-preview__reference-start-date">(00/0000)</span> - 
-                                    <span class="applicant-evidence-preview__reference-end-date">(00/0000)</span>
+                                    <strong class="applicant-evidence-preview__reference-name"></strong> - 
+                                    <span class="applicant-evidence-preview__reference-relationship"></span> - 
+                                    <span class="applicant-evidence-preview__reference-start-date"></span> - 
+                                    <span class="applicant-evidence-preview__reference-end-date"></span>
                                 </p>
 
                                 <p class="applicant-evidence-preview__reference-status">
@@ -73,7 +73,7 @@
                                     <span><i class="fa fa-check-circle"></i> Response Received</span>
                                 </p>
 
-                                <p class="applicant-evidence-preview__reference-copy">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere."</p>
+                                <p class="applicant-evidence-preview__reference-copy"></p>
 
                             </div>
 
@@ -93,8 +93,8 @@
                             <div class="applicant-evidence-preview__evidence-content hidden">
 
                                 <p class="applicant-evidence-preview__evidence-metadata">
-                                    <strong class="applicant-evidence-preview__evidence-name">Project Name</strong> - 
-                                    <span class="applicant-evidence-preview__evidence-date">(00/0000)</span>
+                                    <strong class="applicant-evidence-preview__evidence-name"></strong> - 
+                                    <span class="applicant-evidence-preview__evidence-date"></span>
                                 </p>
 
                                 <p class="applicant-evidence-preview__evidence-status">
@@ -102,7 +102,7 @@
                                     <span><i class="fa fa-exclamation-triangle"></i> Awaiting Corroboration</span>
                                 </p>
 
-                                <p class="applicant-evidence-preview__evidence-copy"><strong><span class="applicant-evidence-preview__evidence-copy-label">Contribution</span>:</strong> <span class="applicant-evidence-preview__evidence-story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</span></p> 
+                                <p class="applicant-evidence-preview__evidence-copy"><strong><span class="applicant-evidence-preview__evidence-copy-label">Contribution</span>:</strong> <span class="applicant-evidence-preview__evidence-story"></span></p> 
 
                                 <a href="" title="View this evidence." target="_blank" class="applicant-evidence-preview__evidence-link button--blue">View Evidence</a>
 

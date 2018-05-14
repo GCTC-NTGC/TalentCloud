@@ -31,5 +31,20 @@ VALUES
 (1,'applicationPreviewSkillSampleLink','View Evidence',1),
 (1,'applicationPreviewSkillSampleLink','(TRANSLATION NEEDED)View Evidence',2),
 (1,'applicationPreviewSkillSampleMissing','No skill sample provided.',1),
-(1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED) No skill sample provided.',2)
+(1,'applicationPreviewSkillSampleMissing','(TRANSLATION NEEDED) No skill sample provided.',2),
+(1,'jobPosterTeamNarrativeText_label','Things to Know',1),
+(1,'jobPosterTeamNarrativeText_label','À savoir',2),
+(1,'jobPosterBackButtonText','Back to Job Poster',1),
+(1,'jobPosterBackButtonText','Retour à l\'affiche de l\'emploi',2),
+/* Various */ 
+(1,'accommodationTextStart','Please advise',1),
+(1,'accommodationTextStart','S\'il vous plaît donnez votre avis',2),
+(1,'termsAndConditions','Terms and Conditions',1),
+(1,'termsAndConditions','Modalités',2),
+(1,'privacy','Privacy',1),
+(1,'privacy','Protection des renseignements personnels',2),
+(1,'Canadalink','Visit Canada.ca',1),
+(1,'canadaLink','Visitez Canada.ca',2),
+(1,'createJobApplicationPositionLabel','for the position of:',1),
+(1,'createJobApplicationPositionLabel','pour le poste de',2)
 ;

@@ -410,4 +410,30 @@ class WorkEnvironmentDAO extends BaseDAO {
         return $photoCaption;
     }
     
+    /**
+     * 
+     * @param int $managerProfileId
+     * @param int $workEnvironmentId
+     * @return int $rowsModified
+     */
+    public static function addManagerProfileIdForWorkEnvironment($managerProfileId, $workEnvironmentId) {
+        $link = BaseDAO::getConnection();
+        $sqlStr = "INSERT INTO `talentcloud`.`manager_profile_to_work_environment`
+            (`user_manager_profile_id`, `work_environment_id`)
+            VALUES
+            (:manager_profile_id,:work_environment_id);";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(":manager_profile_id", $managerProfileId, PDO::PARAM_INT);
+        $sql->bindValue(":work_environment_id", $workEnvironmentId, PDO::PARAM_INT);
+
+         try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $rowsModified = $sql->rowCount();
+        } catch (PDOException $e) {
+            BaseDAO::closeConnection($link);
+            return 'addManagerProfileIdForWorkEnvironment failed: ' . $e->getMessage();
+        }
+        return $rowsModified;
+    }
+    
 }

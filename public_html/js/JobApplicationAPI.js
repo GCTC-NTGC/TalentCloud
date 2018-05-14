@@ -51,11 +51,11 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
     var createJobApplicationSection = document.getElementById('createJobApplicationSection');
     createJobApplicationSection.classList.remove('hidden');
     
-    JobApplicationAPI.showApplicationSection("my-information");
+    JobApplicationAPI.showApplicationSection("my-information", jobPosterId);
 
     locale = TalentCloudAPI.getLanguageFromCookie();
 
-    document.getElementById('jobApplicationJobPosterId').value = jobPosterId;
+    // document.getElementById('jobApplicationJobPosterId').value = jobPosterId;
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
@@ -86,6 +86,11 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     applicationHeroMetadata.classList.remove("hidden");
 
+    // Google Analytics
+
+    // ga('set', 'page', '/apply/'+jobPosterId);
+    // ga('send', 'pageview');
+
 };
 
 JobApplicationAPI.localizeCreateJobApplication = function () {
@@ -100,7 +105,7 @@ JobApplicationAPI.localizeCreateJobApplication = function () {
         document.getElementById('createJobApplicationConfirmationTrackingReminder').innerHTML = siteContent.jobApplicationConfirmationTrackingReminder;
         document.getElementById('createJobApplicationConfirmationContinueButton').innerHTML = siteContent.continueToDashboard;
     }
-}
+};
 
 JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterResponse) {
     var jobPoster = JobPostAPI.populateJobObject(JSON.parse(jobPosterResponse));
@@ -163,7 +168,7 @@ JobApplicationAPI.populateApplicationWithUserContent = function (user) {
 JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (jobSeekerProfileResponse) {
     var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(jobSeekerProfileResponse));
 
-    document.getElementById('createJobApplicationJobSeekerId').value = jobSeeker.id;
+    document.getElementById('jobApplicationJobSeekerId').value = jobSeeker.id;
 };
 
 JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (jobApplicationRequestResponse) {
@@ -359,7 +364,7 @@ JobApplicationAPI.saveJobApplication = function(onSuccess) {
             }
         }
     });
-}
+};
 
 JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var stateInfo = {pageInfo: 'create_job_application_confirmation', pageTitle: 'Talent Cloud: New Job Application Confirmed'};
@@ -384,15 +389,17 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     
 };
 
-JobApplicationAPI.showPreviousApplicationSection = function() {
-    JobApplicationAPI.shiftApplicationSection(-1);
+JobApplicationAPI.showPreviousApplicationSection = function(jobPosterId) {
+    JobApplicationAPI.shiftApplicationSection(-1, jobPosterId);
 };
 
-JobApplicationAPI.showNextApplicationSection = function() {
-    JobApplicationAPI.shiftApplicationSection(1);
+JobApplicationAPI.showNextApplicationSection = function(jobPosterId) {
+    JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
 };
 
-JobApplicationAPI.shiftApplicationSection = function(shift) {
+JobApplicationAPI.shiftApplicationSection = function(shift, jobPosterId) {
+
+    window.scrollTo(0, 0);
     var progressItems = document.querySelectorAll(".application-progress__item");
 
     for (var i=0; i<progressItems.length; i++) {
@@ -403,14 +410,14 @@ JobApplicationAPI.shiftApplicationSection = function(shift) {
                 //as long as this would shift us to a valid index, show the new section
 
                 var newSection = progressItems[shiftedIndex].getAttribute("data-application-section");
-                JobApplicationAPI.showApplicationSection(newSection);
+                JobApplicationAPI.showApplicationSection(newSection, jobPosterId);
             }
             break; //Ensuer this loop doesn't continue executing after we've switched sections
         }
     }
 };
 
-JobApplicationAPI.showApplicationSection = function(applicationSection) {
+JobApplicationAPI.showApplicationSection = function(applicationSection, jobPosterId) {
     //Hide all application-sections except for selected one
     var applicationSections = document.querySelectorAll(".application-section");
     for (var i=0; i< applicationSections.length; i++) {
@@ -428,8 +435,10 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
         var item = progressItems[i];
         if (item.getAttribute("data-application-section") === applicationSection) {
            item.classList.remove("inactive");
+           item.setAttribute("aria-hidden", "false");
        } else {
            item.classList.add("inactive");
+           item.setAttribute("aria-hidden", "true");
        }
     }
 
@@ -441,4 +450,42 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
     } else if (applicationSection === "asset-criteria") {
         EvidenceAPI.activateFirstEvidencePanel("asset");
     }
-}
+
+    // Google Analytics
+
+    ga('set', 'page', '/apply/'+jobPosterId+'/'+applicationSection);
+    ga('send', 'pageview');
+
+};
+
+JobApplicationAPI.submitJobApplication = function(jobPosterId) {
+    if (jobPosterId && jobPosterId.length > 0 && UserAPI.hasSessionUser()) {
+        var userId = UserAPI.getSessionUserAsJSON().user_id;
+        
+        //Load current job appliction to verify its ready for submission
+        DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {
+            if (request.status === 200) {
+                var fullJobApplication = JSON.parse(request.response);
+                 
+                //TODO: validate fullJobApplication
+                
+                //TODO: validate that application is still in draft status.
+                if (fullJobApplication.job_poster_application.job_poster_application_status_id === 1) {
+                    DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function(request) {
+                        if (request.status === 200) {
+                            var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
+                            JobApplicationAPI.showCreateJobConfirmation(jobTitle);
+                        } else {
+                            //TODO: post message 
+                            window.alert(request.response);
+                        }
+                    });         
+                } else {
+                    window.alert("You cannot edit an application that has already been saved.")
+                }                       
+            }
+        });
+    }
+};
+
+

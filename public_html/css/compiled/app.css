@@ -6330,8 +6330,8 @@ nav {
     .applicant-profile__heading-photo-wrapper {
       position: absolute;
       top: 50%;
-      left: 0;
-      transform: translate(calc(-100% + -5rem), -50%); } }
+      left: -5rem;
+      transform: translate(-100%, -50%); } }
 
 .applicant-profile__photo {
   background-color: white;
@@ -6384,8 +6384,8 @@ nav {
     .applicant-profile__heading-edit-wrapper {
       top: 50%;
       left: auto;
-      right: 0;
-      transform: translate(calc(100% + 5rem), -50%); } }
+      right: -5rem;
+      transform: translate(100%, -50%); } }
   .applicant-profile__heading-edit-wrapper a {
     color: white;
     font-size: 25px;
@@ -7004,6 +7004,15 @@ nav {
   @media (min-width: 64em) {
     .job-poster__heading {
       text-align: left; } }
+
+.job-poster__heading-meta {
+  color: #2196f3;
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0; }
+  .job-poster__heading-meta span {
+    color: white; }
 
 .job-poster__job-title {
   font-size: 50px !important;
@@ -8255,3 +8264,138 @@ nav {
   font-weight: 400;
   line-height: 1.5;
   margin: 0 0 4rem 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Browse Jobs
+
+============================================================================= */
+.browse-jobs {
+  background: #e2e2e2; }
+
+.browse-jobs__filter-wrapper {
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(/images/backgrounds/bg_lightning_dark.png);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 75px;
+  box-shadow: 0 0 25px black;
+  padding: 6rem 0;
+  text-align: center; }
+  @media (min-width: 64em) {
+    .browse-jobs__filter-wrapper {
+      text-align: left; } }
+
+.browse-jobs__null-state {
+  padding: 6rem 0; }
+  .browse-jobs__null-state span {
+    color: #484848;
+    font-size: 16px;
+    font-weight: 700; }
+
+.browse-jobs__list-wrapper {
+  margin: 0 auto;
+  max-width: 125rem;
+  padding: 4rem 0;
+  width: 90%; }
+  .browse-jobs__list-wrapper > .flex-grid {
+    margin: 0 -1rem; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Browse Jobs: Job Card
+
+============================================================================= */
+.job-card {
+  cursor: pointer;
+  display: block;
+  margin: 0;
+  padding: 1rem; }
+  .job-card:focus .job-card__wrapper {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    transform: translate(0, 0) scale(1.025);
+    transition: all .2s ease; }
+    .job-card:focus .job-card__wrapper .job-card__view-button {
+      background: #125184;
+      transition: all .2s ease; }
+
+.job-card__wrapper {
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transform: translate(0, 0) scale(1);
+  transition: all .2s ease; }
+  .job-card__wrapper:hover {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    transform: translate(0, 0) scale(1.025);
+    transition: all .2s ease; }
+    .job-card__wrapper:hover .job-card__view-button {
+      background: #125184;
+      transition: all .2s ease; }
+
+.job-card__title-wrapper {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem; }
+
+.job-card__title {
+  color: white;
+  display: block;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  width: 100%; }
+
+.job-card__department {
+  color: #2196f3;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0; }
+
+.job-card__content-wrapper {
+  padding: 2rem; }
+  .job-card__content-wrapper span {
+    color: #333333;
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0; }
+  .job-card__content-wrapper p {
+    color: #333333;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 1rem 0; }
+    .job-card__content-wrapper p span {
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5; }
+
+.job-card__footer-wrapper {
+  border-top: 1px solid #c8c8c8;
+  margin: -1rem 0 0 0;
+  padding: 2rem; }
+  .job-card__footer-wrapper .box {
+    color: #333333;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+    text-align: left; }
+
+.job-card__view-button {
+  appearance: none;
+  background: #2196f3;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2rem;
+  text-decoration: none;
+  transition: all .2s ease;
+  width: 100%; }

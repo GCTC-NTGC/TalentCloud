@@ -35,6 +35,7 @@ RewriteRule ^api/v1/putJobSeekerProfileByUser/([0-9]{1,10}) services/JobSeekerPr
 RewriteRule ^api/v1/getJobApplication/([0-9]{1,10}) services/JobApplication.php
 RewriteRule ^api/v1/getJobApplicationsByJobPoster/([0-9]{1,10}) services/JobApplicationsByJobPoster.php
 RewriteRule ^api/v1/postJobApplication services/JobApplication.php
+RewriteRule ^api/v1/submitJobApplication/([0-9]{1,10}) services/SubmitJobApplication.php
 RewriteRule ^api/v1/putApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/JobApplicationByJobAndUser.php
 RewriteRule ^api/v1/getApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/JobApplicationByJobAndUser.php
 RewriteRule ^api/v1/createJobPoster services/JobPoster.php

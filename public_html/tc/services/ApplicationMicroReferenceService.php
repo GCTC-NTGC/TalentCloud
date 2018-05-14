@@ -13,6 +13,7 @@ if (!isset($_SESSION)) {
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once '../controller/MicroReferenceController.php';
+require_once '../controller/JobApplicationController.php';
 require_once '../model/MicroReference.php';
 require_once '../utils/Utils.php';
 
@@ -51,13 +52,18 @@ switch ($requestMethod) {
             $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
 
             //TODO: ensure application exists
-            //TODO: ensure application is in draft status
             //TODO: ensure criteriaId is valid for application
 
-            $result = MicroReferenceController::removeMicroReferenceFromJobApplication($jobPosterApplicationId, $criteriaId);
+            if (JobApplicationController::jobApplicationIsDraft($jobPosterApplicationId)) {
+                $result = MicroReferenceController::removeMicroReferenceFromJobApplication($jobPosterApplicationId, $criteriaId);
 
-            $json = json_encode($result, JSON_PRETTY_PRINT);
-            echo($json);
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            } else {
+                header('HTTP/1.0 403 Forbidden');
+                echo json_encode(array("failed" => "Only Draft applications can be modified."), JSON_FORCE_OBJECT);
+                exit;
+            }
         } else {
             $result = array();
             $json = json_encode($result, JSON_PRETTY_PRINT);
@@ -72,25 +78,30 @@ switch ($requestMethod) {
             $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
 
             //TODO: ensure application exists
-            //TODO: ensure application is in draft status
             //TODO: ensure criteriaId is valid for application
 
-            $jsonBody = file_get_contents('php://input');
-            $payload = json_decode($jsonBody, TRUE);
-            
-            $microReference = new MicroReference();
-            $microReference->setMicro_reference_name($payload['name']);
-            $microReference->setMicro_reference_email($payload['email']);
-            $microReference->setRelationship($payload['relationship']);
-            $microReference->setObserved_from_date($payload['observed_from_date']);
-            $microReference->setObserved_until_date($payload['observed_until_date']);
-            $microReference->setExperience_level($payload['experience_level']);
-            $microReference->setMicro_reference_story($payload['story']);
+            if (JobApplicationController::jobApplicationIsDraft($jobPosterApplicationId)) {
+                $jsonBody = file_get_contents('php://input');
+                $payload = json_decode($jsonBody, TRUE);
 
-            $result = MicroReferenceController::putMicroReferenceForJobApplication($jobPosterApplicationId, $criteriaId, $microReference);
+                $microReference = new MicroReference();
+                $microReference->setMicro_reference_name($payload['name']);
+                $microReference->setMicro_reference_email($payload['email']);
+                $microReference->setRelationship($payload['relationship']);
+                $microReference->setObserved_from_date($payload['observed_from_date']);
+                $microReference->setObserved_until_date($payload['observed_until_date']);
+                $microReference->setExperience_level($payload['experience_level']);
+                $microReference->setMicro_reference_story($payload['story']);
 
-            $json = json_encode($result, JSON_PRETTY_PRINT);
-            echo($json);
+                $result = MicroReferenceController::putMicroReferenceForJobApplication($jobPosterApplicationId, $criteriaId, $microReference);
+
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+            } else {
+                header('HTTP/1.0 403 Forbidden');
+                echo json_encode(array("failed" => "Only Draft applications can be modified."), JSON_FORCE_OBJECT);
+                exit;
+            }
         } else {
             $result = array();
             $json = json_encode($result, JSON_PRETTY_PRINT);

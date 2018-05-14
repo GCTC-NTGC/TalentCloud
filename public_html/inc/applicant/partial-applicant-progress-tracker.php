@@ -11,7 +11,7 @@
                     <div class="application-progress__icon-wrapper">
                         <span class="application-progress__icon">1</span>
                     </div>
-                    <span class="application-progress__label">My Information</span>
+                    <h2 class="application-progress__label">My Information</h2>
                 </div>
             </div>
 
@@ -20,7 +20,7 @@
                     <div class="application-progress__icon-wrapper">
                         <span class="application-progress__icon">2</span>
                     </div>
-                    <span class="application-progress__label">Essential Criteria</span>
+                    <h2 class="application-progress__label">Essential Criteria</h2>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="application-progress__icon-wrapper">
                         <span class="application-progress__icon">3</span>
                     </div>
-                    <span class="application-progress__label">Non-essential Criteria</span>
+                    <h2 class="application-progress__label">Non-essential Criteria</h2>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                     <div class="application-progress__icon-wrapper">
                         <span class="application-progress__icon">4</span>
                     </div>
-                    <span class="application-progress__label">Review My Application</span>
+                    <h2 class="application-progress__label">Review My Application</h2>
                 </div>
             </div>
 
