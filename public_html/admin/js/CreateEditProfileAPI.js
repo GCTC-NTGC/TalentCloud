@@ -627,6 +627,11 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
     profileHeroTitle.classList.remove("hidden");
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/admin/my-profile');
+    ga('send', 'pageview');
+
 };
 
 CreateEditProfileAPI.showViewProfile = function(linkElement){

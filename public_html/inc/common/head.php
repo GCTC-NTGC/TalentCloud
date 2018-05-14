@@ -26,7 +26,7 @@ ga('require', 'outboundFormTracker');
 ga('require', 'outboundLinkTracker');
 ga('require', 'pageVisibilityTracker');
 ga('require', 'socialWidgetTracker');
-ga('require', 'urlChangeTracker');
+// ga('require', 'urlChangeTracker');
 // ...
 
 ga('send', 'pageview');

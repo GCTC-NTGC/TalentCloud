@@ -51,11 +51,11 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
     var createJobApplicationSection = document.getElementById('createJobApplicationSection');
     createJobApplicationSection.classList.remove('hidden');
     
-    JobApplicationAPI.showApplicationSection("my-information");
+    JobApplicationAPI.showApplicationSection("my-information", jobPosterId);
 
     locale = TalentCloudAPI.getLanguageFromCookie();
 
-    document.getElementById('jobApplicationJobPosterId').value = jobPosterId;
+    // document.getElementById('jobApplicationJobPosterId').value = jobPosterId;
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
@@ -85,6 +85,11 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
     applicationHeroTitle.classList.remove("hidden");
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     applicationHeroMetadata.classList.remove("hidden");
+
+    // Google Analytics
+
+    // ga('set', 'page', '/apply/'+jobPosterId);
+    // ga('send', 'pageview');
 
 };
 
@@ -384,15 +389,15 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     
 };
 
-JobApplicationAPI.showPreviousApplicationSection = function() {
-    JobApplicationAPI.shiftApplicationSection(-1);
+JobApplicationAPI.showPreviousApplicationSection = function(jobPosterId) {
+    JobApplicationAPI.shiftApplicationSection(-1, jobPosterId);
 };
 
-JobApplicationAPI.showNextApplicationSection = function() {
-    JobApplicationAPI.shiftApplicationSection(1);
+JobApplicationAPI.showNextApplicationSection = function(jobPosterId) {
+    JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
 };
 
-JobApplicationAPI.shiftApplicationSection = function(shift) {
+JobApplicationAPI.shiftApplicationSection = function(shift, jobPosterId) {
     window.scrollTo(0, 0);
     var progressItems = document.querySelectorAll(".application-progress__item");
 
@@ -404,14 +409,14 @@ JobApplicationAPI.shiftApplicationSection = function(shift) {
                 //as long as this would shift us to a valid index, show the new section
 
                 var newSection = progressItems[shiftedIndex].getAttribute("data-application-section");
-                JobApplicationAPI.showApplicationSection(newSection);
+                JobApplicationAPI.showApplicationSection(newSection, jobPosterId);
             }
             break; //Ensuer this loop doesn't continue executing after we've switched sections
         }
     }
 };
 
-JobApplicationAPI.showApplicationSection = function(applicationSection) {
+JobApplicationAPI.showApplicationSection = function(applicationSection, jobPosterId) {
     //Hide all application-sections except for selected one
     var applicationSections = document.querySelectorAll(".application-section");
     for (var i=0; i< applicationSections.length; i++) {
@@ -442,6 +447,12 @@ JobApplicationAPI.showApplicationSection = function(applicationSection) {
     } else if (applicationSection === "asset-criteria") {
         EvidenceAPI.activateFirstEvidencePanel("asset");
     }
+
+    // Google Analytics
+
+    ga('set', 'page', '/apply/'+jobPosterId+'/'+applicationSection);
+    ga('send', 'pageview');
+
 };
 
 JobApplicationAPI.submitJobApplication = function(jobPosterId) {

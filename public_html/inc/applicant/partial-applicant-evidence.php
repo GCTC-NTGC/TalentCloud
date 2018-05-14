@@ -20,11 +20,11 @@
 
     <div class="application-button__wrapper">
 
-        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showPreviousApplicationSection);">
+        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value));">
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showNextApplicationSection);">
+        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('essential', JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value));">
             Save and continue
         </button>
 
@@ -54,7 +54,7 @@
 
     <div class="application-button__wrapper">
 
-        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('asset', JobApplicationAPI.showPreviousApplicationSection);">
+        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('asset', JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value));">
             Save and return
         </button>
 

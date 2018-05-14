@@ -75,6 +75,11 @@ JobPostAPI.showBrowseJobs = function() {
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/browse-jobs');
+    ga('send', 'pageview');
+
 };
 
 /**
@@ -206,9 +211,11 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     Utilities.debug?console.log("populating job"):null;
 
     // Create a job-card.
-    var jobCard = document.createElement("div");
+    var jobCard = document.createElement("a");
     jobCard.setAttribute("class", "job-card box med-1of2 lg-1of3");
     jobCard.setAttribute("id", "jobId_"+job.id);
+    jobCard.setAttribute("title", job.title);
+    jobCard.setAttribute("tabindex", 0);
     // jobCard.setAttribute("value", siteContent.viewButton);
     // jobCard.innerHTML = siteContent.viewButton;
     jobCard.setAttribute("onclick", "JobPostAPI.viewJobPoster("+job.id+")");
@@ -317,6 +324,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     // Create a job-card__view-button.
     var jobCardViewButton = document.createElement("button");
     jobCardViewButton.setAttribute("class", "job-card__view-button");
+    jobCardViewButton.setAttribute("tabindex", "-1");
     if (locale === "fr_CA" ){
         jobCardViewButton.innerHTML = "Voir le travail";
     } else {
@@ -482,6 +490,11 @@ JobPostAPI.viewJobPoster = function(jobId){
     browseHeroTitle.setAttribute("aria-hidden", "false");
     // browseHeroPosterMetaData.classList.remove("hidden");
 
+    // Google Analytics
+
+    ga('set', 'page', '/browse-jobs/'+jobId);
+    ga('send', 'pageview');
+
 };
 
 JobPostAPI.localizeJobPoster = function() {
@@ -549,13 +562,6 @@ JobPostAPI.populateJobPoster = function(jobData){
        var department_text = LookupAPI.getLocalizedLookupValue("department", dept_id);
        //Assign to HTML element
        document.getElementById("jobPosterHiringManagerDepartment").innerHTML = department_text;
-
-       //Return to job poster from hiring manager profile
-       var jobPosterBack1 = document.getElementById("jobPosterBackButton");
-       jobPosterBack1.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
-       var jobPosterBack2 = document.getElementById("jobPosterBackButton2");
-       jobPosterBack2.setAttribute("onclick", "JobPostAPI.viewJobPoster("+jobData.id+")");
-
 
        /*Truncating Manager About Me*/
         //Get rid of read more feature. User must click read profile to read all information.

@@ -22,4 +22,9 @@ FAQAPI.showFAQ = function() {
     faqHeroTitle.classList.remove("hidden");
     faqHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/faqs');
+    ga('send', 'pageview');
+
 };

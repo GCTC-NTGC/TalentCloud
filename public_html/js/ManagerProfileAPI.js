@@ -103,6 +103,11 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
     managerProfileHeroTitle.classList.remove("hidden");
     managerProfileHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Google Analytics
+
+    ga('set', 'page', '/managers/'+user_id);
+    ga('send', 'pageview');
+
 }
 
 ManagerProfileAPI.localizeManagerProfile = function() {
