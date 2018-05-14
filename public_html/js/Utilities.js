@@ -628,7 +628,7 @@ function evidenceMenuItemKeyup(e) {
     e.preventDefault();
 
     // Checks to see if the key pressed was Enter (13).
-    if (e.keyCode == 13) {
+    if (e.keyCode == 13 || e.keyCode == 32) {
 
         // Triggers a click, thus activating the click event listener.
         this.click();
