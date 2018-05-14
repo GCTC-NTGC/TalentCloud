@@ -991,6 +991,7 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     if (profile_department_id != null) {
         var dept_select = document.getElementById("createEditProfile_department");
+        dept_select.value = profile_department_id;
 
         //var val = parseInt(dept_select.options[profile_department_id].value);
         //alert(val);
@@ -1008,12 +1009,12 @@ CreateEditProfileAPI.populateProfile = function(response){
         //        alert(i);
         //    }
         //}
-        alert(DepartmentAPI.departments[profile_department_id]);
+        //alert(DepartmentAPI.departments[profile_department_id]);
 
 
         //if (dept_select.options)
 
-        dept_select.selectedIndex = dept_select.options[profile_department_id].value; //val;
+        //dept_select.selectedIndex = dept_select.options[profile_department_id].value; //val;
 
         //select.selectedIndex = 1;
         //select.options[1].selected = true;
