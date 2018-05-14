@@ -350,6 +350,7 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
                 onSuccess();
             else {
                 window.alert("Something went wrong saving evidence!");
+                onSuccess();
             }
         }
     }
@@ -362,6 +363,7 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
                 onSuccess();
             else {
                 window.alert("Something went wrong while saving evidence!");
+                onSuccess();
             }
         }
     }
