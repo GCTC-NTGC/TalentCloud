@@ -119,7 +119,7 @@ LookupAPI.getLocalizedLookupValue = function (lookupType, valueId) {
     }
 
     return null;
-}
+};
 
 // populates elements passed by element id
 LookupAPI.populateDropdown = function (lookupType, elementId, useLookupValueAsOptionValue) {

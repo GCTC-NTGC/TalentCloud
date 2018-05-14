@@ -246,12 +246,12 @@ CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
         manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
         manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
-        
+
         manager_profile_xhr.addEventListener("load", function(){
             if (manager_profile_xhr.status === 200) {
                 var response = JSON.parse(manager_profile_xhr.responseText);
                 document.getElementById("ManagerProfileId").value = response.manager_profile_id;
-            }            
+            }
         }, false);
 
         manager_profile_xhr.send(complete_manager_profileJSON);
@@ -890,21 +890,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
     if(UserAPI.hasSessionUser()){
         var session_user = UserAPI.getSessionUserAsJSON();
-        createEditProfile_name_preview.value = session_user.name;
-    }
-
-    var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
-    if (createEditProfile_twitter) {
-        createEditProfile_twitter.value = manager_profile_json.user_manager_profile_twitter;
-    } else {
-        createEditProfile_twitter.value = "";
-    }
-
-    var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
-    if (createEditProfile_linkedin) {
-        createEditProfile_linkedin.value = manager_profile_json.user_manager_profile_linkedin;
-    } else {
-        createEditProfile_linkedin.value = "";
+        createEditProfile_name_preview.innerHTML = session_user.name;
     }
 
     //About Me (page 1)
@@ -923,18 +909,32 @@ CreateEditProfileAPI.populateProfile = function(response){
     }
 
     var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
-    createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
+    if (createEditProfile_proudOf) {
+        createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
+    } else {
+        createEditProfile_proudOf.value = "";
+    }
 
     var createEditProfile_proudOf_fr = document.getElementById("createEditProfile_proudOf_fr");
-    createEditProfile_proudOf_fr.value = manager_profile_details_fr.user_manager_profile_details_proud;
-
-    var profile_department_id = manager_profile.user_manager_profile_department_id;
+    if (createEditProfile_proudOf_fr) {
+        createEditProfile_proudOf_fr.value = manager_profile_details_fr.user_manager_profile_details_proud;
+    } else {
+        createEditProfile_proudOf_fr.value = "";
+    }
 
     var createEditProfile_branch = document.getElementById("createEditProfile_branch");
-    createEditProfile_branch.value = manager_profile_details_en.user_manager_profile_details_branch;
+    if (createEditProfile_branch) {
+        createEditProfile_branch.value = manager_profile_details_en.user_manager_profile_details_branch;
+    } else {
+        createEditProfile_branch.value = "";
+    }
 
     var createEditProfile_branch_fr = document.getElementById("createEditProfile_branch_fr");
-    createEditProfile_branch_fr.value = manager_profile_details_fr.user_manager_profile_details_branch;
+    if (createEditProfile_branch_fr) {
+        createEditProfile_branch_fr.value = manager_profile_details_fr.user_manager_profile_details_branch;
+    } else {
+        createEditProfile_branch_fr.value = "";
+    }
 
     var createEditProfile_division = document.getElementById("createEditProfile_division");
     if (createEditProfile_division) {
@@ -945,7 +945,7 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     var createEditProfile_division_fr = document.getElementById("createEditProfile_division_fr");
     if (createEditProfile_division_fr) {
-        createEditProfile_division_fr.value = manager_profile_details_en.user_manager_profile_details_division;
+        createEditProfile_division_fr.value = manager_profile_details_fr.user_manager_profile_details_division;
     } else {
         createEditProfile_division_fr.value = "";
     }
@@ -964,16 +964,6 @@ CreateEditProfileAPI.populateProfile = function(response){
         createEditProfile_position_fr.value = "";
     }
 
-
-
-
-
-    var createEditProfile_position = document.getElementById("createEditProfile_position");
-    createEditProfile_position.value = manager_profile_details_en.user_manager_profile_details_position;
-
-    var createEditProfile_position_fr = document.getElementById("createEditProfile_position_fr");
-    createEditProfile_position_fr.value = manager_profile_details_fr.user_manager_profile_details_position;
-
     if (locale === "en_CA"){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
         createEditProfile_position_preview.innerHTML = manager_profile_details_en.user_manager_profile_details_position;
@@ -981,20 +971,26 @@ CreateEditProfileAPI.populateProfile = function(response){
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
         createEditProfile_position_preview.innerHTML = manager_profile_details_fr.user_manager_profile_details_position;
     }
+
     var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
-    createEditProfile_twitter.value = manager_profile.user_manager_profile_twitter;
+    if (createEditProfile_twitter) {
+        createEditProfile_twitter.value = manager_profile_json.user_manager_profile_twitter;
+    } else {
+        createEditProfile_twitter.value = "";
+    }
 
     var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
-    createEditProfile_linkedin.value = manager_profile.user_manager_profile_linkedin;
+    if (createEditProfile_linkedin) {
+        createEditProfile_linkedin.value = manager_profile_json.user_manager_profile_linkedin;
+    } else {
+        createEditProfile_linkedin.value = "";
+    }
 
-    if(profile_department_id !== null){
-        console.log("profile_department="+profile_department_id);
-        var createEditProfile_department = document.getElementById("createEditProfile_department");
-        createEditProfile_department.value = profile_department_id;
-        //createEditProfile_department.value = profile_department_id.toString();
-        //FormsAPI.selectByValue(createEditProfile_department,profile_department_id.toString());
-        //var createEditProfile_department_preview = document.getElementById("createEditProfile_department_preview");
-        //createEditProfile_department.innerHTML = LookupAPI.getLocalizedLookupValue("department", profile_department_id);
+    var profile_department_id = manager_profile_json.user_manager_profile_department_id;
+
+    if (profile_department_id) {
+    var dept_select = document.getElementById("createEditProfile_department");
+        dept_select.value = profile_department_id;
     }
 
     //Leadership style (page 2)
