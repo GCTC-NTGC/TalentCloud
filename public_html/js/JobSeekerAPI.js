@@ -559,7 +559,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
 
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
-    AccessibilityAPI.addEscapeListener(event, "JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
+    AccessibilityAPI.addEscapeListener("JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
     JobSeekerAPI.refreshJobSeekerProfilePic();
 
     // New Subpage Hero Scripts

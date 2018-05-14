@@ -273,7 +273,7 @@ TalentCloudAPI.Content = function(
     years,
     status,
     jobPosterBackButtonText,
-    profileEditName,
+    profileEditName
     ) {
         // Navigation Links
         this.navigationLoginLink = navigationLoginLink;

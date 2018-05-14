@@ -115,9 +115,8 @@ AccessibilityAPI.enableTabIndex = function(elementId){
  * @param {type} params
  * @returns {undefined}
  */
-AccessibilityAPI.addEscapeListener = function(evt,callback, params){
+AccessibilityAPI.addEscapeListener = function(callback, params){
     console.log("escaping");
-    !evt?evt=window.event:null;
     document.onkeydown = function(evt){
         AccessibilityAPI.escapeModal(evt,callback, params);
     };
