@@ -150,8 +150,8 @@
     @media #{$l-tablet} {
         position: absolute;
         top: 50%;
-        left: 0;
-        transform: translate(calc(-100% + -5rem), -50%);
+        left: -5rem;
+        transform: translate(-100%, -50%);
     }
 
 }
