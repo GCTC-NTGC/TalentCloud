@@ -127,6 +127,11 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
     updated_manager_profile.user_manager_profile_id = document.getElementById("ManagerProfileId").value;
 
     updated_manager_profile.user_manager_profile_department_id = document.getElementById("createEditProfile_department").value;
+    if (updated_manager_profile.user_manager_profile_department_id === "") {
+        //Server accepts null but not empty string ids
+        updated_manager_profile.user_manager_profile_department_id = null;
+    }
+    
     updated_manager_profile.user_manager_profile_twitter = document.getElementById("createEditProfile_twitter").value;
     updated_manager_profile.user_manager_profile_linkedin = document.getElementById("createEditProfile_linkedin").value;
 
@@ -987,7 +992,7 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     var profile_department_id = manager_profile_json.user_manager_profile_department_id;
     if (profile_department_id) {
-    var dept_select = document.getElementById("createEditProfile_department");
+        var dept_select = document.getElementById("createEditProfile_department");
         dept_select.value = profile_department_id;
     }
 

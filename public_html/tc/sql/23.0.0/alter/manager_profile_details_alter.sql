@@ -1,0 +1,2 @@
+ALTER TABLE `talentcloud`.`user_manager_profile_details` 
+CHANGE COLUMN `user_manager_profile_details_position` `user_manager_profile_details_position` VARCHAR(65) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL ;
