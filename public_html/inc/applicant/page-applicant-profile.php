@@ -8,7 +8,7 @@
                 <div class="applicant-profile__photo" id="myProfilePic"></div>
             </div>
 
-            <h2 class="applicant-profile__name" id="updateProfileApplicantProfileFormNameLabelSpan"></h2>
+            <h3 class="applicant-profile__name" id="updateProfileApplicantProfileFormNameLabelSpan"></h3>
 
             <p class="applicant-profile__tagline" id="updateProfileApplicantProfileFormTaglineLabelSpan">Default tag line!</p>
 

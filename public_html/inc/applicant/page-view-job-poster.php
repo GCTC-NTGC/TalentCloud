@@ -12,11 +12,11 @@
                     <p class="job-poster__heading-meta">
                         <span id="jobPosterTimeRemaining"></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span id="jobPosterApplicants"></span>
                     </p>
-                    <h2 class="job-poster__job-title" id="jobPosterTitle">Job Title</h2>
+                    <h3 class="job-poster__job-title" id="jobPosterTitle">Job Title</h3>
                     <p class="job-poster__department" id="jobPosterLocation">
                         <span id="jobPosterDepartment"></span>
                         <br>
-                        <span id="jobPosterCity"></span>, 
+                        <span id="jobPosterCity"></span>,
                         <span id="jobPosterProvince"></span>
                         <br>
                         <span id="jobPosterRemoteWorkHeader">Remote work</span>
@@ -43,7 +43,7 @@
                 <div class="job-poster__subnav-sticky-wrapper">
                     <span class="job-poster__subnav-job-title" id="jobPosterSubnavJobTitle">User Experience Designer</span>
                     <span class="job-poster__subnav-department" id="jobPosterSubnavDepartment">Transport Canada</span>
-                    <h3 class="job-poster_subnav-label" id="jobPosterSubnavLabel">About This Job:</h3>
+                    <h4 class="job-poster_subnav-label" id="jobPosterSubnavLabel">About This Job:</h4>
                     <a href="#basics" class="job-poster__subnav-item" id="jobPosterSubnavItemBasics">Basic Information</a>
                     <a href="#impact" class="job-poster__subnav-item" id="jobPosterSubnavItemImpact">Impact</a>
                     <a href="#work" class="job-poster__subnav-item" id="jobPosterSubnavItemWork">Your Work</a>
@@ -60,7 +60,7 @@
                 <section class="job-poster__basics">
                     <div class="flex-grid">
                         <div class="box full">
-                            <h3 class="job-poster__basics-title" id="jobPosterContentTitleBasics">Basic Information</h3>
+                            <h4 class="job-poster__basics-title" id="jobPosterContentTitleBasics">Basic Information</h4>
                         </div>
                         <div class="box med-1of2">
                             <span class="job-poster__basics-label" id="jobPosterSalaryRangeLabel">Salary Range</span>
@@ -83,13 +83,13 @@
 
                 <a id="impact" aria-hidden="true"></a>
                 <section class="job-poster__impact">
-                    <h3 class="job-poster__content-title" id="jobPosterContentTitleImpact">Impact</h3>
+                    <h4 class="job-poster__content-title" id="jobPosterContentTitleImpact">Impact</h4>
                     <p class="job-poster__content-copy" id="jobPosterImpact"></p>
                 </section>
 
                 <a id="work" aria-hidden="true"></a>
                 <section class="job-poster__work">
-                    <h3 class="job-poster__content-title" id="jobPosterContentTitleWork">Your Work</h3>
+                    <h4 class="job-poster__content-title" id="jobPosterContentTitleWork">Your Work</h4>
                     <ul class="job-poster__content-list" id="jobPosterKeyTasks"></ul>
                 </section>
 
@@ -97,14 +97,14 @@
                 <section class="job-poster__criteria">
                     <div class="flex-grid">
                         <div class="box full">
-                            <h3 class="job-poster__content-title" id="jobPosterContentTitleCriteria">Criteria</h3>
+                            <h4 class="job-poster__content-title" id="jobPosterContentTitleCriteria">Criteria</h4>
                         </div>
                         <div class="box med-1of2">
-                            <h4 class="job-poster__content-subtitle" id="jobPosterCoreCompetenciesLabel">Need to Have</h4>
+                            <h5 class="job-poster__content-subtitle" id="jobPosterCoreCompetenciesLabel">Need to Have</h5>
                             <ul class="job-poster__content-list" id="jobPosterCoreCompetencies"></ul>
                         </div>
                         <div class="box med-1of2">
-                            <h4 class="job-poster__content-subtitle" id="jobPosterDevelopingCompetenciesLabel">Nice to Have</h4>
+                            <h5 class="job-poster__content-subtitle" id="jobPosterDevelopingCompetenciesLabel">Nice to Have</h5>
                             <ul class="job-poster__content-list" id="jobPosterDevelopingCompetencies"></ul>
                         </div>
                     </div>
@@ -112,11 +112,11 @@
 
                 <a id="culture" aria-hidden="true"></a>
                 <section class="job-poster__culture">
-                    <h3 class="job-poster__content-title" id="jobPosterContentTitleCulture">Culture</h3>
+                    <h4 class="job-poster__content-title" id="jobPosterContentTitleCulture">Culture</h4>
                     <div class="flex-grid middle">
                         <?php /* Hiring Manager ========================== */ ?>
                         <div class="box full">
-                            <h4 class="job-poster__content-subtitle" id="jobPosterHiringManagerLabel">Your Manager</h4>
+                            <h5 class="job-poster__content-subtitle" id="jobPosterHiringManagerLabel">Your Manager</h5>
                             <input type='hidden' id='jobPosterHiringManagerUserId'/>
                         </div>
                         <div class="job-poster__culture-manager-profile-photo-wrapper box med-1of4">
@@ -125,8 +125,8 @@
                         <div class="box med-3of4">
                             <span class="job-poster__culture-manager-name" id="jobPosterHiringManagerName"></span>
                             <div class="job-poster__culture-manager-meta">
-                                <span id="jobPosterHiringManagerTitle"></span> 
-                                <span id="jobPosterHiringManagerPositionAtLabel">at</span> 
+                                <span id="jobPosterHiringManagerTitle"></span>
+                                <span id="jobPosterHiringManagerPositionAtLabel">at</span>
                                 <span id="jobPosterHiringManagerDepartment"></span>
                             </div>
                             <a href="javascript:void(0)" class="job-poster__culture-manager-profile-link" id="jobPosterHiringManagerButton" title="View this manager's profile." onclick="ManagerProfileAPI.showManagerProfile(document.getElementById('jobPosterHiringManagerUserId').value, document.getElementById('jobPosterJobId').value);">
@@ -138,7 +138,7 @@
                         </div>
                         <?php /* Work Environment ======================== */ ?>
                         <div class="box full">
-                            <h4 class="job-poster__content-subtitle" id="jobPosterWorkEnvironmentLabel">Work Environment</h4>
+                            <h5 class="job-poster__content-subtitle" id="jobPosterWorkEnvironmentLabel">Work Environment</h5>
                         </div>
                         <div class="box full">
                             <span class="job-poster__content-label" id="jobPosterTeamNarrativeText_label">Things to Know</span>
@@ -167,7 +167,7 @@
                         </div>
                         <?php /* Team Culture ============================ */ ?>
                         <div class="box full">
-                            <h4 class="job-poster__content-subtitle" id="jobPosterTeamCultureLabel">Team Culture</h4>
+                            <h5 class="job-poster__content-subtitle" id="jobPosterTeamCultureLabel">Team Culture</h5>
                         </div>
                         <div class="box med-1of2">
                             <span class="job-poster__content-label" id="jobPosterTeamSize_label">Team Size</span>
@@ -196,12 +196,12 @@
 
                 <a id="know" aria-hidden="true"></a>
                 <section class="job-poster__know hidden">
-                    <h3 class="job-poster__content-title" id="jobPosterContentTitleKnow">Need to Know</h3>
-                    <h4 class="job-poster__content-subtitle">What You Need for Security Clearance</h4>
+                    <h4 class="job-poster__content-title" id="jobPosterContentTitleKnow">Need to Know</h4>
+                    <h5 class="job-poster__content-subtitle">What You Need for Security Clearance</h5>
                     <p class="job-poster__content-copy" id="jobPosterImpact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.</p>
-                    <h4 class="job-poster__content-subtitle">The Application Process</h4>
+                    <h5 class="job-poster__content-subtitle">The Application Process</h5>
                     <p class="job-poster__content-copy" id="jobPosterImpact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.</p>
-                    <h4 class="job-poster__content-subtitle">Other Paperwork & Preparation</h4>
+                    <h5 class="job-poster__content-subtitle">Other Paperwork & Preparation</h5>
                     <p class="job-poster__content-copy" id="jobPosterImpact">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.</p>
                 </section>
 
@@ -210,7 +210,7 @@
                     <div class="job-poster__apply-accommodation-wrapper">
                         <div class="flex-grid middle">
                             <div class="box full">
-                                <h3 class="job-poster__apply-title" id="jobPosterContentTitleApply">Apply for this Job</h3>
+                                <h4 class="job-poster__apply-title" id="jobPosterContentTitleApply">Apply for this Job</h4>
                             </div>
                             <div class="box med-1of5">
                                 <i class="fas fa-hand-holding-heart"></i>
@@ -222,8 +222,8 @@
                     </div>
 
 
-                    <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?> 
-                    <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in"> 
+                    <?php /*Remove or re-add logged-in class based on whether the user is logged in or not */ ?>
+                    <div id="jobPosterButtonWrapper" class="job-poster__button-wrapper logged-in">
                         <button class="job-poster__apply-button" id="jobPosterApplyButton" value="Apply Now" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobPosterJobId').value)">
                             Apply Now
                         </button>
@@ -243,7 +243,7 @@
                         $loginLink .= "&scope=" . SCOPE;
                         $loginLink .= "&prompt=consent";
 
-                        echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>"); 
+                        echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
                         ?>
                     </div>
                 </section>
