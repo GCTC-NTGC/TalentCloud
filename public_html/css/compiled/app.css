@@ -6551,8 +6551,8 @@ nav {
     .public-manager-profile__heading-photo-wrapper {
       position: absolute;
       top: 50%;
-      left: 0;
-      transform: translate(calc(-100% + -5rem), -50%); } }
+      left: -5rem;
+      transform: translate(-100%, -50%); } }
 
 .public-manager-profile__photo {
   background-color: white;
@@ -8257,6 +8257,8 @@ nav {
   .applicant-landing__our-team .content-container {
     position: relative;
     z-index: 10; }
+    .applicant-landing__our-team .content-container a[class*="button--"] {
+      margin: .5rem; }
 
 .applicant-landing__our-team-title {
   color: white;

@@ -29,6 +29,11 @@
 	.content-container {
 		position: relative;
 		z-index: 10;
+
+		a[class*="button--"] {
+			margin: .5rem;
+		}
+
 	}
 
 }
