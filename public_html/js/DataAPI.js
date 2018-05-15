@@ -97,7 +97,7 @@ DataAPI.talentcloudDataloaded = function(responseText,isManager){
     var data = JSON.parse(responseText);
     var content = data.content;
 
-    var thisContent = new TalentCloudAPI.Content();
+    var thisContent = {};
     // Navigation Links
     thisContent.navigationLoginLink = content.navigationLoginLink;
     thisContent.navigationLogoutLink = content.navigationLogoutLink;
