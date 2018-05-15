@@ -151,14 +151,14 @@
             <div class="flex-grid middle">
 
                 <div class="box lg-1of2">
-                    <?php /* Checks to see if the page is the admin portal and then displays the admin tagline. */ ?>
+
+                    <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt=""/>
+
                     <?php if (strpos($url,'admin') !== false) : ?>
-                        <a href="/admin/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
+                        <h1 class="visuallyHidden">Talent Cloud - Admin Portal</h1>
                     <?php else : ?>
-                        <a href="/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
-                    <?php endif ?>
-                        <img id="logoSrc" class="landing-hero__logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
-                    </a>
+                        <h1 class="visuallyHidden">Talent Cloud - Applicant Portal</h1>
+                    <?php endif; ?>
                 </div>
 
                 <div class="box lg-1of2">
@@ -186,19 +186,19 @@
 
                 <div class="box full">
 
-                    <h1 class="subpage-hero__title hidden" id="browseHeroTitle" aria-hidden="true">Browse Jobs</h1>
+                    <h2 class="subpage-hero__title hidden" id="browseHeroTitle" aria-hidden="true">Browse Jobs</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">My Applications</h1>
+                    <h2 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">My Applications</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h1>
+                    <h2 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true">My Job Application</h1>
+                    <h2 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true">My Job Application</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h1>
+                    <h2 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h1>
+                    <h2 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h1>
+                    <h2 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h2>
 
                 </div>
 

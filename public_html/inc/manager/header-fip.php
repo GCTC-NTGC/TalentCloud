@@ -32,9 +32,9 @@
                     <object tabindex="-1" type="image/svg+xml" role="img" data="/images/goc--header-logo.svg" aria-label="Symbol of the Government of Canada" class="logo"></object>
                 </a>
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-8" aria-hidden="true">
                 <section class="visible-md visible-lg">
-                    <h1 class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon" aria-hidden="true"></i> <span id="adminPortal">Admin Portal</span></h1>
+                    <div class="page-title"><span id="gctc">GC Talent Cloud</span> <i class="fa fa-cloud cloudicon"></i> <span id="adminPortal">Admin Portal</span></div>
                 </section>
             </div>
             <div class="col-xs-2">
