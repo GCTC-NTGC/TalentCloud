@@ -98,6 +98,9 @@ LookupAPI.getLookupResponse = function (lookupType, lookupCallback) {
 
 LookupAPI.getLocalizedLookupValue = function (lookupType, valueId) {
     var locale = TalentCloudAPI.getLanguageFromCookie();
+    if (!LookupAPI.lookupMap[locale]) {
+        LookupAPI.lookupMap[locale] = {};
+    }
     var elements = LookupAPI.lookupMap[locale][lookupType];
     if (elements) {
         for (i in elements) {
@@ -126,6 +129,9 @@ LookupAPI.populateDropdown = function (lookupType, elementId, useLookupValueAsOp
     var selectElem = document.getElementById(elementId);
     if (selectElem) {
         var locale = TalentCloudAPI.getLanguageFromCookie();
+        if (!LookupAPI.lookupMap[locale]) {
+            LookupAPI.lookupMap[locale] = {};
+        }
         var lookupList = LookupAPI.lookupMap[locale][lookupType];
         if (lookupList) {
             Utilities.clearSelectOptions(selectElem);
@@ -154,6 +160,9 @@ LookupAPI.populateDropdown = function (lookupType, elementId, useLookupValueAsOp
 LookupAPI.populateDropdownElement = function (lookupType, element, useLookupValueAsOptionValue) {
     if (element) {
         var locale = TalentCloudAPI.getLanguageFromCookie();
+        if (!LookupAPI.lookupMap[locale]) {
+            LookupAPI.lookupMap[locale] = {};
+        }
         var lookupList = LookupAPI.lookupMap[locale][lookupType];
         if (lookupList) {
             Utilities.clearSelectOptions(element);
