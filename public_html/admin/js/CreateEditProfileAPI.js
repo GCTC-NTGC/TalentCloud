@@ -692,6 +692,7 @@ CreateEditProfileAPI.hideViewProfile = function(linkElement){
     profileLinkListItem.classList.remove("active");
 
     window.scrollTo(0,0);
+    document.getElementById("skipNav").focus();
 };
 
 CreateEditProfileAPI.profilePicUploader = null;
