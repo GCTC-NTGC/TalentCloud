@@ -1,6 +1,6 @@
 <ul id="wb-tphp">
     <li class="wb-slc">
-        <a class="wb-sl" href="#mainContent">
+        <a class="wb-sl" href="#h1">
             <span class="skipNavTextFrench hidden">Passer au contenu principal</span>
             <span class="skipNavTextEnglish">Skip to main content</spam>
         </a>

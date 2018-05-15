@@ -144,6 +144,14 @@
 
     </nav>
 
+    <div id="h1">
+        <?php if (strpos($url,'admin') !== false) : ?>
+            <h1 class="visuallyHidden">Talent Cloud - Admin Portal</h1>
+        <?php else : ?>
+            <h1 class="visuallyHidden">Talent Cloud - Applicant Portal</h1>
+        <?php endif; ?>
+    </div>
+
     <div class="landing-hero" id="landingHero">
 
         <div class="landing-hero__container">
@@ -154,11 +162,6 @@
 
                     <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt=""/>
 
-                    <?php if (strpos($url,'admin') !== false) : ?>
-                        <h1 class="visuallyHidden">Talent Cloud - Admin Portal</h1>
-                    <?php else : ?>
-                        <h1 class="visuallyHidden">Talent Cloud - Applicant Portal</h1>
-                    <?php endif; ?>
                 </div>
 
                 <div class="box lg-1of2">

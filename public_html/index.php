@@ -135,7 +135,7 @@ if($query_string !== ""){
     <?php // END - Overlays ?>
 
     <?php // BEGIN - Page Content?>
-    <main id="mainContent" tabindex="-1">
+    <main>
         <?php // BEGIN - Includes for pages ?>
         <?php
         include "inc/applicant/page-home-content.php";
