@@ -71,15 +71,15 @@
             <?php endif; ?>
 
             <?php /* Register */
-            if (strpos($url,'admin') !== false) : ?>
-            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationRegisterLinkWrapper" aria-hidden="true">
-                <?php echo("<a href=\"\" id=\"navigationRegisterLink\">Register</a>"); ?>
-            </div>
-            <?php else : ?>
-            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
-                <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"navigationRegisterLink\">Register</a>"); ?>
-            </div>
-            <?php endif; ?>
+                if (strpos($url,'admin') !== false) : ?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationRegisterLinkWrapper" aria-hidden="true">
+                        <?php echo("<a href=\"\" id=\"navigationRegisterLink\">Register</a>"); ?>
+                    </div>
+                <?php else : ?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
+                        <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"navigationRegisterLink\">Register</a>"); ?>
+                    </div>
+                <?php endif; ?>
 
             <?php /* Login */ ?>
             <?php
