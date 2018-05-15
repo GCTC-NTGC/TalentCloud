@@ -49,7 +49,7 @@
 
                 <?php /* Checks to see if the page is the admin portal and then displays the admin profile link. */ ?>
                 <?php if (strpos($url,'admin') !== false) : ?>
-                    <a href="#MyProfile" id="navigationProfileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
+                    <a href="#CreateEditProfile" id="navigationProfileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
                 <?php else : ?>
