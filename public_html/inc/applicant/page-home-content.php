@@ -1,5 +1,5 @@
 <section class="pageContent" id="homePageContentSection">
-     
+
     <div class="pageBody" id="homePageContent">
 
         <?php /* Homepage Rebuild ======================================== */ ?>
@@ -88,7 +88,7 @@
             <div class="content-container">
 
                 <p class="applicant-landing__how-it-works-base-copy" id="howItWorksLeadOut">We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.</p>
-                
+
                 <p class="applicant-landing__how-it-works-contact"><span id="howItWorksLast">Interested in chatting about a potential partnership?</span> <a id="contactUs" href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" target="_blank">Contact us!</a></p>
 
             </div>
@@ -158,8 +158,6 @@
         <section class="temp-faq">
 
             <div class="copy-container centered">
-                <br>
-                &nbsp;
                 <br>
                 &nbsp;
                 <br>

@@ -391,7 +391,6 @@ TalentCloudAPI.Content = function(
         this.howItWorksHeading = howItWorksHeading;
         this.howItWorksLead = howItWorksLead;
         this.logoSrc = logoSrc;
-        this.logoAlt = logoAlt;
         this.ownYourStory = ownYourStory;
         this.ownYourStoryText = ownYourStoryText;
         this.getFound = getFound;
@@ -910,7 +909,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     var logoSrc = document.getElementById("logoSrc");
     logoSrc.src = siteContent.logoSrc;
-    logoSrc.alt = siteContent.logoAlt;
 
     var taglineMain = document.getElementById("taglineMain");
     taglineMain.innerHTML = siteContent.taglineMain;
