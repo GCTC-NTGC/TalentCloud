@@ -30,6 +30,7 @@ DashboardAPI.showDashboard = function(){
 
     EventsAPI.hideAllLayouts();
     window.scrollTo(0,0);
+    document.getElementById("skipNav").focus();
 
     var dashboardSection = document.getElementById("dashboardSection");
     dashboardSection.classList.remove("hidden");

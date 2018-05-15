@@ -42,6 +42,15 @@
     transition: opacity 1s ease-in-out;
 }
 
+.visuallyHidden {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
 .half-width {
     width:50%;
 

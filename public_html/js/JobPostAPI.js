@@ -478,7 +478,8 @@ JobPostAPI.viewJobPoster = function(jobId){
 
     // focus top of page
     window.scrollTo(0,0);
-    
+    document.getElementById("skipNav").focus();
+
     if(UserAPI.hasSessionUser()) {
         document.getElementById("jobPosterButtonWrapper").classList.add("logged-in");
     } else {
@@ -508,14 +509,14 @@ JobPostAPI.localizeJobPoster = function() {
         // document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
         document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
-        
+
         //Set language-specific labels
         document.getElementById("jobPosterSalaryRangeLabel").innerHTML = siteContent.jobSalaryRange;
         var applyButton = document.getElementById("jobPosterApplyButton");
         if (applyButton)
             applyButton.innerHTML = siteContent.applyNow;
         var loginButton = document.getElementById("jobPosterLoginButton");
-        if (loginButton) 
+        if (loginButton)
             loginButton.innerHTML = siteContent.navigationLoginLink;
         }
 };
@@ -532,7 +533,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     //console.log("asdfasdfsd = "+history.state.pageInfo);
 
     TalentCloudAPI.hideAllContent();
-    
+
     //Start requests for Hiring Manager data
     //Load Hiring Manager Name
     DataAPI.getUser(jobData.manager_user_id, function(response) {
@@ -642,7 +643,7 @@ JobPostAPI.populateJobPoster = function(jobData){
             TeamCultureAPI.loadTeamCultureSummary(managerProfile.manager_profile_id);
         }
     });
-    
+
     //TODO: add more
 
    //set hidden values
@@ -725,7 +726,7 @@ JobPostAPI.populateJobPoster = function(jobData){
 
     /*
     Setting Apply button vs login button now done in php
-    
+
     var applyNowButton = document.getElementById("jobPosterApplyButton");
     if(UserAPI.hasSessionUser()){
         applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");

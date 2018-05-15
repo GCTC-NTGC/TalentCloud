@@ -75,6 +75,7 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
 
     // focus top of page
     window.scrollTo(0,0);
+    document.getElementById("skipNav").focus();
 
     TalentCloudAPI.hideAllContent();
     var managerProfileSection = document.getElementById('managerProfileSection');

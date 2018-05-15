@@ -4827,7 +4827,8 @@ nav {
 .page-title {
   font-size: 1.5rem;
   margin-top: 0;
-  text-align: center; }
+  text-align: center;
+  color: #FFFFFF; }
 
 .cloudicon {
   padding-left: 0.5rem;
@@ -4841,13 +4842,6 @@ nav {
 .languageSelect {
   color: #FFFFFF;
   display: inline-block; }
-
-#langSelect {
-  color: #FFF; }
-
-#topicsMenu {
-  color: #FFF;
-  background: #000; }
 
 /* TALENT CLOUD LOGO */
 .page-banner--logo-container {
@@ -4961,7 +4955,8 @@ nav {
   margin: 0;
   margin: 7rem 0 9rem;
   position: relative;
-  text-align: center; }
+  text-align: center;
+  color: #fff; }
   .subpage-hero__title:after {
     background: #ffd200;
     content: " ";
@@ -5048,6 +5043,14 @@ nav {
   display: static;
   opacity: 1;
   transition: opacity 1s ease-in-out; }
+
+.visuallyHidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden; }
 
 .half-width {
   width: 50%; }
@@ -6548,8 +6551,8 @@ nav {
     .public-manager-profile__heading-photo-wrapper {
       position: absolute;
       top: 50%;
-      left: 0;
-      transform: translate(calc(-100% + -5rem), -50%); } }
+      left: -5rem;
+      transform: translate(-100%, -50%); } }
 
 .public-manager-profile__photo {
   background-color: white;
@@ -8254,6 +8257,8 @@ nav {
   .applicant-landing__our-team .content-container {
     position: relative;
     z-index: 10; }
+    .applicant-landing__our-team .content-container a[class*="button--"] {
+      margin: .5rem; }
 
 .applicant-landing__our-team-title {
   color: white;

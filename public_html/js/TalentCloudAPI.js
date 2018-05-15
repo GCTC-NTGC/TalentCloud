@@ -172,7 +172,6 @@ TalentCloudAPI.Content = function(
     teamNarrativePrompt,
     openEndedQuestions,
     jobReferenceId,
-    skipNavText,
     profileBasicInfoEditTitle,
     workEnvironment,
     remoteLocationAllowed,
@@ -188,7 +187,6 @@ TalentCloudAPI.Content = function(
     teamSizePrompt,
     gcDirectoryLinkPrompt,
     teamNarrativePrompt,
-    skipNavText,
     managerProfile_review_option0,
     managerProfile_review_option1,
     managerProfile_review_option2,
@@ -393,7 +391,6 @@ TalentCloudAPI.Content = function(
         this.howItWorksHeading = howItWorksHeading;
         this.howItWorksLead = howItWorksLead;
         this.logoSrc = logoSrc;
-        this.logoAlt = logoAlt;
         this.ownYourStory = ownYourStory;
         this.ownYourStoryText = ownYourStoryText;
         this.getFound = getFound;
@@ -436,7 +433,6 @@ TalentCloudAPI.Content = function(
         this.teamNarrativePrompt = teamNarrativePrompt;
         this.openEndedQuestions = openEndedQuestions;
         this.jobReferenceId = jobReferenceId;
-        this.skipNavText = skipNavText;
         this.profileBasicInfoEditTitle = profileBasicInfoEditTitle;
         this.managerProfile_review_option0 = managerProfile_review_option0;
         this.managerProfile_review_option1 = managerProfile_review_option1;
@@ -792,19 +788,27 @@ TalentCloudAPI.getLanguageFromCookie = function(){
 TalentCloudAPI.setLanguage = function(locale){
     var currentLocale = TalentCloudAPI.getLanguageFromCookie();
     if(currentLocale !== undefined){
-        Utilities.debug?console.log("currentLocale=" + currentLocale):null;
+        //Utilities.debug?console.log("currentLocale=" + currentLocale):null;
         var feedbackLinkFrench = document.querySelector(".alert-banner__copy--francais");
         var feedbackLinkEnglish = document.querySelector(".alert-banner__copy--english");
+
+        var skipNavTextFrench = document.querySelector(".skipNavTextFrench");
+        var skipNavTextEnglish = document.querySelector(".skipNavTextEnglish");
+
         if(currentLocale === "en_CA"){
             currentLocale = "fr_CA";
             TalentCloudAPI.setLanguageCookie("fr_CA");
             feedbackLinkFrench.classList.remove("hidden");
             feedbackLinkEnglish.classList.add("hidden");
+            skipNavTextFrench.classList.remove("hidden");
+            skipNavTextEnglish.classList.add("hidden");
         }else{
             currentLocale = "en_CA";
             TalentCloudAPI.setLanguageCookie("en_CA");
             feedbackLinkFrench.classList.add("hidden");
             feedbackLinkEnglish.classList.remove("hidden");
+            skipNavTextFrench.classList.add("hidden");
+            skipNavTextEnglish.classList.remove("hidden");
         }
     }else{
         TalentCloudAPI.setLanguageCookie(locale);
@@ -892,8 +896,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     faqHeroTitle.innerHTML = siteContent.faqHeroTitle;
 
     // Others ==================================================================
-    var skipNavText = document.getElementById("skipNavText");
-    skipNavText.innerHTML = siteContent.skipNavText;
+
 
     var announcement = document.getElementById("announcement");
     announcement.innerHTML = siteContent.announcement;
@@ -906,7 +909,6 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     var logoSrc = document.getElementById("logoSrc");
     logoSrc.src = siteContent.logoSrc;
-    logoSrc.alt = siteContent.logoAlt;
 
     var taglineMain = document.getElementById("taglineMain");
     taglineMain.innerHTML = siteContent.taglineMain;
@@ -1275,10 +1277,10 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterHowWeWork_label = document.getElementById("jobPosterHowWeWork_label");
         jobPosterHowWeWork_label.innerHTML = siteContent.jobPosterHowWeWork_label;
-        
+
         var termsAndConditions = document.getElementById("termsAndConditions");
         termsAndConditions.innerHTML = siteContent.termsAndConditions;
-        
+
         var privacy = document.getElementById("privacy");
         privacy.innerHTML = siteContent.privacy;
 

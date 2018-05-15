@@ -70,23 +70,17 @@
                 <?php /* No link for you! */ ?>
             <?php endif; ?>
 
-            <?php /* Register */ ?>
-            <?php 
-            
-            // Removing register on admin - invites only!
-            
-            if (strpos($url,'admin') !== false) :
-            
-            
-            ?>
-            
-            <?php else : ?>
-            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
-                <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"navigationRegisterLink\">Register</a>"); ?>
-            </div>
-            <?php endif; ?>
-            
-            
+            <?php /* Register */
+                if (strpos($url,'admin') !== false) : ?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationRegisterLinkWrapper" aria-hidden="true">
+                        <?php echo("<a href=\"\" id=\"navigationRegisterLink\">Register</a>"); ?>
+                    </div>
+                <?php else : ?>
+                    <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationRegisterLinkWrapper" aria-hidden="false">
+                        <?php echo("<a href=\"https://account.gccollab.ca/register?redirect_uri=https%3A%2F%2Ftc.gccollab.ca%2F\" id=\"navigationRegisterLink\">Register</a>"); ?>
+                    </div>
+                <?php endif; ?>
+
             <?php /* Login */ ?>
             <?php
                 $hasUser = null;
@@ -150,6 +144,14 @@
 
     </nav>
 
+    <div id="h1">
+        <?php if (strpos($url,'admin') !== false) : ?>
+            <h1 class="visuallyHidden">Talent Cloud - Admin Portal</h1>
+        <?php else : ?>
+            <h1 class="visuallyHidden">Talent Cloud - Applicant Portal</h1>
+        <?php endif; ?>
+    </div>
+
     <div class="landing-hero" id="landingHero">
 
         <div class="landing-hero__container">
@@ -157,14 +159,9 @@
             <div class="flex-grid middle">
 
                 <div class="box lg-1of2">
-                    <?php /* Checks to see if the page is the admin portal and then displays the admin tagline. */ ?>
-                    <?php if (strpos($url,'admin') !== false) : ?>
-                        <a href="/admin/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
-                    <?php else : ?>
-                        <a href="/" role="img" aria-label="GC Talent Cloud" class="landing-hero__link">
-                    <?php endif ?>
-                        <img id="logoSrc" class="landing-hero__logo" src="/images/talent-cloud-logo_full.png" width="229" alt="GC Talent Cloud graphic"/>
-                    </a>
+
+                    <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt=""/>
+
                 </div>
 
                 <div class="box lg-1of2">
@@ -192,19 +189,19 @@
 
                 <div class="box full">
 
-                    <h1 class="subpage-hero__title hidden" id="browseHeroTitle" aria-hidden="true">Browse Jobs</h1>
+                    <h2 class="subpage-hero__title hidden" id="browseHeroTitle" aria-hidden="true">Browse Jobs</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">My Applications</h1>
+                    <h2 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">My Applications</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h1>
+                    <h2 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true">My Job Application</h1>
+                    <h2 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true">My Job Application</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h1>
+                    <h2 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h1>
+                    <h2 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h2>
 
-                    <h1 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h1>
+                    <h2 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h2>
 
                 </div>
 
