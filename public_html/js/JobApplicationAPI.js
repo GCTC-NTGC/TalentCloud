@@ -11,8 +11,6 @@ JobApplicationAPI.ApplicationQuestionAnswer = function (
     this.answer = answer;
 };
 
-
-
 /*
  * It's recommended to use the costructor for this object, to avoid dealing
  * directly with multilevel JSON
@@ -55,7 +53,7 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
     
     JobApplicationAPI.showApplicationSection("my-information", jobPosterId);
 
-    locale = TalentCloudAPI.getLanguageFromCookie();
+    var locale = TalentCloudAPI.getLanguageFromCookie();
 
     // document.getElementById('jobApplicationJobPosterId').value = jobPosterId;
 
