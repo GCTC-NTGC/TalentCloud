@@ -20,6 +20,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 require_once '../model/User.php';
 require_once '../controller/UserController.php';
 require_once '../controller/EmailConfirmationController.php';
+require_once '../controller/ManagerProfileController.php';
+require_once '../controller/JobSeekerController.php';
 require_once '../dao/UserDAO.php';
 
 class UserController{
@@ -78,6 +80,23 @@ class UserController{
         if($registeredUser instanceof User && $registeredUser->getUser_id() !== null){
             $userRegistered = true;
             //$confEmailSent = UserController::confirmEmail($registeredUser);
+            
+            if ($registeredUser->getUser_role() === 'jobseeker') {
+                //Create an empty jobseeker profile
+                
+                $userId = $registeredUser->getUser_id();
+                $jobSeekerProfile = new JobSeekerProfile();                
+                $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
+            } else if ($registeredUser->getUser_role() === 'administrator') {
+                
+                $userId = $registeredUser->getUser_id();
+                $managerProfile = new ManagerProfile();
+                $managerProfile->setUser_id($userId);
+                
+                $managerProfileDetails = new ManagerProfileDetailsNonLocalized();                
+                
+                $result = ManagerProfileController::putManagerProfile($managerProfile, $managerProfileDetails);    
+            }
         }
         return $registeredUser;
         
