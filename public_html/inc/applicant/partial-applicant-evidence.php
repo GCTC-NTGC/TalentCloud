@@ -181,7 +181,7 @@
                     <i class="fa fa-user"></i>
                     Micro-reference (Optional)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
-                    <a href="" title="What is a micro-reference?" target="_blank">What is this?</a>
+                    <a href="" title="What is a micro-reference?" target="_blank">How will this strengthen my application?</a>
                 </h5>
 
                 <p class="applicant-evidence__form-description">Appoint one reference that can vouch for you.</p>
@@ -238,7 +238,7 @@
                     <i class="fa fa-file"></i>
                     Sample of my Skill (Optional)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
-                    <a href="" title="How will this improve my application?" target="_blank">How will this improve my application?</a>
+                    <a href="" title="How will this improve my application?" target="_blank">How will this strengthen my application?</a>
                 </h5>
 
                 <p class="applicant-evidence__form-description">Attach an example of your work that you're proud of.</p>

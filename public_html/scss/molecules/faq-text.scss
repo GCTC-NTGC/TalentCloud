@@ -8,6 +8,10 @@
 
 .faq__text {
 
+	&:not(:last-child) {
+		margin: 0 0 6rem 0;
+	}
+
 }
 
 .faq__text-title {

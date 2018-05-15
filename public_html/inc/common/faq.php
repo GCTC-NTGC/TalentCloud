@@ -6,20 +6,66 @@
 
 			<div class="faq__subnav-wrapper box lg-1of4">
 				<div class="faq__subnav-sticky-wrapper">
-					<span class="faq_subnav-label">Example Category</span>
-					<a href="#faqIntroduction" class="faq__subnav-item">Intro Example</a>
-					<a href="#faqAccordion" class="faq__subnav-item">Accordion Example</a>
-					<a href="#faqText" class="faq__subnav-item">Text Example</a>
-					<span class="faq_subnav-label">Example Category</span>
-					<a href="#faqIntroduction" class="faq__subnav-item">Intro Example</a>
-					<a href="#faqAccordion" class="faq__subnav-item">Accordion Example</a>
-					<a href="#faqText" class="faq__subnav-item">Text Example</a>
+					<span class="faq_subnav-label">Credentialing</span>
+					<a href="#credentialingSkillLevel" class="faq__subnav-item">What level is my skill?</a>
+					<a href="#credentialingReferences" class="faq__subnav-item">Why provide a reference?</a>
+					<a href="#credentialingEvidence" class="faq__subnav-item">Why share my work?</a>
 				</div>
 			</div>
 
 			<div class="faq__content-wrapper box lg-3of4">
 
-				<h2 class="faq__category-title">Category 01</h2>
+				<h3 class="faq__category-title">Credentialing</h3>
+
+				<a id="credentialingSkillLevel" aria-hidden="true"></a>
+
+				<div class="faq__text">
+
+					<h4 class="faq__section-title">What level is my skill?</h4>
+
+					<h5 class="faq__text-title">Basic</h5>
+
+					<p class="faq__text-copy">You demonstrate basic familiarity of the subject matter area.  Supervision and assistance is needed.</p>
+
+					<h5 class="faq__text-title">Intermediate</h5>
+
+					<p class="faq__text-copy">You demonstrate working proficiency in the subject matter area. Minimal assistance and/or supervision is needed.</p>
+
+					<h5 class="faq__text-title">Advanced</h5>
+
+					<p class="faq__text-copy">You demonstrate in-depth proficiency sufficient to assist, consult or lead others in the subject matter area.</p>
+
+					<h5 class="faq__text-title">Expert</h5>
+
+					<p class="faq__text-copy">You demonstrate broad, in-depth proficiency sufficient to be broadly recognized as an authority in the subject matter area.</p>
+
+				</div>
+
+				<a id="credentialingReferences" aria-hidden="true"></a>
+
+				<div class="faq__text">
+
+					<h4 class="faq__section-title">Why provide a reference?</h4>
+
+					<p class="faq__text-copy">With a micro-reference, someone with first-hand knowledge of your skill vouches for your experience using the skill and the level to which you can apply it.</p>
+
+					<p class="faq__text-copy">The result?  A credible trusted record of your skill that you can share with prospective employers time and time again.</p>
+
+				</div>
+
+				<a id="credentialingEvidence" aria-hidden="true"></a>
+
+				<div class="faq__text">
+
+					<h4 class="faq__section-title">Why share my work?</h4>
+
+					<p class="faq__text-copy">By attaching a sample of your work of that applies the skill, you are in control of what best demonstrates your expertise to prospective employers.</p>
+
+					<p class="faq__text-copy">The result? A personalized real-time record of your applied skills that showcases the breadth and depth of your abilities.</p>
+
+				</div>
+
+				<!-- <h2 class="faq__category-title">Category 01</h2>
 
 				<div class="faq__introduction-wrapper" id="faqIntroduction">
 
@@ -105,7 +151,7 @@
 
 					</div>
 
-				</div>
+				</div> -->
 
 			</div>
 

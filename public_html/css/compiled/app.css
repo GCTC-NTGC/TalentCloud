@@ -5482,7 +5482,7 @@ nav {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 50%;
+      width: 75%;
       z-index: 5; }
       @media (min-width: 48em) {
         .application-progress .flex-grid:before {
@@ -5494,7 +5494,7 @@ nav {
       z-index: 10; }
       @media (min-width: 48em) {
         .application-progress .flex-grid .box {
-          padding: 0 1rem; } }
+          padding: 0; } }
 
 .application-progress__item.inactive .application-progress__icon-wrapper {
   background: #a3a3a3; }
@@ -5504,7 +5504,12 @@ nav {
   font-weight: 400; }
 
 .application-progress__background-wrapper {
-  background: #e2e2e2; }
+  background: #e2e2e2;
+  display: inline-block;
+  width: auto; }
+  @media (min-width: 48em) {
+    .application-progress__background-wrapper {
+      padding: 0 2rem; } }
 
 .application-progress__icon-wrapper {
   background: #2196f3;
@@ -5525,9 +5530,11 @@ nav {
   transform: translate(-50%, -50%); }
 
 .application-progress__label {
+  display: inline-block;
   font-family: HKGrotesk, sans-serif;
   font-size: 16px;
-  font-weight: 800; }
+  font-weight: 800;
+  margin: 0; }
 
 /* =============================================================================
 
@@ -6216,7 +6223,7 @@ nav {
   position: relative;
   max-width: 1200px;
   margin: auto;
-  margin-top: -13.5em; }
+  margin-top: 4rem; }
 
 .profileSocialMediaLinks {
   list-style-type: none;
@@ -7998,6 +8005,9 @@ nav {
     FAQ Template: Text
 
 ============================================================================= */
+.faq__text:not(:last-child) {
+  margin: 0 0 6rem 0; }
+
 .faq__text-title {
   margin: 3rem 0 1rem 0; }
 
