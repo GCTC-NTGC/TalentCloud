@@ -8,518 +8,6 @@ var TalentCloudAPI = {};
 var siteContent;
 TalentCloudAPI.roles = {jobseeker:"jobseeker", manager:"manager", admin:"administrator"};
 
-TalentCloudAPI.Content = function(
-    // Navigation Links
-    navigationLoginLink,
-    navigationLogoutLink,
-    navigationRegisterLink,
-    navigationHomeLink,
-    navigationProfileLink,
-    navigationBrowseLink,
-    navigationDashboardLink,
-    navigationPosterLink,
-    // Subpage Titles
-    browseHeroTitle,
-    dashboardHeroTitle,
-    profileHeroTitle,
-    applicationHeroTitle,
-    managerProfileHeroTitle,
-    posterHeroTitle,
-    faqHeroTitle,
-    // Job Poster Content
-    jobPosterSubnavLabel,
-    jobPosterSubnavItemBasics,
-    jobPosterSubnavItemImpact,
-    jobPosterSubnavItemWork,
-    jobPosterSubnavItemCriteria,
-    jobPosterSubnavItemCulture,
-    jobPosterSubnavItemKnow,
-    jobPosterSubnavItemApply,
-    jobPosterContentTitleBasics,
-    jobPosterContentTitleImpact,
-    jobPosterContentTitleWork,
-    jobPosterContentTitleCriteria,
-    jobPosterContentTitleCulture,
-    jobPosterContentTitleKnow,
-    jobPosterContentTitleApply,
-    // Job Application
-    essentialCriteria,
-    assetCriteria,
-    microReference,
-    skillSample,
-    applicationPositionLabel,
-    // Application Preview
-    editApplication,
-    editApplication,
-    applicationPreviewProfilePhotoTitle,
-    applicationPreviewProfileAlert,
-    applicationPreviewDeclarationStoryTitle,
-    applicationPreviewMicroReferenceTitle,
-    applicationPreviewReferenceMissing,
-    applicationPreviewSkillSampleStoryLabel,
-    applicationPreviewSkillSampleLink,
-    applicationPreviewSkillSampleMissing,
-    // Others
-    title,
-    helpLearn,
-    languageSelect,
-    applyNow,
-    jobPostersLink,
-    teamsLink,
-    jobNumber,
-    jobTitle,
-    jobLocation,
-    jobCity,
-    jobProvince,
-    jobApplicantsSoFar,
-    jobUnitsToCloseHours,
-    jobUnitsToCloseDays,
-    jobUnitsToCloseMonths,
-    jobUntilClose,
-    jobTerm,
-    viewButton,
-    jobSalaryRange,
-    submitApplication,
-    step1,
-    step2,
-    step3,
-    review,
-    goToStep2,
-    goToStep1,
-    goToStep3,
-    goToReview,
-    createJobPosterWindowTitle,
-    createProfileWindowTitle,
-    required,
-    createJobPosterSubmitInstructions,
-    generalInformation,
-    aboutMe,
-    aLittleBitAboutMe,
-    whatImMostProudOfInCareer,
-    position,
-    department,
-    branch,
-    division,
-    leadershipStyle,
-    myLeadershipStyle,
-    myApproachToEmployee,
-    myExpectationsOfEmployees,
-    myApproachToDecisionMaking,
-    workExperience,
-    education,
-    howOftenDoYouReview,
-    howOftenDoYouStayLate,
-    almostNever,
-    rarely,
-    sometimes,
-    usually,
-    almostAlways,
-    name,
-    gctc,
-    at,
-    howOftenDoYouEngage,
-    howOftenDoYouApproveDevelopment,
-    readMore,
-    canadaLink,
-    canadaLinkHref,
-    taglineMain,
-    taglineSecondary,
-    taglineTertiary,
-    howItWorksHeading,
-    howItWorksLead,
-    logoSrc,
-    logoAlt,
-    ownYourStory,
-    ownYourStoryText,
-    getFound,
-    getFoundText,
-    contribute,
-    contributeText,
-    howItWorksLeadOut,
-    howItWorksLast,
-    contactUs,
-    transcript,
-    ourTeam,
-    ourTeamText,
-    browseTitle,
-    createJobApplicationWindowTitle,
-    createJobApplicationJobTitleLabel,
-    createJobApplicationConfirmationPositionLabel,
-    jobApplicationConfirmationTrackingReminder,
-    continueToDashboard,
-    announcement,
-    applicantPortal,
-    adminPortal,
-    yourApplicationsTitle,
-    adminTagline,
-    adminAboutMe,
-    adminProfilePositionLabel,
-    adminProfileDepartmentLabel,
-    adminProfileBranchLabel,
-    workEnvironment,
-    remoteLocationAllowed,
-    teleworkAllowed,
-    flexHoursAllowed,
-    yes,
-    no,
-    physicalEnvironment,
-    yourApplicationsTitle,
-    teamCulture,
-    teamSize,
-    gcDirectoryLink,
-    teamSizePrompt,
-    gcDirectoryLinkPrompt,
-    teamNarrativePrompt,
-    openEndedQuestions,
-    jobReferenceId,
-    profileBasicInfoEditTitle,
-    workEnvironment,
-    remoteLocationAllowed,
-    teleworkAllowed,
-    flexHoursAllowed,
-    yes,
-    no,
-    physicalEnvironment,
-    yourApplicationsTitle,
-    teamCulture,
-    teamSize,
-    gcDirectoryLink,
-    teamSizePrompt,
-    gcDirectoryLinkPrompt,
-    teamNarrativePrompt,
-    managerProfile_review_option0,
-    managerProfile_review_option1,
-    managerProfile_review_option2,
-    managerProfile_review_option3,
-    managerProfile_review_option4,
-    managerProfile_stayLate_option0,
-    managerProfile_stayLate_option1,
-    managerProfile_stayLate_option2,
-    managerProfile_stayLate_option3,
-    managerProfile_stayLate_option4,
-    managerProfile_engagement_option0,
-    managerProfile_engagement_option1,
-    managerProfile_engagement_option2,
-    managerProfile_engagement_option3,
-    managerProfile_engagement_option4,
-    managerProfile_acceptLowValueWorkRequests_option0,
-    managerProfile_acceptLowValueWorkRequests_option1,
-    managerProfile_acceptLowValueWorkRequests_option2,
-    managerProfile_acceptLowValueWorkRequests_option3,
-    managerProfile_acceptLowValueWorkRequests_option4,
-    managerDecisions_tipWhatis,
-    managerDecisions_tipSummary,
-    changeDisplayPic,
-    managerProfile_developmentOpportunities_option0,
-    managerProfile_developmentOpportunities_option1,
-    managerProfile_developmentOpportunities_option2,
-    accommodationTextStart,
-    accommodationTextEnd,
-    jobPosterKeyTasksLabel,
-    jobPosterCoreCompetenciesLabel,
-    jobPosterHiringManagerLabel,
-    jobPosterClearanceLevelLabel,
-    jobPosterStartDateLabel,
-    jobPosterJobLevelLabel,
-    jobPosterLanguageLabel,
-    jobPosterTermLabel,
-    managerProfile_developmentOpportunities_option3,
-    managerProfile_developmentOpportunities_option4,
-    updateProfilePhotoTitle,
-    updateProfilePhotoDraggableAreaLabel,
-    updateProfilePhotoDraggableAreaErrorSize,
-    updateProfilePhotoDraggableAreaErrorType,
-    updateProfileOrCopy,
-    updateProfileChoosePhotoButtonLabelSpan,
-    updateProfileChoosePhotoButton,
-    updateProfileChooseAltPhotoButtonLabelSpan,
-    updateProfileChooseAltPhotoButton,
-    updateProfilePhotoCancelButton,
-    updateProfileApplicantProfileFormTaglineLabelSpan,
-    profileEditTagline,
-    updateProfileApplicantProfileFormTwitterLabelSpan,
-    profileEditTwitter,
-    updateProfileApplicantProfileFormLinkedinLabelSpan,
-    profileEditLinkedin,
-    profileBasicInfoEditCancel,
-    profileBasicInfoEditSave,
-    profilePicUploadBtn,
-    loginFormTitle,
-    loginModalCopySpan,
-    switchToRegister,
-    loginModalEmailLabelSpan,
-    login_email,
-    loginModalPasswordLabelSpan,
-    login_password,
-    loginFormCancelBtn,
-    loginFormLoginBtn,
-    registerFormTitle,
-    profileAboutMeEditTitle,
-    updateAboutTextareaLabelSpan,
-    profileEditAboutMe,
-    profileAboutMeEditCancel,
-    profileAboutMeEditSave,
-    cancel,
-    save,
-    editYour,
-    jobPosterTeamNarrativeText_label,
-    jobPosterOperatingContext_label,
-    jobPosterWhatWeValue_label,
-    jobPosterHowWeWork_label,
-    updateProfileApplicantProfileFormNameLabelSpan,
-    profileEditName,
-    years,
-    status,
-    jobPosterBackButtonText,
-    profileEditName
-    ) {
-        // Navigation Links
-        this.navigationLoginLink = navigationLoginLink;
-        this.navigationLogoutLink = navigationLogoutLink;
-        this.navigationRegisterLink = navigationRegisterLink;
-        this.navigationHomeLink = navigationHomeLink;
-        this.navigationProfileLink = navigationProfileLink;
-        this.navigationBrowseLink = navigationBrowseLink;
-        this.navigationDashboardLink = navigationDashboardLink;
-        this.navigationPosterLink = navigationPosterLink;
-        // Subpage Titles
-        this.browseHeroTitle = browseHeroTitle;
-        this.dashboardHeroTitle = dashboardHeroTitle;
-        this.profileHeroTitle = profileHeroTitle;
-        this.applicationHeroTitle = applicationHeroTitle;
-        this.managerProfileHeroTitle = managerProfileHeroTitle;
-        this.posterHeroTitle = posterHeroTitle;
-        this.faqHeroTitle = faqHeroTitle;
-        // Job Poster Content
-        this.jobPosterSubnavLabel = jobPosterSubnavLabel;
-        this.jobPosterSubnavItemBasics = jobPosterSubnavItemBasics;
-        this.jobPosterSubnavItemImpact = jobPosterSubnavItemImpact;
-        this.jobPosterSubnavItemWork = jobPosterSubnavItemWork;
-        this.jobPosterSubnavItemCriteria = jobPosterSubnavItemCriteria;
-        this.jobPosterSubnavItemCulture = jobPosterSubnavItemCulture;
-        this.jobPosterSubnavItemKnow = jobPosterSubnavItemKnow;
-        this.jobPosterSubnavItemApply = jobPosterSubnavItemApply;
-        this.jobPosterContentTitleBasics = jobPosterContentTitleBasics;
-        this.jobPosterContentTitleImpact = jobPosterContentTitleImpact;
-        this.jobPosterContentTitleWork = jobPosterContentTitleWork;
-        this.jobPosterContentTitleCriteria = jobPosterContentTitleCriteria;
-        this.jobPosterContentTitleCulture = jobPosterContentTitleCulture;
-        this.jobPosterContentTitleKnow = jobPosterContentTitleKnow;
-        this.jobPosterContentTitleApply = jobPosterContentTitleApply;
-        // Job Application
-        this.essentialCriteria = essentialCriteria;
-        this.assetCriteria = assetCriteria;
-        this.microReference = microReference;
-        this.skillSample = skillSample;
-        this.applicationPositionLabel = applicationPositionLabel;
-        // Application Preview
-        this.editApplication = editApplication;
-        this.applicationPreviewProfilePhotoTitle = applicationPreviewProfilePhotoTitle;
-        this.applicationPreviewProfileAlert = applicationPreviewProfileAlert;
-        this.applicationPreviewDeclarationStoryTitle = applicationPreviewDeclarationStoryTitle;
-        this.applicationPreviewMicroReferenceTitle = applicationPreviewMicroReferenceTitle;
-        this.applicationPreviewReferenceMissing = applicationPreviewReferenceMissing;
-        this.applicationPreviewSkillSampleStoryLabel = applicationPreviewSkillSampleStoryLabel;
-        this.applicationPreviewSkillSampleLink = applicationPreviewSkillSampleLink;
-        this.applicationPreviewSkillSampleMissing = applicationPreviewSkillSampleMissing;
-        // Others
-        this.title = title;
-        this.helpLearn = helpLearn;
-        this.languageSelect = languageSelect;
-        this.applyNow = applyNow;
-        this.jobPostersLink = jobPostersLink;
-        this.teamsLink = teamsLink;
-        this.jobNumber = jobNumber;
-        this.jobTitle = jobTitle;
-        this.jobLocation = jobLocation;
-        this.jobCity = jobCity;
-        this.jobProvince = jobProvince;
-        this.jobApplicantsSoFar = jobApplicantsSoFar;
-        this.jobUnitsToCloseHours = jobUnitsToCloseHours;
-        this.jobUnitsToCloseDays = jobUnitsToCloseDays;
-        this.jobUnitsToCloseMonths = jobUnitsToCloseMonths;
-        this.jobUntilClose = jobUntilClose;
-        this.jobTerm = jobTerm;
-        this.viewButton = viewButton;
-        this.jobSalaryRange = jobSalaryRange;
-        this.submitApplication = submitApplication;
-        this.step1 = step1;
-        this.step2 = step2;
-        this.step3 = step3;
-        this.review = review;
-        this.goToStep2 = goToStep2;
-        this.goToStep1 = goToStep1;
-        this.goToStep3 = goToStep3;
-        this.goToReview = goToReview;
-        this.createJobPosterWindowTitle = createJobPosterWindowTitle;
-        this.createProfileWindowTitle = createProfileWindowTitle;
-        this.required = required;
-        this.createJobPosterSubmitInstructions = createJobPosterSubmitInstructions;
-        this.generalInformation = generalInformation;
-        this.aboutMe = aboutMe;
-        this.aLittleBitAboutMe = aLittleBitAboutMe;
-        this.whatImMostProudOfInCareer = whatImMostProudOfInCareer;
-        this.position = position;
-        this.department = department;
-        this.branch = branch;
-        this.division = division;
-        this.leadershipStyle = leadershipStyle;
-        this.myLeadershipStyle = myLeadershipStyle;
-        this.myApproachToEmployee = myApproachToEmployee;
-        this.myExpectationsOfEmployees = myExpectationsOfEmployees;
-        this.myApproachToDecisionMaking = myApproachToDecisionMaking;
-        this.workExperience = workExperience;
-        this.education = education;
-        this.howOftenDoYouReview = howOftenDoYouReview;
-        this.howOftenDoYouStayLate = howOftenDoYouStayLate;
-        this.howOftenDoYouEngage = howOftenDoYouEngage;
-        this.howOftenDoYouApproveDevelopment = howOftenDoYouApproveDevelopment;
-        this.almostNever = almostNever;
-        this.rarely = rarely;
-        this.sometimes = sometimes;
-        this.usually = usually;
-        this.almostAlways = almostAlways;
-        this.name = name;
-        this.gctc = gctc;
-        this.at = at;
-        this.readMore = readMore;
-        this.canadaLink = canadaLink;
-        this.canadaLinkHref = canadaLinkHref;
-        this.taglineMain = taglineMain;
-        this.taglineSecondary = taglineSecondary;
-        this.taglineTertiary = taglineTertiary;
-        this.howItWorksHeading = howItWorksHeading;
-        this.howItWorksLead = howItWorksLead;
-        this.logoSrc = logoSrc;
-        this.ownYourStory = ownYourStory;
-        this.ownYourStoryText = ownYourStoryText;
-        this.getFound = getFound;
-        this.getFoundText = getFoundText;
-        this.contribute = contribute;
-        this.contributeText = contributeText;
-        this.howItWorksLeadOut = howItWorksLeadOut;
-        this.howItWorksLast = howItWorksLast;
-        this.contactUs = contactUs;
-        this.transcript = transcript;
-        this.ourTeam = ourTeam;
-        this.ourTeamText = ourTeamText;
-        this.browseTitle = browseTitle;
-        this.createJobApplicationWindowTitle = createJobApplicationWindowTitle;
-        this.createJobApplicationJobTitleLabel = createJobApplicationJobTitleLabel;
-        this.createJobApplicationConfirmationPositionLabel = createJobApplicationConfirmationPositionLabel;
-        this.jobApplicationConfirmationTrackingReminder = jobApplicationConfirmationTrackingReminder;
-        this.continueToDashboard = continueToDashboard;
-        this.announcement = announcement;
-        this.applicantPortal = applicantPortal;
-        this.adminPortal = adminPortal;
-        this.workEnvironment = workEnvironment;
-        this.remoteLocationAllowed = remoteLocationAllowed;
-        this.teleworkAllowed = teleworkAllowed;
-        this.flexHoursAllowed = flexHoursAllowed;
-        this.yes = yes;
-        this.no = no;
-        this.physicalEnvironment = physicalEnvironment;
-        this.yourApplicationsTitle = yourApplicationsTitle;
-        this.adminTagline = adminTagline;
-        this.adminAboutMe = adminAboutMe;
-        this.adminProfilePositionLabel = adminProfilePositionLabel;
-        this.adminProfileDepartmentLabel = adminProfileDepartmentLabel;
-        this.adminProfileBranchLabel = adminProfileBranchLabel;
-        this.teamCulture = teamCulture;
-        this.teamSize = teamSize;
-        this.gcDirectoryLink = gcDirectoryLink;
-        this.teamSizePrompt = teamSizePrompt;
-        this.gcDirectoryLinkPrompt = gcDirectoryLinkPrompt;
-        this.teamNarrativePrompt = teamNarrativePrompt;
-        this.openEndedQuestions = openEndedQuestions;
-        this.jobReferenceId = jobReferenceId;
-        this.profileBasicInfoEditTitle = profileBasicInfoEditTitle;
-        this.managerProfile_review_option0 = managerProfile_review_option0;
-        this.managerProfile_review_option1 = managerProfile_review_option1;
-        this.managerProfile_review_option2 = managerProfile_review_option2;
-        this.managerProfile_review_option3 = managerProfile_review_option3;
-        this.managerProfile_review_option4 = managerProfile_review_option4;
-        this.managerProfile_stayLate_option0 = managerProfile_stayLate_option0;
-        this.managerProfile_stayLate_option1 = managerProfile_stayLate_option1;
-        this.managerProfile_stayLate_option2 = managerProfile_stayLate_option2;
-        this.managerProfile_stayLate_option3 = managerProfile_stayLate_option3;
-        this.managerProfile_stayLate_option4 = managerProfile_stayLate_option4;
-        this.managerProfile_engagement_option0 = managerProfile_engagement_option0;
-        this.managerProfile_engagement_option1 = managerProfile_engagement_option1;
-        this.managerProfile_engagement_option2 = managerProfile_engagement_option2;
-        this.managerProfile_engagement_option3 = managerProfile_engagement_option3;
-        this.managerProfile_engagement_option4 = managerProfile_engagement_option4;
-        this.managerProfile_developmentOpportunities_option0 = managerProfile_developmentOpportunities_option0;
-        this.managerProfile_developmentOpportunities_option1 = managerProfile_developmentOpportunities_option1;
-        this.managerProfile_developmentOpportunities_option2 = managerProfile_developmentOpportunities_option2;
-        this.managerProfile_developmentOpportunities_option3 = managerProfile_developmentOpportunities_option3;
-        this.managerProfile_developmentOpportunities_option4 = managerProfile_developmentOpportunities_option4;
-        this.managerProfile_acceptLowValueWorkRequests_option0 = managerProfile_acceptLowValueWorkRequests_option0;
-        this.managerProfile_acceptLowValueWorkRequests_option1 = managerProfile_acceptLowValueWorkRequests_option1;
-        this.managerProfile_acceptLowValueWorkRequests_option2 = managerProfile_acceptLowValueWorkRequests_option2;
-        this.managerProfile_acceptLowValueWorkRequests_option3 = managerProfile_acceptLowValueWorkRequests_option3;
-        this.managerProfile_acceptLowValueWorkRequests_option4 = managerProfile_acceptLowValueWorkRequests_option4;
-        this.managerDecisions_tipWhatis = managerDecisions_tipWhatis;
-        this.managerDecisions_tipSummary = managerDecisions_tipSummary;
-        this.changeDisplayPic = changeDisplayPic;
-        this.updateProfilePhotoTitle = updateProfilePhotoTitle;
-        this.updateProfilePhotoDraggableAreaLabel = updateProfilePhotoDraggableAreaLabel;
-        this.updateProfilePhotoDraggableAreaErrorSize = updateProfilePhotoDraggableAreaErrorSize;
-        this.updateProfilePhotoDraggableAreaErrorType = updateProfilePhotoDraggableAreaErrorType;
-        this.updateProfileOrCopy = updateProfileOrCopy;
-        this.updateProfileChoosePhotoButtonLabelSpan = updateProfileChoosePhotoButtonLabelSpan;
-        this.updateProfileChoosePhotoButton = updateProfileChoosePhotoButton;
-        this.updateProfileChooseAltPhotoButtonLabelSpan = updateProfileChooseAltPhotoButtonLabelSpan;
-        this.updateProfileChooseAltPhotoButton = updateProfileChooseAltPhotoButton;
-        this.updateProfilePhotoCancelButton = updateProfilePhotoCancelButton;
-        this.updateProfileApplicantProfileFormNameLabelSpan = updateProfileApplicantProfileFormNameLabelSpan;
-        this.profileEditName = profileEditName;
-        this.updateProfileApplicantProfileFormTaglineLabelSpan = updateProfileApplicantProfileFormTaglineLabelSpan;
-        this.profileEditTagline = profileEditTagline;
-        this.updateProfileApplicantProfileFormTwitterLabelSpan = updateProfileApplicantProfileFormTwitterLabelSpan;
-        this.profileEditTwitter = profileEditTwitter;
-        this.updateProfileApplicantProfileFormLinkedinLabelSpan = updateProfileApplicantProfileFormLinkedinLabelSpan;
-        this.profileEditLinkedin = profileEditLinkedin;
-        this.profileBasicInfoEditCancel = profileBasicInfoEditCancel;
-        this.profileBasicInfoEditSave = profileBasicInfoEditSave;
-        this.profilePicUploadBtn = profilePicUploadBtn;
-        this.loginFormTitle = loginFormTitle;
-        this.loginModalCopySpan = loginModalCopySpan;
-        this.switchToRegister = switchToRegister;
-        this.loginModalEmailLabelSpan = loginModalEmailLabelSpan;
-        this.login_email = login_email;
-        this.loginModalPasswordLabelSpan = loginModalPasswordLabelSpan;
-        this.login_password = login_password;
-        this.loginFormCancelBtn = loginFormCancelBtn;
-        this.loginFormLoginBtn = loginFormLoginBtn;
-        this.registerFormTitle = registerFormTitle;
-        this.profileAboutMeEditTitle = profileAboutMeEditTitle;
-        this.updateAboutTextareaLabelSpan = updateAboutTextareaLabelSpan;
-        this.profileEditAboutMe = profileEditAboutMe;
-        this.profileAboutMeEditCancel = profileAboutMeEditCancel;
-        this.profileAboutMeEditSave = profileAboutMeEditSave;
-        this.accommodationTextStart = accommodationTextStart;
-        this.accommodationTextEnd = accommodationTextEnd;
-        this.jobPosterKeyTasksLabel = jobPosterKeyTasksLabel;
-        this.jobPosterCoreCompetenciesLabel = jobPosterCoreCompetenciesLabel;
-        this.jobPosterHiringManagerLabel = jobPosterHiringManagerLabel;
-        this.jobPosterClearanceLevelLabel = jobPosterClearanceLevelLabel;
-        this.jobPosterStartDateLabel = jobPosterStartDateLabel;
-        this.jobPosterJobLevelLabel = jobPosterJobLevelLabel;
-        this.jobPosterLanguageLabel = jobPosterLanguageLabel;
-        this.jobPosterTermLabel = jobPosterTermLabel;
-        this.cancel = cancel;
-        this.save = save;
-        this.editYour = editYour;
-        this.jobPosterTeamNarrativeText_label = jobPosterTeamNarrativeText_label;
-        this.jobPosterOperatingContext_label = jobPosterOperatingContext_label;
-        this.jobPosterWhatWeValue_label = jobPosterWhatWeValue_label;
-        this.jobPosterHowWeWork_label = jobPosterHowWeWork_label;
-        this.years = years;
-        this.status = status;
-        this.jobPosterBackButtonText = jobPosterBackButtonText;
-    };
-
 TalentCloudAPI.pages = {
             home: {
                 url: "#",
@@ -684,7 +172,10 @@ TalentCloudAPI.loadPublic = function(){
         TalentCloudAPI.setLanguageCookie(locale);
     }
     LookupAPI.loadLookupData();
-    DataAPI.getTalentCloudUI(locale,false);
+    DataAPI.getStaticContent(locale,function(request) {
+        var content = new TalentCloudAPI.Content(request.response);
+        TalentCloudAPI.setContent(content,false);
+    });
     //console(UserAPI.hasAuthToken());
     if(UserAPI.hasAuthToken()){
         if(UserAPI.hasSessionUser()){
@@ -707,7 +198,10 @@ TalentCloudAPI.loadManager = function(){
     }
     //console.log(UserAPI.hasAuthToken());
     LookupAPI.loadLookupData();
-    DataAPI.getTalentCloudUI(locale,true);
+    DataAPI.getStaticContent(locale,function(request) {
+        var content = new TalentCloudAPI.Content(request.response);
+        TalentCloudAPI.setContent(content,true);
+    });
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthToken();
         if(UserAPI.hasSessionUser()){
@@ -738,7 +232,10 @@ TalentCloudAPI.loadAdmin = function(){
     }
     //console.log(UserAPI.hasAuthToken());
     LookupAPI.loadLookupData();
-    DataAPI.getTalentCloudUI(locale,true);
+    DataAPI.getStaticContent(locale,function(request) {
+        var content = new TalentCloudAPI.Content(request.response);
+        TalentCloudAPI.setContent(content,true);
+    });
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
         //console.log(authToken);
@@ -849,6 +346,264 @@ TalentCloudAPI.hideAllContent = function(){
 TalentCloudAPI.hideLogo = function(){
     var logo = document.getElementById("logo-container");
     logo.classList.add("hidden");
+};
+
+TalentCloudAPI.Content = function(response) {
+    var data = JSON.parse(response);
+    var content = data.content;
+
+    // Navigation Links
+    this.navigationLoginLink = content.navigationLoginLink;
+    this.navigationLogoutLink = content.navigationLogoutLink;
+    this.navigationRegisterLink = content.navigationRegisterLink;
+    this.navigationHomeLink = content.navigationHomeLink;
+    this.navigationProfileLink = content.navigationProfileLink;
+    this.navigationBrowseLink = content.navigationBrowseLink;
+    this.navigationDashboardLink = content.navigationDashboardLink;
+    this.navigationPosterLink = content.navigationPosterLink;
+    // Subpage Titles
+    this.browseHeroTitle = content.browseHeroTitle;
+    this.dashboardHeroTitle = content.dashboardHeroTitle;
+    this.profileHeroTitle = content.profileHeroTitle;
+    this.applicationHeroTitle = content.applicationHeroTitle;
+    this.managerProfileHeroTitle = content.managerProfileHeroTitle;
+    this.posterHeroTitle = content.posterHeroTitle;
+    this.faqHeroTitle = content.faqHeroTitle;
+    // Job Poster Content
+    this.jobPosterSubnavLabel = content.jobPosterSubnavLabel;
+    this.jobPosterSubnavItemBasics = content.jobPosterSubnavItemBasics;
+    this.jobPosterSubnavItemImpact = content.jobPosterSubnavItemImpact;
+    this.jobPosterSubnavItemWork = content.jobPosterSubnavItemWork;
+    this.jobPosterSubnavItemCriteria = content.jobPosterSubnavItemCriteria;
+    this.jobPosterSubnavItemCulture = content.jobPosterSubnavItemCulture;
+    this.jobPosterSubnavItemKnow = content.jobPosterSubnavItemKnow;
+    this.jobPosterSubnavItemApply = content.jobPosterSubnavItemApply;
+    this.jobPosterContentTitleBasics = content.jobPosterContentTitleBasics;
+    this.jobPosterContentTitleImpact = content.jobPosterContentTitleImpact;
+    this.jobPosterContentTitleWork = content.jobPosterContentTitleWork;
+    this.jobPosterContentTitleCriteria = content.jobPosterContentTitleCriteria;
+    this.jobPosterContentTitleCulture = content.jobPosterContentTitleCulture;
+    this.jobPosterContentTitleKnow = content.jobPosterContentTitleKnow;
+    this.jobPosterContentTitleApply = content.jobPosterContentTitleApply;
+    // Job Application
+    this.essentialCriteria = content.essentialCriteria;
+    this.assetCriteria = content.assetCriteria;
+    this.microReference = content.microReference;
+    this.skillSample = content.skillSample;
+    this.applicationPositionLabel = content.applicationPositionLabel;
+    // Application Preview
+    this.editApplication = content.editApplication;
+    this.applicationPreviewProfilePhotoTitle = content.applicationPreviewProfilePhotoTitle;
+    this.applicationPreviewProfileAlert = content.applicationPreviewProfileAlert;
+    this.applicationPreviewDeclarationStoryTitle = content.applicationPreviewDeclarationStoryTitle;
+    this.applicationPreviewMicroReferenceTitle = content.applicationPreviewMicroReferenceTitle;
+    this.applicationPreviewReferenceMissing = content.applicationPreviewReferenceMissing;
+    this.applicationPreviewSkillSampleStoryLabel = content.applicationPreviewSkillSampleStoryLabel;
+    this.applicationPreviewSkillSampleLink = content.applicationPreviewSkillSampleLink;
+    this.applicationPreviewSkillSampleMissing = content.applicationPreviewSkillSampleMissing;
+    // Others
+    this.title = content.title;
+    this.helpLearn = content.helpLearn;
+    this.languageSelect = content.languageSelect;
+    this.applyNow = content.applyNow;
+    this.jobPostersLink = content.jobPostersLink;
+    this.teamsLink = content.teamsLink;
+    this.jobNumber = content.jobNumber;
+    this.jobTitle = content.jobTitle;
+    this.jobLocation = content.jobLocation;
+    this.jobCity = content.jobCity;
+    this.jobProvince = content.jobProvince;
+    this.jobApplicantsSoFar = content.jobApplicantsSoFar;
+    this.jobUnitsToCloseHours = content.jobUnitsToCloseHours;
+    this.jobUnitsToCloseDays = content.jobUnitsToCloseDays;
+    this.jobUnitsToCloseMonths = content.jobUnitsToCloseMonths;
+    this.jobUntilClose = content.jobUntilClose;
+    this.jobTerm = content.jobTerm;
+    this.viewButton = content.viewButton;
+    this.jobSalaryRange = content.jobSalaryRange;
+    this.submitApplication = content.submitApplication;
+    this.step1 = content.step1;
+    this.step2 = content.step2;
+    this.step3 = content.step3;
+    this.review = content.review;
+    this.goToStep2 = content.goToStep2;
+    this.goToStep1 = content.goToStep1;
+    this.goToStep3 = content.goToStep3;
+    this.goToReview = content.goToReview;
+    this.createJobPosterWindowTitle = content.createJobPosterWindowTitle;
+    this.createProfileWindowTitle = content.createProfileWindowTitle;
+    this.required = content.required;
+    this.submit = content.submit;
+    this.generalInformation = content.generalInformation;
+    this.aboutMe = content.aboutMe;
+    this.aLittleBitAboutMe = content.aLittleBitAboutMe;
+    this.whatImMostProudOfInCareer = content.whatImMostProudOfInCareer;
+    this.position = content.position;
+    this.department = content.department;
+    this.branch = content.branch;
+    this.division = content.division;
+    this.leadershipStyle = content.leadershipStyle;
+    this.myLeadershipStyle = content.myLeadershipStyle;
+    this.myApproachToEmployee = content.myApproachToEmployee;
+    this.myExpectationsOfEmployees = content.myExpectationsOfEmployees;
+    this.myApproachToDecisionMaking = content.myApproachToDecisionMaking;
+    this.workExperience = content.workExperience;
+    this.education = content.education;
+    this.howOftenDoYouReview = content.howOftenDoYouReview;
+    this.howOftenDoYouStayLate = content.howOftenDoYouStayLate;
+    this.howOftenDoYouEngage = content.howOftenDoYouEngage;
+    this.howOftenDoYouApproveDevelopment = content.howOftenDoYouApproveDevelopment;
+    this.almostNever = content.almostNever;
+    this.rarely = content.rarely;
+    this.sometimes = content.sometimes;
+    this.usually = content.usually;
+    this.almostAlways = content.almostAlways;
+    this.name = content.name;
+    this.gctc = content.gctc;
+    this.at = content.at;
+    this.readMore = content.readMore;
+    this.canadaLink = content.canadaLink;
+    this.canadaLinkHref = content.canadaLinkHref;
+    this.taglineMain = content.taglineMain;
+    this.taglineSecondary = content.taglineSecondary;
+    this.taglineTertiary = content.taglineTertiary;
+    this.howItWorksHeading = content.howItWorksHeading;
+    this.howItWorksLead = content.howItWorksLead;
+    this.logoSrc = content.logoSrc;
+    this.ownYourStory = content.ownYourStory;
+    this.ownYourStoryText = content.ownYourStoryText;
+    this.getFound = content.getFound;
+    this.getFoundText = content.getFoundText;
+    this.contribute = content.contribute;
+    this.contributeText = content.contributeText;
+    this.howItWorksLeadOut = content.howItWorksLeadOut;
+    this.howItWorksLast = content.howItWorksLast;
+    this.contactUs = content.contactUs;
+    this.transcript = content.transcript;
+    this.ourTeam = content.ourTeam;
+    this.ourTeamText = content.ourTeamText;
+    this.browseTitle = content.browseTitle;
+    this.createJobApplicationWindowTitle = content.createJobApplicationWindowTitle;
+    this.createJobApplicationJobTitleLabel = content.createJobApplicationJobTitleLabel;
+    this.createJobApplicationConfirmationPositionLabel = content.createJobApplicationConfirmationPositionLabel;
+    this.jobApplicationConfirmationTrackingReminder = content.jobApplicationConfirmationTrackingReminder;
+    this.continueToDashboard = content.continueToDashboard;
+    this.announcement = content.announcement;
+    this.adminPortal = content.adminPortal;
+    this.applicantPortal = content.applicantPortal;
+    this.yourApplicationsTitle = content.yourApplicationsTitle;
+    this.workEnvironment = content.workEnvironment;
+    this.remoteLocationAllowed = content.remoteLocationAllowed;
+    this.teleworkAllowed = content.teleworkAllowed;
+    this.flexHoursAllowed = content.flexHoursAllowed;
+    this.yes = content.yes;
+    this.no = content.no;
+    this.physicalEnvironment = content.physicalEnvironment;
+    this.teamCulture = content.teamCulture;
+    this.teamSize = content.teamSize;
+    this.gcDirectoryLink = content.gcDirectoryLink;
+    this.teamSizePrompt = content.teamSizePrompt;
+    this.gcDirectoryLinkPrompt = content.gcDirectoryLinkPrompt;
+    this.teamNarrativePrompt = content.teamNarrativePrompt;
+    this.adminTagline = content.adminTagline;
+    this.adminAboutMe = content.adminAboutMe;
+    this.adminProfilePositionLabel = content.adminProfilePositionLabel;
+    this.adminProfileDepartmentLabel = content.adminProfileDepartmentLabel;
+    this.adminProfileBranchLabel = content.adminProfileBranchLabel;
+    this.jobReferenceId = content.jobReferenceId;
+    this.openEndedQuestions = content.openEndedQuestions;
+    this.skipNavText = content.skipNavtext;
+    this.managerProfile_review_option0 = content.managerProfile_review_option0;
+    this.managerProfile_review_option1 = content.managerProfile_review_option1;
+    this.managerProfile_review_option2 = content.managerProfile_review_option2;
+    this.managerProfile_review_option3 = content.managerProfile_review_option3;
+    this.managerProfile_review_option4 = content.managerProfile_review_option4;
+    this.managerProfile_stayLate_option0 = content.managerProfile_stayLate_option0;
+    this.managerProfile_stayLate_option1 = content.managerProfile_stayLate_option1;
+    this.managerProfile_stayLate_option2 = content.managerProfile_stayLate_option2;
+    this.managerProfile_stayLate_option3 = content.managerProfile_stayLate_option3;
+    this.managerProfile_stayLate_option4 = content.managerProfile_stayLate_option4;
+    this.managerProfile_engagement_option0 = content.managerProfile_engagement_option0;
+    this.managerProfile_engagement_option1 = content.managerProfile_engagement_option1;
+    this.managerProfile_engagement_option2 = content.managerProfile_engagement_option2;
+    this.managerProfile_engagement_option3 = content.managerProfile_engagement_option3;
+    this.managerProfile_engagement_option4 = content.managerProfile_engagement_option4;
+    this.managerProfile_developmentOpportunities_option0 = content.managerProfile_developmentOpportunities_option0;
+    this.managerProfile_developmentOpportunities_option1 = content.managerProfile_developmentOpportunities_option1;
+    this.managerProfile_developmentOpportunities_option2 = content.managerProfile_developmentOpportunities_option2;
+    this.managerProfile_developmentOpportunities_option3 = content.managerProfile_developmentOpportunities_option3;
+    this.managerProfile_developmentOpportunities_option4 = content.managerProfile_developmentOpportunities_option4;
+    this.managerProfile_acceptLowValueWorkRequests_option0 = content.managerProfile_acceptLowValueWorkRequests_option0;
+    this.managerProfile_acceptLowValueWorkRequests_option1 = content.managerProfile_acceptLowValueWorkRequests_option1;
+    this.managerProfile_acceptLowValueWorkRequests_option2 = content.managerProfile_acceptLowValueWorkRequests_option2;
+    this.managerProfile_acceptLowValueWorkRequests_option3 = content.managerProfile_acceptLowValueWorkRequests_option3;
+    this.managerProfile_acceptLowValueWorkRequests_option4 = content.managerProfile_acceptLowValueWorkRequests_option4;
+    this.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
+    this.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
+    this.profileBasicInfoEditTitle = content.profileBasicInfoEditTitle;
+    this.changeDisplayPic = content.changeDisplayPic;
+    this.updateProfilePhotoTitle = content.updateProfilePhotoTitle;
+    this.updateProfilePhotoDraggableAreaLabel = content.updateProfilePhotoDraggableAreaLabel;
+    this.updateProfilePhotoDraggableAreaErrorSize = content.updateProfilePhotoDraggableAreaErrorSize;
+    this.updateProfilePhotoDraggableAreaErrorType = content.updateProfilePhotoDraggableAreaErrorType;
+    this.updateProfileOrCopy = content.updateProfileOrCopy;
+    this.updateProfileChoosePhotoButtonLabelSpan = content.updateProfileChoosePhotoButtonLabelSpan;
+    this.updateProfileChoosePhotoButton = content.updateProfileChoosePhotoButton;
+    this.updateProfileChooseAltPhotoButtonLabelSpan = content.updateProfileChooseAltPhotoButtonLabelSpan;
+    this.updateProfileChooseAltPhotoButton = content.updateProfileChooseAltPhotoButton;
+    this.updateProfilePhotoCancelButton = content.updateProfilePhotoCancelButton;
+    this.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
+    this.updateProfileApplicantProfileFormNameLabelSpan = content.updateProfileApplicantProfileFormNameLabelSpan;
+    this.profileEditName = content.profileEditName;
+    this.updateProfileApplicantProfileFormTaglineLabelSpan = content.updateProfileApplicantProfileFormTaglineLabelSpan;
+    this.profileEditTagline = content.profileEditTagline;
+    this.updateProfileApplicantProfileFormTwitterLabelSpan = content.updateProfileApplicantProfileFormTwitterLabelSpan;
+    this.profileEditTwitter = content.profileEditTwitter;
+    this.updateProfileApplicantProfileFormLinkedinLabelSpan = content.updateProfileApplicantProfileFormLinkedinLabelSpan;
+    this.profileEditLinkedin = content.profileEditLinkedin;
+    this.profileBasicInfoEditCancel = content.profileBasicInfoEditCancel;
+    this.profileBasicInfoEditSave = content.profileBasicInfoEditSave;
+    this.profilePicUploadBtn = content.profilePicUploadBtn;
+    this.loginFormTitle = content.loginFormTitle;
+    this.loginModalCopySpan = content.loginModalCopySpan;
+    this.switchToRegister = content.switchToRegister;
+    this.loginModalEmailLabelSpan = content.loginModalEmailLabelSpan;
+    this.login_email = content.login_email;
+    this.loginModalPasswordLabelSpan = content.loginModalPasswordLabelSpan;
+    this.login_password = content.login_password;
+    this.loginFormCancelBtn = content.loginFormCancelBtn;
+    this.loginFormLoginBtn = content.loginFormLoginBtn;
+    this.registerFormTitle = content.registerFormTitle;
+    this.profileAboutMeEditTitle = content.profileAboutMeEditTitle;
+    this.updateAboutTextareaLabelSpan = content.updateAboutTextareaLabelSpan;
+    this.profileEditAboutMe = content.profileEditAboutMe;
+    this.profileAboutMeEditCancel = content.profileAboutMeEditCancel;
+    this.profileAboutMeEditSave = content.profileAboutMeEditSave;
+    this.managerDecisions_tipWhatis = content.managerDecisions_tipWhatis;
+    this.managerDecisions_tipSummary = content.managerDecisions_tipSummary;
+    this.accommodationTextStart = content.accommodationTextStart;
+    this.accommodationTextEnd = content.accommodationTextEnd;
+    this.jobPosterKeyTasksLabel = content.jobPosterKeyTasksLabel;
+    this.jobPosterCoreCompetenciesLabel = content.jobPosterCoreCompetenciesLabel;
+    this.jobPosterDevelopingCompetenciesLabel = content.jobPosterDevelopingCompetenciesLabel;
+    this.jobPosterHiringManagerLabel = content.jobPosterHiringManagerLabel;
+    this.jobPosterClearanceLevelLabel = content.jobPosterClearanceLevelLabel;
+    this.jobPosterStartDateLabel = content.jobPosterStartDateLabel;
+    this.jobPosterJobLevelLabel = content.jobPosterJobLevelLabel;
+    this.jobPosterLanguageLabel = content.jobPosterLanguageLabel;
+    this.jobPosterTermLabel = content.jobPosterTermLabel;
+    this.save = content.save;
+    this.cancel = content.cancel;
+    this.editYour = content.editYour;
+    this.jobPosterTeamNarrativeText_label = content.jobPosterTeamNarrativeText_label;
+    this.jobPosterOperatingContext_label = content.jobPosterOperatingContext_label;
+    this.jobPosterWhatWeValue_label = content.jobPosterWhatWeValue_label;
+    this.jobPosterHowWeWork_label = content.jobPosterHowWeWork_label;
+    this.years = content.years;
+    this.status = content.status;
+    this.jobPosterBackButtonText = content.jobPosterBackButtonText;
+    this.termsAndConditions = content.termsAndConditions;
+    this.privacy = content.privacy;
 };
 
 /**

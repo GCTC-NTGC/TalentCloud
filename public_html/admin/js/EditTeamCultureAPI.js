@@ -45,16 +45,26 @@ EditTeamCultureAPI.initializeTeamCultureForm = function(managerProfileId) {
  * @return {undefined}
  */
 EditTeamCultureAPI.populateTeamCultureForm = function(teamCulture) {
-    document.getElementById('createEditProfile_teamSize').value = teamCulture.team_size;
-    document.getElementById('createEditProfile_gcDirLink').value = teamCulture.gc_directory_url;
-    document.getElementById('createEditProfile_teamNarrative_en').value = teamCulture.narrative_text_en;
-    document.getElementById('createEditProfile_teamNarrative_fr').value = teamCulture.narrative_text_fr;
-    document.getElementById('createEditProfile_operatingContext_en').value = teamCulture.operating_context_en;
-    document.getElementById('createEditProfile_operatingContext_fr').value = teamCulture.operating_context_fr;
-    document.getElementById('createEditProfile_whatWeValue_en').value = teamCulture.what_we_value_en;
-    document.getElementById('createEditProfile_whatWeValue_fr').value = teamCulture.what_we_value_fr;
-    document.getElementById('createEditProfile_howWeWork_en').value = teamCulture.how_we_work_en;
-    document.getElementById('createEditProfile_howWeWork_fr').value = teamCulture.how_we_work_fr;
+    document.getElementById('createEditProfile_teamSize').value = 
+            teamCulture.team_size ? teamCulture.team_size : "";
+    document.getElementById('createEditProfile_gcDirLink').value = 
+            teamCulture.gc_directory_url ? teamCulture.gc_directory_url : "";
+    document.getElementById('createEditProfile_teamNarrative_en').value =
+            teamCulture.narrative_text_en ? teamCulture.narrative_text_en : "";
+    document.getElementById('createEditProfile_teamNarrative_fr').value = 
+            teamCulture.narrative_text_fr ? teamCulture.narrative_text_fr : "";
+    document.getElementById('createEditProfile_operatingContext_en').value = 
+            teamCulture.operating_context_en ? teamCulture.operating_context_en : "";
+    document.getElementById('createEditProfile_operatingContext_fr').value = 
+            teamCulture.operating_context_fr ? teamCulture.operating_context_fr : "";
+    document.getElementById('createEditProfile_whatWeValue_en').value = 
+            teamCulture.what_we_value_en ? teamCulture.what_we_value_en : "";
+    document.getElementById('createEditProfile_whatWeValue_fr').value = 
+            teamCulture.what_we_value_fr ? teamCulture.what_we_value_fr : "";
+    document.getElementById('createEditProfile_howWeWork_en').value = 
+            teamCulture.how_we_work_en ? teamCulture.how_we_work_en : "";    
+    document.getElementById('createEditProfile_howWeWork_fr').value = 
+            teamCulture.how_we_work_fr ? teamCulture.how_we_work_fr : "";
 };
 
 EditTeamCultureAPI.submitTeamCulture = function(managerProfileId) {
