@@ -8356,6 +8356,9 @@ nav {
   background: white;
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow: hidden;
   transform: translate(0, 0) scale(1);
   transition: all .2s ease; }
@@ -8387,6 +8390,7 @@ nav {
   margin: 0; }
 
 .job-card__content-wrapper {
+  flex-grow: 1;
   padding: 2rem; }
   .job-card__content-wrapper span {
     color: #333333;
