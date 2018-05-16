@@ -612,6 +612,13 @@ TalentCloudAPI.pages = {
                     JobApplicationPreviewAPI.showJobApplicationPreview(jobPosterId);
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                 }
+            },
+            FAQ:{
+                url:"#FAQ",
+                state:function(anchor) {
+                    FAQAPI.showFAQ(anchor);
+                    // TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
+                }
             }
         };
 
@@ -628,6 +635,7 @@ TalentCloudAPI.load = function(){
     //console.log(location);
     //event.preventDefault();
     location_elements = location.split('\/');
+    // alert(location_elements);
     //console.log(location_elements[0]);
     data = location_elements[1];
     //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));

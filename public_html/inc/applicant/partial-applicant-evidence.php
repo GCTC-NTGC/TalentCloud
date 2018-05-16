@@ -102,20 +102,20 @@
 
             <div class="applicant-evidence__required-wrapper">
 
-                <p class="applicant-evidence__skill-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</p>
+                <?php /* <p class="applicant-evidence__skill-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</p> */ ?>
 
-                <p class="applicant-evidence__assessment-warning">
+                <?php /* <p class="applicant-evidence__assessment-warning">
                     <i class="fa fa-clipboard"></i>
                     This criteria will be assessed during the interview process.
-                </p>
+                </p> */ ?>
 
-                <hr class="applicant-evidence__content-divider">
+                <?php /* <hr class="applicant-evidence__content-divider"> */ ?>
 
                 <h5 class="applicant-evidence__section-title">
                     <i class="fa fa-check"></i>
                     My Skill Declaration (Required)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
-                    <a href="" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
+                    <a href="/#FAQ/credentialingSkillLevel" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
                 </h5>
 
                 <form class="form__wrapper flex-grid">
@@ -181,7 +181,7 @@
                     <i class="fa fa-user"></i>
                     Micro-reference (Optional)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
-                    <a href="" title="What is a micro-reference?" target="_blank">How will this strengthen my application?</a>
+                    <a href="/#FAQ/credentialingReferences" title="What is a micro-reference?" target="_blank">How will this strengthen my application?</a>
                 </h5>
 
                 <p class="applicant-evidence__form-description">Appoint one reference that can vouch for you.</p>
@@ -238,7 +238,7 @@
                     <i class="fa fa-file"></i>
                     Sample of my Skill (Optional)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
-                    <a href="" title="How will this improve my application?" target="_blank">How will this strengthen my application?</a>
+                    <a href="/#FAQ/credentialingEvidence" title="How will this improve my application?" target="_blank">How will this strengthen my application?</a>
                 </h5>
 
                 <p class="applicant-evidence__form-description">Attach an example of your work that you're proud of.</p>
