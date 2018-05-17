@@ -141,6 +141,7 @@ if($query_string !== ""){
             include "../inc/manager/page-job-seeker.php";
             include "../inc/manager/page-create-job-poster.php";
             include "../inc/manager/page-profile.php";
+            include "../inc/manager/page-dashboard.php";
             ?>
             <?php //  END - Includes for pages ?>
         </main>

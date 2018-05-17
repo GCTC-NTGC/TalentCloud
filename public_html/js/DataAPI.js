@@ -530,6 +530,11 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
     request.send(payload);
 };
 
+DataAPI.getAllJobsByAdminUserId = function(locale, userId, requestCallback) {
+    var url = [DataAPI.baseURL, locale, "getAllJobsByAdminUser", userId].join('/');
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
 DataAPI.getManagerProfile = function(userId, responseCallback) {
     var manager_profile_url = DataAPI.baseURL + "/getManagerProfile/"+userId;
     DataAPI.sendRequest(manager_profile_url, "GET", {}, null, function(request) {

@@ -2379,6 +2379,10 @@ footer {
   font-size: 1.5em;
   padding-left: 0.5em; }
 
+.template {
+  display: none;
+  visibility: hidden; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
