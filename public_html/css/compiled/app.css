@@ -5740,6 +5740,7 @@ nav {
   color: white;
   display: block;
   font-size: 26px;
+  font-weight: 700;
   line-height: 1;
   padding: 3rem;
   position: relative;
@@ -5901,6 +5902,9 @@ nav {
   max-width: 20rem;
   width: 50vw; }
 
+.application-preview__profile-name {
+  font-weight: 700; }
+
 /* Application Preview Skills */
 /* Application Preview Questions */
 .application-preview__question-wrapper {
@@ -5913,7 +5917,8 @@ nav {
 
 .application-preview__question-title {
   color: #2196f3;
-  font-size: 22px;
+  font-size: 25px;
+  font-weight: 400;
   line-height: 1.2;
   margin: 0 0 2rem 0; }
 
@@ -5990,6 +5995,7 @@ nav {
   color: #2196f3;
   display: block;
   font-size: 22px;
+  font-weight: 700;
   margin: 4rem 0 1rem 0; }
   .applicant-evidence-preview__desktop-menu-title:first-child {
     margin-top: 2.5rem; }
@@ -6060,6 +6066,7 @@ nav {
   color: #333333;
   display: block;
   font-size: 26px;
+  font-weight: 700;
   line-height: 1.2;
   padding: 3rem;
   position: relative;
@@ -6159,7 +6166,8 @@ nav {
 .applicant-evidence-preview__section-title {
   font-size: 22px;
   margin: 0 0 2rem;
-  text-align: center; }
+  text-align: center;
+  font-weight: 400; }
   @media (min-width: 64em) {
     .applicant-evidence-preview__section-title {
       text-align: left; } }
