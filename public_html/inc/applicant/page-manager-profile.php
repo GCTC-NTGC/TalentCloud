@@ -8,7 +8,7 @@
                 <div class="public-manager-profile__photo" id="managerProfilePic"></div>
             </div>
 
-            <h2 class="public-manager-profile__name" id="managerProfileName"></h2>
+            <h3 class="public-manager-profile__name" id="managerProfileName"></h3>
 
             <p class="public-manager-profile__tagline" id="managerProfilePositionWrapper">
                 <span id="managerProfilePosition"></span>
@@ -49,20 +49,20 @@
                     <i class="fa fa-chevron-left"></i><span id="jobPosterBackButtonText">Back to Job Poster</span>
                 </button>
 
-                <h3 class="public-manager-profile__question-title" id="" >My Approach as a Manager</h3>
+                <h4 class="public-manager-profile__question-title" id="" >My Approach as a Manager</h4>
 
                 <div class="public-manager-profile__question">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileLeadershipStyleTitle">My Leadership Style</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileLeadershipStyleTitle">My Leadership Style</h5>
                     <p class="public-manager-profile__question-answer" id="managerProfileLeadershipStyle">This is my leadership style.</p>
                 </div>
 
                 <div class="public-manager-profile__question">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileExpectationsTitle">My Expectations of Employees</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileExpectationsTitle">My Expectations of Employees</h5>
                     <p class="public-manager-profile__question-answer" id="managerProfileExpectations">These are my employee expectations.</p>
                 </div>
 
                 <div class="public-manager-profile__question">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileDecisionMakingTitle">My Approach to Decision Making</h5>
                     <div class="public-manager-profile__decision-wrapper flex-grid top">
 
                         <div class="box lg-1of4">
@@ -85,25 +85,25 @@
                     </div>
                 </div>
 
-                <h3 class="public-manager-profile__question-title" id="" >About Me</h3>
+                <h4 class="public-manager-profile__question-title" id="" >About Me</h4>
 
                 <div class="public-manager-profile__question">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileAboutMeTitle" >About Me</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileAboutMeTitle" >About Me</h5>
                     <p class="public-manager-profile__question-answer" id="managerProfileAboutMe">This is the about me section.</p>
                 </div>
 
                 <div class="public-manager-profile__question">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileAccomplishmentTitle">My Greatest Accomplishment</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileAccomplishmentTitle">My Greatest Accomplishment</h5>
                     <p class="public-manager-profile__question-answer" id="managerProfileAccomplishment">This is my greatest accomplishment.</p>
                 </div>
 
                 <div class="public-manager-profile__question manager-education">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileEducationTitle">Education</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileEducationTitle">Education</h5>
                     <p class="public-manager-profile__question-answer" id="managerProfileEducation">This is my education.</p>
                 </div>
 
                 <div class="public-manager-profile__question">
-                    <h4 class="public-manager-profile__question-subtitle" id="managerProfileExperienceTitle">Work History</h4>
+                    <h5 class="public-manager-profile__question-subtitle" id="managerProfileExperienceTitle">Work History</h5>
                     <p class="public-manager-profile__question-answer" id="managerProfileExperience">This is my work history.</p>
                 </div>
 
