@@ -61,7 +61,7 @@ input[type=button],input[type=submit],input[type=reset]{
 .form__label {
     display: block;
     font-size: 1.2rem;
-    font-weight: 700;
+    //font-weight: 700;
     line-height: 1;
     margin: 1rem 0;
 }
@@ -188,7 +188,7 @@ input[type=url][class*="form__input--"] {
         background: $palette-blue;
         // border-color: $palette-grey--dark;
         color: $white;
-        font-weight: 700;
+        //font-weight: 700;
     }
 
 }

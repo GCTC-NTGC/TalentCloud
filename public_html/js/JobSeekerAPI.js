@@ -345,7 +345,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     }
 
     //Populate answer fields
-    
+
     var job_seeker_profile_answers = jobSeekerProfile.answers;
     for (var i = 0; i < job_seeker_profile_answers.length; i++) {
         if(job_seeker_profile_answers[i] !== undefined){
@@ -357,7 +357,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
             }
         }
     }
-    
+
     //Populate user name
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
@@ -429,7 +429,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
     //Get answer values
     var answers = [];
     var answerFields = document.querySelectorAll(".profile-question__answer");
-    
+
     for (var i = 0; i < answerFields.length; i++) {
         var questionId = answerFields[i].getAttribute("data-question-id");
         var answerText = answerFields[i].innerHTML;
@@ -585,13 +585,13 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
     //Create and populate Profile Question field elements
     var questionFragment = document.createDocumentFragment();
-    
-    
-    for (var i = 0; i < questionLookupMap.length; i++) {        
+
+
+    for (var i = 0; i < questionLookupMap.length; i++) {
         var question = questionLookupMap[i];
 
         var questionSection = JobSeekerAPI.createQuestionSectionElement(question);
-        
+
         //Add to the wrapper fragment
         questionFragment.appendChild(questionSection);
     }
@@ -609,7 +609,7 @@ JobSeekerAPI.createQuestionSectionElement = function(question) {
     var questionSection = document.createElement("div");
         questionSection.classList.add("applicant-profile__question");
 
-        var questionTitleBar = document.createElement("h3");
+        var questionTitleBar = document.createElement("h4");
         questionTitleBar.classList.add("applicant-profile__question-title-wrapper");
 
         var questionTitle = document.createElement("span");
@@ -620,11 +620,11 @@ JobSeekerAPI.createQuestionSectionElement = function(question) {
         questionEditBtn.setAttribute("role", "button");
         questionEditBtn.href = "javascript:void(0)";
         questionEditBtn.setAttribute("title", 'Edit "'+question.value+'"');
-        
+
         questionEditBtn.setAttribute("data-question-id", question.id);
         questionEditBtn.setAttribute("data-question-value", question.value);
         questionEditBtn.setAttribute("data-question-description", question.description);
-        
+
         questionEditBtn.onclick = function () {
             var id = this.getAttribute("data-question-id");
             var value = this.getAttribute("data-question-value");
@@ -650,7 +650,7 @@ JobSeekerAPI.createQuestionSectionElement = function(question) {
 
         questionSection.appendChild(questionTitleBar);
         questionSection.appendChild(questionAnswer);
-        
+
         return questionSection;
 };
 

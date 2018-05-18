@@ -43,8 +43,8 @@
 .job-poster_subnav-label {
 	color: $palette-blue;
 	display: block;
-	font-size: 22px;
-	font-weight: 700;
+	font-size: 25px;
+	//font-weight: 700;
 	margin: 4rem 0 2rem 0;
 
 	&:first-child {
@@ -70,9 +70,9 @@
 }
 
 .job-poster__content-wrapper {
-	
+
 	@media #{$l-tablet} {
-		padding: 0 0 0 3rem;	
+		padding: 0 0 0 3rem;
 	}
 
 }
