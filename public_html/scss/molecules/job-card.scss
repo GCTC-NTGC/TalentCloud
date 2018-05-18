@@ -125,12 +125,12 @@
 .job-card__view-button {
 	appearance: none;
 	// background: none;
-	background: $palette-blue;
+	background: $palette-blue--semidark;
 	border: none;
 	// border-top: 1px solid $palette-grey--light;
 	color: $white;
 	font-size: 16px;
-	font-weight: 700;
+	//font-weight: 700;
 	line-height: 1;
 	padding: 2rem;
 	text-decoration: none;

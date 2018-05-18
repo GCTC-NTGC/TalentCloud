@@ -102,35 +102,3 @@
 #overlays{
     position:relative;
 }
-.pageContent{
-    margin: 0 auto;
-    width: 100%;
-    min-height: 80vh;
-    overflow:auto;
-
-    &#profileSection,
-    &#managerProfileSection,
-    &#createEditProfileSection {
-        overflow: visible;
-    }
-
-}
-
-.pageBanner {
-    background:rgba(0,0,0,0.7);
-    min-height: 10%;
-    width:100%;
-    overflow:auto;
-    color: #FFFFFF;
-}
-
-.pageBody {
-    // background-color: white;
-    width:100%;
-    min-height: 80vh;
-    overflow: visible;
-}
-
-.formButtonWrapper{
-    float:right;
-}

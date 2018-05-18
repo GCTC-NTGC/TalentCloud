@@ -121,7 +121,7 @@
 /* New Public Manager Profile =============================================== */
 
 .public-manager-profile {
-    background: lighten($palette-grey--light, 10%);
+    background: lighten($palette-grey--light, 20%);
 }
 
 .public-manager-profile__heading {
@@ -228,7 +228,7 @@
     appearance: none;
     background: none;
     border: none;
-    color: $palette-blue;
+    color: $palette-blue--semidark;
     display: block;
     font-size: 16px;
     padding: 0;
@@ -273,7 +273,7 @@
     border-bottom: 1px solid $black;
     color: $black;
     font-size: 35px;
-    font-weight: 700;
+    font-weight: 400;
     margin: 0 0 4rem 0;
     padding: 0 0 2rem 0;
     position: relative;
@@ -282,7 +282,7 @@
 .public-manager-profile__question-subtitle {
     color: $palette-blue;
     font-size: 25px;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 0 2rem 0;
 }
 
@@ -344,7 +344,7 @@
     }
 
     strong {
-        color: $palette-blue;
+        //color: $palette-blue--dark;
     }
 
 }

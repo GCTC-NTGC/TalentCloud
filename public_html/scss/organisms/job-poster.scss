@@ -91,13 +91,6 @@
     // margin-bottom: .5rem;
 }
 
-#jobPosterId{
-    // float: right;
-    // padding-right:2em;
-    // color: #eee;
-    // margin-bottom: 1.5rem;
-}
-
 #jobPosterRemoteWorkHeader{
     color: #eee;
     margin-bottom: 1.5rem;
@@ -155,18 +148,6 @@
     height: auto;
 }
 
-.workEnvironmentAnswerWrapper{
-    margin-left: 2em;
-}
-
-.workEnvironmentAnswerWrapper p{
-    margin-bottom:0.5em;
-}
-
-.workEnvironmentAnswer{
-    color: #2196F3;
-}
-
 .workEnvironmentTitle{
     font-size: 1.5em;
     display: block;
@@ -198,7 +179,7 @@
 /* New Job Poster Styles ==================================================== */
 
 .job-poster {
-    background: lighten($palette-grey--light, 10%);
+    background: lighten($palette-grey--light, 20%);
 }
 
 .job-poster__section-wrapper {
