@@ -12,7 +12,7 @@ ini_set("display_errors", 1);
 
 require_once 'tc/config/auth.config.inc';
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;
 
