@@ -461,29 +461,40 @@ JobApplicationAPI.submitJobApplication = function(jobPosterId) {
     if (jobPosterId && jobPosterId.length > 0 && UserAPI.hasSessionUser()) {
         var userId = UserAPI.getSessionUserAsJSON().user_id;
         
+        var attestationChecked = document.getElementById("attestation");
+        var attestationError = document.getElementById("attestation-error");
+        attestationError.style.display="none";
+        
+        if(attestationChecked.checked != true){
+            attestationError.style.display="block";
+        }
+        else{
+            attestationError.style.display="none";
+        
         //Load current job appliction to verify its ready for submission
-        DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {
-            if (request.status === 200) {
-                var fullJobApplication = JSON.parse(request.response);
-                 
-                //TODO: validate fullJobApplication
-                
-                //TODO: validate that application is still in draft status.
-                if (fullJobApplication.job_poster_application.job_poster_application_status_id === 1) {
-                    DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function(request) {
-                        if (request.status === 200) {
-                            var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
-                            JobApplicationAPI.showCreateJobConfirmation(jobTitle);
-                        } else {
-                            //TODO: post message 
-                            window.alert(request.response);
-                        }
-                    });         
-                } else {
-                    window.alert("You cannot edit an application that has already been saved.")
-                }                       
-            }
-        });
+            DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {
+                if (request.status === 200) {
+                    var fullJobApplication = JSON.parse(request.response);
+
+                    //TODO: validate fullJobApplication
+
+                    //TODO: validate that application is still in draft status.
+                    if (fullJobApplication.job_poster_application.job_poster_application_status_id === 1) {
+                        DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function(request) {
+                            if (request.status === 200) {
+                                var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
+                                JobApplicationAPI.showCreateJobConfirmation(jobTitle);
+                            } else {
+                                //TODO: post message 
+                                window.alert(request.response);
+                            }
+                        });         
+                    } else {
+                        window.alert("You cannot edit an application that has already been saved.")
+                    }                       
+                }
+            });
+        }
     }
 };
 

@@ -62,10 +62,26 @@
                 </div>
 
             </div>
+        
+            <div class="application-preview__alert flex-grid middle attestation">
+                
+                <!--<div class="box lg-4of6">
+                    <p id="applicationPreviewProfileAttestation" class="application-preview__alert-copy">This is my attestation that everything I say is true.</p>
+                </div>-->
+                
+                <div class="box lg-5of6">
+                    <label for="attestation"  class="application-preview__alert-copy">This is my attestation that everything I say is true.</label>
+                </div>
+                <div class="box lg-1of6">
+                    <input type="checkbox" id="attestation" name="attestation" value="attestation">
+                </div>
+                
+            </div>
 
             <div class="application-preview__button-wrapper">
                 <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
                 <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.submitJobApplication(document.getElementById('jobApplicationJobPosterId').value);">Submit</button>
+                <p id="attestation-error">Please attest to the information you provided by checking the check box above.</p>
             </div>
 
         </div>
