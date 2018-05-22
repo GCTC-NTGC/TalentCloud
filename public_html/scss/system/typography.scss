@@ -64,7 +64,6 @@ $font-hk: HKGrotesk, sans-serif;
 /* Temporary Font Scale ===================================================== */
 [class*="heading--"] {
     font-family: $font-hk;
-    font-weight: 700;
     margin: 0;
 
     &[class*="01"] {

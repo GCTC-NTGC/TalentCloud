@@ -8,6 +8,7 @@
 
 .page-hero {
 	background-image: url("/images/backgrounds/background.jpg");
+	background-color: $black;
 	background-position: top center;
 	background-size: cover;
 	position: relative;
@@ -29,7 +30,7 @@
 	background: rgba(0, 0, 0, .5) !important;
 	position: relative;
 	z-index: 15;
-	
+
 	>.flex-grid {
 		justify-content: flex-end;
 
@@ -90,7 +91,7 @@
 	box-shadow: 0 3px 5px rgba(0, 0, 0, .35);
 	color: $black;
 	font-size: 16px;
-	font-weight: 700;
+	//font-weight: 700;
 	padding: 1.5rem 2rem;
 	position: fixed;
 	right: 0;

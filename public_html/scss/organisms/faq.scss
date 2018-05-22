@@ -7,7 +7,7 @@
 ============================================================================= */
 
 .faq {
-	background: lighten($palette-grey--light, 10%);
+	background: lighten($palette-grey--light, 20%);
 	padding: 4rem 0;
 }
 
@@ -15,7 +15,7 @@
 	border-bottom: 1px solid $black;
 	color: $black;
 	font-size: 35px;
-	font-weight: 700;
+	//font-weight: 700;
 	margin: 0 0 4rem 0;
 	padding: 0 0 2rem 0;
 }
@@ -23,7 +23,7 @@
 .faq__section-title {
 	color: $palette-blue;
 	font-size: 22px;
-	font-weight: 700;
+	//font-weight: 700;
 	margin: .5rem 0 2rem 0;
 }
 

@@ -266,6 +266,7 @@
 	font-size: 22px;
 	margin: 0 0 2rem;
 	text-align: center;
+	font-weight: 400;
 
 	@media #{$l-tablet} {
 		text-align: left;
@@ -321,7 +322,7 @@
 
 	span:first-of-type {
 		display: inline-block;
-		font-weight: 700;
+		//font-weight: 700;
 		margin: 0 0 1rem 0;
 	}
 
