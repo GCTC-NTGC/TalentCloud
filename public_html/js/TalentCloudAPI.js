@@ -23,6 +23,18 @@ TalentCloudAPI.pages = {
                     TalentCloudAPI.setNav("navigationHomeLinkWrapper");
                 }
             },
+            adminApplicationPreview: {
+                url: "/admin/JOBID/applications/APPID",
+                state: function() {
+
+                }
+            },
+            adminApplicantProfile: {
+                url: "/admin/applicants/USERID",
+                state: function() {
+                    
+                }
+            },
             BrowseJobs: {
                 url: "#BrowseJobs",
                 state: function(){

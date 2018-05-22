@@ -142,6 +142,9 @@ if($query_string !== ""){
             include "../inc/manager/page-create-job-poster.php";
             include "../inc/manager/page-profile.php";
             include "../inc/manager/page-dashboard.php";
+            include "inc/common/page-applicant-profile.php";
+            include "inc/common/page-application-preview.php";
+            include "inc/common/faq.php";
             ?>
             <?php //  END - Includes for pages ?>
         </main>
