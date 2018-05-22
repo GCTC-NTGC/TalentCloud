@@ -3,6 +3,11 @@ var JobApplicationPreviewAPI = {};
 JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId, userId) {
 
     console.log(jobPosterId);
+    
+    //Default to the logged in user for backwards compatibility
+    if (userId === undefined && UserAPI.hasSessionUser()) {
+        userId = UserAPI.getSessionUserAsJSON().user_id;
+    }
 
     if (!jobPosterId) {
         //If not passed a non-zero non-null jobPosterId, the correct preview can't be loaded 
