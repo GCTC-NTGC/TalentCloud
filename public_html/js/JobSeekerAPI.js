@@ -18,6 +18,8 @@ JobSeekerAPI.JobSeekerProfileAnswer = function (question_id, answer) {
 
 JobSeekerAPI.JobSeeker = function (
         id,
+        name,
+        email,
         personal_link,
         tagline,
         twitter_username,
@@ -25,6 +27,8 @@ JobSeekerAPI.JobSeeker = function (
         answers,
         last_updated) {
     this.id = id;
+    this.name = name;
+    this.email = email;
     this.personal_link = personal_link;
     this.tagline = tagline;
     this.twitter_username = twitter_username;
@@ -65,6 +69,8 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
 
     if (jobSeekerJSON) {
         jobSeekerObj.id = jobSeekerJSON.job_seeker_profile_id;
+        jobSeekerObj.name = jobSeekerJSON.job_seeker_profile_name;
+        jobSeekerObj.email = jobSeekerJSON.job_seeker_profile_email;
         jobSeekerObj.personal_link = jobSeekerJSON.job_seeker_profile_link;
         jobSeekerObj.tagline = jobSeekerJSON.job_seeker_profile_tagline;
         jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
