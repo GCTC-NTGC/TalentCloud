@@ -6196,9 +6196,6 @@ nav {
   .attestation label {
     font-weight: 100; }
 
-#attestation-error {
-  color: tomato; }
-
 /* ALL PROFILES (COMMON TO APPLICANT, ADMIN, MANAGER) */
 .profile-question {
   padding-top: 2em;
