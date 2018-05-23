@@ -105,7 +105,7 @@ class UserDAO extends BaseDAO{
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
-            return 'getUserById failed: ' . $e->getMessage();
+            return 'getUserOpenById failed: ' . $e->getMessage();
         }
         BaseDAO::closeConnection($link);
         return $row;

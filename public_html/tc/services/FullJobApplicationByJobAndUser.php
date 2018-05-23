@@ -14,7 +14,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once '../controller/JobApplicationController.php';
 require_once '../controller/JobPosterController.php';
-require_once '../models/JobPoster.php';
+require_once '../model/JobPoster.php';
 require_once '../utils/JWTUtils.php';
 require_once '../utils/Utils.php';
 
@@ -39,21 +39,26 @@ switch ($requestMethod) {
                 $userId = Utils::getParameterFromRequest($requestParams, 7);
 
                 $user = JWTUtils::getOpenIdUserFromJWT($jwt);
-
+                
                 if (JWTUtils::validateJWT($jwt, $user)) {
 
-                    if ($user->getUser_role() === "jobseeker" &&
-                            $user->getUser_id() !== $userId) {
-                        header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed" => "Requested job application does not belong to this user"), JSON_FORCE_OBJECT);
-                        exit;
-                    } else if ($user->getUser_role() === "admin") {
+                    if ($user->getUser_role() === "jobseeker") {
+                        if ($user->getUser_id() != $userId) {
+                            header('HTTP/1.0 401 Unauthorized');
+                            echo json_encode(array("failed" => "Requested job application does not belong to this user"), JSON_FORCE_OBJECT);
+                            exit;
+                        }
+                    } else if ($user->getUser_role() === "administrator") {
                         $jobPoster = JobPosterController::getJobPosterById($locale, $jobPosterId);
-                        if ($jobPoster->getManager_user_id() !== $user->getUser_id()) {
+                        if ($jobPoster->getManager_user_id() != $user->getUser_id()) {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed" => "This user is not authorized to view applications for this job"), JSON_FORCE_OBJECT);
                             exit;
                         }
+                    } else {
+                        header('HTTP/1.0 401 Unauthorized');
+                        echo json_encode(array("failed" => "This user does not have permissions to view job applications"), JSON_FORCE_OBJECT);
+                        exit;
                     }
 
                     $fullJobApplication = JobApplicationController::getFullJobApplicationByJobAndUser($jobPosterId, $userId, $locale);
