@@ -62,7 +62,7 @@
                         My Profile
                     </a>
                 <?php else : ?>
-                    <a href="#MyProfile" id="navigationProfileLink" onclick="JobSeekerAPI.showJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
+                    <a href="#MyProfile" id="navigationProfileLink" onclick="JobSeekerAPI.showMyJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
                 <?php endif; ?>

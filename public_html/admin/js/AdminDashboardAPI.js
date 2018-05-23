@@ -85,17 +85,43 @@ AdminDashboardAPI.populateJobPosterItemWithJobApplications = function (jobApplic
 
 AdminDashboardAPI.createDashboardApplicationElement = function(jobApplication) {
     
+    //var jobPosterId = jobApplication.application_job_poster_id;
     var profileId = jobApplication.job_poster_application.application_job_seeker_profile_id;
     var applicationId = jobApplication.job_poster_application.job_poster_application_id;
 
     var jobApplicationItem = document.getElementById("adminDashboardJobApplicationItemTemplate").cloneNode(true);
     jobApplicationItem.classList.remove("template");
     jobApplicationItem.setAttribute("id", null);
-    var title = "Applicant: " + profileId;
+    var title = "Applicant Profile Id: " + profileId;
 
     jobApplicationItem.querySelector(".admin-dashboard__job-application-title").innerHTML = title;
         
-    //TODO: create links to profile and application preview
+    var profileLink = jobApplicationItem.querySelector(".admin-dashboard__job-application-profile-link");
+    //profileLink.setAttribute("data-applicant-user-id", applicantUserId);
+    profileLink.setAttribute("data-application-id", applicationId);
+    profileLink.onclick = AdminDashboardAPI.followProfileLink;
+    
+    var applicationLink = jobApplicationItem.querySelector(".admin-dashboard__job-application-link");
+    //applicationLink.setAttribute("data-jobposter-id", jobPosterId);
+    //applicationLink.setAttribute("data-applicant-user-id", applicantUserId);
+    applicationLink.setAttribute("data-application-id", applicationId);
+    applicationLink.onclick = AdminDashboardAPI.followApplicationPreviewLink;
         
     return jobApplicationItem;
+};
+
+AdminDashboardAPI.followProfileLink = function() {
+    var applicationId = this.getAttribute("data-application-id");
+    DataAPI.getFullJobApplication(applicationId, function(request) {
+        if (request.status === 200) {
+            var fullJobApplication = JSON.parse(request.response);
+            var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(fullJobApplication.job_seeker_profile);
+            JobSeekerAPI.showJobSeekerProfile(jobSeekerProfile);
+        }
+    })
+};
+
+AdminDashboardAPI.followApplicationPreviewLink = function() {
+    var applicationId = this.getAttribute("data-application-id");
+    JobApplicationPreviewAPI.showJobApplicationPreviewById(applicationId);
 };

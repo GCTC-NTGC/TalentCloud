@@ -60,7 +60,7 @@ TalentCloudAPI.pages = {
             MyProfile: {
                 url: "#MyProfile",
                 state: function(){
-                    JobSeekerAPI.showJobSeekerProfile();
+                    JobSeekerAPI.showMyJobSeekerProfile();
                     TalentCloudAPI.setNav("navigationProfileLinkWrapper");
                     AccessibilityAPI.focusElement("myProfilePic");
                 }

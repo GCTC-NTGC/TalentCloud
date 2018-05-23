@@ -47,10 +47,6 @@ JobSeekerAPI.localizeJobSeekerProfile = function () {
 }
 
 JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
-
-    Utilities.debug ? console.log("populating job seeker Objects") : null;
-    Utilities.debug ? console.log(jobSeekerJSON) : null;
-
     var jobSeekerObj = new JobSeekerAPI.JobSeeker();
 
     if (jobSeekerJSON) {
@@ -65,12 +61,25 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
         jobSeekerObj.user_id = jobSeekerJSON.user_id;
 
         var answers = [];
-        for (var i=0; i<jobSeekerJSON.job_seeker_profile_answers.length; i++) {
+        for (var i = 0; i < jobSeekerJSON.job_seeker_profile_answers.length; i++) {
             var jsonAnswer = jobSeekerJSON.job_seeker_profile_answers[i];
             var answer = new JobSeekerAPI.JobSeekerProfileAnswer(jsonAnswer.job_seeker_profile_question_id, jsonAnswer.answer);
             answers.push(answer);
         }
         jobSeekerObj.answers = answers;
+    } else {
+        //TODO: make more robust
+        //jobSeekerJSON could not be parsed, probably because profile doesnt exist yet
+        //  Show default values.
+        jobSeekerObj.id = 0;
+        jobSeekerObj.name = "";
+        jobSeekerObj.email = "";
+        jobSeekerObj.personal_link = "";
+        jobSeekerObj.tagline = "";
+        jobSeekerObj.twitter_username = "";
+        jobSeekerObj.linkedin_username = "";
+        jobSeekerObj.answers = [];
+        jobSeekerObj.last_updated = "";
     }
 
     Utilities.debug ? console.log(jobSeekerObj) : null;
@@ -87,24 +96,10 @@ JobSeekerAPI.refreshJobSeekerProfilePic = function () {
     }
 };
 
-JobSeekerAPI.populateJobSeekerProfile = function (response) {
-    var jobSeekerJSON = JSON.parse(response);
-    var jobSeekerProfile = new JobSeekerAPI.JobSeeker();
+JobSeekerAPI.populateJobSeekerProfile = function (jobSeekerProfile) {
 
-    if (jobSeekerJSON) {
-        jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(jobSeekerJSON);
-    } else {
-        //TODO: make more robust
-        //jobSeekerJSON could not be parsed, probably because profile doesnt exist yet
-        //  Show default values.
-        jobSeekerProfile.id = 0;
-        jobSeekerProfile.personal_link = "";
-        jobSeekerProfile.tagline = "";
-        jobSeekerProfile.twitter_username = "";
-        jobSeekerProfile.linkedin_username = "";
-        jobSeekerProfile.answers = [];
-        jobSeekerProfile.last_updated = "";
-    }
+    var profile_name = document.getElementById("updateProfileApplicantProfileFormNameLabelSpan");
+    profile_name.innerHTML = jobSeekerProfile.name;
 
     var profile_id = document.getElementById("profileId");
     profile_id.value = jobSeekerProfile.id;
@@ -142,10 +137,9 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
     }
 
     //Populate answer fields
-
     var job_seeker_profile_answers = jobSeekerProfile.answers;
     for (var i = 0; i < job_seeker_profile_answers.length; i++) {
-        if(job_seeker_profile_answers[i] !== undefined){
+        if (job_seeker_profile_answers[i] !== undefined) {
             var questionId = job_seeker_profile_answers[i].job_seeker_profile_question_id;
             var selector = ".profile-question__answer[data-question-id=\"" + questionId + "\"]";
             var answerField = document.querySelector(selector);
@@ -154,19 +148,9 @@ JobSeekerAPI.populateJobSeekerProfile = function (response) {
             }
         }
     }
-
-    //Populate user name
-    if (UserAPI.hasSessionUser()) {
-        var sessionUser = UserAPI.getSessionUserAsJSON();
-
-        var profile_name = document.getElementById("updateProfileApplicantProfileFormNameLabelSpan");
-        Utilities.replaceElementText(profile_name, sessionUser.name);
-    }
-
-    JobSeekerAPI.resetProfileEditValues();
 };
 
-JobSeekerAPI.resetProfileEditValues = function() {
+JobSeekerAPI.resetProfileEditValues = function () {
     if (UserAPI.hasSessionUser()) {
         var sessionUser = UserAPI.getSessionUserAsJSON();
 
@@ -211,7 +195,7 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
     }
 
     /*user.firstname = jobSeekerBasicInfoForm.elements.profileEditFirstName.value;
-    user.lastname = jobSeekerBasicInfoForm.elements.profileEditLastName.value;*/
+     user.lastname = jobSeekerBasicInfoForm.elements.profileEditLastName.value;*/
 
     jobSeekerProfile.id = document.getElementById("profileId").value;
 
@@ -256,21 +240,21 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
         //Update user if names have been changed
 
         /*if (UserAPI.hasSessionUser()) {
-            var oldUser = UserAPI.getSessionUserAsJSON();
-            if (oldUser.firstname != user.firstname ||
-                    oldUser.lastname != user.lastname) {
-                UserAPI.updateUser(user, function () {
-                    var sessionUser = UserAPI.getSessionUserAsJSON();
-                    var profile_first_name = document.getElementById("profileFirstName");
-                    Utilities.replaceElementText(profile_first_name, sessionUser.firstname != null ? sessionUser.firstname : JobSeekerAPI.defaultFirstName);
-
-                    var profile_last_name = document.getElementById("profileLastName");
-                    Utilities.replaceElementText(profile_last_name, sessionUser.lastname != null ? sessionUser.lastname : JobSeekerAPI.defaultLastName);
-
-                    JobSeekerAPI.resetProfileEditValues();
-                });
-            }
-        }*/
+         var oldUser = UserAPI.getSessionUserAsJSON();
+         if (oldUser.firstname != user.firstname ||
+         oldUser.lastname != user.lastname) {
+         UserAPI.updateUser(user, function () {
+         var sessionUser = UserAPI.getSessionUserAsJSON();
+         var profile_first_name = document.getElementById("profileFirstName");
+         Utilities.replaceElementText(profile_first_name, sessionUser.firstname != null ? sessionUser.firstname : JobSeekerAPI.defaultFirstName);
+         
+         var profile_last_name = document.getElementById("profileLastName");
+         Utilities.replaceElementText(profile_last_name, sessionUser.lastname != null ? sessionUser.lastname : JobSeekerAPI.defaultLastName);
+         
+         JobSeekerAPI.resetProfileEditValues();
+         });
+         }
+         }*/
     }
 };
 
@@ -332,11 +316,15 @@ JobSeekerAPI.saveJobSeekerProfileAborted = function (evt) {
 
 JobSeekerAPI.saveJobSeekerProfileLoaded = function (response) {
     Utilities.debug ? console.log(response) : null;
-    DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
+    DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, function (response) {
+        var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
+        JobSeekerAPI.resetProfileEditValues();
+        JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+    });
 };
 
-JobSeekerAPI.showJobSeekerProfile = function () {
-    var stateInfo = {pageInfo: 'job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
+JobSeekerAPI.showMyJobSeekerProfile = function () {
+    var stateInfo = {pageInfo: 'my_profile', pageTitle: 'Talent Cloud: My Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#MyProfile');//last parameter just replaced with #MyProfile instead of url
 
@@ -346,16 +334,24 @@ JobSeekerAPI.showJobSeekerProfile = function () {
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.remove("hidden");
 
-    var profileBasicInfoEdit = document.getElementById("profileBasicInfoEdit");
-    //profileBasicInfoEdit.focus();
+    var profileBasicInfoEdit = document.getElementById("profileBasicInfoEditWrapper");
+    profileBasicInfoEdit.classList.remove("hidden");
 
-    LookupAPI.getLookupResponse("job_seeker_profile_question", JobSeekerAPI.addProfileQuestionSections);
+    LookupAPI.getLookupResponse("job_seeker_profile_question", function (questionLookupMap) {
+        JobSeekerAPI.addProfileQuestionSections(questionLookupMap, true);
+        
+        //Questions must be loaded before profile, with answers, can be populated
+        DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, function (response) {
+            var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
+            JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+        });
+    });
 
     EventsAPI.hideBodyOverflow(false);
     //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");
     //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
 
-    DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, JobSeekerAPI.populateJobSeekerProfile);
+
     AccessibilityAPI.addEscapeListener("JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
     JobSeekerAPI.refreshJobSeekerProfilePic();
 
@@ -371,7 +367,49 @@ JobSeekerAPI.showJobSeekerProfile = function () {
 
     ga('set', 'page', '/my-profile');
     ga('send', 'pageview');
+};
 
+JobSeekerAPI.showJobSeekerProfile = function (jobSeekerProfile) {
+    var stateInfo = {pageInfo: 'job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
+    document.title = stateInfo.pageTitle;
+    history.pushState(stateInfo, stateInfo.pageInfo, '#JobSeekerProfile/' + jobSeekerProfile.id);
+
+    TalentCloudAPI.hideAllContent();
+    //TalentCloudAPI.hideLogo();
+
+    var jobSeekerProfileOverlay = document.getElementById("profileSection");
+    jobSeekerProfileOverlay.classList.remove("hidden");
+
+    var profileBasicInfoEdit = document.getElementById("profileBasicInfoEditWrapper");
+    profileBasicInfoEdit.classList.add("hidden");
+
+    LookupAPI.getLookupResponse("job_seeker_profile_question", function (questionLookupMap) {
+        JobSeekerAPI.addProfileQuestionSections(questionLookupMap, false);
+        
+        //Questions must be loaded before profile, with answers, can be populated
+        JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+    });
+
+    EventsAPI.hideBodyOverflow(false);
+    //AccessibilityAPI.preventModalEscapeBackward("jobSeekerCloseButton");
+    //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
+
+    AccessibilityAPI.addEscapeListener("JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
+    ProfilePicAPI.refreshProfilePicBackground(jobSeekerProfile.user_id, document.getElementById("myProfilePic"));
+
+    // New Subpage Hero Scripts
+
+    Utilities.getHeroElements();
+
+    var profileHeroTitle = document.getElementById("profileHeroTitle");
+    profileHeroTitle.classList.remove("hidden");
+    profileHeroTitle.setAttribute("aria-hidden", "false");
+
+    // Google Analytics
+
+    //TODO: ensure GA calls are correct
+    ga('set', 'page', '/profile/');
+    ga('send', 'pageview');
 };
 
 /**
@@ -379,7 +417,7 @@ JobSeekerAPI.showJobSeekerProfile = function () {
  * @param {type} questionLookupMap - array of objects with .id, .description, .value properties
  * @return {undefined}
  */
-JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
+JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap, isEditable) {
     //Create and populate Profile Question field elements
     var questionFragment = document.createDocumentFragment();
 
@@ -387,7 +425,7 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
     for (var i = 0; i < questionLookupMap.length; i++) {
         var question = questionLookupMap[i];
 
-        var questionSection = JobSeekerAPI.createQuestionSectionElement(question);
+        var questionSection = JobSeekerAPI.createQuestionSectionElement(question, isEditable);
 
         //Add to the wrapper fragment
         questionFragment.appendChild(questionSection);
@@ -402,21 +440,32 @@ JobSeekerAPI.addProfileQuestionSections = function (questionLookupMap) {
 };
 
 
-JobSeekerAPI.createQuestionSectionElement = function(question) {
+JobSeekerAPI.createQuestionSectionElement = function (question, isEditable) {
     var questionSection = document.createElement("div");
-        questionSection.classList.add("applicant-profile__question");
+    questionSection.classList.add("applicant-profile__question");
 
-        var questionTitleBar = document.createElement("h4");
-        questionTitleBar.classList.add("applicant-profile__question-title-wrapper");
+    var questionTitleBar = document.createElement("h4");
+    questionTitleBar.classList.add("applicant-profile__question-title-wrapper");
 
-        var questionTitle = document.createElement("span");
-        questionTitle.innerHTML = question.value;
+    var questionTitle = document.createElement("span");
+    questionTitle.innerHTML = question.value;
 
+    var questionAnswer = document.createElement("p");
+    questionAnswer.classList.add("profile-question__answer");
+    questionAnswer.setAttribute("data-question-id", question.id);
+
+    //Now put it all together, from the inside out
+    questionTitleBar.appendChild(questionTitle);
+
+    questionSection.appendChild(questionTitleBar);
+    questionSection.appendChild(questionAnswer);
+
+    if (isEditable === true) {
         var questionEditBtn = document.createElement("a");
         questionEditBtn.classList.add("applicant-profile__edit-trigger");
         questionEditBtn.setAttribute("role", "button");
         questionEditBtn.href = "javascript:void(0)";
-        questionEditBtn.setAttribute("title", 'Edit "'+question.value+'"');
+        questionEditBtn.setAttribute("title", 'Edit "' + question.value + '"');
 
         questionEditBtn.setAttribute("data-question-id", question.id);
         questionEditBtn.setAttribute("data-question-value", question.value);
@@ -432,23 +481,13 @@ JobSeekerAPI.createQuestionSectionElement = function(question) {
         var questionEditBtnImage = document.createElement("i");
         questionEditBtnImage.classList.add("fa");
         questionEditBtnImage.classList.add("fa-pencil-square");
-        // questionEditBtnImage.src = "/images/btn_edit_dark.png";
-        // questionEditBtnImage.alt = "Edit " + question.value;
 
-        var questionAnswer = document.createElement("p");
-        questionAnswer.classList.add("profile-question__answer");
-        questionAnswer.setAttribute("data-question-id", question.id);
-
-        //Now put it all together, from the inside out
+        //Append edit button
         questionEditBtn.appendChild(questionEditBtnImage);
-
-        questionTitleBar.appendChild(questionTitle);
         questionTitleBar.appendChild(questionEditBtn);
+    }
 
-        questionSection.appendChild(questionTitleBar);
-        questionSection.appendChild(questionAnswer);
-
-        return questionSection;
+    return questionSection;
 };
 
 JobSeekerAPI.showEditProfileAnswerModal = function (questionId, questionName, questionDescription) {
