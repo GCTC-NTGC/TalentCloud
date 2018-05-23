@@ -342,8 +342,6 @@ UserAPI.loaded = function (response,isAdmin) {
             console.log(sessionUser.user_role);
 
             if (sessionUser.user_role === TalentCloudAPI.roles.jobseeker) {
-                DataAPI.getJobSeekerProfileByUserId(sessionUser.user_id, JobSeekerAPI.populateJobSeekerProfile);
-                JobSeekerAPI.refreshJobSeekerProfilePic();
 
                 var dashBoardLink = document.getElementById("navigationDashboardLinkWrapper");
 

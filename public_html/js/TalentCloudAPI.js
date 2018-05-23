@@ -201,40 +201,6 @@ TalentCloudAPI.loadPublic = function(){
  *
  * @returns {undefined}
  */
-TalentCloudAPI.loadManager = function(){
-
-    if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
-        locale = TalentCloudAPI.getLanguageFromCookie();
-    }else{
-        locale = "en_CA";
-    }
-    //console.log(UserAPI.hasAuthToken());
-    LookupAPI.loadLookupData();
-    DataAPI.getStaticContent(locale,function(request) {
-        var content = new TalentCloudAPI.Content(request.response);
-        TalentCloudAPI.setContent(content,true);
-    });
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthToken();
-        if(UserAPI.hasSessionUser()){
-            UserAPI.login(true);
-            DataAPI.getJobSeekers(locale);
-            DepartmentAPI.getDepartments(locale);
-            DivisionAPI.getDivisions(locale);
-            //Add log user in automatically
-        }else{
-            DataAPI.getJobSeekers(locale);
-        }
-    }else{
-        DataAPI.getJobSeekers(locale);
-    }
-};
-
-
-/**
- *
- * @returns {undefined}
- */
 TalentCloudAPI.loadAdmin = function(){
 
     if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
