@@ -70,14 +70,16 @@
                 </div>--> */ ?>
                 
                 <div class="box lg-5of6">
-                    <label for="attestation"  class="application-preview__alert-copy">This is my attestation that everything I say is true.</label>
+                    <label for="applicationAttestation"  class="application-preview__alert-copy">This is my attestation that everything I say is true.</label>
                 </div>
                 <div class="box lg-1of6">
-                    <input type="checkbox" id="attestation" name="attestation" value="attestation">
+                    <input type="checkbox" id="applicationAttestation" name="application-attestation" value="application-attestation">
                 </div>
-                
+                <div id="applicationAttestationError" class="label label-danger hidden">
+                    <p id="applicationAttestationErrorCopy">Please attest to the information you are providing.</p>
+                </div>
             </div>
-            <span id="attestation-error" class="label label-danger"></span>
+            
             <div class="application-preview__button-wrapper">
                 <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
                 <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.submitJobApplication(document.getElementById('jobApplicationJobPosterId').value);">Submit</button>
