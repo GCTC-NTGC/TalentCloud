@@ -58,6 +58,15 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
         document.getElementById('applicationPreviewProfileName').innerHTML = user.name;
     }
 
+    //Reset attestation
+    var attestationChecked = document.getElementById("applicationAttestation");
+    attestationChecked.checked = false;
+    
+    //Hide old attestation warning messages
+    var attestationError = document.getElementById("applicationAttestationError");        
+    attestationError.classList.add("hidden");
+
+
     // New Subpage Hero Scripts
 
     Utilities.getHeroElements();
