@@ -54,6 +54,15 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId, user
     var userProfilePhoto = document.getElementById('applicationPreviewProfileImage');
     ProfilePicAPI.refreshProfilePicBackground(userId, userProfilePhoto);
 
+    //Reset attestation
+    var attestationChecked = document.getElementById("applicationAttestation");
+    attestationChecked.checked = false;
+    
+    //Hide old attestation warning messages
+    var attestationError = document.getElementById("applicationAttestationError");        
+    attestationError.classList.add("hidden");
+
+
     // New Subpage Hero Scripts
 
     Utilities.getHeroElements();

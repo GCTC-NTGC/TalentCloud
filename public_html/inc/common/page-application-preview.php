@@ -62,10 +62,28 @@
                 </div>
 
             </div>
-
+        
+            <div class="application-preview__alert flex-grid middle attestation">
+                
+                <?php /*<!--<div class="box lg-4of6">
+                    <p id="applicationPreviewProfileAttestation" class="application-preview__alert-copy">This is my attestation that everything I say is true.</p>
+                </div>--> */ ?>
+                
+                <div class="box lg-5of6">
+                    <label for="applicationAttestation"  class="application-preview__alert-copy">This is my attestation that everything I say is true.</label>
+                </div>
+                <div class="box lg-1of6">
+                    <input type="checkbox" id="applicationAttestation" name="application-attestation" value="application-attestation">
+                </div>
+                <div id="applicationAttestationError" class="label label-danger hidden">
+                    <p id="applicationAttestationErrorCopy">Please attest to the information you are providing.</p>
+                </div>
+            </div>
+            
             <div class="application-preview__button-wrapper">
                 <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
                 <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.submitJobApplication(document.getElementById('jobApplicationJobPosterId').value);">Submit</button>
+               
             </div>
 
         </div>
