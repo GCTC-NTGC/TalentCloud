@@ -58,7 +58,7 @@
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreview(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreviewById(document.getElementById('jobApplicationJobApplicationId').value);})">
             Save and Preview
         </button>
 

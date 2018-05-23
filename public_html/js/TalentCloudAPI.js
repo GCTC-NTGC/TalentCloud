@@ -108,8 +108,8 @@ TalentCloudAPI.pages = {
             },
             JobApplicationPreview:{
                 url:"JobApplicationPreview",
-                state:function(jobPosterId) {
-                    JobApplicationPreviewAPI.showJobApplicationPreview(jobPosterId);
+                state:function(jobApplicationId) {
+                    JobApplicationPreviewAPI.showJobApplicationPreviewById(jobApplicationId);
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                 }
             },
