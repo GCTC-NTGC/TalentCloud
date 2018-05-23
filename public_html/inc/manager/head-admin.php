@@ -30,3 +30,4 @@ ga('send', 'pageview');
 <script src="/admin/js/DepartmentAPI.js"></script>
 <script src="/admin/js/DivisionAPI.js"></script>
 <script src="/admin/js/BranchAPI.js"></script>
+<script src="/admin/js/AdminDashboardAPI.js"></script>

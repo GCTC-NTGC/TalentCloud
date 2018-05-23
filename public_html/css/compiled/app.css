@@ -2378,6 +2378,10 @@ footer {
   font-size: 1.5em;
   padding-left: 0.5em; }
 
+.template {
+  display: none;
+  visibility: hidden; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -8280,4 +8284,30 @@ nav {
   padding: 2rem;
   text-decoration: none;
   transition: all .2s ease;
+  width: 100%; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Admin Dashboard
+
+============================================================================= */
+.admin-dashboard {
+  padding: 6rem 0; }
+
+.admin-dashboard__section-title {
+  margin: 0 0 4rem 0; }
+
+.admin-dashboard__job-poster-title {
+  color: #2196f3;
+  font-weight: 700; }
+
+.admin-dashboard__job-poster-list {
+  padding: 0; }
+
+.admin-dashboard__job-poster hr {
+  background: #a3a3a3;
+  border: none;
+  height: 1px;
   width: 100%; }

@@ -141,12 +141,12 @@ if($query_string !== ""){
         include "inc/applicant/page-home-content.php";
         include "inc/applicant/page-browse-jobs.php";
         include "inc/applicant/page-view-job-poster.php";
-        include "inc/applicant/page-applicant-profile.php";
+        include "inc/common/page-applicant-profile.php";
         include "inc/applicant/page-manager-profile.php";
         include "inc/applicant/page-application-form.php";
         include "inc/applicant/page-job-application-confirm.php";
         include "inc/applicant/page-dashboard.php";
-        include "inc/applicant/page-application-preview.php";
+        include "inc/common/page-application-preview.php";
         include "inc/common/faq.php";
         ?>
         <?php // END - Incudes for pages ?>

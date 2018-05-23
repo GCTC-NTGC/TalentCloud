@@ -46,6 +46,7 @@ RewriteRule ^api/v1/putTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCu
 #common localized services - public
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllJobs services/JobPosters.php
+RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllJobsByAdminUser/([0-9]{1,10})  services/JobPostersByAdminUser.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getJobPoster/([0-9]{1,10}) services/JobPoster.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/department services/Lookup.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/Lookup/province services/Lookup.php
