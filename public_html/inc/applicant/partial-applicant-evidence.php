@@ -69,7 +69,7 @@
 <?php // DEV-NOTE: The "active" class can be applied to the button itself to indicate the currently selected tab. the first tab should always be open on page load by default. The icons grouped within the buttons can also receive an "active" class to indicate their status in the UI. ?>
 <div class="hidden" id="applicantEvidenceMenuItemTemplate">
     <button role="tab" aria-selected="true" class="applicant-evidence__desktop-menu-item active template" data-evidence-trigger="" data-criteria-type="" data-criteria-id="">
-        <span class="applicant-evidence__desktop-item-title"></span>
+        <span class="applicant-evidence__desktop-item-title">Menu item title</span>
         <div class="applicant-evidence__desktop-icon-wrapper">
             <!-- <i class="fa fa-clipboard"></i> -->
             <i class="fa fa-check"></i>
@@ -134,6 +134,7 @@
                         <?php // DEV-NOTE: a template radio button item can be used to populate the expertise "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
                         <div class="hidden" id="applicationEvidenceExpertiseItemTemplate">
                             <label for="" class="box form__radio-group-label template">
+                                Expertise level template
                                 <input type="radio" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
                                 <span class="form__radio-group-span"></span>
                             </label>
@@ -145,12 +146,13 @@
                         <label for="" class="applicant-evidence__experience-radiogroup-title form__label">My Years of Experience:</label>
 
                         <div class="applicant-evidence__experience-wrapper flex-grid">
-                           
+
                         </div>
 
                         <?php // DEV-NOTE: a template radio button item can be used to populate the experience "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
                         <div class="hidden" id="applicationEvidenceExperienceItemTemplate">
                             <label for="" class="box small-1of5 form__radio-group-label template">
+                                Expertise years template
                                 <input type="radio" name="experience" class="form__radio-group-input"/>
                                 <span class="form__radio-group-span"></span>
                             </label>
@@ -158,8 +160,8 @@
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">My Experience and Knowledge:</label>
-                        <textarea class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>
+                        <label for="applicationEvidenceExperienceStory" class="form__label">My Experience and Knowledge:</label>
+                        <textarea id="applicationEvidenceExperienceStory" class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>
                     </div>
 
                 </form>
@@ -199,7 +201,7 @@
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceReferenceStory" class="form__label">Your Relationship to this Reference:</label>
+                        <label for="applicationEvidenceReferenceRelationship" class="form__label">Your Relationship to this Reference:</label>
                         <div class="form__select-wrapper">
                             <select name="reference_relationship" class="form__select" id="applicationEvidenceReferenceRelationship">
                                 <option>Option 01</option>

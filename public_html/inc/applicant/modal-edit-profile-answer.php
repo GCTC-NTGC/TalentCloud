@@ -15,7 +15,7 @@
                     <input type="hidden" id="profile-edit-answer__question-id" value="0">
                     <div class="box full">
                         <label for="profileEditAnswer" class="form__label">
-                            <span id="profileEditAnswerLabel"></span>
+                            <span id="profileEditAnswerLabel">Enter your answer here:</span>
                             <p class="dialogue-modal__support-copy" id="dialogueModalSupportCopy"></p>
                         </label>
                         <div>

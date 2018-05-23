@@ -16,12 +16,14 @@
                 <li class="hidden" id="profileTwitterLinkWrapper">
                     <input type="hidden" id="profileTwitterUsername" value=""/>
                     <a href="#" id="profileTwitterLink" target="_blank" title="Twitter Logo">
+                        <span class="hidden">Your Twitter profile</span>
                         <i class="fa fa-twitter"></i>
                     </a>
                 </li>
                 <li class="hidden" id="profileLinkedinLinkWrapper">
                     <input type="hidden" id="profileLinkedInUsername" value=""/>
                     <a href="#" id="profileLinkedinLink" target="_blank" title="Linkedin Logo">
+                        <span class="hidden">Your LinkedIn profile</span>
                         <i class="fa fa-linkedin"></i>
                     </a>
                 </li>
@@ -29,6 +31,7 @@
 
             <div class="applicant-profile__heading-edit-wrapper">
                 <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()" title="Edit my profile.">
+                    <span class="hidden">Edit your profile</span>
                     <i class="fa fa-pencil-square"></i>
                 </a>
             </div>
