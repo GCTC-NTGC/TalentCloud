@@ -147,6 +147,15 @@ class JobApplicationController{
      */
     public static function getFullJobApplicationByJobAndUser($jobPosterId, $userId, $locale) {    
         $jobPosterApplication = JobApplicationDAO::getJobApplicationByJobAndUser($jobPosterId, $userId);
+        return self::getFullJobApplicationByJobPosterApplication($jobPosterApplication, $locale);
+    }
+    
+    public static function getFullJobApplication($jobPosterApplicationId, $locale) {
+        $jobPosterApplication = JobApplicationDAO::getJobPosterApplicationByApplicationId($jobPosterApplicationId);
+        return self::getFullJobApplicationByJobPosterApplication($jobPosterApplication, $locale);
+    }
+    
+    protected static function getFullJobApplicationByJobPosterApplication($jobPosterApplication, $locale) {
         if ($jobPosterApplication) {
             $jobPosterApplicationId = $jobPosterApplication->getJob_poster_application_id();
             $jobSeekerProfile = JobSeekerController::getJobSeekerById($jobPosterApplication->getApplication_job_seeker_profile_id());
