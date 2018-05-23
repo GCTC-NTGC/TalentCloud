@@ -134,7 +134,7 @@
                         <?php // DEV-NOTE: a template radio button item can be used to populate the expertise "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
                         <div class="hidden" id="applicationEvidenceExpertiseItemTemplate">
                             <label for="" class="box form__radio-group-label template">
-                                Expertise level template
+                                <span class="hidden">Expertise level option: </span>
                                 <input type="radio" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
                                 <span class="form__radio-group-span"></span>
                             </label>
@@ -152,7 +152,7 @@
                         <?php // DEV-NOTE: a template radio button item can be used to populate the experience "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
                         <div class="hidden" id="applicationEvidenceExperienceItemTemplate">
                             <label for="" class="box small-1of5 form__radio-group-label template">
-                                Expertise years template
+                                <span class="hidden">Expertise year option: </span>
                                 <input type="radio" name="experience" class="form__radio-group-input"/>
                                 <span class="form__radio-group-span"></span>
                             </label>
