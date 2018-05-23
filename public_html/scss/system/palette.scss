@@ -27,6 +27,8 @@ $palette-yellow--dark: rgba(255, 210, 0, 1);
 $palette-blue--light: rgba(204, 229, 255, 1);
 $palette-blue: rgba(33, 150, 243, 1);
 $palette-blue--dark: rgba(18, 81, 132, 1);
+$palette-blue--semilight: rgba(114, 188, 248, 1); // these fixed contrast fails
+$palette-blue--semidark: rgba(10, 108, 188, 1); // with less visual impact
 
 /* Green */
 $palette-green: rgba(59, 181, 25, 1);

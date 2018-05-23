@@ -1,8 +1,13 @@
 var JobApplicationPreviewAPI = {};
 
-JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
+JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId, userId) {
 
     console.log(jobPosterId);
+    
+    //Default to the logged in user for backwards compatibility
+    if (userId === undefined && UserAPI.hasSessionUser()) {
+        userId = UserAPI.getSessionUserAsJSON().user_id;
+    }
 
     if (!jobPosterId) {
         //If not passed a non-zero non-null jobPosterId, the correct preview can't be loaded 
@@ -27,9 +32,6 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
 
     var locale = TalentCloudAPI.getLanguageFromCookie();
 
-    //Get current user id 
-    var userId = UserAPI.getSessionUserAsJSON().user_id;
-
     DataAPI.getJobPoster(locale, jobPosterId, function (response) {
         var jobPoster = JobPostAPI.populateJobObject(JSON.parse(response));
 
@@ -48,15 +50,9 @@ JobApplicationPreviewAPI.showJobApplicationPreview = function (jobPosterId) {
         DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent);
     });
 
-    if (UserAPI.hasSessionUser()) {
-
-        var user = UserAPI.getSessionUserAsJSON();
-        var userProfilePhoto = document.getElementById('applicationPreviewProfileImage');
-
-        ProfilePicAPI.refreshProfilePicBackground(user.user_id, userProfilePhoto);
-
-        document.getElementById('applicationPreviewProfileName').innerHTML = user.name;
-    }
+    //Load applicant's profile photo
+    var userProfilePhoto = document.getElementById('applicationPreviewProfileImage');
+    ProfilePicAPI.refreshProfilePicBackground(userId, userProfilePhoto);
 
     // New Subpage Hero Scripts
 
@@ -149,7 +145,7 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
         var answers = fullJobApplication.application_question_answers;
         JobApplicationPreviewAPI.populateApplicationPreviewAnswers(answers);
         
-        JobApplicationPreviewAPI.populatePreviewApplicationWithProfileContent(fullJobApplication.job_seeker_profile);
+        JobApplicationPreviewAPI.populatePreviewApplicationWithProfileContent(JobSeekerAPI.populateJobSeekerObject(fullJobApplication.job_seeker_profile));
         
         SkillDeclarationAPI.populateApplicationPreviewUiSkillDeclarations(fullJobApplication.skill_declarations);
         
@@ -208,6 +204,8 @@ JobApplicationPreviewAPI.populateApplicationPreviewAnswers = function (answers) 
 };
 
 JobApplicationPreviewAPI.populatePreviewApplicationWithProfileContent = function (jobSeeker) {
+    
+    document.getElementById('applicationPreviewProfileName').innerHTML = jobSeeker.name;
     
     var tagline = document.getElementById('applicationPreviewProfileTagline');
     if (jobSeeker.tagline) {

@@ -154,7 +154,7 @@ class UserController{
      * @param int $jobSeekerProfileId
      */
     public static function getUserByJobSeekerProfileId($jobSeekerProfileId) {
-        $user = UserDAO::getUserByManagerProfileId($jobSeekerProfileId);
+        $user = UserDAO::getUserByJobSeekerProfileId($jobSeekerProfileId);
         return $user;
     }
 }

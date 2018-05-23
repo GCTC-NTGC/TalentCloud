@@ -10,7 +10,7 @@
 	border-bottom: 1px solid $black;
 	color: $black;
 	font-size: 35px;
-	font-weight: 700;
+	font-weight: 400;
 	margin: 0 0 4rem 0;
 	padding: 0 0 2rem 0;
 }
@@ -19,7 +19,7 @@
 .job-poster__content-subtitle {
 	color: $palette-blue;
 	font-size: 25px;
-	font-weight: 700;
+	font-weight: 500;
 	margin: 0 0 2rem 0;
 
 	&:not(:first-child) {
@@ -39,7 +39,7 @@
 .job-poster__content-copy {
 	color: $black;
 	font-size: 16px;
-	font-weight: 400;
+	//font-weight: 400;
 	line-height: 1.5;
 	margin: 0 0 2rem 0;
 
@@ -80,7 +80,7 @@
 
 		p {
 			font-size: 16px;
-			font-weight: 400;
+			//font-weight: 400;
 			line-height: 1.5;
 			margin: 0 !important;
 		}
@@ -100,7 +100,7 @@
 .job-poster__basics-title {
 	color: $white;
 	font-size: 30px;
-	font-weight: 700;
+	//font-weight: 700;
 	margin: 0 0 2rem 0;
 }
 
@@ -108,7 +108,7 @@
 	color: $palette-blue;
 	display: block;
 	font-size: 22px;
-	font-weight: 700;
+	//font-weight: 700;
 	margin: 0 0 1rem 0;
 }
 
@@ -222,7 +222,7 @@
 
 /* Apply to this Job */
 .job-poster__apply {
-	
+
 }
 
 .job-poster__apply-accommodation-wrapper {
@@ -242,7 +242,7 @@
 .job-poster__apply-title {
 	color: $white;
 	font-size: 30px;
-	font-weight: 700;
+	font-weight: 600;
 	margin: 0 0 2rem 0;
 }
 
@@ -262,7 +262,7 @@
         .job-poster__login-button {
             display: block;
         }
-    
+
         &.logged-in {
             .job-poster__apply-button {
                 display: block;
@@ -279,7 +279,7 @@
 	border-radius: 0 0 3px 3px;
 	color: $white;
 	font-size: 25px;
-	font-weight: 700;
+	font-weight: 600;
 	margin: 0 !important;
 	padding: 2rem 3rem;
 	text-align: center;
@@ -306,7 +306,7 @@
 	border-radius: 0 0 3px 3px;
 	color: $white;
 	font-size: 25px;
-	font-weight: 700;
+	font-weight: 600;
 	margin: 0 !important;
 	padding: 2rem 3rem;
 	text-align: center;
