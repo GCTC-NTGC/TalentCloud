@@ -463,13 +463,20 @@ JobApplicationAPI.submitJobApplication = function(jobPosterId) {
         
         var attestationChecked = document.getElementById("attestation");
         var attestationError = document.getElementById("attestation-error");
-        attestationError.style.display="none";
+        
+        var attestationErrorMsg = document.createTextNode("Please attest to the information you are providing."); 
+        var attestationTag = document.createElement('p');
+        
         
         if(attestationChecked.checked != true){
-            attestationError.style.display="block";
+            
+
+            attestationTag.appendChild(attestationErrorMsg);
+            attestationError.appendChild(attestationTag);  
+           
         }
         else{
-            attestationError.style.display="none";
+            //attestationError.style.display="none";
         
         //Load current job appliction to verify its ready for submission
             DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {

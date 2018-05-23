@@ -77,7 +77,7 @@
                 </div>
                 
             </div>
-            <span id="attestationError" class="label label-danger"></span>
+            <span id="attestation-error" class="label label-danger"></span>
             <div class="application-preview__button-wrapper">
                 <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
                 <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.submitJobApplication(document.getElementById('jobApplicationJobPosterId').value);">Submit</button>
