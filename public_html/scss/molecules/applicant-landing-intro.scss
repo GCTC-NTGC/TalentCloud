@@ -7,7 +7,7 @@
 ============================================================================= */
 
 .applicant-landing__intro {
-	background: lighten($palette-grey--light, 10%);
+	background: lighten($palette-grey--light, 20%);
 	padding: 4rem 0;
 	text-align: center;
 }
@@ -42,14 +42,14 @@
 
 .applicant-landing__intro-alert-copy {
 	font-size: 22px;
-	font-weight: 700;
+	//font-weight: 700;
 	line-height: 1.2;
 	margin: 0;
 }
 
 .applicant-landing__intro-tagline {
 	font-size: 16px;
-	font-weight: 700;
+	//font-weight: 700;
 	line-height: 1.5;
 	margin: 4rem 0 2rem 0;
 }

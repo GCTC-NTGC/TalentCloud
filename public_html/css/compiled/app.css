@@ -2350,22 +2350,21 @@ html {
   position: relative; }
 
 body {
-  background: white;
+  background: #fff !important;
+  color: #333 !important;
   font-size: 100% !important;
   height: 100% !important;
-  color: #333 !important;
   width: 100% !important;
-  /*max-width:1200px !important;*/
-  margin: 0px auto !important;
-  position: absolute; }
+  margin: 0px auto !important; }
 
+/* adds whitespace on Admin Portal index,
+    don't remove until we add content */
 main {
   min-height: 70%; }
 
 header {
-  /*max-width: 1200px;*/
   margin: 0px auto;
-  /*padding: 2em !important;*/ }
+  color: #fff; }
 
 footer {
   clear: left;
@@ -3933,7 +3932,6 @@ body[id*="Trident/7.0"] .box {
 /* Temporary Font Scale ===================================================== */
 [class*="heading--"] {
   font-family: HKGrotesk, sans-serif;
-  font-weight: 700;
   margin: 0; }
   [class*="heading--"][class*="01"] {
     font-size: 5rem; }
@@ -4198,9 +4196,27 @@ input[type="button"][class*="button--"] {
 ============================================================================= */
 @font-face {
   font-family: 'HKGrotesk';
+  font-weight: 400;
   src: url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.eot");
-  /* IE9 Compt fix */
   src: local("☺"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.eot?#iefix") format("embedded-opentype"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.woff2") format("woff2"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Regular.woff") format("woff"), url("/webfonts/hk-grotesk/TTF/HKGrotesk-Regular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'HKGrotesk';
+  font-weight: 200;
+  src: url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Light.eot");
+  src: local("☺"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Light.eot?#iefix") format("embedded-opentype"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Light.woff2") format("woff2"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Light.woff") format("woff"), url("/webfonts/hk-grotesk/TTF/HKGrotesk-Light.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'HKGrotesk';
+  font-weight: 500;
+  src: url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Medium.eot");
+  src: local("☺"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Medium.eot?#iefix") format("embedded-opentype"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Medium.woff2") format("woff2"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-Medium.woff") format("woff"), url("/webfonts/hk-grotesk/TTF/HKGrotesk-Medium.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'HKGrotesk';
+  font-weight: 700;
+  src: url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-SemiBold.eot");
+  src: local("☺"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-SemiBold.eot?#iefix") format("embedded-opentype"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-SemiBold.woff2") format("woff2"), url("/webfonts/hk-grotesk/Webfonts/HKGrotesk-SemiBold.woff") format("woff"), url("/webfonts/hk-grotesk/TTF/HKGrotesk-SemiBold.ttf") format("truetype"); }
 
 /* =============================================================================
 
@@ -4504,7 +4520,6 @@ input[type=button], input[type=submit], input[type=reset] {
 .form__label {
   display: block;
   font-size: 1.2rem;
-  font-weight: 700;
   line-height: 1;
   margin: 1rem 0; }
 
@@ -4598,8 +4613,7 @@ input[type=url][class*="form__input--"] {
     border-color: #2196f3; }
   .form__radio-group-input:checked + .form__radio-group-span {
     background: #2196f3;
-    color: white;
-    font-weight: 700; }
+    color: white; }
 
 .form__radio-group-span {
   background: white;
@@ -4689,6 +4703,7 @@ input[type=url][class*="form__input--"] {
 ============================================================================= */
 .page-hero {
   background-image: url("/images/backgrounds/background.jpg");
+  background-color: #333333;
   background-position: top center;
   background-size: cover;
   position: relative; }
@@ -4742,7 +4757,6 @@ input[type=url][class*="form__input--"] {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35);
   color: #333333;
   font-size: 16px;
-  font-weight: 700;
   padding: 1.5rem 2rem;
   position: fixed;
   right: 0;
@@ -4952,6 +4966,7 @@ nav {
 
 .subpage-hero__title {
   font-size: 50px;
+  font-weight: 400;
   margin: 0;
   margin: 7rem 0 9rem;
   position: relative;
@@ -5092,29 +5107,6 @@ nav {
 #overlays {
   position: relative; }
 
-.pageContent {
-  margin: 0 auto;
-  width: 100%;
-  min-height: 80vh;
-  overflow: auto; }
-  .pageContent#profileSection, .pageContent#managerProfileSection, .pageContent#createEditProfileSection {
-    overflow: visible; }
-
-.pageBanner {
-  background: rgba(0, 0, 0, 0.7);
-  min-height: 10%;
-  width: 100%;
-  overflow: auto;
-  color: #FFFFFF; }
-
-.pageBody {
-  width: 100%;
-  min-height: 80vh;
-  overflow: visible; }
-
-.formButtonWrapper {
-  float: right; }
-
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -5228,7 +5220,6 @@ nav {
 
 .update-profile-photo__draggable-area-label {
   color: #a3a3a3;
-  font-weight: 700;
   line-height: 1.2;
   position: absolute;
   top: 50%;
@@ -5241,7 +5232,6 @@ nav {
 .update-profile-photo__draggable-area-error--type {
   color: rgba(255, 0, 0, 0.8);
   display: none;
-  font-weight: 700;
   line-height: 1.2;
   position: absolute;
   top: 50%;
@@ -5558,7 +5548,6 @@ nav {
 
 .application-form__label {
   color: #2196f3;
-  font-weight: 700;
   margin: 0 0 2rem 0; }
 
 .application-form__textarea {
@@ -5573,7 +5562,6 @@ nav {
 ============================================================================= */
 .skills__group-title {
   color: #2196f3;
-  font-weight: 700;
   margin: 0 0 2rem 0; }
 
 .skills__group-copy {
@@ -5816,7 +5804,8 @@ nav {
 .applicant-evidence__section-title {
   font-size: 22px;
   margin: 0 0 2rem;
-  text-align: center; }
+  text-align: center;
+  font-weight: 400; }
   @media (min-width: 64em) {
     .applicant-evidence__section-title {
       text-align: left; } }
@@ -5855,7 +5844,6 @@ nav {
     color: #2196f3; }
   .evidence__completion-wrapper span:first-of-type {
     display: inline-block;
-    font-weight: 700;
     margin: 0 0 1rem 0; }
 
 /* Content - Optional */
@@ -5914,6 +5902,9 @@ nav {
   max-width: 20rem;
   width: 50vw; }
 
+.application-preview__profile-name {
+  font-weight: 700; }
+
 /* Application Preview Skills */
 /* Application Preview Questions */
 .application-preview__question-wrapper {
@@ -5926,7 +5917,8 @@ nav {
 
 .application-preview__question-title {
   color: #2196f3;
-  font-size: 22px;
+  font-size: 25px;
+  font-weight: 400;
   line-height: 1.2;
   margin: 0 0 2rem 0; }
 
@@ -6174,7 +6166,8 @@ nav {
 .applicant-evidence-preview__section-title {
   font-size: 22px;
   margin: 0 0 2rem;
-  text-align: center; }
+  text-align: center;
+  font-weight: 400; }
   @media (min-width: 64em) {
     .applicant-evidence-preview__section-title {
       text-align: left; } }
@@ -6248,13 +6241,11 @@ nav {
 
 .profileName {
   margin-top: .25em;
-  font-size: 3.5em;
-  font-weight: 700; }
+  font-size: 3.5em; }
 
 .managerProfileTitle {
   margin-top: .25em;
-  font-size: 2.5em;
-  font-weight: 700; }
+  font-size: 2.5em; }
 
 .profileTagLineContainer {
   background-color: #E5F8FF;
@@ -6322,7 +6313,7 @@ nav {
 
 /* New Applicant Profile ==================================================== */
 .applicant-profile {
-  background: #e2e2e2; }
+  background: #fbfbfb; }
 
 .applicant-profile__heading {
   background-color: rgba(0, 0, 0, 0.8);
@@ -6364,7 +6355,7 @@ nav {
 .applicant-profile__name {
   color: white;
   font-size: 50px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1rem 0; }
 
@@ -6425,7 +6416,6 @@ nav {
   border-bottom: 1px solid #333333;
   color: #333333;
   font-size: 35px;
-  font-weight: 700;
   margin: 0 0 4rem 0;
   padding: 0 5rem 2rem 0;
   position: relative; }
@@ -6540,7 +6530,7 @@ nav {
 
 /* New Public Manager Profile =============================================== */
 .public-manager-profile {
-  background: #e2e2e2; }
+  background: #fbfbfb; }
 
 .public-manager-profile__heading {
   background-color: rgba(0, 0, 0, 0.8);
@@ -6615,7 +6605,7 @@ nav {
   appearance: none;
   background: none;
   border: none;
-  color: #2196f3;
+  color: #0a6cbc;
   display: block;
   font-size: 16px;
   padding: 0;
@@ -6645,7 +6635,7 @@ nav {
   border-bottom: 1px solid #333333;
   color: #333333;
   font-size: 35px;
-  font-weight: 700;
+  font-weight: 400;
   margin: 0 0 4rem 0;
   padding: 0 0 2rem 0;
   position: relative; }
@@ -6653,7 +6643,7 @@ nav {
 .public-manager-profile__question-subtitle {
   color: #2196f3;
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0 0 2rem 0; }
 
 .public-manager-profile__question-answer {
@@ -6693,8 +6683,6 @@ nav {
   margin: 0 0 1rem 0; }
   .public-manager-profile__decision-answer:last-child {
     margin-bottom: 0; }
-  .public-manager-profile__decision-answer strong {
-    color: #2196f3; }
 
 /* PROFILE PIC AND UPLOAD */
 #profileSection {
@@ -6942,15 +6930,6 @@ nav {
   width: auto;
   height: auto; }
 
-.workEnvironmentAnswerWrapper {
-  margin-left: 2em; }
-
-.workEnvironmentAnswerWrapper p {
-  margin-bottom: 0.5em; }
-
-.workEnvironmentAnswer {
-  color: #2196F3; }
-
 .workEnvironmentTitle {
   font-size: 1.5em;
   display: block;
@@ -6995,7 +6974,7 @@ nav {
 
 /* New Job Poster Styles ==================================================== */
 .job-poster {
-  background: #e2e2e2; }
+  background: #fbfbfb; }
 
 .job-poster__section-wrapper {
   padding: 4rem 0; }
@@ -7096,8 +7075,7 @@ nav {
 .job-poster_subnav-label {
   color: #2196f3;
   display: block;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 25px;
   margin: 4rem 0 2rem 0; }
   .job-poster_subnav-label:first-child {
     margin-top: 0; }
@@ -7129,14 +7107,14 @@ nav {
   border-bottom: 1px solid #333333;
   color: #333333;
   font-size: 35px;
-  font-weight: 700;
+  font-weight: 400;
   margin: 0 0 4rem 0;
   padding: 0 0 2rem 0; }
 
 .job-poster__content-subtitle {
   color: #2196f3;
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0 0 2rem 0; }
   .job-poster__content-subtitle:not(:first-child) {
     margin-top: 4rem; }
@@ -7151,7 +7129,6 @@ nav {
 .job-poster__content-copy {
   color: #333333;
   font-size: 16px;
-  font-weight: 400;
   line-height: 1.5;
   margin: 0 0 2rem 0; }
   .job-poster__content-copy:last-child {
@@ -7176,7 +7153,6 @@ nav {
       margin-bottom: 0 !important; }
     .job-poster__content-list li p {
       font-size: 16px;
-      font-weight: 400;
       line-height: 1.5;
       margin: 0 !important; }
 
@@ -7190,14 +7166,12 @@ nav {
 .job-poster__basics-title {
   color: white;
   font-size: 30px;
-  font-weight: 700;
   margin: 0 0 2rem 0; }
 
 .job-poster__basics-label {
   color: #2196f3;
   display: block;
   font-size: 22px;
-  font-weight: 700;
   margin: 0 0 1rem 0; }
 
 .job-poster__basics-content {
@@ -7294,7 +7268,7 @@ nav {
 .job-poster__apply-title {
   color: white;
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 2rem 0; }
 
 .job-poster__apply-content {
@@ -7323,7 +7297,7 @@ nav {
   border-radius: 0 0 3px 3px;
   color: white;
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 !important;
   padding: 2rem 3rem;
   text-align: center;
@@ -7344,7 +7318,7 @@ nav {
   border-radius: 0 0 3px 3px;
   color: white;
   font-size: 25px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 !important;
   padding: 2rem 3rem;
   text-align: center;
@@ -7360,136 +7334,6 @@ nav {
     border: 0.5rem solid #ffe25b;
     color: white;
     transition: all .2s ease; }
-
-/* JOB SUMMARY (SHORT DESCRIPTION) STYLES */
-.jobSummary {
-  position: relative;
-  width: 100%;
-  color: #777;
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
-  display: flex;
-  justify-content: center;
-  font-family: "HKGrotesk", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700; }
-
-.jobSummary:nth-child(odd) {
-  background: #F8F8F8; }
-
-.jobSummaryTable {
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  max-width: 1200px; }
-  @media screen and (max-width: 800px) {
-    .jobSummaryTable {
-      flex-direction: column; } }
-
-.hiringManagerProfilePicSmall {
-  width: 7rem;
-  height: 7rem;
-  clip-path: circle(3.5rem at center);
-  margin-bottom: 0.5rem;
-  margin: auto;
-  display: block; }
-
-.hiringManagerLabel {
-  font-size: 1.5rem;
-  color: #333;
-  width: 100%;
-  text-align: center;
-  margin: auto;
-  display: block; }
-
-.hiringManagerWrapper {
-  width: 20rem;
-  padding-top: .25rem;
-  padding-bottom: .25rem; }
-
-.jobSummaryTitle {
-  font-size: 1.777rem;
-  font-weight: bold;
-  color: #000;
-  line-height: 2rem;
-  text-align: left; }
-  @media screen and (max-width: 800px) {
-    .jobSummaryTitle {
-      text-align: center; } }
-
-.jobSummarySalaryRange {
-  width: 20rem;
-  text-align: center;
-  padding-top: .25rem;
-  padding-bottom: .25rem; }
-  @media screen and (max-width: 800px) {
-    .jobSummarySalaryRange {
-      width: 90%; } }
-
-.jobSummaryApplicants_to_date {
-  padding-bottom: .5rem; }
-
-.jobSummaryTerm_qty {
-  width: 20rem;
-  text-align: center; }
-
-.titleDepartmentWrapper {
-  width: 20rem; }
-  @media screen and (max-width: 800px) {
-    .titleDepartmentWrapper {
-      text-align: center;
-      width: 90%;
-      padding-top: .25rem;
-      padding-bottom: .25rem; } }
-
-.applicantsCloseDateWrapper {
-  text-align: center;
-  width: 20rem;
-  padding-top: .25rem;
-  padding-bottom: 1rem; }
-  @media screen and (max-width: 800px) {
-    .applicantsCloseDateWrapper {
-      width: 90%; } }
-
-.viewJobButton {
-  color: #fff !important;
-  background-color: #2196F3 !important;
-  font-weight: normal;
-  border: none;
-  padding: 8px 16px;
-  vertical-align: middle;
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  display: block;
-  margin-right: 2rem;
-  margin-left: 2rem;
-  width: 15rem;
-  padding-top: .5rem;
-  padding-bottom: .5rem; }
-
-/* TODO: deal with empty browseJobs page better */
-#browseJobsSection {
-  min-height: 90vh; }
-
-#noJobs {
-  color: #999;
-  text-align: center;
-  font-size: 1.5rem; }
-
-.jobCount {
-  position: absolute;
-  right: 1rem;
-  top: 1rem; }
-
-.jobList {
-  margin: 0px auto;
-  overflow: auto; }
-
-/* BROWSE JOBS */
-#loadingJobs {
-  padding: 3rem; }
 
 /* CREATE JOB APPLICATION */
 #createJobApplicationProfilePic {
@@ -7881,21 +7725,19 @@ nav {
 
 ============================================================================= */
 .faq {
-  background: #e2e2e2;
+  background: #fbfbfb;
   padding: 4rem 0; }
 
 .faq__category-title {
   border-bottom: 1px solid #333333;
   color: #333333;
   font-size: 35px;
-  font-weight: 700;
   margin: 0 0 4rem 0;
   padding: 0 0 2rem 0; }
 
 .faq__section-title {
   color: #2196f3;
   font-size: 22px;
-  font-weight: 700;
   margin: .5rem 0 2rem 0; }
 
 /* =============================================================================
@@ -8038,7 +7880,7 @@ nav {
 
 ============================================================================= */
 .applicant-landing__intro {
-  background: #e2e2e2;
+  background: #fbfbfb;
   padding: 4rem 0;
   text-align: center; }
 
@@ -8067,13 +7909,11 @@ nav {
 
 .applicant-landing__intro-alert-copy {
   font-size: 22px;
-  font-weight: 700;
   line-height: 1.2;
   margin: 0; }
 
 .applicant-landing__intro-tagline {
   font-size: 16px;
-  font-weight: 700;
   line-height: 1.5;
   margin: 4rem 0 2rem 0; }
 
@@ -8097,6 +7937,7 @@ nav {
 
 .applicant-landing__how-it-works-title {
   font-size: 35px;
+  font-weight: 400;
   margin: 0 0 6rem;
   position: relative;
   text-align: center; }
@@ -8191,13 +8032,14 @@ nav {
 
 ============================================================================= */
 .applicant-landing__video {
-  background: #e2e2e2;
+  background: #fbfbfb;
   padding: 4rem 0;
   text-align: center; }
 
 .applicant-landing__video-title {
   color: #333333;
   font-size: 35px;
+  font-weight: 400;
   margin: 0 0 6rem;
   position: relative;
   text-align: center; }
@@ -8213,7 +8055,14 @@ nav {
     width: 15rem; }
 
 .applicant-landing__video-wrapper {
-  margin: 0 0 4rem; }
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 4rem;
+  /* add border to differentiate controls from page background */
+  border: 0.2rem solid thin #494949; }
+  .applicant-landing__video-wrapper video {
+    /* looks weird without a corder on both elements */
+    border: 0.2rem solid thin #494949; }
 
 .applicant-landing__video-transcript-trigger-wrapper button.active #transcriptView {
   display: none; }
@@ -8234,7 +8083,6 @@ nav {
     display: block; }
   .applicant-landing__video-transcript-wrapper h3 {
     font-size: 22px;
-    font-weight: 700;
     margin: 0 0 2rem 0; }
   .applicant-landing__video-transcript-wrapper p {
     color: #333333;
@@ -8254,6 +8102,7 @@ nav {
 ============================================================================= */
 .applicant-landing__our-team {
   background-image: url("/images/backgrounds/background.jpg");
+  background-color: #333333;
   background-position: center;
   background-size: cover;
   padding: 6rem;
@@ -8278,6 +8127,7 @@ nav {
 .applicant-landing__our-team-title {
   color: white;
   font-size: 35px;
+  font-weight: 400;
   margin: 0 0 6rem;
   position: relative;
   text-align: center; }
@@ -8307,7 +8157,7 @@ nav {
 
 ============================================================================= */
 .browse-jobs {
-  background: #e2e2e2; }
+  background: #fbfbfb; }
 
 .browse-jobs__filter-wrapper {
   background-color: rgba(0, 0, 0, 0.8);
@@ -8427,11 +8277,10 @@ nav {
 
 .job-card__view-button {
   appearance: none;
-  background: #2196f3;
+  background: #0a6cbc;
   border: none;
   color: white;
   font-size: 16px;
-  font-weight: 700;
   line-height: 1;
   padding: 2rem;
   text-decoration: none;
