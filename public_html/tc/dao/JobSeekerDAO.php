@@ -36,7 +36,8 @@ class JobSeekerDAO extends BaseDAO {
                 jsp.job_seeker_profile_tagline,
                 jsp.job_seeker_profile_twitter_link,
                 jsp.job_seeker_profile_linkedin_link,
-                jsp.last_updated as last_updated
+                jsp.last_updated as last_updated,
+                u.user_id
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE ujsp.user_id = u.user_id
             AND jsp.job_seeker_profile_id = ujsp.job_seeker_profile_id
@@ -74,7 +75,8 @@ class JobSeekerDAO extends BaseDAO {
                 jsp.job_seeker_profile_tagline,
                 jsp.job_seeker_profile_twitter_link,
                 jsp.job_seeker_profile_linkedin_link,
-                jsp.last_updated as last_updated
+                jsp.last_updated as last_updated,
+                u.user_id
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE u.user_id = :user_id
             AND ujsp.user_id = u.user_id
@@ -232,7 +234,8 @@ class JobSeekerDAO extends BaseDAO {
                     jsp.job_seeker_profile_tagline,
                     jsp.job_seeker_profile_twitter_link,
                     jsp.job_seeker_profile_linkedin_link,
-                    jsp.last_updated
+                    jsp.last_updated,
+                    u.user_id
             FROM job_seeker_profile jsp, user u, user_job_seeker_profiles ujsp
             WHERE ujsp.user_id = u.user_id
             AND jsp.job_seeker_profile_id = ujsp.job_seeker_profile_id
@@ -265,5 +268,3 @@ class JobSeekerDAO extends BaseDAO {
         return $rows;
     }
 }
-
-?>

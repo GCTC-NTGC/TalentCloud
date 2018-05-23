@@ -25,7 +25,8 @@ JobSeekerAPI.JobSeeker = function (
         twitter_username,
         linkedin_username,
         answers,
-        last_updated) {
+        last_updated,
+        user_id) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -35,6 +36,7 @@ JobSeekerAPI.JobSeeker = function (
     this.linkedin_username = linkedin_username;
     this.answers = answers;
     this.last_updated = last_updated;
+    this.user_id = user_id;
 };
 
 JobSeekerAPI.localizeJobSeekerProfile = function () {
@@ -76,6 +78,7 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
         jobSeekerObj.twitter_username = jobSeekerJSON.job_seeker_profile_twitter_link;
         jobSeekerObj.linkedin_username = jobSeekerJSON.job_seeker_profile_linkedin_link;
         jobSeekerObj.last_updated = jobSeekerJSON.last_updated;
+        jobSeekerObj.user_id = jobSeekerJSON.user_id;
 
         var answers = [];
         for (var i=0; i<jobSeekerJSON.job_seeker_profile_answers.length; i++) {
