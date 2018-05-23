@@ -4718,7 +4718,8 @@ input[type=url][class*="form__input--"] {
     width: 100%; }
 
 .page-hero__navigation {
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  background-color: #333333;
   position: relative;
   z-index: 15; }
   .page-hero__navigation > .flex-grid {
@@ -4750,6 +4751,10 @@ input[type=url][class*="form__input--"] {
       bottom: 0;
       transform: translate(-50%, 0);
       width: 100%; }
+
+.page-hero__navigation h2 {
+  background-color: #333333;
+  color: white; }
 
 .page-hero__mobile-trigger {
   background: #ffe25b;
@@ -7737,7 +7742,7 @@ nav {
 
 .faq__section-title {
   color: #2196f3;
-  font-size: 22px;
+  font-size: 25px;
   margin: .5rem 0 2rem 0; }
 
 /* =============================================================================
@@ -7755,7 +7760,7 @@ nav {
 .faq_subnav-label {
   color: #2196f3;
   display: block;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 700;
   margin: 4rem 0 2rem 0; }
   .faq_subnav-label:first-child {
