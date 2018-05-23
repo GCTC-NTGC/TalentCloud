@@ -64,6 +64,8 @@
 
                             <section id="createJobPosterDetailsSection" class="flex-grid manager-poster__edit-form-grid">
 
+                                <?php /*
+                                 
                                 <div class="box full">
                                     <label class="form__label" for="createJobPoster_noc">
                                         <span id="createJobPoster_noc_labelName"><span>NOC</span>: *</span>
@@ -73,6 +75,8 @@
                                     </label>
                                     <input class="form__input--text" type="text" name="createJobPoster_noc" id="createJobPoster_noc"/>
                                 </div>
+                                 * 
+                                 */ ?>
                                 
                                 <div class="box full">
                                     <label class="form__label" for="createJobPoster_classification">
