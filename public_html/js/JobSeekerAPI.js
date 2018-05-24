@@ -369,10 +369,10 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
     ga('send', 'pageview');
 };
 
-JobSeekerAPI.showJobSeekerProfile = function (jobSeekerProfile) {
-    var stateInfo = {pageInfo: 'job_seeker_profile', pageTitle: 'Talent Cloud: Job Seeker Profile'};
+JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, applicationId) {
+    var stateInfo = {pageInfo: 'view_application_profile', pageTitle: 'Talent Cloud: Applicant Profile'};
     document.title = stateInfo.pageTitle;
-    history.pushState(stateInfo, stateInfo.pageInfo, '#JobSeekerProfile/' + jobSeekerProfile.id);
+    history.pushState(stateInfo, stateInfo.pageInfo, '#ViewApplicationProfile/' + applicationId);
 
     TalentCloudAPI.hideAllContent();
     //TalentCloudAPI.hideLogo();

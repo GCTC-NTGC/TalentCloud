@@ -23,16 +23,29 @@ TalentCloudAPI.pages = {
                     TalentCloudAPI.setNav("navigationHomeLinkWrapper");
                 }
             },
-            adminApplicationPreview: {
-                url: "/admin/JOBID/applications/APPID",
+            AdminDashboard: {
+                url: "#AdminDashboard",
                 state: function() {
-
+                    AccessibilityAPI.focusElement("skipNav");
+                    AdminDashboardAPI.showDashboard();
+                    TalentCloudAPI.setNav("navigationAdminDashboardLink");
+                    
                 }
             },
-            adminApplicantProfile: {
-                url: "/admin/applicants/USERID",
-                state: function() {
-                    
+            ViewApplication: {
+                url: "#ViewApplication",
+                state: function(data) {
+                    AccessibilityAPI.focusElement("skipNav");
+                    JobApplicationPreviewAPI.showJobApplicationPreviewById(data);
+                    TalentCloudAPI.setNav("navigationAdminDashboardLink");
+                }
+            },
+            ViewApplicationProfile: {
+                url: "#ViewApplicationProfile",
+                state: function(data) {                    
+                    AccessibilityAPI.focusElement("skipNav");
+                    AdminDashboardAPI.showProfileForApplication(data);
+                    TalentCloudAPI.setNav("navigationAdminDashboardLink");
                 }
             },
             BrowseJobs: {

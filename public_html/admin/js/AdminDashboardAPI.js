@@ -112,14 +112,18 @@ AdminDashboardAPI.createDashboardApplicationElement = function(jobApplication) {
 
 AdminDashboardAPI.followProfileLink = function() {
     var applicationId = this.getAttribute("data-application-id");
+    AdminDashboardAPI.showProfileForApplication(applicationId);
+};
+
+AdminDashboardAPI.showProfileForApplication = function(applicationId) {
     DataAPI.getFullJobApplication(applicationId, function(request) {
         if (request.status === 200) {
             var fullJobApplication = JSON.parse(request.response);
             var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(fullJobApplication.job_seeker_profile);
-            JobSeekerAPI.showJobSeekerProfile(jobSeekerProfile);
+            JobSeekerAPI.showJobSeekerProfileForApplication(jobSeekerProfile, applicationId);
         }
     })
-};
+}
 
 AdminDashboardAPI.followApplicationPreviewLink = function() {
     var applicationId = this.getAttribute("data-application-id");
