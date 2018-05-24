@@ -38,9 +38,9 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         window.alert("You must log in before submitting a job application.");
         return;
     }
-    
+
     document.getElementById("jobApplicationJobPosterId").value = jobPosterId
-    
+
     var stateInfo = {pageInfo: 'job_application', pageTitle: 'Talent Cloud: Job Application'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#JobApplication/' + jobPosterId);
@@ -50,7 +50,7 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
 
     var createJobApplicationSection = document.getElementById('createJobApplicationSection');
     createJobApplicationSection.classList.remove('hidden');
-    
+
     JobApplicationAPI.showApplicationSection("my-information", jobPosterId);
 
     var locale = TalentCloudAPI.getLanguageFromCookie();
@@ -113,15 +113,15 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
     document.getElementById('jobApplicationPostition').innerHTML = jobPoster.title;
     JobApplicationAPI.populateApplicationWithQuestionContent(jobPoster.questions);
 
-    //Create Evidence Panels 
+    //Create Evidence Panels
     JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.core_competencies, "essential", "applicationEssentialEvidenceMenu", "applicationEssentialEvidenceFormWrapper");
-    
+
     //TODO: create applicationAssetEvidence wrapper divs
     JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.developing_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
-    
+
     Utilities.setEvidenceUiEventListeners();
-    
-    //TODO: call Utilities function to set up triggers    
+
+    //TODO: call Utilities function to set up triggers
 };
 
 JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, evidenceMenuId, evidenceFormWrapperId) {
@@ -131,9 +131,9 @@ JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, 
     evidenceFormWrapper.innerHTML = "";
     var menuFragment = document.createDocumentFragment();
     var panelsFragment = document.createDocumentFragment();
-    
+
     var firstCriteriaId = false;
-    
+
     for (var i = 0; i < criteria.length; i++) {
         var criterion = criteria[i];
         var criteriaId = criterion.id;
@@ -143,21 +143,21 @@ JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, 
         } else {
             var criteriaDescription = criterion.description = "";
         }
-        
+
         //Save first criteria for later
         if (i === 0) {
             firstCriteriaId = criteriaId;
         }
-        
+
         var menuItem = EvidenceAPI.instantiateApplicationEvidenceMenuItem(criteriaId, criteriaType, criteriaName)
         var panelItem = EvidenceAPI.instantiateApplicationEvidencePanel(criteriaId, criteriaType, criteriaName, criteriaDescription);
-        
+
         menuFragment.appendChild(menuItem);
         panelsFragment.appendChild(panelItem);
     }
     evidenceMenu.appendChild(menuFragment);
     evidenceFormWrapper.appendChild(panelsFragment);
-    
+
     EvidenceAPI.activateFirstEvidencePanel(criteriaType);
 };
 
@@ -173,11 +173,11 @@ JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (job
 
 JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (jobApplicationRequestResponse, jobPosterId) {
     if (jobApplicationRequestResponse.status === 200) {
-        
+
         var jobApplication = JSON.parse(jobApplicationRequestResponse.response);
-        
+
         var jobPosterApplication = jobApplication.job_poster_application;
-               
+
         //Store metadata
         document.getElementById("jobApplicationJobApplicationId").value = jobPosterApplication.job_poster_application_id;
         document.getElementById("jobApplicationJobPosterId").value = jobPosterApplication.application_job_poster_id;
@@ -258,6 +258,7 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion, q
 
     var question = document.createElement('label');
     question.setAttribute('class', 'jobApplicationQuestion application-form__label heading--03');
+    question.setAttribute("for", "jobApplicationAnswerField_number_" + questionNumber);
     var questionTextNode = document.createTextNode(jobPosterQuestion.question);
     question.appendChild(questionTextNode);
 
@@ -385,7 +386,7 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var applicationHeroTitle = document.getElementById("applicationHeroTitle");
     applicationHeroTitle.classList.remove("hidden");
     applicationHeroTitle.setAttribute("aria-hidden", "false");
-    
+
 };
 
 JobApplicationAPI.showPreviousApplicationSection = function(jobPosterId) {
@@ -460,11 +461,11 @@ JobApplicationAPI.showApplicationSection = function(applicationSection, jobPoste
 JobApplicationAPI.submitJobApplication = function(jobPosterId) {
     if (jobPosterId && jobPosterId.length > 0 && UserAPI.hasSessionUser()) {
         var userId = UserAPI.getSessionUserAsJSON().user_id;
-        
+
         //Verify attestation is checked before submitting
         var attestationChecked = document.getElementById("applicationAttestation");
         var attestationError = document.getElementById("applicationAttestationError");
-        
+
         //Submit only if attestation checked
         if(attestationChecked.checked !== true) {
             //Show message and don't submit if attestation not checked
@@ -473,7 +474,7 @@ JobApplicationAPI.submitJobApplication = function(jobPosterId) {
         else{
             //Hide old attestation error message
             attestationError.classList.add("hidden");
-        
+
             //Load current job appliction to verify its ready for submission
             DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {
                 if (request.status === 200) {
@@ -488,17 +489,15 @@ JobApplicationAPI.submitJobApplication = function(jobPosterId) {
                                 var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
                                 JobApplicationAPI.showCreateJobConfirmation(jobTitle);
                             } else {
-                                //TODO: post message 
+                                //TODO: post message
                                 window.alert(request.response);
                             }
-                        });         
+                        });
                     } else {
                         window.alert("You cannot edit an application that has already been saved.")
-                    }                       
+                    }
                 }
             });
         }
     }
 };
-
-

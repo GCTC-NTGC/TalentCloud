@@ -15,7 +15,7 @@
                 <div id="applicationPreviewAssetEvidenceMenuWrapper"></div>
 
                 <div class="hidden" id="applicationPrevierwEvidenceMenuItemTemplate">
-                    <button role="tab" aria-selected="true" class="applicant-evidence-preview__desktop-menu-item template" data-evidence-trigger="">
+                    <button id="applicationPrevierwEvidenceMenuItemTab" role="tab" aria-selected="true" class="applicant-evidence-preview__desktop-menu-item template" data-evidence-trigger="">
                         Evidence menu item
                     </button>
                 </div>
@@ -28,9 +28,9 @@
 
             <?php //The following Preview Evidence Panel template can be cloned and used to populate the applicant-evidence-preview__form-wrapper ?>
             <div id="applicationPreviewEvidencePanelTemplate" class="hidden">
-                <div role="tabpanel" class="applicant-evidence-preview__accordion-wrapper template" data-evidence-target="skill01" aria-labelledby="">
+                <div role="tabpanel" class="applicant-evidence-preview__accordion-wrapper template" data-evidence-target="skill01" aria-labelledby="applicationPrevierwEvidenceMenuItemTab">
 
-                    <div class="applicant-evidence-preview__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
+                    <div class="applicant-evidence-preview__accordion-trigger active" type="button" aria-expanded="true">
                         <span class="applicant-evidence-preview__accordion-trigger-title">
                             <span class="applicant-evidence-preview__criteria-name"></span> -
                             <span class="applicant-evidence-preview__expertise"></span> -

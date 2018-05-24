@@ -82,12 +82,12 @@
 <div class="hidden" id="applicantEvidencePanelTemplate">
     <?php // DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). We're also going to want to set the "aria-labelledby" value to the ID assigned to the tab item in the menu above. ?>
 
-    <div role="tabpanel" class="applicant-evidence__accordion-wrapper active template" data-evidence-target="" aria-labelledby="" data-criteria-type="" data-criteria-id="">
+    <div role="tabpanel" class="applicant-evidence__accordion-wrapper active template" data-evidence-target="" aria-labelledby="applicantEvidenceAccordionText" data-criteria-type="" data-criteria-id="">
 
         <?php // DEV-NOTE: Note that these triggers have ARIA-Expanded true/false as necessary. ?>
         <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
             <span class="applicant-evidence__accordion-trigger-title">
-                <span class="applicant-evidence__accordion-trigger-title-text"></span>
+                <span class="applicant-evidence__accordion-trigger-title-text" id="applicantEvidenceAccordionText"></span>
                 <?php // DEV-NOTE: These icons can receive an "active" class to toggle their state in the UI. This should match the icons in the associated tab menu item. ?>
                 <div class="applicant-evidence__accordion-trigger-icon-wrapper">
                     <?php // <i class="fa fa-clipboard active"></i> ?>
@@ -105,8 +105,8 @@
                 <?php /* <p class="applicant-evidence__skill-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper sodales sem, sit amet rutrum arcu facilisis sed. Mauris consectetur id odio a congue. Ut faucibus tincidunt nulla fermentum sagittis. Vivamus posuere odio non sem maximus, in tristique lacus posuere.</p> */ ?>
 
                 <?php /* <p class="applicant-evidence__assessment-warning">
-                    <i class="fa fa-clipboard"></i>
-                    This criteria will be assessed during the interview process.
+                <i class="fa fa-clipboard"></i>
+                This criteria will be assessed during the interview process.
                 </p> */ ?>
 
                 <?php /* <hr class="applicant-evidence__content-divider"> */ ?>
@@ -122,9 +122,9 @@
 
                     <?php // DEV-NOTE: You'll notice I've purposefully omitted including "for" and "id" attributes on form elements. This is because we'll need to add them in dynamically for each skill anyway to ensure no repetition. ?>
 
-                    <div class="applicant-evidence__expertise-radiogroup box full" role="radiogroup" aria-labelledby="">
+                    <div class="applicant-evidence__expertise-radiogroup box full" role="radiogroup" aria-labelledby="applicationEvidenceExpertiseItemLabel" aria-orientation="horizontal">
 
-                        <label for="" class="applicant-evidence__expertise-radiogroup-title form__label" id="">My Level of Expertise:</label>
+                        <label id="applicationEvidenceExpertiseItemLabel" for="" class="applicant-evidence__expertise-radiogroup-title form__label" id="">My Level of Expertise:</label>
 
                         <?php // DEV-NOTE: This is the new structure for what were originally called "sliders". You'll notice that I've included the "for" and "id" attributes here due to the radio inputs not working without them. These will still need to be assigned dynamically. ?>
                         <div class="applicant-evidence__expertise-wrapper flex-grid">
@@ -141,9 +141,9 @@
                         </div>
                     </div>
 
-                    <div class="applicant-evidence__experience-radiogroup box full" role="radiogroup" aria-labelledby="">
+                    <div class="applicant-evidence__experience-radiogroup box full" role="radiogroup" aria-labelledby="applicationEvidenceExperienceItemLabel" aria-orientation="horizontal">
 
-                        <label for="" class="applicant-evidence__experience-radiogroup-title form__label">My Years of Experience:</label>
+                        <label id="applicationEvidenceExperienceItemLabel" for="" class="applicant-evidence__experience-radiogroup-title form__label">My Years of Experience:</label>
 
                         <div class="applicant-evidence__experience-wrapper flex-grid">
 
@@ -160,8 +160,9 @@
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceExperienceStory" class="form__label">My Experience and Knowledge:</label>
-                        <textarea id="applicationEvidenceExperienceStory" class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>
+                        <label for="" class="form__label">My Experience and Knowledge:
+                            <textarea class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>
+                        </label>
                     </div>
 
                 </form>
@@ -191,45 +192,52 @@
                 <form class="form__wrapper flex-grid">
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceReferenceName" class="form__label">Reference's Name:</label>
-                        <input name="reference_name" type="text" class="form__input--text" id="applicationEvidenceReferenceName"/>
+                        <label for="" class="form__label">Reference's Name:
+                            <input name="reference_name" type="text" class="form__input--text" id="applicationEvidenceReferenceName"/>
+                        </label>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceReferenceEmail" class="form__label">Reference's Email:</label>
-                        <input name="reference_email" type="email" class="form__input--email" id="applicationEvidenceReferenceEmail" />
+                        <label for="" class="form__label">Reference's Email:
+                            <input name="reference_email" type="email" class="form__input--email" id="applicationEvidenceReferenceEmail" />
+                        </label>
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceReferenceRelationship" class="form__label">Your Relationship to this Reference:</label>
-                        <div class="form__select-wrapper">
-                            <select name="reference_relationship" class="form__select" id="applicationEvidenceReferenceRelationship">
-                                <option>Option 01</option>
-                            </select>
-                        </div>
+                        <label for="" class="form__label">Your Relationship to this Reference:
+                            <div class="form__select-wrapper">
+                                <select name="reference_relationship" class="form__select" id="applicationEvidenceReferenceRelationship">
+                                    <option>Option 01</option>
+                                </select>
+                            </div>
+                        </label>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceReferenceFrom" class="form__label">Observed From:</label>
-                        <input type="date" name="reference_from_date" class="form__input--date" id="applicationEvidenceReferenceFrom"/>
+                        <label for="" class="form__label">Observed From:
+                            <input type="date" name="reference_from_date" class="form__input--date" id="applicationEvidenceReferenceFrom"/>
+                        </label>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceReferenceUntil" class="form__label">Observed To:</label>
-                        <input type="date" name="reference_until_date" class="form__input--date" id="applicationEvidenceReferenceUntil" />
+                        <label for="" class="form__label">Observed To:
+                            <input type="date" name="reference_until_date" class="form__input--date" id="applicationEvidenceReferenceUntil" />
+                        </label>
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceReferenceExpLevel" class="form__label">Your Experience Level at the Time:</label>
-                        <div class="form__select-wrapper">
-                            <select name="reference_exp_level" class="form__select" id="applicationEvidenceReferenceExpLevel">
-                            </select>
-                        </div>
+                        <label for="" class="form__label">Your Experience Level at the Time:
+                            <div class="form__select-wrapper">
+                                <select name="reference_exp_level" class="form__select" id="applicationEvidenceReferenceExpLevel">
+                                </select>
+                            </div>
+                        </label>
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceReferenceStory" class="form__label">Tell Us What You Did:</label>
-                        <textarea name="reference_story" class="form__textarea" id="applicationEvidenceReferenceStory" placeholder="Provide a sentence or two about the role you played and what you're asking this micro-reference to validate."></textarea>
+                        <label for="" class="form__label">Tell Us What You Did:
+                            <textarea name="reference_story" class="form__textarea" id="applicationEvidenceReferenceStory" placeholder="Provide a sentence or two about the role you played and what you're asking this micro-reference to validate."></textarea>
+                        </label>
                     </div>
 
                 </form>
@@ -248,31 +256,36 @@
                 <form class="form__wrapper flex-grid">
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceSampleName" class="form__label">Project/Document Name:</label>
-                        <input name="sample_name" type="text" class="form__input--text" id="applicationEvidenceSampleName" />
+                        <label for="" class="form__label">Project/Document Name:
+                            <input id="applicationEvidenceSampleName" name="sample_name" type="text" class="form__input--text" />
+                        </label>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="applicationEvidenceSampleType" class="form__label">Type of File:</label>
-                        <div class="form__select-wrapper">
-                            <select name="sample_type" class="form__select" id="applicationEvidenceSampleType">
-                            </select>
-                        </div>
+                        <label for="" class="form__label">Type of File:
+                            <div class="form__select-wrapper">
+                                <select id="applicationEvidenceSampleType" name="sample_type" class="form__select">
+                                </select>
+                            </div>
+                        </label>
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceSampleDateCreated" class="form__label">Date Created:</label>
-                        <input name="sample_date_created" type="date" class="form__input--date" id="applicationEvidenceSampleDateCreated" />
+                        <label for="" class="form__label">Date Created:
+                            <input id="applicationEvidenceSampleDateCreated" name="sample_date_created" type="date" class="form__input--date" />
+                        </label>
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceSampleHttpLink" class="form__label">Link to Evidence:</label>
-                        <input name="sample_http_link" type="url" class="form__input--url" id="applicationEvidenceSampleHttpLink" />
+                        <label for="" class="form__label">Link to Evidence:
+                            <input id="applicationEvidenceSampleHttpLink" name="sample_http_link" type="url" class="form__input--url" />
+                        </label>
                     </div>
 
                     <div class="box full">
-                        <label for="applicationEvidenceSampleStory" class="form__label">Story:</label>
-                        <textarea name="sample_story" class="form__textarea applicant-evidence__last-target" placeholder="Tell us about this piece of evidence and your role in creating it." id="applicationEvidenceSampleStory"></textarea>
+                        <label for="" class="form__label">Story:
+                            <textarea id="applicationEvidenceSampleStory" name="sample_story" class="form__textarea applicant-evidence__last-target" placeholder="Tell us about this piece of evidence and your role in creating it."></textarea>
+                        </label>
                     </div>
 
                 </form>
