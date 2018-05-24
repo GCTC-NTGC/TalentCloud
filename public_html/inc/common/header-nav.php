@@ -195,7 +195,7 @@
 
                     <h2 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h2>
 
-                    <h2 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true">My Job Application</h2>
+                    <h2 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true" aria-flowto="applicationHeroTitleCont">My Job Application</h2>
 
                     <h2 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h2>
 
@@ -215,9 +215,10 @@
             <div class="box full">
 
                 <div class="block-container">
-
-                    <p class="subpage-hero__application-label" id="jobApplicationPositionLabel">for the position of:</p>
-                    <h3 class="subpage-hero__application-job" id="jobApplicationPostition">Job title</h3>
+                    <div class="subpage-hero__application-subtitle" id="applicationHeroTitleCont" role="heading" aria-level="2">
+                        <span class="subpage-hero__application-label" id="jobApplicationPositionLabel">for the position of:</span><br>
+                        <span class="subpage-hero__application-job" id="jobApplicationPostition">Job title</span>
+                    </div>
                     <input type='hidden' id='jobApplicationJobApplicationId' />
                     <input type='hidden' id='jobApplicationJobPosterId' />
                     <input type='hidden' id='jobApplicationJobSeekerId' />
