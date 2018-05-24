@@ -141,4 +141,17 @@ input[type="button"][class*="button--"] {
         border: 2px solid $palette-yellow--dark !important;
     }
 
+    &:disabled {
+        background: $palette-grey--light !important;
+        border-color: $palette-grey--light !important;
+        color: $palette-grey--dark !important;
+
+        &:hover {
+            background: $palette-grey--light !important;
+            border-color: $palette-grey--light !important;
+            color: $palette-grey--dark !important;
+        }
+
+    }
+
 }

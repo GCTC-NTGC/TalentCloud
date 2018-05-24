@@ -4091,6 +4091,16 @@ input[type="button"][class*="button--"] {
     color: white !important;
     background: #484848 !important;
     border: 2px solid #ffd200 !important; }
+  [class*="button--"]:disabled,
+  input[type="button"][class*="button--"]:disabled {
+    background: #c8c8c8 !important;
+    border-color: #c8c8c8 !important;
+    color: #484848 !important; }
+    [class*="button--"]:disabled:hover,
+    input[type="button"][class*="button--"]:disabled:hover {
+      background: #c8c8c8 !important;
+      border-color: #c8c8c8 !important;
+      color: #484848 !important; }
 
 /* =============================================================================
 
@@ -5959,6 +5969,8 @@ nav {
   padding: 2rem; }
   .application-preview__alert > .box:first-child {
     text-align: center; }
+  .application-preview__alert.attestation {
+    margin-top: 2rem; }
 
 .application-preview__alert-icon {
   color: #125184;
@@ -5972,6 +5984,18 @@ nav {
   @media (min-width: 64em) {
     .application-preview__alert-copy {
       padding: 0 0 0 1rem; } }
+
+.application-preview__completion-warning {
+  background: #ffa2a2;
+  border-radius: 3px;
+  color: red;
+  display: none;
+  font-size: 16px;
+  margin: 2rem 0 0 0;
+  padding: 2rem;
+  text-align: center; }
+  .application-preview__completion-warning.active {
+    display: block; }
 
 /* Application Preview Button */
 .application-preview__button-wrapper {
