@@ -68,7 +68,7 @@
 
 <?php // DEV-NOTE: The "active" class can be applied to the button itself to indicate the currently selected tab. the first tab should always be open on page load by default. The icons grouped within the buttons can also receive an "active" class to indicate their status in the UI. ?>
 <div class="hidden" id="applicantEvidenceMenuItemTemplate">
-    <button role="tab" aria-selected="true" class="applicant-evidence__desktop-menu-item active template" data-evidence-trigger="" data-criteria-type="" data-criteria-id="">
+    <button id="applicantEvidenceMenuItemTab" role="tab" aria-selected="true" aria-controls="applicantEvidenceMenuItemPanel" class="applicant-evidence__desktop-menu-item active template" data-evidence-trigger="" data-criteria-type="" data-criteria-id="">
         <span class="applicant-evidence__desktop-item-title">Menu item title</span>
         <div class="applicant-evidence__desktop-icon-wrapper">
             <!-- <i class="fa fa-clipboard"></i> -->
@@ -82,12 +82,12 @@
 <div class="hidden" id="applicantEvidencePanelTemplate">
     <?php // DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). We're also going to want to set the "aria-labelledby" value to the ID assigned to the tab item in the menu above. ?>
 
-    <div role="tabpanel" class="applicant-evidence__accordion-wrapper active template" data-evidence-target="" aria-labelledby="applicantEvidenceAccordionText" data-criteria-type="" data-criteria-id="">
+    <div id="applicantEvidenceMenuItemPanel" role="tabpanel" aria-labelledby="applicantEvidenceMenuItemTab" class="applicant-evidence__accordion-wrapper active template" data-evidence-target="" data-criteria-type="" data-criteria-id="">
 
         <?php // DEV-NOTE: Note that these triggers have ARIA-Expanded true/false as necessary. ?>
-        <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
+        <div class="applicant-evidence__accordion-trigger active" type="button" aria-expanded="true">
             <span class="applicant-evidence__accordion-trigger-title">
-                <span class="applicant-evidence__accordion-trigger-title-text" id="applicantEvidenceAccordionText"></span>
+                <span class="applicant-evidence__accordion-trigger-title-text"></span>
                 <?php // DEV-NOTE: These icons can receive an "active" class to toggle their state in the UI. This should match the icons in the associated tab menu item. ?>
                 <div class="applicant-evidence__accordion-trigger-icon-wrapper">
                     <?php // <i class="fa fa-clipboard active"></i> ?>
