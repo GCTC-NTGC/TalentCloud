@@ -181,7 +181,7 @@ input[type=url][class*="form__input--"] {
     left: -1000vh;
 
     &:focus + .form__radio-group-span {
-        border-color: $palette-blue--light;
+        border-color: $palette-blue;
     }
 
     &:checked + .form__radio-group-span{

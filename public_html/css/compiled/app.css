@@ -4630,7 +4630,7 @@ input[type=url][class*="form__input--"] {
   position: absolute;
   left: -1000vh; }
   .form__radio-group-input:focus + .form__radio-group-span {
-    border-color: #cce5ff; }
+    border-color: #2196f3; }
   .form__radio-group-input:checked + .form__radio-group-span {
     background: #0a6cbc;
     color: white; }
@@ -5893,6 +5893,9 @@ nav {
   height: 1px;
   margin: 3rem 0;
   width: 100%; }
+
+.applicant-evidence__accordion-trigger-title-text {
+  margin: 0; }
 
 /* =============================================================================
 
