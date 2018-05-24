@@ -408,7 +408,7 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     // Google Analytics
 
     //TODO: ensure GA calls are correct
-    ga('set', 'page', '/profile/');
+    ga('set', 'page', '/profile-for-application/' + applicationId);
     ga('send', 'pageview');
 };
 
