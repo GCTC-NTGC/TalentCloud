@@ -15,24 +15,25 @@
                 <div id="applicationPreviewAssetEvidenceMenuWrapper"></div>
 
                 <div class="hidden" id="applicationPrevierwEvidenceMenuItemTemplate">
-                    <button role="tab" aria-selected="true" class="applicant-evidence-preview__desktop-menu-item template" data-evidence-trigger="">
+                    <button id="applicationPrevierwEvidenceMenuItemTab" role="tab" aria-selected="true" class="applicant-evidence-preview__desktop-menu-item template" data-evidence-trigger="">
+                        Evidence menu item
                     </button>
                 </div>
 
             </div>
 
-            <div id="applicationPreviewEvidencePanelWrapper" class="box lg-3of4 applicant-evidence-preview__form-wrapper">   
+            <div id="applicationPreviewEvidencePanelWrapper" class="box lg-3of4 applicant-evidence-preview__form-wrapper">
                 <?php //This wrapper will be populated with Preview Evidence panels at runtime ?>
             </div>
 
             <?php //The following Preview Evidence Panel template can be cloned and used to populate the applicant-evidence-preview__form-wrapper ?>
             <div id="applicationPreviewEvidencePanelTemplate" class="hidden">
-                <div role="tabpanel" class="applicant-evidence-preview__accordion-wrapper template" data-evidence-target="skill01" aria-labelledby="">
+                <div role="tabpanel" class="applicant-evidence-preview__accordion-wrapper template" data-evidence-target="skill01" aria-labelledby="applicationPrevierwEvidenceMenuItemTab">
 
-                    <div class="applicant-evidence-preview__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
+                    <div class="applicant-evidence-preview__accordion-trigger active" type="button" aria-expanded="true">
                         <span class="applicant-evidence-preview__accordion-trigger-title">
-                            <span class="applicant-evidence-preview__criteria-name"></span> - 
-                            <span class="applicant-evidence-preview__expertise"></span> - 
+                            <span class="applicant-evidence-preview__criteria-name"></span> -
+                            <span class="applicant-evidence-preview__expertise"></span> -
                             <span class="applicant-evidence-preview__experience"></span>
                         </span>
                     </div>
@@ -62,9 +63,9 @@
                             <div class="applicant-evidence-preview__reference-content hidden">
 
                                 <p class="applicant-evidence-preview__reference-metadata">
-                                    <strong class="applicant-evidence-preview__reference-name"></strong> - 
-                                    <span class="applicant-evidence-preview__reference-relationship"></span> - 
-                                    <span class="applicant-evidence-preview__reference-start-date"></span> - 
+                                    <strong class="applicant-evidence-preview__reference-name"></strong> -
+                                    <span class="applicant-evidence-preview__reference-relationship"></span> -
+                                    <span class="applicant-evidence-preview__reference-start-date"></span> -
                                     <span class="applicant-evidence-preview__reference-end-date"></span>
                                 </p>
 
@@ -93,7 +94,7 @@
                             <div class="applicant-evidence-preview__evidence-content hidden">
 
                                 <p class="applicant-evidence-preview__evidence-metadata">
-                                    <strong class="applicant-evidence-preview__evidence-name"></strong> - 
+                                    <strong class="applicant-evidence-preview__evidence-name"></strong> -
                                     <span class="applicant-evidence-preview__evidence-date"></span>
                                 </p>
 
@@ -102,7 +103,7 @@
                                     <span><i class="fa fa-exclamation-triangle"></i> Awaiting Corroboration</span>
                                 </p>
 
-                                <p class="applicant-evidence-preview__evidence-copy"><strong><span class="applicant-evidence-preview__evidence-copy-label">Contribution</span>:</strong> <span class="applicant-evidence-preview__evidence-story"></span></p> 
+                                <p class="applicant-evidence-preview__evidence-copy"><strong><span class="applicant-evidence-preview__evidence-copy-label">Contribution</span>:</strong> <span class="applicant-evidence-preview__evidence-story"></span></p>
 
                                 <a href="" title="View this evidence." target="_blank" class="applicant-evidence-preview__evidence-link button--blue">View Evidence</a>
 

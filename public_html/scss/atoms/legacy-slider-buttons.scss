@@ -38,6 +38,26 @@
         background-color: #ccc;
     }
 
+    &.option0 {
+        transition:left 0.5s ease-in-out;
+        position:absolute;
+        top:0rem;
+        left:0rem;
+        width:3rem;
+        height:2rem;
+        background-color: #ccc;
+    }
+
+    &.option1 {
+        transition:left 0.5s ease-in-out;
+        position:absolute;
+        top:0rem;
+        left:3rem;
+        width:3rem;
+        height:2rem;
+        background-color: #ccc;
+    }
+
 }
 
 .toggle-btn-group {
@@ -49,7 +69,7 @@
         height:2rem;
         text-align: center;
         cursor: pointer;
-        color: #ccc;
+        color: #333;
         vertical-align: middle;
         line-height:2.1rem;
         font-weight:400;
@@ -132,7 +152,7 @@
         height:3rem;
         text-align: center;
         cursor: pointer;
-        color: #777;
+        color: #333;
         vertical-align: middle;
         line-height:3.1rem;
         font-weight:400;

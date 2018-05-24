@@ -621,6 +621,12 @@ JobSeekerAPI.createQuestionSectionElement = function(question) {
         questionEditBtn.href = "javascript:void(0)";
         questionEditBtn.setAttribute("title", 'Edit "'+question.value+'"');
 
+        var questionEditBtnScreenReaderText = document.createElement("span");
+        questionEditBtnScreenReaderText.classList.add("hidden");
+        questionEditBtnScreenReaderText.innerHTML = 'Edit "'+question.value+'"';
+
+        questionEditBtn.appendChild(questionEditBtnScreenReaderText);
+
         questionEditBtn.setAttribute("data-question-id", question.id);
         questionEditBtn.setAttribute("data-question-value", question.value);
         questionEditBtn.setAttribute("data-question-description", question.description);

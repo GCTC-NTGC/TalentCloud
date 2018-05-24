@@ -185,7 +185,7 @@ input[type=url][class*="form__input--"] {
     }
 
     &:checked + .form__radio-group-span{
-        background: $palette-blue;
+        background: $palette-blue--semidark;
         // border-color: $palette-grey--dark;
         color: $white;
         //font-weight: 700;

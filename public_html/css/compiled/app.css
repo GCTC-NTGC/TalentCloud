@@ -4341,6 +4341,26 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   background-color: #ccc; }
 
+#bgcolor.option0,
+#remoteWork.option0 {
+  transition: left 0.5s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  width: 3rem;
+  height: 2rem;
+  background-color: #ccc; }
+
+#bgcolor.option1,
+#remoteWork.option1 {
+  transition: left 0.5s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  left: 3rem;
+  width: 3rem;
+  height: 2rem;
+  background-color: #ccc; }
+
 .toggle-btn-group label {
   transition: all 0.5s ease-in-out;
   display: inline-block;
@@ -4348,7 +4368,7 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   text-align: center;
   cursor: pointer;
-  color: #ccc;
+  color: #333;
   vertical-align: middle;
   line-height: 2.1rem;
   font-weight: 400; }
@@ -4394,7 +4414,7 @@ input[type="button"][class*="button--"] {
   height: 3rem;
   text-align: center;
   cursor: pointer;
-  color: #777;
+  color: #333;
   vertical-align: middle;
   line-height: 3.1rem;
   font-weight: 400;
@@ -4612,7 +4632,7 @@ input[type=url][class*="form__input--"] {
   .form__radio-group-input:focus + .form__radio-group-span {
     border-color: #2196f3; }
   .form__radio-group-input:checked + .form__radio-group-span {
-    background: #2196f3;
+    background: #0a6cbc;
     color: white; }
 
 .form__radio-group-span {
@@ -5027,6 +5047,9 @@ nav {
   font-weight: 600;
   margin: 0; }
 
+.subpage-hero__application-subtitle {
+  margin-bottom: -1rem; }
+
 /* Organisms ================================================================ */
 /* UTILITY */
 .bold {
@@ -5302,7 +5325,7 @@ nav {
 .manager-edit-profile__required-copy-wrapper {
   margin: 0 0 2rem 0; }
   .manager-edit-profile__required-copy-wrapper span {
-    color: red;
+    color: #c10000;
     font-size: 16px; }
 
 .manager-edit-profile__form {
@@ -5345,10 +5368,10 @@ nav {
         text-align: right; } }
 
 .stepGroup_createEditProfile a {
-  color: #333; }
+  color: #fff; }
 
 .stepGroup_createEditProfile .tab-current {
-  background: #2196f3; }
+  background: #0a6cbc; }
 
 .stepGroup_createEditProfile .tab-current a {
   color: white; }
@@ -5457,7 +5480,8 @@ nav {
 .application-progress__container {
   margin: 0 auto;
   max-width: 120rem;
-  width: 90%; }
+  width: 90%;
+  padding-top: .75rem; }
 
 .application-progress {
   background: #e2e2e2;
@@ -5492,7 +5516,7 @@ nav {
           padding: 0; } }
 
 .application-progress__item.inactive .application-progress__icon-wrapper {
-  background: #a3a3a3; }
+  background: #626262; }
 
 .application-progress__item.inactive .application-progress__label {
   font-size: 16px;
@@ -5507,7 +5531,7 @@ nav {
       padding: 0 2rem; } }
 
 .application-progress__icon-wrapper {
-  background: #2196f3;
+  background: #0a6cbc;
   border-radius: 100%;
   display: inline-block;
   height: 2.5rem;
@@ -5689,7 +5713,7 @@ nav {
   transition: background .2s ease;
   width: 100%; }
   .applicant-evidence__desktop-menu-item.active {
-    background: #2196f3 !important;
+    background: #0a6cbc !important;
     color: white !important; }
     .applicant-evidence__desktop-menu-item.active .applicant-evidence__desktop-icon-wrapper i {
       color: rgba(255, 255, 255, 0.3); }
@@ -5869,6 +5893,9 @@ nav {
   height: 1px;
   margin: 3rem 0;
   width: 100%; }
+
+.applicant-evidence__accordion-trigger-title-text {
+  margin: 0; }
 
 /* =============================================================================
 
@@ -7536,29 +7563,29 @@ nav {
   font-size: 1em;
   line-height: 2em;
   display: flex;
-  color: #777;
+  color: #fff;
   float: left;
   cursor: default;
   width: 100%;
   /*position: absolute;*/
-  background: rgba(0, 0, 0, 0.7); }
+  background: #333; }
 
 .three-step-tab {
-  width: 33%;
+  width: 33.333%;
   position: relative;
-  color: #bbb;
+  color: #fff;
   font-size: 1.25em;
   text-align: center;
   line-height: 3em; }
 
 .tab-current {
   color: #fff;
-  border-bottom: 5px solid #999; }
+  background-color: #0a6cbc; }
 
 .four-step-tab {
   width: 25%;
   position: relative;
-  color: #bbb;
+  color: #000;
   font-size: 1.25em;
   text-align: center;
   line-height: 3em; }
@@ -7566,7 +7593,7 @@ nav {
 .five-step-tab {
   width: 20%;
   position: relative;
-  color: #bbb;
+  color: #fff;
   font-size: 1.25em;
   text-align: center;
   line-height: 3em; }
@@ -7574,6 +7601,13 @@ nav {
 .tabbedForm {
   width: 100%;
   height: 100%; }
+
+.stepGroup_createEditProfile {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  bottom: 0;
+  color: #000; }
 
 /* END SORTED STYLES */
 #jobPosterFormWrapper {
@@ -7608,7 +7642,7 @@ nav {
 .steppedFormLink {
   text-align: center !important;
   text-decoration: none !important;
-  color: #333 !important; }
+  color: #fff !important; }
 
 .steppedFormLinkActive {
   text-align: center !important;
@@ -7694,13 +7728,6 @@ nav {
   /* absolute: 0; */ }
 
 .stepGroup, .jobSeekerFormStepGroup {
-  position: relative;
-  width: 100%;
-  min-height: 100%;
-  bottom: 0;
-  background-color: #fff; }
-
-.stepGroup_createEditProfile {
   position: relative;
   width: 100%;
   min-height: 100%;

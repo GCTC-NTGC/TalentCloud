@@ -1,11 +1,11 @@
-<div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profilePicUploadTitle" aria-describedby="profilePicUploadDescription">
+<div id="profilePicUploadOverlay" class="hidden dialogOverlay" role="dialog" aria-labelledby="profileBasicInfoEditTitle">
 
     <div id="profileBasicInfoEditWrapperWindow" class="dialogue-modal dialogThreeQuarterWrapperWindow">
 
         <div class="dialogue-modal__title-wrapper">
             <h3 class="dialogue-modal__title" id="profileBasicInfoEditTitle">Edit Your Basic Info</h3>
         </div>
-    
+
         <div class="flex-grid middle">
 
             <?php // Profile Upload Section (TAL-36) =================== ?>

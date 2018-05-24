@@ -8,7 +8,7 @@
                 <div class="public-manager-profile__photo" id="managerProfilePic"></div>
             </div>
 
-            <h3 class="public-manager-profile__name" id="managerProfileName"></h3>
+            <h3 class="public-manager-profile__name" id="managerProfileName">Your manager - Name</h3>
 
             <p class="public-manager-profile__tagline" id="managerProfilePositionWrapper">
                 <span id="managerProfilePosition"></span>
@@ -20,12 +20,14 @@
                 <li class="hidden" id="managerProfileTwitterLinkWrapper">
                     <input type="hidden" id="profileTwitterUsername" value=""/>
                     <a href="#" id="managerProfileTwitterLink" target="_blank" title="Twitter Logo">
+                        <span class="hidden">Your manager - Twitter profile</span>
                         <i class="fa fa-twitter"></i>
                     </a>
                 </li>
                 <li class="hidden" id="managerProfileLinkedinLinkWrapper">
                     <input type="hidden" id="managerProfileLinkedInUsername" value=""/>
                     <a href="#" id="managerProfileLinkedinLink" target="_blank" title="Linkedin Logo">
+                        <span class="hidden">Your manager - LinkedIn profile</span>
                         <i class="fa fa-linkedin"></i>
                     </a>
                 </li>
