@@ -14,8 +14,10 @@
 
         <div class="admin-dashboard__job-application-item template" id="adminDashboardJobApplicationItemTemplate">
             <p class="admin-dashboard__job-application-title"></p>
-            <p><a class="admin-dashboard__job-application-profile-link" href="javascript:void(0)">Profile</a></p>
-            <p><a class="admin-dashboard__job-application-link" href="javascript:void(0)">Application</a></p>
+            <ul>
+            <li><a class="admin-dashboard__job-application-profile-link" href="javascript:void(0)">Profile</a></li>
+            <li><a class="admin-dashboard__job-application-link" href="javascript:void(0)">Application</a></li>
+            </ul>
         </div>
 
     </div>
