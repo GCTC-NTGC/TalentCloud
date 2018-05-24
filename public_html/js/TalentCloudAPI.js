@@ -107,7 +107,7 @@ TalentCloudAPI.pages = {
                 }
             },
             JobApplicationPreview:{
-                url:"JobApplicationPreview",
+                url:"#JobApplicationPreview",
                 state:function(jobApplicationId) {
                     JobApplicationPreviewAPI.showJobApplicationPreviewById(jobApplicationId);
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
@@ -134,14 +134,18 @@ TalentCloudAPI.load = function(){
     var location = document.location.hash;
     //console.log(location);
     //event.preventDefault();
-    location_elements = location.split('\/');
+    var location_elements = location.split('\/');
     // alert(location_elements);
     //console.log(location_elements[0]);
-    data = location_elements[1];
+    var data = location_elements[1];
     //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
     if(window.location.href.indexOf("/admin") > -1) {
         adminView = true;
-        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["adminhome"];
+        if (location_elements[0] !== "") {
+             pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]
+        } else {
+            pageToReload = TalentCloudAPI.pages["adminhome"];
+        }
         TalentCloudAPI.loadAdmin();
         console.log(adminView);
         if(pageToReload !== undefined){
@@ -151,7 +155,11 @@ TalentCloudAPI.load = function(){
         }
     }else{
         TalentCloudAPI.loadPublic();
-        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["home"];
+        if (location_elements[0] !== "") {
+             pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]
+        } else {
+            pageToReload = TalentCloudAPI.pages["home"];
+        }
         if(pageToReload !== undefined){
             pageToReload.state(data);
         }else{
