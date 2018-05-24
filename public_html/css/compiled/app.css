@@ -4919,11 +4919,16 @@ nav {
       text-align: right; } }
 
 .landing-hero__logo {
-  display: inline-block;
-  margin: -10% 0 0 0;
+  display: block;
+  float: none !important;
+  margin: -5% auto 0 auto;
   max-width: 50rem;
   text-align: center;
   width: 100%; }
+  @media (min-width: 64em) {
+    .landing-hero__logo {
+      display: inline-block;
+      margin: -10% 0 0 0; } }
 
 .landing-hero__tagline {
   color: white;
@@ -5821,6 +5826,7 @@ nav {
   .applicant-evidence__section-title i {
     color: #2196f3; }
   .applicant-evidence__section-title a {
+    color: #2196f3;
     display: block;
     font-size: 16px;
     margin: 1rem 0 0 0;
@@ -5830,6 +5836,8 @@ nav {
       .applicant-evidence__section-title a {
         float: right;
         margin: 0; } }
+    .applicant-evidence__section-title a:hover {
+      color: palette-blue--dark; }
 
 .applicant-evidence__form-description {
   font-size: 16px;

@@ -143,11 +143,18 @@ nav{
 }
 
 .landing-hero__logo {
-    display: inline-block;
-    margin: -10% 0 0 0;
+    display: block;
+    float: none !important;
+    margin: -5% auto 0 auto;
     max-width: 50rem;
     text-align: center;
     width: 100%;
+
+    @media #{$l-tablet} {
+        display: inline-block;
+        margin: -10% 0 0 0;
+    }
+
 }
 
 .landing-hero__tagline {
