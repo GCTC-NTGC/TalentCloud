@@ -31,7 +31,7 @@
                         <form name="profileBasicInfoForm" id="profileBasicInfoForm" method="post" enctype="application/x-www-form-urlencoded" class="update-profile__applicant-profile-form flex-grid top">
 
                             <div class="box full">
-                                <label for="profileEditFirstName">
+                                <label for="profileEditName">
                                     <span>Name:</span>
                                 </label>
                                 <input class="form-control full-width" type="text" name="profileEditName" id="profileEditName" readonly=""/>
@@ -75,7 +75,7 @@
                             </div>
 
                             <div class="box med-1of2">
-                                
+
                             </div>
 
                             <div class="box med-1of2">

@@ -56,7 +56,7 @@
 	width: 100%;
 
 	&.active {
-		background: $palette-blue !important;
+		background: $palette-blue--semidark !important;
 		color: $white !important;
 
 		.applicant-evidence__desktop-icon-wrapper {
@@ -365,4 +365,8 @@
 	height: 1px;
 	margin: 3rem 0;
 	width: 100%;
+}
+
+.applicant-evidence__accordion-trigger-title-text {
+	margin: 0;
 }

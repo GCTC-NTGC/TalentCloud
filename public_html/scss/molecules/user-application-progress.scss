@@ -10,6 +10,7 @@
     margin: 0 auto;
     max-width: 120rem;
     width: 90%;
+    padding-top: .75rem;
 }
 
 .application-progress {
@@ -63,7 +64,7 @@
     &.inactive {
 
         .application-progress__icon-wrapper {
-            background: $palette-grey;
+            background: lighten($palette-grey--dark, 10%);
         }
 
         .application-progress__label {
@@ -87,7 +88,7 @@
 }
 
 .application-progress__icon-wrapper {
-    background: $palette-blue;
+    background: $palette-blue--semidark;
     border-radius: 100%;
     display: inline-block;
     height: 2.5rem;

@@ -25,29 +25,30 @@
     font-size: 1em;
     line-height: 2em;
     display: flex;
-    color: #777;
+    color: #fff;
     float: left;
     cursor: default;
     width: 100%;
     /*position: absolute;*/
-    background:rgba(0,0,0,0.7);
+    background:#333;
 }
 .three-step-tab {
-    width: 33%;
+    width: 33.333%;
     position: relative;
-    color: #bbb;
+    color: #fff;
     font-size:1.25em;
     text-align: center;
     line-height:3em;
 }
 .tab-current {
     color: #fff;
-    border-bottom: 5px solid #999;
+    background-color: $palette-blue--semidark;
+    //border-bottom: 5px solid #999;
 }
 .four-step-tab{
     width: 25%;
     position: relative;
-    color: #bbb;
+    color: #000;
     font-size:1.25em;
     text-align: center;
     line-height:3em;
@@ -55,7 +56,7 @@
 .five-step-tab{
     width: 20%;
     position: relative;
-    color: #bbb;
+    color: #fff;
     font-size:1.25em;
     text-align: center;
     line-height:3em;
@@ -63,4 +64,11 @@
 .tabbedForm{
     width: 100%;
     height: 100%;
+}
+.stepGroup_createEditProfile {
+    position: relative;
+    width:100%;
+    min-height: 100%;
+    bottom: 0;
+    color: #000;
 }
