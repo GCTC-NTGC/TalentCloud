@@ -123,6 +123,15 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
     MicroReferenceAPI.populateApplicationPreviewUiMicroReferences(microReferences);
     var workSamples = SkillSampleAPI.parseApplicationSkillSampleResponse(fullJobApplication.application_work_samples);
     SkillSampleAPI.populateApplicationPreviewUiSkillSamples(workSamples);
+
+    if (jobPosterApplication.job_poster_application_status_id != 0) {
+        var completionWarning = document.querySelector(".application-preview__completion-warning");
+        completionWarning.classList.add("active");
+        var submit = document.getElementById("applicationPreviewSubmitApplicationButton");
+        submit.setAttribute("onclick", "");
+        submit.disabled = true;
+    }
+
 };
 
 JobApplicationPreviewAPI.populateApplicationPreviewAnswers = function (answers) {
