@@ -4610,9 +4610,9 @@ input[type=url][class*="form__input--"] {
   position: absolute;
   left: -1000vh; }
   .form__radio-group-input:focus + .form__radio-group-span {
-    border-color: #2196f3; }
+    border-color: #cce5ff; }
   .form__radio-group-input:checked + .form__radio-group-span {
-    background: #2196f3;
+    background: #0a6cbc;
     color: white; }
 
 .form__radio-group-span {
@@ -5026,6 +5026,9 @@ nav {
   font-size: 25px;
   font-weight: 600;
   margin: 0; }
+
+.subpage-hero__application-subtitle {
+  margin-bottom: -1rem; }
 
 /* Organisms ================================================================ */
 /* UTILITY */
@@ -5457,7 +5460,8 @@ nav {
 .application-progress__container {
   margin: 0 auto;
   max-width: 120rem;
-  width: 90%; }
+  width: 90%;
+  padding-top: .75rem; }
 
 .application-progress {
   background: #e2e2e2;
@@ -5492,7 +5496,7 @@ nav {
           padding: 0; } }
 
 .application-progress__item.inactive .application-progress__icon-wrapper {
-  background: #a3a3a3; }
+  background: #626262; }
 
 .application-progress__item.inactive .application-progress__label {
   font-size: 16px;
@@ -5507,7 +5511,7 @@ nav {
       padding: 0 2rem; } }
 
 .application-progress__icon-wrapper {
-  background: #2196f3;
+  background: #0a6cbc;
   border-radius: 100%;
   display: inline-block;
   height: 2.5rem;
@@ -5689,7 +5693,7 @@ nav {
   transition: background .2s ease;
   width: 100%; }
   .applicant-evidence__desktop-menu-item.active {
-    background: #2196f3 !important;
+    background: #0a6cbc !important;
     color: white !important; }
     .applicant-evidence__desktop-menu-item.active .applicant-evidence__desktop-icon-wrapper i {
       color: rgba(255, 255, 255, 0.3); }
