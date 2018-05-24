@@ -125,11 +125,25 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
     SkillSampleAPI.populateApplicationPreviewUiSkillSamples(workSamples);
 
     if (jobPosterApplication.job_poster_application_status_id != 0) {
+        //can't submit if not in draft status
+        var submissionSection = document.getElementById("applicationPreviewSubmissionSection");
+        submissionSection.classList.add("hidden");
+        
+        var submit = document.getElementById("applicationPreviewSubmitApplicationButton");
+        submit.disabled = true;
+        /*
         var completionWarning = document.querySelector(".application-preview__completion-warning");
         completionWarning.classList.add("active");
         var submit = document.getElementById("applicationPreviewSubmitApplicationButton");
         submit.setAttribute("onclick", "");
         submit.disabled = true;
+        */
+    } else {
+        var submissionSection = document.getElementById("applicationPreviewSubmissionSection");
+        submissionSection.classList.remove("hidden");
+        
+        var submit = document.getElementById("applicationPreviewSubmitApplicationButton");
+        submit.disabled = false;
     }
 
 };
