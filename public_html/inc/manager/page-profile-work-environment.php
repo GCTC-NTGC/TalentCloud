@@ -36,9 +36,9 @@
 
             <div class="toggle-btn-group">
                 <div id="createEditProfile_remoteWork" style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
-                    <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
+                    <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="left" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
                     <label id="remoteWork_option0_label" for="remoteWork_option0" class="option0Label">Yes</label>
-                    <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="option1" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
+                    <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="right" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
                     <label id="remoteWork_option1_label" for="remoteWork_option1" class="option1Label">No</label>
                 </div>
                 <div id="remoteWork" class="left"></div>

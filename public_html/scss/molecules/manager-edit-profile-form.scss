@@ -19,7 +19,7 @@
     margin: 0 0 2rem 0;
 
     span {
-        color: red;
+        color: rgba(193, 0, 0, 1);
         font-size: 16px;
     }
 
@@ -90,11 +90,11 @@
 }
 
 .stepGroup_createEditProfile a{
-    color:#333;
+    color:#fff;
 }
 
 .stepGroup_createEditProfile .tab-current{
-    background: $palette-blue;
+    background: $palette-blue--semidark;
 }
 
 .stepGroup_createEditProfile .tab-current a{

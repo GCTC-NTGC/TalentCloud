@@ -4341,6 +4341,26 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   background-color: #ccc; }
 
+#bgcolor.option0,
+#remoteWork.option0 {
+  transition: left 0.5s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  width: 3rem;
+  height: 2rem;
+  background-color: #ccc; }
+
+#bgcolor.option1,
+#remoteWork.option1 {
+  transition: left 0.5s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  left: 3rem;
+  width: 3rem;
+  height: 2rem;
+  background-color: #ccc; }
+
 .toggle-btn-group label {
   transition: all 0.5s ease-in-out;
   display: inline-block;
@@ -4348,7 +4368,7 @@ input[type="button"][class*="button--"] {
   height: 2rem;
   text-align: center;
   cursor: pointer;
-  color: #ccc;
+  color: #333;
   vertical-align: middle;
   line-height: 2.1rem;
   font-weight: 400; }
@@ -4394,7 +4414,7 @@ input[type="button"][class*="button--"] {
   height: 3rem;
   text-align: center;
   cursor: pointer;
-  color: #777;
+  color: #333;
   vertical-align: middle;
   line-height: 3.1rem;
   font-weight: 400;
@@ -5305,7 +5325,7 @@ nav {
 .manager-edit-profile__required-copy-wrapper {
   margin: 0 0 2rem 0; }
   .manager-edit-profile__required-copy-wrapper span {
-    color: red;
+    color: #c10000;
     font-size: 16px; }
 
 .manager-edit-profile__form {
@@ -5348,10 +5368,10 @@ nav {
         text-align: right; } }
 
 .stepGroup_createEditProfile a {
-  color: #333; }
+  color: #fff; }
 
 .stepGroup_createEditProfile .tab-current {
-  background: #2196f3; }
+  background: #0a6cbc; }
 
 .stepGroup_createEditProfile .tab-current a {
   color: white; }
@@ -7540,29 +7560,29 @@ nav {
   font-size: 1em;
   line-height: 2em;
   display: flex;
-  color: #777;
+  color: #fff;
   float: left;
   cursor: default;
   width: 100%;
   /*position: absolute;*/
-  background: rgba(0, 0, 0, 0.7); }
+  background: #333; }
 
 .three-step-tab {
-  width: 33%;
+  width: 33.333%;
   position: relative;
-  color: #bbb;
+  color: #fff;
   font-size: 1.25em;
   text-align: center;
   line-height: 3em; }
 
 .tab-current {
   color: #fff;
-  border-bottom: 5px solid #999; }
+  background-color: #0a6cbc; }
 
 .four-step-tab {
   width: 25%;
   position: relative;
-  color: #bbb;
+  color: #000;
   font-size: 1.25em;
   text-align: center;
   line-height: 3em; }
@@ -7570,7 +7590,7 @@ nav {
 .five-step-tab {
   width: 20%;
   position: relative;
-  color: #bbb;
+  color: #fff;
   font-size: 1.25em;
   text-align: center;
   line-height: 3em; }
@@ -7578,6 +7598,13 @@ nav {
 .tabbedForm {
   width: 100%;
   height: 100%; }
+
+.stepGroup_createEditProfile {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  bottom: 0;
+  color: #000; }
 
 /* END SORTED STYLES */
 #jobPosterFormWrapper {
@@ -7612,7 +7639,7 @@ nav {
 .steppedFormLink {
   text-align: center !important;
   text-decoration: none !important;
-  color: #333 !important; }
+  color: #fff !important; }
 
 .steppedFormLinkActive {
   text-align: center !important;
@@ -7698,13 +7725,6 @@ nav {
   /* absolute: 0; */ }
 
 .stepGroup, .jobSeekerFormStepGroup {
-  position: relative;
-  width: 100%;
-  min-height: 100%;
-  bottom: 0;
-  background-color: #fff; }
-
-.stepGroup_createEditProfile {
   position: relative;
   width: 100%;
   min-height: 100%;
