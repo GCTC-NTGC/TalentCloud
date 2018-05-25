@@ -13,6 +13,11 @@ CreateJobPosterAPI.jobPosterObj = null;
 CreateJobPosterAPI.version = "v1";
 CreateJobPosterAPI.baseURL = "/tc/api/"+CreateJobPosterAPI.version+"";
 
+CreateJobPosterAPI.JobPosterQuestion = function(question, description) {
+    this.question = question;
+    this.description = description;
+};
+
 CreateJobPosterAPI.JobPostNonLocalized = function(
         id,
         manager_user_id,
@@ -310,6 +315,18 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
     var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
 
+    var questionObjs_en = [];
+    var questionObjs_fr = [];
+    
+    for (var i = 0; i<questions_en.length; i++) {
+        var question = new CreateJobPosterAPI.JobPosterQuestion(questions_en[i], "NO DESCRIPTION");
+        questionObjs_en.push(question);
+    }
+    for (var i = 0; i<questions_fr.length; i++) {
+        var question = new CreateJobPosterAPI.JobPosterQuestion(questions_fr[i], "NO DESCRIPTION");
+        questionObjs_fr.push(question);
+    }
+
     // TAL-150
     var classification = document.getElementById("createJobPoster_classification").value;
 
@@ -320,7 +337,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(
         id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
         close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr,
-        core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questions_en, questions_fr, classification,
+        core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questionObjs_en, questionObjs_fr, classification,
         clearance_id, language_id);
 }
 

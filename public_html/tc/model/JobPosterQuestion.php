@@ -3,11 +3,16 @@
 class JobPosterQuestion implements JsonSerializable{
     
     private $id;
+    private $locale;
     private $question;
+    private $description;
     
-    public function __construct($id = null,$question = null) {
+    
+    public function __construct($id = null, $locale=null,$question = null, $description=null) {
         $this->id = $id;
+        $this->locale = $locale;
         $this->question = $question;
+        $this->description = $description;
     }
 
     public function jsonSerialize() {
@@ -25,8 +30,16 @@ class JobPosterQuestion implements JsonSerializable{
         return $this->id;
     }
 
+    public function getLocale() {
+        return $this->locale;
+    }
+
     public function getQuestion() {
         return $this->question;
+    }
+
+    public function getDescription() {
+        return $this->description;
     }
 
     public function setId($id) {
@@ -34,8 +47,18 @@ class JobPosterQuestion implements JsonSerializable{
         return $this;
     }
 
+    public function setLocale($locale) {
+        $this->locale = $locale;
+        return $this;
+    }
+
     public function setQuestion($question) {
         $this->question = $question;
+        return $this;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
         return $this;
     }
 
