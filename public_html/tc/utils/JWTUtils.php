@@ -12,6 +12,7 @@ $path = dirname(getcwd());
 //var_dump(ROOT);
 require_once $path.'/config/auth.config.inc';
 require_once $path.'/model/User.php';
+require_once $path.'/controller/UserController.php';
 require_once $path.'/utils/Utils.php';
 
 /**
@@ -187,6 +188,18 @@ class JWTUtils {
         return $isValid;
         
     }
+    
+     public static function getOpenIdUserFromJWT($jwt) { 
+        if (self::validateJWT($jwt, null)) { 
+            $openId = self::getPayloadFromToken($jwt);
+            if ($openId['sub']) {
+                $emptyUser = new User(); 
+                $emptyUser->setOpen_id($openId['sub']); 
+                return UserController::getUserByOpenId($emptyUser);                 
+            }    
+        } 
+        return null; 
+     }
     
     public static function isExpired($exp){
         return false;

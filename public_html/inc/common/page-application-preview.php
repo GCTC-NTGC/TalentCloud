@@ -49,7 +49,7 @@
 
     <?php include "partial-applicant-evidence-preview.php"; ?>
 
-    <div class="content-container">
+    <div id="applicationPreviewSubmissionSection" class="content-container">
         
             <div class="application-preview__alert flex-grid middle">
 
@@ -79,11 +79,14 @@
                     <p id="applicationAttestationErrorCopy">Please attest to the information you are providing.</p>
                 </div>
             </div>
+
+            <div class="application-preview__completion-warning active">
+              <span>Please complete all steps in your application before submitting.</span>
+            </div>
             
             <div class="application-preview__button-wrapper">
-                <button id="applicationPreviewEditApplicationButton" class="button--grey" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
+                <button id="applicationPreviewEditApplicationButton" class="button--blue" onclick="JobApplicationAPI.showCreateJobApplication(document.getElementById('jobApplicationJobPosterId').value)">Edit Application</button>
                 <button id="applicationPreviewSubmitApplicationButton" class="button--yellow" onclick="JobApplicationAPI.submitJobApplication(document.getElementById('jobApplicationJobPosterId').value);">Submit</button>
-               
             </div>
 
         </div>

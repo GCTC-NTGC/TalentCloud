@@ -44,6 +44,15 @@
                 </a>
             </div>
 
+            <?php /* Checks to see if the page is the admin portal and then displays the admin profile link. */ ?>
+            <?php if (strpos($url,'admin') !== false) : ?>
+                <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationAdminDashboardLinkWrapper" aria-hidden="true">
+                    <a href="javascript:void(0)" id="navigationAdminDashboardLink" onclick="AdminDashboardAPI.showDashboard();TalentCloudAPI.setNav('navigationAdminDashboardLinkWrapper');">
+                        My Job Posters
+                    </a>
+                </div>
+            <?php endif; ?>
+
             <?php /* My Profile */ ?>
             <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationProfileLinkWrapper" aria-hidden="true">
 
@@ -53,7 +62,7 @@
                         My Profile
                     </a>
                 <?php else : ?>
-                    <a href="#MyProfile" id="navigationProfileLink" onclick="JobSeekerAPI.showJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
+                    <a href="#MyProfile" id="navigationProfileLink" onclick="JobSeekerAPI.showMyJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
                 <?php endif; ?>

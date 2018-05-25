@@ -23,6 +23,31 @@ TalentCloudAPI.pages = {
                     TalentCloudAPI.setNav("navigationHomeLinkWrapper");
                 }
             },
+            AdminDashboard: {
+                url: "#AdminDashboard",
+                state: function() {
+                    AccessibilityAPI.focusElement("skipNav");
+                    AdminDashboardAPI.showDashboard();
+                    TalentCloudAPI.setNav("navigationAdminDashboardLink");
+                    
+                }
+            },
+            ViewApplication: {
+                url: "#ViewApplication",
+                state: function(data) {
+                    AccessibilityAPI.focusElement("skipNav");
+                    JobApplicationPreviewAPI.showJobApplicationPreviewById(data);
+                    TalentCloudAPI.setNav("navigationAdminDashboardLink");
+                }
+            },
+            ViewApplicationProfile: {
+                url: "#ViewApplicationProfile",
+                state: function(data) {                    
+                    AccessibilityAPI.focusElement("skipNav");
+                    AdminDashboardAPI.showProfileForApplication(data);
+                    TalentCloudAPI.setNav("navigationAdminDashboardLink");
+                }
+            },
             BrowseJobs: {
                 url: "#BrowseJobs",
                 state: function(){
@@ -48,7 +73,7 @@ TalentCloudAPI.pages = {
             MyProfile: {
                 url: "#MyProfile",
                 state: function(){
-                    JobSeekerAPI.showJobSeekerProfile();
+                    JobSeekerAPI.showMyJobSeekerProfile();
                     TalentCloudAPI.setNav("navigationProfileLinkWrapper");
                     AccessibilityAPI.focusElement("myProfilePic");
                 }
@@ -95,9 +120,9 @@ TalentCloudAPI.pages = {
                 }
             },
             JobApplicationPreview:{
-                url:"JobApplicationPreview",
-                state:function(jobPosterId) {
-                    JobApplicationPreviewAPI.showJobApplicationPreview(jobPosterId);
+                url:"#JobApplicationPreview",
+                state:function(jobApplicationId) {
+                    JobApplicationPreviewAPI.showJobApplicationPreviewById(jobApplicationId);
                     TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
                 }
             },
@@ -122,14 +147,18 @@ TalentCloudAPI.load = function(){
     var location = document.location.hash;
     //console.log(location);
     //event.preventDefault();
-    location_elements = location.split('\/');
+    var location_elements = location.split('\/');
     // alert(location_elements);
     //console.log(location_elements[0]);
-    data = location_elements[1];
+    var data = location_elements[1];
     //console.log(window.location.href.indexOf("/"+TalentCloudAPI.roles.admin));
     if(window.location.href.indexOf("/admin") > -1) {
         adminView = true;
-        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["adminhome"];
+        if (location_elements[0] !== "") {
+             pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]
+        } else {
+            pageToReload = TalentCloudAPI.pages["adminhome"];
+        }
         TalentCloudAPI.loadAdmin();
         console.log(adminView);
         if(pageToReload !== undefined){
@@ -139,7 +168,11 @@ TalentCloudAPI.load = function(){
         }
     }else{
         TalentCloudAPI.loadPublic();
-        location_elements[0] !== ""?pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]:pageToReload = TalentCloudAPI.pages["home"];
+        if (location_elements[0] !== "") {
+             pageToReload = TalentCloudAPI.pages[location_elements[0].substring(1, location_elements[0].length)]
+        } else {
+            pageToReload = TalentCloudAPI.pages["home"];
+        }
         if(pageToReload !== undefined){
             pageToReload.state(data);
         }else{
@@ -184,40 +217,6 @@ TalentCloudAPI.loadPublic = function(){
     }
 
 };
-
-/**
- *
- * @returns {undefined}
- */
-TalentCloudAPI.loadManager = function(){
-
-    if(TalentCloudAPI.getLanguageFromCookie() !== undefined){
-        locale = TalentCloudAPI.getLanguageFromCookie();
-    }else{
-        locale = "en_CA";
-    }
-    //console.log(UserAPI.hasAuthToken());
-    LookupAPI.loadLookupData();
-    DataAPI.getStaticContent(locale,function(request) {
-        var content = new TalentCloudAPI.Content(request.response);
-        TalentCloudAPI.setContent(content,true);
-    });
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthToken();
-        if(UserAPI.hasSessionUser()){
-            UserAPI.login(true);
-            DataAPI.getJobSeekers(locale);
-            DepartmentAPI.getDepartments(locale);
-            DivisionAPI.getDivisions(locale);
-            //Add log user in automatically
-        }else{
-            DataAPI.getJobSeekers(locale);
-        }
-    }else{
-        DataAPI.getJobSeekers(locale);
-    }
-};
-
 
 /**
  *

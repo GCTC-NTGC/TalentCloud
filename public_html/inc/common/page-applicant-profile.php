@@ -29,7 +29,7 @@
                 </li>
             </ul>
 
-            <div class="applicant-profile__heading-edit-wrapper">
+            <div id="profileBasicInfoEditWrapper" class="applicant-profile__heading-edit-wrapper">
                 <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()" title="Edit my profile.">
                     <span class="hidden">Edit your profile</span>
                     <i class="fa fa-pencil-square"></i>

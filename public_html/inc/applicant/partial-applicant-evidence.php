@@ -20,7 +20,7 @@
 
     <div class="application-button__wrapper">
 
-        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--blue" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
             Save and return
         </button>
 
@@ -54,11 +54,11 @@
 
     <div class="application-button__wrapper">
 
-        <button class="button--grey" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--blue" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreview(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreviewById(document.getElementById('jobApplicationJobApplicationId').value);})">
             Save and Preview
         </button>
 

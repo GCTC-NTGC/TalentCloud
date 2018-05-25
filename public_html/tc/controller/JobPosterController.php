@@ -14,6 +14,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once '../dao/JobPosterDAO.php';
 require_once '../model/JobPosters.php';
+require_once '../model/JobPoster.php';
 
 /**
  * 
@@ -24,7 +25,7 @@ class  JobPosterController {
      * 
      * @param string $page_name
      * @param string $locale
-     * @return Page object
+     * @return JobPoster[] $jobPosters
      */
     public static function getJobPostersByLocale($locale) {
         
@@ -38,7 +39,7 @@ class  JobPosterController {
      * 
      * @param string $page_name
      * @param string $locale
-     * @return Page object
+     * @return JobPoster $jobPoster
      */
     public static function getJobPosterById($locale,$jobPosterId) {
         
@@ -50,7 +51,7 @@ class  JobPosterController {
      * 
      * @param string $page_name
      * @param string $locale
-     * @return Page object
+     * @return 
      */
     public static function createJobPoster($jobPoster) {
         
@@ -62,7 +63,7 @@ class  JobPosterController {
      * 
      * @param string $page_name
      * @param string $locale
-     * @return Page object
+     * @return JobPoster[] $jobPosters
      */
     public static function getJobPostersByManagerId($locale,$managerId) {
         

@@ -162,10 +162,18 @@ class JobApplicationDAO extends BaseDAO {
         FROM job_poster_application jpa
         WHERE
         jpa.application_job_poster_id = :job_poster_id
-        ;";
+        AND jpa.job_poster_application_id IN (
+                SELECT MAX(jpa.job_poster_application_id) 
+                FROM job_poster_application jpa, user_job_seeker_profiles ujsp
+                WHERE jpa.application_job_seeker_profile_id = ujsp.job_seeker_profile_id
+                AND jpa.application_job_poster_id = :job_poster_id_2
+                GROUP BY ujsp.user_id
+            );
+        ";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_poster_id', $jobPosterId, PDO::PARAM_INT);
+        $sql->bindValue(':job_poster_id_2', $jobPosterId, PDO::PARAM_INT);
        
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);

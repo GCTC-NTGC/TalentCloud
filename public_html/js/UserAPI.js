@@ -340,9 +340,8 @@ UserAPI.loaded = function (response,isAdmin) {
             EventsAPI.hideBodyOverflow(false);
 
             console.log(sessionUser.user_role);
+
             if (sessionUser.user_role === TalentCloudAPI.roles.jobseeker) {
-                DataAPI.getJobSeekerProfileByUserId(sessionUser.user_id, JobSeekerAPI.populateJobSeekerProfile);
-                JobSeekerAPI.refreshJobSeekerProfilePic();
 
                 var dashBoardLink = document.getElementById("navigationDashboardLinkWrapper");
 
@@ -351,6 +350,17 @@ UserAPI.loaded = function (response,isAdmin) {
                     dashBoardLink.classList.remove("hidden");
                     dashBoardLinkListItem.setAttribute("aria-hidden", "false");
                 }
+            }
+            else if (isAdmin) {
+
+                var adminDashBoardLink = document.getElementById("navigationAdminDashboardLinkWrapper");
+
+                if (adminDashBoardLink !== null) {
+                    var adminDashBoardLinkListItem = document.getElementById("navigationAdminDashboardLinkWrapper");
+                    adminDashBoardLinkListItem.classList.remove("hidden");
+                    adminDashBoardLinkListItem.setAttribute("aria-hidden", "false");
+                }
+
             }
 
             var myProfileLink = document.getElementById("navigationProfileLinkWrapper");
@@ -361,6 +371,7 @@ UserAPI.loaded = function (response,isAdmin) {
                 profileLinkListItem.setAttribute("aria-hidden", "false");
                 AccessibilityAPI.focusElement("navigationProfileLinkWrapper");
             }
+
             if (sessionUser.user_role === TalentCloudAPI.roles.admin || sessionUser.user_role === TalentCloudAPI.roles.manager) {
                 var jobPostersLinkListItem = document.getElementById("navigationPosterLinkWrapper");
                 if (jobPostersLinkListItem){

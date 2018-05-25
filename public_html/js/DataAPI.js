@@ -133,44 +133,6 @@ DataAPI.getJobs = function(locale, responseCallback){
     getJobs_xhr.send(null);
 };
 
-DataAPI.getJobSeekers = function(locale){
-    Utilities.debug?console.log("loading job seekers"):null;
-    var jobSeekers_url = DataAPI.baseURL+"/getJobSeekers";
-    getJobSeekers_xhr = new XMLHttpRequest();
-    if ("withCredentials" in getJobSeekers_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      getJobSeekers_xhr.open("GET", jobSeekers_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      getJobSeekers_xhr = new XDomainRequest();
-      getJobSeekers_xhr.open("GET", jobSeekers_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      getJobSeekers_xhr = null;
-
-    }
-
-    getJobSeekers_xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.updateProgress(evt);
-    },false);
-    getJobSeekers_xhr.addEventListener("load",function(evt){
-        DataAPI.loadedManager(getJobSeekers_xhr.response);
-    },false);
-    getJobSeekers_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    getJobSeekers_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    getJobSeekers_xhr.open('GET',jobSeekers_url);
-    getJobSeekers_xhr.send(null);
-};
-
 DataAPI.getDepartments = function(locale){
     Utilities.debug?console.log("loading departments"):null;
     var departments_url = DataAPI.baseURL+"/"+locale+"/Lookup/department";
@@ -245,16 +207,6 @@ DataAPI.updateProgress = function(evt){
         //var loadingProgress = document.getElementById("loadingProgress");
         //loadingProgress.innerHTML = " " + percentComplete + "%";
     }
-};
-
-DataAPI.loadedManager = function(response){
-
-    setTimeout(function(){
-        JobSeekerAPI.populateJobSeekerObjects(JSON.parse(response));
-        JobSeekerAPI.getJobSeekerCount();
-    }
-    ,1000);
-
 };
 
 DataAPI.loadedManagerDepartments = function(response){
@@ -530,6 +482,16 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
     request.send(payload);
 };
 
+DataAPI.getAllJobsByAdminUserId = function(locale, userId, requestCallback) {
+    var url = [DataAPI.baseURL, locale, "getAllJobsByAdminUser", userId].join('/');
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
+DataAPI.getAllJobApplicationsByJobPosterId = function(jobPosterId, requestCallback) {
+    var url = [DataAPI.baseURL, 'getJobApplicationsByJobPoster', jobPosterId].join('/');
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+}
+
 DataAPI.getManagerProfile = function(userId, responseCallback) {
     var manager_profile_url = DataAPI.baseURL + "/getManagerProfile/"+userId;
     DataAPI.sendRequest(manager_profile_url, "GET", {}, null, function(request) {
@@ -576,6 +538,13 @@ DataAPI.getFullJobApplicationByJobAndUser = function(jobPosterId, userId, reques
     var url = [DataAPI.baseURL, locale, "getFullApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
 };
+
+DataAPI.getFullJobApplication = function(jobPosterApplicationId, requestCallback) {
+    var locale = TalentCloudAPI.getLanguageFromCookie();
+    var url = [DataAPI.baseURL, locale, "getFullApplication", jobPosterApplicationId].join("/");
+    DataAPI.sendRequest(url, "GET", {}, null, requestCallback);
+};
+
 /**
  *
  * @param {int} managerProfileId

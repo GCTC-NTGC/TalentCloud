@@ -35,33 +35,13 @@ switch ($requestMethod) {
             if (strlen($requestParams) > 1) {
 
                 $locale = Utils::getLocaleFromRequest($requestParams);
-                $jobPosterId = Utils::getParameterFromRequest($requestParams, 5);
-                $userId = Utils::getParameterFromRequest($requestParams, 7);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 5);
 
                 $user = JWTUtils::getOpenIdUserFromJWT($jwt);
                 
                 if (JWTUtils::validateJWT($jwt, $user)) {
-
-                    if ($user->getUser_role() === "jobseeker") {
-                        if ($user->getUser_id() != $userId) {
-                            header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed" => "Requested job application does not belong to this user"), JSON_FORCE_OBJECT);
-                            exit;
-                        }
-                    } else if ($user->getUser_role() === "administrator") {
-                        $jobPoster = JobPosterController::getJobPosterById($locale, $jobPosterId);
-                        if ($jobPoster->getManager_user_id() != $user->getUser_id()) {
-                            header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed" => "This user is not authorized to view applications for this job"), JSON_FORCE_OBJECT);
-                            exit;
-                        }
-                    } else {
-                        header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed" => "This user does not have permissions to view job applications"), JSON_FORCE_OBJECT);
-                        exit;
-                    }
-
-                    $fullJobApplication = JobApplicationController::getFullJobApplicationByJobAndUser($jobPosterId, $userId, $locale);
+                    
+                    $fullJobApplication = JobApplicationController::getFullJobApplication($jobPosterApplicationId, $locale);
 
                     if ($fullJobApplication === false) {
                         //job application not found
@@ -69,6 +49,31 @@ switch ($requestMethod) {
                         echo json_encode(array("failed" => "Requested application does not exist."), JSON_FORCE_OBJECT);
                         exit;
                     }
+                    
+                    if ($user->getUser_role() === "jobseeker") {
+                        //a jobseeker has permission if they created this application
+                        
+                        if ($user->getUser_id() != $fullJobApplication->getJob_seeker_profile()->getUser_id()) {
+                            header('HTTP/1.0 401 Unauthorized');
+                            echo json_encode(array("failed" => "Requested job application does not belong to this user"), JSON_FORCE_OBJECT);
+                            exit;
+                        }
+                        
+                    } else if ($user->getUser_role() === "administrator") {
+                        //an administrator has permission if they created the job this application is for
+                        
+                        $jobPoster = JobPosterController::getJobPosterById($locale, $fullJobApplication->getJob_poster_application()->getApplication_job_poster_id());
+                        if ($jobPoster->getManager_user_id() != $user->getUser_id()) {
+                            header('HTTP/1.0 401 Unauthorized');
+                            echo json_encode(array("failed" => "This user is not authorized to view applications for this job"), JSON_FORCE_OBJECT);
+                            exit;
+                        }
+                        
+                    } else {
+                        header('HTTP/1.0 401 Unauthorized');
+                        echo json_encode(array("failed" => "This user does not have permissions to view job applications"), JSON_FORCE_OBJECT);
+                        exit;
+                    }            
 
                     $json = json_encode($fullJobApplication, JSON_PRETTY_PRINT);
                     echo($json);

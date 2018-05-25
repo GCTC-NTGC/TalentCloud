@@ -277,6 +277,7 @@
 	}
 
 	a {
+		color: $palette-blue;
 		display: block;
 		font-size: 16px;
 		margin: 1rem 0 0 0;
@@ -286,6 +287,10 @@
 		@media #{$l-tablet} {
 			float: right;
 			margin: 0;
+		}
+
+		&:hover {
+			color: palette-blue--dark;
 		}
 
 	}
