@@ -30,11 +30,8 @@ AdminDashboardAPI.showDashboard = function () {
      */
 
     // Google Analytics
-    //TODO - set analytics for dashboard
-    /*
-     ga('set', 'page', '/admin/create-job');
-     ga('send', 'pageview');
-     */
+    ga('set', 'page', '/admin/dashboard');
+    ga('send', 'pageview');
 };
 
 AdminDashboardAPI.populateJobPostersList = function (jobPosters) {

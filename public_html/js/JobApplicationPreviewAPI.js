@@ -55,7 +55,7 @@ JobApplicationPreviewAPI.showJobApplicationPreviewById = function (jobApplicatio
     applicationHeroMetadata.classList.remove("hidden");
     // Google Analytics
 
-    ga('set', 'page', '/apply/preview');
+    ga('set', 'page', '/apply/preview/' + jobApplicationId);
     ga('send', 'pageview');
 };
 
