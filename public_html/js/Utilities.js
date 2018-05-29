@@ -356,6 +356,50 @@ function modalSize() {
 // Reruns the function each time the viewport changes size.
 Utilities.addWindowEventListener("resize", modalSize);
 
+
+// List Inputs ================================================================
+
+Utilities.prepareInputLists = function (e) {
+    var addBtns = document.querySelectorAll(".list-input__add");
+    var rmvBtns = document.querySelectorAll(".list-input__remove");
+
+    for (var i = 0; i < addBtns.length; i++) {
+        addBtns[i].addEventListener("click", Utilities.addListInputItem);
+    }
+    for (var i = 0; i < rmvBtns.length; i++) {
+        rmvBtns[i].addEventListener("click", Utilities.removeListInputItem);
+    }
+};
+
+Utilities.addListInputItem = function (e) {
+    e.preventDefault();
+    
+    //Clone this list item
+    var template = this.closest(".list-input__item");
+    var newItem = template.cloneNode(true);
+
+    //Ensure new item inputs are empty
+    var inputs = newItem.querySelectorAll("input");
+    for (var i=0; i<inputs.length; i++) {
+       inputs[i].value = ""; 
+    }
+
+    //Add click listeners to new item
+    newItem.querySelector(".list-input__add").addEventListener("click", Utilities.addListInputItem);
+    newItem.querySelector(".list-input__remove").addEventListener("click", Utilities.removeListInputItem);
+
+    //Attach new item to parent list
+    var inputList = this.closest(".list-input__list");
+    inputList.appendChild(newItem); 
+};
+
+Utilities.removeListInputItem = function (e) {
+    var item = this.closest(".list-input__item");
+    item.remove();
+};
+
+Utilities.addWindowEventListener("load", Utilities.prepareInputLists);
+
 // Sitewide Accordion Triggers ================================================
 Utilities.accordionClickListener = function (e) {
 
@@ -434,8 +478,7 @@ Utilities.mobileNavClickListener = function (e) {
         this.classList.remove("active");
         mainMenu.classList.remove("active");
         document.body.style.overflowY = "auto";
-    }
-    else {
+    } else {
         this.classList.add("active");
         mainMenu.classList.add("active");
         document.body.style.overflowY = "hidden";

@@ -337,11 +337,15 @@
                                 <div class="box med-1of2">
                                     <label class="form__label" for="createJobPoster_questions">
                                         <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
-                                        <strong id="createJobPoster_questions_error" class="error hidden">
-                                            <span id="createJobPoster_questions_error_msg" class="label label-danger"></span>
-                                        </strong>
                                     </label>
-                                    <textarea class="form__textarea" name="createJobPoster_questions" id="createJobPoster_questions"></textarea>
+                                    <ul id="createJobPoster_questions" class="list-input__list">
+                                        <li class="list-input__item">                                            
+                                            <input type="text" class="list-input__input form__input--text" placeholder="Question"/> 
+                                            <input type="text" class="list-input__input form__input--text" placeholder="Description"/> 
+                                            <button class="list-input__add" href="javascript:void(0)" value="add">Add</button>
+                                            <button class="list-input__remove" href="javascript:void(0)" value="remove">Remove</button>
+                                        </li>
+                                    </ul>
                                 </div>
 
                                 <div class="box med-1of2">
@@ -351,7 +355,14 @@
                                             <span id="createJobPoster_questions_fr_error_msg" class="label label-danger"></span>
                                         </strong>
                                     </label>
-                                    <textarea class="form__textarea" name="createJobPoster_questions_fr" id="createJobPoster_questions_fr"></textarea>
+                                    <ul id="createJobPoster_questions_fr" class="list-input__list">
+                                        <li class="list-input__item">                                            
+                                            <input type="text" class="list-input__input form__input--text" placeholder="Question"/> 
+                                            <input type="text" class="list-input__input form__input--text" placeholder="Description"/> 
+                                            <button class="list-input__add" href="javascript:void(0)" value="add">Add</button>
+                                            <button class="list-input__remove" href="javascript:void(0)" value="remove">Remove</button>
+                                        </li>
+                                    </ul>
                                 </div>
 
                             </section>

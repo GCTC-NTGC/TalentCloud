@@ -3962,6 +3962,22 @@ body[id*="Trident/7.0"] .box {
 /* Yellow */
 /* Blue */
 /* Green */
+.list-input__list input {
+  display: inline-block !important;
+  width: 50% !important; }
+
+.list-input__list .list-input__add {
+  display: none; }
+
+.list-input__list .list-input__remove {
+  display: inline-block; }
+
+.list-input__list li:last-child .list-input__add {
+  display: inline-block; }
+
+.list-input__list li:last-child .list-input__remove {
+  display: none; }
+
 /* Atoms ==================================================================== */
 /* =============================================================================
 
