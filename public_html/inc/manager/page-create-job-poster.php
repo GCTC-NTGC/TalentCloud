@@ -334,7 +334,125 @@
                                     <textarea class="form__textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr"></textarea>
                                 </div>
 
-                                <div class="box med-1of2">
+                                <?php /* New Open Ended Questions */ ?>
+
+                                <div class="job-poster__open-questions box full">
+
+                                    <div class="job-poster__open-questions-wrapper repeater__wrapper flex-grid middle">
+
+                                        <h4 class="job-poster__open-question-section-label box full">Open Ended Questions</h4>
+
+                                        <div class="job-poster__open-question flex-grid repeater__template">
+
+                                            <div class="box med-1of2">
+                                                <span class="job-poster__open-question-label">New Open Ended Question</span>
+                                            </div>
+
+                                            <div class="box med-1of2">
+                                                <button class="job-poster__open-question-remove-button repeater__remove-button" href="javascript:void(0)" onclick="Utilities.removeRepeatedElement">remove</button>
+                                            </div>
+
+                                            <div class="job-poster__open-question-wrapper--english box med-1of2">
+
+                                                <span class="job-poster__open-question-wrapper-label">
+                                                    English Content
+                                                </span>
+
+                                                <label class="form__label">
+                                                    Question
+                                                </label>
+
+                                                <input class="form__input--text" type="text" placeholder="Question">
+
+                                                <label class="form__label">
+                                                    Description
+                                                </label>
+
+                                                <textarea class="form__textarea" placeholder="Description"></textarea>
+
+                                            </div>
+
+                                            <div class="job-poster__open-question-wrapper--french box med-1of2">
+
+                                                <span class="job-poster__open-question-wrapper-label">
+                                                    French Content
+                                                </span>
+
+                                                <label class="form__label">
+                                                    Question
+                                                </label>
+
+                                                <input class="form__input--text" type="text" placeholder="Question">
+
+                                                <label class="form__label">
+                                                    Description
+                                                </label>
+
+                                                <textarea class="form__textarea" placeholder="Description"></textarea>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="job-poster__open-question flex-grid repeater__item" data-value="1">
+
+                                            <div class="box med-1of2">
+                                                <span class="job-poster__open-question-label">New Open Ended Question</span>
+                                            </div>
+
+                                            <div class="box med-1of2">
+                                                <button class="job-poster__open-question-remove-button repeater__remove-button" href="javascript:void(0)" onclick="Utilities.removeRepeatedElement">remove</button>
+                                            </div>
+
+                                            <div class="job-poster__open-question-wrapper--english box med-1of2">
+
+                                                <span class="job-poster__open-question-wrapper-label">
+                                                    English Content
+                                                </span>
+
+                                                <label class="form__label">
+                                                    Question
+                                                </label>
+
+                                                <input class="form__input--text" type="text" placeholder="Question">
+
+                                                <label class="form__label">
+                                                    Description
+                                                </label>
+
+                                                <textarea class="form__textarea" placeholder="Description"></textarea>
+
+                                            </div>
+
+                                            <div class="job-poster__open-question-wrapper--french box med-1of2">
+
+                                                <span class="job-poster__open-question-wrapper-label">
+                                                    French Content
+                                                </span>
+
+                                                <label class="form__label">
+                                                    Question
+                                                </label>
+
+                                                <input class="form__input--text" type="text" placeholder="Question">
+
+                                                <label class="form__label">
+                                                    Description
+                                                </label>
+
+                                                <textarea class="form__textarea" placeholder="Description"></textarea>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <button class="job-poster__open-questions-add-button repeater__add-button button--blue" href="javascript:void(0)">Add an Open Ended Question</button>
+
+                                </div>
+
+                                <?php /* <div class="box med-1of2">
                                     <label class="form__label" for="createJobPoster_questions">
                                         <span><span id="createJobPoster_questions_labelName">Open Ended Questions</span> (English): **</span>
                                     </label>
@@ -363,7 +481,7 @@
                                             <button class="list-input__remove" href="javascript:void(0)" value="remove">Remove</button>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> */ ?>
 
                             </section>
 
