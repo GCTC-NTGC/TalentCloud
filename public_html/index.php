@@ -10,9 +10,10 @@ date_default_timezone_set('America/Toronto');
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require_once 'tc/config/auth.config.inc';
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/tc/config/auth.config.inc';
+require_once __DIR__ . '/tc/controller/UserController.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;
 
@@ -27,25 +28,36 @@ $state = md5(uniqid(rand(), TRUE));
 //if querystring is not empty
 if ($query_string !== "") {
     //if login response code from querystring array is not null
-    if (array_key_exists("code", $querystring_array) && $querystring_array["code"] !== null) {
-        $oidc = new OpenIDConnectClient(OPENID_URI);
-        $oidc->setClientID(CLIENT_ID);
-        $oidc->setClientSecret(CLIENT_SECRET);
-        $oidc->addScope("openid profile email");
-        $oidc->setVerifyPeer(false);
-        $oidc->setRedirectURL(REDIRECT_URI);
-        /*if($_SESSION["refreshToken"]){
-            $oidc->refreshToken($_SESSION["refreshToken"]);
-        }
-        if($_SESSION["accessToken"]){
-            $oidc->setAccessToken($_SESSION["accessToken"]);
-        }*/
+    if ($querystring_array["code"] !== null) {
+        $oidc = new OpenIDConnectClient(OPENID_URI, CLIENT_ID, CLIENT_SECRET);
+        $oidc->addScope(array('openid', 'profile', 'email'));
+        //$oidc->setVerifyPeer(false);
+        //$oidc->setRedirectURL(REDIRECT_URI);
+        /* if($_SESSION["refreshToken"]){
+          $oidc->refreshToken($_SESSION["refreshToken"]);
+          }
+          if($_SESSION["accessToken"]){
+          $oidc->setAccessToken($_SESSION["accessToken"]);
+          } */
 
         try {
             $oidc->authenticate();
         } catch (Jumbojett\OpenIDConnectClientException $e) {
             echo($e->getMessage());
         }
+
+        $userid = $oidc->requestUserInfo('sub');
+        $name = $oidc->requestUserInfo('name');
+        $email = $oidc->requestUserInfo('email');
+        $username = $oidc->requestUserInfo('nickname');
+        echo "<br>userid: " . $userid;
+        echo "<br>name: " . $name;
+        echo "<br>email: " . $email;
+        echo "<br>username: " . $username;
+
+        // THIS BREAKS THE APP :( even when including the UserController file
+        $oidc_user = UserController::getUserByOpenId($userid);
+        print_r($oidc_user);
 
         //set session variables for openid info
         if (isset($oidc)) {
@@ -60,7 +72,7 @@ if ($query_string !== "") {
             }
         }
 
-        header("Refresh:0; url=\"" . REDIRECT_URI . "");
+        //header("Refresh:0; url=\"".REDIRECT_URI."");
     }
 } else {
     $_SESSION['openid_connect_state'] = $state;
@@ -68,94 +80,94 @@ if ($query_string !== "") {
 }
 ?>
 <html lang="en">
-<head>
-    <title>GC Talent Cloud</title>
-    <?php // Include for metadata / scripts ?>
-    <?php include 'inc/common/head.php'; ?>
-</head>
-<body>
-    <script type="text/javascript">
-        <?php
-        if (isset($oidc)) {
-            if ($_SESSION["accessToken"] !== null) {
-                echo("var accessToken = '" . $_SESSION["accessToken"] . "';");
-                echo("UserAPI.storeOpenIDAccessToken(accessToken);");
-            }
+    <head>
+        <title>GC Talent Cloud</title>
+        <?php // Include for metadata / scripts ?>
+        <?php include 'inc/common/head.php'; ?>
+    </head>
+    <body>
+        <script type="text/javascript">
+<?php
+if (isset($oidc)) {
+    if ($_SESSION["accessToken"] !== null) {
+        echo("var accessToken = '" . $_SESSION["accessToken"] . "';");
+        echo("UserAPI.storeOpenIDAccessToken(accessToken);");
+    }
 
-            if ($_SESSION["idToken"] !== null) {
-                echo("var idToken = '" . $_SESSION["idToken"] . "';");
-                echo("UserAPI.storeOpenIDToken(idToken);");
-            }
+    if ($_SESSION["idToken"] !== null) {
+        echo("var idToken = '" . $_SESSION["idToken"] . "';");
+        echo("UserAPI.storeOpenIDToken(idToken);");
+    }
 
-            if ($_SESSION["refreshToken"] !== null) {
-                echo("var refreshToken = '" . $_SESSION["refreshToken"] . "';");
-                echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
-            }
+    if ($_SESSION["refreshToken"] !== null) {
+        echo("var refreshToken = '" . $_SESSION["refreshToken"] . "';");
+        echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
+    }
 
-            if ($_SESSION["expires_in"] !== null) {
-                echo("var expires_in = '" . $_SESSION["expires_in"] . "';");
-                echo("UserAPI.storeOpenIDExpiry(expires_in);");
-            }
+    if ($_SESSION["expires_in"] !== null) {
+        echo("var expires_in = '" . $_SESSION["expires_in"] . "';");
+        echo("UserAPI.storeOpenIDExpiry(expires_in);");
+    }
 
-            if ($_SESSION["expires_at"] !== null) {
-                echo("var expires_at = '" . $_SESSION["expires_at"] . "';");
-                echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
-            }
+    if ($_SESSION["expires_at"] !== null) {
+        echo("var expires_at = '" . $_SESSION["expires_at"] . "';");
+        echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
+    }
 
-            $userInfo = $oidc->requestUserInfo();
+    $userInfo = $oidc->requestUserInfo();
 
-            if ($userInfo !== null) {
-                echo("UserAPI.storeSessionUser(" . json_encode($userInfo) . ");");
-                echo("UserAPI.login();");
-            }
-        } else {
-            echo("UserAPI.login();");
-        }
-        //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
-        ?>
+    if ($userInfo !== null) {
+        echo("UserAPI.storeSessionUser(" . json_encode($userInfo) . ");");
+        echo("UserAPI.login();");
+    }
+} else {
+    echo("UserAPI.login();");
+}
+//var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());
+?>
 
-    </script>
-    <?php // Include for Federal Identity Program (black banner) ?>
-    <?php include 'inc/applicant/header-fip.php'; ?>
-    <!-- Include for main navigation -->
-    <?php include 'inc/common/header-nav.php'; ?>
+        </script>
+        <?php // Include for Federal Identity Program (black banner) ?>
+        <?php include 'inc/applicant/header-fip.php'; ?>
+        <!-- Include for main navigation -->
+        <?php include 'inc/common/header-nav.php'; ?>
 
-    <?php // BEGIN - Overlays (all should be children of this div) ?>
-    <div id="overlays">
-        <?php // BEGIN - Includes for modal dialogs ?>
-        <?php
-        include 'inc/applicant/modal-registration.php';
-        include 'inc/applicant/modal-login.php';
-        include 'inc/applicant/modal-edit-profile.php';
-        include 'inc/applicant/modal-edit-profile-answer.php';
-        include 'inc/applicant/modal-yes-no.php';
-        ?>
-        <?php // END - Modal dialogs ?>
-    </div>
-    <?php // END - Overlays ?>
+        <?php // BEGIN - Overlays (all should be children of this div) ?>
+        <div id="overlays">
+            <?php // BEGIN - Includes for modal dialogs ?>
+            <?php
+            include 'inc/applicant/modal-registration.php';
+            include 'inc/applicant/modal-login.php';
+            include 'inc/applicant/modal-edit-profile.php';
+            include 'inc/applicant/modal-edit-profile-answer.php';
+            include 'inc/applicant/modal-yes-no.php';
+            ?>
+            <?php // END - Modal dialogs ?>
+        </div>
+        <?php // END - Overlays ?>
 
-    <?php // BEGIN - Page Content?>
-    <main>
-        <?php // BEGIN - Includes for pages ?>
-        <?php
-        include "inc/applicant/page-home-content.php";
-        include "inc/applicant/page-browse-jobs.php";
-        include "inc/applicant/page-view-job-poster.php";
-        include "inc/common/page-applicant-profile.php";
-        include "inc/applicant/page-manager-profile.php";
-        include "inc/applicant/page-application-form.php";
-        include "inc/applicant/page-job-application-confirm.php";
-        include "inc/applicant/page-dashboard.php";
-        include "inc/common/page-application-preview.php";
-        include "inc/common/faq.php";
-        include "inc/common/terms-and-conditions.php";
-        include "inc/common/privacy.php";
-        ?>
-        <?php // END - Incudes for pages ?>
-    </main>
-    <?php // END - Page Content ?>
+        <?php // BEGIN - Page Content?>
+        <main>
+            <?php // BEGIN - Includes for pages ?>
+            <?php
+            include "inc/applicant/page-home-content.php";
+            include "inc/applicant/page-browse-jobs.php";
+            include "inc/applicant/page-view-job-poster.php";
+            include "inc/common/page-applicant-profile.php";
+            include "inc/applicant/page-manager-profile.php";
+            include "inc/applicant/page-application-form.php";
+            include "inc/applicant/page-job-application-confirm.php";
+            include "inc/applicant/page-dashboard.php";
+            include "inc/common/page-application-preview.php";
+            include "inc/common/faq.php";
+            include "inc/common/terms-and-conditions.php";
+            include "inc/common/privacy.php";
+            ?>
+            <?php // END - Incudes for pages ?>
+        </main>
+        <?php // END - Page Content ?>
 
-    <?php // Include for footer ?>
-    <?php include 'inc/applicant/footer.php'; ?>
-</body>
+        <?php // Include for footer ?>
+        <?php include 'inc/applicant/footer.php'; ?>
+    </body>
 </html>

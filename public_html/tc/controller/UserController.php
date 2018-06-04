@@ -17,12 +17,12 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
  * and open the template in the editor.
  */
 
-require_once '../model/User.php';
-require_once '../controller/UserController.php';
-require_once '../controller/EmailConfirmationController.php';
-require_once '../controller/ManagerProfileController.php';
-require_once '../controller/JobSeekerController.php';
-require_once '../dao/UserDAO.php';
+require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../controller/UserController.php';
+require_once __DIR__ . '/../controller/EmailConfirmationController.php';
+require_once __DIR__ . '/../controller/ManagerProfileController.php';
+require_once __DIR__ . '/../controller/JobSeekerController.php';
+require_once __DIR__ . '/../dao/UserDAO.php';
 
 class UserController {
     

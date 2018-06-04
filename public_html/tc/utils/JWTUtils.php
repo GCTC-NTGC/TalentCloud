@@ -7,7 +7,7 @@
  */
 
 
-$path = dirname(getcwd());
+$path = dirname(__FILE__);
 
 //var_dump(ROOT);
 require_once $path . '/config/auth.config.inc';
