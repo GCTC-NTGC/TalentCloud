@@ -362,13 +362,13 @@
                                                     Question
                                                 </label>
 
-                                                <input class="form__input--text" type="text" placeholder="Question">
+                                                <input class="form__input--text job-poster__open-question-input" type="text" placeholder="Question">
 
                                                 <label class="form__label">
                                                     Description
                                                 </label>
 
-                                                <textarea class="form__textarea" placeholder="Description"></textarea>
+                                                <textarea class="form__textarea job-poster__open-question-description-input" placeholder="Description"></textarea>
 
                                             </div>
 
@@ -382,13 +382,13 @@
                                                     Question
                                                 </label>
 
-                                                <input class="form__input--text" type="text" placeholder="Question">
+                                                <input class="form__input--text job-poster__open-question-input" type="text" placeholder="Question">
 
                                                 <label class="form__label">
                                                     Description
                                                 </label>
 
-                                                <textarea class="form__textarea" placeholder="Description"></textarea>
+                                                <textarea class="form__textarea job-poster__open-question-description-input" placeholder="Description"></textarea>
 
                                             </div>
 

@@ -312,21 +312,25 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var developing_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies");
     var developing_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies_fr");
 
-    var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
-    var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
-
+    //Get questions & descriptions from repeaters
+    var questionWrappers = document.querySelectorAll(".job-poster__open-question");
+    
     var questionObjs_en = [];
     var questionObjs_fr = [];
     
-    for (var i = 0; i<questions_en.length; i++) {
-        var question = new CreateJobPosterAPI.JobPosterQuestion(questions_en[i], "NO DESCRIPTION");
-        questionObjs_en.push(question);
+    for (var i=0; i<questionWrappers.length; i++) {
+        var question_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
+        var question_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
+        
+        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-description-input").value;
+        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-description-input").value;
+        
+        if (question_en && question_fr) {
+            questionObjs_en.push(new CreateJobPosterAPI.JobPosterQuestion(question_en, description_en));
+            questionObjs_fr.push(new CreateJobPosterAPI.JobPosterQuestion(question_fr, description_fr));
+        }         
     }
-    for (var i = 0; i<questions_fr.length; i++) {
-        var question = new CreateJobPosterAPI.JobPosterQuestion(questions_fr[i], "NO DESCRIPTION");
-        questionObjs_fr.push(question);
-    }
-
+   
     // TAL-150
     var classification = document.getElementById("createJobPoster_classification").value;
 
