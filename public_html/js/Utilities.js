@@ -268,6 +268,14 @@ Utilities.removeChildNodes = function (element) {
         element.removeChild(element.firstChild);
 };
 
+Utilities.addSuffixToElementId = function (rootElement, originalId, suffix) {
+    var element = rootElement.querySelector("#" + originalId);
+    var label = rootElement.querySelector("label[for=\"" + originalId + "\"]");
+    element.id = originalId + suffix;
+    if (label)
+        label.for = element.id;
+};
+
 Utilities.clearSelectOptions = function (selectElement)
 {
     var i;

@@ -81,20 +81,20 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     var idSuffix = "_" + triggerName;
 
     // MICRO-REFERENCE IDs
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceName", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceEmail", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceRelationship", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceFrom", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceUntil", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceExpLevel", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceStory", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceName", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceEmail", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceRelationship", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceFrom", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceUntil", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceExpLevel", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceStory", idSuffix);
 
     // SKILL SAMPLE IDs
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleName", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleType", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleDateCreated", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleHttpLink", idSuffix);
-    EvidenceAPI.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleStory", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleName", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleType", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleDateCreated", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleHttpLink", idSuffix);
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceSampleStory", idSuffix);
 
     // POPULATE "SLIDERS"
     // DEV-NOTE: Beware copy-paste errors, and confusing EXPERTISE with EXPERIENCE
@@ -216,14 +216,6 @@ EvidenceAPI.instantiateApplicationPreviewEvidencePanel = function (criteriaId, c
     evidencePanel.querySelector(".applicant-evidence-preview__criteria-name").innerHTML = criteriaName;
     
     return evidencePanel;
-};
-
-EvidenceAPI.addSuffixToElementId = function(rootElement, originalId, suffix) {
-    var element = rootElement.querySelector("#" + originalId);
-    var label = rootElement.querySelector("label[for=\""+originalId + "\"]");
-    element.id = originalId + suffix;
-    if (label)
-        label.for = element.id;
 };
 
 EvidenceAPI.instantiateApplicationEvidenceExpertiseItem = function (criteriaId, criteriaType, expertiseId, expertiseValue, outputValue, numberOfItems) {
