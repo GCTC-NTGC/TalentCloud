@@ -381,15 +381,15 @@ Utilities.prepareInputLists = function (e) {
 
 Utilities.addListInputItem = function (e) {
     e.preventDefault();
-    
+
     //Clone this list item
     var template = this.closest(".list-input__item");
     var newItem = template.cloneNode(true);
 
     //Ensure new item inputs are empty
     var inputs = newItem.querySelectorAll("input");
-    for (var i=0; i<inputs.length; i++) {
-       inputs[i].value = ""; 
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
     }
 
     //Add click listeners to new item
@@ -398,7 +398,7 @@ Utilities.addListInputItem = function (e) {
 
     //Attach new item to parent list
     var inputList = this.closest(".list-input__list");
-    inputList.appendChild(newItem); 
+    inputList.appendChild(newItem);
 };
 
 Utilities.removeListInputItem = function (e) {
@@ -406,78 +406,77 @@ Utilities.removeListInputItem = function (e) {
     item.remove();
 };
 
-    // New Repeater Handlers
+// New Repeater Handlers
 
-    Utilities.repeatElement = function(e) {
+Utilities.repeatElement = function (e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        // Get Repeater Wrapper
-        var repeaterWrapper = this.parentElement.querySelector(".repeater__wrapper");
+    // Get Repeater Wrapper
+    var repeaterWrapper = this.parentElement.querySelector(".repeater__wrapper");
 
-        // Get Template for Repeated Item
-        var templateItem = this.parentElement.querySelector(".repeater__template");
+    // Get Template for Repeated Item
+    var templateItem = this.parentElement.querySelector(".repeater__template");
 
-        // Get List of Current Repeated Items
-        var repeatedItems = repeaterWrapper.querySelectorAll(".repeater__item");
+    // Get List of Current Repeated Items
+    var repeatedItems = repeaterWrapper.querySelectorAll(".repeater__item");
 
-        // Get Value of Current Node
-        if (repeatedItems.length > 1) {
+    // Get Value of Current Node
+    if (repeatedItems.length > 1) {
 
-            var lastRepeatedItem = repeatedItems[repeatedItems.length-1];
-            var oldRepeaterValueString = lastRepeatedItem.getAttribute("data-value");
-            var oldRepeaterValue = parseInt(oldRepeaterValueString);
+        var lastRepeatedItem = repeatedItems[repeatedItems.length - 1];
+        var oldRepeaterValueString = lastRepeatedItem.getAttribute("data-value");
+        var oldRepeaterValue = parseInt(oldRepeaterValueString);
 
-            // Build New Node Value
-            var cloneValue = oldRepeaterValue + 1;
+        // Build New Node Value
+        var cloneValue = oldRepeaterValue + 1;
 
-            // Clone Initial Node
-            var clone = templateItem.cloneNode(true);
-            clone.classList.remove("repeater__template");
-            clone.classList.remove("repeater__item");
-            clone.setAttribute("data-value", cloneValue);
+        // Clone Initial Node
+        var clone = templateItem.cloneNode(true);
+        clone.classList.remove("repeater__template");
+        clone.classList.remove("repeater__item");
+        clone.setAttribute("data-value", cloneValue);
 
-        }
-        else {
+    } else {
 
-            // Clone Initial Node
-            var clone = templateItem.cloneNode(true);
-            clone.classList.remove("repeater__template");
-            clone.classList.remove("repeater__item");
-            clone.setAttribute("data-value", 1);
-
-        }
-
-        // Build Object
-        repeaterWrapper.appendChild(clone);
-
-        Utilities.intializeRepeaterButtons();
+        // Clone Initial Node
+        var clone = templateItem.cloneNode(true);
+        clone.classList.remove("repeater__template");
+        clone.classList.remove("repeater__item");
+        clone.setAttribute("data-value", 1);
 
     }
 
-    Utilities.removeRepeatedElement = function(e) {
+    // Build Object
+    repeaterWrapper.appendChild(clone);
 
-        e.preventDefault();
+    Utilities.intializeRepeaterButtons();
 
-        this.parentElement.parentElement.remove();
+}
 
+Utilities.removeRepeatedElement = function (e) {
+
+    e.preventDefault();
+
+    this.parentElement.parentElement.remove();
+
+}
+
+
+Utilities.intializeRepeaterButtons = function (e) {
+
+    var addBtns = document.querySelectorAll(".repeater__add-button");
+    var rmvBtns = document.querySelectorAll(".repeater__remove-button");
+
+    for (var i = 0; i < addBtns.length; i++) {
+        addBtns[i].addEventListener("click", Utilities.repeatElement);
     }
+    for (var i = 0; i < rmvBtns.length; i++) {
+        rmvBtns[i].addEventListener("click", Utilities.removeRepeatedElement);
+    }
+};
 
-
-    Utilities.intializeRepeaterButtons = function(e) {
-
-        var addBtns = document.querySelectorAll(".repeater__add-button");
-        var rmvBtns = document.querySelectorAll(".repeater__remove-button");
-
-        for (var i = 0; i < addBtns.length; i++) {
-            addBtns[i].addEventListener("click", Utilities.repeatElement);
-        }
-        for (var i = 0; i < rmvBtns.length; i++) {
-            rmvBtns[i].addEventListener("click", Utilities.removeRepeatedElement);
-        }
-    };
-
-    Utilities.addWindowEventListener("load", Utilities.intializeRepeaterButtons);
+Utilities.addWindowEventListener("load", Utilities.intializeRepeaterButtons);
 
 Utilities.addWindowEventListener("load", Utilities.prepareInputLists);
 
