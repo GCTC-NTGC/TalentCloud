@@ -6,15 +6,15 @@
  * and open the template in the editor.
  */
 
-require_once '../model/JobPosterApplication.php';
-require_once '../model/ApplicationQuestionAnswer.php';
-require_once '../model/JobApplicationWithAnswers.php';
-require_once '../model/FullJobApplication.php';
-require_once '../dao/JobApplicationDAO.php';
-require_once '../controller/JobSeekerController.php';
-require_once '../controller/SkillDeclarationController.php';
-require_once '../controller/MicroReferenceController.php';
-require_once '../controller/WorkSampleController.php';
+require_once __DIR__ . '/../model/JobPosterApplication.php';
+require_once __DIR__ . '/../model/ApplicationQuestionAnswer.php';
+require_once __DIR__ . '/../model/JobApplicationWithAnswers.php';
+require_once __DIR__ . '/../model/FullJobApplication.php';
+require_once __DIR__ . '/../dao/JobApplicationDAO.php';
+require_once __DIR__ . '/../controller/JobSeekerController.php';
+require_once __DIR__ . '/../controller/SkillDeclarationController.php';
+require_once __DIR__ . '/../controller/MicroReferenceController.php';
+require_once __DIR__ . '/../controller/WorkSampleController.php';
 
 class JobApplicationController {
         

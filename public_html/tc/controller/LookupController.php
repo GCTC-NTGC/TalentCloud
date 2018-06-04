@@ -12,7 +12,7 @@ if (!isset($_SESSION)) {
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../dao/LookupDAO.php';
+require_once __DIR__ . '/../dao/LookupDAO.php';
 
 /**
  *

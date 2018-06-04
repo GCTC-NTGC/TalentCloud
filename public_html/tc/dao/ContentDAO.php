@@ -11,9 +11,9 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR);
 /** Model Classes */
-require_once '../dao/BaseDAO.php';
-require_once '../model/Content.php';
-require_once '../model/Label.php';
+require_once __DIR__ . '/../dao/BaseDAO.php';
+require_once __DIR__ . '/../model/Content.php';
+require_once __DIR__ . '/../model/Label.php';
 
 /**
  * Summary: Data Access Object for Resources

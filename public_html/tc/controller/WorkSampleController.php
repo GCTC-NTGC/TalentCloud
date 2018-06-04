@@ -1,8 +1,8 @@
 <?php
 
-require_once '../model/WorkSample.php';
-require_once '../model/ApplicationWorkSample.php';
-require_once '../dao/WorkSampleDAO.php';
+require_once __DIR__ . '/../model/WorkSample.php';
+require_once __DIR__ . '/../model/ApplicationWorkSample.php';
+require_once __DIR__ . '/../dao/WorkSampleDAO.php';
 
 class WorkSampleController {
     

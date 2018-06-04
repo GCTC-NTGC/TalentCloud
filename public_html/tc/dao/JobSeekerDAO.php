@@ -15,8 +15,8 @@
 
 
 /** Model Classes */
-require_once '../dao/BaseDAO.php';
-require_once '../model/JobSeekerProfile.php';
+require_once __DIR__ . '/../dao/BaseDAO.php';
+require_once __DIR__ . '/../model/JobSeekerProfile.php';
 
 /**
  * Summary: Data Access Object for Resources

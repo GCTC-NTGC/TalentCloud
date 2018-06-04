@@ -9,7 +9,7 @@
         session_start();
     }
 
-    require_once '../config/db.config.inc';
+	require_once __DIR__ . '/../config/db.config.inc';
 	
         /**
          * Summary: Database connection manager class

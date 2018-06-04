@@ -14,11 +14,11 @@
 
 
 /** Model Classes */
-require_once '../dao/BaseDAO.php';
-require_once '../model/WorkEnvironment.php';
-require_once '../model/BasicWorkEnvironment.php';
-require_once '../model/WorkplacePhotoCaption.php';
-require_once '../model/File.php';
+require_once __DIR__ . '/../dao/BaseDAO.php';
+require_once __DIR__ . '/../model/WorkEnvironment.php';
+require_once __DIR__ . '/../model/BasicWorkEnvironment.php';
+require_once __DIR__ . '/../model/WorkplacePhotoCaption.php';
+require_once __DIR__ . '/../model/File.php';
 
 /**
  * Summary: Data Access Object for Resources

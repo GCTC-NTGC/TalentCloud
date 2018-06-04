@@ -12,8 +12,8 @@ if (!isset($_SESSION)) {
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../dao/ContentDAO.php';
-require_once '../model/Content.php';
+require_once __DIR__ . '/../dao/ContentDAO.php';
+require_once __DIR__ . '/../model/Content.php';
 
 /**
  * 

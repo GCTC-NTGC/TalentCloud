@@ -12,9 +12,9 @@
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
-    require_once '../controller/JobApplicationController.php';
-    require_once '../model/JobApplicationWithAnswers.php';
-    require_once '../utils/Utils.php';
+    require_once __DIR__ . '/../controller/JobApplicationController.php';
+    require_once __DIR__ . '/../model/JobApplicationWithAnswers.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));

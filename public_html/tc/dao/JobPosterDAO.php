@@ -14,11 +14,11 @@
     set_include_path(get_include_path() . PATH_SEPARATOR);
 
 /** Model Classes */
-require_once '../dao/BaseDAO.php';
-require_once '../model/JobPoster.php';
-require_once '../model/JobPosterQuestion.php';
-require_once '../model/JobPosterNonLocalized.php';
-require_once '../model/Lookup.php';
+require_once __DIR__ . '/../dao/BaseDAO.php';
+require_once __DIR__ . '/../model/JobPoster.php';
+require_once __DIR__ . '/../model/JobPosterQuestion.php';
+require_once __DIR__ . '/../model/JobPosterNonLocalized.php';
+require_once __DIR__ . '/../model/Lookup.php';
 
 /**
  * Summary: Data Access Object for Resources

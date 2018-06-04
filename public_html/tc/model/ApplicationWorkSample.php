@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/WorkSample.php';
+require_once __DIR__ . '/../model/WorkSample.php';
 
 class ApplicationWorkSample implements JsonSerializable {
     

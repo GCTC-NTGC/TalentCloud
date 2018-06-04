@@ -12,11 +12,11 @@ if (!isset($_SESSION)) {
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../dao/AuthenticationDAO.php';
-require_once '../dao/UserDAO.php';
-require_once '../model/AuthToken.php';
-require_once '../model/User.php';
-require_once '../utils/JWTUtils.php';
+require_once __DIR__ . '/../dao/AuthenticationDAO.php';
+require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../model/AuthToken.php';
+require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../utils/JWTUtils.php';
 
 /**
  * 

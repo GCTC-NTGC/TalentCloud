@@ -6,8 +6,8 @@
  * and open the template in the editor.
  */
 
-require_once '../model/SkillDeclaration.php';
-require_once '../dao/SkillDeclarationDAO.php';
+require_once __DIR__ . '/../model/SkillDeclaration.php';
+require_once __DIR__ . '/../dao/SkillDeclarationDAO.php';
 
 class SkillDeclarationController {
     

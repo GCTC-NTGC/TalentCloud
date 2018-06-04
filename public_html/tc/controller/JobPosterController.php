@@ -12,9 +12,9 @@ if (!isset($_SESSION)) {
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../dao/JobPosterDAO.php';
-require_once '../model/JobPosters.php';
-require_once '../model/JobPoster.php';
+require_once __DIR__ . '/../dao/JobPosterDAO.php';
+require_once __DIR__ . '/../model/JobPosters.php';
+require_once __DIR__ . '/../model/JobPoster.php';
 
 /**
  * 

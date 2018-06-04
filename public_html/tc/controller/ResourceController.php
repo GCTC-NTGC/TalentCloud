@@ -13,7 +13,7 @@ if (!isset($_SESSION)) {
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
 //var_dump($locale);
-require_once '..dao/ResourceDAO.php';
+require_once __DIR__ .'/../dao/ResourceDAO.php';
 require_once("resources/" . $locale->getIso_code() . "/resources_common.php");
 require_once("resources/resources_db.php");
 

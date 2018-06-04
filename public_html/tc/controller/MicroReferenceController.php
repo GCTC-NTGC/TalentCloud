@@ -1,8 +1,8 @@
 <?php
 
-require_once '../model/MicroReference.php';
-require_once '../model/ApplicationMicroReference.php';
-require_once '../dao/MicroReferenceDAO.php';
+require_once __DIR__ . '/../model/MicroReference.php';
+require_once __DIR__ . '/../model/ApplicationMicroReference.php';
+require_once __DIR__ . '/../dao/MicroReferenceDAO.php';
 
 class MicroReferenceController {
     

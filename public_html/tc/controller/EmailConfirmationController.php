@@ -13,8 +13,8 @@ if (!isset($_SESSION)) {
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../config/smtp.config.inc';
-require_once '../model/User.php';
+require_once __DIR__ . '/../config/smtp.config.inc';
+require_once __DIR__ . '/../model/User.php';
 
 class EmailConfirmationController {
     

@@ -18,7 +18,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
  */
 
 require_once __DIR__ . '/../model/User.php';
-require_once __DIR__ . '/../controller/UserController.php';
 require_once __DIR__ . '/../controller/EmailConfirmationController.php';
 require_once __DIR__ . '/../controller/ManagerProfileController.php';
 require_once __DIR__ . '/../controller/JobSeekerController.php';
