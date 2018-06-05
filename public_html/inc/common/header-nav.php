@@ -114,7 +114,7 @@
                             $loginLink .= "&state=".$state;
                             $loginLink .= "&client_id=".CLIENT_ID;
                             $loginLink .= "&scope=".SCOPE;
-                            $loginLink .= "&prompt=consent";
+                            //$loginLink .= "&prompt=consent";
                             echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>");
                         ?>
                     </div>
@@ -135,7 +135,7 @@
                             $loginLink .= "&state=".$state;
                             $loginLink .= "&client_id=".CLIENT_ID;
                             $loginLink .= "&scope=".SCOPE;
-                            $loginLink .= "&prompt=consent";
+                            //$loginLink .= "&prompt=consent";
                             echo("<a href=\"".$loginLink."\" id=\"navigationLoginLink\">Login</a>");
                         ?>
                     </div>
