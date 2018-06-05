@@ -810,16 +810,14 @@ TalentCloudAPI.setContent = function(content, isManager){
         profilePicUploadBtn.innerHTML = siteContent.profilePicUploadBtn;
 
     }
-
-    if(!isManager){
-        var jobPosterTimeRemaining = document.getElementById("jobPosterTimeRemaining");
-        jobPosterTimeRemaining.innerHTML = siteContent.jobPosterTimeRemaining;
-    }
     
     
     // Applicant Specific Content ==============================================
     /*
     if(!isManager){
+
+        var jobPosterTimeRemaining = document.getElementById("jobPosterTimeRemaining");
+        jobPosterTimeRemaining.innerHTML = siteContent.jobPosterTimeRemaining;
 
         ManagerProfileAPI.localizeManagerProfile();
         JobPostAPI.localizeJobPoster();

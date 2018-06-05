@@ -736,10 +736,10 @@ JobPostAPI.populateJobPoster = function(jobData){
     */
 
     // Show Time Remaining & Number of Applicants
-    var jobTimeRemaining = document.getElementById("jobPosterTimeRemaining");
-    jobTimeRemaining.innerHTML = Utilities.timeRemaining(jobData.close_date_time) + " " + siteContent.jobUntilClose;
-    var jobApplicants = document.getElementById("jobPosterApplicants");
-    jobApplicants.innerHTML = jobData.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
+    var jobTimeRemaining = document.getElementById("jobPosterTimeRemainingData");
+    jobTimeRemaining.innerHTML = Utilities.timeRemaining(jobData.close_date_time);
+    var jobApplicants = document.getElementById("jobPosterApplicantsData");
+    jobApplicants.innerHTML = jobData.applicants_to_date;
 
     document.getElementById("viewJobPosterSection").classList.remove("hidden");
 
