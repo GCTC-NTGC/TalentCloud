@@ -268,6 +268,14 @@ Utilities.removeChildNodes = function (element) {
         element.removeChild(element.firstChild);
 };
 
+Utilities.addSuffixToElementId = function (rootElement, originalId, suffix) {
+    var element = rootElement.querySelector("#" + originalId);
+    var label = rootElement.querySelector("label[for=\"" + originalId + "\"]");
+    element.id = originalId + suffix;
+    if (label)
+        label.for = element.id;
+};
+
 Utilities.clearSelectOptions = function (selectElement)
 {
     var i;
@@ -356,6 +364,122 @@ function modalSize() {
 // Reruns the function each time the viewport changes size.
 Utilities.addWindowEventListener("resize", modalSize);
 
+
+// List Inputs ================================================================
+
+Utilities.prepareInputLists = function (e) {
+    var addBtns = document.querySelectorAll(".list-input__add");
+    var rmvBtns = document.querySelectorAll(".list-input__remove");
+
+    for (var i = 0; i < addBtns.length; i++) {
+        addBtns[i].addEventListener("click", Utilities.addListInputItem);
+    }
+    for (var i = 0; i < rmvBtns.length; i++) {
+        rmvBtns[i].addEventListener("click", Utilities.removeListInputItem);
+    }
+};
+
+Utilities.addListInputItem = function (e) {
+    e.preventDefault();
+
+    //Clone this list item
+    var template = this.closest(".list-input__item");
+    var newItem = template.cloneNode(true);
+
+    //Ensure new item inputs are empty
+    var inputs = newItem.querySelectorAll("input");
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+    }
+
+    //Add click listeners to new item
+    newItem.querySelector(".list-input__add").addEventListener("click", Utilities.addListInputItem);
+    newItem.querySelector(".list-input__remove").addEventListener("click", Utilities.removeListInputItem);
+
+    //Attach new item to parent list
+    var inputList = this.closest(".list-input__list");
+    inputList.appendChild(newItem);
+};
+
+Utilities.removeListInputItem = function (e) {
+    var item = this.closest(".list-input__item");
+    item.remove();
+};
+
+// New Repeater Handlers
+
+Utilities.repeatElement = function (e) {
+
+    e.preventDefault();
+
+    // Get Repeater Wrapper
+    var repeaterWrapper = this.parentElement.querySelector(".repeater__wrapper");
+
+    // Get Template for Repeated Item
+    var templateItem = this.parentElement.querySelector(".repeater__template");
+
+    // Get List of Current Repeated Items
+    var repeatedItems = repeaterWrapper.querySelectorAll(".repeater__item");
+
+    // Get Value of Current Node
+    if (repeatedItems.length > 1) {
+
+        var lastRepeatedItem = repeatedItems[repeatedItems.length - 1];
+        var oldRepeaterValueString = lastRepeatedItem.getAttribute("data-value");
+        var oldRepeaterValue = parseInt(oldRepeaterValueString);
+
+        // Build New Node Value
+        var cloneValue = oldRepeaterValue + 1;
+
+        // Clone Initial Node
+        var clone = templateItem.cloneNode(true);
+        clone.classList.remove("repeater__template");
+        clone.classList.remove("repeater__item");
+        clone.setAttribute("data-value", cloneValue);
+
+    } else {
+
+        // Clone Initial Node
+        var clone = templateItem.cloneNode(true);
+        clone.classList.remove("repeater__template");
+        clone.classList.remove("repeater__item");
+        clone.setAttribute("data-value", 1);
+
+    }
+
+    // Build Object
+    repeaterWrapper.appendChild(clone);
+
+    Utilities.intializeRepeaterButtons();
+
+}
+
+Utilities.removeRepeatedElement = function (e) {
+
+    e.preventDefault();
+
+    this.parentElement.parentElement.remove();
+
+}
+
+
+Utilities.intializeRepeaterButtons = function (e) {
+
+    var addBtns = document.querySelectorAll(".repeater__add-button");
+    var rmvBtns = document.querySelectorAll(".repeater__remove-button");
+
+    for (var i = 0; i < addBtns.length; i++) {
+        addBtns[i].addEventListener("click", Utilities.repeatElement);
+    }
+    for (var i = 0; i < rmvBtns.length; i++) {
+        rmvBtns[i].addEventListener("click", Utilities.removeRepeatedElement);
+    }
+};
+
+Utilities.addWindowEventListener("load", Utilities.intializeRepeaterButtons);
+
+Utilities.addWindowEventListener("load", Utilities.prepareInputLists);
+
 // Sitewide Accordion Triggers ================================================
 Utilities.accordionClickListener = function (e) {
 
@@ -434,8 +558,7 @@ Utilities.mobileNavClickListener = function (e) {
         this.classList.remove("active");
         mainMenu.classList.remove("active");
         document.body.style.overflowY = "auto";
-    }
-    else {
+    } else {
         this.classList.add("active");
         mainMenu.classList.add("active");
         document.body.style.overflowY = "hidden";

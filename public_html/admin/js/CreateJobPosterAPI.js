@@ -13,6 +13,11 @@ CreateJobPosterAPI.jobPosterObj = null;
 CreateJobPosterAPI.version = "v1";
 CreateJobPosterAPI.baseURL = "/tc/api/"+CreateJobPosterAPI.version+"";
 
+CreateJobPosterAPI.JobPosterQuestion = function(question, description) {
+    this.question = question;
+    this.description = description;
+};
+
 CreateJobPosterAPI.JobPostNonLocalized = function(
         id,
         manager_user_id,
@@ -307,9 +312,25 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var developing_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies");
     var developing_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies_fr");
 
-    var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
-    var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
-
+    //Get questions & descriptions from repeaters
+    var questionWrappers = document.querySelectorAll(".job-poster__open-question");
+    
+    var questionObjs_en = [];
+    var questionObjs_fr = [];
+    
+    for (var i=0; i<questionWrappers.length; i++) {
+        var question_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
+        var question_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
+        
+        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-description-input").value;
+        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-description-input").value;
+        
+        if (question_en && question_fr) {
+            questionObjs_en.push(new CreateJobPosterAPI.JobPosterQuestion(question_en, description_en));
+            questionObjs_fr.push(new CreateJobPosterAPI.JobPosterQuestion(question_fr, description_fr));
+        }         
+    }
+   
     // TAL-150
     var classification = document.getElementById("createJobPoster_classification").value;
 
@@ -320,7 +341,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(
         id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
         close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr,
-        core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questions_en, questions_fr, classification,
+        core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questionObjs_en, questionObjs_fr, classification,
         clearance_id, language_id);
 }
 

@@ -61,7 +61,7 @@ gulp.task('optimize', function () {
         // Checks for an error, and if it exists stops everything.
         .on('error', swallowError)
         // This is the output folder for this task.
-        .pipe(gulp.dest('css/optimized/'))
+        .pipe(gulp.dest('css/compiled/'))
         // Notifies you that your code was successfully compiled.
         .pipe(notify({
             "title": "Mmm, tasty optimization. 🍔",
@@ -73,5 +73,5 @@ gulp.task('optimize', function () {
 // This task watches both the SCSS and Compiled folders and then runs the above tasks as appropriate. This task allows you to run "Gulp" once in your terminal and forget about it.
 gulp.task('default',function() {
     gulp.watch('scss/**/*.scss',['sass']);
-    gulp.watch('css/compiled/*.css',['optimize']);
+    // gulp.watch('css/compiled/*.css',['optimize']);
 });

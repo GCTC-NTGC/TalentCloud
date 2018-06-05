@@ -256,7 +256,10 @@ class JobPosterDAO extends BaseDAO {
 
         $sqlQuestionsStr = "
             SELECT
-                question.id as id, question.question as question
+                question.id as id, 
+                locale.locale_iso as locale,
+                question.question as question,
+                question.description as description
             FROM
                 job_poster_question as question, locale
             WHERE
@@ -417,15 +420,17 @@ class JobPosterDAO extends BaseDAO {
         $question_data = [];
         $question_values = [];
         foreach($jobPosterNonLocalized->getQuestions_en() as $question) {
-            $question_values[] = '(@job_post_id, 1, ?)';
-            $question_data[] = $question;
+            $question_values[] = '(@job_post_id, 1, ?, ?)';
+            $question_data[] = $question->getQuestion();
+            $question_data[] = $question->getDescription();
         }
         foreach($jobPosterNonLocalized->getQuestions_fr() as $question) {
-            $question_values[] = '(@job_post_id, 2, ?)';
-            $question_data[] = $question;
+            $question_values[] = '(@job_post_id, 2, ?, ?)';
+            $question_data[] = $question->getQuestion();
+            $question_data[] = $question->getDescription();
         }
         $sqlQuestionsStr = "INSERT INTO job_poster_question
-            (job_poster_id, locale_id, question) VALUES " .
+            (job_poster_id, locale_id, question, description) VALUES " .
             implode(",", $question_values) . ";";
 
         $sqlManagerStr = "INSERT INTO job_poster_to_manager_user_id
