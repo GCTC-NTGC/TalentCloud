@@ -11,6 +11,9 @@ Enter the task description here.
 
 # Required for Completion
 Add/remove others as necessary for this specific task.
-- [ ] Accessibility Check
+- [ ] Run Lighthouse (Chrome Dev Tools)
+- [ ] Run WAVE Evaluation
 - [ ] Browser Compatibility Check
 - [ ] Update Translation Spreadsheet
+- [ ] Consider/Perform Peer Review
+- [ ] Push to `master`
