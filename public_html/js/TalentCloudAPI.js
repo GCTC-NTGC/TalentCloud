@@ -206,8 +206,12 @@ TalentCloudAPI.loadPublic = function(){
     }
     LookupAPI.loadLookupData();
     DataAPI.getStaticContent(locale,function(request) {
-        var content = new TalentCloudAPI.Content(request.response);
-        TalentCloudAPI.setContent(content,false);
+        if (request.status === 200) {
+             var content = JSON.parse(request.response);
+             TalentCloudAPI.setContent(content,false);
+        } else {
+            window.alert("Unable to load site content.");
+        }
     });
     //console(UserAPI.hasAuthToken());
     if(UserAPI.hasAuthToken()){
@@ -232,8 +236,12 @@ TalentCloudAPI.loadAdmin = function(){
     //console.log(UserAPI.hasAuthToken());
     LookupAPI.loadLookupData();
     DataAPI.getStaticContent(locale,function(request) {
-        var content = new TalentCloudAPI.Content(request.response);
-        TalentCloudAPI.setContent(content,true);
+        if (request.status === 200) {
+             var content = JSON.parse(request.response);
+             TalentCloudAPI.setContent(content,true);
+        } else {
+            window.alert("Unable to load site content.");
+        }
     });
     if(UserAPI.hasAuthToken()){
         authToken = UserAPI.getAuthTokenAsJSON();
@@ -384,12 +392,24 @@ TalentCloudAPI.Content = function(response) {
     this.jobPosterContentTitleCulture = content.jobPosterContentTitleCulture;
     this.jobPosterContentTitleKnow = content.jobPosterContentTitleKnow;
     this.jobPosterContentTitleApply = content.jobPosterContentTitleApply;
+    this.jobPosterTimeRemaining = content.jobPosterTimeRemaining;
     // Job Application
     this.essentialCriteria = content.essentialCriteria;
     this.assetCriteria = content.assetCriteria;
     this.microReference = content.microReference;
     this.skillSample = content.skillSample;
     this.applicationPositionLabel = content.applicationPositionLabel;
+    
+    // Evidence - QF
+    this.applicantionProgressInformationAssessment = content.applicantionProgressInformationAssessment;
+    this.applicationProgressMyLevelOfExpertise = content.applicationProgressMyLevelOfExpertise;
+    
+    // Job Application Progress Tracking - QF
+    this.applicationProgressMyInformation = content.applicationProgressMyInformation;
+    this.applicationProgressEssentialCriteria = content.applicationProgressEssentialCriteria;
+    this.applicationProgressNonEssentialCriteria = content.applicationProgressNonEssentialCriteria;
+    this.applicationProgressReviewMyApplication = content.applicationProgressReviewMyApplication;
+    
     // Application Preview
     this.editApplication = content.editApplication;
     this.applicationPreviewProfilePhotoTitle = content.applicationPreviewProfilePhotoTitle;
@@ -400,6 +420,7 @@ TalentCloudAPI.Content = function(response) {
     this.applicationPreviewSkillSampleStoryLabel = content.applicationPreviewSkillSampleStoryLabel;
     this.applicationPreviewSkillSampleLink = content.applicationPreviewSkillSampleLink;
     this.applicationPreviewSkillSampleMissing = content.applicationPreviewSkillSampleMissing;
+    
     // Others
     this.title = content.title;
     this.helpLearn = content.helpLearn;
@@ -619,6 +640,21 @@ TalentCloudAPI.setContent = function(content, isManager){
     document.title = siteContent.title;
     window.title = siteContent.title;
 
+   for (var i=0; i<Object.keys(siteContent); i++) {
+        var key = Object.keys(siteContent)[i];
+        var value = siteContent[key];
+        //Seach for id matching the base_content key
+        var element = document.getElementById(key);
+        if (element) {
+            element.innerHTML = value;
+        }
+        var selector = "." + key; //Search for classes matching the base_content key
+        var classElements = document.querySelectorAll(selector);
+        for (var j=0; j < classElements.length; j++) {
+            classElements[j].innerHTML = value;
+        }
+    }
+    /*
     // Common Navigation =======================================================
     var navigationLoginLink = document.getElementById("navigationLoginLink");
     navigationLoginLink.innerHTML = siteContent.navigationLoginLink;
@@ -716,12 +752,15 @@ TalentCloudAPI.setContent = function(content, isManager){
     var updateProfilePhotoDraggableAreaErrorSize = document.getElementById("updateProfilePhotoDraggableAreaErrorSize");
     updateProfilePhotoDraggableAreaErrorSize.innerHTML = siteContent.updateProfilePhotoDraggableAreaErrorSize;
 
+    */
     // Manager Specific Content ================================================
 
     if(isManager){
 
         //console.log(isManager);
 
+
+        //TODO: make sure spreadsheet and loop replace this functionality
         CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment();
         EditTeamCultureAPI.localizeEditTeamCulture();
         CreateJobPosterAPI.localizeCreateJobPosterForm(siteContent);
@@ -772,8 +811,14 @@ TalentCloudAPI.setContent = function(content, isManager){
 
     }
 
+    if(!isManager){
+        var jobPosterTimeRemaining = document.getElementById("jobPosterTimeRemaining");
+        jobPosterTimeRemaining.innerHTML = siteContent.jobPosterTimeRemaining;
+    }
+    
+    
     // Applicant Specific Content ==============================================
-
+    /*
     if(!isManager){
 
         ManagerProfileAPI.localizeManagerProfile();
@@ -1051,9 +1096,35 @@ TalentCloudAPI.setContent = function(content, isManager){
 
         var jobPosterBackButtonText2 = document.getElementById("jobPosterBackButtonText2");
         jobPosterBackButtonText2.innerHTML = siteContent.jobPosterBackButtonText;
+        
+        //Evidence - QF
+        var applicantionProgressInformationAssessment = document.getElementsByClassName("applicant-evidence__section-title");
+        for (var i = 0; i < applicantionProgressInformationAssessment.length; i++) {
+            applicantionProgressInformationAssessment[i].innerHTML = siteContent.applicantionProgressInformationAssessment;
+        }
+        
+        var applicationProgressMyLevelOfExpertise = document.getElementsByClassName("applicant-evidence__expertise-radiogroup-title form__label");
+        for (var i = 0; i < applicationProgressMyLevelOfExpertise.length; i++) {
+            applicationProgressMyLevelOfExpertise[i].innerHTML = siteContent.applicationProgressMyLevelOfExpertise;
+        }
+        
+        
+        
+        //Application progress  - QF
+        var applicationProgressMyInformation = document.getElementById("applicationProgressMyInformation");
+        applicationProgressMyInformation.innerHTML = siteContent.applicationProgressMyInformation;
+        
+        var applicationProgressEssentialCriteria = document.getElementById("applicationProgressEssentialCriteria");
+        applicationProgressEssentialCriteria.innerHTML = siteContent.applicationProgressEssentialCriteria;
+        
+        var applicationProgressNonEssentialCriteria = document.getElementById("applicationProgressNonEssentialCriteria");
+        applicationProgressNonEssentialCriteria.innerHTML = siteContent.applicationProgressNonEssentialCriteria;
+        
+        var applicationProgressReviewMyApplication = document.getElementById("applicationProgressReviewMyApplication");
+        applicationProgressReviewMyApplication.innerHTML = siteContent.applicationProgressReviewMyApplication;
 
     }
-
+    */
 };
 
 TalentCloudAPI.setNav = function(navItemToHighlightId){
