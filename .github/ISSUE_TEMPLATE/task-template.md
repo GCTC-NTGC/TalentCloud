@@ -4,7 +4,6 @@ about: This template is for product development tasks.
 
 ---
 
-&nbsp;
 Please name the task using the following information: **Applicant/Manager/Admin - Design/FED/BED - Name**. Assign this task to the appropriate person and give it the "**Task**" Label.
 
 # Description
