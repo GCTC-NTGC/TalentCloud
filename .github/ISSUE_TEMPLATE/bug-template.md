@@ -4,7 +4,7 @@ about: This template is for bug reports.
 
 ---
 
-Please name the task using the following information: **Browser - FED/BED - Name**. Give this issue the "**Bug**" Label.
+Please name the task using the following information: **Browser - FED/BED - Name**. Give this issue the "**Bug**" label.
 
 # Description
 A clear and concise description of what the bug is.
