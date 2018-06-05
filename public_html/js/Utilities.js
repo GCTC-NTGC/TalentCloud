@@ -83,13 +83,23 @@ Utilities.timeRemaining = function (dateObj) {
     var timeDiff = Math.abs(date2.getTime() - date1.getTime());
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     if (date2 < date1) {
+        timeRemaining = diffDays;
+        
+        /* Following code attempts to generate timeRemaining strings which 
+         * use different units (hours, days, months) depending on how close 
+         * the close date is.
+         * 
+         * It has been deactivated with simpler day count + static content for now.
+         * 
         if (diffDays <= 1) {
-            timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseHours;
+            var hoursDiff = timeDiff = Math.ceil(timeDiff / (1000 * 3600));
+            timeRemaining = hoursDiff + " " + siteContent.jobUnitsToCloseHours;
         } else if (diffDays > 1 && diffDays < 32) {
             timeRemaining = diffDays + " " + siteContent.jobUnitsToCloseDays;
         } else {
             timeRemaining = Math.round(diffDays / 30) + " " + siteContent.jobUnitsToCloseMonths;
         }
+        */
     } else {
         timeRemaining = 0;
     }

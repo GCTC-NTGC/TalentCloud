@@ -318,7 +318,7 @@ JobPostAPI.populateJobSummary = function(job, demo, locale){
     var jobCardDayValue = document.createElement("span");
     var jobCardApplicationValue = document.createElement("span");
 
-    jobCardDayValue.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobUntilClose;
+    jobCardDayValue.innerHTML = Utilities.timeRemaining(job.close_date_time) + " " + siteContent.jobPosterTimeRemaining;
     jobCardApplicationValue.innerHTML = job.applicants_to_date + " " + siteContent.jobApplicantsSoFar;
 
     // Create a job-card__view-button.
