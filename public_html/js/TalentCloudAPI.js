@@ -208,7 +208,7 @@ TalentCloudAPI.loadPublic = function(){
     DataAPI.getStaticContent(locale,function(request) {
         if (request.status === 200) {
              var content = JSON.parse(request.response);
-             TalentCloudAPI.setContent(content,false);
+             TalentCloudAPI.setContent(content.content,false);
         } else {
             window.alert("Unable to load site content.");
         }
@@ -238,7 +238,7 @@ TalentCloudAPI.loadAdmin = function(){
     DataAPI.getStaticContent(locale,function(request) {
         if (request.status === 200) {
              var content = JSON.parse(request.response);
-             TalentCloudAPI.setContent(content,true);
+             TalentCloudAPI.setContent(content.content,true);
         } else {
             window.alert("Unable to load site content.");
         }
@@ -640,7 +640,7 @@ TalentCloudAPI.setContent = function(content, isManager){
     document.title = siteContent.title;
     window.title = siteContent.title;
 
-   for (var i=0; i<Object.keys(siteContent); i++) {
+   for (var i=0; i<Object.keys(siteContent).length; i++) {
         var key = Object.keys(siteContent)[i];
         var value = siteContent[key];
         //Seach for id matching the base_content key
