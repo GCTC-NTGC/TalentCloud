@@ -247,7 +247,7 @@
                         $loginLink .= "&state=" . $state;
                         $loginLink .= "&client_id=" . CLIENT_ID;
                         $loginLink .= "&scope=" . SCOPE;
-                        $loginLink .= "&prompt=consent";
+                        //$loginLink .= "&prompt=consent";
 
                         echo("<a href=\"" . $loginLink . "\" class=\"job-poster__login-button\" value=\"Login\" id=\"jobPosterLoginButton\" \">Login</a>");
                         ?>

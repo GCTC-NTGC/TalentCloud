@@ -27,7 +27,7 @@ $state = md5(uniqid(rand(), TRUE));
 //if querystring is not empty
 if($query_string !== ""){
     //if login response code from querystring array is not null
-    if($querystring_array["code"] !== null){
+    if(array_key_exists("code", $querystring_array) && $querystring_array["code"] !== null){
         $oidc = new OpenIDConnectClient(OPENID_URI);
         $oidc->setClientID(CLIENT_ID);
         $oidc->setClientSecret(CLIENT_SECRET);
