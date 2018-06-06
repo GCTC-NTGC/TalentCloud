@@ -47,9 +47,10 @@ JobPostAPI.JobPost = function(
     this.start_date = start_date;
 };
 
-JobPostAPI.JobPosterQuestion = function(id, question) {
+JobPostAPI.JobPosterQuestion = function(id, question, description) {
     this.id = id;
     this.question = question;
+    this.description = description;
 };
 
 JobPostAPI.showBrowseJobs = function() {
@@ -147,7 +148,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     jobObj.questions = [];
     for(var i=0; i<job.questions.length; i++) {
         var jsonQuesion = job.questions[i];
-        var question = new JobPostAPI.JobPosterQuestion(jsonQuesion.id, jsonQuesion.question);
+        var question = new JobPostAPI.JobPosterQuestion(jsonQuesion.id, jsonQuesion.question, jsonQuesion.description);
         jobObj.questions.push(question);
     }
 

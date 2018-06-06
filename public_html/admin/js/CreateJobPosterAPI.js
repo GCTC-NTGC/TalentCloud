@@ -11,9 +11,14 @@ var CreateJobPosterAPI = {};
 CreateJobPosterAPI.jobPosterObj = null;
 
 CreateJobPosterAPI.version = "v1";
-CreateJobPosterAPI.baseURL = "/tc/api/"+CreateJobPosterAPI.version+"";
+CreateJobPosterAPI.baseURL = "/tc/api/" + CreateJobPosterAPI.version + "";
 
-CreateJobPosterAPI.JobPostNonLocalized = function(
+CreateJobPosterAPI.JobPosterQuestion = function (question, description) {
+    this.question = question;
+    this.description = description;
+};
+
+CreateJobPosterAPI.JobPostNonLocalized = function (
         id,
         manager_user_id,
         title,
@@ -45,7 +50,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
         classification,
         clearance_id,
         language_id
-    ) {
+        ) {
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = {};
@@ -92,7 +97,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function(
     this.job_max_level_id = 3; //default to CS3
 };
 
-CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
+CreateJobPosterAPI.localizeJobPost = function (jobPostNonLocalized, locale) {
     var jp = jobPostNonLocalized;
 
     return new JobPostAPI.JobPost(
@@ -123,7 +128,7 @@ CreateJobPosterAPI.localizeJobPost = function(jobPostNonLocalized, locale) {
             );
 };
 
-CreateJobPosterAPI.showCreateJobPosterForm = function(){
+CreateJobPosterAPI.showCreateJobPosterForm = function () {
     var stateInfo = {pageInfo: 'create_job_poster', pageTitle: 'Talent Cloud: Create Job Poster'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateJobPoster');
@@ -152,23 +157,26 @@ CreateJobPosterAPI.showCreateJobPosterForm = function(){
 
 };
 
-CreateJobPosterAPI.localizeCreateJobPosterForm = function(siteContent) {
-    LookupAPI.populateDropdown("department", "createJobPoster_department");
-    LookupAPI.populateDropdown("province", "createJobPoster_province");
-    LookupAPI.populateDropdown("clearance", "createJobPoster_clearance");
-    LookupAPI.populateDropdown("language", "createJobPoster_language");
+CreateJobPosterAPI.localizeCreateJobPosterForm = function (siteContent) {
+    try {
+        LookupAPI.populateDropdown("department", "createJobPoster_department");
+        LookupAPI.populateDropdown("province", "createJobPoster_province");
+        LookupAPI.populateDropdown("clearance", "createJobPoster_clearance");
+        LookupAPI.populateDropdown("language", "createJobPoster_language");
 
-    document.getElementById("createJobPoster_branch_labelName").innerHTML = siteContent.branch;
-    document.getElementById("createJobPoster_branch_fr_labelName").innerHTML = siteContent.branch;
-    document.getElementById("createJobPoster_division_labelName").innerHTML = siteContent.division;
-    document.getElementById("createJobPoster_division_fr_labelName").innerHTML = siteContent.division;
+        document.getElementById("createJobPoster_branch_labelName").innerHTML = siteContent.branch;
+        document.getElementById("createJobPoster_branch_fr_labelName").innerHTML = siteContent.branch;
+        document.getElementById("createJobPoster_division_labelName").innerHTML = siteContent.division;
+        document.getElementById("createJobPoster_division_fr_labelName").innerHTML = siteContent.division;
 
-    document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
-    document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
-
+        document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
+        document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
+    } catch (e) {
+        (console.error || console.log).call(console, e.stack || e);
+    }
 }
 
-CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function(managerProfileResponse) {
+CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function (managerProfileResponse) {
     if (managerProfileResponse) {
         var response = JSON.parse(managerProfileResponse);
 
@@ -183,7 +191,7 @@ CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function(managerProfile
 };
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
-CreateJobPosterAPI.goToTab = function(tabId) {
+CreateJobPosterAPI.goToTab = function (tabId) {
     var stepGroups = document.getElementsByClassName('stepGroup');
     //console.log("+   " + stepGroups);
 
@@ -203,7 +211,7 @@ CreateJobPosterAPI.goToTab = function(tabId) {
     }
 };
 
-CreateJobPosterAPI.populateReviewTab = function() {
+CreateJobPosterAPI.populateReviewTab = function () {
     CreateJobPosterAPI.populateJobPosterObjFromForm();
 
     if (CreateJobPosterAPI.jobPosterObj) {
@@ -222,7 +230,7 @@ CreateJobPosterAPI.populateReviewTab = function() {
     }
 };
 
-CreateJobPosterAPI.stepHighlight = function(stepID){
+CreateJobPosterAPI.stepHighlight = function (stepID) {
     var s1 = document.getElementById("createJobPosterStep1Label");
     s1.classList.remove("create-job-poster-tab-current");
     var s2 = document.getElementById("createJobPosterStep2Label");
@@ -236,21 +244,21 @@ CreateJobPosterAPI.stepHighlight = function(stepID){
     current.classList.add("create-job-poster-tab-current");
 };
 
-CreateJobPosterAPI.validateJobPosterForm = function() {
+CreateJobPosterAPI.validateJobPosterForm = function () {
     CreateJobPosterAPI.populateJobPosterObjFromForm();
 
     var jp = CreateJobPosterAPI.jobPosterObj;
 
     // TAL-150
     var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA,
-        jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty,
-        jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance_id, jp.language_id);
+            jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty,
+            jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance_id, jp.language_id);
     if (valid) {
         CreateJobPosterAPI.submitJobPosterForm();
     }
 };
 
-CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
+CreateJobPosterAPI.populateJobPosterObjFromForm = function () {
     var id = 0;
     //Keep same id if it already exists
     if (CreateJobPosterAPI.jobPosterObj) {
@@ -307,8 +315,24 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var developing_competencies_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies");
     var developing_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies_fr");
 
-    var questions_en = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions");
-    var questions_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_questions_fr");
+    //Get questions & descriptions from repeaters
+    var questionWrappers = document.querySelectorAll(".job-poster__open-question");
+
+    var questionObjs_en = [];
+    var questionObjs_fr = [];
+
+    for (var i = 0; i < questionWrappers.length; i++) {
+        var question_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
+        var question_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
+
+        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-description-input").value;
+        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-description-input").value;
+
+        if (question_en && question_fr) {
+            questionObjs_en.push(new CreateJobPosterAPI.JobPosterQuestion(question_en, description_en));
+            questionObjs_fr.push(new CreateJobPosterAPI.JobPosterQuestion(question_fr, description_fr));
+        }
+    }
 
     // TAL-150
     var classification = document.getElementById("createJobPoster_classification").value;
@@ -318,15 +342,15 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function() {
     var language_id = document.getElementById("createJobPoster_language").value;
 
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(
-        id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
-        close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr,key_tasks_en, key_tasks_fr,
-        core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questions_en, questions_fr, classification,
-        clearance_id, language_id);
+            id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
+            close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr, key_tasks_en, key_tasks_fr,
+            core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questionObjs_en, questionObjs_fr, classification,
+            clearance_id, language_id);
 }
 
-CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
+CreateJobPosterAPI.getTextareaContentsAsList = function (textareaElementId) {
     var list = document.getElementById(textareaElementId).value.split(/\r|\n/);
-    for (var i=(list.length - 1); i >= 0; i--) {
+    for (var i = (list.length - 1); i >= 0; i--) {
         list[i] = list[i].trim();
         if (list[i] === "") {
             list.splice(i, 1);
@@ -336,19 +360,19 @@ CreateJobPosterAPI.getTextareaContentsAsList = function(textareaElementId) {
 }
 
 
-CreateJobPosterAPI.submitJobPosterForm = function() {
+CreateJobPosterAPI.submitJobPosterForm = function () {
 
     if (CreateJobPosterAPI.jobPosterObj) {
         var jobPosterJson = JSON.stringify(CreateJobPosterAPI.jobPosterObj);
 
         //TODO: use the following code instead when updateJobPoster is ready
         /*
-        if (CreateJobPosterAPI.jobObj.id > 0) {
-            CreateJobPosterAPI.updateJobPoster(jobPosterJson);
-        } else {
-            CreateJobPosterAPI.createJobPoster(jobPosterJson);
-        }
-        */
+         if (CreateJobPosterAPI.jobObj.id > 0) {
+         CreateJobPosterAPI.updateJobPoster(jobPosterJson);
+         } else {
+         CreateJobPosterAPI.createJobPoster(jobPosterJson);
+         }
+         */
 
         CreateJobPosterAPI.createJobPoster(jobPosterJson);
         return true;
@@ -357,57 +381,57 @@ CreateJobPosterAPI.submitJobPosterForm = function() {
     }
 };
 
-CreateJobPosterAPI.hideCreateJobPosterForm = function(){
+CreateJobPosterAPI.hideCreateJobPosterForm = function () {
     var jobPosterCreation = document.getElementById("createJobPosterOverlay");
     jobPosterCreation.classList.add("hidden");
 };
 
-CreateJobPosterAPI.createJobPoster = function(jobPosterJson){
-    var createJobPoster_URL = CreateJobPosterAPI.baseURL+"/createJobPoster";
+CreateJobPosterAPI.createJobPoster = function (jobPosterJson) {
+    var createJobPoster_URL = CreateJobPosterAPI.baseURL + "/createJobPoster";
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
     var authToken = "";
-    if(UserAPI.hasAuthToken()){
+    if (UserAPI.hasAuthToken()) {
         authToken = UserAPI.getAuthTokenAsJSON();
     }
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
 
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("POST", createJobPoster_URL);
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        xhr.open("POST", createJobPoster_URL);
 
     } else if (typeof XDomainRequest != "undefined") {
 
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("POST", createJobPoster_URL);
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        xhr = new XDomainRequest();
+        xhr.open("POST", createJobPoster_URL);
 
     } else {
 
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
+        // Otherwise, CORS is not supported by the browser.
+        xhr = null;
 
     }
-    xhr.open('POST',createJobPoster_URL);
+    xhr.open('POST', createJobPoster_URL);
     xhr.setRequestHeader('x-access-token', authToken.access_token);
 
     xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.talentcloudDataUpdateProgress(evt);
-    },false);
+            function (evt) {
+                DataAPI.talentcloudDataUpdateProgress(evt);
+            }, false);
     xhr.addEventListener("load",
-    function(evt){
-        CreateJobPosterAPI.postJobPosterComplete(xhr.response);
-    },false);
-    xhr.addEventListener("error",DataAPI.transferFailed,false);
-    xhr.addEventListener("abort",DataAPI.transferAborted,false);
+            function (evt) {
+                CreateJobPosterAPI.postJobPosterComplete(xhr.response);
+            }, false);
+    xhr.addEventListener("error", DataAPI.transferFailed, false);
+    xhr.addEventListener("abort", DataAPI.transferAborted, false);
 
     xhr.send(jobPosterJson);
 };
 
-CreateJobPosterAPI.postJobPosterComplete = function(response) {
+CreateJobPosterAPI.postJobPosterComplete = function (response) {
     //TODO
     CreateJobPosterAPI.jobPosterObj.id = JSON.parse(response).job_poster_id;
 
@@ -417,12 +441,12 @@ CreateJobPosterAPI.postJobPosterComplete = function(response) {
 
 };
 
-CreateJobPosterAPI.getManagerProfile = function(responseCallback){
+CreateJobPosterAPI.getManagerProfile = function (responseCallback) {
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
         var authToken = UserAPI.getAuthTokenAsJSON();
         var user_id = user["user_id"];
-        var manager_profile_url = CreateJobPosterAPI.baseURL + "/getManagerProfile/"+user_id;
+        var manager_profile_url = CreateJobPosterAPI.baseURL + "/getManagerProfile/" + user_id;
         var manager_profile_xhr = new XMLHttpRequest();
         if ("withCredentials" in manager_profile_xhr) {
             // Check if the XMLHttpRequest object has a "withCredentials" property.

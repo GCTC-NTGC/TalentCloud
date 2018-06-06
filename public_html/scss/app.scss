@@ -23,6 +23,7 @@
 @import "system/grid-ie";
 @import "system/typography";
 @import "system/palette";
+@import "system/list-input.scss";
 
 /* Atoms ==================================================================== */
 @import "atoms/buttons";
@@ -54,4 +55,4 @@
 @import "organisms/applicant-landing";
 @import "organisms/browse-jobs";
 @import "organisms/admin-dashboard";
-
+@import "organisms/manager-job-poster";

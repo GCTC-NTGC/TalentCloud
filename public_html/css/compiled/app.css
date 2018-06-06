@@ -2382,6 +2382,10 @@ footer {
   display: none;
   visibility: hidden; }
 
+.repeater__template {
+  display: none !important;
+  visibility: hidden; }
+
 /* =============================================================================
 
     Authored by: Talent Cloud
@@ -3962,6 +3966,22 @@ body[id*="Trident/7.0"] .box {
 /* Yellow */
 /* Blue */
 /* Green */
+.list-input__list input {
+  display: inline-block !important;
+  width: 50% !important; }
+
+.list-input__list .list-input__add {
+  display: none; }
+
+.list-input__list .list-input__remove {
+  display: inline-block; }
+
+.list-input__list li:last-child .list-input__add {
+  display: inline-block; }
+
+.list-input__list li:last-child .list-input__remove {
+  display: none; }
+
 /* Atoms ==================================================================== */
 /* =============================================================================
 
@@ -7090,12 +7110,18 @@ nav {
     font-size: 25px;
     font-weight: 400;
     margin: 0 0 1rem 0; }
+  .job-poster__department i {
+    color: #2196f3;
+    font-size: 2rem;
+    margin: 0 1rem 0 0;
+    vertical-align: middle; }
   .job-poster__department span {
     color: white;
     font-size: 18px;
     font-weight: 400;
     line-height: 1.2;
-    margin: 0; }
+    margin: 0;
+    vertical-align: middle; }
 
 @media (min-width: 64em) {
   .job-poster__reference-id-wrapper {
@@ -8380,3 +8406,79 @@ nav {
   border: none;
   height: 1px;
   width: 100%; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Manager: Create Job Poster
+
+============================================================================= */
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Manager: Create Job Poster - Open Ended Questions
+
+============================================================================= */
+.job-poster__open-questions {
+  text-align: center; }
+
+.job-poster__open-question-section-label {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 2rem 0 0 0;
+  text-align: left; }
+
+.job-poster__open-question {
+  margin: 0 -1rem;
+  text-align: left;
+  width: 100%; }
+  .job-poster__open-question .box {
+    padding: 0 1rem; }
+    @media (min-width: 64em) {
+      .job-poster__open-question .box:nth-child(2) {
+        text-align: right; } }
+
+.job-poster__open-question-label {
+  color: #2196f3;
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 2rem 0;
+  text-align: left; }
+
+.job-poster__open-question-remove-button {
+  appearance: none;
+  background: none;
+  border: none;
+  color: #2196f3;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  margin: 2rem 0 0 0;
+  padding: 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .job-poster__open-question-remove-button:hover {
+    color: #125184;
+    transition: color .2s ease; }
+
+[class^="job-poster__open-question-wrapper--"] label {
+  display: block;
+  width: 100%; }
+
+[class^="job-poster__open-question-wrapper--"] input {
+  display: block;
+  width: 100%; }
+
+[class^="job-poster__open-question-wrapper--"] textarea {
+  display: block;
+  width: 100%; }
+
+.job-poster__open-question-wrapper-label {
+  font-size: 18px;
+  font-weight: 800; }
+
+.job-poster__open-questions-add-button {
+  margin: 4rem 0 0 0; }

@@ -124,7 +124,7 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
     //TODO: call Utilities function to set up triggers
 };
 
-JobApplicationAPI.createEvidencePanelsOnPage = function(criteria, criteriaType, evidenceMenuId, evidenceFormWrapperId) {
+JobApplicationAPI.createEvidencePanelsOnPage = function (criteria, criteriaType, evidenceMenuId, evidenceFormWrapperId) {
     var evidenceMenu = document.getElementById(evidenceMenuId);
     var evidenceFormWrapper = document.getElementById(evidenceFormWrapperId);
     evidenceMenu.innerHTML = "";
@@ -194,10 +194,10 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         for (var i = 0; i < application_question_answers.length; i++) {
             var value = application_question_answers[i];
             //find appropriate question textarea
-            var element = document.querySelector('.application-form__open-answer[data-question-id="' + value.job_poster_question_id + '"]');
+            var inputElement = document.querySelector('.application-form__open-question-item[data-question-id="' + value.job_poster_question_id + '"] .application-form__open-answer');
             //if textarea exists, set value with saved value
-            if (element) {
-                element.value = value.answer;
+            if (inputElement) {
+                inputElement.value = value.answer;
             }
         }
     } else if (jobApplicationRequestResponse.status === 404) {
@@ -235,12 +235,13 @@ JobApplicationAPI.populateApplicationWithQuestionContent = function (jobPosterQu
 
     //REMOVE existing children (from previous application)
     questionSectionWrapper.innerHTML = '';
-
+    var fragment = document.createDocumentFragment();
     for (var i = 0; i < jobPosterQuestions.length; i++) {
 
-        var element = JobApplicationAPI.makeQuestionAnswerHtmlElement(jobPosterQuestions[i], i);
-        questionSectionWrapper.appendChild(element);
+        var element = JobApplicationAPI.makeQuestionAnswerHtmlElement(jobPosterQuestions[i]);
+        fragment.appendChild(element);
     }
+    questionSectionWrapper.appendChild(fragment);
 };
 
 /**
@@ -249,39 +250,17 @@ JobApplicationAPI.populateApplicationWithQuestionContent = function (jobPosterQu
  * @param {int} questionNumber - this is the nth question on the page
  * @return {Element} Job Application Question Answer Wrapper element
  */
-JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion, questionNumber) {
-    var wrapper = document.createElement("div");
-    wrapper.setAttribute("class", "jobApplicationQuestionAnswerWrapper");
+JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion) {
+    var item = document.getElementById("jobApplicationQuestionAnswerTemplate").cloneNode(true);
+    item.setAttribute("id", "");
+    item.classList.remove("template");
 
-    var label = document.createElement('form');
-    label.setAttribute('class', 'application-form__form');
+    item.setAttribute("data-question-id",jobPosterQuestion.id);
+    item.querySelector(".application-form__open-question").innerHTML = jobPosterQuestion.question;
+    item.querySelector(".application-form__open-question-description").innerHTML = jobPosterQuestion.description;
 
-    var question = document.createElement('label');
-    question.setAttribute('class', 'jobApplicationQuestion application-form__label heading--03');
-    question.setAttribute("for", "jobApplicationAnswerField_number_" + questionNumber);
-    var questionTextNode = document.createTextNode(jobPosterQuestion.question);
-    question.appendChild(questionTextNode);
-
-    var answerField = document.createElement('textarea');
-    var answerId = "jobApplicationAnswerField_number_" + questionNumber;
-    answerField.setAttribute("id", answerId);
-    answerField.setAttribute('name', 'answer');
-    answerField.setAttribute('class', 'jobApplicationAnswerField application-form__textarea form__textarea application-form__open-answer');
-    answerField.setAttribute('data-question-id', jobPosterQuestion.id);
-    //answerField.value = jobPosterQuestion.answer;
-
-    var questionId = document.createElement('input');
-    questionId.setAttribute('name', 'job_poster_question_id');
-    questionId.setAttribute('type', 'hidden');
-    questionId.value = jobPosterQuestion.id;
-
-    label.appendChild(question);
-    label.appendChild(answerField);
-
-    wrapper.appendChild(label);
-    wrapper.appendChild(questionId);
-
-    return wrapper;
+    Utilities.addSuffixToElementId(item, "jobApplicationAnswerInput", "_" + jobPosterQuestion.id);    
+    return item;
 };
 
 
@@ -295,7 +274,7 @@ JobApplicationAPI.submitNewJobApplication = function () {
     //get all Question answers
     var applicationQuestionAnswers = [];
     var questionAnswerSection = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
-    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('jobApplicationQuestionAnswerWrapper');
+    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('application-form__open-question-item');
     for (var i = 0; i < questionAnswerWrappers.length; i++) {
         var questionId = questionAnswerWrappers[i].querySelector('input[name="job_poster_question_id"]').value;
         var answer = questionAnswerWrappers[i].getElementsByTagName('textarea')[0].value;
@@ -320,7 +299,7 @@ JobApplicationAPI.submitNewJobApplication = function () {
 
 };
 
-JobApplicationAPI.saveJobApplicationAndPreview = function() {
+JobApplicationAPI.saveJobApplicationAndPreview = function () {
 
 };
 
@@ -331,7 +310,7 @@ JobApplicationAPI.saveJobApplicationAndPreview = function() {
  * @param {function} onSuccess
  * @return {undefined}
  */
-JobApplicationAPI.saveJobApplication = function(onSuccess) {
+JobApplicationAPI.saveJobApplication = function (onSuccess) {
 
     var jobApplicationId = document.getElementById('jobApplicationJobApplicationId').value;
     var jobPosterId = document.getElementById('jobApplicationJobPosterId').value;
@@ -340,11 +319,11 @@ JobApplicationAPI.saveJobApplication = function(onSuccess) {
     //get all Question answers
     var applicationQuestionAnswers = [];
     var questionAnswerSection = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
-    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('jobApplicationQuestionAnswerWrapper');
+    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('application-form__open-question-item');
     for (var i = 0; i < questionAnswerWrappers.length; i++) {
-        var questionId = questionAnswerWrappers[i].querySelector('input[name="job_poster_question_id"]').value;
+        var questionId = questionAnswerWrappers[i].getAttribute("data-question-id");
         var answer = questionAnswerWrappers[i].getElementsByTagName('textarea')[0].value;
-        var question = questionAnswerWrappers[i].getElementsByClassName('jobApplicationQuestion')[0].innerHTML;
+        var question = questionAnswerWrappers[i].querySelector(".application-form__open-question").innerHTML;
 
         var questionAnswer = new JobApplicationAPI.ApplicationQuestionAnswer(
                 null, questionId, question, answer);
@@ -389,20 +368,20 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
 
 };
 
-JobApplicationAPI.showPreviousApplicationSection = function(jobPosterId) {
+JobApplicationAPI.showPreviousApplicationSection = function (jobPosterId) {
     JobApplicationAPI.shiftApplicationSection(-1, jobPosterId);
 };
 
-JobApplicationAPI.showNextApplicationSection = function(jobPosterId) {
+JobApplicationAPI.showNextApplicationSection = function (jobPosterId) {
     JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
 };
 
-JobApplicationAPI.shiftApplicationSection = function(shift, jobPosterId) {
+JobApplicationAPI.shiftApplicationSection = function (shift, jobPosterId) {
 
     window.scrollTo(0, 0);
     var progressItems = document.querySelectorAll(".application-progress__item");
 
-    for (var i=0; i<progressItems.length; i++) {
+    for (var i = 0; i < progressItems.length; i++) {
         if (!progressItems[i].classList.contains("inactive")) {
             //This item is not inactive, therefore it is the current section
             var shiftedIndex = i + shift;
@@ -417,29 +396,29 @@ JobApplicationAPI.shiftApplicationSection = function(shift, jobPosterId) {
     }
 };
 
-JobApplicationAPI.showApplicationSection = function(applicationSection, jobPosterId) {
+JobApplicationAPI.showApplicationSection = function (applicationSection, jobPosterId) {
     //Hide all application-sections except for selected one
     var applicationSections = document.querySelectorAll(".application-section");
-    for (var i=0; i< applicationSections.length; i++) {
+    for (var i = 0; i < applicationSections.length; i++) {
         var section = applicationSections[i];
         if (section.getAttribute("data-application-section") === applicationSection) {
-           section.classList.remove("hidden");
-       } else {
-           section.classList.add("hidden");
-       }
+            section.classList.remove("hidden");
+        } else {
+            section.classList.add("hidden");
+        }
     }
 
     //Set progress tracking bar to match
     var progressItems = document.querySelectorAll(".application-progress__item");
-    for (var i=0; i < progressItems.length; i++) {
+    for (var i = 0; i < progressItems.length; i++) {
         var item = progressItems[i];
         if (item.getAttribute("data-application-section") === applicationSection) {
-           item.classList.remove("inactive");
-           item.setAttribute("aria-hidden", "false");
-       } else {
-           item.classList.add("inactive");
-           item.setAttribute("aria-hidden", "true");
-       }
+            item.classList.remove("inactive");
+            item.setAttribute("aria-hidden", "false");
+        } else {
+            item.classList.add("inactive");
+            item.setAttribute("aria-hidden", "true");
+        }
     }
 
     //TODO: select focus properly
@@ -453,12 +432,12 @@ JobApplicationAPI.showApplicationSection = function(applicationSection, jobPoste
 
     // Google Analytics
 
-    ga('set', 'page', '/apply/'+jobPosterId+'/'+applicationSection);
+    ga('set', 'page', '/apply/' + jobPosterId + '/' + applicationSection);
     ga('send', 'pageview');
 
 };
 
-JobApplicationAPI.submitJobApplication = function(jobPosterId) {
+JobApplicationAPI.submitJobApplication = function (jobPosterId) {
     if (jobPosterId && jobPosterId.length > 0 && UserAPI.hasSessionUser()) {
         var userId = UserAPI.getSessionUserAsJSON().user_id;
 
@@ -467,16 +446,15 @@ JobApplicationAPI.submitJobApplication = function(jobPosterId) {
         var attestationError = document.getElementById("applicationAttestationError");
 
         //Submit only if attestation checked
-        if(attestationChecked.checked !== true) {
+        if (attestationChecked.checked !== true) {
             //Show message and don't submit if attestation not checked
             attestationError.classList.remove("hidden");
-        }
-        else{
+        } else {
             //Hide old attestation error message
             attestationError.classList.add("hidden");
 
             //Load current job appliction to verify its ready for submission
-            DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function(request) {
+            DataAPI.getFullJobApplicationByJobAndUser(jobPosterId, userId, function (request) {
                 if (request.status === 200) {
                     var fullJobApplication = JSON.parse(request.response);
 
@@ -484,7 +462,7 @@ JobApplicationAPI.submitJobApplication = function(jobPosterId) {
 
                     //TODO: validate that application is still in draft status.
                     if (fullJobApplication.job_poster_application.job_poster_application_status_id === 1) {
-                        DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function(request) {
+                        DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function (request) {
                             if (request.status === 200) {
                                 var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
                                 JobApplicationAPI.showCreateJobConfirmation(jobTitle);

@@ -15,14 +15,18 @@
                         <span id="jobPosterApplicantsData"></span> <span id="jobPosterApplicants"></span>
                     </p>
                     <h3 class="job-poster__job-title" id="jobPosterTitle">Job Title</h3>
-                    <p class="job-poster__department" id="jobPosterLocation">
+                    <div class="job-poster__department" id="jobPosterLocation">
                         <span id="jobPosterDepartment"></span>
                         <br>
-                        <span id="jobPosterCity"></span>,
-                        <span id="jobPosterProvince"></span>
+                        <div>
+                            <i class="fa fa-map-marker" title="Location Icon"></i><span id="jobPosterCity"></span>,
+                            <span id="jobPosterProvince"></span>
+                        </div>
                         <br>
-                        <span id="jobPosterRemoteWorkHeader">Remote work</span>
-                    </p>
+                        <div>
+                            <i class="fa fa-home" title="Remote Work Icon"></i><span id="jobPosterRemoteWorkHeader">Remote work</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="job-poster__reference-id-wrapper box lg-1of3">

@@ -14,6 +14,7 @@
 
     require_once '../controller/JobPosterController.php';
     require_once '../model/JobPosterNonLocalized.php';
+    require_once '../model/JobPosterQuestion.php';
     require_once '../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -80,12 +81,27 @@
                 $jobPoster->setCore_competencies_en($jobPosterJSON["core_competencies"][$en]);
                 $jobPoster->setCore_competencies_fr($jobPosterJSON["core_competencies"][$fr]);
                 $jobPoster->setDeveloping_competencies_en($jobPosterJSON["developing_competencies"][$en]);
-                $jobPoster->setDeveloping_competencies_fr($jobPosterJSON["developing_competencies"][$fr]);
-                $jobPoster->setQuestions_en($jobPosterJSON["questions"][$en]);
-                $jobPoster->setQuestions_fr($jobPosterJSON["questions"][$fr]);
+                $jobPoster->setDeveloping_competencies_fr($jobPosterJSON["developing_competencies"][$fr]);              
                 $jobPoster->setClassification($jobPosterJSON["classification"]);
                 $jobPoster->setClearance_id($jobPosterJSON["clearance_id"]);
                 $jobPoster->setLanguage_id($jobPosterJSON["language_id"]);
+                
+                $questionsEn = [];
+                foreach ($jobPosterJSON["questions"][$en] as $questionJson) {
+                    $question = new JobPosterQuestion();
+                    $question->setQuestion($questionJson["question"]);
+                    $question->setDescription($questionJson["description"]);
+                    $questionsEn[] = $question;
+                }
+                $questionsFr = [];
+                foreach ($jobPosterJSON["questions"][$fr] as $questionJson) {
+                    $question = new JobPosterQuestion();
+                    $question->setQuestion($questionJson["question"]);
+                    $question->setDescription($questionJson["description"]);
+                    $questionsFr[] = $question;
+                }
+                $jobPoster->setQuestions_en($questionsEn);
+                $jobPoster->setQuestions_fr($questionsFr);
 
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
