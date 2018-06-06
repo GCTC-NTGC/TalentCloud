@@ -402,7 +402,8 @@ TalentCloudAPI.Content = function(response) {
     
     // Evidence - QF
     this.applicantionProgressInformationAssessment = content.applicantionProgressInformationAssessment;
-    this.applicationProgressMyLevelOfExpertise = content.applicationProgressMyLevelOfExpertise;
+    this.applicationEvidenceExpertiseItemLabel = content.applicationEvidenceExpertiseItemLabel;
+    this.applicationProgressMyYearsOfExperience = content.applicationProgressMyYearsOfExperience;
     
     // Job Application Progress Tracking - QF
     this.applicationProgressMyInformation = content.applicationProgressMyInformation;
@@ -624,6 +625,7 @@ TalentCloudAPI.Content = function(response) {
     this.jobPosterBackButtonText = content.jobPosterBackButtonText;
     this.termsAndConditions = content.termsAndConditions;
     this.privacy = content.privacy;
+    this.jobPosterApplicants = content.jobPosterApplicants;
 };
 
 /**
@@ -652,8 +654,11 @@ TalentCloudAPI.setContent = function(content, isManager){
         var classElements = document.querySelectorAll(selector);
         for (var j=0; j < classElements.length; j++) {
             classElements[j].innerHTML = value;
+            classElements[j].placeholder = value;
         }
     }
+    
+
     /*
     // Common Navigation =======================================================
     var navigationLoginLink = document.getElementById("navigationLoginLink");

@@ -20,11 +20,11 @@
 
     <div class="application-button__wrapper">
 
-        <button class="button--blue" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--blue applicant-evidence__save-and-return" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--yellow applicant-evidence__save-and-continue" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
             Save and continue
         </button>
 
@@ -54,11 +54,11 @@
 
     <div class="application-button__wrapper">
 
-        <button class="button--blue" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
+        <button class="button--blue applicant-evidence__save-and-return" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationAPI.showPreviousApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
             Save and return
         </button>
 
-        <button class="button--yellow" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreviewById(document.getElementById('jobApplicationJobApplicationId').value);})">
+        <button class="button--yellow applicant-evidence__save-and-preview" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreviewById(document.getElementById('jobApplicationJobApplicationId').value);})">
             Save and Preview
         </button>
 
@@ -111,7 +111,7 @@
 
                 <?php /* <hr class="applicant-evidence__content-divider"> */ ?>
 
-                <h5 class="applicant-evidence__section-title">
+                <h5 class="applicant-evidence__section-title applicant-evidence__skill-declaration-title">
                     <i class="fa fa-check"></i>
                     My Skill Declaration (Required)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
@@ -124,7 +124,7 @@
 
                     <div class="applicant-evidence__expertise-radiogroup box full" role="radiogroup" aria-labelledby="applicationEvidenceExpertiseItemLabel" aria-orientation="horizontal">
 
-                        <label id="applicationEvidenceExpertiseItemLabel" for="" class="applicant-evidence__expertise-radiogroup-title form__label" id="">My Level of Expertise:</label>
+                        <label id="applicationEvidenceExpertiseItemLabel" for="" class="applicant-evidence__expertise-radiogroup-title form__label">My Level of Expertise:</label>
 
                         <?php // DEV-NOTE: This is the new structure for what were originally called "sliders". You'll notice that I've included the "for" and "id" attributes here due to the radio inputs not working without them. These will still need to be assigned dynamically. ?>
                         <div class="applicant-evidence__expertise-wrapper flex-grid">
@@ -160,9 +160,10 @@
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">My Experience and Knowledge:
-                            <textarea class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>
+                        <label for="" class="applicant-evidence__experience-and-knowledge__form-title form__label">
+                            My Experience and Knowledge:
                         </label>
+                        <textarea class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>      
                     </div>
 
                 </form>
@@ -171,121 +172,133 @@
 
                 <div class="evidence__completion-wrapper">
                     <i class="fa fa-check-circle"></i>
-                    <span>Done!</span>
+                    <span class="applicant-evidence-done">Done!</span>
                     <br>
-                    <span>This is all you need to apply. You can strengthen your claim by providing more information about your skill below.</span>
+                    <span class="applicant-evidence__completion-message">This is all you need to apply. You can strengthen your claim by providing more information about your skill below.</span>
                 </div>
 
             </div>
 
             <div class="applicant-evidence__optional-wrapper active">
 
-                <h5 class="applicant-evidence__section-title">
+                <h5 class="applicant-evidence__section-title applicant-evidence__micro-reference-title">
                     <i class="fa fa-user"></i>
                     Micro-reference (Optional)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
-                    <a href="/#FAQ/credentialingReferences" title="What is a micro-reference?" target="_blank">How will this strengthen my application?</a>
+                    <a href="/#FAQ/credentialingReferences" title="What is a micro-reference?" class="applicant-evidence__faq" target="_blank">How will this strengthen my application?</a>
                 </h5>
 
-                <p class="applicant-evidence__form-description">Appoint one reference that can vouch for you.</p>
+                <p class="applicant-evidence__form-description applicant-evidence__appoint-reference-label">Appoint one reference that can vouch for you.</p>
 
                 <form class="form__wrapper flex-grid">
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Reference's Name:
-                            <input name="reference_name" type="text" class="form__input--text" id="applicationEvidenceReferenceName"/>
+                        <label for="applicationEvidenceReferenceName" class="applicant-evidence__reference-name form__label">
+                            Reference's Name:
                         </label>
+                        <input name="reference_name" type="text" class="form__input--text" id="applicationEvidenceReferenceName"/>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Reference's Email:
-                            <input name="reference_email" type="email" class="form__input--email" id="applicationEvidenceReferenceEmail" />
+                        <label for="applicationEvidenceReferenceEmail" class="applicant-evidence__reference-email form__label">
+                            Reference's Email:
                         </label>
+                        <input name="reference_email" type="email" class="form__input--email" id="applicationEvidenceReferenceEmail" />
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Your Relationship to this Reference:
-                            <div class="form__select-wrapper">
-                                <select name="reference_relationship" class="form__select" id="applicationEvidenceReferenceRelationship">
-                                    <option>Option 01</option>
-                                </select>
-                            </div>
+                        <label for="applicationEvidenceReferenceRelationship" class="applicant-evidence__reference-relationship form__label">
+                            Your Relationship to this Reference:
                         </label>
+                        <div class="form__select-wrapper">
+                            <select name="reference_relationship" class="form__select" id="applicationEvidenceReferenceRelationship">
+                                <option>Option 01</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Observed From:
-                            <input type="date" name="reference_from_date" class="form__input--date" id="applicationEvidenceReferenceFrom"/>
+                        <label for="applicationEvidenceReferenceFrom" class="form__label applicant-evidence__observed-from">
+                            Observed From:
                         </label>
+                        <input type="date" name="reference_from_date" class="form__input--date" id="applicationEvidenceReferenceFrom"/>
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Observed To:
-                            <input type="date" name="reference_until_date" class="form__input--date" id="applicationEvidenceReferenceUntil" />
+                        <label for="applicationEvidenceReferenceUntil" class="form__label applicant-evidence__observed-to">
+                            Observed To:
                         </label>
+                        <input type="date" name="reference_until_date" class="form__input--date" id="applicationEvidenceReferenceUntil" />
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Your Experience Level at the Time:
-                            <div class="form__select-wrapper">
-                                <select name="reference_exp_level" class="form__select" id="applicationEvidenceReferenceExpLevel">
-                                </select>
-                            </div>
+                        <label for="applicationEvidenceReferenceExpLevel" class="form__label applicant-evidence__your-experience-at-the-time">
+                            Your Experience Level at the Time:
                         </label>
+                        <div class="form__select-wrapper">
+                            <select name="reference_exp_level" class="form__select" id="applicationEvidenceReferenceExpLevel">
+                            </select>
+                        </div>
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Tell Us What You Did:
-                            <textarea name="reference_story" class="form__textarea" id="applicationEvidenceReferenceStory" placeholder="Provide a sentence or two about the role you played and what you're asking this micro-reference to validate."></textarea>
+                        <label for="applicationEvidenceReferenceStory" class="form__label applicant-evidence__tell-us-what-you-did">
+                            Tell Us What You Did:
                         </label>
+                        <textarea name="reference_story" class="form__textarea applicant-evidence__reference-story" id="applicationEvidenceReferenceStory" placeholder="Provide a sentence or two about the role you played and what you're asking this micro-reference to validate."></textarea>
                     </div>
 
                 </form>
 
                 <hr class="applicant-evidence__content-divider">
 
-                <h5 class="applicant-evidence__section-title">
+                <h5 class="applicant-evidence__section-title applicant-evidence__sample-of-my-skill">
                     <i class="fa fa-file"></i>
                     Sample of my Skill (Optional)
                     <?php // DEV-NOTE: This anchor should link out to a separate help page. ?>
                     <a href="/#FAQ/credentialingEvidence" title="How will this improve my application?" target="_blank">How will this strengthen my application?</a>
                 </h5>
 
-                <p class="applicant-evidence__form-description">Attach an example of your work that you're proud of.</p>
+                <p class="applicant-evidence__form-description applicant-evidence__attach-work-sample">Attach an example of your work that you're proud of.</p>
 
                 <form class="form__wrapper flex-grid">
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Project/Document Name:
-                            <input id="applicationEvidenceSampleName" name="sample_name" type="text" class="form__input--text" />
+                        <label for="applicationEvidenceSampleName" class="form__label applicant-evidence__project-document-name">
+                            Project/Document Name:
                         </label>
+                        <input id="applicationEvidenceSampleName" name="sample_name" type="text" class="form__input--text" />
                     </div>
 
                     <div class="box med-1of2">
-                        <label for="" class="form__label">Type of File:
-                            <div class="form__select-wrapper">
-                                <select id="applicationEvidenceSampleType" name="sample_type" class="form__select">
-                                </select>
-                            </div>
+                        <label for="applicationEvidenceSampleType" class="form__label applicant-evidence__type-of-file">
+                            Type of File:
                         </label>
+                        <div class="form__select-wrapper">
+                            <select id="applicationEvidenceSampleType" name="sample_type" class="form__select">
+                            </select>
+                        </div>
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Date Created:
-                            <input id="applicationEvidenceSampleDateCreated" name="sample_date_created" type="date" class="form__input--date" />
+                        <label for="applicationEvidenceSampleDateCreated" class="form__label applicant-evidence__date-created">
+                            Date Created:
                         </label>
+                        <input id="applicationEvidenceSampleDateCreated" name="sample_date_created" type="date" class="form__input--date" />
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Link to Evidence:
-                            <input id="applicationEvidenceSampleHttpLink" name="sample_http_link" type="url" class="form__input--url" />
+                        <label for="applicationEvidenceSampleHttpLink" class="form__label applicant-evidence__link-to-evidence">
+                            Link to Evidence:
                         </label>
+                        <input id="applicationEvidenceSampleHttpLink" name="sample_http_link" type="url" class="form__input--url" />
                     </div>
 
                     <div class="box full">
-                        <label for="" class="form__label">Story:
-                            <textarea id="applicationEvidenceSampleStory" name="sample_story" class="form__textarea applicant-evidence__last-target" placeholder="Tell us about this piece of evidence and your role in creating it."></textarea>
+                        <label for="applicationEvidenceSampleStory" class="form__label applicant-evidence__story">
+                            Story:
                         </label>
+                        <textarea id="applicationEvidenceSampleStory" name="sample_story" class="form__textarea applicant-evidence__last-target applicant-evidence__tell-us-about-evidence" placeholder="Tell us about this piece of evidence and your role in creating it."></textarea>
                     </div>
 
                 </form>
