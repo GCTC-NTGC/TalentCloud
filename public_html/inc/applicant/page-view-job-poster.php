@@ -17,12 +17,12 @@
                         <span id="jobPosterDepartment"></span>
                         <br>
                         <div>
-                            <i class="fa fa-map-marker"></i><span id="jobPosterCity"></span>,
+                            <i class="fa fa-map-marker" title="Location Icon"></i><span id="jobPosterCity"></span>,
                             <span id="jobPosterProvince"></span>
                         </div>
                         <br>
                         <div>
-                            <i class="fa fa-home"></i><span id="jobPosterRemoteWorkHeader">Remote work</span>
+                            <i class="fa fa-home" title="Remote Work Icon"></i><span id="jobPosterRemoteWorkHeader">Remote work</span>
                         </div>
                     </div>
                 </div>
