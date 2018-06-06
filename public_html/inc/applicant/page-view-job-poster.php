@@ -10,7 +10,9 @@
 
                 <div class="box lg-2of3">
                     <p class="job-poster__heading-meta">
-                        <span id="jobPosterTimeRemaining"></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span id="jobPosterApplicants"></span>
+                        <span id="jobPosterTimeRemainingData"></span> <span id="jobPosterTimeRemaining"></span>
+                        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <span id="jobPosterApplicantsData"></span> <span id="jobPosterApplicants"></span>
                     </p>
                     <h3 class="job-poster__job-title" id="jobPosterTitle">Job Title</h3>
                     <div class="job-poster__department" id="jobPosterLocation">
