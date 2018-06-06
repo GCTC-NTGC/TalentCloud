@@ -8,22 +8,22 @@ var CreateEditProfileAPI = {};
 
 CreateEditProfileAPI.managerProfileObj = {};
 
-CreateEditProfileAPI.ManagerProfile = function(
+CreateEditProfileAPI.ManagerProfile = function (
         user_manager_profile_id,
         user_manager_profile_department_id,
         user_manager_profile_twitter,
         user_manager_profile_linkedin,
         user_id,
-        profile_pic){
+        profile_pic) {
     this.user_manager_profile_id = user_manager_profile_id;
     this.user_manager_profile_department_id = user_manager_profile_department_id;
     this.user_manager_profile_twitter = user_manager_profile_twitter;
     this.user_manager_profile_linkedin = user_manager_profile_linkedin;
     this.user_id = user_id,
-    this.profile_pic = profile_pic;
+            this.profile_pic = profile_pic;
 };
 
-CreateEditProfileAPI.ManagerProfileDetails = function(
+CreateEditProfileAPI.ManagerProfileDetails = function (
         user_manager_profile_details_id,
         user_manager_profile_details_locale_id,
         user_manager_profile_details_aboutme,
@@ -41,7 +41,7 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
         user_manager_profile_devops,
         user_manager_profile_lvwrequests,
         user_manager_profile_work_experience,
-        user_manager_profile_education){
+        user_manager_profile_education) {
     this.user_manager_profile_details_id = user_manager_profile_details_id;
     this.user_manager_profile_details_locale_id = user_manager_profile_details_locale_id;
     this.user_manager_profile_details_aboutme = user_manager_profile_details_aboutme;
@@ -68,22 +68,26 @@ CreateEditProfileAPI.ManagerProfileDetails = function(
  * @param {TalentCloudAPI.Content} siteContent
  * @return {undefined}
  */
-CreateEditProfileAPI.localizeCreateEditProfile = function(siteContent) {
-    LookupAPI.populateDropdown("department", "createEditProfile_department");
+CreateEditProfileAPI.localizeCreateEditProfile = function (siteContent) {
+    try {
+        LookupAPI.populateDropdown("department", "createEditProfile_department");
 
-    document.getElementById("createEditProfile_branch_label").innerHTML = siteContent.branch;
-    document.getElementById("createEditProfile_branch_fr_label").innerHTML = siteContent.branch;
-    document.getElementById("createEditProfile_division_label").innerHTML = siteContent.division;
-    document.getElementById("createEditProfile_division_fr_label").innerHTML = siteContent.division;
+        document.getElementById("createEditProfile_branch_label").innerHTML = siteContent.branch;
+        document.getElementById("createEditProfile_branch_fr_label").innerHTML = siteContent.branch;
+        document.getElementById("createEditProfile_division_label").innerHTML = siteContent.division;
+        document.getElementById("createEditProfile_division_fr_label").innerHTML = siteContent.division;
+    } catch (e) {
+        (console.error || console.log).call(console, e.stack || e);
+    }
 };
 
-CreateEditProfileAPI.selectedUnit = function(newID){
+CreateEditProfileAPI.selectedUnit = function (newID) {
     var option = document.getElementById(newID);
     option.checked = true;
 };
 
 //below are the functions for the tabbed layout of the 'create job poster' page for managers
-CreateEditProfileAPI.goToStep = function(stepId) {
+CreateEditProfileAPI.goToStep = function (stepId) {
     var stepGroups = document.getElementsByClassName('stepGroup_createEditProfile');
     //console.log("+   " + stepGroups);
 
@@ -99,7 +103,7 @@ CreateEditProfileAPI.goToStep = function(stepId) {
     }
 };
 
-CreateEditProfileAPI.stepHighlight = function(stepID){
+CreateEditProfileAPI.stepHighlight = function (stepID) {
     var s1 = document.getElementById("createJobPosterStep1Label");
     s1.classList.remove("create-job-poster-tab-current");
     var s2 = document.getElementById("createJobPosterStep2Label");
@@ -113,12 +117,12 @@ CreateEditProfileAPI.stepHighlight = function(stepID){
     current.classList.add("create-job-poster-tab-current");
 };
 
-CreateEditProfileAPI.firstLoad = function() {
+CreateEditProfileAPI.firstLoad = function () {
     DepartmentAPI.filterCreateJobPosterDepartments(true);
 
 };
 
-CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
+CreateEditProfileAPI.updateManagerProfileWithDetails = function () {
 
     var updated_manager_profile = new CreateEditProfileAPI.ManagerProfile();
 
@@ -131,7 +135,7 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
         //Server accepts null but not empty string ids
         updated_manager_profile.user_manager_profile_department_id = null;
     }
-    
+
     updated_manager_profile.user_manager_profile_twitter = document.getElementById("createEditProfile_twitter").value;
     updated_manager_profile.user_manager_profile_linkedin = document.getElementById("createEditProfile_linkedin").value;
 
@@ -217,7 +221,7 @@ CreateEditProfileAPI.updateManagerProfileWithDetails = function(){
 
 };
 
-CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
+CreateEditProfileAPI.saveManagerProfile = function (complete_manager_profile) {
 
     var complete_manager_profileJSON = JSON.stringify(complete_manager_profile);
 
@@ -225,7 +229,7 @@ CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
         var user = UserAPI.getSessionUserAsJSON();
         var authToken = UserAPI.getAuthTokenAsJSON();
         var user_id = user["user_id"];
-        var manager_profile_url = UserAPI.baseURL + "/postManagerProfile/"+user_id;
+        var manager_profile_url = UserAPI.baseURL + "/postManagerProfile/" + user_id;
         var manager_profile_xhr = new XMLHttpRequest();
         if ("withCredentials" in manager_profile_xhr) {
             // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -252,7 +256,7 @@ CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
         manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
         manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
 
-        manager_profile_xhr.addEventListener("load", function(){
+        manager_profile_xhr.addEventListener("load", function () {
             if (manager_profile_xhr.status === 200) {
                 var response = JSON.parse(manager_profile_xhr.responseText);
                 document.getElementById("ManagerProfileId").value = response.manager_profile_id;
@@ -263,7 +267,7 @@ CreateEditProfileAPI.saveManagerProfile = function(complete_manager_profile){
     }
 };
 
-CreateEditProfileAPI.viewProfile = function(profileObj){
+CreateEditProfileAPI.viewProfile = function (profileObj) {
 
     var engFreBreak = '///';
 
@@ -310,7 +314,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_dep = document.createElement("div");
     vp_dep.setAttribute("id", "vpSlot_department");
-    vp_dep.setAttribute("class","viewProfileSlot");
+    vp_dep.setAttribute("class", "viewProfileSlot");
     var vp_dep_label = document.createElement("div");
     vp_dep_label.innerHTML = siteContent.department;
     vp_dep_label.setAttribute("class", "viewProfileSlotLabel");
@@ -334,7 +338,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_pos = document.createElement("div");
     vp_pos.setAttribute("id", "vpSlot_position");
-    vp_pos.setAttribute("class","viewProfileSlot");
+    vp_pos.setAttribute("class", "viewProfileSlot");
     var vp_pos_label = document.createElement("div");
     vp_pos_label.innerHTML = siteContent.position;
     vp_pos_label.setAttribute("class", "viewProfileSlotLabel");
@@ -358,7 +362,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_branch = document.createElement("div");
     vp_branch.setAttribute("id", "vpSlot_branch");
-    vp_branch.setAttribute("class","viewProfileSlot");
+    vp_branch.setAttribute("class", "viewProfileSlot");
     var vp_branch_label = document.createElement("div");
     vp_branch_label.innerHTML = siteContent.branch;
     vp_branch_label.setAttribute("class", "viewProfileSlotLabel");
@@ -382,7 +386,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_division = document.createElement("div");
     vp_division.setAttribute("id", "vpSlot_division");
-    vp_division.setAttribute("class","viewProfileSlot");
+    vp_division.setAttribute("class", "viewProfileSlot");
     var vp_division_label = document.createElement("div");
     vp_division_label.innerHTML = siteContent.division;
     vp_division_label.setAttribute("class", "viewProfileSlotLabel");
@@ -410,7 +414,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_twitter = document.createElement("div");
     vp_twitter.setAttribute("id", "vpSlot_twitter");
-    vp_twitter.setAttribute("class","viewProfileSlot");
+    vp_twitter.setAttribute("class", "viewProfileSlot");
     var vp_twitter_label = document.createElement("div");
     vp_twitter_label.innerHTML = "Twitter";//siteContent.division;
     vp_twitter_label.setAttribute("class", "viewProfileSlotLabel");
@@ -434,7 +438,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_linkedin = document.createElement("div");
     vp_linkedin.setAttribute("id", "vpSlot_linkedin");
-    vp_linkedin.setAttribute("class","viewProfileSlot");
+    vp_linkedin.setAttribute("class", "viewProfileSlot");
     var vp_linkedin_label = document.createElement("div");
     vp_linkedin_label.innerHTML = "LinkedIn";//siteContent.linkedin;
     vp_linkedin_label.setAttribute("class", "viewProfileSlotLabel");
@@ -480,7 +484,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_mystyle = document.createElement("div");
     vp_mystyle.setAttribute("id", "vpSlot_mystyle");
-    vp_mystyle.setAttribute("class","viewProfileSlot");
+    vp_mystyle.setAttribute("class", "viewProfileSlot");
     var vp_mystyle_label = document.createElement("div");
     vp_mystyle_label.innerHTML = siteContent.myLeadershipStyle;
     vp_mystyle_label.setAttribute("class", "viewProfileSlotLabel");
@@ -504,7 +508,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_myapp = document.createElement("div");
     vp_myapp.setAttribute("id", "vpSlot_myapp");
-    vp_myapp.setAttribute("class","viewProfileSlot");
+    vp_myapp.setAttribute("class", "viewProfileSlot");
     var vp_myapp_label = document.createElement("div");
     vp_myapp_label.innerHTML = siteContent.myApproachToEmployee;
     vp_myapp_label.setAttribute("class", "viewProfileSlotLabel");
@@ -528,7 +532,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
     var vp_myexp = document.createElement("div");
     vp_myexp.setAttribute("id", "vpSlot_myapp");
-    vp_myexp.setAttribute("class","viewProfileSlot");
+    vp_myexp.setAttribute("class", "viewProfileSlot");
     var vp_myexp_label = document.createElement("div");
     vp_myexp_label.innerHTML = siteContent.myExpectationsOfEmployees;
     vp_myexp_label.setAttribute("class", "viewProfileSlotLabel");
@@ -610,7 +614,7 @@ CreateEditProfileAPI.viewProfile = function(profileObj){
 
 };
 
-CreateEditProfileAPI.showCreateEditProfile = function(){
+CreateEditProfileAPI.showCreateEditProfile = function () {
     var stateInfo = {pageInfo: 'create_edit_profile', pageTitle: 'Talent Cloud: Create/Edit Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#CreateEditProfile');
@@ -639,7 +643,7 @@ CreateEditProfileAPI.showCreateEditProfile = function(){
 
 };
 
-CreateEditProfileAPI.showViewProfile = function(linkElement){
+CreateEditProfileAPI.showViewProfile = function (linkElement) {
     var stateInfo = {pageInfo: 'manager_view_profile', pageTitle: 'Talent Cloud: View Profile'};
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#ViewProfile');
@@ -680,7 +684,7 @@ CreateEditProfileAPI.showViewProfile = function(linkElement){
     viewProfileElement.appendChild(CreateEditProfileAPI.viewProfile(tempProfileObj));
 };
 
-CreateEditProfileAPI.hideViewProfile = function(linkElement){
+CreateEditProfileAPI.hideViewProfile = function (linkElement) {
     var stateInfo = {pageInfo: 'talent_cloud', pageTitle: 'Talent Cloud'};
     document.title = stateInfo.pageTitle;
     history.replaceState(stateInfo, stateInfo.pageInfo, '/admin/#');
@@ -696,13 +700,13 @@ CreateEditProfileAPI.hideViewProfile = function(linkElement){
     var inactive = document.getElementById("profileLinkListItem");
     profileLinkListItem.classList.remove("active");
 
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     document.getElementById("skipNav").focus();
 };
 
 CreateEditProfileAPI.profilePicUploader = null;
 
-CreateEditProfileAPI.showUploadProfilePic = function() {
+CreateEditProfileAPI.showUploadProfilePic = function () {
     //document.body.style.overflow = "hidden";
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
     uploadOverlay.classList.remove("hidden");
@@ -737,20 +741,20 @@ CreateEditProfileAPI.showUploadProfilePic = function() {
     //Don't pass in a save button, because there is no dedicated button for pic uploading.
     //The save button must upload photo, as well as profile info.
     JobSeekerAPI.profilePicUploader = new ProfilePicAPI.Uploader(
-        fileInputButtons,
-        fileDrop,
-        imagePreview,
-        clearBtn,
-        uploadBtn,
-        UserAPI.getSessionUserAsJSON().user_id,
-        CreateEditProfileAPI.onProfilePicUploaded
-    );
+            fileInputButtons,
+            fileDrop,
+            imagePreview,
+            clearBtn,
+            uploadBtn,
+            UserAPI.getSessionUserAsJSON().user_id,
+            CreateEditProfileAPI.onProfilePicUploaded
+            );
 
     modalSize();
 
 };
 
-CreateEditProfileAPI.hideUploadProfilePic = function() {
+CreateEditProfileAPI.hideUploadProfilePic = function () {
     document.body.style.overflow = "";
     document.body.classList.remove("overFlowHidden");
     var uploadOverlay = document.getElementById('profilePicUploadOverlay');
@@ -758,18 +762,18 @@ CreateEditProfileAPI.hideUploadProfilePic = function() {
     CreateEditProfileAPI.profilePicUploader = null;
 };
 
-CreateEditProfileAPI.onProfilePicUploaded = function() {
+CreateEditProfileAPI.onProfilePicUploaded = function () {
     ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
     CreateEditProfileAPI.hideUploadProfilePic();
 };
 
-CreateEditProfileAPI.getManagerProfile = function(){
+CreateEditProfileAPI.getManagerProfile = function () {
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
         var authToken = UserAPI.getAuthTokenAsJSON();
         var user_id = user["user_id"];
-        var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/"+user_id;
+        var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/" + user_id;
         var manager_profile_xhr = new XMLHttpRequest();
         if ("withCredentials" in manager_profile_xhr) {
             // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -805,14 +809,14 @@ CreateEditProfileAPI.getManagerProfile = function(){
     }
 };
 
-CreateEditProfileAPI.userLoaded = function(response){
+CreateEditProfileAPI.userLoaded = function (response) {
     var user_json = JSON.parse(response);
     var user = new UserAPI.User();
     user.id = user_json['id'];
 
 };
 
-CreateEditProfileAPI.populateProfile = function(response){
+CreateEditProfileAPI.populateProfile = function (response) {
     var manager_profile_with_details_json = JSON.parse(response);
 
     var manager_profile_json = manager_profile_with_details_json["manager_profile"];
@@ -892,7 +896,7 @@ CreateEditProfileAPI.populateProfile = function(response){
     }
 
     var createEditProfile_name_preview = document.getElementById("createEditProfile_name_preview");
-    if(UserAPI.hasSessionUser()){
+    if (UserAPI.hasSessionUser()) {
         var session_user = UserAPI.getSessionUserAsJSON();
         createEditProfile_name_preview.innerHTML = session_user.name;
     }
@@ -968,7 +972,7 @@ CreateEditProfileAPI.populateProfile = function(response){
         createEditProfile_position_fr.value = "";
     }
 
-    if (locale === "en_CA"){
+    if (locale === "en_CA") {
         var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
         createEditProfile_position_preview.innerHTML = manager_profile_details_en.user_manager_profile_details_position;
     } else {
@@ -998,42 +1002,42 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     //Leadership style (page 2)
     var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
-    if (createEditProfile_leadership_style){
+    if (createEditProfile_leadership_style) {
         createEditProfile_leadership_style.value = manager_profile_details_en.user_manager_profile_details_lead_style;
     } else {
         createEditProfile_leadership_style.value = "";
     }
 
     var createEditProfile_leadership_style_fr = document.getElementById("createEditProfile_leadership_style_fr");
-    if (createEditProfile_leadership_style_fr){
+    if (createEditProfile_leadership_style_fr) {
         createEditProfile_leadership_style_fr.value = manager_profile_details_fr.user_manager_profile_details_lead_style;
     } else {
         createEditProfile_leadership_style_fr.value = "";
     }
 
     var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
-    if (createEditProfile_app_to_employees){
+    if (createEditProfile_app_to_employees) {
         createEditProfile_app_to_employees.value = manager_profile_details_en.user_manager_profile_details_emp_learn;
     } else {
         createEditProfile_app_to_employees.value = "";
     }
 
     var createEditProfile_app_to_employees_fr = document.getElementById("createEditProfile_app_to_employees_fr");
-    if (createEditProfile_app_to_employees_fr){
+    if (createEditProfile_app_to_employees_fr) {
         createEditProfile_app_to_employees_fr.value = manager_profile_details_fr.user_manager_profile_details_emp_learn;
     } else {
         createEditProfile_app_to_employees_fr.value = "";
     }
 
     var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
-    if (createEditProfile_exp_of_employees){
+    if (createEditProfile_exp_of_employees) {
         createEditProfile_exp_of_employees.value = manager_profile_details_en.user_manager_profile_details_expectations;
     } else {
         createEditProfile_exp_of_employees.value = "";
     }
 
     var createEditProfile_exp_of_employees_fr = document.getElementById("createEditProfile_exp_of_employees_fr");
-    if (createEditProfile_exp_of_employees_fr){
+    if (createEditProfile_exp_of_employees_fr) {
         createEditProfile_exp_of_employees_fr.value = manager_profile_details_fr.user_manager_profile_details_expectations;
     } else {
         createEditProfile_exp_of_employees_fr.value = "";
@@ -1050,28 +1054,28 @@ CreateEditProfileAPI.populateProfile = function(response){
 
     //Other (page 3)
     var user_manager_profile_work_experience = document.getElementById("user_manager_profile_work_experience");
-    if (user_manager_profile_work_experience){
+    if (user_manager_profile_work_experience) {
         user_manager_profile_work_experience.value = manager_profile_details_en.user_manager_profile_work_experience;
     } else {
         user_manager_profile_work_experience.value = "";
     }
 
     var user_manager_profile_work_experience_fr = document.getElementById("user_manager_profile_work_experience_fr");
-    if (user_manager_profile_work_experience_fr){
+    if (user_manager_profile_work_experience_fr) {
         user_manager_profile_work_experience_fr.value = manager_profile_details_fr.user_manager_profile_work_experience;
     } else {
         user_manager_profile_work_experience_fr.value = "";
     }
 
     var user_manager_profile_education = document.getElementById("user_manager_profile_education");
-    if (user_manager_profile_education){
+    if (user_manager_profile_education) {
         user_manager_profile_education.value = manager_profile_details_en.user_manager_profile_education;
     } else {
         user_manager_profile_education.value = "";
     }
 
     var user_manager_profile_education_fr = document.getElementById("user_manager_profile_education_fr");
-    if (user_manager_profile_education_fr){
+    if (user_manager_profile_education_fr) {
         user_manager_profile_education_fr.value = manager_profile_details_fr.user_manager_profile_education;
     } else {
         user_manager_profile_education_fr.value = "";
@@ -1081,27 +1085,27 @@ CreateEditProfileAPI.populateProfile = function(response){
 
 
 // Functions for saving each step of the manager profile
-CreateEditProfileAPI.validateAboutMe = function() {
+CreateEditProfileAPI.validateAboutMe = function () {
     var valid = true;
 
     if (valid) {
-        Utilities.debug?console.log(CreateEditProfileAPI.managerProfileObj):null;
+        Utilities.debug ? console.log(CreateEditProfileAPI.managerProfileObj) : null;
         CreateEditProfileAPI.updateManagerProfileWithDetails();
     }
     CreateEditProfileAPI.goToStep('createEditProfile_step2');
 }
 
-CreateEditProfileAPI.validateLeadership = function() {
+CreateEditProfileAPI.validateLeadership = function () {
     var valid = true;
 
     if (valid) {
-        Utilities.debug?console.log(CreateEditProfileAPI.managerProfileObj):null;
+        Utilities.debug ? console.log(CreateEditProfileAPI.managerProfileObj) : null;
         CreateEditProfileAPI.updateManagerProfileWithDetails();
     }
     CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');
 }
 
-CreateEditProfileAPI.validateWorkEnvironment = function() {
+CreateEditProfileAPI.validateWorkEnvironment = function () {
     var valid = true;
 
     if (valid) {
@@ -1111,7 +1115,7 @@ CreateEditProfileAPI.validateWorkEnvironment = function() {
     CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');
 }
 
-CreateEditProfileAPI.validateTeamCulture = function() {
+CreateEditProfileAPI.validateTeamCulture = function () {
     var valid = true;
 
     if (valid) {
@@ -1121,11 +1125,11 @@ CreateEditProfileAPI.validateTeamCulture = function() {
     CreateEditProfileAPI.goToStep('createEditProfile_step3');
 }
 
-CreateEditProfileAPI.validateOther = function() {
+CreateEditProfileAPI.validateOther = function () {
     var valid = true;
 
     if (valid) {
-        Utilities.debug?console.log(CreateEditProfileAPI.managerProfileObj):null;
+        Utilities.debug ? console.log(CreateEditProfileAPI.managerProfileObj) : null;
         CreateEditProfileAPI.updateManagerProfileWithDetails();
     }
 }
