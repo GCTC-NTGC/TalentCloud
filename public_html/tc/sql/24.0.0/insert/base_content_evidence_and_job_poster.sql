@@ -71,7 +71,7 @@ VALUES
 (1,'applicationProgressNonEssentialCriteria','Non-essential Criteria',1),
 (1,'applicationProgressNonEssentialCriteria','Qualifications non essentielles',2),
 (1,'applicationProgressReviewMyApplication','Review My Application',1),
-(1,'applicationProgressReviewMyApplication','Examiner ma demande',2)
+(1,'applicationProgressReviewMyApplication','Examiner ma demande',2),
 
 /*Job Poster*/
 (1,'jobPosterTimeRemaining','days until close',1),
