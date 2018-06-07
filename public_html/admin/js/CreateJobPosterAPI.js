@@ -163,14 +163,6 @@ CreateJobPosterAPI.localizeCreateJobPosterForm = function (siteContent) {
         LookupAPI.populateDropdown("province", "createJobPoster_province");
         LookupAPI.populateDropdown("clearance", "createJobPoster_clearance");
         LookupAPI.populateDropdown("language", "createJobPoster_language");
-
-        document.getElementById("createJobPoster_branch_labelName").innerHTML = siteContent.branch;
-        document.getElementById("createJobPoster_branch_fr_labelName").innerHTML = siteContent.branch;
-        document.getElementById("createJobPoster_division_labelName").innerHTML = siteContent.division;
-        document.getElementById("createJobPoster_division_fr_labelName").innerHTML = siteContent.division;
-
-        document.getElementById("createJobPoster_questions_labelName").innerHTML = siteContent.openEndedQuestions;
-        document.getElementById("createJobPoster_questions_fr_labelName").innerHTML = siteContent.openEndedQuestions;
     } catch (e) {
         (console.error || console.log).call(console, e.stack || e);
     }
