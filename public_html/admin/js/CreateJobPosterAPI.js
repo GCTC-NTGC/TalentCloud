@@ -47,6 +47,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function (
         developing_competencies_fr,
         questions_en,
         questions_fr,
+        noc,
         classification,
         clearance_id,
         language_id
@@ -88,6 +89,7 @@ CreateJobPosterAPI.JobPostNonLocalized = function (
     this.questions = {};
     this.questions.en_CA = questions_en;
     this.questions.fr_CA = questions_fr;
+    this.noc = noc;
     this.classification = classification;
     this.clearance_id = clearance_id;
     this.language_id = language_id;
@@ -121,6 +123,7 @@ CreateJobPosterAPI.localizeJobPost = function (jobPostNonLocalized, locale) {
             jp.core_competencies[locale],
             jp.developing_competencies[locale],
             jp.questions[locale],
+            jp.noc,
             jp.classification,
             LookupAPI.getLocalizedLookupValue("clearance", jp.clearance_id),
             LookupAPI.getLocalizedLookupValue("language", jp.language_id),
@@ -252,7 +255,7 @@ CreateJobPosterAPI.validateJobPosterForm = function () {
     // TAL-150
     var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA,
             jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty,
-            jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance_id, jp.language_id);
+            jp.remuneration_range_low, jp.remuneration_range_high, jp.noc, jp.classification, jp.clearance_id, jp.language_id);
     if (valid) {
         CreateJobPosterAPI.submitJobPosterForm();
     }
@@ -334,6 +337,8 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function () {
         }
     }
 
+    // TAL-198 - QF
+    var noc = document.getElementById("createJobPoster_noc").value;
     // TAL-150
     var classification = document.getElementById("createJobPoster_classification").value;
 
@@ -344,7 +349,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function () {
     CreateJobPosterAPI.jobPosterObj = new CreateJobPosterAPI.JobPostNonLocalized(
             id, manager_user_id, title, title_fr, department_id, province_id, branch_en, branch_fr, division_en, division_fr, city, city_fr, open_date_time,
             close_date_time, start_date, term_qty, remuneration_range_low, remuneration_range_high, impact, impact_fr, key_tasks_en, key_tasks_fr,
-            core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questionObjs_en, questionObjs_fr, classification,
+            core_competencies_en, core_competencies_fr, developing_competencies_en, developing_competencies_fr, questionObjs_en, questionObjs_fr, noc, classification,
             clearance_id, language_id);
 }
 
