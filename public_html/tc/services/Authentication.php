@@ -45,7 +45,7 @@ if (!isset($_SESSION)) {
 
                         if (JWTUtils::validateJWT($jwt, $user)) {
 
-                            $result = UserController::getUserByOpenId($user);
+                        $result = UserController::getUserByOpenId($open_id);
 
                             $json = json_encode($result, JSON_PRETTY_PRINT);
 
@@ -93,7 +93,7 @@ if (!isset($_SESSION)) {
 
                         if (JWTUtils::validateJWT($jwt, $user)) {
                         
-                            $result = UserController::getUserByOpenId($user);
+                        $result = UserController::getUserByOpenId($user->getOpen_id());
 
                             $json = json_encode($result, JSON_PRETTY_PRINT);
 

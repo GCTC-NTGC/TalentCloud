@@ -195,7 +195,7 @@ class JWTUtils {
             if ($openId['sub']) {
                 $emptyUser = new User(); 
                 $emptyUser->setOpen_id($openId['sub']); 
-                return UserController::getUserByOpenId($emptyUser);                 
+                return UserController::getUserByOpenId($openId['sub']);                 
             }    
         } 
         return null; 

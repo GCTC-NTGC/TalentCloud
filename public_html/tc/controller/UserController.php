@@ -52,9 +52,9 @@ class UserController {
      * @param User $user
      * @return type
      */
-    public static function getUserByOpenId(User $user) {
+    public static function getUserByOpenId($openId){
         //get existing user by openId
-        $existingUser = UserDAO::getUserOpenById($user);
+        $existingUser = UserDAO::getUserByOpenId($openId);
         //var_dump($existingUser);
         //get user_id from existing user
         //if user_id is not null, then log the user in automatically

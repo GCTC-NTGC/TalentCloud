@@ -86,9 +86,8 @@ class UserDAO extends BaseDAO {
         return $row;
     }
     
-    public static function getUserOpenById(User $user) {
+    public static function getUserByOpenId($open_id) {
         $link = BaseDAO::getConnection();
-        $open_id = $user->getOpen_id();
         $sqlStr = "
             SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, u.open_id, ur.user_role as user_role 
             FROM user u, user_role ur
@@ -97,7 +96,7 @@ class UserDAO extends BaseDAO {
                 ur.user_role_id = u.user_role_id
             ;";
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':open_id', $open_id, PDO::PARAM_INT);
+        $sql->bindValue(':open_id', $open_id, PDO::PARAM_INT);
         $row = null;
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
