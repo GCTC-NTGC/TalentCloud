@@ -21,8 +21,8 @@ npm-debug.log
 *~
 
 ####### composer
-composer.lock
 public_html/vendor/
+composer.lock
 
 ####### node
 public_html/node_modules/
