@@ -77,7 +77,15 @@
                                 </div>
                                  * 
                                  */ ?>
-                                
+                                 <div class="box full">
+                                    <label class="form__label" for="createJobPoster_NOC">
+                                        <span id="createJobPoster_NOC_labelName"><span>NOC</span>: *</span>
+                                        <strong id="createJobPoster_NOC_error" class="error hidden">
+                                            <span id="createJobPoster_NOC_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form__input--text" type="text" name="createJobPoster_NOC" id="createJobPoster_NOC"/>
+                                </div>
                                 <div class="box full">
                                     <label class="form__label" for="createJobPoster_classification">
                                         <span id="createJobPoster_classification_labelName"><span>Classification</span>: *</span>

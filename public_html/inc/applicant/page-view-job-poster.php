@@ -31,6 +31,7 @@
 
                 <div class="job-poster__reference-id-wrapper box lg-1of3">
                     <p class="job-poster__reference-id" id="jobPosterId"><span id="jobPosterIdLabel">Reference ID</span> #<span id="jobPosterIdValue"></span></p>
+                    <p class="job-poster__NOC" id="jobPosterNOC"><span id="jobPosterNOCLabel">NOC</span>:<span id="jobPosterNOCValue"></span></p>
                 </div>
 
                 <input id="jobPosterJobId" type="hidden"/>
