@@ -1,6 +1,6 @@
 {
     "name": "vendor/talent-cloud",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "TalentCloud - The jobs are real, the platform is experimental.",
     "license": "MIT",
 
@@ -12,7 +12,7 @@
     ],
 
     "require": {
-        "phpseclib/phpseclib": "2.0.1",
+        "phpseclib/phpseclib": "~2.0.1",
         "jumbojett/openid-connect-php": "0.4.1"
     },
 
@@ -29,7 +29,6 @@
         "friendsofphp/php-cs-fixer": "v2.10.4",
         "phpmd/phpmd": "* 2.6.0",
         "facebook/webdriver": "* 1.5.0",
-        "phpunit/dbunit": "* 2.0.x-dev",
-        "simpletest/simpletest": "~1.1"
+        "phpunit/dbunit": "* 2.0.x-dev"
     }
 }
