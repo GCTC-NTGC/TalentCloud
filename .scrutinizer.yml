@@ -1,9 +1,6 @@
 # Talent Cloud
 # .scrutinizer.yml
 
-checks:
-    - php: true
-
 build:
     environment:
         php:
