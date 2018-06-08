@@ -21,7 +21,7 @@ npm-debug.log
 *~
 
 ####### composer
-public_html/vendor
+/vendor
 composer.lock
 
 ####### node

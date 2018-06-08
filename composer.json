@@ -29,7 +29,6 @@
         "friendsofphp/php-cs-fixer": "v2.10.4",
         "phpmd/phpmd": "* 2.6.0",
         "facebook/webdriver": "* 1.5.0",
-        "phpunit/dbunit": "* 2.0.x-dev",
-        "simpletest/simpletest": "~1.1"
+        "phpunit/dbunit": "* 2.0.x-dev"
     }
 }
