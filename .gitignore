@@ -21,18 +21,12 @@ npm-debug.log
 *~
 
 ####### composer
-public_html/vendor/
+public_html/vendor
 composer.lock
 
 ####### node
-public_html/node_modules/
-public_html/scss/vendor/
-
-####### travis-ci
-public_html/build/
-
-####### config
-public_html/tc/config
+public_html/node_modules
+public_html/scss/vendor
 
 ####### travis-ci
 public_html/build/
