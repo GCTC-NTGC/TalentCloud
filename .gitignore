@@ -30,5 +30,6 @@ public_html/node_modules/
 ####### travis-ci
 public_html/build/
 
-####### config
-public_html/tc/config
+####### selenium (deprecated)
+public_html/selenium_tests
+public_html/tests
