@@ -1,22 +1,35 @@
 {
     "name": "vendor/talent-cloud",
-    "description": "Description of project TalentCloud.",
+    "version": "1.0",
+    "description": "TalentCloud - The jobs are real, the platform is experimental.",
+    "license": "MIT",
+
     "authors": [
         {
-            "name": "GBowden",
-            "email": "your@email.here"
+            "name": "Talent Cloud",
+            "email": "talentcloud-nuagedetalents@tbs-sct.gc.ca"
         }
     ],
+
     "require": {
         "phpseclib/phpseclib": "2.0.1",
         "jumbojett/openid-connect-php": "0.4.1"
     },
+
+    "scripts": {
+        "test": "phpunit",
+        "lint": [
+            "composer validate"
+        ]
+    },
+
     "require-dev": {
         "phpunit/phpunit": "*",
         "phpunit/phpunit-selenium": "* 3.0.3",
         "friendsofphp/php-cs-fixer": "v2.10.4",
         "phpmd/phpmd": "* 2.6.0",
         "facebook/webdriver": "* 1.5.0",
-        "phpunit/dbunit": "* 2.0.x-dev"
+        "phpunit/dbunit": "* 2.0.x-dev",
+        "simpletest/simpletest": "~1.1"
     }
 }
