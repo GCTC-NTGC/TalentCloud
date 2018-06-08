@@ -30,6 +30,3 @@ public_html/scss/vendor
 
 ####### travis-ci
 public_html/build
-
-####### config
-public_html/tc/config
