@@ -241,10 +241,7 @@ CreateJobPosterAPI.validateJobPosterForm = function () {
 
     var jp = CreateJobPosterAPI.jobPosterObj;
 
-    // TAL-150
-    var valid = FormValidationAPI.validateJobPoster(jp.title.en_CA, jp.title.fr_CA, jp.department_id, jp.branch.en_CA, jp.branch.fr_CA, jp.division.en_CA,
-            jp.division.fr_CA, jp.province_id, jp.city.en_CA, jp.city.fr_CA, jp.open_date_time, jp.close_date_time, jp.start_date, jp.term_qty,
-            jp.remuneration_range_low, jp.remuneration_range_high, jp.classification, jp.clearance_id, jp.language_id);
+    var valid = true;
     if (valid) {
         CreateJobPosterAPI.submitJobPosterForm();
     }
@@ -317,8 +314,8 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function () {
         var question_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
         var question_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
 
-        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-description-input").value;
-        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-description-input").value;
+        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
+        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
 
         if (question_en && question_fr) {
             questionObjs_en.push(new CreateJobPosterAPI.JobPosterQuestion(question_en, description_en));
