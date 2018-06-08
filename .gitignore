@@ -1,9 +1,34 @@
-/nbproject/
-\.DS_Store
+####### basic security
+.DS_Store
+applet
+application.linux32
+application.linux64
+application.windows32
+application.windows64
+application.macosx
 
-public_html/tc/dao/BaseDAO\.php
+####### IDE/hidden/testing/OS cache files
+/nbproject
+/nb-configuration.xml
+Session.vim
+*.tmproj
+*.tmproject
+*.phpproj
+tmtags
+Thumbs.db
+Desktop.ini
+npm-debug.log
+*~
 
-vendor/
-public_html/node_modules/
+####### composer
 composer.lock
-/public_html/nbproject/private/
+public_html/vendor/
+
+####### node
+public_html/node_modules/
+
+####### travis-ci
+public_html/build/
+
+####### config
+public_html/tc/config
