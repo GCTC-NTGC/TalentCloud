@@ -31,5 +31,5 @@ public_html/node_modules/
 public_html/build/
 
 ####### selenium (deprecated)
-public_html/selenium_tests
-public_html/tests
+public_html/selenium_tests/
+public_html/tests/
