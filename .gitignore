@@ -30,3 +30,6 @@ public_html/scss/vendor
 
 ####### travis-ci
 public_html/build
+
+/selenium_tests
+/tests
