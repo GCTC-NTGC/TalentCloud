@@ -26,10 +26,11 @@ public_html/vendor/
 
 ####### node
 public_html/node_modules/
+public_html/scss/vendor/
 
 ####### travis-ci
 public_html/build/
 
 ####### selenium (deprecated)
-public_html/selenium_tests/
-public_html/tests/
+/selenium_tests
+/tests
