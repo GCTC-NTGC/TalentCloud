@@ -12,4 +12,4 @@ install:
  - composer install
 
 script:
- - public_html/vendor/bin/phpunit
+ - ./vendor/bin/phpunit
