@@ -25,5 +25,4 @@ install:
 script:
  - composer validate
  - mkdir -p build/logs
- - vendor/bin/phpunit
  # phpunit --coverage-clover build/logs/clover.xml
