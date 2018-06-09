@@ -17,7 +17,7 @@ services:
 
 install:
  - curl -s http://getcomposer.org/installer | php
- - composer update --dev
+ - composer update
  - composer install
 
 script:
