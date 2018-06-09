@@ -15,17 +15,15 @@ matrix:
 services:
  - mysql
 
+before_script:
+ - composer require atoum/atoum
+
 install:
- - curl -s http://getcomposer.org/installer | php
- - composer update --dev
+ - composer update
  - composer install
 
 script:
  - composer validate
  - mkdir -p build/logs
- - php /vendor/bin/phpunit -c phpunit.xml
-
-after_success:
-  # travis_retry php vendor/bin/php-coveralls
-  # or enable logging
-  - travis_retry php vendor/bin/php-coveralls -v
+ - vendor/bin/atoum
+ # phpunit --coverage-clover build/logs/clover.xml
