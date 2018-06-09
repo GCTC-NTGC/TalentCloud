@@ -1,15 +1,31 @@
+# Talent Cloud
+# .travis.yml
+
 language: php
 php:
  - 5.6
+ - 5.5
 
 sudo: false
+
+matrix:
+  allow_failures:
+    - php: 5.5
 
 services:
  - mysql
 
 install:
- - composer update
+ - curl -s http://getcomposer.org/installer | php
+ - composer update --dev
  - composer install
 
 script:
  - composer validate
+ - mkdir -p build/logs
+ - php vendor/bin/phpunit -c phpunit.xml.dist
+
+after_success:
+  # travis_retry php vendor/bin/php-coveralls
+  # or enable logging
+  - travis_retry php vendor/bin/php-coveralls -v

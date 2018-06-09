@@ -6,14 +6,11 @@ build:
         php:
             version: 5.6
 
-build:
     tests:
-        override:
-            -
-                command: 'vendor/bin/phpunit --coverage-clover=scrutinizer_log'
-                coverage:
-                    file: 'scrutinizer_log'
-                    format: 'clover'
+        command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
+        coverage:
+            file: 'coverage'
+            format: 'clover'
 
 filter:
     excluded_paths:
@@ -36,9 +33,7 @@ tools:
     external_code_coverage:
         timeout: '1200'
 
-#    php_hhvm: true
-
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
     # the same time right now. Make sure to either remove, or disable one.
-    php_sim: false
-    php_cpd: true
+    php_sim: true
+    php_cpd: false
