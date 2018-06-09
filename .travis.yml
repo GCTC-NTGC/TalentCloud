@@ -16,7 +16,7 @@ services:
  - mysql
 
 before_script:
- - composer require atoum/atoum
+ # composer require atoum/atoum
 
 install:
  - composer update
@@ -25,5 +25,5 @@ install:
 script:
  - composer validate
  - mkdir -p build/logs
- - vendor/bin/atoum
+ - vendor/bin/phpunit
  # phpunit --coverage-clover build/logs/clover.xml
