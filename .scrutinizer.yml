@@ -12,7 +12,7 @@ filter:
         - '*/vendor/*'
 
 tools:
-    external_code_coverage: true
+    # external_code_coverage: true
     js_hint:
         filter:
             excluded_paths: ['*/tests/*','*/vendor/*']
@@ -24,8 +24,8 @@ tools:
         excluded_dirs:
             - tests
             - vendor
-    external_code_coverage:
-        timeout: '777'
+    # external_code_coverage:
+    #     timeout: '777'
     php_hhvm: true
 
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
