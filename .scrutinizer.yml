@@ -26,7 +26,7 @@ tools:
             - vendor
     external_code_coverage:
         timeout: '777'
-    php_hhmv: true
+    # php_hhmv: true
 
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
     # the same time right now. Make sure to either remove, or disable one.

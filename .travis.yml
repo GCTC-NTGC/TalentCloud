@@ -15,7 +15,7 @@ matrix:
 services:
  - mysql
 
-before_script:
+# before_script:
 
 install:
  - composer update
@@ -24,4 +24,4 @@ install:
 script:
  - composer validate
 
-after_script:
+# after_script:
