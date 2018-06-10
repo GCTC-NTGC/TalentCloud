@@ -18,7 +18,7 @@ services:
 # before_script:
 
 install:
- - composer update
+ - composer self-update
  - composer install
 
 script:
