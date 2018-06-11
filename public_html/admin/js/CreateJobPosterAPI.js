@@ -305,7 +305,7 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function () {
     var developing_competencies_fr = CreateJobPosterAPI.getTextareaContentsAsList("createJobPoster_developingCompetencies_fr");
 
     //Get questions & descriptions from repeaters
-    var questionWrappers = document.querySelectorAll(".job-poster__open-question");
+    var questionWrappers = document.querySelectorAll(".job-poster__open-question:not(.repeater__template)");
 
     var questionObjs_en = [];
     var questionObjs_fr = [];
@@ -314,8 +314,8 @@ CreateJobPosterAPI.populateJobPosterObjFromForm = function () {
         var question_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
         var question_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
 
-        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-input").value;
-        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-input").value;
+        var description_en = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--english .job-poster__open-question-description-input").value;
+        var description_fr = questionWrappers[i].querySelector(".job-poster__open-question-wrapper--french .job-poster__open-question-description-input").value;
 
         if (question_en && question_fr) {
             questionObjs_en.push(new CreateJobPosterAPI.JobPosterQuestion(question_en, description_en));
