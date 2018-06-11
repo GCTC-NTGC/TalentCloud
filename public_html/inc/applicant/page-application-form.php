@@ -26,7 +26,7 @@
             <div id="jobApplicationQuestionAnswerTemplate" class="application-form__open-question-item template" data-question-id="0">
                 <label class="jobApplicationQuestion application-form__label heading--03" for="jobApplicationAnswerInput">
                     <span class="application-form__open-question"></span>
-                    <p class=" application-form__open-question-description"></p>
+                    <p class="application-form__open-question-description">Open ended question</p>
                 </label>
                 <textarea id="jobApplicationAnswerInput" name="answer" class="jobApplicationAnswerField application-form__textarea form__textarea application-form__open-answer"></textarea>
             </div>
