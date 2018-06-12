@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -28,17 +28,17 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
                 
                 $result = WorkEnvironmentController::getWorkEnivronmentByManagerProfile($managerProfileId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -51,18 +51,18 @@
             //Here Handle DELETE Request 
             break;
         case 'PUT':
-            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+            if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
                 $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
             
-                if(strlen($requestParams) > 1){
+                if (strlen($requestParams) > 1) {
                     
-                    $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
+                    $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
 
-                    if(strlen($managerProfileId) > 0){
+                    if (strlen($managerProfileId) > 0) {
 
                         $user = UserController::getUserByManagerProfileId($managerProfileId);
 
-                        if(JWTUtils::validateJWT($jwt, $user)){  
+                        if (JWTUtils::validateJWT($jwt, $user)) {  
                             $json = json_decode(file_get_contents('php://input'), TRUE);
 
                             $basicWorkEnvironment = new BasicWorkEnvironment();
@@ -72,7 +72,7 @@
                             $basicWorkEnvironment->setFlexible_allowed($json['flexible_allowed']);
 
                             $photo_captions = [];
-                            foreach($json['workplace_photo_captions'] as $captionJson) {
+                            foreach ($json['workplace_photo_captions'] as $captionJson) {
                                 $caption = new WorkplacePhotoCaption();
                                 //$caption->setWork_environment_id($captionJson['work_environment_id']);
                                 $caption->setPhoto_name($captionJson['photo_name']);
@@ -86,25 +86,25 @@
                             $resultJson = json_encode($result, JSON_PRETTY_PRINT);
                             echo($resultJson);                
                             
-                        }else{
+                        }else {
                             header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
+                            echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else{
+                    }else {
                         header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No manager profile id provided"),JSON_FORCE_OBJECT);
+                        echo json_encode(array("failed"=>"No manager profile id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else{
+                }else {
                     header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else{
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
+                echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
             }
             break;

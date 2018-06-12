@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class Locale{
+class Locale {
     
     private $locale_id;
     private $locale_iso;

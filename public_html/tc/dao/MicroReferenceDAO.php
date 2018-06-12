@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -32,7 +32,7 @@ class MicroReferenceDAO extends BaseDAO {
      * @param ApplicationMicroReference[] $references
      */
     public static function getApplicationMicroReferencesForJobApplication($jobPosterApplicationId, $locale) {
-         $link = BaseDAO::getConnection();
+            $link = BaseDAO::getConnection();
         
         $sqlStr = "
             SELECT 
@@ -80,7 +80,7 @@ class MicroReferenceDAO extends BaseDAO {
             
             $referenceArrays = $sql->fetchAll();
             $references = [];
-            foreach($referenceArrays as $referenceArray) {
+            foreach ($referenceArrays as $referenceArray) {
                 $basicReference = new MicroReference();
                 $basicReference->setMicro_reference_id($referenceArray['micro_reference_id']);
                 $basicReference->setMicro_reference_name($referenceArray['micro_reference_name']);

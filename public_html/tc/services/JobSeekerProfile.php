@@ -8,12 +8,12 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
 /*set api path*/
-set_include_path(get_include_path(). PATH_SEPARATOR);
+set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once '../controller/JobSeekerController.php';
 require_once '../model/JobSeekerProfile.php';
@@ -28,16 +28,16 @@ header("Content-Type: application/json; charset=utf-8");
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
-                $user_id = Utils::getParameterFromRequest($requestParams,4);
+            if (strlen($requestParams) > 1) {
+                $user_id = Utils::getParameterFromRequest($requestParams, 4);
                 $result = JobSeekerController::getJobSeekerProfileByUserId(intval($user_id));
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -54,7 +54,7 @@ header("Content-Type: application/json; charset=utf-8");
                 $result = JobSeekerController::createJobSeekerProfile($jobSeekerProfile);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -67,17 +67,17 @@ header("Content-Type: application/json; charset=utf-8");
         case 'PUT':
             //Here Handle PUT Request
             $jsonBody = file_get_contents('php://input');
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 $jobSeekerJSON = json_decode($jsonBody, TRUE);
                 //var_dump($jobSeekerJSON);
-                $user_id = Utils::getParameterFromRequest($requestParams,4);
+                $user_id = Utils::getParameterFromRequest($requestParams, 4);
                 $jobSeekerProfile = new JobSeekerProfile();
                 $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["personal_link"]);
                 $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["twitter_username"]);
                 $jobSeekerProfile->setJob_seeker_profile_linkedin_link($jobSeekerJSON["linkedin_username"]);
                 $jobSeekerProfile->setJob_seeker_profile_tagline($jobSeekerJSON["tagline"]);
                 $answers = [];
-                foreach($jobSeekerJSON["answers"] as $answerJson) {
+                foreach ($jobSeekerJSON["answers"] as $answerJson) {
                     $answer = new JobSeekerProfileAnswer();
                     $answer->setJob_seeker_profile_question_id($answerJson["job_seeker_profile_question_id"]);
                     $answer->setAnswer($answerJson["answer"]);
@@ -86,11 +86,11 @@ header("Content-Type: application/json; charset=utf-8");
                 $jobSeekerProfile->setJob_seeker_profile_answers($answers);
                 
                 //$user = new User();
-                $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile,$user_id);
+                $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $user_id);
                 
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($result);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-class AuthToken{
+class AuthToken {
     
     private $access_token;
     private $expires_in;

@@ -5,19 +5,19 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
     /*set api path*/
-    if(!defined('ROOT_PATH')){
+    if (!defined('ROOT_PATH')) {
         define('ROOT_PATH', dirname(__DIR__) . '/');
     }
 
-    require_once ROOT_PATH.'controller/ManagerProfileController.php';
-    require_once ROOT_PATH.'model/ManagerProfile.php';
-    require_once ROOT_PATH.'model/ManagerProfileDetailsNonLocalized.php';
-    require_once ROOT_PATH.'utils/Utils.php';
+    require_once ROOT_PATH . 'controller/ManagerProfileController.php';
+    require_once ROOT_PATH . 'model/ManagerProfile.php';
+    require_once ROOT_PATH . 'model/ManagerProfileDetailsNonLocalized.php';
+    require_once ROOT_PATH . 'utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -28,11 +28,11 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     $user_id_param_index = 4;
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
                 $managerProfile = new ManagerProfile();
                 $managerProfile->setUser_id($user_id);
@@ -40,11 +40,11 @@
                 if ($result === false) {
                     header('HTTP/1.0 404 Not Found');
                     echo json_encode(array("failed" => "Manager Profile does not exist for specified user"), JSON_FORCE_OBJECT);
-                } else {
+                }else {
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
                 }
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -123,4 +123,4 @@
             break;
     }
 
-   ?>
+    ?>

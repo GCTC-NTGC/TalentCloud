@@ -11,14 +11,14 @@ require_once '../model/BasicWorkEnvironment.php';
 require_once '../model/WorkplacePhotoCaption.php';
 require_once '../dao/WorkEnvironmentDAO.php';
 
-class WorkEnvironmentController{
+class WorkEnvironmentController {
     
     public static function setWorkEnvironmentByManagerProfile($workEnvironment, $managerProfileId) {
         $workEnvId = WorkEnvironmentDAO::getWorkEnvironmentIdByManagerProfile($managerProfileId);
         if ($workEnvId === 0) {
             $workEnvironment = self::createWorkEnvironment($workEnvironment);
             WorkEnvironmentDAO::setManagerProfileWorkEnvironment($managerProfileId, $workEnvironment->getBasic_work_environment()->getId());
-        } else {
+        }else {
             $workEnvironment->getBasic_work_environment()->setId($workEnvId);
             self::updateWorkEnvironment($workEnvironment);
         }
@@ -37,14 +37,14 @@ class WorkEnvironmentController{
         $workEnvironment->getBasic_work_environment()->setId($workEnvironmentId);
         
         $workEnvId = $workEnvironment->getBasic_work_environment()->getId();
-        foreach($workEnvironment->getWorkplace_photo_captions() as $newCaption) {
+        foreach ($workEnvironment->getWorkplace_photo_captions() as $newCaption) {
             //See if caption for this workplace + photoName already exists            
             $oldCaption = WorkEnvironmentDAO::getWorkplacePhotoCaptionByName($workEnvId, $newCaption->getPhoto_name());
             if ($oldCaption) {
                 //already exists, so just update description
                 $oldCaption->setDescription($newCaption->getDescription());
                 WorkEnvironmentDAO::updateWorkplacePhotoCaption($oldCaption);
-            } else { 
+            }else { 
                 //doesn't exist, so make sure it has correct work env id and blank photo id, and insert it
                 $newCaption->setWork_environment_id($workEnvId);
                 $newCaption->setWorkplace_photo_id(null);
@@ -64,14 +64,14 @@ class WorkEnvironmentController{
         WorkEnvironmentDAO::updateBasicWorkEnvironment($workEnvironment->getBasic_work_environment());
         
         $workEnvId = $workEnvironment->getBasic_work_environment()->getId();
-        foreach($workEnvironment->getWorkplace_photo_captions() as $newCaption) {
+        foreach ($workEnvironment->getWorkplace_photo_captions() as $newCaption) {
             //See if caption for this workplace + photoName already exists            
             $oldCaption = WorkEnvironmentDAO::getWorkplacePhotoCaptionByName($workEnvId, $newCaption->getPhoto_name());
             if ($oldCaption) {
                 //already exists, so just update description
                 $oldCaption->setDescription($newCaption->getDescription());
                 WorkEnvironmentDAO::updateWorkplacePhotoCaption($oldCaption);
-            } else { 
+            }else { 
                 //doesn't exist, so make sure it has correct work env id and blank photo id, and insert it
                 $newCaption->setWork_environment_id($workEnvId);
                 $newCaption->setWorkplace_photo_id(null);
@@ -97,7 +97,7 @@ class WorkEnvironmentController{
         $exists = WorkEnvironmentDAO::workplacePhotoExistsForManagerAndName($managerProfileId, $photoName);
         if ($exists) {
             WorkEnvironmentDAO::updateWorkplacePhoto($workplacePhoto, $managerProfileId, $photoName);      
-        } else {
+        }else {
             
             $photoId = WorkEnvironmentDAO::insertWorkplacePhoto($workplacePhoto);
 
@@ -113,7 +113,7 @@ class WorkEnvironmentController{
             if ($caption) {
                 $caption->setWorkplace_photo_id($photoId);
                 WorkEnvironmentDAO::updateWorkplacePhotoCaption($caption);
-            } else {                
+            }else {                
                 $caption = new WorkplacePhotoCaption($workEnvironmentId, $photoName, $photoId, '');      
                 WorkEnvironmentDAO::insertWorkplacePhotoCaption($caption);
             }
@@ -123,10 +123,11 @@ class WorkEnvironmentController{
     }
     
     public static function getWorkplacePhotoByManagerProfileAndName($photoName, $managerProfileId) {
-        if (WorkEnvironmentDAO::workplacePhotoExistsForManagerAndName($managerProfileId, $photoName))
-            return WorkEnvironmentDAO::getWorkplacePhoto($managerProfileId, $photoName);
-        else 
-            return NULL;            
+        if (WorkEnvironmentDAO::workplacePhotoExistsForManagerAndName($managerProfileId, $photoName)) {
+                    return WorkEnvironmentDAO::getWorkplacePhoto($managerProfileId, $photoName);
+        } else {
+                    return NULL;
+        }
     }
     
     /**

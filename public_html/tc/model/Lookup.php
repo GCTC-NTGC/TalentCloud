@@ -6,12 +6,12 @@
  * and open the template in the editor.
  */
 
-class Lookup implements JsonSerializable{
+class Lookup implements JsonSerializable {
     
     protected $id;
     protected $value;
     
-    public function __construct($id=null, $value=null) {
+    public function __construct($id = null, $value = null) {
         $this->id = $id;
         $this->value = $value;
     }
@@ -20,7 +20,7 @@ class Lookup implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

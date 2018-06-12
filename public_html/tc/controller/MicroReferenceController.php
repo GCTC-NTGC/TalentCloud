@@ -4,9 +4,9 @@ require_once '../model/MicroReference.php';
 require_once '../model/ApplicationMicroReference.php';
 require_once '../dao/MicroReferenceDAO.php';
 
-class MicroReferenceController{
+class MicroReferenceController {
     
-    public static function getAllMicroReferencesForJobApplication($jobPosterApplicationId, $locale){
+    public static function getAllMicroReferencesForJobApplication($jobPosterApplicationId, $locale) {
         
         $applicationMicroReference = MicroReferenceDAO::getApplicationMicroReferencesForJobApplication($jobPosterApplicationId, $locale);
                 

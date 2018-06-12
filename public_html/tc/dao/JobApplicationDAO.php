@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -251,7 +251,7 @@ class JobApplicationDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $rowsmodified = $sql->rowCount();
-            if($rowsmodified > 0){
+            if ($rowsmodified > 0) {
                 $application_id = $link->lastInsertId();
             }
         } catch (PDOException $e) {
@@ -301,16 +301,16 @@ class JobApplicationDAO extends BaseDAO {
      * @return int $rowsmodified - number of rows modified in database
      */
     public static function createApplicationQuestionAnswers($applicationQuestionAnswers) {
-        if (sizeof($applicationQuestionAnswers) === 0){
+        if (sizeof($applicationQuestionAnswers) === 0) {
             return 0;
         }
         
         $link = BaseDAO::getConnection();
                 
-         //Build bulk insert sql strings for array data
+            //Build bulk insert sql strings for array data
         $values = [];
         $valueStrings = [];
-        foreach($applicationQuestionAnswers as $questionAnswer) {
+        foreach ($applicationQuestionAnswers as $questionAnswer) {
             $valueStrings[] = '(?, ?, ?)';
             $entryValues = [$questionAnswer->getJob_poster_application_id(), $questionAnswer->getJob_poster_question_id(), $questionAnswer->getAnswer()];
             $values = array_merge($values, $entryValues);

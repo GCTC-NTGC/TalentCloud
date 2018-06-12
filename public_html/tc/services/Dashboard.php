@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -25,52 +25,52 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     $user_id_param_index = 5;
     //$headers = apache_request_headers();
 
     switch ($requestMethod) {
         case 'GET':
            
-            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+            if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
                 $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
                 
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
                 $locale = Utils::getLocaleFromRequest($requestParams);
                 
-                if(strlen($requestParams) > 1){
+                if (strlen($requestParams) > 1) {
 
-                    if(strlen($user_id) > 0){
+                    if (strlen($user_id) > 0) {
 
                         $user = new User();
 
                         $user->setUser_id($user_id);
 
-                        if(JWTUtils::validateJWT($jwt, $user)){
+                        if (JWTUtils::validateJWT($jwt, $user)) {
                             $result = DashboardController::getDashboardByUserId($user_id, $locale);
                             $json = json_encode($result, JSON_PRETTY_PRINT);
                             
                             echo($json);
                             
-                        }else{
+                        }else {
                             header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
+                            echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else{
+                    }else {
                         header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No user id provided"),JSON_FORCE_OBJECT);
+                        echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else{
+                }else {
                     header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else{
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
+                echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
             }
             /*
@@ -106,4 +106,4 @@
             break;
     }
    
-   ?>
+    ?>

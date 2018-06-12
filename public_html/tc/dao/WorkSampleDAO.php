@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -32,7 +32,7 @@ class WorkSampleDAO extends BaseDAO {
      * @param ApplicationWorkSample[] $workSamples
      */
     public static function getWorkSamplesForJobApplication($jobPosterApplicationId, $locale) {
-         $link = BaseDAO::getConnection();
+            $link = BaseDAO::getConnection();
         
         $sqlStr = "
             SELECT 
@@ -75,7 +75,7 @@ class WorkSampleDAO extends BaseDAO {
             
             $workSampleArrays = $sql->fetchAll();
             $workSamples = [];
-            foreach($workSampleArrays as $workSampleArray) {
+            foreach ($workSampleArrays as $workSampleArray) {
                 $basicWorkSample = new WorkSample();
                 $basicWorkSample->setWork_sample_id($workSampleArray['work_sample_id']);
                 $basicWorkSample->setWork_sample_name($workSampleArray['work_sample_name']);

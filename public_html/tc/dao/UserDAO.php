@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -16,7 +16,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 require_once '../dao/BaseDAO.php';
 require_once '../model/User.php';
 
-class UserDAO extends BaseDAO{
+class UserDAO extends BaseDAO {
     
     /**
      * 
@@ -24,7 +24,7 @@ class UserDAO extends BaseDAO{
      * @param type $password
      * @return type
      */
-    public static function getUserByCredentials($email_address, $password){
+    public static function getUserByCredentials($email_address, $password) {
         
         /*
          * SELECT u.firstname, u.lastname, ur.user_role  FROM tc.user u, tc.user_role ur
@@ -51,7 +51,7 @@ class UserDAO extends BaseDAO{
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User', array('user_id', 'email', 'firstname', 'lastname', 'is_confirmed', 'user_role'));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User', array('user_id', 'email', 'firstname', 'lastname', 'is_confirmed', 'user_role'));
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
@@ -76,7 +76,7 @@ class UserDAO extends BaseDAO{
         $row = null;
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User');
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
@@ -101,7 +101,7 @@ class UserDAO extends BaseDAO{
         $row = null;
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User');
             $row = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
@@ -131,7 +131,7 @@ class UserDAO extends BaseDAO{
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User');
             $user = $sql->fetch();
             //var_dump($row);
         } catch (PDOException $e) {
@@ -161,7 +161,7 @@ class UserDAO extends BaseDAO{
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User');
             $user = $sql->fetch();
         } catch (PDOException $e) {
             return 'getUserByJobSeekerProfileId failed: ' . $e->getMessage();
@@ -170,7 +170,7 @@ class UserDAO extends BaseDAO{
         return $user;
     }
     
-    public static function registerUser(User $user){
+    public static function registerUser(User $user) {
         
             $email = $user->getEmail();
             $name = $user->getName();
@@ -208,7 +208,7 @@ class UserDAO extends BaseDAO{
             try {
                 $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
                 $count = $sql->rowCount();
-                if($count > 0){
+                if ($count > 0) {
                     $user_id = $link->lastInsertId();
                 }
                 $user->setUser_id($user_id);
@@ -274,7 +274,7 @@ class UserDAO extends BaseDAO{
         return $count > 0;
     }
     
-    public static function validateEmail($emailAddress){
+    public static function validateEmail($emailAddress) {
 
         /*
          * SELECT user_id FROM tc.user WHERE email = '';

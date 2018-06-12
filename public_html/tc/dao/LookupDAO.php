@@ -224,7 +224,7 @@ class LookupDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getSkillsByLocale failed: ' . $e->getMessage();
@@ -250,7 +250,7 @@ class LookupDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getSkillLevelsByLocale failed: ' . $e->getMessage();
@@ -276,7 +276,7 @@ class LookupDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getExperienceLevelsByLocale failed: ' . $e->getMessage();
@@ -299,7 +299,7 @@ class LookupDAO extends BaseDAO {
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getClearanceLevelsByLocale failed: ' . $e->getMessage();
@@ -322,7 +322,7 @@ class LookupDAO extends BaseDAO {
         $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getLanguageLevelsByLocale failed: ' . $e->getMessage();
@@ -349,7 +349,7 @@ class LookupDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'LookupWithDescription');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'LookupWithDescription');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getJobSeekerProfileQuestionsByLocale failed: ' . $e->getMessage();
@@ -375,7 +375,7 @@ class LookupDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getRelationshipsByLocale failed: ' . $e->getMessage();
@@ -401,7 +401,7 @@ class LookupDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getFileTypesByLocale failed: ' . $e->getMessage();

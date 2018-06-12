@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -61,11 +61,11 @@ class TeamCultureDAO extends BaseDAO {
 
         $sqlDetails->bindValue(':narrative_text_en', $teamCulture->getNarrative_text_en(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':narrative_text_fr', $teamCulture->getNarrative_text_fr(), PDO::PARAM_STR);
-		$sqlDetails->bindValue(':operating_context_en', $teamCulture->getOperating_context_en(), PDO::PARAM_STR);
+        $sqlDetails->bindValue(':operating_context_en', $teamCulture->getOperating_context_en(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':operating_context_fr', $teamCulture->getOperating_context_fr(), PDO::PARAM_STR);
-		$sqlDetails->bindValue(':what_we_value_en', $teamCulture->getWhat_we_value_en(), PDO::PARAM_STR);
+        $sqlDetails->bindValue(':what_we_value_en', $teamCulture->getWhat_we_value_en(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':what_we_value_fr', $teamCulture->getWhat_we_value_fr(), PDO::PARAM_STR);
-		$sqlDetails->bindValue(':how_we_work_en', $teamCulture->getHow_we_work_en(), PDO::PARAM_STR);
+        $sqlDetails->bindValue(':how_we_work_en', $teamCulture->getHow_we_work_en(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':how_we_work_fr', $teamCulture->getHow_we_work_fr(), PDO::PARAM_STR);
         $sqlDetails->bindValue(':en_iso', "en_CA", PDO::PARAM_STR);
         $sqlDetails->bindValue(':fr_iso', "fr_CA", PDO::PARAM_STR);
@@ -131,12 +131,12 @@ class TeamCultureDAO extends BaseDAO {
         $sql->bindValue(':gc_directory_url', $teamCulture->getGc_directory_url(), PDO::PARAM_STR);
         $sql->bindValue(':narrative_text_en', $teamCulture->getNarrative_text_en(), PDO::PARAM_STR);
         $sql->bindValue(':narrative_text_fr', $teamCulture->getNarrative_text_fr(), PDO::PARAM_STR);
-		$sql->bindValue(':operating_context_en', $teamCulture->getOperating_context_en(), PDO::PARAM_STR);
-		$sql->bindValue(':operating_context_fr', $teamCulture->getOperating_context_fr(), PDO::PARAM_STR);
-		$sql->bindValue(':what_we_value_en', $teamCulture->getWhat_we_value_en(), PDO::PARAM_STR);
-		$sql->bindValue(':what_we_value_fr', $teamCulture->getWhat_we_value_fr(), PDO::PARAM_STR);
-		$sql->bindValue(':how_we_work_en', $teamCulture->getHow_we_work_en(), PDO::PARAM_STR);
-		$sql->bindValue(':how_we_work_fr', $teamCulture->getHow_we_work_fr(), PDO::PARAM_STR);
+        $sql->bindValue(':operating_context_en', $teamCulture->getOperating_context_en(), PDO::PARAM_STR);
+        $sql->bindValue(':operating_context_fr', $teamCulture->getOperating_context_fr(), PDO::PARAM_STR);
+        $sql->bindValue(':what_we_value_en', $teamCulture->getWhat_we_value_en(), PDO::PARAM_STR);
+        $sql->bindValue(':what_we_value_fr', $teamCulture->getWhat_we_value_fr(), PDO::PARAM_STR);
+        $sql->bindValue(':how_we_work_en', $teamCulture->getHow_we_work_en(), PDO::PARAM_STR);
+        $sql->bindValue(':how_we_work_fr', $teamCulture->getHow_we_work_fr(), PDO::PARAM_STR);
         $sql->bindValue(':manager_profile_id', $managerProfileId, PDO::PARAM_INT);
         $sql->bindValue(':en_iso', "en_CA", PDO::PARAM_STR);
         $sql->bindValue(':fr_iso', "fr_CA", PDO::PARAM_STR);
@@ -272,7 +272,7 @@ class TeamCultureDAO extends BaseDAO {
         $sql->bindValue(":manager_profile_id", $managerProfileId, PDO::PARAM_INT);
         $sql->bindValue(":team_culture_id", $teamCultureId, PDO::PARAM_INT);
 
-         try {
+            try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $rowsModified = $sql->rowCount();
         } catch (PDOException $e) {
