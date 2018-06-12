@@ -7963,6 +7963,64 @@ nav {
 
     Authored by: Talent Cloud
 
+    FAQ Template: Subnav
+
+============================================================================= */
+@media (min-width: 64em) {
+  .tos__subnav-sticky-wrapper {
+    position: sticky;
+    top: 4rem; } }
+
+.tos_subnav-label {
+  color: #2196f3;
+  display: block;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 4rem 0 2rem 0; }
+  .tos_subnav-label:first-child {
+    margin-top: 0; }
+
+.tos__subnav-item {
+  color: #333333 !important;
+  display: block;
+  font-size: 16px;
+  margin: 0 0 1rem 0;
+  text-decoration: underline;
+  transition: color .2s ease; }
+  .tos__subnav-item:hover {
+    color: #2196f3 !important;
+    text-decoration: underline;
+    transition: color .2s ease; }
+
+@media (min-width: 64em) {
+  .tos__content-wrapper {
+    padding: 0 0 0 3rem; } }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    FAQ Template: Text
+
+============================================================================= */
+.tos__text:not(:last-child) {
+  margin: 0 0 6rem 0; }
+
+.tos__text-title {
+  font-size: 18px;
+  margin: 3rem 0 1rem 0; }
+
+.tos__text-copy {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 2rem 0; }
+  .tos__text-copy:last-child {
+    margin-bottom: 0; }
+
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
     Applicant Landing
 
 ============================================================================= */

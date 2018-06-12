@@ -7,7 +7,7 @@
                 </div>
                 <nav role="navigation" class="col-xs-12 col-sm-8 col-sm-pull-4 goc-footer--links">
                     <ul>
-                        <li><a href="/legal/terms/" id="termsAndConditions">Terms and Conditions</a></li>
+                        <li><a href="javascript:void(0)" onclick="TOSAPI.showTOS();" id="termsAndConditions">Terms and Conditions</a></li>
                         <li><a href="/legal/privacy/" id="privacy">Privacy</a></li>
                         <li><a href="https://www.canada.ca/en.html" id="canadaLink">Visit Canada.ca</a></li>
                     </ul>
