@@ -1071,3 +1071,97 @@ function evidencePreviewLinkKeydown(e) {
 
 Utilities.addWindowEventListener("load", Utilities.setEvidencePreviewUiEventListeners);
 Utilities.addWindowEventListener("resize", Utilities.setEvidencePreviewUiEventListeners);
+
+// Form Label Handlers =========================================================
+
+// Required Fields
+Utilities.formRequirementLabelHandler = function() {
+
+    var required = document.querySelectorAll("input:required");
+
+    for (var i = 0; i < required.length; i++) {
+        required[i].parentElement.classList.add("required");
+        var requiredElement = document.createElement("span");
+        requiredElement.classList.add("form__required");
+        requiredElement.innerHTML = "<i class='fa fa-asterisk' aria-label='Asterisk'></i>";
+        required[i].parentElement.querySelector("label").appendChild(requiredElement);
+        // required[i].parentElement.appendChild(requiredElement);
+    }
+
+};
+
+Utilities.addWindowEventListener("load", Utilities.formRequirementLabelHandler);
+
+// Focus Validation
+Utilities.formLabelFocusHandler = function() {
+
+    // var floatingLabels = document.querySelectorAll(".form__input-wrapper--float");
+
+    this.parentElement.classList.add("active");
+
+};
+
+Utilities.formLabelBlurHandler = function() {
+
+    // var floatingLabels = document.querySelectorAll(".form__input-wrapper--float");
+
+    if (this.value == "") {
+        this.parentElement.classList.remove("active");
+    }
+
+    if(this.validity.valid) {
+
+        if (this.value == "" || this.getAttribute("type") == "password") {
+            this.parentElement.classList.remove("valid");
+            this.parentElement.classList.remove("invalid");
+        }
+        else {
+            this.parentElement.classList.add("valid");
+            this.parentElement.classList.remove("invalid");
+        }
+
+    }
+    else {
+
+        if (this.getAttribute("type") == "password") {
+            return false;
+        }
+        else {
+            this.parentElement.classList.add("invalid");
+            this.parentElement.classList.remove("valid");
+        }
+
+    }
+
+};
+
+Utilities.setFormLabelHandler = function () {
+
+    // Set variables for the desktop menu items and the associated evidence panes.
+    var floatingLabels = document.querySelectorAll("[class*='form__input-wrapper']");
+
+    // Enter the loop of desktop tab menu items.
+    for (var i = 0; i < floatingLabels.length; i++) {
+
+        if (floatingLabels[i].querySelector(".form__input") != null) {
+
+            var input = floatingLabels[i].querySelector(".form__input");
+
+            input.addEventListener('focus', Utilities.formLabelFocusHandler);
+            input.addEventListener('blur', Utilities.formLabelBlurHandler);
+            
+        }
+        else if (floatingLabels[i].querySelector(".form__textarea") != null) {
+
+            var input = floatingLabels[i].querySelector(".form__textarea");
+
+            input.addEventListener('focus', Utilities.formLabelFocusHandler);
+            input.addEventListener('blur', Utilities.formLabelBlurHandler);
+
+        }
+
+    }
+
+}
+
+Utilities.addWindowEventListener("load", Utilities.setFormLabelHandler);
