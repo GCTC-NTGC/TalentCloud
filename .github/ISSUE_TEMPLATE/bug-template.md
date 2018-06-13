@@ -16,5 +16,8 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
+# Images
+Place image attachments (wireframes, etc.) here.
+
 # Additional Context
 Add any other context about the problem here.

@@ -9,6 +9,9 @@ Please name the task using the following information: **Applicant/Manager/Admin/
 # Description
 Enter the task description here.
 
+# Images
+Place image attachments (wireframes, etc.) here.
+
 # Required for Completion
 Add/remove others as necessary for this specific task.
 - [ ] Run Lighthouse (Chrome Dev Tools)
