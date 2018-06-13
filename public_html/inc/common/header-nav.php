@@ -212,7 +212,9 @@
 
                     <h2 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h2>
                     
-                    <h2 class="subpage-hero__title hidden" id="tosHeroTitle" aria-hidden="true">Terms &amp; Conditions</h2>
+                    <h2 class="subpage-hero__title hidden" id="tacHeroTitle" aria-hidden="true">Terms &amp; Conditions</h2>
+                    
+                    <h2 class="subpage-hero__title hidden" id="privacyHeroTitle" aria-hidden="true">Privacy Policy</h2>
 
                 </div>
 

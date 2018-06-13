@@ -58,7 +58,8 @@ ga('send', 'pageview');
 <script src="/js/DashboardAPI.js" type="text/javascript"></script>
 <script src="/js/LookupAPI.js" type="text/javascript"></script>
 <script src="/js/FAQAPI.js" type="text/javascript"></script>
-<script src="/js/TOSAPI.js" type="text/javascript"></script>
+<script src="/js/TACAPI.js" type="text/javascript"></script>
+<script src="/js/PrivacyAPI.js" type="text/javascript"></script>
 <script src="/js/TalentCloudAPI.js"></script>
 <script>
     var loadingImage = new Image();
