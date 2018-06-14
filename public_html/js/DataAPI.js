@@ -27,10 +27,6 @@ DataAPI.getStaticContent = function(locale, requestCallback){
     var talentcloudData_URL = DataAPI.baseURL+"/"+locale+"/getContent";
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
-    var authToken = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
     var talentcloudData_xhr = new XMLHttpRequest();
     if ("withCredentials" in talentcloudData_xhr) {
 
@@ -52,7 +48,6 @@ DataAPI.getStaticContent = function(locale, requestCallback){
 
     }
     talentcloudData_xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    talentcloudData_xhr.setRequestHeader('Authorization', 'Bearer ' + authToken.access_token);
     talentcloudData_xhr.addEventListener("progress",
     function(evt){
         DataAPI.talentcloudDataUpdateProgress(evt);
@@ -64,8 +59,7 @@ DataAPI.getStaticContent = function(locale, requestCallback){
     talentcloudData_xhr.addEventListener("error",DataAPI.transferFailed,false);
     talentcloudData_xhr.addEventListener("abort",DataAPI.transferAborted,false);
 
-    talentcloudData_xhr.open('GET',talentcloudData_URL);
-    talentcloudData_xhr.send(authToken);
+    talentcloudData_xhr.send();
 };
 
 /**
@@ -462,10 +456,6 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
         request.setRequestHeader("Content-type", "application/json");
     if (!headersMap['Accept'])
         request.setRequestHeader("Accept", "application/json");
-    if (UserAPI.hasSessionUser()) {
-        var authToken = UserAPI.getAuthToken();
-        request.setRequestHeader("Authorization", "Bearer " + authToken);
-    }
     //Set custom headers
     var keys = Object.keys(headersMap)
     for (var i=0; i<keys.length; i++) {

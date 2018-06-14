@@ -71,11 +71,7 @@ DashboardAPI.getApplicationsByUuserId = function(){
 
     //does the request need to be secure?
 
-    var authToken = "";
     var user_id = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthToken();
-    }
 
     if(UserAPI.hasSessionUser()){
         user_id = UserAPI.getSessionUserAsJSON().user_id;
@@ -111,7 +107,6 @@ DashboardAPI.getApplicationsByUuserId = function(){
 
     dashboard_xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     dashboard_xhr.setRequestHeader("Accept", "application/json");
-    dashboard_xhr.setRequestHeader("Authorization", "Bearer " + authToken);
 
     dashboard_xhr.addEventListener("progress",
         function(evt){

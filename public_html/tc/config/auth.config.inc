@@ -9,7 +9,9 @@ define('ISSUER', 'talentcloud.localhost');
 
 define("OPENID_URI", "https://account.gccollab.ca/openid");
 
-define("AUTH_URI", "/authorize");
+define("OPENID_JWKS_URI","https://account.gccollab.ca/openid/jwks");
+
+define("AUTH_URI","/authorize");
 
 define("REGISTER_URI", "https://account.gccollab.ca/register");
 
@@ -18,6 +20,7 @@ define("CLIENT_ID", "800830");
 define("CLIENT_SECRET", "68eb6645ec8e59ef31633b80e8b777ebb62fbeeec3d127fc822b4fcc");
 
 define("REDIRECT_URI", "https://tc.gccollab.ca/");
+//define("REDIRECT_URI", "https://tc.gccollab.ca/index.php");
 
 define("REDIRECT_URI_ADMIN", "https://tc.gccollab.ca/admin");
 
@@ -25,5 +28,10 @@ define("URL_RESPONSE_TYPES", "code");
 
 define("SCOPE", "openid+profile+email");
 
+define("HOMEPAGE_URI_APPLICANT", "https://tc.gccollab.ca/");
+define("HOMEPAGE_URI_ADMIN", "https://tc.gccollab.ca/admin");
 
+define("ID_TOKEN", "idToken");
+define("ACCESS_TOKEN","accessToken");
+define("REFRESH_TOKEN","refreshToken");
 ?>

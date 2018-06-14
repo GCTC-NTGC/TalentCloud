@@ -861,10 +861,6 @@ JobPostAPI.submitJobPosterApplication = function(jobPosterId,jobSeekerProfileId)
     Utilities.debug?console.log("loading contacts"):null;
     var jobPosterApplication_URL = JobPostAPI.baseURL+"/putJobPosterApplication/"+jobPosterId+"/"+jobSeekerProfileId;
 
-    var authToken = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
     var jobPosterApplication_xhr = new XMLHttpRequest();
     if ("withCredentials" in jobPosterApplication_xhr) {
 
@@ -888,8 +884,6 @@ JobPostAPI.submitJobPosterApplication = function(jobPosterId,jobSeekerProfileId)
 
     jobPosterApplication_xhr.open('PUT',jobPosterApplication_URL);
     jobPosterApplication_xhr.setRequestHeader("Content-Type","application/json");
-    jobPosterApplication_xhr.setRequestHeader("x-access-token", authToken.access_token);
-
     jobPosterApplication_xhr.addEventListener("progress",
     function(evt){
         JobPostAPI.submitJobPosterApplicationProgress(evt);

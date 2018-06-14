@@ -41,67 +41,6 @@ UserAPI.parseUserResponse = function(httpResponse) {
 
 /**
  *
- * @returns {undefined}
- */
-UserAPI.login = function (isAdmin) {
-    var credentials = {};
-    if (UserAPI.hasSessionUser()){
-        credentials = UserAPI.getSessionUserAsJSON();
-        if (UserAPI.hasAuthToken() && credentials !== null) {
-            idToken = UserAPI.getOpenIDToken();
-            credentials.idToken = idToken;
-            credentials.user_role = TalentCloudAPI.roles.jobseeker;
-            if(isAdmin){
-                credentials.user_role = TalentCloudAPI.roles.admin;
-            }
-            UserAPI.authenticate(credentials,isAdmin);
-        }
-    } else {
-        UserAPI.failedLogin();
-    }
-};
-
-/**
- *
- * @param {type} credentials
- * @returns {undefined}
- */
-UserAPI.authenticate = function (credentials,isAdmin) {
-    
-    var auth_url = UserAPI.baseURL + "/authenticate";
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        xhr.open("POST", auth_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        xhr = new XDomainRequest();
-        xhr.open("POST", auth_url);
-    } else {
-        // Otherwise, CORS is not supported by the browser.
-        xhr = null;
-        // TODO: indicate to user that browser is not supported
-    }
-
-    xhr.open('POST', auth_url);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer " + credentials.idToken);
-    xhr.addEventListener("progress", UserAPI.updateProgress, false);
-    xhr.addEventListener("load", function () {
-        UserAPI.loaded(xhr.response,isAdmin);
-    }, false);
-    xhr.addEventListener("error", UserAPI.transferFailed, false);
-    xhr.addEventListener("abort", UserAPI.transferAborted, false);
-
-    xhr.send(JSON.stringify(credentials));
-};
-
-/**
- *
  * @param {type} credentials
  * @returns {undefined}
  */
@@ -307,99 +246,6 @@ UserAPI.authTokenCallback = function (response, credentials) {
 
 /**
  *
- * @param {type} response
- * @returns {undefined}
- */
-UserAPI.loaded = function (response,isAdmin) {
-    //console.log(response);
-    var authJSON = JSON.parse(response);
-    //console.log(authJSON);
-    var sessionUser = UserAPI.getSessionUserAsJSON();
-    if(isAdmin){
-        if(sessionUser.user_role === TalentCloudAPI.roles.jobseeker){
-            UserAPI.logout();
-        }
-    }
-    
-    if(!authJSON.failed){
-        sessionUser.user_id = authJSON.user_id;
-        sessionUser.user_role = authJSON.user_role;
-        UserAPI.storeSessionUser(sessionUser);
-        
-        if (sessionUser.user_id !== "") {
-
-            var loggedIn = document.getElementById("navigationLogoutLinkWrapper");
-            loggedIn.classList.remove("hidden");
-
-            var loggedOut = document.getElementById("navigationLoginLinkWrapper");
-            loggedOut.classList.add("hidden");
-
-            var registerLink = document.getElementById("navigationRegisterLinkWrapper");
-            registerLink.classList.add("hidden");
-
-            EventsAPI.hideBodyOverflow(false);
-
-            console.log(sessionUser.user_role);
-
-            if (sessionUser.user_role === TalentCloudAPI.roles.jobseeker) {
-
-                var dashBoardLink = document.getElementById("navigationDashboardLinkWrapper");
-
-                if (dashBoardLink !== null) {
-                    var dashBoardLinkListItem = document.getElementById("navigationDashboardLinkWrapper");
-                    dashBoardLink.classList.remove("hidden");
-                    dashBoardLinkListItem.setAttribute("aria-hidden", "false");
-                }
-            }
-            else if (isAdmin) {
-
-                var adminDashBoardLink = document.getElementById("navigationAdminDashboardLinkWrapper");
-
-                if (adminDashBoardLink !== null) {
-                    var adminDashBoardLinkListItem = document.getElementById("navigationAdminDashboardLinkWrapper");
-                    adminDashBoardLinkListItem.classList.remove("hidden");
-                    adminDashBoardLinkListItem.setAttribute("aria-hidden", "false");
-                }
-
-            }
-
-            var myProfileLink = document.getElementById("navigationProfileLinkWrapper");
-
-            if (myProfileLink !== null) {
-                var profileLinkListItem = document.getElementById("navigationProfileLinkWrapper");
-                myProfileLink.classList.remove("hidden");
-                profileLinkListItem.setAttribute("aria-hidden", "false");
-                AccessibilityAPI.focusElement("navigationProfileLinkWrapper");
-            }
-
-            if (sessionUser.user_role === TalentCloudAPI.roles.admin || sessionUser.user_role === TalentCloudAPI.roles.manager) {
-                var jobPostersLinkListItem = document.getElementById("navigationPosterLinkWrapper");
-                if (jobPostersLinkListItem){
-                    jobPostersLinkListItem.setAttribute("aria-hidden", "false");
-                }
-                var jobPostersLink = document.getElementById("navigationPosterLinkWrapper");
-                if (jobPostersLink){
-                    var jobPostersLinkListItem = document.getElementById("navigationPosterLinkWrapper");
-                    jobPostersLinkListItem.classList.remove("hidden");
-                    jobPostersLinkListItem.setAttribute("aria-hidden", "false");
-                }
-                // var jobPostersLink = document.getElementById("jobPostersLink");
-                // if (jobPostersLink){
-                //     jobPostersLink.classList.remove("hidden");
-                // }
-            }
-
-            EventsAPI.hideBodyOverflow(false);
-
-        }
-    } else {
-        UserAPI.logout();
-    }
-
-};
-
-/**
- *
  * @returns {undefined}
  */
 UserAPI.transferFailed = function () {
@@ -423,13 +269,11 @@ UserAPI.logout = function () {
     document.title = stateInfo.pageTitle;
     history.replaceState(stateInfo, stateInfo.pageInfo, '#');
     
-    var storage = window.sessionStorage;
-    storage.removeItem('accessToken');
-    storage.removeItem('idToken');
-    storage.removeItem('refreshToken');
-    storage.removeItem('sessionUser');
-    storage.removeItem('expires_in');
-    storage.removeItem('expires_at');
+    window.sessionStorage.removeItem('sessionUser');
+    
+    Utilities.deleteCookie("idToken");
+    Utilities.deleteCookie("accessToken");
+    Utilities.deleteCookie("refreshToken");
 
     window.location.reload();
     
@@ -529,107 +373,6 @@ UserAPI.hideRegisterForm = function () {
     UserAPI.clearFormFields("registerForm");
 };
 
-
-/**
- *
- * @param {type} authToken
- * @returns {undefined}
- */
-UserAPI.storeAuthToken = function (authToken) {
-    window.sessionStorage.authToken = JSON.stringify(authToken);
-};
-
-/**
- *
- * @param {type} accessToken
- * @returns {undefined}
- */
-UserAPI.storeOpenIDAccessToken = function (accessToken) {
-    window.sessionStorage.accessToken = JSON.stringify(accessToken);
-};
-
-/**
- *
- * @param {type} idToken
- * @returns {undefined}
- */
-UserAPI.storeOpenIDToken = function (idToken) {
-    window.sessionStorage.idToken = JSON.stringify(idToken);
-};
-
-/**
- *
- * @param {type} refreshToken
- * @returns {undefined}
- */
-UserAPI.storeOpenIDRefreshToken = function (refreshToken) {
-    window.sessionStorage.refreshToken = JSON.stringify(refreshToken);
-};
-
-/**
- *
- * @param {type} refreshToken
- * @returns {undefined}
- */
-UserAPI.storeOpenIDExpiry = function (expires_in) {
-    window.sessionStorage.expires_in = expires_in;
-};
-
-/**
- *
- * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
- */
-UserAPI.getOpenIDAccessToken = function () {
-    var existingToken = JSON.parse(window.sessionStorage.accessToken);
-    //console.log(existingToken);
-    return existingToken;
-};
-
-UserAPI.getOpenIDToken = function () {
-    var existingIDToken = JSON.parse(window.sessionStorage.idToken);
-    //console.log(existingToken);
-    return existingIDToken;
-};
-
-
-UserAPI.getOpenIDRefreshToken = function () {
-    var existingRefreshToken = JSON.parse(window.sessionStorage.refreshToken);
-    //console.log(existingToken);
-    return existingRefreshToken;
-};
-
-/**
- *
- * @return {undefined}
- */
-UserAPI.getAuthToken = function () {
-    var existingIDToken = JSON.parse(window.sessionStorage.idToken);
-    //console.log(existingToken);
-    return existingIDToken;
-};
-
-/**
- *
- * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
- */
-UserAPI.getAuthTokenAsJSON = function () {
-    var existingToken = window.sessionStorage.idToken;
-    if (UserAPI.hasAuthToken) {
-        return JSON.parse(existingToken);
-    } else {
-        return null;
-    }
-};
-
-
-/**
- *
- * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
- */
-UserAPI.hasAuthToken = function () {
-    return window.sessionStorage.idToken === undefined ? false : true;
-};
-
 /**
  *
  * @param {type} userObj
@@ -637,19 +380,6 @@ UserAPI.hasAuthToken = function () {
  */
 UserAPI.storeSessionUser = function (userObj) {
     window.sessionStorage.sessionUser = JSON.stringify(userObj);
-};
-
-UserAPI.storeSessionObject = function(objName, obj, asString){
-    window.sessionStorage[objName] = asString?JSON.stringify(obj):obj;
-};
-
-/**
- *
- * @param {type} userObj
- * @returns {undefined}
- */
-UserAPI.storeOpenIdSessionUser = function (userObj) {
-    window.sessionStorage.openIdSessionUser = JSON.stringify(userObj);
 };
 
 /**
@@ -672,31 +402,6 @@ UserAPI.getSessionUserAsJSON = function () {
     } else {
         return null;
     }
-};
-
-/**
- *
- * @returns {Window.sessionStorage.authToken|Storage.authToken|String}
- */
-UserAPI.hasAuthTokenExpired = function () {
-    var hasExpired = true;
-    if (UserAPI.hasAuthToken()) {
-        var token = UserAPI.getAuthTokenAsJSON();
-        //console.log(token);
-        var tokenExpiry = new Date(token.expires_in * 1000);
-        var now = new Date();
-        //console.log(Utilities.addDays(now,1).getTime());
-        //console.log(tokenExpiry.getTime());
-        //console.log(Utilities.addDays(now,1).getTime() <= tokenExpiry.getTime());
-        if (Utilities.addDays(now, 1).getTime() >= tokenExpiry) {
-            hasExpired = false;
-        } else {
-            hasExpired = true;
-        }
-    } else {
-        hasExpired = true;
-    }
-    return hasExpired;
 };
 
 /**
@@ -725,8 +430,6 @@ UserAPI.clearFormFields = function (formId) {
 };
 
 UserAPI.updateUser = function(user, updateUserCallback) {
-    var authToken = UserAPI.getAuthToken();
-
     Utilities.debug?console.log("updating user"):null;
     var updateUser_url = UserAPI.baseURL+"/user/update/";
     var jsonData=JSON.stringify(user);
@@ -754,7 +457,6 @@ UserAPI.updateUser = function(user, updateUserCallback) {
 
     updateUser_xhr.open('PUT',updateUser_url);
     updateUser_xhr.setRequestHeader("Content-Type","application/json");
-    updateUser_xhr.setRequestHeader("Authorization", "Bearer " + authToken);
 
     //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
     //updateUser_xhr.addEventListener("error",DataAPI.transferFailed,false);
@@ -768,4 +470,4 @@ UserAPI.updateUser = function(user, updateUserCallback) {
     }
     ,false);
     updateUser_xhr.send(jsonData);
-}
+};

@@ -379,10 +379,6 @@ CreateJobPosterAPI.createJobPoster = function (jobPosterJson) {
     var createJobPoster_URL = CreateJobPosterAPI.baseURL + "/createJobPoster";
     //console.log('Talent cloud url data:   ' + talentcloudData_URL);
     //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
-    var authToken = "";
-    if (UserAPI.hasAuthToken()) {
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
 
@@ -404,8 +400,6 @@ CreateJobPosterAPI.createJobPoster = function (jobPosterJson) {
 
     }
     xhr.open('POST', createJobPoster_URL);
-    xhr.setRequestHeader('x-access-token', authToken.access_token);
-
     xhr.addEventListener("progress",
             function (evt) {
                 DataAPI.talentcloudDataUpdateProgress(evt);
@@ -433,7 +427,6 @@ CreateJobPosterAPI.postJobPosterComplete = function (response) {
 CreateJobPosterAPI.getManagerProfile = function (responseCallback) {
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
-        var authToken = UserAPI.getAuthTokenAsJSON();
         var user_id = user["user_id"];
         var manager_profile_url = CreateJobPosterAPI.baseURL + "/getManagerProfile/" + user_id;
         var manager_profile_xhr = new XMLHttpRequest();
@@ -456,7 +449,6 @@ CreateJobPosterAPI.getManagerProfile = function (responseCallback) {
         manager_profile_xhr.open('GET', manager_profile_url);
         manager_profile_xhr.setRequestHeader("Content-type", "application/json");
         manager_profile_xhr.setRequestHeader("Accept", "application/json");
-        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
         //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
         manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("load", function () {

@@ -222,7 +222,6 @@ CreateEditProfileAPI.saveManagerProfile = function (complete_manager_profile) {
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
-        var authToken = UserAPI.getAuthTokenAsJSON();
         var user_id = user["user_id"];
         var manager_profile_url = UserAPI.baseURL + "/postManagerProfile/" + user_id;
         var manager_profile_xhr = new XMLHttpRequest();
@@ -245,7 +244,6 @@ CreateEditProfileAPI.saveManagerProfile = function (complete_manager_profile) {
         manager_profile_xhr.open('POST', manager_profile_url);
         manager_profile_xhr.setRequestHeader("Content-type", "application/json");
         manager_profile_xhr.setRequestHeader("Accept", "application/json");
-        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
         //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
         manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
@@ -766,7 +764,6 @@ CreateEditProfileAPI.getManagerProfile = function () {
 
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
-        var authToken = UserAPI.getAuthTokenAsJSON();
         var user_id = user["user_id"];
         var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/" + user_id;
         var manager_profile_xhr = new XMLHttpRequest();
@@ -789,7 +786,6 @@ CreateEditProfileAPI.getManagerProfile = function () {
         manager_profile_xhr.open('GET', manager_profile_url);
         manager_profile_xhr.setRequestHeader("Content-type", "application/json");
         manager_profile_xhr.setRequestHeader("Accept", "application/json");
-        manager_profile_xhr.setRequestHeader('x-access-token', authToken.access_token);
         //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
         manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("load", function () {

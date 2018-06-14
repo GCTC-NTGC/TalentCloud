@@ -349,10 +349,6 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function (
             xhr.setRequestHeader("Content-type", self.photo.type);
             xhr.setRequestHeader("X-File-Name", self.photo.name);
             xhr.setRequestHeader("Accept", "application/json");
-            if (UserAPI.hasSessionUser()) {
-                var authToken = UserAPI.getAuthToken();
-                xhr.setRequestHeader("Authorization", "Bearer " + authToken);
-            }
             xhr.addEventListener("load", function (ev) {
                 if (self.onUploadComplete) {
                     self.onUploadComplete(xhr);
