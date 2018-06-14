@@ -86,6 +86,9 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     applicationHeroMetadata.classList.remove("hidden");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     // ga('set', 'page', '/apply/'+jobPosterId);
@@ -365,6 +368,9 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
     var applicationHeroTitle = document.getElementById("applicationHeroTitle");
     applicationHeroTitle.classList.remove("hidden");
     applicationHeroTitle.setAttribute("aria-hidden", "false");
+
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
 
 };
 

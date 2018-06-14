@@ -20,6 +20,9 @@ TACAPI.showTAC = function(anchor) {
     tacHeroTitle.classList.remove("hidden");
     tacHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/tac');

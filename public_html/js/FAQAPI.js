@@ -20,6 +20,9 @@ FAQAPI.showFAQ = function(anchor) {
     faqHeroTitle.classList.remove("hidden");
     faqHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/faqs');
