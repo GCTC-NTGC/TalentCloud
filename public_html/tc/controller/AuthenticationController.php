@@ -25,6 +25,8 @@ require_once __DIR__ . '/../utils/NetworkUtils.php';
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
+use Jumbojett\OpenIDConnectClient;
+
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
@@ -89,6 +91,30 @@ class AuthenticationController {
 
     public static function idTokenIsValid($idToken, $accessToken, $refreshToken = null) {
         $token = (new Parser())->parse((string) $idToken); // Parses from a string
+        
+        if ($token->isExpired() && $refreshToken) {
+            //Attempt to refresh tokens
+            $oidc = new OpenIDConnectClient(OPENID_URI, CLIENT_ID, CLIENT_SECRET);
+            $oidc->addScope(array('openid', 'profile', 'email'));
+            
+            $oidc->setVerifyPeer(false);
+
+            $response = $oidc->refreshToken($refreshToken);
+
+            if ($response && !isset($response->error)) {                
+                //RESET auth tokens
+                setcookie(ID_TOKEN, $response->id_token,0,"/");
+                setcookie(ACCESS_TOKEN, $response->access_token,0,"/");
+                setcookie(REFRESH_TOKEN, $response->refresh_token,0,"/");
+                
+                $idToken = $response->id_token;
+                $accessToken = $response->access_token;
+                $refreshToken = $response->refresh_token;
+                
+                $token = (new Parser())->parse((string) $idToken);
+            }
+        }        
+        
         //Ensure this token was meant for us
         $expectation = new ValidationData(); // It will use the current time to validate (iat, nbf and exp)
         $expectation->setIssuer(OPENID_URI);
