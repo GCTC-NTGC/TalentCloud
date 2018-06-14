@@ -12,6 +12,7 @@ if (!isset($_SESSION)) {
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
+require_once __DIR__ . '/../config/constants.config.inc';
 require_once __DIR__ . '/../controller/JobApplicationController.php';
 require_once __DIR__ . '/../controller/JobPosterController.php';
 require_once __DIR__ . '/../model/JobPoster.php';
@@ -50,7 +51,7 @@ switch ($requestMethod) {
                         exit;
                     }
                     
-                    if ($user->getUser_role() === "jobseeker") {
+                    if ($user->getUser_role() === ROLE_APPLICANT) {
                         //a jobseeker has permission if they created this application
                         
                         if ($user->getUser_id() != $fullJobApplication->getJob_seeker_profile()->getUser_id()) {
@@ -59,7 +60,7 @@ switch ($requestMethod) {
                             exit;
                         }
                         
-                    } else if ($user->getUser_role() === "administrator") {
+                    } else if ($user->getUser_role() === ROLE_ADMIN) {
                         //an administrator has permission if they created the job this application is for
                         
                         $jobPoster = JobPosterController::getJobPosterById($locale, $fullJobApplication->getJob_poster_application()->getApplication_job_poster_id());

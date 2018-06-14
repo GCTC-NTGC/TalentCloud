@@ -12,10 +12,13 @@ if (!isset($_SESSION)) {
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
+require_once __DIR__ . '/../config/auth.config.inc';
+require_once __DIR__ . '/../config/constants.config.inc';
 require_once __DIR__ . '/../dao/AuthenticationDAO.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
 require_once __DIR__ . '/../model/AuthToken.php';
 require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../model/UserPermission.php';
 require_once __DIR__ . '/../controller/UserController.php';
 require_once __DIR__ . '/../utils/JWTUtils.php';
 require_once __DIR__ . '/../utils/NetworkUtils.php';
@@ -24,8 +27,9 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\ValidationData;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Jumbojett\OpenIDConnectClient;
+use Lcobucci\JWT\Signer\Rsa\Sha256;
+
+use Jose\KeyConverter\RSAKey;
 
 /**
  * 
@@ -69,22 +73,21 @@ class AuthenticationController {
         if ($jwks === NULL) {
             throw new Exception('Error decoding JSON from jwks_uri');
         }
-        foreach ($jwks["keys"] as $key) {
-            if ($key["alg"] === $alg //this key uses the correct algorithm
-                    && $key["use"] === "sig" //this key is intended for signing
-                    && $key["kid"] === $kid //this key matches our token
+
+        foreach ($jwks->keys as $key) {
+            if ($key->alg === $alg //this key uses the correct algorithm
+                    && $key->use === "sig" //this key is intended for signing
+                    && $key->kid === $kid //this key matches our token
             ) {
-                return self::jwkToPemPublicKey($jwk);
+                $rsaKey = new RSAKey((array) $key);
+                return $rsaKey->toPEM();
+                //return self::jwkToPemPublicKey($key);
             }
         }
         return null;
     }
 
-    private static function jwkToPemPublicKey($jwk) {
-        return "-----BEGIN RSA PUBLIC KEY-----" . $jwk["n"] . $jwk["e"] . "-----END RSA PUBLIC KEY-----";
-    }
-
-    public static function idTokenIsValid($idToken, $accessToken, $refreshToken=null) {
+    public static function idTokenIsValid($idToken, $accessToken, $refreshToken = null) {
         $token = (new Parser())->parse((string) $idToken); // Parses from a string
         //Ensure this token was meant for us
         $expectation = new ValidationData(); // It will use the current time to validate (iat, nbf and exp)
@@ -92,7 +95,7 @@ class AuthenticationController {
         $expectation->setAudience(CLIENT_ID);
         $claimIsValid = $token->validate($expectation);
 
-        if (!claimIsValid) {
+        if (!$claimIsValid) {
             //end early if claim is invalid
             return false;
         }
@@ -110,4 +113,47 @@ class AuthenticationController {
 
         return $claimIsValid && $signatureIsValid;
     }
+
+    public static function isLoggedIn() {
+        if ($_COOKIE[ID_TOKEN]) {
+            return idTokenIsValid($_COOKIE[ID_TOKEN], $_COOKIE[ACCESS_TOKEN], $_COOKIE[REFRESH_TOKEN]);
+        }
+        return false;
+    }
+
+    /**
+     * Ensure user is logged in and meets at least one of the provided permissions.
+     * If user is not valid, this function will exit php output with the 
+     * appropriate status code.
+     * If no userPermissions are provided, any logged-in user will be considered valid. 
+     * 
+     * @param UserPermission[] $userPermisions
+     */
+    public static function validateUser($userPermissions = []) {
+        if ($_COOKIE[ID_TOKEN] &&
+                self::idTokenIsValid($_COOKIE[ID_TOKEN], $_COOKIE[ACCESS_TOKEN], $_COOKIE[REFRESH_TOKEN])) {
+            //User is logged in correctly
+            $user = UserController::getUserByOpenIdTokens($_COOKIE[ID_TOKEN], $_COOKIE[ACCESS_TOKEN]);
+            if ($userPermissions) {
+                foreach ($userPermissions as $permission) {
+                    if ($permission->userHasPermission($user)) {
+                        //user is valid
+                        return;
+                    }
+                }
+                //If user did not meet any of the permissions, this resource is forbidden
+                header('HTTP/1.0 403 Forbidden');
+                echo json_encode(array("message" => "You are not authorized to access this resource."), JSON_FORCE_OBJECT);
+                exit;
+            } else {
+                //If no userPermissions were provided, all logged in users are valid;
+                return;
+            }
+        } else {
+            header('HTTP/1.0 401 Unauthorized');
+            echo json_encode(array("message" => "You are accessing a secured resources wihtout credentials. Please authenticate and retry."), JSON_FORCE_OBJECT);
+            exit;
+        }
+    }
+
 }

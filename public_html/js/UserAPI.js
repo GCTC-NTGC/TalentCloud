@@ -269,14 +269,20 @@ UserAPI.logout = function () {
     document.title = stateInfo.pageTitle;
     history.replaceState(stateInfo, stateInfo.pageInfo, '#');
     
+    //User role could be used to reload proper homepage
+    //var role = TalentCloudAPI.roles.jobseeker;
+    //if (UserAPI.hasSessionUser()) {
+    //    role = UserAPI.getSessionUserAsJSON().user_role;
+    //}
+    
     window.sessionStorage.removeItem('sessionUser');
     
     Utilities.deleteCookie("idToken");
     Utilities.deleteCookie("accessToken");
     Utilities.deleteCookie("refreshToken");
 
-    window.location.reload();
-    
+    //reload without url parameters
+    window.location = window.location.pathname;
 };
 
 UserAPI.logoutCallback = function(){

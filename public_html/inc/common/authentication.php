@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../tc/controller/UserController.php';
 require_once __DIR__ . '/../../tc/config/auth.config.inc';
+require_once __DIR__ . '/../../tc/config/constants.config.inc';
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;

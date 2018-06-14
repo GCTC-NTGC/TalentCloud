@@ -27,11 +27,4 @@ define("REDIRECT_URI_ADMIN", "https://tc.gccollab.ca/admin");
 define("URL_RESPONSE_TYPES", "code");
 
 define("SCOPE", "openid+profile+email");
-
-define("HOMEPAGE_URI_APPLICANT", "https://tc.gccollab.ca/");
-define("HOMEPAGE_URI_ADMIN", "https://tc.gccollab.ca/admin");
-
-define("ID_TOKEN", "idToken");
-define("ACCESS_TOKEN","accessToken");
-define("REFRESH_TOKEN","refreshToken");
 ?>

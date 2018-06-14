@@ -16,7 +16,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once __DIR__ . '/../config/constants.config.inc';
 require_once __DIR__ . '/../model/User.php';
 require_once __DIR__ . '/../controller/EmailConfirmationController.php';
 require_once __DIR__ . '/../controller/ManagerProfileController.php';
@@ -87,7 +87,7 @@ class UserController {
             $newUser->setOpen_id($token->getClaim("sub"));
 
             //TODO: allow manager role depending on source of login
-            $newUser->setUser_role("jobseeker");
+            $newUser->setUser_role(ROLE_APPLICANT);
             $newUser->setIs_confirmed(true);
             $user = UserController::registerUser($newUser);
         } else {
@@ -133,13 +133,13 @@ class UserController {
             $userRegistered = true;
             //$confEmailSent = UserController::confirmEmail($registeredUser);
 
-            if ($registeredUser->getUser_role() === 'jobseeker') {
+            if ($registeredUser->getUser_role() === ROLE_APPLICANT) {
                 //Create an empty jobseeker profile
 
                 $userId = $registeredUser->getUser_id();
                 $jobSeekerProfile = new JobSeekerProfile();
                 $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
-            } else if ($registeredUser->getUser_role() === 'administrator') {
+            } else if ($registeredUser->getUser_role() === ROLE_ADMIN) {
 
                 $userId = $registeredUser->getUser_id();
                 $managerProfile = new ManagerProfile();

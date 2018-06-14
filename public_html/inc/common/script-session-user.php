@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/../../tc/config/constants.config.inc';
 require_once __DIR__ . '/../../tc/controller/UserController.php';
 
 if (isset($_COOKIE[ID_TOKEN])) {

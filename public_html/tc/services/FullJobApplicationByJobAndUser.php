@@ -12,6 +12,7 @@ if (!isset($_SESSION)) {
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
+require_once __DIR__ . '/../config/constants.config.inc';
 require_once __DIR__ . '/../controller/JobApplicationController.php';
 require_once __DIR__ . '/../controller/JobPosterController.php';
 require_once __DIR__ . '/../model/JobPoster.php';
@@ -42,13 +43,13 @@ switch ($requestMethod) {
                 
                 if (JWTUtils::validateJWT($jwt, $user)) {
 
-                    if ($user->getUser_role() === "jobseeker") {
+                    if ($user->getUser_role() === ROLE_APPLICANT) {
                         if ($user->getUser_id() != $userId) {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed" => "Requested job application does not belong to this user"), JSON_FORCE_OBJECT);
                             exit;
                         }
-                    } else if ($user->getUser_role() === "administrator") {
+                    } else if ($user->getUser_role() === ROLE_ADMIN) {
                         $jobPoster = JobPosterController::getJobPosterById($locale, $jobPosterId);
                         if ($jobPoster->getManager_user_id() != $user->getUser_id()) {
                             header('HTTP/1.0 401 Unauthorized');
