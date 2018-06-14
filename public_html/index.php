@@ -148,6 +148,8 @@ if($query_string !== ""){
         include "inc/applicant/page-dashboard.php";
         include "inc/common/page-application-preview.php";
         include "inc/common/faq.php";
+        include "inc/common/terms-and-conditions.php";
+        include "inc/common/privacy.php";
         ?>
         <?php // END - Incudes for pages ?>
     </main>
