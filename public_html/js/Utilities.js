@@ -557,34 +557,6 @@ Utilities.setAccordionTriggers = function () {
     }
 };
 
-Utilities.mobileNavClickListener = function (e) {
-
-    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
-    var mainMenu = document.getElementById("pageHeroNavigationMenu");
-
-    e.preventDefault();
-
-    if (this.classList.contains("active")) {
-        this.classList.remove("active");
-        mainMenu.classList.remove("active");
-        document.body.style.overflowY = "auto";
-    } else {
-        this.classList.add("active");
-        mainMenu.classList.add("active");
-        document.body.style.overflowY = "hidden";
-    }
-
-};
-
-Utilities.setMobileNavTriggers = function () {
-    // Gets all elements on the page with "accordion-trigger".
-    var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
-    // Checks for a click.
-    mobileMenuTrigger.addEventListener('click', Utilities.mobileNavClickListener);
-    // Checks for an Enter key click.
-    mobileMenuTrigger.addEventListener("keydown", Utilities.accordionKeyupListener);
-};
-
 Utilities.applicantLandingVideoClickListener = function (e) {
 
     var landingVideoTrigger = document.getElementById("applicantLandingVideoTranscriptTrigger");
@@ -624,7 +596,6 @@ Utilities.setUserAgent = function () {
 };
 
 Utilities.addWindowEventListener("load", Utilities.setAccordionTriggers);
-Utilities.addWindowEventListener("load", Utilities.setMobileNavTriggers);
 Utilities.addWindowEventListener("load", Utilities.setApplicantLandingVideoTriggers);
 Utilities.addWindowEventListener("load", Utilities.setUserAgent);
 

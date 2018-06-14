@@ -36,6 +36,7 @@ ga('send', 'pageview');
 <?php // End Google Analytics ?>
 <script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
 <script src="/js/Utilities.js"></script>
+<script src="/js/MobileMenuAPI.js"></script>
 <script src="/js/ContactAPI.js"></script>
 <script src="/js/DataAPI.js"></script>
 <script src="/js/UserAPI.js"></script>
