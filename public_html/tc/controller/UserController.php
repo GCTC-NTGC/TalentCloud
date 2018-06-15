@@ -50,13 +50,13 @@ class UserController {
         return $existingUser;
     }
 
-    public static function getUserByOpenIdTokens($idToken, $accessToken) {
+    public static function getUserByOpenIdTokens($idToken, $accessToken = null) {
         //Parse the token from idToken string
         $token = (new Parser())->parse((string) $idToken);
 
         //Get user from database
         $user = self::getUserByOpenId($token->getClaim("sub"));
-        if (!$user) {
+        if (!$user && $accessToken !== null) {
             //if $user is null, then the user is not registered and we should register them now
             $user = self::registerOpenIdUser($idToken, $accessToken);
         }
@@ -66,14 +66,17 @@ class UserController {
     public static function registerOpenIdUser($idToken, $accessToken) {
         //Parse the token from idToken string
         $token = (new Parser())->parse((string) $idToken);
-        
+
         //Check if user already exists in database
         $user = self::getUserByOpenId($token->getClaim("sub"));
         if ($user) {
             //User already exists, does not need to be registered
+            //TODO: ensure proper profile exists
+            self::registerUserProfile($user);
+
             return $user;
         }
-        
+
         //Get user info from openId server
         $oidc = new OpenIDConnectClient(OPENID_URI);
         $oidc->addScope(array('openid', 'profile', 'email'));
@@ -131,26 +134,36 @@ class UserController {
         $registeredUser = UserDAO::registerUser($newUser);
         if ($registeredUser instanceof User && $registeredUser->getUser_id() !== null) {
             $userRegistered = true;
-            //$confEmailSent = UserController::confirmEmail($registeredUser);
+            self::registerUserProfile($registeredUser);
+        }
+        return $registeredUser;
+    }
 
-            if ($registeredUser->getUser_role() === ROLE_APPLICANT) {
-                //Create an empty jobseeker profile
+    private static function registerUserProfile($user) {
+        if ($user->getUser_role() === ROLE_APPLICANT) {
+            //Create an empty jobseeker profile
 
-                $userId = $registeredUser->getUser_id();
+            $userId = $user->getUser_id();
+
+            //Ensure profile doesn't already exist before creating new one
+            if (!JobSeekerController::getJobSeekerProfileByUserId($userId)) {
                 $jobSeekerProfile = new JobSeekerProfile();
-                $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
-            } else if ($registeredUser->getUser_role() === ROLE_ADMIN) {
+                JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
+            }
+        } else if ($user->getUser_role() === ROLE_ADMIN) {
 
-                $userId = $registeredUser->getUser_id();
+            $userId = $user->getUser_id();
+
+            //Ensure profile doesn't already exist before creating new one
+            if (!ManagerProfileController::getManagerProfileByUser($userId)) {
                 $managerProfile = new ManagerProfile();
                 $managerProfile->setUser_id($userId);
 
                 $managerProfileDetails = new ManagerProfileDetailsNonLocalized();
 
-                $result = ManagerProfileController::putManagerProfile($managerProfile, $managerProfileDetails);
+                ManagerProfileController::putManagerProfile($managerProfile, $managerProfileDetails);
             }
         }
-        return $registeredUser;
     }
 
     public static function confirmEmail($user) {
