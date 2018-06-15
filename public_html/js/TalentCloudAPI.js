@@ -6,6 +6,7 @@
 
 var TalentCloudAPI = {};
 var siteContent;
+var href;
 TalentCloudAPI.roles = {jobseeker: "jobseeker", manager: "manager", admin: "administrator"};
 
 TalentCloudAPI.pages = {
@@ -301,8 +302,8 @@ TalentCloudAPI.setLanguage = function (locale) {
     var currentLocale = TalentCloudAPI.getLanguageFromCookie();
     if (currentLocale !== undefined) {
         //Utilities.debug?console.log("currentLocale=" + currentLocale):null;
-        var feedbackLinkFrench = document.querySelector(".alert-banner__copy--francais");
-        var feedbackLinkEnglish = document.querySelector(".alert-banner__copy--english");
+        //var feedbackLinkFrench = document.querySelector(".alert-banner__copy--francais");
+        //var feedbackLinkEnglish = document.querySelector(".alert-banner__copy--english");
 
         var skipNavTextFrench = document.querySelector(".skipNavTextFrench");
         var skipNavTextEnglish = document.querySelector(".skipNavTextEnglish");
@@ -310,15 +311,15 @@ TalentCloudAPI.setLanguage = function (locale) {
         if (currentLocale === "en_CA") {
             currentLocale = "fr_CA";
             TalentCloudAPI.setLanguageCookie("fr_CA");
-            feedbackLinkFrench.classList.remove("hidden");
-            feedbackLinkEnglish.classList.add("hidden");
+            //feedbackLinkFrench.classList.remove("hidden");
+            //feedbackLinkEnglish.classList.add("hidden");
             skipNavTextFrench.classList.remove("hidden");
             skipNavTextEnglish.classList.add("hidden");
         } else {
             currentLocale = "en_CA";
             TalentCloudAPI.setLanguageCookie("en_CA");
-            feedbackLinkFrench.classList.add("hidden");
-            feedbackLinkEnglish.classList.remove("hidden");
+            //feedbackLinkFrench.classList.add("hidden");
+            //feedbackLinkEnglish.classList.remove("hidden");
             skipNavTextFrench.classList.add("hidden");
             skipNavTextEnglish.classList.remove("hidden");
         }
@@ -636,13 +637,14 @@ TalentCloudAPI.Content = function (response) {
  */
 TalentCloudAPI.setContent = function (content, isManager) {
 
-    //console.log(content);
+    console.log(content);
 
     siteContent = content;
+    href = content;
     document.title = siteContent.title;
     window.title = siteContent.title;
-
-   for (var i=0; i<Object.keys(siteContent).length; i++) {
+    
+    for (var i=0; i<Object.keys(siteContent).length; i++) {
         var key = Object.keys(siteContent)[i];
         var value = siteContent[key];
         //Seach for id matching the base_content key
@@ -658,6 +660,8 @@ TalentCloudAPI.setContent = function (content, isManager) {
         }
     }
     
+    var emailFeedback = document.getElementById("emailFeedback");
+        emailFeedback.href = href.emailFeedback;
 
     /*
     // Common Navigation =======================================================
