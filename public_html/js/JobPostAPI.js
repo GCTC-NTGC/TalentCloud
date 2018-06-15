@@ -20,7 +20,7 @@ JobPostAPI.baseURL = "/tc/api/"+JobPostAPI.version+"";
 JobPostAPI.JobPost = function(
     id,manager_user_id,title,applicants_to_date,close_date_time,department,branch,division,location_city,location_province,
     term_qty,term_units,remuneration_type,remuneration_range_low,remuneration_range_high,impact,key_tasks,core_competencies,
-    developing_competencies,questions,classification,security_clearance,language_requirement,start_date){
+    developing_competencies,questions,noc,classification,security_clearance,language_requirement,start_date){
     this.id = id;
     this.manager_user_id = manager_user_id;
     this.title = title;
@@ -41,6 +41,7 @@ JobPostAPI.JobPost = function(
     this.core_competencies = core_competencies;
     this.developing_competencies = developing_competencies;
     this.questions = questions;
+    this.noc = noc;
     this.classification = classification;
     this.security_clearance = security_clearance;
     this.language_requirement = language_requirement;
@@ -152,6 +153,8 @@ JobPostAPI.populateJobObject = function(JSONJob){
         jobObj.questions.push(question);
     }
 
+    jobObj.noc = job.noc;
+    
     // TAL-150
     jobObj.classification = job.classification;
     jobObj.security_clearance = job.security_clearance;
