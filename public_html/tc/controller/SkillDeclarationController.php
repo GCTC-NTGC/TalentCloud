@@ -9,9 +9,9 @@
 require_once '../model/SkillDeclaration.php';
 require_once '../dao/SkillDeclarationDAO.php';
 
-class SkillDeclarationController{
+class SkillDeclarationController {
     
-    public static function getAllSkillDeclarationsForJobApplication($jobPosterApplicationId){
+    public static function getAllSkillDeclarationsForJobApplication($jobPosterApplicationId) {
         
         $skillDeclarations = SkillDeclarationDAO::getSkillDeclarationsForJobApplication($jobPosterApplicationId);
                 

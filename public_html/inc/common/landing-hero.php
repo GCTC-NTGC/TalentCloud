@@ -20,9 +20,9 @@
             <?php // Checks to see if the page is the admin portal and then displays the admin tagline. ?>
             <?php
                 $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-                if (strpos($url,'admin') !== false) {
+                if (strpos($url, 'admin') !== false) {
                     echo '<p id="adminTagline" class="centered">Changing government through it\'s people</p>';
-                } else {
+                }else {
 
                 }
             ?>

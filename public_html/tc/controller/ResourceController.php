@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -37,7 +37,7 @@ class ResourceController {
         if ($resourceKey != null && !empty($resourceKey)) {
             if ($keyOption != null) {
                 return $commonLabelArray[$resourceKey][$keyOption];
-            } else {
+            }else {
                 return $commonLabelArray[$resourceKey];
             }
         }
@@ -57,7 +57,7 @@ class ResourceController {
         if ($resourceKey != null && !empty($resourceKey)) {
             if ($keyOption != null) {
                 return $labelArray[$resourceKey][$keyOption];
-            } else {
+            }else {
                 return $labelArray[$resourceKey];
             }
         }

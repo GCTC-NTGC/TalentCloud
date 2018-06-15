@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -25,19 +25,19 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
 
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 $locale = Utils::getLocaleFromRequest($requestParams);
-                $jobPosterId = Utils::getParameterFromRequest($requestParams,5);
-                $result = JobPosterController::getJobPosterById($locale,$jobPosterId);
+                $jobPosterId = Utils::getParameterFromRequest($requestParams, 5);
+                $result = JobPosterController::getJobPosterById($locale, $jobPosterId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
-                header("Content-length:".strlen($json));
+                header("Content-length:" . strlen($json));
                 echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -48,7 +48,7 @@
             header("Accept: application/json");
             $jsonBody = file_get_contents('php://input');
 
-            if(strlen($jsonBody) > 1){
+            if (strlen($jsonBody) > 1) {
                 $jobPosterJSON = json_decode($jsonBody, TRUE);
                 $en = "en_CA";
                 $fr = "fr_CA";
@@ -106,7 +106,7 @@
                 $result = JobPosterController::createJobPoster($jobPoster);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -127,4 +127,4 @@
             break;
     }
 
-   ?>
+    ?>

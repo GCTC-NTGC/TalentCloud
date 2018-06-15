@@ -20,7 +20,7 @@
 
                     <div class="box lg-2of5">
 
-                        <?php include 'inc/common/edit-photo.php';?>
+                        <?php include 'inc/common/edit-photo.php'; ?>
 
                     </div>
 

@@ -1,6 +1,6 @@
 <?php
 
-class JobPosterQuestion implements JsonSerializable{
+class JobPosterQuestion implements JsonSerializable {
     
     private $id;
     private $locale;
@@ -8,7 +8,7 @@ class JobPosterQuestion implements JsonSerializable{
     private $description;
     
     
-    public function __construct($id = null, $locale=null,$question = null, $description=null) {
+    public function __construct($id = null, $locale = null, $question = null, $description = null) {
         $this->id = $id;
         $this->locale = $locale;
         $this->question = $question;
@@ -19,7 +19,7 @@ class JobPosterQuestion implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

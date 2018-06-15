@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -23,13 +23,13 @@ require_once '../model/User.php';
  */
 class AuthenticationDAO extends BaseDAO {
 
-	/**
-         * 
-         * @param type $email_address
-         * @param type $password
-         * @return type
-         */
-	public static function authenticateUser($email_address, $password) {
+    /**
+     * 
+     * @param type $email_address
+     * @param type $password
+     * @return type
+     */
+    public static function authenticateUser($email_address, $password) {
 
             $md5_password = md5($password);
             
@@ -56,9 +56,9 @@ class AuthenticationDAO extends BaseDAO {
             }
             BaseDAO::closeConnection($link);
             return $row;
-	}
+    }
         
-        public static function storeAuthToken($token, User $authUser){
+        public static function storeAuthToken($token, User $authUser) {
             
             $user_id = intval($authUser->getUser_id());
             $access_token = $token['access_token'];
@@ -96,7 +96,7 @@ class AuthenticationDAO extends BaseDAO {
             try {
                 $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
                 $count = $sql->rowCount();
-                if($count > 0){
+                if ($count > 0) {
                     $id = $link->lastInsertId();
                 }
             } catch (PDOException $e) {
@@ -109,7 +109,7 @@ class AuthenticationDAO extends BaseDAO {
         }
         
         
-        public static function getAuthTokenByUserId(User $authUser){
+        public static function getAuthTokenByUserId(User $authUser) {
             
             $user_id = intval($authUser->getUser_id());
             
@@ -125,7 +125,7 @@ class AuthenticationDAO extends BaseDAO {
             try {
                 $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
                 $count = $sql->rowCount();
-                if($count > 0){
+                if ($count > 0) {
                     $id = $link->lastInsertId();
                 }
             } catch (PDOException $e) {

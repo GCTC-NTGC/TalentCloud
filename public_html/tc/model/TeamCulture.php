@@ -16,7 +16,7 @@ class TeamCulture implements JsonSerializable {
      * @param string $gc_directory_url
      * @param string $narrative_text
      */
-    public function __construct($team_culture_id=null,$team_size=null,$gc_directory_url=null,$narrative_text=null,$operating_context=null,$what_we_value=null,$how_we_work=null) {
+    public function __construct($team_culture_id = null, $team_size = null, $gc_directory_url = null, $narrative_text = null, $operating_context = null, $what_we_value = null, $how_we_work = null) {
         $this->team_culture_id = $team_culture_id;
         $this->team_size = $team_size;
         $this->gc_directory_url = $gc_directory_url;
@@ -30,7 +30,7 @@ class TeamCulture implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

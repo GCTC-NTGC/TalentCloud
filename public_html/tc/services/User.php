@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -23,27 +23,27 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
     $context = '/';
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=utf-8");
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     $user_id_param_index = 4;
     //var_dump($requestParams);
     //$headers = apache_request_headers();
     switch ($requestMethod) {
         case 'GET':
 
-            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+            if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
                 $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
                 
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
             
-                if(strlen($requestParams) > 1){
+                if (strlen($requestParams) > 1) {
 
-                    if(strlen($user_id) > 0){
+                    if (strlen($user_id) > 0) {
 
                         $user = new User();
 
                         $user->setUser_id($user_id);
 
-                        if(JWTUtils::validateJWT($jwt, $user)){
+                        if (JWTUtils::validateJWT($jwt, $user)) {
                             
                             $result = UserController::getUserById($user);
 
@@ -51,25 +51,25 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                             
                             echo($json);
                             
-                        }else{
+                        }else {
                             header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
+                            echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else{
+                    }else {
                         header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No user id provided"),JSON_FORCE_OBJECT);
+                        echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else{
+                }else {
                     header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else{
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
+                echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
             }
 
@@ -77,12 +77,12 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
         case 'POST':
             $jsonBody = file_get_contents('php://input');
             //var_dump($jsonBody);
-            if(strlen($jsonBody) > 1){
+            if (strlen($jsonBody) > 1) {
                 $credentials = json_decode($jsonBody, TRUE); //convert JSON into array
                 $email = $credentials['email'];
                 $password = $credentials['password'];
                 $userrole = $credentials['userrole'];
-                if(strlen($email) > 1){
+                if (strlen($email) > 1) {
                     $newUser = new User();
                     $newUser->setEmail($email);
                     $newUser->setPassword($password);
@@ -90,12 +90,12 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                     $userRegistered = UserController::registerUser($newUser);
                     $json = json_encode($userRegistered, JSON_PRETTY_PRINT);
                     echo($json);
-                }else{
+                }else {
                     $result = array();
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
                 }                
-            }else{
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Authorization declined';
                 exit;
@@ -107,10 +107,10 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
         case 'PUT':
             $jsonBody = file_get_contents('php://input');
             
-            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+            if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
                 $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
-                if(strlen($requestParams) > 1){
-                    if(strlen($jsonBody) > 0){
+                if (strlen($requestParams) > 1) {
+                    if (strlen($jsonBody) > 0) {
                         $userJson = json_decode($jsonBody, TRUE);
                         
                         $updatedUser = new User();
@@ -121,35 +121,35 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                         $updatedUser->setLastname($userJson['lastname']);
                         $updatedUser->setUser_role($userJson['user_role']);   
                         
-                        if(JWTUtils::validateJWT($jwt, $updatedUser)){                            
+                        if (JWTUtils::validateJWT($jwt, $updatedUser)) {                            
                             $result = UserController::updateUser($updatedUser);
                             $json = json_encode($result, JSON_PRETTY_PRINT);                            
                             echo($json);                            
-                        }else{
+                        }else {
                             header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
+                            echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
-                    }else{
+                    }else {
                         header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No user id provided"),JSON_FORCE_OBJECT);
+                        echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else{
+                }else {
                     header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else{
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
+                echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
             }
             
             //TODO: check authaurization
-            if(strlen($jsonBody) > 1){
+            if (strlen($jsonBody) > 1) {
                 
-            }else{
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Authorization declined';
                 exit;

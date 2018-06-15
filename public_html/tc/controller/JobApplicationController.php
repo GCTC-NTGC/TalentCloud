@@ -16,9 +16,9 @@ require_once '../controller/SkillDeclarationController.php';
 require_once '../controller/MicroReferenceController.php';
 require_once '../controller/WorkSampleController.php';
 
-class JobApplicationController{
+class JobApplicationController {
         
-    public static function getApplicationQuestionAnswers($jobPosterApplicationId){
+    public static function getApplicationQuestionAnswers($jobPosterApplicationId) {
         
         $questionAnswers = JobApplicationDAO::getApplicationQuestionAnswersByApplicationId($jobPosterApplicationId);
         
@@ -26,7 +26,7 @@ class JobApplicationController{
         
     }
     
-    public static function getJobPosterApplicationById($jobPosterApplicationId){
+    public static function getJobPosterApplicationById($jobPosterApplicationId) {
         
         $jobPosterApplication = JobApplicationDAO::getJobPosterApplicationByApplicationId($jobPosterApplicationId);
         
@@ -51,7 +51,7 @@ class JobApplicationController{
     public static function updateJobApplicationWithAnswers($jobApplicationWithAnswers) {
         $rowsModified = JobApplicationDAO::updateJobPosterApplication($jobApplicationWithAnswers->getJob_poster_application());
         $applicationId = $jobApplicationWithAnswers->getJob_poster_application()->getJob_poster_application_id();
-        foreach($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
+        foreach ($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
             $questionAnswer->setJob_poster_application_id($applicationId); //Just to ensure id is correct
             $rowsModified = $rowsModified + JobApplicationDAO::putApplicationQuestionAnswer($questionAnswer);
         }
@@ -70,7 +70,7 @@ class JobApplicationController{
             $questionAnswers = self::getApplicationQuestionAnswers($jobPosterApplication->getJob_poster_application_id());
             $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
             return $jobApplicationWithAnswers;
-        } else {
+        }else {
             return false;
         }
     }
@@ -78,7 +78,7 @@ class JobApplicationController{
     public static function getJobApplicationsWithAnswersForJobPosterApplications($jobPosterApplications) {
         $jobApplicationsWithAnswers = [];
         
-        foreach($jobPosterApplications as $jpa) {
+        foreach ($jobPosterApplications as $jpa) {
             $questionAnswers = self::getApplicationQuestionAnswers($jpa->getJob_poster_application_id());
             $jobApplication = new JobApplicationWithAnswers($jpa, $questionAnswers);
             array_push($jobApplicationsWithAnswers, $jobApplication);
@@ -112,7 +112,7 @@ class JobApplicationController{
         
         $jobPosterApplicationId = JobApplicationDAO::createJobPosterApplication($jobApplicationWithAnswers->getJob_poster_application());
         
-        foreach($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
+        foreach ($jobApplicationWithAnswers->getApplication_question_answers() as $questionAnswer) {
             $questionAnswer->setJob_poster_application_id($jobPosterApplicationId);
         }
         JobApplicationDAO::createApplicationQuestionAnswers($jobApplicationWithAnswers->getApplication_question_answers());
@@ -165,7 +165,7 @@ class JobApplicationController{
             $workSamples = WorkSampleController::getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale);
             
             return new FullJobApplication($jobPosterApplication, $jobSeekerProfile, $questionAnswers, $skillDeclarations, $microReferences, $workSamples);
-        } else {
+        }else {
             return false;
         }
     }
@@ -174,7 +174,7 @@ class JobApplicationController{
         $isDraft = self::jobApplicationIsDraft($jobPosterApplicationId);
         if ($isDraft) {
             return JobApplicationDAO::setJobAppliationStatus($jobPosterApplicationId, "Submitted");
-        } else {
+        }else {
             return ["false"=>"Cannot submit an application which is not a draft"];
         }
     }

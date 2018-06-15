@@ -44,40 +44,40 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $language_id;
 
     public function __construct(
-            $id=null,
-            $manager_user_id=null,
-            $title_en=null,
-            $title_fr=null,
-            $department_id=null,
-            $province_id=null,
-            $branch_en=null,
-            $branch_fr=null,
-            $division_en=null,
-            $division_fr=null,
-            $city_en=null,
-            $city_fr=null,
-            $term_qty=null,
-            $term_units_id=null,
-            $open_date=null,
-            $close_date=null,
-            $start_date=null,
-            $remuneration_range_low=null,
-            $remuneration_range_high=null,
-            $job_min_level_id=null,
-            $job_max_level_id=null,
-            $impact_en=null,
-            $impact_fr=null,
-            $key_tasks_en=null,
-            $key_tasks_fr=null,
-            $core_competencies_en=null,
-            $core_competencies_fr=null,
-            $developing_competencies_en=null,
-            $developing_competencies_fr=null,
-            $questions_en=[],
-            $questions_fr=[],
-            $classification=null,
-            $clearance_id=null,
-            $language_id=null
+            $id = null,
+            $manager_user_id = null,
+            $title_en = null,
+            $title_fr = null,
+            $department_id = null,
+            $province_id = null,
+            $branch_en = null,
+            $branch_fr = null,
+            $division_en = null,
+            $division_fr = null,
+            $city_en = null,
+            $city_fr = null,
+            $term_qty = null,
+            $term_units_id = null,
+            $open_date = null,
+            $close_date = null,
+            $start_date = null,
+            $remuneration_range_low = null,
+            $remuneration_range_high = null,
+            $job_min_level_id = null,
+            $job_max_level_id = null,
+            $impact_en = null,
+            $impact_fr = null,
+            $key_tasks_en = null,
+            $key_tasks_fr = null,
+            $core_competencies_en = null,
+            $core_competencies_fr = null,
+            $developing_competencies_en = null,
+            $developing_competencies_fr = null,
+            $questions_en = [],
+            $questions_fr = [],
+            $classification = null,
+            $clearance_id = null,
+            $language_id = null
         ) {
         $this->id = $id;
         $this->manager_user_id = $manager_user_id;
@@ -120,7 +120,7 @@ class JobPosterNonLocalized implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

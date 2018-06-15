@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -24,34 +24,34 @@
     //$headers = apache_request_headers();
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
 
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
             $locale = Utils::getLocaleFromRequest($requestParams);
             //echo($locale);
             $result = ContentController::getContentByLocale($locale);
             //echo(implode(" ",$result->getContent()));
             $json = json_encode($result, JSON_PRETTY_PRINT);
-            header("Content-length:".strlen($json));
+            header("Content-length:" . strlen($json));
             echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             }
-           break;
+            break;
         case 'POST':
            //must contain access token to get logged in content
             header("Accept: application/json");
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 $locale = Utils::getLocaleFromRequest($requestParams);
                 $result = ContentController::getContentByLocale($locale);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
-                header("Content-length:".strlen($json));
+                header("Content-length:" . strlen($json));
                 echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -71,4 +71,4 @@
             echo("");
             break;
     }
-   ?>
+    ?>
