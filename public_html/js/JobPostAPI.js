@@ -731,17 +731,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     }
     JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
 
-    /*
-    Setting Apply button vs login button now done in php
-
-    var applyNowButton = document.getElementById("jobPosterApplyButton");
-    if(UserAPI.hasSessionUser()){
-        applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");
-    }else{
-        applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
-    }
-    */
-
     // Show Time Remaining & Number of Applicants
     var jobTimeRemaining = document.getElementById("jobPosterTimeRemainingData");
     jobTimeRemaining.innerHTML = Utilities.timeRemaining(jobData.close_date_time);

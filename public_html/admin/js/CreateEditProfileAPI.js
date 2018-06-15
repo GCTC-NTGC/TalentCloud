@@ -245,9 +245,6 @@ CreateEditProfileAPI.saveManagerProfile = function (complete_manager_profile) {
         manager_profile_xhr.setRequestHeader("Content-type", "application/json");
         manager_profile_xhr.setRequestHeader("Accept", "application/json");
         //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
-        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
-        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
-        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
 
         manager_profile_xhr.addEventListener("load", function () {
             if (manager_profile_xhr.status === 200) {
@@ -787,14 +784,11 @@ CreateEditProfileAPI.getManagerProfile = function () {
         manager_profile_xhr.setRequestHeader("Content-type", "application/json");
         manager_profile_xhr.setRequestHeader("Accept", "application/json");
         //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
-        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("load", function () {
             if (manager_profile_xhr.status === 200) {
                 CreateEditProfileAPI.populateProfile(manager_profile_xhr.response);
             }
         }, false);
-        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
-        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
 
         manager_profile_xhr.send(null);
     }

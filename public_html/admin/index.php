@@ -34,8 +34,6 @@ ini_set("display_errors", 1);
     <div id="overlays">
         <?php // BEGIN - Includes for modal dialogs ?>
         <?php
-        include '../inc/manager/modal-registration.php';
-        include '../inc/manager/modal-login.php';
         include '../inc/manager/modal-upload-photo.php';
         include '../inc/manager/modal-yes-no.php';
         include '../inc/manager/modal-update.php';

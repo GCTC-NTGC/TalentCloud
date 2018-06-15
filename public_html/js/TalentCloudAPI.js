@@ -59,15 +59,22 @@ TalentCloudAPI.pages = {
     Login: {
         url: "#Login",
         state: function () {
-            UserAPI.showLogin();
             TalentCloudAPI.setNav("navigationnavigationLoginLinkWrapper");
+            var login = document.getElementById("navigationLoginLinkWrapper");
+            if (login) {
+                login.click();
+            }
         }
     },
     Register: {
         url: "#Register",
         state: function () {
-            UserAPI.showRegisterForm();
+            //UserAPI.showRegisterForm();
             document.getElementById("navigationRegisterLinkWrapper");
+            var registerLink = document.getElementById("navigationRegisterLink");
+            if (registerLink) {
+                registerLink.click();
+            }
         }
     },
     MyProfile: {

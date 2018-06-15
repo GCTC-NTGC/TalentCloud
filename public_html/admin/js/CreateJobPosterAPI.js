@@ -450,12 +450,9 @@ CreateJobPosterAPI.getManagerProfile = function (responseCallback) {
         manager_profile_xhr.setRequestHeader("Content-type", "application/json");
         manager_profile_xhr.setRequestHeader("Accept", "application/json");
         //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
-        manager_profile_xhr.addEventListener("progress", UserAPI.updateProgress, false);
         manager_profile_xhr.addEventListener("load", function () {
             responseCallback(manager_profile_xhr.response);
         }, false);
-        manager_profile_xhr.addEventListener("error", UserAPI.transferFailed, false);
-        manager_profile_xhr.addEventListener("abort", UserAPI.transferAborted, false);
 
         manager_profile_xhr.send(null);
     }

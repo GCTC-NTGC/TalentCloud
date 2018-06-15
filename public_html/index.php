@@ -30,8 +30,6 @@ ini_set("display_errors", 1);
         <div id="overlays">
             <?php // BEGIN - Includes for modal dialogs ?>
             <?php
-            include 'inc/applicant/modal-registration.php';
-            include 'inc/applicant/modal-login.php';
             include 'inc/applicant/modal-edit-profile.php';
             include 'inc/applicant/modal-edit-profile-answer.php';
             include 'inc/applicant/modal-yes-no.php';

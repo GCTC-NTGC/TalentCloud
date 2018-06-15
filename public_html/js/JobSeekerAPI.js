@@ -555,7 +555,6 @@ JobSeekerAPI.hideJobSeekerProfileForm = function () {
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.add("hidden");
 
-    //UserAPI.clearFormFields("jobSeekerForm");
     //EventsAPI.hideBodyOverflow(false);
 
     //FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,null);
