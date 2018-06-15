@@ -61,14 +61,11 @@
                     <a href="#CreateEditProfile" id="navigationProfileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
-                <?php else {
-    : ?>
+                <?php else :?>
                     <a href="#MyProfile" id="navigationProfileLink" onclick="JobSeekerAPI.showMyJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
-                <?php endif;
-}
-?>
+                <?php endif; ?>
 
             </div>
 
@@ -105,12 +102,9 @@
 
                 <?php if ($hasUser != null) : ?>
                     <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationLoginLinkWrapper" aria-hidden="true">
-                <?php else {
-    :?>
+                <?php else :?>
                     <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationLoginLinkWrapper" aria-hidden="false">
-                <?php endif;
-}
-?>
+                <?php endif; ?>
                         <?php
                             $loginLink = "";
                             $loginLink .= OPENID_URI . AUTH_URI;
@@ -162,12 +156,9 @@
     <div id="h1">
         <?php if (strpos($url, 'admin') !== false) : ?>
             <h1 class="visuallyHidden">Talent Cloud - Admin Portal</h1>
-        <?php else {
-    : ?>
+        <?php else :?>
             <h1 class="visuallyHidden">Talent Cloud - Applicant Portal</h1>
-        <?php endif;
-}
-?>
+        <?php endif; ?>
     </div>
 
     <div class="landing-hero" id="landingHero">
@@ -220,9 +211,9 @@
                     <h2 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h2>
 
                     <h2 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h2>
-                    
+
                     <h2 class="subpage-hero__title hidden" id="tacHeroTitle" aria-hidden="true">Terms &amp; Conditions</h2>
-                    
+
                     <h2 class="subpage-hero__title hidden" id="privacyHeroTitle" aria-hidden="true">Privacy Policy</h2>
 
                 </div>
