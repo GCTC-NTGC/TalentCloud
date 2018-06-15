@@ -102,7 +102,7 @@ class JobPosterDAO extends BaseDAO {
             $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
 				'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
                 'job_max_level', 'start_date','open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc'
+                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc',
                 'classification', 'security_clearance', 'language_requirement'
 			));
             $jobPosters = $sql->fetchAll();
@@ -202,7 +202,7 @@ class JobPosterDAO extends BaseDAO {
             $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
                 'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
                 'job_max_level', 'start_date','open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc'
+                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc',
                 'classification', 'security_clearance', 'language_requirement'
 			));
             $jobPoster = $sql->fetch();
