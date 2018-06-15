@@ -41,44 +41,6 @@ UserAPI.parseUserResponse = function(httpResponse) {
 
 /**
  *
- * @param {type} credentials
- * @returns {undefined}
- */
-UserAPI.getUserById = function (credentials,isAdmin) {
-    authToken = credentials.idToken;
-    var open_id = credentials.sub;
-
-    var auth_url = UserAPI.baseURL + "/user/"+open_id;
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        xhr.open("GET", auth_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        xhr = new XDomainRequest();
-        xhr.open("GET", auth_url);
-    } else {
-        // Otherwise, CORS is not supported by the browser.
-        xhr = null;
-        // TODO: indicate to user that browser is not supported
-    }
-
-    xhr.open('GET', auth_url);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer " + authToken);
-    xhr.addEventListener("load", function () {
-        UserAPI.loaded(xhr.response,isAdmin);
-    }, false);
-
-    xhr.send();
-};
-
-/**
- *
  * @returns {undefined}
  */
 UserAPI.logout = function () {
@@ -131,47 +93,4 @@ UserAPI.getSessionUserAsJSON = function () {
     } else {
         return null;
     }
-};
-
-UserAPI.updateUser = function(user, updateUserCallback) {
-    Utilities.debug?console.log("updating user"):null;
-    var updateUser_url = UserAPI.baseURL+"/user/update/";
-    var jsonData=JSON.stringify(user);
-
-    var updateUser_xhr = new XMLHttpRequest();
-    if ("withCredentials" in updateUser_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      updateUser_xhr.open("PUT", updateUser_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      updateUser_xhr = new XDomainRequest();
-      updateUser_xhr.open("PUT", updateUser_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      updateUser_xhr = null;
-
-    }
-
-    updateUser_xhr.open('PUT',updateUser_url);
-    updateUser_xhr.setRequestHeader("Content-Type","application/json");
-
-    //updateUser_xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
-    //updateUser_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    //updateUser_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-    updateUser_xhr.addEventListener("load",function(){
-        var responseJson = JSON.parse(updateUser_xhr.responseText);
-        if (responseJson.userUpdated && responseJson.updatedUser) {
-            UserAPI.storeSessionUser(responseJson.updatedUser);
-        }
-        updateUserCallback(updateUser_xhr.response);
-    }
-    ,false);
-    updateUser_xhr.send(jsonData);
 };

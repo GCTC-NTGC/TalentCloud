@@ -489,13 +489,6 @@ DataAPI.getManagerProfile = function(userId, responseCallback) {
     });
 };
 
-DataAPI.getUser = function(userId, responseCallback) {
-    var user_url = DataAPI.baseURL + "/getManagerProfile/" + userId;
-    DataAPI.sendRequest(user_url, "GET", {}, null, function(request) {
-        responseCallback(request.response);
-    });
-};
-
 /**
  *
  * @param {JobApplicationAPI.JobApplication} jobApplication

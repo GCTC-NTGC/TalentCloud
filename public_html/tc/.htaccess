@@ -13,10 +13,6 @@ RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-z
 RewriteRule ^api/v1/getTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
 
 #non localized services - secured
-RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
-RewriteRule ^api/v1/user/([0-9]{1,10}) services/User.php
-RewriteRule ^api/v1/user/validateEmail services/User.php
-RewriteRule ^api/v1/user/update services/User.php
 RewriteRule ^api/v1/locale services/Locale.php
 RewriteRule ^api/v1/getJobSeekers services/JobSeekers.php
 RewriteRule ^api/v1/getJobSeekerProfileByUser/([0-9]{1,10}) services/JobSeekerProfile.php

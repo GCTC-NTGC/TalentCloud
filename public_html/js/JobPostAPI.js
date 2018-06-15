@@ -543,9 +543,9 @@ JobPostAPI.populateJobPoster = function(jobData){
 
     //Start requests for Hiring Manager data
     //Load Hiring Manager Name
-    DataAPI.getUser(jobData.manager_user_id, function(response) {
-       var managerUser = JSON.parse(response);
-       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.name;
+    DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
+       var managerProfile = JSON.parse(response);
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerProfile.user.name;
        // document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.name;
 
        if (locale === "en_CA"){

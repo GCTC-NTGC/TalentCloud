@@ -270,10 +270,10 @@ DashboardAPI.populateManagerProfile = function(application){
 
     //Start requests for Hiring Manager data
     //Load Hiring Manager Name
-    DataAPI.getUser(application.manager_user_id, function(response) {
-       var managerUser = JSON.parse(response);
-       console.log(managerUser);
-       document.getElementById("ya_manager_name_"+application.job_poster_id).innerHTML = managerUser.user.name;
+    DataAPI.getManagerProfile(application.manager_user_id, function(response) {
+       var managerProfile = JSON.parse(response);
+       console.log(managerProfile);
+       document.getElementById("ya_manager_name_"+application.job_poster_id).innerHTML = managerProfile.user.name;
     });
 
     var ya_job_poster_manager_element = document.getElementById("ya_manager_"+application.job_poster_id);
