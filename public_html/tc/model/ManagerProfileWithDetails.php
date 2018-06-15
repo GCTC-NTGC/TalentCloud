@@ -6,13 +6,13 @@
  * and open the template in the editor.
  */
 
-class ManagerProfileWithDetails implements JsonSerializable{
+class ManagerProfileWithDetails implements JsonSerializable {
     
     private $manager_profile;
     private $manager_profile_details;
     private $user;
     
-    public function __construct($manager_profile = null,$manager_profile_details = null, $user = null) {
+    public function __construct($manager_profile = null, $manager_profile_details = null, $user = null) {
         $this->manager_profile = $manager_profile;
         $this->manager_profile_details = $manager_profile_details;
         $this->user = $user;
@@ -22,7 +22,7 @@ class ManagerProfileWithDetails implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

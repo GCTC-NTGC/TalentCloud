@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -41,9 +41,9 @@ class  JobPosterController {
      * @param string $locale
      * @return JobPoster $jobPoster
      */
-    public static function getJobPosterById($locale,$jobPosterId) {
+    public static function getJobPosterById($locale, $jobPosterId) {
         
-        $jobPoster = JobPosterDAO::getJobPosterById($locale,$jobPosterId);
+        $jobPoster = JobPosterDAO::getJobPosterById($locale, $jobPosterId);
         return $jobPoster;
     }
     
@@ -65,10 +65,10 @@ class  JobPosterController {
      * @param string $locale
      * @return JobPoster[] $jobPosters
      */
-    public static function getJobPostersByManagerId($locale,$managerId) {
+    public static function getJobPostersByManagerId($locale, $managerId) {
         
         $jobPosters = new JobPosters();
-        $jobs = JobPosterDAO::getJobPostersByManagerId($locale,$managerId);
+        $jobs = JobPosterDAO::getJobPostersByManagerId($locale, $managerId);
         $jobPosters->setJobs($jobs);
         return $jobPosters;
     }

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class ManagerProfileDetailsNonLocalized implements JsonSerializable{
+class ManagerProfileDetailsNonLocalized implements JsonSerializable {
 
     private $user_manager_profile_details_id;
     private $locale_id;
@@ -101,7 +101,7 @@ class ManagerProfileDetailsNonLocalized implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

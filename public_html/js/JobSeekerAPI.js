@@ -110,7 +110,7 @@ JobSeekerAPI.populateJobSeekerProfile = function (jobSeekerProfile) {
     var profile_tagline = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan");
     profile_tagline.innerHTML = jobSeekerProfile.tagline;
 
-    var twitter_name = document.getElementById("profileTwitterUsername");
+    var twitter_name = document.getElementById("applicantProfileTwitterUsername");
     var twitter_link = document.getElementById("profileTwitterLink");
     var twitter_link_wrapper = document.getElementById("profileTwitterLinkWrapper");
     if (jobSeekerProfile.twitter_username == null || jobSeekerProfile.twitter_username == "") {
@@ -161,7 +161,7 @@ JobSeekerAPI.resetProfileEditValues = function () {
     profile_edit_tagline.value = document.getElementById("updateProfileApplicantProfileFormTaglineLabelSpan").innerHTML;
 
     var profile_edit_twitter = document.getElementById("profileEditTwitter");
-    profile_edit_twitter.value = document.getElementById("profileTwitterUsername").value;
+    profile_edit_twitter.value = document.getElementById("applicantProfileTwitterUsername").value;
 
     var profile_edit_linkedin = document.getElementById("profileEditLinkedin");
     profile_edit_linkedin.value = document.getElementById("profileLinkedInUsername").value;
@@ -363,6 +363,9 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
     profileHeroTitle.classList.remove("hidden");
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/my-profile');
@@ -404,6 +407,9 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     var profileHeroTitle = document.getElementById("profileHeroTitle");
     profileHeroTitle.classList.remove("hidden");
     profileHeroTitle.setAttribute("aria-hidden", "false");
+
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
 
     // Google Analytics
 

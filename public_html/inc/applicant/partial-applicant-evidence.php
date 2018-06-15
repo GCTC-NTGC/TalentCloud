@@ -87,7 +87,7 @@
         <?php // DEV-NOTE: Note that these triggers have ARIA-Expanded true/false as necessary. ?>
         <div class="applicant-evidence__accordion-trigger active" type="button" tabindex="0" aria-expanded="true">
             <span class="applicant-evidence__accordion-trigger-title">
-                <h4 class="applicant-evidence__accordion-trigger-title-text">Evidence of your HTML skills</h4>
+                <h4 id="applicantEvidenceAccordionText" class="applicant-evidence__accordion-trigger-title-text">Evidence of your HTML skills</h4>
                 <?php // DEV-NOTE: These icons can receive an "active" class to toggle their state in the UI. This should match the icons in the associated tab menu item. ?>
                 <div class="applicant-evidence__accordion-trigger-icon-wrapper">
                     <?php // <i class="fa fa-clipboard active"></i> ?>
@@ -135,7 +135,7 @@
                         <div class="hidden" id="applicationEvidenceExpertiseItemTemplate">
                             <label for="" class="box form__radio-group-label template">
                                 <span class="hidden">Expertise level option: </span>
-                                <input type="radio" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
+                                <input type="radio" id="expertise" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
                                 <span class="form__radio-group-span"></span>
                             </label>
                         </div>
@@ -160,10 +160,10 @@
                     </div>
 
                     <div class="box full">
-                        <label for="" class="applicant-evidence__experience-and-knowledge__form-title form__label">
+                        <label for="applicant-evidence__skill-declaration-text" class="applicant-evidence__experience-and-knowledge__form-title form__label">
                             My Experience and Knowledge:
                         </label>
-                        <textarea class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>      
+                        <textarea id="applicant-evidence__skill-declaration-text" class="form__textarea applicant-evidence__skill-declaration-text applicant-evidence__early-last-target" placeholder="What was your contribution to the project? How big was the project? How does it support your claims?"></textarea>      
                     </div>
 
                 </form>

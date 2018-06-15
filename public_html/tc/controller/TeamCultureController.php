@@ -16,7 +16,7 @@ class TeamCultureController {
         $previousEntry = TeamCultureDAO::getTeamCultureNonLocalizedForManagerProfile($managerProfileId);
         if ($previousEntry) {
             $result = TeamCultureDAO::updateTeamCultureForManagerProfile($teamCulture, $managerProfileId);
-        } else {
+        }else {
             $result = TeamCultureDAO::createTeamCultureForManagerProfile($teamCulture, $managerProfileId);
         }
         return $result;

@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -48,7 +48,7 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
             $profile = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -88,7 +88,7 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
             $rows = $sql->fetch();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -118,7 +118,7 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfileAnswer');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobSeekerProfileAnswer');
             $rows = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -134,7 +134,7 @@ class JobSeekerDAO extends BaseDAO {
      * @param int $user_id
      * @return int job_seeker_profile_id
      */
-    public static function addJobSeekerProfile($jobSeekerProfile,$user_id){
+    public static function addJobSeekerProfile($jobSeekerProfile, $user_id) {
         
         $user_id_int = intval($user_id);
         $jobSeekerProfile_link = $jobSeekerProfile->getJob_seeker_profile_link();
@@ -175,7 +175,7 @@ class JobSeekerDAO extends BaseDAO {
             ";
         $answer_value_strings = [];
         $answer_data = [];
-        foreach($jobSeekerProfile->getJob_seeker_profile_answers() as $answer) {
+        foreach ($jobSeekerProfile->getJob_seeker_profile_answers() as $answer) {
             $answer_value_strings[] = '(@job_seeker_profile_id, ?, ?)';
             $answer_data[] = $answer->getJob_seeker_profile_question_id();
             $answer_data[] = $answer->getAnswer();
@@ -202,7 +202,7 @@ class JobSeekerDAO extends BaseDAO {
             $link->beginTransaction();
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $job_seeker_profile_id = $link->lastInsertId();
-            $sql_id->execute()or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql_id->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sql_user2profile->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             if (sizeof($answer_data) > 0) {
                 $sql_answers->execute($answer_data) or die("ERROR: " . implode(":", $link->errorInfo()));
@@ -258,7 +258,7 @@ class JobSeekerDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobSeekerProfile');
             $rows = $sql->fetchAll();
         } catch (PDOException $e) {
             return 'getJobSeekers failed: ' . $e->getMessage();

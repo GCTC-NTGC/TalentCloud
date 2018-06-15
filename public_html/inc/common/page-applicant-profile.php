@@ -14,7 +14,7 @@
 
             <ul class="applicant-profile__social-wrapper" id="profileSocialMediaLinks">
                 <li class="hidden" id="profileTwitterLinkWrapper">
-                    <input type="hidden" id="profileTwitterUsername" value=""/>
+                    <input type="hidden" id="applicantProfileTwitterUsername" value=""/>
                     <a href="#" id="profileTwitterLink" target="_blank" title="Twitter Logo">
                         <span class="hidden">Your Twitter profile</span>
                         <i class="fa fa-twitter"></i>

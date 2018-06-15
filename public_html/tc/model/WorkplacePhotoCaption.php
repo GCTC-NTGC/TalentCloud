@@ -7,7 +7,7 @@ class WorkplacePhotoCaption implements JsonSerializable {
     private $workplace_photo_id;
     private $description;
 
-    public function __construct($work_environment_id=null, $photo_name=null, $workplace_photo_id=null, $description=null) {
+    public function __construct($work_environment_id = null, $photo_name = null, $workplace_photo_id = null, $description = null) {
         $this->work_environment_id = $work_environment_id;
         $this->photo_name = $photo_name;
         $this->workplace_photo_id = $workplace_photo_id;
@@ -18,7 +18,7 @@ class WorkplacePhotoCaption implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }
@@ -61,4 +61,4 @@ class WorkplacePhotoCaption implements JsonSerializable {
         return $this;
     }
 }
-   
+    

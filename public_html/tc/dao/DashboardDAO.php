@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -24,7 +24,7 @@ require_once '../model/JobPosterApplication.php';
  */
 class DashboardDAO extends BaseDAO {
 
-    public static function getDashboardByUserId($user_id, $locale_iso){
+    public static function getDashboardByUserId($user_id, $locale_iso) {
         
         $link = BaseDAO::getConnection();
         

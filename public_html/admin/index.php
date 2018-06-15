@@ -12,7 +12,7 @@ ini_set("display_errors", 1);
 
 require_once '../tc/config/auth.config.inc';
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;
 
@@ -25,9 +25,9 @@ $nonce = md5(uniqid(rand(), TRUE));
 $state = md5(uniqid(rand(), TRUE));
 
 //if querystring is not empty
-if($query_string !== ""){
+if ($query_string !== "") {
     //if login response code from querystring array is not null
-    if(array_key_exists("code", $querystring_array) && $querystring_array["code"] !== null){
+    if (array_key_exists("code", $querystring_array) && $querystring_array["code"] !== null) {
         $oidc = new OpenIDConnectClient(OPENID_URI);
         $oidc->setClientID(CLIENT_ID);
         $oidc->setClientSecret(CLIENT_SECRET);
@@ -41,27 +41,27 @@ if($query_string !== ""){
             $oidc->setAccessToken($_SESSION["accessToken"]);
         }*/
 
-        try{
+        try {
             $oidc->authenticate();
-        }catch(Jumbojett\OpenIDConnectClientException $e){
+        } catch (Jumbojett\OpenIDConnectClientException $e) {
             echo($e->getMessage());
         }
 
         //set session variables for openid info
         if (isset($oidc)) {
             if ($oidc->getAccessToken() !== "NULL") {
-                $_SESSION["accessToken"]=$oidc->getAccessToken();
-                $_SESSION["refreshToken"]=$oidc->getRefreshToken();
-                $_SESSION["idToken"]=$oidc->getIdToken();
-                $_SESSION["expires_in"]=$oidc->getTimeout();
+                $_SESSION["accessToken"] = $oidc->getAccessToken();
+                $_SESSION["refreshToken"] = $oidc->getRefreshToken();
+                $_SESSION["idToken"] = $oidc->getIdToken();
+                $_SESSION["expires_in"] = $oidc->getTimeout();
                 $time = time();
                 $expires_at = $time + intval($oidc->getTimeout());
                 $_SESSION["expires_at"] = $expires_at;
             }
         }
-        header("Refresh:0; url=\"".REDIRECT_URI_ADMIN."\"");
+        header("Refresh:0; url=\"" . REDIRECT_URI_ADMIN . "\"");
     }
-}else{
+}else {
     $_SESSION['openid_connect_state'] = $state;
     $_SESSION['openid_connect_nonce'] = $nonce;
 }
@@ -76,38 +76,38 @@ if($query_string !== ""){
     <script type="text/javascript">
         <?php
         if (isset($oidc)) {
-            if($_SESSION["accessToken"] !== null){
-                echo("var accessToken = '".$_SESSION["accessToken"]."';");
+            if ($_SESSION["accessToken"] !== null) {
+                echo("var accessToken = '" . $_SESSION["accessToken"] . "';");
                 echo("UserAPI.storeOpenIDAccessToken(accessToken);");
             }
 
-            if($_SESSION["idToken"] !== null){
-                echo("var idToken = '".$_SESSION["idToken"]."';");
+            if ($_SESSION["idToken"] !== null) {
+                echo("var idToken = '" . $_SESSION["idToken"] . "';");
                 echo("UserAPI.storeOpenIDToken(idToken);");
             }
 
-            if($_SESSION["refreshToken"] !== null){
-                echo("var refreshToken = '".$_SESSION["refreshToken"]."';");
+            if ($_SESSION["refreshToken"] !== null) {
+                echo("var refreshToken = '" . $_SESSION["refreshToken"] . "';");
                 echo("UserAPI.storeOpenIDRefreshToken(refreshToken);");
             }
 
-            if($_SESSION["expires_in"] !== null){
-                echo("var expires_in = '".$_SESSION["expires_in"]."';");
+            if ($_SESSION["expires_in"] !== null) {
+                echo("var expires_in = '" . $_SESSION["expires_in"] . "';");
                 echo("UserAPI.storeOpenIDExpiry(expires_in);");
             }
 
-            if($_SESSION["expires_at"] !== null){
-                echo("var expires_at = '".$_SESSION["expires_at"]."';");
+            if ($_SESSION["expires_at"] !== null) {
+                echo("var expires_at = '" . $_SESSION["expires_at"] . "';");
                 echo("UserAPI.storeSessionObject(\"expires_at\",expires_at, false);");
             }
 
             $userInfo = $oidc->requestUserInfo();
 
-            if($userInfo !== null){
-                echo("UserAPI.storeSessionUser(".json_encode($userInfo).");");
+            if ($userInfo !== null) {
+                echo("UserAPI.storeSessionUser(" . json_encode($userInfo) . ");");
                 echo("UserAPI.login(true);");
             }
-            }else{
+            }else {
                 echo("UserAPI.login(false);");
             }
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());

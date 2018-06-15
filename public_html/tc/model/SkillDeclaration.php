@@ -1,6 +1,6 @@
 <?php
 
-class SkillDeclaration implements JsonSerializable{
+class SkillDeclaration implements JsonSerializable {
     
     protected $skill_declaration_id;
     protected $skill;
@@ -11,7 +11,7 @@ class SkillDeclaration implements JsonSerializable{
     protected $description;
     protected $last_updated;
     
-    public function __construct($skill_declaration_id=null, $skill=null, $criteria_id=null, $criteria_type=null, $experience_level_id=null, $skill_level_id=null, $description=null, $last_updated=null) {
+    public function __construct($skill_declaration_id = null, $skill = null, $criteria_id = null, $criteria_type = null, $experience_level_id = null, $skill_level_id = null, $description = null, $last_updated = null) {
         $this->skill_declaration_id = $skill_declaration_id;
         $this->skill = $skill;
         $this->criteria_id = $criteria_id;
@@ -26,7 +26,7 @@ class SkillDeclaration implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

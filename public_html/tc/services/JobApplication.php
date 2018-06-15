@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -26,21 +26,21 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
             //Here Handle PUT Request 
             //$jsonBody = file_get_contents('php://input');
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 //$jobSeekerJSON = json_decode($jsonBody, TRUE);
                 //var_dump($jobSeekerJSON);
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
                 $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersById($jobPosterApplicationId);
                 
                 $json = json_encode($jobApplicationWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            }else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -60,7 +60,7 @@
             $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
             
             $questionAnswers = [];
-            foreach($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
+            foreach ($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
                 $questionAnswer = new ApplicationQuestionAnswer();
                 $questionAnswer->setJob_poster_question_id($jsonQA['job_poster_question_id']);
                 $questionAnswer->setAnswer($jsonQA['answer']);
@@ -91,7 +91,7 @@
                 
                 $json = json_encode($jobPosterApplication, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

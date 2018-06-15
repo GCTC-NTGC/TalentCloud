@@ -11,7 +11,7 @@ class MicroReference implements JsonSerializable {
     protected $experience_level;
     protected $micro_reference_story;
 
-    public function __construct($micro_reference_id=null, $micro_reference_name=null, $micro_reference_email=null, $relationship=null, $observed_from_date=null, $observed_until_date=null, $experience_level=null, $micro_reference_story=null) {
+    public function __construct($micro_reference_id = null, $micro_reference_name = null, $micro_reference_email = null, $relationship = null, $observed_from_date = null, $observed_until_date = null, $experience_level = null, $micro_reference_story = null) {
         $this->micro_reference_id = $micro_reference_id;
         $this->micro_reference_name = $micro_reference_name;
         $this->micro_reference_email = $micro_reference_email;

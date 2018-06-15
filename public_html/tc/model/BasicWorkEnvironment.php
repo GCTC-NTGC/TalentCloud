@@ -7,7 +7,7 @@ class BasicWorkEnvironment implements JsonSerializable {
     private $telework_allowed;
     private $flexible_allowed;
 
-    public function __construct($id=null, $remote_allowed=null, $telework_allowed=null, $flexible_allowed=null) {
+    public function __construct($id = null, $remote_allowed = null, $telework_allowed = null, $flexible_allowed = null) {
         $this->id = $id;
         $this->remote_allowed = $remote_allowed;
         $this->telework_allowed = $telework_allowed;
@@ -18,7 +18,7 @@ class BasicWorkEnvironment implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }
@@ -62,4 +62,4 @@ class BasicWorkEnvironment implements JsonSerializable {
     }
 
 }
-   
+    

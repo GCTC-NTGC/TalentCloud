@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -109,7 +109,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));           
             $rowsmodified = $sql->rowCount();
-            if($rowsmodified > 0){
+            if ($rowsmodified > 0) {
                 $insert_id = $link->lastInsertId();
             }
         } catch (PDOException $e) {
@@ -229,7 +229,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'BasicWorkEnvironment');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'BasicWorkEnvironment');
             $workEnvironment = $sql->fetch();
         } catch (PDOException $e) {
             return 'getBasicWorkEnvironment failed: ' . $e->getMessage();
@@ -249,7 +249,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'WorkplacePhotoCaption');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'WorkplacePhotoCaption');
             $photoCaptions = $sql->fetchAll();
             
         } catch (PDOException $e) {
@@ -275,7 +275,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));           
             $rowsmodified = $sql->rowCount();
-            if($rowsmodified > 0){
+            if ($rowsmodified > 0) {
                 $insert_id = $link->lastInsertId();
             }
         } catch (PDOException $e) {
@@ -314,7 +314,7 @@ class WorkEnvironmentDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'File');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'File');
             $photo = $sql->fetch();
         } catch (PDOException $e) {
             return 'getWorkplacePhoto failed: ' . $e->getMessage();
@@ -353,7 +353,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         return $found == 1;
     }
     
-    public static function updateWorkplacePhoto($image, $managerProfileId, $photoName){
+    public static function updateWorkplacePhoto($image, $managerProfileId, $photoName) {
         $link = BaseDAO::getConnection();
         $sql_str = "
             UPDATE talentcloud.workplace_photo photo, talentcloud.manager_profile_to_work_environment env, talentcloud.workplace_photo_caption cap
@@ -401,7 +401,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'WorkplacePhotoCaption');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'WorkplacePhotoCaption');
             $photoCaption = $sql->fetch();
             
         } catch (PDOException $e) {
@@ -426,7 +426,7 @@ class WorkEnvironmentDAO extends BaseDAO {
         $sql->bindValue(":manager_profile_id", $managerProfileId, PDO::PARAM_INT);
         $sql->bindValue(":work_environment_id", $workEnvironmentId, PDO::PARAM_INT);
 
-         try {
+            try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $rowsModified = $sql->rowCount();
         } catch (PDOException $e) {

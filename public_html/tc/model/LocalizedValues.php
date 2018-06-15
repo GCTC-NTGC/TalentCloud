@@ -1,6 +1,6 @@
 <?php
 
-class LocalizedValues implements JsonSerializable{
+class LocalizedValues implements JsonSerializable {
     
     private $en_value;
     private $fr_value;

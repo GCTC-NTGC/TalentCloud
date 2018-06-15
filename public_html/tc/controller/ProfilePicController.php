@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -19,10 +19,11 @@ require_once '../model/ProfilePic.php';
 class ProfilePicController {
     
     public static function getProfilePic($user_id) {
-        if (ProfilePicDAO::profilePicExistsForUser($user_id))
-            return ProfilePicDAO::getProfilePic($user_id);
-        else 
-            return NULL;
+        if (ProfilePicDAO::profilePicExistsForUser($user_id)) {
+                    return ProfilePicDAO::getProfilePic($user_id);
+        } else {
+                    return NULL;
+        }
     }
     
     public static function putProfilePic($profile_pic) {

@@ -1,7 +1,7 @@
 <?php
 
-$root=pathinfo($_SERVER['SCRIPT_FILENAME']);
+$root = pathinfo($_SERVER['SCRIPT_FILENAME']);
 
-define ('BASE_FOLDER', basename($root['dirname']));
+define('BASE_FOLDER', basename($root['dirname']));
 
 ?>

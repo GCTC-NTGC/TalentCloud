@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -32,7 +32,7 @@ class AuthenticationController {
     public static function getAuthToken($username, $password) {
         $authUser = AuthenticationController::authenticateUser($username, $password);
         //var_dump($authUser);
-        if($authUser && $authUser->getIs_confirmed()){
+        if ($authUser && $authUser->getIs_confirmed()) {
             $token = JWTUtils::generateJWT($authUser);
             //store authtoken 
             //AuthenticationDAO::storeAuthToken($result,$authUser);
@@ -45,9 +45,9 @@ class AuthenticationController {
      * @global type $dbResourcesArray
      * @return type
      */
-    public static function authenticateUser($username,$password) {
+    public static function authenticateUser($username, $password) {
         $authUser = UserDAO::getUserByCredentials($username, $password);
-        if($authUser){
+        if ($authUser) {
             $authUser->setPassword($password);
         }
         return $authUser;

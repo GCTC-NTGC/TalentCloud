@@ -59,7 +59,7 @@ switch ($requestMethod) {
                             exit;
                         }
                         
-                    } else if ($user->getUser_role() === "administrator") {
+                    }else if ($user->getUser_role() === "administrator") {
                         //an administrator has permission if they created the job this application is for
                         
                         $jobPoster = JobPosterController::getJobPosterById($locale, $fullJobApplication->getJob_poster_application()->getApplication_job_poster_id());
@@ -69,7 +69,7 @@ switch ($requestMethod) {
                             exit;
                         }
                         
-                    } else {
+                    }else {
                         header('HTTP/1.0 401 Unauthorized');
                         echo json_encode(array("failed" => "This user does not have permissions to view job applications"), JSON_FORCE_OBJECT);
                         exit;
@@ -77,17 +77,17 @@ switch ($requestMethod) {
 
                     $json = json_encode($fullJobApplication, JSON_PRETTY_PRINT);
                     echo($json);
-                } else {
+                }else {
                     header('HTTP/1.0 401 Unauthorized');
                     echo json_encode(array("failed" => "Invalid token"), JSON_FORCE_OBJECT);
                     exit;
                 }
-            } else {
+            }else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed" => 'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                 exit;
             }
-        } else {
+        }else {
             header('HTTP/1.0 401 Unauthorized');
             echo json_encode(array("failed" => 'No authorization token provided'), JSON_FORCE_OBJECT);
             exit;

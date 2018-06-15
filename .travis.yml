@@ -1,15 +1,27 @@
+# Talent Cloud
+# .travis.yml
+
 language: php
 php:
  - 5.6
+ - 5.5
 
 sudo: false
+
+matrix:
+  allow_failures:
+    - php: 5.5
 
 services:
  - mysql
 
+# before_script:
+
 install:
- - composer update
+ - composer self-update
  - composer install
 
 script:
- - public_html/vendor/bin/phpunit
+ - composer validate
+
+# after_script:

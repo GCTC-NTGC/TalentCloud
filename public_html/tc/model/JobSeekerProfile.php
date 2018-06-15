@@ -8,7 +8,7 @@
 
 require_once '../model/JobSeekerProfileAnswer.php';
 
-class JobSeekerProfile implements JsonSerializable{
+class JobSeekerProfile implements JsonSerializable {
     
     private $job_seeker_profile_id;
     private $job_seeker_profile_name;
@@ -21,7 +21,7 @@ class JobSeekerProfile implements JsonSerializable{
     private $last_updated;
     private $user_id;
     
-    public function __construct($job_seeker_profile_id=null, $job_seeker_profile_name=null, $job_seeker_profile_email=null, $job_seeker_profile_link=null, $job_seeker_profile_tagline=null, $job_seeker_profile_twitter_link=null, $job_seeker_profile_linkedin_link=null, $last_updated=null, $job_seeker_profile_answers = [], $user_id=null) {
+    public function __construct($job_seeker_profile_id = null, $job_seeker_profile_name = null, $job_seeker_profile_email = null, $job_seeker_profile_link = null, $job_seeker_profile_tagline = null, $job_seeker_profile_twitter_link = null, $job_seeker_profile_linkedin_link = null, $last_updated = null, $job_seeker_profile_answers = [], $user_id = null) {
         $this->job_seeker_profile_id = $job_seeker_profile_id;
         $this->job_seeker_profile_name = $job_seeker_profile_name;
         $this->job_seeker_profile_email = $job_seeker_profile_email;
@@ -34,11 +34,11 @@ class JobSeekerProfile implements JsonSerializable{
         $this->user_id = $user_id;
     }
 
-     public function jsonSerialize() {
+        public function jsonSerialize() {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

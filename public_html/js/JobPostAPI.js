@@ -76,6 +76,9 @@ JobPostAPI.showBrowseJobs = function() {
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/browse-jobs');
@@ -496,6 +499,9 @@ JobPostAPI.viewJobPoster = function(jobId){
     browseHeroTitle.classList.remove("hidden");
     browseHeroTitle.setAttribute("aria-hidden", "false");
     // browseHeroPosterMetaData.classList.remove("hidden");
+
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
 
     // Google Analytics
 

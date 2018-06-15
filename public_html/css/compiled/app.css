@@ -8069,7 +8069,8 @@ nav {
   margin: 0 0 6rem 0; }
 
 .faq__text-title {
-  margin: 3rem 0 1rem 0; }
+  margin: 3rem 0 1rem 0;
+  font-size: 18px; }
 
 .faq__text-copy {
   font-size: 16px;

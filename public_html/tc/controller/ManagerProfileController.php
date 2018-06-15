@@ -17,9 +17,9 @@ require_once '../controller/TeamCultureController.php';
 require_once '../controller/WorkEnvironmentController.php';
 require_once '../dao/ManagerProfileDAO.php';
 
-class ManagerProfileController{
+class ManagerProfileController {
 
-    public static function putManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
+    public static function putManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails) {
         //Check if previious manager profile exists
         $oldProfile = self::getManagerProfileByUser($managerProfile->getUser_id());
         if ($oldProfile) {
@@ -40,13 +40,13 @@ class ManagerProfileController{
             }
             
             return ["manager_profile_id"=>$profileId];
-        } else {
+        }else {
             $profileId = ManagerProfileDAO::createManagerProfile($managerProfile, $managerProfileDetails);
             return ["manager_profile_id"=>$profileId];
         }
     }
 
-    public static function getManagerProfileByUser($userId){
+    public static function getManagerProfileByUser($userId) {
 
         $response = ManagerProfileDAO::getManagerProfileByUser($userId);
         
@@ -61,7 +61,7 @@ class ManagerProfileController{
         return $response;
     }
 
-    public static function getManagerProfileWithDetails(ManagerProfile $managerProfile){
+    public static function getManagerProfileWithDetails(ManagerProfile $managerProfile) {
 
         $user = new User();
         $user->setUser_id($managerProfile->getUser_id());
@@ -79,7 +79,7 @@ class ManagerProfileController{
 
         $localizedDetails = new LocalizedValues($details_en, $details_fr);
 
-        $managerProfileWithDetails = new ManagerProfileWithDetails($profile,$localizedDetails,$managerUser);
+        $managerProfileWithDetails = new ManagerProfileWithDetails($profile, $localizedDetails, $managerUser);
 
         $response = $managerProfileWithDetails;
 

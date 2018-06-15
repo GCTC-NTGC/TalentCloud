@@ -6,7 +6,7 @@ class File {
     protected $mime_type;
     protected $size;
     
-    public function __construct($file=null, $mime_type=null, $size=null) {
+    public function __construct($file = null, $mime_type = null, $size = null) {
         $this->file = $file;
         $this->mime_type = $mime_type;
         $this->size = $size;
@@ -17,7 +17,7 @@ class File {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }
