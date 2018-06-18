@@ -5,10 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor .
 -->
 <?php
-date_default_timezone_set('America/Toronto');
-
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+require_once __DIR__ . '/../tc/config/php.config.inc';
 
 ?>
 

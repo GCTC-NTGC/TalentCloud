@@ -1,19 +1,14 @@
 <?php
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
     require_once __DIR__ . '/../controller/JobApplicationController.php';
     require_once __DIR__ . '/../model/JobApplicationWithAnswers.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
     require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
@@ -35,6 +30,11 @@
                 //var_dump($jobSeekerJSON);
                 $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
                 $jobApplicationsWithAnswers = JobApplicationController::getJobApplictionsWithAnswersByJobPoster($jobPosterId);
+                
+                //Authenticate that the submitting user owns the job poster or is admin
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                //TODO: add Manager permission
+                AuthenticationController::validateUser($userPermissions);
                 
                 $json = json_encode($jobApplicationsWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);

@@ -3,14 +3,7 @@
  * JobSeekerProfile REST API
  */
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
@@ -108,9 +101,9 @@ header("Content-Type: application/json; charset=utf-8");
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($result);
             } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }
             break;
         case 'PATCH':

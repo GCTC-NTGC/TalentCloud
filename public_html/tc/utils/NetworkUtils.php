@@ -81,7 +81,7 @@ class NetworkUtils {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Timeout in seconds
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, NETWORK_REQUEST_TIMEOUT);
 
         // Download the given URL, and return output
         $output = curl_exec($ch);

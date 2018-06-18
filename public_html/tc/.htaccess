@@ -59,7 +59,7 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getTeamCultureByManagerProfile/([0-9
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllWorkSamplesForApplication/([0-9]{1,10}) services/ApplicationWorkSample.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllMicroReferencesForApplication/([0-9]{1,10}) services/ApplicationMicroReferenceService.php
 
-#admin localized services - secured
+#localized services - secured
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/dashboard/([0-9]{1,10}) services/Dashboard.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getFullApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/FullJobApplicationByJobAndUser.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getFullApplication/([0-9]{1,10}) services/FullJobApplication.php

@@ -1,7 +1,5 @@
 <?php
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-set_time_limit(0);
+require_once __DIR__ . '/../config/php.config.inc';
 
 /** Include path **/
 set_include_path("../");

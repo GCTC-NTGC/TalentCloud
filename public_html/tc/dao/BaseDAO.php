@@ -1,13 +1,6 @@
 <?php
 	
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
 	require_once __DIR__ . '/../config/db.config.inc';
 	
