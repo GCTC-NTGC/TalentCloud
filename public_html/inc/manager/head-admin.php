@@ -31,3 +31,5 @@ ga('send', 'pageview');
 <script src="/admin/js/DivisionAPI.js"></script>
 <script src="/admin/js/BranchAPI.js"></script>
 <script src="/admin/js/AdminDashboardAPI.js"></script>
+<script src="/js/TACAPI.js" type="text/javascript"></script>
+<script src="/js/PrivacyAPI.js" type="text/javascript"></script>
