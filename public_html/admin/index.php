@@ -145,6 +145,8 @@ if($query_string !== ""){
             include "../inc/common/page-applicant-profile.php";
             include "../inc/common/page-application-preview.php";
             include "../inc/common/faq.php";
+            include "../inc/common/terms-and-conditions.php";
+            include "../inc/common/privacy.php";
             ?>
             <?php //  END - Includes for pages ?>
         </main>
