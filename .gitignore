@@ -31,3 +31,4 @@ public_html/scss/vendor
 /build
 /tests
 /selenium_tests
+/public_html/tc/config
