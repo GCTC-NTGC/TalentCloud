@@ -92,8 +92,7 @@
         </div>
 
     </section>
-
-    <?php /* Landing Video */ ?>
+    <?php /* Landing Video
     <section class="applicant-landing__video">
 
         <div class="block-container">
@@ -112,9 +111,9 @@
                 </div>
 
             </div>
-
+            
             <div class="content-container">
-
+                
                 <div class="applicant-landing__video-transcript-trigger-wrapper">
                     <button class="button--yellow" id="applicantLandingVideoTranscriptTrigger" aria-expanded="false">
                         <span id="transcriptView">View </span>
@@ -135,8 +134,9 @@
                 </div>
 
             </div>
-
+            
         </section>
+        */?>
 
         <?php /* Landing Our Team */ ?>
         <section class="applicant-landing__our-team">
