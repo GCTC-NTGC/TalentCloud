@@ -34,7 +34,7 @@ header("Content-Type: application/json; charset=utf-8");
                 $result = LookupController::getLookupDataByLocaleAndType($locale, $lookupType);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

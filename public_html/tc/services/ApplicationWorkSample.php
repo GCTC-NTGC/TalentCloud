@@ -35,7 +35,7 @@ switch ($requestMethod) {
             $result = WorkSampleController::getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale);
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
-        }else {
+        } else {
             $result = array();
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
@@ -59,12 +59,12 @@ switch ($requestMethod) {
 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else {
+            } else {
                 header('HTTP/1.0 403 Forbidden');
                 echo json_encode(array("failed" => "Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                 exit;
             }
-        }else {
+        } else {
             $result = array();
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
@@ -95,12 +95,12 @@ switch ($requestMethod) {
 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else {
+            } else {
                 header('HTTP/1.0 403 Forbidden');
                 echo json_encode(array("failed" => "Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                 exit;
             }
-        }else {
+        } else {
             $result = array();
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);

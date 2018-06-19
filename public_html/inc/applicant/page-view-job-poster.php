@@ -240,7 +240,7 @@
                         $loginLink .= "?response_type=" . URL_RESPONSE_TYPES;
                         if (strpos($url, 'admin') !== false) {
                             $loginLink .= "&redirect_uri=" . urlencode(REDIRECT_URI_ADMIN);
-                        }else {
+                        } else {
                             $loginLink .= "&redirect_uri=" . urlencode(REDIRECT_URI);
                         }
                         $loginLink .= "&nonce=" . $nonce;

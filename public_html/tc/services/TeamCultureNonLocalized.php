@@ -36,7 +36,7 @@
                 $result = TeamCultureController::getTeamCultureNonLocalizedByManagerProfileId($managerProfileId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -79,23 +79,23 @@
                             $resultJson = json_encode($result, JSON_PRETTY_PRINT);
                             echo($resultJson);
 
-                        }else {
+                        } else {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else {
+                    } else {
                         header('HTTP/1.0 401 Unauthorized');
                         echo json_encode(array("failed"=>"No manager profile id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else {
+                } else {
                     header('HTTP/1.0 401 Unauthorized');
                     echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;

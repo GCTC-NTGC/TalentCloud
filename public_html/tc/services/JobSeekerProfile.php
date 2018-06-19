@@ -37,7 +37,7 @@ header("Content-Type: application/json; charset=utf-8");
                 $result = JobSeekerController::getJobSeekerProfileByUserId(intval($user_id));
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -90,7 +90,7 @@ header("Content-Type: application/json; charset=utf-8");
                 
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($result);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

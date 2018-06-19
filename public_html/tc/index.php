@@ -8,7 +8,7 @@
         header('HTTP/1.0 401 Unauthorized');
         echo 'Text to send if user hits Cancel button';
         exit;
-    }else {
+    } else {
         if ($_SERVER['PHP_AUTH_USER'] == 'test' && $_SERVER['PHP_AUTH_PW'] == 'test') {
             header("Access-Control-Allow-Origin: *");
             header("Content-Type: application/json");
@@ -25,7 +25,7 @@
                         $result = array('user' => 'test', 'pass' => 'test');
                         $json = json_encode($result);
                         echo($json);
-                    }else {
+                    } else {
                         $result1 = array('user' => 'test', 'pass' => 'test');
                         $result2 = array('user' => 'test1', 'pass' => 'test1');
                         $result3 = array('user' => 'test2', 'pass' => 'test2');
@@ -55,7 +55,7 @@
                     echo("");
                     break;
             }
-        }else {
+        } else {
             header('WWW-Authenticate: Basic realm="My Realm"');
             header('HTTP/1.0 401 Unauthorized');
             echo 'Authorization declined';

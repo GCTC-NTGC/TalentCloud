@@ -52,23 +52,23 @@
                             
                             echo($json);
                             
-                        }else {
+                        } else {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else {
+                    } else {
                         header('HTTP/1.0 401 Unauthorized');
                         echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else {
+                } else {
                     header('HTTP/1.0 401 Unauthorized');
                     echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;

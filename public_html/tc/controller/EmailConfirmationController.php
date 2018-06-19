@@ -44,7 +44,7 @@ class EmailConfirmationController {
         //var_dump($message);
         if (!@mail($to, $subject, $message, $headers)) {
             return false;
-        }else {
+        } else {
             return true;
         }
         

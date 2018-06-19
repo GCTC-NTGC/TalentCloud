@@ -37,7 +37,7 @@ class ResourceController {
         if ($resourceKey != null && !empty($resourceKey)) {
             if ($keyOption != null) {
                 return $commonLabelArray[$resourceKey][$keyOption];
-            }else {
+            } else {
                 return $commonLabelArray[$resourceKey];
             }
         }
@@ -57,7 +57,7 @@ class ResourceController {
         if ($resourceKey != null && !empty($resourceKey)) {
             if ($keyOption != null) {
                 return $labelArray[$resourceKey][$keyOption];
-            }else {
+            } else {
                 return $labelArray[$resourceKey];
             }
         }
