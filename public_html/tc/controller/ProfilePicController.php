@@ -21,7 +21,7 @@ class ProfilePicController {
     public static function getProfilePic($user_id) {
         if (ProfilePicDAO::profilePicExistsForUser($user_id)) {
                     return ProfilePicDAO::getProfilePic($user_id);
-        }else {
+        } else {
                     return NULL;
         }
     }
