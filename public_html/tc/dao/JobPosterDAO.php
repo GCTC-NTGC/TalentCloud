@@ -50,10 +50,11 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact,
+            jp.job_poster_noc as noc,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
-            lrd.language_requirement_details_name as language_requirement,
-            jpd.job_poster_impact as impact
+            lrd.language_requirement_details_name as language_requirement
             FROM 
                 job_poster jp, 
                 job_poster_details jpd,
@@ -91,12 +92,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
-                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low', 'remuneration_range_high', 'impact', 'key_tasks', 'core_competencies', 'dev_competencies',
-                'classification', 'security_clearance', 'language_requirement'
-            ));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster');
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -144,10 +140,11 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact,
+            jp.job_poster_noc as noc,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
-            lrd.language_requirement_details_name as language_requirement,
-            jpd.job_poster_impact as impact
+            lrd.language_requirement_details_name as language_requirement            
             FROM 
                 job_poster jp, 
                 job_poster_details jpd,
@@ -190,11 +187,7 @@ class JobPosterDAO extends BaseDAO {
 
             $sql->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
 
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
-                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low', 'remuneration_range_high', 'impact', 'classification', 'security_clearance', 'language_requirement',
-            ));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster');
             $jobPoster = $sql->fetch();
         } catch (PDOException $e) {
             BaseDAO::closeConnection($link);
@@ -323,6 +316,7 @@ class JobPosterDAO extends BaseDAO {
             job_poster_province_id,
             job_poster_remuneration_min,
             job_poster_remuneration_max,
+            job_poster_noc,
             job_poster_classification,
             job_poster_clearance_id,
             job_poster_language_id
@@ -340,6 +334,7 @@ class JobPosterDAO extends BaseDAO {
             :province_id,
             :remuneration_range_low,
             :remuneration_range_high,
+            :noc,
             :classification,
             :clearance_id,
             :language_id
@@ -464,6 +459,7 @@ class JobPosterDAO extends BaseDAO {
         $sql1->bindValue(':province_id', $jobPosterNonLocalized->getProvince_id(), PDO::PARAM_INT);
         $sql1->bindValue(':remuneration_range_low', $jobPosterNonLocalized->getRemuneration_range_low(), PDO::PARAM_INT);
         $sql1->bindValue(':remuneration_range_high', $jobPosterNonLocalized->getRemuneration_range_high(), PDO::PARAM_INT);
+        $sql1->bindValue(':noc', $jobPosterNonLocalized->getNoc(), PDO::PARAM_STR);
         $sql1->bindValue(':classification', $jobPosterNonLocalized->getClassification(), PDO::PARAM_STR);
         $sql1->bindValue(':clearance_id', $jobPosterNonLocalized->getClearance_id(), PDO::PARAM_INT);
         $sql1->bindValue(':language_id', $jobPosterNonLocalized->getLanguage_id(), PDO::PARAM_INT);
@@ -548,10 +544,11 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact,
+            jp.job_poster_noc as noc,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
-            lrd.language_requirement_details_name as language_requirement,
-            jpd.job_poster_impact as impact
+            lrd.language_requirement_details_name as language_requirement
             FROM 
                 job_poster jp, 
                 job_poster_details jpd,
@@ -590,12 +587,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
-                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low', 'remuneration_range_high', 'impact', 'key_tasks', 'core_competencies', 'dev_competencies',
-                'classification', 'security_clearance', 'language_requirement'
-            ));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster');
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {

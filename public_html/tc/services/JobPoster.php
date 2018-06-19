@@ -86,6 +86,7 @@
                 $jobPoster->setCore_competencies_fr($jobPosterJSON["core_competencies"][$fr]);
                 $jobPoster->setDeveloping_competencies_en($jobPosterJSON["developing_competencies"][$en]);
                 $jobPoster->setDeveloping_competencies_fr($jobPosterJSON["developing_competencies"][$fr]);              
+                $jobPoster->setNoc($jobPosterJSON["noc"]);
                 $jobPoster->setClassification($jobPosterJSON["classification"]);
                 $jobPoster->setClearance_id($jobPosterJSON["clearance_id"]);
                 $jobPoster->setLanguage_id($jobPosterJSON["language_id"]);

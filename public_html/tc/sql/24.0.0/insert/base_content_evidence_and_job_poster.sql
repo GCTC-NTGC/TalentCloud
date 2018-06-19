@@ -74,6 +74,8 @@ VALUES
 (1,'applicationProgressReviewMyApplication','Examiner ma demande',2),
 
 /*Job Poster*/
+(1,'jobPosterNocLabel','NOC',1),
+(1,'jobPosterNocLabel','NOC',2),
 (1,'jobPosterTimeRemaining','days until close',1),
 (1,'jobPosterTimeRemaining','jours jusqu’à la date de clôture',2),
 (1,'jobPosterApplicants','applicants so far',1),

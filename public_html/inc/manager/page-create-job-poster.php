@@ -79,6 +79,13 @@
                                  */ ?>
                                 
                                 <div class="box full">
+                                    <label class="form__label" for="createJobPoster_noc">
+                                        <span id="createJobPoster_noc_labelName"><span>National Occupational Classification</span>: *</span>
+                                        <strong id="createJobPoster_noc_error" class="error hidden">
+                                            <span id="createJobPoster_noc_error_msg" class="label label-danger"></span>
+                                        </strong>
+                                    </label>
+                                    <input class="form__input--text" type="text" name="createJobPoster_noc" id="createJobPoster_noc"/>
                                     <label class="form__label" for="createJobPoster_classification">
                                         <span id="createJobPoster_classification_labelName"><span>Classification</span>: *</span>
                                         <strong id="createJobPoster_classification_error" class="error hidden">

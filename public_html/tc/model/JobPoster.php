@@ -38,6 +38,7 @@ class JobPoster implements JsonSerializable {
     private $core_competencies;
     private $developing_competencies;
     private $questions;
+    private $noc;
     private $classification;
     private $security_clearance;
     private $language_requirement;
@@ -45,7 +46,7 @@ class JobPoster implements JsonSerializable {
     public function __construct($id = null, $locale_id = null, $manager_user_id = null, $title = null, $description = null, $applicants_to_date = null, $term_qty = null, $term_units = null,
     $job_min_level = null, $job_max_level = null, $start_date = null, $open_date = null, $close_date = null, $department = null, $branch = null, $division = null, $location_province = null,
     $location_city = null, $remuneration_range_low = null, $remuneration_range_high = null, $impact = null, $key_tasks = null, $core_competencies = null, $developing_competencies = null,
-    $questions = [], $classification = null, $security_clearance = null, $language_requirement = null) {
+    $questions = [], $noc = null, $classification = null, $security_clearance = null, $language_requirement = null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -71,6 +72,7 @@ class JobPoster implements JsonSerializable {
         $this->core_competencies = $core_competencies;
         $this->developing_competencies = $developing_competencies;
         $this->questions = $questions;
+        $this->noc = $noc;
         $this->classification = $classification;
         $this->security_clearance = $security_clearance;
         $this->language_requirement = $language_requirement;
@@ -185,6 +187,10 @@ class JobPoster implements JsonSerializable {
 
     public function getQuestions() {
         return $this->questions;
+    }
+    
+    public function getNoc() {
+        return $this->noc;
     }
 
     public function getClassification() {
@@ -321,6 +327,11 @@ class JobPoster implements JsonSerializable {
 
     public function setQuestions($questions) {
         $this->questions = $questions;
+        return $this;
+    }
+    
+    public function setNoc($noc) {
+        $this->noc = $noc;
         return $this;
     }
 
