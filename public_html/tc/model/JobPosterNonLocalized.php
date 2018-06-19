@@ -39,6 +39,7 @@ class JobPosterNonLocalized implements JsonSerializable {
     private $developing_competencies_fr;
     private $questions_en;
     private $questions_fr;
+    private $noc;
     private $classification;
     private $clearance_id;
     private $language_id;
@@ -75,6 +76,7 @@ class JobPosterNonLocalized implements JsonSerializable {
             $developing_competencies_fr = null,
             $questions_en = [],
             $questions_fr = [],
+            $noc = null,
             $classification = null,
             $clearance_id = null,
             $language_id = null
@@ -110,6 +112,7 @@ class JobPosterNonLocalized implements JsonSerializable {
         $this->developing_competencies_fr = $developing_competencies_fr;
         $this->questions_en = $questions_en;
         $this->questions_fr = $questions_fr;
+        $this->noc = $noc;
         $this->classification = $classification;
         $this->clearance_id = $clearance_id;
         $this->language_id = $language_id;
@@ -251,6 +254,10 @@ class JobPosterNonLocalized implements JsonSerializable {
         return $this->questions_fr;
     }
 
+    public function getNoc() {
+        return $this->noc;
+    }
+    
     public function getClassification() {
         return $this->classification;
     }
@@ -416,6 +423,11 @@ class JobPosterNonLocalized implements JsonSerializable {
     public function setQuestions_fr($questions_fr) {
         $this->questions_fr = $questions_fr;
         return $this;
+    }
+    
+    public function setNoc($noc) {
+    $this->noc = $noc;
+    return $this;
     }
 
     public function setClassification($classification) {
