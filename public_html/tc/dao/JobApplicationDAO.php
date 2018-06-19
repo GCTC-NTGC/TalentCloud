@@ -70,7 +70,7 @@ class JobApplicationDAO extends BaseDAO {
         SELECT 
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
-            jpa.application_job_seeker_profile_id,
+            jpa.user_id,
             jpa.job_poster_application_status_id
         FROM job_poster_application jpa
         WHERE
@@ -107,13 +107,12 @@ class JobApplicationDAO extends BaseDAO {
         SELECT 
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
-            jpa.application_job_seeker_profile_id,
+            jpa.user_id,
             jpa.job_poster_application_status_id
-        FROM job_poster_application jpa, user_job_seeker_profiles u_jsp
+        FROM job_poster_application jpa
         WHERE
         jpa.application_job_poster_id = :job_poster_id
-        AND u_jsp.job_seeker_profile_id = jpa.application_job_seeker_profile_id
-        AND u_jsp.user_id = :user_id
+        AND jpa.user_id = :user_id
         ORDER BY jpa.last_updated DESC LIMIT 1
         ;";
         
@@ -150,17 +149,16 @@ class JobApplicationDAO extends BaseDAO {
         SELECT 
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
-            jpa.application_job_seeker_profile_id,
+            jpa.user_id,
             jpa.job_poster_application_status_id
         FROM job_poster_application jpa
         WHERE
         jpa.application_job_poster_id = :job_poster_id
         AND jpa.job_poster_application_id IN (
                 SELECT MAX(jpa.job_poster_application_id) 
-                FROM job_poster_application jpa, user_job_seeker_profiles ujsp
-                WHERE jpa.application_job_seeker_profile_id = ujsp.job_seeker_profile_id
-                AND jpa.application_job_poster_id = :job_poster_id_2
-                GROUP BY ujsp.user_id
+                FROM job_poster_application jpa
+                WHERE jpa.application_job_poster_id = :job_poster_id_2
+                GROUP BY jpa.user_id
             );
         ";
         
@@ -196,15 +194,24 @@ class JobApplicationDAO extends BaseDAO {
         SELECT 
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
-            jpa.application_job_seeker_profile_id,
+            jpa.user_id,
             jpa.job_poster_application_status_id
-        FROM job_poster_application jpa
+        FROM job_poster_application jpa, user_job_seeker_profiles u_jsp 
         WHERE
-        jpa.application_job_seeker_profile_id = :job_seeker_profile_id
+        u_jsp.job_seeker_profile_id = :job_seeker_profile_id
+        AND u_jsp.user_id = jpa.user_id
+        AND jpa.job_poster_application_id IN (
+                SELECT MAX(jpa.job_poster_application_id) 
+                FROM job_poster_application jpa, user_job_seeker_profiles u_jsp 
+                WHERE u_jsp.job_seeker_profile_id = :job_seeker_profile_id_2
+                AND u_jsp.user_id = jpa.user_id
+                GROUP BY jpa.application_job_poster_id
+            );
         ;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_seeker_profile_id', $jobSeekerProfileId, PDO::PARAM_INT);
+        $sql->bindValue(':job_seeker_profile_id_2', $jobSeekerProfileId, PDO::PARAM_INT);
        
         try {
             //$result = BaseDAO::executeDBTransaction($link,$sql);
@@ -227,18 +234,18 @@ class JobApplicationDAO extends BaseDAO {
      * @param JobPosterApplication $jobPosterApplication
      * @return int - new job_poster_application_id
      */
-    public static function createJobPosterApplication($jobPosterApplication) {
+    public static function createJobPosterApplication(JobPosterApplication $jobPosterApplication) {
         $link = BaseDAO::getConnection();
         
         $sqlStr = "INSERT INTO job_poster_application
-            (application_job_poster_id, application_job_seeker_profile_id, job_poster_application_status_id)
+            (application_job_poster_id, user_id, job_poster_application_status_id)
             VALUES
-            (:job_poster_id, :job_seeker_profile_id, :job_poster_application_status_id)       
+            (:job_poster_id, :user_id, :job_poster_application_status_id)       
         ;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_poster_id', $jobPosterApplication->getApplication_job_poster_id(), PDO::PARAM_INT);
-        $sql->bindValue(':job_seeker_profile_id', $jobPosterApplication->getApplication_job_seeker_profile_id(), PDO::PARAM_INT);
+        $sql->bindValue(':user)id', $jobPosterApplication->getUser_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_status_id', $jobPosterApplication->getJob_poster_application_status_id(), PDO::PARAM_INT);
         
         try {
@@ -265,13 +272,13 @@ class JobApplicationDAO extends BaseDAO {
         $link = BaseDAO::getConnection();        
         $sqlStr = "UPDATE job_poster_application SET 
             application_job_poster_id = :job_poster_id, 
-            application_job_seeker_profile_id = :job_seeker_profile_id,
+            user_id = :user_id,
             job_poster_application_status_id = :job_poster_application_status_id
             WHERE
             job_poster_application_id = :job_poster_application_id;";
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_poster_id', $jobPosterApplication->getApplication_job_poster_id(), PDO::PARAM_INT);
-        $sql->bindValue(':job_seeker_profile_id', $jobPosterApplication->getApplication_job_seeker_profile_id(), PDO::PARAM_INT);
+        $sql->bindValue(':user_id', $jobPosterApplication->getUser_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_status_id', $jobPosterApplication->getJob_poster_application_status_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_id', $jobPosterApplication->getJob_poster_application_id(), PDO::PARAM_INT);
         
@@ -390,12 +397,10 @@ class JobApplicationDAO extends BaseDAO {
     public static function getJobApplicationCreatorUserId($jobPosterApplicationId) {
         $link = BaseDAO::getConnection();
         $sql_str = "
-            SELECT u.user_id
-            FROM user u, user_job_seeker_profiles u_jsp, job_poster_application jpa
+            SELECT jpa.user_id
+            FROM job_poster_application jpa
             WHERE 
                 jpa.job_poster_application_id = :application_id
-                AND jpa.application_job_seeker_profile_id = u_jsp.job_seeker_profile_id
-                AND u.user_id = u_jsp.user_id
             ;";
         $sql = $link->prepare($sql_str);
         $sql->bindValue(':application_id', $jobPosterApplicationId, PDO::PARAM_INT);

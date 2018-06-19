@@ -1,5 +1,7 @@
 <?php
 
+namespace tc\model;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,13 +17,13 @@ class JobPosterApplication implements JsonSerializable {
     
     private $job_poster_application_id;
     private $application_job_poster_id;
-    private $application_job_seeker_profile_id;
+    private $user_id;
     private $job_poster_application_status_id;
     
-    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $application_job_seeker_profile_id = null, $job_poster_application_status_id = null) {
+    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $user_id = null, $job_poster_application_status_id = null) {
         $this->job_poster_application_id = $job_poster_application_id;
         $this->application_job_poster_id = $application_job_poster_id;
-        $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+        $this->user_id = $user_id;
         $this->job_poster_application_status_id = $job_poster_application_status_id;
     }
 
@@ -44,32 +46,32 @@ class JobPosterApplication implements JsonSerializable {
         return $this->application_job_poster_id;
     }
 
-    public function getApplication_job_seeker_profile_id() {
-        return $this->application_job_seeker_profile_id;
-    }
-
-    public function setJob_poster_application_id($job_poster_application_id) {
-        $this->job_poster_application_id = $job_poster_application_id;
-    }
-
-    public function setApplication_job_poster_id($application_job_poster_id) {
-        $this->application_job_poster_id = $application_job_poster_id;
-    }
-
-    public function setApplication_job_seeker_profile_id($application_job_seeker_profile_id) {
-        $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+    public function getUser_id() {
+        return $this->user_id;
     }
 
     public function getJob_poster_application_status_id() {
         return $this->job_poster_application_status_id;
     }
 
-    public function setJob_poster_application_status_id($job_poster_application_status_id) {
-        $this->job_poster_application_status_id = $job_poster_application_status_id;
+    public function setJob_poster_application_id($job_poster_application_id) {
+        $this->job_poster_application_id = $job_poster_application_id;
+        return $this;
     }
 
+    public function setApplication_job_poster_id($application_job_poster_id) {
+        $this->application_job_poster_id = $application_job_poster_id;
+        return $this;
+    }
 
-    
+    public function setUser_id($user_id) {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
+    public function setJob_poster_application_status_id($job_poster_application_status_id) {
+        $this->job_poster_application_status_id = $job_poster_application_status_id;
+        return $this;
+    }
+
 }
-
-?>

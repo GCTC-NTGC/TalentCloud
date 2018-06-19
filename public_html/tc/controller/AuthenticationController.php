@@ -115,7 +115,10 @@ class AuthenticationController {
      * appropriate status code.
      * If no userPermissions are provided, any logged-in user will be considered valid. 
      * 
+     * If user is valid, returns the logged-in user.
+     * 
      * @param UserPermission[] $userPermisions
+     * @return User $user
      */
     public static function validateUser($userPermissions = []) {
         if (!isset($_COOKIE[ID_TOKEN])) {
@@ -136,16 +139,15 @@ class AuthenticationController {
 
         //User is logged in correctly
 
-
+        $user = UserController::getUserByOpenIdTokens($idToken, $accessToken);
         if ($userPermissions === []) {
             //If no userPermissions were provided, all logged in users are valid;
-            return;
-        }
-        $user = UserController::getUserByOpenIdTokens($idToken, $accessToken);
+            return $user;
+        }        
         foreach ($userPermissions as $permission) {
             if ($permission->userHasPermission($user)) {
                 //user is valid
-                return;
+                return $user;
             }
         }
         //If user did not meet any of the permissions, this resource is forbidden
