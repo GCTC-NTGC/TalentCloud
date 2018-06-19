@@ -2,10 +2,6 @@ INSERT into base_content
 (base_content_type_id, base_content_key, base_content_value, base_content_locale_id) 
 VALUES 
 
-/*Email Feedback*/
-(1,'emailFeedback','mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca?subject=Submit%20Feedback%20to%20Talent%20Cloud&body=Thanks%20for%20your%20interest%20in%20Talent%20Cloud!%20Your%20willingness%20to%20submit%20feedback%20is%20incredibly%0Aimportant%20to%20us.%20Please%20supply%20as%20much%20information%20as%20possible%3A%0A%0AType%20of%20Feedback%3A%20%5Be.g.%20Suggestion%2C%20Bug%2C%20etc.%5D%0A%0AYour%20Message%3A%20%5BType%20here.%5D%0A%0ACurrent%20Page%3A%20%5BPage%20Link%20Here%5D%0A%0AThanks%20again!',1),
-(1,'emailFeedback','mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca?subject=Soumettez%20des%20Commentaires%20au%20Nuage%20de%20Talents&body=Nous%20vous%20remercions%20de%20votre%20int%C3%A9r%C3%AAt%20au%20nuage%20de%20talents!%20Votre%20disposition%20%C3%A0%20fournir%20des%0Acommentaires%20est%20tr%C3%A8s%20importante%20pour%20nous.%20Veuillez%20fournir%20le%20plus%20de%20renseignements%0Apossible%20%3A%0A%0AType%20de%20commentaires%20%3A%20%5Bp.%20ex.%2C%20suggestion%20ou%20bogue%5D%0A%0AVotre%20message%20%3A%20%5BTapez%20ici.%5D%0A%0APage%20actuelle%20%3A%20%5BHyperlien%20de%20la%20page%20ici%5D%0A%0AEncore%20une%20fois%2C%20merci!',2),
-
 (1,'submitFeedbackText','Submit Feedback',1), /*Needs Review*/
 (1,'submitFeedbackText','Soumettre des commentaires',2), /*Needs Translations*/
 
