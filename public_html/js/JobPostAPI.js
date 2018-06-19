@@ -547,9 +547,9 @@ JobPostAPI.populateJobPoster = function(jobData){
 
     //Start requests for Hiring Manager data
     //Load Hiring Manager Name
-    DataAPI.getUser(jobData.manager_user_id, function(response) {
-       var managerUser = JSON.parse(response);
-       document.getElementById('jobPosterHiringManagerName').innerHTML = managerUser.user.name;
+    DataAPI.getManagerProfile(jobData.manager_user_id, function(response) {
+       var managerProfile = JSON.parse(response);
+       document.getElementById('jobPosterHiringManagerName').innerHTML = managerProfile.user.name;
        // document.getElementById('jobPosterHiringManagerNameAccommodation').innerHTML = managerUser.user.name;
 
        if (locale === "en_CA"){
@@ -736,17 +736,6 @@ JobPostAPI.populateJobPoster = function(jobData){
     }
     JobPostAPI.setItemsForListElement(developingCompetencyList, devCompetencyValues, "developingCompetencyItem");
 
-    /*
-    Setting Apply button vs login button now done in php
-
-    var applyNowButton = document.getElementById("jobPosterApplyButton");
-    if(UserAPI.hasSessionUser()){
-        applyNowButton.setAttribute("onclick", "JobApplicationAPI.showCreateJobApplication("+jobData.id+");");
-    }else{
-        applyNowButton.setAttribute("onclick", "UserAPI.showLogin()");
-    }
-    */
-
     // Show Time Remaining & Number of Applicants
     var jobTimeRemaining = document.getElementById("jobPosterTimeRemainingData");
     jobTimeRemaining.innerHTML = Utilities.timeRemaining(jobData.close_date_time);
@@ -866,10 +855,6 @@ JobPostAPI.submitJobPosterApplication = function(jobPosterId,jobSeekerProfileId)
     Utilities.debug?console.log("loading contacts"):null;
     var jobPosterApplication_URL = JobPostAPI.baseURL+"/putJobPosterApplication/"+jobPosterId+"/"+jobSeekerProfileId;
 
-    var authToken = "";
-    if(UserAPI.hasAuthToken()){
-        authToken = UserAPI.getAuthTokenAsJSON();
-    }
     var jobPosterApplication_xhr = new XMLHttpRequest();
     if ("withCredentials" in jobPosterApplication_xhr) {
 
@@ -893,8 +878,6 @@ JobPostAPI.submitJobPosterApplication = function(jobPosterId,jobSeekerProfileId)
 
     jobPosterApplication_xhr.open('PUT',jobPosterApplication_URL);
     jobPosterApplication_xhr.setRequestHeader("Content-Type","application/json");
-    jobPosterApplication_xhr.setRequestHeader("x-access-token", authToken.access_token);
-
     jobPosterApplication_xhr.addEventListener("progress",
     function(evt){
         JobPostAPI.submitJobPosterApplicationProgress(evt);

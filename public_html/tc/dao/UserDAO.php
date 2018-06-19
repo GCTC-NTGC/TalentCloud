@@ -1,20 +1,13 @@
 <?php
 
 	
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../dao/BaseDAO.php';
-require_once '../model/User.php';
+require_once __DIR__ . '/../dao/BaseDAO.php';
+require_once __DIR__ . '/../model/User.php';
 
 class UserDAO extends BaseDAO {
     
@@ -86,9 +79,8 @@ class UserDAO extends BaseDAO {
         return $row;
     }
     
-    public static function getUserOpenById(User $user) {
+    public static function getUserByOpenId($open_id) {
         $link = BaseDAO::getConnection();
-        $open_id = $user->getOpen_id();
         $sqlStr = "
             SELECT u.user_id as user_id, u.email as email, u.name as name, u.is_confirmed as is_confirmed, u.open_id, ur.user_role as user_role 
             FROM user u, user_role ur
@@ -97,7 +89,7 @@ class UserDAO extends BaseDAO {
                 ur.user_role_id = u.user_role_id
             ;";
         $sql = $link->prepare($sqlStr);
-        $sql->bindParam(':open_id', $open_id, PDO::PARAM_INT);
+        $sql->bindValue(':open_id', $open_id, PDO::PARAM_INT);
         $row = null;
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));

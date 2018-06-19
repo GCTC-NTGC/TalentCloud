@@ -214,6 +214,7 @@ Utilities.sortAlphaNum = function (a, b) {
 Utilities.setCookie = function (name, value, exdate, path) {
     var escapedValue = escape(value);
     var expDate = new Date(exdate).toUTCString();
+    path = path || "/";
     var cookieStr = name + "=" + escapedValue + "; expires=" + expDate + "; path=" + path;
     Utilities.debug ? console.log("cookieString=" + cookieStr) : null;
     document.cookie = cookieStr;
@@ -225,6 +226,10 @@ Utilities.getCookieByName = function (name) {
     if (parts.length === 2) {
         return parts.pop().split(";").shift();
     }
+};
+
+Utilities.deleteCookie = function(name, path) {
+    Utilities.setCookie(name, "", "Thu, 01 Jan 1970 00:00:01 GMT", path);
 };
 
 Utilities.addDays = function (date, days) {

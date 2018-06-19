@@ -6,10 +6,10 @@
  * and open the template in the editor.
  */
 
-require_once '../model/WorkEnvironment.php';
-require_once '../model/BasicWorkEnvironment.php';
-require_once '../model/WorkplacePhotoCaption.php';
-require_once '../dao/WorkEnvironmentDAO.php';
+require_once __DIR__ . '/../model/WorkEnvironment.php';
+require_once __DIR__ . '/../model/BasicWorkEnvironment.php';
+require_once __DIR__ . '/../model/WorkplacePhotoCaption.php';
+require_once __DIR__ . '/../dao/WorkEnvironmentDAO.php';
 
 class WorkEnvironmentController {
     

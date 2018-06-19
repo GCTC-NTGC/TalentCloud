@@ -7,13 +7,13 @@
  */
 
 
-$path = dirname(getcwd());
+$path = dirname(__FILE__);
 
 //var_dump(ROOT);
-require_once $path . '/config/auth.config.inc';
-require_once $path . '/model/User.php';
-require_once $path . '/controller/UserController.php';
-require_once $path . '/utils/Utils.php';
+require_once __DIR__ .'/../config/auth.config.inc';
+require_once __DIR__ .'/../model/User.php';
+require_once __DIR__ .'/../controller/UserController.php';
+require_once __DIR__ .'/../utils/Utils.php';
 
 /**
  * Description of JWTUtils
@@ -195,7 +195,7 @@ class JWTUtils {
             if ($openId['sub']) {
                 $emptyUser = new User(); 
                 $emptyUser->setOpen_id($openId['sub']); 
-                return UserController::getUserByOpenId($emptyUser);                 
+                return UserController::getUserByOpenId($openId['sub']);                 
             }    
         } 
         return null; 

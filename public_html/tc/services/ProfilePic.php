@@ -3,21 +3,14 @@
  * ProfilePic REST API
  */
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../controller/ProfilePicController.php';
-require_once '../model/ProfilePic.php';
-require_once '../utils/Utils.php';
+require_once __DIR__ . '/../controller/ProfilePicController.php';
+require_once __DIR__ . '/../model/ProfilePic.php';
+require_once __DIR__ . '/../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
 $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -41,77 +34,41 @@ header("Content-Type: application/json; charset=utf-8");
                     header("Content-type: " . $result->getType());
                     echo($result->getImage());
                 }
-            } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+            }else{
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }    
             break;
         case 'POST':
-           //must contain access token to get logged in content
-            /*
-            $jsonBody = file_get_contents('php://input');
-            if(strlen($requestParams) > 1){
-                $jobSeekerProfile = new JobSeekerProfile();
-                $user = new User();
-                $result = JobSeekerController::createJobSeekerProfile($jobSeekerProfile);
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }else{
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }
-            */
+           
             break;
         case 'DELETE':
             //Here Handle DELETE Request
             break;
-        case 'PUT':
-            //Must have correct authaurization to modify photo
-            
-            if (strlen($requestParams) > 1) {
-                $user_id = Utils::getParameterFromRequest($requestParams, 4);
-                                                
+        case 'PUT':            
+            if(strlen($requestParams) > 1){
+                $user_id = Utils::getParameterFromRequest($requestParams,4);
+                                           
+                //Admins, and the owning applicant have permission to update
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $user_id);
+                AuthenticationController::validateUser($userPermissions);
+                
                 $profile_pic = new ProfilePic($user_id, 
                         file_get_contents('php://input'), 
                         null,
                         $_SERVER['CONTENT_TYPE'], 
                         $_SERVER['CONTENT_LENGTH']); 
                 $result = ProfilePicController::putProfilePic($profile_pic);
-                //$json = json_encode($result, JSON_PRETTY_PRINT);
-                //echo($profile_pic->getImage());
-                echo($result);
-                //echo('{"profilepic":"upload failed"}');
-            } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-                //echo('{"profilepic":"upload failed"}');
-            }
-            /*
-            $jsonBody = file_get_contents('php://input');
-            if(strlen($requestParams) > 1){
-                $jobSeekerJSON = json_decode($jsonBody, TRUE);
-                //var_dump($jobSeekerJSON);
-                $user_id = Utils::getParameterFromRequest($requestParams,4);
-                $jobSeekerProfile = new JobSeekerProfile();
-                $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["profile_link"]);
-                $jobSeekerProfile->setJob_seeker_profile_accomp($jobSeekerJSON["profile_accomp"]);
-                $jobSeekerProfile->setJob_seeker_profile_best_exp($jobSeekerJSON["profile_best_exp"]);
-                $jobSeekerProfile->setJob_seeker_profile_worst_exp($jobSeekerJSON["profile_worst_exp"]);
-                $jobSeekerProfile->setJob_seeker_profile_superpower($jobSeekerJSON["profile_superpower"]);
-                //$user = new User();
-                $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile,$user_id);
                 
-                //$json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($result);
             }else{
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }
-             */
             break;
         case 'PATCH':
             //Here Handle PATCH Request
@@ -119,7 +76,7 @@ header("Content-Type: application/json; charset=utf-8");
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");
-            header("Access-Control-Allow-Methods: GET,POST,PUT");
+            header("Access-Control-Allow-Methods: GET,PUT");
             echo("");
             break;
     }

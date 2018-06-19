@@ -1,7 +1,7 @@
 <?php
 
-require_once '../model/JobPosterApplication.php';
-require_once '../model/ApplicationQuestionAnswer.php';
+require_once __DIR__ . '/../model/JobPosterApplication.php';
+require_once __DIR__ . '/../model/ApplicationQuestionAnswer.php';
 
 class JobApplicationWithAnswers implements JsonSerializable {
     

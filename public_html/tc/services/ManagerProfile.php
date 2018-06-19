@@ -1,23 +1,13 @@
 <?php
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
+    require_once __DIR__ . '/../config/php.config.inc';
 
-    if (!isset($_SESSION)) {
-        session_start();
-    }
-
-    /*set api path*/
-    if (!defined('ROOT_PATH')) {
-        define('ROOT_PATH', dirname(__DIR__) . '/');
-    }
-
-    require_once ROOT_PATH . 'controller/ManagerProfileController.php';
-    require_once ROOT_PATH . 'model/ManagerProfile.php';
-    require_once ROOT_PATH . 'model/ManagerProfileDetailsNonLocalized.php';
-    require_once ROOT_PATH . 'utils/Utils.php';
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../controller/ManagerProfileController.php';
+    require_once __DIR__ . '/../model/ManagerProfile.php';
+    require_once __DIR__ . '/../model/ManagerProfileDetailsNonLocalized.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -32,7 +22,9 @@
     $user_id_param_index = 4;
     switch ($requestMethod) {
         case 'GET':
-            if (strlen($requestParams) > 1) {
+            if(strlen($requestParams) > 1){
+                //Manager Profile is public, no authentication needed
+                
                 $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
                 $managerProfile = new ManagerProfile();
                 $managerProfile->setUser_id($user_id);
@@ -65,6 +57,13 @@
                 $managerProfile->setUser_manager_profile_twitter($managerProfileJSON["user_manager_profile_twitter"]);
                 $managerProfile->setUser_manager_profile_linkedin($managerProfileJSON["user_manager_profile_linkedin"]);
                 //var_dump($managerProfile);
+                
+                //Admins, and the owning manager have permission to modify
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                //TODO: add permission for owning manager
+                AuthenticationController::validateUser($userPermissions);
+                
 
                 $en = "en_CA";
                 $fr = "fr_CA";

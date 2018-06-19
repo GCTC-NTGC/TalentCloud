@@ -1,11 +1,11 @@
 <?php
 
-require_once '../model/JobPosterApplication.php';
-require_once '../model/JobSeekerProfile.php';
-require_once '../model/ApplicationQuestionAnswer.php';
-require_once '../model/SkillDeclaration.php';
-require_once '../model/ApplicationMicroReference.php';
-require_once '../model/ApplicationWorkSample.php';
+require_once __DIR__ . '/../model/JobPosterApplication.php';
+require_once __DIR__ . '/../model/JobSeekerProfile.php';
+require_once __DIR__ . '/../model/ApplicationQuestionAnswer.php';
+require_once __DIR__ . '/../model/SkillDeclaration.php';
+require_once __DIR__ . '/../model/ApplicationMicroReference.php';
+require_once __DIR__ . '/../model/ApplicationWorkSample.php';
 
 class FullJobApplication implements JsonSerializable {
     

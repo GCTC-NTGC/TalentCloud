@@ -357,10 +357,6 @@ FileUploadAPI.makeProfilePicUploadRequest = function(fileType, fileName){
     xhr.setRequestHeader("Content-type",fileType);
     xhr.setRequestHeader("X-File-Name", fileName);
     xhr.setRequestHeader("Accept","application/json");
-    if (UserAPI.hasAuthToken()) {
-        var authToken = UserAPI.getAuthTokenAsJSON()
-        xhr.setRequestHeader("x-access-token", authToken.access_token);
-    }
     return xhr;
 };
 

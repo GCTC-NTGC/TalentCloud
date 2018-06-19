@@ -6,29 +6,13 @@ RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 RewriteBase /tc/
 
 #non localized services - public
-RewriteRule ^api/v1/authenticate services/Authentication.php
-RewriteRule ^api/v1/user/register services/User.php
 RewriteRule ^api/v1/profilePic/([0-9]{1,10}) services/ProfilePic.php
-RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
 RewriteRule ^api/v1/getManagerProfile/([0-9]{1,10}) services/ManagerProfile.php
 RewriteRule ^api/v1/getWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
 RewriteRule ^api/v1/getWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 RewriteRule ^api/v1/getTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
-RewriteRule ^api/v1/getDeclarationsForApplication/([0-9]{1,10}) services/ApplicationDeclarationService.php
-RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationDeclarationService.php
-RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationDeclarationService.php
-RewriteRule ^api/v1/putWorkSampleForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationWorkSample.php
-RewriteRule ^api/v1/deleteWorkSampleForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationWorkSample.php
-RewriteRule ^api/v1/getLatestDeclarationForUser/([0-9]{1,10})/forSkill/([0-9a-zA-Z$_.+!*'(),-]+) services/SkillDeclarationByUser.php
-RewriteRule ^api/v1/putMicroReferenceForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationMicroReferenceService.php
-RewriteRule ^api/v1/deleteMicroReferenceForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationMicroReferenceService.php
 
 #non localized services - secured
-RewriteRule ^api/v1/getUser/([0-9]{1,10}) services/User.php
-RewriteRule ^api/v1/user/([0-9]{1,10}) services/User.php
-RewriteRule ^api/v1/user/validateEmail services/User.php
-RewriteRule ^api/v1/user/update services/User.php
-RewriteRule ^api/v1/locale services/Locale.php
 RewriteRule ^api/v1/getJobSeekers services/JobSeekers.php
 RewriteRule ^api/v1/getJobSeekerProfileByUser/([0-9]{1,10}) services/JobSeekerProfile.php
 RewriteRule ^api/v1/putJobSeekerProfileByUser/([0-9]{1,10}) services/JobSeekerProfile.php
@@ -42,6 +26,15 @@ RewriteRule ^api/v1/createJobPoster services/JobPoster.php
 RewriteRule ^api/v1/putWorkEnvironmentByManagerProfile/([0-9]{1,10}) services/WorkEnvironmentByManagerProfile.php
 RewriteRule ^api/v1/putWorkplacePhotoByManagerProfileAndName/([0-9]{1,10})/([a-zA-Z0-9_-]+) services/WorkplacePhoto.php
 RewriteRule ^api/v1/putTeamCultureByManagerProfile/([0-9]{1,10}) services/TeamCultureNonLocalized.php
+RewriteRule ^api/v1/postManagerProfile services/ManagerProfile.php
+RewriteRule ^api/v1/getDeclarationsForApplication/([0-9]{1,10}) services/ApplicationDeclarationService.php
+RewriteRule ^api/v1/putDeclarationForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationDeclarationService.php
+RewriteRule ^api/v1/deleteDeclarationForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationDeclarationService.php
+RewriteRule ^api/v1/putWorkSampleForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationWorkSample.php
+RewriteRule ^api/v1/deleteWorkSampleForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationWorkSample.php
+RewriteRule ^api/v1/getLatestDeclarationForUser/([0-9]{1,10})/forSkill/([0-9a-zA-Z$_.+!*'(),-]+) services/SkillDeclarationByUser.php
+RewriteRule ^api/v1/putMicroReferenceForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationMicroReferenceService.php
+RewriteRule ^api/v1/deleteMicroReferenceForApplication/([0-9]{1,10})/forCriteria/([0-9]{1,10}) services/ApplicationMicroReferenceService.php
 
 #common localized services - public
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getContent services/Content.php
@@ -66,7 +59,7 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getTeamCultureByManagerProfile/([0-9
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllWorkSamplesForApplication/([0-9]{1,10}) services/ApplicationWorkSample.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getAllMicroReferencesForApplication/([0-9]{1,10}) services/ApplicationMicroReferenceService.php
 
-#admin localized services - secured
+#localized services - secured
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/dashboard/([0-9]{1,10}) services/Dashboard.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getFullApplicationForJob/([0-9]{1,10})/forUser/([0-9]{1,10}) services/FullJobApplicationByJobAndUser.php
 RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getFullApplication/([0-9]{1,10}) services/FullJobApplication.php

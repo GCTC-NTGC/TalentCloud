@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-require_once '../model/JobSeekerProfileAnswer.php';
+require_once __DIR__ . '/../model/JobSeekerProfileAnswer.php';
 
 class JobSeekerProfile implements JsonSerializable {
     

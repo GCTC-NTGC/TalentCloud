@@ -3,23 +3,19 @@
  * JobSeekerProfile REST API
  */
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /*set api path*/
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../controller/JobSeekerController.php';
-require_once '../model/JobSeekerProfile.php';
-require_once '../model/JobSeekerProfileAnswer.php';
-require_once '../model/User.php';
-require_once '../utils/Utils.php';
+require_once __DIR__ . '/../config/constants.config.inc';
+require_once __DIR__ . '/../controller/JobSeekerController.php';
+require_once __DIR__ . '/../controller/AuthenticationController.php';
+require_once __DIR__ . '/../model/JobSeekerProfile.php';
+require_once __DIR__ . '/../model/JobSeekerProfileAnswer.php';
+require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../model/UserPermission.php';
+require_once __DIR__ . '/../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
 $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -32,8 +28,15 @@ header("Content-Type: application/json; charset=utf-8");
     
     switch ($requestMethod) {
         case 'GET':
-            if (strlen($requestParams) > 1) {
-                $user_id = Utils::getParameterFromRequest($requestParams, 4);
+            if(strlen($requestParams) > 1){
+                $user_id = Utils::getParameterFromRequest($requestParams,4);
+                
+                //Admins, and the owning applicant have permission to view
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $user_id);
+                AuthenticationController::validateUser($userPermissions);
+                
                 $result = JobSeekerController::getJobSeekerProfileByUserId(intval($user_id));
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -70,7 +73,14 @@ header("Content-Type: application/json; charset=utf-8");
             if (strlen($requestParams) > 1) {
                 $jobSeekerJSON = json_decode($jsonBody, TRUE);
                 //var_dump($jobSeekerJSON);
-                $user_id = Utils::getParameterFromRequest($requestParams, 4);
+                $user_id = Utils::getParameterFromRequest($requestParams,4);
+                
+                //Admins, and the owning applicant have permission to modify
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $user_id);
+                AuthenticationController::validateUser($userPermissions);
+                
                 $jobSeekerProfile = new JobSeekerProfile();
                 $jobSeekerProfile->setJob_seeker_profile_link($jobSeekerJSON["personal_link"]);
                 $jobSeekerProfile->setJob_seeker_profile_twitter_link($jobSeekerJSON["twitter_username"]);
@@ -91,9 +101,9 @@ header("Content-Type: application/json; charset=utf-8");
                 //$json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($result);
             } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }
             break;
         case 'PATCH':

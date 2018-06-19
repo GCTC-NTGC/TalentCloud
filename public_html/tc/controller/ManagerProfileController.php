@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-require_once '../model/ManagerProfile.php';
-require_once '../model/ManagerProfileDetails.php';
-require_once '../model/ManagerProfileDetailsNonLocalized.php';
-require_once '../model/ManagerProfileWithDetails.php';
-require_once '../model/User.php';
-require_once '../model/LocalizedValues.php';
-require_once '../controller/UserController.php';
-require_once '../controller/TeamCultureController.php';
-require_once '../controller/WorkEnvironmentController.php';
-require_once '../dao/ManagerProfileDAO.php';
+require_once __DIR__ . '/../model/ManagerProfile.php';
+require_once __DIR__ . '/../model/ManagerProfileDetails.php';
+require_once __DIR__ . '/../model/ManagerProfileDetailsNonLocalized.php';
+require_once __DIR__ . '/../model/ManagerProfileWithDetails.php';
+require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../model/LocalizedValues.php';
+require_once __DIR__ . '/../controller/UserController.php';
+require_once __DIR__ . '/../controller/TeamCultureController.php';
+require_once __DIR__ . '/../controller/WorkEnvironmentController.php';
+require_once __DIR__ . '/../dao/ManagerProfileDAO.php';
 
 class ManagerProfileController {
 

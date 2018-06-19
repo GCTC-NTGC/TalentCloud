@@ -1,21 +1,16 @@
 <?php
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
 
-    require_once '../controller/JobPosterController.php';
-    require_once '../model/JobPosterNonLocalized.php';
-    require_once '../model/JobPosterQuestion.php';
-    require_once '../utils/Utils.php';
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../controller/JobPosterController.php';
+    require_once __DIR__ . '/../model/JobPosterNonLocalized.php';
+    require_once __DIR__ . '/../model/JobPosterQuestion.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -30,7 +25,10 @@
     switch ($requestMethod) {
         case 'GET':
 
-            if (strlen($requestParams) > 1) {
+            if(strlen($requestParams) > 1){
+                
+                //Job Posters are publicly viewable, no authentication
+                
                 $locale = Utils::getLocaleFromRequest($requestParams);
                 $jobPosterId = Utils::getParameterFromRequest($requestParams, 5);
                 $result = JobPosterController::getJobPosterById($locale, $jobPosterId);
@@ -47,6 +45,12 @@
         case 'POST':
             header("Accept: application/json");
             $jsonBody = file_get_contents('php://input');
+            
+            //Must be Admin or Manager to post job poster
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            //TODO: add manager permission
+            AuthenticationController::validateUser($userPermissions);
 
             if (strlen($jsonBody) > 1) {
                 $jobPosterJSON = json_decode($jsonBody, TRUE);

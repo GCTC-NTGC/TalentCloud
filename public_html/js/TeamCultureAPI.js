@@ -71,10 +71,6 @@ TeamCultureAPI.sendHttpRequest = function(url, restMethod, payload, responseCall
 
     request.setRequestHeader("Content-type", "application/json");
     request.setRequestHeader("Accept", "application/json");
-    if (UserAPI.hasSessionUser()) {
-        var authToken = UserAPI.getAuthToken();
-        request.setRequestHeader("Authorization", "Bearer " + authToken);
-    }
 
     request.addEventListener("progress", DataAPI.updateProgress, false);
     request.addEventListener("error", DataAPI.transferFailed, false);

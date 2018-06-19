@@ -1,8 +1,8 @@
 <?php
 
-require_once '../model/TeamCulture.php';
-require_once '../model/TeamCultureNonLocalized.php';
-require_once '../dao/TeamCultureDAO.php';
+require_once __DIR__ . '/../model/TeamCulture.php';
+require_once __DIR__ . '/../model/TeamCultureNonLocalized.php';
+require_once __DIR__ . '/../dao/TeamCultureDAO.php';
 
 class TeamCultureController {
     
