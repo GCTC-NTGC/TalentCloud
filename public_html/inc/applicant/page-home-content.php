@@ -287,6 +287,17 @@
                     <input class="form__input" type="text"></input>
                 </div>
 
+                <div class="form__input-wrapper--select">
+                    <label class="form__label">Select Input</label>
+                    <div class="form__select-wrapper">
+                        <select class="form__input">
+                            <option>Option 01</option>
+                            <option>Option 02</option>
+                            <option>Option 03</option>
+                        </select>
+                    </div>
+                </div>
+
             </form>
 
         </div>

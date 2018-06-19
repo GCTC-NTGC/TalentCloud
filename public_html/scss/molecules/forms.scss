@@ -148,7 +148,7 @@ input[type=button],input[type=submit],input[type=reset]{
 //     &:focus {
 //         color: white;
 //         background: $palette-grey--dark;
-//         border: 2px solid $palette-yellow--dark;
+//         border: 1px solid $palette-yellow--dark;
 //     }
 
 // }
@@ -158,54 +158,54 @@ input[type=button],input[type=submit],input[type=reset]{
 //     left: -1000vh;
 // }
 
-// .form__radio-group {
-//     position: relative;
-// }
+.form__radio-group {
+    position: relative;
+}
 
-// .form__radio-group-label {
-//     cursor: pointer;
-//     position: relative;
+.form__radio-group-label {
+    cursor: pointer;
+    position: relative;
 
-//     &:first-of-type {
+    &:first-of-type {
 
-//         .form__radio-group-span {
-//             border-left: 1px solid $palette-grey--dark;
-//         }
+        .form__radio-group-span {
+            border-left: 1px solid $palette-grey--dark;
+        }
 
-//     }
+    }
 
-// }
+}
 
-// .form__radio-group-input {
-//     position: absolute;
-//     left: -1000vh;
+.form__radio-group-input {
+    position: absolute;
+    left: -1000vh;
 
-//     &:focus + .form__radio-group-span {
-//         border-color: $palette-blue;
-//     }
+    &:focus + .form__radio-group-span {
+        border-color: $palette-blue;
+    }
 
-//     &:checked + .form__radio-group-span{
-//         background: $palette-blue--semidark;
-//         // border-color: $palette-grey--dark;
-//         color: $white;
-//         //font-weight: 700;
-//     }
+    &:checked + .form__radio-group-span{
+        background: $palette-blue--semidark;
+        // border-color: $palette-grey--dark;
+        color: $white;
+        //font-weight: 700;
+    }
 
-// }
+}
 
-// .form__radio-group-span {
-//     background: $white;
-//     border-top: 1px solid $palette-grey--dark;
-//     border-right: 1px solid $palette-grey--dark;
-//     border-bottom: 1px solid $palette-grey--dark;
-//     border-left: none;
-//     color: $black;
-//     display: block;
-//     font-size: 12px;
-//     font-weight: 400;
-//     padding: 1rem;
-//     text-align: center;
-// }
+.form__radio-group-span {
+    background: $white;
+    border-top: 1px solid $palette-grey--dark;
+    border-right: 1px solid $palette-grey--dark;
+    border-bottom: 1px solid $palette-grey--dark;
+    border-left: none;
+    color: $black;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 1rem;
+    text-align: center;
+}
 
 /* New Forms ================================================================ */
 .form__wrapper {
@@ -273,6 +273,14 @@ input[type=button],input[type=submit],input[type=reset]{
 
     }
 
+    [class*="form__input-wrapper"] {
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+    }
+
 }
 
     [class*="form__input-wrapper"] {
@@ -281,17 +289,18 @@ input[type=button],input[type=submit],input[type=reset]{
         width: 100%;
 
         &[class*="float"] {
-            margin: 2rem 0;
+            margin: 3rem 0;
 
             .form__label {
-                color: rgba(30, 30, 30, 1);
+                color: rgba(100, 100, 100, 1);
                 font-size: 16px;
+                line-height: 1;
                 margin: 0;
-                padding: 1rem;
+                padding: .5rem;
                 pointer-events: none;
                 position: absolute;
-                top: 1.4rem;
-                left: 1.2rem;
+                top: 2rem;
+                left: 1.6rem;
                 transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
             }
 
@@ -300,9 +309,10 @@ input[type=button],input[type=submit],input[type=reset]{
                 &[type="text"],
                 &[type="password"],
                 &[type="email"],
-                &[type="number"] {
+                &[type="number"],
+                &[type="url"] {
                     appearance: none;
-                    border: 2px solid rgba(50, 50, 50, 1);
+                    border: 1px solid rgba(50, 50, 50, 1);
                     border-radius: 3px;
                     font-size: 16px;
                     line-height: 1;
@@ -312,7 +322,7 @@ input[type=button],input[type=submit],input[type=reset]{
                     width: 100%;
 
                     &:focus {
-                        border: 2px solid $palette-blue !important;
+                        border: 1px solid $palette-blue !important;
                         transition: border-color .2s ease;
                     }
 
@@ -322,24 +332,25 @@ input[type=button],input[type=submit],input[type=reset]{
 
             .form__textarea {
                 appearance: none;
-                border: 2px solid rgba(50, 50, 50, 1);
+                border: 1px solid rgba(50, 50, 50, 1);
                 border-radius: 3px;
                 font-size: 16px;
                 line-height: 23px;
                 max-width: 100%;
                 min-height: 10rem;
                 min-width: 100%;
+                outline: none;
                 padding: 2rem;
                 transition: border-color .2s ease;
                 width: 100%;
 
                 &:focus {
-                    border: 2px solid $palette-blue;
+                    border: 1px solid $palette-blue;
                     transition: border-color .2s ease;
                 }
 
                 &:invalid {
-                    border: 2px solid red;
+                    border: 1px solid red;
                     transition: border-color .2s ease;
                 }
 
@@ -350,7 +361,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 .form__label {
                     background: white;
                     font-size: 12px;
-                    top: -1.8rem;
+                    top: -1rem;
                     transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
                 }
 
@@ -359,17 +370,17 @@ input[type=button],input[type=submit],input[type=reset]{
             &.valid {
 
                 &:before {
-                    color: rgba(67, 197, 69, 1);
-                    content: "\f00c";
-                    display: block;
-                    font: normal normal normal 14px/1 FontAwesome;
-                    font-size: 16px;
-                    position: absolute;
-                    top: 50%;
-                    right: 2rem;
-                    text-rendering: auto;
-                    transform: translate(0, -50%);
-                    -webkit-font-smoothing: antialiased;
+                    // color: rgba(67, 197, 69, 1);
+                    // content: "\f00c";
+                    // display: block;
+                    // font: normal normal normal 14px/1 FontAwesome;
+                    // font-size: 16px;
+                    // position: absolute;
+                    // top: 50%;
+                    // right: 2rem;
+                    // text-rendering: auto;
+                    // transform: translate(0, -50%);
+                    // -webkit-font-smoothing: antialiased;
                 }
 
                 .form__input {
@@ -377,15 +388,16 @@ input[type=button],input[type=submit],input[type=reset]{
                     &[type="text"],
                     &[type="password"],
                     &[type="email"],
-                    &[type="number"] {
-                        border: 2px solid rgba(67, 197, 69, 1);
+                    &[type="number"],
+                    &[type="url"] {
+                        border: 1px solid rgba(67, 197, 69, 1);
                         transition: border-color .2s ease;
                     }
                     
                 }
 
                 .form__textarea {
-                    border: 2px solid rgba(67, 197, 69, 1);
+                    border: 1px solid rgba(67, 197, 69, 1);
                     transition: border-color .2s ease;
                 }
 
@@ -412,15 +424,16 @@ input[type=button],input[type=submit],input[type=reset]{
                     &[type="text"],
                     &[type="password"],
                     &[type="email"],
-                    &[type="number"] {
-                        border: 2px solid red;
+                    &[type="number"],
+                    &[type="url"] {
+                        border: 1px solid red;
                         transition: border-color .2s ease;
                     }
                     
                 }
 
                 .form__textarea {
-                    border: 2px solid red;
+                    border: 1px solid red;
                     transition: border-color .2s ease;
                 }
 
@@ -429,7 +442,7 @@ input[type=button],input[type=submit],input[type=reset]{
         }
 
         &[class*="range"] {
-            margin: 2rem 0 3rem;
+            margin: 3rem 0 4rem;
 
             .form__label {
                 color: rgba(50, 50, 50, 1);
@@ -502,24 +515,25 @@ input[type=button],input[type=submit],input[type=reset]{
         }
 
         &[class*="date"] {
-            margin: 2rem 0;
+            margin: 3rem 0;
 
             .form__label {
                 background: white;
-                color: rgba(30, 30, 30, 1);
+                color: rgba(100, 100, 100, 1);
                 font-size: 12px;
+                line-height: 1;
                 margin: 0;
-                padding: 1rem;
+                padding: .5rem;
                 pointer-events: none;
                 position: absolute;
-                top: -1.8rem;
-                left: 1.2rem;
+                top: -1rem;
+                left: 1.6rem;
                 transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
             }
 
             .form__input {
                 appearance: none;
-                border: 2px solid rgba(50, 50, 50, 1);
+                border: 1px solid rgba(50, 50, 50, 1);
                 border-radius: 3px;
                 font-size: 16px;
                 line-height: 1;
@@ -529,7 +543,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 width: 100%;
 
                 &:focus {
-                    border: 2px solid $palette-blue !important;
+                    border: 1px solid $palette-blue !important;
                     transition: border-color .2s ease;
                 }
 
@@ -552,7 +566,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 }
 
                 .form__input {
-                    border: 2px solid rgba(67, 197, 69, 1);
+                    border: 1px solid rgba(67, 197, 69, 1);
                     transition: border-color .2s ease;
                 }
 
@@ -575,7 +589,65 @@ input[type=button],input[type=submit],input[type=reset]{
                 }
 
                 .form__input {
-                    border: 2px solid red;
+                    border: 1px solid red;
+                    transition: border-color .2s ease;
+                }
+
+            }
+
+        }
+
+        &[class*="select"] {
+            margin: 3rem 0;
+
+            .form__label {
+                background: white;
+                color: rgba(100, 100, 100, 1);
+                font-size: 12px;
+                line-height: 1;
+                margin: 0;
+                padding: .5rem;
+                pointer-events: none;
+                position: absolute;
+                top: -1rem;
+                left: 1.6rem;
+                transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
+            }
+
+            .form__select-wrapper {
+
+                &:before {
+                    color: rgba(50, 50, 50, 1);
+                    content: "\f078";
+                    display: block;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    font-size: 16px;
+                    pointer-events: none;
+                    position: absolute;
+                    top: 50%;
+                    right: 2rem;
+                    text-rendering: auto;
+                    transform: translate(0, -50%);
+                    -webkit-font-smoothing: antialiased;
+                }
+
+            }
+
+            .form__input {
+                appearance: none;
+                -webkit-appearance: none;
+                border: 1px solid rgba(50, 50, 50, 1);
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 16px;
+                line-height: 1.2;
+                outline: none;
+                padding: 2rem 5rem 2rem 2rem;
+                transition: border-color .2s ease;
+                width: 100%;
+
+                &:focus {
+                    border: 1px solid $palette-blue !important;
                     transition: border-color .2s ease;
                 }
 

@@ -1,0 +1,50 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Accordions
+
+============================================================================= */
+
+.accordion__wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.accordion__trigger {
+    cursor: pointer;
+    padding-right: 6rem;
+    position: relative;
+    width: 100%;
+
+    &.active {
+
+        .fa-chevron-down {
+            transform: translate(0, -50%) rotate(180deg);
+            transition: transform .2s ease;
+        }
+
+    }
+
+    .fa-chevron-down {
+        font-size: 2rem;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        right: 2rem;
+        transform: translate(0, -50%);
+        transition: transform .2s ease;
+    }
+
+}
+
+.accordion__content {
+    display: none;
+    position: relative;
+    width: 100%;
+
+    &.active {
+        display: block;
+    }
+
+}
