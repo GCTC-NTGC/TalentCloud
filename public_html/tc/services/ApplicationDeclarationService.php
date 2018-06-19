@@ -4,7 +4,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -24,16 +24,16 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+            if (strlen($requestParams) > 1) {
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
                 $result = SkillDeclarationController::getAllSkillDeclarationsForJobApplication($jobPosterApplicationId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -59,7 +59,7 @@
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -70,9 +70,9 @@
         case 'DELETE':
             //TODO: authenticate user
             
-            if(strlen($requestParams) > 1){
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
-                $criteriaId = Utils::getParameterFromRequest($requestParams,6);
+            if (strlen($requestParams) > 1) {
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
+                $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
                 
                 if (JobApplicationController::jobApplicationIsDraft($jobPosterApplicationId)) {
                     $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
@@ -81,12 +81,12 @@
                     echo($json);
                 } else {
                     header('HTTP/1.0 403 Forbidden');
-                    echo json_encode(array("failed"=>"Only Draft applications can be modified."),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>"Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                     exit;
                 }
                
                 
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -95,9 +95,9 @@
         case 'PUT':
             //TODO: authenticate user
             
-            if(strlen($requestParams) > 1){
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
-                $criteriaId = Utils::getParameterFromRequest($requestParams,6);
+            if (strlen($requestParams) > 1) {
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
+                $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
                 
                 //TODO: ensure application exists
                 //TODO: ensure criteriaId is valid for application
@@ -119,11 +119,11 @@
                     echo($json);
                 } else {
                     header('HTTP/1.0 403 Forbidden');
-                    echo json_encode(array("failed"=>"Only Draft applications can be modified."),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>"Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                     exit;
                 }        
                 
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

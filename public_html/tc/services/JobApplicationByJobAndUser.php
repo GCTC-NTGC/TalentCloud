@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -26,28 +26,28 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 //TODO: authenticate user
                 
-                $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
-                $userId = Utils::getParameterFromRequest($requestParams,6);
+                $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
+                $userId = Utils::getParameterFromRequest($requestParams, 6);
                 
                 $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersByJobAndUser($jobPosterId, $userId);
                 
                 if ($jobApplicationWithAnswers === false) {
                     //job application not found
                     header('HTTP/1.0 404 Not Found');
-                    echo json_encode(array("failed"=>"Requested application does not exist."),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>"Requested application does not exist."), JSON_FORCE_OBJECT);
                     exit;
                 }
                 
                 $json = json_encode($jobApplicationWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -60,8 +60,8 @@
             break;
         case 'PUT':
             //TODO: Authenticate that the submitting user owns job seeker profile
-            $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
-            $userId = Utils::getParameterFromRequest($requestParams,6);
+            $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
+            $userId = Utils::getParameterFromRequest($requestParams, 6);
             
             //Assemble JobApplicationWithAnswers object from JSON payload
             $jsonBody = file_get_contents('php://input');
@@ -77,7 +77,7 @@
             $jobPosterApplication->setJob_poster_application_status_id($jsonJobPosterApplication["job_poster_application_status_id"]);
             
             $questionAnswers = [];
-            foreach($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
+            foreach ($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
                 $questionAnswer = new ApplicationQuestionAnswer();
                 $questionAnswer->setJob_poster_question_id($jsonQA['job_poster_question_id']);
                 $questionAnswer->setAnswer($jsonQA['answer']);
@@ -103,7 +103,7 @@
                 } else {
                     //Previous application exist, but is not a draft, so cannot be updated
                     header('HTTP/1.0 403 Forbidden');
-                    echo json_encode(array("failed"=>"Only Draft applications can be modified."),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>"Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                     exit;
                 } 
             } else {

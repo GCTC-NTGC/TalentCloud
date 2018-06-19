@@ -10,10 +10,10 @@
 $path = dirname(getcwd());
 
 //var_dump(ROOT);
-require_once $path.'/config/auth.config.inc';
-require_once $path.'/model/User.php';
-require_once $path.'/controller/UserController.php';
-require_once $path.'/utils/Utils.php';
+require_once $path . '/config/auth.config.inc';
+require_once $path . '/model/User.php';
+require_once $path . '/controller/UserController.php';
+require_once $path . '/utils/Utils.php';
 
 /**
  * Description of JWTUtils
@@ -27,7 +27,7 @@ class JWTUtils {
      * @param User $user
      * @return type
      */
-    public static function generateJWT(User $user){
+    public static function generateJWT(User $user) {
         $key = SECRET;
         //var_dump($key);
         $header = JWTUtils::setHeader();
@@ -41,7 +41,7 @@ class JWTUtils {
      * 
      * @return type
      */
-    public static function setHeader(){
+    public static function setHeader() {
         
         $header_content = array("alg"=>"HS256", "typ"=>"JWT");
         
@@ -55,10 +55,10 @@ class JWTUtils {
      * 
      * @param type $token
      */
-    public static function getPayloadFromToken($jwt){
+    public static function getPayloadFromToken($jwt) {
         
         $jwt_elements = explode('.', $jwt);
-        $payload = json_decode(Utils::base64url_decode($jwt_elements[1]),TRUE);
+        $payload = json_decode(Utils::base64url_decode($jwt_elements[1]), TRUE);
         //var_dump($payload);
         return $payload;
     }
@@ -68,15 +68,15 @@ class JWTUtils {
      * @param User $user
      * @return type
      */
-    public static function setPayload(User $user){
+    public static function setPayload(User $user) {
         
         $user_id = $user->getUser_id();
 
         $iat = time();
         
-        $expiryTime = time()+60*60*24; //expires in one day
+        $expiryTime = time() + 60*60*24; //expires in one day
         
-        $payload_content = array("iat"=>$iat,"iss"=>"https://talentcloud.localhost","exp"=>$expiryTime,"user_id"=>$user_id);
+        $payload_content = array("iat"=>$iat, "iss"=>"https://talentcloud.localhost", "exp"=>$expiryTime, "user_id"=>$user_id);
         
         $payload = Utils::base64url_encode(json_encode($payload_content));
 
@@ -91,9 +91,9 @@ class JWTUtils {
      * @param type $key
      * @return type
      */
-    public static function setSignature($header, $payload, $key){
+    public static function setSignature($header, $payload, $key) {
         
-        $unsignedToken = $header.'.'.$payload;
+        $unsignedToken = $header . '.' . $payload;
         
         $encoded_key = Utils::base64url_encode($key);
         
@@ -112,9 +112,9 @@ class JWTUtils {
      * @param type $signature
      * @return string
      */
-    public static function setToken($header,$payload,$signature){
+    public static function setToken($header, $payload, $signature) {
         
-        $token = $header.'.'.$payload.'.'.$signature;
+        $token = $header . '.' . $payload . '.' . $signature;
         
         return $token;
         
@@ -125,7 +125,7 @@ class JWTUtils {
      * @param type $headers
      * @return type
      */
-    public static function getTokenFromHeader($headers){
+    public static function getTokenFromHeader($headers) {
         $token = null;
         if (!empty($headers)) {
             if (preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $token)) {
@@ -140,7 +140,7 @@ class JWTUtils {
      * @param type $headers
      * @return type
      */
-    public static function getTokenFromRequest($authHeader){
+    public static function getTokenFromRequest($authHeader) {
         $token = null;
         if (!empty($authHeader)) {
             if (preg_match('/Bearer\s(\S+)/', $authHeader, $token)) {
@@ -155,7 +155,7 @@ class JWTUtils {
      * @param type $jwt
      * @return boolean
      */
-    public static function validateJWT($jwt, $user){
+    public static function validateJWT($jwt, $user) {
         $isValid = true;
         
         // Split jwt string by '.' 
@@ -178,8 +178,8 @@ class JWTUtils {
         $recieved_signature = Utils::base64url_decode($jwt_elements[2]);
         
         // checking if the generated signature is equal to the received signature
-        if($isValid){
-            if(hash_equals($evalSignature, $recieved_signature)) {
+        if ($isValid) {
+            if (hash_equals($evalSignature, $recieved_signature)) {
                 // If everything worked fine, if the signature is ok and the payload was not modified you should get a success message and the ecryption hashes match
                 $isValid = true;   
             }
@@ -189,7 +189,7 @@ class JWTUtils {
         
     }
     
-     public static function getOpenIdUserFromJWT($jwt) { 
+        public static function getOpenIdUserFromJWT($jwt) { 
         if (self::validateJWT($jwt, null)) { 
             $openId = self::getPayloadFromToken($jwt);
             if ($openId['sub']) {
@@ -199,13 +199,13 @@ class JWTUtils {
             }    
         } 
         return null; 
-     }
+        }
     
-    public static function isExpired($exp){
+    public static function isExpired($exp) {
         return false;
     }
     
-    public static function issuedBy($iss){
+    public static function issuedBy($iss) {
         return true;
     }
     

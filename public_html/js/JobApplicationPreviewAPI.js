@@ -53,6 +53,10 @@ JobApplicationPreviewAPI.showJobApplicationPreviewById = function (jobApplicatio
     applicationHeroTitle.classList.remove("hidden");
     applicationHeroTitle.setAttribute("aria-hidden", "false");
     applicationHeroMetadata.classList.remove("hidden");
+
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+    
     // Google Analytics
 
     ga('set', 'page', '/apply/preview/' + jobApplicationId);

@@ -11,14 +11,14 @@
  *
  * @author GBowden
  */
-class JobPosterApplication implements JsonSerializable{
+class JobPosterApplication implements JsonSerializable {
     
     private $job_poster_application_id;
     private $application_job_poster_id;
     private $application_job_seeker_profile_id;
     private $job_poster_application_status_id;
     
-    public function __construct($job_poster_application_id=null,$application_job_poster_id=null,$application_job_seeker_profile_id=null, $job_poster_application_status_id=null) {
+    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $application_job_seeker_profile_id = null, $job_poster_application_status_id = null) {
         $this->job_poster_application_id = $job_poster_application_id;
         $this->application_job_poster_id = $application_job_poster_id;
         $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
@@ -29,7 +29,7 @@ class JobPosterApplication implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

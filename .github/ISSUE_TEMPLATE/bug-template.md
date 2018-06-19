@@ -4,7 +4,7 @@ about: This template is for bug reports.
 
 ---
 
-Please name the task using the following information: **Browser - FED/BED - Name**. Give this issue the "**Bug**" label.
+Please name the task using the following information: **Browser - Name**. Give this issue a "FED" or "BED" label, alongside the "**Bug**" label.
 
 # Description
 A clear and concise description of what the bug is.
@@ -15,6 +15,9 @@ Steps to reproduce the behavior:
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
+
+# Images
+Place image attachments (wireframes, etc.) here.
 
 # Additional Context
 Add any other context about the problem here.

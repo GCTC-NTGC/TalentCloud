@@ -14,12 +14,12 @@ class Content implements JsonSerializable {
 
     protected $content;
 
-    function __construct(){
+    function __construct() {
         return array();
     }
     
     public function jsonSerialize() {
-        return [ 'content' => $this->content ];
+        return ['content' => $this->content];
     }
     
     function getContent() {

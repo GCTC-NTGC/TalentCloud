@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -30,7 +30,7 @@ class SkillDeclarationDAO extends BaseDAO {
      * @param type $jobPosterApplicationId
      */
     public static function getSkillDeclarationsForJobApplication($jobPosterApplicationId) {
-         $link = BaseDAO::getConnection();
+            $link = BaseDAO::getConnection();
         
         $sqlStr = "
             SELECT 

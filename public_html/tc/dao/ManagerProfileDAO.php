@@ -11,22 +11,22 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
 /*set api path*/
-if(!defined('ROOT_PATH')){
+if (!defined('ROOT_PATH')) {
     define('ROOT_PATH', dirname(__DIR__) . '/');
 }
 
 /** Model Classes */
-require_once ROOT_PATH.'dao/BaseDAO.php';
-require_once ROOT_PATH.'model/ManagerProfile.php';
-require_once ROOT_PATH.'model/ManagerProfileDetails.php';
-require_once ROOT_PATH.'model/ManagerProfileDetailsNonLocalized.php';
+require_once ROOT_PATH . 'dao/BaseDAO.php';
+require_once ROOT_PATH . 'model/ManagerProfile.php';
+require_once ROOT_PATH . 'model/ManagerProfileDetails.php';
+require_once ROOT_PATH . 'model/ManagerProfileDetailsNonLocalized.php';
 
-class ManagerProfileDAO extends BaseDAO{
+class ManagerProfileDAO extends BaseDAO {
 
     /**
      *
@@ -34,7 +34,7 @@ class ManagerProfileDAO extends BaseDAO{
      * @param ManagerProfileDetails $managerProfileDetails
      * @return int $profileId
      */
-    public static function createManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
+    public static function createManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails) {
 
         $link = BaseDAO::getConnection();
 
@@ -43,7 +43,7 @@ class ManagerProfileDAO extends BaseDAO{
         $user_manager_profile_linkedin = $managerProfile->getUser_manager_profile_linkedin();
         $user_id = $managerProfile->getUser_id();
 
-        $sqlStr="INSERT INTO talentcloud.user_manager_profile
+        $sqlStr = "INSERT INTO talentcloud.user_manager_profile
             (
             user_manager_profile_department_id,
             user_manager_profile_twitter,
@@ -94,7 +94,7 @@ class ManagerProfileDAO extends BaseDAO{
 
         $sqlSelect = "SELECT LAST_INSERT_ID() INTO @user_manager_profile_id;";
 
-        $sql2Str="INSERT INTO talentcloud.user_manager_profile_details
+        $sql2Str = "INSERT INTO talentcloud.user_manager_profile_details
             (
             locale_id,
             user_manager_profile_details_aboutme,
@@ -179,12 +179,12 @@ class ManagerProfileDAO extends BaseDAO{
     }
 
         /**
-     *
-     * @param ManagerProfile $managerProfile
-     * @param ManagerProfileDetails $managerProfileDetails
-     * @return int $profileId
-     */
-    public static function updateManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
+         *
+         * @param ManagerProfile $managerProfile
+         * @param ManagerProfileDetails $managerProfileDetails
+         * @return int $profileId
+         */
+    public static function updateManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails) {
 
         //var_dump($managerProfile->getUser_manager_profile_id());
 
@@ -195,7 +195,7 @@ class ManagerProfileDAO extends BaseDAO{
         $user_manager_profile_linkedin = $managerProfile->getUser_manager_profile_linkedin();
         $user_id = intval($managerProfile->getUser_id());
 
-        $sqlStr="UPDATE talentcloud.user_manager_profile
+        $sqlStr = "UPDATE talentcloud.user_manager_profile
             SET
                 user_manager_profile_department_id = :user_manager_profile_department_id,
                 user_manager_profile_twitter = :user_manager_profile_twitter,
@@ -239,7 +239,7 @@ class ManagerProfileDAO extends BaseDAO{
         $user_manager_profile_education = $managerProfileDetails->getUser_manager_profile_education();
         $user_manager_profile_education_fr = $managerProfileDetails->getUser_manager_profile_education_fr();
 
-        $sql2Str="UPDATE
+        $sql2Str = "UPDATE
             user_manager_profile up,
             user_manager_profile_details upd_en,
             user_manager_profile_details upd_fr,
@@ -332,7 +332,7 @@ class ManagerProfileDAO extends BaseDAO{
             $sql2->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
             $link->commit();
             $rowsmodified = $sql->rowCount();
-            if($rowsmodified > 0){
+            if ($rowsmodified > 0) {
                 $success = true;
             }
         } catch (PDOException $e) {
@@ -343,7 +343,7 @@ class ManagerProfileDAO extends BaseDAO{
 
     }
 
-    public static function getManagerProfileByUser($userId){
+    public static function getManagerProfileByUser($userId) {
 
         $link = BaseDAO::getConnection();
 
@@ -363,7 +363,7 @@ class ManagerProfileDAO extends BaseDAO{
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfile');
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ManagerProfile');
             $managerProfile = $sql->fetch();
             
             /*
@@ -382,7 +382,7 @@ class ManagerProfileDAO extends BaseDAO{
 
     }
 
-    public static function getManagerProfileDetailsByLocale(ManagerProfile $managerProfile, $locale){
+    public static function getManagerProfileDetailsByLocale(ManagerProfile $managerProfile, $locale) {
 
         $link = BaseDAO::getConnection();
 
@@ -422,8 +422,8 @@ class ManagerProfileDAO extends BaseDAO{
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ManagerProfileDetails',array(
-                'user_manager_profile_id', 'locale_id', 'user_manager_profile_details_aboutme', 'user_manager_profile_details_proud', 'user_manager_profile_details_branch', 'user_manager_profile_details_division', 'user_manager_profile_details_position', 'user_manager_profile_details_lead_style', 'user_manager_profile_details_emp_learn', 'user_manager_profile_details_expectations', 'user_manager_profile_details_id', 'user_manager_profile_review_options','user_manager_profile_staylate', 'user_manager_profile_engage', 'user_manager_profile_devops', 'user_manager_profile_lvwRequests', 'user_manager_profile_work_experience', 'user_manager_profile_education'
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ManagerProfileDetails', array(
+                'user_manager_profile_id', 'locale_id', 'user_manager_profile_details_aboutme', 'user_manager_profile_details_proud', 'user_manager_profile_details_branch', 'user_manager_profile_details_division', 'user_manager_profile_details_position', 'user_manager_profile_details_lead_style', 'user_manager_profile_details_emp_learn', 'user_manager_profile_details_expectations', 'user_manager_profile_details_id', 'user_manager_profile_review_options', 'user_manager_profile_staylate', 'user_manager_profile_engage', 'user_manager_profile_devops', 'user_manager_profile_lvwRequests', 'user_manager_profile_work_experience', 'user_manager_profile_education'
             ));
             $managerProfileDetails = $sql->fetch();
 

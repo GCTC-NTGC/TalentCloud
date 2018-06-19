@@ -5,7 +5,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -24,21 +24,21 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
             //Here Handle PUT Request 
             //$jsonBody = file_get_contents('php://input');
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 //$jobSeekerJSON = json_decode($jsonBody, TRUE);
                 //var_dump($jobSeekerJSON);
-                $jobPosterId = Utils::getParameterFromRequest($requestParams,4);
+                $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
                 $jobApplicationsWithAnswers = JobApplicationController::getJobApplictionsWithAnswersByJobPoster($jobPosterId);
                 
                 $json = json_encode($jobApplicationsWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -62,7 +62,7 @@
                 
                 $json = json_encode($jobPosterApplication, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else{
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

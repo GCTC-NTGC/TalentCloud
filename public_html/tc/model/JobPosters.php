@@ -11,7 +11,7 @@
  *
  * @author GBowden
  */
-class JobPosters implements JsonSerializable{
+class JobPosters implements JsonSerializable {
     
     protected $jobs;
 
@@ -20,7 +20,7 @@ class JobPosters implements JsonSerializable{
     }
     
     public function jsonSerialize() {
-        return array( 'jobs' => $this->jobs );
+        return array('jobs' => $this->jobs);
     }
     
     public function getJobs() {

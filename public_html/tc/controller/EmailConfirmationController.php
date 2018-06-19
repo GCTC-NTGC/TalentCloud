@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 0);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -16,10 +16,10 @@ set_include_path(get_include_path() . PATH_SEPARATOR);
 require_once '../config/smtp.config.inc';
 require_once '../model/User.php';
 
-class EmailConfirmationController{
+class EmailConfirmationController {
     
-    public static function sendConfirmationEmail(User $user){
-        $conf_url = 'https://'.filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_ENCODED)."/#Confirmation/".$user->getUser_id();
+    public static function sendConfirmationEmail(User $user) {
+        $conf_url = 'https://' . filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_ENCODED) . "/#Confirmation/" . $user->getUser_id();
         $from_name = FROM_NAME;
         $from_email = FROM_EMAIL;
         $to = $user->getEmail();
@@ -31,7 +31,7 @@ class EmailConfirmationController{
         </head>
         <body>
         <p>Thank you for registering with TalentCloud. / French content here</p>
-        <p><a href='".$conf_url."'>Click here to confirm your email address with us. / French content</a></p>
+        <p><a href='".$conf_url . "'>Click here to confirm your email address with us. / French content</a></p>
         </body>
         </html>";
 
@@ -42,9 +42,9 @@ class EmailConfirmationController{
         // More headers
         $headers .= 'From:' . $from_email . "\r\n";
         //var_dump($message);
-        if(!@mail($to,$subject,$message,$headers)){
+        if (!@mail($to, $subject, $message, $headers)) {
             return false;
-        }else{
+        } else {
             return true;
         }
         

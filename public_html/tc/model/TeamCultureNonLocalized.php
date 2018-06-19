@@ -27,7 +27,7 @@ class TeamCultureNonLocalized implements JsonSerializable {
      * @param string $how_we_work_en
      * @param string $how_we_work_fr
      */
-    public function __construct($team_culture_id=null, $team_size=null,$gc_directory_url=null,$narrative_text_en=null,$narrative_text_fr=null,$operating_context_en=null,$operating_context_fr=null,$what_we_value_en=null,$what_we_value_fr=null,$how_we_work_en=null,$how_we_work_fr=null) {
+    public function __construct($team_culture_id = null, $team_size = null, $gc_directory_url = null, $narrative_text_en = null, $narrative_text_fr = null, $operating_context_en = null, $operating_context_fr = null, $what_we_value_en = null, $what_we_value_fr = null, $how_we_work_en = null, $how_we_work_fr = null) {
         $this->team_culture_id = $team_culture_id;
         $this->team_size = $team_size;
         $this->gc_directory_url = $gc_directory_url;
@@ -45,7 +45,7 @@ class TeamCultureNonLocalized implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

@@ -4,7 +4,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -23,26 +23,26 @@
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            if(strlen($requestParams) > 1){
+            if (strlen($requestParams) > 1) {
                 //TODO: authenticate user
-                $userId = Utils::getParameterFromRequest($requestParams,4);
+                $userId = Utils::getParameterFromRequest($requestParams, 4);
                 $skillUrlEncoded = Utils::getParameterFromRequest($requestParams, 6);
                 $skill = urldecode($skillUrlEncoded);
                 $result = SkillDeclarationController::getMostRecentDeclarationForUserAndSkill($userId, $skill);
                 
                 if ($result === false) {
                     header('HTTP/1.0 404 Not Found');
-                    echo(json_encode(array("failed"=>"skill declaration not found"),JSON_FORCE_OBJECT));
+                    echo(json_encode(array("failed"=>"skill declaration not found"), JSON_FORCE_OBJECT));
                     exit;
                 }
                 
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

@@ -10,7 +10,7 @@ class WorkEnvironment implements JsonSerializable {
      * @param BasicWorkEnvironment $basic_work_environment
      * @param WorkplacePhotoCaption[] $workplace_photo_captions
      */
-    public function __construct($basic_work_environment=null,$workplace_photo_captions=[]) {
+    public function __construct($basic_work_environment = null, $workplace_photo_captions = []) {
         $this->basic_work_environment = $basic_work_environment;
         $this->workplace_photo_captions = $workplace_photo_captions;
     }
@@ -19,7 +19,7 @@ class WorkEnvironment implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }
@@ -65,4 +65,4 @@ class WorkEnvironment implements JsonSerializable {
 
 
 }
-   
+    

@@ -53,6 +53,9 @@ DashboardAPI.showDashboard = function(){
     dashboardHeroTitle.classList.remove("hidden");
     dashboardHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/my-applications');

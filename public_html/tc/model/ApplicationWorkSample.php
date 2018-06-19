@@ -2,13 +2,13 @@
 
 require_once '../model/WorkSample.php';
 
-class ApplicationWorkSample implements JsonSerializable{
+class ApplicationWorkSample implements JsonSerializable {
     
     protected $criteria_id;
     protected $job_poster_appliction_id;
     protected $work_sample;
     
-    public function __construct($criteria_id=null,$job_poster_appliction_id=null,WorkSample $work_sample=null) {
+    public function __construct($criteria_id = null, $job_poster_appliction_id = null, WorkSample $work_sample = null) {
         $this->criteria_id = $criteria_id;
         $this->job_poster_appliction_id = $job_poster_appliction_id;
         $this->work_sample = $work_sample;
@@ -18,7 +18,7 @@ class ApplicationWorkSample implements JsonSerializable{
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

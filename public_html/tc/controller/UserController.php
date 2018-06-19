@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -24,7 +24,7 @@ require_once '../controller/ManagerProfileController.php';
 require_once '../controller/JobSeekerController.php';
 require_once '../dao/UserDAO.php';
 
-class UserController{
+class UserController {
     
     //TO-DO : remove - should not be used
     /**
@@ -43,7 +43,7 @@ class UserController{
      * @param User $user
      * @return type
      */
-    public static function getUserById(User $user){
+    public static function getUserById(User $user) {
         $existingUser = UserDAO::getUserById($user);
         return $existingUser;
     }
@@ -53,15 +53,15 @@ class UserController{
      * @param User $user
      * @return type
      */
-    public static function getUserByOpenId(User $user){
+    public static function getUserByOpenId(User $user) {
         //get existing user by openId
         $existingUser = UserDAO::getUserOpenById($user);
         //var_dump($existingUser);
         //get user_id from existing user
         //if user_id is not null, then log the user in automatically
-        if($existingUser){
+        if ($existingUser) {
             return $existingUser;
-        }else{
+        } else {
             //if user_id is null, then the user is not registered and we should register them automatically
             //register new user
             $newUser = UserController::registerUser($user);
@@ -69,7 +69,7 @@ class UserController{
         }
     }
     
-    public static function registerUser(User $newUser){
+    public static function registerUser(User $newUser) {
         //$newUser->setUser_role('jobseeker');
         //This is a temporary automatic confirmation until the mail server is setup
         //var_dump($newUser);
@@ -77,7 +77,7 @@ class UserController{
         $userRegistered = false;
         $confEmailSent = true;
         $registeredUser = UserDAO::registerUser($newUser);
-        if($registeredUser instanceof User && $registeredUser->getUser_id() !== null){
+        if ($registeredUser instanceof User && $registeredUser->getUser_id() !== null) {
             $userRegistered = true;
             //$confEmailSent = UserController::confirmEmail($registeredUser);
             
@@ -150,9 +150,9 @@ class UserController{
     }
     
         /**
-     * 
-     * @param int $jobSeekerProfileId
-     */
+         * 
+         * @param int $jobSeekerProfileId
+         */
     public static function getUserByJobSeekerProfileId($jobSeekerProfileId) {
         $user = UserDAO::getUserByJobSeekerProfileId($jobSeekerProfileId);
         return $user;

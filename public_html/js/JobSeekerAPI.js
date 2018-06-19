@@ -363,6 +363,9 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
     profileHeroTitle.classList.remove("hidden");
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/my-profile');
@@ -404,6 +407,9 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     var profileHeroTitle = document.getElementById("profileHeroTitle");
     profileHeroTitle.classList.remove("hidden");
     profileHeroTitle.setAttribute("aria-hidden", "false");
+
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
 
     // Google Analytics
 

@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -57,11 +57,11 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact,
             jp.job_poster_noc as noc,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
-            lrd.language_requirement_details_name as language_requirement,
-            jpd.job_poster_impact as impact
+            lrd.language_requirement_details_name as language_requirement
             FROM 
                 job_poster jp, 
                 job_poster_details jpd,
@@ -99,12 +99,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
-				'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date','open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc',
-                'classification', 'security_clearance', 'language_requirement'
-			));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster');
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {
@@ -152,11 +147,11 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact,
             jp.job_poster_noc as noc,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
-            lrd.language_requirement_details_name as language_requirement,
-            jpd.job_poster_impact as impact
+            lrd.language_requirement_details_name as language_requirement            
             FROM 
                 job_poster jp, 
                 job_poster_details jpd,
@@ -199,12 +194,7 @@ class JobPosterDAO extends BaseDAO {
 
             $sql->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
 
-            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
-                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date','open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc',
-                'classification', 'security_clearance', 'language_requirement'
-			));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster');
             $jobPoster = $sql->fetch();
         } catch (PDOException $e) {
             BaseDAO::closeConnection($link);
@@ -287,9 +277,9 @@ class JobPosterDAO extends BaseDAO {
             $sqlQuestions->execute($input_fields) or die("ERROR: " . implode(":", $conn->errorInfo()));
 
             $sqlTasks->setFetchMode(PDO::FETCH_NUM);
-            $sqlCoreComps->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
-            $sqlDevelopingComps->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lookup');
-            $sqlQuestions->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPosterQuestion');
+            $sqlCoreComps->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sqlDevelopingComps->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
+            $sqlQuestions->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPosterQuestion');
 
             //fetch array items
             $tasks = $sqlTasks->fetchAll();
@@ -317,7 +307,7 @@ class JobPosterDAO extends BaseDAO {
      *      specifies department, province, etc, by id instead of by name
      * @return int job_post_id: id of the newly created job post
      */
-    public static function createJobPoster($jobPosterNonLocalized){
+    public static function createJobPoster($jobPosterNonLocalized) {
         $link = BaseDAO::getConnection();
         $sqlStr1 = "
             INSERT INTO job_poster
@@ -378,11 +368,11 @@ class JobPosterDAO extends BaseDAO {
         //Build bulk insert sql strings for array data
         $key_task_data = [];
         $key_task_values = [];
-        foreach($jobPosterNonLocalized->getKey_tasks_en() as $task) {
+        foreach ($jobPosterNonLocalized->getKey_tasks_en() as $task) {
             $key_task_values[] = '(@job_post_id, 1, ?)';
             $key_task_data[] = $task;
         }
-        foreach($jobPosterNonLocalized->getKey_tasks_fr() as $task) {
+        foreach ($jobPosterNonLocalized->getKey_tasks_fr() as $task) {
             $key_task_values[] = '(@job_post_id, 2, ?)';
             $key_task_data[] = $task;
         }
@@ -394,11 +384,11 @@ class JobPosterDAO extends BaseDAO {
         $sqlStr_EssentialType = '(SELECT ct.criteria_type_id INTO @essential_type FROM criteria_type ct WHERE ct.criteria_type = "essential")';
         $core_competency_data = [];
         $core_competency_values = [];
-        foreach($jobPosterNonLocalized->getCore_competencies_en() as $core_competency) {
+        foreach ($jobPosterNonLocalized->getCore_competencies_en() as $core_competency) {
             $core_competency_values[] = '(@job_post_id, 1, @essential_type, ?)';
             $core_competency_data[] = $core_competency;
         }
-        foreach($jobPosterNonLocalized->getCore_competencies_fr() as $core_competency) {
+        foreach ($jobPosterNonLocalized->getCore_competencies_fr() as $core_competency) {
             $core_competency_values[] = '(@job_post_id, 2, @essential_type, ?)';
             $core_competency_data[] = $core_competency;
         }
@@ -410,11 +400,11 @@ class JobPosterDAO extends BaseDAO {
         
         $dev_competency_data = [];
         $dev_competency_values = [];
-        foreach($jobPosterNonLocalized->getDeveloping_competencies_en() as $dev_competency) {
+        foreach ($jobPosterNonLocalized->getDeveloping_competencies_en() as $dev_competency) {
             $dev_competency_values[] = '(@job_post_id, 1, @asset_type, ?)';
             $dev_competency_data[] = $dev_competency;
         }
-        foreach($jobPosterNonLocalized->getDeveloping_competencies_fr() as $dev_competency) {
+        foreach ($jobPosterNonLocalized->getDeveloping_competencies_fr() as $dev_competency) {
             $dev_competency_values[] = '(@job_post_id, 2,  @asset_type, ?)';
             $dev_competency_data[] = $dev_competency;
         }
@@ -424,12 +414,12 @@ class JobPosterDAO extends BaseDAO {
 
         $question_data = [];
         $question_values = [];
-        foreach($jobPosterNonLocalized->getQuestions_en() as $question) {
+        foreach ($jobPosterNonLocalized->getQuestions_en() as $question) {
             $question_values[] = '(@job_post_id, 1, ?, ?)';
             $question_data[] = $question->getQuestion();
             $question_data[] = $question->getDescription();
         }
-        foreach($jobPosterNonLocalized->getQuestions_fr() as $question) {
+        foreach ($jobPosterNonLocalized->getQuestions_fr() as $question) {
             $question_values[] = '(@job_post_id, 2, ?, ?)';
             $question_data[] = $question->getQuestion();
             $question_data[] = $question->getDescription();
@@ -451,14 +441,18 @@ class JobPosterDAO extends BaseDAO {
         $sqlEssentialType = $link->prepare($sqlStr_EssentialType);
         $sqlAssetType = $link->prepare($sqlStr_AssetType);
         
-        if (sizeof($key_task_data) > 0)
-            $sql4 = $link->prepare($sqlStr4);
-        if (sizeof($core_competency_data) > 0)
-            $sql5 = $link->prepare($sqlStr5);
-        if (sizeof($dev_competency_data) > 0)
-            $sql6 = $link->prepare($sqlStr6);
-        if (sizeof($question_data) > 0)
-            $sqlQuestions = $link->prepare($sqlQuestionsStr);
+        if (sizeof($key_task_data) > 0) {
+                    $sql4 = $link->prepare($sqlStr4);
+        }
+        if (sizeof($core_competency_data) > 0) {
+                    $sql5 = $link->prepare($sqlStr5);
+        }
+        if (sizeof($dev_competency_data) > 0) {
+                    $sql6 = $link->prepare($sqlStr6);
+        }
+        if (sizeof($question_data) > 0) {
+                    $sqlQuestions = $link->prepare($sqlQuestionsStr);
+        }
 
 
         $sql1->bindValue(':term_units_id', $jobPosterNonLocalized->getTerm_units_id(), PDO::PARAM_INT);
@@ -505,14 +499,18 @@ class JobPosterDAO extends BaseDAO {
             $sqlEssentialType->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sqlAssetType->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             
-            if (sizeof($key_task_data) > 0)
-                 $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));
-            if (sizeof($core_competency_data) > 0)
-                $sql5->execute($core_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
-            if (sizeof($dev_competency_data) > 0)
-                $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
-            if (sizeof($question_data) > 0)
-                $sqlQuestions->execute ($question_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($key_task_data) > 0) {
+                                $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
+            if (sizeof($core_competency_data) > 0) {
+                            $sql5->execute($core_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
+            if (sizeof($dev_competency_data) > 0) {
+                            $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
+            if (sizeof($question_data) > 0) {
+                            $sqlQuestions->execute($question_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
 
             $link->commit();
         } catch (PDOException $e) {
@@ -529,7 +527,7 @@ class JobPosterDAO extends BaseDAO {
      * @param type $locale
      * @return type
      */
-    public static function getJobPostersByManagerId($locale,$managerId) {
+    public static function getJobPostersByManagerId($locale, $managerId) {
 
         $link = BaseDAO::getConnection();
         $sqlStr = "
@@ -553,11 +551,11 @@ class JobPosterDAO extends BaseDAO {
             jpd.job_poster_city as location_city,
             jp.job_poster_remuneration_min as remuneration_range_low,
             jp.job_poster_remuneration_max as remuneration_range_high,
+            jpd.job_poster_impact as impact,
             jp.job_poster_noc as noc,
             jp.job_poster_classification as classification,
             scd.security_clearance_details_name as security_clearance,
-            lrd.language_requirement_details_name as language_requirement,
-            jpd.job_poster_impact as impact
+            lrd.language_requirement_details_name as language_requirement
             FROM 
                 job_poster jp, 
                 job_poster_details jpd,
@@ -596,12 +594,7 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
-                'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies','noc',
-                'classification', 'security_clearance','language_requirement'
-			));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster');
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);
         } catch (PDOException $e) {

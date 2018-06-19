@@ -10,7 +10,7 @@
  *
  * @author gregg
  */
-class Label implements JsonSerializable{
+class Label implements JsonSerializable {
 
     protected $labelKey;
     protected $labelValue;

@@ -104,6 +104,9 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
     managerProfileHeroTitle.classList.remove("hidden");
     managerProfileHeroTitle.setAttribute("aria-hidden", "false");
 
+    // Mobile Menu Overflow Release
+    document.body.style.overflowY = "auto";
+
     // Google Analytics
 
     ga('set', 'page', '/managers/'+user_id);

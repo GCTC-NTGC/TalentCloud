@@ -6,7 +6,7 @@
     ini_set("display_errors", 1);
     set_time_limit(0);
 
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
 
@@ -72,7 +72,7 @@ class ProfilePicDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'ProfilePic',array('user_id','image','last_updated', 'type', 'size'));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ProfilePic', array('user_id', 'image', 'last_updated', 'type', 'size'));
             $profile_pic = $sql->fetch();
         } catch (PDOException $e) {
             return 'getProfilePic failed: ' . $e->getMessage();

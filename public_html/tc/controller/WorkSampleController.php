@@ -4,9 +4,9 @@ require_once '../model/WorkSample.php';
 require_once '../model/ApplicationWorkSample.php';
 require_once '../dao/WorkSampleDAO.php';
 
-class WorkSampleController{
+class WorkSampleController {
     
-    public static function getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale){
+    public static function getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale) {
         
         $applicationWorkSamples = WorkSampleDAO::getWorkSamplesForJobApplication($jobPosterApplicationId, $locale);
                 

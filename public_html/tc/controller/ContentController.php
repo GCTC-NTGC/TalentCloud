@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -29,7 +29,7 @@ class ContentController {
     public static function getContentByLocale($locale) {
         
         $content = new Content();
-        $labels = ContentDAO::getContentByLocale($locale,"label");
+        $labels = ContentDAO::getContentByLocale($locale, "label");
         //var_dump($labels);
         $content->setContent($labels);
         //var_dump($content);

@@ -43,10 +43,10 @@ class JobPoster implements JsonSerializable {
     private $security_clearance;
     private $language_requirement;
 
-    public function __construct($id=null, $locale_id=null, $manager_user_id=null, $title=null, $description=null, $applicants_to_date=null, $term_qty=null, $term_units=null,
-    $job_min_level=null, $job_max_level=null, $start_date=null, $open_date=null, $close_date=null, $department=null, $branch=null, $division=null, $location_province=null,
-    $location_city=null, $remuneration_range_low=null, $remuneration_range_high=null, $impact=null, $key_tasks=null, $core_competencies=null, $developing_competencies=null,
-    $questions=[], $noc=null, $classification=null, $security_clearance=null, $language_requirement=null) {
+    public function __construct($id = null, $locale_id = null, $manager_user_id = null, $title = null, $description = null, $applicants_to_date = null, $term_qty = null, $term_units = null,
+    $job_min_level = null, $job_max_level = null, $start_date = null, $open_date = null, $close_date = null, $department = null, $branch = null, $division = null, $location_province = null,
+    $location_city = null, $remuneration_range_low = null, $remuneration_range_high = null, $impact = null, $key_tasks = null, $core_competencies = null, $developing_competencies = null,
+    $questions = [], $noc = null, $classification = null, $security_clearance = null, $language_requirement = null) {
         $this->id = $id;
         $this->locale_id = $locale_id;
         $this->manager_user_id = $manager_user_id;
@@ -82,7 +82,7 @@ class JobPoster implements JsonSerializable {
         $getter_names = get_class_methods(get_class($this));
         $gettable_attributes = array();
         foreach ($getter_names as $key => $value) {
-            if(substr($value, 0, 3) === 'get') {
+            if (substr($value, 0, 3) === 'get') {
                 $gettable_attributes[strtolower(substr($value, 3, strlen($value)))] = $this->$value();
             }
         }

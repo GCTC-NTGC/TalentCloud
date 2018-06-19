@@ -21,7 +21,7 @@ define('SMTP_PORT', "25");
 /**
  * use ssl flag for smtp
  */
-define('USE_SSL',false);
+define('USE_SSL', false);
 
 /**
  * Defines the database password.

@@ -8,12 +8,12 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
 /*set api path*/
-set_include_path(get_include_path(). PATH_SEPARATOR);
+set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once '../controller/WorkEnvironmentController.php';
 require_once '../controller/UserController.php';
@@ -28,13 +28,13 @@ header("Content-Type: application/json; charset=utf-8");
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     
     switch ($requestMethod) {
         case 'GET':            
-            if(strlen($requestParams) > 1){
-                $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
-                $photoName = Utils::getParameterFromRequest($requestParams,5);
+            if (strlen($requestParams) > 1) {
+                $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
+                $photoName = Utils::getParameterFromRequest($requestParams, 5);
                 
                 $result = WorkEnvironmentController::getWorkplacePhotoByManagerProfileAndName($photoName, $managerProfileId);
                 
@@ -45,7 +45,7 @@ header("Content-Type: application/json; charset=utf-8");
                     header("Content-type: " . $result->getMime_type());
                     echo($result->getFile());
                 }
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -72,19 +72,19 @@ header("Content-Type: application/json; charset=utf-8");
             //Here Handle DELETE Request
             break;
         case 'PUT':
-            if(isset($_SERVER["HTTP_AUTHORIZATION"])){
+            if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
                 $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
             
-                if(strlen($requestParams) > 1){
+                if (strlen($requestParams) > 1) {
                     
-                    $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
+                    $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
 
-                    if(strlen($managerProfileId) > 0){
+                    if (strlen($managerProfileId) > 0) {
 
                         $user = UserController::getUserByManagerProfileId($managerProfileId);
 
-                        if(JWTUtils::validateJWT($jwt, $user)){  
-                            $photoName = Utils::getParameterFromRequest($requestParams,5);
+                        if (JWTUtils::validateJWT($jwt, $user)) {  
+                            $photoName = Utils::getParameterFromRequest($requestParams, 5);
                                                 
                             $workplacePhoto = new File(
                                     file_get_contents('php://input'), 
@@ -94,33 +94,33 @@ header("Content-Type: application/json; charset=utf-8");
                             $json = json_encode($result, JSON_PRETTY_PRINT);
 
                             echo($json);                            
-                        }else{
+                        } else {
                             header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"),JSON_FORCE_OBJECT);
+                            echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else{
+                    } else {
                         header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No manager profile id provided"),JSON_FORCE_OBJECT);
+                        echo json_encode(array("failed"=>"No manager profile id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else{
+                } else {
                     header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'),JSON_FORCE_OBJECT);
+                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else{
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'),JSON_FORCE_OBJECT);
+                echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
             }
             
-            if(strlen($requestParams) > 1){
-                $managerProfileId = Utils::getParameterFromRequest($requestParams,4);
+            if (strlen($requestParams) > 1) {
+                $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
                 
                 //echo('{"profilepic":"upload failed"}');
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

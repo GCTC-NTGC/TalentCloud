@@ -8,12 +8,12 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 set_time_limit(0);
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
 /*set api path*/
-set_include_path(get_include_path(). PATH_SEPARATOR);
+set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once '../controller/ProfilePicController.php';
 require_once '../model/ProfilePic.php';
@@ -26,12 +26,12 @@ header("Content-Type: application/json; charset=utf-8");
 
     $context = '/';
 
-    $requestParams = substr($requestURI,strlen($context));
+    $requestParams = substr($requestURI, strlen($context));
     
     switch ($requestMethod) {
         case 'GET':            
-            if(strlen($requestParams) > 1){
-                $user_id = Utils::getParameterFromRequest($requestParams,4);
+            if (strlen($requestParams) > 1) {
+                $user_id = Utils::getParameterFromRequest($requestParams, 4);
                 $result = ProfilePicController::getProfilePic($user_id);
                 
                 if ($result == NULL) {
@@ -41,7 +41,7 @@ header("Content-Type: application/json; charset=utf-8");
                     header("Content-type: " . $result->getType());
                     echo($result->getImage());
                 }
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -70,8 +70,8 @@ header("Content-Type: application/json; charset=utf-8");
         case 'PUT':
             //Must have correct authaurization to modify photo
             
-            if(strlen($requestParams) > 1){
-                $user_id = Utils::getParameterFromRequest($requestParams,4);
+            if (strlen($requestParams) > 1) {
+                $user_id = Utils::getParameterFromRequest($requestParams, 4);
                                                 
                 $profile_pic = new ProfilePic($user_id, 
                         file_get_contents('php://input'), 
@@ -83,7 +83,7 @@ header("Content-Type: application/json; charset=utf-8");
                 //echo($profile_pic->getImage());
                 echo($result);
                 //echo('{"profilepic":"upload failed"}');
-            }else{
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
