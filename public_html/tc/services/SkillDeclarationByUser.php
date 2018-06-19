@@ -1,19 +1,14 @@
 <?php
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
-    require_once '../controller/SkillDeclarationController.php';
-    require_once '../model/SkillDeclaration.php';
-    require_once '../utils/Utils.php';
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../controller/SkillDeclarationController.php';
+    require_once __DIR__ . '/../model/SkillDeclaration.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -27,10 +22,17 @@
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            if (strlen($requestParams) > 1) {
-                //TODO: authenticate user
-                $userId = Utils::getParameterFromRequest($requestParams, 4);
+            if(strlen($requestParams) > 1){
+                $userId = Utils::getParameterFromRequest($requestParams,4);
                 $skillUrlEncoded = Utils::getParameterFromRequest($requestParams, 6);
+                
+                //This is viewable by the owner of the application, the owner of the job poster its for, and admins
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                //TODO: add permission for manager, owner of job poster
+                AuthenticationController::validateUser($userPermissions);
+                
                 $skill = urldecode($skillUrlEncoded);
                 $result = SkillDeclarationController::getMostRecentDeclarationForUserAndSkill($userId, $skill);
                 

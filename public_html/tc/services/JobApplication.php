@@ -1,22 +1,17 @@
 <?php
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
-    require_once '../controller/JobApplicationController.php';
-    require_once '../model/JobApplicationWithAnswers.php';
-    require_once '../model/JobPosterApplication.php';
-    require_once '../model/ApplicationQuestionAnswer.php';
-    require_once '../utils/Utils.php';
+    require_once __DIR__ . '/../controller/JobApplicationController.php';
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../model/JobApplicationWithAnswers.php';
+    require_once __DIR__ . '/../model/JobPosterApplication.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../model/ApplicationQuestionAnswer.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -32,11 +27,16 @@
         case 'GET':
             //Here Handle PUT Request 
             //$jsonBody = file_get_contents('php://input');
-            if (strlen($requestParams) > 1) {
-                //$jobSeekerJSON = json_decode($jsonBody, TRUE);
-                //var_dump($jobSeekerJSON);
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
+            if(strlen($requestParams) > 1){
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
                 $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersById($jobPosterApplicationId);
+                
+                //Authenticate that the submitting user owns job seeker profile (or is admin)
+                $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);          
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                AuthenticationController::validateUser($userPermissions);
                 
                 $json = json_encode($jobApplicationWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
@@ -46,8 +46,7 @@
                 echo($json);
             }
             break;
-        case 'POST':
-            //Authenticate that the submitting user owns job seeker profile
+        case 'POST':                    
             
             //Assemble JobApplicationWithAnswers object from JSON
             $jsonBody = file_get_contents('php://input');
@@ -68,6 +67,14 @@
             }
             
             $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
+            
+            //Authenticate that the submitting user owns job seeker profile
+            $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplication->getJob_poster_application_id());
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+            AuthenticationController::validateUser($userPermissions);
+            
             
             $jobPosterApplicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
             $returnMap = array('job_poster_application_id' => $jobPosterApplicationId);

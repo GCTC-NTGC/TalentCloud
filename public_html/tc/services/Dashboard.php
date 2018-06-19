@@ -1,20 +1,14 @@
 <?php
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
 
-    require_once '../controller/DashboardController.php';
-    require_once '../utils/JWTUtils.php';
-    require_once '../utils/Utils.php';
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../controller/DashboardController.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -31,46 +25,34 @@
 
     switch ($requestMethod) {
         case 'GET':
-           
-            if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
-                $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
-                
-                $user_id = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
-                $locale = Utils::getLocaleFromRequest($requestParams);
-                
-                if (strlen($requestParams) > 1) {
 
-                    if (strlen($user_id) > 0) {
+            $userId = Utils::getParameterFromRequest($requestParams, $user_id_param_index);
+            $locale = Utils::getLocaleFromRequest($requestParams);
 
-                        $user = new User();
+            if(strlen($requestParams) > 1){
 
-                        $user->setUser_id($user_id);
+                if(strlen($userId) > 0){
 
-                        if (JWTUtils::validateJWT($jwt, $user)) {
-                            $result = DashboardController::getDashboardByUserId($user_id, $locale);
-                            $json = json_encode($result, JSON_PRETTY_PRINT);
-                            
-                            echo($json);
-                            
-                        } else {
-                            header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
-                            exit;
-                        }
+                    //This is viewable by admins and the specified user
+                    $userPermissions = [];
+                    $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                    $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                    AuthenticationController::validateUser($userPermissions);
 
-                    } else {
-                        header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
-                        exit;
-                    }
+                    $result = DashboardController::getDashboardByUserId($userId, $locale);
+                    $json = json_encode($result, JSON_PRETTY_PRINT);
+
+                    echo($json);
+
                 } else {
-                    header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
+                    header('HTTP/1.0 400 Bad Request');
+                    echo json_encode(array("failed"=>"No user id provided"),JSON_FORCE_OBJECT);
                     exit;
                 }
+
             } else {
-                header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
                 exit;
             }
             /*

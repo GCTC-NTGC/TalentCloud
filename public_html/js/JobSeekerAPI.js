@@ -236,25 +236,6 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
         //jobSeekerProfile.twitter_username = JobSeekerAPI.twitterUsernameToLink(jobSeekerProfile.twitter_username);
 
         JobSeekerAPI.saveJobSeekerProfile(jobSeekerProfile);
-
-        //Update user if names have been changed
-
-        /*if (UserAPI.hasSessionUser()) {
-         var oldUser = UserAPI.getSessionUserAsJSON();
-         if (oldUser.firstname != user.firstname ||
-         oldUser.lastname != user.lastname) {
-         UserAPI.updateUser(user, function () {
-         var sessionUser = UserAPI.getSessionUserAsJSON();
-         var profile_first_name = document.getElementById("profileFirstName");
-         Utilities.replaceElementText(profile_first_name, sessionUser.firstname != null ? sessionUser.firstname : JobSeekerAPI.defaultFirstName);
-         
-         var profile_last_name = document.getElementById("profileLastName");
-         Utilities.replaceElementText(profile_last_name, sessionUser.lastname != null ? sessionUser.lastname : JobSeekerAPI.defaultLastName);
-         
-         JobSeekerAPI.resetProfileEditValues();
-         });
-         }
-         }*/
     }
 };
 
@@ -555,7 +536,6 @@ JobSeekerAPI.hideJobSeekerProfileForm = function () {
     var jobSeekerProfileOverlay = document.getElementById("profileSection");
     jobSeekerProfileOverlay.classList.add("hidden");
 
-    //UserAPI.clearFormFields("jobSeekerForm");
     //EventsAPI.hideBodyOverflow(false);
 
     //FormsAPI.steppedForm.validateStep('contact_details','jobSeekerFormStepGroup',false,null,null);

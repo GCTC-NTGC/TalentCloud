@@ -1,22 +1,15 @@
 <?php
 
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
 
 /** Model Classes */
-require_once '../dao/BaseDAO.php';
-require_once '../model/TeamCulture.php';
-require_once '../model/TeamCultureNonLocalized.php';
+require_once __DIR__ . '/../dao/BaseDAO.php';
+require_once __DIR__ . '/../model/TeamCulture.php';
+require_once __DIR__ . '/../model/TeamCultureNonLocalized.php';
 /**
  * Summary: Data Access Object for Resources
  *

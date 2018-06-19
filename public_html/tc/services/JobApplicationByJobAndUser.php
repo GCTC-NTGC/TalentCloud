@@ -1,22 +1,17 @@
 <?php
 
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
-    require_once '../controller/JobApplicationController.php';
-    require_once '../model/JobApplicationWithAnswers.php';
-    require_once '../model/JobPosterApplication.php';
-    require_once '../model/ApplicationQuestionAnswer.php';
-    require_once '../utils/Utils.php';
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../controller/JobApplicationController.php';
+    require_once __DIR__ . '/../model/JobApplicationWithAnswers.php';
+    require_once __DIR__ . '/../model/JobPosterApplication.php';
+    require_once __DIR__ . '/../model/ApplicationQuestionAnswer.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -35,6 +30,13 @@
                 
                 $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
                 $userId = Utils::getParameterFromRequest($requestParams, 6);
+                
+                //Admins, and the owning applicant have permission to biew
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                //TODO: add manager permission for owner of job poster
+                AuthenticationController::validateUser($userPermissions);
                 
                 $jobApplicationWithAnswers = JobApplicationController::getJobApplicationWithAnswersByJobAndUser($jobPosterId, $userId);
                 
@@ -62,6 +64,13 @@
             //TODO: Authenticate that the submitting user owns job seeker profile
             $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
             $userId = Utils::getParameterFromRequest($requestParams, 6);
+            
+            //Admins, and the owning applicant have permission to biew
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+            //TODO: add manager permission for owner of job poster
+            AuthenticationController::validateUser($userPermissions);
             
             //Assemble JobApplicationWithAnswers object from JSON payload
             $jsonBody = file_get_contents('php://input');

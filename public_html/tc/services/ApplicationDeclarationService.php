@@ -1,20 +1,16 @@
 <?php
-    date_default_timezone_set('America/Toronto');
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-    set_time_limit(0);
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once __DIR__ . '/../config/php.config.inc';
 
     /*set api path*/
     set_include_path(get_include_path() . PATH_SEPARATOR);
     
-    require_once '../controller/SkillDeclarationController.php';
-    require_once '../controller/JobApplicationController.php';
-    require_once '../model/SkillDeclaration.php';
-    require_once '../utils/Utils.php';
+    
+    require_once __DIR__ . '/../controller/AuthenticationController.php';
+    require_once __DIR__ . '/../controller/SkillDeclarationController.php';
+    require_once __DIR__ . '/../controller/JobApplicationController.php';
+    require_once __DIR__ . '/../model/SkillDeclaration.php';
+    require_once __DIR__ . '/../model/UserPermission.php';
+    require_once __DIR__ . '/../utils/Utils.php';
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -28,51 +24,40 @@
     //var_dump($requestParams);
     switch ($requestMethod) {
         case 'GET':
-            if (strlen($requestParams) > 1) {
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
+            if(strlen($requestParams) > 1){
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+                
+                //This is viewable by the owner of the application, the owner of the job poster its for, and admins
+                $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                //TODO: add permission for manager, owner of job poster
+                AuthenticationController::validateUser($userPermissions);
+                
                 $result = SkillDeclarationController::getAllSkillDeclarationsForJobApplication($jobPosterApplicationId);
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
             } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }
             break;
         case 'POST':
-            /*
+            break;
+        case 'DELETE':            
             if(strlen($requestParams) > 1){
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+                $criteriaId = Utils::getParameterFromRequest($requestParams,6);
                 
-                $jsonBody = file_get_contents('php://input');
-                $evidenceJSON = json_decode($jsonBody, TRUE);
-                
-                $evidence = new SkillDeclaration();
-                $evidence->setEvidence_id($evidenceJSON["evidence_id"]);
-                $evidence->setSkill_ids($evidenceJSON["skill_ids"]);
-                $evidence->setExperience_level_id($evidenceJSON["experience_level_id"]);
-                $evidence->setSkill_level_id($evidenceJSON["skill_level_id"]);
-                $evidence->setEvidence_description($evidenceJSON["evidence_description"]);
-                $evidence->setLast_updated($evidenceJSON["last_updated"]);
-                
-                $result = SkillDeclarationController::addSkillDeclarationToJobApplication($jobPosterApplicationId, $evidence);
-                
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            } else{
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
-            }
-             * 
-             */
-            break;
-        case 'DELETE':
-            //TODO: authenticate user
-            
-            if (strlen($requestParams) > 1) {
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
-                $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
+                //This action is available to the owner of the application, the owner of the job poster its for, and admins
+                $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                //TODO: add permission for manager, owner of job poster
+                AuthenticationController::validateUser($userPermissions);
                 
                 if (JobApplicationController::jobApplicationIsDraft($jobPosterApplicationId)) {
                     $result = SkillDeclarationController::removeSkillDeclarationFromJobApplication($jobPosterApplicationId, $criteriaId);
@@ -87,17 +72,23 @@
                
                 
             } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }
             break;
-        case 'PUT':
-            //TODO: authenticate user
-            
-            if (strlen($requestParams) > 1) {
-                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
-                $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
+        case 'PUT':            
+            if(strlen($requestParams) > 1){
+                $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams,4);
+                $criteriaId = Utils::getParameterFromRequest($requestParams,6);
+                
+                 //This action is available to the owner of the application, the owner of the job poster its for, and admins
+                $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                //TODO: add permission for manager, owner of job poster
+                AuthenticationController::validateUser($userPermissions);
                 
                 //TODO: ensure application exists
                 //TODO: ensure criteriaId is valid for application
@@ -124,9 +115,9 @@
                 }        
                 
             } else {
-                $result = array();
-                $json = json_encode($result, JSON_PRETTY_PRINT);
-                echo($json);
+                header('HTTP/1.0 400 Bad Request');
+                echo json_encode(array("failed"=>'No request parameters provided'),JSON_FORCE_OBJECT);
+                exit;
             }
             break;
         case 'OPTIONS':

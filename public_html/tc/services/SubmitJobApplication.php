@@ -1,21 +1,15 @@
 <?php
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../controller/JobApplicationController.php';
-require_once '../controller/UserController.php';
-require_once '../utils/JWTUtils.php';
-require_once '../utils/Utils.php';
+require_once __DIR__ . '/../controller/AuthenticationController.php';
+require_once __DIR__ . '/../controller/JobApplicationController.php';
+require_once __DIR__ . '/../controller/UserController.php';
+require_once __DIR__ . '/../model/UserPermission.php';
+require_once __DIR__ . '/../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
 $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -30,9 +24,7 @@ switch ($requestMethod) {
     case 'GET':
         break;
     case 'POST':
-        if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
-            $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
-
+        
             if (strlen($requestParams) > 1) {
 
                 $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
@@ -43,47 +35,32 @@ switch ($requestMethod) {
                     header('HTTP/1.0 404 Not Found');
                     echo json_encode(array("failed" => "Application does not exist."), JSON_FORCE_OBJECT);
                     exit;
-                }           
+                }      
+                
+                //Application owner can submit it (or Admin)
+                $userPermissions = [];
+                $userPermissions[] = new UserPermission(ROLE_ADMIN);
+                $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+                AuthenticationController::validateUser($userPermissions);
 
-                if (strlen($userId) > 0) {
-
-                    $user = new User();
-
-                    $user->setUser_id($userId);
-
-                    if (JWTUtils::validateJWT($jwt, $user)) {
                         
-                        $result = JobApplicationController::submitJobApplication($jobPosterApplicationId);
+                $result = JobApplicationController::submitJobApplication($jobPosterApplicationId);
                         
-                        if ($result === false) {
-                            header('HTTP/1.0 400 Not Found');
-                            echo json_encode(array("failed" => "Error occured during submission"), JSON_FORCE_OBJECT);
-                            exit;
-                        }
-
-                        $json = json_encode($result, JSON_PRETTY_PRINT);
-                        echo($json);
-                        
-                    } else {
-                        header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed" => "Invalid token"), JSON_FORCE_OBJECT);
-                        exit;
-                    }
-                } else {
-                    header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed" => "No user id provided"), JSON_FORCE_OBJECT);
+                if ($result === false) {
+                    header('HTTP/1.0 400 Not Found');
+                    echo json_encode(array("failed" => "Error occured during submission"), JSON_FORCE_OBJECT);
                     exit;
                 }
+
+                $json = json_encode($result, JSON_PRETTY_PRINT);
+                echo($json);
+                        
             } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed" => 'Invalid arguments provided'), JSON_FORCE_OBJECT);
                 exit;
             }
-        } else {
-            header('HTTP/1.0 401 Unauthorized');
-            echo json_encode(array("failed" => 'No authorization token provided'), JSON_FORCE_OBJECT);
-            exit;
-        }
+        
         break;
     case 'DELETE':
         break;

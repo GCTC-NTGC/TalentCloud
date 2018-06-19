@@ -1,21 +1,16 @@
 <?php
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../controller/MicroReferenceController.php';
-require_once '../controller/JobApplicationController.php';
-require_once '../model/MicroReference.php';
-require_once '../utils/Utils.php';
+require_once __DIR__ . '/../controller/AuthenticationController.php';
+require_once __DIR__ . '/../controller/MicroReferenceController.php';
+require_once __DIR__ . '/../controller/JobApplicationController.php';
+require_once __DIR__ . '/../model/MicroReference.php';
+require_once __DIR__ . '/../model/UserPermission.php';
+require_once __DIR__ . '/../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
 $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -32,6 +27,15 @@ switch ($requestMethod) {
         if (strlen($requestParams) > 1) {
             $locale = Utils::getLocaleFromRequest($requestParams);
             $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 5);
+            
+            //This is viewable by the owner of the application, the owner of the job poster its for, and admins
+            $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+            //TODO: add permission for manager, owner of job poster
+            AuthenticationController::validateUser($userPermissions);
+            
             $result = MicroReferenceController::getAllMicroReferencesForJobApplication($jobPosterApplicationId, $locale);
             $json = json_encode($result, JSON_PRETTY_PRINT);
             echo($json);
@@ -50,6 +54,14 @@ switch ($requestMethod) {
         if (strlen($requestParams) > 1) {
             $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
             $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
+            
+            //This is modifiable by the owner of the application, and admins
+            $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+            //TODO: add permission for manager, owner of job poster
+            AuthenticationController::validateUser($userPermissions);
 
             //TODO: ensure application exists
             //TODO: ensure criteriaId is valid for application
@@ -76,6 +88,14 @@ switch ($requestMethod) {
         if (strlen($requestParams) > 1) {
             $jobPosterApplicationId = Utils::getParameterFromRequest($requestParams, 4);
             $criteriaId = Utils::getParameterFromRequest($requestParams, 6);
+            
+            //This is modifiable by the owner of the application, and admins
+            $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplicationId);
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+            //TODO: add permission for manager, owner of job poster
+            AuthenticationController::validateUser($userPermissions);
 
             //TODO: ensure application exists
             //TODO: ensure criteriaId is valid for application

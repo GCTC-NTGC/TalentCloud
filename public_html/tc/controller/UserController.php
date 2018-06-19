@@ -1,31 +1,26 @@
 <?php
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
+require_once __DIR__ . '/../config/php.config.inc';
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
-/*set api path*/
+/* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once __DIR__ . '/../config/constants.config.inc';
+require_once __DIR__ . '/../model/User.php';
+require_once __DIR__ . '/../controller/EmailConfirmationController.php';
+require_once __DIR__ . '/../controller/ManagerProfileController.php';
+require_once __DIR__ . '/../controller/JobSeekerController.php';
+require_once __DIR__ . '/../dao/UserDAO.php';
 
-require_once '../model/User.php';
-require_once '../controller/UserController.php';
-require_once '../controller/EmailConfirmationController.php';
-require_once '../controller/ManagerProfileController.php';
-require_once '../controller/JobSeekerController.php';
-require_once '../dao/UserDAO.php';
+use Lcobucci\JWT\Parser;
+use Jumbojett\OpenIDConnectClient;
 
 class UserController {
-    
+
     //TO-DO : remove - should not be used
     /**
      * 
@@ -37,7 +32,7 @@ class UserController {
         $authUser->setPassword($password);
         return $authUser;
     }
-    
+
     /**
      * 
      * @param User $user
@@ -47,28 +42,81 @@ class UserController {
         $existingUser = UserDAO::getUserById($user);
         return $existingUser;
     }
-    
+
+    public static function getUserByOpenIdTokens($idToken, $accessToken = null) {
+        //Parse the token from idToken string
+        $token = (new Parser())->parse((string) $idToken);
+
+        //Get user from database
+        $user = self::getUserByOpenId($token->getClaim("sub"));
+        if (!$user && $accessToken !== null) {
+            //if $user is null, then the user is not registered and we should register them now
+            $user = self::registerOpenIdUser($idToken, $accessToken);
+        }
+        return $user;
+    }
+
+    public static function registerOpenIdUser($idToken, $accessToken) {
+        //Parse the token from idToken string
+        $token = (new Parser())->parse((string) $idToken);
+
+        //Check if user already exists in database
+        $user = self::getUserByOpenId($token->getClaim("sub"));
+        if ($user) {
+            //User already exists, does not need to be registered
+            //TODO: ensure proper profile exists
+            self::registerUserProfile($user);
+
+            return $user;
+        }
+
+        //Get user info from openId server
+        $oidc = new OpenIDConnectClient(OPENID_URI);
+        $oidc->addScope(array('openid', 'profile', 'email'));
+        $oidc->setVerifyPeer(false);
+        $oidc->setAccessToken($accessToken);
+        $userInfo = $oidc->requestUserInfo();
+        if ($userInfo) {
+            $newUser = new User();
+            $newUser->setName($userInfo["name"]);
+            $newUser->setEmail($userInfo["email"]);
+            $newUser->setOpen_id($token->getClaim("sub"));
+
+            //TODO: allow manager role depending on source of login
+            $newUser->setUser_role(ROLE_APPLICANT);
+            $newUser->setIs_confirmed(true);
+            $user = UserController::registerUser($newUser);
+        } else {
+            throw Exception("Unable to access openId userInfo");
+        }
+        return $user;
+    }
+
     /**
      * 
      * @param User $user
      * @return type
      */
-    public static function getUserByOpenId(User $user) {
+    public static function getUserByOpenId($openId) {
         //get existing user by openId
-        $existingUser = UserDAO::getUserOpenById($user);
+        $existingUser = UserDAO::getUserByOpenId($openId);
         //var_dump($existingUser);
         //get user_id from existing user
         //if user_id is not null, then log the user in automatically
         if ($existingUser) {
             return $existingUser;
         } else {
-            //if user_id is null, then the user is not registered and we should register them automatically
-            //register new user
-            $newUser = UserController::registerUser($user);
-            return $newUser;
+            return null;
+            /*
+              //if user_id is null, then the user is not registered and we should register them automatically
+              //register new user
+              $newUser = UserController::registerUser($user);
+              return $newUser;
+             * 
+             */
         }
     }
-    
+
     public static function registerUser(User $newUser) {
         //$newUser->setUser_role('jobseeker');
         //This is a temporary automatic confirmation until the mail server is setup
@@ -79,33 +127,42 @@ class UserController {
         $registeredUser = UserDAO::registerUser($newUser);
         if ($registeredUser instanceof User && $registeredUser->getUser_id() !== null) {
             $userRegistered = true;
-            //$confEmailSent = UserController::confirmEmail($registeredUser);
-            
-            if ($registeredUser->getUser_role() === 'jobseeker') {
-                //Create an empty jobseeker profile
-                
-                $userId = $registeredUser->getUser_id();
-                $jobSeekerProfile = new JobSeekerProfile();                
-                $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
-            } else if ($registeredUser->getUser_role() === 'administrator') {
-                
-                $userId = $registeredUser->getUser_id();
-                $managerProfile = new ManagerProfile();
-                $managerProfile->setUser_id($userId);
-                
-                $managerProfileDetails = new ManagerProfileDetailsNonLocalized();                
-                
-                $result = ManagerProfileController::putManagerProfile($managerProfile, $managerProfileDetails);    
-            }
+            self::registerUserProfile($registeredUser);
         }
         return $registeredUser;
-        
     }
-    
+
+    private static function registerUserProfile($user) {
+        if ($user->getUser_role() === ROLE_APPLICANT) {
+            //Create an empty jobseeker profile
+
+            $userId = $user->getUser_id();
+
+            //Ensure profile doesn't already exist before creating new one
+            if (!JobSeekerController::getJobSeekerProfileByUserId($userId)) {
+                $jobSeekerProfile = new JobSeekerProfile();
+                JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
+            }
+        } else if ($user->getUser_role() === ROLE_ADMIN) {
+
+            $userId = $user->getUser_id();
+
+            //Ensure profile doesn't already exist before creating new one
+            if (!ManagerProfileController::getManagerProfileByUser($userId)) {
+                $managerProfile = new ManagerProfile();
+                $managerProfile->setUser_id($userId);
+
+                $managerProfileDetails = new ManagerProfileDetailsNonLocalized();
+
+                ManagerProfileController::putManagerProfile($managerProfile, $managerProfileDetails);
+            }
+        }
+    }
+
     public static function confirmEmail($user) {
         return EmailConfirmationController::sendConfirmationEmail($user);
     }
-    
+
     /**
      * 
      * @param User $updatedUser
@@ -124,7 +181,7 @@ class UserController {
         if ($oldUser) {
             //Don't change password
             $updatedUser->setPassword($oldUser->getPassword());
-            
+
             //Confirm email if it has changed
             if ($oldUser->getEmail() != $updatedUser->getEmail()) {
                 $confEmailSent = UserController::confirmEmail($updatedUser);
@@ -134,12 +191,12 @@ class UserController {
             }
             $updateSuccessful = UserDAO::updateUser($updatedUser); //do updates
         }
-        return array("userUpdated"=>$updateSuccessful,
-            "oldUser"=>$oldUser,
-            "updatedUser"=>UserController::getUserById($updatedUser),
-            "confEmailSent"=>$confEmailSent);   
+        return array("userUpdated" => $updateSuccessful,
+            "oldUser" => $oldUser,
+            "updatedUser" => UserController::getUserById($updatedUser),
+            "confEmailSent" => $confEmailSent);
     }
-    
+
     /**
      * 
      * @param int $managerProfileId
@@ -148,13 +205,14 @@ class UserController {
         $user = UserDAO::getUserByManagerProfileId($managerProfileId);
         return $user;
     }
-    
-        /**
-         * 
-         * @param int $jobSeekerProfileId
-         */
+
+    /**
+     * 
+     * @param int $jobSeekerProfileId
+     */
     public static function getUserByJobSeekerProfileId($jobSeekerProfileId) {
         $user = UserDAO::getUserByJobSeekerProfileId($jobSeekerProfileId);
         return $user;
     }
+
 }

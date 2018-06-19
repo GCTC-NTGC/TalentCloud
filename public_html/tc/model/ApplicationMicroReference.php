@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/MicroReference.php';
+require_once __DIR__ . '/../model/MicroReference.php';
 
 class ApplicationMicroReference implements JsonSerializable {
     

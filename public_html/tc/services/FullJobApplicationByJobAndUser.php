@@ -1,22 +1,17 @@
 <?php
 
-date_default_timezone_set('America/Toronto');
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-set_time_limit(0);
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+require_once __DIR__ . '/../config/php.config.inc';
 
 /* set api path */
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
-require_once '../controller/JobApplicationController.php';
-require_once '../controller/JobPosterController.php';
-require_once '../model/JobPoster.php';
-require_once '../utils/JWTUtils.php';
-require_once '../utils/Utils.php';
+require_once __DIR__ . '/../controller/AuthenticationController.php';
+require_once __DIR__ . '/../config/constants.config.inc';
+require_once __DIR__ . '/../controller/JobApplicationController.php';
+require_once __DIR__ . '/../controller/JobPosterController.php';
+require_once __DIR__ . '/../model/JobPoster.php';
+require_once __DIR__ . '/../model/UserPermission.php';
+require_once __DIR__ . '/../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
 $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -29,62 +24,34 @@ $requestParams = substr($requestURI, strlen($context));
 
 switch ($requestMethod) {
     case 'GET':
-        if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
-            $jwt = JWTUtils::getTokenFromRequest($_SERVER["HTTP_AUTHORIZATION"]);
+        if (strlen($requestParams) > 1) {
 
-            if (strlen($requestParams) > 1) {
+            $locale = Utils::getLocaleFromRequest($requestParams);
+            $jobPosterId = Utils::getParameterFromRequest($requestParams, 5);
+            $userId = Utils::getParameterFromRequest($requestParams, 7);
 
-                $locale = Utils::getLocaleFromRequest($requestParams);
-                $jobPosterId = Utils::getParameterFromRequest($requestParams, 5);
-                $userId = Utils::getParameterFromRequest($requestParams, 7);
+            //This is viewable by the owner of the application, the owner of the job poster its for, and admins
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_ADMIN);
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
+            //TODO: add permission for manager, owner of job poster
+            AuthenticationController::validateUser($userPermissions);
 
-                $user = JWTUtils::getOpenIdUserFromJWT($jwt);
-                
-                if (JWTUtils::validateJWT($jwt, $user)) {
+            $fullJobApplication = JobApplicationController::getFullJobApplicationByJobAndUser($jobPosterId, $userId, $locale);
 
-                    if ($user->getUser_role() === "jobseeker") {
-                        if ($user->getUser_id() != $userId) {
-                            header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed" => "Requested job application does not belong to this user"), JSON_FORCE_OBJECT);
-                            exit;
-                        }
-                    } else if ($user->getUser_role() === "administrator") {
-                        $jobPoster = JobPosterController::getJobPosterById($locale, $jobPosterId);
-                        if ($jobPoster->getManager_user_id() != $user->getUser_id()) {
-                            header('HTTP/1.0 401 Unauthorized');
-                            echo json_encode(array("failed" => "This user is not authorized to view applications for this job"), JSON_FORCE_OBJECT);
-                            exit;
-                        }
-                    } else {
-                        header('HTTP/1.0 401 Unauthorized');
-                        echo json_encode(array("failed" => "This user does not have permissions to view job applications"), JSON_FORCE_OBJECT);
-                        exit;
-                    }
-
-                    $fullJobApplication = JobApplicationController::getFullJobApplicationByJobAndUser($jobPosterId, $userId, $locale);
-
-                    if ($fullJobApplication === false) {
-                        //job application not found
-                        header('HTTP/1.0 404 Not Found');
-                        echo json_encode(array("failed" => "Requested application does not exist."), JSON_FORCE_OBJECT);
-                        exit;
-                    }
-
-                    $json = json_encode($fullJobApplication, JSON_PRETTY_PRINT);
-                    echo($json);
-                } else {
-                    header('HTTP/1.0 401 Unauthorized');
-                    echo json_encode(array("failed" => "Invalid token"), JSON_FORCE_OBJECT);
-                    exit;
-                }
-            } else {
-                header('HTTP/1.0 401 Unauthorized');
-                echo json_encode(array("failed" => 'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
+            if ($fullJobApplication === false) {
+                //job application not found
+                header('HTTP/1.0 404 Not Found');
+                echo json_encode(array("failed" => "Requested application does not exist."), JSON_FORCE_OBJECT);
                 exit;
             }
+
+            $json = json_encode($fullJobApplication, JSON_PRETTY_PRINT);
+            echo($json);
+
         } else {
-            header('HTTP/1.0 401 Unauthorized');
-            echo json_encode(array("failed" => 'No authorization token provided'), JSON_FORCE_OBJECT);
+            header('HTTP/1.0 400 Bad Request');
+            echo json_encode(array("failed" => 'No request parameters provided'), JSON_FORCE_OBJECT);
             exit;
         }
 
