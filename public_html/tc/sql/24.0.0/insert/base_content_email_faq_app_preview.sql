@@ -17,7 +17,6 @@ VALUES
 (1,'faqSubnavWhyProvideAReference','Pourquoi dois-je fournir une référence?',2),
 (1,'faqSubnavWhyShareMyWork','Why share my work?',1),
 (1,'faqSubnavWhyShareMyWork','Pourquoi dois-je présenter mon travail?',2),
-
 (1,'faqSectionTitleWhatLevelIsMySkill','What level is my skill?',1),
 (1,'faqSectionTitleWhatLevelIsMySkill','Quel est le niveau de ma compétence?',2),
 (1,'faqTextTitleBasic','Basic',1),
@@ -49,6 +48,17 @@ VALUES
 (1,'faqTextCopyCredentialingEvidenceParagraph2','The result? A personalized real-time record of your applied skills that showcases the breadth and depth of your abilities.',1),
 (1,'faqTextCopyCredentialingEvidenceParagraph2','Le résultat? Un enregistrement personnel en temps réel de l’application de vos compétences, qui démontre la portée et le niveau de vos capacités.',2),
 
+/*Joh Poster*/
+(1,'jobPosterTeamNarrativeText_label','Things to Know',1),
+(1,'jobPosterTeamNarrativeText_label','Ce qu’il faut savoir',2),
+(1,'jobPosterApplyButton','Apply Now',1),
+(1,'jobPosterApplyButton','Postuler dès maintenant',2),
+(1,'job-poster__apply-content','Please advise Talent Cloud at talent.cloud-nuage.de.talents@tbs-sct.gc.ca of any
+accomodations you may require during the application process.',1),
+(1,'job-poster__apply-content','Veuillez informer l’équipe du nuage de talents de toute mesure d’adaptation dont vous pourriez
+avez besoin au cours du processus en écrivant à talent.cloud-nuage.de.talents@tbs-sct.gc.ca.',2),
+
+
 /*Application Preview*/
 (1,'applicationHeroTitle','My Job Application',1),
 (1,'applicationHeroTitle','Ma demande d’emploi',2),
@@ -69,5 +79,13 @@ VALUES
 (1,'createJobApplicationConfirmationContinueButton','Continue to Dashboard',1),
 (1,'createJobApplicationConfirmationContinueButton','Continuez jusqu’au Tableau de bord',2),
 (1,'createJobApplicationConfirmationPositionLabel','You have applied to the position of:',1),
-(1,'createJobApplicationConfirmationPositionLabel','Vous avez posé votre candidature pour le poste de:',2)
+(1,'createJobApplicationConfirmationPositionLabel','Vous avez posé votre candidature pour le poste de:',2),
+(1,'applicant-evidence-preview__reference-status-label','Status',1),
+(1,'applicant-evidence-preview__reference-status-label','État',2),
+(1,'applicant-evidence-preview__evidence-copy-label','Contribution',1),
+(1,'applicant-evidence-preview__evidence-copy-label','Contribution',2),
+(1,'applicant-evidence-preview__evidence-link','View Evidence',1),
+(1,'applicant-evidence-preview__evidence-link','Consulter les documents à l’appui',2),
+(1,'applicationPreviewEditApplicationButton','Edit Application',1),
+(1,'applicationPreviewEditApplicationButton','Modifier la demande',2)
 ;
