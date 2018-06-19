@@ -40,11 +40,11 @@
                 if ($result === false) {
                     header('HTTP/1.0 404 Not Found');
                     echo json_encode(array("failed" => "Manager Profile does not exist for specified user"), JSON_FORCE_OBJECT);
-                }else {
+                } else {
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
                 }
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

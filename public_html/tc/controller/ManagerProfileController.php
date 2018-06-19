@@ -40,7 +40,7 @@ class ManagerProfileController {
             }
             
             return ["manager_profile_id"=>$profileId];
-        }else {
+        } else {
             $profileId = ManagerProfileDAO::createManagerProfile($managerProfile, $managerProfileDetails);
             return ["manager_profile_id"=>$profileId];
         }

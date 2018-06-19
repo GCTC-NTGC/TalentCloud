@@ -61,7 +61,7 @@ if ($query_string !== "") {
         }
         header("Refresh:0; url=\"" . REDIRECT_URI_ADMIN . "\"");
     }
-}else {
+} else {
     $_SESSION['openid_connect_state'] = $state;
     $_SESSION['openid_connect_nonce'] = $nonce;
 }
@@ -107,7 +107,7 @@ if ($query_string !== "") {
                 echo("UserAPI.storeSessionUser(" . json_encode($userInfo) . ");");
                 echo("UserAPI.login(true);");
             }
-            }else {
+            } else {
                 echo("UserAPI.login(false);");
             }
         //var isExistingUser = UserAPI.authenticate(UserAPI.getSessionUserAsJSON());

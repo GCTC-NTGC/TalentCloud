@@ -70,7 +70,7 @@ class JobApplicationController {
             $questionAnswers = self::getApplicationQuestionAnswers($jobPosterApplication->getJob_poster_application_id());
             $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
             return $jobApplicationWithAnswers;
-        }else {
+        } else {
             return false;
         }
     }
@@ -165,7 +165,7 @@ class JobApplicationController {
             $workSamples = WorkSampleController::getAllWorkSamplesForJobApplication($jobPosterApplicationId, $locale);
             
             return new FullJobApplication($jobPosterApplication, $jobSeekerProfile, $questionAnswers, $skillDeclarations, $microReferences, $workSamples);
-        }else {
+        } else {
             return false;
         }
     }
@@ -174,7 +174,7 @@ class JobApplicationController {
         $isDraft = self::jobApplicationIsDraft($jobPosterApplicationId);
         if ($isDraft) {
             return JobApplicationDAO::setJobAppliationStatus($jobPosterApplicationId, "Submitted");
-        }else {
+        } else {
             return ["false"=>"Cannot submit an application which is not a draft"];
         }
     }

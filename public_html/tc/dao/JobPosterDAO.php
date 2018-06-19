@@ -98,10 +98,10 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
                 'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
-                'job_max_level', 'start_date','open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies',
+                'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
+                'remuneration_range_low', 'remuneration_range_high', 'impact', 'key_tasks', 'core_competencies', 'dev_competencies',
                 'classification', 'security_clearance', 'language_requirement'
             ));
             $jobPosters = $sql->fetchAll();
@@ -200,7 +200,7 @@ class JobPosterDAO extends BaseDAO {
             $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
                 'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
                 'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','classification','security_clearance', 'language_requirement',
+                'remuneration_range_low', 'remuneration_range_high', 'impact', 'classification', 'security_clearance', 'language_requirement',
             ));
             $jobPoster = $sql->fetch();
         } catch (PDOException $e) {
@@ -503,14 +503,18 @@ class JobPosterDAO extends BaseDAO {
             $sqlEssentialType->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             $sqlAssetType->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
             
-            if (sizeof($key_task_data) > 0)
-                    $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));
-            if (sizeof($core_competency_data) > 0)
-                $sql5->execute($core_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
-            if (sizeof($dev_competency_data) > 0)
-                $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
-            if (sizeof($question_data) > 0)
-                $sqlQuestions->execute($question_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            if (sizeof($key_task_data) > 0) {
+                                $sql4->execute($key_task_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
+            if (sizeof($core_competency_data) > 0) {
+                            $sql5->execute($core_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
+            if (sizeof($dev_competency_data) > 0) {
+                            $sql6->execute($dev_competency_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
+            if (sizeof($question_data) > 0) {
+                            $sqlQuestions->execute($question_data) or die("ERROR: " . implode(":", $link->errorInfo()));
+            }
 
             $link->commit();
         } catch (PDOException $e) {
@@ -593,11 +597,11 @@ class JobPosterDAO extends BaseDAO {
 
         try {
             $sql->execute() or die("ERROR: " . implode(":", $conn->errorInfo()));
-            $sql->setFetchMode( PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'JobPoster',array(
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'JobPoster', array(
                 'id', 'locale_id', 'manager_user_id', 'title', 'description', 'applicants_to_date', 'term_qty', 'term_units', 'job_min_level',
                 'job_max_level', 'start_date', 'open_date', 'close_date', 'department', 'branch', 'division', 'location_province', 'location_city',
-                'remuneration_range_low','remuneration_range_high','impact','key_tasks','core_competencies','dev_competencies',
-                'classification', 'security_clearance','language_requirement'
+                'remuneration_range_low', 'remuneration_range_high', 'impact', 'key_tasks', 'core_competencies', 'dev_competencies',
+                'classification', 'security_clearance', 'language_requirement'
             ));
             $jobPosters = $sql->fetchAll();
             //var_dump($rows);

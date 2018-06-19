@@ -61,7 +61,7 @@ class UserController {
         //if user_id is not null, then log the user in automatically
         if ($existingUser) {
             return $existingUser;
-        }else {
+        } else {
             //if user_id is null, then the user is not registered and we should register them automatically
             //register new user
             $newUser = UserController::registerUser($user);
@@ -87,7 +87,7 @@ class UserController {
                 $userId = $registeredUser->getUser_id();
                 $jobSeekerProfile = new JobSeekerProfile();                
                 $result = JobSeekerController::addJobSeekerProfile($jobSeekerProfile, $userId);
-            }else if ($registeredUser->getUser_role() === 'administrator') {
+            } else if ($registeredUser->getUser_role() === 'administrator') {
                 
                 $userId = $registeredUser->getUser_id();
                 $managerProfile = new ManagerProfile();
@@ -129,7 +129,7 @@ class UserController {
             if ($oldUser->getEmail() != $updatedUser->getEmail()) {
                 $confEmailSent = UserController::confirmEmail($updatedUser);
                 $updatedUser->setIs_confirmed(false);
-            }else {
+            } else {
                 $updatedUser->setIs_confirmed($oldUser->getIs_confirmed());
             }
             $updateSuccessful = UserDAO::updateUser($updatedUser); //do updates

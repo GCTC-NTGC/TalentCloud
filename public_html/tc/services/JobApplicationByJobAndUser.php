@@ -47,7 +47,7 @@
                 
                 $json = json_encode($jobApplicationWithAnswers, JSON_PRETTY_PRINT);
                 echo($json);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -100,13 +100,13 @@
                     $result = JobApplicationController::getJobApplicationWithAnswersById($prevId);
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
-                }else {
+                } else {
                     //Previous application exist, but is not a draft, so cannot be updated
                     header('HTTP/1.0 403 Forbidden');
                     echo json_encode(array("failed"=>"Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                     exit;
                 } 
-            }else {
+            } else {
                 //No previous application exists, so a new one can be created
                 $applicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
                 $result = JobApplicationController::getJobApplicationWithAnswersById($applicationId);

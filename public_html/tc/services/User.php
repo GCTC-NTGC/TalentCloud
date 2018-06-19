@@ -51,23 +51,23 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                             
                             echo($json);
                             
-                        }else {
+                        } else {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else {
+                    } else {
                         header('HTTP/1.0 401 Unauthorized');
                         echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else {
+                } else {
                     header('HTTP/1.0 401 Unauthorized');
                     echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
@@ -90,12 +90,12 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                     $userRegistered = UserController::registerUser($newUser);
                     $json = json_encode($userRegistered, JSON_PRETTY_PRINT);
                     echo($json);
-                }else {
+                } else {
                     $result = array();
                     $json = json_encode($result, JSON_PRETTY_PRINT);
                     echo($json);
                 }                
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Authorization declined';
                 exit;
@@ -125,22 +125,22 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
                             $result = UserController::updateUser($updatedUser);
                             $json = json_encode($result, JSON_PRETTY_PRINT);                            
                             echo($json);                            
-                        }else {
+                        } else {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
-                    }else {
+                    } else {
                         header('HTTP/1.0 401 Unauthorized');
                         echo json_encode(array("failed"=>"No user id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else {
+                } else {
                     header('HTTP/1.0 401 Unauthorized');
                     echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
@@ -149,7 +149,7 @@ $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZ
             //TODO: check authaurization
             if (strlen($jsonBody) > 1) {
                 
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'Authorization declined';
                 exit;

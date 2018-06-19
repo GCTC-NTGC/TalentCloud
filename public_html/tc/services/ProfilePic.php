@@ -37,11 +37,11 @@ header("Content-Type: application/json; charset=utf-8");
                 if ($result == NULL) {
                     http_response_code(404);
                     echo('No profile image uploaded for this user.');
-                }else {
+                } else {
                     header("Content-type: " . $result->getType());
                     echo($result->getImage());
                 }
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -83,7 +83,7 @@ header("Content-Type: application/json; charset=utf-8");
                 //echo($profile_pic->getImage());
                 echo($result);
                 //echo('{"profilepic":"upload failed"}');
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

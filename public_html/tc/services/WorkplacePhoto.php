@@ -41,11 +41,11 @@ header("Content-Type: application/json; charset=utf-8");
                 if ($result == NULL) {
                     http_response_code(404);
                     echo('This workplace photo does not exist');
-                }else {
+                } else {
                     header("Content-type: " . $result->getMime_type());
                     echo($result->getFile());
                 }
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -94,23 +94,23 @@ header("Content-Type: application/json; charset=utf-8");
                             $json = json_encode($result, JSON_PRETTY_PRINT);
 
                             echo($json);                            
-                        }else {
+                        } else {
                             header('HTTP/1.0 401 Unauthorized');
                             echo json_encode(array("failed"=>"Invalid token"), JSON_FORCE_OBJECT);
                             exit;
                         }
 
-                    }else {
+                    } else {
                         header('HTTP/1.0 401 Unauthorized');
                         echo json_encode(array("failed"=>"No manager profile id provided"), JSON_FORCE_OBJECT);
                         exit;
                     }
-                }else {
+                } else {
                     header('HTTP/1.0 401 Unauthorized');
                     echo json_encode(array("failed"=>'Invalid token, please reauthorize user'), JSON_FORCE_OBJECT);
                     exit;
                 }
-            }else {
+            } else {
                 header('HTTP/1.0 401 Unauthorized');
                 echo json_encode(array("failed"=>'No authorization token provided'), JSON_FORCE_OBJECT);
                 exit;
@@ -120,7 +120,7 @@ header("Content-Type: application/json; charset=utf-8");
                 $managerProfileId = Utils::getParameterFromRequest($requestParams, 4);
                 
                 //echo('{"profilepic":"upload failed"}');
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

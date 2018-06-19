@@ -36,7 +36,7 @@
             $json = json_encode($result, JSON_PRETTY_PRINT);
             header("Content-length:" . strlen($json));
             echo($json);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);
@@ -51,7 +51,7 @@
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 header("Content-length:" . strlen($json));
                 echo($json);
-            }else {
+            } else {
                 $result = array();
                 $json = json_encode($result, JSON_PRETTY_PRINT);
                 echo($json);

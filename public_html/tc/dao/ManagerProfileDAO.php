@@ -184,7 +184,7 @@ class ManagerProfileDAO extends BaseDAO {
          * @param ManagerProfileDetails $managerProfileDetails
          * @return int $profileId
          */
-    public static function updateManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails){
+    public static function updateManagerProfile(ManagerProfile $managerProfile, ManagerProfileDetailsNonLocalized $managerProfileDetails) {
 
         //var_dump($managerProfile->getUser_manager_profile_id());
 

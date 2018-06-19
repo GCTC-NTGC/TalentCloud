@@ -59,7 +59,7 @@
          * @param dbconnection $link
          *   $link is the connection required to be closed
          */
-        protected static function closeConnection($link){
+        protected static function closeConnection($link) {
                     $link = null;
         }
 		
@@ -69,14 +69,14 @@
          * @param type $sql
          * @return type
          */
-        protected static function executeDBTransaction($link,$sql){
-            try{
+        protected static function executeDBTransaction($link, $sql) {
+            try {
                 $link->beginTransaction();
                 $link->exec($sql);
                 $link->commit();
             } catch (Exception $e) {
                 $link->rollBack();
-                die('<b>Error:</b> '.$e->getMessage());
+                die('<b>Error:</b> ' . $e->getMessage());
             }
             return $link;
         }
