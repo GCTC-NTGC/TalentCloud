@@ -20,13 +20,13 @@ JobApplicationAPI.ApplicationQuestionAnswer = function (
 JobApplicationAPI.JobApplication = function (
         jobApplicationId,
         jobPosterId,
-        jobSeekerProfileId,
+        userId,
         jobApplicationStatusId,
         applicationQuestionAnswers) {
     this.job_poster_application = {};
     this.job_poster_application.job_poster_application_id = jobApplicationId;
     this.job_poster_application.application_job_poster_id = jobPosterId;
-    this.job_poster_application.application_job_seeker_profile_id = jobSeekerProfileId;
+    this.job_poster_application.user_id = userId;
     this.job_poster_application.job_poster_application_status_id = jobApplicationStatusId;
 
     this.application_question_answers = applicationQuestionAnswers;
@@ -62,7 +62,6 @@ JobApplicationAPI.showCreateJobApplication = function (jobPosterId) {
         var applicantProfilePic = document.getElementById('createJobApplicationProfilePic');
         ProfilePicAPI.refreshProfilePic(user.user_id, applicantProfilePic);
         JobApplicationAPI.populateApplicationWithUserContent(user);
-        DataAPI.getJobSeekerProfileByUserId(user.user_id, JobApplicationAPI.populateApplicationWithJobSeekerProfileContent);
     }
 
     DataAPI.getJobPoster(locale, jobPosterId, function (jobPosterResponse) {
@@ -168,12 +167,6 @@ JobApplicationAPI.populateApplicationWithUserContent = function (user) {
     document.getElementById('createJobApplicationName').innerHTML = user.name;
 };
 
-JobApplicationAPI.populateApplicationWithJobSeekerProfileContent = function (jobSeekerProfileResponse) {
-    var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(jobSeekerProfileResponse));
-
-    document.getElementById('jobApplicationJobSeekerId').value = jobSeeker.id;
-};
-
 JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (jobApplicationRequestResponse, jobPosterId) {
     if (jobApplicationRequestResponse.status === 200) {
 
@@ -184,7 +177,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         //Store metadata
         document.getElementById("jobApplicationJobApplicationId").value = jobPosterApplication.job_poster_application_id;
         document.getElementById("jobApplicationJobPosterId").value = jobPosterApplication.application_job_poster_id;
-        document.getElementById("jobApplicationJobSeekerId").value = jobPosterApplication.application_job_seeker_profile_id;
+        document.getElementById("jobApplicationUserId").value = jobPosterApplication.user_id;
         document.getElementById("jobApplicationJobApplicationStatusId").value = jobPosterApplication.job_poster_application_status_id;
 
         //Load saved skill declarations using application id
@@ -208,20 +201,14 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
 
         var status = 1; //draft status id
 
-        //Need an up-to-date profile id
         var user = UserAPI.getSessionUserAsJSON();
-        DataAPI.getJobSeekerProfileByUserId(user.user_id, function (jobSeekerProfileResponse) {
-            if (jobSeekerProfileResponse) {
-                var jobSeeker = JobSeekerAPI.populateJobSeekerObject(JSON.parse(jobSeekerProfileResponse));
-                var newApplication = new JobApplicationAPI.JobApplication(null, jobPosterId, jobSeeker.id, status, []);
-                DataAPI.createJobApplication(newApplication, function (request) {
-                    if (request.status === 200) {
-                        //Draft application was successfully created - save application id
-                        document.getElementById("jobApplicationJobApplicationId").value = JSON.parse(request.response).job_poster_application_id;
-                    }
-                });
+        var newApplication = new JobApplicationAPI.JobApplication(null, jobPosterId, user.user_id, status, []);
+        DataAPI.createJobApplication(newApplication, function (request) {
+            if (request.status === 200) {
+                //Draft application was successfully created - save application id
+                document.getElementById("jobApplicationJobApplicationId").value = JSON.parse(request.response).job_poster_application_id;
             } else {
-                window.alert("You must have a Job Seeker Profile before applying to a job.");
+                window.alert("Application could not be created.");
             }
         });
     }
@@ -266,46 +253,6 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion) {
     return item;
 };
 
-
-JobApplicationAPI.submitNewJobApplication = function () {
-    //TODO: get most recent jobPosterId, instead of what's saved in the html element
-
-    var jobApplicationId = document.getElementById('jobApplicationJobApplicationId').value;
-    var jobPosterId = document.getElementById('jobApplicationJobPosterId').value;
-    var jobSeekerId = document.getElementById('jobApplicationJobSeekerId').value;
-
-    //get all Question answers
-    var applicationQuestionAnswers = [];
-    var questionAnswerSection = document.getElementById('createJobApplicationOpenEndedQuestionsWrapper');
-    var questionAnswerWrappers = questionAnswerSection.getElementsByClassName('application-form__open-question-item');
-    for (var i = 0; i < questionAnswerWrappers.length; i++) {
-        var questionId = questionAnswerWrappers[i].querySelector('input[name="job_poster_question_id"]').value;
-        var answer = questionAnswerWrappers[i].getElementsByTagName('textarea')[0].value;
-        var question = questionAnswerWrappers[i].getElementsByClassName('jobApplicationQuestion')[0].innerHTML;
-
-        var questionAnswer = new JobApplicationAPI.ApplicationQuestionAnswer(
-                null, questionId, question, answer);
-        applicationQuestionAnswers.push(questionAnswer);
-    }
-
-    var applicationStatus = 1; //draft status
-    var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationStatus, applicationQuestionAnswers);
-
-    DataAPI.createJobApplication(jobApplication, function (request) {
-
-        Utilities.debug ? console.log("New Job Application Submitted") : null;
-
-        //TODO: less hacky way of getting job title? Is it worth re-requesting it?
-        var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
-        JobApplicationAPI.showCreateJobConfirmation(jobTitle);
-    });
-
-};
-
-JobApplicationAPI.saveJobApplicationAndPreview = function () {
-
-};
-
 /**
  * Saves the current Job Application.
  * Call onSuccess if application is saved successfully
@@ -317,7 +264,6 @@ JobApplicationAPI.saveJobApplication = function (onSuccess) {
 
     var jobApplicationId = document.getElementById('jobApplicationJobApplicationId').value;
     var jobPosterId = document.getElementById('jobApplicationJobPosterId').value;
-    var jobSeekerId = document.getElementById('jobApplicationJobSeekerId').value;
 
     //get all Question answers
     var applicationQuestionAnswers = [];
@@ -334,9 +280,10 @@ JobApplicationAPI.saveJobApplication = function (onSuccess) {
     }
 
     var applicationStatus = 1; //draft status
-    var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationStatus, applicationQuestionAnswers);
+    var userId = UserAPI.getSessionUserAsJSON().user_id;
+    var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, userId, applicationStatus, applicationQuestionAnswers);
 
-    DataAPI.saveJobApplicationByJobAndUser(jobApplication, jobPosterId, UserAPI.getSessionUserAsJSON().user_id, function (request) {
+    DataAPI.saveJobApplicationByJobAndUser(jobApplication, jobPosterId, userId, function (request) {
         if (request.status === 403) {
             var message = JSON.parse(request.response).failed;
             window.alert(message);

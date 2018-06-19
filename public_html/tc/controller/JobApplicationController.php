@@ -163,7 +163,7 @@ class JobApplicationController {
     protected static function getFullJobApplicationByJobPosterApplication($jobPosterApplication, $locale) {
         if ($jobPosterApplication) {
             $jobPosterApplicationId = $jobPosterApplication->getJob_poster_application_id();
-            $jobSeekerProfile = JobSeekerController::getJobSeekerProfileByUserId($jobPosterApplication->getUserId());
+            $jobSeekerProfile = JobSeekerController::getJobSeekerProfileByUserId($jobPosterApplication->getUser_id());
             $questionAnswers = self::getApplicationQuestionAnswers($jobPosterApplicationId);
             $skillDeclarations = SkillDeclarationController::getAllSkillDeclarationsForJobApplication($jobPosterApplicationId);
             $microReferences = MicroReferenceController::getAllMicroReferencesForJobApplication($jobPosterApplicationId, $locale);

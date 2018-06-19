@@ -245,7 +245,7 @@ class JobApplicationDAO extends BaseDAO {
         
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_poster_id', $jobPosterApplication->getApplication_job_poster_id(), PDO::PARAM_INT);
-        $sql->bindValue(':user)id', $jobPosterApplication->getUser_id(), PDO::PARAM_INT);
+        $sql->bindValue(':user_id', $jobPosterApplication->getUser_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_status_id', $jobPosterApplication->getJob_poster_application_status_id(), PDO::PARAM_INT);
         
         try {
