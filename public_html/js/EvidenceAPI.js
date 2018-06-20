@@ -391,10 +391,7 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
                 skills = skills.offsetParent;
             }
 
-            window.scroll({
-                top: yPosition,
-                behavior: "smooth"
-            });
+            window.scroll(0, yPosition);
 
         }
 
@@ -414,7 +411,7 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
 
             }
 
-            console.log(thisSkill);
+            // console.log(thisSkill);
 
             var xPosition = 0;
             var yPosition = 0;
@@ -427,10 +424,7 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
 
             var location = yPosition - 40;
 
-            window.scroll({
-                top: location,
-                behavior: "smooth"
-            });
+            window.scroll(0, location);
 
         }
 
