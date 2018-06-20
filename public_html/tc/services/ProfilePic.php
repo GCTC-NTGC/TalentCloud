@@ -9,7 +9,9 @@ require_once __DIR__ . '/../config/php.config.inc';
 set_include_path(get_include_path() . PATH_SEPARATOR);
 
 require_once __DIR__ . '/../controller/ProfilePicController.php';
+require_once __DIR__ . '/../controller/AuthenticationController.php';
 require_once __DIR__ . '/../model/ProfilePic.php';
+require_once __DIR__ . '/../model/UserPermission.php';
 require_once __DIR__ . '/../utils/Utils.php';
 
 $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
