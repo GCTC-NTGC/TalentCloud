@@ -13,9 +13,13 @@
 
 .accordion__trigger {
     cursor: pointer;
-    padding-right: 6rem;
+    padding-right: 4rem;
     position: relative;
     width: 100%;
+
+    @media #{$p-tablet} {
+        padding-right: 6rem;
+    }
 
     &.active {
 
@@ -27,13 +31,19 @@
     }
 
     .fa-chevron-down {
-        font-size: 2rem;
+        font-size: 1.5rem;
         pointer-events: none;
         position: absolute;
         top: 50%;
-        right: 2rem;
+        right: 1.5rem;
         transform: translate(0, -50%);
         transition: transform .2s ease;
+
+        @media #{$p-tablet} {
+            font-size: 2rem;
+            right: 2rem;
+        }
+
     }
 
 }

@@ -24,7 +24,7 @@
                     
                     <div class="applicant-evidence__desktop-menu" id="applicationEssentialEvidenceMenu" aria-orientation="vertical">
 
-                        <span class="applicant-evidence__desktop-menu-label">Need to Have Skills</span>
+                        <span class="applicant-evidence__desktop-menu-label">Skills You Need to Have</span>
 
                         <?php /* Populated by JavaScript */ ?>
 
@@ -82,7 +82,7 @@
 
                 <div id="applicationAssetEvidenceMenu" role="tablist" aria-orientation="vertical" class="box lg-1of4 applicant-evidence__desktop-menu">
 
-                    <span class="applicant-evidence__desktop-menu-label">Nice to Have Skills</span> 
+                    <span class="applicant-evidence__desktop-menu-label">Skills That Are Nice to Have</span> 
 
                     <?php /* Populated by JavaScript */ ?>
 
@@ -135,8 +135,6 @@
 
         <div class="hidden" id="applicantEvidencePanelTemplate">
 
-            <?php // DEV-NOTE: This is an evidence content accordion. The first accordion should always have "active" classes on the "accordion-wrapper", "accordion-trigger", and "accordion-content" elements. The JS that handles the toggling of these classes is already written for the remaining accordions. I'm using a data attribute to tie the accordion pane to the tab menu above. These will need to be unique to each skill on the page (e.g. skill01, skill02, etc.). We're also going to want to set the "aria-labelledby" value to the ID assigned to the tab item in the menu above. ?>
-
             <div class="applicant-evidence__skill template" data-criteria-type="" data-criteria-id="">
 
                 <?php /* Skill Anchor */ ?>
@@ -169,7 +167,7 @@
 
                                 </div>
 
-                                <span>The information inside is required.</span>
+                                <span>Required Information</span>
 
                                 <i class="fa fa-chevron-down"></i>
 
@@ -179,29 +177,30 @@
 
                             <div class="accordion__content active">
 
+                                <div class="flex-grid">
+
+                                    <div class="box med-1of2"></div>
+
+                                    <div class="applicant-evidence__context-link-wrapper box med-1of2">
+                                        <a href="/#FAQ/credentialingSkillLevel" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
+                                    </div>
+
+                                </div>
+
                                 <form class="form__wrapper">
 
-                                    <?php // DEV-NOTE: You'll notice I've purposefully omitted including "for" and "id" attributes on form elements. This is because we'll need to add them in dynamically for each skill anyway to ensure no repetition. ?>
+                                    <div class="applicant-evidence__expertise-radiogroup form__radio-group" role="radiogroup" aria-labelledby="applicationEvidenceExpertiseItemLabel" aria-orientation="horizontal">
 
-                                    <div class="applicant-evidence__expertise-radiogroup" role="radiogroup" aria-labelledby="applicationEvidenceExpertiseItemLabel" aria-orientation="horizontal">
-
-
-                                        <div class="flex-grid">
-
-                                            <div class="box med-1of2">
-                                                <label id="applicationEvidenceExpertiseItemLabel" for="" class="applicant-evidence__expertise-radiogroup-title form__label">My Level of Expertise:</label>
-                                            </div>
-
-                                            <div class="box med-1of2">
-                                                <a href="/#FAQ/credentialingSkillLevel" title="Learn more about levels of expertise and where you might fit in." target="_blank">Unsure of your level?</a>
-                                            </div>
-
-                                        </div>
+                                        <label id="applicationEvidenceExpertiseItemLabel" for="" class="applicant-evidence__expertise-radiogroup-title form__label">
+                                            My Level of Expertise
+                                        </label>
 
                                         <?php // DEV-NOTE: This is the new structure for what were originally called "sliders". You'll notice that I've included the "for" and "id" attributes here due to the radio inputs not working without them. These will still need to be assigned dynamically. ?>
 
                                         <div class="applicant-evidence__expertise-wrapper flex-grid">
+
                                             <?php // Slider should be populated at runtime using item template ?>
+
                                         </div>
 
                                         <?php // DEV-NOTE: a template radio button item can be used to populate the expertise "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
@@ -216,9 +215,11 @@
 
                                     </div>
 
-                                    <div class="applicant-evidence__experience-radiogroup" role="radiogroup" aria-labelledby="applicationEvidenceExperienceItemLabel" aria-orientation="horizontal">
+                                    <div class="applicant-evidence__experience-radiogroup form__radio-group" role="radiogroup" aria-labelledby="applicationEvidenceExperienceItemLabel" aria-orientation="horizontal">
 
-                                        <label id="applicationEvidenceExperienceItemLabel" for="" class="applicant-evidence__experience-radiogroup-title form__label">My Years of Experience:</label>
+                                        <label id="applicationEvidenceExperienceItemLabel" for="" class="applicant-evidence__experience-radiogroup-title form__label">
+                                            My Years of Experience
+                                        </label>
 
                                         <div class="applicant-evidence__experience-wrapper flex-grid">
 
@@ -277,7 +278,7 @@
 
                                 </div>
 
-                                <span>Optional micro-reference.</span>
+                                <span>Optional Micro-reference</span>
 
                                 <i class="fa fa-chevron-down"></i>
 
@@ -293,7 +294,7 @@
 
                                     </div>
 
-                                    <div class="box med-1of2">
+                                    <div class="applicant-evidence__context-link-wrapper box med-1of2">
                                         <a href="/#FAQ/credentialingReferences" title="What is a micro-reference?" class="applicant-evidence__faq" target="_blank">How will this strengthen my application?</a>
                                     </div>
 
@@ -417,7 +418,7 @@
 
                                 </div>
 
-                                <span>Optional work sample.</span>
+                                <span>Optional Work Sample</span>
 
                                 <i class="fa fa-chevron-down"></i>
 
@@ -433,7 +434,7 @@
 
                                     </div>
 
-                                    <div class="box med-1of2">
+                                    <div class="applicant-evidence__context-link-wrapper box med-1of2">
                                         <a href="/#FAQ/credentialingEvidence" title="How will this improve my application?" target="_blank">How will this strengthen my application?</a>
                                     </div>
 
