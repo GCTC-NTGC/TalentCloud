@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=master)](https://travis-ci.com/GCTC-NTGC/TalentCloud)
-
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=master)
+[![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=master)](https://travis-ci.com/GCTC-NTGC/TalentCloud) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=master)
 
 ## GC Talent Cloud
 Talent Cloud aspires to be a cross-sectoral initiative testing new realities for talent in-and-out of government. This initiative is designed to test the viability of a new model for recruiting and mobilizing talent in the Public Service. The Talent Cloud itself is fundamentally a massive repository of pre-assessed talent, where the curation and distribution of talent is optimized for fast placement for project-based work.
