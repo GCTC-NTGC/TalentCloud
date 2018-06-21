@@ -247,51 +247,12 @@ JobSeekerAPI.saveJobSeekerProfileChanges = function () {
  */
 JobSeekerAPI.saveJobSeekerProfile = function (jobSeekerProfile) {
     var user = UserAPI.getSessionUserAsJSON();
-    Utilities.debug ? console.log("saving job seeker profile") : null;
     var saveJobSeekerProfile_url = DataAPI.baseURL + "/putJobSeekerProfileByUser/" + user.user_id;
     var jsonData = JSON.stringify(jobSeekerProfile);
-
-    var saveJobSeekerProfile_xhr = new XMLHttpRequest();
-    if ("withCredentials" in saveJobSeekerProfile_xhr) {
-
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        saveJobSeekerProfile_xhr.open("PUT", saveJobSeekerProfile_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        saveJobSeekerProfile_xhr = new XDomainRequest();
-        saveJobSeekerProfile_xhr.open("PUT", saveJobSeekerProfile_url);
-
-    } else {
-
-        // Otherwise, CORS is not supported by the browser.
-        saveJobSeekerProfile_xhr = null;
-
-    }
-
-    saveJobSeekerProfile_xhr.open('PUT', saveJobSeekerProfile_url);
-    saveJobSeekerProfile_xhr.setRequestHeader("Content-Type", "application/json");
-
-    saveJobSeekerProfile_xhr.addEventListener("load", function () {
+    DataAPI.sendRequest(saveJobSeekerProfile_url, 'PUT', {}, jsonData, function(request){
         JobSeekerAPI.hideJobSeekerProfileEditOverlays();
-        JobSeekerAPI.saveJobSeekerProfileLoaded(saveJobSeekerProfile_xhr.response);
-    }
-    , false);
-    saveJobSeekerProfile_xhr.addEventListener("error", DataAPI.transferFailed, false);
-    saveJobSeekerProfile_xhr.addEventListener("abort", DataAPI.transferAborted, false);
-
-    saveJobSeekerProfile_xhr.send(jsonData);
-};
-
-JobSeekerAPI.saveJobSeekerProfileProgress = function (evt) {
-
-};
-
-JobSeekerAPI.saveJobSeekerProfileAborted = function (evt) {
-
+        JobSeekerAPI.saveJobSeekerProfileLoaded(request.response);
+    });
 };
 
 JobSeekerAPI.saveJobSeekerProfileLoaded = function (response) {
