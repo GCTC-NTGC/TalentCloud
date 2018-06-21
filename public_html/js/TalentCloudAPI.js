@@ -83,7 +83,7 @@ TalentCloudAPI.pages = {
         state: function () {
             JobSeekerAPI.showMyJobSeekerProfile();
             TalentCloudAPI.setNav("navigationProfileLinkWrapper");
-            AccessibilityAPI.focusElement("myProfilePic");
+            AccessibilityAPI.focusElement("applicantProfilePic");
         }
     },
     Job: {

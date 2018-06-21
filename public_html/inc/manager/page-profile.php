@@ -7,7 +7,7 @@
 
             <div id="createEditProfilePicWrapper" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                 <div class="flexLeftOfCenter"></div>
-                <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
+                <img id="managerProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
                 <div class="flexRightOfCenter">
                     <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
                         <img id="editMyProfilePicImg" src="../images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>

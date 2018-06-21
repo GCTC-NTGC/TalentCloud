@@ -83,13 +83,13 @@ AdminDashboardAPI.populateJobPosterItemWithJobApplications = function (jobApplic
 AdminDashboardAPI.createDashboardApplicationElement = function(jobApplication) {
     
     //var jobPosterId = jobApplication.application_job_poster_id;
-    var profileId = jobApplication.job_poster_application.application_job_seeker_profile_id;
+    var userId = jobApplication.job_poster_application.user_id;
     var applicationId = jobApplication.job_poster_application.job_poster_application_id;
 
     var jobApplicationItem = document.getElementById("adminDashboardJobApplicationItemTemplate").cloneNode(true);
     jobApplicationItem.classList.remove("template");
     jobApplicationItem.setAttribute("id", null);
-    var title = "Applicant Profile Id: " + profileId;
+    var title = "Applicant User Id: " + userId;
 
     jobApplicationItem.querySelector(".admin-dashboard__job-application-title").innerHTML = title;
         

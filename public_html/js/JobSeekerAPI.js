@@ -90,8 +90,8 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
 JobSeekerAPI.refreshJobSeekerProfilePic = function () {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        //profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
-        profile_pic_elements = [document.getElementById("myProfilePic")];
+        //profile_pic_elements = [document.getElementById("applicantProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
+        profile_pic_elements = [document.getElementById("applicantProfilePic")];
         ProfilePicAPI.refreshMultipleProfilePicsBackground(user_id, profile_pic_elements);
     }
 };
@@ -339,7 +339,7 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
 
     AccessibilityAPI.addEscapeListener("JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
-    ProfilePicAPI.refreshProfilePicBackground(jobSeekerProfile.user_id, document.getElementById("myProfilePic"));
+    ProfilePicAPI.refreshProfilePicBackground(jobSeekerProfile.user_id, document.getElementById("applicantProfilePic"));
 
     // New Subpage Hero Scripts
 
