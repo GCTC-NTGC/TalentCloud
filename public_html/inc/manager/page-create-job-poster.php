@@ -3,14 +3,14 @@
     <div class="block-container">
 
         <div class="section" id="jobPosterFormWrapper">
-            <form name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
+            <form class="form__wrapper" name="createJobPosterForm" id="createJobPosterForm" method="post" enctype="application/x-www-form-urlencoded">
 
-                <div id="createJobPosterCreateTab" class="stepGroup flex-grid">
-                    <div class="tabsSteps box full">
+                <div id="createJobPosterCreateTab" class="stepGroup">
+
+                    <div class="tabsSteps">
                         <div class="three-step-tab tab-current">
 
-                            <?php // Using buttons for page controls (links with no HTTP ref)
-                            // Add 'return false;' to the event handler to replace javascript:void(0) functionality ?>
+                            <?php // Using buttons for page controls (links with no HTTP ref) ?>
                             <button type="button" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_1">Create</button>
                         </div>
                         <div class="three-step-tab">
@@ -21,35 +21,26 @@
                         </div>
                     </div>
 
-                    <h3 class="manager-poster__title heading--03 box full">Job Poster Details</h3>
+                    <h3 class="manager-poster__title heading--03">Job Poster Details</h3>
 
-                    <div class="manager-edit-profile__required-copy-wrapper box full">
+                    <div class="manager-edit-profile__required-copy-wrapper">
                         All fields required unless indicated as optional
                     </div>
 
                     <?php // Grouping form inputs with fieldset and legend ?>
-                    <fieldset id="createJobPosterJobTitleSection" class="box med-1of2">
+                    <fieldset id="createJobPosterJobTitleSection">
                         <legend>Job Title</legend>
-                        <?php // Title (English) ?>
 
                         <?php // Add aria-required="true" and required attributes ?>
-                        <?php // TO DO: More HTML5 error handling ?>
-                        <label class="form__label" for="createJobPoster_jobTitle">English</label>
-                        <input class="form__input--text" type="text" name="createJobPoster_jobTitle" id="createJobPoster_jobTitle" required aria-required="true"/>
-
-
-                        <?php // Error handling TO BE REVISED ?>
-                        <div id="createJobPoster_jobTitle_error" class="error hidden">
-                            <span id="createJobPoster_jobTitle_error_msg" class="label label-danger"></span>
-                        </div>
-
-                        <?php // Title (Français) ?>
-                        <label class="form__label" for="createJobPoster_jobTitle_fr">Français</label>
-                        <input class="form__input--text" type="text" name="createJobPoster_jobTitle_fr" id="createJobPoster_jobTitle_fr" required aria-required="true"/>
-
-
-                        <div id="createJobPoster_jobTitle_fr_error" class="error hidden">
-                            <span id="createJobPoster_jobTitle_fr_error_msg" class="label label-danger"></span>
+                        <div class="flex-grid">
+                            <div class="form__input-wrapper--float box med-1of2">
+                                <label class="form__label" for="createJobPoster_jobTitle">English</label>
+                                <input class="form__input" type="text" name="createJobPoster_jobTitle" id="createJobPoster_jobTitle" required aria-required="true"/>
+                            </div>
+                            <div class="form__input-wrapper--float box med-1of2">
+                                <label class="form__label" for="createJobPoster_jobTitle_fr">Français</label>
+                                <input class="form__input" type="text" name="createJobPoster_jobTitle_fr" id="createJobPoster_jobTitle_fr" required aria-required="true"/>
+                            </div>
                         </div>
 
                     </fieldset>
