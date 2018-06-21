@@ -78,16 +78,16 @@ class UserController {
         $userInfo = $oidc->requestUserInfo();
         if ($userInfo) {
             $newUser = new User();
-            $newUser->setName($userInfo->name);
-            $newUser->setEmail($userInfo->email);
-            $newUser->setOpen_id($userInfo->sub);
+            $newUser->setName($userInfo->name); 
+            $newUser->setEmail($userInfo->email); 
+            $newUser->setOpen_id($userInfo->sub); 
 
             //TODO: allow manager role depending on source of login
             $newUser->setUser_role(ROLE_APPLICANT);
             $newUser->setIs_confirmed(true);
             $user = UserController::registerUser($newUser);
         } else {
-            throw Exception("Unable to access openId userInfo");
+            throw new Exception("Unable to access openId userInfo");
         }
         return $user;
     }

@@ -382,41 +382,9 @@ CreateJobPosterAPI.hideCreateJobPosterForm = function () {
 
 CreateJobPosterAPI.createJobPoster = function (jobPosterJson) {
     var createJobPoster_URL = CreateJobPosterAPI.baseURL + "/createJobPoster";
-    //console.log('Talent cloud url data:   ' + talentcloudData_URL);
-    //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        xhr.open("POST", createJobPoster_URL);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        xhr = new XDomainRequest();
-        xhr.open("POST", createJobPoster_URL);
-
-    } else {
-
-        // Otherwise, CORS is not supported by the browser.
-        xhr = null;
-
-    }
-    xhr.open('POST', createJobPoster_URL);
-    xhr.addEventListener("progress",
-            function (evt) {
-                DataAPI.talentcloudDataUpdateProgress(evt);
-            }, false);
-    xhr.addEventListener("load",
-            function (evt) {
-                CreateJobPosterAPI.postJobPosterComplete(xhr.response);
-            }, false);
-    xhr.addEventListener("error", DataAPI.transferFailed, false);
-    xhr.addEventListener("abort", DataAPI.transferAborted, false);
-
-    xhr.send(jobPosterJson);
+    DataAPI.sendRequest(manager_profile_url, 'POST', {}, jobPosterJson, function(request) {
+        CreateJobPosterAPI.postJobPosterComplete(request.response);
+    });
 };
 
 CreateJobPosterAPI.postJobPosterComplete = function (response) {
@@ -434,31 +402,8 @@ CreateJobPosterAPI.getManagerProfile = function (responseCallback) {
         var user = UserAPI.getSessionUserAsJSON();
         var user_id = user["user_id"];
         var manager_profile_url = CreateJobPosterAPI.baseURL + "/getManagerProfile/" + user_id;
-        var manager_profile_xhr = new XMLHttpRequest();
-        if ("withCredentials" in manager_profile_xhr) {
-            // Check if the XMLHttpRequest object has a "withCredentials" property.
-            // "withCredentials" only exists on XMLHTTPRequest2 objects.
-            manager_profile_xhr.open("GET", manager_profile_url);
-
-        } else if (typeof XDomainRequest != "undefined") {
-            // Otherwise, check if XDomainRequest.
-            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-            manager_profile_xhr = new XDomainRequest();
-            manager_profile_xhr.open("GET", manager_profile_url);
-        } else {
-            // Otherwise, CORS is not supported by the browser.
-            manager_profile_xhr = null;
-            // TODO: indicate to user that browser is not supported
-        }
-
-        manager_profile_xhr.open('GET', manager_profile_url);
-        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
-        manager_profile_xhr.setRequestHeader("Accept", "application/json");
-        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
-        manager_profile_xhr.addEventListener("load", function () {
-            responseCallback(manager_profile_xhr.response);
-        }, false);
-
-        manager_profile_xhr.send(null);
+        DataAPI.sendRequest(manager_profile_url, 'GET', {}, null, function(request) {
+            responseCallback(request.response);
+        });
     }
 };

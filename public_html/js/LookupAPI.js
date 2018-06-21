@@ -20,45 +20,12 @@ LookupAPI.loadLookupData = function () {
 
 LookupAPI.getLookupData = function (lookupType, locale, requestCallback) {
     var lookup_URL = DataAPI.baseURL + "/" + locale + "/Lookup/" + lookupType;
-    //console.log('Talent cloud url data:   ' + talentcloudData_URL);
-    //var talentcloudData_URL = "/wiremock/mappings/GET_ContentByLocale.json";//TEMPORARY for bh.browse_job_seekers branch
-
-    var lookupData_xhr = new XMLHttpRequest();
-    if ("withCredentials" in lookupData_xhr) {
-
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        lookupData_xhr.open("GET", lookup_URL);
-
-    } else if (typeof XDomainRequest !== "undefined") {
-
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        lookupData_xhr = new XDomainRequest();
-        lookupData_xhr.open("GET", lookup_URL);
-
-    } else {
-
-        // Otherwise, CORS is not supported by the browser.
-        lookupData_xhr = null;
-
-    }
-
-    lookupData_xhr.addEventListener("progress",
-            function (evt) {
-                DataAPI.talentcloudDataUpdateProgress(evt);
-            }, false);
-    lookupData_xhr.addEventListener("load",
-            function (evt) {
-                LookupAPI.addToLookupMap(lookupType, locale, lookupData_xhr.response);
-                if (requestCallback) {
-                    requestCallback(lookupData_xhr);
-                }
-            }, false);
-    lookupData_xhr.addEventListener("error", DataAPI.transferFailed, false);
-    lookupData_xhr.addEventListener("abort", DataAPI.transferAborted, false);
-
-    lookupData_xhr.send();
+    DataAPI.sendRequest(lookup_URL, 'GET', {}, null, function(request){
+        LookupAPI.addToLookupMap(lookupType, locale, request.response);
+        if (requestCallback) {
+            requestCallback(request);
+        }
+    });
 };
 
 LookupAPI.addToLookupMap = function (lookupType, locale, response) {

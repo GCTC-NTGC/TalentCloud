@@ -66,8 +66,7 @@ JobPostAPI.showBrowseJobs = function() {
     var loadingJobs = document.getElementById("loadingJobs");
     loadingJobs.classList.remove("hidden");
 
-    var locale = TalentCloudAPI.getLanguageFromCookie();
-    DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
+    DataAPI.getJobs(JobPostAPI.populateJobObjectList);
 
     // New Subpage Hero Scripts
 
@@ -401,52 +400,6 @@ JobPostAPI.getJobCount = function(){
 
 /**
  *
- * @param {type} jobPosterId
- * @returns {Element|JobPostAPI.addFavouriteLink.jobPosterFavouriteImgWrapper}
- */
-JobPostAPI.addFavouriteLink = function(jobPosterId){
-    var jobPoster = document.getElementById(jobPosterId);
-
-
-    //create hidden div for favourite action
-    var jobPosterFavouriteImgWrapper = document.createElement("div");
-    jobPosterFavouriteImgWrapper.setAttribute("class","favouriteImageWrapper");
-    jobPosterFavouriteImgWrapper.setAttribute("id","fav_"+jobPosterId);
-
-    var jobPosterFavouriteImgSrc = new Image();
-    jobPosterFavouriteImgSrc.src = "/images/watch_list_off.svg";
-
-    var jobPosterFavouriteImg = document.createElement("img");
-    jobPosterFavouriteImg.setAttribute("class", "jobPosterFavouriteImg");
-    jobPosterFavouriteImg.src = jobPosterFavouriteImgSrc.src;
-
-    var jobPosterFavouriteLink = document.createElement("a");
-    jobPosterFavouriteLink.setAttribute("class", "jobPosterFavouriteLink");
-    jobPosterFavouriteLink.setAttribute("title", "Add to watched job posts");
-    jobPosterFavouriteLink.setAttribute("href","javascript:void(0)");
-    jobPosterFavouriteLink.setAttribute("onclick","JobPostAPI.toggleFavourite('"+jobPosterId+"')");
-
-    jobPosterFavouriteLink.innerHTML = jobPosterFavouriteImg.outerHTML;
-    jobPosterFavouriteImgWrapper.innerHTML = jobPosterFavouriteLink.outerHTML;
-
-    return jobPosterFavouriteImgWrapper;
-};
-
-/**
- *
- * @param {type} responseText
- * @returns {undefined}
- */
-JobPostAPI.toggleFavourite = function(jobPosterId){
-    Utilities.debug?console.log(jobPosterId):null;
-
-    if(jobPosterId !== ""){
-        DataAPI.toggleFavourite(jobPosterId);
-    }
-};
-
-/**
- *
  * @param {type} isFav
  * @param {type} jobPosterId
  * @returns {undefined}
@@ -518,7 +471,7 @@ JobPostAPI.localizeJobPoster = function() {
         document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
         // document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
-        document.getElementById("jobPosterNocLabel").innerHTML = siteContent.jobPosterNocLabel;
+        //document.getElementById("jobPosterNocLabel").innerHTML = siteContent.jobPosterNocLabel;
         document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
 
         //Set language-specific labels
@@ -669,7 +622,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterDepartment").innerHTML = jobData.department;
     document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
     document.getElementById("jobPosterProvince").innerHTML = jobData.location_province;
-    document.getElementById("jobPosterNocValue").innerHTML = jobData.noc;
+    //document.getElementById("jobPosterNocValue").innerHTML = jobData.noc;
     document.getElementById("jobPosterIdValue").innerHTML = jobData.id;
 
     //Datapoints
@@ -789,137 +742,4 @@ JobPostAPI.hideJobPoster = function(){
     jobPosterSection.classList.add("hidden");
 
     JobPostAPI.showBrowseJobs();
-};
-
-/**
- *
- * @param {type} jobPosterId
- * @param {type} jobTitle
- * @returns {undefined}
- */
-JobPostAPI.jobPosterApplication = function(jobPosterId, jobTitle){
-    //console.log(jobPosterId);
-    var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
-    viewJobPosterApplicationOverlay.classList.add("hidden");
-    var jobSeekerProfileId = document.getElementById("profile_id").value;
-    //var viewJobPosterApplicationCloseButton = document.getElementById("jobPosterApplicationCloseButton");
-    //viewJobPosterApplicationCloseButton.setAttribute("aria-label","Close "+jobTitle + " " + jobPosterId + " application dialog");
-
-    //var viewJobPosterApplicationWrapperWindow = document.getElementById("viewJobPosterApplicationWrapperWindow");
-    //AccessibilityAPI.setARIALabelledBy(viewJobPosterApplicationWrapperWindow,"jobPosterApplicationHeader_"+jobPosterId);
-    //AccessibilityAPI.setARIADescribedBy(viewJobPosterApplicationWrapperWindow,"jobPosterApplicationHeader_"+jobPosterId);
-
-    var jobPosterApplication = document.getElementById("jobPosterApplication");
-
-    var jobPosterApplicationHeader = document.createElement("div");
-    jobPosterApplicationHeader.setAttribute("id", "jobPosterApplicationHeader_"+jobPosterId);
-    jobPosterApplicationHeader.setAttribute("tabindex", "0");
-    jobPosterApplicationHeader.setAttribute("class", "row jobPosterHeader");
-    jobPosterApplicationHeader.innerHTML = "Application - " + jobTitle + " ("+jobPosterId+")";
-
-    var jobPosterApplicationProfileSelect = document.createElement("div");
-    jobPosterApplicationProfileSelect.setAttribute("id", "jobPosterApplicationProfileSelect");
-    jobPosterApplicationProfileSelect.setAttribute("class", "jobPosterApplicationProfileSelect");
-    jobPosterApplicationProfileSelect.innerHTML = "Select profile to submit with the application";
-
-
-    var jobPosterSubmitApplicationButton = document.createElement("div");
-    jobPosterSubmitApplicationButton.setAttribute("id", "jobPosterSubmitApplicationButton_"+jobPosterId);
-    jobPosterSubmitApplicationButton.setAttribute("class", "btn_primary jobPosterSubmitApplicationButton");
-
-    var submitApplicationButton = document.createElement("button");
-    submitApplicationButton.setAttribute("id", "submitApplicationButton_"+jobPosterId);
-    submitApplicationButton.setAttribute("class","btn btn-primary");
-    submitApplicationButton.innerHTML = siteContent.submitApplication;
-    submitApplicationButton.setAttribute("onclick", "JobPostAPI.submitJobPosterApplication('"+jobPosterId+"','"+jobSeekerProfileId+"');");
-    submitApplicationButton.setAttribute("onkeydown", "AccessibilityAPI.onKeydownPreventEscapeForward();");
-    jobPosterSubmitApplicationButton.appendChild(submitApplicationButton);
-
-    jobPosterApplication.appendChild(jobPosterApplicationHeader);
-    jobPosterApplication.appendChild(jobPosterApplicationProfileSelect);
-    jobPosterApplication.appendChild(jobPosterSubmitApplicationButton);
-    jobPosterApplication.classList.remove("hidden");
-    jobPosterApplicationHeader.focus();
-    //var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
-    //viewJobPosterOverlay.classList.add("hidden");
-};
-
-/**
- *
- * @param {type} jobPosterId
- * @param {type} jobSeekerProfileId
- * @returns {undefined}
- */
-JobPostAPI.submitJobPosterApplication = function(jobPosterId,jobSeekerProfileId){
-    Utilities.debug?console.log("loading talent cloud UI"):null;
-    Utilities.debug?console.log("loading contacts"):null;
-    var jobPosterApplication_URL = JobPostAPI.baseURL+"/putJobPosterApplication/"+jobPosterId+"/"+jobSeekerProfileId;
-
-    var jobPosterApplication_xhr = new XMLHttpRequest();
-    if ("withCredentials" in jobPosterApplication_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      jobPosterApplication_xhr.open("PUT", jobPosterApplication_URL);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      jobPosterApplication_xhr = new XDomainRequest();
-      jobPosterApplication_xhr.open("PUT", jobPosterApplication_URL);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      jobPosterApplication_xhr = null;
-
-    }
-
-    jobPosterApplication_xhr.open('PUT',jobPosterApplication_URL);
-    jobPosterApplication_xhr.setRequestHeader("Content-Type","application/json");
-    jobPosterApplication_xhr.addEventListener("progress",
-    function(evt){
-        JobPostAPI.submitJobPosterApplicationProgress(evt);
-    },false);
-    jobPosterApplication_xhr.addEventListener("load",
-    function(evt){
-        JobPostAPI.submitJobPosterApplicationLoaded(jobPosterApplication_xhr.responseText);
-    },false);
-    jobPosterApplication_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    jobPosterApplication_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    jobPosterApplication_xhr.send(authToken);
-    //JobPostAPI.hideJobPosterApplication();
-};
-
-JobPostAPI.submitJobPosterApplicationProgress = function(evt){
-
-};
-
-/**
- *
- * @param {type} jobPosterId
- * @returns {undefined}
- */
-JobPostAPI.submitJobPosterApplicationLoaded = function(jobPosterId){
-    //var applyNowButton = document.getElementById("applyNowButton_"+jobPosterId);
-    //applyNowButton.setAttribute("disabled","");
-    JobPostAPI.hideJobPosterApplication();
-};
-
-/**
- *
- * @returns {undefined}
- */
-JobPostAPI.hideJobPosterApplication = function(){
-    var viewJobPosterApplicationOverlay = document.getElementById("viewJobPosterApplicationOverlay");
-    viewJobPosterApplicationOverlay.classList.remove("hidden");
-
-    var jobPosterApplication = document.getElementById("jobPosterApplication");
-    jobPosterApplication.innerHTML = "";
-
-    /*var viewJobPosterOverlay = document.getElementById("viewJobPosterOverlay");
-    viewJobPosterOverlay.classList.add("hidden");*/
-
 };

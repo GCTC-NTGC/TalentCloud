@@ -131,33 +131,15 @@ CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function (workEnvironment
 };
 
 CreateWorkEnvironmentAPI.refreshWorkplacePhoto = function (managerProfileId, photoName, previewImageElementId) {
-    var xhr = new XMLHttpRequest();
     var photoUrl = DataAPI.baseURL + '/getWorkplacePhotoByManagerProfileAndName/' + managerProfileId + '/' + photoName;
-    if ("withCredentials" in xhr) {
-        // Check if the XMLHttpRequest object has a "withCredentials" property.
-        // "withCredentials" only exists on XMLHTTPRequest2 objects.
-        xhr.open("GET", photoUrl);
-
-    } else if (typeof XDomainRequest != "undefined") {
-        // Otherwise, check if XDomainRequest.
-        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-        xhr = new XDomainRequest();
-        xhr.open("GET", photoUrl);
-    } else {
-        // Otherwise, CORS is not supported by the browser.
-        xhr = null;
-        // TODO: indicate to user that browser is not supported
-    }
-    xhr.setRequestHeader("Accept", "image/*");
-    xhr.addEventListener('load', function () {
-        img = document.getElementById(previewImageElementId);
-        if (xhr.status == 200 && xhr.responseURL) {
-            img.src = xhr.responseURL;
+    DataAPI.sendRequest(photoUrl, 'GET', {"Accept":"image/*"}, null, function(request) {
+        var img = document.getElementById(previewImageElementId);
+        if (request.status == 200 && request.responseURL) {
+            img.src = request.responseURL;
         } else {
             img.src = CreateWorkEnvironmentAPI.defaultWorkplacePhoto;
         }
     });
-    xhr.send();
 };
 
 CreateWorkEnvironmentAPI.saveWorkEnvironment = function (managerProfileId) {
@@ -329,33 +311,15 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function (
 
     self.uploadPhoto = function () {
         if (self.photo) {
-            var xhr = new XMLHttpRequest();
-            if ("withCredentials" in xhr) {
-                // Check if the XMLHttpRequest object has a "withCredentials" property.
-                // "withCredentials" only exists on XMLHTTPRequest2 objects.
-                xhr.open("PUT", self.uploadUrl);
-
-            } else if (typeof XDomainRequest != "undefined") {
-                // Otherwise, check if XDomainRequest.
-                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-                xhr = new XDomainRequest();
-                xhr.open("PUT", self.uploadUrl);
-            } else {
-                // Otherwise, CORS is not supported by the browser.
-                xhr = null;
-                // TODO: indicate to user that browser is not supported
+            var headers = {"Content-type": self.photo.type, 
+                "X-File-Name": self.photo.name,
+                "Accept": "application/json"
             }
-
-            xhr.setRequestHeader("Content-type", self.photo.type);
-            xhr.setRequestHeader("X-File-Name", self.photo.name);
-            xhr.setRequestHeader("Accept", "application/json");
-            xhr.addEventListener("load", function (ev) {
+            DataAPI.sendRequest(self.uploadUrl, "PUT", headers, self.photo, function(request) {
                 if (self.onUploadComplete) {
-                    self.onUploadComplete(xhr);
+                    self.onUploadComplete(request);
                 }
-            }, false);
-
-            xhr.send(self.photo);
+            });
         }
     };
 

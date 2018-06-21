@@ -72,7 +72,7 @@
             <?php if (strpos($url, 'admin') !== false) : ?>
                 <?php /* Create Job Poster */ ?>
                 <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationPosterLinkWrapper" aria-hidden="true">
-                    <a href="javascript:void(0)" id="navigationPosterLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this);TalentCloudAPI.setNav('navigationPosterLinkWrapper');">Job Poster
+                    <a href="javascript:void(0)" id="navigationPosterLink" onclick="CreateJobPosterAPI.showCreateJobPosterForm(this);TalentCloudAPI.setNav('navigationPosterLinkWrapper');">Create Job Poster
                     </a>
                 </div>
             <?php else : ?>

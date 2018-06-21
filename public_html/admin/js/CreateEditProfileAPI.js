@@ -223,37 +223,13 @@ CreateEditProfileAPI.saveManagerProfile = function (complete_manager_profile) {
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
         var user_id = user["user_id"];
-        var manager_profile_url = UserAPI.baseURL + "/postManagerProfile/" + user_id;
-        var manager_profile_xhr = new XMLHttpRequest();
-        if ("withCredentials" in manager_profile_xhr) {
-            // Check if the XMLHttpRequest object has a "withCredentials" property.
-            // "withCredentials" only exists on XMLHTTPRequest2 objects.
-            manager_profile_xhr.open("POST", manager_profile_url);
-
-        } else if (typeof XDomainRequest != "undefined") {
-            // Otherwise, check if XDomainRequest.
-            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-            manager_profile_xhr = new XDomainRequest();
-            manager_profile_xhr.open("POST", manager_profile_url);
-        } else {
-            // Otherwise, CORS is not supported by the browser.
-            manager_profile_xhr = null;
-            // TODO: indicate to user that browser is not supported
-        }
-
-        manager_profile_xhr.open('POST', manager_profile_url);
-        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
-        manager_profile_xhr.setRequestHeader("Accept", "application/json");
-        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
-
-        manager_profile_xhr.addEventListener("load", function () {
-            if (manager_profile_xhr.status === 200) {
-                var response = JSON.parse(manager_profile_xhr.responseText);
+        var manager_profile_url = DataAPI.baseURL + "/postManagerProfile/" + user_id;
+        DataAPI.sendRequest(manager_profile_url, 'POST', {}, complete_manager_profileJSON, function(request) {
+            if (request.status === 200) {
+                var response = JSON.parse(request.responseText);
                 document.getElementById("ManagerProfileId").value = response.manager_profile_id;
             }
-        }, false);
-
-        manager_profile_xhr.send(complete_manager_profileJSON);
+        });
     }
 };
 
@@ -762,35 +738,12 @@ CreateEditProfileAPI.getManagerProfile = function () {
     if (UserAPI.hasSessionUser()) {
         var user = UserAPI.getSessionUserAsJSON();
         var user_id = user["user_id"];
-        var manager_profile_url = UserAPI.baseURL + "/getManagerProfile/" + user_id;
-        var manager_profile_xhr = new XMLHttpRequest();
-        if ("withCredentials" in manager_profile_xhr) {
-            // Check if the XMLHttpRequest object has a "withCredentials" property.
-            // "withCredentials" only exists on XMLHTTPRequest2 objects.
-            manager_profile_xhr.open("GET", manager_profile_url);
-
-        } else if (typeof XDomainRequest != "undefined") {
-            // Otherwise, check if XDomainRequest.
-            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-            manager_profile_xhr = new XDomainRequest();
-            manager_profile_xhr.open("GET", manager_profile_url);
-        } else {
-            // Otherwise, CORS is not supported by the browser.
-            manager_profile_xhr = null;
-            // TODO: indicate to user that browser is not supported
-        }
-
-        manager_profile_xhr.open('GET', manager_profile_url);
-        manager_profile_xhr.setRequestHeader("Content-type", "application/json");
-        manager_profile_xhr.setRequestHeader("Accept", "application/json");
-        //xhr.setRequestHeader('X-CSRF-Token', UserAPI.getCSRFTokenValue());
-        manager_profile_xhr.addEventListener("load", function () {
-            if (manager_profile_xhr.status === 200) {
-                CreateEditProfileAPI.populateProfile(manager_profile_xhr.response);
+        var manager_profile_url = DataAPI.baseURL + "/getManagerProfile/" + user_id;
+        DataAPI.sendRequest(manager_profile_url, 'GET', {}, null, function(request) {
+            if (request.status === 200) {
+                CreateEditProfileAPI.populateProfile(request.response);
             }
-        }, false);
-
-        manager_profile_xhr.send(null);
+        });
     }
 };
 
