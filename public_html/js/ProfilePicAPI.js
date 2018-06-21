@@ -184,32 +184,6 @@ ProfilePicAPI.Uploader = function(
 
     self.uploadPhoto = function() {
         if (self.photo && self.croppie) {
-            var xhr = new XMLHttpRequest();
-            if ("withCredentials" in xhr) {
-                // Check if the XMLHttpRequest object has a "withCredentials" property.
-                // "withCredentials" only exists on XMLHTTPRequest2 objects.
-                xhr.open("PUT", self.uploadUrl);
-
-            } else if (typeof XDomainRequest != "undefined") {
-                // Otherwise, check if XDomainRequest.
-                // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-                xhr = new XDomainRequest();
-                xhr.open("PUT", self.uploadUrl);
-            } else {
-                // Otherwise, CORS is not supported by the browser.
-                xhr = null;
-                // TODO: indicate to user that browser is not supported
-            }
-
-            xhr.setRequestHeader("Content-type", self.photo.type);
-            xhr.setRequestHeader("X-File-Name", self.photo.name);
-            xhr.setRequestHeader("Accept","application/json");
-            xhr.addEventListener("load", function (ev) {
-                if (self.onUploadComplete) {
-                    self.onUploadComplete(xhr);
-                }
-            }, false);
-
             self.croppie.result({
                     type: 'blob',
                     size: 'viewport',
@@ -217,8 +191,15 @@ ProfilePicAPI.Uploader = function(
                     quality: 1,
                     circle: false
                 }).then(function(blob) {
-                    var payload = blob;
-                    xhr.send(payload);
+                    var payload = blob;                    
+                    var headers = {"Content-type": self.photo.type,
+                        "X-File-Name": self.photo.name,
+                        "Accept":"application/json"};
+                    DataAPI.sendRequest(self.uploadUrl, 'PUT', headers, payload, function(request){
+                        if (self.onUploadComplete) {
+                            self.onUploadComplete(request);
+                        }
+                    });
                 });
         }
     }
@@ -242,29 +223,12 @@ ProfilePicAPI.refreshProfilePicBackground = function(userId, imageElement) {
 };
 
 ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
-    var xhr = new XMLHttpRequest();
     var pic_url = ProfilePicAPI.baseURL+'/profilePic/'+userId;
-    if ("withCredentials" in xhr) {
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("GET", pic_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("GET", pic_url);
-    } else {
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-      // TODO: indicate to user that browser is not supported
-    }
-    xhr.setRequestHeader("Accept","image/*");
-    xhr.addEventListener('load', function() {
-        if(xhr.readyState === 4){
-            if (xhr.status === 200) {
+    DataAPI.sendRequest(pic_url, 'GET', {"Accept":"image/*"}, null, function(request){
+        if(request.readyState === 4){
+            if (request.status === 200) {
                 for (var i=0; i<imageElements.length;i++) {
-                    imageElements[i].src = xhr.responseURL;
+                    imageElements[i].src = request.responseURL;
                 }
             } else {
                 for (var i=0; i<imageElements.length;i++) {
@@ -273,34 +237,14 @@ ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
             }
         }
     });
-    xhr.open('GET', pic_url);
-    xhr.send();
 };
 
 ProfilePicAPI.refreshMultipleProfilePicsBackground = function(userId, imageElements) {
-    var xhr = new XMLHttpRequest();
     var pic_url = ProfilePicAPI.baseURL+'/profilePic/'+userId;
-    if ("withCredentials" in xhr) {
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("GET", pic_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("GET", pic_url);
-    } else {
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-      // TODO: indicate to user that browser is not supported
-    }
-    xhr.open('GET', pic_url);
-    xhr.setRequestHeader("Accept","image/*");
-    xhr.addEventListener('load', function() {
-        if (xhr.status == 200) {
+    DataAPI.sendRequest(pic_url, 'GET', {"Accept":"image/*"}, null, function(request){
+        if (request.status == 200) {
             for (var i=0; i<imageElements.length;i++) {
-                imageElements[i].style.backgroundImage = "url("+xhr.responseURL+")";
+                imageElements[i].style.backgroundImage = "url("+request.responseURL+")";
             }
         } else {
             for (var i=0; i<imageElements.length;i++) {
@@ -308,5 +252,4 @@ ProfilePicAPI.refreshMultipleProfilePicsBackground = function(userId, imageEleme
             }
         }
     });
-    xhr.send();
 };

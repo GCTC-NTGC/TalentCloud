@@ -80,54 +80,9 @@ DashboardAPI.getApplicationsByUuserId = function(){
 
     //what url am I connecting to get the data? - see tc/.htaccess file
     var dashboard_url = DashboardAPI.baseURL + "/" + locale + "/dashboard/" + user_id;
-
-    var dashboard_xhr = new XMLHttpRequest();
-
-    if ("withCredentials" in dashboard_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      dashboard_xhr.open("GET", dashboard_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      dashboard_xhr = new XDomainRequest();
-
-      dashboard_xhr.open("GET", dashboard_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      dashboard_xhr = null;
-
-    }
-
-    dashboard_xhr.open('GET',dashboard_url);
-
-    dashboard_xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    dashboard_xhr.setRequestHeader("Accept", "application/json");
-
-    dashboard_xhr.addEventListener("progress",
-        function(evt){
-            DashboardAPI.dashboardDataUpdateProgress(evt);
-        },false
-    );
-
-    dashboard_xhr.addEventListener("load",
-        function(evt){
-            DashboardAPI.dashboardDataLoaded(dashboard_xhr.responseText);
-        },false
-    );
-
-    dashboard_xhr.addEventListener("error",DataAPI.transferFailed,false);
-
-    dashboard_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-
-    dashboard_xhr.send();
-
+    DataAPI.sendRequest(dashboard_url, "GET", {'Content-type': 'application/json; charset=utf-8'}, null, function(request){
+        DashboardAPI.dashboardDataLoaded(request.responseText);
+    });
 };
 
 DashboardAPI.dashboardDataLoaded = function(response){
