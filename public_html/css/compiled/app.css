@@ -4543,10 +4543,6 @@ input[type="button"][class*="button--"] {
     Authored by: Talent Cloud
     Form Styles
 ============================================================================= */
-/* LEGACY CODE ============================================================== */
-#loginErrors {
-  white-space: pre-wrap; }
-
 /* FORMS */
 .form-group {
   color: #555; }
@@ -4580,6 +4576,15 @@ input[type=button], input[type=submit], input[type=reset] {
 
 /* ============================================================================= */
 /* New Forms ================================================================ */
+fieldset {
+  padding: 0 2rem 0 0;
+  border: 0;
+  margin: 0; }
+
+legend {
+  font-weight: 600;
+  margin-bottom: 1rem; }
+
 .form__wrapper {
   display: block;
   position: relative;
@@ -4600,15 +4605,12 @@ input[type=button], input[type=submit], input[type=reset] {
           padding: 0 1rem; } }
       .form__wrapper > .flex-grid > .box > [class*="form__input-wrapper"] {
         margin: 0; }
-  .form__wrapper fieldset {
-    margin: 3rem 0;
-    padding: 0 2rem; }
-    .form__wrapper fieldset legend {
-      color: #2196f3;
-      float: none;
-      font-size: 16px;
-      font-weight: 900;
-      margin: 0 0 .5rem 0; }
+  .form__wrapper fieldset legend {
+    color: #2196f3;
+    float: none;
+    font-size: 16px;
+    font-weight: 900;
+    margin: 0 0 .5rem 0; }
   .form__wrapper [class*="form__input-wrapper"]:last-child {
     margin-bottom: 0; }
 
