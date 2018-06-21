@@ -471,7 +471,7 @@ JobPostAPI.localizeJobPoster = function() {
         document.getElementById('jobPosterHiringManagerPositionAtLabel').innerHTML = siteContent.at;
         // document.getElementById('accommodationRequestAt').innerHTML = siteContent.at;
         document.getElementById('jobPosterHiringManagerButton').innerHTML = siteContent.readMore;
-        document.getElementById("jobPosterNocLabel").innerHTML = siteContent.jobPosterNocLabel;
+        //document.getElementById("jobPosterNocLabel").innerHTML = siteContent.jobPosterNocLabel;
         document.getElementById("jobPosterIdLabel").innerHTML = siteContent.jobReferenceId;
 
         //Set language-specific labels
@@ -622,7 +622,7 @@ JobPostAPI.populateJobPoster = function(jobData){
     document.getElementById("jobPosterDepartment").innerHTML = jobData.department;
     document.getElementById("jobPosterCity").innerHTML = jobData.location_city;
     document.getElementById("jobPosterProvince").innerHTML = jobData.location_province;
-    document.getElementById("jobPosterNocValue").innerHTML = jobData.noc;
+    //document.getElementById("jobPosterNocValue").innerHTML = jobData.noc;
     document.getElementById("jobPosterIdValue").innerHTML = jobData.id;
 
     //Datapoints
