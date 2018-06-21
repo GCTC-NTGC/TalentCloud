@@ -66,8 +66,7 @@ JobPostAPI.showBrowseJobs = function() {
     var loadingJobs = document.getElementById("loadingJobs");
     loadingJobs.classList.remove("hidden");
 
-    var locale = TalentCloudAPI.getLanguageFromCookie();
-    DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
+    DataAPI.getJobs(JobPostAPI.populateJobObjectList);
 
     // New Subpage Hero Scripts
 
