@@ -163,4 +163,143 @@
 
         </section>
 
+        <?php /* Temporary Form Elements */ ?>
+
+        <?php /* Please note that form labels should always contain a "for" attribute and associate to the unique ID of the input it is labelling. */ ?>
+
+        <div class="content-container">
+
+            <form class="form__wrapper">
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Text Input</label>
+                    <input class="form__input" type="text"></input>
+                </div>
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Text Input</label>
+                    <input class="form__input" type="text" required></input>
+                </div>
+
+                <div class="flex-grid">
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label">Text Input</label>
+                            <input class="form__input" type="text"></input>
+                        </div>
+                    </div>
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label">Text Input</label>
+                            <input class="form__input" type="text" required></input>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Textarea</label>
+                    <textarea class="form__textarea"></textarea>
+                </div>
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Password Input</label>
+                    <input class="form__input" type="password" required></input>
+                </div>
+
+                <div class="form__input-wrapper">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">This is a group of radio buttons.</legend>
+                        <div class="flex-grid">
+                            <div class="box med-1of3">
+                                <label class="form__radio-wrapper">
+                                    <input class="form__input" type="radio" name="radio-group-name" checked></input>
+                                    <span class="form__label--radio">Radio Input</span>
+                                </label>
+                            </div>
+                            <div class="box med-1of3">
+                                <label class="form__radio-wrapper">
+                                    <input class="form__input" type="radio" name="radio-group-name"></input>
+                                    <span class="form__label--radio">Radio Input</span>
+                                </label>
+                            </div>
+                            <div class="box med-1of3">
+                                <label class="form__radio-wrapper">
+                                    <input class="form__input" type="radio" name="radio-group-name"></input>
+                                    <span class="form__label--radio">Radio Input</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form__input-wrapper">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">This is a group of checkboxes.</legend>
+                        <div class="flex-grid">
+                            <div class="box med-1of3">
+                            <label class="form__radio-wrapper">
+                                    <input class="form__input" type="checkbox" checked></input>
+                                    <span class="form__label--checkbox">Checkbox</span>
+                                </label>
+                            </div>
+                            <div class="box med-1of3">
+                                <label class="form__radio-wrapper">
+                                    <input class="form__input" type="checkbox"></input>
+                                    <span class="form__label--checkbox">Checkbox</span>
+                                </label>
+                            </div>
+                            <div class="box med-1of3">
+                                <label class="form__radio-wrapper">
+                                    <input class="form__input" type="checkbox"></input>
+                                    <span class="form__label--checkbox">Checkbox</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form__input-wrapper--date">
+                    <label class="form__label">Date Input</label>
+                    <input class="form__input" type="date"></input>
+                </div>
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Email Input</label>
+                    <input class="form__input" type="email"></input>
+                </div>
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Number Input</label>
+                    <input class="form__input" type="number"></input>
+                </div>
+
+                <div class="form__input-wrapper--range">
+                    <label class="form__label">Range Input</label>
+                    <div class="form__range-wrapper">
+                        <span class="form__range-label--start">0</span>
+                        <input class="form__input" type="range" min="0" max="100"></input>
+                        <span class="form__range-label--end">100</span>
+                    </div>
+                </div>
+
+                <div class="form__input-wrapper--float">
+                    <label class="form__label">Text Input</label>
+                    <input class="form__input" type="text"></input>
+                </div>
+
+                <div class="form__input-wrapper--select">
+                    <label class="form__label">Select Input</label>
+                    <div class="form__select-wrapper">
+                        <select class="form__input">
+                            <option>Option 01</option>
+                            <option>Option 02</option>
+                            <option>Option 03</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
     </section>

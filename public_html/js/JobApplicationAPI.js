@@ -130,7 +130,11 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
 JobApplicationAPI.createEvidencePanelsOnPage = function (criteria, criteriaType, evidenceMenuId, evidenceFormWrapperId) {
     var evidenceMenu = document.getElementById(evidenceMenuId);
     var evidenceFormWrapper = document.getElementById(evidenceFormWrapperId);
-    evidenceMenu.innerHTML = "";
+    // evidenceMenu.innerHTML = "";
+    var evidenceMenuItems = evidenceMenu.querySelectorAll(".applicant-evidence__desktop-menu-item");
+    for (var i = 0; i < evidenceMenuItems.length; i++) {
+        evidenceMenuItems[i].parentElement.removeChild(evidenceMenuItems[i]);
+    }
     evidenceFormWrapper.innerHTML = "";
     var menuFragment = document.createDocumentFragment();
     var panelsFragment = document.createDocumentFragment();

@@ -72,7 +72,7 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.setAttribute("data-criteria-id", criteriaId);
 
     //SET SKILL TITLE AND DESCRIPTION
-    evidencePanel.querySelector(".applicant-evidence__accordion-trigger-title-text").innerHTML = criteriaName;
+    evidencePanel.querySelector(".applicant-evidence__skill-title").innerHTML = criteriaName;
     if (criteriaDescription) {
         evidencePanel.querySelector(".applicant-evidence__skill-description").innerHTML = criteriaDescription;
     }
@@ -268,10 +268,12 @@ EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
             //Set first one to active
             item.classList.add("active");
             item.setAttribute("aria-selected", true);
+            item.setAttribute("onclick", "EvidenceAPI.scrollToThisSkill(this)");
         } else {
             //Deactivate others
             item.classList.remove("active");
             item.setAttribute("aria-selected", false);
+            item.setAttribute("onclick", "EvidenceAPI.scrollToThisSkill(this)");
         }
     }
 
@@ -371,3 +373,97 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
     MicroReferenceAPI.saveMicroReferences(criteriaType, saveSuccessful, saveFailed);
     SkillSampleAPI.saveSkillSamples(criteriaType, saveSuccessful, saveFailed);
 };
+
+// New Evidence UI Handlers ====================================================
+
+    // Scroll to Skills
+
+        EvidenceAPI.scrollToSkills = function(button) {
+
+            var skills = button.parentElement.parentElement.parentElement.querySelector(".applicant-evidence__anchor");
+
+            var xPosition = 0;
+            var yPosition = 0;
+
+            while(skills) {
+                xPosition += (skills.offsetLeft - skills.scrollLeft + skills.clientLeft);
+                yPosition += (skills.offsetTop - skills.scrollTop + skills.clientTop);
+                skills = skills.offsetParent;
+            }
+
+            window.scroll(0, yPosition);
+
+        }
+
+    // Scroll to Individual Skill
+
+        EvidenceAPI.scrollToThisSkill = function(button) {
+
+            var skillID = button.getAttribute("data-evidence-trigger");
+
+            var skills = document.querySelectorAll(".applicant-evidence__skill");
+
+            for (var i=0; i<skills.length; i++) {
+
+                if (skills[i].getAttribute("data-evidence-target") == skillID) {
+                    var thisSkill = skills[i];
+                }
+
+            }
+
+            // console.log(thisSkill);
+
+            var xPosition = 0;
+            var yPosition = 0;
+
+            while(thisSkill) {
+                xPosition += (thisSkill.offsetLeft - thisSkill.scrollLeft + thisSkill.clientLeft);
+                yPosition += (thisSkill.offsetTop - thisSkill.scrollTop + thisSkill.clientTop);
+                thisSkill = thisSkill.offsetParent;
+            }
+
+            var location = yPosition - 40;
+
+            window.scroll(0, location);
+
+        }
+
+    // Micro References
+
+        EvidenceAPI.addMicroReference = function(button) {
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--reference").classList.add("active");
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--reference").querySelector(".accordion__trigger").focus();
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--reference").classList.add("hidden");
+
+        };
+
+        EvidenceAPI.removeMicroReference = function(button) {
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--reference").classList.remove("active");
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--reference").classList.remove("hidden");
+
+        };
+
+    // Work Sample
+
+        EvidenceAPI.addWorkSample = function(button) {
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--sample").classList.add("active");
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--sample").querySelector(".accordion__trigger").focus();
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--sample").classList.add("hidden");
+
+        };
+
+        EvidenceAPI.removeWorkSample = function(button) {
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--sample").classList.remove("active");
+
+            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--sample").classList.remove("hidden");
+
+        };
