@@ -486,9 +486,7 @@ JobPostAPI.viewJobPoster = function(jobId){
         JobPostAPI.populateJobPoster(jobPoster);
     });
 
-    // focus top of page
-    window.scrollTo(0,0);
-    document.getElementById("skipNav").focus();
+
 
     if(UserAPI.hasSessionUser()) {
         document.getElementById("jobPosterButtonWrapper").classList.add("logged-in");
@@ -513,6 +511,11 @@ JobPostAPI.viewJobPoster = function(jobId){
 
     ga('set', 'page', '/browse-jobs/'+jobId);
     ga('send', 'pageview');
+
+    // Set scroll / focus to top of page
+    window.scrollTo(0,0);
+    AccessibilityAPI.focusElement("topPage");
+    document.getElementById("topPage").focus();
 
 };
 

@@ -31,7 +31,7 @@
             <?php else : ?>
                 <?php /* Browse Jobs */ ?>
                 <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationBrowseLinkWrapper" aria-hidden="false">
-                    <a href="#BrowseJobs" id="navigationBrowseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('navigationBrowseLinkWrapper');AccessibilityAPI.focusElement('topPage');">
+                    <a href="javascript:void(0)" id="navigationBrowseLink" onclick="AccessibilityAPI.focusElement('topPage');JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('navigationBrowseLinkWrapper');">
                         Browse Jobs
                     </a>
                 </div>
@@ -58,11 +58,11 @@
 
                 <?php /* Checks to see if the page is the admin portal and then displays the admin profile link. */ ?>
                 <?php if (strpos($url, 'admin') !== false) : ?>
-                    <a href="#CreateEditProfile" id="navigationProfileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
+                    <a href="javascript:void(0)" id="navigationProfileLink" onclick="CreateEditProfileAPI.showCreateEditProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
                 <?php else :?>
-                    <a href="#MyProfile" id="navigationProfileLink" onclick="JobSeekerAPI.showMyJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
+                    <a href="javascript:void(0)" id="navigationProfileLink" onclick="JobSeekerAPI.showMyJobSeekerProfile();TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
                         My Profile
                     </a>
                 <?php endif; ?>

@@ -73,9 +73,10 @@ ManagerProfileAPI.showManagerProfile = function(user_id, jobPosterID) {
     document.title = stateInfo.pageTitle;
     history.pushState(stateInfo, stateInfo.pageInfo, '#ManagerProfile/' + user_id);
 
-    // focus top of page
+    // Set scroll / focus to top of page
     window.scrollTo(0,0);
-    document.getElementById("skipNav").focus();
+    AccessibilityAPI.focusElement("topPage");
+    //document.getElementById("topPage").focus();
 
     TalentCloudAPI.hideAllContent();
     var managerProfileSection = document.getElementById('managerProfileSection');
