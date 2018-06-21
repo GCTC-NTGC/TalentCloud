@@ -4569,9 +4569,9 @@ input[type="button"][class*="button--"] {
     padding: 0 0 4rem 0;
     border: 0; }
     .form__wrapper fieldset legend {
-      color: #2196f3;
+      color: #0a6cbc;
       float: none;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 900;
       margin: 0 0 .5rem 0; }
   .form__wrapper [class*="form__input-wrapper"]:last-child {
@@ -4624,7 +4624,6 @@ input[type="button"][class*="button--"] {
         border: 1px solid #2196f3;
         transition: border-color .2s ease; }
       [class*="form__input-wrapper"][class*="float"] .form__textarea:invalid {
-        border: 1px solid red;
         transition: border-color .2s ease; }
     [class*="form__input-wrapper"][class*="float"].active .form__label {
       background: white;
@@ -4885,6 +4884,10 @@ input[type="button"][class*="button--"] {
   @media (min-width: 48em) {
     .form__radio-group-span {
       word-wrap: normal; } }
+
+.form__required-copy-wrapper {
+  font-size: 16px;
+  margin-bottom: 3rem; }
 
 /* =============================================================================
 

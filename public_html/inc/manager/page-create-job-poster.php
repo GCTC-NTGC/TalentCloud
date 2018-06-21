@@ -23,7 +23,7 @@
 
                     <h3 class="manager-poster__title heading--03">Job Poster Details</h3>
 
-                    <div class="manager-edit-profile__required-copy-wrapper">
+                    <div class="form__required-copy-wrapper">
                         All fields required unless indicated as optional
                     </div>
 
@@ -32,7 +32,7 @@
                         <fieldset id="createJobPosterJobTitleSection">
                             <legend class="form__legend">Job Title</legend>
                             <?php // Add aria-required="true" and required attributes ?>
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
                                 <div class="box med-1of2">
                                     <div class="form__input-wrapper--float">
                                         <label class="form__label" for="createJobPoster_jobTitle">English</label>
@@ -65,7 +65,7 @@
                     <div class="form__input-wrapper">
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Salary</legend>
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
                                 <div class="box med-1of2">
                                     <div class="form__input-wrapper--float">
                                         <label class="form__label" for="createJobPoster_remunerationLowRange">Minimum</label>
@@ -134,7 +134,14 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Location</legend>
 
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
+                                <div class="box med-1of3">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_city">City</label>
+                                        <input class="form__input" type="text" name="createJobPoster_city" id="createJobPoster_city" required aria-required="true"/>
+                                    </div>
+                                </div>
+
                                 <div class="box med-1of3">
                                     <div class="form__input-wrapper--select">
                                         <label class="form__label" for="createJobPoster_department">Department</label>
@@ -157,13 +164,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="box med-1of3">
-                                    <div class="form__input-wrapper--float">
-                                        <label class="form__label" for="createJobPoster_city">City</label>
-                                        <input class="form__input" type="text" name="createJobPoster_city" id="createJobPoster_city" required aria-required="true"/>
-                                    </div>
-                                </div>
                             </div>
                         </fieldset>
                     </div>
@@ -172,7 +172,25 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Timetable</legend>
 
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
+                                <div class="box med-1of4">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_termQuantity">Duration (in months)</label>
+                                        <?php // Testing HTML5 error handling ?>
+                                        <input
+                                        id="createJobPoster_termQuantity"
+                                        name="createJobPoster_termQuantity"
+                                        class="form__input"
+                                        type="number"
+                                        required
+                                        aria-required="true"
+                                        maxlength="2"
+                                        pattern="[0-9]{1,2}"
+                                        title="Duration must contain one or two numbers"
+                                        />
+                                    </div>
+                                </div>
+
                                 <div class="box med-1of4">
                                     <div class="form__input-wrapper--date">
                                         <label class="form__label" for="createJobPoster_openDate">Open date</label>
@@ -193,24 +211,6 @@
                                         <input class="form__input" type="date" name="createJobPoster_startDate" id="createJobPoster_startDate" required aria-required="true"/>
                                     </div>
                                 </div>
-
-                                <div class="box med-1of4">
-                                    <div class="form__input-wrapper--float">
-                                        <label class="form__label" for="createJobPoster_termQuantity">Duration (in months)</label>
-                                        <?php // Testing HTML5 error handling ?>
-                                        <input
-                                        id="createJobPoster_termQuantity"
-                                        name="createJobPoster_termQuantity"
-                                        class="form__input"
-                                        type="number"
-                                        required
-                                        aria-required="true"
-                                        maxlength="2"
-                                        pattern="[0-9]{1,2}"
-                                        title="Duration must contain one or two numbers"
-                                        />
-                                    </div>
-                                </div>
                             </div>
                         </fieldset>
                     </div>
@@ -219,7 +219,7 @@
                         <fieldset class="form__fieldset">
                             <legend  class="form__legend" id="createJobPoster_branch_labelName">Branch</legend>
 
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
                                 <div class="box med-1of2">
                                     <div class="form__input-wrapper--float">
                                         <label class="form__label" for="createJobPoster_branch">English</label>
@@ -240,7 +240,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Division</legend>
 
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
                                 <div class="box med-1of2">
                                     <div class="form__input-wrapper--float">
                                         <label class="form__label" for="createJobPoster_division">English</label>
@@ -261,7 +261,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Impact (optional)</legend>
 
-                            <div class="flex-grid">
+                            <div class="flex-grid middle">
                                 <div class="box med-1of2">
                                     <div class="form__input-wrapper--float">
                                         <label class="form__label" for="createJobPoster_impact">English</label>
@@ -272,6 +272,69 @@
                                     <div class="form__input-wrapper--float">
                                         <label class="form__label" for="createJobPoster_impact_fr">Français</label>
                                         <textarea class="form__textarea" name="createJobPoster_impact_fr" id="createJobPoster_impact_fr" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form__input-wrapper">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">Key Tasks</legend>
+
+                            <div class="flex-grid middle">
+                                <div class="box med-1of2">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_impact">English</label>
+                                        <textarea class="form__textarea" name="createJobPoster_keyTasks" id="createJobPoster_impact" rows="2" aria-required="true" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="box med-1of2">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_impact_fr">Français</label>
+                                        <textarea class="form__textarea" name="createJobPoster_keyTasks_fr" id="createJobPoster_impact_fr" rows="2" aria-required="true" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form__input-wrapper">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">Essential Skills</legend>
+
+                            <div class="flex-grid middle">
+                                <div class="box med-1of2">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_keyTasks">English</label>
+                                        <textarea class="form__textarea" name="createJobPoster_coreCompetencies" id="createJobPoster_impact" rows="2" aria-required="true" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="box med-1of2">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_impact_fr">Français</label>
+                                        <textarea class="form__textarea" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_impact_fr" rows="2" aria-required="true" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form__input-wrapper">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">Asset Skills</legend>
+
+                            <div class="flex-grid middle">
+                                <div class="box med-1of2">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_impact">English</label>
+                                        <textarea class="form__textarea" name="createJobPoster_developingCompetencies" id="createJobPoster_impact" rows="2" aria-required="true" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="box med-1of2">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_impact_fr">Français</label>
+                                        <textarea class="form__textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_impact_fr" rows="2" aria-required="true" required></textarea>
                                     </div>
                                 </div>
                             </div>

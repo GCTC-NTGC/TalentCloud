@@ -54,9 +54,9 @@
         border: 0;
 
         legend {
-            color: $palette-blue;
+            color: $palette-blue--semidark;
             float: none;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 900;
             margin: 0 0 .5rem 0;
         }
@@ -148,7 +148,7 @@
                 }
 
                 &:invalid {
-                    border: 1px solid red;
+                    //border: 1px solid red;
                     transition: border-color .2s ease;
                 }
 
@@ -570,4 +570,9 @@
             word-wrap: normal;
         }
 
+    }
+
+    .form__required-copy-wrapper {
+        font-size: 16px;
+        margin-bottom: 3rem;
     }
