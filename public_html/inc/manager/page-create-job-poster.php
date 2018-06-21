@@ -395,12 +395,12 @@
 
                         <button class="job-poster__open-questions-add-button repeater__add-button button--blue" href="javascript:void(0)">Add an Open Ended Question</button>
 
-                    </div>
-                </div>
+                        <div class="createJobPosterSubmitPane flex-grid top manager-edit-profile__button-form">
+                            <div class="box full">
+                                <input type="button" id="createJobPosterSubmitButton" class="button--yellow" value="Submit" onclick="CreateJobPosterAPI.validateJobPosterForm()">
+                            </div>
+                        </div>
 
-                <div class="createJobPosterSubmitPane flex-grid top manager-edit-profile__button-form">
-                    <div class="box full">
-                        <input type="button" id="createJobPosterSubmitButton" class="button--yellow" value="Submit" onclick="CreateJobPosterAPI.validateJobPosterForm()">
                     </div>
                 </div>
 
@@ -416,7 +416,6 @@
                             <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_2">Review</button>
                         </div>
                     </div>
-
 
                     <h3>This is for outdated fields</h3>
                 </div>
