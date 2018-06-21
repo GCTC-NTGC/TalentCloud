@@ -227,103 +227,11 @@ DataAPI.transferAborted = function(){
 
 /**
  *
- * @param {type} contactId
- * @returns {undefined}
- */
-DataAPI.toggleFavourite = function(jobPostId){
-    Utilities.debug?console.log("toggle Favourite contact"):null;
-    var watchlist_url = DataAPI.baseURL+"/watchlist/toggle/"+jobPostId;
-    var jsonData="";
-
-    xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("PUT", watchlist_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("PUT", watchlist_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-
-    }
-
-    xhr.open('PUT',watchlist_url);
-    xhr.setRequestHeader("Content-Type","application/json");
-
-    xhr.addEventListener("progress",DataAPI.updateToggleProgress,false);
-    xhr.addEventListener("load",function(){
-        DataAPI.toggleFavouriteCallback(jobPostId);
-    }
-    ,false);
-    xhr.addEventListener("error",DataAPI.transferFailed,false);
-    xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    xhr.send(jsonData);
-};
-
-DataAPI.updateToggleProgress = function(evt){
-
-};
-
-/**
- *
- * @param {type} contact
- * @returns {undefined}
- */
-DataAPI.toggleFavouriteCallback = function(contact){
-        var updatedContact = JSON.parse(contact);
-        //console.log(updatedContact);
-        for(var i = 0; i < ContactAPI.contacts.length; i++) {
-            var contactToUpdate = ContactAPI.contacts[i];
-            if(contactToUpdate.id === updatedContact.id) {
-                if(updatedContact.isFavourite){
-                    //console.log("true");
-                    contactToUpdate.isFavourite = true;
-                }else{
-                    //console.log("false");
-                    contactToUpdate.isFavourite = false;
-                }
-                break;
-            }
-        };
-
-    if(updatedContact.isFavourite){
-        ContactAPI.updateFavourite(true, contactToUpdate.id);
-    }else{
-        ContactAPI.updateFavourite(false, contactToUpdate.id);
-    }
-};
-
-/**
- *
  * @param {type} evt
  * @returns {undefined}
  */
 DataAPI.updateToggleProgress = function(evt){
 
-};
-
-/**
- *
- * @param {type} contact
- * @returns {undefined}
- */
-DataAPI.toggleFavouriteCallback = function(response,jobPostId){
-    var jobPostToUpdate = document.getElementById("fav_"+jobPostId);
-    if(jobPostToUpdate){
-        JobPostAPI.updateFavourite(true, jobPostId);
-    }else{
-        JobPostAPI.updateFavourite(false, jobPostId);
-    }
 };
 
 DataAPI.getCSRFTokenValue = function(){
@@ -368,52 +276,6 @@ DataAPI.getCSRFTokenValue = function(){
     return csrfToken;
 };
 
-
-/**
- *
- * @returns {undefined}
- */
-DataAPI.getContactCount = function(){
-    Utilities.debug?console.log("loading contacts"):null;
-    var contacts_url = DataAPI.baseURL+"/count";
-
-    xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("GET", contacts_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("GET", contacts_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-
-    }
-
-    xhr.addEventListener("progress",
-    function(evt){
-        //DataAPI.updateProgress(evt);
-    },false);
-    xhr.addEventListener("load",function(){
-        ContactAPI.updateContacts(xhr.responseText);
-    }
-    ,false);
-    xhr.addEventListener("error",DataAPI.transferFailed,false);
-    xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    xhr.open('GET',contacts_url);
-    xhr.send(null);
-};
-
-
 DataAPI.getJobPoster = function(locale, jobId, responseCallback){
     Utilities.debug?console.log("loading job seekers"):null;
     var jobPoster_url = DataAPI.baseURL+"/"+locale+"/getJobPoster/"+jobId;
@@ -432,9 +294,11 @@ DataAPI.getJobPoster = function(locale, jobId, responseCallback){
  * @param {Object} payload - the payload of the request
  * @param {function} requestCallback - this function will be called upon the'load'
  *      event, with the XMLHttpRequest as the single argument
+ * @param {boolean} isSecondAttempt - this will be true if a request is being 
+ *      retried for some reason. Otherwise, will be undefined
  * @return {undefined}
  */
-DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCallback) {
+DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCallback, isSecondAttempt) {
     var request = new XMLHttpRequest();
     if ("withCredentials" in request) {
         // Check if the XMLHttpRequest object has a "withCredentials" property.
@@ -466,7 +330,13 @@ DataAPI.sendRequest = function(url, restMethod, headersMap, payload, requestCall
     request.addEventListener("error", DataAPI.transferFailed, false);
     request.addEventListener("abort", DataAPI.transferAborted, false);
     request.addEventListener("load", function() {
-        requestCallback(request);
+        //If there was an authentication error, retry, but only once (to avoid
+        //  infinite retries)
+        if (!isSecondAttempt && request.status === 401) {
+            DataAPI.sendRequest(url, restMethod, headersMap, payload, requestCallback, true);            
+        } else {
+           requestCallback(request); 
+        }
     },false);
 
     request.send(payload);

@@ -275,7 +275,6 @@ JobSeekerAPI.saveJobSeekerProfile = function (jobSeekerProfile) {
     saveJobSeekerProfile_xhr.open('PUT', saveJobSeekerProfile_url);
     saveJobSeekerProfile_xhr.setRequestHeader("Content-Type", "application/json");
 
-    saveJobSeekerProfile_xhr.addEventListener("progress", DataAPI.updateToggleProgress, false);
     saveJobSeekerProfile_xhr.addEventListener("load", function () {
         JobSeekerAPI.hideJobSeekerProfileEditOverlays();
         JobSeekerAPI.saveJobSeekerProfileLoaded(saveJobSeekerProfile_xhr.response);

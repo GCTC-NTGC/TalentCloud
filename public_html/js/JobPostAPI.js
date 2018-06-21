@@ -401,52 +401,6 @@ JobPostAPI.getJobCount = function(){
 
 /**
  *
- * @param {type} jobPosterId
- * @returns {Element|JobPostAPI.addFavouriteLink.jobPosterFavouriteImgWrapper}
- */
-JobPostAPI.addFavouriteLink = function(jobPosterId){
-    var jobPoster = document.getElementById(jobPosterId);
-
-
-    //create hidden div for favourite action
-    var jobPosterFavouriteImgWrapper = document.createElement("div");
-    jobPosterFavouriteImgWrapper.setAttribute("class","favouriteImageWrapper");
-    jobPosterFavouriteImgWrapper.setAttribute("id","fav_"+jobPosterId);
-
-    var jobPosterFavouriteImgSrc = new Image();
-    jobPosterFavouriteImgSrc.src = "/images/watch_list_off.svg";
-
-    var jobPosterFavouriteImg = document.createElement("img");
-    jobPosterFavouriteImg.setAttribute("class", "jobPosterFavouriteImg");
-    jobPosterFavouriteImg.src = jobPosterFavouriteImgSrc.src;
-
-    var jobPosterFavouriteLink = document.createElement("a");
-    jobPosterFavouriteLink.setAttribute("class", "jobPosterFavouriteLink");
-    jobPosterFavouriteLink.setAttribute("title", "Add to watched job posts");
-    jobPosterFavouriteLink.setAttribute("href","javascript:void(0)");
-    jobPosterFavouriteLink.setAttribute("onclick","JobPostAPI.toggleFavourite('"+jobPosterId+"')");
-
-    jobPosterFavouriteLink.innerHTML = jobPosterFavouriteImg.outerHTML;
-    jobPosterFavouriteImgWrapper.innerHTML = jobPosterFavouriteLink.outerHTML;
-
-    return jobPosterFavouriteImgWrapper;
-};
-
-/**
- *
- * @param {type} responseText
- * @returns {undefined}
- */
-JobPostAPI.toggleFavourite = function(jobPosterId){
-    Utilities.debug?console.log(jobPosterId):null;
-
-    if(jobPosterId !== ""){
-        DataAPI.toggleFavourite(jobPosterId);
-    }
-};
-
-/**
- *
  * @param {type} isFav
  * @param {type} jobPosterId
  * @returns {undefined}

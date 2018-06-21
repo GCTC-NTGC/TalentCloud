@@ -37,7 +37,6 @@ ga('send', 'pageview');
 <script src="/js/AccessibilityAPI.js" type="text/javascript"></script>
 <script src="/js/Utilities.js"></script>
 <script src="/js/MobileMenuAPI.js"></script>
-<script src="/js/ContactAPI.js"></script>
 <script src="/js/DataAPI.js"></script>
 <script src="/js/UserAPI.js"></script>
 <script src="/js/MessageHandlerAPI.js"></script>
