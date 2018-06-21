@@ -47,118 +47,6 @@ input[type=button],input[type=submit],input[type=reset]{
     height: 30px;
 }
 
-/* ============================================================================= */
-
-// .form__wrapper {
-
-//     >*:last-child,
-//     >.box:last-child >*:last-child {
-//         margin-bottom: 0;
-//     }
-
-// }
-
-// .form__label {
-//     display: block;
-//     font-size: 1.2rem;
-//     //font-weight: 700;
-//     line-height: 1;
-//     margin: 1rem 0;
-// }
-
-// input[type=text][class*="form__input--"],
-// input[type=email][class*="form__input--"],
-// input[type=password][class*="form__input--"],
-// input[type=date][class*="form__input--"],
-// input[type=url][class*="form__input--"] {
-//     background: lighten($palette-grey--light, 10%);
-//     border: none;
-//     color: $black !important;
-//     display: block;
-//     font-family: $font-hk;
-//     font-size: 16px;
-//     font-weight: 400;
-//     line-height: 1.2;
-//     margin: 0 0 2rem 0;
-//     padding: 1rem 2rem 1rem 1rem;
-//     width: 100%;
-
-//     &[class*="text"] {
-
-//     }
-
-// }
-
-// .form__select-wrapper {
-//     display: block;
-//     margin: 0 0 2rem 0;
-//     position: relative;
-//     width: 100%;
-
-//     &:before {
-//         @include fontawesome();
-//         content: "\f078";
-//         display: block;
-//         position: absolute;
-//         top: 50%;
-//         right: 1.5rem;
-//         transform: translate(0, -50%);
-//     }
-
-// }
-
-// .form__select {
-//     appearance: none;
-//     background: lighten($palette-grey--light, 10%);
-//     border: none;
-//     color: $black;
-//     display: block;
-//     font-size: 1.5rem;
-//     line-height: 1.2;
-//     padding: 1rem 2rem 1rem 1rem;
-//     width: 100%;
-
-//     &:focus {
-//         border: 1px solid $palette-blue;
-//     }
-
-// }
-
-// .form__textarea {
-//     background: lighten($palette-grey--light, 10%);
-//     border: none;
-//     color: $black;
-//     display: block;
-//     font-size: 16px;
-//     line-height: 1.5;
-//     margin: 0 0 2rem 0;
-//     min-height: 15rem;
-//     padding: 1rem;
-//     width: 100%;
-
-//     &:focus {
-//         border: 1px solid $palette-blue;
-//     }
-
-// }
-
-// .form__upload-label {
-//     position: relative;
-
-//     &:focus {
-//         color: white;
-//         background: $palette-grey--dark;
-//         border: 1px solid $palette-yellow--dark;
-//     }
-
-// }
-
-// .form__upload-button {
-//     position: absolute;
-//     left: -1000vh;
-// }
-
-/* New Forms ================================================================ */
 .form__wrapper {
     display: block;
     position: relative;
@@ -203,8 +91,9 @@ input[type=button],input[type=submit],input[type=reset]{
     }
 
     fieldset {
-        margin: 3rem 0;
-        padding: 0 2rem;
+        margin: 0;
+        padding: 0 0 4rem 0;
+        border: 0;
 
         legend {
             color: $palette-blue;
