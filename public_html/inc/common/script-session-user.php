@@ -8,9 +8,13 @@ if (isset($_COOKIE[ID_TOKEN])) {
     //local session storage frontend use
     echo("<script type=\"text/javascript\">");
     echo("if (!UserAPI.hasSessionUser()) {");
-    $user = UserController::getUserByOpenIdTokens($_COOKIE[ID_TOKEN], $_COOKIE[ACCESS_TOKEN]);
-    echo("var sessionUser = JSON.parse('" . json_encode($user, JSON_HEX_APOS) . "');");
-    echo("UserAPI.storeSessionUser(sessionUser);");
+    try {
+        $user = UserController::getUserByOpenIdTokens($_COOKIE[ID_TOKEN], $_COOKIE[ACCESS_TOKEN]);
+        echo("var sessionUser = JSON.parse('" . json_encode($user, JSON_HEX_APOS) . "');");
+        echo("UserAPI.storeSessionUser(sessionUser);");
+    } catch (Exception $e) {
+        echo("UserAPI.logout();");
+    }    
     echo("}");
     echo("</script>");
 }

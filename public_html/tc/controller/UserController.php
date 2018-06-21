@@ -87,7 +87,7 @@ class UserController {
             $newUser->setIs_confirmed(true);
             $user = UserController::registerUser($newUser);
         } else {
-            throw Exception("Unable to access openId userInfo");
+            throw new Exception("Unable to access openId userInfo");
         }
         return $user;
     }
