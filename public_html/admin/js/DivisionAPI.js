@@ -67,43 +67,10 @@ DivisionAPI.fillField = function(val){
 
 
 DivisionAPI.getDivisions = function(locale){
-    Utilities.debug?console.log("loading departments"):null;
-    console.log("loading divisions");
     var divisions_url = DataAPI.baseURL+"/"+locale+"/Lookup/division";
-    getDivisions_xhr = new XMLHttpRequest();
-    if ("withCredentials" in getDivisions_xhr) {
-
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      getDivisions_xhr.open("GET", divisions_url);
-
-    } else if (typeof XDomainRequest != "undefined") {
-
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      getDivisions_xhr = new XDomainRequest();
-      getDivisions_xhr.open("GET", divisions_url);
-
-    } else {
-
-      // Otherwise, CORS is not supported by the browser.
-      getDivisions_xhr = null;
-
-    }
-    
-    getDivisions_xhr.addEventListener("progress",
-    function(evt){
-        DataAPI.updateProgress(evt);
-    },false);
-    getDivisions_xhr.addEventListener("load",
-        function(evt){
-            DivisionAPI.loadedManagerDivisions(getDivisions_xhr.response);
-        },false);
-    getDivisions_xhr.addEventListener("error",DataAPI.transferFailed,false);
-    getDivisions_xhr.addEventListener("abort",DataAPI.transferAborted,false);
-
-    getDivisions_xhr.open('GET',divisions_url);
-    getDivisions_xhr.send(null);
+    DataAPI.sendRequest(divisions_url, "GET", {}, null, function(request) {
+        DivisionAPI.loadedManagerDivisions(request.response);
+    });
 };
 
 

@@ -146,36 +146,14 @@ WorkEnvironmentAPI.populateWorkEnvironmentSummary = function(workEnvironment) {
 };
 
 WorkEnvironmentAPI.refreshWorkplacePhoto = function(managerProfileId, photoName, imageElementId) {
-    var xhr = new XMLHttpRequest();
     var photoUrl = WorkEnvironmentAPI.baseURL+'/getWorkplacePhotoByManagerProfileAndName/'+ managerProfileId + '/' + photoName;
-    if ("withCredentials" in xhr) {
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open("GET", photoUrl);
-
-    } else if (typeof XDomainRequest != "undefined") {
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open("GET", photoUrl);
-    } else {
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
-      // TODO: indicate to user that browser is not supported
-    }
-    xhr.setRequestHeader("Accept","image/*");
-    xhr.addEventListener('load', function() {
-        img = document.getElementById(imageElementId);
-        i = 0;
-        if (xhr.status == 200 && xhr.responseURL) {
-            img.style.backgroundImage = "url("+xhr.responseURL+")";
+    var headers = {"Accept":"image/*"};
+    DataAPI.sendRequest(photoUrl, "GET", headers, null, function(request) {
+        var img = document.getElementById(imageElementId);
+        if (request.status == 200 && request.responseURL) {
+            img.style.backgroundImage = "url("+request.responseURL+")";
         } else {
             img.setAttribute('style','display:none;');
-            i++;
-            //img.style.backgroundImage = "url("+WorkEnvironmentAPI.defaultWorkplacePhoto+")"
-        } if (i = 3) {
-            // document.getElementById("workEnvironmentSummaryImagesWrapper").setAttribute('style','display:none;');
-        }
+        } 
     });
-    xhr.send();
 };
