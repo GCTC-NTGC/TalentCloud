@@ -337,13 +337,13 @@ JobApplicationAPI.saveJobApplication = function (onSuccess) {
     var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, jobSeekerId, applicationStatus, applicationQuestionAnswers);
 
     DataAPI.saveJobApplicationByJobAndUser(jobApplication, jobPosterId, UserAPI.getSessionUserAsJSON().user_id, function (request) {
-        if (request.status === 403) {
-            var message = JSON.parse(request.response).failed;
-            window.alert(message);
-        } else if (request.status === 200) {
+        if (request.status === 200) {
             if (onSuccess) {
                 onSuccess();
             }
+        } else {
+            var message = JSON.parse(request.response).message;
+            window.alert(message);
         }
     });
 };
