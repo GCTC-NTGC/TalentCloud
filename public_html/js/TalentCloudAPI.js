@@ -27,7 +27,6 @@ TalentCloudAPI.pages = {
     AdminDashboard: {
         url: "#AdminDashboard",
         state: function () {
-            AccessibilityAPI.focusElement("skipNav");
             AdminDashboardAPI.showDashboard();
             TalentCloudAPI.setNav("navigationAdminDashboardLink");
 
@@ -36,7 +35,7 @@ TalentCloudAPI.pages = {
     ViewApplication: {
         url: "#ViewApplication",
         state: function (data) {
-            AccessibilityAPI.focusElement("skipNav");
+            //AccessibilityAPI.focusElement("skipNav");
             JobApplicationPreviewAPI.showJobApplicationPreviewById(data);
             TalentCloudAPI.setNav("navigationAdminDashboardLink");
         }
@@ -44,7 +43,6 @@ TalentCloudAPI.pages = {
     ViewApplicationProfile: {
         url: "#ViewApplicationProfile",
         state: function (data) {
-            AccessibilityAPI.focusElement("skipNav");
             AdminDashboardAPI.showProfileForApplication(data);
             TalentCloudAPI.setNav("navigationAdminDashboardLink");
         }
@@ -54,13 +52,12 @@ TalentCloudAPI.pages = {
         state: function () {
             JobPostAPI.showBrowseJobs();
             TalentCloudAPI.setNav("navigationBrowseLinkWrapper");
-            AccessibilityAPI.focusElement("browseHeroTitle");
         }
     },
     Login: {
         url: "#Login",
         state: function () {
-            TalentCloudAPI.setNav("navigationnavigationLoginLinkWrapper");
+            TalentCloudAPI.setNav("navigationLoginLinkWrapper");
             var login = document.getElementById("navigationLoginLinkWrapper");
             if (login) {
                 login.click();
@@ -188,7 +185,7 @@ TalentCloudAPI.load = function () {
         }
     }
     /*if(window.location.href.indexOf("/"+TalentCloudAPI.roles.manager) > -1) {
-     
+
      managerView = true;
      TalentCloudAPI.loadManager();
      if(pageToReload !== undefined){
@@ -338,7 +335,7 @@ TalentCloudAPI.setLanguage = function (locale) {
         //Utilities.debug?console.log("currentLocale=" + currentLocale):null;
         //var feedbackLinkFrench = document.querySelector(".alert-banner__copy--francais");
         //var feedbackLinkEnglish = document.querySelector(".alert-banner__copy--english");
-        
+
         var skipNavTextFrench = document.querySelector(".skipNavTextFrench");
         var skipNavTextEnglish = document.querySelector(".skipNavTextEnglish");
 
@@ -1182,4 +1179,6 @@ TalentCloudAPI.setNav = function (navItemToHighlightId) {
     var mainMenu = document.getElementById("pageHeroNavigationMenu");
     mobileMenuTrigger.classList.remove("active");
     mainMenu.classList.remove("active");
+    AccessibilityAPI.focusElement("topPage");
+    window.scrollTo(0,0);
 };

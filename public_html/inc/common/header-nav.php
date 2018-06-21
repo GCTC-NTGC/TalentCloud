@@ -31,7 +31,7 @@
             <?php else : ?>
                 <?php /* Browse Jobs */ ?>
                 <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationBrowseLinkWrapper" aria-hidden="false">
-                    <a href="#BrowseJobs" id="navigationBrowseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('navigationBrowseLinkWrapper');">
+                    <a href="#BrowseJobs" id="navigationBrowseLink" onclick="JobPostAPI.showBrowseJobs();TalentCloudAPI.setNav('navigationBrowseLinkWrapper');AccessibilityAPI.focusElement('topPage');">
                         Browse Jobs
                     </a>
                 </div>

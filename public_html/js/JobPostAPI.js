@@ -60,6 +60,7 @@ JobPostAPI.showBrowseJobs = function() {
     history.pushState(stateInfo, stateInfo.pageInfo, '#BrowseJobs');
 
     TalentCloudAPI.hideAllContent();
+
     var browseJobsSection = document.getElementById('browseJobsSection');
     browseJobsSection.classList.remove('hidden');
 
@@ -68,6 +69,8 @@ JobPostAPI.showBrowseJobs = function() {
 
     var locale = TalentCloudAPI.getLanguageFromCookie();
     DataAPI.getJobs(locale, JobPostAPI.populateJobObjectList);
+
+    //AccessibilityAPI.focusElement("topPage");
 
     // New Subpage Hero Scripts
 
@@ -157,7 +160,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     }
 
     jobObj.noc = job.noc;
-    
+
     // TAL-150
     jobObj.classification = job.classification;
     jobObj.security_clearance = job.security_clearance;
