@@ -19,6 +19,7 @@
 	font-weight: 800;
 	margin: 2rem 0 0 0;
 	text-align: left;
+	color: $palette-blue
 }
 
 .job-poster__open-question {
@@ -32,7 +33,7 @@
 		&:nth-child(2) {
 
 			@media #{$l-tablet} {
-				text-align: right;
+				//text-align: right;
 			}
 
 		}
@@ -42,7 +43,7 @@
 }
 
 .job-poster__open-question-label {
-	color: $palette-blue;
+	color: $black;
 	display: block;
 	font-size: 20px;
 	font-weight: 800;
@@ -58,7 +59,8 @@
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 1;
-	margin: 2rem 0 0 0;
+	float: right;
+	margin: 3rem 0 0 0;
 	padding: 0;
 	text-decoration: underline;
 	transition: color .2s ease;

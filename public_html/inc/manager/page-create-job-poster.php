@@ -396,13 +396,14 @@
 
                         <div class="job-poster__open-question flex-grid repeater__item" data-value="1">
 
-                            <div class="box med-1of2">
+                            <div class="box full">
                                 <span class="job-poster__open-question-label">Question #1</span>
                             </div>
 
+                            <!-- Suggest removing for first element
                             <div class="box med-1of2">
                                 <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">Remove this question</button>
-                            </div>
+                            </div> -->
 
                             <div class="job-poster__open-question-wrapper--english box med-1of2">
 
