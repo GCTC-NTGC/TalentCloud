@@ -172,25 +172,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Timetable</legend>
 
-                            <div class="flex-grid middle">
-                                <div class="box med-1of4">
-                                    <div class="form__input-wrapper--float">
-                                        <label class="form__label" for="createJobPoster_termQuantity">Duration (in months)</label>
-                                        <?php // Testing HTML5 error handling ?>
-                                        <input
-                                        id="createJobPoster_termQuantity"
-                                        name="createJobPoster_termQuantity"
-                                        class="form__input"
-                                        type="number"
-                                        required
-                                        aria-required="true"
-                                        maxlength="2"
-                                        pattern="[0-9]{1,2}"
-                                        title="Duration must contain one or two numbers"
-                                        />
-                                    </div>
-                                </div>
-
+                            <div class="flex-grid">
                                 <div class="box med-1of4">
                                     <div class="form__input-wrapper--date">
                                         <label class="form__label" for="createJobPoster_openDate">Open date</label>
@@ -209,6 +191,24 @@
                                     <div class="form__input-wrapper--date">
                                         <label class="form__label" for="createJobPoster_startDate">Start Date</label>
                                         <input class="form__input" type="date" name="createJobPoster_startDate" id="createJobPoster_startDate" required aria-required="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="box med-1of4">
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label" for="createJobPoster_termQuantity">Duration (in months)</label>
+                                        <?php // Testing HTML5 error handling ?>
+                                        <input
+                                        id="createJobPoster_termQuantity"
+                                        name="createJobPoster_termQuantity"
+                                        class="form__input"
+                                        type="number"
+                                        required
+                                        aria-required="true"
+                                        maxlength="2"
+                                        pattern="[0-9]{1,2}"
+                                        title="Duration must contain one or two numbers"
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -20,7 +20,7 @@
 
     <div class="stepGroupForm">
 
-        <h3 id="createEditProfile_teamCultureTitle" class="manager-edit-profile__title heading--03">Our Team Culture</h3>
+        <h3 id="createEditProfile_teamCultureTitle" class="manager-edit-profile__title heading--03">Team Culture</h3>
 
         <div class="form__required-copy-wrapper">
             All fields required unless indicated as optional

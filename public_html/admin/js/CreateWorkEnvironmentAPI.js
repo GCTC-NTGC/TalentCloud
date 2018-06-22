@@ -9,7 +9,7 @@ CreateWorkEnvironmentAPI.photoNameToCaptionFormId = {'workplace_photo_1': 'workp
 CreateWorkEnvironmentAPI.defaultWorkplacePhoto = '/images/user.png';
 
 /**
- * 
+ *
  * @param {string} photo_name
  * @param {string} description
  * @return {CreateWorkEnvironment.WorkplacePhotoCaption}
@@ -20,7 +20,7 @@ CreateWorkEnvironmentAPI.WorkplacePhotoCaption = function (photo_name, descripti
 };
 
 /**
- * 
+ *
  * @param {string} remote_allowed
  * @param {string} telework_allowed
  * @param {string} flexible_allowed
@@ -35,28 +35,14 @@ CreateWorkEnvironmentAPI.WorkEnvironment = function (remote_allowed, telework_al
     this.workplace_photo_captions = workplace_photo_captions;
 };
 
+
+// 
 CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment = function () {
     if (siteContent) {
         try {
-            document.getElementById('remoteWork_label').innerHTML = siteContent.remoteLocationAllowed;
-            document.getElementById('remoteWork_option0_label').innerHTML = SliderAPI.getYesNoSliderLabel("option0");
-            document.getElementById('remoteWork_option1_label').innerHTML = SliderAPI.getYesNoSliderLabel("option1");
-
-            document.getElementById('telework_label').innerHTML = siteContent.teleworkAllowed;
-            document.getElementById('telework_option0_label').innerHTML = SliderAPI.getFrequencySliderLabel("option0");
-            document.getElementById('telework_option1_label').innerHTML = SliderAPI.getFrequencySliderLabel("option1");
-            document.getElementById('telework_option2_label').innerHTML = SliderAPI.getFrequencySliderLabel("option2");
-            document.getElementById('telework_option3_label').innerHTML = SliderAPI.getFrequencySliderLabel("option3");
-            document.getElementById('telework_option4_label').innerHTML = SliderAPI.getFrequencySliderLabel("option4");
-
-            document.getElementById('flexHours_label').innerHTML = siteContent.flexHoursAllowed;
-            document.getElementById('flexHours_option0_label').innerHTML = SliderAPI.getFrequencySliderLabel("option0");
-            document.getElementById('flexHours_option1_label').innerHTML = SliderAPI.getFrequencySliderLabel("option1");
-            document.getElementById('flexHours_option2_label').innerHTML = SliderAPI.getFrequencySliderLabel("option2");
-            document.getElementById('flexHours_option3_label').innerHTML = SliderAPI.getFrequencySliderLabel("option3");
-            document.getElementById('flexHours_option4_label').innerHTML = SliderAPI.getFrequencySliderLabel("option4");
 
             document.getElementById('physicalEnvironment_title').innerHTML = siteContent.physicalEnvironment;
+
         } catch (e) {
             (console.error || console.log).call(console, e.stack || e);
         }
@@ -108,7 +94,7 @@ CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm = function (managerProfil
 };
 
 /**
- * 
+ *
  * @param {CreateWorkEnvironment.WorkEnvironment} workEnvironment
  * @return {undefined}
  */
@@ -278,7 +264,7 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function (
     };
 
     self.clearUpload = function () {
-        //Clear upload 
+        //Clear upload
         self.photo = null;
 
         //Clear preview
@@ -311,7 +297,7 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function (
 
     self.uploadPhoto = function () {
         if (self.photo) {
-            var headers = {"Content-type": self.photo.type, 
+            var headers = {"Content-type": self.photo.type,
                 "X-File-Name": self.photo.name,
                 "Accept": "application/json"
             }
@@ -325,5 +311,3 @@ CreateWorkEnvironmentAPI.WorkplacePhotoUploader = function (
 
     self.init(); //call init function at end of constructor
 };
-
-
