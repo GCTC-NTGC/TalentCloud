@@ -31,54 +31,65 @@
 
     <div class="stepGroupForm">
 
-        <h3 class="manager-edit-profile__title heading--03">Work Environment</h3>
+        <h3 class="form__title">Work Environment</h3>
 
-        <div class="form__required-copy-wrapper">
-            All fields required unless indicated as optional
-        </div>
+        <p class="form__context">All fields required unless indicated as optional</p>
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Is remote work allowed?</legend>
-                <div class="flex-grid">
-                    <div class="box med-1of8">
-                        <label class="form__radio-wrapper">
-                            <input class="form__input" type="radio" name="radio-group-name" checked></input>
-                            <span class="form__label--radio">Yes</span>
-                        </label>
-                    </div>
-                    <div class="box med-2of8">
-                        <label class="form__radio-wrapper">
-                            <input class="form__input" type="radio" name="radio-group-name"></input>
-                            <span class="form__label--radio">No</span>
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
+        <fieldset class="form__fieldset form__form-check-grid">
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">How often do your employees telework or have flexible hours?</legend>
-                <div class="form__input-wrapper--range">
-                    <label class="form__label">Telework</label>
-                    <div class="form__range-wrapper">
-                        <span class="form__range-label--start">Never</span>
-                        <input class="form__input" type="range" min="1" max="5"></input>
-                        <span class="form__range-label--end">Always</span>
-                    </div>
+            <legend class="form__legend">Is remote work allowed?</legend>
+
+            <div class="flex-grid">
+
+                <div class="box small-1of2 med-1of8">
+                    <label class="form__radio-wrapper">
+                        <input class="form__input" type="radio" name="radio-group-name" checked></input>
+                        <span class="form__label--radio">Yes</span>
+                    </label>
                 </div>
 
-                <div class="form__input-wrapper--range">
-                    <label class="form__label">Flexible hours</label>
-                    <div class="form__range-wrapper">
-                        <span class="form__range-label--start">Never</span>
-                        <input class="form__input" type="range" min="1" max="5"></input>
-                        <span class="form__range-label--end">Always</span>
+                <div class="box small-1of2 med-1of8">
+                    <label class="form__radio-wrapper">
+                        <input class="form__input" type="radio" name="radio-group-name"></input>
+                        <span class="form__label--radio">No</span>
+                    </label>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset form__form-section">
+
+            <legend class="form__legend">How often do your employees telework or have flexible hours?</legend>
+
+            <div class="flex-grid">
+
+                <div class="box full">
+                    <div class="form__input-wrapper--range">
+                        <label class="form__label">Telework</label>
+                        <div class="form__range-wrapper">
+                            <span class="form__range-label--start">Never</span>
+                            <input class="form__input" type="range" min="1" max="5"></input>
+                            <span class="form__range-label--end">Always</span>
+                        </div>
                     </div>
                 </div>
-            </fieldset>
-        </div>
+
+                <div class="box full">
+                    <div class="form__input-wrapper--range">
+                        <label class="form__label">Flexible hours</label>
+                        <div class="form__range-wrapper">
+                            <span class="form__range-label--start">Never</span>
+                            <input class="form__input" type="range" min="1" max="5"></input>
+                            <span class="form__range-label--end">Always</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
 
         <?php /*
         <label id="remoteWork_label" for="createEditProfile_remoteWork" class="form__label">Is remote work allowed?</label>

@@ -171,6 +171,10 @@
 
             <form class="form__wrapper">
 
+                <h3 class="form__title">Sample Form Title</h3>
+
+                <p class="form__context">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempor volutpat lacus eget dignissim.</p>
+
                 <div class="form__input-wrapper--float">
                     <label class="form__label">Text Input</label>
                     <input class="form__input" type="text"></input>
@@ -296,7 +300,7 @@
 
                     <div class="flex-grid">
                         <div class="box med-1of3">
-                        <label class="form__radio-wrapper">
+                            <label class="form__radio-wrapper">
                                 <input class="form__input" type="checkbox" checked></input>
                                 <span class="form__label--checkbox">Checkbox</span>
                             </label>

@@ -31,75 +31,83 @@
 
     <div class="stepGroupForm">
 
-        <h3 class="manager-edit-profile__title heading--03">Leadership</h3>
+        <h3 class="form__title">Leadership</h3>
 
-        <div class="form__required-copy-wrapper">
-            All fields required unless indicated as optional
-        </div>
+        <p class="form__context">All fields required unless indicated as optional</p>
 
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
 
-        <div class="form__input-wrapper">
-            <fieldset id="createJobPosterJobTitleSection">
-                <legend class="form__legend">What is your leadership style?</legend>
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_leadership_style">English</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style" rows="2" required aria-required="true"/></textarea>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_leadership_style_fr">Français</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr" required aria-required="true"/></textarea>
-                        </div>
+            <legend class="form__legend">What is your leadership style?</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_leadership_style">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style" rows="2" required aria-required="true"/></textarea>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset id="createJobPosterJobTitleSection">
-                <legend class="form__legend">What is your approach to employee learning and development?</legend>
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_app_to_employees">English</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees" rows="2" required aria-required="true"/></textarea>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_app_to_employees_fr">Français</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr" required aria-required="true"/></textarea>
-                        </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_leadership_style_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr" required aria-required="true"/></textarea>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset id="createJobPosterJobTitleSection">
-                <legend class="form__legend">What are your expectations of employees?</legend>
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_exp_of_employees">English</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees" rows="2" required aria-required="true"/></textarea>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_exp_of_employees_fr">Français</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr" required aria-required="true"/></textarea>
-                        </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">What is your approach to employee learning and development?</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_app_to_employees">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees" rows="2" required aria-required="true"/></textarea>
                     </div>
                 </div>
-            </fieldset>
 
-        </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_app_to_employees_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr" required aria-required="true"/></textarea>
+                    </div>
+                </div>
 
-        <h3 class="manager-edit-profile__title heading--03">Your Approach to Decision Making</h3>
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">What are your expectations of employees?</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_exp_of_employees">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees" rows="2" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_exp_of_employees_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <h3 class="form__title">Your Approach to Decision Making</h3>
 
         <div class="form__input-wrapper--range">
             <label class="form__label">How often do you review your teams work before it is shared?</label>

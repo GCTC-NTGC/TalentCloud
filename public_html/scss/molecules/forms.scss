@@ -164,6 +164,20 @@ input[type=button],input[type=submit],input[type=reset]{
     position: relative;
     width: 100%;
 
+    .form__title {
+        margin: 4rem 0 2rem 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+    }
+
+    .form__context {
+        font-size: 16px;
+        margin: 2rem 0;
+    }
+
     >.flex-grid {
         margin: 0 -1rem;
 
@@ -208,7 +222,7 @@ input[type=button],input[type=submit],input[type=reset]{
         &.form__form-section {
 
             >.flex-grid {
-                margin: -2rem -1rem 0 -1rem;
+                margin: -3rem -1rem 0 -1rem;
 
                 >.box {
                     padding: 0 1rem;
@@ -229,6 +243,10 @@ input[type=button],input[type=submit],input[type=reset]{
             font-size: 16px;
             font-weight: 900;
             margin: 0 0 .5rem 0;
+        }
+
+        &+fieldset {
+            margin-top: 3rem;
         }
 
     }

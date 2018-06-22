@@ -31,14 +31,11 @@
 
     <div class="stepGroupForm">
 
-        <h3 id="adminAboutMe" class="manager-edit-profile__title heading--03">About Me</h3>
+        <h3 id="adminAboutMe" class="form__title">About Me</h3>
 
-        <div class="form__required-copy-wrapper">
-            All fields required unless indicated as optional
-        </div>
+        <p class="form__context">All fields required unless indicated as optional</p>
 
-
-        <fieldset class="form__fieldset">
+        <fieldset class="form__fieldset form__form-section">
 
             <legend class="form__legend">Position</legend>
 
@@ -62,27 +59,27 @@
 
         </fieldset>
 
-        <fieldset class="form__fieldset">
+        <fieldset class="form__fieldset form__form-section">
 
             <legend class="form__legend">Branch / Department</legend>
 
             <div class="flex-grid middle">
 
-                <div class="box med-1of3">
+                <div class="box med-1of2">
                     <div class="form__input-wrapper--float">
                         <label class="form__label" for="createEditProfile_branch">English</label>
                         <input type="text" class="form__input" name="createEditProfile_branch" id="createEditProfile_branch" required aria-required="true"/>
                     </div>
                 </div>
 
-                <div class="box med-1of3">
+                <div class="box med-1of2">
                     <div class="form__input-wrapper--float">
                         <label class="form__label" for="createEditProfile_branch_fr">Français</label>
                         <input type="text" class="form__input" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr" required aria-required="true"/>
                     </div>
                 </div>
 
-                <div class="box med-1of3">
+                <div class="box full">
                     <div class="form__input-wrapper--select">
                         <label for="createEditProfile_department" class="form__label">Department</label>
                         <div class="form__select-wrapper">
@@ -97,7 +94,7 @@
 
         </fieldset>
 
-        <fieldset class="form__fieldset">
+        <fieldset class="form__fieldset form__form-section">
 
             <legend class="form__legend">Division</legend>
 
@@ -121,7 +118,7 @@
 
         </fieldset>
 
-        <fieldset id="createJobPosterJobTitleSection">
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
 
             <legend class="form__legend">Short Biography</legend>
 
@@ -145,7 +142,7 @@
 
         </fieldset>
 
-        <fieldset id="createJobPosterJobTitleSection">
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
 
             <legend class="form__legend">Career Highlights</legend>
 
@@ -169,7 +166,7 @@
 
         </fieldset>
 
-        <fieldset class="form__fieldset">
+        <fieldset class="form__fieldset form__form-section">
 
             <legend class="form__legend">Social Media</legend>
 
@@ -188,7 +185,7 @@
                         <input type="url" class="form__input" name="createEditProfile_linkedin" id="createEditProfile_linkedin" required aria-required="true" />
                     </div>
                 </div>
-                
+
             </div>
 
         </fieldset>
