@@ -4590,6 +4590,7 @@ input[type=button], input[type=submit], input[type=reset] {
       margin-top: 0; }
   .form__wrapper .form__context {
     font-size: 16px;
+    line-height: 20px;
     margin: 2rem 0; }
   .form__wrapper > .flex-grid {
     margin: 0 -1rem; }
@@ -4608,7 +4609,8 @@ input[type=button], input[type=submit], input[type=reset] {
       .form__wrapper > .flex-grid > .box > [class*="form__input-wrapper"] {
         margin: 0; }
   .form__wrapper fieldset {
-    border-top: none; }
+    border-top: none;
+    padding: 0; }
     .form__wrapper fieldset.form__form-section > .flex-grid {
       margin: -3rem -1rem 0 -1rem; }
       .form__wrapper fieldset.form__form-section > .flex-grid > .box {
@@ -4636,7 +4638,7 @@ input[type=button], input[type=submit], input[type=reset] {
     [class*="form__input-wrapper"][class*="float"] .form__label {
       color: #646464;
       font-size: 16px;
-      line-height: 1;
+      line-height: 20px;
       margin: 0;
       padding: .5rem;
       pointer-events: none;
@@ -4649,7 +4651,7 @@ input[type=button], input[type=submit], input[type=reset] {
       border: 1px solid #323232;
       border-radius: 3px;
       font-size: 16px;
-      line-height: 1;
+      line-height: 24px;
       outline: none;
       padding: 2rem 5rem 2rem 2rem;
       transition: border-color .2s ease;
@@ -4662,7 +4664,7 @@ input[type=button], input[type=submit], input[type=reset] {
       border: 1px solid #323232;
       border-radius: 3px;
       font-size: 16px;
-      line-height: 23px;
+      line-height: 1.2rem;
       max-width: 100%;
       min-height: 10rem;
       min-width: 100%;
@@ -4676,7 +4678,7 @@ input[type=button], input[type=submit], input[type=reset] {
     [class*="form__input-wrapper"][class*="float"].active .form__label {
       background: white;
       font-size: 12px;
-      top: -1rem;
+      top: -1.4rem;
       transition: background 0s ease .1s, font-size .2s ease, top .2s ease; }
     [class*="form__input-wrapper"][class*="float"].valid .form__input[type="text"], [class*="form__input-wrapper"][class*="float"].valid .form__input[type="password"], [class*="form__input-wrapper"][class*="float"].valid .form__input[type="email"], [class*="form__input-wrapper"][class*="float"].valid .form__input[type="number"], [class*="form__input-wrapper"][class*="float"].valid .form__input[type="url"] {
       border: 1px solid #43c545;
@@ -4765,7 +4767,7 @@ input[type=button], input[type=submit], input[type=reset] {
       border: 1px solid #323232;
       border-radius: 3px;
       font-size: 16px;
-      line-height: 1;
+      line-height: 20px;
       outline: none;
       padding: 2rem 5rem 2rem 2rem;
       transition: border-color .2s ease;
@@ -4809,12 +4811,12 @@ input[type=button], input[type=submit], input[type=reset] {
       background: white;
       color: #646464;
       font-size: 12px;
-      line-height: 1;
+      line-height: 20px;
       margin: 0;
       padding: .5rem;
       pointer-events: none;
       position: absolute;
-      top: -1rem;
+      top: -1.4rem;
       left: 1.6rem;
       transition: background 0s ease .1s, font-size .2s ease, top .2s ease; }
     [class*="form__input-wrapper"][class*="select"] .form__select-wrapper:before {
@@ -4837,7 +4839,7 @@ input[type=button], input[type=submit], input[type=reset] {
       border-radius: 3px;
       cursor: pointer;
       font-size: 16px;
-      line-height: 1.2;
+      line-height: 24px;
       outline: none;
       padding: 2rem 5rem 2rem 2rem;
       transition: border-color .2s ease;
@@ -8572,9 +8574,11 @@ nav {
   color: #2196f3; }
 
 .job-poster__open-question {
-  margin: 0 -1rem;
+  margin: 3rem -1rem 0 -1rem;
   text-align: left;
   width: 100%; }
+  .job-poster__open-question:nth-child(2) {
+    margin-top: -2rem; }
   .job-poster__open-question .box {
     padding: 0 1rem; }
 
@@ -8614,6 +8618,9 @@ nav {
 [class^="job-poster__open-question-wrapper--"] textarea {
   display: block;
   width: 100%; }
+
+[class^="job-poster__open-question-wrapper--"] .form__input-wrapper--float:first-of-type {
+  margin-top: 0; }
 
 .job-poster__open-question-wrapper-label {
   font-size: 18px;

@@ -23,9 +23,13 @@
 }
 
 .job-poster__open-question {
-	margin: 0 -1rem;
+	margin: 3rem -1rem 0 -1rem;
 	text-align: left;
 	width: 100%;
+
+    &:nth-child(2) {
+        margin-top: -2rem;
+    }
 
 	.box {
 		padding: 0 1rem;
@@ -96,6 +100,10 @@
 	&[class*="french"] {
 
 	}
+
+    .form__input-wrapper--float:first-of-type {
+        margin-top: 0;
+    }
 
 }
 

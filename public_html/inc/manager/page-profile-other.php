@@ -31,53 +31,52 @@
 
     <div class="stepGroupForm">
 
-        <h3 class="manager-edit-profile__title heading--03">Other Information</h3>
+        <h3 class="form__title">Other Information</h3>
 
-        <div class="form__required-copy-wrapper">
-            All fields required unless indicated as optional
-        </div>
+        <p class="form__context">All fields required unless indicated as optional</p>
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Education</legend>
+        <fieldset class="form__fieldset form__form-section">
 
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="user_manager_profile_education">English</label>
-                            <input type="text" class="form__input" name="user_manager_profile_education" id="user_manager_profile_education" required aria-required="true"/>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="user_manager_profile_education_fr">Français</label>
-                            <input type="text" class="form__input" name="user_manager_profile_education_fr" id="user_manager_profile_education_fr" required aria-required="true"/>
-                        </div>
+            <legend class="form__legend">Education</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="user_manager_profile_education">English</label>
+                        <input type="text" class="form__input" name="user_manager_profile_education" id="user_manager_profile_education" required aria-required="true"/>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Work Experience</legend>
-
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="user_manager_profile_work_experience">English</label>
-                            <input type="text" class="form__input" name="user_manager_profile_work_experience" id="user_manager_profile_work_experience" required aria-required="true"/>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="user_manager_profile_work_experience_fr">Français</label>
-                            <input type="text" class="form__input" name="user_manager_profile_work_experience_fr" id="user_manager_profile_work_experience_fr" required aria-required="true"/>
-                        </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="user_manager_profile_education_fr">Français</label>
+                        <input type="text" class="form__input" name="user_manager_profile_education_fr" id="user_manager_profile_education_fr" required aria-required="true"/>
                     </div>
                 </div>
-            </fieldset>
-        </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset form__form-section">
+            <legend class="form__legend">Work Experience</legend>
+
+            <div class="flex-grid middle">
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="user_manager_profile_work_experience">English</label>
+                        <input type="text" class="form__input" name="user_manager_profile_work_experience" id="user_manager_profile_work_experience" required aria-required="true"/>
+                    </div>
+                </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="user_manager_profile_work_experience_fr">Français</label>
+                        <input type="text" class="form__input" name="user_manager_profile_work_experience_fr" id="user_manager_profile_work_experience_fr" required aria-required="true"/>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
 
         <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
             <div class="formGroup box med-1of2">

@@ -147,11 +147,10 @@
         </div>
         */ ?>
 
+        <h3 id="physicalEnvironment_title" class="form__title">Work Environment Pictures (optional)</h3>
 
         <?php // Work Envorinment Photo Upload ?>
         <div class="workEnvironmentWrapper">
-
-            <h3 id="physicalEnvironment_title" class="manager-edit-profile__title heading--03">Work Environment Pictures (optional)</h3>
 
             <div class="flex-grid manager-edit-profile__workplace-image-grid">
 

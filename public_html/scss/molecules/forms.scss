@@ -175,6 +175,7 @@ input[type=button],input[type=submit],input[type=reset]{
 
     .form__context {
         font-size: 16px;
+        line-height: 20px;
         margin: 2rem 0;
     }
 
@@ -218,6 +219,7 @@ input[type=button],input[type=submit],input[type=reset]{
 
     fieldset {
         border-top: none;
+        padding: 0;
 
         &.form__form-section {
 
@@ -280,7 +282,7 @@ input[type=button],input[type=submit],input[type=reset]{
             .form__label {
                 color: rgba(100, 100, 100, 1);
                 font-size: 16px;
-                line-height: 1;
+                line-height: 20px;
                 margin: 0;
                 padding: .5rem;
                 pointer-events: none;
@@ -301,7 +303,7 @@ input[type=button],input[type=submit],input[type=reset]{
                     border: 1px solid rgba(50, 50, 50, 1);
                     border-radius: 3px;
                     font-size: 16px;
-                    line-height: 1;
+                    line-height: 24px;
                     outline: none;
                     padding: 2rem 5rem 2rem 2rem;
                     transition: border-color .2s ease;
@@ -321,7 +323,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 border: 1px solid rgba(50, 50, 50, 1);
                 border-radius: 3px;
                 font-size: 16px;
-                line-height: 23px;
+                line-height: 1.2rem;
                 max-width: 100%;
                 min-height: 10rem;
                 min-width: 100%;
@@ -342,7 +344,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 .form__label {
                     background: white;
                     font-size: 12px;
-                    top: -1rem;
+                    top: -1.4rem;
                     transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
                 }
 
@@ -517,7 +519,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 border: 1px solid rgba(50, 50, 50, 1);
                 border-radius: 3px;
                 font-size: 16px;
-                line-height: 1;
+                line-height: 20px;
                 outline: none;
                 padding: 2rem 5rem 2rem 2rem;
                 transition: border-color .2s ease;
@@ -585,12 +587,12 @@ input[type=button],input[type=submit],input[type=reset]{
                 background: white;
                 color: rgba(100, 100, 100, 1);
                 font-size: 12px;
-                line-height: 1;
+                line-height: 20px;
                 margin: 0;
                 padding: .5rem;
                 pointer-events: none;
                 position: absolute;
-                top: -1rem;
+                top: -1.4rem;
                 left: 1.6rem;
                 transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
             }
@@ -621,7 +623,7 @@ input[type=button],input[type=submit],input[type=reset]{
                 border-radius: 3px;
                 cursor: pointer;
                 font-size: 16px;
-                line-height: 1.2;
+                line-height: 24px;
                 outline: none;
                 padding: 2rem 5rem 2rem 2rem;
                 transition: border-color .2s ease;
