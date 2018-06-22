@@ -7880,7 +7880,8 @@ nav {
   color: #fff;
   width: 100%;
   background: #333;
-  margin-bottom: 4rem; }
+  margin-bottom: 4rem;
+  margin-top: 2rem; }
 
 .three-step-tab {
   width: 33.333%;
