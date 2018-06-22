@@ -15,7 +15,7 @@
         "phpseclib/phpseclib": "2.0.1",
         "jumbojett/openid-connect-php": "^0.4.1",
         "lcobucci/jwt":"^3.2",
-        "spomky-labs/jose":"^6.1"
+        "fproject/php-jwt":"^4.0.5"
     },
 
     "scripts": {
