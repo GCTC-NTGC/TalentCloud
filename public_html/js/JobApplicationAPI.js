@@ -164,8 +164,6 @@ JobApplicationAPI.createEvidencePanelsOnPage = function (criteria, criteriaType,
     }
     evidenceMenu.appendChild(menuFragment);
     evidenceFormWrapper.appendChild(panelsFragment);
-
-    EvidenceAPI.activateFirstEvidencePanel(criteriaType);
 };
 
 JobApplicationAPI.populateApplicationWithUserContent = function (user) {
@@ -266,7 +264,7 @@ JobApplicationAPI.makeQuestionAnswerHtmlElement = function (jobPosterQuestion) {
     item.querySelector(".application-form__open-question").innerHTML = jobPosterQuestion.question;
     item.querySelector(".application-form__open-question-description").innerHTML = jobPosterQuestion.description;
 
-    Utilities.addSuffixToElementId(item, "jobApplicationAnswerInput", "_" + jobPosterQuestion.id);    
+    Utilities.addSuffixToElementId(item, "jobApplicationAnswerInput", "_" + jobPosterQuestion.id);
     return item;
 };
 
@@ -432,13 +430,6 @@ JobApplicationAPI.showApplicationSection = function (applicationSection, jobPost
     }
 
     //TODO: select focus properly
-
-    //Activate first evidence panel
-    if (applicationSection === "essential-criteria") {
-        EvidenceAPI.activateFirstEvidencePanel("essential");
-    } else if (applicationSection === "asset-criteria") {
-        EvidenceAPI.activateFirstEvidencePanel("asset");
-    }
 
     // Google Analytics
 

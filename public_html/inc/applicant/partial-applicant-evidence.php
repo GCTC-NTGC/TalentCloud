@@ -21,7 +21,7 @@
                 <?php /* Floating Sidebar Menu */ ?>
 
                 <div class="box lg-1of4">
-                    
+
                     <div class="applicant-evidence__desktop-menu" id="applicationEssentialEvidenceMenu" aria-orientation="vertical">
 
                         <span class="applicant-evidence__desktop-menu-label">Skills You Need to Have</span>
@@ -67,7 +67,7 @@
         <div class="applicant-evidence__container">
 
             <div class="content-container applicant-evidence__explanation-copy">
-                
+
                 <p>This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.</p>
 
                 <div>
@@ -78,11 +78,11 @@
 
             <hr class="applicant-evidence__anchor">
 
-            <div class="flex-grid">               
+            <div class="flex-grid">
 
                 <div id="applicationAssetEvidenceMenu" role="tablist" aria-orientation="vertical" class="box lg-1of4 applicant-evidence__desktop-menu">
 
-                    <span class="applicant-evidence__desktop-menu-label">Skills That Are Nice to Have</span> 
+                    <span class="applicant-evidence__desktop-menu-label">Skills That Are Nice to Have</span>
 
                     <?php /* Populated by JavaScript */ ?>
 
@@ -160,7 +160,7 @@
                         <?php /* Trigger */ ?>
 
                             <div class="accordion__trigger active" role="button" onclick="Utilities.toggleAccordion(this)" tabindex="0">
-                                
+
                                 <div class="applicant-evidence__skill-status-block">
 
                                     <i class="fa fa-check"></i>
@@ -253,7 +253,7 @@
                                             </div>
 
                                             <div class="box small-1of2">
-                                                <button class="button--blue" type="button">Save</button>
+                                                <button class="button--blue applicant-evidence__save-button" type="button">Save</button>
                                             </div>
 
                                         </div>
@@ -271,7 +271,7 @@
                         <?php /* Trigger */ ?>
 
                             <div class="accordion__trigger" role="button" onclick="Utilities.toggleAccordion(this)" tabindex="0">
-                            
+
                                 <div class="applicant-evidence__skill-status-block">
 
                                     <i class="fa fa-check"></i>
@@ -376,7 +376,7 @@
                                             </div>
 
                                             <div class="box small-1of2">
-                                                <button class="button--blue" type="button">Save</button>
+                                                <button class="button--blue applicant-evidence__save-button" type="button">Save</button>
                                             </div>
 
                                         </div>
@@ -411,7 +411,7 @@
                         <?php /* Trigger */ ?>
 
                             <div class="accordion__trigger" role="button" onclick="Utilities.toggleAccordion(this)" tabindex="0">
-                            
+
                                 <div class="applicant-evidence__skill-status-block">
 
                                     <i class="fa fa-check"></i>
@@ -492,7 +492,7 @@
                                             </div>
 
                                             <div class="box small-1of2">
-                                                <button class="button--blue" type="button">Save</button>
+                                                <button class="button--blue applicant-evidence__save-button" type="button">Save</button>
                                             </div>
 
                                         </div>
