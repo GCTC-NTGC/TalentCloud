@@ -96,7 +96,7 @@
                                     maxlength="5"
                                     required
                                     aria-required="true"
-                                    pattern="[A-Z]{2}[-][0-9]{2}"
+                                    pattern="[A-Z]{2}[-?][0-9]{2}"
                                     title="Occupational group must contain two characters followed by a hyphen, then two numbers"
                                     oninput="this.value = this.value.toUpperCase()"
                                     />
