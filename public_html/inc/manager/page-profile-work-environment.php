@@ -1,20 +1,31 @@
 <?php // BEGIN - Edit Admin Profile Form (Page 3 / Work Environment) ?>
 <div id="createEditProfile_workEnvironment" class="stepGroup_createEditProfile hidden">
 
-    <div class="tabsWrapper">
-        <div class="tabsSteps">
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_WE">About</span></a></div>
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_WE">Leadership</span></a></div>
-            <div class="five-step-tab tab-current"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_WE">Work Environment</span></a></div>
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_WE">Team Culture</span></a></div>
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_WE">Other</span></a></div>
+    <div class="tabsSteps">
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1')" class="steppedFormLink">
+                <span id="createEditProfileStep1Label_1">About</span>
+            </button>
         </div>
-        <div class="tabs">
-            <div class="steptab inactive"> </div>
-            <div class="steptab inactive"> </div>
-            <div class="steptab active"> </div>
-            <div class="steptab inactive"> </div>
-            <div class="steptab inactive"> </div>
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2')" class="steppedFormLink">
+                <span id="createEditProfileStep2Label_1">Leadership</span>
+            </button>
+        </div>
+        <div class="five-step-tab tab-current">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment')" class="steppedFormLinkActive">
+                <span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span>
+            </button>
+        </div>
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')" class="steppedFormLink">
+                <span id="createEditProfileTeamCultureLabel_1">Team Culture</span>
+            </button>
+        </div>
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')" class="steppedFormLink">
+                <span id="createEditProfileStep3Label_1">Other</span>
+            </button>
         </div>
     </div>
 
