@@ -50,7 +50,7 @@
 
     fieldset {
         margin: 0;
-        padding: 0 0 4rem 0;
+        padding: 0 0 3rem 0;
         border: 0;
 
         legend {
@@ -58,7 +58,7 @@
             float: none;
             font-size: 18px;
             font-weight: 900;
-            margin: 0 0 .5rem 0;
+            margin: 0;
         }
 
     }
@@ -84,10 +84,10 @@
     [class*="form__input-wrapper"] {
         display: block;
         position: relative;
-        width: 95%;
+        width: 100%;
 
         &[class*="float"] {
-            margin: 3rem 0;
+            margin: 2rem 0;
 
             .form__label {
                 color: rgba(100, 100, 100, 1);
@@ -115,9 +115,9 @@
                     font-size: 16px;
                     line-height: 1;
                     outline: none;
-                    padding: 2rem 5rem 2rem 2rem;
+                    padding: 2rem;
                     transition: border-color .2s ease;
-                    width: 100%;
+                    width: 99%;
 
                     &:focus {
                         border: 1px solid $palette-blue !important;
@@ -134,13 +134,13 @@
                 border-radius: 3px;
                 font-size: 16px;
                 line-height: 23px;
-                max-width: 100%;
+                max-width: 99%;
                 min-height: 10rem;
-                min-width: 100%;
+                min-width: 99%;
                 outline: none;
                 padding: 2rem;
                 transition: border-color .2s ease;
-                width: 100%;
+                width: 99%;
 
                 &:focus {
                     border: 1px solid $palette-blue;
@@ -240,19 +240,24 @@
         }
 
         &[class*="range"] {
-            margin: 3rem 0 4rem;
+            margin: 2rem 0 3rem;
 
             .form__label {
                 color: rgba(50, 50, 50, 1);
-                font-size: 12px;
-                margin: 0 0 1rem 2rem;
+                font-size: 16px;
+                margin: 0 0 1rem 1rem;
             }
 
             .form__range-wrapper {
-                padding: 0 2rem;
+                padding: 0 1rem;
                 position: relative;
 
                 &.valid {
+
+                    .form__range-label--end,
+                    .form__range-label--start {
+                        display: none;
+                    }
 
                     &:before {
                         color: rgba(67, 197, 69, 1);
@@ -294,13 +299,14 @@
                 position: absolute;
                 top: 50%;
                 transform: translate(0, -50%);
+                font-size: 12px;
 
                 &[class*="start"] {
                     left: 2rem;
                 }
 
                 &[class*="end"] {
-                    right: 2rem;
+                    right: 1rem;
                 }
 
             }
@@ -336,9 +342,9 @@
                 font-size: 16px;
                 line-height: 1;
                 outline: none;
-                padding: 2rem 5rem 2rem 2rem;
+                padding: 2rem;
                 transition: border-color .2s ease;
-                width: 100%;
+                width: 99%;
 
                 &:focus {
                     border: 1px solid $palette-blue !important;
@@ -440,9 +446,9 @@
                 font-size: 16px;
                 line-height: 1.2;
                 outline: none;
-                padding: 2rem 5rem 2rem 2rem;
+                padding: 2rem;
                 transition: border-color .2s ease;
-                width: 100%;
+                width: 99%;
                 background: $white;
 
                 &:focus {
@@ -456,7 +462,7 @@
 
         .form__radio-wrapper {
             font-size: 16px;
-            margin: 0;
+            margin-top: 1rem;
             vertical-align: middle;
 
             input {
@@ -575,4 +581,8 @@
     .form__required-copy-wrapper {
         font-size: 16px;
         margin-bottom: 3rem;
+    }
+
+    .form__label--radio {
+        padding-top: 2rem;
     }
