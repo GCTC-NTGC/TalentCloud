@@ -676,6 +676,9 @@ TalentCloudAPI.setContent = function (content, isManager) {
     document.title = siteContent.title;
     window.title = siteContent.title;
 
+    var logoSource = document.getElementById("logoSrc");
+    logoSource.src = siteContent.logoSrc;
+
     for (var i = 0; i < Object.keys(siteContent).length; i++) {
         var key = Object.keys(siteContent)[i];
         var value = siteContent[key];
@@ -705,7 +708,7 @@ TalentCloudAPI.setContent = function (content, isManager) {
         CreateEditProfileAPI.localizeCreateEditProfile(siteContent);
 
         try {
-        
+
         } catch (e) {
             (console.error || console.log).call(console, e.stack || e);
         }
