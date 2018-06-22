@@ -87,7 +87,7 @@
         width: 100%;
 
         &[class*="float"] {
-            margin: 2rem 0;
+            margin: 3rem 0;
 
             .form__label {
                 color: rgba(100, 100, 100, 1);
@@ -114,6 +114,7 @@
                     border-radius: 3px;
                     font-size: 16px;
                     line-height: 1;
+                    height: 6rem;
                     outline: none;
                     padding: 2rem;
                     transition: border-color .2s ease;
@@ -339,8 +340,9 @@
                 appearance: none;
                 border: 1px solid rgba(50, 50, 50, 1);
                 border-radius: 3px;
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 1;
+                height: 6rem;
                 outline: none;
                 padding: 2rem;
                 transition: border-color .2s ease;

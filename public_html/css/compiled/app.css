@@ -4582,7 +4582,7 @@ input[type="button"][class*="button--"] {
   position: relative;
   width: 100%; }
   [class*="form__input-wrapper"][class*="float"] {
-    margin: 2rem 0; }
+    margin: 3rem 0; }
     [class*="form__input-wrapper"][class*="float"] .form__label {
       color: #646464;
       font-size: 16px;
@@ -4600,6 +4600,7 @@ input[type="button"][class*="button--"] {
       border-radius: 3px;
       font-size: 16px;
       line-height: 1;
+      height: 6rem;
       outline: none;
       padding: 2rem;
       transition: border-color .2s ease;
@@ -4732,8 +4733,9 @@ input[type="button"][class*="button--"] {
       appearance: none;
       border: 1px solid #323232;
       border-radius: 3px;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1;
+      height: 6rem;
       outline: none;
       padding: 2rem;
       transition: border-color .2s ease;
