@@ -22,7 +22,7 @@
                     <div class="section">
 
                         <!-- Where the old steps resided -->
-                        <form method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
+                        <form class="form__wrapper" method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
 
                             <input type="hidden" id="UserId"/>
 
@@ -59,7 +59,7 @@
                                 include "page-profile-team-culture.php";
                                 include "page-profile-other.php";
                             ?>
-                        
+
                         </form>
 
                     </div>

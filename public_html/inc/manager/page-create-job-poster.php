@@ -344,110 +344,107 @@
                     <?php /* New Open Ended Questions */ ?>
 
                     <div class="job-poster__open-questions box full">
-
                         <div class="job-poster__open-questions-wrapper repeater__wrapper flex-grid middle">
 
-                            <h4 class="job-poster__open-question-section-label box full">Open Ended Questions</h4>
+                            <h3 class="job-poster__open-question-section-label heading--03 box full">Questions for the Applicant</h3>
 
                             <div class="job-poster__open-question flex-grid repeater__template">
 
                                 <div class="box med-1of2">
-                                    <span class="job-poster__open-question-label">New Open Ended Question</span>
+                                    <span class="job-poster__open-question-label">Question ##</span>
                                 </div>
 
                                 <div class="box med-1of2">
-                                    <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">remove</button>
+                                    <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">Remove this question</button>
                                 </div>
 
                                 <div class="job-poster__open-question-wrapper--english box med-1of2">
+                                    <div class="form__input-wrapper">
+                                        <fieldset class="form__fieldset">
+                                            <legend class="form__legend">English</legend>
 
-                                    <span class="job-poster__open-question-wrapper-label">
-                                        English Content
-                                    </span>
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Question</label>
+                                                <input class="form__input job-poster__open-question-input" type="text" />
+                                            </div>
 
-                                    <label class="form__label">
-                                        Question
-                                    </label>
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Description</label>
+                                                <textarea class="form__textarea job-poster__open-question-description-input"></textarea>
+                                            </div>
 
-                                    <input class="form__input job-poster__open-question-input" type="text" placeholder="Question"/>
-
-                                    <label class="form__label">
-                                        Description
-                                    </label>
-
-                                    <textarea class="form__textarea job-poster__open-question-description-input" placeholder="Description"></textarea>
-
+                                        </fieldset>
+                                    </div>
                                 </div>
 
                                 <div class="job-poster__open-question-wrapper--french box med-1of2">
+                                    <div class="form__input-wrapper">
+                                        <fieldset class="form__fieldset">
+                                            <legend class="form__legend">Français</legend>
 
-                                    <span class="job-poster__open-question-wrapper-label">
-                                        French Content
-                                    </span>
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Question</label>
+                                                <input class="form__input job-poster__open-question-input" type="text"/>
+                                            </div>
 
-                                    <label class="form__label">
-                                        Question
-                                    </label>
-
-                                    <input class="form__input job-poster__open-question-input" type="text" placeholder="Question"/>
-
-                                    <label class="form__label">
-                                        Description
-                                    </label>
-
-                                    <textarea class="form__textarea job-poster__open-question-description-input" placeholder="Description"></textarea>
-
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Description</label>
+                                                <textarea class="form__textarea job-poster__open-question-description-input"></textarea>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
-
                             </div>
 
                             <div class="job-poster__open-question flex-grid repeater__item" data-value="1">
 
                                 <div class="box med-1of2">
-                                    <span class="job-poster__open-question-label">New Open Ended Question</span>
+                                    <span class="job-poster__open-question-label">Question #1</span>
                                 </div>
 
                                 <div class="box med-1of2">
-                                    <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">remove</button>
+                                    <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">Remove this question</button>
                                 </div>
 
                                 <div class="job-poster__open-question-wrapper--english box med-1of2">
 
-                                    <span class="job-poster__open-question-wrapper-label">
-                                        English Content
-                                    </span>
+                                    <div class="form__input-wrapper">
+                                        <fieldset class="form__fieldset">
+                                            <legend class="form__legend">English</legend>
 
-                                    <label class="form__label">
-                                        Question
-                                    </label>
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Question</label>
+                                                <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
+                                            </div>
 
-                                    <input class="form__input" type="text" placeholder="Question">
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Description</label>
+                                                <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
+                                            </div>
 
-                                    <label class="form__label">
-                                        Description
-                                    </label>
-
-                                    <textarea class="form__textarea" placeholder="Description"></textarea>
+                                        </fieldset>
+                                    </div>
 
                                 </div>
 
                                 <div class="job-poster__open-question-wrapper--french box med-1of2">
 
-                                    <span class="job-poster__open-question-wrapper-label">
-                                        French Content
-                                    </span>
+                                    <div class="form__input-wrapper">
+                                        <fieldset class="form__fieldset">
+                                            <legend class="form__legend">Français</legend>
 
-                                    <label class="form__label">
-                                        Question
-                                    </label>
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Question</label>
+                                                <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
+                                            </div>
 
-                                    <input class="form__input" type="text" placeholder="Question"/>
+                                            <div class="form__input-wrapper--float">
+                                                <label class="form__label">Description</label>
+                                                <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
+                                            </div>
 
-                                    <label class="form__label">
-                                        Description
-                                    </label>
-
-                                    <textarea class="form__textarea" placeholder="Description"></textarea>
+                                        </fieldset>
+                                    </div>
 
                                 </div>
                             </div>

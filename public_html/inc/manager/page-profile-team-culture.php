@@ -18,119 +18,117 @@
         </div>
     </div>
 
-    <br>
-
     <div class="stepGroupForm">
 
         <h3 id="createEditProfile_teamCultureTitle" class="manager-edit-profile__title heading--03">Our Team Culture</h3>
 
-        <div class="manager-edit-profile__required-copy-wrapper">
-            <span>* = </span>
-            <span>Required</span>
+        <div class="form__required-copy-wrapper">
+            All fields required unless indicated as optional
         </div>
 
-        <div class="flex-grid top manager-edit-profile__form">
+        <div class="form__input-wrapper">
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">What makes your team unique?</legend>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_teamSize" class="form__label">
-                    <span id="createEditProfile_teamSize_label">What is the size of the team?</span>
-                    <strong id="createEditProfile_teamSize_error" class="error hidden">
-                        <span id="createEditProfile_teamSize_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <input type="text" class="form__input--text" name="createEditProfile_teamSize" id="createEditProfile_teamSize"/>
-            </div>
+                <div class="flex-grid middle">
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_teamNarrative_en">English</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_teamNarrative_en" id="createEditProfile_teamNarrative_en" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_teamNarrative_fr">Français</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_teamNarrative_fr" id="createEditProfile_teamNarrative_fr" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_gcDirLink" class="form__label">
-                    <span id="createEditProfile_gcDirLink_label">Link to the team in GC Directory</span>
-                    <strong id="createEditProfile_gcDirLink_error" class="error hidden">
-                        <span id="createEditProfile_gcDirLink_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <input type="text" class="form__input--text" name="createEditProfile_gcDirLink" id="createEditProfile_gcDirLink"/>
-            </div>
+        <div class="form__input-wrapper">
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">How does your team operate?</legend>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_teamNarrative_en" class="form__label">
-                    <span id="createEditProfile_teamNarrative_en_label">Tell us what makes your team unique. What are your team's vision, values, and expectations?</span>
-                    <strong id="createEditProfile_teamNarrative_en_error" class="error hidden">
-                        <span id="createEditProfile_teamNarrative_en_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_teamNarrative_en" id="createEditProfile_teamNarrative_en"></textarea>
-            </div>
+                <div class="flex-grid middle">
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_operatingContext_en">English</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_operatingContext_en" id="createEditProfile_operatingContext_en" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_operatingContext_fr">Français</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_operatingContext_fr" id="createEditProfile_operatingContext_fr" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_teamNarrative_fr" class="form__label">
-                    <span id="createEditProfile_teamNarrative_fr_label">Dites-nous ce qui rend votre équipe unique. Quelles sont la vision, les valeurs et les attentes de votre équipe?</span>
-                    <strong id="createEditProfile_teamNarrative_fr_error" class="error hidden">
-                        <span id="createEditProfile_teamNarrative_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_teamNarrative_fr" id="createEditProfile_teamNarrative_fr"></textarea>
-            </div>
+        <div class="form__input-wrapper">
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">What does your team value?</legend>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_operatingContext_en" class="form__label">
-                    <span id="createEditProfile_operatingContext_en_label">Our operating context</span>
-                    <strong id="createEditProfile_operatingContext_en_error" class="error hidden">
-                        <span id="createEditProfile_operatingContext_en_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_operatingContext_en" id="createEditProfile_operatingContext_en"></textarea>
-            </div>
+                <div class="flex-grid middle">
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_whatWeValue_en">English</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_whatWeValue_en" id="createEditProfile_whatWeValue_en" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_whatWeValue_fr">Français</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_whatWeValue_fr" id="createEditProfile_whatWeValue_fr" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_operatingContext_fr" class="form__label">
-                    <span id="createEditProfile_operatingContext_fr_label">Notre contexte d'exploitation</span>
-                    <strong id="createEditProfile_operatingContext_fr_error" class="error hidden">
-                        <span id="createEditProfile_operatingContext_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_operatingContext_fr" id="createEditProfile_operatingContext_fr"></textarea>
-            </div>
+        <div class="form__input-wrapper">
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">How do your team members collaborate?</legend>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_whatWeValue_en" class="form__label">
-                    <span id="createEditProfile_whatWeValue_en_label">What we value</span>
-                    <strong id="createEditProfile_whatWeValue_en_error" class="error hidden">
-                        <span id="createEditProfile_whatWeValue_en_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_whatWeValue_en" id="createEditProfile_whatWeValue_en"></textarea>
-            </div>
+                <div class="flex-grid middle">
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_howWeWork_en">English</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_howWeWork_en" id="createEditProfile_howWeWork_en" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_howWeWork_fr">Français</label>
+                            <textarea type="text" class="form__textarea" name="createEditProfile_howWeWork_fr" id="createEditProfile_howWeWork_fr" required aria-required="true"/></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_whatWeValue_fr" class="form__label">
-                    <span id="createEditProfile_whatWeValue_fr_label">Ce que nous apprécions</span>
-                    <strong id="createEditProfile_whatWeValue_fr_error" class="error hidden">
-                        <span id="createEditProfile_whatWeValue_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_whatWeValue_fr" id="createEditProfile_whatWeValue_fr"></textarea>
-            </div>
+        <div class="form__input-wrapper">
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">Additional Information</legend>
 
-            <div class="box med-1of2">
-                <label for="createEditProfile_howWeWork_en" class="form__label">
-                    <span id="createEditProfile_howWeWork_en_label">How we work</span>
-                    <strong id="createEditProfile_howWeWork_en_error" class="error hidden">
-                        <span id="createEditProfile_howWeWork_en_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_howWeWork_en" id="createEditProfile_howWeWork_en"></textarea>
-            </div>
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_howWeWork_fr" class="form__label">
-                    <span id="createEditProfile_howWeWork_fr_label">Comment nous travaillons</span>
-                    <strong id="createEditProfile_howWeWork_fr_error" class="error hidden">
-                        <span id="createEditProfile_howWeWork_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_howWeWork_fr" id="createEditProfile_howWeWork_fr"></textarea>
-            </div>
-
+                <div class="flex-grid middle">
+                    <div class="box med-1of4">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_teamSize">Team size</label>
+                            <input type="number" class="form__input" name="createEditProfile_teamSize" id="createEditProfile_teamSize" required aria-required="true"/>
+                        </div>
+                    </div>
+                    <div class="box med-3of4">
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="createEditProfile_gcDirLink">GC Directory URL (optional)</label>
+                            <input type="url" class="form__input" name="createEditProfile_gcDirLink" id="createEditProfile_gcDirLink" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
 
     </div>
