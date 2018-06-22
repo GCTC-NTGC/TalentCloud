@@ -4226,6 +4226,13 @@ input[type="button"][class*="button--"] {
   font-weight: 700;
   margin: 0; }
 
+.dialogue-modal__support-label {
+  color: #2196f3;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 1rem 0; }
+
 .dialogue-modal__support-copy {
   color: #333333;
   font-size: 16px;
@@ -5902,6 +5909,18 @@ nav {
 
 .application-form__textarea {
   margin: 0 0 5rem 0; }
+
+.application-form__open-question {
+  color: #2196f3;
+  display: block;
+  font-size: 25px;
+  font-weight: 800;
+  margin: 3rem 0 -1rem; }
+
+.application-form__open-question-description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 3rem 0 2rem; }
 
 /* =============================================================================
 
