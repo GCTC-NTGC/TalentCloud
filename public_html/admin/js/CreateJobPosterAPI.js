@@ -382,7 +382,7 @@ CreateJobPosterAPI.hideCreateJobPosterForm = function () {
 
 CreateJobPosterAPI.createJobPoster = function (jobPosterJson) {
     var createJobPoster_URL = CreateJobPosterAPI.baseURL + "/createJobPoster";
-    DataAPI.sendRequest(manager_profile_url, 'POST', {}, jobPosterJson, function(request) {
+    DataAPI.sendRequest(createJobPoster_URL, 'POST', {}, jobPosterJson, function(request) {
         CreateJobPosterAPI.postJobPosterComplete(request.response);
     });
 };

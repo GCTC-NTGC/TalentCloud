@@ -21,7 +21,7 @@ use Jumbojett\OpenIDConnectClient;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
-use Jose\KeyConverter\RSAKey;
+use Firebase\JWT\JWK;
 
 /**
  * 
@@ -35,18 +35,24 @@ class AuthenticationController {
         if ($jwks === NULL) {
             throw new Exception('Error decoding JSON from jwks_uri');
         }
-
-        foreach ($jwks->keys as $key) {
-            if ($key->alg === $alg //this key uses the correct algorithm
-                    && $key->use === "sig" //this key is intended for signing
-                    && $key->kid === $kid //this key matches our token
-            ) {
-                $rsaKey = new RSAKey((array) $key);
-                return $rsaKey->toPEM();
-                //return self::jwkToPemPublicKey($key);
-            }
-        }
-        return null;
+        
+        $keySet = JWK::parseKeySet($jwks);
+        $keyDetails = openssl_pkey_get_details($keySet[$kid]);
+        $publicKey = $keyDetails["key"];
+        return $publicKey;
+//        foreach ($jwks->keys as $key) {
+//            if ($key->alg === $alg //this key uses the correct algorithm
+//                    && $key->use === "sig" //this key is intended for signing
+//                    && $key->kid === $kid //this key matches our token
+//            ) {
+//                
+//                print_r("Printed keyset");
+//                $rsaKey = new RSAKey((array) $key);
+//                return $rsaKey->toPEM();
+//                return self::jwkToPemPublicKey($key);
+//            }
+//        }
+//        return null;
     }
 
     public static function idTokenIsValid($idToken, $accessToken, $refreshToken = null) {
