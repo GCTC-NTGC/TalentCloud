@@ -38,139 +38,160 @@
         </div>
 
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Position</legend>
+        <fieldset class="form__fieldset">
 
-                <div class="flex-grid">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_position">English</label>
-                            <input type="text" class="form__input" name="createEditProfile_position" id="createEditProfile_position" required aria-required="true"/>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_position_fr">Français</label>
-                            <input type="text" class="form__input" name="createEditProfile_position_fr" id="createEditProfile_position_fr" required aria-required="true"/>
-                        </div>
+            <legend class="form__legend">Position</legend>
+
+            <div class="flex-grid">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_position">English</label>
+                        <input type="text" class="form__input" name="createEditProfile_position" id="createEditProfile_position" required aria-required="true"/>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Branch / Department</legend>
-
-                <div class="flex-grid middle">
-                    <div class="box med-1of3">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_branch">English</label>
-                            <input type="text" class="form__input" name="createEditProfile_branch" id="createEditProfile_branch" required aria-required="true"/>
-                        </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_position_fr">Français</label>
+                        <input type="text" class="form__input" name="createEditProfile_position_fr" id="createEditProfile_position_fr" required aria-required="true"/>
                     </div>
-                    <div class="box med-1of3">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_branch_fr">Français</label>
-                            <input type="text" class="form__input" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr" required aria-required="true"/>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="box med-1of3">
-                        <div class="form__input-wrapper--select">
-                            <label for="createEditProfile_department" class="form__label">Department</label>
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset">
+
+            <legend class="form__legend">Branch / Department</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of3">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_branch">English</label>
+                        <input type="text" class="form__input" name="createEditProfile_branch" id="createEditProfile_branch" required aria-required="true"/>
+                    </div>
+                </div>
+
+                <div class="box med-1of3">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_branch_fr">Français</label>
+                        <input type="text" class="form__input" name="createEditProfile_branch_fr" id="createEditProfile_branch_fr" required aria-required="true"/>
+                    </div>
+                </div>
+
+                <div class="box med-1of3">
+                    <div class="form__input-wrapper--select">
+                        <label for="createEditProfile_department" class="form__label">Department</label>
+                        <div class="form__select-wrapper">
                             <select class="form__input" name="createEditProfile_department" id="createEditProfile_department" srequired aria-required="true">
                                 <option value="">--</option>
                             </select>
                         </div>
                     </div>
-
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Division</legend>
+            </div>
 
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_division">English</label>
-                            <input type="text" class="form__input" name="createEditProfile_division" id="createEditProfile_division" required aria-required="true"/>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_division_fr">Français</label>
-                            <input type="text" class="form__input" name="createEditProfile_division_fr" id="createEditProfile_division_fr" required aria-required="true"/>
-                        </div>
+        </fieldset>
+
+        <fieldset class="form__fieldset">
+
+            <legend class="form__legend">Division</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_division">English</label>
+                        <input type="text" class="form__input" name="createEditProfile_division" id="createEditProfile_division" required aria-required="true"/>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset id="createJobPosterJobTitleSection">
-                <legend class="form__legend">Short Biography</legend>
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_bio">English</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_bio" id="createEditProfile_bio" rows="2" required aria-required="true"/></textarea>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_bio_fr">Français</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr" required aria-required="true"/></textarea>
-                        </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_division_fr">Français</label>
+                        <input type="text" class="form__input" name="createEditProfile_division_fr" id="createEditProfile_division_fr" required aria-required="true"/>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset id="createJobPosterJobTitleSection">
-                <legend class="form__legend">Career Highlights</legend>
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_proudOf">English</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_proudOf" id="createEditProfile_proudOf" rows="2" required aria-required="true"/></textarea>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_proudOf_fr">Français</label>
-                            <textarea class="form__textarea" type="text" name="createEditProfile_proudOf_fr" id="createEditProfile_proudOf_fr" required aria-required="true"/></textarea>
-                        </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">Short Biography</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_bio">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_bio" id="createEditProfile_bio" rows="2" required aria-required="true"/></textarea>
                     </div>
                 </div>
-            </fieldset>
-        </div>
 
-        <div class="form__input-wrapper">
-            <fieldset class="form__fieldset">
-                <legend class="form__legend">Social Media</legend>
-
-                <div class="flex-grid middle">
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_twitter">Twitter Handle</label>
-                            <input type="text" class="form__input" name="createEditProfile_twitter" id="createEditProfile_twitter" required aria-required="true"/>
-                        </div>
-                    </div>
-                    <div class="box med-1of2">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="createEditProfile_linkedin">LinkedIn URL</label>
-                            <input type="url" class="form__input" name="createEditProfile_linkedin" id="createEditProfile_linkedin" required aria-required="true" />
-                        </div>
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_bio_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_bio_fr" id="createEditProfile_bio_fr" required aria-required="true"/></textarea>
                     </div>
                 </div>
-            </fieldset>
-        </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">Career Highlights</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_proudOf">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_proudOf" id="createEditProfile_proudOf" rows="2" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_proudOf_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_proudOf_fr" id="createEditProfile_proudOf_fr" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset">
+
+            <legend class="form__legend">Social Media</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_twitter">Twitter Handle</label>
+                        <input type="text" class="form__input" name="createEditProfile_twitter" id="createEditProfile_twitter" required aria-required="true"/>
+                    </div>
+                </div>
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_linkedin">LinkedIn URL</label>
+                        <input type="url" class="form__input" name="createEditProfile_linkedin" id="createEditProfile_linkedin" required aria-required="true" />
+                    </div>
+                </div>
+                
+            </div>
+
+        </fieldset>
 
         <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
             <div class="formGroup box med-1of2">

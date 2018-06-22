@@ -1054,7 +1054,7 @@ Utilities.addWindowEventListener("resize", Utilities.setEvidencePreviewUiEventLi
 
         Utilities.formRequirementLabelHandler = function() {
 
-            var required = document.querySelectorAll("input:required");
+            var required = document.querySelectorAll("input:required, textarea:required");
 
             for (var i = 0; i < required.length; i++) {
                 required[i].parentElement.classList.add("required");
