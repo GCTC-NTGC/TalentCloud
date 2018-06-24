@@ -115,7 +115,7 @@
 
                         <div class="box med-1of4">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_noc"><abbr title="National Occupational Classification">NOC</abbr> Code</label>
+                                <label class="form__label" for="createJobPoster_noc">NOC Code</label>
                                 <input
                                 id="createJobPoster_noc"
                                 name="createJobPoster_noc"
