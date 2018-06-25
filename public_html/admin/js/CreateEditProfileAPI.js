@@ -791,6 +791,10 @@ CreateEditProfileAPI.populateProfile = function (response) {
     manager_profile_details_fr.user_manager_profile_details_emp_learn = profile_details_json_fr["user_manager_profile_details_emp_learn"];
     manager_profile_details_en.user_manager_profile_details_expectations = profile_details_json_en["user_manager_profile_details_expectations"];
     manager_profile_details_fr.user_manager_profile_details_expectations = profile_details_json_fr["user_manager_profile_details_expectations"];
+    manager_profile_details_en.user_manager_profile_work_experience = profile_details_json_en["user_manager_profile_work_experience"];
+    manager_profile_details_fr.user_manager_profile_work_experience = profile_details_json_fr["user_manager_profile_work_experience"];
+    manager_profile_details_en.user_manager_profile_education = profile_details_json_en["user_manager_profile_education"];
+    manager_profile_details_fr.user_manager_profile_education = profile_details_json_fr["user_manager_profile_education"];
 
     manager_profile_details_en.user_manager_profile_id = profile_details_json_en["user_manager_profile_id"];
     manager_profile_details_en.user_manager_profile_review_options = profile_details_json_en["user_manager_profile_review_options"];
@@ -1034,7 +1038,7 @@ CreateEditProfileAPI.populateProfile = function (response) {
 
     var user_manager_profile_work_experience_fr = document.getElementById("user_manager_profile_work_experience_fr");
     if (user_manager_profile_work_experience_fr) {
-        user_manager_profile_work_experience_fr.value = manager_profile_details_fr.user_manager_profile_work_experience;
+        user_manager_profile_work_experience_fr.value = manager_profile_details_en.user_manager_profile_work_experience;
         document.getElementById("user_manager_profile_work_experience_fr").parentElement.classList.add("active");
         document.getElementById("user_manager_profile_work_experience_fr").parentElement.classList.add("valid");
     } else {
