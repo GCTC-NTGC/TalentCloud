@@ -94,7 +94,7 @@
 
                     <div class="flex-grid">
 
-                        <div class="box med-1of3">
+                        <div class="box med-1of4">
                             <div class="form__input-wrapper--float">
                                 <label class="form__label" for="createJobPoster_classification">Occupational group (AS-01)</label>
                                 <?php // Testing HTML5 form validation ?>
@@ -106,14 +106,31 @@
                                 maxlength="5"
                                 required
                                 aria-required="true"
-                                pattern="[A-Z]{2}[-?][0-9]{2}"
+                                pattern="[A-Z]{2}[-]?[0-9]{2}"
                                 title="Occupational group must contain two characters followed by a hyphen, then two numbers"
                                 oninput="this.value = this.value.toUpperCase()"
                                 />
                             </div>
                         </div>
 
-                        <div class="box med-1of3">
+                        <div class="box med-1of4">
+                            <div class="form__input-wrapper--float">
+                                <label class="form__label" for="createJobPoster_noc">NOC Code</label>
+                                <input
+                                id="createJobPoster_noc"
+                                name="createJobPoster_noc"
+                                class="form__input"
+                                required
+                                aria-required="true"
+                                pattern="[0-9]{4}"
+                                title="NOC Code must contain four numbers"
+                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                type = "number"
+                                maxlength = "4"/>
+                            </div>
+                        </div>
+
+                        <div class="box med-1of4">
                             <div class="form__input-wrapper--select">
                                 <label class="form__label" for="createJobPoster_clearance">Security clearance level</label>
                                 <div class="form__select-wrapper">
@@ -124,7 +141,7 @@
                             </div>
                         </div>
 
-                        <div class="box med-1of3">
+                        <div class="box med-1of4">
                             <div class="form__input-wrapper--select">
                                 <label class="form__label" for="createJobPoster_language">Language requirements</label>
                                 <div class="form__select-wrapper">
@@ -308,15 +325,15 @@
 
                         <div class="box med-1of2">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_impact">English</label>
-                                <textarea class="form__textarea" name="createJobPoster_keyTasks" id="createJobPoster_impact" rows="2" aria-required="true" required></textarea>
+                                <label class="form__label" for="createJobPoster_keyTasks">English</label>
+                                <textarea class="form__textarea" name="createJobPoster_keyTasks" id="createJobPoster_keyTasks" rows="2" aria-required="true" required></textarea>
                             </div>
                         </div>
 
                         <div class="box med-1of2">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_impact_fr">Français</label>
-                                <textarea class="form__textarea" name="createJobPoster_keyTasks_fr" id="createJobPoster_impact_fr" rows="2" aria-required="true" required></textarea>
+                                <label class="form__label" for="createJobPoster_keyTasks_fr">Français</label>
+                                <textarea class="form__textarea" name="createJobPoster_keyTasks_fr" id="createJobPoster_keyTasks_fr" rows="2" aria-required="true" required></textarea>
                             </div>
                         </div>
 
@@ -332,15 +349,15 @@
 
                         <div class="box med-1of2">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_keyTasks">English</label>
-                                <textarea class="form__textarea" name="createJobPoster_coreCompetencies" id="createJobPoster_impact" rows="2" aria-required="true" required></textarea>
+                                <label class="form__label" for="createJobPoster_coreCompetencies">English</label>
+                                <textarea class="form__textarea" name="createJobPoster_coreCompetencies" id="createJobPoster_coreCompetencies" rows="2" aria-required="true" required></textarea>
                             </div>
                         </div>
 
                         <div class="box med-1of2">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_impact_fr">Français</label>
-                                <textarea class="form__textarea" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_impact_fr" rows="2" aria-required="true" required></textarea>
+                                <label class="form__label" for="createJobPoster_coreCompetencies_fr">Français</label>
+                                <textarea class="form__textarea" name="createJobPoster_coreCompetencies_fr" id="createJobPoster_coreCompetencies_fr" rows="2" aria-required="true" required></textarea>
                             </div>
                         </div>
 
@@ -356,15 +373,15 @@
 
                         <div class="box med-1of2">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_impact">English</label>
-                                <textarea class="form__textarea" name="createJobPoster_developingCompetencies" id="createJobPoster_impact" rows="2" aria-required="true" required></textarea>
+                                <label class="form__label" for="createJobPoster_developingCompetencies">English</label>
+                                <textarea class="form__textarea" name="createJobPoster_developingCompetencies" id="createJobPoster_developingCompetencies" rows="2" aria-required="true" required></textarea>
                             </div>
                         </div>
 
                         <div class="box med-1of2">
                             <div class="form__input-wrapper--float">
-                                <label class="form__label" for="createJobPoster_impact_fr">Français</label>
-                                <textarea class="form__textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_impact_fr" rows="2" aria-required="true" required></textarea>
+                                <label class="form__label" for="createJobPoster_developingCompetencies_fr">Français</label>
+                                <textarea class="form__textarea" name="createJobPoster_developingCompetencies_fr" id="createJobPoster_developingCompetencies_fr" rows="2" aria-required="true" required></textarea>
                             </div>
                         </div>
 
@@ -436,102 +453,102 @@
 
                             <!-- Suggest removing for first element
                             <div class="box med-1of2">
-                                <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">Remove this question</button>
-                            </div> -->
+                            <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">Remove this question</button>
+                        </div> -->
 
-                            <div class="job-poster__open-question-wrapper--english box med-1of2">
+                        <div class="job-poster__open-question-wrapper--english box med-1of2">
 
-                                <div class="form__input-wrapper">
-                                    <fieldset class="form__fieldset">
-                                        <legend class="form__legend">English</legend>
+                            <div class="form__input-wrapper">
+                                <fieldset class="form__fieldset">
+                                    <legend class="form__legend">English</legend>
 
-                                        <div class="form__input-wrapper--float">
-                                            <label class="form__label">Question</label>
-                                            <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
-                                        </div>
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label">Question</label>
+                                        <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
+                                    </div>
 
-                                        <div class="form__input-wrapper--float">
-                                            <label class="form__label">Description</label>
-                                            <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
-                                        </div>
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label">Description</label>
+                                        <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
+                                    </div>
 
-                                    </fieldset>
-                                </div>
-
+                                </fieldset>
                             </div>
 
-                            <div class="job-poster__open-question-wrapper--french box med-1of2">
+                        </div>
 
-                                <div class="form__input-wrapper">
-                                    <fieldset class="form__fieldset">
-                                        <legend class="form__legend">Français</legend>
+                        <div class="job-poster__open-question-wrapper--french box med-1of2">
 
-                                        <div class="form__input-wrapper--float">
-                                            <label class="form__label">Question</label>
-                                            <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
-                                        </div>
+                            <div class="form__input-wrapper">
+                                <fieldset class="form__fieldset">
+                                    <legend class="form__legend">Français</legend>
 
-                                        <div class="form__input-wrapper--float">
-                                            <label class="form__label">Description</label>
-                                            <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
-                                        </div>
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label">Question</label>
+                                        <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
+                                    </div>
 
-                                    </fieldset>
-                                </div>
+                                    <div class="form__input-wrapper--float">
+                                        <label class="form__label">Description</label>
+                                        <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
+                                    </div>
 
+                                </fieldset>
                             </div>
+
                         </div>
                     </div>
-
-                    <button class="job-poster__open-questions-add-button repeater__add-button button--blue" href="javascript:void(0)">Add an Open Ended Question</button>
-
-                    <div class="createJobPosterSubmitPane flex-grid top manager-edit-profile__button-form">
-                        <div class="box full">
-                            <input type="button" id="createJobPosterSubmitButton" class="button--yellow" value="Submit" onclick="CreateJobPosterAPI.validateJobPosterForm()">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div id="createJobPosterOutdatedTab" class="stepGroup hidden">
-                <div class="tabsSteps">
-                    <div class="three-step-tab">
-                        <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_2">Create</button>
-                    </div>
-                    <div class="three-step-tab tab-current">
-                        <button type="button" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_2">Outdated</button>
-                    </div>
-                    <div class="three-step-tab">
-                        <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_2">Review</button>
-                    </div>
                 </div>
 
-                <h3>This is for outdated fields</h3>
-            </div>
+                <button class="job-poster__open-questions-add-button repeater__add-button button--blue" href="javascript:void(0)">Add an Open Ended Question</button>
 
-            <div id="createJobPosterReviewTab" class="stepGroup hidden">
-
-                <div class="tabsSteps">
-                    <div class="three-step-tab">
-                        <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab'); return false;" id="createJobPosterTab1Label_3">Create</button>
+                <div class="createJobPosterSubmitPane flex-grid top manager-edit-profile__button-form">
+                    <div class="box full">
+                        <input type="button" id="createJobPosterSubmitButton" class="button--yellow" value="Submit" onclick="CreateJobPosterAPI.validateJobPosterForm()">
                     </div>
-                    <div class="three-step-tab">
-                        <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab'); return false;" id="createJobPosterTab2Label_3">Outdated</button>
-                    </div>
-                    <div class="three-step-tab tab-current">
-                        <button type="button" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab'); return false;" id="createJobPosterTab3Label_3">Review</button>
-                    </div>
-                </div>
-
-                <div class="stepGroupForm">
-                    <div class="createJobPosterDemoAreaEnglish" id="createJobPosterDemoAreaEnglish"></div>
-                    <div class="createJobPosterDemoAreaFrench" id="createJobPosterDemoAreaFrench"></div>
                 </div>
 
             </div>
+        </div>
 
-        </form>
-    </div>
+        <div id="createJobPosterOutdatedTab" class="stepGroup hidden">
+            <div class="tabsSteps">
+                <div class="three-step-tab">
+                    <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab')" id="createJobPosterTab1Label_2">Create</button>
+                </div>
+                <div class="three-step-tab tab-current">
+                    <button type="button" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab')" id="createJobPosterTab2Label_2">Outdated</button>
+                </div>
+                <div class="three-step-tab">
+                    <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab')" id="createJobPosterTab3Label_2">Review</button>
+                </div>
+            </div>
+
+            <h3>This is for outdated fields</h3>
+        </div>
+
+        <div id="createJobPosterReviewTab" class="stepGroup hidden">
+
+            <div class="tabsSteps">
+                <div class="three-step-tab">
+                    <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterCreateTab'); return false;" id="createJobPosterTab1Label_3">Create</button>
+                </div>
+                <div class="three-step-tab">
+                    <button type="button" class="steppedFormLink" onclick="CreateJobPosterAPI.goToTab('createJobPosterOutdatedTab'); return false;" id="createJobPosterTab2Label_3">Outdated</button>
+                </div>
+                <div class="three-step-tab tab-current">
+                    <button type="button" class="steppedFormLinkActive" onclick="CreateJobPosterAPI.goToTab('createJobPosterReviewTab'); return false;" id="createJobPosterTab3Label_3">Review</button>
+                </div>
+            </div>
+
+            <div class="stepGroupForm">
+                <div class="createJobPosterDemoAreaEnglish" id="createJobPosterDemoAreaEnglish"></div>
+                <div class="createJobPosterDemoAreaFrench" id="createJobPosterDemoAreaFrench"></div>
+            </div>
+
+        </div>
+
+    </form>
+</div>
 </section>
 <?php // END - Create Job Poster Section ?>

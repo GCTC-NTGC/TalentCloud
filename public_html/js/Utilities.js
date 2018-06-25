@@ -697,7 +697,7 @@ Utilities.setEvidenceUiEventListeners = function (e) {
 function evidenceMenuItemClick(e) {
 
     var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-    var evidencePanes = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
+    var evidencePanes = document.querySelectorAll(".applicant-evidence__skill");
 
     // Prevent the default action.
     e.preventDefault();
@@ -755,7 +755,7 @@ function evidenceFirstTargetKeydown(e) {
         // Prevent the default action.
         e.preventDefault();
         // Set a variable that gets the element's parent's data attribute.
-        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+        var triggerData = this.closest(".applicant-evidence__skill").getAttribute("data-evidence-target");
 
         // Set a variable that gets all desktop tab items.
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
@@ -781,7 +781,7 @@ function evidenceEarlyLastTargetKeydown(e) {
 
         if (!e.shiftKey && e.keyCode == 9) {
 
-            var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+            var triggerData = this.closest(".applicant-evidence__skill").getAttribute("data-evidence-target");
             var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
             for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
@@ -807,7 +807,7 @@ function evidenceLastTargetKeydown(e) {
 
     if (!e.shiftKey && e.keyCode == 9) {
 
-        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
+        var triggerData = this.closest(".applicant-evidence__skill").getAttribute("data-evidence-target");
         var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
 
         for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
