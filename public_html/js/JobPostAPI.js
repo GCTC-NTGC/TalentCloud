@@ -80,7 +80,7 @@ JobPostAPI.showBrowseJobs = function() {
     browseHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 
@@ -458,7 +458,7 @@ JobPostAPI.viewJobPoster = function(jobId){
     // browseHeroPosterMetaData.classList.remove("hidden");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 

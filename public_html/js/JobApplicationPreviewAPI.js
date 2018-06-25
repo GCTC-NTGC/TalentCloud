@@ -55,7 +55,7 @@ JobApplicationPreviewAPI.showJobApplicationPreviewById = function (jobApplicatio
     applicationHeroMetadata.classList.remove("hidden");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
     
     // Google Analytics
 

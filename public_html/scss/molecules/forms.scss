@@ -440,17 +440,17 @@ input[type=button],input[type=submit],input[type=reset]{
                 &.valid {
 
                     &:before {
-                        color: rgba(67, 197, 69, 1);
-                        content: "\f00c";
-                        display: block;
-                        font: normal normal normal 14px/1 FontAwesome;
-                        font-size: 16px;
-                        position: absolute;
-                        top: 50%;
-                        right: 2rem;
-                        text-rendering: auto;
-                        transform: translate(0, -50%);
-                        -webkit-font-smoothing: antialiased;
+                        // color: rgba(67, 197, 69, 1);
+                        // content: "\f00c";
+                        // display: block;
+                        // font: normal normal normal 14px/1 FontAwesome;
+                        // font-size: 16px;
+                        // position: absolute;
+                        // top: 50%;
+                        // right: 2rem;
+                        // text-rendering: auto;
+                        // transform: translate(0, -50%);
+                        // -webkit-font-smoothing: antialiased;
                     }
 
                 }
@@ -535,17 +535,17 @@ input[type=button],input[type=submit],input[type=reset]{
             &.valid {
 
                 &:before {
-                    color: rgba(67, 197, 69, 1);
-                    content: "\f00c";
-                    display: block;
-                    font: normal normal normal 14px/1 FontAwesome;
-                    font-size: 16px;
-                    position: absolute;
-                    top: 50%;
-                    right: 2rem;
-                    text-rendering: auto;
-                    transform: translate(0, -50%);
-                    -webkit-font-smoothing: antialiased;
+                    // color: rgba(67, 197, 69, 1);
+                    // content: "\f00c";
+                    // display: block;
+                    // font: normal normal normal 14px/1 FontAwesome;
+                    // font-size: 16px;
+                    // position: absolute;
+                    // top: 50%;
+                    // right: 2rem;
+                    // text-rendering: auto;
+                    // transform: translate(0, -50%);
+                    // -webkit-font-smoothing: antialiased;
                 }
 
                 .form__input {

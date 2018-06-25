@@ -9,7 +9,7 @@
                 <p>This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.</p>
 
                 <div>
-                    <button class="button--blue" title="Scroll to the skills list." onclick="EvidenceAPI.scrollToSkills(this)">Get Started</button>
+                    <button class="button--blue" title="Scroll to the skills list." onclick="EvidenceAPI.scrollToSkills(event, this)">Get Started</button>
                 </div>
 
             </div>
@@ -119,7 +119,7 @@
 
         <div class="hidden" id="applicantEvidenceMenuItemTemplate">
 
-            <button role="tab" aria-selected="true" class="applicant-evidence__desktop-menu-item active template" data-evidence-trigger="" data-criteria-type="" data-criteria-id="">
+            <button class="applicant-evidence__desktop-menu-item template" data-evidence-trigger="" data-criteria-type="" data-criteria-id="">
 
                 <i class="fa fa-times"></i>
 

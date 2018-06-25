@@ -2348,7 +2348,7 @@
   scroll-behavior: smooth; }
 
 html {
-  height: 100%;
+  min-height: 100vh;
   /* make sure it is at least as tall as the viewport */
   position: relative; }
 
@@ -2356,7 +2356,6 @@ body {
   background: #fff !important;
   color: #333 !important;
   font-size: 100% !important;
-  height: 100% !important;
   width: 100% !important;
   margin: 0px auto !important; }
 
@@ -4720,18 +4719,6 @@ input[type=button], input[type=submit], input[type=reset] {
     [class*="form__input-wrapper"][class*="range"] .form__range-wrapper {
       padding: 0 2rem;
       position: relative; }
-      [class*="form__input-wrapper"][class*="range"] .form__range-wrapper.valid:before {
-        color: #43c545;
-        content: "\f00c";
-        display: block;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: 16px;
-        position: absolute;
-        top: 50%;
-        right: 2rem;
-        text-rendering: auto;
-        transform: translate(0, -50%);
-        -webkit-font-smoothing: antialiased; }
       [class*="form__input-wrapper"][class*="range"] .form__range-wrapper.invalid:before {
         color: red;
         content: "\f06a";
@@ -4782,18 +4769,6 @@ input[type=button], input[type=submit], input[type=reset] {
       [class*="form__input-wrapper"][class*="date"] .form__input:focus {
         border: 1px solid #2196f3 !important;
         transition: border-color .2s ease; }
-    [class*="form__input-wrapper"][class*="date"].valid:before {
-      color: #43c545;
-      content: "\f00c";
-      display: block;
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: 16px;
-      position: absolute;
-      top: 50%;
-      right: 2rem;
-      text-rendering: auto;
-      transform: translate(0, -50%);
-      -webkit-font-smoothing: antialiased; }
     [class*="form__input-wrapper"][class*="date"].valid .form__input {
       border: 1px solid #43c545;
       transition: border-color .2s ease; }
@@ -8627,8 +8602,7 @@ nav {
     transition: color .2s ease; }
 
 [class^="job-poster__open-question-wrapper--"] label {
-  display: block;
-  width: 100%; }
+  display: block; }
 
 [class^="job-poster__open-question-wrapper--"] input {
   display: block;

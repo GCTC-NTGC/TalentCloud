@@ -55,7 +55,7 @@ DashboardAPI.showDashboard = function(){
     dashboardHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 

@@ -305,7 +305,7 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 
@@ -350,7 +350,7 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 

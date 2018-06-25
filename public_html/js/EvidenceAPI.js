@@ -24,15 +24,20 @@ EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, crite
     menuItem.classList.remove("template");
 
     var triggerName = EvidenceAPI.evidenceTriggerName(criteriaId, criteriaType);
+
     var menuItemId = EvidenceAPI.menuItemId(criteriaId, criteriaType);
+
     menuItem.id = menuItemId;
-    menuItem.setAttribute("data-evidence-trigger", triggerName);
+
+    menuItem.setAttribute("onclick", "EvidenceAPI.scrollToThisSkill(event, this)");
 
     //Set data attributes
+    menuItem.setAttribute("data-evidence-trigger", triggerName);
     menuItem.setAttribute("data-criteria-type", criteriaType);
     menuItem.setAttribute("data-criteria-id", criteriaId);
 
     var title = menuItem.querySelector(".applicant-evidence__desktop-item-title");
+
     title.innerHTML = criteriaName;
 
     return menuItem;
@@ -349,7 +354,9 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
 
     // Scroll to Skills
 
-        EvidenceAPI.scrollToSkills = function(button) {
+        EvidenceAPI.scrollToSkills = function(e, button) {
+
+            e.preventDefault();
 
             var skills = button.parentElement.parentElement.parentElement.querySelector(".applicant-evidence__anchor");
 
@@ -368,7 +375,9 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
 
     // Scroll to Individual Skill
 
-        EvidenceAPI.scrollToThisSkill = function(button) {
+        EvidenceAPI.scrollToThisSkill = function(e, button) {
+
+            e.preventDefault();
 
             var skillID = button.getAttribute("data-evidence-trigger");
 
@@ -382,8 +391,6 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
 
             }
 
-            // console.log(thisSkill);
-
             var xPosition = 0;
             var yPosition = 0;
 
@@ -394,6 +401,8 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
             }
 
             var location = yPosition - 40;
+
+            // console.log(location);
 
             window.scroll(0, location);
 

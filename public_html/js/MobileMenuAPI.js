@@ -53,7 +53,7 @@ MobileMenu.mobileNavClickListener = function (e) {
 
         }
 
-        document.body.style.overflowY = "auto";
+        document.body.style.overflowY = "visible";
 
     } else {
 
