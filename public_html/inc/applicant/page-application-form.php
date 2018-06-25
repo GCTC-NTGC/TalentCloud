@@ -18,6 +18,20 @@
         <div class="application-form__wrapper content-container">
 
             <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+                
+                <div class="box full">
+                    <label class="form__label" for="applicant_citizenshipDeclaration">
+                        <span><span id="applicant_citizenshipDeclaration_labelName">Which of the following applies to you?</span>: *</span>
+                        <strong id="applicant_citizenshipDeclaration_error" class="error hidden">
+                            <span id="applicant_citizenshipDeclaration_error_msg" class="label label-danger"></span>
+                        </strong>
+                    </label>
+                    <div class="form__select-wrapper">
+                        <select class="form__select" name="applicant_citizenshipDeclaration" id="applicant_citizenshipDeclaration">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div id="createJobApplicationOpenEndedQuestionsWrapper"></div>
 
