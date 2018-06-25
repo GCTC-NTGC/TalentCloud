@@ -70,6 +70,7 @@
             break;
              * 
              */
+            break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");

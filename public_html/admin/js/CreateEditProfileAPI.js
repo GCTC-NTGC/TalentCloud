@@ -590,7 +590,7 @@ CreateEditProfileAPI.showCreateEditProfile = function () {
     var createEditProfile = document.getElementById("createEditProfileSection");
     createEditProfile.classList.remove("hidden");
 
-    ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
+    ProfilePicAPI.refreshUserProfilePic(document.getElementById("managerProfilePic"));
 
     CreateEditProfileAPI.getManagerProfile();
 
@@ -729,7 +729,7 @@ CreateEditProfileAPI.hideUploadProfilePic = function () {
 };
 
 CreateEditProfileAPI.onProfilePicUploaded = function () {
-    ProfilePicAPI.refreshUserProfilePic(document.getElementById("myProfilePic"));
+    ProfilePicAPI.refreshUserProfilePic(document.getElementById("managerProfilePic"));
     CreateEditProfileAPI.hideUploadProfilePic();
 };
 

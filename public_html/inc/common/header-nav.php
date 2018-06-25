@@ -234,7 +234,7 @@
                     </div>
                     <input type='hidden' id='jobApplicationJobApplicationId' />
                     <input type='hidden' id='jobApplicationJobPosterId' />
-                    <input type='hidden' id='jobApplicationJobSeekerId' />
+                    <input type='hidden' id='jobApplicationUserId' />
                     <input type='hidden' id='jobApplicationJobApplicationStatusId' />
 
                 </div>

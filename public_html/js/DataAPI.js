@@ -209,7 +209,6 @@ DataAPI.createJobApplication = function(jobApplication, requestCallback) {
     DataAPI.sendRequest(url, "POST", {}, JSON.stringify(jobApplication), requestCallback);
 };
 
-
 DataAPI.saveJobApplicationByJobAndUser = function(jobApplication, jobPosterId, userId, requestCallback) {
     var url = [DataAPI.baseURL, "putApplicationForJob", jobPosterId, "forUser", userId].join("/");
     DataAPI.sendRequest(url, "PUT", {}, JSON.stringify(jobApplication), requestCallback);

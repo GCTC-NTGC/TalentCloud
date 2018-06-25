@@ -5,7 +5,7 @@
         <div class="content-container">
 
             <div class="applicant-profile__heading-photo-wrapper">
-                <div class="applicant-profile__photo" id="myProfilePic"></div>
+                <div class="applicant-profile__photo" id="applicantProfilePic"></div>
             </div>
 
             <h3 class="applicant-profile__name" id="updateProfileApplicantProfileFormNameLabelSpan"></h3>

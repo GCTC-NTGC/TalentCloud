@@ -116,7 +116,7 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
     document.getElementById("jobApplicationPreviewJobPosterId").value = jobPosterApplication.application_job_poster_id;
     document.getElementById("jobApplicationJobApplicationId").value = jobPosterApplication.job_poster_application_id;
     document.getElementById("jobApplicationJobPosterId").value = jobPosterApplication.application_job_poster_id;
-    document.getElementById("jobApplicationJobSeekerId").value = jobPosterApplication.application_job_seeker_profile_id;
+    document.getElementById("jobApplicationUserId").value = jobPosterApplication.user_id;
     document.getElementById("jobApplicationJobApplicationStatusId").value = jobPosterApplication.job_poster_application_status_id;
     //answers is an array of JobApplicationAPI.ApplicationQuestionAnswer objects 
     var answers = fullJobApplication.application_question_answers;
