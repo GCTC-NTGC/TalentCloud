@@ -71,7 +71,7 @@
 
                                 <p class="applicant-evidence-preview__reference-status">
                                     <strong><span class="applicant-evidence-preview__reference-status-label">Status</span>: </strong>
-                                    <span><i class="fa fa-check-circle"></i> Response Received</span>
+                                    <span class="applicant-evidence-preview__status-response-received"><i class="fa fa-check-circle"></i> Response Received</span>
                                 </p>
 
                                 <p class="applicant-evidence-preview__reference-copy"></p>
@@ -100,7 +100,7 @@
 
                                 <p class="applicant-evidence-preview__evidence-status">
                                     <strong><span class="applicant-evidence-preview__evidence-status-label">Status</span>: </strong>
-                                    <span><i class="fa fa-exclamation-triangle"></i> Awaiting Corroboration</span>
+                                    <span  class="applicant-evidence-preview__status-awaiting-authentication"><i class="fa fa-exclamation-triangle"></i> Awaiting Authentication</span>
                                 </p>
 
                                 <p class="applicant-evidence-preview__evidence-copy"><strong><span class="applicant-evidence-preview__evidence-copy-label">Contribution</span>:</strong> <span class="applicant-evidence-preview__evidence-story"></span></p>
