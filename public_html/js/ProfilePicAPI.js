@@ -232,7 +232,12 @@ ProfilePicAPI.refreshMultipleProfilePics = function(userId, imageElements) {
         if(request.readyState === 4){
             if (request.status === 200) {
                 for (var i=0; i<imageElements.length;i++) {
-                    imageElements[i].src = request.responseURL;
+                    var rand = Math.floor((Math.random() * 10000) + 1);
+                    var randomQuery = "?v="+rand;
+                    if (request.responseURL)
+                        imageElements[i].src = request.responseURL + randomQuery;
+                    else
+                        imageElements[i].src = pic_url + randomQuery;
                 }
             } else {
                 for (var i=0; i<imageElements.length;i++) {
@@ -248,11 +253,12 @@ ProfilePicAPI.refreshMultipleProfilePicsBackground = function(userId, imageEleme
     DataAPI.sendRequest(pic_url, 'GET', {"Accept":"image/*"}, null, function(request){
         if (request.status == 200) {
             for (var i=0; i<imageElements.length;i++) {
-                imageElements[i].style.backgroundImage = "url("+ProfilePicAPI.defaultProfilePic+")";
+                var rand = Math.floor((Math.random() * 10000) + 1);
+                var randomQuery = "?v="+rand;
                 if (request.responseURL)
-                    imageElements[i].style.backgroundImage = "url("+request.responseURL+")";
+                    imageElements[i].style.backgroundImage = "url("+request.responseURL+randomQuery+")";
                 else 
-                    imageElements[i].style.backgroundImage = "url("+ pic_url+")";
+                    imageElements[i].style.backgroundImage = "url("+ pic_url+randomQuery+")";
             }
         } else {
             for (var i=0; i<imageElements.length;i++) {
