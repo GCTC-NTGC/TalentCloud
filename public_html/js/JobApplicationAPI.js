@@ -122,7 +122,9 @@ JobApplicationAPI.populateApplicationWithJobPosterContent = function (jobPosterR
     //TODO: create applicationAssetEvidence wrapper divs
     JobApplicationAPI.createEvidencePanelsOnPage(jobPoster.developing_competencies, "asset", "applicationAssetEvidenceMenu", "applicationAssetEvidenceFormWrapper");
 
-    Utilities.setEvidenceUiEventListeners();
+    //Utilities.setEvidenceUiEventListeners();
+    Utilities.setFormLabelHandler();
+    Utilities.formRequirementLabelHandler();
 
     //TODO: call Utilities function to set up triggers
 };
@@ -199,7 +201,7 @@ JobApplicationAPI.populateApplicationWithSavedApplicationContent = function (job
         for (var i = 0; i < application_question_answers.length; i++) {
             var value = application_question_answers[i];
             //find appropriate question textarea
-            var inputElement = document.querySelector('.application-form__open-question-item[data-question-id="' + value.job_poster_question_id + '"] .application-form__open-answer');
+            var inputElement = document.querySelector('.application-form__open-question-item[data-question-id="' + value.job_poster_question_id + '"] textarea');
             //if textarea exists, set value with saved value
             if (inputElement) {
                 inputElement.value = value.answer;
