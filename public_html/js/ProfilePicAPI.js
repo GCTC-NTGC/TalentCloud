@@ -134,6 +134,10 @@ ProfilePicAPI.Uploader = function(
     };
 
     self.processNewFiles = function (files) {
+        if (files === null || files.length === 0) {
+            //Do nothing if new files is empty
+            return;
+        }
         var file = files[0];
         if (file.type.match('image.*')) {
             self.clearUpload();
