@@ -15,6 +15,7 @@ require_once __DIR__ . '/../controller/EmailConfirmationController.php';
 require_once __DIR__ . '/../controller/ManagerProfileController.php';
 require_once __DIR__ . '/../controller/JobSeekerController.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Lcobucci\JWT\Parser;
 use Jumbojett\OpenIDConnectClient;

@@ -26,8 +26,16 @@ SkillDeclarationAPI.SkillDeclaration = function (
         *
         * @return {Boolean}
         */
-        this.isValid = function () {
+        this.isComplete = function () {
             return (this.skill_level_id != false && this.experience_level_id != false && this.description != false);
+        };
+        
+         /**
+        * Return true if this object is ready to be saved to server
+        * @return {Boolean}
+        */
+        this.isValid = function () {
+            return this.criteria_id != false;
         };
     };
 
@@ -83,20 +91,20 @@ SkillDeclarationAPI.SkillDeclaration = function (
                 if (declaration.experience_level_id) {
                     experience.innerHTML = LookupAPI.getLocalizedLookupValue("experience_level", declaration.experience_level_id) + " Years";
                 } else {
-                    experience.innerHTML = "";
+                    experience.innerHTML = null;
                 }
                 var skillLevel = panel.querySelector('.applicant-evidence-preview__expertise');
                 if (declaration.skill_level_id) {
                     skillLevel.innerHTML = LookupAPI.getLocalizedLookupValue("skill_level", declaration.skill_level_id);
                 } else {
-                    skillLevel.innerHTML = "";
+                    skillLevel.innerHTML = null;
                 }
 
                 var description = panel.querySelector('.applicant-evidence-preview__experience-copy');
                 if (declaration.description) {
                     description.innerHTML = declaration.description;
                 } else {
-                    description.innerHTML = "";
+                    description.innerHTML = null;
                 }
             }
         }
@@ -150,7 +158,7 @@ SkillDeclarationAPI.SkillDeclaration = function (
                         }
                     });
                 } else {
-                    //If declaration is not valid (ie not complete), do nothing
+                    //If declaration is not valid, do nothing
                 }
             }
         }
@@ -196,7 +204,6 @@ SkillDeclarationAPI.SkillDeclaration = function (
                 });
             } else {
                 window.alert("Skill declaration invalid, cannot save");
-                //If declaration is not valid (ie not complete), do nothing
             }
         }
     };
@@ -229,5 +236,5 @@ SkillDeclarationAPI.SkillDeclaration = function (
         var skillDeclaration = SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel(panel);
 
         //Use validity to determine Completeness status
-        EvidenceAPI.setUiComplete(criteriaId, SkillDeclarationAPI, skillDeclaration.isValid());
+        EvidenceAPI.setUiComplete(criteriaId, SkillDeclarationAPI, skillDeclaration.isComplete());
     };

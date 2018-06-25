@@ -1,6 +1,6 @@
 var SkillSampleAPI = {};
 
-SkillSampleAPI.wrapperClass = "applicant-evidence__skill-attribute--reference";
+SkillSampleAPI.wrapperClass = "applicant-evidence__skill-attribute--sample";
 
 SkillSampleAPI.SkillSample = function (
     criteria_id,
@@ -17,16 +17,24 @@ SkillSampleAPI.SkillSample = function (
     this.http_link = http_link;
     this.story = story;
 
-    this.isValid = function () {
+    this.isComplete = function () {
         //!= instead of !== is on purpose; want to check that none are empty strings or null
         return (this.criteria_id != false &&
-            this.name != false &&
-            this.type != false &&
-            this.date_created != false &&
-            this.http_link != false &&
-            this.story != false);
-        };
+                this.name != false &&
+                this.type != false &&
+                this.date_created != false &&
+                this.http_link != false &&
+                this.story != false);
     };
+    
+    /**
+     * Return true if this object is ready to be saved to server
+     * @return {Boolean}
+     */
+    this.isValid = function () {
+        return this.criteria_id != false;
+    };
+};
 
     SkillSampleAPI.parseApplicationSkillSampleResponse = function(responseJson) {
         var samples = [];
@@ -207,7 +215,7 @@ SkillSampleAPI.SkillSample = function (
     */
     SkillSampleAPI.saveSingleSkillSample = function (criteriaId, onSuccess, onFailure) {
 
-        var panel = document.querySelector(".applicant-evidence__skill[data-criteria-type=\"" + criteriaType + "\"]:not(.template)");
+        var panel = document.querySelector(".applicant-evidence__skill[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
 
         var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
 
@@ -236,16 +244,6 @@ SkillSampleAPI.SkillSample = function (
             //If sample is not valid (ie not complete), do nothing
         }
     };
-
-    if (response.status === 200) {
-        if (onSuccess)
-        onSuccess();
-    } else {
-        if (onFailure) {
-            window.alert(response.response.message);
-            onFailure();
-        }
-    }
 
     SkillSampleAPI.getSkillSampleFromEvidencePanel = function (panel) {
         var sample = new SkillSampleAPI.SkillSample();
@@ -285,5 +283,5 @@ SkillSampleAPI.SkillSample = function (
         var sample = SkillSampleAPI.getSkillSampleFromEvidencePanel(panel);
 
         //Use validity to determine Completeness status
-        EvidenceAPI.setUiComplete(criteriaId, SkillSampleAPI, sample.isValid());
+        EvidenceAPI.setUiComplete(criteriaId, SkillSampleAPI, sample.isComplete());
     };
