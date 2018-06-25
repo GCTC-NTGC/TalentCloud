@@ -244,6 +244,7 @@ ProfilePicAPI.refreshMultipleProfilePicsBackground = function(userId, imageEleme
     DataAPI.sendRequest(pic_url, 'GET', {"Accept":"image/*"}, null, function(request){
         if (request.status == 200) {
             for (var i=0; i<imageElements.length;i++) {
+                imageElements[i].style.backgroundImage = "url("+ProfilePicAPI.defaultProfilePic+")";
                 imageElements[i].style.backgroundImage = "url("+request.responseURL+")";
             }
         } else {
