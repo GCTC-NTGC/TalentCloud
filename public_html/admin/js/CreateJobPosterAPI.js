@@ -176,11 +176,30 @@ CreateJobPosterAPI.prepopulateValuesFromManagerProfile = function (managerProfil
         var response = JSON.parse(managerProfileResponse);
 
         document.getElementById("createJobPoster_department").value = response.manager_profile.user_manager_profile_department_id;
-
+        if (document.getElementById("createJobPoster_department").value) {
+            document.getElementById("createJobPoster_department").parentElement.classList.add("active");
+            document.getElementById("createJobPoster_department").parentElement.classList.add("valid");
+        }
         document.getElementById("createJobPoster_branch").value = response.manager_profile_details.en_CA.user_manager_profile_details_branch;
+        if (document.getElementById("createJobPoster_branch").value) {
+            document.getElementById("createJobPoster_branch").parentElement.classList.add("active");
+            document.getElementById("createJobPoster_branch").parentElement.classList.add("valid");
+        }
         document.getElementById("createJobPoster_branch_fr").value = response.manager_profile_details.fr_CA.user_manager_profile_details_branch;
+        if (document.getElementById("createJobPoster_branch_fr").value) {
+            document.getElementById("createJobPoster_branch_fr").parentElement.classList.add("active");
+            document.getElementById("createJobPoster_branch_fr").parentElement.classList.add("valid");
+        }
         document.getElementById("createJobPoster_division").value = response.manager_profile_details.en_CA.user_manager_profile_details_division;
+        if (document.getElementById("createJobPoster_division").value) {
+            document.getElementById("createJobPoster_division").parentElement.classList.add("active");
+            document.getElementById("createJobPoster_division").parentElement.classList.add("valid");
+        }
         document.getElementById("createJobPoster_division_fr").value = response.manager_profile_details.fr_CA.user_manager_profile_details_division;
+        if (document.getElementById("createJobPoster_division_fr").value) {
+            document.getElementById("createJobPoster_division_fr").parentElement.classList.add("active");
+            document.getElementById("createJobPoster_division_fr").parentElement.classList.add("valid");
+        }
 
     }
 };
