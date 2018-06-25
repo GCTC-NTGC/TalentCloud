@@ -36,7 +36,7 @@ CreateWorkEnvironmentAPI.WorkEnvironment = function (remote_allowed, telework_al
 };
 
 
-// 
+//
 CreateWorkEnvironmentAPI.localizeCreateWorkEnvironment = function () {
     if (siteContent) {
         try {
@@ -112,6 +112,8 @@ CreateWorkEnvironmentAPI.populateWorkEnvironmentForm = function (workEnvironment
         var captionFormElementId = CreateWorkEnvironmentAPI.photoNameToCaptionFormId[caption.photo_name];
         if (captionFormElementId) {
             document.getElementById(captionFormElementId).value = caption.description;
+            document.getElementById(captionFormElementId).parentElement.classList.add("active");
+            document.getElementById(captionFormElementId).parentElement.classList.add("valid");
         }
     }
 };
