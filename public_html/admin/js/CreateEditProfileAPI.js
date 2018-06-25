@@ -791,6 +791,10 @@ CreateEditProfileAPI.populateProfile = function (response) {
     manager_profile_details_fr.user_manager_profile_details_emp_learn = profile_details_json_fr["user_manager_profile_details_emp_learn"];
     manager_profile_details_en.user_manager_profile_details_expectations = profile_details_json_en["user_manager_profile_details_expectations"];
     manager_profile_details_fr.user_manager_profile_details_expectations = profile_details_json_fr["user_manager_profile_details_expectations"];
+    manager_profile_details_en.user_manager_profile_work_experience = profile_details_json_en["user_manager_profile_work_experience"];
+    manager_profile_details_fr.user_manager_profile_work_experience = profile_details_json_fr["user_manager_profile_work_experience"];
+    manager_profile_details_en.user_manager_profile_education = profile_details_json_en["user_manager_profile_education"];
+    manager_profile_details_fr.user_manager_profile_education = profile_details_json_fr["user_manager_profile_education"];
 
     manager_profile_details_en.user_manager_profile_id = profile_details_json_en["user_manager_profile_id"];
     manager_profile_details_en.user_manager_profile_review_options = profile_details_json_en["user_manager_profile_review_options"];
@@ -798,12 +802,6 @@ CreateEditProfileAPI.populateProfile = function (response) {
     manager_profile_details_en.user_manager_profile_engage = profile_details_json_en["user_manager_profile_engage"];
     manager_profile_details_en.user_manager_profile_devops = profile_details_json_en["user_manager_profile_devops"];
     manager_profile_details_en.user_manager_profile_lvwrequests = profile_details_json_en["user_manager_profile_lvwrequests"];
-
-    manager_profile_details_en.user_manager_profile_work_experience = profile_details_json_en["user_manager_profile_work_experience"];
-    manager_profile_details_fr.user_manager_profile_work_experience = profile_details_json_fr["user_manager_profile_work_experience"];
-    manager_profile_details_en.user_manager_profile_education = profile_details_json_en["user_manager_profile_education"];
-    manager_profile_details_fr.user_manager_profile_education = profile_details_json_fr["user_manager_profile_education"];
-
 
     //Initialize Work Environment
     CreateWorkEnvironmentAPI.initializeWorkEnvironmentForm(manager_profile.user_manager_profile_id);
@@ -843,6 +841,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_bio = document.getElementById("createEditProfile_bio");
     if (createEditProfile_bio) {
         createEditProfile_bio.value = manager_profile_details_en.user_manager_profile_details_aboutme;
+        document.getElementById("createEditProfile_bio").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_bio").parentElement.classList.add("valid");
     } else {
         createEditProfile_bio.value = "";
     }
@@ -850,6 +850,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_bio_fr = document.getElementById("createEditProfile_bio_fr");
     if (createEditProfile_bio_fr) {
         createEditProfile_bio_fr.value = manager_profile_details_fr.user_manager_profile_details_aboutme;
+        document.getElementById("createEditProfile_bio_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_bio_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_bio_fr.value = "";
     }
@@ -857,6 +859,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_proudOf = document.getElementById("createEditProfile_proudOf");
     if (createEditProfile_proudOf) {
         createEditProfile_proudOf.value = manager_profile_details_en.user_manager_profile_details_proud;
+        document.getElementById("createEditProfile_proudOf").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_proudOf").parentElement.classList.add("valid");
     } else {
         createEditProfile_proudOf.value = "";
     }
@@ -864,6 +868,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_proudOf_fr = document.getElementById("createEditProfile_proudOf_fr");
     if (createEditProfile_proudOf_fr) {
         createEditProfile_proudOf_fr.value = manager_profile_details_fr.user_manager_profile_details_proud;
+        document.getElementById("createEditProfile_proudOf_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_proudOf_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_proudOf_fr.value = "";
     }
@@ -871,6 +877,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_branch = document.getElementById("createEditProfile_branch");
     if (createEditProfile_branch) {
         createEditProfile_branch.value = manager_profile_details_en.user_manager_profile_details_branch;
+        document.getElementById("createEditProfile_branch").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_branch").parentElement.classList.add("valid");
     } else {
         createEditProfile_branch.value = "";
     }
@@ -878,6 +886,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_branch_fr = document.getElementById("createEditProfile_branch_fr");
     if (createEditProfile_branch_fr) {
         createEditProfile_branch_fr.value = manager_profile_details_fr.user_manager_profile_details_branch;
+        document.getElementById("createEditProfile_branch_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_branch_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_branch_fr.value = "";
     }
@@ -885,6 +895,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_division = document.getElementById("createEditProfile_division");
     if (createEditProfile_division) {
         createEditProfile_division.value = manager_profile_details_en.user_manager_profile_details_division;
+        document.getElementById("createEditProfile_division").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_division").parentElement.classList.add("valid");
     } else {
         createEditProfile_division.value = "";
     }
@@ -892,6 +904,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_division_fr = document.getElementById("createEditProfile_division_fr");
     if (createEditProfile_division_fr) {
         createEditProfile_division_fr.value = manager_profile_details_fr.user_manager_profile_details_division;
+        document.getElementById("createEditProfile_division_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_division_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_division_fr.value = "";
     }
@@ -899,6 +913,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_position = document.getElementById("createEditProfile_position");
     if (createEditProfile_position) {
         createEditProfile_position.value = manager_profile_details_en.user_manager_profile_details_position;
+        document.getElementById("createEditProfile_position").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_position").parentElement.classList.add("valid");
     } else {
         createEditProfile_position.value = "";
     }
@@ -906,6 +922,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_position_fr = document.getElementById("createEditProfile_position_fr");
     if (createEditProfile_position_fr) {
         createEditProfile_position_fr.value = manager_profile_details_fr.user_manager_profile_details_position;
+        document.getElementById("createEditProfile_position_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_position_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_position_fr.value = "";
     }
@@ -921,6 +939,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_twitter = document.getElementById("createEditProfile_twitter");
     if (createEditProfile_twitter) {
         createEditProfile_twitter.value = manager_profile_json.user_manager_profile_twitter;
+        document.getElementById("createEditProfile_twitter").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_twitter").parentElement.classList.add("valid");
     } else {
         createEditProfile_twitter.value = "";
     }
@@ -928,6 +948,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_linkedin = document.getElementById("createEditProfile_linkedin");
     if (createEditProfile_linkedin) {
         createEditProfile_linkedin.value = manager_profile_json.user_manager_profile_linkedin;
+        document.getElementById("createEditProfile_linkedin").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_linkedin").parentElement.classList.add("valid");
     } else {
         createEditProfile_linkedin.value = "";
     }
@@ -936,12 +958,16 @@ CreateEditProfileAPI.populateProfile = function (response) {
     if (profile_department_id) {
         var dept_select = document.getElementById("createEditProfile_department");
         dept_select.value = profile_department_id;
+        document.getElementById("createEditProfile_department").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_department").parentElement.classList.add("valid");
     }
 
     //Leadership style (page 2)
     var createEditProfile_leadership_style = document.getElementById("createEditProfile_leadership_style");
     if (createEditProfile_leadership_style) {
         createEditProfile_leadership_style.value = manager_profile_details_en.user_manager_profile_details_lead_style;
+        document.getElementById("createEditProfile_leadership_style").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_leadership_style").parentElement.classList.add("valid");
     } else {
         createEditProfile_leadership_style.value = "";
     }
@@ -949,6 +975,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_leadership_style_fr = document.getElementById("createEditProfile_leadership_style_fr");
     if (createEditProfile_leadership_style_fr) {
         createEditProfile_leadership_style_fr.value = manager_profile_details_fr.user_manager_profile_details_lead_style;
+        document.getElementById("createEditProfile_leadership_style_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_leadership_style_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_leadership_style_fr.value = "";
     }
@@ -956,6 +984,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_app_to_employees = document.getElementById("createEditProfile_app_to_employees");
     if (createEditProfile_app_to_employees) {
         createEditProfile_app_to_employees.value = manager_profile_details_en.user_manager_profile_details_emp_learn;
+        document.getElementById("createEditProfile_app_to_employees").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_app_to_employees").parentElement.classList.add("valid");
     } else {
         createEditProfile_app_to_employees.value = "";
     }
@@ -963,6 +993,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_app_to_employees_fr = document.getElementById("createEditProfile_app_to_employees_fr");
     if (createEditProfile_app_to_employees_fr) {
         createEditProfile_app_to_employees_fr.value = manager_profile_details_fr.user_manager_profile_details_emp_learn;
+        document.getElementById("createEditProfile_app_to_employees_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_app_to_employees_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_app_to_employees_fr.value = "";
     }
@@ -970,6 +1002,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_exp_of_employees = document.getElementById("createEditProfile_exp_of_employees");
     if (createEditProfile_exp_of_employees) {
         createEditProfile_exp_of_employees.value = manager_profile_details_en.user_manager_profile_details_expectations;
+        document.getElementById("createEditProfile_exp_of_employees").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_exp_of_employees").parentElement.classList.add("valid");
     } else {
         createEditProfile_exp_of_employees.value = "";
     }
@@ -977,6 +1011,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var createEditProfile_exp_of_employees_fr = document.getElementById("createEditProfile_exp_of_employees_fr");
     if (createEditProfile_exp_of_employees_fr) {
         createEditProfile_exp_of_employees_fr.value = manager_profile_details_fr.user_manager_profile_details_expectations;
+        document.getElementById("createEditProfile_exp_of_employees_fr").parentElement.classList.add("active");
+        document.getElementById("createEditProfile_exp_of_employees_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_exp_of_employees_fr.value = "";
     }
@@ -994,13 +1030,17 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var user_manager_profile_work_experience = document.getElementById("user_manager_profile_work_experience");
     if (user_manager_profile_work_experience) {
         user_manager_profile_work_experience.value = manager_profile_details_en.user_manager_profile_work_experience;
+        document.getElementById("user_manager_profile_work_experience").parentElement.classList.add("active");
+        document.getElementById("user_manager_profile_work_experience").parentElement.classList.add("valid");
     } else {
         user_manager_profile_work_experience.value = "";
     }
 
     var user_manager_profile_work_experience_fr = document.getElementById("user_manager_profile_work_experience_fr");
     if (user_manager_profile_work_experience_fr) {
-        user_manager_profile_work_experience_fr.value = manager_profile_details_fr.user_manager_profile_work_experience;
+        user_manager_profile_work_experience_fr.value = manager_profile_details_en.user_manager_profile_work_experience;
+        document.getElementById("user_manager_profile_work_experience_fr").parentElement.classList.add("active");
+        document.getElementById("user_manager_profile_work_experience_fr").parentElement.classList.add("valid");
     } else {
         user_manager_profile_work_experience_fr.value = "";
     }
@@ -1008,6 +1048,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var user_manager_profile_education = document.getElementById("user_manager_profile_education");
     if (user_manager_profile_education) {
         user_manager_profile_education.value = manager_profile_details_en.user_manager_profile_education;
+        document.getElementById("user_manager_profile_education").parentElement.classList.add("active");
+        document.getElementById("user_manager_profile_education").parentElement.classList.add("valid");
     } else {
         user_manager_profile_education.value = "";
     }
@@ -1015,6 +1057,8 @@ CreateEditProfileAPI.populateProfile = function (response) {
     var user_manager_profile_education_fr = document.getElementById("user_manager_profile_education_fr");
     if (user_manager_profile_education_fr) {
         user_manager_profile_education_fr.value = manager_profile_details_fr.user_manager_profile_education;
+        document.getElementById("user_manager_profile_education_fr").parentElement.classList.add("active");
+        document.getElementById("user_manager_profile_education_fr").parentElement.classList.add("valid");
     } else {
         user_manager_profile_education_fr.value = "";
     }

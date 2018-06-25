@@ -2,23 +2,15 @@ var SkillDeclarationAPI = {};
 
 SkillDeclarationAPI.wrapperClass = "applicant-evidence__skill-attribute--required";
 
-SkillDeclarationAPI.SkillDeclaration = function (
-    skillDeclarationId,
-    skill,
-    criteriaId,
-    criteriaType,
-    experienceLevelId,
-    skillLevelId,
-    description,
-    lastUpdated) {
-        this.skill_declaration_id = skillDeclarationId;
-        this.skill = skill;
+SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
         this.criteria_id = criteriaId;
-        this.criteria_type = criteriaType;
-        this.experience_level_id = experienceLevelId;
-        this.skill_level_id = skillLevelId;
-        this.description = description;
-        this.last_updated = lastUpdated;
+        this.skill_declaration_id = null;
+        this.skill = null;
+        this.criteria_type = null;
+        this.experience_level_id = null;
+        this.skill_level_id = null;
+        this.description = null;
+        this.last_updated = null;
 
         /**
         * This is valid if experience_level_id, skill_level_id, and description
@@ -26,8 +18,26 @@ SkillDeclarationAPI.SkillDeclaration = function (
         *
         * @return {Boolean}
         */
+        this.isComplete = function () {
+            return (this.skill_level_id && this.experience_level_id && this.description );
+        };
+        
+         /**
+        * Return true if this object is ready to be saved to server
+        * @return {Boolean}
+        */
         this.isValid = function () {
-            return (this.skill_level_id != false && this.experience_level_id != false && this.description != false);
+            return this.criteria_id != false;
+        };
+        
+        this.isEmpty = function () {
+            return (this.skill_level_id == false && this.experience_level_id == false && this.description == false);
+        };
+        
+        this.nullifyEmptyFields = function() {
+            this.skill_level_id = this.skill_level_id ? this.skill_level_id : null;
+            this.experience_level_id = this.experience_level_id ? this.experience_level_id : null;
+            this.description = this.description ? this.description : null;
         };
     };
 
@@ -35,7 +45,22 @@ SkillDeclarationAPI.SkillDeclaration = function (
         DataAPI.getSkillDeclarationsForApplication(jobApplicationId, function (request) {
             //Check that request returned a valid response
             if (request.status === 200 && request.response) {
-                var declarations = JSON.parse(request.response);
+                var responseJson = JSON.parse(request.response);
+                var declarations = [];
+                for (var i = 0; i < responseJson.length; i++) {
+                    var response = responseJson[i];
+                    var declaration = new SkillDeclarationAPI.SkillDeclaration(response.criteria_id);
+                    declaration.skill_declaration_id = response.skill_declaration_id;
+                    declaration.skill = response.skill;
+                    declaration.criteria_type = response.criteria_type;
+                    declaration.experience_level_id = response.experience_level_id;
+                    declaration.skill_level_id = response.skill_level_id;
+                    declaration.description = response.description;
+                    declaration.last_updated = response.last_updated;
+                    
+                    declarations.push(declaration);
+                }
+                
                 SkillDeclarationAPI.populateApplicationUiSkillDeclarations(declarations);
             }
         });
@@ -68,6 +93,11 @@ SkillDeclarationAPI.SkillDeclaration = function (
 
                 //Run status change handler, because declartion may now be complete
                 SkillDeclarationAPI.onStatusChange(declaration.criteria_id);
+                
+                //If not empty, show status as currently saved
+                if (!declaration.isEmpty()) {
+                    EvidenceAPI.setUiSaved(declaration.criteria_id, SkillDeclarationAPI, true);
+                }
             }
         }
     };
@@ -83,20 +113,20 @@ SkillDeclarationAPI.SkillDeclaration = function (
                 if (declaration.experience_level_id) {
                     experience.innerHTML = LookupAPI.getLocalizedLookupValue("experience_level", declaration.experience_level_id) + " Years";
                 } else {
-                    experience.innerHTML = "";
+                    experience.innerHTML = null;
                 }
                 var skillLevel = panel.querySelector('.applicant-evidence-preview__expertise');
                 if (declaration.skill_level_id) {
                     skillLevel.innerHTML = LookupAPI.getLocalizedLookupValue("skill_level", declaration.skill_level_id);
                 } else {
-                    skillLevel.innerHTML = "";
+                    skillLevel.innerHTML = null;
                 }
 
                 var description = panel.querySelector('.applicant-evidence-preview__experience-copy');
                 if (declaration.description) {
                     description.innerHTML = declaration.description;
                 } else {
-                    description.innerHTML = "";
+                    description.innerHTML = null;
                 }
             }
         }
@@ -150,7 +180,7 @@ SkillDeclarationAPI.SkillDeclaration = function (
                         }
                     });
                 } else {
-                    //If declaration is not valid (ie not complete), do nothing
+                    //If declaration is not valid, do nothing
                 }
             }
         }
@@ -196,16 +226,16 @@ SkillDeclarationAPI.SkillDeclaration = function (
                 });
             } else {
                 window.alert("Skill declaration invalid, cannot save");
-                //If declaration is not valid (ie not complete), do nothing
             }
         }
     };
 
     SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel = function (panel) {
-        var skillDeclaration = new SkillDeclarationAPI.SkillDeclaration();
+        
+        var criteria_id = panel.getAttribute("data-criteria-id");;
+        var skillDeclaration = new SkillDeclarationAPI.SkillDeclaration(criteria_id);
 
         skillDeclaration.criteria_type = panel.getAttribute("data-criteria-type");
-        skillDeclaration.criteria_id = panel.getAttribute("data-criteria-id");
 
         skillDeclaration.skill = panel.querySelector(".applicant-evidence__skill .applicant-evidence__skill-title").innerHTML;
 
@@ -216,7 +246,8 @@ SkillDeclarationAPI.SkillDeclaration = function (
         skillDeclaration.skill_level_id = skillLevelSelect ? skillLevelSelect.value : ""; //Default to an empty string if nothing has been selected
 
         skillDeclaration.description = panel.querySelector('.applicant-evidence__skill-declaration-text').value;
-
+        
+        skillDeclaration.nullifyEmptyFields();
         return skillDeclaration;
     };
 
@@ -229,5 +260,7 @@ SkillDeclarationAPI.SkillDeclaration = function (
         var skillDeclaration = SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel(panel);
 
         //Use validity to determine Completeness status
-        EvidenceAPI.setUiComplete(criteriaId, SkillDeclarationAPI, skillDeclaration.isValid());
+        EvidenceAPI.setUiComplete(criteriaId, SkillDeclarationAPI, skillDeclaration.isComplete());
+        
+        EvidenceAPI.onStatusUpdate();
     };
