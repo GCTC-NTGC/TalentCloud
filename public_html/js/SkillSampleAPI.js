@@ -12,12 +12,12 @@ SkillSampleAPI.SkillSample = function (criteria_id) {
 
     this.isComplete = function () {
         //!= instead of !== is on purpose; want to check that none are empty strings or null
-        return (this.criteria_id != false &&
-                this.name != false &&
-                this.type != false &&
-                this.date_created != false &&
-                this.http_link != false &&
-                this.story != false);
+        return (this.criteria_id &&
+                this.name &&
+                this.type &&
+                this.date_created &&
+                this.http_link &&
+                this.story);
     };
     
     /**
@@ -28,13 +28,21 @@ SkillSampleAPI.SkillSample = function (criteria_id) {
         return this.criteria_id != false;
     };
     
+    this.isEmpty = function() {
+        return (this.name == false &&
+                this.type == false &&
+                this.date_created == false &&
+                this.http_link == false &&
+                this.story == false);
+    };
+    
     this.nullifyEmptyFields = function() {
         this.name = this.name ? this.name : null;
         this.type = this.type ? this.type : null;
         this.date_created = this.date_created ? this.date_created : null;
         this.http_link = this.http_link ? this.http_link : null;
         this.story = this.story ? this.story : null;
-    }
+    };
 };
 
     SkillSampleAPI.parseApplicationSkillSampleResponse = function(responseJson) {
@@ -103,6 +111,15 @@ SkillSampleAPI.SkillSample = function (criteria_id) {
 
                     //Run status change handler, because declartion may now be complete
                     SkillSampleAPI.onStatusChange(sample.criteria_id);
+                    
+                    //if new sample is not empty, make sure it appears in ui
+                    //And show status as currently saved
+                    if (!sample.isEmpty()) {
+                        var showButton = panel.querySelector(".applicant-evidence__optional-button--sample");
+                        EvidenceAPI.addWorkSample(showButton);
+                        
+                        EvidenceAPI.setUiSaved(sample.criteria_id, SkillSampleAPI, true);
+                    }
                 }
             }
         };

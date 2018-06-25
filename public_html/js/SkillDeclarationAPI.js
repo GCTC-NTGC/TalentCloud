@@ -19,7 +19,7 @@ SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
         * @return {Boolean}
         */
         this.isComplete = function () {
-            return (this.skill_level_id != false && this.experience_level_id != false && this.description != false);
+            return (this.skill_level_id && this.experience_level_id && this.description );
         };
         
          /**
@@ -30,11 +30,15 @@ SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
             return this.criteria_id != false;
         };
         
+        this.isEmpty = function () {
+            return (this.skill_level_id == false && this.experience_level_id == false && this.description == false);
+        };
+        
         this.nullifyEmptyFields = function() {
             this.skill_level_id = this.skill_level_id ? this.skill_level_id : null;
             this.experience_level_id = this.experience_level_id ? this.experience_level_id : null;
             this.description = this.description ? this.description : null;
-        }
+        };
     };
 
     SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication = function (jobApplicationId) {
@@ -74,6 +78,11 @@ SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
 
                 //Run status change handler, because declartion may now be complete
                 SkillDeclarationAPI.onStatusChange(declaration.criteria_id);
+                
+                //If not empty, show status as currently saved
+                if (!declaration.isEmpty()) {
+                    EvidenceAPI.setUiSaved(declaration.criteria_id, SkillDeclarationAPI, true);
+                }
             }
         }
     };

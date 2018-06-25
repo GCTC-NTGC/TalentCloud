@@ -17,16 +17,14 @@ MicroReferenceAPI.MicroReference = function (criteria_id) {
      * @return {Boolean}
      */
     this.isComplete = function () {
-        //All fields except story must be non-empty strings.
-        //Story must be defined, but may be empty
-        return (this.criteria_id != false &&
-                this.name != false &&
-                this.email != false &&
-                this.relationship != false &&
-                this.observed_from_date != false &&
-                this.observed_until_date != false &&
-                this.experience_level != false &&
-                this.story !== undefined);
+        return (this.criteria_id &&
+                this.name &&
+                this.email &&
+                this.relationship &&
+                this.observed_from_date &&
+                this.observed_until_date &&
+                this.experience_level  &&
+                this.story);
     };
 
     /**
@@ -37,6 +35,16 @@ MicroReferenceAPI.MicroReference = function (criteria_id) {
         return this.criteria_id != false;
     };
     
+    this.isEmpty = function() {
+        return (this.name == false &&
+                this.email == false &&
+                this.relationship == false &&
+                this.observed_from_date == false &&
+                this.observed_until_date == false &&
+                this.experience_level == false &&
+                this.story == false);
+    };
+    
     this.nullifyEmptyFields = function() {
         this.name = this.name ? this.name : null;
         this.email = this.email ? this.email : null;
@@ -45,7 +53,7 @@ MicroReferenceAPI.MicroReference = function (criteria_id) {
         this.observed_until_date = this.observed_until_date ? this.observed_until_date : null;
         this.experience_level = this.experience_level ? this.experience_level : null;
         this.story = this.story ? this.story : null;
-    }
+    };
 };
 
 MicroReferenceAPI.parseApplicationMicroReferenceResponse = function (responseJson) {
@@ -121,9 +129,18 @@ MicroReferenceAPI.populateApplicationUiMicroReferences = function (references) {
             if (story) {
                 story.value = ref.story;
             }
-
+            
             //Run status change handler, because declartion may now be complete
             MicroReferenceAPI.onStatusChange(ref.criteria_id);
+            
+            //if new reference is not empty, make sure it appears in ui
+            //And show status as currently saved
+            if (!ref.isEmpty()) {
+                var showButton = panel.querySelector(".applicant-evidence__optional-button--reference");
+                EvidenceAPI.addMicroReference(showButton);
+                
+                EvidenceAPI.setUiSaved(ref.criteria_id, MicroReferenceAPI, true);
+            }
         }
     }
 };
@@ -329,6 +346,8 @@ MicroReferenceAPI.onStatusChange = function (criteriaId) {
     var panel = document.querySelector(".applicant-evidence__skill[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
 
     var reference = MicroReferenceAPI.getMicroReferenceFromEvidencePanel(panel);
+    
+    
 
     //Use validity to determine Completeness status
     EvidenceAPI.setUiComplete(criteriaId, MicroReferenceAPI, reference.isComplete());

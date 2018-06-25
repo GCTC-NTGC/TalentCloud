@@ -446,7 +446,7 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
         var evidenceItem = panel.querySelector("." + subEvidenceAPI.wrapperClass);
         var saveButton = evidenceItem.querySelector(".applicant-evidence__save-button");
         if (isSaved) {
-            EvidenceAPI.setUiComplete(criteriaId, subEvidenceAPI, true);
+            //EvidenceAPI.setUiComplete(criteriaId, subEvidenceAPI, true);
             saveButton.classList.add("button-green");
             saveButton.classList.remove("button-blue");
             saveButton.innerHTML = "Saved";
