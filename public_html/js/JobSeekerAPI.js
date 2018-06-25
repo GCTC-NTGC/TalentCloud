@@ -285,6 +285,7 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
         DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, function (response) {
             var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
             JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+            JobSeekerAPI.resetProfileEditValues();
         });
     });
 
