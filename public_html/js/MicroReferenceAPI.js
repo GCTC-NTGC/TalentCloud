@@ -2,24 +2,15 @@ var MicroReferenceAPI = {};
 
 MicroReferenceAPI.wrapperClass = "applicant-evidence__skill-attribute--reference";
 
-MicroReferenceAPI.MicroReference = function (
-        criteria_id,
-        name,
-        email,
-        relationship,
-        observed_from_date,
-        observed_until_date,
-        experience_level,
-        story
-        ) {
+MicroReferenceAPI.MicroReference = function (criteria_id) {
     this.criteria_id = criteria_id;
-    this.name = name;
-    this.email = email;
-    this.relationship = relationship;
-    this.observed_from_date = observed_from_date;
-    this.observed_until_date = observed_until_date;
-    this.experience_level = experience_level;
-    this.story = story;
+    this.name = null;
+    this.email = null;
+    this.relationship = null;
+    this.observed_from_date = null;
+    this.observed_until_date = null;
+    this.experience_level = null;
+    this.story = null;
 
     /**
      * Return true if this object is completed
@@ -45,6 +36,16 @@ MicroReferenceAPI.MicroReference = function (
     this.isValid = function () {
         return this.criteria_id != false;
     };
+    
+    this.nullifyEmptyFields = function() {
+        this.name = this.name ? this.name : null;
+        this.email = this.email ? this.email : null;
+        this.relationship = this.relationship ? this.relationship : null;
+        this.observed_from_date = this.observed_from_date ? this.observed_from_date : null;
+        this.observed_until_date = this.observed_until_date ? this.observed_until_date : null;
+        this.experience_level = this.experience_level ? this.experience_level : null;
+        this.story = this.story ? this.story : null;
+    }
 };
 
 MicroReferenceAPI.parseApplicationMicroReferenceResponse = function (responseJson) {
@@ -62,9 +63,14 @@ MicroReferenceAPI.parseApplicationMicroReferenceResponse = function (responseJso
         var experience_level = itemRef.experience_level;
         var story = itemRef.micro_reference_story;
 
-        var ref = new MicroReferenceAPI.MicroReference(criteria_id, name, email,
-                relationship, observed_from_date, observed_until_date,
-                experience_level, story);
+        var ref = new MicroReferenceAPI.MicroReference(criteria_id);
+        ref.name = name;
+        ref.email = email;
+        ref.relationship = relationship;
+        ref.observed_from_date = observed_from_date;
+        ref.observed_until_date = observed_until_date;
+        ref.experience_level = experience_level;
+        ref.story = story;
         references.push(ref);
     }
     return references;
@@ -276,11 +282,9 @@ MicroReferenceAPI.saveSingleMicroReference = function (criteriaId, onSuccess, on
     }
 };
 
-
 MicroReferenceAPI.getMicroReferenceFromEvidencePanel = function (panel) {
-    var reference = new MicroReferenceAPI.MicroReference();
-
-    reference.criteria_id = panel.getAttribute("data-criteria-id");
+    var criteria_id = panel.getAttribute("data-criteria-id");
+    var reference = new MicroReferenceAPI.MicroReference(criteria_id);
 
     var name = panel.querySelector('input[name=\"reference_name\"]');
     if (name) {
@@ -314,7 +318,7 @@ MicroReferenceAPI.getMicroReferenceFromEvidencePanel = function (panel) {
     if (story) {
         reference.story = story.value;
     }
-
+    reference.nullifyEmptyFields();
     return reference;
 };
 

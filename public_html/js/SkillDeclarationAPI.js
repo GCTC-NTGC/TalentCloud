@@ -2,23 +2,15 @@ var SkillDeclarationAPI = {};
 
 SkillDeclarationAPI.wrapperClass = "applicant-evidence__skill-attribute--required";
 
-SkillDeclarationAPI.SkillDeclaration = function (
-    skillDeclarationId,
-    skill,
-    criteriaId,
-    criteriaType,
-    experienceLevelId,
-    skillLevelId,
-    description,
-    lastUpdated) {
-        this.skill_declaration_id = skillDeclarationId;
-        this.skill = skill;
+SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
         this.criteria_id = criteriaId;
-        this.criteria_type = criteriaType;
-        this.experience_level_id = experienceLevelId;
-        this.skill_level_id = skillLevelId;
-        this.description = description;
-        this.last_updated = lastUpdated;
+        this.skill_declaration_id = null;
+        this.skill = null;
+        this.criteria_type = null;
+        this.experience_level_id = null;
+        this.skill_level_id = null;
+        this.description = null;
+        this.last_updated = null;
 
         /**
         * This is valid if experience_level_id, skill_level_id, and description
@@ -37,6 +29,12 @@ SkillDeclarationAPI.SkillDeclaration = function (
         this.isValid = function () {
             return this.criteria_id != false;
         };
+        
+        this.nullifyEmptyFields = function() {
+            this.skill_level_id = this.skill_level_id ? this.skill_level_id : null;
+            this.experience_level_id = this.experience_level_id ? this.experience_level_id : null;
+            this.description = this.description ? this.description : null;
+        }
     };
 
     SkillDeclarationAPI.loadSavedSkillDeclarationsForJobApplication = function (jobApplicationId) {
@@ -209,10 +207,11 @@ SkillDeclarationAPI.SkillDeclaration = function (
     };
 
     SkillDeclarationAPI.getSkillDeclarationFromEvidencePanel = function (panel) {
-        var skillDeclaration = new SkillDeclarationAPI.SkillDeclaration();
+        
+        var criteria_id = panel.getAttribute("data-criteria-id");;
+        var skillDeclaration = new SkillDeclarationAPI.SkillDeclaration(criteria_id);
 
         skillDeclaration.criteria_type = panel.getAttribute("data-criteria-type");
-        skillDeclaration.criteria_id = panel.getAttribute("data-criteria-id");
 
         skillDeclaration.skill = panel.querySelector(".applicant-evidence__skill .applicant-evidence__skill-title").innerHTML;
 
@@ -223,7 +222,8 @@ SkillDeclarationAPI.SkillDeclaration = function (
         skillDeclaration.skill_level_id = skillLevelSelect ? skillLevelSelect.value : ""; //Default to an empty string if nothing has been selected
 
         skillDeclaration.description = panel.querySelector('.applicant-evidence__skill-declaration-text').value;
-
+        
+        skillDeclaration.nullifyEmptyFields();
         return skillDeclaration;
     };
 

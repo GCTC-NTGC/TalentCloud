@@ -2,20 +2,13 @@ var SkillSampleAPI = {};
 
 SkillSampleAPI.wrapperClass = "applicant-evidence__skill-attribute--sample";
 
-SkillSampleAPI.SkillSample = function (
-    criteria_id,
-    name,
-    type,
-    date_created,
-    http_link,
-    story
-) {
+SkillSampleAPI.SkillSample = function (criteria_id) {
     this.criteria_id = criteria_id;
-    this.name = name;
-    this.type = type;
-    this.date_created = date_created;
-    this.http_link = http_link;
-    this.story = story;
+    this.name = null;
+    this.type = null;
+    this.date_created = null;
+    this.http_link = null;
+    this.story = null;
 
     this.isComplete = function () {
         //!= instead of !== is on purpose; want to check that none are empty strings or null
@@ -34,6 +27,14 @@ SkillSampleAPI.SkillSample = function (
     this.isValid = function () {
         return this.criteria_id != false;
     };
+    
+    this.nullifyEmptyFields = function() {
+        this.name = this.name ? this.name : null;
+        this.type = this.type ? this.type : null;
+        this.date_created = this.date_created ? this.date_created : null;
+        this.http_link = this.http_link ? this.http_link : null;
+        this.story = this.story ? this.story : null;
+    }
 };
 
     SkillSampleAPI.parseApplicationSkillSampleResponse = function(responseJson) {
@@ -49,12 +50,17 @@ SkillSampleAPI.SkillSample = function (
             var http_link = item.work_sample_url;
             var story = item.work_sample_story;
 
-            var sample = new SkillSampleAPI.SkillSample(criteria_id, name, type,
-                date_created, http_link, story);
-                samples.push(sample);
-            }
-            return samples;
-        };
+            var sample = new SkillSampleAPI.SkillSample(criteria_id);
+            sample.name = name;
+            sample.type = type;
+            sample.date_created = date_created;
+            sample.http_link = http_link;
+            sample.story = story;
+            
+            samples.push(sample);
+        }
+        return samples;
+    };
 
         SkillSampleAPI.loadSavedSkillSamplesForJobApplication = function (jobApplicationId) {
             DataAPI.getSkillSamplesForApplication(jobApplicationId, function (request) {
@@ -246,9 +252,8 @@ SkillSampleAPI.SkillSample = function (
     };
 
     SkillSampleAPI.getSkillSampleFromEvidencePanel = function (panel) {
-        var sample = new SkillSampleAPI.SkillSample();
-
-        sample.criteria_id = panel.getAttribute("data-criteria-id");
+        var criteria_id = panel.getAttribute("data-criteria-id");
+        var sample = new SkillSampleAPI.SkillSample(criteria_id);
 
         var name = panel.querySelector('input[name=\"sample_name\"]');
         if (name) {
@@ -270,7 +275,8 @@ SkillSampleAPI.SkillSample = function (
         if (story) {
             sample.story = story.value;
         }
-
+        
+        sample.nullifyEmptyFields();
         return sample;
     };
 
