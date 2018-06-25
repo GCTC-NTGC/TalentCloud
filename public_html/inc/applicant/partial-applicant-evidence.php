@@ -52,7 +52,7 @@
                 Save &amp; Return
             </button>
 
-            <button class="button--yellow applicant-evidence__save-and-continue applicant-evidence__save-and-continue--essential" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})" disabled>
+            <button class="button--yellow applicant-evidence__save-and-continue applicant-evidence__save-and-continue--essential" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})">
                 Complete All Required Sections
             </button>
 

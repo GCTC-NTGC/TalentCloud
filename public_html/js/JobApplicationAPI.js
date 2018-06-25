@@ -473,7 +473,7 @@ JobApplicationAPI.submitJobApplication = function (jobPosterId) {
                             }
                         });
                     } else {
-                        window.alert("You cannot edit an application that has already been saved.")
+                        window.alert("You cannot edit an application that has already been submitted.")
                     }
                 }
             });
