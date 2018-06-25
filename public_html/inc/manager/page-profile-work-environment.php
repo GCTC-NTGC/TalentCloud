@@ -35,73 +35,76 @@
 
         <p class="form__context">All fields required unless indicated as optional</p>
 
+        <?php /* New Sliders
+
         <fieldset class="form__fieldset form__form-check-grid">
 
-            <legend class="form__legend">Is remote work allowed?</legend>
+        <legend class="form__legend">Is remote work allowed?</legend>
 
-            <div class="flex-grid">
+        <div class="flex-grid">
 
-                <div class="box small-1of2 med-1of8">
-                    <label class="form__radio-wrapper">
-                        <input class="form__input" type="radio" name="radio-group-name" checked></input>
-                        <span class="form__label--radio">Yes</span>
-                    </label>
-                </div>
+        <div class="box small-1of2 med-1of8">
+        <label class="form__radio-wrapper">
+        <input class="form__input" type="radio" name="radio-group-name" checked></input>
+        <span class="form__label--radio">Yes</span>
+        </label>
+        </div>
 
-                <div class="box small-1of2 med-1of8">
-                    <label class="form__radio-wrapper">
-                        <input class="form__input" type="radio" name="radio-group-name"></input>
-                        <span class="form__label--radio">No</span>
-                    </label>
-                </div>
+        <div class="box small-1of2 med-1of8">
+        <label class="form__radio-wrapper">
+        <input class="form__input" type="radio" name="radio-group-name"></input>
+        <span class="form__label--radio">No</span>
+        </label>
+        </div>
 
-            </div>
+        </div>
 
         </fieldset>
 
         <fieldset class="form__fieldset form__form-section">
 
-            <legend class="form__legend">How often do your employees telework or have flexible hours?</legend>
+        <legend class="form__legend">How often do your employees telework or have flexible hours?</legend>
 
-            <div class="flex-grid">
+        <div class="flex-grid">
 
-                <div class="box full">
-                    <div class="form__input-wrapper--range">
-                        <label class="form__label">Telework</label>
-                        <div class="form__range-wrapper">
-                            <span class="form__range-label--start">Never</span>
-                            <input class="form__input" type="range" min="1" max="5"></input>
-                            <span class="form__range-label--end">Always</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="box full">
+        <div class="form__input-wrapper--range">
+        <label class="form__label">Telework</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
+        </div>
+        </div>
 
-                <div class="box full">
-                    <div class="form__input-wrapper--range">
-                        <label class="form__label">Flexible hours</label>
-                        <div class="form__range-wrapper">
-                            <span class="form__range-label--start">Never</span>
-                            <input class="form__input" type="range" min="1" max="5"></input>
-                            <span class="form__range-label--end">Always</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="box full">
+        <div class="form__input-wrapper--range">
+        <label class="form__label">Flexible hours</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
+        </div>
+        </div>
 
-            </div>
+        </div>
 
         </fieldset>
+        */
+        ?>
 
-        <?php /*
         <label id="remoteWork_label" for="createEditProfile_remoteWork" class="form__label">Is remote work allowed?</label>
 
         <div class="toggle-btn-group">
-        <div id="createEditProfile_remoteWork" style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
-        <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="left" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
-        <label id="remoteWork_option0_label" for="remoteWork_option0" class="option0Label">Yes</label>
-        <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="right" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
-        <label id="remoteWork_option1_label" for="remoteWork_option1" class="option1Label">No</label>
-        </div>
-        <div id="remoteWork" class="left"></div>
+            <div id="createEditProfile_remoteWork" style="position:absolute;top:0px;left:0px;width:6em;height:2em;z-index:100">
+                <input type="radio" id="remoteWork_option0" name="createEditProfile_remoteWork" value="left" class="accessAid" checked="checked" onfocus="SliderAPI.toggle('remoteWork', 0)" />
+                <label id="remoteWork_option0_label" for="remoteWork_option0" class="option0Label">Yes</label>
+                <input type="radio" id="remoteWork_option1" name="createEditProfile_remoteWork" value="right" class="accessAid" onfocus="SliderAPI.toggle('remoteWork',1)"/>
+                <label id="remoteWork_option1_label" for="remoteWork_option1" class="option1Label">No</label>
+            </div>
+            <div id="remoteWork" class="left"></div>
         </div>
 
 
@@ -110,19 +113,19 @@
         <label id="telework_label" for="createEditProfile_telework" class="form__label">Is telework allowed?</label>
 
         <div class="multi-btn-group">
-        <div id="createEditProfile_telework">
-        <input type="radio" id="telework_option0" name="createEditProfile_telework" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')" />
-        <label id="telework_option0_label" for="telework_option0" class="option0Label">Never</label>
-        <input type="radio" id="telework_option1" name="createEditProfile_telework" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-        <label id="telework_option1_label" for="telework_option1" class="option1Label">Occasionally</label>
-        <input type="radio" id="telework_option2" name="createEditProfile_telework" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-        <label id="telework_option2_label" for="telework_option2" class="option2Label">Sometimes</label>
-        <input type="radio" id="telework_option3" name="createEditProfile_telework" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-        <label id="telework_option3_label" for="telework_option3" class="option3Label">Frequently</label>
-        <input type="radio" id="telework_option4" name="createEditProfile_telework" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
-        <label id="telework_option4_label" for="telework_option4" class="option4Label">Most of the time</label>
-        </div>
-        <div id="telework" class="option0"></div>
+            <div id="createEditProfile_telework">
+                <input type="radio" id="telework_option0" name="createEditProfile_telework" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')" />
+                <label id="telework_option0_label" for="telework_option0" class="option0Label">Never</label>
+                <input type="radio" id="telework_option1" name="createEditProfile_telework" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                <label id="telework_option1_label" for="telework_option1" class="option1Label">Occasionally</label>
+                <input type="radio" id="telework_option2" name="createEditProfile_telework" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                <label id="telework_option2_label" for="telework_option2" class="option2Label">Sometimes</label>
+                <input type="radio" id="telework_option3" name="createEditProfile_telework" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                <label id="telework_option3_label" for="telework_option3" class="option3Label">Frequently</label>
+                <input type="radio" id="telework_option4" name="createEditProfile_telework" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_telework', this.value, 'telework')"/>
+                <label id="telework_option4_label" for="telework_option4" class="option4Label">Most of the time</label>
+            </div>
+            <div id="telework" class="option0"></div>
         </div>
 
 
@@ -131,21 +134,20 @@
         <label id="flexHours_label" for="createEditProfile_flexHours" class="form__label">Are flexible hours available?</label>
 
         <div class="multi-btn-group">
-        <div id="createEditProfile_flexHours">
-        <input type="radio" id="flexHours_option0" name="createEditProfile_flexHours" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')" />
-        <label id="flexHours_option0_label" for="flexHours_option0" class="option0Label">Never</label>
-        <input type="radio" id="flexHours_option1" name="createEditProfile_flexHours" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-        <label id="flexHours_option1_label" for="flexHours_option1" class="option1Label">Occasionally</label>
-        <input type="radio" id="flexHours_option2" name="createEditProfile_flexHours" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-        <label id="flexHours_option2_label" for="flexHours_option2" class="option2Label">Sometimes</label>
-        <input type="radio" id="flexHours_option3" name="createEditProfile_flexHours" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-        <label id="flexHours_option3_label" for="flexHours_option3" class="option3Label">Frequently</label>
-        <input type="radio" id="flexHours_option4" name="createEditProfile_flexHours" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
-        <label id="flexHours_option4_label" for="flexHours_option4" class="option4Label">Most of the time</label>
+            <div id="createEditProfile_flexHours">
+                <input type="radio" id="flexHours_option0" name="createEditProfile_flexHours" value="option0" class="accessAid" checked="checked" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')" />
+                <label id="flexHours_option0_label" for="flexHours_option0" class="option0Label">Never</label>
+                <input type="radio" id="flexHours_option1" name="createEditProfile_flexHours" value="option1" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                <label id="flexHours_option1_label" for="flexHours_option1" class="option1Label">Occasionally</label>
+                <input type="radio" id="flexHours_option2" name="createEditProfile_flexHours" value="option2" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                <label id="flexHours_option2_label" for="flexHours_option2" class="option2Label">Sometimes</label>
+                <input type="radio" id="flexHours_option3" name="createEditProfile_flexHours" value="option3" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                <label id="flexHours_option3_label" for="flexHours_option3" class="option3Label">Frequently</label>
+                <input type="radio" id="flexHours_option4" name="createEditProfile_flexHours" value="option4" class="accessAid" onfocus="SliderAPI.selectOptionByValue('createEditProfile_flexHours', this.value, 'flexHours')"/>
+                <label id="flexHours_option4_label" for="flexHours_option4" class="option4Label">Most of the time</label>
+            </div>
+            <div id="flexHours" class="option0"></div>
         </div>
-        <div id="flexHours" class="option0"></div>
-        </div>
-        */ ?>
 
         <h3 id="physicalEnvironment_title" class="form__title">Work Environment Pictures (optional)</h3>
 
