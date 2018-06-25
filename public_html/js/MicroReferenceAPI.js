@@ -36,13 +36,13 @@ MicroReferenceAPI.MicroReference = function (criteria_id) {
     };
     
     this.isEmpty = function() {
-        return (this.name == false &&
-                this.email == false &&
-                this.relationship == false &&
-                this.observed_from_date == false &&
-                this.observed_until_date == false &&
-                this.experience_level == false &&
-                this.story == false);
+        return (this.name == null &&
+                this.email == null &&
+                this.relationship == null &&
+                this.observed_from_date == null &&
+                this.observed_until_date == null &&
+                this.experience_level == null &&
+                this.story == null);
     };
     
     this.nullifyEmptyFields = function() {
@@ -299,6 +299,27 @@ MicroReferenceAPI.saveSingleMicroReference = function (criteriaId, onSuccess, on
     }
 };
 
+MicroReferenceAPI.deleteMicroReference = function(criteriaId) {
+    var panel = document.querySelector(".applicant-evidence__skill[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+    panel.querySelector('input[name=\"reference_name\"]').value = "";
+    panel.querySelector('input[name=\"reference_email\"]').value = "";
+    panel.querySelector('select[name=\"reference_relationship\"]').value = "";
+    panel.querySelector('input[name=\"reference_from_date\"]').value = "";
+    panel.querySelector('input[name=\"reference_until_date\"]').value = "";
+    panel.querySelector('select[name=\"reference_exp_level\"]').value = "";
+    panel.querySelector('textarea[name=\"reference_story\"]').value = "";
+
+    var applicationId = document.getElementById("jobApplicationJobApplicationId").value;
+
+    if (applicationId) {
+        DataAPI.deleteMicroReference(criteriaId, applicationId, function(request) {
+            //TODO: deal with delete response?
+        });
+    }
+    
+    MicroReferenceAPI.onStatusChange(criteriaId);
+};
+
 MicroReferenceAPI.getMicroReferenceFromEvidencePanel = function (panel) {
     var criteria_id = panel.getAttribute("data-criteria-id");
     var reference = new MicroReferenceAPI.MicroReference(criteria_id);
@@ -312,10 +333,6 @@ MicroReferenceAPI.getMicroReferenceFromEvidencePanel = function (panel) {
         reference.email = email.value;
     }
     var relationship = panel.querySelector('select[name=\"reference_relationship\"]');
-    if (relationship) {
-        reference.relationship = relationship.value;
-    }
-    var relationship = panel.querySelector('input[name=\"reference_relationship\"]');
     if (relationship) {
         reference.relationship = relationship.value;
     }
@@ -351,4 +368,6 @@ MicroReferenceAPI.onStatusChange = function (criteriaId) {
 
     //Use validity to determine Completeness status
     EvidenceAPI.setUiComplete(criteriaId, MicroReferenceAPI, reference.isComplete());
+    
+    EvidenceAPI.onStatusUpdate();
 };

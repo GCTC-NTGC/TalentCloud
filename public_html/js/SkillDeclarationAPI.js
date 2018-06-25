@@ -45,7 +45,22 @@ SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
         DataAPI.getSkillDeclarationsForApplication(jobApplicationId, function (request) {
             //Check that request returned a valid response
             if (request.status === 200 && request.response) {
-                var declarations = JSON.parse(request.response);
+                var responseJson = JSON.parse(request.response);
+                var declarations = [];
+                for (var i = 0; i < responseJson.length; i++) {
+                    var response = responseJson[i];
+                    var declaration = new SkillDeclarationAPI.SkillDeclaration(response.criteria_id);
+                    declaration.skill_declaration_id = response.skill_declaration_id;
+                    declaration.skill = response.skill;
+                    declaration.criteria_type = response.criteria_type;
+                    declaration.experience_level_id = response.experience_level_id;
+                    declaration.skill_level_id = response.skill_level_id;
+                    declaration.description = response.description;
+                    declaration.last_updated = response.last_updated;
+                    
+                    declarations.push(declaration);
+                }
+                
                 SkillDeclarationAPI.populateApplicationUiSkillDeclarations(declarations);
             }
         });
@@ -246,4 +261,6 @@ SkillDeclarationAPI.SkillDeclaration = function (criteriaId) {
 
         //Use validity to determine Completeness status
         EvidenceAPI.setUiComplete(criteriaId, SkillDeclarationAPI, skillDeclaration.isComplete());
+        
+        EvidenceAPI.onStatusUpdate();
     };

@@ -52,7 +52,7 @@
                 Save &amp; Return
             </button>
 
-            <button class="button--yellow applicant-evidence__save-and-continue" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})" disabled>
+            <button class="button--yellow applicant-evidence__save-and-continue applicant-evidence__save-and-continue--essential" value="View" onclick="EvidenceAPI.saveEvidence('essential', function(){JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value);})" disabled>
                 Complete All Required Sections
             </button>
 
@@ -103,8 +103,8 @@
                 Save &amp; Return
             </button>
 
-            <button class="button--yellow applicant-evidence__save-and-preview" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreviewById(document.getElementById('jobApplicationJobApplicationId').value);})" disabled>
-                Complete All Required Sections
+            <button class="button--yellow applicant-evidence__save-and-preview" value="View" onclick="EvidenceAPI.saveEvidence('asset', function(){JobApplicationPreviewAPI.showJobApplicationPreviewById(document.getElementById('jobApplicationJobApplicationId').value);})">
+                Save and Preview
             </button>
 
         </div>

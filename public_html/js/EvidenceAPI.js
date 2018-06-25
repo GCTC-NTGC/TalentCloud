@@ -402,41 +402,47 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
     // Micro References
 
         EvidenceAPI.addMicroReference = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--reference").classList.add("active");
+            panel.querySelector(".applicant-evidence__skill-attribute--reference").classList.add("active");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--reference").querySelector(".accordion__trigger").focus();
+            panel.querySelector(".applicant-evidence__skill-attribute--reference").querySelector(".accordion__trigger").focus();
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--reference").classList.add("hidden");
-
+            panel.querySelector(".applicant-evidence__optional-button--reference").classList.add("hidden");
         };
 
         EvidenceAPI.removeMicroReference = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
+            panel.querySelector(".applicant-evidence__skill-attribute--reference").classList.remove("active");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--reference").classList.remove("active");
-
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--reference").classList.remove("hidden");
-
+            panel.querySelector(".applicant-evidence__optional-button--reference").classList.remove("hidden");
+            
+            var criteriaId = panel.getAttribute("data-criteria-id");
+            MicroReferenceAPI.deleteMicroReference(criteriaId);
         };
 
     // Work Sample
 
         EvidenceAPI.addWorkSample = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--sample").classList.add("active");
+            panel.querySelector(".applicant-evidence__skill-attribute--sample").classList.add("active");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--sample").querySelector(".accordion__trigger").focus();
+            panel.querySelector(".applicant-evidence__skill-attribute--sample").querySelector(".accordion__trigger").focus();
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--sample").classList.add("hidden");
+            panel.querySelector(".applicant-evidence__optional-button--sample").classList.add("hidden");
 
         };
 
         EvidenceAPI.removeWorkSample = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__skill-attribute--sample").classList.remove("active");
+            panel.querySelector(".applicant-evidence__skill-attribute--sample").classList.remove("active");
 
-            button.closest(".applicant-evidence__skill").querySelector(".applicant-evidence__optional-button--sample").classList.remove("hidden");
+            panel.querySelector(".applicant-evidence__optional-button--sample").classList.remove("hidden");
 
+            var criteriaId = panel.getAttribute("data-criteria-id");
+            SkillSampleAPI.deleteSkillSample(criteriaId);
         };
 
     // Saving
@@ -473,6 +479,30 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
             if (subEvidenceAPI === SkillDeclarationAPI) {
                 //Skill Declaration completeness determines whole section completeness
                 menuItem.classList.remove("complete");
+            }
+        }
+    };
+    
+    EvidenceAPI.onStatusUpdate = function() {
+        var essentialsComplete = true;
+        var essentialEvidencePanels = document.querySelectorAll(".applicant-evidence__skill[data-criteria-type=\"essential\"]:not(.template)");
+        for (var i = 0; i < essentialEvidencePanels.length; i++) {
+            var panel = essentialEvidencePanels[i];
+            var requiredAccordion = panel.querySelector(".applicant-evidence__skill-attribute--required .accordion__trigger");
+            if (!requiredAccordion.classList.contains("complete")) {
+                essentialsComplete = false;
+                break;
+            }
+        }
+        if (essentialsComplete) {
+            var continueBtns = document.querySelectorAll(".applicant-evidence__save-and-continue--essential");
+            for (var i = 0; i < continueBtns.length; i++) {
+                continueBtns[i].removeAttribute("disabled");
+            }
+        } else {
+            var continueBtns = document.querySelectorAll(".applicant-evidence__save-and-continue--essential");
+            for (var i = 0; i < continueBtns.length; i++) {
+                continueBtns[i].setAttribute("disabled", "");
             }
         }
     };
