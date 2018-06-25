@@ -249,7 +249,10 @@ ProfilePicAPI.refreshMultipleProfilePicsBackground = function(userId, imageEleme
         if (request.status == 200) {
             for (var i=0; i<imageElements.length;i++) {
                 imageElements[i].style.backgroundImage = "url("+ProfilePicAPI.defaultProfilePic+")";
-                imageElements[i].style.backgroundImage = "url("+request.responseURL+")";
+                if (request.responseURL)
+                    imageElements[i].style.backgroundImage = "url("+request.responseURL+")";
+                else 
+                    imageElements[i].style.backgroundImage = "url("+ pic_url+")";
             }
         } else {
             for (var i=0; i<imageElements.length;i++) {
