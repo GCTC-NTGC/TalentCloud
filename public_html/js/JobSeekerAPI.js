@@ -259,8 +259,8 @@ JobSeekerAPI.saveJobSeekerProfileLoaded = function (response) {
     Utilities.debug ? console.log(response) : null;
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, function (response) {
         var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
-        JobSeekerAPI.resetProfileEditValues();
         JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+        JobSeekerAPI.resetProfileEditValues();
     });
 };
 
