@@ -4630,7 +4630,7 @@ input[type=button], input[type=submit], input[type=reset] {
       float: none;
       font-size: 16px;
       font-weight: 900;
-      margin: 0 0 .5rem 0; }
+      margin: 0 0 1.5rem 0; }
     .form__wrapper fieldset + fieldset {
       margin-top: 3rem; }
   .form__wrapper [class*="form__input-wrapper"]:last-child {
@@ -4671,7 +4671,7 @@ input[type=button], input[type=submit], input[type=reset] {
       border: 1px solid #323232;
       border-radius: 3px;
       font-size: 16px;
-      line-height: 1.2rem;
+      line-height: 24px;
       max-width: 100%;
       min-height: 10rem;
       min-width: 100%;
