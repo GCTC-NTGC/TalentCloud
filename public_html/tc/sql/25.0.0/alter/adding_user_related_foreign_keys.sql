@@ -46,11 +46,6 @@ ALTER TABLE `talentcloud`.`user_manager_profile`
 CHANGE COLUMN `user_id` `user_id` INT(10) UNSIGNED ZEROFILL NOT NULL ,
 ADD INDEX `fk__user_manager_profile__user_idx` (`user_id` ASC);
 
-ALTER TABLE `talentcloud`.`user_user_manager_profile` 
-CHANGE COLUMN `user_id` `user_id` INT(10) UNSIGNED ZEROFILL NOT NULL ,
-CHANGE COLUMN `user_manager_profile_id` `user_manager_profile_id` INT(10) UNSIGNED ZEROFILL NOT NULL ,
-ADD INDEX `fk_user_user_manager_profile_manager_profile_id_idx` (`user_manager_profile_id` ASC);
-
 ALTER TABLE `talentcloud`.`job_poster_key_task` 
 ADD INDEX `fk__job_poster_key_task__job_poster_idx` (`job_poster_id` ASC),
 ADD INDEX `fk__job_poster_key_task__locale_idx` (`locale_id` ASC);
@@ -143,18 +138,6 @@ ADD CONSTRAINT `fk_user_job_seeker_profiles_profile_id`
 
 ALTER TABLE `talentcloud`.`user_manager_profile_details` 
 ADD CONSTRAINT `fk_user_manager_profile_details_manager_profile_id`
-  FOREIGN KEY (`user_manager_profile_id`)
-  REFERENCES `talentcloud`.`user_manager_profile` (`user_manager_profile_id`)
-  ON DELETE NO ACTION
-  ON UPDATE CASCADE;
-
-ALTER TABLE `talentcloud`.`user_user_manager_profile` 
-ADD CONSTRAINT `fk_user_user_manager_profile_user_id`
-  FOREIGN KEY (`user_id`)
-  REFERENCES `talentcloud`.`user` (`user_id`)
-  ON DELETE NO ACTION
-  ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_user_user_manager_profile_manager_profile_id`
   FOREIGN KEY (`user_manager_profile_id`)
   REFERENCES `talentcloud`.`user_manager_profile` (`user_manager_profile_id`)
   ON DELETE NO ACTION
