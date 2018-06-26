@@ -7,7 +7,7 @@
 
         <div class="application-preview__profile-wrapper">
 
-            <div class="application-preview__profile-image" id="applicationPreviewProfileImage" style="background-image: url('https://www.cats.org.uk/uploads/images/featurebox_sidebar_kids/grief-and-loss.jpg');" title="My profile photo.">
+            <div class="application-preview__profile-image" id="applicationPreviewProfileImage" style="background-image: url('');" title="My profile photo.">
 
             </div>
 
