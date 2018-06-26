@@ -165,7 +165,7 @@
 
     <?php /* Temporary Form Elements */ ?>
 
-        <?php /* Please note that form labels should always contain a "for" attribute and associate to the unique ID of the input it is labelling. */ ?>
+        <?php /* Please note that form labels should always contain a "for" attribute and associate to the unique ID of the input it is labelling.
 
         <div class="content-container">
 
@@ -186,7 +186,7 @@
                 </div>
 
                 <fieldset class="form__fieldset form__form-section">
-                
+
                     <legend>Sample Legend</legend>
 
                     <div class="flex-grid">
@@ -362,6 +362,7 @@
                 </div>
 
             </form>
+            */ ?>
 
         </div>
 
