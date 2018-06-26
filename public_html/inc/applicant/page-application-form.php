@@ -69,7 +69,7 @@
 
         </div>
 
-        <div class="application-button__wrapper">
+        <div class="application-button__wrapper temp__button-wrapper">
 
             <button class="button--yellow" value="View" onclick="JobApplicationAPI.saveJobApplication(JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value));">
                 Save and continue
