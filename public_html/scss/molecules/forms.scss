@@ -240,7 +240,7 @@ input[type=button],input[type=submit],input[type=reset]{
         }
 
         legend {
-            color: $palette-blue;
+            color: $palette-blue--semidark;
             float: none;
             font-size: 16px;
             font-weight: 900;
@@ -376,7 +376,7 @@ input[type=button],input[type=submit],input[type=reset]{
                         border: 1px solid rgba(67, 197, 69, 1);
                         transition: border-color .2s ease;
                     }
-                    
+
                 }
 
                 .form__textarea {
@@ -412,7 +412,7 @@ input[type=button],input[type=submit],input[type=reset]{
                         border: 1px solid red;
                         transition: border-color .2s ease;
                     }
-                    
+
                 }
 
                 .form__textarea {

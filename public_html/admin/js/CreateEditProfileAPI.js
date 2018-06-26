@@ -837,6 +837,14 @@ CreateEditProfileAPI.populateProfile = function (response) {
         createEditProfile_name_preview.innerHTML = session_user.name;
     }
 
+    if (locale === "en_CA") {
+        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+        createEditProfile_position_preview.innerHTML = manager_profile_details_en.user_manager_profile_details_position;
+    } else {
+        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
+        createEditProfile_position_preview.innerHTML = manager_profile_details_fr.user_manager_profile_details_position;
+    }
+
     //About Me (page 1)
     document.getElementById("createEditProfile_bio").value = manager_profile_details_en.user_manager_profile_details_aboutme;
     if (manager_profile_details_en.user_manager_profile_details_aboutme) {
@@ -917,14 +925,6 @@ CreateEditProfileAPI.populateProfile = function (response) {
         document.getElementById("createEditProfile_position_fr").parentElement.classList.add("valid");
     } else {
         createEditProfile_position_fr.value = "";
-    }
-
-    if (locale === "en_CA") {
-        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
-        createEditProfile_position_preview.innerHTML = manager_profile_details_en.user_manager_profile_details_position;
-    } else {
-        var createEditProfile_position_preview = document.getElementById("createEditProfile_position_preview");
-        createEditProfile_position_preview.innerHTML = manager_profile_details_fr.user_manager_profile_details_position;
     }
 
     document.getElementById("createEditProfile_twitter").value = manager_profile.user_manager_profile_twitter;

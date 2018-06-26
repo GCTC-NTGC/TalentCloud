@@ -407,19 +407,21 @@
                                 <button class="job-poster__open-question-remove-button repeater__remove-button" onclick="Utilities.removeRepeatedElement">Remove this question</button>
                             </div>
 
+                            <?php // TODO: Increment IDs for form labels/inputs with JavaScript ?>
+
                             <div class="job-poster__open-question-wrapper--english box med-1of2">
                                 <div class="form__input-wrapper">
                                     <fieldset class="form__fieldset">
                                         <legend class="form__legend">English</legend>
 
                                         <div class="form__input-wrapper--float">
-                                            <label class="form__label">Question</label>
-                                            <input class="form__input job-poster__open-question-input" type="text" />
+                                            <label class="form__label" for="question2__question--english">Question</label>
+                                            <input id="question2__question--english" class="form__input job-poster__open-question-input" type="text" />
                                         </div>
 
                                         <div class="form__input-wrapper--float">
-                                            <label class="form__label">Description</label>
-                                            <textarea class="form__textarea job-poster__open-question-description-input"></textarea>
+                                            <label class="form__label" for="question2__description--english">Description</label>
+                                            <textarea id="question2__description--english" class="form__textarea job-poster__open-question-description-input"></textarea>
                                         </div>
 
                                     </fieldset>
@@ -432,13 +434,13 @@
                                         <legend class="form__legend">Français</legend>
 
                                         <div class="form__input-wrapper--float">
-                                            <label class="form__label">Question</label>
-                                            <input class="form__input job-poster__open-question-input" type="text"/>
+                                            <label class="form__label" for="question2__question--french">Question</label>
+                                            <input id="question2__question--french" class="form__input job-poster__open-question-input" type="text"/>
                                         </div>
 
                                         <div class="form__input-wrapper--float">
-                                            <label class="form__label">Description</label>
-                                            <textarea class="form__textarea job-poster__open-question-description-input"></textarea>
+                                            <label class="form__label" for="question2__description--french">Description</label>
+                                            <textarea id="question2__description--french" class="form__textarea job-poster__open-question-description-input"></textarea>
                                         </div>
                                     </fieldset>
                                 </div>
@@ -463,13 +465,13 @@
                                     <legend class="form__legend">English</legend>
 
                                     <div class="form__input-wrapper--float">
-                                        <label class="form__label">Question</label>
-                                        <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
+                                        <label class="form__label" for="question1__question--english">Question</label>
+                                        <input id="question1__question--english" class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
                                     </div>
 
                                     <div class="form__input-wrapper--float">
-                                        <label class="form__label">Description</label>
-                                        <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
+                                        <label class="form__label" for="question1__description--english">Description</label>
+                                        <textarea id="question1__description--english" class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
                                     </div>
 
                                 </fieldset>
@@ -484,13 +486,13 @@
                                     <legend class="form__legend">Français</legend>
 
                                     <div class="form__input-wrapper--float">
-                                        <label class="form__label">Question</label>
-                                        <input class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
+                                        <label class="form__label" for="question1__question--french">Question</label>
+                                        <input id="question1__question--french" class="form__input job-poster__open-question-input" type="text" aria-required="true" required/>
                                     </div>
 
                                     <div class="form__input-wrapper--float">
-                                        <label class="form__label">Description</label>
-                                        <textarea class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
+                                        <label class="form__label" for="question1__description--french">Description</label>
+                                        <textarea id="question1__description--french" class="form__textarea job-poster__open-question-description-input" aria-required="true" required></textarea>
                                     </div>
 
                                 </fieldset>
