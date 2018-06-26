@@ -60,6 +60,7 @@ JobPostAPI.showBrowseJobs = function() {
     history.pushState(stateInfo, stateInfo.pageInfo, '#BrowseJobs');
 
     TalentCloudAPI.hideAllContent();
+
     var browseJobsSection = document.getElementById('browseJobsSection');
     browseJobsSection.classList.remove('hidden');
 
@@ -67,6 +68,8 @@ JobPostAPI.showBrowseJobs = function() {
     loadingJobs.classList.remove("hidden");
 
     DataAPI.getJobs(JobPostAPI.populateJobObjectList);
+
+    //AccessibilityAPI.focusElement("topPage");
 
     // New Subpage Hero Scripts
 
@@ -77,7 +80,7 @@ JobPostAPI.showBrowseJobs = function() {
     browseHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 
@@ -156,7 +159,7 @@ JobPostAPI.populateJobObject = function(JSONJob){
     }
 
     jobObj.noc = job.noc;
-    
+
     // TAL-150
     jobObj.classification = job.classification;
     jobObj.security_clearance = job.security_clearance;
@@ -436,9 +439,7 @@ JobPostAPI.viewJobPoster = function(jobId){
         JobPostAPI.populateJobPoster(jobPoster);
     });
 
-    // focus top of page
-    window.scrollTo(0,0);
-    document.getElementById("skipNav").focus();
+
 
     if(UserAPI.hasSessionUser()) {
         document.getElementById("jobPosterButtonWrapper").classList.add("logged-in");
@@ -457,12 +458,17 @@ JobPostAPI.viewJobPoster = function(jobId){
     // browseHeroPosterMetaData.classList.remove("hidden");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 
     ga('set', 'page', '/browse-jobs/'+jobId);
     ga('send', 'pageview');
+
+    // Set scroll / focus to top of page
+    window.scrollTo(0,0);
+    AccessibilityAPI.focusElement("topPage");
+    document.getElementById("topPage").focus();
 
 };
 

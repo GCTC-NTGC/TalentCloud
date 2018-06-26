@@ -1,37 +1,17 @@
-/* TABS LIST */
+/* TABS */
 
-.tabsList{
-    line-height: 2em;
-    display: flex;
-    list-style: none !important;
-    width: 100%;
-    margin:0 !important;
-    padding:0 !important;
-}
-.tabsList li{
-    display: inline-block;
-    margin-right: 1em;
-    margin:0 !important;
-    padding:0 !important;
-    text-align: center;
-}
-.tabsList li a {
-    text-align: center;
-}
-.tabs{
-    padding:1em 2em 2em 2em;
-}
 .tabsSteps{
     font-size: 1em;
     line-height: 2em;
     display: flex;
     color: #fff;
-    float: left;
-    cursor: default;
+    //float: left;
     width: 100%;
-    /*position: absolute;*/
     background:#333;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
 }
+
 .three-step-tab {
     width: 33.333%;
     position: relative;
@@ -40,19 +20,7 @@
     text-align: center;
     line-height:3em;
 }
-.tab-current {
-    color: #fff;
-    background-color: $palette-blue--semidark;
-    //border-bottom: 5px solid #999;
-}
-.four-step-tab{
-    width: 25%;
-    position: relative;
-    color: #000;
-    font-size:1.25em;
-    text-align: center;
-    line-height:3em;
-}
+
 .five-step-tab{
     width: 20%;
     position: relative;
@@ -61,14 +29,38 @@
     text-align: center;
     line-height:3em;
 }
-.tabbedForm{
-    width: 100%;
-    height: 100%;
+
+.tab-current {
+    background-color: $palette-blue--semidark;
+    //border-bottom: 5px solid #999;
 }
-.stepGroup_createEditProfile {
+
+.steppedFormLink{
+    text-align: center !important;
+    text-decoration:none !important;
+    color:#fff !important;
+    background-color: #333;
+    border: 0;
+    width: 100%;
+}
+
+.steppedFormLinkActive{
+    text-align: center !important;
+    text-decoration:none !important;
+    color:#fff !important;
+    background-color: $palette-blue--semidark;
+    border: 0;
+    width: 100%;
+}
+
+.stepGroup_createEditProfile, .stepGroup {
     position: relative;
     width:100%;
     min-height: 100%;
     bottom: 0;
-    color: #000;
+    background-color: #fff;
+}
+
+.editImage {
+    width: 2rem;
 }

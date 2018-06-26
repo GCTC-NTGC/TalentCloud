@@ -1,0 +1,1 @@
+DROP TABLE `talentcloud`.`user_user_manager_profile`;

@@ -29,6 +29,30 @@ MobileMenu.addWindowEventListener = function (event, myFunction) {
 
 };
 
+// Window Size Check for TabIndex ==============================================
+
+MobileMenu.checkWindowSize = function() {
+
+    var x = window.matchMedia("screen and (min-width: 1024px)");
+
+    if (x.matches) {
+
+        var mainMenu = document.getElementById("pageHeroNavigationMenu");
+
+        var menuItems = mainMenu.querySelectorAll(".page-hero__navigation-item a");
+
+        for (var i = 0; i < menuItems.length; i++) {
+
+            menuItems[i].setAttribute("tabindex", "0");
+
+        }
+
+    }
+
+}
+
+MobileMenu.addWindowEventListener("load", MobileMenu.checkWindowSize);
+
 // Mobile Navigation Triggers ==================================================
 
 MobileMenu.mobileNavClickListener = function (e) {
@@ -36,6 +60,8 @@ MobileMenu.mobileNavClickListener = function (e) {
     var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
 
     var mainMenu = document.getElementById("pageHeroNavigationMenu");
+
+    var menuItems = mainMenu.querySelectorAll(".page-hero__navigation-item a");
 
     e.preventDefault();
 
@@ -45,13 +71,25 @@ MobileMenu.mobileNavClickListener = function (e) {
 
         mainMenu.classList.remove("active");
 
-        document.body.style.overflowY = "auto";
+        for (var i = 0; i < menuItems.length; i++) {
+
+            menuItems[i].setAttribute("tabindex", "-1");
+
+        }
+
+        document.body.style.overflowY = "visible";
 
     } else {
 
         this.classList.add("active");
 
         mainMenu.classList.add("active");
+
+        for (var i = 0; i < menuItems.length; i++) {
+
+            menuItems[i].setAttribute("tabindex", "0");
+
+        }
 
         document.body.style.overflowY = "hidden";
 
@@ -63,29 +101,7 @@ MobileMenu.mobileNavKeyListener = function (e) {
 
     if (e.keyCode == 13) {
 
-        var mobileMenuTrigger = document.getElementById("pageHeroMobileTrigger");
-
-        var mainMenu = document.getElementById("pageHeroNavigationMenu");
-
-        e.preventDefault();
-
-        if (this.classList.contains("active")) {
-
-            this.classList.remove("active");
-
-            mainMenu.classList.remove("active");
-
-            document.body.style.overflowY = "auto";
-
-        } else {
-
-            this.classList.add("active");
-
-            mainMenu.classList.add("active");
-
-            document.body.style.overflowY = "hidden";
-
-        }
+        this.click();
 
     }
 
@@ -117,7 +133,7 @@ MobileMenu.mobileNavTabListener = function (e) {
     var menuTrigger = document.querySelector(".page-hero__mobile-trigger");
 
     // Get Mobile Menu Items
-    var menuItems = mainMenu.querySelectorAll(".page-hero__navigation-item");
+    var menuItems = mainMenu.querySelectorAll(".page-hero__navigation-item:not(.hidden) a");
 
     // Get Last Menu Item
     var lastMenuItem = menuItems[menuItems.length - 1]
@@ -140,16 +156,22 @@ MobileMenu.mobileNavTabListener = function (e) {
 
 MobileMenu.setMobileNavTabTriggers = function (e) {
 
-    // Get the Main Menu
-    var mainMenu = document.getElementById("pageHeroNavigationMenu");
+    var x = window.matchMedia("screen and (max-width: 1023px)");
 
-    // Get Mobile Menu Items
-    var menuItems = mainMenu.querySelectorAll(".page-hero__navigation-item");
+    if (x.matches) {
 
-    // Set Triggers
-    for (var i = 0; i < menuItems.length; i++) {
+        // Get the Main Menu
+        var mainMenu = document.getElementById("pageHeroNavigationMenu");
 
-        menuItems[i].addEventListener("keydown", MobileMenu.mobileNavTabListener);
+        // Get Mobile Menu Items
+        var menuItems = mainMenu.querySelectorAll(".page-hero__navigation-item a");
+
+        // Set Triggers
+        for (var i = 0; i < menuItems.length; i++) {
+
+            menuItems[i].addEventListener("keydown", MobileMenu.mobileNavTabListener);
+
+        }
 
     }
 

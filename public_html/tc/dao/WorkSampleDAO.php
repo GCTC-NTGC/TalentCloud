@@ -28,7 +28,7 @@ class WorkSampleDAO extends BaseDAO {
             $link = BaseDAO::getConnection();
         
         $sqlStr = "
-            SELECT 
+             SELECT 
                 application_work_sample.criteria_id,
                 w.work_sample_id,
                 w.work_sample_name,
@@ -37,23 +37,22 @@ class WorkSampleDAO extends BaseDAO {
                 w.work_sample_url,
                 w.work_sample_story                
             FROM 
-                work_sample w,
-                locale,
-                file_type_details,
+                work_sample w
+                        LEFT JOIN file_type_details 
+                                RIGHT JOIN locale
+                                        ON (file_type_details.locale_id = locale.locale_id AND locale.locale_iso = :locale)             
+                ON w.file_type_id = file_type_details.file_type_id,
                 application_work_sample
             WHERE
                 application_work_sample.job_poster_application_id = :job_poster_application_id
                 AND application_work_sample.work_sample_id = w.work_sample_id
-                AND w.file_type_id = file_type_details.file_type_id
-                AND file_type_details.locale_id = locale.locale_id
-                AND locale.locale_iso = :locale
                 AND application_work_sample.is_active = 1
                 AND application_work_sample.application_work_sample_id IN (
-                    SELECT MAX(application_work_sample_id)
-                    FROM application_work_sample
-                    WHERE job_poster_application_id = :job_poster_application_id_2
-                    GROUP BY criteria_id
-                );
+                        SELECT MAX(application_work_sample_id)
+                        FROM application_work_sample
+                        WHERE job_poster_application_id = :job_poster_application_id_2
+                        GROUP BY criteria_id
+                )
             ;";
         
         $sql = $link->prepare($sqlStr);

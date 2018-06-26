@@ -1,4 +1,5 @@
 <ul id="wb-tphp">
+    <li id="topPage" class="hidden"></li>
     <li class="wb-slc">
         <a id="skipNav" class="wb-sl" href="#h1">
             <span class="skipNavTextFrench hidden">Passer au contenu principal</span>

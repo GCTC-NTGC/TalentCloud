@@ -11,6 +11,7 @@
     ],
 
     "require": {
+        "php": "~5.6",
         "phpseclib/phpseclib": "2.0.1",
         "jumbojett/openid-connect-php": "^0.4.1",
         "lcobucci/jwt":"^3.2",

@@ -621,251 +621,6 @@ Utilities.getHeroElements = function () {
 
 };
 
-// Applicant Evidence UI =======================================================
-Utilities.setEvidenceUiEventListeners = function (e) {
-
-    // Set the landscape tablet media query.
-    var w = window.matchMedia("(min-width: 64em)")
-
-    // Check to see if the screen is larger than a landscape tablet (this indicates that the desktop tab menu will be showing).
-    if (w.matches) {
-
-        // Set variables for the desktop menu items and the associated evidence panes.
-        var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-
-        // Enter the loop of desktop tab menu items.
-        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
-
-            // Check for a click on each tab.
-            desktopEvidenceTriggers[i].addEventListener('click', evidenceMenuItemClick);
-            // Checks for a key press.
-            desktopEvidenceTriggers[i].addEventListener("keyup", evidenceMenuItemKeyup);
-
-        }
-
-        // The following code handles the tab order of sending a user back to the tab list when they reach the top of the tab's pane.
-
-        // Set a variable for the first element in the evidence panes based on a class.
-        var evidenceStartFocus = document.querySelectorAll(".applicant-evidence__first-target");
-
-        // Enter the loop of elements.
-        for (var i = 0; i < evidenceStartFocus.length; i++) {
-
-            // Listen for a keydown.
-
-            evidenceStartFocus[i].addEventListener("keydown", evidenceFirstTargetKeydown);
-        }
-
-        // The following code sends the user to the next tab in the event that they reach the end of the collapsed version of the pane.
-
-        var evidenceEarlyEndFocus = document.querySelectorAll(".applicant-evidence__early-last-target");
-
-        for (var i = 0; i < evidenceEarlyEndFocus.length; i++) {
-
-            // Listen for a keydown.
-            evidenceEarlyEndFocus[i].addEventListener("keydown", evidenceEarlyLastTargetKeydown);
-        }
-
-        // The following code sends the user to the next tab in the event that they reach the end of the expanded version of the pane.
-
-        var evidenceEndFocus = document.querySelectorAll(".applicant-evidence__last-target");
-
-        for (var i = 0; i < evidenceEndFocus.length; i++) {
-
-            // Listen for a keydown.
-            evidenceEndFocus[i].addEventListener("keydown", evidenceLastTargetKeydown);
-        }
-
-    } else {
-
-        // The following code handles the mobile accordion execution of the tab interface.
-
-        // Set a variable for all accordion triggers.
-        var evidenceAccordionTriggers = document.querySelectorAll(".applicant-evidence__accordion-trigger");
-
-        // Enter the loop of triggers.
-        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
-
-            // Listen for a click.
-            evidenceAccordionTriggers[i].addEventListener('click', evidenceAccordionTriggerClick);
-        }
-
-    }
-
-};
-
-function evidenceMenuItemClick(e) {
-
-    var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-    var evidencePanes = document.querySelectorAll(".applicant-evidence__accordion-wrapper");
-
-    // Prevent the default action.
-    e.preventDefault();
-    // Enter the loop for desktop tab menu items and remove the active class from all of them.
-    for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
-        desktopEvidenceTriggers[i].classList.remove("active");
-        desktopEvidenceTriggers[i].setAttribute("aria-selected", "false");
-    }
-
-    // Enter the loop for evidence panes and remove the active class from all of them.
-    for (var i = 0; i < evidencePanes.length; i++) {
-        evidencePanes[i].classList.remove("active");
-    }
-
-    // Add the active class to the tab that has been clicked.
-    this.classList.add("active");
-    this.setAttribute("aria-selected", "true");
-
-    // Set a variable for that tab's data attribute.
-    var triggerData = this.getAttribute("data-evidence-trigger");
-
-    // Enter the loop for evidence panes and find the pane with the matching data attribute value, and then give it the active class.
-    for (var i = 0; i < evidencePanes.length; i++) {
-        var panel = evidencePanes[i];
-        if (panel.getAttribute("data-evidence-target") == triggerData) {
-            panel.classList.add("active");
-            panel.querySelector(".applicant-evidence__first-target").focus();
-        }
-    }
-
-}
-;
-
-function evidenceMenuItemKeyup(e) {
-
-    // Cancels the default action.
-    e.preventDefault();
-
-    // Checks to see if the key pressed was Enter (13).
-    if (e.keyCode == 13 || e.keyCode == 32) {
-
-        // Triggers a click, thus activating the click event listener.
-        this.click();
-
-    }
-
-}
-;
-
-function evidenceFirstTargetKeydown(e) {
-
-    // Check to see if the Shift key is being pressed in tandom with the Tab key (9).
-    if (e.shiftKey && e.keyCode == 9) {
-
-        // Prevent the default action.
-        e.preventDefault();
-        // Set a variable that gets the element's parent's data attribute.
-        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-
-        // Set a variable that gets all desktop tab items.
-        var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-
-        // Enter the loop for desktop tab items.
-        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
-
-            // Check if the trigger's data attribute is the same as the pane, and if so, give the trigger focus.
-            if (desktopEvidenceTriggers[i].getAttribute("data-evidence-trigger") == triggerData) {
-                desktopEvidenceTriggers[i].focus();
-            }
-
-        }
-
-    }
-}
-;
-
-function evidenceEarlyLastTargetKeydown(e) {
-    if (this.closest(".form__wrapper").nextElementSibling.classList.contains("active")) {
-        // Continue on your way.
-    } else {
-
-        if (!e.shiftKey && e.keyCode == 9) {
-
-            var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-            var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-
-            for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
-                var trigger = desktopEvidenceTriggers[i];
-                if (trigger.getAttribute("data-evidence-trigger") == triggerData) {
-
-                    if (trigger.nextElementSibling) {
-                        e.preventDefault();
-                        trigger.nextElementSibling.focus();
-                    }
-
-                }
-
-            }
-
-        }
-
-    }
-}
-;
-
-function evidenceLastTargetKeydown(e) {
-
-    if (!e.shiftKey && e.keyCode == 9) {
-
-        var triggerData = this.closest(".applicant-evidence__accordion-wrapper").getAttribute("data-evidence-target");
-        var desktopEvidenceTriggers = document.querySelectorAll(".applicant-evidence__desktop-menu-item");
-
-        for (var i = 0; i < desktopEvidenceTriggers.length; i++) {
-            var trigger = desktopEvidenceTriggers[i];
-            if (trigger.getAttribute("data-evidence-trigger") == triggerData) {
-
-                if (trigger.nextElementSibling) {
-                    e.preventDefault();
-                    trigger.nextElementSibling.focus();
-                }
-
-            }
-
-        }
-
-    }
-
-}
-;
-
-function evidenceAccordionTriggerClick(e) {
-
-    var evidenceAccordionTriggers = document.querySelectorAll(".applicant-evidence__accordion-trigger");
-
-    // Check to see if the trigger is active.
-    if (this.classList.contains("active")) {
-
-        // If it is active, close all accordions.
-        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
-            var trigger = evidenceAccordionTriggers[i];
-            trigger.classList.remove("active")
-            trigger.nextElementSibling.classList.remove("active");
-            trigger.setAttribute("aria-expanded", "false");
-        }
-
-    } else {
-
-        // Close all accordions.
-        for (var i = 0; i < evidenceAccordionTriggers.length; i++) {
-            var trigger = evidenceAccordionTriggers[i];
-            trigger.classList.remove("active")
-            trigger.nextElementSibling.classList.remove("active");
-            trigger.setAttribute("aria-expanded", "false");
-        }
-
-        // Open this accordion.
-        this.classList.add("active");
-        this.nextElementSibling.classList.add("active");
-        this.setAttribute("aria-expanded", "true");
-
-    }
-
-}
-;
-
-Utilities.addWindowEventListener("load", Utilities.setEvidenceUiEventListeners);
-Utilities.addWindowEventListener("resize", Utilities.setEvidenceUiEventListeners);
-
 // Applicant Evidence Preview UI ===============================================
 Utilities.setEvidencePreviewUiEventListeners = function () {
     // Set the landscape tablet media query.
@@ -1047,3 +802,140 @@ function evidencePreviewLinkKeydown(e) {
 
 Utilities.addWindowEventListener("load", Utilities.setEvidencePreviewUiEventListeners);
 Utilities.addWindowEventListener("resize", Utilities.setEvidencePreviewUiEventListeners);
+
+// Form Label Handlers =========================================================
+
+    // Required Fields
+
+        Utilities.formRequirementLabelHandler = function() {
+
+            var required = document.querySelectorAll("input:required, textarea:required");
+
+            for (var i = 0; i < required.length; i++) {
+                required[i].parentElement.classList.add("required");
+                var requiredElement = document.createElement("span");
+                requiredElement.classList.add("form__required");
+                requiredElement.innerHTML = "<i class='fa fa-asterisk' aria-label='Asterisk'></i>";
+                required[i].parentElement.querySelector("label").appendChild(requiredElement);
+                // required[i].parentElement.appendChild(requiredElement);
+            }
+
+        };
+
+        Utilities.addWindowEventListener("load", Utilities.formRequirementLabelHandler);
+
+    // Focus Validation
+
+        Utilities.formLabelFocusHandler = function() {
+
+            // var floatingLabels = document.querySelectorAll(".form__input-wrapper--float");
+
+            this.parentElement.classList.add("active");
+
+        };
+
+        Utilities.formLabelBlurHandler = function() {
+
+            // var floatingLabels = document.querySelectorAll(".form__input-wrapper--float");
+
+            if (this.value == "") {
+                this.parentElement.classList.remove("active");
+            }
+
+            if(this.validity.valid) {
+
+                if (this.value == "" || this.getAttribute("type") == "password") {
+                    this.parentElement.classList.remove("valid");
+                    this.parentElement.classList.remove("invalid");
+                }
+                else {
+                    this.parentElement.classList.add("valid");
+                    this.parentElement.classList.remove("invalid");
+                }
+
+            }
+            else {
+
+                if (this.getAttribute("type") == "password") {
+                    return false;
+                }
+                else {
+                    this.parentElement.classList.add("invalid");
+                    this.parentElement.classList.remove("valid");
+                }
+
+            }
+
+        };
+
+        Utilities.setFormLabelHandler = function () {
+
+            // Set variables for the desktop menu items and the associated evidence panes.
+            var floatingLabels = document.querySelectorAll("[class*='form__input-wrapper']");
+
+            // Enter the loop of desktop tab menu items.
+            for (var i = 0; i < floatingLabels.length; i++) {
+
+                if (floatingLabels[i].querySelector(".form__input") != null) {
+
+                    var input = floatingLabels[i].querySelector(".form__input");
+
+                    input.addEventListener('focus', Utilities.formLabelFocusHandler);
+                    input.addEventListener('blur', Utilities.formLabelBlurHandler);
+                    
+                }
+                else if (floatingLabels[i].querySelector(".form__textarea") != null) {
+
+                    var input = floatingLabels[i].querySelector(".form__textarea");
+
+                    input.addEventListener('focus', Utilities.formLabelFocusHandler);
+                    input.addEventListener('blur', Utilities.formLabelBlurHandler);
+
+                }
+
+            }
+
+        }
+
+        Utilities.addWindowEventListener("load", Utilities.setFormLabelHandler);
+
+// Accordion Toggle ============================================================
+
+    Utilities.toggleAccordion = function(trigger) {
+
+        if (trigger.classList.contains("active")) {
+            trigger.classList.remove("active");
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.closest(".accordion__wrapper").querySelector(".accordion__content").classList.remove("active");
+            trigger.closest(".accordion__wrapper").querySelector(".accordion__content").setAttribute("aria-hidden", "true");
+        }
+        else {
+            trigger.classList.add("active");
+            trigger.setAttribute("aria-expanded", "true");
+            trigger.closest(".accordion__wrapper").querySelector(".accordion__content").classList.add("active");
+            trigger.closest(".accordion__wrapper").querySelector(".accordion__content").setAttribute("aria-hidden", "false");
+        }
+
+    }
+
+    Utilities.accordionKeyListener = function(e) {
+
+        if (e.keyCode == 13) {
+            this.click();
+        }
+
+    }
+
+    Utilities.setAccordionKeyListener = function() {
+
+        var triggers = document.querySelectorAll(".accordion__trigger");
+
+        for (var i = 0; i < triggers.length; i++) {
+
+            triggers[i].addEventListener("keydown", Utilities.accordionKeyListener);
+
+        }
+
+    }
+
+    Utilities.addWindowEventListener("load", Utilities.setAccordionKeyListener);

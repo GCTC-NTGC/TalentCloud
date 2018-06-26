@@ -13,15 +13,35 @@
 
                 <form class="box full flex-grid update-about__form-grid" name="profileEditAnswerForm" id="profileEditAnswerForm" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" id="profile-edit-answer__question-id" value="0">
+
                     <div class="box full">
-                        <label for="profileEditAnswer" class="form__label">
-                            <span id="profileEditAnswerLabel">Enter your answer here:</span>
-                            <p class="dialogue-modal__support-copy" id="dialogueModalSupportCopy"></p>
-                        </label>
-                        <div>
-                            <textarea class="form__textarea" name="profileEditAnswer" id="profileEditAnswer" form="profileEditAnswerForm" placeholder="Enter your answer here..."></textarea>
+
+                        <span 
+                            class="dialogue-modal__support-label"
+                            id="profileEditAnswerLabel">Enter your answer here:
+                        </span>
+
+                        <p 
+                            class="dialogue-modal__support-copy" 
+                            id="dialogueModalSupportCopy">
+                        </p>
+
+                        <div
+                            class="form__input-wrapper--float">
+                            <label 
+                                class="form__label" 
+                                for="profileEditAnswer">
+                                Your Answer
+                            </label>
+                            <textarea
+                                class="jobApplicationAnswerField form__textarea" 
+                                id="profileEditAnswer" 
+                                name="profileEditAnswer"
+                                form="profileEditAnswerForm" ></textarea>
                         </div>
+
                     </div>
+
                     <div class="box full flex-grid update-about__button-grid">
                         <div class="box med-1of2"></div>
                         <div class="box med-1of2">

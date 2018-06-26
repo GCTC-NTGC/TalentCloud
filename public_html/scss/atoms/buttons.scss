@@ -121,12 +121,23 @@ input[type="button"][class*="button--"] {
     }
 
     &[class*="blue"] {
-        background: $palette-blue;
-        border: 2px solid $palette-blue !important;
+        background: $palette-blue--semidark;
+        border: 2px solid $palette-blue--semidark !important;
         color: $white;
 
         &:hover {
             background: $palette-blue--dark;
+        }
+
+    }
+
+    &[class*="green"] {
+        background: $palette-green--semidark;
+        border: 2px solid $palette-green--semidark !important;
+        color: white;
+
+        &:hover {
+            background: $palette-green--dark;
         }
 
     }

@@ -1,111 +1,162 @@
 <?php // BEGIN - Edit Admin Profile Form (Page 2 / Leadership Style) ?>
 <div id="createEditProfile_step2" class="stepGroup_createEditProfile hidden">
 
-    <div class="tabsWrapper">
-        <div class="tabsSteps">
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');"><span id="createEditProfileStep1Label_2">About</span></a></div>
-            <div class="five-step-tab tab-current"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2');"><span id="createEditProfileStep2Label_2">Leadership</span></a></div>
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment');"><span id="createEditProfileWorkEnvironmentLabel_2">Work Environment</span></a></div>
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture');"><span id="createEditProfileTeamCultureLabel_2">Team Culture</span></a></div>
-            <div class="five-step-tab"><a href="javascript:void(0)" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3');"><span id="createEditProfileStep3Label_2">Other</span></a></div>
+    <div class="tabsSteps">
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1')" class="steppedFormLink">
+                <span id="createEditProfileStep1Label_1">About</span>
+            </button>
         </div>
-        <div class="tabs">
-            <div class="steptab inactive"> </div>
-            <div class="steptab active"> </div>
-            <div class="steptab inactive"> </div>
-            <div class="steptab inactive"> </div>
-            <div class="steptab inactive"> </div>
+        <div class="five-step-tab tab-current">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step2')" class="steppedFormLinkActive">
+                <span id="createEditProfileStep2Label_1">Leadership</span>
+            </button>
+        </div>
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_workEnvironment')" class="steppedFormLink">
+                <span id="createEditProfileWorkEnvironmentLabel_1">Work Environment</span>
+            </button>
+        </div>
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_teamCulture')" class="steppedFormLink">
+                <span id="createEditProfileTeamCultureLabel_1">Team Culture</span>
+            </button>
+        </div>
+        <div class="five-step-tab">
+            <button type="button" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step3')" class="steppedFormLink">
+                <span id="createEditProfileStep3Label_1">Other</span>
+            </button>
         </div>
     </div>
-
-    <br>
 
     <div class="stepGroupForm">
 
-        <h3 class="manager-edit-profile__title heading--03">My Leadership Style</h3>
+        <h3 class="form__title">Leadership</h3>
 
-        <div class="manager-edit-profile__required-copy-wrapper">
-            <span>* = </span>
-            <span id="createEditProfile_requiredStep2">Required</span>
+        <p class="form__context">All fields required unless indicated as optional</p>
+
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">What is your leadership style?</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_leadership_style">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style" rows="2" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_leadership_style_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">What is your approach to employee learning and development?</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_app_to_employees">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees" rows="2" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_app_to_employees_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form__fieldset form__form-section" id="createJobPosterJobTitleSection">
+
+            <legend class="form__legend">What are your expectations of employees?</legend>
+
+            <div class="flex-grid middle">
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_exp_of_employees">English</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees" rows="2" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+                <div class="box med-1of2">
+                    <div class="form__input-wrapper--float">
+                        <label class="form__label" for="createEditProfile_exp_of_employees_fr">Français</label>
+                        <textarea class="form__textarea" type="text" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr" required aria-required="true"/></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <h3 class="form__title">Your Approach to Decision Making</h3>
+
+        <?php /* New sliders
+
+        <div class="form__input-wrapper--range">
+        <label class="form__label">How often do you review your teams work before it is shared?</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
         </div>
 
-        <div class="flex-grid top manager-edit-profile__form">
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_leadership_style" class="form__label">
-                    <span id="createEditProfile_leadership_style_label">My leadership style</span>
-                    <strong id="createEditProfile_leadership_style_error" class="error hidden">
-                        <span id="createEditProfile_leadership_style_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_leadership_style" id="createEditProfile_leadership_style"></textarea>
-            </div>
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_leadership_style_fr" class="form__label">
-                    <span id="createEditProfile_leadership_style_fr_label">Leadership Style_fr: *</span>
-                    <strong id="createEditProfile_leadership_style_fr_error" class="error hidden">
-                        <span id="createEditProfile_leadership_style_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_leadership_style_fr" id="createEditProfile_leadership_style_fr"></textarea>
-            </div>
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_app_to_employees" class="form__label">
-                    <span id="createEditProfile_app_to_employees_label">My approach to employee learning and development</span>
-                    <strong id="createEditProfile_app_to_employees_error" class="error hidden">
-                        <span id="createEditProfile_app_to_employees_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_app_to_employees" id="createEditProfile_app_to_employees"></textarea>
-            </div>
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_app_to_employees_fr" class="form__label">
-                    <span id="createEditProfile_app_to_employees_fr_label">Approach to employees_fr: *</span>
-                    <strong id="createEditProfile_app_to_employees_fr_error" class="error hidden">
-                        <span id="createEditProfile_app_to_employees_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_app_to_employees_fr" id="createEditProfile_app_to_employees_fr"></textarea>
-            </div>
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_exp_of_employees" class="form__label">
-                    <span id="createEditProfile_exp_of_employees_label">My expectations of employees</span>
-                    <strong id="createEditProfile_exp_of_employees_error" class="error hidden">
-                        <span id="createEditProfile_exp_of_employees_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_exp_of_employees" id="createEditProfile_exp_of_employees"></textarea>
-            </div>
-
-            <div class="box med-1of2">
-                <label for="createEditProfile_exp_of_employees_fr" class="form__label">
-                    <span id="createEditProfile_exp_of_employees_fr_label">Expectation of employees_fr: *</span>
-                    <strong id="createEditProfile_exp_of_employees_fr_error" class="error hidden">
-                        <span id="createEditProfile_exp_of_employees_fr_error_msg" class="label label-danger"></span>
-                    </strong>
-                </label>
-                <textarea class="form__textarea" name="createEditProfile_exp_of_employees_fr" id="createEditProfile_exp_of_employees_fr"></textarea>
-            </div>
-
+        <div class="form__input-wrapper--range">
+        <label class="form__label">How often do you get in early or stay late to get some extra work done?</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
         </div>
 
-    </div>
-
-    <hr class="manager-edit-profile__divider">
-
-    <div class="">
-
-        <h3 class="manager-edit-profile__title heading--03">My Approach to Decision Making</h3>
-
-        <div class="manager-edit-profile__required-copy-wrapper">
-            <span>* = </span>
-            <span>Required</span>
+        <div class="form__input-wrapper--range">
+        <label class="form__label">How often do you engage your team before responding to management?</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
         </div>
 
+        <div class="form__input-wrapper--range">
+        <label class="form__label">How often do you approve development opportunities for your employees?</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
+        </div>
+
+        <div class="form__input-wrapper--range">
+        <label class="form__label">How often do you refuse low value work requests from management?</label>
+        <div class="form__range-wrapper">
+        <span class="form__range-label--start">Never</span>
+        <input class="form__input" type="range" min="1" max="5"></input>
+        <span class="form__range-label--end">Always</span>
+        </div>
+        </div>
+        */
+        ?>
         <div class="flex-grid top manager-edit-profile__form">
 
             <div class="form-group box full">
@@ -240,23 +291,18 @@
                 </div>
             </div>
 
-            &nbsp;
-            <br>
-            &nbsp;
+        </div>
 
+        <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
+            <div class="formGroup box med-1of2">
+                <input id="leadershipStyleCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
+            </div>
+            <div class="formGroup box med-1of2">
+                <input id="leadershipStyleBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
+                <input class="button--yellow" id="leadershipSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateLeadership();">
+            </div>
         </div>
 
     </div>
-
-    <div class="createEditProfileSubmitPane manager-edit-profile__button-form flex-grid">
-        <div class="formGroup box med-1of2">
-            <input id="leadershipStyleCloseButton" type="button" value="Close" onclick="CreateEditProfileAPI.hideViewProfile();" class="button--grey closeProfileButton">
-        </div>
-        <div class="formGroup box med-1of2">
-            <input id="leadershipStyleBackButton" type="button" value="Back" onclick="CreateEditProfileAPI.goToStep('createEditProfile_step1');" class="button--grey">
-            <input class="button--yellow" id="leadershipSaveCreateEditProfileSubmitButton" type="button" value="Save" onclick="CreateEditProfileAPI.validateLeadership();">
-        </div>
-    </div>
-
 </div>
 <?php // END - Edit Admin Profile Form (Page 2 / Leadership Style) ?>

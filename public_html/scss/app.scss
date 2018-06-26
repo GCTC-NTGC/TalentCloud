@@ -34,6 +34,7 @@
 
 /* Molecules ================================================================ */
 @import "molecules/forms";
+@import "molecules/accordions";
 @import "molecules/login";
 @import "molecules/registration";
 @import "molecules/manager-job-posting-form";
@@ -50,7 +51,6 @@
 @import "organisms/job-application";
 @import "organisms/dashboard";
 @import "organisms/tabs-list";
-@import "organisms/unsorted";
 @import "organisms/faq";
 @import "organisms/applicant-landing";
 @import "organisms/browse-jobs";

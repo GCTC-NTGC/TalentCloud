@@ -65,7 +65,7 @@
             $jobPosterId = Utils::getParameterFromRequest($requestParams, 4);
             $userId = Utils::getParameterFromRequest($requestParams, 6);
             
-            //Admins, and the owning applicant have permission to biew
+            //Admins, and the owning applicant have permission to modify
             $userPermissions = [];
             $userPermissions[] = new UserPermission(ROLE_ADMIN);
             $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
@@ -81,8 +81,7 @@
             $jobPosterApplication = new JobPosterApplication();
             //$jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
             $jobPosterApplication->setApplication_job_poster_id($jobPosterId);
-            //TODO: ensure jobSeekerProfile belongs to userId
-            $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
+            $jobPosterApplication->setUser_id($userId);
             $jobPosterApplication->setJob_poster_application_status_id($jsonJobPosterApplication["job_poster_application_status_id"]);
             $jobPosterApplication->setCitizenship_declaration_id($jsonJobPosterApplication["citizenship_declaration_id"]);
             
@@ -113,7 +112,7 @@
                 } else {
                     //Previous application exist, but is not a draft, so cannot be updated
                     header('HTTP/1.0 403 Forbidden');
-                    echo json_encode(array("failed"=>"Only Draft applications can be modified."), JSON_FORCE_OBJECT);
+                    echo json_encode(array("message"=>"Only Draft applications can be modified."), JSON_FORCE_OBJECT);
                     exit;
                 } 
             } else {

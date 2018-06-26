@@ -15,14 +15,14 @@ class JobPosterApplication implements JsonSerializable {
     
     private $job_poster_application_id;
     private $application_job_poster_id;
-    private $application_job_seeker_profile_id;
+    private $user_id;
     private $job_poster_application_status_id;
     private $citizenship_declaration_id;
     
-    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $application_job_seeker_profile_id = null, $job_poster_application_status_id = null, $citizenship_declaration_id = null) {
+    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $user_id = null, $job_poster_application_status_id = null, $citizenship_declaration_id = null) {
         $this->job_poster_application_id = $job_poster_application_id;
         $this->application_job_poster_id = $application_job_poster_id;
-        $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+        $this->user_id = $user_id;
         $this->citizenship_declaration_id = $citizenship_declaration_id;
         $this->job_poster_application_status_id = $job_poster_application_status_id;
     }
@@ -46,8 +46,8 @@ class JobPosterApplication implements JsonSerializable {
         return $this->application_job_poster_id;
     }
 
-    public function getApplication_job_seeker_profile_id() {
-        return $this->application_job_seeker_profile_id;
+    public function getUser_id() {
+        return $this->user_id;
     }
 
     public function getJob_poster_application_status_id() {
@@ -68,8 +68,8 @@ class JobPosterApplication implements JsonSerializable {
         return $this;
     }
 
-    public function setApplication_job_seeker_profile_id($application_job_seeker_profile_id) {
-        $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+    public function setUser_id($user_id) {
+        $this->user_id = $user_id;
         return $this;
     }
 
@@ -82,7 +82,4 @@ class JobPosterApplication implements JsonSerializable {
         $this->citizenship_declaration_id = $citizenship_declaration_id;
         return $this;
     }
-    
 }
-
-?>

@@ -23,17 +23,15 @@ class DashboardDAO extends BaseDAO {
         
         $sqlStr = "
             SELECT 
-                ujsp.user_id,
+                jpa.user_id,
                 jpd.job_poster_id, 
                 jpd.job_poster_title,
                 jpmuid.user_id as manager_user_id,
+                jpa.job_poster_application_id,
                 asd.application_status, 
                 jp.job_poster_close_date_time,
                 dd.department_details_name
             FROM 
-                user_job_seeker_profiles ujsp, 
-                user u, 
-                job_seeker_profile jsp, 
                 job_poster_application jpa,
                 application_status aps,
                 application_status_details asd,
@@ -43,11 +41,8 @@ class DashboardDAO extends BaseDAO {
                 locale l,
                 department d,
                 department_details dd
-            WHERE ujsp.user_id = :user_id
+            WHERE jpa.user_id = :user_id
             AND l.locale_iso = :locale_iso
-            AND ujsp.user_id = u.user_id
-            AND jsp.job_seeker_profile_id = ujsp.job_seeker_profile_id
-            AND jpa.application_job_seeker_profile_id = ujsp.job_seeker_profile_id
             AND jpa.job_poster_application_status_id = aps.application_status_id
             AND jp.job_poster_id = jpa.application_job_poster_id
             AND jpd.job_poster_id = jp.job_poster_id
@@ -57,7 +52,7 @@ class DashboardDAO extends BaseDAO {
             AND jp.job_poster_department_id = d.department_id
             AND dd.department_id = d.department_id
             AND dd.department_details_locale_id = l.locale_id
-            AND jpmuid.job_poster_id = jpd.job_poster_id;";
+            AND jpmuid.job_poster_id = jp.job_poster_id;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);

@@ -24,15 +24,20 @@ EvidenceAPI.instantiateApplicationEvidenceMenuItem = function (criteriaId, crite
     menuItem.classList.remove("template");
 
     var triggerName = EvidenceAPI.evidenceTriggerName(criteriaId, criteriaType);
+
     var menuItemId = EvidenceAPI.menuItemId(criteriaId, criteriaType);
+
     menuItem.id = menuItemId;
-    menuItem.setAttribute("data-evidence-trigger", triggerName);
+
+    menuItem.setAttribute("onclick", "EvidenceAPI.scrollToThisSkill(event, this)");
 
     //Set data attributes
+    menuItem.setAttribute("data-evidence-trigger", triggerName);
     menuItem.setAttribute("data-criteria-type", criteriaType);
     menuItem.setAttribute("data-criteria-id", criteriaId);
 
     var title = menuItem.querySelector(".applicant-evidence__desktop-item-title");
+
     title.innerHTML = criteriaName;
 
     return menuItem;
@@ -72,13 +77,16 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.setAttribute("data-criteria-id", criteriaId);
 
     //SET SKILL TITLE AND DESCRIPTION
-    evidencePanel.querySelector(".applicant-evidence__accordion-trigger-title-text").innerHTML = criteriaName;
+    evidencePanel.querySelector(".applicant-evidence__skill-title").innerHTML = criteriaName;
     if (criteriaDescription) {
         evidencePanel.querySelector(".applicant-evidence__skill-description").innerHTML = criteriaDescription;
     }
 
     //MODIFY IDs FOR UNIQUENESS
     var idSuffix = "_" + triggerName;
+
+    //SKILL DELCARATION IDS
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceDeclarationText", idSuffix);
 
     // MICRO-REFERENCE IDs
     Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceName", idSuffix);
@@ -140,11 +148,31 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     LookupAPI.populateDropdownElement("relationship", relationshipSelect, true);
     var refExperienceLevel = evidencePanel.querySelector("#applicationEvidenceReferenceExpLevel" + idSuffix);
     LookupAPI.populateDropdownElement("experience_level", refExperienceLevel, true);
-    
+
     var sampleFileTypeSelect = evidencePanel.querySelector("select[name=\"sample_type\"]");
     LookupAPI.populateDropdownElement("file_type", sampleFileTypeSelect, true);
 
     //ADD EVENT HANDLERS
+
+    //adding save button handlers
+    var saveDeclarationBtn = evidencePanel.querySelector("." +SkillDeclarationAPI.wrapperClass + " .applicant-evidence__save-button");
+    saveDeclarationBtn.addEventListener("click", function declarationSaveListener() {
+        SkillDeclarationAPI.saveSingleSkillDeclaration(criteriaId, function onDeclarationSaveSuccess() {
+            EvidenceAPI.setUiSaved(criteriaId, SkillDeclarationAPI, true);
+        }, null);
+    });
+    var saveReferenceBtn = evidencePanel.querySelector("." + MicroReferenceAPI.wrapperClass + " .applicant-evidence__save-button");
+    saveReferenceBtn.addEventListener("click", function referenceSaveListener() {
+        MicroReferenceAPI.saveSingleMicroReference(criteriaId, function onReferenceSaveSuccess() {
+            EvidenceAPI.setUiSaved(criteriaId, MicroReferenceAPI, true);
+        }, null);
+    });
+    var saveSampleBtn = evidencePanel.querySelector("." + SkillSampleAPI.wrapperClass + " .applicant-evidence__save-button");
+    saveSampleBtn.addEventListener("click", function sampleSaveListener() {
+        SkillSampleAPI.saveSingleSkillSample(criteriaId, function onSampleSaveSuccess() {
+            EvidenceAPI.setUiSaved(criteriaId, SkillSampleAPI, true);
+        }, null);
+    });
 
     //define a function to check skill declaration status
     function declarationOnChange() {
@@ -187,13 +215,13 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     evidencePanel.querySelector("input[name=\"sample_date_created\"]").onchange = sampleOnChange;
     evidencePanel.querySelector("input[name=\"sample_http_link\"]").onchange = sampleOnChange;
     evidencePanel.querySelector("textarea[name=\"sample_story\"]").onchange = sampleOnChange;
-    
-    
+
+
     //SET TEXTAREA FIELDS TO EMPTY
     //This is to override IE11's habit of setting textarea values with their placeholder text
     evidencePanel.querySelector(".applicant-evidence__skill-declaration-text").value = "";
     evidencePanel.querySelector("textarea[name=\"reference_story\"]").value = "";
-    evidencePanel.querySelector("textarea[name=\"sample_story\"]").value = "";    
+    evidencePanel.querySelector("textarea[name=\"sample_story\"]").value = "";
 
     return evidencePanel;
 };
@@ -214,7 +242,7 @@ EvidenceAPI.instantiateApplicationPreviewEvidencePanel = function (criteriaId, c
 
     //SET SKILL TITLE
     evidencePanel.querySelector(".applicant-evidence-preview__criteria-name").innerHTML = criteriaName;
-    
+
     return evidencePanel;
 };
 
@@ -250,53 +278,6 @@ EvidenceAPI.instantiateApplicationEvidenceRadioItem = function (templateId, inpu
 };
 
 /**
- * Sets first evidence specified criteria to active. All other evidence
- * panels with matching criteriaType will be set to inactive.
- *
- * @param {string} criteriaType
- * @return {undefined}
- */
-EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
-
-    //Deactivate all panels of same criteriaType, except one with correct criteria id
-    var menuItems = document.querySelectorAll(".applicant-evidence__desktop-menu-item[data-criteria-type=\"" + criteriaType + "\"]");
-    var panels = document.querySelectorAll(".applicant-evidence__accordion-wrapper[data-criteria-type=\"" + criteriaType + "\"]");
-
-    for (var i=0; i<menuItems.length; i++) {
-        var item = menuItems[i];
-        if (i === 0) {
-            //Set first one to active
-            item.classList.add("active");
-            item.setAttribute("aria-selected", true);
-        } else {
-            //Deactivate others
-            item.classList.remove("active");
-            item.setAttribute("aria-selected", false);
-        }
-    }
-
-    for (var i=0; i<panels.length; i++) {
-        var panel = panels[i];
-        var panelTrigger = panel.querySelector(".applicant-evidence__accordion-trigger");
-        var panelContent = panel.querySelector(".applicant-evidence__accordion-content");
-
-        if (i === 0) {
-            //Set first panel active
-            panel.classList.add("active");
-            panelTrigger.classList.add("active");
-            panelTrigger.setAttribute("aria-expanded", true);
-            panelContent.classList.add("active");
-        } else {
-            //Deactivate others
-            panel.classList.remove("active");
-            panelTrigger.classList.remove("active");
-            panelTrigger.setAttribute("aria-expanded", false);
-            panelContent.classList.remove("active");
-        }
-    }
-};
-
-/**
  *
  * @param {int} criteriaId
  * @param {string} iconClass - Should be "fa-check", "fa-user", or "fa-file"
@@ -304,7 +285,7 @@ EvidenceAPI.activateFirstEvidencePanel = function (criteriaType) {
  * @return {undefined}
  */
 EvidenceAPI.setEvidenceIconStatus = function(criteriaId, iconClass, isActive) {
-    var panel = document.querySelector(".applicant-evidence__accordion-wrapper[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+    var panel = document.querySelector(".applicant-evidence__skill[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
     if (isActive) {
         //Activate icon in accordion trigger
         var check = panel.querySelector(".applicant-evidence__accordion-trigger-icon-wrapper ." + iconClass);
@@ -371,3 +352,169 @@ EvidenceAPI.saveEvidence = function(criteriaType, onSuccess) {
     MicroReferenceAPI.saveMicroReferences(criteriaType, saveSuccessful, saveFailed);
     SkillSampleAPI.saveSkillSamples(criteriaType, saveSuccessful, saveFailed);
 };
+
+// New Evidence UI Handlers ====================================================
+
+    // Scroll to Skills
+
+        EvidenceAPI.scrollToSkills = function(e, button) {
+
+            e.preventDefault();
+
+            var skills = button.parentElement.parentElement.parentElement.querySelector(".applicant-evidence__anchor");
+
+            var xPosition = 0;
+            var yPosition = 0;
+
+            while(skills) {
+                xPosition += (skills.offsetLeft - skills.scrollLeft + skills.clientLeft);
+                yPosition += (skills.offsetTop - skills.scrollTop + skills.clientTop);
+                skills = skills.offsetParent;
+            }
+
+            window.scroll(0, yPosition);
+
+        }
+
+    // Scroll to Individual Skill
+
+        EvidenceAPI.scrollToThisSkill = function(e, button) {
+
+            e.preventDefault();
+
+            var skillID = button.getAttribute("data-evidence-trigger");
+
+            var skills = document.querySelectorAll(".applicant-evidence__skill");
+
+            for (var i=0; i<skills.length; i++) {
+
+                if (skills[i].getAttribute("data-evidence-target") == skillID) {
+                    var thisSkill = skills[i];
+                }
+
+            }
+
+            var xPosition = 0;
+            var yPosition = 0;
+
+            while(thisSkill) {
+                xPosition += (thisSkill.offsetLeft - thisSkill.scrollLeft + thisSkill.clientLeft);
+                yPosition += (thisSkill.offsetTop - thisSkill.scrollTop + thisSkill.clientTop);
+                thisSkill = thisSkill.offsetParent;
+            }
+
+            var location = yPosition - 40;
+
+            // console.log(location);
+
+            window.scroll(0, location);
+
+        }
+
+    // Micro References
+
+        EvidenceAPI.addMicroReference = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
+
+            panel.querySelector(".applicant-evidence__skill-attribute--reference").classList.add("active");
+
+            panel.querySelector(".applicant-evidence__skill-attribute--reference").querySelector(".accordion__trigger").focus();
+
+            panel.querySelector(".applicant-evidence__optional-button--reference").classList.add("hidden");
+        };
+
+        EvidenceAPI.removeMicroReference = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
+            panel.querySelector(".applicant-evidence__skill-attribute--reference").classList.remove("active");
+
+            panel.querySelector(".applicant-evidence__optional-button--reference").classList.remove("hidden");
+            
+            var criteriaId = panel.getAttribute("data-criteria-id");
+            MicroReferenceAPI.deleteMicroReference(criteriaId);
+        };
+
+    // Work Sample
+
+        EvidenceAPI.addWorkSample = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
+
+            panel.querySelector(".applicant-evidence__skill-attribute--sample").classList.add("active");
+
+            panel.querySelector(".applicant-evidence__skill-attribute--sample").querySelector(".accordion__trigger").focus();
+
+            panel.querySelector(".applicant-evidence__optional-button--sample").classList.add("hidden");
+
+        };
+
+        EvidenceAPI.removeWorkSample = function(button) {
+            var panel = button.closest(".applicant-evidence__skill");
+
+            panel.querySelector(".applicant-evidence__skill-attribute--sample").classList.remove("active");
+
+            panel.querySelector(".applicant-evidence__optional-button--sample").classList.remove("hidden");
+
+            var criteriaId = panel.getAttribute("data-criteria-id");
+            SkillSampleAPI.deleteSkillSample(criteriaId);
+        };
+
+    // Saving
+
+    EvidenceAPI.setUiSaved = function(criteriaId, subEvidenceAPI, isSaved) {
+        var panel = document.querySelector(".applicant-evidence__skill[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+        var evidenceItem = panel.querySelector("." + subEvidenceAPI.wrapperClass);
+        var saveButton = evidenceItem.querySelector(".applicant-evidence__save-button");
+        if (isSaved) {
+            //EvidenceAPI.setUiComplete(criteriaId, subEvidenceAPI, true);
+            saveButton.classList.add("button-green");
+            saveButton.classList.remove("button-blue");
+            saveButton.innerHTML = "Saved";
+        } else {
+            saveButton.classList.remove("button-green");
+            saveButton.classList.add("button-blue");
+            saveButton.innerHTML = "Save";
+        }
+    };
+
+    EvidenceAPI.setUiComplete = function(criteriaId, subEvidenceAPI, isComplete) {
+        var panel = document.querySelector(".applicant-evidence__skill[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+        var evidenceItem = panel.querySelector("." + subEvidenceAPI.wrapperClass);
+        var accordionTrigger = evidenceItem.querySelector(".accordion__trigger");
+        var menuItem = document.querySelector(".applicant-evidence__desktop-menu-item[data-criteria-id=\"" + criteriaId + "\"]:not(.template)");
+        if (isComplete) {
+            accordionTrigger.classList.add("complete");
+            if (subEvidenceAPI === SkillDeclarationAPI) {
+                //Skill Declaration completeness determines whole section completeness
+                menuItem.classList.add("complete");
+            }
+        } else {
+            accordionTrigger.classList.remove("complete");
+            if (subEvidenceAPI === SkillDeclarationAPI) {
+                //Skill Declaration completeness determines whole section completeness
+                menuItem.classList.remove("complete");
+            }
+        }
+    };
+    
+    EvidenceAPI.onStatusUpdate = function() {
+        var essentialsComplete = true;
+        var essentialEvidencePanels = document.querySelectorAll(".applicant-evidence__skill[data-criteria-type=\"essential\"]:not(.template)");
+        for (var i = 0; i < essentialEvidencePanels.length; i++) {
+            var panel = essentialEvidencePanels[i];
+            var requiredAccordion = panel.querySelector(".applicant-evidence__skill-attribute--required .accordion__trigger");
+            if (!requiredAccordion.classList.contains("complete")) {
+                essentialsComplete = false;
+                break;
+            }
+        }
+        if (essentialsComplete) {
+            var continueBtns = document.querySelectorAll(".applicant-evidence__save-and-continue--essential");
+            for (var i = 0; i < continueBtns.length; i++) {
+                continueBtns[i].removeAttribute("disabled");
+            }
+        } else {
+            var continueBtns = document.querySelectorAll(".applicant-evidence__save-and-continue--essential");
+            for (var i = 0; i < continueBtns.length; i++) {
+                continueBtns[i].setAttribute("disabled", "");
+            }
+        }
+    };
