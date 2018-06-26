@@ -6232,6 +6232,7 @@ nav {
     display: block; }
 
 .applicant-evidence__skill-description {
+  display: none;
   font-size: 16px;
   line-height: 1.3;
   margin: 2rem 0; }
