@@ -50,29 +50,37 @@ class JobPosterApplication implements JsonSerializable {
         return $this->application_job_seeker_profile_id;
     }
 
-    public function setJob_poster_application_id($job_poster_application_id) {
-        $this->job_poster_application_id = $job_poster_application_id;
-    }
-
-    public function setApplication_job_poster_id($application_job_poster_id) {
-        $this->application_job_poster_id = $application_job_poster_id;
-    }
-
     public function getJob_poster_application_status_id() {
         return $this->job_poster_application_status_id;
-    }
-    
-
-    public function setJob_poster_application_status_id($job_poster_application_status_id) {
-        $this->job_poster_application_status_id = $job_poster_application_status_id;
     }
 
     public function getCitizenship_declaration_id() {
         return $this->citizenship_declaration_id;
     }
-    
+
+    public function setJob_poster_application_id($job_poster_application_id) {
+        $this->job_poster_application_id = $job_poster_application_id;
+        return $this;
+    }
+
+    public function setApplication_job_poster_id($application_job_poster_id) {
+        $this->application_job_poster_id = $application_job_poster_id;
+        return $this;
+    }
+
+    public function setApplication_job_seeker_profile_id($application_job_seeker_profile_id) {
+        $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+        return $this;
+    }
+
+    public function setJob_poster_application_status_id($job_poster_application_status_id) {
+        $this->job_poster_application_status_id = $job_poster_application_status_id;
+        return $this;
+    }
+
     public function setCitizenship_declaration_id($citizenship_declaration_id) {
         $this->citizenship_declaration_id = $citizenship_declaration_id;
+        return $this;
     }
     
 }
