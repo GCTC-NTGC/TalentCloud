@@ -1017,7 +1017,7 @@ CreateEditProfileAPI.populateProfile = function (response) {
         user_manager_profile_work_experience.value = "";
     }
 
-    document.getElementById("user_manager_profile_work_experience_fr").value = updated_manager_profile_details_fr.user_manager_profile_work_experience;
+    document.getElementById("user_manager_profile_work_experience_fr").value = manager_profile_details_fr.user_manager_profile_work_experience;
     if (manager_profile_details_fr.user_manager_profile_work_experience) {
         document.getElementById("user_manager_profile_work_experience_fr").parentElement.classList.add("active");
         document.getElementById("user_manager_profile_work_experience_fr").parentElement.classList.add("valid");
@@ -1035,7 +1035,6 @@ CreateEditProfileAPI.populateProfile = function (response) {
 
     document.getElementById("user_manager_profile_education_fr").value = manager_profile_details_fr.user_manager_profile_education;
     if (manager_profile_details_fr.user_manager_profile_education) {
-        user_manager_profile_education_fr.value = manager_profile_details_fr.user_manager_profile_education;
         document.getElementById("user_manager_profile_education_fr").parentElement.classList.add("active");
         document.getElementById("user_manager_profile_education_fr").parentElement.classList.add("valid");
     } else {
