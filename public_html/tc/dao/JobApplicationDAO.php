@@ -71,7 +71,8 @@ class JobApplicationDAO extends BaseDAO {
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
             jpa.application_job_seeker_profile_id,
-            jpa.job_poster_application_status_id
+            jpa.job_poster_application_status_id,
+            jpa.citizenship_declaration_id
         FROM job_poster_application jpa
         WHERE
         jpa.job_poster_application_id = :job_poster_application_id
@@ -108,7 +109,8 @@ class JobApplicationDAO extends BaseDAO {
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
             jpa.application_job_seeker_profile_id,
-            jpa.job_poster_application_status_id
+            jpa.job_poster_application_status_id,
+            jpa.citizenship_declaration_id
         FROM job_poster_application jpa, user_job_seeker_profiles u_jsp
         WHERE
         jpa.application_job_poster_id = :job_poster_id
@@ -151,7 +153,8 @@ class JobApplicationDAO extends BaseDAO {
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
             jpa.application_job_seeker_profile_id,
-            jpa.job_poster_application_status_id
+            jpa.job_poster_application_status_id,
+            jpa.citizenship_declaration_id
         FROM job_poster_application jpa
         WHERE
         jpa.application_job_poster_id = :job_poster_id
@@ -197,7 +200,8 @@ class JobApplicationDAO extends BaseDAO {
             jpa.job_poster_application_id,
             jpa.application_job_poster_id,
             jpa.application_job_seeker_profile_id,
-            jpa.job_poster_application_status_id
+            jpa.job_poster_application_status_id,
+            jpa.citizenship_declaration_id
         FROM job_poster_application jpa
         WHERE
         jpa.application_job_seeker_profile_id = :job_seeker_profile_id
@@ -231,15 +235,16 @@ class JobApplicationDAO extends BaseDAO {
         $link = BaseDAO::getConnection();
         
         $sqlStr = "INSERT INTO job_poster_application
-            (application_job_poster_id, application_job_seeker_profile_id, job_poster_application_status_id)
+            (application_job_poster_id, application_job_seeker_profile_id, job_poster_application_status_id,citizenship_declaration_id)
             VALUES
-            (:job_poster_id, :job_seeker_profile_id, :job_poster_application_status_id)       
+            (:job_poster_id, :job_seeker_profile_id, :job_poster_application_status_id, :citizenship_declaration_id)       
         ;";
         
         $sql = $link->prepare($sqlStr);
         $sql->bindValue(':job_poster_id', $jobPosterApplication->getApplication_job_poster_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_seeker_profile_id', $jobPosterApplication->getApplication_job_seeker_profile_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_status_id', $jobPosterApplication->getJob_poster_application_status_id(), PDO::PARAM_INT);
+        $sql->bindValue(':citizenship_declaration_id', $jobPosterApplication->getCitizenship_declaration_id(), PDO::PARAM_INT);
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
@@ -266,7 +271,8 @@ class JobApplicationDAO extends BaseDAO {
         $sqlStr = "UPDATE job_poster_application SET 
             application_job_poster_id = :job_poster_id, 
             application_job_seeker_profile_id = :job_seeker_profile_id,
-            job_poster_application_status_id = :job_poster_application_status_id
+            job_poster_application_status_id = :job_poster_application_status_id,
+            citizenship_declaration_id = :citizenship_declaration_id
             WHERE
             job_poster_application_id = :job_poster_application_id;";
         $sql = $link->prepare($sqlStr);
@@ -274,6 +280,7 @@ class JobApplicationDAO extends BaseDAO {
         $sql->bindValue(':job_seeker_profile_id', $jobPosterApplication->getApplication_job_seeker_profile_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_status_id', $jobPosterApplication->getJob_poster_application_status_id(), PDO::PARAM_INT);
         $sql->bindValue(':job_poster_application_id', $jobPosterApplication->getJob_poster_application_id(), PDO::PARAM_INT);
+        $sql->bindValue(':citizenship_declaration_id', $jobPosterApplication->getCitizenship_declaration_id(), PDO::PARAM_INT);
         
         try {
             $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));

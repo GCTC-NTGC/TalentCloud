@@ -84,6 +84,7 @@
             //TODO: ensure jobSeekerProfile belongs to userId
             $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
             $jobPosterApplication->setJob_poster_application_status_id($jsonJobPosterApplication["job_poster_application_status_id"]);
+            $jobPosterApplication->setCitizenship_declaration_id($jsonJobPosterApplication["citizenship_declaration_id"]);
             
             $questionAnswers = [];
             foreach ($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {

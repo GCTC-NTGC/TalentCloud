@@ -17,11 +17,13 @@ class JobPosterApplication implements JsonSerializable {
     private $application_job_poster_id;
     private $application_job_seeker_profile_id;
     private $job_poster_application_status_id;
+    private $citizenship_declaration_id;
     
-    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $application_job_seeker_profile_id = null, $job_poster_application_status_id = null) {
+    public function __construct($job_poster_application_id = null, $application_job_poster_id = null, $application_job_seeker_profile_id = null, $job_poster_application_status_id = null, $citizenship_declaration_id = null) {
         $this->job_poster_application_id = $job_poster_application_id;
         $this->application_job_poster_id = $application_job_poster_id;
         $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
+        $this->citizenship_declaration_id = $citizenship_declaration_id;
         $this->job_poster_application_status_id = $job_poster_application_status_id;
     }
 
@@ -56,19 +58,22 @@ class JobPosterApplication implements JsonSerializable {
         $this->application_job_poster_id = $application_job_poster_id;
     }
 
-    public function setApplication_job_seeker_profile_id($application_job_seeker_profile_id) {
-        $this->application_job_seeker_profile_id = $application_job_seeker_profile_id;
-    }
-
     public function getJob_poster_application_status_id() {
         return $this->job_poster_application_status_id;
     }
+    
 
     public function setJob_poster_application_status_id($job_poster_application_status_id) {
         $this->job_poster_application_status_id = $job_poster_application_status_id;
     }
 
-
+    public function getCitizenship_declaration_id() {
+        return $this->citizenship_declaration_id;
+    }
+    
+    public function setCitizenship_declaration_id($citizenship_declaration_id) {
+        $this->citizenship_declaration_id = $citizenship_declaration_id;
+    }
     
 }
 

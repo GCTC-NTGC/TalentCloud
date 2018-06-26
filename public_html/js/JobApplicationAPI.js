@@ -22,13 +22,14 @@ JobApplicationAPI.JobApplication = function (
         jobPosterId,
         jobSeekerProfileId,
         jobApplicationStatusId,
+        citizenshipDeclarationId,
         applicationQuestionAnswers) {
     this.job_poster_application = {};
     this.job_poster_application.job_poster_application_id = jobApplicationId;
     this.job_poster_application.application_job_poster_id = jobPosterId;
     this.job_poster_application.application_job_seeker_profile_id = jobSeekerProfileId;
     this.job_poster_application.job_poster_application_status_id = jobApplicationStatusId;
-
+    this.job_poster_application.citizenship_declaration_id = citizenshipDeclarationId;
     this.application_question_answers = applicationQuestionAnswers;
 };
 
