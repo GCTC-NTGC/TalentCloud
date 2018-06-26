@@ -132,7 +132,7 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
     var completeWorkSamples = workSamples.filter(item => item.isComplete());   
     SkillSampleAPI.populateApplicationPreviewUiSkillSamples(completeWorkSamples);
 
-    if (jobPosterApplication.job_poster_application_status_id != 1) {
+    if (parseInt(jobPosterApplication.job_poster_application_status_id) != 1) {
         //can't submit if not in draft status
         var submissionSection = document.getElementById("applicationPreviewSubmissionSection");
         submissionSection.classList.add("hidden");

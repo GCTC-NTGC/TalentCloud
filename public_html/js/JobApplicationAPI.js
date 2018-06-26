@@ -411,7 +411,7 @@ JobApplicationAPI.submitJobApplication = function (jobPosterId) {
                     //TODO: validate fullJobApplication
 
                     //TODO: validate that application is still in draft status.
-                    if (fullJobApplication.job_poster_application.job_poster_application_status_id === 1) {
+                    if (parseInt(fullJobApplication.job_poster_application.job_poster_application_status_id) === 1) {
                         DataAPI.submitJobApplication(fullJobApplication.job_poster_application.job_poster_application_id, function (request) {
                             if (request.status === 200) {
                                 var jobTitle = document.getElementById('jobApplicationPostition').innerHTML;
