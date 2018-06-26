@@ -3,6 +3,8 @@
     Form Styles
 ============================================================================= */
 
+.update-profile__applicant-profile-form {
+
 /* LEGACY CODE ============================================================== */
 
 #loginForm,#registerForm{
@@ -42,121 +44,127 @@ form label{
 input[type=text],input[type=password],select{
     padding:0.5em;
 }
-input[type=button],input[type=submit],input[type=reset]{
-    padding:0.25em;
-    height: 30px;
-}
 
 /* ============================================================================= */
 
-// .form__wrapper {
+.form__wrapper {
 
-//     >*:last-child,
-//     >.box:last-child >*:last-child {
-//         margin-bottom: 0;
-//     }
+    >*:last-child,
+    >.box:last-child >*:last-child {
+        margin-bottom: 0;
+    }
 
-// }
+}
 
-// .form__label {
-//     display: block;
-//     font-size: 1.2rem;
-//     //font-weight: 700;
-//     line-height: 1;
-//     margin: 1rem 0;
-// }
+.form__label {
+    display: block;
+    font-size: 1.2rem;
+    //font-weight: 700;
+    line-height: 1;
+    margin: 1rem 0;
 
-// input[type=text][class*="form__input--"],
-// input[type=email][class*="form__input--"],
-// input[type=password][class*="form__input--"],
-// input[type=date][class*="form__input--"],
-// input[type=url][class*="form__input--"] {
-//     background: lighten($palette-grey--light, 10%);
-//     border: none;
-//     color: $black !important;
-//     display: block;
-//     font-family: $font-hk;
-//     font-size: 16px;
-//     font-weight: 400;
-//     line-height: 1.2;
-//     margin: 0 0 2rem 0;
-//     padding: 1rem 2rem 1rem 1rem;
-//     width: 100%;
+    img {
+        display: inline-block;
+        margin: -.2rem .5rem 0 0;
+        width: 1.2rem;
+        vertical-align: middle;
+    }
 
-//     &[class*="text"] {
+}
 
-//     }
+input[type=text][class*="form__input--"],
+input[type=email][class*="form__input--"],
+input[type=password][class*="form__input--"],
+input[type=date][class*="form__input--"],
+input[type=url][class*="form__input--"] {
+    background: lighten($palette-grey--light, 10%);
+    border: none;
+    color: $black !important;
+    display: block;
+    font-family: $font-hk;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 0 2rem 0;
+    padding: 1rem 2rem 1rem 1rem;
+    width: 100%;
 
-// }
+    &[class*="text"] {
 
-// .form__select-wrapper {
-//     display: block;
-//     margin: 0 0 2rem 0;
-//     position: relative;
-//     width: 100%;
+    }
 
-//     &:before {
-//         @include fontawesome();
-//         content: "\f078";
-//         display: block;
-//         position: absolute;
-//         top: 50%;
-//         right: 1.5rem;
-//         transform: translate(0, -50%);
-//     }
+}
 
-// }
+.form__select-wrapper {
+    display: block;
+    margin: 0 0 2rem 0;
+    position: relative;
+    width: 100%;
 
-// .form__select {
-//     appearance: none;
-//     background: lighten($palette-grey--light, 10%);
-//     border: none;
-//     color: $black;
-//     display: block;
-//     font-size: 1.5rem;
-//     line-height: 1.2;
-//     padding: 1rem 2rem 1rem 1rem;
-//     width: 100%;
+    &:before {
+        @include fontawesome();
+        content: "\f078";
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 1.5rem;
+        transform: translate(0, -50%);
+    }
 
-//     &:focus {
-//         border: 1px solid $palette-blue;
-//     }
+}
 
-// }
+.form__select {
+    appearance: none;
+    background: lighten($palette-grey--light, 10%);
+    border: none;
+    color: $black;
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    padding: 1rem 2rem 1rem 1rem;
+    width: 100%;
 
-// .form__textarea {
-//     background: lighten($palette-grey--light, 10%);
-//     border: none;
-//     color: $black;
-//     display: block;
-//     font-size: 16px;
-//     line-height: 1.5;
-//     margin: 0 0 2rem 0;
-//     min-height: 15rem;
-//     padding: 1rem;
-//     width: 100%;
+    &:focus {
+        border: 1px solid $palette-blue;
+    }
 
-//     &:focus {
-//         border: 1px solid $palette-blue;
-//     }
+}
 
-// }
+.form__textarea {
+    background: lighten($palette-grey--light, 10%);
+    border: none;
+    color: $black;
+    display: block;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 2rem 0;
+    min-height: 15rem;
+    padding: 1rem;
+    width: 100%;
 
-// .form__upload-label {
-//     position: relative;
+    &:focus {
+        border: 1px solid $palette-blue;
+    }
 
-//     &:focus {
-//         color: white;
-//         background: $palette-grey--dark;
-//         border: 1px solid $palette-yellow--dark;
-//     }
+}
 
-// }
+.form__upload-label {
+    position: relative;
 
-// .form__upload-button {
-//     position: absolute;
-//     left: -1000vh;
-// }
+    &:focus {
+        color: white;
+        background: $palette-grey--dark;
+        border: 1px solid $palette-yellow--dark;
+    }
+
+}
+
+.form__upload-button {
+    position: absolute;
+    left: -1000vh;
+}
+
+}
 
 /* New Forms ================================================================ */
 .form__wrapper {

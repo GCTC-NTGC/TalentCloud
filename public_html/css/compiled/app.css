@@ -4549,42 +4549,114 @@ input[type="button"][class*="button--"] {
     Authored by: Talent Cloud
     Form Styles
 ============================================================================= */
-/* LEGACY CODE ============================================================== */
-#loginErrors {
-  white-space: pre-wrap; }
+.update-profile__applicant-profile-form {
+  /* LEGACY CODE ============================================================== */
+  /* FORMS */
+  /* ============================================================================= */ }
+  .update-profile__applicant-profile-form #loginErrors {
+    white-space: pre-wrap; }
+  .update-profile__applicant-profile-form .form-group {
+    color: #555; }
+  .update-profile__applicant-profile-form .form-control {
+    color: #555;
+    background-color: #EAEAEA;
+    background-image: none;
+    border: none;
+    border-radius: 0; }
+  .update-profile__applicant-profile-form .form-control:focus {
+    border: 1px solid #999;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
+  .update-profile__applicant-profile-form .form-textbox {
+    width: 95%; }
+  .update-profile__applicant-profile-form form label {
+    font-size: 16px;
+    line-height: 20px; }
+  .update-profile__applicant-profile-form input[type=text], .update-profile__applicant-profile-form input[type=password], .update-profile__applicant-profile-form select {
+    padding: 0.5em; }
+  .update-profile__applicant-profile-form .form__wrapper > *:last-child,
+  .update-profile__applicant-profile-form .form__wrapper > .box:last-child > *:last-child {
+    margin-bottom: 0; }
+  .update-profile__applicant-profile-form .form__label {
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1;
+    margin: 1rem 0; }
+    .update-profile__applicant-profile-form .form__label img {
+      display: inline-block;
+      margin: -.2rem .5rem 0 0;
+      width: 1.2rem;
+      vertical-align: middle; }
+  .update-profile__applicant-profile-form input[type=text][class*="form__input--"],
+  .update-profile__applicant-profile-form input[type=email][class*="form__input--"],
+  .update-profile__applicant-profile-form input[type=password][class*="form__input--"],
+  .update-profile__applicant-profile-form input[type=date][class*="form__input--"],
+  .update-profile__applicant-profile-form input[type=url][class*="form__input--"] {
+    background: #e2e2e2;
+    border: none;
+    color: #333333 !important;
+    display: block;
+    font-family: HKGrotesk, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 0 2rem 0;
+    padding: 1rem 2rem 1rem 1rem;
+    width: 100%; }
+  .update-profile__applicant-profile-form .form__select-wrapper {
+    display: block;
+    margin: 0 0 2rem 0;
+    position: relative;
+    width: 100%; }
+    .update-profile__applicant-profile-form .form__select-wrapper:before {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "\f078";
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 1.5rem;
+      transform: translate(0, -50%); }
+  .update-profile__applicant-profile-form .form__select {
+    appearance: none;
+    background: #e2e2e2;
+    border: none;
+    color: #333333;
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    padding: 1rem 2rem 1rem 1rem;
+    width: 100%; }
+    .update-profile__applicant-profile-form .form__select:focus {
+      border: 1px solid #2196f3; }
+  .update-profile__applicant-profile-form .form__textarea {
+    background: #e2e2e2;
+    border: none;
+    color: #333333;
+    display: block;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 2rem 0;
+    min-height: 15rem;
+    padding: 1rem;
+    width: 100%; }
+    .update-profile__applicant-profile-form .form__textarea:focus {
+      border: 1px solid #2196f3; }
+  .update-profile__applicant-profile-form .form__upload-label {
+    position: relative; }
+    .update-profile__applicant-profile-form .form__upload-label:focus {
+      color: white;
+      background: #484848;
+      border: 1px solid #ffd200; }
+  .update-profile__applicant-profile-form .form__upload-button {
+    position: absolute;
+    left: -1000vh; }
 
-/* FORMS */
-.form-group {
-  color: #555; }
-
-.form-control {
-  color: #555;
-  background-color: #EAEAEA;
-  background-image: none;
-  border: none;
-  border-radius: 0; }
-
-.form-control:focus {
-  border: 1px solid #999;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(153, 153, 153, 0.6); }
-
-.form-textbox {
-  width: 95%; }
-
-form label {
-  font-size: 16px;
-  line-height: 20px; }
-
-input[type=text], input[type=password], select {
-  padding: 0.5em; }
-
-input[type=button], input[type=submit], input[type=reset] {
-  padding: 0.25em;
-  height: 30px; }
-
-/* ============================================================================= */
 /* New Forms ================================================================ */
 .form__wrapper {
   display: block;
