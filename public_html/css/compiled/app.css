@@ -4108,8 +4108,8 @@ input[type="button"][class*="button--"] {
       background: #125184; }
   [class*="button--"][class*="green"],
   input[type="button"][class*="button--"][class*="green"] {
-    background: #3bb519;
-    border: 2px solid #3bb519 !important;
+    background: #287d11;
+    border: 2px solid #287d11 !important;
     color: white; }
     [class*="button--"][class*="green"]:hover,
     input[type="button"][class*="button--"][class*="green"]:hover {
@@ -4882,7 +4882,7 @@ input[type=button], input[type=submit], input[type=reset] {
   .form__radio-group-input:focus + .form__radio-group-span {
     border-color: #2196f3; }
   .form__radio-group-input:checked + .form__radio-group-span {
-    background: #3bb519;
+    background: #287d11;
     color: white; }
 
 .form__radio-group-span {
@@ -6017,7 +6017,7 @@ nav {
 
 /* Desktop Menu ============================================================= */
 .applicant-evidence__desktop-menu-label {
-  color: #2196f3;
+  color: #0a6cbc;
   display: block;
   font-size: 25px;
   font-weight: 800;
@@ -6088,7 +6088,7 @@ nav {
   [class*="applicant-evidence__skill-attribute--"] .accordion__trigger {
     background: white; }
     [class*="applicant-evidence__skill-attribute--"] .accordion__trigger.complete .applicant-evidence__skill-status-block {
-      background: #3bb519; }
+      background: #287d11; }
       [class*="applicant-evidence__skill-attribute--"] .accordion__trigger.complete .applicant-evidence__skill-status-block i {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1) rotate(359deg);
@@ -6143,7 +6143,7 @@ nav {
     .applicant-evidence__context-link-wrapper {
       text-align: right; } }
   .applicant-evidence__context-link-wrapper a {
-    color: #2196f3;
+    color: #0a6cbc;
     display: block;
     font-size: 12px;
     margin: 0 0 2rem 0;

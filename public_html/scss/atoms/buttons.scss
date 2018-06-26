@@ -132,8 +132,8 @@ input[type="button"][class*="button--"] {
     }
 
     &[class*="green"] {
-        background: $palette-green;
-        border: 2px solid $palette-green !important;
+        background: $palette-green--semidark;
+        border: 2px solid $palette-green--semidark !important;
         color: white;
 
         &:hover {

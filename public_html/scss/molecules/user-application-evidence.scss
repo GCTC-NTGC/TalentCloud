@@ -46,7 +46,7 @@
 /* Desktop Menu ============================================================= */
 
 .applicant-evidence__desktop-menu-label {
-    color: $palette-blue;
+    color: $palette-blue--semidark;
     display: block;
     font-size: 25px;
     font-weight: 800;
@@ -103,7 +103,7 @@
     }
 
 	&.complete {
-		
+
         .fa-times {
             display: none;
         }
@@ -182,7 +182,7 @@
             &.complete {
 
                 .applicant-evidence__skill-status-block {
-                    background: $palette-green;
+                    background: $palette-green--semidark;
 
                     i {
                         opacity: 1;
@@ -269,7 +269,7 @@
             }
 
             a {
-                color: $palette-blue;
+                color: $palette-blue--semidark;
                 display: block;
                 font-size: 12px;
                 margin: 0 0 2rem 0;

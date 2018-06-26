@@ -726,7 +726,7 @@ input[type=button],input[type=submit],input[type=reset]{
         }
 
         &:checked + .form__radio-group-span{
-            background: $palette-green;
+            background: $palette-green--semidark;
             // border-color: $palette-grey--dark;
             color: $white;
             //font-weight: 700;
