@@ -85,6 +85,9 @@ EvidenceAPI.instantiateApplicationEvidencePanel = function (criteriaId, criteria
     //MODIFY IDs FOR UNIQUENESS
     var idSuffix = "_" + triggerName;
 
+    //SKILL DELCARATION IDS
+    Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceDeclarationText", idSuffix);
+
     // MICRO-REFERENCE IDs
     Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceName", idSuffix);
     Utilities.addSuffixToElementId(evidencePanel, "applicationEvidenceReferenceEmail", idSuffix);

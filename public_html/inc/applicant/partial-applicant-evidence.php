@@ -206,9 +206,9 @@
                                         <?php // DEV-NOTE: a template radio button item can be used to populate the expertise "slider" from scratch. The class "small-1ofN" must be added, where N=number of items. "for" and "id" attributes must be set uniquely for each. ?>
 
                                         <div class="hidden" id="applicationEvidenceExpertiseItemTemplate">
-                                            <label for="" class="box form__radio-group-label template">
+                                            <label class="box form__radio-group-label template">
                                                 <span class="hidden">Expertise level option: </span>
-                                                <input type="radio" id="expertise" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
+                                                <input type="radio" name="expertise" class="form__radio-group-input applicant-evidence__first-target"/>
                                                 <span class="form__radio-group-span"></span>
                                             </label>
                                         </div>
@@ -240,8 +240,8 @@
                                     <?php /* Experience Textarea */ ?>
 
                                         <div class="form__input-wrapper--float">
-                                            <label class="applicant-evidence__experience-and-knowledge__form-title form__label" for="">My Experience and Knowledge</label>
-                                            <textarea class="applicant-evidence__skill-declaration-text form__textarea" id=""></textarea>
+                                            <label class="applicant-evidence__experience-and-knowledge__form-title form__label" for="applicationEvidenceDeclarationText">My Experience and Knowledge</label>
+                                            <textarea class="applicant-evidence__skill-declaration-text form__textarea" id="applicationEvidenceDeclarationText"></textarea>
                                         </div>
 
                                     <?php /* Action Buttons */ ?>
