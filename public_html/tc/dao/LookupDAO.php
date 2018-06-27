@@ -412,7 +412,7 @@ class LookupDAO extends BaseDAO {
             FROM 
             citizenship_declaration, citizenship_declaration_details, locale
             WHERE locale.locale_iso = :locale
-            AND citizenship_declaration.citizenship_declaration_locale_id = locale.locale_id
+            AND citizenship_declaration_details.citizenship_declaration_locale_id = locale.locale_id
             AND citizenship_declaration.citizenship_declaration_id =  citizenship_declaration_details.citizenship_declaration_id
             ORDER BY citizenship_declaration.citizenship_declaration_id";
         $sql = $link->prepare($sqlStr);

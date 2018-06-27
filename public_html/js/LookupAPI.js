@@ -7,7 +7,7 @@ LookupAPI.loadLookupData = function () {
     //BranchAPI.getBranches(locale);
     var locales = ["en_CA", "fr_CA"];
     //var lookupTypes = ["department", "branch", "division", "province", "jobterm"];
-    var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level", "clearance", "language","citizenshipdeclaration"];
+    var lookupTypes = ["department", "province", "jobterm", "skill_level", "experience_level", "clearance", "language","citizenship_declaration"];
     for (i in locales) {
         for (j in lookupTypes) {
             var locale = locales[i];

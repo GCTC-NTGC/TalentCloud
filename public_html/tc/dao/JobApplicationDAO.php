@@ -278,7 +278,7 @@ class JobApplicationDAO extends BaseDAO {
         $sqlStr = "UPDATE job_poster_application SET 
             application_job_poster_id = :job_poster_id, 
             user_id = :user_id,
-            job_poster_application_status_id = :job_poster_application_status_id
+            job_poster_application_status_id = :job_poster_application_status_id,
             citizenship_declaration_id = :citizenship_declaration_id
             WHERE
             job_poster_application_id = :job_poster_application_id;";
