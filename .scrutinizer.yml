@@ -6,13 +6,13 @@ build:
         php:
             version: 5.6
 
-    tests:
-        override:
-            -
-                command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
-                coverage:
-                    file: 'coverage.clover'
-                    format: 'clover'
+#    tests:
+#        override:
+#            -
+#                command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
+#                coverage:
+#                    file: 'coverage.clover'
+#                    format: 'clover'
 
 filter:
     excluded_paths:
@@ -36,7 +36,7 @@ checks:
         fix_doc_comments: true
 
 tools:
-    external_code_coverage: true
+    external_code_coverage: false
     js_hint:
         filter:
             excluded_paths: ['*/tests/*','*/vendor/*']
@@ -48,9 +48,9 @@ tools:
         excluded_dirs:
             - tests
             - vendor
-    external_code_coverage:
-        timeout: '777'
-        runs: 2
+#    external_code_coverage:
+#        timeout: '777'
+#        runs: 2
     php_hhvm: true
 
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
