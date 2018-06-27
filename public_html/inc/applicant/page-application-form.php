@@ -81,7 +81,6 @@
                     <?php /* Populated by JavaScript */ ?>
 
                 </fieldset>
->>>>>>> forms_application_profiles
 
             </form>
 

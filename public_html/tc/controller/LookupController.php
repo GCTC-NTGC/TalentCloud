@@ -63,6 +63,9 @@ class LookupController {
             case 'file_type':
                 $lookupData = LookupDAO::getFileTypesByLocale($locale);
                 break;
+            case 'citizenship_declaration':
+                $lookupData = LookupDAO::getCitizenshipDeclarationByLocale($locale);
+                break;
         }
         return $lookupData;
     }

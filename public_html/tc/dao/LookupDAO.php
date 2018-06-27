@@ -402,6 +402,32 @@ class LookupDAO extends BaseDAO {
         BaseDAO::closeConnection($link);
         return $rows;
     }
+    
+    public static function getCitizenshipDeclarationByLocale($locale){
+        $link = BaseDAO::getConnection();
+        $sqlStr = "
+            SELECT 
+            citizenship_declaration.citizenship_declaration_id as id, 
+            citizenship_declaration_details.citizenship_declaration as value
+            FROM 
+            citizenship_declaration, citizenship_declaration_details, locale
+            WHERE locale.locale_iso = :locale
+            AND citizenship_declaration.citizenship_declaration_locale_id = locale.locale_id
+            AND citizenship_declaration.citizenship_declaration_id =  citizenship_declaration_details.citizenship_declaration_id
+            ORDER BY citizenship_declaration.citizenship_declaration_id";
+        $sql = $link->prepare($sqlStr);
+        $sql->bindValue(':locale', $locale, PDO::PARAM_STR);
+
+        try {
+            $sql->execute() or die("ERROR: " . implode(":", $link->errorInfo()));
+            $sql->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Lookup');
+            $rows = $sql->fetchAll();
+        } catch (PDOException $e) {
+            return 'getCitizenshipDeclarationByLocale failed: ' . $e->getMessage();   
+        }
+        BaseDAO::closeConnection($link);
+        return $rows;
+    }
 
 }
 
