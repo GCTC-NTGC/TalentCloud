@@ -31,12 +31,11 @@ before_script:
 # Commands you want to run that will verify your build.
 script:
   - composer validate
-  # phpunit --coverage-text --coverage-clover=coverage.clover
-  # ./vendor/bin/phpunit
+  - phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
- # wget https://scrutinizer-ci.com/ocular.phar
- # php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+ - wget https://scrutinizer-ci.com/ocular.phar
+ - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 # Customize when the notification emails are sent.
 notifications:
