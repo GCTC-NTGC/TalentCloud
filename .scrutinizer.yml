@@ -11,8 +11,24 @@ filter:
         - '*/tests/*'
         - '*/vendor/*'
 
+checks:
+    php:
+        remove_extra_empty_lines: true
+        remove_php_closing_tag: true
+        remove_trailing_whitespace: true
+        fix_use_statements:
+            remove_unused: true
+            preserve_multiple: false
+            preserve_blanklines: true
+            order_alphabetically: true
+        fix_php_opening_tag: true
+        fix_linefeed: true
+        fix_line_ending: true
+        fix_identation_4spaces: true
+        fix_doc_comments: true
+
 tools:
-    # external_code_coverage: true
+    external_code_coverage: true
     js_hint:
         filter:
             excluded_paths: ['*/tests/*','*/vendor/*']
@@ -24,8 +40,9 @@ tools:
         excluded_dirs:
             - tests
             - vendor
-    # external_code_coverage:
-    #     timeout: '777'
+    external_code_coverage:
+        timeout: '777'
+        runs: 2
     php_hhvm: true
 
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
