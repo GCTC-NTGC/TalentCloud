@@ -90,8 +90,8 @@ JobSeekerAPI.populateJobSeekerObject = function (jobSeekerJSON) {
 JobSeekerAPI.refreshJobSeekerProfilePic = function () {
     if (UserAPI.hasSessionUser()) {
         var user_id = UserAPI.getSessionUserAsJSON()["user_id"];
-        //profile_pic_elements = [document.getElementById("myProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
-        profile_pic_elements = [document.getElementById("myProfilePic")];
+        //profile_pic_elements = [document.getElementById("applicantProfilePic"), document.getElementById("profileBasicInfoEditProfilePic")];
+        profile_pic_elements = [document.getElementById("applicantProfilePic")];
         ProfilePicAPI.refreshMultipleProfilePicsBackground(user_id, profile_pic_elements);
     }
 };
@@ -259,8 +259,8 @@ JobSeekerAPI.saveJobSeekerProfileLoaded = function (response) {
     Utilities.debug ? console.log(response) : null;
     DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, function (response) {
         var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
-        JobSeekerAPI.resetProfileEditValues();
         JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+        JobSeekerAPI.resetProfileEditValues();
     });
 };
 
@@ -285,6 +285,7 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
         DataAPI.getJobSeekerProfileByUserId(UserAPI.getSessionUserAsJSON().user_id, function (response) {
             var jobSeekerProfile = JobSeekerAPI.populateJobSeekerObject(JSON.parse(response));
             JobSeekerAPI.populateJobSeekerProfile(jobSeekerProfile);
+            JobSeekerAPI.resetProfileEditValues();
         });
     });
 
@@ -305,7 +306,7 @@ JobSeekerAPI.showMyJobSeekerProfile = function () {
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 
@@ -339,7 +340,7 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     //AccessibilityAPI.preventModalEscapeForward("goToAccomplishmentsButton");
 
     AccessibilityAPI.addEscapeListener("JobSeekerAPI.hideJobSeekerProfileEditOverlays", null);
-    ProfilePicAPI.refreshProfilePicBackground(jobSeekerProfile.user_id, document.getElementById("myProfilePic"));
+    ProfilePicAPI.refreshProfilePicBackground(jobSeekerProfile.user_id, document.getElementById("applicantProfilePic"));
 
     // New Subpage Hero Scripts
 
@@ -350,7 +351,7 @@ JobSeekerAPI.showJobSeekerProfileForApplication = function (jobSeekerProfile, ap
     profileHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 

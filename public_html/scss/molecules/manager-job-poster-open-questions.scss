@@ -19,12 +19,17 @@
 	font-weight: 800;
 	margin: 2rem 0 0 0;
 	text-align: left;
+	color: $palette-blue
 }
 
 .job-poster__open-question {
-	margin: 0 -1rem;
+	margin: 3rem -1rem 0 -1rem;
 	text-align: left;
 	width: 100%;
+
+    &:nth-child(2) {
+        margin-top: -2rem;
+    }
 
 	.box {
 		padding: 0 1rem;
@@ -32,7 +37,7 @@
 		&:nth-child(2) {
 
 			@media #{$l-tablet} {
-				text-align: right;
+				//text-align: right;
 			}
 
 		}
@@ -42,7 +47,7 @@
 }
 
 .job-poster__open-question-label {
-	color: $palette-blue;
+	color: $black;
 	display: block;
 	font-size: 20px;
 	font-weight: 800;
@@ -58,7 +63,8 @@
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 1;
-	margin: 2rem 0 0 0;
+	float: right;
+	margin: 3rem 0 0 0;
 	padding: 0;
 	text-decoration: underline;
 	transition: color .2s ease;
@@ -74,7 +80,7 @@
 
 	label {
 		display: block;
-		width: 100%;
+		// width: 100%;
 	}
 
 	input {
@@ -94,6 +100,10 @@
 	&[class*="french"] {
 
 	}
+
+    .form__input-wrapper--float:first-of-type {
+        margin-top: 0;
+    }
 
 }
 

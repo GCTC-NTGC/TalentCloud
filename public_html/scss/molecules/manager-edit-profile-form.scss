@@ -12,7 +12,7 @@
 .manager-edit-profile__title {
     color: $palette-blue;
     font-weight: 700;
-    margin: 4rem 0 2rem 0;
+    margin: 0 0 2rem 0;
 }
 
 .manager-edit-profile__required-copy-wrapper {
@@ -70,12 +70,12 @@
 
 .manager-edit-profile__photo-upload-wrapper {
     display: block;
-    margin: 0 0 2rem 0;
+    margin: 2rem 0 0 0;
     text-align: center;
 }
 
 .manager-edit-profile__button-form {
-    margin: 2rem -1rem;
+    margin: 4rem -1rem;
 
     >.box {
         padding: 0 1rem;

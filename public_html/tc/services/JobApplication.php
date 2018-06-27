@@ -12,6 +12,7 @@
     require_once __DIR__ . '/../model/UserPermission.php';
     require_once __DIR__ . '/../model/ApplicationQuestionAnswer.php';
     require_once __DIR__ . '/../utils/Utils.php';
+    
 
     $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
     $requestURI = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_ENCODED));
@@ -48,6 +49,11 @@
             break;
         case 'POST':                    
             
+            //Any logged in Applicant can apply to a job
+            $userPermissions = [];
+            $userPermissions[] = new UserPermission(ROLE_APPLICANT);
+            $user = AuthenticationController::validateUser($userPermissions);
+            
             //Assemble JobApplicationWithAnswers object from JSON
             $jsonBody = file_get_contents('php://input');
             $jsonJobApplicationWithAnswers = json_decode($jsonBody, TRUE);
@@ -56,7 +62,7 @@
             
             $jobPosterApplication = new JobPosterApplication();
             $jobPosterApplication->setApplication_job_poster_id($jsonJobPosterApplication["application_job_poster_id"]);
-            $jobPosterApplication->setApplication_job_seeker_profile_id($jsonJobPosterApplication['application_job_seeker_profile_id']);
+            $jobPosterApplication->setUser_id($user->getUser_id()); //The current user is always the application owner
             
             $questionAnswers = [];
             foreach ($jsonJobApplicationWithAnswers['application_question_answers'] as $jsonQA) {
@@ -66,15 +72,7 @@
                 $questionAnswers[] = $questionAnswer;
             }
             
-            $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);
-            
-            //Authenticate that the submitting user owns job seeker profile
-            $userId = JobApplicationController::getJobApplicationUserId($jobPosterApplication->getJob_poster_application_id());
-            $userPermissions = [];
-            $userPermissions[] = new UserPermission(ROLE_ADMIN);
-            $userPermissions[] = new UserPermission(ROLE_APPLICANT, $userId);
-            AuthenticationController::validateUser($userPermissions);
-            
+            $jobApplicationWithAnswers = new JobApplicationWithAnswers($jobPosterApplication, $questionAnswers);         
             
             $jobPosterApplicationId = JobApplicationController::createJobApplicationWithAnswers($jobApplicationWithAnswers);
             $returnMap = array('job_poster_application_id' => $jobPosterApplicationId);
@@ -106,6 +104,7 @@
             break;
              * 
              */
+            break;
         case 'OPTIONS':
             //Here Handle OPTIONS/Pre-flight requests
             header("Access-Control-Allow-Headers: accept, content-type");

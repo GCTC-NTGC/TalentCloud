@@ -15,25 +15,61 @@
 
         </div>
 
-        <div class="application-form__wrapper content-container">
+        <div
+            class="application-form__wrapper content-container">
 
-            <form name="createJobApplicationForm" id="createJobApplicationForm" novalidate="novalidate" method="post" enctype="application/x-www-form-urlencoded">
+            <form 
+                name="createJobApplicationForm" 
+                id="createJobApplicationForm" 
+                novalidate="novalidate" 
+                method="post" 
+                enctype="application/x-www-form-urlencoded">
 
-                <div id="createJobApplicationOpenEndedQuestionsWrapper"></div>
+                <?php /* Open Ended Question Template */ ?>
+
+                    <div 
+                        class="application-form__open-question-item template" 
+                        id="jobApplicationQuestionAnswerTemplate" 
+                        data-question-id="0">
+                        
+                        <span 
+                            class="application-form__open-question">
+                            Sample Question Content?
+                        </span>
+
+                        <p
+                            class="application-form__open-question-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit justo nec lobortis ullamcorper. Aliquam venenatis faucibus mi, sit amet egestas nunc euismod vel. Integer vel est odio. Proin semper, ex vitae ultrices luctus, turpis eros pulvinar nisl, non imperdiet nulla erat nec est. Praesent cursus eleifend sapien in sodales.
+                        </p>
+
+                        <div
+                            class="form__input-wrapper--float">
+                            <label 
+                                class="form__label" 
+                                for="jobApplicationAnswerInput">
+                                Your Answer
+                            </label>
+                            <textarea
+                                class="jobApplicationAnswerField form__textarea" 
+                                id="jobApplicationAnswerInput" 
+                                name="answer"></textarea>
+                        </div>
+
+                    </div>
+
+                <fieldset
+                    class="form__fieldset form__form-section" 
+                    id="createJobApplicationOpenEndedQuestionsWrapper">
+
+                    <?php /* Populated by JavaScript */ ?>
+
+                </fieldset>
 
             </form>
 
-            <div id="jobApplicationQuestionAnswerTemplate" class="application-form__open-question-item template" data-question-id="0">
-                <label class="jobApplicationQuestion application-form__label heading--03" for="jobApplicationAnswerInput">
-                    <span class="application-form__open-question"></span>
-                    <p class="application-form__open-question-description">Open ended question</p>
-                </label>
-                <textarea id="jobApplicationAnswerInput" name="answer" class="jobApplicationAnswerField application-form__textarea form__textarea application-form__open-answer"></textarea>
-            </div>
-
         </div>
 
-        <div class="application-button__wrapper">
+        <div class="application-button__wrapper temp__button-wrapper">
 
             <button class="button--yellow" value="View" onclick="JobApplicationAPI.saveJobApplication(JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value));">
                 Save and continue

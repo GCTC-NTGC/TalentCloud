@@ -7,7 +7,7 @@
 
             <div id="createEditProfilePicWrapper" class="profileBasicInfoTopBar flexContainerVerticallyCentered">
                 <div class="flexLeftOfCenter"></div>
-                <img id="myProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
+                <img id="managerProfilePic" class="profilePicLarge" src="../images/user.png" alt="Profile Pic"/>
                 <div class="flexRightOfCenter">
                     <a href="javascript:void(0)" id="editMyProfilePic" onclick="CreateEditProfileAPI.showUploadProfilePic()">
                         <img id="editMyProfilePicImg" src="../images/edit_profile_pic.svg" alt="Edit Basic Info" class="editImage"/>
@@ -22,7 +22,7 @@
                     <div class="section">
 
                         <!-- Where the old steps resided -->
-                        <form method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
+                        <form class="form__wrapper" method="post" name="CreateEditProfileForm" id="CreateEditProfileForm">
 
                             <input type="hidden" id="UserId"/>
 
@@ -59,7 +59,7 @@
                                 include "page-profile-team-culture.php";
                                 include "page-profile-other.php";
                             ?>
-                        
+
                         </form>
 
                     </div>

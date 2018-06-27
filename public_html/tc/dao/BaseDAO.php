@@ -38,6 +38,7 @@
                         $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         $link->setAttribute(PDO::ATTR_PERSISTENT, true);
                         $link->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                        $link->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
                         
                         return $link;
                     } catch (PDOException $e) {

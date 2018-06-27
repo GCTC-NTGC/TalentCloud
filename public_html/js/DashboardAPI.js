@@ -30,7 +30,8 @@ DashboardAPI.showDashboard = function(){
 
     EventsAPI.hideAllLayouts();
     window.scrollTo(0,0);
-    document.getElementById("skipNav").focus();
+    AccessibilityAPI.focusElement("topPage");
+    //document.getElementById("topPage").focus();
 
     var dashboardSection = document.getElementById("dashboardSection");
     dashboardSection.classList.remove("hidden");
@@ -54,7 +55,7 @@ DashboardAPI.showDashboard = function(){
     dashboardHeroTitle.setAttribute("aria-hidden", "false");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
 
     // Google Analytics
 

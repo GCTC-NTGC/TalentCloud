@@ -55,7 +55,7 @@ JobApplicationPreviewAPI.showJobApplicationPreviewById = function (jobApplicatio
     applicationHeroMetadata.classList.remove("hidden");
 
     // Mobile Menu Overflow Release
-    document.body.style.overflowY = "auto";
+    document.body.style.overflowY = "visible";
     
     // Google Analytics
 
@@ -116,19 +116,23 @@ JobApplicationPreviewAPI.populatePreviewApplicationWithApplicationContent = func
     document.getElementById("jobApplicationPreviewJobPosterId").value = jobPosterApplication.application_job_poster_id;
     document.getElementById("jobApplicationJobApplicationId").value = jobPosterApplication.job_poster_application_id;
     document.getElementById("jobApplicationJobPosterId").value = jobPosterApplication.application_job_poster_id;
-    document.getElementById("jobApplicationJobSeekerId").value = jobPosterApplication.application_job_seeker_profile_id;
+    document.getElementById("jobApplicationUserId").value = jobPosterApplication.user_id;
     document.getElementById("jobApplicationJobApplicationStatusId").value = jobPosterApplication.job_poster_application_status_id;
     //answers is an array of JobApplicationAPI.ApplicationQuestionAnswer objects 
     var answers = fullJobApplication.application_question_answers;
     JobApplicationPreviewAPI.populateApplicationPreviewAnswers(answers);
     JobApplicationPreviewAPI.populatePreviewApplicationWithProfileContent(JobSeekerAPI.populateJobSeekerObject(fullJobApplication.job_seeker_profile));
     SkillDeclarationAPI.populateApplicationPreviewUiSkillDeclarations(fullJobApplication.skill_declarations);
+    
     var microReferences = MicroReferenceAPI.parseApplicationMicroReferenceResponse(fullJobApplication.application_micro_references);
-    MicroReferenceAPI.populateApplicationPreviewUiMicroReferences(microReferences);
+    //Only display comlete references and samples
+    var completeMicroReferences = microReferences.filter(item => item.isComplete());
+    MicroReferenceAPI.populateApplicationPreviewUiMicroReferences(completeMicroReferences);
     var workSamples = SkillSampleAPI.parseApplicationSkillSampleResponse(fullJobApplication.application_work_samples);
-    SkillSampleAPI.populateApplicationPreviewUiSkillSamples(workSamples);
+    var completeWorkSamples = workSamples.filter(item => item.isComplete());   
+    SkillSampleAPI.populateApplicationPreviewUiSkillSamples(completeWorkSamples);
 
-    if (jobPosterApplication.job_poster_application_status_id != 1) {
+    if (parseInt(jobPosterApplication.job_poster_application_status_id) != 1) {
         //can't submit if not in draft status
         var submissionSection = document.getElementById("applicationPreviewSubmissionSection");
         submissionSection.classList.add("hidden");
