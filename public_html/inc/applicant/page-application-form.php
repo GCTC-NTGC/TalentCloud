@@ -29,15 +29,22 @@
                 
                 <div class="box full">
                     <label class="form__label" for="applicant_citizenshipDeclaration">
-                        <span><span id="applicant_citizenshipDeclaration_labelName">Which of the following applies to you?</span>: *</span>
-                        <strong id="applicant_citizenshipDeclaration_error" class="error hidden">
-                            <span id="applicant_citizenshipDeclaration_error_msg" class="label label-danger"></span>
+                        <span><span id="applicant_citizenshipDeclaration_labelName" class="application-form__open-question">Which of the following applies to you?</span>: *</span>
+                        <strong id="applicant_citizenshipDeclaration_incomplete_error_msg" class="error hidden">
+                            <span class="label label-danger">This field is required to continue</span>
+                        </strong>
+                        <strong id="applicant_citizenshipDeclaration_entitlement_error_msg" class="error hidden">
+                            <span class="label label-danger">This job poster is only available to Canadian citizens or Valid Work Permit holders.</span>
                         </strong>
                     </label>
-                    <div class="form__select-wrapper">
-                        <select class="form__select" name="applicant_citizenshipDeclaration" id="applicant_citizenshipDeclaration">
-                            <option value="">--</option>
-                        </select>
+                    <div class="flex-grid">
+                        <div class="box med-1of1">
+                            <div class="form__select-wrapper">
+                                <select class="form__select application-form__citizenship-declaration-select" name="applicant_citizenshipDeclaration" id="applicant_citizenshipDeclaration">
+                                    <option value="">--</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -313,22 +313,23 @@ JobApplicationAPI.saveJobApplication = function (onSuccess) {
                 null, questionId, question, answer);
         applicationQuestionAnswers.push(questionAnswer);
     }
-    
+    //Citizenship Declaration
     var citizenshipDeclaration = document.getElementById("applicant_citizenshipDeclaration").value;
+    
     var applicationStatus = 1; //draft status
     var userId = UserAPI.getSessionUserAsJSON().user_id;
     var jobApplication = new JobApplicationAPI.JobApplication(jobApplicationId, jobPosterId, userId, applicationStatus, citizenshipDeclaration, applicationQuestionAnswers);
-
+    
     DataAPI.saveJobApplicationByJobAndUser(jobApplication, jobPosterId, userId, function (request) {
-        if (request.status === 200) {
-            if (onSuccess) {
-                onSuccess();
-            }
+    if (request.status === 200) {
+        if (onSuccess) {
+            onSuccess();
         } else {
             var message = JSON.parse(request.response).message;
             window.alert(message);
         }
-    });
+        }
+        });
 };
 
 JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
@@ -361,8 +362,24 @@ JobApplicationAPI.showPreviousApplicationSection = function (jobPosterId) {
     JobApplicationAPI.shiftApplicationSection(-1, jobPosterId);
 };
 
+
+
 JobApplicationAPI.showNextApplicationSection = function (jobPosterId) {
-    JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
+ //Citizen Declaration Error Messages
+    var citizenshipDeclarationIncomplete = document.getElementById("applicant_citizenshipDeclaration_incomplete_error_msg");
+    var citizenshipDeclarationEntitlement = document.getElementById("applicant_citizenshipDeclaration_entitlement_error_msg");
+    
+    if (document.getElementById("applicant_citizenshipDeclaration").value = ""){
+        // If citizenship declaration was not selected, do nothing, show error message
+        citizenshipDeclarationIncomplete.classList.remove("hidden");
+    }
+    else if(document.getElementById("applicant_citizenshipDeclaration").value = "5"){
+        // If applicant is not enetitled to work in Canada, do nothing, show error message
+        citizenshipDeclarationEntitlement.classList.remove("hidden");
+    }
+    else{
+        JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
+    }
 };
 
 JobApplicationAPI.shiftApplicationSection = function (shift, jobPosterId) {
