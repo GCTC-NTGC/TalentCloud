@@ -25,5 +25,7 @@ VALUES
 (1,'applicant-evidence-preview__evidence-title-text','Skill Sample',1),
 (1,'applicant-evidence-preview__evidence-title-text','Échantillon de compétences',2),
 (1,'applicant-evidence-preview__evidence-null','No evidence was provided.',1),
-(1,'applicant-evidence-preview__evidence-null','Aucune preuve n’a été fournie.',2)
+(1,'applicant-evidence-preview__evidence-null','Aucune preuve n’a été fournie.',2),
+(1,'job-poster__apply-content-preference','Preference will be given to veterans and to Canadian citizens, in that order.',1),
+(1,'job-poster__apply-content-preference','[Translation in progress] Preference will be given to veterans and to Canadian citizens, in that order.',2)
 ;
