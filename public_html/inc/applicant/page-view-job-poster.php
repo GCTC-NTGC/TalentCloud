@@ -224,6 +224,12 @@
                             <div class="box med-4of5">
                                 <p class="job-poster__apply-content">Please advise Talent Cloud at talent.cloud-nuage.de.talents@tbs-sct.gc.ca of any accomodations you may require during the application process.</p>
                             </div>
+                            <div class="box med-1of5">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="box med-4of5">
+                                <p class="job-poster__apply-content-preference">Preference will be given to veterans and to Canadian citizens, in that order.</p>
+                            </div>
                         </div>
                     </div>
 

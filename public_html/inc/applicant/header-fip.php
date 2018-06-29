@@ -14,7 +14,7 @@
     </div>
     <div class="box lg-1of2">
         <span>
-            Help us improve Talent Cloud.
+            <span class="tc-improve">Help us improve Talent Cloud.</span>
             <a id="emailFeedback" href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca?subject=Submit%20Feedback%20to%20Talent%20Cloud&body=Thanks%20for%20your%20interest%20in%20Talent%20Cloud!%20Your%20willingness%20to%20submit%20feedback%20is%20incredibly%20important%20to%20us.%20Please%20supply%20as%20much%20information%20as%20possible:%0D%0A%0D%0AType%20of%20Feedback:%20[e.g.%20Suggestion,%20Bug,%20etc.]%0D%0A%0D%0AYour%20Message:%20[Type%20here.]%0D%0A%0D%0ACurrent%20Page:%20[Page%20Link%20Here]%0D%0A%0D%0AThanks%20again!%0D%0A%0D%0A" target="_blank">
                 <span id="submitFeedbackText">Submit feedback.</span>
             </a>

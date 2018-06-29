@@ -57,7 +57,7 @@
 
                             <h5 class="applicant-evidence-preview__section-title">
                                 <i class="fa fa-user"></i>
-                                <span classe="applicant-evidence-preview__reference-title-text">Micro-reference</span>
+                                <span class="applicant-evidence-preview__reference-title-text">Micro-reference</span>
                             </h5>
 
                             <div class="applicant-evidence-preview__reference-content hidden">
