@@ -24,6 +24,7 @@ npm-debug.log
 composer.lock
 
 ## node
+/node_modules
 public_html/node_modules
 public_html/scss/vendor
 
