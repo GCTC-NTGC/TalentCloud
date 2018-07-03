@@ -95,7 +95,7 @@
 
         <div class="application-button__wrapper temp__button-wrapper">
 
-            <button class="button--yellow" value="View" onclick="JobApplicationAPI.saveJobApplication(JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value));">
+            <button class="button--yellow" value="View" onclick="JobApplicationAPI.validateMyInformation();">
                 Save and continue
             </button>
 

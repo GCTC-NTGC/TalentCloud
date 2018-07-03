@@ -355,6 +355,13 @@ JobApplicationAPI.showCreateJobConfirmation = function (jobTitle) {
 
     // Mobile Menu Overflow Release
     document.body.style.overflowY = "visible";
+    
+    //Turning off error messages from Citizenship Declaration
+    var citizenshipDeclarationIncomplete = document.getElementById("applicant_citizenshipDeclaration_incomplete_error_msg");
+    var citizenshipDeclarationEntitlement = document.getElementById("applicant_citizenshipDeclaration_entitlement_error_msg");
+    
+    citizenshipDeclarationIncomplete.classList.add("hidden");
+    citizenshipDeclarationEntitlement.classList.add("hidden");
 
 };
 
@@ -362,24 +369,35 @@ JobApplicationAPI.showPreviousApplicationSection = function (jobPosterId) {
     JobApplicationAPI.shiftApplicationSection(-1, jobPosterId);
 };
 
-
-
-JobApplicationAPI.showNextApplicationSection = function (jobPosterId) {
- //Citizen Declaration Error Messages
+JobApplicationAPI.validateMyInformation = function () {
+    //Citizen Declaration Error Messages
     var citizenshipDeclarationIncomplete = document.getElementById("applicant_citizenshipDeclaration_incomplete_error_msg");
     var citizenshipDeclarationEntitlement = document.getElementById("applicant_citizenshipDeclaration_entitlement_error_msg");
+    var citizenshipDeclaration = document.getElementById("applicant_citizenshipDeclaration");
     
-    if (document.getElementById("applicant_citizenshipDeclaration").value = ""){
+    if (document.getElementById("applicant_citizenshipDeclaration").value == ""){
         // If citizenship declaration was not selected, do nothing, show error message
         citizenshipDeclarationIncomplete.classList.remove("hidden");
+        citizenshipDeclarationEntitlement.classList.add("hidden");
+        citizenshipDeclaration.focus();
     }
-    else if(document.getElementById("applicant_citizenshipDeclaration").value = "5"){
+    else if(document.getElementById("applicant_citizenshipDeclaration").value == 5){
         // If applicant is not enetitled to work in Canada, do nothing, show error message
         citizenshipDeclarationEntitlement.classList.remove("hidden");
+        citizenshipDeclarationIncomplete.classList.add("hidden");
+        citizenshipDeclaration.focus();
     }
     else{
-        JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
+        var jobPosterId = document.getElementById("jobApplicationJobPosterId").value;
+JobApplicationAPI.saveJobApplication(JobApplicationAPI.showNextApplicationSection(document.getElementById('jobApplicationJobPosterId').value));
+        citizenshipDeclarationIncomplete.classList.add("hidden");
+        citizenshipDeclarationEntitlement.classList.add("hidden");
     }
+}
+
+JobApplicationAPI.showNextApplicationSection = function (jobPosterId) {
+
+        JobApplicationAPI.shiftApplicationSection(1, jobPosterId);
 };
 
 JobApplicationAPI.shiftApplicationSection = function (shift, jobPosterId) {
