@@ -1,36 +1,34 @@
 version: '2'
 services:
   # ###########################################################################
-  # The Talent Cloud container. Accessible at http://localhost:8080
+  # The Talent Cloud container. Accessible at http://tc.gccollab.ca
   # ###########################################################################
   talentcloud:
     build: .
     ports:
       - 80:80
     volumes:
-      - .:/var/www/html/
+      - ./public_html:/var/www/html
       - ./data:/data
-      - /var/www/html/vendor
-      - /var/www/html/docker
-      - /var/www/html/install
+      - /public_html/vendor
+      - /public_html/docker
+      - /public_html/install
     depends_on:
       - talentcloud-db
       # nginx-proxy
     environment:
       - VIRTUAL_HOST=tc.gccollab.ca
       - DOCKER=1
-      - HOME=/var/www/html/
+      - HOME=/public_html
       - DBHOST=talentcloud-db
-      - WWWROOT=http://tc.gccollab.ca/
+      - WWWROOT=http://tc.gccollab.ca
 
   talentcloud-db:
     image: library/mysql:5.6
+    volumes:
+      - ./data/db:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=talentcloud
       - MYSQL_USER=talentcloud
       - MYSQL_PASSWORD=Canada123!@#
       - MYSQL_ROOT_PASSWORD=Canada123!@#
-    volumes:
-      # ./dump:/docker-entrypoint-initdb.d
-      # persistent:/var/lib/mysql
-      - ./data/db:/var/lib/mysql

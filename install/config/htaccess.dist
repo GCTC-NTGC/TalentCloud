@@ -5,7 +5,6 @@ Options FollowSymLinks Indexes
 # Default handler
 DirectoryIndex index.php
 
-
 ############################
 # PHP SETTINGS
 <IfModule mod_php5.c>

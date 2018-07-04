@@ -22,7 +22,7 @@ else
 if (getenv('WWWROOT') != '')
 	$wwwroot = getenv('WWWROOT');
 else
-	$wwwroot = 'http://tc.gccollab.ca/';
+	$wwwroot = 'http://tc.gccollab.ca';
 // none of the following may be empty
 $params = array(
 	// database parameters
@@ -40,10 +40,10 @@ $params = array(
 	'wwwroot' => $wwwroot,
 	'dataroot' => getenv('HOME') . '/data/',
 	// admin account
-	// 'displayname' => 'Administrator',
-	// 'email' => 'grant.d.barnes@gmail.com',
-	// 'username' => 'root',
-	// 'password' => '',
+	'displayname' => 'Administrator',
+	'email' => 'grant.d.barnes@gmail.com',
+	'username' => 'root',
+	'password' => '',
 );
 // wait for db to be ready
 echo "Connecting to database..";
