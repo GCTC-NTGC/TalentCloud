@@ -27,7 +27,7 @@ else
 $params = array(
 	// database parameters
 	'dbuser' => 'talentcloud',
-	'dbpassword' => 'Canada123!@#',
+	'dbpassword' => 'talentcloud',
 	'dbname' => 'talentcloud',
 
 	// We use a wonky dbprefix to catch any cases where folks hardcode "elgg_"

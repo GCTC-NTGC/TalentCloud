@@ -41,25 +41,24 @@ RUN \
     php5-xml \
   && apk update \
   && apk --no-cache add php5-mysqli \
-  && mkdir -p /public_html/vendor \
+  && mkdir -p /www/vendor \
   && mkdir -p /data \
   && mkdir -p /run/apache2 \
   && chown apache /data \
   && ln -s /dev/stderr /var/log/apache2/error.log \
   && ln -s /dev/stdout /var/log/apache2/access.log \
   && sed -i '/#LoadModule rewrite_module modules\/mod_rewrite.so/c\LoadModule rewrite_module modules\/mod_rewrite.so' /etc/apache2/httpd.conf \
-  && sed -i '/DocumentRoot "\/var\/www\/localhost\/htdocs"/c\DocumentRoot "\/public_html"' /etc/apache2/httpd.conf \
+  && sed -i '/DocumentRoot "\/var\/www\/localhost\/htdocs"/c\DocumentRoot "\/www\/public_html"' /etc/apache2/httpd.conf \
   && sed -i '/Options Indexes FollowSymLinks/c\\' /etc/apache2/httpd.conf \
   && sed -i '/AllowOverride All/c\\' /etc/apache2/httpd.conf \
-  && sed -i '/ServerName tc.gccollab.ca/c\\' /etc/apache2/httpd.conf \
-  && sed -i '/<Directory "\/var\/www\/localhost\/htdocs">/c\<Directory "\/public_html">\nDirectoryIndex index.php\nOptions FollowSymLinks Indexes\nAllowOverride All\nOrder deny,allow\nallow from All\n' /etc/apache2/httpd.conf
+  && sed -i '/<Directory "\/var\/www\/localhost\/htdocs">/c\<Directory "\/www\/public_html">\nDirectoryIndex index.php\nOptions FollowSymLinks Indexes\nAllowOverride All\nOrder deny,allow\nallow from All\n' /etc/apache2/httpd.conf
 
-COPY ./install/config/htaccess.dist /public_html/.htaccess
-COPY --from=0 /app/vendor/ /public_html/vendor/
-COPY . /public_html
-RUN chown apache:apache /public_html
+COPY ./install/config/htaccess.dist /www/.htaccess
+COPY --from=0 /app/vendor/ /www/vendor/
+COPY . /www
+RUN chown apache:apache /www
 
-WORKDIR /public_html
+WORKDIR /www
 EXPOSE 80
 EXPOSE 443
 

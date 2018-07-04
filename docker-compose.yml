@@ -10,16 +10,16 @@ services:
     volumes:
       - ./public_html:/var/www/html
       - ./data:/data
-      - /public_html/vendor
-      - /public_html/docker
-      - /public_html/install
+      - /www/vendor
+      - /www/docker
+      - /www/install
     depends_on:
       - talentcloud-db
       # nginx-proxy
     environment:
       - VIRTUAL_HOST=tc.gccollab.ca
       - DOCKER=1
-      - HOME=/public_html
+      - HOME=/www/public_html
       - DBHOST=talentcloud-db
       - WWWROOT=http://tc.gccollab.ca
 
@@ -30,5 +30,5 @@ services:
     environment:
       - MYSQL_DATABASE=talentcloud
       - MYSQL_USER=talentcloud
-      - MYSQL_PASSWORD=Canada123!@#
-      - MYSQL_ROOT_PASSWORD=Canada123!@#
+      - MYSQL_PASSWORD=talentcloud
+      - MYSQL_ROOT_PASSWORD=talentcloud
