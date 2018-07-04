@@ -1,28 +1,9 @@
 version: '2'
 services:
   # ###########################################################################
-  # Uncomment if you want to use a custom host such as http://gcconnex.local
-  #
-  # You would need to ensure your chosen custom host resolved correctly on your
-  # system... typically by adding entries to your system's host file.
-  # /etc/hosts on Linux / Mac OS
-  # %SYSTEM%\drivers\etc\hosts on Win (C:\Windows\System32\drivers\etc\hosts)
+  # The Talent Cloud container. Accessible at http://localhost:8080
   # ###########################################################################
-  # nginx-proxy:
-  #   image: jwilder/nginx-proxy
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - /var/run/docker.sock:/tmp/docker.sock:ro
-  #   logging:
-  #     driver: none
-
-  # ###########################################################################
-  # The GCConnex container.  Will be accessible at http://localhost:8080, or
-  # via the hostname provided in the VIRTUAL_HOST environment variable if
-  # nginx-proxy is uncommented above.
-  # ###########################################################################
-  tc:
+  talentcloud:
     build: .
     ports:
       - 80:80
@@ -33,39 +14,22 @@ services:
       - /var/www/html/docker
     depends_on:
       - talentcloud-db
-      # - nginx-proxy
+      # nginx-proxy
     environment:
       - VIRTUAL_HOST=tc.gccollab.ca
       - DOCKER=1
       - HOME=/var/www/html
-      - DBHOST=talentcloud
+      - DBHOST=talentcloud-db
       - WWWROOT=http://tc.gccollab.ca/
 
-  # ###########################################################################
-  # The GCConnex cron container.  This container is responsible for executing
-  # elgg's built in cron based on the recommended settings.
-  # ###########################################################################
-
-#  gcconnex-cron:
-#    build:
-#      context: .
-#      dockerfile: ./Dockerfile.cron
-#    volumes:
-#      - .:/var/www/html
-#      - ./data/data:/data
-#    depends_on:
-#      - gcconnex-db
-
-  # ###########################################################################
-  # Database container for gcconnex, accessible from within gcconnex using the
-  # network host "gcconnex-db".
-  # ###########################################################################
   talentcloud-db:
     image: library/mysql:5.6
-    volumes:
-      - ./data/db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=Canada123!@#
       - MYSQL_DATABASE=talentcloud
       - MYSQL_USER=talentcloud
       - MYSQL_PASSWORD=Canada123!@#
+      - MYSQL_ROOT_PASSWORD=Canada123!@#
+    volumes:
+      # ./dump:/docker-entrypoint-initdb.d
+      # persistent:/var/lib/mysql
+      - ./dump:/var/lib/mysql
