@@ -19,14 +19,12 @@ services:
     environment:
       - VIRTUAL_HOST=tc.gccollab.ca
       - DOCKER=1
-      - HOME=/www/public_html
+      - HOME=/public_html
       - DBHOST=talentcloud-db
       - WWWROOT=http://127.0.0.1
 
   talentcloud-db:
     image: library/mysql:5.6
-    ports:
-      - "3306:3306"
     volumes:
       # ./data/db:/docker-entrypoint-initdb.d
       - ./data/db:/var/lib/mysql

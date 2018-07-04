@@ -53,7 +53,7 @@ RUN \
   && sed -i '/AllowOverride All/c\\' /etc/apache2/httpd.conf \
   && sed -i '/<Directory "\/var\/www\/localhost\/htdocs">/c\<Directory "\/www\/public_html">\nDirectoryIndex index.php\nOptions FollowSymLinks Indexes\nAllowOverride All\nOrder deny,allow\nallow from All\n' /etc/apache2/httpd.conf
 
-COPY ./install/config/htaccess.dist /public_html/tc/.htaccess
+# COPY ./install/config/htaccess.dist /public_html/tc/.htaccess
 COPY --from=0 /app/vendor/ /www/vendor/
 COPY . /www
 RUN echo "ServerName 127.0.0.1:80" >> /etc/apache2/httpd.conf
