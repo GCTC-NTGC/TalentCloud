@@ -22,7 +22,7 @@ else
 if (getenv('WWWROOT') != '')
 	$wwwroot = getenv('WWWROOT');
 else
-	$wwwroot = 'http://localhost:8080/';
+	$wwwroot = 'http://tc.gccollab.ca/';
 // none of the following may be empty
 $params = array(
 	// database parameters
@@ -40,10 +40,10 @@ $params = array(
 	'wwwroot' => $wwwroot,
 	'dataroot' => getenv('HOME') . '/data/',
 	// admin account
-	'displayname' => 'Administrator',
-	'email' => 'grant.d.barnes@gmail.com',
-	'username' => 'root',
-	'password' => '',
+	// 'displayname' => 'Administrator',
+	// 'email' => 'grant.d.barnes@gmail.com',
+	// 'username' => 'root',
+	// 'password' => '',
 );
 // wait for db to be ready
 echo "Connecting to database..";
@@ -57,6 +57,6 @@ echo "Connected!";
 mysqli_close($dbconnect);
 error_reporting($etmp);     // revert error reporting to default
 // install and create the .htaccess file
-$installer->batchInstall($params, TRUE);
+// $installer->batchInstall($params, TRUE);
 // at this point installation has completed (otherwise an exception halted execution).
-echo "CLI install successful. wwwroot: " . elgg_get_config('wwwroot') . "\n";
+echo "CLI install successful. wwwroot: " . $wwwroot . "\n";

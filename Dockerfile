@@ -25,7 +25,7 @@ RUN composer install
 
 # Second stage, build usable container
 FROM alpine:3.7
-# LABEL maintainer="Grant Barnes <grant.d.barnes@gmail.com>"
+LABEL maintainer="Grant Barnes <grant.d.barnes@gmail.com>"
 RUN \
   apk --no-cache add \
     apache2 \
@@ -50,16 +50,16 @@ RUN \
   && sed -i '/#LoadModule rewrite_module modules\/mod_rewrite.so/c\LoadModule rewrite_module modules\/mod_rewrite.so' /etc/apache2/httpd.conf \
   && sed -i '/DocumentRoot "\/var\/www\/html"/c\DocumentRoot "\/var\/www\/html"' /etc/apache2/httpd.conf \
   && sed -i '/Options Indexes FollowSymLinks/c\\' /etc/apache2/httpd.conf \
-  && sed -i '/AllowOverride None/c\\' /etc/apache2/httpd.conf \
-  && sed -i '/Options Indexes FollowSymLinks/c\\' /etc/apache2/httpd.conf \
-  && sed -i '/<Directory "\/var\/www\/html">/c\<Directory "\/var\/www\/html">\nDirectoryIndex index.php\nOptions FollowSymLinks MultiViews\nAllowOverride All\nOrder allow,deny\nallow from all\n' /etc/apache2/httpd.conf
+  && sed -i '/AllowOverride All/c\\' /etc/apache2/httpd.conf \
+  && sed -i '/<ServerName "tc.gccollab.ca">/c\\' /etc/apache2/httpd.conf \
+  && sed -i '/<Directory "\/var\/www\/html">/c\<Directory "\/var\/www\/html">\nDirectoryIndex index.php\nOptions FollowSymLinks Indexes\nAllowOverride All\nOrder deny,allow\nallow from All\n' /etc/apache2/httpd.conf
 
-# COPY ./install/config/htaccess.dist /var/www/html/.htaccess
+COPY ./install/config/htaccess.dist /var/www/html/.htaccess
 COPY --from=0 /app/vendor/ /var/www/html/vendor/
-COPY . /var/www/html
-RUN chown apache:apache /var/www/html
+COPY . /var/www/html/
+RUN chown apache:apache /var/www/html/
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/
 EXPOSE 80
 EXPOSE 443
 

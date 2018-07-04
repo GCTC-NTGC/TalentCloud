@@ -8,17 +8,18 @@ services:
     ports:
       - 80:80
     volumes:
-      - .:/var/www/html
-      - ./data/data:/data
+      - .:/var/www/html/
+      - ./data:/data
       - /var/www/html/vendor
       - /var/www/html/docker
+      - /var/www/html/install
     depends_on:
       - talentcloud-db
       # nginx-proxy
     environment:
       - VIRTUAL_HOST=tc.gccollab.ca
       - DOCKER=1
-      - HOME=/var/www/html
+      - HOME=/var/www/html/
       - DBHOST=talentcloud-db
       - WWWROOT=http://tc.gccollab.ca/
 
@@ -32,4 +33,4 @@ services:
     volumes:
       # ./dump:/docker-entrypoint-initdb.d
       # persistent:/var/lib/mysql
-      - ./dump:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
