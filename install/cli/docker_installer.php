@@ -22,7 +22,7 @@ else
 if (getenv('WWWROOT') != '')
 	$wwwroot = getenv('WWWROOT');
 else
-	$wwwroot = 'http://tc.gccollab.ca';
+	$wwwroot = 'http://127.0.0.1';
 // none of the following may be empty
 $params = array(
 	// database parameters

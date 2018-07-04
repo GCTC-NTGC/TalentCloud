@@ -1,9 +1,10 @@
 # htaccess directives
 
-Options FollowSymLinks Indexes
+Options Indexes FollowSymLinks
 
 # Default handler
 DirectoryIndex index.php
+
 
 ############################
 # PHP SETTINGS
@@ -17,8 +18,14 @@ DirectoryIndex index.php
 	# upload_max_filesize is the maximum size of a single uploaded file (5 MB)
 	php_value upload_max_filesize 5242880
 	# on development servers, set to 1 to display errors. Set to 0 on production servers.
-	php_value display_errors 1
+	# php_value display_errors 0
 </IfModule>
+
+
+############################
+# REWRITE RULES
+
+<IfModule mod_rewrite.c>
 
 RewriteEngine on
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
@@ -88,3 +95,5 @@ RewriteRule ^api/v1/([a-z]{2}_(?:[A-Z]{2}))/getFullApplication/([0-9]{1,10}) ser
 
 #Require all granted
 #Require ip 127.0.0.1
+
+</IfModule>
