@@ -75,5 +75,4 @@ script:
 
 # Customize when the notification emails are sent.
 notifications:
-  on_success: never
-  on_failure: always
+    slack: talent-cloud:dW8Ftd2QBoDzyE3eEAiuWy9F
