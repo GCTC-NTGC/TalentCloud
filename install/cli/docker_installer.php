@@ -35,7 +35,7 @@ $params = array(
 	// 'dbprefix' => 'd_elgg_',
 	'dbhost' => $dbhost,
 	// site settings
-	'sitename' => 'Docker TalentCloud',
+	'sitename' => 'TalentCloud | Docker',
 	'siteemail' => 'talentcloud-nuagedetalents@tbs-sct.gc.ca',
 	'wwwroot' => $wwwroot,
 	'dataroot' => getenv('HOME') . '/data/',
