@@ -69,6 +69,6 @@ EXPOSE 3306
 RUN chmod +x docker/start.sh
 
 # Start Apache in foreground mode
-# RUN rm -f /run/apache2/httpd.pid
+RUN rm -f /run/apache2/httpd.pid
 ENTRYPOINT [ "docker/start.sh" ]
 CMD ["/usr/sbin/httpd -D FOREGROUND"]

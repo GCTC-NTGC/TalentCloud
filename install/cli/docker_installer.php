@@ -18,7 +18,7 @@ require_once "$tcRoot/vendor/autoload.php";
 if (getenv('DBHOST') != '')
 	$dbhost = getenv('DBHOST');
 else
-	$dbhost = 'talentcloud-db';
+	$dbhost = 'http://localhost:3306';
 if (getenv('WWWROOT') != '')
 	$wwwroot = getenv('WWWROOT');
 else
