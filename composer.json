@@ -1,5 +1,5 @@
 {
-    "name": "vendor/talent-cloud",
+    "name": "GCTC-NTGC/TalentCloud",
     "description": "TalentCloud - The jobs are real, the platform is experimental.",
     "license": "MIT",
 
@@ -12,10 +12,8 @@
 
     "require": {
         "php": "~5.6",
-        "phpseclib/phpseclib": "2.0.1",
-        "jumbojett/openid-connect-php": "^0.4.1",
-        "lcobucci/jwt":"^3.2",
-        "fproject/php-jwt":"^4.0.5"
+        "laravel/framework": "5.4.*",
+        "laravel/tinker": "~1.0"
     },
 
     "scripts": {
@@ -26,11 +24,45 @@
     },
 
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~5.0",
         "phpunit/phpunit-selenium": "* 3.0.3",
         "friendsofphp/php-cs-fixer": "v2.10.4",
         "phpmd/phpmd": "* 2.6.0",
         "facebook/webdriver": "* 1.5.0",
         "phpunit/dbunit": "2.0.x-dev"
+    },
+
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Tests\\": "tests/"
+        }
+    },
+
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan optimize"
+        ]
     }
 }

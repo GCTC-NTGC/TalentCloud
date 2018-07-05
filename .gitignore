@@ -33,3 +33,11 @@ public_html/scss/vendor
 /tests
 /selenium_tests
 .tags
+
+## laravel
+/public/storage
+/storage/*.key
+/.idea
+Homestead.json
+Homestead.yaml
+.env
