@@ -5,14 +5,28 @@ build:
     environment:
         php:
             version: 5.6
+        docker: true
+        hosts:
+            local.dev: '127.0.0.1'
+
+        apache2:
+            modules: ['rewrite']
+            sites:
+                symfony_app:
+                    web_root: 'public_html/'
+                    host: 'local.dev'
+                    rules:
+                        - 'RewriteCond %{HTTP_REFERER} !^$'
+                        - 'RewriteCond %{HTTP_REFERER} !^http://(tc.)?gccollab.ca/ [NC]'
+                        - 'RewriteRule .(gif|jpg|png)$ - [F]'
 
 #    tests:
-#        override:
-#            -
-#                command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
-#                coverage:
-#                    file: 'coverage.clover'
-#                    format: 'clover'
+#      override:
+#        -
+#          command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
+#          coverage:
+#            file: 'coverage.clover'
+#            format: 'clover'
 
 filter:
     excluded_paths:
@@ -48,12 +62,13 @@ tools:
         excluded_dirs:
             - tests
             - vendor
-#    external_code_coverage:
-#        timeout: '777'
-#        runs: 2
-    php_hhvm: true
 
+#  external_code_coverage:
+#      timeout: '777'
+#      runs: 2
+
+    php_hhvm: true
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
     # the same time right now. Make sure to either remove, or disable one.
-    php_sim: true
-    php_cpd: false
+    php_sim: false
+    php_cpd: true

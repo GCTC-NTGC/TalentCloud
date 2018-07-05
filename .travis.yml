@@ -10,7 +10,7 @@ php:
   - 7.0
   - hhvm
 
-# sudo: false
+sudo: required
 
 # allow_failures: Allow this build to fail under the specified environments.
 # fast_finish: If your build fails do not continue trying to build, just stop.
@@ -20,24 +20,50 @@ matrix:
     - php: hhvm
   fast_finish: true
 
+  include:
+    # Lint checks for PHP code and composer.json
+    - php: 5.6
+      env: VARIA=true
+      install:
+       - phpenv rehash
+       - composer self-update
+       - composer install
+      script:
+       - composer validate
+
+    # End to end tests
+    - php: 5.6
+      env: E2E=true
+      install:
+       - composer self-update
+       - composer install
+       - mysql -e 'create database talentcloud;'
+       - echo "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES;" | mysql -u root
+       - php -f ./install/cli/travis_installer.php
+       - php -S localhost:8888 index.php &
+       - sleep 3 # give Web server some time to bind to sockets, etc
+
 services:
   - mysql
+  - docker
 
-# Commands to be run before your environment runs.
-before_script:
+install:
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer install
+  - mysql -e 'create database talentcloud;'
+  - echo "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES;" | mysql -u root
+  - php -f ./install/cli/travis_installer.php
 
 # Commands you want to run that will verify your build.
 script:
   - composer validate
+  # ./vendor/bin/phpunit
   # phpunit --coverage-text --coverage-clover=coverage.clover
 
-after_script:
+# after_script:
  # wget https://scrutinizer-ci.com/ocular.phar
  # php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 # Customize when the notification emails are sent.
 notifications:
-    on_success: never
-    on_failure: always
+    slack: talent-cloud:dW8Ftd2QBoDzyE3eEAiuWy9F
