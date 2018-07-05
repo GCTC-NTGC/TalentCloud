@@ -22,7 +22,7 @@ else
 if (getenv('WWWROOT') != '')
 	$wwwroot = getenv('WWWROOT');
 else
-	$wwwroot = 'http://127.0.0.1';
+	$wwwroot = 'http://localhost';
 // none of the following may be empty
 $params = array(
 	// database parameters
@@ -43,7 +43,7 @@ $params = array(
 	'displayname' => 'Administrator',
 	'email' => 'grant.d.barnes@gmail.com',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'password',
 );
 // wait for db to be ready
 echo "Connecting to database..";

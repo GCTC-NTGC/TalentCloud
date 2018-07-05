@@ -9,7 +9,7 @@ services:
       - 80:80
     volumes:
       - ./public_html:/var/www/html
-      - ./data:/data
+      - ./data/data:/data
       - /www/vendor
       - /www/docker
       - /www/install
@@ -21,13 +21,15 @@ services:
       - DOCKER=1
       - HOME=/public_html
       - DBHOST=talentcloud-db
-      - WWWROOT=http://127.0.0.1
+      - WWWROOT=http://localhost
 
   talentcloud-db:
     image: library/mysql:5.6
+    ports:
+      - 3306:3306
     volumes:
-      # ./data/db:/docker-entrypoint-initdb.d
-      - ./data/db:/var/lib/mysql
+      - ./data/db:/docker-entrypoint-initdb.d
+      - persistent:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=talentcloud
       - MYSQL_USER=talentcloud
@@ -44,3 +46,6 @@ services:
       MYSQL_USER: talentcloud
       MYSQL_PASSWORD: talentcloud
       MYSQL_ROOT_PASSWORD: talentcloud
+
+volumes:
+  persistent:

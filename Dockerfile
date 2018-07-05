@@ -47,25 +47,28 @@ RUN \
   && chown apache /data \
   && ln -s /dev/stderr /var/log/apache2/error.log \
   && ln -s /dev/stdout /var/log/apache2/access.log \
+  && sed -i '/ServerName tc.gccollab.ca:80/c\\' /etc/apache2/httpd.conf \
   && sed -i '/#LoadModule rewrite_module modules\/mod_rewrite.so/c\LoadModule rewrite_module modules\/mod_rewrite.so' /etc/apache2/httpd.conf \
   && sed -i '/DocumentRoot "\/var\/www\/localhost\/htdocs"/c\DocumentRoot "\/www\/public_html"' /etc/apache2/httpd.conf \
   && sed -i '/Options Indexes FollowSymLinks/c\\' /etc/apache2/httpd.conf \
   && sed -i '/AllowOverride All/c\\' /etc/apache2/httpd.conf \
+  && sed -i '/ServerName localhost/c\\' /etc/apache2/httpd.conf \
   && sed -i '/<Directory "\/var\/www\/localhost\/htdocs">/c\<Directory "\/www\/public_html">\nDirectoryIndex index.php\nOptions FollowSymLinks Indexes\nAllowOverride All\nOrder deny,allow\nallow from All\n' /etc/apache2/httpd.conf
 
-# COPY ./install/config/htaccess.dist /public_html/tc/.htaccess
+COPY ./install/config/htaccess.dist /public_html/tc/.htaccess
 COPY --from=0 /app/vendor/ /www/vendor/
 COPY . /www
-RUN echo "ServerName 127.0.0.1:80" >> /etc/apache2/httpd.conf
 RUN chown apache:apache /www
+RUN echo 'ServerName localhost' >> /etc/apache2/httpd.conf
 
 WORKDIR /www
 EXPOSE 80
 EXPOSE 443
+EXPOSE 3306
 
 RUN chmod +x docker/start.sh
 
 # Start Apache in foreground mode
-RUN rm -f /run/apache2/httpd.pid
+# RUN rm -f /run/apache2/httpd.pid
 ENTRYPOINT [ "docker/start.sh" ]
 CMD ["/usr/sbin/httpd -D FOREGROUND"]
