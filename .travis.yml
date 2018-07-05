@@ -32,13 +32,12 @@ matrix:
        - composer validate
 
     # Build and test javascript
-    - php: 5.6
-      env: VARIA=true
-      dist: precise
-      install:
-       - npm install
-      script:
-       - npm doctor
+    #- php: 5.6
+    #  env: VARIA=true
+    #  install:
+    #   - npm install
+    #  script:
+    #  - npm doctor
 
     # End to end tests
     - php: 5.6
