@@ -38,7 +38,7 @@ matrix:
       install:
        - npm install
       script:
-       - npm test
+       - npm doctor
 
     # End to end tests
     - php: 5.6
