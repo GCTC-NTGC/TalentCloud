@@ -9,16 +9,16 @@ build:
         hosts:
             local.dev: '127.0.0.1'
 
-    apache2:
-        modules: ['rewrite']
-        sites:
-            symfony_app:
-                web_root: 'public_html/'
-                host: 'local.dev'
-                rules:
-                    - 'RewriteCond %{HTTP_REFERER} !^$'
-                    - 'RewriteCond %{HTTP_REFERER} !^http://(tc.)?gccollab.ca/ [NC]'
-                    - 'RewriteRule .(gif|jpg|png)$ - [F]'
+        apache2:
+            modules: ['rewrite']
+            sites:
+                symfony_app:
+                    web_root: 'public_html/'
+                    host: 'local.dev'
+                    rules:
+                        - 'RewriteCond %{HTTP_REFERER} !^$'
+                        - 'RewriteCond %{HTTP_REFERER} !^http://(tc.)?gccollab.ca/ [NC]'
+                        - 'RewriteRule .(gif|jpg|png)$ - [F]'
 
 #    tests:
 #      override:
