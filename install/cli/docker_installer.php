@@ -59,4 +59,4 @@ error_reporting($etmp);     // revert error reporting to default
 // install and create the .htaccess file
 // $installer->batchInstall($params, TRUE);
 // at this point installation has completed (otherwise an exception halted execution).
-echo "CLI install successful. wwwroot: " . $wwwroot . "\n";
+echo "Docker CLI install successful. wwwroot: " . $wwwroot . "\n";
