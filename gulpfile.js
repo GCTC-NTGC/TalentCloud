@@ -33,13 +33,13 @@ function swallowError (error) {
 
 // This task runs SASS on our SCSS files and compiles them into CSS.
 gulp.task('sass', function(){
-  return gulp.src('public_html/scss/*.scss')
+  return gulp.src('resources/assets/scss/*.scss')
     // Runs SASS.
     .pipe(sass())
     // Checks for an error, and if it exists stops everything.
     .on('error', swallowError)
     // This is the output folder for this task.
-    .pipe(gulp.dest('public_html/css/compiled'))
+    .pipe(gulp.dest('public/css/compiled'))
     // Notifies you that your code was successfully compiled.
     .pipe(notify({
         "title": "You were successfully Sassy! 💁",
@@ -55,13 +55,13 @@ gulp.task('optimize', function () {
         autoprefixer({browsers: ['last 2 version']}),
         cssnano()
     ];
-    return gulp.src('public_html/css/compiled/*.css')
+    return gulp.src('public/css/compiled/*.css')
         // Runs PostCSS and the plugins specified above.
         .pipe(postcss(plugins))
         // Checks for an error, and if it exists stops everything.
         .on('error', swallowError)
         // This is the output folder for this task.
-        .pipe(gulp.dest('public_html/css/compiled/'))
+        .pipe(gulp.dest('public/css/compiled/'))
         // Notifies you that your code was successfully compiled.
         .pipe(notify({
             "title": "Mmm, tasty optimization. 🍔",
@@ -72,6 +72,6 @@ gulp.task('optimize', function () {
 
 // This task watches both the SCSS and Compiled folders and then runs the above tasks as appropriate. This task allows you to run "Gulp" once in your terminal and forget about it.
 gulp.task('default',function() {
-    gulp.watch('public_html/scss/**/*.scss',['sass']);
+    gulp.watch('resources/assets/scss/**/*.scss',['sass']);
     // gulp.watch('css/compiled/*.css',['optimize']);
 });
