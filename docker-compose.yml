@@ -9,7 +9,7 @@ services:
       - 80:80
     volumes:
       - ./public_html:/var/www/html
-      - ./data/data:/data
+      - ./data:/data
       - /www/vendor
       - /www/docker
       - /www/install
