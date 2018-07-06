@@ -176,6 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Template Service Providers...
+         */
+        TwigBridge\ServiceProvider::class,
         
         /*
          * Debug Service Providers...
@@ -230,6 +235,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        
+        'Twig' => TwigBridge\Facade\Twig::class,
         
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
