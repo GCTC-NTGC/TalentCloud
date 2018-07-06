@@ -1,4 +1,0 @@
-UPDATE base_content SET base_content_value='Need to have' WHERE base_content_key='applicationProgressEssentialCriteria' AND base_content_locale_id=1;
-UPDATE base_content SET base_content_value='Les essentiels' WHERE base_content_key='applicationProgressEssentialCriteria' AND base_content_locale_id=2;
-UPDATE base_content SET base_content_value='Nice to have' WHERE base_content_key='applicationProgressNonEssentialCriteria' AND base_content_locale_id=1;
-UPDATE base_content SET base_content_value='Les atouts' WHERE base_content_key='applicationProgressNonEssentialCriteria' AND base_content_locale_id=2;

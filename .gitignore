@@ -25,11 +25,18 @@ composer.lock
 
 ## node
 /node_modules
-public_html/node_modules
-public_html/scss/vendor
+package-lock.json
 
 ## tests/misc
 /build
 /tests
 /selenium_tests
 .tags
+
+## laravel
+/public/storage
+/storage/*.key
+/.idea
+Homestead.json
+Homestead.yaml
+.env

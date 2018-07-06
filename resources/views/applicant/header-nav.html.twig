@@ -1,0 +1,131 @@
+{# empty Twig template #}
+<section class="page-hero">
+
+    <nav class="page-hero__navigation" id="wb-sm">
+
+        <h2 id="topicsMenu">Topics menu</h2>
+
+        <div class="page-hero__mobile-trigger" id="pageHeroMobileTrigger" role="button" tabindex="0">
+            <i class="fa fa-navicon"></i>
+            <i class="fa fa-times"></i>
+            Menu
+        </div>
+
+        <div class="page-hero__navigation-menu flex-grid" id="pageHeroNavigationMenu">
+
+            {# Home #}
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationHomeLinkWrapper" aria-hidden="false">
+                <a href="/" id="navigationHomeLink"tabindex="-1" >Home</a>
+            </div>
+
+            {# Browse Jobs #}
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6" id="navigationBrowseLinkWrapper" aria-hidden="false">
+                <a href="javascript:void(0)" id="navigationBrowseLink" tabindex="-1" onclick="AccessibilityAPI.focusElement('topPage');
+                        JobPostAPI.showBrowseJobs();
+                        TalentCloudAPI.setNav('navigationBrowseLinkWrapper');">
+                    Browse Jobs
+                </a>
+            </div>
+
+            {# Dashboard #}
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationDashboardLinkWrapper" aria-hidden="true">
+                <a href="javascript:void(0)" id="navigationDashboardLink" tabindex="-1" onclick="DashboardAPI.showDashboard(this);
+                        TalentCloudAPI.setNav('navigationDashboardLinkWrapper');">
+                    My Applications
+                </a>
+            </div>
+
+
+            {# My Profile #}
+            <div class="page-hero__navigation-item box med-1of5 lg-1of6 hidden" id="navigationProfileLinkWrapper" aria-hidden="true">
+                <a href="javascript:void(0)" id="navigationProfileLink" tabindex="-1" onclick="JobSeekerAPI.showMyJobSeekerProfile();
+                        TalentCloudAPI.setNav('navigationProfileLinkWrapper');">
+                    My Profile
+                </a>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div id="h1">
+        <h1 class="visuallyHidden">Talent Cloud - Applicant Portal</h1>
+    </div>
+
+    <div class="landing-hero" id="landingHero">
+
+        <div class="landing-hero__container">
+
+            <div class="flex-grid middle">
+
+                <div class="box lg-1of2">
+
+                    <img id="logoSrc" class="landing-hero__logo tc-logo logo" src="/images/talent-cloud-logo_full.png" width="229" alt=""/>
+
+                </div>
+
+                <div class="box lg-1of2">
+                    <span class="landing-hero__tagline" id="taglineMain">People want meaningful work.</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="subpage-hero">
+
+        <div class="block-container">
+
+            <div class="flex-grid">
+
+                <div class="box full">
+
+                    <h2 class="subpage-hero__title hidden" id="browseHeroTitle" aria-hidden="true">Browse Jobs</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="dashboardHeroTitle" aria-hidden="true">My Applications</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="profileHeroTitle" aria-hidden="true">My Profile</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="applicationHeroTitle" aria-hidden="true" aria-flowto="applicationHeroTitleCont">My Job Application</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="managerProfileHeroTitle" aria-hidden="true">Manager Profile</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="posterHeroTitle" aria-hidden="true">My Job Posters</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="faqHeroTitle" aria-hidden="true">FAQs &amp; Information</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="tacHeroTitle" aria-hidden="true">Terms &amp; Conditions</h2>
+
+                    <h2 class="subpage-hero__title hidden" id="privacyHeroTitle" aria-hidden="true">Privacy Policy</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {# Application Form Metadata #}
+        <div class="flex-grid hidden subpage-hero__application-metadata" id="applicationHeroMetadata">
+
+            <div class="box full">
+
+                <div class="block-container">
+                    <div class="subpage-hero__application-subtitle" id="applicationHeroTitleCont" role="heading" aria-level="2">
+                        <span class="subpage-hero__application-label" id="jobApplicationPositionLabel">for the position of:</span><br>
+                        <span class="subpage-hero__application-job" id="jobApplicationPostition">Job title</span>
+                    </div>
+                    <input type='hidden' id='jobApplicationJobApplicationId' />
+                    <input type='hidden' id='jobApplicationJobPosterId' />
+                    <input type='hidden' id='jobApplicationUserId' />
+                    <input type='hidden' id='jobApplicationJobApplicationStatusId' />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
