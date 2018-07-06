@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
+    $test = array("firstVar" => "blah blah");
+    return view('applicant/homepage', ["test" => $test ]);
+});
+
+Route::get('/laravel', function () {
     return view('welcome');
 });
