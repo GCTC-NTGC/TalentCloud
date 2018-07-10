@@ -33,3 +33,4 @@ public_html/scss/vendor
 /tests
 /selenium_tests
 .tags
+.env
