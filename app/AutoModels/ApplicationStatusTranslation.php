@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Created by Reliese Model.
+ * Date: Thu, 12 Jul 2018 22:39:27 +0000.
+ */
+
+namespace App\Models;
+
+use Reliese\Database\Eloquent\Model as Eloquent;
+
+/**
+ * Class ApplicationStatusTranslation
+ * 
+ * @property int $id
+ * @property int $application_status_id
+ * @property string $locale
+ * @property string $value
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \App\Models\ApplicationStatus $application_status
+ *
+ * @package App\Models
+ */
+class ApplicationStatusTranslation extends Eloquent
+{
+	protected $casts = [
+		'application_status_id' => 'int'
+	];
+
+	protected $fillable = [
+		'application_status_id',
+		'locale',
+		'value'
+	];
+
+	public function application_status()
+	{
+		return $this->belongsTo(\App\Models\ApplicationStatus::class);
+	}
+}
