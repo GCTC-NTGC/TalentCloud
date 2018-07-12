@@ -16,7 +16,7 @@ class CreateCriteriaTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('criteria_id')->unsigned()->index();
-			$table->text('name')->index();
+			$table->string('name')->index();
 			$table->text('description')->nullable();
 			$table->string('locale');
 			$table->timestamps();

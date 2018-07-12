@@ -14,7 +14,8 @@ class AddForeignKeysToApplicantProfileQuestionTranslationsTable extends Migratio
 	{
 		Schema::table('applicant_profile_question_translations', function(Blueprint $table)
 		{
-			$table->foreign('applicant_profile_question_id')->references('id')->on('applicant_profile_questions')->onUpdate('CASCADE')->onDelete('CASCADE');
+			//Custom foreign key name because default exceeds length limit  
+			$table->foreign('applicant_profile_question_id', 'applicant_profile_question_trans_applicant_profile_question_fk')->references('id')->on('applicant_profile_questions')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -28,7 +29,8 @@ class AddForeignKeysToApplicantProfileQuestionTranslationsTable extends Migratio
 	{
 		Schema::table('applicant_profile_question_translations', function(Blueprint $table)
 		{
-			$table->dropForeign('applicant_profile_question_translations_applicant_profile_question_id_foreign');
+			//Custom foreign key name because default exceeds length limit
+			$table->dropForeign('applicant_profile_question_trans_applicant_profile_question_fk');
 		});
 	}
 

@@ -14,7 +14,8 @@ class AddForeignKeysToLanguageRequirementTranslationsTable extends Migration {
 	{
 		Schema::table('language_requirement_translations', function(Blueprint $table)
 		{
-			$table->foreign('language_requirement_id')->references('id')->on('language_requirements')->onUpdate('CASCADE')->onDelete('CASCADE');
+			//Custom foreign key name because default exceeds length limit 
+			$table->foreign('language_requirement_id', 'language_requirement_trans_language_requirement_foreign')->references('id')->on('language_requirements')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -28,7 +29,8 @@ class AddForeignKeysToLanguageRequirementTranslationsTable extends Migration {
 	{
 		Schema::table('language_requirement_translations', function(Blueprint $table)
 		{
-			$table->dropForeign('language_requirement_translations_language_requirement_id_foreign');
+			//Custom foreign key name because default exceeds length limit 
+			$table->dropForeign('language_requirement_trans_language_requirement_foreign');
 		});
 	}
 

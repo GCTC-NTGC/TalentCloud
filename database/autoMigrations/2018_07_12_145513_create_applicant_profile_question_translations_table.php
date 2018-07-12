@@ -15,7 +15,7 @@ class CreateApplicantProfileQuestionTranslationsTable extends Migration {
 		Schema::create('applicant_profile_question_translations', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('applicant_profile_question_id')->unsigned()->index();
+			$table->integer('applicant_profile_question_id')->unsigned()->index('applicant_profile_question_trans_applicant_profile_question_idx'); //Custom index name because exceeds length limit
 			$table->string('locale');
 			$table->text('value');
 			$table->text('description');

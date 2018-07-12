@@ -14,7 +14,8 @@ class AddForeignKeysToCitizenshipDeclarationTranslationsTable extends Migration 
 	{
 		Schema::table('citizenship_declaration_translations', function(Blueprint $table)
 		{
-			$table->foreign('citizenship_declaration_id')->references('id')->on('citizenship_declaration')->onUpdate('CASCADE')->onDelete('CASCADE');
+			//Custom foreign key name because default exceeds length limit  
+			$table->foreign('citizenship_declaration_id', 'citizenship_declaration_trans_citizenship_declaration_fk')->references('id')->on('citizenship_declarations')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -28,7 +29,8 @@ class AddForeignKeysToCitizenshipDeclarationTranslationsTable extends Migration 
 	{
 		Schema::table('citizenship_declaration_translations', function(Blueprint $table)
 		{
-			$table->dropForeign('citizenship_declaration_translations_citizenship_declaration_id_foreign');
+			//Custom foreign key name because default exceeds length limit  
+			$table->dropForeign('citizenship_declaration_trans_citizenship_declaration_fk');
 		});
 	}
 

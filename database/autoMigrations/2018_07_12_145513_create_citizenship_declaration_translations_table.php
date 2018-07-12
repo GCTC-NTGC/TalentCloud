@@ -14,8 +14,9 @@ class CreateCitizenshipDeclarationTranslationsTable extends Migration {
 	{
 		Schema::create('citizenship_declaration_translations', function(Blueprint $table)
 		{
-			$table->integer('id', true);
-			$table->integer('citizenship_declaration_id')->unsigned()->index();
+			$table->increments('id');
+			//Custom index name because exceeds length limit 
+			$table->integer('citizenship_declaration_id')->unsigned()->index("citizenship_declaration_trans_citizenship_declaration_id_idx"); 
 			$table->string('locale');
 			$table->text('value');
 			$table->timestamps();

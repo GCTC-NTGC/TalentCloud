@@ -14,7 +14,7 @@ class CreateCitizenshipDeclarationsTable extends Migration {
 	{
 		Schema::create('citizenship_declarations', function(Blueprint $table)
 		{
-			$table->integer('id', true);
+			$table->increments('id');
 			$table->text('name');
 			$table->timestamps();
 		});
