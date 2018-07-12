@@ -12,7 +12,7 @@ class AddForeignKeysToSkillDeclarationTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('skill_declaration', function(Blueprint $table)
+		Schema::table('skill_declarations', function(Blueprint $table)
 		{
 			$table->foreign('job_application_id')->references('id')->on('job_applications')->onUpdate('CASCADE')->onDelete('CASCADE');
 			$table->foreign('criteria_id')->references('id')->on('criteria')->onUpdate('CASCADE')->onDelete('NO ACTION');
@@ -29,7 +29,7 @@ class AddForeignKeysToSkillDeclarationTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('skill_declaration', function(Blueprint $table)
+		Schema::table('skill_declarations', function(Blueprint $table)
 		{
 			$table->dropForeign('skill_declaration_job_application_id_foreign');
 			$table->dropForeign('skill_declaration_criteria_id_foreign');

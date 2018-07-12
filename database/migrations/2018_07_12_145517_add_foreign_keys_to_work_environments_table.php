@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToManagerWorkEnvironmentTable extends Migration {
+class AddForeignKeysToWorkEnvironmentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class AddForeignKeysToManagerWorkEnvironmentTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('manager_work_environment', function(Blueprint $table)
+		Schema::table('work_environments', function(Blueprint $table)
 		{
 			$table->foreign('manager_id')->references('id')->on('managers')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
@@ -26,7 +26,7 @@ class AddForeignKeysToManagerWorkEnvironmentTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('manager_work_environment', function(Blueprint $table)
+		Schema::table('work_environments', function(Blueprint $table)
 		{
 			$table->dropForeign('manager_work_environment_manager_id_foreign');
 		});

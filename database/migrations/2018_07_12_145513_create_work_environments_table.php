@@ -15,6 +15,7 @@ class CreateWorkEnvironmentsTable extends Migration {
 		Schema::create('work_environments', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('manager_id')->unsigned()->index();
 			$table->string('remote_allowed')->nullable();
 			$table->string('telework_allowed')->nullable();
 			$table->string('flexible_allowed')->nullable();
