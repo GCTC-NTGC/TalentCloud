@@ -16,8 +16,9 @@ class CreateCitizenshipDeclarationTranslationsTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('citizenship_declaration_id')->unsigned()->index();
-			$table->string('locale', 50);
-			$table->text('value', 65535);
+			$table->string('locale');
+			$table->text('value');
+			$table->timestamps();
 		});
 	}
 

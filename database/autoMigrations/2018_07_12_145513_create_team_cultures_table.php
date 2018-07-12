@@ -15,9 +15,10 @@ class CreateTeamCulturesTable extends Migration {
 		Schema::create('team_cultures', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('team_size');
-			$table->string('gc_directory_url');
+			$table->integer('team_size')->nullable();
+			$table->string('gc_directory_url')->nullable();
 			$table->integer('manager_id')->unsigned()->index();
+			$table->timestamps();
 		});
 	}
 

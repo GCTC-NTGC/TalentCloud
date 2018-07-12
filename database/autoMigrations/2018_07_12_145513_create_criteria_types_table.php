@@ -15,8 +15,9 @@ class CreateCriteriaTypesTable extends Migration {
 		Schema::create('criteria_types', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 45);
-			$table->string('description', 140)->nullable();
+			$table->string('name');
+			$table->string('description')->nullable();
+			$table->timestamps();
 		});
 	}
 

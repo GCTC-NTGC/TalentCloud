@@ -17,7 +17,8 @@ class CreateApplicantProfileAnswersTable extends Migration {
 			$table->increments('id');
 			$table->integer('applicant_id')->unsigned()->index();
 			$table->integer('applicant_profile_question_id')->unsigned()->index();
-			$table->text('answer', 65535)->nullable();
+			$table->text('answer')->nullable();
+			$table->timestamps();
 		});
 	}
 

@@ -17,6 +17,7 @@ class CreateCriteriaTable extends Migration {
 			$table->increments('id');
 			$table->integer('criteria_type_id')->unsigned()->index();
 			$table->integer('job_poster_id')->unsigned()->index();
+			$table->timestamps();
 		});
 	}
 

@@ -19,9 +19,9 @@ class CreateSkillDeclarationTable extends Migration {
 			$table->integer('job_application_id')->unsigned()->index();
 			$table->integer('experience_level_id')->unsigned()->nullable()->index();
 			$table->integer('skill_level_id')->unsigned()->nullable()->index();
-			$table->text('description', 65535)->nullable();
+			$table->text('description')->nullable();
 			$table->boolean('is_active');
-			$table->timestamp('last_updated')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamps();
 		});
 	}
 

@@ -16,9 +16,10 @@ class CreateCriteriaTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('criteria_id')->unsigned()->index();
-			$table->text('name', 65535);
-			$table->text('description', 65535)->nullable();
-			$table->string('locale', 50);
+			$table->text('name')->index();
+			$table->text('description')->nullable();
+			$table->string('locale');
+			$table->timestamps();
 		});
 	}
 

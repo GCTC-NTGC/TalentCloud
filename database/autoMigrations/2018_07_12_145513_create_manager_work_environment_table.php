@@ -16,7 +16,8 @@ class CreateManagerWorkEnvironmentTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('manager_id')->unsigned()->index();
-			$table->integer('work_environment_id')->unsigned();
+			$table->integer('work_environment_id')->unsigned()->index();
+			$table->timestamps();
 		});
 	}
 

@@ -15,7 +15,8 @@ class CreateExperienceLevelsTable extends Migration {
 		Schema::create('experience_levels', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 65);
+			$table->string('name');
+			$table->timestamps();
 		});
 	}
 

@@ -16,11 +16,11 @@ class CreateApplicantsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('personal_website')->nullable();
-			$table->text('tagline', 65535)->nullable();
+			$table->text('tagline')->nullable();
 			$table->string('twitter_username')->nullable();
 			$table->string('linkedin_username')->nullable();
-			$table->timestamp('last_updated')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->integer('user_id')->unsigned()->index();
+			$table->timestamps();
 		});
 	}
 

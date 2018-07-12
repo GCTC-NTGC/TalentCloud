@@ -15,7 +15,8 @@ class CreateLanguageRequirementsTable extends Migration {
 		Schema::create('language_requirements', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 65);
+			$table->string('name');
+			$table->timestamps();
 		});
 	}
 

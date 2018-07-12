@@ -19,6 +19,7 @@ class CreateApplicationWorkSamplesTable extends Migration {
 			$table->integer('criteria_id')->unsigned()->index();
 			$table->integer('work_sample_id')->unsigned()->index();
 			$table->boolean('is_active')->default(1);
+			$table->timestamps();
 		});
 	}
 

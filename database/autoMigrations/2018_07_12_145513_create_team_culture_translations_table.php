@@ -16,11 +16,12 @@ class CreateTeamCultureTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('team_culture_id')->unsigned()->index();
-			$table->string('locale', 50);
-			$table->text('narrative_text', 65535);
-			$table->text('operating_context', 65535);
-			$table->text('what_we_value', 65535);
-			$table->text('how_we_work', 65535);
+			$table->string('locale');
+			$table->text('narrative_text')->nullable();
+			$table->text('operating_context')->nullable();
+			$table->text('what_we_value')->nullable();
+			$table->text('how_we_work')->nullable();
+			$table->timestamps();
 		});
 	}
 

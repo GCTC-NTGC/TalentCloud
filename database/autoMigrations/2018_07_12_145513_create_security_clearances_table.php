@@ -15,7 +15,8 @@ class CreateSecurityClearancesTable extends Migration {
 		Schema::create('security_clearances', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 65);
+			$table->string('name');
+			$table->timestamps();
 		});
 	}
 

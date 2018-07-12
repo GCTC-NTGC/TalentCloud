@@ -16,8 +16,9 @@ class CreateFileTypeTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('file_type_id')->unsigned()->index();
-			$table->string('locale', 50);
-			$table->string('value', 45);
+			$table->string('locale');
+			$table->string('value');
+			$table->timestamps();
 		});
 	}
 

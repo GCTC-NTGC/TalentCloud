@@ -19,6 +19,7 @@ class CreateApplicationMicroReferencesTable extends Migration {
 			$table->integer('criteria_id')->unsigned()->index();
 			$table->integer('micro_reference_id')->unsigned()->index();
 			$table->boolean('is_active')->default(1);
+			$table->timestamps();
 		});
 	}
 

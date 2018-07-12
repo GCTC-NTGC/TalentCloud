@@ -15,8 +15,6 @@ class AddForeignKeysToJobPostersTable extends Migration {
 		Schema::table('job_posters', function(Blueprint $table)
 		{
 			$table->foreign('department_id')->references('id')->on('departments')->onUpdate('CASCADE')->onDelete('NO ACTION');
-			$table->foreign('job_level_id_max')->references('id')->on('job_levels')->onUpdate('CASCADE')->onDelete('NO ACTION');
-			$table->foreign('job_level_id_min')->references('id')->on('job_levels')->onUpdate('CASCADE')->onDelete('NO ACTION');
 			$table->foreign('job_term_id')->references('id')->on('job_terms')->onUpdate('CASCADE')->onDelete('NO ACTION');
 			$table->foreign('language_requirement_id')->references('id')->on('language_requirements')->onUpdate('CASCADE')->onDelete('NO ACTION');
 			$table->foreign('manager_id')->references('id')->on('managers')->onUpdate('CASCADE')->onDelete('NO ACTION');
@@ -36,8 +34,6 @@ class AddForeignKeysToJobPostersTable extends Migration {
 		Schema::table('job_posters', function(Blueprint $table)
 		{
 			$table->dropForeign('job_posters_department_id_foreign');
-			$table->dropForeign('job_posters_job_level_id_max_foreign');
-			$table->dropForeign('job_posters_job_level_id_min_foreign');
 			$table->dropForeign('job_posters_job_term_id_foreign');
 			$table->dropForeign('job_posters_language_requirement_id_foreign');
 			$table->dropForeign('job_posters_manager_id_foreign');

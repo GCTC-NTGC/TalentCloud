@@ -16,9 +16,10 @@ class CreateApplicantProfileQuestionTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('applicant_profile_question_id')->unsigned()->index();
-			$table->string('locale', 50);
-			$table->text('value', 65535);
-			$table->text('description', 65535);
+			$table->string('locale');
+			$table->text('value');
+			$table->text('description');
+			$table->timestamps();
 		});
 	}
 

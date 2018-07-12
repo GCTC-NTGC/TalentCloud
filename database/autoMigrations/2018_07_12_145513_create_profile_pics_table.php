@@ -17,9 +17,9 @@ class CreateProfilePicsTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
 			$table->binary('image');
-			$table->timestamp('last_updated')->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->string('type', 45);
+			$table->string('type');
 			$table->integer('size');
+			$table->timestamps();
 		});
 	}
 

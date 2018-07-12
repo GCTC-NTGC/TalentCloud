@@ -16,8 +16,9 @@ class CreateJobTermTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('job_term_id')->unsigned()->index();
-			$table->string('value', 45)->nullable();
-			$table->string('locale', 50);
+			$table->string('value')->nullable();
+			$table->string('locale');
+			$table->timestamps();
 		});
 	}
 

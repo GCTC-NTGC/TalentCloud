@@ -17,7 +17,8 @@ class CreateJobApplicationAnswersTable extends Migration {
 			$table->increments('id');
 			$table->integer('job_poster_questions_id')->unsigned()->index();
 			$table->integer('job_application_id')->unsigned()->index();
-			$table->text('answer', 65535);
+			$table->text('answer');
+			$table->timestamps();
 		});
 	}
 

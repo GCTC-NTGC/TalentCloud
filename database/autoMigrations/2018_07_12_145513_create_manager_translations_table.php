@@ -15,23 +15,24 @@ class CreateManagerTranslationsTable extends Migration {
 		Schema::create('manager_translations', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('locale', 50);
-			$table->text('aboutme', 16777215)->nullable();
-			$table->text('greatest_accomplishment', 16777215)->nullable();
-			$table->text('branch', 65535)->nullable();
-			$table->text('division', 65535)->nullable();
-			$table->text('position', 65535)->nullable();
-			$table->text('leadership_style', 16777215)->nullable();
-			$table->text('employee_learning', 16777215)->nullable();
-			$table->text('expectations', 16777215)->nullable();
+			$table->string('locale');
+			$table->text('aboutme')->nullable();
+			$table->text('greatest_accomplishment')->nullable();
+			$table->text('branch')->nullable();
+			$table->text('division')->nullable();
+			$table->text('position')->nullable();
+			$table->text('leadership_style')->nullable();
+			$table->text('employee_learning')->nullable();
+			$table->text('expectations')->nullable();
 			$table->integer('manager_id')->unsigned()->index();
-			$table->string('review_options', 45)->nullable();
-			$table->string('staylate', 45)->nullable();
-			$table->string('engage', 45)->nullable();
-			$table->string('opportunities', 45)->nullable();
-			$table->string('low_value_work_requests', 45)->nullable();
-			$table->text('work_experience', 16777215)->nullable();
-			$table->text('education', 16777215)->nullable();
+			$table->string('review_options')->nullable();
+			$table->string('staylate')->nullable();
+			$table->string('engage')->nullable();
+			$table->string('opportunities')->nullable();
+			$table->string('low_value_work_requests')->nullable();
+			$table->text('work_experience')->nullable();
+			$table->text('education')->nullable();
+			$table->timestamps();
 		});
 	}
 

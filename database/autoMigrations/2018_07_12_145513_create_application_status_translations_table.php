@@ -16,8 +16,9 @@ class CreateApplicationStatusTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('application_status_id')->unsigned()->index();
-			$table->string('locale', 45);
-			$table->string('value', 45)->nullable();
+			$table->string('locale');
+			$table->string('value')->nullable();
+			$table->timestamps();
 		});
 	}
 

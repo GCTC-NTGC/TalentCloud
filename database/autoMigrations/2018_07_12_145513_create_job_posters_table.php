@@ -16,9 +16,7 @@ class CreateJobPostersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('job_term_id')->unsigned()->index();
-			$table->string('term_qty', 5);
-			$table->integer('job_level_id_min')->unsigned()->index();
-			$table->integer('job_level_id_max')->unsigned()->index();
+			$table->string('term_qty');
 			$table->dateTime('open_date_time');
 			$table->dateTime('close_date_time');
 			$table->dateTime('start_date_time');
@@ -27,10 +25,11 @@ class CreateJobPostersTable extends Migration {
 			$table->integer('salary_min')->nullable();
 			$table->integer('salary_max')->nullable();
 			$table->integer('noc');
-			$table->string('classification', 8);
+			$table->string('classification');
 			$table->integer('security_clearance_id')->unsigned()->index();
 			$table->integer('language_requirement_id')->unsigned()->index();
 			$table->integer('manager_id')->unsigned()->index();
+			$table->timestamps();
 		});
 	}
 

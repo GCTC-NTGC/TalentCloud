@@ -16,8 +16,9 @@ class CreateWorkplacePhotosTable extends Migration {
 		{
 			$table->increments('id');
 			$table->binary('image');
-			$table->string('mime_type', 45);
+			$table->string('mime_type');
 			$table->integer('size');
+			$table->timestamps();
 		});
 	}
 

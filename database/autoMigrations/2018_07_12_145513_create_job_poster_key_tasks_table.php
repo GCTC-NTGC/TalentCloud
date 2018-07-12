@@ -16,8 +16,9 @@ class CreateJobPosterKeyTasksTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('job_poster_id')->unsigned()->index();
-			$table->string('locale', 50);
-			$table->text('description', 65535);
+			$table->string('locale');
+			$table->text('description');
+			$table->timestamps();
 		});
 	}
 

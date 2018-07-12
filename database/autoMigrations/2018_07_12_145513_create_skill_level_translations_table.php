@@ -16,8 +16,9 @@ class CreateSkillLevelTranslationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('skill_level_id')->unsigned()->index();
-			$table->string('locale', 50);
-			$table->string('value', 65);
+			$table->string('locale');
+			$table->string('value');
+			$table->timestamps();
 		});
 	}
 

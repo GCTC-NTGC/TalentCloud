@@ -17,8 +17,8 @@ class CreateJobApplicationsTable extends Migration {
 			$table->increments('id');
 			$table->integer('job_poster_id')->unsigned()->index();
 			$table->integer('application_status_id')->unsigned()->index();
-			$table->timestamp('last_updated')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->integer('applicant_id')->unsigned()->index();
+			$table->timestamps();
 		});
 	}
 

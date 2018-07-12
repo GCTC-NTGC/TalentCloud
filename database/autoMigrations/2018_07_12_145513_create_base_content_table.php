@@ -15,10 +15,11 @@ class CreateBaseContentTable extends Migration {
 		Schema::create('base_content', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('base_content_type_id')->unsigned();
-			$table->string('key', 64);
-			$table->text('value', 65535);
-			$table->string('locale', 45);
+			$table->integer('base_content_type_id')->unsigned()->index();
+			$table->string('key')->index();
+			$table->text('value');
+			$table->string('locale');
+			$table->timestamps();
 		});
 	}
 

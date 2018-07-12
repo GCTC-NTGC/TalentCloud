@@ -15,9 +15,10 @@ class CreateLanguageRequirementTranslationsTable extends Migration {
 		Schema::create('language_requirement_translations', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('locale', 50);
+			$table->string('locale');
 			$table->integer('language_requirement_id')->unsigned()->index();
-			$table->string('value', 65);
+			$table->string('value');
+			$table->timestamps();
 		});
 	}
 

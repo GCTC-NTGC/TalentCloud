@@ -15,7 +15,8 @@ class CreateApplicantProfileQuestionsTable extends Migration {
 		Schema::create('applicant_profile_questions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 60);
+			$table->string('name');
+			$table->timestamps();
 		});
 	}
 
