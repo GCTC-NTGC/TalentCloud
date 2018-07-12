@@ -17,6 +17,7 @@ tmtags
 Thumbs.db
 Desktop.ini
 npm-debug.log
+.tags
 *~
 
 ## composer
@@ -24,20 +25,19 @@ npm-debug.log
 composer.lock
 
 ## node
-node_modules
 /node_modules
 package-lock.json
 
 ## tests/misc
-/build
-/tests
 /selenium_tests
-.tags
+/tests
+/build
+/data
 
 ## laravel
+Homestead.json
+Homestead.yaml
 /public/storage
 /storage/*.key
 /.idea
-Homestead.json
-Homestead.yaml
 .env
