@@ -1,3 +1,5 @@
+# Global
+.*.swp
 .DS_Store
 applet
 application.linux32
@@ -6,7 +8,7 @@ application.windows32
 application.windows64
 application.macosx
 
-## IDE/hidden/testing/OS cache files
+## IDE/hidden/testing/cache
 /nbproject
 /nb-configuration.xml
 Session.vim
@@ -20,24 +22,39 @@ npm-debug.log
 .tags
 *~
 
-## composer
-/vendor
-composer.lock
-
-## node
-/node_modules
-package-lock.json
-
-## tests/misc
+## TalentCloud
 /selenium_tests
 /tests
 /build
 /data
+/doc
 
-## laravel
+## Laravel
 Homestead.json
 Homestead.yaml
 /public/storage
 /storage/*.key
 /.idea
 .env
+
+## Composer
+/vendor
+composer.lock
+
+## node.js
+/node_modules
+package-lock.json
+
+# PHPStorm
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+# Netbeans
+nbproject/
+/nbproject/
+/nbproject/private/
+/nbproject/private/private.properties
+
+# SSL Certs
+etc/ssl/
