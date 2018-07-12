@@ -13,26 +13,6 @@ services:
             - self-update
             - install
 
-    talentcloud:
-        build: .
-        container_name: talentcloud
-        volumes:
-            - "./web:/var/www/html"
-        depends_on:
-            - nginx
-            - php-fpm
-            - mysql
-            - composer
-        networks:
-            - bridge
-        # environment:
-            # "DB_CONNECTION=${DB_CONNECTION}"
-            # "DB_HOST=${DB_HOST}"
-            # "DB_PORT=${DB_PORT}"
-            # "DB_DATABASE=${DB_DATABASE}"
-            # "DB_USERNAME=${DB_USERNAME}"
-            # "DB_PASSWORD=${DB_PASSWORD}"
-
     nginx:
         image: nginx:alpine
         container_name: nginx
@@ -44,6 +24,9 @@ services:
         ports:
             - "80:80"
             - "443:443"
+        depends_on:
+            - php-fpm
+            - mysql
         environment:
             - NGINX_HOST=${NGINX_HOST}
         command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
