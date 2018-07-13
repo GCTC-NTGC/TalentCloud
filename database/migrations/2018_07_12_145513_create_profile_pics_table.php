@@ -15,7 +15,7 @@ class CreateProfilePicsTable extends Migration {
 		Schema::create('profile_pics', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned()->index();
+			$table->integer('user_id')->unsigned()->unique()->index();
 			$table->binary('image');
 			$table->string('type');
 			$table->integer('size');
