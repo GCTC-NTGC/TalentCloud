@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Province $province
- *
- * @package App\Models
  */
 class ProvinceTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class ProvinceTranslation extends Eloquent
 		'province_id' => 'int'
 	];
 
-	protected $fillable = [
-		'province_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function province()
 	{

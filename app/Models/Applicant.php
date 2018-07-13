@@ -24,8 +24,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\User $user
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
- *
- * @package App\Models
  */
 class Applicant extends Eloquent
 {
@@ -37,8 +35,7 @@ class Applicant extends Eloquent
 		'personal_website',
 		'tagline',
 		'twitter_username',
-		'linkedin_username',
-		'user_id'
+		'linkedin_username'
 	];
 
 	public function user()

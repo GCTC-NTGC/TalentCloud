@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\LanguageRequirement $language_requirement
- *
- * @package App\Models
  */
 class LanguageRequirementTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class LanguageRequirementTranslation extends Eloquent
 		'language_requirement_id' => 'int'
 	];
 
-	protected $fillable = [
-		'locale',
-		'language_requirement_id',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function language_requirement()
 	{

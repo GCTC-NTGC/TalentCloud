@@ -24,8 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $applicants
  * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $profile_pics
- *
- * @package App\Models
+ * @property \App\Models\UserRole $user_role
  */
 class User extends Eloquent
 {
@@ -34,13 +33,7 @@ class User extends Eloquent
 		'user_role_id' => 'int'
 	];
 
-	protected $fillable = [
-		'email',
-		'name',
-		'is_confirmed',
-		'user_role_id',
-		'open_id_sub'
-	];
+	protected $fillable = [];
 
 	public function applicants()
 	{
@@ -55,5 +48,10 @@ class User extends Eloquent
 	public function profile_pics()
 	{
 		return $this->hasMany(\App\Models\ProfilePic::class);
+	}
+
+	public function user_role()
+	{
+		return $this->hasOne(\App\Models\UserRole::class);
 	}
 }

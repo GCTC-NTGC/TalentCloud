@@ -34,8 +34,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Manager $manager
- *
- * @package App\Models
  */
 class ManagerTranslation extends Eloquent
 {
@@ -44,7 +42,6 @@ class ManagerTranslation extends Eloquent
 	];
 
 	protected $fillable = [
-		'locale',
 		'aboutme',
 		'greatest_accomplishment',
 		'branch',
@@ -53,7 +50,6 @@ class ManagerTranslation extends Eloquent
 		'leadership_style',
 		'employee_learning',
 		'expectations',
-		'manager_id',
 		'review_options',
 		'staylate',
 		'engage',

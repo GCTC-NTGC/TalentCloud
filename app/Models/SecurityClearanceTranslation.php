@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\SecurityClearance $security_clearance
- *
- * @package App\Models
  */
 class SecurityClearanceTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class SecurityClearanceTranslation extends Eloquent
 		'security_clearance_id' => 'int'
 	];
 
-	protected $fillable = [
-		'locale',
-		'security_clearance_id',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function security_clearance()
 	{

@@ -21,8 +21,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\ApplicantProfileQuestion $applicant_profile_question
- *
- * @package App\Models
  */
 class ApplicantProfileQuestionTranslation extends Eloquent
 {
@@ -30,12 +28,7 @@ class ApplicantProfileQuestionTranslation extends Eloquent
 		'applicant_profile_question_id' => 'int'
 	];
 
-	protected $fillable = [
-		'applicant_profile_question_id',
-		'locale',
-		'value',
-		'description'
-	];
+	protected $fillable = [];
 
 	public function applicant_profile_question()
 	{

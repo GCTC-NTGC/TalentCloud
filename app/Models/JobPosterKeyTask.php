@@ -14,14 +14,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property int $job_poster_id
- * @property string $locale
- * @property string $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\JobPoster $job_poster
- *
- * @package App\Models
  */
 class JobPosterKeyTask extends Eloquent
 {
@@ -29,11 +25,7 @@ class JobPosterKeyTask extends Eloquent
 		'job_poster_id' => 'int'
 	];
 
-	protected $fillable = [
-		'job_poster_id',
-		'locale',
-		'description'
-	];
+	protected $fillable = [];
 
 	public function job_poster()
 	{

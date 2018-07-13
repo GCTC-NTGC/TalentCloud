@@ -23,8 +23,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\Criterion $criterion
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\WorkSample $work_sample
- *
- * @package App\Models
  */
 class ApplicationWorkSample extends Eloquent
 {
@@ -35,12 +33,7 @@ class ApplicationWorkSample extends Eloquent
 		'is_active' => 'bool'
 	];
 
-	protected $fillable = [
-		'job_application_id',
-		'criteria_id',
-		'work_sample_id',
-		'is_active'
-	];
+	protected $fillable = [];
 
 	public function criterion()
 	{

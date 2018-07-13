@@ -23,8 +23,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\TeamCulture $team_culture
- *
- * @package App\Models
  */
 class TeamCultureTranslation extends Eloquent
 {
@@ -33,8 +31,6 @@ class TeamCultureTranslation extends Eloquent
 	];
 
 	protected $fillable = [
-		'team_culture_id',
-		'locale',
 		'narrative_text',
 		'operating_context',
 		'what_we_value',

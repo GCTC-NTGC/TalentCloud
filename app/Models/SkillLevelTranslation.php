@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\SkillLevel $skill_level
- *
- * @package App\Models
  */
 class SkillLevelTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class SkillLevelTranslation extends Eloquent
 		'skill_level_id' => 'int'
 	];
 
-	protected $fillable = [
-		'skill_level_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function skill_level()
 	{

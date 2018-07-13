@@ -20,14 +20,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $experience_level_translations
  * @property \Illuminate\Database\Eloquent\Collection $micro_references
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- *
- * @package App\Models
  */
 class ExperienceLevel extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function experience_level_translations()
 	{

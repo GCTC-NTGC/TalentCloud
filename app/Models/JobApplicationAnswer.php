@@ -21,8 +21,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\JobPosterQuestion $job_poster_question
- *
- * @package App\Models
  */
 class JobApplicationAnswer extends Eloquent
 {
@@ -32,8 +30,6 @@ class JobApplicationAnswer extends Eloquent
 	];
 
 	protected $fillable = [
-		'job_poster_questions_id',
-		'job_application_id',
 		'answer'
 	];
 

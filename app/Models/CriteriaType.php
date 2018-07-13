@@ -19,15 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $criteria
- *
- * @package App\Models
  */
 class CriteriaType extends Eloquent
 {
-	protected $fillable = [
-		'name',
-		'description'
-	];
+	protected $fillable = [];
 
 	public function criteria()
 	{

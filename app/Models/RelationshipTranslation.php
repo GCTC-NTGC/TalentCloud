@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Relationship $relationship
- *
- * @package App\Models
  */
 class RelationshipTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class RelationshipTranslation extends Eloquent
 		'relationship_id' => 'int'
 	];
 
-	protected $fillable = [
-		'relationship_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function relationship()
 	{

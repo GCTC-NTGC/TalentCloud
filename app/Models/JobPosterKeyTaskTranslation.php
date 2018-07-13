@@ -10,32 +10,30 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class CriteriaTranslation
+ * Class JobPosterKeyTask
  * 
  * @property int $id
- * @property int $criteria_id
- * @property string $name
- * @property string $description
+ * @property int $job_poster_key_task_id
  * @property string $locale
+ * @property string $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\Criterion $criterion
+ * @property \App\Models\JobPoster $job_poster
  */
-class CriteriaTranslation extends Eloquent
+class JobPosterKeyTask extends Eloquent
 {
 	protected $casts = [
-		'criteria_id' => 'int'
+		'job_poster_key_task_id' => 'int'
 	];
 
 	protected $fillable = [
-		'name',
-		'description',
-		'locale'
+		'locale',
+		'description'
 	];
 
-	public function criterion()
+	public function job_poster()
 	{
-		return $this->belongsTo(\App\Models\Criterion::class, 'criteria_id');
+		return $this->belongsTo(\App\Models\JobPoster::class);
 	}
 }

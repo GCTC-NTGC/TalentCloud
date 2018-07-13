@@ -19,14 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
- *
- * @package App\Models
  */
 class ApplicantProfileQuestion extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function applicant_profile_answers()
 	{

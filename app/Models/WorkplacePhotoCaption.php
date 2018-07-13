@@ -22,8 +22,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\WorkplacePhoto $workplace_photo
- *
- * @package App\Models
  */
 class WorkplacePhotoCaption extends Eloquent
 {
@@ -33,9 +31,7 @@ class WorkplacePhotoCaption extends Eloquent
 	];
 
 	protected $fillable = [
-		'work_environment_id',
 		'photo_name',
-		'workplace_photo_id',
 		'description'
 	];
 

@@ -26,8 +26,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\ExperienceLevel $experience_level
  * @property \App\Models\Relationship $relationship
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
- *
- * @package App\Models
  */
 class MicroReference extends Eloquent
 {

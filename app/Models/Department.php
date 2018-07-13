@@ -19,14 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $department_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
- *
- * @package App\Models
  */
 class Department extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function department_translations()
 	{

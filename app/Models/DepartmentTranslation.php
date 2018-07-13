@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Department $department
- *
- * @package App\Models
  */
 class DepartmentTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class DepartmentTranslation extends Eloquent
 		'department_id' => 'int'
 	];
 
-	protected $fillable = [
-		'department_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function department()
 	{

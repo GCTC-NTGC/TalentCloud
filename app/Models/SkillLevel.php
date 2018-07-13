@@ -19,14 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \Illuminate\Database\Eloquent\Collection $skill_level_translations
- *
- * @package App\Models
  */
 class SkillLevel extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function skill_declarations()
 	{

@@ -21,8 +21,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $team_culture_translations
- *
- * @package App\Models
  */
 class TeamCulture extends Eloquent
 {
@@ -33,8 +31,7 @@ class TeamCulture extends Eloquent
 
 	protected $fillable = [
 		'team_size',
-		'gc_directory_url',
-		'manager_id'
+		'gc_directory_url'
 	];
 
 	public function manager()

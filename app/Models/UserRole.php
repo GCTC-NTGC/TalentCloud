@@ -16,12 +16,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
- * @package App\Models
+ * @property \Illuminate\Database\Eloquent\Collection $users
  */
 class UserRole extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
+
+	public function users()
+	{
+		return $this->hasMany(\App\Models\User::class);
+	}
 }

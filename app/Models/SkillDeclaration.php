@@ -26,13 +26,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\ExperienceLevel $experience_level
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\SkillLevel $skill_level
- *
- * @package App\Models
  */
 class SkillDeclaration extends Eloquent
 {
-	protected $table = 'skill_declaration';
-
 	protected $casts = [
 		'criteria_id' => 'int',
 		'job_application_id' => 'int',
@@ -46,8 +42,7 @@ class SkillDeclaration extends Eloquent
 		'job_application_id',
 		'experience_level_id',
 		'skill_level_id',
-		'description',
-		'is_active'
+		'description'
 	];
 
 	public function criterion()

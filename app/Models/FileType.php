@@ -19,14 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $file_type_translations
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
- *
- * @package App\Models
  */
 class FileType extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function file_type_translations()
 	{

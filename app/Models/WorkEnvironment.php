@@ -13,15 +13,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class WorkEnvironment
  * 
  * @property int $id
+ * @property int $manager_id
  * @property string $remote_allowed
  * @property string $telework_allowed
  * @property string $flexible_allowed
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
- *
- * @package App\Models
  */
 class WorkEnvironment extends Eloquent
 {
@@ -30,6 +30,11 @@ class WorkEnvironment extends Eloquent
 		'telework_allowed',
 		'flexible_allowed'
 	];
+
+	public function manager()
+	{
+		return $this->belongsTo(\App\Models\Manager::class);
+	}
 
 	public function workplace_photo_captions()
 	{

@@ -41,8 +41,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_key_tasks
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
- *
- * @package App\Models
  */
 class JobPoster extends Eloquent
 {
@@ -77,8 +75,7 @@ class JobPoster extends Eloquent
 		'noc',
 		'classification',
 		'security_clearance_id',
-		'language_requirement_id',
-		'manager_id'
+		'language_requirement_id'
 	];
 
 	public function department()

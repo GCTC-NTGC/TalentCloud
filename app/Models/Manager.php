@@ -25,8 +25,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $manager_translations
  * @property \Illuminate\Database\Eloquent\Collection $manager_work_environments
  * @property \Illuminate\Database\Eloquent\Collection $team_cultures
- *
- * @package App\Models
  */
 class Manager extends Eloquent
 {
@@ -38,8 +36,7 @@ class Manager extends Eloquent
 	protected $fillable = [
 		'department_id',
 		'twitter_username',
-		'linkedin_username',
-		'user_id'
+		'linkedin_username'
 	];
 
 	public function user()

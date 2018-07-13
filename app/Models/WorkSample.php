@@ -23,8 +23,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
- *
- * @package App\Models
  */
 class WorkSample extends Eloquent
 {

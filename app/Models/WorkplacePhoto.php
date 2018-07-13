@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
- *
- * @package App\Models
  */
 class WorkplacePhoto extends Eloquent
 {
@@ -31,9 +29,7 @@ class WorkplacePhoto extends Eloquent
 	];
 
 	protected $fillable = [
-		'image',
-		'mime_type',
-		'size'
+		'image'
 	];
 
 	public function workplace_photo_captions()

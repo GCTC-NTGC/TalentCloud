@@ -18,14 +18,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $citizenship_declaration_translations
- *
- * @package App\Models
  */
 class CitizenshipDeclaration extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function citizenship_declaration_translations()
 	{

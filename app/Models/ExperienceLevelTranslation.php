@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\ExperienceLevel $experience_level
- *
- * @package App\Models
  */
 class ExperienceLevelTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class ExperienceLevelTranslation extends Eloquent
 		'experience_level_id' => 'int'
 	];
 
-	protected $fillable = [
-		'locale',
-		'experience_level_id',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function experience_level()
 	{

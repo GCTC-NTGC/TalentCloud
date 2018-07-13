@@ -19,14 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $micro_references
  * @property \Illuminate\Database\Eloquent\Collection $relationship_translations
- *
- * @package App\Models
  */
 class Relationship extends Eloquent
 {
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function micro_references()
 	{

@@ -26,8 +26,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- *
- * @package App\Models
  */
 class JobApplication extends Eloquent
 {
@@ -37,11 +35,7 @@ class JobApplication extends Eloquent
 		'applicant_id' => 'int'
 	];
 
-	protected $fillable = [
-		'job_poster_id',
-		'application_status_id',
-		'applicant_id'
-	];
+	protected $fillable = [];
 
 	public function applicant()
 	{

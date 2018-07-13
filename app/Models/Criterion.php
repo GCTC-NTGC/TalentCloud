@@ -24,11 +24,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- *
- * @package App\Models
  */
 class Criterion extends Eloquent
 {
+	protected $table = 'criteria';
+
 	protected $casts = [
 		'criteria_type_id' => 'int',
 		'job_poster_id' => 'int'

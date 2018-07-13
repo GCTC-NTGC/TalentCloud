@@ -21,8 +21,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\User $user
- *
- * @package App\Models
  */
 class ProfilePic extends Eloquent
 {
@@ -33,10 +31,7 @@ class ProfilePic extends Eloquent
 	];
 
 	protected $fillable = [
-		'user_id',
-		'image',
-		'type',
-		'size'
+		'image'
 	];
 
 	public function user()

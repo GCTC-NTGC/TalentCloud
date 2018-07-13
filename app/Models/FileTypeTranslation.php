@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\FileType $file_type
- *
- * @package App\Models
  */
 class FileTypeTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class FileTypeTranslation extends Eloquent
 		'file_type_id' => 'int'
 	];
 
-	protected $fillable = [
-		'file_type_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function file_type()
 	{

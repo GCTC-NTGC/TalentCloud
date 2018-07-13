@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\ApplicationStatus $application_status
- *
- * @package App\Models
  */
 class ApplicationStatusTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class ApplicationStatusTranslation extends Eloquent
 		'application_status_id' => 'int'
 	];
 
-	protected $fillable = [
-		'application_status_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function application_status()
 	{

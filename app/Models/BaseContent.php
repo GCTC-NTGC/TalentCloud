@@ -19,8 +19,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $locale
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- *
- * @package App\Models
  */
 class BaseContent extends Eloquent
 {
@@ -30,10 +28,5 @@ class BaseContent extends Eloquent
 		'base_content_type_id' => 'int'
 	];
 
-	protected $fillable = [
-		'base_content_type_id',
-		'key',
-		'value',
-		'locale'
-	];
+	protected $fillable = [];
 }

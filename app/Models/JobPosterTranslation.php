@@ -24,8 +24,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\JobPoster $job_poster
- *
- * @package App\Models
  */
 class JobPosterTranslation extends Eloquent
 {
@@ -34,7 +32,6 @@ class JobPosterTranslation extends Eloquent
 	];
 
 	protected $fillable = [
-		'job_poster_id',
 		'locale',
 		'city',
 		'title',

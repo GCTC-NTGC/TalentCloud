@@ -19,16 +19,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $application_status_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
- *
- * @package App\Models
  */
 class ApplicationStatus extends Eloquent
 {
 	protected $table = 'application_status';
 
-	protected $fillable = [
-		'name'
-	];
+	protected $fillable = [];
 
 	public function application_status_translations()
 	{

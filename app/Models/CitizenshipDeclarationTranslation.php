@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\CitizenshipDeclaration $citizenship_declaration
- *
- * @package App\Models
  */
 class CitizenshipDeclarationTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class CitizenshipDeclarationTranslation extends Eloquent
 		'citizenship_declaration_id' => 'int'
 	];
 
-	protected $fillable = [
-		'citizenship_declaration_id',
-		'locale',
-		'value'
-	];
+	protected $fillable = [];
 
 	public function citizenship_declaration()
 	{

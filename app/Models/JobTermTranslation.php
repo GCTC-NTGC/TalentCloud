@@ -20,8 +20,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\JobTerm $job_term
- *
- * @package App\Models
  */
 class JobTermTranslation extends Eloquent
 {
@@ -29,11 +27,7 @@ class JobTermTranslation extends Eloquent
 		'job_term_id' => 'int'
 	];
 
-	protected $fillable = [
-		'job_term_id',
-		'value',
-		'locale'
-	];
+	protected $fillable = [];
 
 	public function job_term()
 	{
