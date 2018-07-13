@@ -47,7 +47,9 @@
         "phpmd/phpmd": "* 2.6.0",
         "phpunit/dbunit": "2.0.x-dev",
         "phpunit/phpunit": "~5.0",
-        "phpunit/phpunit-selenium": "* 3.0.3"
+        "phpunit/phpunit-selenium": "* 3.0.3",
+        "reliese/laravel": "^0.0.13",
+        "xethron/migrations-generator": "^2.0"
     },
 
     "autoload": {
