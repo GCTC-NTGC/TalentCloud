@@ -21,9 +21,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $applicants
- * @property \Illuminate\Database\Eloquent\Collection $managers
- * @property \Illuminate\Database\Eloquent\Collection $profile_pics
+ * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Manager $manager
+ * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
 class User extends Eloquent
@@ -35,23 +35,23 @@ class User extends Eloquent
 
 	protected $fillable = [];
 
-	public function applicants()
+	public function applicant()
 	{
-		return $this->hasMany(\App\Models\Applicant::class);
+		return $this->hasOne(\App\Models\Applicant::class);
 	}
 
-	public function managers()
+	public function manager()
 	{
-		return $this->hasMany(\App\Models\Manager::class);
+		return $this->hasOne(\App\Models\Manager::class);
 	}
 
-	public function profile_pics()
+	public function profile_pic()
 	{
-		return $this->hasMany(\App\Models\ProfilePic::class);
+		return $this->hasOne(\App\Models\ProfilePic::class);
 	}
 
 	public function user_role()
 	{
-		return $this->hasOne(\App\Models\UserRole::class);
+		return $this->belongsTo(\App\Models\UserRole::class);
 	}
 }

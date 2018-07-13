@@ -30,7 +30,6 @@ class JobPosterQuestion extends Eloquent
 	];
 
 	protected $fillable = [
-		'locale',
 		'question',
 		'description'
 	];

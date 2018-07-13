@@ -19,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
+ * @property \App\Models\WorkplacePhotoCaption $workplace_photo_caption
  */
 class WorkplacePhoto extends Eloquent
 {
@@ -32,8 +32,8 @@ class WorkplacePhoto extends Eloquent
 		'image'
 	];
 
-	public function workplace_photo_captions()
+	public function workplace_photo_caption()
 	{
-		return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
+		return $this->hasOne(\App\Models\WorkplacePhotoCaption::class);
 	}
 }
