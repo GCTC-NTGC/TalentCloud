@@ -13,7 +13,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class BaseContent
  * 
  * @property int $id
- * @property int $base_content_type_id
  * @property string $key
  * @property string $value
  * @property string $locale
@@ -24,9 +23,7 @@ class BaseContent extends Eloquent
 {
 	protected $table = 'base_content';
 
-	protected $casts = [
-		'base_content_type_id' => 'int'
-	];
+	protected $casts = [];
 
 	protected $fillable = [];
 }
