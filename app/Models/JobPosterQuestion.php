@@ -14,9 +14,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property int $job_poster_id
- * @property string $locale
- * @property string $question
- * @property string $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
@@ -29,10 +26,7 @@ class JobPosterQuestion extends Eloquent
 		'job_poster_id' => 'int'
 	];
 
-	protected $fillable = [
-		'question',
-		'description'
-	];
+	protected $fillable = [];
 
 	public function job_poster()
 	{
