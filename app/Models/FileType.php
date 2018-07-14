@@ -19,9 +19,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $file_type_translations
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class FileType extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['value'];
 	protected $fillable = [];
 
 	public function file_type_translations()

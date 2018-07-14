@@ -19,9 +19,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
+ * 
+ * Localized Properties:
+ * @property string $question
+ * @property string $description
  */
 class JobPosterQuestion extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['question', 'description'];
 	protected $casts = [
 		'job_poster_id' => 'int'
 	];

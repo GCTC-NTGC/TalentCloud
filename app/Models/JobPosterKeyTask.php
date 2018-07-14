@@ -18,9 +18,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\JobPoster $job_poster
+ * 
+ * Localized Properties:
+ * @property string $description
  */
 class JobPosterKeyTask extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['description'];
 	protected $casts = [
 		'job_poster_id' => 'int'
 	];

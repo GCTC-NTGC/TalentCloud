@@ -19,10 +19,16 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $application_status_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class ApplicationStatus extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    
 	protected $table = 'application_status';
+    public $translatedAttributes = ['value'];    
 
 	protected $fillable = [];
 

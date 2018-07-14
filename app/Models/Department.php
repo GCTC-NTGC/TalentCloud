@@ -19,9 +19,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $department_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class Department extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['value'];
 	protected $fillable = [];
 
 	public function department_translations()

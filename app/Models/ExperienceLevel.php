@@ -20,9 +20,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $experience_level_translations
  * @property \Illuminate\Database\Eloquent\Collection $micro_references
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class ExperienceLevel extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['value'];
 	protected $fillable = [];
 
 	public function experience_level_translations()
