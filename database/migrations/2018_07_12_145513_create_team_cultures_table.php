@@ -17,7 +17,7 @@ class CreateTeamCulturesTable extends Migration {
 			$table->increments('id');
 			$table->integer('team_size')->nullable();
 			$table->string('gc_directory_url')->nullable();
-			$table->integer('manager_id')->unsigned()->index();
+			$table->integer('manager_id')->unsigned()->unique()->index();
 			$table->timestamps();
 		});
 	}

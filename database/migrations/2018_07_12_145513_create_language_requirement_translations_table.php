@@ -19,6 +19,8 @@ class CreateLanguageRequirementTranslationsTable extends Migration {
 			$table->integer('language_requirement_id')->unsigned()->index();
 			$table->string('value');
 			$table->timestamps();
+
+			$table->unique(['language_requirement_id','locale'], 'lang_requirement_trans_lang_requirement_id_locale_unique');
 		});
 	}
 

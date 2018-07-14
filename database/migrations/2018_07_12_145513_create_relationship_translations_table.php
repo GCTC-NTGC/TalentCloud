@@ -19,6 +19,8 @@ class CreateRelationshipTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->string('value');
 			$table->timestamps();
+
+			$table->unique(['relationship_id','locale']);
 		});
 	}
 

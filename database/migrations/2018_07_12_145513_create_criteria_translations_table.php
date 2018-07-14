@@ -20,6 +20,8 @@ class CreateCriteriaTranslationsTable extends Migration {
 			$table->text('description')->nullable();
 			$table->string('locale');
 			$table->timestamps();
+                        
+                        $table->unique(['criteria_id','locale']);
 		});
 	}
 

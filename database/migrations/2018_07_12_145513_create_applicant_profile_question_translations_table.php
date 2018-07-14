@@ -20,6 +20,8 @@ class CreateApplicantProfileQuestionTranslationsTable extends Migration {
 			$table->text('value');
 			$table->text('description');
 			$table->timestamps();
+                        
+            $table->unique(['applicant_profile_question_id','locale'], 'app_profile_ques_trans_app_profile_question_id_locale_unique');
 		});
 	}
 

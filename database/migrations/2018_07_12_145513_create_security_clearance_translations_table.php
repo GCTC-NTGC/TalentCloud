@@ -19,6 +19,8 @@ class CreateSecurityClearanceTranslationsTable extends Migration {
 			$table->integer('security_clearance_id')->unsigned()->index();
 			$table->string('value');
 			$table->timestamps();
+
+			$table->unique(['security_clearance_id','locale'],'security_clearance_trans_security_clearance_id_locale_unique');
 		});
 	}
 

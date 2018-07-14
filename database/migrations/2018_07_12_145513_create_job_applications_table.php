@@ -19,6 +19,8 @@ class CreateJobApplicationsTable extends Migration {
 			$table->integer('application_status_id')->unsigned()->index();
 			$table->integer('applicant_id')->unsigned()->index();
 			$table->timestamps();
+
+			$table->unique(['job_poster_id','applicant_id']);
 		});
 	}
 

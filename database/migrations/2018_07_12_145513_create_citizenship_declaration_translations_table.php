@@ -20,6 +20,8 @@ class CreateCitizenshipDeclarationTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->text('value');
 			$table->timestamps();
+                        
+            $table->unique(['citizenship_declaration_id','locale'],'citiz_declaration_trans_citiz_declaration_id_locale_unique');
 		});
 	}
 

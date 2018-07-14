@@ -19,6 +19,8 @@ class CreateJobTermTranslationsTable extends Migration {
 			$table->string('value')->nullable();
 			$table->string('locale');
 			$table->timestamps();
+
+			$table->unique(['job_term_id','locale']);
 		});
 	}
 
