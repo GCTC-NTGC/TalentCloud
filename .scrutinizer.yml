@@ -9,7 +9,7 @@ build:
                 sites:
                     talentcloud:
                         host: 'local.dev'
-                        web_root:: 'web/'
+                        web_root: 'public/'
                         index: 'index.php index.html'
 
 #           selenium:
