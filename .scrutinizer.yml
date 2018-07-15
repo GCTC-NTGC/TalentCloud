@@ -7,10 +7,10 @@ build:
         nginx:
           sites:
             symfony_app:
-        host: 'local.dev'
-        web_root: 'var/www/public/'
-        index: 'index.php index.html'
-        docker: true
+            host: 'local.dev'
+            web_root: 'var/www/public/'
+            index: 'index.php index.html'
+          docker: true
           # remote_engine: true
         tests:
           before:
