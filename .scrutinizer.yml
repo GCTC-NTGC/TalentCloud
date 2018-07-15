@@ -48,20 +48,20 @@ tools:
   php_mess_detector:
     filter:
       excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
-    sensiolabs_security_checker: true
-    php_pdepend:
-      excluded_dirs:
-        - tests
-        - vendor
-        - data
-        - node_modules
+  sensiolabs_security_checker: true
+  php_pdepend:
+    excluded_dirs:
+      - tests
+      - vendor
+      - data
+      - node_modules
 
 #  external_code_coverage:
 #    timeout: '777'
 #    runs: 2
 
-    php_hhvm: true
-    # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
-    # the same time right now. Make sure to either remove, or disable one.
-    php_sim: true
-    php_cpd: false
+  php_hhvm: true
+  # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
+  # the same time right now. Make sure to either remove, or disable one.
+  php_sim: true
+  php_cpd: false
