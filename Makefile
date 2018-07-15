@@ -70,4 +70,7 @@ test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 	@make resetOwner
 
+resetOwner:
+	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/data" 2> /dev/null)
+
 .PHONY: clean test code-sniff init
