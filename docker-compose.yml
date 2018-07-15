@@ -1,79 +1,64 @@
-# TalentCloud
-# docker-compose.yml
-
-version: '3'
+version: '2'
 services:
-
-    composer:
-        image: "composer"
-        container_name: composer
-        volumes:
-            - "./web/app:/app"
-        command:
-            - self-update
-            - install
-
+    # Nginx Web Server
     nginx:
         image: nginx:alpine
         container_name: nginx
+        working_dir: /var/www
+        volumes_from:
+            - talentcloud
+        restart: always
+        depends_on:
+            - talentcloud
+            - talentcloud-db
         volumes:
+            - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/ssl:/etc/ssl"
-            # "./web:/var/www/html"
-            - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
+            - "./:/var/www"
+        environment:
+            - "NGINX_HOST=tc.gccollab.ca"
+        command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
         ports:
             - "80:80"
             - "443:443"
-        depends_on:
-            - php-fpm
-            - mysql
-        environment:
-            - NGINX_HOST=${NGINX_HOST}
-        command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    # Application / PHP-FPM
+    talentcloud:
+        build: .
+        # image: gggrant/tc-docker
+        container_name: talentcloud
+        working_dir: /var/www
         restart: always
-        networks:
-          - bridge
-
-    php-fpm:
-        image: nanoninja/php-fpm:${PHP_VERSION}
-        container_name: php-fpm
-        restart: always
-        networks:
-          - bridge
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
-            - "./web:/var/www/html"
-
-    mysql:
-        image: mysql:${MYSQL_VERSION}
-        container_name: mysql
+            - "./:/var/www"
+    # Database
+    talentcloud-db:
+        image: mysql:5.6
+        container_name: talentcloud-db
         restart: always
-        networks:
-          - bridge
-        env_file:
-            - ".env"
-        environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-        ports:
-            - "3306:3306"
         volumes:
             - "./data/db/mysql:/var/lib/mysql"
             - "./data/db/dumps:/docker-entrypoint-initdb.d"
-
+        environment:
+            - "MYSQL_DATABASE=talentcloud"
+            - "MYSQL_ROOT_PASSWORD=talentcloud"
+            - "MYSQL_USER=talentcloud"
+            - "MYSQL_PASSWORD=talentcloud"
+        ports:
+            - "3306:3306"
+    # PHP MyAdmin
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin
-        ports:
-            - "8080:80"
-        environment:
-            - PMA_ARBITRARY=1
-            - PMA_HOST=${MYSQL_HOST}
         restart: always
         links:
-            - mysql
-
-networks:
-    bridge:
+            - talentcloud-db
+        environment:
+            - "PMA_ARBITRARY=1"
+            - "PMA_HOST=talentcloud-db"
+        ports:
+            - "8080:80"
+    # Composer
+    # Run this from Terminal/CMD:
+    # docker run --rm -v $(pwd):/app composer/composer:php5 install
