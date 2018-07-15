@@ -48,7 +48,7 @@ tools:
   php_mess_detector:
     filter:
       excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
-      sensiolabs_security_checker: true
+    sensiolabs_security_checker: true
     php_pdepend:
       excluded_dirs:
         - tests
