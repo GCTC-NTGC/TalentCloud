@@ -2,16 +2,16 @@ build:
   nodes:
     docker-build:
       environment:
+        docker: true
         php:
           version: 5.6
         nginx:
           sites:
             symfony_app:
-            host: 'local.dev'
-            web_root: 'var/www/public/'
-            index: 'index.php index.html'
-          docker: true
-          # remote_engine: true
+          host: 'local.dev'
+          web_root: 'var/www/public/'
+          index: 'index.php index.html'
+
         tests:
           before:
             - 'sudo apt-get update'
