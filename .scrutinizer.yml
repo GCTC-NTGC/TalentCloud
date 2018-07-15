@@ -8,7 +8,7 @@ build:
         nginx:
           sites:
             symfony_app:
-               host: 'tc.gccollab.ca'
+               host: '127.0.0.1'
                web_root: 'var/www/public/'
                index: 'index.php index.html'
       tests:

@@ -26,10 +26,6 @@ help:
 init:
 	@$(shell cp -n $(shell pwd)/composer.json.dist $(shell pwd)/composer.json 2> /dev/null)
 
-apidoc:
-	@docker-compose exec -T talentcloud php -d memory_limit=256M -d xdebug.profiler_enable=0 ./vendor/bin/apigen generate app/src --destination app/doc
-	@make resetOwner
-
 clean:
 	@rm -Rf data/db/mysql/*
 	@rm -Rf vendor/
@@ -73,8 +69,5 @@ phpmd:
 test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 	@make resetOwner
-
-resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
 
 .PHONY: clean test code-sniff init
