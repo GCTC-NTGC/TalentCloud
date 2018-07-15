@@ -7,9 +7,8 @@ build:
               sites:
                 symfony_app:
                 host: 'local.dev'
-                web_root: 'public/'
-
-                index: 'index.php index.html'
+                  web_root: 'public/'
+                  index: 'index.php index.html'
 
 #    tests:
 #      override:
