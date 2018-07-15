@@ -1,22 +1,36 @@
 build:
-  nodes:
-    docker-setup:
-      environment:
-        docker: true
-        nginx:
-              sites:
-                symfony_app:
-                host: 'local.dev'
-                  web_root: '/public'
-                  index: 'index.php index.html'
+    nodes:
+      docker-setup:
+        environment:
+            timezone: EST
+            docker: true
+            mysql: 5.6
+            nginx:
+                sites:
+                    talentcloud:
+                        host: 'local.dev'
+                        web_root:: 'public/'
+                        index: 'index.php index.html'
+
+#           selenium:
+#               version: 2.53
+#               chrome_driver_version: 2.22
+#               browser_name:
+
+        dependencies:
+            before:
+                - composer update
+                - composer install
 
 #    tests:
-#      override:
-#        -
-#          command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
-#          coverage:
-#            file: 'coverage.clover'
-#            format: 'clover'
+#        override:
+#            -
+#                 command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
+#                 coverage:
+#                     file: 'coverage.clover'
+#                     format: 'clover'
+
+
 
 filter:
   excluded_paths:
