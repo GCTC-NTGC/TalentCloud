@@ -34,7 +34,7 @@ clean:
 
 code-sniff:
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 app/src
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 src/
 
 composer-up:
 	@docker run --rm -v $(shell pwd):/app composer update
@@ -63,7 +63,7 @@ mysql-restore:
 phpmd:
 	@docker-compose exec -T talentcloud \
 	./vendor/bin/phpmd \
-	./app/src \
+	./src \
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 test: code-sniff
