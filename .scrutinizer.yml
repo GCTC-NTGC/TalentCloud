@@ -6,10 +6,10 @@ build:
         nginx:
               sites:
                 symfony_app:
-          host: 'local.dev'
-          web_root: 'public/'
+        host: 'local.dev'
+        web_root: 'public/'
 
-          index: 'index.php index.html'
+        index: 'index.php index.html'
 
 #    tests:
 #      override:
