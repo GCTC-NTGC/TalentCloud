@@ -7,7 +7,7 @@ build:
               sites:
                 symfony_app:
                 host: 'local.dev'
-                  web_root: 'public/'
+                  web_root: '/public'
                   index: 'index.php index.html'
 
 #    tests:
