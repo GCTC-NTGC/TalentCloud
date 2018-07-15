@@ -22,7 +22,7 @@ before_script:
   - sleep 2m
 
 script:
-  # sudo make apidoc
+  - sudo make apidoc
   - sudo make gen-certs
   - sudo make mysql-dump
   - sudo make mysql-restore
