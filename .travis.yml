@@ -1,31 +1,28 @@
-language:
-  - php
+# language:
+#   - php
 
 sudo: required
 
-env:
+env-docker:
   DOCKER_COMPOSE_VERSION: 1.18.0
 
 services:
   - docker
 
 before_install:
-  - sudo apt-get update
+  - sudo apt update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose --version
+  - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
 before_script:
-  - sudo rm -rf /etc/docker
-  - sudo rm -rf /usr/bin/docker-*
   - sudo make docker-start
   - sleep 2m
 
 script:
-  - docker build -t gggrant/talentcloud:travis-ci_0.0.1
-  - sudo make apidoc
+  # sudo make apidoc
   - sudo make gen-certs
   - sudo make mysql-dump
   - sudo make mysql-restore
@@ -33,4 +30,5 @@ script:
   - sudo make test
 
 after_script:
+  - docker build -t gggrant/tc-laravel:travis
   - sudo make docker-stop

@@ -1,24 +1,13 @@
-# Talent Cloud
-# .scrutinizer.yml
-
 build:
-    environment:
+  nodes:
+    docker-build:
+      environment:
+        # caching works with the remote_engine and the local executor
         php:
-            version: 5.6
-        docker: true
+          version: 5.6
         hosts:
-            local.dev: '127.0.0.1'
-
-        apache2:
-            modules: ['rewrite']
-            sites:
-                symfony_app:
-                    web_root: 'public_html/'
-                    host: 'local.dev'
-                    rules:
-                        - 'RewriteCond %{HTTP_REFERER} !^$'
-                        - 'RewriteCond %{HTTP_REFERER} !^http://(tc.)?gccollab.ca/ [NC]'
-                        - 'RewriteRule .(gif|jpg|png)$ - [F]'
+          local.dev: $DOCKER_IP
+        docker: true
 
 #    tests:
 #      override:
@@ -29,46 +18,50 @@ build:
 #            format: 'clover'
 
 filter:
-    excluded_paths:
+  excluded_paths:
+        - '*/data/*'
+        - '*/node_modules/*'
         - '*/tests/*'
         - '*/vendor/*'
 
 checks:
-    php:
-        remove_extra_empty_lines: true
-        remove_php_closing_tag: true
-        remove_trailing_whitespace: true
-        fix_use_statements:
-            remove_unused: true
-            preserve_multiple: false
-            preserve_blanklines: true
-            order_alphabetically: true
-        fix_php_opening_tag: true
-        fix_linefeed: true
-        fix_line_ending: true
-        fix_identation_4spaces: true
-        fix_doc_comments: true
+  php:
+    remove_extra_empty_lines: true
+    remove_php_closing_tag: true
+    remove_trailing_whitespace: true
+    fix_use_statements:
+      remove_unused: true
+      preserve_multiple: false
+      preserve_blanklines: true
+      order_alphabetically: true
+    fix_php_opening_tag: true
+    fix_linefeed: true
+    fix_line_ending: true
+    fix_identation_4spaces: true
+    fix_doc_comments: true
 
 tools:
-    external_code_coverage: false
-    js_hint:
-        filter:
-            excluded_paths: ['*/tests/*','*/vendor/*']
-    php_mess_detector:
-        filter:
-            excluded_paths: ['*/tests/*','*/vendor/*']
-    sensiolabs_security_checker: true
+  external_code_coverage: false
+  js_hint:
+    filter:
+      excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
+  php_mess_detector:
+    filter:
+      excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
+      sensiolabs_security_checker: true
     php_pdepend:
-        excluded_dirs:
-            - tests
-            - vendor
+      excluded_dirs:
+        - tests
+        - vendor
+        - data
+        - node_modules
 
 #  external_code_coverage:
-#      timeout: '777'
-#      runs: 2
+#    timeout: '777'
+#    runs: 2
 
     php_hhvm: true
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
     # the same time right now. Make sure to either remove, or disable one.
-    php_sim: false
-    php_cpd: true
+    php_sim: true
+    php_cpd: false

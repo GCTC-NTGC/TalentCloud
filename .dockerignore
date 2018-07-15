@@ -10,5 +10,5 @@ web.docker
 .dockerignore
 
 data
-vendor
 tests
+vendor
