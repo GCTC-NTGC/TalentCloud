@@ -1,17 +1,6 @@
 {
-    "name": "GCTC-NTGC/TalentCloud",
-    "description": "TalentCloud - The jobs are real, the platform is experimental.",
-    "license": "MIT",
-
-    "authors": [
-        {
-            "name": "Talent Cloud",
-            "email": "talentcloud-nuagedetalents@tbs-sct.gc.ca"
-        }
-    ],
-
     "require": {
-        "php": "~5.6",
+        "php":"~5.6",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "rcrowe/twigbridge": "^0.9.6"
@@ -49,6 +38,7 @@
         "phpunit/phpunit": "~5.0",
         "phpunit/phpunit-selenium": "* 3.0.3",
         "reliese/laravel": "^0.0.13",
+        "squizlabs/php_codesniffer": "3.*",
         "xethron/migrations-generator": "^2.0"
     },
 
