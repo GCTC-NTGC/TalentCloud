@@ -2,12 +2,25 @@ build:
   nodes:
     docker-build:
       environment:
-        # caching works with the remote_engine and the local executor
         php:
           version: 5.6
-        hosts:
-          local.dev: $DOCKER_IP
+        nginx:
+          sites:
+            symfony_app:
+          host: 'local.dev'
+          web_root: 'var/www/public/'
+
+          index: 'index.php index.html'
         docker: true
+          # remote_engine: true
+        tests:
+          before:
+            - 'sudo apt-get update'
+            - 'sudo apt-get -y install libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4'
+            - 'sudo apt-get -y install chromium-browser'
+            - 'sudo apt-get -y install xvfb gtk2-engines-pixbuf'
+            - 'sudo apt-get -y install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable'
+            - 'sudo apt-get -y install imagemagick x11-apps'
 
 #    tests:
 #      override:
@@ -19,10 +32,10 @@ build:
 
 filter:
   excluded_paths:
-        - '*/data/*'
-        - '*/node_modules/*'
-        - '*/tests/*'
-        - '*/vendor/*'
+    - '*/data/*'
+    - '*/node_modules/*'
+    - '*/tests/*'
+    - '*/vendor/*'
 
 checks:
   php:
