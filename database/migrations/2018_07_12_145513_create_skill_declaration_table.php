@@ -22,6 +22,8 @@ class CreateSkillDeclarationTable extends Migration {
 			$table->text('description')->nullable();
 			$table->boolean('is_active');
 			$table->timestamps();
+
+			$table->unique(['criteria_id','job_application_id']);
 		});
 	}
 

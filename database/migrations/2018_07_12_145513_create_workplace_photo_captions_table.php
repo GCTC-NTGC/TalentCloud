@@ -16,10 +16,12 @@ class CreateWorkplacePhotoCaptionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('work_environment_id')->unsigned()->index();
-			$table->string('photo_name')->nullable();
-			$table->integer('workplace_photo_id')->unsigned()->nullable()->index();
+			$table->string('photo_name');
+			$table->integer('workplace_photo_id')->unsigned()->unique()->nullable()->index();
 			$table->text('description')->nullable();
 			$table->timestamps();
+
+			$table->unique(['work_environment_id','photo_name']);
 		});
 	}
 

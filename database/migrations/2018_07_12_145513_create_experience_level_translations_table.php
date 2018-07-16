@@ -19,6 +19,8 @@ class CreateExperienceLevelTranslationsTable extends Migration {
 			$table->integer('experience_level_id')->unsigned()->index();
 			$table->string('value');
 			$table->timestamps();
+                        
+                        $table->unique(['experience_level_id','locale']);
 		});
 	}
 

@@ -19,6 +19,8 @@ class CreateProvinceTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->string('value');
 			$table->timestamps();
+
+			$table->unique(['province_id','locale']);
 		});
 	}
 

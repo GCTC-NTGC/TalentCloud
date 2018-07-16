@@ -19,6 +19,8 @@ class CreateApplicationStatusTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->string('value')->nullable();
 			$table->timestamps();
+                        
+            $table->unique(['application_status_id','locale'], 'application_status_trans_application_status_id_locale_unique');
 		});
 	}
 

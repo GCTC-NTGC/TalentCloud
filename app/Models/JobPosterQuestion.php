@@ -14,25 +14,25 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property int $job_poster_id
- * @property string $locale
- * @property string $question
- * @property string $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
+ * 
+ * Localized Properties:
+ * @property string $question
+ * @property string $description
  */
 class JobPosterQuestion extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['question', 'description'];
 	protected $casts = [
 		'job_poster_id' => 'int'
 	];
 
-	protected $fillable = [
-		'question',
-		'description'
-	];
+	protected $fillable = [];
 
 	public function job_poster()
 	{

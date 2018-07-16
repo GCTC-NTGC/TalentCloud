@@ -19,6 +19,8 @@ class CreateDepartmentTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->string('value');
 			$table->timestamps();
+                        
+                        $table->unique(['department_id','locale']);
 		});
 	}
 

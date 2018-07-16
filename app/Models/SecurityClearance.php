@@ -19,9 +19,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $security_clearance_translations
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class SecurityClearance extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['value'];
+    
 	protected $fillable = [];
 
 	public function job_posters()

@@ -19,6 +19,8 @@ class CreateJobPosterKeyTaskTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->text('description');
 			$table->timestamps();
+
+			$table->unique(['job_poster_key_task_id','locale'], 'job_poster_key_task_trans_job_poster_key_task_id_locale_unique');
 		});
 	}
 

@@ -19,9 +19,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \Illuminate\Database\Eloquent\Collection $skill_level_translations
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class SkillLevel extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['value'];
+    
 	protected $fillable = [];
 
 	public function skill_declarations()

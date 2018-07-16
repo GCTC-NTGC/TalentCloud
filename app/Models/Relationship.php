@@ -19,9 +19,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $micro_references
  * @property \Illuminate\Database\Eloquent\Collection $relationship_translations
+ * 
+ * Localized Properties:
+ * @property string $value
  */
 class Relationship extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['value'];
 	protected $fillable = [];
 
 	public function micro_references()

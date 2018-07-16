@@ -19,6 +19,8 @@ class CreateBaseContentTable extends Migration {
 			$table->text('value');
 			$table->string('locale');
 			$table->timestamps();
+
+			$table->unique(['key','locale']);
 		});
 	}
 

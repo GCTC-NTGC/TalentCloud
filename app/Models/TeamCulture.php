@@ -21,9 +21,18 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $team_culture_translations
+ * 
+ * Localized Properties:
+ * @property string $narrative_text
+ * @property string $operating_context
+ * @property string $what_we_value
+ * @property string $how_we_work
  */
 class TeamCulture extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['narrative_text','operating_context', 'what_we_value', 'how_we_work'];
+    
 	protected $casts = [
 		'team_size' => 'int',
 		'manager_id' => 'int'

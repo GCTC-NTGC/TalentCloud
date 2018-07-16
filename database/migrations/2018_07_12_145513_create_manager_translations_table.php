@@ -33,6 +33,8 @@ class CreateManagerTranslationsTable extends Migration {
 			$table->text('work_experience')->nullable();
 			$table->text('education')->nullable();
 			$table->timestamps();
+
+			$table->unique(['manager_id','locale']);
 		});
 	}
 

@@ -16,9 +16,6 @@ class CreateJobPosterQuestionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('job_poster_id')->unsigned()->index();
-			$table->string('locale');
-			$table->text('question');
-			$table->text('description')->nullable();
 			$table->timestamps();
 		});
 	}

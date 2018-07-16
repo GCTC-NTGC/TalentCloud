@@ -19,7 +19,7 @@ class CreateApplicantsTable extends Migration {
 			$table->text('tagline')->nullable();
 			$table->string('twitter_username')->nullable();
 			$table->string('linkedin_username')->nullable();
-			$table->integer('user_id')->unsigned()->index();
+			$table->integer('user_id')->unsigned()->unique()->index();
 			$table->timestamps();
 		});
 	}

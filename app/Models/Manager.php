@@ -25,9 +25,31 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $manager_translations
  * @property \Illuminate\Database\Eloquent\Collection $manager_work_environments
  * @property \Illuminate\Database\Eloquent\Collection $team_cultures
+ * 
+ * Localized Properties:
+ * @property string $aboutme
+ * @property string $greatest_accomplishment
+ * @property string $branch
+ * @property string $division
+ * @property string $position
+ * @property string $leadership_style
+ * @property string $employee_learning
+ * @property string $expectations
+ * @property string $review_options
+ * @property string $staylate
+ * @property string $engage
+ * @property string $opportunities
+ * @property string $low_value_work_requests
+ * @property string $work_experience
+ * @property string $education
  */
 class Manager extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['aboutme','greatest_accomplishmest','branch',
+        'division','position','leadership_style','employee_learning',
+        'expectations','review_options','staylate','engage','opportunities',
+        'low_value_work_requests', 'work_experience','education'];
 	protected $casts = [
 		'department_id' => 'int',
 		'user_id' => 'int'

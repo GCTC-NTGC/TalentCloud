@@ -41,9 +41,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_key_tasks
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
+ * 
+ * Localized Properties:
+ * @property string $city
+ * @property string $title
+ * @property string $impact
+ * @property string $branch
+ * @property string $division
  */
 class JobPoster extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['city','title','impact','branch','division'];
+    
 	protected $casts = [
 		'job_term_id' => 'int',
 		'department_id' => 'int',

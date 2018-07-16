@@ -19,6 +19,8 @@ class CreateFileTypeTranslationsTable extends Migration {
 			$table->string('locale');
 			$table->string('value');
 			$table->timestamps();
+
+			$table->unique(['file_type_id','locale']);
 		});
 	}
 

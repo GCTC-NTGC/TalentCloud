@@ -22,6 +22,8 @@ class CreateTeamCultureTranslationsTable extends Migration {
 			$table->text('what_we_value')->nullable();
 			$table->text('how_we_work')->nullable();
 			$table->timestamps();
+
+			$table->unique(['team_culture_id','locale']);
 		});
 	}
 

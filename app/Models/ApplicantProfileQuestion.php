@@ -19,9 +19,17 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
+ * 
+ * Localized Properties:
+ * @property string $value
+ * @property string $description
  */
 class ApplicantProfileQuestion extends Eloquent
 {
+    use \Dimsav\Translatable\Translatable;
+    
+    public $translatedAttributes = ['value', 'description'];
+    
 	protected $fillable = [];
 
 	public function applicant_profile_answers()
