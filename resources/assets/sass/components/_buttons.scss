@@ -1,0 +1,30 @@
+// =============================================================================
+
+    // Buttons
+
+// =============================================================================
+[class*="button--"] {
+    border-radius: 5px;
+    display: inline-block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 400;
+    padding: $unit calc(#{$unit} * 2);
+    text-decoration: none;
+
+    &[class*="blue"] {
+        @extend %gradient--vertical;
+        color: $palette--font-white;
+        transition: none;
+
+        &:focus,
+        &:hover {
+            border: 2px solid $palette--white;
+            outline: none;
+            padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+            transition: none;
+        }
+
+    }
+
+}

@@ -1,0 +1,68 @@
+// =============================================================================
+
+    // Home: Hero
+
+// =============================================================================
+.home__hero {
+    background-position: top center;
+    background-size: cover;
+    position: relative;
+
+    &::before {
+        background: transparentize($palette--black, .2);
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .home__hero-content {
+        padding: calc(#{$unit} * 7) 0 calc(#{$unit} * 6);
+        margin: 0 auto;
+        max-width: calc(#{$unit * 70});
+        position: relative;
+        width: 90%;
+
+        &::before {
+            background: $palette--white;
+            content: " ";
+            display: block;
+            height: 35%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(#{$unit} / 2);
+        }
+
+        .box {
+
+            img {
+                margin: -10% 0 0 0;
+                width: 95%;
+            }
+
+            &:nth-child(1) {
+
+            }
+
+            &:nth-child(2) {
+                color: $palette--font-white;
+                font-family: $font--sans;
+                font-size: $font-scale--h3;
+                font-weight: 400;
+
+                @media #{$p-tablet} {
+                    padding: 0 0 0 calc(#{$unit} * 4);
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,59 @@
+{# =============================================================================
+
+    Talent Cloud
+    Government of Canada Banner
+
+============================================================================= #}
+<section
+    class="goc">
+
+    <div
+        class="goc__grid flex-grid middle">
+
+        {# Government Logo #}
+
+            <div
+                class="box med-1of3">
+
+                <a
+                    class=""
+                    href="{{ goc.logo_link }}"
+                    target="_blank"
+                    title="{{ goc.logo_link_title }}">
+                    <img
+                        alt="{{ goc.logo_alt }}"
+                        class=""
+                        src="{{ goc.logo_url }}">
+                </a>
+
+            </div>
+
+        {# Talent Cloud Portal #}
+
+            <div
+                class="box med-1of3">
+
+                {{ goc.talent_cloud }}
+                <i class="fas fa-cloud"></i>
+                {{ goc.portal }}
+
+            </div>
+
+        {# Language Toggle #}
+
+            <div
+                class="box med-1of3">
+
+                <a
+                    class=""
+                    href="{{ goc.language_link }}"
+                    target=""
+                    title="{{ goc.language_link_title }}">
+                    {{ goc.language }}
+                </a>
+
+            </div>
+
+    </div>
+
+</section>

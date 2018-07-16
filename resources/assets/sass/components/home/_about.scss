@@ -1,0 +1,54 @@
+// =============================================================================
+
+    // Home: About
+
+// =============================================================================
+.home__about {
+    padding: $section-padding;
+    text-align: center;
+
+    .home__about-card {
+        background: $palette--white;
+    	border: calc(#{$unit} / 2) solid darken($palette--white, 10%);
+    	box-shadow: 0 3px 5px rgba(0, 0, 0, .35);
+        margin: calc(#{$unit} * -1.5) 0 calc(#{$unit} * 4);
+    	padding: calc(#{$unit} * 2);
+
+        .home__about-card-icon {
+            border: calc(#{$unit} / 2) solid $palette--blue;
+        	border-radius: 100%;
+        	display: block;
+        	height: calc(#{$unit} *7);
+        	margin: 0 auto calc(#{$unit} * 2);
+            position: relative;
+        	width: calc(#{$unit} *7);
+
+        	i {
+        		font-size: $font-scale--h1;
+        		position: absolute;
+        		top: 50%;
+        		left: 50%;
+        		transform: translate(-50%, -50%);
+        	}
+
+        }
+
+        span {
+            color: $palette--font-black;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            font-weight: 400;
+        }
+
+    }
+
+    p {
+        @extend %paragraph;
+
+        &+p {
+            margin-bottom: 0;
+        }
+
+    }
+
+}

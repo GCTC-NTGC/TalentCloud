@@ -102,7 +102,7 @@ input[type=url][class*="form__input--"] {
     width: 100%;
 
     &:before {
-        @include fontawesome();
+        // @include fontawesome();
         content: "\f078";
         display: block;
         position: absolute;

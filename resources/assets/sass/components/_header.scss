@@ -1,0 +1,52 @@
+// =============================================================================
+
+    // Page Header
+
+// =============================================================================
+.header {
+    background-position: top center;
+    background-size: cover;
+    position: relative;
+
+    &::before {
+        background: transparentize($palette--black, .2);
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .header__content {
+        margin: 0 auto;
+        max-width: calc(#{$unit * 70});
+        padding: calc(#{$unit} * 6) 0 calc(#{$unit} * 8);
+        position: relative;
+        text-align: center;
+        width: 90%;
+
+        h2 {
+            color: $palette--font-white;
+            display: inline-block;
+            margin: 0;
+            position: relative;
+
+            &::before {
+                @extend %gradient--horizontal;
+                content: " ";
+                display: block;
+                height: calc(#{$unit} / 2);
+                position: absolute;
+                left: 50%;
+                bottom: calc(#{$unit} * -1.5);
+                transform: translate(-50%, 0);
+                width: 80%;
+            }
+
+        }
+
+    }
+
+}

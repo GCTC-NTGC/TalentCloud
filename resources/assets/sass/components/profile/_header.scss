@@ -1,0 +1,137 @@
+// =============================================================================
+
+    // Profile: Header
+
+// =============================================================================
+.applicant-profile__header {
+    background-color: transparentize($palette--black, .1);
+    background-image: url(/images/bg_lightning_texture.png);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 75px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 1);
+    padding: $section-padding;
+    text-align: center;
+
+    @media #{$l-tablet} {
+        text-align: left;
+    }
+
+    >.container--copy {
+        position: relative;
+
+        >h3 {
+            color: $palette--white;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 1rem 0;
+        }
+
+        >span {
+            color: $palette--blue;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            margin: 0 0 1rem 0;
+        }
+
+    }
+
+    .applicant-profile__header-photo {
+        background: none;
+        border: none;
+        border-radius: 100%;
+        position: relative;
+
+        @media #{$l-tablet} {
+            position: absolute;
+            top: 50%;
+            left: calc(#{$unit} * -5);
+            transform: translate(-100%, -50%);
+        }
+
+        div {
+            background-color: $palette--white;
+            background-position: center;
+            background-size: cover;
+            border: calc(#{$unit} / 2) solid $palette--blue;
+            border-radius: 100%;
+            height: calc(#{$unit} * 10);
+            margin: 0 auto calc(#{$unit} * 4) auto;
+            width: calc(#{$unit} * 10);
+
+            @media #{$l-tablet} {
+                margin: 0;
+            }
+
+        }
+
+    }
+
+    .applicant-profile__social-links {
+        list-style: none;
+        margin: 0 0 0 -.5rem;
+        padding: 0;
+
+        li {
+            display: inline-block;
+            padding: 0 .5rem;
+
+            a {
+
+                i {
+                    color: $palette--white;
+                    font-size: 2rem;
+                    transition: color .2s ease;
+                }
+
+                &:hover {
+
+                    i {
+                        color: $palette--blue;
+                        transition: color .2s ease;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // .applicant-profile__heading-edit-wrapper {
+    //     position: absolute;
+    //     top: 9rem;
+    //     left: 15vw;
+    //     transform: translate(0, -50%);
+    //
+    //     @media #{$l-tablet} {
+    //         top: 50%;
+    //         left: auto;
+    //         right: -5rem;
+    //         transform: translate(100%, -50%);
+    //     }
+    //
+    //     a {
+    //         color: $palette--white;
+    //         font-size: 25px;
+    //         position: absolute;
+    //         top: 50%;
+    //         right: 0;
+    //         transform: translate(0, calc(-50% - .5rem));
+    //         transition: color .2s ease;
+    //
+    //         &:hover {
+    //             color: $palette--blue;
+    //             transition: color .2s ease;
+    //         }
+    //
+    //     }
+    //
+    // }
+
+}

@@ -1,89 +1,99 @@
-/* =============================================================================
+// =============================================================================
 
-    Authored by: Talent Cloud
+    // Authored by: Talent Cloud
 
-    Talent Cloud Font-Scale
+    // Talent Cloud Font-Scale
 
-============================================================================= */
+// =============================================================================
 
-/* Typography =============================================================== */
-$font-hk: HKGrotesk, sans-serif;
+// Fonts
 
-/* Font Standard ============================================================ */
-// html,
-// body {
-//     font-size: 100%;
-//     -webkit-font-smoothing: antialiased;
-//
-//     @media screen and (min-width: 768px) {
-//         font-size: 115%;
-//     }
-//
-//     @media screen and (min-width: 1025px) {
-//         font-size: 125%;
-//     }
-//
-// }
+    $font--sans: HKGrotesk, sans-serif;
+    $font--serif: $font--sans;
 
-/* 1.414 Scale */
+    // Legacy Fonts
+    $font-hk: $font--sans;
 
-// $font-scale: 1.414;
-//
-// $font-scale--h1: calc(1rem*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale})))));
-// $font-scale--h2: calc(1rem*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}))));
-// $font-scale--h3: calc(1rem*(#{$font-scale}*(#{$font-scale})));
-// $font-scale--h4: calc(1rem*(#{$font-scale}));
-// $font-scale--h5: 1rem;
-// $font-scale--regular: $font-scale--h5;
-// $font-scale--small: calc(1rem*(#{$font-scale}/2));
+// Font Scale
 
-/* Content Containers: Use this to limit line length for copy. */
-.content-container {
-    margin: 0 auto;
-    max-width: 60rem;
-    width: 90%;
-}
+    html,
+    body {
+        font-size: 80%;
 
-/* Block Containers: Use this for consistent widths on sections. */
-.block-container {
-    margin: 0 auto;
-    max-width: 100rem;
-    width: 90%;
-}
+        @media screen and (min-width: 412px) {
+            font-size: 90%;
+        }
 
-/* Font Awesome Mixin */
-@mixin fontawesome() {
-    display: inline-block;
-    font: normal normal normal #{$fa-font-size-base}/#{$fa-line-height-base} FontAwesome; // shortening font declaration
-    font-size: inherit; // can't have font-size inherit on line above, so need to override
-    text-rendering: auto; // optimizelegibility throws things off #1094
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
+        @media #{$p-tablet} {
+            font-size: 100%;
+        }
 
-/* Temporary Font Scale ===================================================== */
-[class*="heading--"] {
-    font-family: $font-hk;
-    margin: 0;
+        @media #{$cinema} {
+            font-size: 110%;
+        }
 
-    &[class*="01"] {
-        font-size: 5rem;
     }
 
-    &[class*="02"] {
-        font-size: 3.5rem;
+    $font-scale: 1.250;
+
+    $font-scale--regular: $unit;
+
+    $font-scale--h1: calc(#{$unit}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale})))));
+    $font-scale--h2: calc(#{$unit}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}))));
+    $font-scale--h3: calc(#{$unit}*(#{$font-scale}*(#{$font-scale})));
+    $font-scale--h4: calc(#{$unit}*(#{$font-scale}));
+    $font-scale--h5: $unit;
+    $font-scale--small: calc(#{$unit}*(#{$font-scale}/2));
+
+// Sitewide Typography
+
+    ::selection {
+        background: $palette--black;
+        color: $palette--white;
     }
 
-    &[class*="03"] {
-        font-size: 2.75rem;
+    [class*="heading--"] {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+
+        i {
+            font-size: inherit;
+            line-height: inherit;
+        }
+
     }
 
-    &[class*="04"] {
-        font-size: 1.125rem;
+    .heading--01 {
+        font-size: $font-scale--h1;
     }
 
-    &[class*="05"] {
-        font-size: 1rem;
+    .heading--02 {
+        font-size: $font-scale--h2;
     }
 
-}
+    .heading--03 {
+        font-size: $font-scale--h3;
+    }
+
+    .heading--04 {
+        font-size: $font-scale--h4;
+    }
+
+    .heading--05 {
+        font-size: $font-scale--h5;
+    }
+
+// Typography Extensions
+
+    %paragraph {
+        color: $palette--font-black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 0 0 calc(#{$unit} * 2);
+    }
