@@ -10,7 +10,7 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Criterion
+ * Class Criteria
  * 
  * @property int $id
  * @property int $criteria_type_id
@@ -24,10 +24,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
+ * 
+ * Localized properties
+ * @property string $name
+ * @property string $description
  */
-class Criterion extends Eloquent
+class Criteria extends Eloquent
 {
-	protected $table = 'criteria';
+    use \Dimsav\Translatable\Translatable;
+    
+    protected $table = 'criteria';
+    
+    public $translatedAttributes = ['name', 'description'];
+	
 
 	protected $casts = [
 		'criteria_type_id' => 'int',

@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\Criterion $criterion
+ * @property \App\Models\Criteria $criterion
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\WorkSample $work_sample
  */
@@ -37,7 +37,7 @@ class ApplicationWorkSample extends Eloquent
 
 	public function criterion()
 	{
-		return $this->belongsTo(\App\Models\Criterion::class, 'criteria_id');
+		return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
 	}
 
 	public function job_application()

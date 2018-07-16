@@ -10,20 +10,23 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class BaseContent
+ * Class CriteriaTypeTranslation
  * 
  * @property int $id
- * @property string $key
  * @property string $value
+ * @property string $description
  * @property string $locale
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \App\Models\CriteriaType $criteria_type
  */
-class BaseContent extends Eloquent
-{
-	protected $table = 'base_content';
-
-	protected $casts = [];
-
+class CriteriaTypeTranslation extends Eloquent
+{        
 	protected $fillable = [];
+
+	public function criteria_type()
+	{
+		return $this->belongsTo(\App\Models\CriteriaType::class);
+	}
 }

@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\Criterion $criterion
+ * @property \App\Models\Criteria $criterion
  */
 class CriteriaTranslation extends Eloquent
 {
@@ -36,6 +36,6 @@ class CriteriaTranslation extends Eloquent
 
 	public function criterion()
 	{
-		return $this->belongsTo(\App\Models\Criterion::class, 'criteria_id');
+		return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
 	}
 }

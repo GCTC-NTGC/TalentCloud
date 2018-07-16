@@ -120,7 +120,7 @@ class JobPoster extends Eloquent
 
 	public function criteria()
 	{
-		return $this->hasMany(\App\Models\Criterion::class);
+		return $this->hasMany(\App\Models\Criteria::class);
 	}
 
 	public function job_applications()
