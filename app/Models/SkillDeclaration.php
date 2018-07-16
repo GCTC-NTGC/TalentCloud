@@ -23,9 +23,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Criteria $criterion
- * @property \App\Models\ExperienceLevel $experience_level
+ * @property \App\Models\Lookup\ExperienceLevel $experience_level
  * @property \App\Models\JobApplication $job_application
- * @property \App\Models\SkillLevel $skill_level
+ * @property \App\Models\Lookup\SkillLevel $skill_level
  */
 class SkillDeclaration extends Eloquent
 {
@@ -52,7 +52,7 @@ class SkillDeclaration extends Eloquent
 
 	public function experience_level()
 	{
-		return $this->belongsTo(\App\Models\ExperienceLevel::class);
+		return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
 	}
 
 	public function job_application()
@@ -62,6 +62,6 @@ class SkillDeclaration extends Eloquent
 
 	public function skill_level()
 	{
-		return $this->belongsTo(\App\Models\SkillLevel::class);
+		return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
 	}
 }

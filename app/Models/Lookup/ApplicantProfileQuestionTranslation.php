@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\ApplicantProfileQuestion $applicant_profile_question
+ * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
 class ApplicantProfileQuestionTranslation extends Eloquent
 {
@@ -32,6 +32,6 @@ class ApplicantProfileQuestionTranslation extends Eloquent
 
 	public function applicant_profile_question()
 	{
-		return $this->belongsTo(\App\Models\ApplicantProfileQuestion::class);
+		return $this->belongsTo(\App\Models\Lookup\ApplicantProfileQuestion::class);
 	}
 }

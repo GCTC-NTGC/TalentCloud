@@ -5,12 +5,12 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class LanguageRequirement
+ * Class Province
  * 
  * @property int $id
  * @property string $name
@@ -18,12 +18,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
- * @property \Illuminate\Database\Eloquent\Collection $language_requirement_translations
+ * @property \Illuminate\Database\Eloquent\Collection $province_translations
  * 
  * Localized Properties:
  * @property string $value
  */
-class LanguageRequirement extends Eloquent
+class Province extends Eloquent
 {
     use \Dimsav\Translatable\Translatable;
     public $translatedAttributes = ['value'];
@@ -34,8 +34,8 @@ class LanguageRequirement extends Eloquent
 		return $this->hasMany(\App\Models\JobPoster::class);
 	}
 
-	public function language_requirement_translations()
+	public function province_translations()
 	{
-		return $this->hasMany(\App\Models\LanguageRequirementTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\ProvinceTranslation::class);
 	}
 }

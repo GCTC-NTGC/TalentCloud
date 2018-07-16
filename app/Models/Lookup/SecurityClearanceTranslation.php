@@ -5,32 +5,32 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class ExperienceLevelTranslation
+ * Class SecurityClearanceTranslation
  * 
  * @property int $id
  * @property string $locale
- * @property int $experience_level_id
+ * @property int $security_clearance_id
  * @property string $value
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\ExperienceLevel $experience_level
+ * @property \App\Models\Lookup\SecurityClearance $security_clearance
  */
-class ExperienceLevelTranslation extends Eloquent
+class SecurityClearanceTranslation extends Eloquent
 {
 	protected $casts = [
-		'experience_level_id' => 'int'
+		'security_clearance_id' => 'int'
 	];
 
 	protected $fillable = [];
 
-	public function experience_level()
+	public function security_clearance()
 	{
-		return $this->belongsTo(\App\Models\ExperienceLevel::class);
+		return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
 	}
 }

@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Applicant $applicant
- * @property \App\Models\ApplicantProfileQuestion $applicant_profile_question
+ * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
 class ApplicantProfileAnswer extends Eloquent
 {
@@ -41,6 +41,6 @@ class ApplicantProfileAnswer extends Eloquent
 
 	public function applicant_profile_question()
 	{
-		return $this->belongsTo(\App\Models\ApplicantProfileQuestion::class);
+		return $this->belongsTo(\App\Models\Lookup\ApplicantProfileQuestion::class);
 	}
 }

@@ -23,8 +23,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\ExperienceLevel $experience_level
- * @property \App\Models\Relationship $relationship
+ * @property \App\Models\Lookup\ExperienceLevel $experience_level
+ * @property \App\Models\Lookup\Relationship $relationship
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  */
 class MicroReference extends Eloquent
@@ -51,12 +51,12 @@ class MicroReference extends Eloquent
 
 	public function experience_level()
 	{
-		return $this->belongsTo(\App\Models\ExperienceLevel::class);
+		return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
 	}
 
 	public function relationship()
 	{
-		return $this->belongsTo(\App\Models\Relationship::class);
+		return $this->belongsTo(\App\Models\Lookup\Relationship::class);
 	}
 
 	public function application_micro_references()

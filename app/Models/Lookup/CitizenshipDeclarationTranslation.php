@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -19,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\CitizenshipDeclaration $citizenship_declaration
+ * @property \App\Models\Lookup\CitizenshipDeclaration $citizenship_declaration
  */
 class CitizenshipDeclarationTranslation extends Eloquent
 {
@@ -31,6 +31,6 @@ class CitizenshipDeclarationTranslation extends Eloquent
 
 	public function citizenship_declaration()
 	{
-		return $this->belongsTo(\App\Models\CitizenshipDeclaration::class);
+		return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
 	}
 }

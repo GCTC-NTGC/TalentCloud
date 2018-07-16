@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -31,7 +31,7 @@ class FileType extends Eloquent
 
 	public function file_type_translations()
 	{
-		return $this->hasMany(\App\Models\FileTypeTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\FileTypeTranslation::class);
 	}
 
 	public function work_samples()

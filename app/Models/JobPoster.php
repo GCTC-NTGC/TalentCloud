@@ -30,12 +30,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\Department $department
- * @property \App\Models\JobTerm $job_term
- * @property \App\Models\LanguageRequirement $language_requirement
+ * @property \App\Models\Lookup\Department $department
+ * @property \App\Models\Lookup\JobTerm $job_term
+ * @property \App\Models\Lookup\LanguageRequirement $language_requirement
  * @property \App\Models\Manager $manager
- * @property \App\Models\Province $province
- * @property \App\Models\SecurityClearance $security_clearance
+ * @property \App\Models\Lookup\Province $province
+ * @property \App\Models\Lookup\SecurityClearance $security_clearance
  * @property \Illuminate\Database\Eloquent\Collection $criteria
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_key_tasks
@@ -90,17 +90,17 @@ class JobPoster extends Eloquent
 
 	public function department()
 	{
-		return $this->belongsTo(\App\Models\Department::class);
+		return $this->belongsTo(\App\Models\Lookup\Department::class);
 	}
 
 	public function job_term()
 	{
-		return $this->belongsTo(\App\Models\JobTerm::class);
+		return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
 	}
 
 	public function language_requirement()
 	{
-		return $this->belongsTo(\App\Models\LanguageRequirement::class);
+		return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
 	}
 
 	public function manager()
@@ -110,12 +110,12 @@ class JobPoster extends Eloquent
 
 	public function province()
 	{
-		return $this->belongsTo(\App\Models\Province::class);
+		return $this->belongsTo(\App\Models\Lookup\Province::class);
 	}
 
 	public function security_clearance()
 	{
-		return $this->belongsTo(\App\Models\SecurityClearance::class);
+		return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
 	}
 
 	public function criteria()

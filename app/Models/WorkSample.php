@@ -21,7 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\FileType $file_type
+ * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  */
 class WorkSample extends Eloquent
@@ -44,7 +44,7 @@ class WorkSample extends Eloquent
 
 	public function file_type()
 	{
-		return $this->belongsTo(\App\Models\FileType::class);
+		return $this->belongsTo(\App\Models\Lookup\FileType::class);
 	}
 
 	public function application_work_samples()

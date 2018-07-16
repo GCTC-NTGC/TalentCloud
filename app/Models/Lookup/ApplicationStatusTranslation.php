@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -19,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\ApplicationStatus $application_status
+ * @property \App\Models\Lookup\ApplicationStatus $application_status
  */
 class ApplicationStatusTranslation extends Eloquent
 {
@@ -31,6 +31,6 @@ class ApplicationStatusTranslation extends Eloquent
 
 	public function application_status()
 	{
-		return $this->belongsTo(\App\Models\ApplicationStatus::class);
+		return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
 	}
 }

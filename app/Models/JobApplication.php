@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Applicant $applicant
- * @property \App\Models\ApplicationStatus $application_status
+ * @property \App\Models\Lookup\ApplicationStatus $application_status
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
@@ -44,7 +44,7 @@ class JobApplication extends Eloquent
 
 	public function application_status()
 	{
-		return $this->belongsTo(\App\Models\ApplicationStatus::class);
+		return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
 	}
 
 	public function job_poster()

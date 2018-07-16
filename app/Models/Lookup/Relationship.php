@@ -5,37 +5,37 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Province
+ * Class Relationship
  * 
  * @property int $id
  * @property string $name
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $job_posters
- * @property \Illuminate\Database\Eloquent\Collection $province_translations
+ * @property \Illuminate\Database\Eloquent\Collection $micro_references
+ * @property \Illuminate\Database\Eloquent\Collection $relationship_translations
  * 
  * Localized Properties:
  * @property string $value
  */
-class Province extends Eloquent
+class Relationship extends Eloquent
 {
     use \Dimsav\Translatable\Translatable;
     public $translatedAttributes = ['value'];
 	protected $fillable = [];
 
-	public function job_posters()
+	public function micro_references()
 	{
-		return $this->hasMany(\App\Models\JobPoster::class);
+		return $this->hasMany(\App\Models\MicroReference::class);
 	}
 
-	public function province_translations()
+	public function relationship_translations()
 	{
-		return $this->hasMany(\App\Models\ProvinceTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\RelationshipTranslation::class);
 	}
 }

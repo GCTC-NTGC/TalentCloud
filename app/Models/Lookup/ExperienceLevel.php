@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -32,7 +32,7 @@ class ExperienceLevel extends Eloquent
 
 	public function experience_level_translations()
 	{
-		return $this->hasMany(\App\Models\ExperienceLevelTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
 	}
 
 	public function micro_references()

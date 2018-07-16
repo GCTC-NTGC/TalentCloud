@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -19,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\Province $province
+ * @property \App\Models\Lookup\Province $province
  */
 class ProvinceTranslation extends Eloquent
 {
@@ -31,6 +31,6 @@ class ProvinceTranslation extends Eloquent
 
 	public function province()
 	{
-		return $this->belongsTo(\App\Models\Province::class);
+		return $this->belongsTo(\App\Models\Lookup\Province::class);
 	}
 }

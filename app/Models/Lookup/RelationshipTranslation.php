@@ -5,32 +5,32 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class LanguageRequirementTranslation
+ * Class RelationshipTranslation
  * 
  * @property int $id
+ * @property int $relationship_id
  * @property string $locale
- * @property int $language_requirement_id
  * @property string $value
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\LanguageRequirement $language_requirement
+ * @property \App\Models\Lookup\Relationship $relationship
  */
-class LanguageRequirementTranslation extends Eloquent
+class RelationshipTranslation extends Eloquent
 {
 	protected $casts = [
-		'language_requirement_id' => 'int'
+		'relationship_id' => 'int'
 	];
 
 	protected $fillable = [];
 
-	public function language_requirement()
+	public function relationship()
 	{
-		return $this->belongsTo(\App\Models\LanguageRequirement::class);
+		return $this->belongsTo(\App\Models\Lookup\Relationship::class);
 	}
 }

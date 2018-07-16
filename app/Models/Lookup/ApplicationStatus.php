@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -34,7 +34,7 @@ class ApplicationStatus extends Eloquent
 
 	public function application_status_translations()
 	{
-		return $this->hasMany(\App\Models\ApplicationStatusTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\ApplicationStatusTranslation::class);
 	}
 
 	public function job_applications()

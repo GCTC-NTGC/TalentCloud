@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -39,6 +39,6 @@ class ApplicantProfileQuestion extends Eloquent
 
 	public function applicant_profile_question_translations()
 	{
-		return $this->hasMany(\App\Models\ApplicantProfileQuestionTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
 	}
 }

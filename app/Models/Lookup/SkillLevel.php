@@ -5,7 +5,7 @@
  * Date: Thu, 12 Jul 2018 22:39:28 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
@@ -37,6 +37,6 @@ class SkillLevel extends Eloquent
 
 	public function skill_level_translations()
 	{
-		return $this->hasMany(\App\Models\SkillLevelTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\SkillLevelTranslation::class);
 	}
 }

@@ -5,12 +5,12 @@
  * Date: Thu, 12 Jul 2018 22:39:27 +0000.
  */
 
-namespace App\Models;
+namespace App\Models\Lookup;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class SecurityClearance
+ * Class LanguageRequirement
  * 
  * @property int $id
  * @property string $name
@@ -18,16 +18,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
- * @property \Illuminate\Database\Eloquent\Collection $security_clearance_translations
+ * @property \Illuminate\Database\Eloquent\Collection $language_requirement_translations
  * 
  * Localized Properties:
  * @property string $value
  */
-class SecurityClearance extends Eloquent
+class LanguageRequirement extends Eloquent
 {
     use \Dimsav\Translatable\Translatable;
     public $translatedAttributes = ['value'];
-    
 	protected $fillable = [];
 
 	public function job_posters()
@@ -35,8 +34,8 @@ class SecurityClearance extends Eloquent
 		return $this->hasMany(\App\Models\JobPoster::class);
 	}
 
-	public function security_clearance_translations()
+	public function language_requirement_translations()
 	{
-		return $this->hasMany(\App\Models\SecurityClearanceTranslation::class);
+		return $this->hasMany(\App\Models\Lookup\LanguageRequirementTranslation::class);
 	}
 }
