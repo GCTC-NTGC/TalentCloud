@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    Home: Hero
+
+============================================================================= #}
+<header
+    class="home__hero"
+    style="background-image: url('https://talentcloud-nuagedetalents.gccollab.ca/images/backgrounds/background.jpg');">
+
+    {% include "../common/menu" %}
+
+    {# Hero Content #}
+
+        <div
+            class="home__hero-content flex-grid middle">
+
+            <div
+                class="box med-1of2">
+                <img
+                    alt="{{ home.hero_logo_alt }}"
+                    class=""
+                    src="{{ home.hero_logo }}">
+            </div>
+
+            <div
+                class="box med-1of2">
+                {{ home.hero_tagline }}
+            </div>
+
+        </div>
+
+    {# Admin Tagline #}
+
+</header>

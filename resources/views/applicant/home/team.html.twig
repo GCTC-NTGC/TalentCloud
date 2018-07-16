@@ -1,0 +1,41 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Home - Team
+
+============================================================================= #}
+<section
+    class="home__team"
+    style="background-image: url('https://talentcloud-nuagedetalents.gccollab.ca/images/backgrounds/background.jpg');">
+
+    <div
+        class="container--copy">
+
+        <h3
+            class="home__team-title heading--03">
+            {{ home.team_title }}
+        </h3>
+
+        <p>
+            {{ home.team_copy }}
+        </p>
+
+        <a
+            class="button--blue"
+            href="{{ home.team_button_gccollab_link }}"
+            target="_blank"
+            title="{{ home.team_button_gccollab_title }}">
+            {{ home.team_button_gccollab_label }}
+        </a>
+
+        <a
+            class="button--blue"
+            href="{{ home.team_button_twitter_link }}"
+            target="_blank"
+            title="{{ home.team_button_twitter_title }}">
+            {{ home.team_button_twitter_label }}
+        </a>
+
+    </div>
+
+</section>

@@ -1,0 +1,46 @@
+{# =============================================================================
+
+    Talent Cloud
+    Alert
+
+============================================================================= #}
+<section
+    class="alert">
+
+    <div
+        class="alert__grid flex-grid">
+
+        {# Alert Copy #}
+
+            <div
+                class="box med-1of2">
+
+                <span>
+                    <i class="fas fa-cogs"></i>
+                    {{ alert.copy }}
+                </span>
+
+            </div>
+
+        {# Feedback Link #}
+
+            <div
+                class="box med-1of2">
+
+                <span>
+                    {{ alert.feedback_copy }}
+                </span>
+
+                <a
+                    class=""
+                    href="mailto:{{ alert.feedback_link }}"
+                    target=""
+                    title="{{ alert.feedback_link_title }}">
+                    {{ alert.feedback_link_copy }}
+                </a>
+
+            </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,37 @@
+{# =============================================================================
+
+    Talent Cloud
+    Menu
+
+============================================================================= #}
+<nav
+    class="menu">
+
+    <button
+        class="menu__mobile-trigger"
+        onclick="">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+        {{ nav.mobile_trigger_label }}
+    </button>
+
+    <ul class="menu__list">
+
+        {% for item in menu %}
+
+            <li>
+
+                <a
+                    class="{% if item.active == true %}active{% endif %}"
+                    href="{{ item.link }}"
+                    title="Visit {{ item.name }}.">
+                    {{ item.name }}
+                </a>
+
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</nav>

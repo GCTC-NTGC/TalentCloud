@@ -1,0 +1,20 @@
+.list-input__list {    
+    input {
+        display:inline-block !important;
+        width: 50% !important;
+    }
+    .list-input__add  {
+        display: none;
+    }
+    .list-input__remove {
+        display: inline-block;
+    }
+    li:last-child {
+        .list-input__add {
+            display: inline-block;
+        }
+        .list-input__remove {
+            display: none;
+        }
+    }
+}

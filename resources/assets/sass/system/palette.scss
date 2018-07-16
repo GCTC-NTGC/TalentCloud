@@ -1,0 +1,40 @@
+// =============================================================================
+
+    // Palette
+
+// =============================================================================
+
+// Greyscale
+
+    $palette--white: #FFFFFF;
+    $palette--black: #0A0A0F;
+
+// Font Colours
+
+    $palette--font-white: rgba($palette--white, .85);
+    $palette--font-black: rgba($palette--black, .85);
+
+// Brand Colours
+
+    $palette--red: #F94D4D;
+    $palette--green: #287D11;
+    $palette--yellow: #FFD200;
+    $palette--blue: #0A6CBC;
+
+// Component Colours
+
+    %gradient--vertical {
+        background: rgb(10,108,188);
+        background: -moz-linear-gradient(180deg, rgba(10,108,188,1) 0%, rgba(79,178,213,1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(10,108,188,1) 0%, rgba(79,178,213,1) 100%);
+        background: linear-gradient(180deg, rgba(10,108,188,1) 0%, rgba(79,178,213,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0a6cbc",endColorstr="#4fb2d5",GradientType=1);
+    }
+
+    %gradient--horizontal {
+        background: rgb(10,108,188);
+        background: -moz-linear-gradient(90deg, rgba(10,108,188,1) 0%, rgba(79,178,213,1) 100%);
+        background: -webkit-linear-gradient(90deg, rgba(10,108,188,1) 0%, rgba(79,178,213,1) 100%);
+        background: linear-gradient(90deg, rgba(10,108,188,1) 0%, rgba(79,178,213,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0a6cbc",endColorstr="#4fb2d5",GradientType=1);
+    }

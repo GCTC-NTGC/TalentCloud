@@ -1,0 +1,68 @@
+// =============================================================================
+
+    // Menu
+
+// =============================================================================
+.menu {
+    background: transparentize($palette--black, .35);
+
+    .menu__mobile-trigger {
+
+        @media #{$l-tablet} {
+            display: none;
+        }
+
+    }
+
+    .menu__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+
+        @media #{$l-tablet} {
+            padding: 0 $unit;
+            text-align: right;
+        }
+
+        li {
+            display: inline-block;
+
+            a {
+                display: block;
+                color: $palette--font-white;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 400;
+                padding: calc(#{$unit} * 1.5);
+                position: relative;
+                text-decoration: none;
+                // text-transform: uppercase;
+
+                &:hover {
+                    color: $palette--blue;
+                }
+
+                &.active {
+
+                    &::before {
+                        @extend %gradient--horizontal;
+                        content: " ";
+                        display: block;
+                        height: calc(#{$unit} / 2);
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

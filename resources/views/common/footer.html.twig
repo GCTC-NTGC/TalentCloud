@@ -1,0 +1,75 @@
+{# =============================================================================
+
+    Talent Cloud
+    Footer
+
+============================================================================= #}
+<footer
+    class="footer">
+
+    <div
+        class="footer__grid flex-grid middle">
+
+        {# SubMenu Links #}
+
+            <nav
+                class="box med-1of2">
+
+                <ul>
+
+                    <li>
+                        <a
+                            class=""
+                            href="{{ footer.terms.link }}"
+                            title="{{ footer.terms.link_title }}">
+                            {{ footer.terms.link_label }}
+                        </a>
+                    </li>
+
+                    <span>&bull;</span>
+
+                    <li>
+                        <a
+                            class=""
+                            href="{{ footer.privacy.link }}"
+                            title="{{ footer.privacy.link_title }}">
+                            {{ footer.privacy.link_label }}
+                        </a>
+                    </li>
+
+                    <span>&bull;</span>
+
+                    <li>
+                        <a
+                            class=""
+                            href="{{ footer.canada.link }}"
+                            title="{{ footer.canada.link_title }}">
+                            {{ footer.canada.link_label }}
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        {# Feedback Link #}
+
+            <div
+                class="box med-1of2">
+
+                <a
+                    class=""
+                    href="{{ footer.logo_link }}"
+                    target="_blank"
+                    title="{{ footer.logo_link_title }}">
+                    <img
+                        alt="{{ footer.logo_alt }}"
+                        class=""
+                        src="{{ footer.logo_url }}">
+                </a>
+
+            </div>
+
+    </div>
+
+</footer>

@@ -1,0 +1,99 @@
+// =============================================================================
+
+    // Authored by: Talent Cloud
+
+    // Talent Cloud Font-Scale
+
+// =============================================================================
+
+// Fonts
+
+    $font--sans: HKGrotesk, sans-serif;
+    $font--serif: $font--sans;
+
+    // Legacy Fonts
+    $font-hk: $font--sans;
+
+// Font Scale
+
+    html,
+    body {
+        font-size: 80%;
+
+        @media screen and (min-width: 412px) {
+            font-size: 90%;
+        }
+
+        @media #{$p-tablet} {
+            font-size: 100%;
+        }
+
+        @media #{$cinema} {
+            font-size: 110%;
+        }
+
+    }
+
+    $font-scale: 1.250;
+
+    $font-scale--regular: $unit;
+
+    $font-scale--h1: calc(#{$unit}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale})))));
+    $font-scale--h2: calc(#{$unit}*(#{$font-scale}*(#{$font-scale}*(#{$font-scale}))));
+    $font-scale--h3: calc(#{$unit}*(#{$font-scale}*(#{$font-scale})));
+    $font-scale--h4: calc(#{$unit}*(#{$font-scale}));
+    $font-scale--h5: $unit;
+    $font-scale--small: calc(#{$unit}*(#{$font-scale}/2));
+
+// Sitewide Typography
+
+    ::selection {
+        background: $palette--black;
+        color: $palette--white;
+    }
+
+    [class*="heading--"] {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+
+        i {
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+    }
+
+    .heading--01 {
+        font-size: $font-scale--h1;
+    }
+
+    .heading--02 {
+        font-size: $font-scale--h2;
+    }
+
+    .heading--03 {
+        font-size: $font-scale--h3;
+    }
+
+    .heading--04 {
+        font-size: $font-scale--h4;
+    }
+
+    .heading--05 {
+        font-size: $font-scale--h5;
+    }
+
+// Typography Extensions
+
+    %paragraph {
+        color: $palette--font-black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 0 0 calc(#{$unit} * 2);
+    }

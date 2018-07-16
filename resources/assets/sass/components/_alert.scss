@@ -1,0 +1,61 @@
+// =============================================================================
+
+    // Alert
+
+// =============================================================================
+.alert {
+    background: lighten($palette--blue, 50%);
+
+    .alert__grid {
+
+        .box {
+            text-align: center;
+
+            span {
+                color: $palette--font-black;
+                font-family: $font--sans;
+                font-size: $font-scale--small;
+                font-weight: 400;
+
+                i {
+                    margin: 0 calc(#{$unit} / 2) 0 0;
+                }
+
+            }
+
+            a {
+                color: $palette--font-black;
+                font-family: $font--sans;
+                font-size: $font-scale--small;
+                font-weight: 400;
+
+                &:hover {
+                    color: $palette--blue;
+                }
+
+            }
+
+            &:nth-child(1) {
+                padding: $unit calc(#{$unit} * 2.5);
+
+                @media #{$p-tablet} {
+                    text-align: left;
+                }
+
+            }
+
+            &:nth-child(2) {
+                padding: 0 calc(#{$unit} * 2.5) $unit;
+
+                @media #{$p-tablet} {
+                    padding: $unit calc(#{$unit} * 2.5);
+                    text-align: right;
+                }
+
+            }
+
+        }
+
+    }
+
+}

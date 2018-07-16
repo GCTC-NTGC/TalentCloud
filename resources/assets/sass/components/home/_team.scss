@@ -1,0 +1,57 @@
+// =============================================================================
+
+    // Home: How
+
+// =============================================================================
+.home__team {
+    background-position: top center;
+    background-size: cover;
+    padding: $section-padding;
+    position: relative;
+    text-align: center;
+
+    &::before {
+        background: transparentize($palette--black, .2);
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .container--copy {
+        position: relative;
+    }
+
+    .home__team-title {
+        color: $palette--font-white;
+        display: inline-block;
+        margin: 0 0 calc(#{$unit} * 4);
+        position: relative;
+
+        &::before {
+            @extend %gradient--horizontal;
+            content: " ";
+            display: block;
+            height: calc(#{$unit} / 2);
+            position: absolute;
+            left: 50%;
+            bottom: calc(#{$unit} * -1.5);
+            transform: translate(-50%, 0);
+            width: 80%;
+        }
+
+    }
+
+    p {
+        @extend %paragraph;
+        color: $palette--font-white;
+    }
+
+    a {
+        margin: calc(#{$unit} / 2);
+    }
+
+}

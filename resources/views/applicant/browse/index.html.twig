@@ -1,0 +1,113 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Browse - Index
+
+============================================================================= #}
+<section
+    class="browse__index">
+
+    <div
+        class="container--layout">
+
+        <div
+            div class="flex-grid top">
+
+            {% for job in jobs %}
+
+                <a
+                    class="browse__index-job box med-1of2 lg-1of3"
+                    href="{{ job.link }}"
+                    title="{{ browse.index.view_title }} {{ job.title }}.">
+
+                    <div
+                        class="browse__index-job-card">
+
+                        <div
+                            class="browse__index-job-card-title">
+                            <h3
+                                class="heading--03">
+                                {{ job.title }}
+                            </h3>
+                            <span>
+                                {{ job.department }}
+                            </span>
+                        </div>
+
+                        <div
+                            class="browse__index-job-card-content flex-grid">
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ browse.index.location_label }}
+                                </span>
+                                <p>
+                                    {{ job.city }}, {{ job.province }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ browse.index.salary_label }}
+                                </span>
+                                <p>
+                                    {{ job.salary }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ browse.index.duration_label }}
+                                </span>
+                                <p>
+                                    {{ job.duration }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ browse.index.remote_label }}
+                                </span>
+                                <p>
+                                    {{ job.remote }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="browse__index-job-card-metadata flex-grid">
+
+                            <div class="box med-1of2">
+                                <span>
+                                    {{ job.days_remaining }} {{ browse.index.days_remaining_label }}
+                                </span>
+                            </div>
+                            <div class="box med-1of2">
+                                <span>
+                                    {{ job.applicants }} {{ browse.index.applicants_label }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="browse__index-job-card-cta">
+                            {{ browse.index.button_label }}
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>

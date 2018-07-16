@@ -1,0 +1,55 @@
+/* =============================================================================
+
+    Authored by: Talent Cloud
+
+    Top level CSS styles
+
+============================================================================= */
+
+* {
+    scroll-behavior: smooth;
+}
+
+html{
+    min-height: 100vh;/* make sure it is at least as tall as the viewport */
+    position:relative;
+}
+
+body{
+    
+}
+
+/* adds whitespace on Admin Portal index,
+    don't remove until we add content */
+main{
+    min-height: 70%;
+}
+
+header{
+    margin: 0px auto;
+    color: #fff;
+}
+
+footer{
+    clear:left;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    font-size: 1.5rem;
+    bottom: 0;
+}
+
+#announcement{
+    font-size: 1.5em;
+    padding-left: 0.5em;
+}
+
+.template {
+    display: none;
+    visibility: hidden;
+}
+
+.repeater__template {
+    display: none !important;
+    visibility: hidden;
+}
