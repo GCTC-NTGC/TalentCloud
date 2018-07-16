@@ -1,69 +1,38 @@
-# Talent Cloud
-# .travis.yml
-
-# Required to run your project under the correct environment.
-language: php
-
-# Versions of PHP you want your project run with.
-php:
-  - 5.6
-  - 7.0
-  - hhvm
+# language:
+#   - php
 
 sudo: required
 
-# allow_failures: Allow this build to fail under the specified environments.
-# fast_finish: If your build fails do not continue trying to build, just stop.
-matrix:
-  allow_failures:
-    - php: 7.0
-    - php: hhvm
-  fast_finish: true
-
-  include:
-    # Lint checks for PHP code and composer.json
-    - php: 5.6
-      env: VARIA=true
-      install:
-       - phpenv rehash
-       - composer self-update
-       - composer install
-      script:
-       - composer validate
-
-    # End to end tests
-    - php: 5.6
-      env: E2E=true
-      install:
-       - composer self-update
-       - composer install
-       - mysql -e 'create database talentcloud;'
-       - echo "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES;" | mysql -u root
-       - php -f ./install/cli/travis_installer.php
-       - php -S localhost:8888 index.php &
-       - sleep 3 # give Web server some time to bind to sockets, etc
+env-docker:
+  DOCKER_COMPOSE_VERSION: 1.18.0
 
 services:
-  - mysql
   - docker
 
-install:
-  - composer self-update
-  - composer install
-  - mysql -e 'create database talentcloud;'
-  - echo "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES;" | mysql -u root
-  - php -f ./install/cli/travis_installer.php
+before_install:
+  - sudo apt update
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
+  - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+  - sudo mv ./docker-compose /usr/bin/docker-compose
+  - sudo chmod +x /usr/bin/docker-compose
+  - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
-# Commands you want to run that will verify your build.
+before_script:
+  - sudo make docker-start
+  - sleep 2m
+
 script:
-  - composer validate
-  # ./vendor/bin/phpunit
-  # phpunit --coverage-text --coverage-clover=coverage.clover
+  - sudo make gen-certs
+  - sudo make mysql-dump
+  - sudo make mysql-restore
+  # sudo make phpmd
+  # sudo make test
 
-# after_script:
- # wget https://scrutinizer-ci.com/ocular.phar
- # php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+after_script:
+  - docker build -t gggrant/tc-laravel:travis
+  - sudo make docker-stop
 
-# Customize when the notification emails are sent.
+# do not send emails
 notifications:
-    slack: talent-cloud:dW8Ftd2QBoDzyE3eEAiuWy9F
+    email: never

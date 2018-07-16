@@ -1,7 +1,14 @@
-data
-vendor
 Dockerfile
 docker-compose.yml
+app.docker
+web.docker
+
+.tags
+.env
 .git
 .gitignore
 .dockerignore
+
+data
+tests
+vendor
