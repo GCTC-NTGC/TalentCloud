@@ -13,44 +13,6 @@
 
 Route::get('/', function () {
     return view('applicant/home', [
-        /* Menu */
-        "menu" => [
-            "home" => [
-                "name" => "Home",
-                "link" => "/",
-                "active" => true
-            ],
-            "browse" => [
-                "name" => "Browse Jobs",
-                "link" => "/browse/",
-                "active" => false
-            ],
-            "applications" => [
-                "name" => "My Applications",
-                "link" => "/applications/",
-                "active" => false
-            ],
-            "profile" => [
-                "name" => "My Profile",
-                "link" => "/profile/",
-                "active" => false
-            ],
-            "register" => [
-                "name" => "Register",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "login" => [
-                "name" => "Login",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "logout" => [
-                "name" => "Logout",
-                "link" => "#",
-                "active" => false
-            ]
-        ],
         /* Home */
         "home" => [
             "hero_logo_alt" => "The GC Talent Cloud Logo.",
@@ -77,48 +39,10 @@ Route::get('/', function () {
             "team_button_twitter_label" => "Twitter"
         ]
     ]);
-});
+})->name('home');
 
-Route::get('/browse/', function () {
-    return view('applicant/browse', [        
-        /* Menu */
-        "menu" => [
-            "home" => [
-                "name" => "Home",
-                "link" => "/",
-                "active" => false
-            ],
-            "browse" => [
-                "name" => "Browse Jobs",
-                "link" => "/browse/",
-                "active" => true
-            ],
-            "applications" => [
-                "name" => "My Applications",
-                "link" => "/applications/",
-                "active" => false
-            ],
-            "profile" => [
-                "name" => "My Profile",
-                "link" => "/profile/",
-                "active" => false
-            ],
-            "register" => [
-                "name" => "Register",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "login" => [
-                "name" => "Login",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "logout" => [
-                "name" => "Logout",
-                "link" => "#",
-                "active" => false
-            ]
-        ],
+Route::get('jobs', function () {
+    return view('applicant/browse', [  
         /* Browse */
         "page" => [
             "title" => "Browse Jobs"
@@ -163,48 +87,10 @@ Route::get('/browse/', function () {
             ]
         ]
     ]);
-});
+})->name('jobs');
 
-Route::get('/profile/', function () {
+Route::get('profile', function () {
     return view('applicant/profile', [
-        /* Menu */
-        "menu" => [
-            "home" => [
-                "name" => "Home",
-                "link" => "/",
-                "active" => false
-            ],
-            "browse" => [
-                "name" => "Browse Jobs",
-                "link" => "/browse/",
-                "active" => false
-            ],
-            "applications" => [
-                "name" => "My Applications",
-                "link" => "/applications/",
-                "active" => false
-            ],
-            "profile" => [
-                "name" => "My Profile",
-                "link" => "/profile/",
-                "active" => true
-            ],
-            "register" => [
-                "name" => "Register",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "login" => [
-                "name" => "Login",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "logout" => [
-                "name" => "Logout",
-                "link" => "#",
-                "active" => false
-            ]
-        ],
         /* Browse */
         "page" => [
             "title" => "My Profile"
@@ -224,8 +110,23 @@ Route::get('/profile/', function () {
             ]
         ]
     ]);
-});
+})->name('profile');
 
-Route::get('/laravel', function () {
+Route::get('applications', function() {
+    //TODO
+    return redirect()->route('home');
+})->name('applications');
+
+Route::get('login', function() {
+    //TODO
+    return redirect()->route('home');
+})->name('login');
+
+Route::get('logout', function() {
+    //TODO
+    return redirect()->route('home');
+})->name('logout');
+
+Route::get('laravel', function () {
     return view('welcome');
 });

@@ -24,15 +24,15 @@ class ComposerServiceProvider extends ServiceProvider
             '*', 'App\Http\ViewComposers\GocComposer'
         );
         
+        //Nav menu
+        View::composer(
+            '*', 'App\Http\ViewComposers\MenuComposer'    
+        );
+        
         //Sitewide Footer
         View::composer(
             '*', 'App\Http\ViewComposers\FooterComposer'
         );
-        
-        
-        
-        
-        
     }
 
     /**
