@@ -4,11 +4,15 @@
 
 // =============================================================================
 [class*="button--"] {
+    border: none;
     border-radius: 5px;
+    box-shadow: none;
+    cursor: pointer;
     display: inline-block;
     font-family: $font--sans;
     font-size: $font-scale--regular;
     font-weight: 400;
+    outline: none;
     padding: $unit calc(#{$unit} * 2);
     text-decoration: none;
 
@@ -23,6 +27,11 @@
             outline: none;
             padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
             transition: none;
+
+            &.light-bg {
+                border: 2px solid $palette--black;
+            }
+
         }
 
     }

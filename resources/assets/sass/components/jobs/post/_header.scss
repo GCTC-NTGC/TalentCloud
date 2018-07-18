@@ -1,0 +1,106 @@
+// =============================================================================
+
+    // Jobs: Post - Header
+
+// =============================================================================
+.job-post__header {
+    background-color: transparentize($palette--black, .15);
+    background-image: url("/images/bg_lightning_texture.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 75px;
+    padding: $section-padding;
+    text-align: center;
+
+    @media #{$l-tablet} {
+        text-align: left;
+    }
+
+    .container--layout {
+
+        >.flex-grid {
+
+            >.box:last-child {
+                
+                @media #{$l-tablet} {
+                    text-align: right;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+.job-post__header-meta {
+    color: $palette--blue;
+    display: block;
+    font-size: $font-scale--regular;
+    line-height: 1.5;
+    margin: 0 0 1.5rem 0;
+
+    span {
+        color: $palette--font-white;
+        font-family: $font--sans;
+    }
+
+}
+
+.job-post__job-title {
+    color: $palette--font-white;
+    font-family: $font--sans;
+    font-size: $font-scale--h2;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 1rem 0;
+}
+
+.job-post__department {
+    margin: 0;
+
+    >span {
+        color: $palette--blue;
+        display: inline-block;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 calc(#{$unit} * 1.5) 0;
+    }
+
+    i {
+        color: $palette--blue;
+        font-size: $font-scale--regular;
+        margin: 0 calc(#{$unit} / 2) 0 0;
+        vertical-align: middle;
+    }
+
+    >div >span {
+        color: $palette--font-white;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+}
+
+.job-post__reference-id-wrapper {
+
+    @media #{$l-tablet} {
+        text-align: right;
+    }
+
+}
+
+.job-post__reference-id {
+    color: $palette--font-white;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 !important;
+}

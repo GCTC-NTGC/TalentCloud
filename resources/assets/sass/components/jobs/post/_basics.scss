@@ -1,0 +1,46 @@
+// =============================================================================
+
+    // Jobs: Post - Basics
+
+// =============================================================================
+.job-poster__content-wrapper {
+    padding: 5rem 0 5rem 3rem;
+}
+
+.job-poster__basics {
+    background: $palette--black;
+    border-radius: 3px;
+    margin: 0 0 4rem 0;
+    padding: 3rem;
+}
+
+.job-poster__basics-title {
+    color: $palette--white;
+    font-family: $font--sans;
+    font-size: $font-scale--h3;
+    //font-weight: 700;
+    margin: 0 0 2rem 0;
+}
+
+.job-poster__basics-label {
+    color: $palette--blue;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+}
+
+.job-poster__basics-content {
+    color: $palette--white;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 400;
+    margin: 0 0 2rem 0;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+}

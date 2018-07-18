@@ -1,0 +1,79 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Sidebar
+
+============================================================================= #}
+<div 
+    class="job-poster__subnav-wrapper box lg-1of4">
+
+    <nav 
+        class="job-poster__subnav-sticky-wrapper">
+
+        <span 
+            class="job-poster__subnav-job-title">
+            {{ job.title }}
+        </span>
+
+        <span 
+            class="job-poster__subnav-department">
+            {{ job.department }}
+        </span>
+
+        <h4 
+            class="job-poster_subnav-label">
+            {{ template.sidebar_label }}
+        </h4>
+
+        <a 
+            class="job-poster__subnav-item"
+            href="#basics"
+            title="{{ template.basics.sidebar_title }}">
+            {{ template.basics.title }}
+        </a>
+
+        <a 
+            class="job-poster__subnav-item" 
+            href="#impact"
+            title="{{ template.impact.sidebar_title }}">
+            {{ template.impact.title }}
+        </a>
+
+        <a 
+            class="job-poster__subnav-item" 
+            href="#work"
+            title="{{ template.work.sidebar_title }}">
+            {{ template.work.title }}
+        </a>
+
+        <a 
+            class="job-poster__subnav-item"
+            href="#criteria"
+            title="{{ template.criteria.sidebar_title }}">
+            {{ template.criteria.title }}
+        </a>
+
+        <a 
+            class="job-poster__subnav-item" 
+            href="#culture"
+            title="{{ template.culture.sidebar_title }}">
+            {{ template.culture.title }}
+        </a>
+
+        <a 
+            class="job-poster__subnav-item"
+            href="#know"
+            title="{{ template.know.sidebar_title }}">
+            {{ template.know.title }}
+        </a>
+
+        <a 
+            class="job-poster__subnav-item"
+            href="#apply"
+            title="{{ template.apply.sidebar_title }}">
+            {{ template.apply.title }}
+        </a>
+
+    </nav>
+
+</div>

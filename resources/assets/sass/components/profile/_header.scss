@@ -4,12 +4,11 @@
 
 // =============================================================================
 .applicant-profile__header {
-    background-color: transparentize($palette--black, .1);
-    background-image: url(/images/bg_lightning_texture.png);
+    background-color: transparentize($palette--black, .15);
+    background-image: url("/images/bg_lightning_texture.png");
     background-position: center;
     background-repeat: repeat;
     background-size: 75px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 1);
     padding: $section-padding;
     text-align: center;
 
@@ -20,13 +19,17 @@
     >.container--copy {
         position: relative;
 
+        @media #{$l-tablet} {
+            padding: 0;
+        }
+
         >h3 {
             color: $palette--white;
             font-family: $font--sans;
-            font-size: $font-scale--h3;
+            font-size: $font-scale--h2;
             font-weight: 700;
             line-height: 1.2;
-            margin: 0 0 1rem 0;
+            margin: 0 0 $unit 0;
         }
 
         >span {
@@ -35,7 +38,7 @@
             font-family: $font--sans;
             font-size: $font-scale--regular;
             font-weight: 400;
-            margin: 0 0 1rem 0;
+            margin: 0 0 calc(#{$unit} * 2) 0;
         }
 
     }
@@ -44,12 +47,13 @@
         background: none;
         border: none;
         border-radius: 100%;
+        padding: 0;
         position: relative;
 
         @media #{$l-tablet} {
             position: absolute;
             top: 50%;
-            left: calc(#{$unit} * -5);
+            left: calc(#{$unit} * -3);
             transform: translate(-100%, -50%);
         }
 
@@ -84,7 +88,7 @@
 
                 i {
                     color: $palette--white;
-                    font-size: 2rem;
+                    font-size: $font-scale--h4;
                     transition: color .2s ease;
                 }
 
