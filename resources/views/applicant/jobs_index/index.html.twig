@@ -18,7 +18,7 @@
                 <a
                     class="browse__index-job box med-1of2 lg-1of3"
                     href="{{ job.link }}"
-                    title="{{ browse.index.view_title }} {{ job.title }}.">
+                    title="{{ jobs_index.index.view_title }} {{ job.title }}.">
 
                     <div
                         class="browse__index-job-card">
@@ -40,7 +40,7 @@
                             <div
                                 class="box small-1of2">
                                 <span>
-                                    {{ browse.index.location_label }}
+                                    {{ jobs_index.index.location_label }}
                                 </span>
                                 <p>
                                     {{ job.city }}, {{ job.province }}
@@ -50,7 +50,7 @@
                             <div
                                 class="box small-1of2">
                                 <span>
-                                    {{ browse.index.salary_label }}
+                                    {{ jobs_index.index.salary_label }}
                                 </span>
                                 <p>
                                     {{ job.salary }}
@@ -60,7 +60,7 @@
                             <div
                                 class="box small-1of2">
                                 <span>
-                                    {{ browse.index.duration_label }}
+                                    {{ jobs_index.index.duration_label }}
                                 </span>
                                 <p>
                                     {{ job.duration }}
@@ -70,7 +70,7 @@
                             <div
                                 class="box small-1of2">
                                 <span>
-                                    {{ browse.index.remote_label }}
+                                    {{ jobs_index.index.remote_label }}
                                 </span>
                                 <p>
                                     {{ job.remote }}
@@ -84,12 +84,12 @@
 
                             <div class="box med-1of2">
                                 <span>
-                                    {{ job.days_remaining }} {{ browse.index.days_remaining_label }}
+                                    {{ job.days_remaining }} {{ jobs_index.index.days_remaining_label }}
                                 </span>
                             </div>
                             <div class="box med-1of2">
                                 <span>
-                                    {{ job.applicants }} {{ browse.index.applicants_label }}
+                                    {{ job.applicants }} {{ jobs_index.index.applicants_label }}
                                 </span>
                             </div>
 
@@ -97,7 +97,7 @@
 
                         <div
                             class="browse__index-job-card-cta">
-                            {{ browse.index.button_label }}
+                            {{ jobs_index.index.button_label }}
                         </div>
 
                     </div>

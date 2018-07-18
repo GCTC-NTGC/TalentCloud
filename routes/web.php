@@ -14,9 +14,9 @@
 Route::get('/', 'Applicant\HomepageController')->name('home');
 
 Route::get('jobs', function () {
-    return view('applicant/browse', [  
+    return view('applicant/jobs_index', [  
         /* Browse */
-        "browse" => [
+        "jobs_index" => [
             "title" => "Browse Jobs",
             "index" => [
                 "view_title" => "View the job post for",
@@ -56,92 +56,12 @@ Route::get('jobs', function () {
             ]
         ]
     ]);
-})->name('jobs');
+})->name('jobs.index');
 
-Route::get('/browse/jobs/00/', function () {
-    return view('applicant/job-post', [
-        /* Alerts */
-        "alert" => [
-            "copy" => "This site is under construction. The jobs are not in fact real at the moment.",
-            "feedback_copy" => "Help us improve GC Talent Cloud.",
-            "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
-            "feedback_link_title" => "Submit feedback to GC Talent Cloud via email.",
-            "feedback_link_copy" => "Submit Feedback"
-        ],
-        /* GoC */
-        "goc" => [
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "The Government of Canada Logo.",
-            "logo_url" => "/images/logo_goc_white.svg",
-            "talent_cloud" => "GC Talent Cloud",
-            "portal" => "Applicant Portal",
-            "language_link" => "/fr",
-            "language_link_title" => "Cliquez içi pour le site Français.",
-            "language" => "Français"
-        ],
-        /* Menu */
-        "menu" => [
-            "home" => [
-                "name" => "Home",
-                "link" => "/",
-                "active" => false
-            ],
-            "browse" => [
-                "name" => "Browse Jobs",
-                "link" => "/browse/jobs/",
-                "active" => true
-            ],
-            "applications" => [
-                "name" => "My Applications",
-                "link" => "/applications/",
-                "active" => false
-            ],
-            "profile" => [
-                "name" => "My Profile",
-                "link" => "/profile/",
-                "active" => false
-            ],
-            "register" => [
-                "name" => "Register",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "login" => [
-                "name" => "Login",
-                "link" => "http://gccollab.gc.ca/",
-                "active" => false
-            ],
-            "logout" => [
-                "name" => "Logout",
-                "link" => "#",
-                "active" => false
-            ]
-        ],
-        /* Footer */
-        "footer" => [
-            "terms" => [
-                "link" => "/terms/",
-                "link_title" => "View our terms and conditions.",
-                "link_label" => "Terms & Conditions"
-            ],
-            "privacy" => [
-                "link" => "/privacy/",
-                "link_title" => "View our privacy policy.",
-                "link_label" => "Privacy Policy"
-            ],
-            "canada" => [
-                "link" => "https://www.canada.ca/en.html",
-                "link_title" => "Visit Canada.ca.",
-                "link_label" => "Canada.ca"
-            ],
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "Canada's Logo.",
-            "logo_url" => "/images/logo_canada_white.png"
-        ],
+Route::get('jobs/{id}', function () {
+    return view('applicant/jobs_post', [
         /* Template */
-        "template" => [
+        "jobs_post" => [
             "title" => "Browse Jobs",
             "days_remaining_label" => "days remaining.",
             "applicants_label" => "applicants so far.", 
@@ -202,14 +122,11 @@ Route::get('/browse/jobs/00/', function () {
             "classification" => "CS3"
         ]
     ]);
-});
+})->name('jobs.show');
 
 Route::get('profile', function () {
     return view('applicant/profile', [
-        /* Browse */
-        "template" => [
-            "title" => "My Profile"
-        ],
+        
         /* Applicant Profile Questions */
         "applicant_profile_questions" => [
             "0" => [

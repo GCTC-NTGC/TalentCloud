@@ -15,7 +15,7 @@ return [
     ],
     "browse" => [
         "name" => "Browse Jobs",
-        "link" => route('jobs')
+        "link" => route('jobs.index')
     ],
     "applications" => [
         "name" => "My Applications",

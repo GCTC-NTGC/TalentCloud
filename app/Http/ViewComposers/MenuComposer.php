@@ -33,7 +33,8 @@ class MenuComposer
             case 'home':
                 $menuItems['home']['active'] = true;
                 break;
-            case 'jobs':
+            case 'jobs.index':
+            case 'jobs.show':
                 $menuItems['browse']['active'] = true;
                 break;
             case 'applications':
