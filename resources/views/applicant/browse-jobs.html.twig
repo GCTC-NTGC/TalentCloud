@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile
+    Applicant: Browse
 
 ============================================================================= #}
 
@@ -20,15 +20,15 @@
 
         {% include "common/header" %}
 
-        {% include "applicant/profile/header" %}
+        {# include "applicant/jobs/index/filters" #}
 
-        {% include "applicant/profile/questions" %}
+        {% include "applicant/jobs/index/index" %}
 
         {% include "common/footer" %}
 
         {# Scripts #}
 
-            {% include "common/scripts" %}
+        {% include "common/scripts" %}
 
     </body>
 

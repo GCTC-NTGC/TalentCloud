@@ -88,6 +88,7 @@
         @import "components/footer";
 
         @import "components/buttons";
+        @import "components/forms";
 
     // Home
 
@@ -96,14 +97,21 @@
         @import "components/home/how";
         @import "components/home/team";
 
-    // Browse
+    // Browse Jobs
 
-        @import "components/browse/filters";
-        @import "components/browse/index";
+        @import "components/jobs/index/filters";
+        @import "components/jobs/index/index";
+
+    // Job Post
+
+        @import "components/jobs/post/header";
+        @import "components/jobs/post/sidebar";
+        @import "components/jobs/post/basics";
 
     // Profile
 
         @import "components/profile/header";
+        @import "components/profile/questions";
 
 // Atoms =======================================================================
 

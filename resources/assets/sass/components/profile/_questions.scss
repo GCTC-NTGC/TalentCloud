@@ -1,0 +1,46 @@
+// =============================================================================
+
+    // Profile: Questions
+
+// =============================================================================
+.applicant-profile__questions {
+    background: $palette--white;
+    padding: $section-padding;
+
+    .container--copy {
+
+        >span {
+            color: $palette--blue;
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 600;
+            margin: 0 0 calc(#{$unit} * 1.5);
+        }
+
+        >p {
+            @extend %paragraph;
+            margin: calc(#{$unit} * 1.5) 0 calc(#{$unit} * 2);
+        }
+
+        >div {
+            margin: calc(#{$unit} * 1.5) 0;
+
+            .form__textarea {
+                min-height: calc(#{$unit} * 15);
+            }
+
+        }
+
+        >button {
+            margin: 0 0 calc(#{$unit} * 4);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+        }
+
+    }
+
+}
