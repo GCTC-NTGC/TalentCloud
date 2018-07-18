@@ -13,26 +13,6 @@
 
 Route::get('/', function () {
     return view('applicant/home', [
-        /* Alerts */
-        "alert" => [
-            "copy" => "This site is under construction. The jobs are not in fact real at the moment.",
-            "feedback_copy" => "Help us improve GC Talent Cloud.",
-            "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
-            "feedback_link_title" => "Submit feedback to GC Talent Cloud via email.",
-            "feedback_link_copy" => "Submit Feedback"
-        ],
-        /* GoC */
-        "goc" => [
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "The Government of Canada Logo.",
-            "logo_url" => "/images/logo_goc_white.svg",
-            "talent_cloud" => "GC Talent Cloud",
-            "portal" => "Applicant Portal",
-            "language_link" => "/fr",
-            "language_link_title" => "Cliquez içi pour le site Français.",
-            "language" => "Français"
-        ],
         /* Menu */
         "menu" => [
             "home" => [
@@ -70,28 +50,6 @@ Route::get('/', function () {
                 "link" => "#",
                 "active" => false
             ]
-        ],
-        /* Footer */
-        "footer" => [
-            "terms" => [
-                "link" => "/terms/",
-                "link_title" => "View our terms and conditions.",
-                "link_label" => "Terms & Conditions"
-            ],
-            "privacy" => [
-                "link" => "/privacy/",
-                "link_title" => "View our privacy policy.",
-                "link_label" => "Privacy Policy"
-            ],
-            "canada" => [
-                "link" => "https://www.canada.ca/en.html",
-                "link_title" => "Visit Canada.ca.",
-                "link_label" => "Canada.ca"
-            ],
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "Canada's Logo.",
-            "logo_url" => "/images/logo_canada_white.png"
         ],
         /* Home */
         "home" => [
@@ -180,28 +138,6 @@ Route::get('/browse/jobs/', function () {
                 "link" => "#",
                 "active" => false
             ]
-        ],
-        /* Footer */
-        "footer" => [
-            "terms" => [
-                "link" => "/terms/",
-                "link_title" => "View our terms and conditions.",
-                "link_label" => "Terms & Conditions"
-            ],
-            "privacy" => [
-                "link" => "/privacy/",
-                "link_title" => "View our privacy policy.",
-                "link_label" => "Privacy Policy"
-            ],
-            "canada" => [
-                "link" => "https://www.canada.ca/en.html",
-                "link_title" => "Visit Canada.ca.",
-                "link_label" => "Canada.ca"
-            ],
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "Canada's Logo.",
-            "logo_url" => "/images/logo_canada_white.png"
         ],
         /* Browse */
         "template" => [
@@ -397,26 +333,6 @@ Route::get('/browse/jobs/00/', function () {
 
 Route::get('/profile/', function () {
     return view('applicant/profile', [
-        /* Alerts */
-        "alert" => [
-            "copy" => "This site is under construction. The jobs are not in fact real at the moment.",
-            "feedback_copy" => "Help us improve GC Talent Cloud.",
-            "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
-            "feedback_link_title" => "Submit feedback to GC Talent Cloud via email.",
-            "feedback_link_copy" => "Submit Feedback"
-        ],
-        /* GoC */
-        "goc" => [
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "The Government of Canada Logo.",
-            "logo_url" => "/images/logo_goc_white.svg",
-            "talent_cloud" => "GC Talent Cloud",
-            "portal" => "Applicant Portal",
-            "language_link" => "/fr",
-            "language_link_title" => "Cliquez içi pour le site Français.",
-            "language" => "Français"
-        ],
         /* Menu */
         "menu" => [
             "home" => [
@@ -454,28 +370,6 @@ Route::get('/profile/', function () {
                 "link" => "#",
                 "active" => false
             ]
-        ],
-        /* Footer */
-        "footer" => [
-            "terms" => [
-                "link" => "/terms/",
-                "link_title" => "View our terms and conditions.",
-                "link_label" => "Terms & Conditions"
-            ],
-            "privacy" => [
-                "link" => "/privacy/",
-                "link_title" => "View our privacy policy.",
-                "link_label" => "Privacy Policy"
-            ],
-            "canada" => [
-                "link" => "https://www.canada.ca/en.html",
-                "link_title" => "Visit Canada.ca.",
-                "link_label" => "Canada.ca"
-            ],
-            "logo_link" => "https://www.canada.ca/en.html",
-            "logo_link_title" => "Visit Canada.ca.",
-            "logo_alt" => "Canada's Logo.",
-            "logo_url" => "/images/logo_canada_white.png"
         ],
         /* Browse */
         "template" => [
