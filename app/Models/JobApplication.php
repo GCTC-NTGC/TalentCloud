@@ -27,48 +27,41 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
-class JobApplication extends Eloquent
-{
-	protected $casts = [
-		'job_poster_id' => 'int',
-		'application_status_id' => 'int',
-		'applicant_id' => 'int'
-	];
+class JobApplication extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'job_poster_id' => 'int',
+        'application_status_id' => 'int',
+        'applicant_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function applicant()
-	{
-		return $this->belongsTo(\App\Models\Applicant::class);
-	}
+    public function applicant() {
+        return $this->belongsTo(\App\Models\Applicant::class);
+    }
 
-	public function application_status()
-	{
-		return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
-	}
+    public function application_status() {
+        return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
+    }
 
-	public function job_poster()
-	{
-		return $this->belongsTo(\App\Models\JobPoster::class);
-	}
+    public function job_poster() {
+        return $this->belongsTo(\App\Models\JobPoster::class);
+    }
 
-	public function application_micro_references()
-	{
-		return $this->hasMany(\App\Models\ApplicationMicroReference::class);
-	}
+    public function application_micro_references() {
+        return $this->hasMany(\App\Models\ApplicationMicroReference::class);
+    }
 
-	public function application_work_samples()
-	{
-		return $this->hasMany(\App\Models\ApplicationWorkSample::class);
-	}
+    public function application_work_samples() {
+        return $this->hasMany(\App\Models\ApplicationWorkSample::class);
+    }
 
-	public function job_application_answers()
-	{
-		return $this->hasMany(\App\Models\JobApplicationAnswer::class);
-	}
+    public function job_application_answers() {
+        return $this->hasMany(\App\Models\JobApplicationAnswer::class);
+    }
 
-	public function skill_declarations()
-	{
-		return $this->hasMany(\App\Models\SkillDeclaration::class);
-	}
+    public function skill_declarations() {
+        return $this->hasMany(\App\Models\SkillDeclaration::class);
+    }
+
 }

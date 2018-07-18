@@ -24,21 +24,20 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\TeamCulture $team_culture
  */
-class TeamCultureTranslation extends Eloquent
-{
-	protected $casts = [
-		'team_culture_id' => 'int'
-	];
+class TeamCultureTranslation extends Eloquent {
 
-	protected $fillable = [
-		'narrative_text',
-		'operating_context',
-		'what_we_value',
-		'how_we_work'
-	];
+    protected $casts = [
+        'team_culture_id' => 'int'
+    ];
+    protected $fillable = [
+        'narrative_text',
+        'operating_context',
+        'what_we_value',
+        'how_we_work'
+    ];
 
-	public function team_culture()
-	{
-		return $this->belongsTo(\App\Models\TeamCulture::class);
-	}
+    public function team_culture() {
+        return $this->belongsTo(\App\Models\TeamCulture::class);
+    }
+
 }

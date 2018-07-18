@@ -29,52 +29,43 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $description
  */
-class Criteria extends Eloquent
-{
+class Criteria extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
-    
+
     protected $table = 'criteria';
-    
     public $translatedAttributes = ['name', 'description'];
-	
+    protected $casts = [
+        'criteria_type_id' => 'int',
+        'job_poster_id' => 'int'
+    ];
+    protected $fillable = [
+        'criteria_type_id',
+        'job_poster_id'
+    ];
 
-	protected $casts = [
-		'criteria_type_id' => 'int',
-		'job_poster_id' => 'int'
-	];
+    public function criteria_type() {
+        return $this->belongsTo(\App\Models\CriteriaType::class);
+    }
 
-	protected $fillable = [
-		'criteria_type_id',
-		'job_poster_id'
-	];
+    public function job_poster() {
+        return $this->belongsTo(\App\Models\JobPoster::class);
+    }
 
-	public function criteria_type()
-	{
-		return $this->belongsTo(\App\Models\CriteriaType::class);
-	}
+    public function application_micro_references() {
+        return $this->hasMany(\App\Models\ApplicationMicroReference::class, 'criteria_id');
+    }
 
-	public function job_poster()
-	{
-		return $this->belongsTo(\App\Models\JobPoster::class);
-	}
+    public function application_work_samples() {
+        return $this->hasMany(\App\Models\ApplicationWorkSample::class, 'criteria_id');
+    }
 
-	public function application_micro_references()
-	{
-		return $this->hasMany(\App\Models\ApplicationMicroReference::class, 'criteria_id');
-	}
+    public function criteria_translations() {
+        return $this->hasMany(\App\Models\CriteriaTranslation::class, 'criteria_id');
+    }
 
-	public function application_work_samples()
-	{
-		return $this->hasMany(\App\Models\ApplicationWorkSample::class, 'criteria_id');
-	}
+    public function skill_declarations() {
+        return $this->hasMany(\App\Models\SkillDeclaration::class, 'criteria_id');
+    }
 
-	public function criteria_translations()
-	{
-		return $this->hasMany(\App\Models\CriteriaTranslation::class, 'criteria_id');
-	}
-
-	public function skill_declarations()
-	{
-		return $this->hasMany(\App\Models\SkillDeclaration::class, 'criteria_id');
-	}
 }

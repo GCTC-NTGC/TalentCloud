@@ -23,19 +23,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class Department extends Eloquent
-{
+class Department extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['value'];
-	protected $fillable = [];
+    protected $fillable = [];
 
-	public function department_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
-	}
+    public function department_translations() {
+        return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
+    }
 
-	public function job_posters()
-	{
-		return $this->hasMany(\App\Models\JobPoster::class);
-	}
+    public function job_posters() {
+        return $this->hasMany(\App\Models\JobPoster::class);
+    }
+
 }

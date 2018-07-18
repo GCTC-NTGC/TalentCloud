@@ -22,14 +22,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class CitizenshipDeclaration extends Eloquent
-{
-    use \Dimsav\Translatable\Translatable;
-    public $translatedAttributes = ['value'];
-	protected $fillable = [];
+class CitizenshipDeclaration extends Eloquent {
 
-	public function citizenship_declaration_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\CitizenshipDeclarationTranslation::class);
-	}
+    use \Dimsav\Translatable\Translatable;
+
+    public $translatedAttributes = ['value'];
+    protected $fillable = [];
+
+    public function citizenship_declaration_translations() {
+        return $this->hasMany(\App\Models\Lookup\CitizenshipDeclarationTranslation::class);
+    }
+
 }

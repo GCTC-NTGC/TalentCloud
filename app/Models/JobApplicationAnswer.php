@@ -22,24 +22,22 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
-class JobApplicationAnswer extends Eloquent
-{
-	protected $casts = [
-		'job_poster_questions_id' => 'int',
-		'job_application_id' => 'int'
-	];
+class JobApplicationAnswer extends Eloquent {
 
-	protected $fillable = [
-		'answer'
-	];
+    protected $casts = [
+        'job_poster_questions_id' => 'int',
+        'job_application_id' => 'int'
+    ];
+    protected $fillable = [
+        'answer'
+    ];
 
-	public function job_application()
-	{
-		return $this->belongsTo(\App\Models\JobApplication::class);
-	}
+    public function job_application() {
+        return $this->belongsTo(\App\Models\JobApplication::class);
+    }
 
-	public function job_poster_question()
-	{
-		return $this->belongsTo(\App\Models\JobPosterQuestion::class, 'job_poster_questions_id');
-	}
+    public function job_poster_question() {
+        return $this->belongsTo(\App\Models\JobPosterQuestion::class, 'job_poster_questions_id');
+    }
+
 }

@@ -22,16 +22,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
-class ApplicantProfileQuestionTranslation extends Eloquent
-{
-	protected $casts = [
-		'applicant_profile_question_id' => 'int'
-	];
+class ApplicantProfileQuestionTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'applicant_profile_question_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function applicant_profile_question()
-	{
-		return $this->belongsTo(\App\Models\Lookup\ApplicantProfileQuestion::class);
-	}
+    public function applicant_profile_question() {
+        return $this->belongsTo(\App\Models\Lookup\ApplicantProfileQuestion::class);
+    }
+
 }

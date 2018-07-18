@@ -23,22 +23,20 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class ApplicationStatus extends Eloquent
-{
+class ApplicationStatus extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
-    
-	protected $table = 'application_status';
-    public $translatedAttributes = ['value'];    
 
-	protected $fillable = [];
+    protected $table = 'application_status';
+    public $translatedAttributes = ['value'];
+    protected $fillable = [];
 
-	public function application_status_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\ApplicationStatusTranslation::class);
-	}
+    public function application_status_translations() {
+        return $this->hasMany(\App\Models\Lookup\ApplicationStatusTranslation::class);
+    }
 
-	public function job_applications()
-	{
-		return $this->hasMany(\App\Models\JobApplication::class);
-	}
+    public function job_applications() {
+        return $this->hasMany(\App\Models\JobApplication::class);
+    }
+
 }

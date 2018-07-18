@@ -25,31 +25,28 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  */
-class Applicant extends Eloquent
-{
-	protected $casts = [
-		'user_id' => 'int'
-	];
+class Applicant extends Eloquent {
 
-	protected $fillable = [
-		'personal_website',
-		'tagline',
-		'twitter_username',
-		'linkedin_username'
-	];
+    protected $casts = [
+        'user_id' => 'int'
+    ];
+    protected $fillable = [
+        'personal_website',
+        'tagline',
+        'twitter_username',
+        'linkedin_username'
+    ];
 
-	public function user()
-	{
-		return $this->belongsTo(\App\Models\User::class);
-	}
+    public function user() {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
-	public function applicant_profile_answers()
-	{
-		return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
-	}
+    public function applicant_profile_answers() {
+        return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
+    }
 
-	public function job_applications()
-	{
-		return $this->hasMany(\App\Models\JobApplication::class);
-	}
+    public function job_applications() {
+        return $this->hasMany(\App\Models\JobApplication::class);
+    }
+
 }

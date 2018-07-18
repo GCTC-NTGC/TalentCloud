@@ -23,20 +23,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class SkillLevel extends Eloquent
-{
+class SkillLevel extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['value'];
-    
-	protected $fillable = [];
+    protected $fillable = [];
 
-	public function skill_declarations()
-	{
-		return $this->hasMany(\App\Models\SkillDeclaration::class);
-	}
+    public function skill_declarations() {
+        return $this->hasMany(\App\Models\SkillDeclaration::class);
+    }
 
-	public function skill_level_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\SkillLevelTranslation::class);
-	}
+    public function skill_level_translations() {
+        return $this->hasMany(\App\Models\Lookup\SkillLevelTranslation::class);
+    }
+
 }

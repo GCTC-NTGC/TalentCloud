@@ -24,21 +24,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $value
  * @property string $description
  */
-class ApplicantProfileQuestion extends Eloquent
-{
+class ApplicantProfileQuestion extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
-    
+
     public $translatedAttributes = ['value', 'description'];
-    
-	protected $fillable = [];
+    protected $fillable = [];
 
-	public function applicant_profile_answers()
-	{
-		return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
-	}
+    public function applicant_profile_answers() {
+        return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
+    }
 
-	public function applicant_profile_question_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
-	}
+    public function applicant_profile_question_translations() {
+        return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
+    }
+
 }

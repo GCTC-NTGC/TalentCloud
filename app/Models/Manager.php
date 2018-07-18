@@ -43,46 +43,42 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $work_experience
  * @property string $education
  */
-class Manager extends Eloquent
-{
+class Manager extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
-    public $translatedAttributes = ['aboutme','greatest_accomplishmest','branch',
-        'division','position','leadership_style','employee_learning',
-        'expectations','review_options','staylate','engage','opportunities',
-        'low_value_work_requests', 'work_experience','education'];
-	protected $casts = [
-		'department_id' => 'int',
-		'user_id' => 'int'
-	];
 
-	protected $fillable = [
-		'department_id',
-		'twitter_username',
-		'linkedin_username'
-	];
+    public $translatedAttributes = ['aboutme', 'greatest_accomplishmest', 'branch',
+        'division', 'position', 'leadership_style', 'employee_learning',
+        'expectations', 'review_options', 'staylate', 'engage', 'opportunities',
+        'low_value_work_requests', 'work_experience', 'education'];
+    protected $casts = [
+        'department_id' => 'int',
+        'user_id' => 'int'
+    ];
+    protected $fillable = [
+        'department_id',
+        'twitter_username',
+        'linkedin_username'
+    ];
 
-	public function user()
-	{
-		return $this->belongsTo(\App\Models\User::class);
-	}
+    public function user() {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
-	public function job_posters()
-	{
-		return $this->hasMany(\App\Models\JobPoster::class);
-	}
+    public function job_posters() {
+        return $this->hasMany(\App\Models\JobPoster::class);
+    }
 
-	public function manager_translations()
-	{
-		return $this->hasMany(\App\Models\ManagerTranslation::class);
-	}
+    public function manager_translations() {
+        return $this->hasMany(\App\Models\ManagerTranslation::class);
+    }
 
-	public function manager_work_environments()
-	{
-		return $this->hasMany(\App\Models\ManagerWorkEnvironment::class);
-	}
+    public function manager_work_environments() {
+        return $this->hasMany(\App\Models\ManagerWorkEnvironment::class);
+    }
 
-	public function team_cultures()
-	{
-		return $this->hasMany(\App\Models\TeamCulture::class);
-	}
+    public function team_cultures() {
+        return $this->hasMany(\App\Models\TeamCulture::class);
+    }
+
 }

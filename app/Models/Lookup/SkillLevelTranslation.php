@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\SkillLevel $skill_level
  */
-class SkillLevelTranslation extends Eloquent
-{
-	protected $casts = [
-		'skill_level_id' => 'int'
-	];
+class SkillLevelTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'skill_level_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function skill_level()
-	{
-		return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
-	}
+    public function skill_level() {
+        return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
+    }
+
 }

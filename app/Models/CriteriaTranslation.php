@@ -22,20 +22,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Criteria $criterion
  */
-class CriteriaTranslation extends Eloquent
-{
-	protected $casts = [
-		'criteria_id' => 'int'
-	];
+class CriteriaTranslation extends Eloquent {
 
-	protected $fillable = [
-		'name',
-		'description',
-		'locale'
-	];
+    protected $casts = [
+        'criteria_id' => 'int'
+    ];
+    protected $fillable = [
+        'name',
+        'description',
+        'locale'
+    ];
 
-	public function criterion()
-	{
-		return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
-	}
+    public function criterion() {
+        return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
+    }
+
 }

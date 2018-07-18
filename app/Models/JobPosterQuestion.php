@@ -24,23 +24,22 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $question
  * @property string $description
  */
-class JobPosterQuestion extends Eloquent
-{
+class JobPosterQuestion extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['question', 'description'];
-	protected $casts = [
-		'job_poster_id' => 'int'
-	];
+    protected $casts = [
+        'job_poster_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	protected $fillable = [];
+    public function job_poster() {
+        return $this->belongsTo(\App\Models\JobPoster::class);
+    }
 
-	public function job_poster()
-	{
-		return $this->belongsTo(\App\Models\JobPoster::class);
-	}
+    public function job_application_answers() {
+        return $this->hasMany(\App\Models\JobApplicationAnswer::class, 'job_poster_questions_id');
+    }
 
-	public function job_application_answers()
-	{
-		return $this->hasMany(\App\Models\JobApplicationAnswer::class, 'job_poster_questions_id');
-	}
 }
