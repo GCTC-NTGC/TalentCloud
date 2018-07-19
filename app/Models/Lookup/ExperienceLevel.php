@@ -24,24 +24,23 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class ExperienceLevel extends Eloquent
-{
+class ExperienceLevel extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['value'];
-	protected $fillable = [];
+    protected $fillable = [];
 
-	public function experience_level_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
-	}
+    public function experience_level_translations() {
+        return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
+    }
 
-	public function micro_references()
-	{
-		return $this->hasMany(\App\Models\MicroReference::class);
-	}
+    public function micro_references() {
+        return $this->hasMany(\App\Models\MicroReference::class);
+    }
 
-	public function skill_declarations()
-	{
-		return $this->hasMany(\App\Models\SkillDeclaration::class);
-	}
+    public function skill_declarations() {
+        return $this->hasMany(\App\Models\SkillDeclaration::class);
+    }
+
 }

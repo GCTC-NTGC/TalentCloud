@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\CitizenshipDeclaration $citizenship_declaration
  */
-class CitizenshipDeclarationTranslation extends Eloquent
-{
-	protected $casts = [
-		'citizenship_declaration_id' => 'int'
-	];
+class CitizenshipDeclarationTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'citizenship_declaration_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function citizenship_declaration()
-	{
-		return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
-	}
+    public function citizenship_declaration() {
+        return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
+    }
+
 }

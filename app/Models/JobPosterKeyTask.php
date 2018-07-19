@@ -22,18 +22,18 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $description
  */
-class JobPosterKeyTask extends Eloquent
-{
+class JobPosterKeyTask extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['description'];
-	protected $casts = [
-		'job_poster_id' => 'int'
-	];
+    protected $casts = [
+        'job_poster_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	protected $fillable = [];
+    public function job_poster() {
+        return $this->belongsTo(\App\Models\JobPoster::class);
+    }
 
-	public function job_poster()
-	{
-		return $this->belongsTo(\App\Models\JobPoster::class);
-	}
 }

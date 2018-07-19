@@ -23,21 +23,20 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
  */
-class WorkEnvironment extends Eloquent
-{
-	protected $fillable = [
-		'remote_allowed',
-		'telework_allowed',
-		'flexible_allowed'
-	];
+class WorkEnvironment extends Eloquent {
 
-	public function manager()
-	{
-		return $this->belongsTo(\App\Models\Manager::class);
-	}
+    protected $fillable = [
+        'remote_allowed',
+        'telework_allowed',
+        'flexible_allowed'
+    ];
 
-	public function workplace_photo_captions()
-	{
-		return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
-	}
+    public function manager() {
+        return $this->belongsTo(\App\Models\Manager::class);
+    }
+
+    public function workplace_photo_captions() {
+        return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
+    }
+
 }

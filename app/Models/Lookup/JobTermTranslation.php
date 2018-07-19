@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\JobTerm $job_term
  */
-class JobTermTranslation extends Eloquent
-{
-	protected $casts = [
-		'job_term_id' => 'int'
-	];
+class JobTermTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'job_term_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function job_term()
-	{
-		return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
-	}
+    public function job_term() {
+        return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
+    }
+
 }

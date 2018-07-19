@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\LanguageRequirement $language_requirement
  */
-class LanguageRequirementTranslation extends Eloquent
-{
-	protected $casts = [
-		'language_requirement_id' => 'int'
-	];
+class LanguageRequirementTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'language_requirement_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function language_requirement()
-	{
-		return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
-	}
+    public function language_requirement() {
+        return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
+    }
+
 }

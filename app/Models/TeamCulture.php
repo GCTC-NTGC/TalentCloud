@@ -28,28 +28,26 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $what_we_value
  * @property string $how_we_work
  */
-class TeamCulture extends Eloquent
-{
+class TeamCulture extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
-    public $translatedAttributes = ['narrative_text','operating_context', 'what_we_value', 'how_we_work'];
-    
-	protected $casts = [
-		'team_size' => 'int',
-		'manager_id' => 'int'
-	];
 
-	protected $fillable = [
-		'team_size',
-		'gc_directory_url'
-	];
+    public $translatedAttributes = ['narrative_text', 'operating_context', 'what_we_value', 'how_we_work'];
+    protected $casts = [
+        'team_size' => 'int',
+        'manager_id' => 'int'
+    ];
+    protected $fillable = [
+        'team_size',
+        'gc_directory_url'
+    ];
 
-	public function manager()
-	{
-		return $this->belongsTo(\App\Models\Manager::class);
-	}
+    public function manager() {
+        return $this->belongsTo(\App\Models\Manager::class);
+    }
 
-	public function team_culture_translations()
-	{
-		return $this->hasMany(\App\Models\TeamCultureTranslation::class);
-	}
+    public function team_culture_translations() {
+        return $this->hasMany(\App\Models\TeamCultureTranslation::class);
+    }
+
 }

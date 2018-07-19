@@ -18,12 +18,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $users
  */
-class UserRole extends Eloquent
-{
-	protected $fillable = [];
+class UserRole extends Eloquent {
 
-	public function users()
-	{
-		return $this->hasMany(\App\Models\User::class);
-	}
+    protected $fillable = [];
+
+    public function users() {
+        return $this->hasMany(\App\Models\User::class);
+    }
+
 }

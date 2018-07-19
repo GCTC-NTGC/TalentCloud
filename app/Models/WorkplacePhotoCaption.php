@@ -23,25 +23,23 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\WorkplacePhoto $workplace_photo
  */
-class WorkplacePhotoCaption extends Eloquent
-{
-	protected $casts = [
-		'work_environment_id' => 'int',
-		'workplace_photo_id' => 'int'
-	];
+class WorkplacePhotoCaption extends Eloquent {
 
-	protected $fillable = [
-		'photo_name',
-		'description'
-	];
+    protected $casts = [
+        'work_environment_id' => 'int',
+        'workplace_photo_id' => 'int'
+    ];
+    protected $fillable = [
+        'photo_name',
+        'description'
+    ];
 
-	public function work_environment()
-	{
-		return $this->belongsTo(\App\Models\WorkEnvironment::class);
-	}
+    public function work_environment() {
+        return $this->belongsTo(\App\Models\WorkEnvironment::class);
+    }
 
-	public function workplace_photo()
-	{
-		return $this->belongsTo(\App\Models\WorkplacePhoto::class);
-	}
+    public function workplace_photo() {
+        return $this->belongsTo(\App\Models\WorkplacePhoto::class);
+    }
+
 }

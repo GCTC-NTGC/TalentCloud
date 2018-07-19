@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\Province $province
  */
-class ProvinceTranslation extends Eloquent
-{
-	protected $casts = [
-		'province_id' => 'int'
-	];
+class ProvinceTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'province_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function province()
-	{
-		return $this->belongsTo(\App\Models\Lookup\Province::class);
-	}
+    public function province() {
+        return $this->belongsTo(\App\Models\Lookup\Province::class);
+    }
+
 }
