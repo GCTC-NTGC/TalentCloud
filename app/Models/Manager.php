@@ -21,6 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\User $user
+ * @property \App\Models\Lookup\Department $department
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $manager_translations
  * @property \Illuminate\Database\Eloquent\Collection $manager_work_environments
@@ -65,6 +66,10 @@ class Manager extends Eloquent {
         return $this->belongsTo(\App\Models\User::class);
     }
 
+    public function department() {
+        return $this->belongsTo(\App\Models\Lookup\Department::class);
+    }
+    
     public function job_posters() {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
