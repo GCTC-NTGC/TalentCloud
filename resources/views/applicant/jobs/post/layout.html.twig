@@ -1,3 +1,9 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Layout
+
+============================================================================= #}
 <div class="job-poster__section-wrapper container--layout">
 
     <div class="flex-grid">
@@ -16,38 +22,15 @@
 
                 {# Include Impact #}
 
-                    <a id="impact" aria-hidden="true"></a>
-                    <section class="job-poster__impact">
-                        <h4 class="job-poster__content-title" id="jobPosterContentTitleImpact">Impact</h4>
-                        <p class="job-poster__content-copy" id="jobPosterImpact"></p>
-                    </section>
+                    {% include "applicant/jobs/post/impact" %}
 
                 {# Include Work #}
 
-                    <a id="work" aria-hidden="true"></a>
-                    <section class="job-poster__work">
-                        <h4 class="job-poster__content-title" id="jobPosterContentTitleWork">Your Work</h4>
-                        <ul class="job-poster__content-list" id="jobPosterKeyTasks"></ul>
-                    </section>
+                    {% include "applicant/jobs/post/work" %}
 
                 {# Include Criteria #}
 
-                    <a id="criteria" aria-hidden="true"></a>
-                    <section class="job-poster__criteria">
-                        <div class="flex-grid">
-                            <div class="box full">
-                                <h4 class="job-poster__content-title" id="jobPosterContentTitleCriteria">Criteria</h4>
-                            </div>
-                            <div class="box med-1of2">
-                                <h5 class="job-poster__content-subtitle" id="jobPosterCoreCompetenciesLabel">Need to Have</h5>
-                                <ul class="job-poster__content-list" id="jobPosterCoreCompetencies"></ul>
-                            </div>
-                            <div class="box med-1of2">
-                                <h5 class="job-poster__content-subtitle" id="jobPosterDevelopingCompetenciesLabel">Nice to Have</h5>
-                                <ul class="job-poster__content-list" id="jobPosterDevelopingCompetencies"></ul>
-                            </div>
-                        </div>
-                    </section>
+                    {% include "applicant/jobs/post/criteria" %}
 
                 {# Include Culture #}
 

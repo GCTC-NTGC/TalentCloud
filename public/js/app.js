@@ -138,7 +138,7 @@
 /* 1 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\n        @import \"components/jobs/post/criteria\";\r\n       ^\r\n      File to import not found or unreadable: components/jobs/post/criteria.\r\n      in C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\resources\\assets\\sass\\app.scss (line 112, column 9)\n    at C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\webpack\\lib\\NormalModule.js:141:35\n    at C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\sass-loader\\lib\\loader.js:51:13)\n    at Object.<anonymous> (C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:2271:31)\n    at Object.callback (C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:969:16)\n    at options.error (C:\\dev\\htdocs\\GCTC-NTGC\\TalentCloud\\node_modules\\node-sass\\lib\\index.js:294:32)");
 
 /***/ }),
 /* 2 */

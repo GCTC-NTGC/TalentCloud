@@ -1,0 +1,29 @@
+// =============================================================================
+
+    // Jobs: Post - Impact
+
+// =============================================================================
+.job-poster__impact {
+    margin: 0 0 calc(#{$unit} * 4);
+
+    .job-poster__impact-title {
+        border-bottom: 1px solid $palette--black;
+        color: $palette--black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 calc(#{$unit} * 2) 0;
+        padding: 0 0 2rem 0;
+    }
+
+    p {
+        @extend %paragraph;
+        margin: calc(#{$unit} * 2) 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+    }
+
+}
