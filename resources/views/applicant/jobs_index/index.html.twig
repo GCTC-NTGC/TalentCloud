@@ -17,7 +17,7 @@
 
                 <a
                     class="browse__index-job box med-1of2 lg-1of3"
-                    href="{{ job.link }}"
+                    href="{{ route('jobs.show', job.id) }}"
                     title="{{ jobs_index.index.view_title }} {{ job.title }}.">
 
                     <div
@@ -30,7 +30,7 @@
                                 {{ job.title }}
                             </h3>
                             <span>
-                                {{ job.department }}
+                                {{ job.department.value }}
                             </span>
                         </div>
 
@@ -43,7 +43,7 @@
                                     {{ jobs_index.index.location_label }}
                                 </span>
                                 <p>
-                                    {{ job.city }}, {{ job.province }}
+                                    {{ job.city }}, {{ job.province.value }}
                                 </p>
                             </div>
 
@@ -53,7 +53,7 @@
                                     {{ jobs_index.index.salary_label }}
                                 </span>
                                 <p>
-                                    {{ job.salary }}
+                                    {{ job.salary_min }} - {{ job.salary_max }}
                                 </p>
                             </div>
 
@@ -63,7 +63,7 @@
                                     {{ jobs_index.index.duration_label }}
                                 </span>
                                 <p>
-                                    {{ job.duration }}
+                                    {{ jobs_index.index.duration[job.job_term.name]|trans_choice(job.term_qty) }}
                                 </p>
                             </div>
 
@@ -84,12 +84,14 @@
 
                             <div class="box med-1of2">
                                 <span>
-                                    {{ job.days_remaining }} {{ jobs_index.index.days_remaining_label }}
+                                    {% set diffTime = date(job.close_date_time).diff(date()) %}
+                                    {{ diffTime.days }} {{ jobs_index.index.days_remaining_label|trans_choice(diffTime.days) }}
                                 </span>
                             </div>
                             <div class="box med-1of2">
                                 <span>
-                                    {{ job.applicants }} {{ jobs_index.index.applicants_label }}
+                                    {% set applicantCount = job.job_applications|length %}
+                                    {{ applicantCount }} {{ jobs_index.index.applicants_label|trans_choice(applicantCount) }}
                                 </span>
                             </div>
 
