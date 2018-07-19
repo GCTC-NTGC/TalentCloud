@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  */
-class ExperienceLevelTranslation extends Eloquent
-{
-	protected $casts = [
-		'experience_level_id' => 'int'
-	];
+class ExperienceLevelTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'experience_level_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function experience_level()
-	{
-		return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
-	}
+    public function experience_level() {
+        return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
+    }
+
 }

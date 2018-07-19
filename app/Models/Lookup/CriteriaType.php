@@ -24,21 +24,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $value
  * @property string $description
  */
-class CriteriaType extends Eloquent
-{    
-    use \Dimsav\Translatable\Translatable;
-    
-    public $translatedAttributes = ['value', 'description'];
-    
-	protected $fillable = [];
+class CriteriaType extends Eloquent {
 
-	public function criteria()
-	{
-		return $this->hasMany(\App\Models\Criteria::class);
-	}
-        
-        public function criteria_type_translations()
-        {
-            return $this->hasMany(\App\Models\CriteriaTypeTranslation::class);
-        }
+    use \Dimsav\Translatable\Translatable;
+
+    public $translatedAttributes = ['value', 'description'];
+    protected $fillable = [];
+
+    public function criteria() {
+        return $this->hasMany(\App\Models\Criteria::class);
+    }
+
+    public function criteria_type_translations() {
+        return $this->hasMany(\App\Models\CriteriaTypeTranslation::class);
+    }
+
 }

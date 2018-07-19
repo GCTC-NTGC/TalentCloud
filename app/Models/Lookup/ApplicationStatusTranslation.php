@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  */
-class ApplicationStatusTranslation extends Eloquent
-{
-	protected $casts = [
-		'application_status_id' => 'int'
-	];
+class ApplicationStatusTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'application_status_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function application_status()
-	{
-		return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
-	}
+    public function application_status() {
+        return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
+    }
+
 }

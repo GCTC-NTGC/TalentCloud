@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\FileType $file_type
  */
-class FileTypeTranslation extends Eloquent
-{
-	protected $casts = [
-		'file_type_id' => 'int'
-	];
+class FileTypeTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'file_type_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function file_type()
-	{
-		return $this->belongsTo(\App\Models\Lookup\FileType::class);
-	}
+    public function file_type() {
+        return $this->belongsTo(\App\Models\Lookup\FileType::class);
+    }
+
 }

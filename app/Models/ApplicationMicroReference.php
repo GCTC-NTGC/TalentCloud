@@ -24,29 +24,26 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\MicroReference $micro_reference
  */
-class ApplicationMicroReference extends Eloquent
-{
-	protected $casts = [
-		'job_application_id' => 'int',
-		'criteria_id' => 'int',
-		'micro_reference_id' => 'int',
-		'is_active' => 'bool'
-	];
+class ApplicationMicroReference extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'job_application_id' => 'int',
+        'criteria_id' => 'int',
+        'micro_reference_id' => 'int',
+        'is_active' => 'bool'
+    ];
+    protected $fillable = [];
 
-	public function criterion()
-	{
-		return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
-	}
+    public function criterion() {
+        return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
+    }
 
-	public function job_application()
-	{
-		return $this->belongsTo(\App\Models\JobApplication::class);
-	}
+    public function job_application() {
+        return $this->belongsTo(\App\Models\JobApplication::class);
+    }
 
-	public function micro_reference()
-	{
-		return $this->belongsTo(\App\Models\MicroReference::class);
-	}
+    public function micro_reference() {
+        return $this->belongsTo(\App\Models\MicroReference::class);
+    }
+
 }

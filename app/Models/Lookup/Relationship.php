@@ -23,19 +23,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class Relationship extends Eloquent
-{
+class Relationship extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['value'];
-	protected $fillable = [];
+    protected $fillable = [];
 
-	public function micro_references()
-	{
-		return $this->hasMany(\App\Models\MicroReference::class);
-	}
+    public function micro_references() {
+        return $this->hasMany(\App\Models\MicroReference::class);
+    }
 
-	public function relationship_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\RelationshipTranslation::class);
-	}
+    public function relationship_translations() {
+        return $this->hasMany(\App\Models\Lookup\RelationshipTranslation::class);
+    }
+
 }

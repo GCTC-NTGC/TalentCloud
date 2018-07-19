@@ -22,20 +22,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\User $user
  */
-class ProfilePic extends Eloquent
-{
-	protected $casts = [
-		'user_id' => 'int',
-		'image' => 'boolean',
-		'size' => 'int'
-	];
+class ProfilePic extends Eloquent {
 
-	protected $fillable = [
-		'image'
-	];
+    protected $casts = [
+        'user_id' => 'int',
+        'image' => 'boolean',
+        'size' => 'int'
+    ];
+    protected $fillable = [
+        'image'
+    ];
 
-	public function user()
-	{
-		return $this->belongsTo(\App\Models\User::class);
-	}
+    public function user() {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
 }

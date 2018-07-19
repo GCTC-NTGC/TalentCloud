@@ -23,19 +23,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class FileType extends Eloquent
-{
+class FileType extends Eloquent {
+
     use \Dimsav\Translatable\Translatable;
+
     public $translatedAttributes = ['value'];
-	protected $fillable = [];
+    protected $fillable = [];
 
-	public function file_type_translations()
-	{
-		return $this->hasMany(\App\Models\Lookup\FileTypeTranslation::class);
-	}
+    public function file_type_translations() {
+        return $this->hasMany(\App\Models\Lookup\FileTypeTranslation::class);
+    }
 
-	public function work_samples()
-	{
-		return $this->hasMany(\App\Models\WorkSample::class);
-	}
+    public function work_samples() {
+        return $this->hasMany(\App\Models\WorkSample::class);
+    }
+
 }

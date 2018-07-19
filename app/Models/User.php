@@ -26,32 +26,28 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
-class User extends Eloquent
-{
-	protected $casts = [
-		'is_confirmed' => 'bool',
-		'user_role_id' => 'int'
-	];
+class User extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'is_confirmed' => 'bool',
+        'user_role_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function applicant()
-	{
-		return $this->hasOne(\App\Models\Applicant::class);
-	}
+    public function applicant() {
+        return $this->hasOne(\App\Models\Applicant::class);
+    }
 
-	public function manager()
-	{
-		return $this->hasOne(\App\Models\Manager::class);
-	}
+    public function manager() {
+        return $this->hasOne(\App\Models\Manager::class);
+    }
 
-	public function profile_pic()
-	{
-		return $this->hasOne(\App\Models\ProfilePic::class);
-	}
+    public function profile_pic() {
+        return $this->hasOne(\App\Models\ProfilePic::class);
+    }
 
-	public function user_role()
-	{
-		return $this->belongsTo(\App\Models\UserRole::class);
-	}
+    public function user_role() {
+        return $this->belongsTo(\App\Models\UserRole::class);
+    }
+
 }

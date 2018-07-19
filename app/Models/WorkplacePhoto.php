@@ -21,19 +21,18 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\WorkplacePhotoCaption $workplace_photo_caption
  */
-class WorkplacePhoto extends Eloquent
-{
-	protected $casts = [
-		'image' => 'boolean',
-		'size' => 'int'
-	];
+class WorkplacePhoto extends Eloquent {
 
-	protected $fillable = [
-		'image'
-	];
+    protected $casts = [
+        'image' => 'boolean',
+        'size' => 'int'
+    ];
+    protected $fillable = [
+        'image'
+    ];
 
-	public function workplace_photo_caption()
-	{
-		return $this->hasOne(\App\Models\WorkplacePhotoCaption::class);
-	}
+    public function workplace_photo_caption() {
+        return $this->hasOne(\App\Models\WorkplacePhotoCaption::class);
+    }
+
 }

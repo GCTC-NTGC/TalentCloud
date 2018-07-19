@@ -35,32 +35,31 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends Eloquent
-{
-	protected $casts = [
-		'manager_id' => 'int'
-	];
+class ManagerTranslation extends Eloquent {
 
-	protected $fillable = [
-		'aboutme',
-		'greatest_accomplishment',
-		'branch',
-		'division',
-		'position',
-		'leadership_style',
-		'employee_learning',
-		'expectations',
-		'review_options',
-		'staylate',
-		'engage',
-		'opportunities',
-		'low_value_work_requests',
-		'work_experience',
-		'education'
-	];
+    protected $casts = [
+        'manager_id' => 'int'
+    ];
+    protected $fillable = [
+        'aboutme',
+        'greatest_accomplishment',
+        'branch',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'review_options',
+        'staylate',
+        'engage',
+        'opportunities',
+        'low_value_work_requests',
+        'work_experience',
+        'education'
+    ];
 
-	public function manager()
-	{
-		return $this->belongsTo(\App\Models\Manager::class);
-	}
+    public function manager() {
+        return $this->belongsTo(\App\Models\Manager::class);
+    }
+
 }

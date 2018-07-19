@@ -24,31 +24,28 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  */
-class WorkSample extends Eloquent
-{
-	protected $casts = [
-		'file_type_id' => 'int'
-	];
+class WorkSample extends Eloquent {
 
-	protected $dates = [
-		'date_created'
-	];
+    protected $casts = [
+        'file_type_id' => 'int'
+    ];
+    protected $dates = [
+        'date_created'
+    ];
+    protected $fillable = [
+        'name',
+        'date_created',
+        'file_type_id',
+        'url',
+        'story'
+    ];
 
-	protected $fillable = [
-		'name',
-		'date_created',
-		'file_type_id',
-		'url',
-		'story'
-	];
+    public function file_type() {
+        return $this->belongsTo(\App\Models\Lookup\FileType::class);
+    }
 
-	public function file_type()
-	{
-		return $this->belongsTo(\App\Models\Lookup\FileType::class);
-	}
+    public function application_work_samples() {
+        return $this->hasMany(\App\Models\ApplicationWorkSample::class);
+    }
 
-	public function application_work_samples()
-	{
-		return $this->hasMany(\App\Models\ApplicationWorkSample::class);
-	}
 }

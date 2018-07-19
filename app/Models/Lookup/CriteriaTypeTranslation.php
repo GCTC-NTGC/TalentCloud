@@ -21,12 +21,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\CriteriaType $criteria_type
  */
-class CriteriaTypeTranslation extends Eloquent
-{        
-	protected $fillable = [];
+class CriteriaTypeTranslation extends Eloquent {
 
-	public function criteria_type()
-	{
-		return $this->belongsTo(\App\Models\CriteriaType::class);
-	}
+    protected $fillable = [];
+
+    public function criteria_type() {
+        return $this->belongsTo(\App\Models\CriteriaType::class);
+    }
+
 }

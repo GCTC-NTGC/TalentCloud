@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\SecurityClearance $security_clearance
  */
-class SecurityClearanceTranslation extends Eloquent
-{
-	protected $casts = [
-		'security_clearance_id' => 'int'
-	];
+class SecurityClearanceTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'security_clearance_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function security_clearance()
-	{
-		return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
-	}
+    public function security_clearance() {
+        return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
+    }
+
 }

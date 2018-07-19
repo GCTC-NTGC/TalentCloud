@@ -21,16 +21,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Lookup\Department $department
  */
-class DepartmentTranslation extends Eloquent
-{
-	protected $casts = [
-		'department_id' => 'int'
-	];
+class DepartmentTranslation extends Eloquent {
 
-	protected $fillable = [];
+    protected $casts = [
+        'department_id' => 'int'
+    ];
+    protected $fillable = [];
 
-	public function department()
-	{
-		return $this->belongsTo(\App\Models\Lookup\Department::class);
-	}
+    public function department() {
+        return $this->belongsTo(\App\Models\Lookup\Department::class);
+    }
+
 }
