@@ -13,9 +13,12 @@
 }
 
 .job-poster__subnav-sticky-wrapper {
+    display: none;
     padding: $section-padding;
+    width: 95%;
 
     @media #{$l-tablet} {
+        display: block;
         position: sticky;
         top: 0;
     }

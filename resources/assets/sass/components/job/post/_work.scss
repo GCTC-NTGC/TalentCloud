@@ -20,6 +20,7 @@
         padding: 0 0 0 calc(#{$unit} * 1.5);
 
         li {
+            color: $palette--font-black;
             font-family: $font--sans;
             font-size: $font-scale--regular;
             font-weight: 400;

@@ -1,0 +1,79 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Apply
+
+============================================================================= #}
+
+<a 
+    aria-hidden="true"
+    id="apply">
+</a>
+
+<section 
+    class="job-post__apply">
+
+    <div 
+        class="job-post__apply-accommodation-wrapper">
+
+        <div 
+            class="flex-grid middle">
+
+            <div 
+                class="box full">
+                <h4 
+                    class="job-post__apply-title">
+                    {{ job_post.apply.title }}
+                </h4>
+            </div>
+
+            <div class="box med-1of7">
+                <i class="fas fa-hand-holding-heart"></i>
+            </div>
+
+            <div 
+                class="box med-6of7">
+                <p 
+                    class="job-post__apply-content">
+                    {{ job_post.apply.accommodation }}
+                </p>
+            </div>
+
+            <div 
+                class="box med-1of7">
+                <i class="fas fa-globe"></i>
+            </div>
+
+            <div 
+                class="box med-6of7">
+                <p 
+                    class="job-post__apply-content-preference">
+                    {{ job_post.apply.preference }}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    {# Tristan, we need to check for the user's log state to display the appropriate button here. #}
+
+    <div 
+        class="job-post__button-wrapper">
+
+        <a 
+            class="job-post__apply-button"
+            {% if user.state == "logged_in" %}
+                href="/applications/00/step-01/"
+                title="{{ job_post.apply.apply_link_title }}">
+                {{ job_post.apply.apply_link_label }}
+            {% else %}
+                href="LOG IN LINK"
+                title="{{ job_post.apply.login_link_title }}">
+                {{ job_post.apply.login_link_label }}
+            {% endif %}
+        </a>
+
+    </div>
+
+</section>

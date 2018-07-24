@@ -11,20 +11,25 @@
 |
 */
 
+/* Home */
+
 Route::get('/', 'Applicant\HomepageController')->name('home');
+
+/* Jobs */
 
 Route::get('jobs', 'Applicant\JobController@index')->name('jobs.index');
 
 Route::get('jobs/{id}', function () {
-    return view('applicant/jobs_post', [
+    return view('applicant/job_post', [
         /* Template */
-        "jobs_post" => [
+        "job_post" => [
             "title" => "Browse Jobs",
-            "days_remaining_label" => "days remaining.",
-            "applicants_label" => "applicants so far.", 
+            "days_remaining_label" => "Days Remaining",
+            "applicants_label" => "Applicants", 
             "location_icon_label" => "Location Icon.",
             "remote_icon_label" => "Remote Work Icon.",
             "reference_id_label" => "Reference ID #",
+            "remote_label" => "Remote Work",
             "sidebar_label" => "About this job:",
             "basics" => [
                 "sidebar_title" => "View this job's basic information.",
@@ -46,11 +51,28 @@ Route::get('jobs/{id}', function () {
             ],
             "criteria" => [
                 "sidebar_title" => "View this job's criteria information.",
-                "title" => "Criteria"
+                "title" => "Criteria",
+                "essential_title" => "Need to Have",
+                "asset_title" => "Nice to Have"
             ],
             "culture" => [
                 "sidebar_title" => "View this job's culture information.",
-                "title" => "Team Culture"
+                "title" => "Team Culture",
+                "manager_title" => "Your Manager",
+                "manager_department_bridge" => " at ",
+                "manager_link_label" => "View Profile",
+                "work_environment_label" => "Work Environment",
+                "team_narrative_label" => "Things to Know",
+                "telework_label" => "Telework",
+                "time_flexibility_label" => "Flex Hours",
+                "team_culture_label" => "Team Culture",
+                "team_size_label" => "Team Size",
+                "gcdirectory_label" => "Meet the Team in GC Directory",
+                "team_link_title" => "View this team's profile.",
+                "team_link_label" => "Team Profile",
+                "operating_label" => "Our Operating Context",
+                "team_value_label" => "What We Value",
+                "team_work_label" => "How We Work"
             ],
             "know" => [
                 "sidebar_title" => "View this job's extra information.",
@@ -58,9 +80,47 @@ Route::get('jobs/{id}', function () {
             ],
             "apply" => [
                 "sidebar_title" => "View this job's application section.",
-                "title" => "Apply Now"
+                "title" => "Apply Now",
+                "accommodation" => "Please advise Talent Cloud at talent.cloud-nuage.de.talents@tbs-sct.gc.ca of any accommodations you may require during the application process.",
+                "preference" => "Preference will be given to veterans and to Canadian citizens, in that order.",
+                "apply_link_title" => "Apply to this job.",
+                "apply_link_label" => "Apply Now",
+                "login_link_title" => "Log in to apply for this job.",
+                "login_link_label" => "Login & Apply"
             ]
         ],
+        /* This should probably just be a manager ID, and then we can pull all this data through that. */
+        "manager" => [
+            "name" => "Hiro Yamanaka",
+            "url" => "/browse/managers/123/",
+            /* Tristan, this will have to be one of your fancy partials as it doesn't belong as a property of the manager. */
+            "photo_title" => "Hiro's profile photo.",
+            "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=4391",
+            "title" => "Project Manager",
+            "department" => "Treasury Board of Canada Secretariat",
+            /* Tristan, this will have to be one of your fancy partials as it doesn't belong as a property of the manager. */
+            "link_title" => "View Hiro's Profile.",
+            "about_me" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+            "team_narrative" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+            "work_env_0" => [
+                "url" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/getWorkplacePhotoByManagerProfileAndName/14/workplace_photo_1",
+                "title" => "This is work environment photo 1."
+            ],
+            "work_env_1" => [
+                "url" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/getWorkplacePhotoByManagerProfileAndName/14/workplace_photo_2",
+                "title" => "This is work environment photo 2."
+            ],
+            "work_env_2" => [
+                "url" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/getWorkplacePhotoByManagerProfileAndName/14/workplace_photo_3",
+                "title" => "This is work environment photo 3."
+            ],
+            "team_size" => "12",
+            "team_link" => "https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent",
+            "team_context" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+            "team_value" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+            "team_work" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+        ],
+        /* Same with this - job ID - and then we pull what we need */
         "job" => [
             "link" => "/browse/jobs/00/",
             "title" => "Front-end Developer",
@@ -70,6 +130,8 @@ Route::get('jobs/{id}', function () {
             "salary" => "80,000 - 120,000",
             "duration" => "1 Year",
             "remote" => "Allowed",
+            "telework" => "Allowed",
+            "time_flexibility" => "Allowed",
             "days_remaining" => "12",
             "applicants" => "2",
             "reference_id" => "14234",
@@ -79,13 +141,263 @@ Route::get('jobs/{id}', function () {
             "classification" => "CS3",
             "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
             "work" => [
+                "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
                 "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                "03" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+                "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+            ],
+            "criteria" => [
+                "essential" => [
+                    "00" => "Criteria 01",
+                    "01" => "Criteria 02",
+                    "02" => "Criteria 03"
+                ],
+                "asset" => [
+                    "00" => "Criteria 01",
+                    "01" => "Criteria 02",
+                    "02" => "Criteria 03"
+                ]
+            ],
+            "extras" => [
+                "00" => [
+                    "title" => "What You Need for Security Clearance",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ],
+                "01" => [
+                    "title" => "The Application Process",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ],
+                "02" => [
+                    "title" => "Other Paperwork & Preparation",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ]
             ]
         ]
     ]);
 })->name('jobs.show');
+
+/* Applications */
+
+Route::get('applications', function () {
+    return view('applicant/application_index', [
+        "application_index" => [
+            "title" => "My Applications",
+            "progress_title" => "Applications in Progress",
+            "completed_title" => "Completed Applications",
+            "expired_title" => "Expired Applications",
+            "days_remaining_label" => "Days Remaining",
+            "edit_date_label" => "Last Edited",
+            "post_label" => "Job Post",
+            "post_link_title" => "View the job post for this application",
+            "post_link_label" => "View",
+            "manager_profile_link_title" => "Visit this manager's profile.",
+            "manager_profile_link_label" => "View Profile",
+            "draft_link_title" => "Edit this application.",
+            "draft_link_label" => "Edit Draft",
+            "view_link_title" => "View this application.",
+            "view_link_label" => "View Application",
+            "delete_title" => "Delete this application.",
+            "null" => [
+                "title" => "There are no applications."
+            ]
+        ],
+        "applicant" => [
+            /* Tristan, I had NOOOO idea how to go about accessing data via a relationship (in this case using a job ID to access that jobs data, as well as a manager ID to access their profile link). */
+            "applications" => [
+                "00" => [
+                    /* Job Properties */
+                    "job_title" => "User Experience Designer",
+                    "job_department" => "Treasury Board of Canada Secretariat",
+                    "job_days_remaining" => "8",
+                    "job_post_url" => "/jobs/1",
+                    /* Manager Properties */
+                    "manager_profile_photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=4391",
+                    "manager_name" => "Andrew Smith",
+                    "manager_profile_link" => "/browse/managers/123/",
+                    /* Actual Application Properties */
+                    "id" => "00",
+                    "status" => "draft",
+                    "edit_date" => "2018/09/01"
+                ],
+                "01" => [
+                    /* Job Properties */
+                    "job_title" => "User Experience Designer",
+                    "job_department" => "Treasury Board of Canada Secretariat",
+                    "job_days_remaining" => "8",
+                    "job_post_url" => "/jobs/1",
+                    /* Manager Properties */
+                    "manager_profile_photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=4391",
+                    "manager_name" => "Andrew Smith",
+                    "manager_profile_link" => "/browse/managers/123/",
+                    /* Actual Application Properties */
+                    "id" => "00",
+                    "status" => "draft",
+                    "edit_date" => "2018/09/01"
+                ],
+                "02" => [
+                    /* Job Properties */
+                    "job_title" => "User Experience Designer",
+                    "job_department" => "Treasury Board of Canada Secretariat",
+                    "job_days_remaining" => "8",
+                    "job_post_url" => "/jobs/1",
+                    /* Manager Properties */
+                    "manager_profile_photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=4391",
+                    "manager_name" => "Andrew Smith",
+                    "manager_profile_link" => "/browse/managers/123/",
+                    /* Actual Application Properties */
+                    "id" => "00",
+                    "status" => "draft",
+                    "edit_date" => "2018/09/01"
+                ],
+                "03" => [
+                    /* Job Properties */
+                    "job_title" => "User Experience Designer",
+                    "job_department" => "Treasury Board of Canada Secretariat",
+                    "job_days_remaining" => "8",
+                    "job_post_url" => "/jobs/1",
+                    /* Manager Properties */
+                    "manager_profile_photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=4391",
+                    "manager_name" => "Andrew Smith",
+                    "manager_profile_link" => "/browse/managers/123/",
+                    /* Actual Application Properties */
+                    "id" => "00",
+                    "status" => "completed",
+                    "edit_date" => "2018/09/01"
+                ],
+                "04" => [
+                    /* Job Properties */
+                    "job_title" => "User Experience Designer",
+                    "job_department" => "Treasury Board of Canada Secretariat",
+                    "job_days_remaining" => "8",
+                    "job_post_url" => "/jobs/1",
+                    /* Manager Properties */
+                    "manager_profile_photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=4391",
+                    "manager_name" => "Andrew Smith",
+                    "manager_profile_link" => "/browse/managers/123/",
+                    /* Actual Application Properties */
+                    "id" => "00",
+                    "status" => "completed",
+                    "edit_date" => "2018/09/01"
+                ]
+            ]
+        ]
+    ]);
+})->name('application.index');
+
+/* Step 01 */
+
+Route::get('applications/00/step-01', function () {
+    return view('applicant/application_post_01', [
+        "application" => [
+            "title" => "Apply Now",
+            "job_context_copy" => "You are applying for:",
+            "tracker" => [
+                "00" => [
+                    "step" => "1",
+                    "title" => "My Information",
+                    "status" => "complete",
+                    "url" => "/step-01/"
+                ],
+                "01" => [
+                    "step" => "2",
+                    "title" => "Skills: Need to Have",
+                    "status" => "incomplete",
+                    "url" => "/step-02/"
+                ],
+                "02" => [
+                    "step" => "3",
+                    "title" => "Skills: Nice to Have",
+                    "status" => "incomplete",
+                    "url" => "/step-03/"
+                ],
+                "03" => [
+                    "step" => "4",
+                    "title" => "Review my Application",
+                    "status" => "incomplete",
+                    "url" => "/step-04/"
+                ]
+            ]
+        ],
+        /* Same with this - job ID - and then we pull what we need */
+        "job" => [
+            "link" => "/browse/jobs/00/",
+            "title" => "Front-end Developer",
+            "department" => "Treasury Board of Canada Secretariat",
+            "city" => "Ottawa",
+            "province" => "Ontario",
+            "salary" => "80,000 - 120,000",
+            "duration" => "1 Year",
+            "remote" => "Allowed",
+            "telework" => "Allowed",
+            "time_flexibility" => "Allowed",
+            "days_remaining" => "12",
+            "applicants" => "2",
+            "reference_id" => "14234",
+            "start" => "January 3rd, 2019",
+            "language" => "English Essential",
+            "security" => "Top Secret",
+            "classification" => "CS3",
+            "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+            "work" => [
+                "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+                "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+                "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+            ],
+            "criteria" => [
+                "essential" => [
+                    "00" => "Criteria 01",
+                    "01" => "Criteria 02",
+                    "02" => "Criteria 03"
+                ],
+                "asset" => [
+                    "00" => "Criteria 01",
+                    "01" => "Criteria 02",
+                    "02" => "Criteria 03"
+                ]
+            ],
+            "extras" => [
+                "00" => [
+                    "title" => "What You Need for Security Clearance",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ],
+                "01" => [
+                    "title" => "The Application Process",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ],
+                "02" => [
+                    "title" => "Other Paperwork & Preparation",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ]
+            ]
+
+        ]
+    ]);
+})->name('application.post01');
+
+/* Step 02 */
+
+Route::get('applications/00/step-02', function () {
+    return view('applicant/application_post_02', [
+        
+    ]);
+})->name('application.post02');
+
+/* Step 03 */
+
+Route::get('applications/00/step-03', function () {
+    return view('applicant/application_post_03', [
+        
+    ]);
+})->name('application.post03');
+
+/* Step 04 */
+
+Route::get('applications/00/step-04', function () {
+    return view('applicant/application_post_04', [
+        
+    ]);
+})->name('application.post04');
+
+/* Profile */
 
 Route::get('profile', function () {
     return view('applicant/profile', [
@@ -152,10 +464,7 @@ Route::get('profile', function () {
     ]);
 })->name('profile');
 
-Route::get('applications', function() {
-    //TODO
-    return redirect()->route('home');
-})->name('applications');
+/* Auth */
 
 Route::get('login', function() {
     //TODO

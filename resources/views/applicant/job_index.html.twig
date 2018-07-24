@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Browse
+
+============================================================================= #}
+
+<html
+    lang="en">
+
+    <head>
+        {% include "common/head" %}
+    </head>
+
+    <body>
+
+        {% include "common/alert" %}
+
+        {% include "common/goc" %}
+
+        {% include "common/header" with {'header':job_index} %}
+
+        {# include "applicant/job_index/filters" #}
+
+        {% include "applicant/job_index/index" %}
+
+        {% include "common/footer" %}
+
+        {# Scripts #}
+
+        {% include "common/scripts" %}
+
+    </body>
+
+</html>

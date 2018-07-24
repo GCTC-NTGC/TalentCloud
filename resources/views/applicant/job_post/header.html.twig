@@ -19,11 +19,11 @@
                 <p 
                     class="job-post__header-meta">
                     <span>
-                        {{ job.days_remaining }} {{ jobs_post.days_remaining_label }}
+                        {{ job.days_remaining }} {{ job_post.days_remaining_label }}
                     </span>
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>
-                        {{ job.applicants }} {{ jobs_post.applicants_label }}
+                        {{ job.applicants }} {{ job_post.applicants_label }}
                     </span>
                 </p>
 
@@ -38,7 +38,7 @@
                     <br>
 
                     <div>
-                        <i class="fas fa-map-marker-alt" title="{{ jobs_post.location_icon_label }}"></i>
+                        <i class="fas fa-map-marker-alt" title="{{ job_post.location_icon_label }}"></i>
                         <span>{{ job.city }}</span>,
                         <span>{{ job.province }}</span>
                     </div>
@@ -46,8 +46,8 @@
                     <br>
 
                     <div>
-                        <i class="fas fa-home" title="{{ jobs_post.remote_icon_label }}"></i>
-                        <span>{{ job.remote }}</span>
+                        <i class="fas fa-home" title="{{ job_post.remote_icon_label }}"></i>
+                        <span>{{ job_post.remote_label }} {{ job.remote }}</span>
                     </div>
 
                 </div>
@@ -58,7 +58,7 @@
                 class="box lg-1of3">
                 <p 
                     class="job-post__reference-id">
-                    <span>{{ jobs_post.reference_id_label }}: {{ job.reference_id }}</span>
+                    <span>{{ job_post.reference_id_label }}: {{ job.reference_id }}</span>
                 </p>
             </div>
 

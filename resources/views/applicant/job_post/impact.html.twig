@@ -6,23 +6,17 @@
 ============================================================================= #}
 <a 
     aria-hidden="true"
-    id="work">
+    id="impact">
 </a>
 
 <section 
-    class="job-poster__work">
+    class="job-poster__impact">
 
     <h4 
-        class="job-poster__work-title">
-        {{ template.work.title }}
+        class="job-poster__impact-title">
+        {{ job_post.impact.title }}
     </h4>
 
-    <ul>
-        {% for item in job.work %}
-            <li>
-                {{ item }}
-            </li>
-        {% endfor %}    
-    </ul>
-
+    <p>{{ job.impact }}</p>
+    
 </section>

@@ -1,0 +1,34 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Extra Info
+
+============================================================================= #}
+<a 
+    aria-hidden="true"
+    id="know">    
+</a>
+
+<section 
+    class="job-post__know">
+
+    <h4 
+        class="job-post__know-title">
+        {{ job_post.know.title }}
+    </h4>
+
+    {% for item in job.extras %}
+
+        <h5
+            class="job-post__know-subtitle">
+            {{ item.title }}
+        </h5>
+
+        <p
+            class="job-post__know-copy">
+            {{ item.copy }}
+        </p>
+
+    {% endfor %}
+
+</section>

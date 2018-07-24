@@ -41,7 +41,11 @@
             transition: all .2s ease;
 
             .browse__index-job-card-title {
-                background: $palette--black;
+                background-color: transparentize($palette--black, .15);
+                background-image: url("/images/bg_lightning_texture.png");
+                background-position: center;
+                background-repeat: repeat;
+                background-size: 75px;
                 padding: calc(#{$unit} * 1.5);
 
                 h3 {
@@ -74,7 +78,7 @@
                     font-size: $font-scale--regular;
                     font-weight: 600;
                     line-height: 1.2;
-                    margin: 0;
+                    margin: 0 0 calc(#{$unit} /2) 0;
                 }
 
                 p {
@@ -83,6 +87,7 @@
                     font-size: $font-scale--regular;
                     line-height: 1.5;
                     margin: 0 0 1rem;
+                    width: 90%;
 
                     span {
                         display: inline-block;

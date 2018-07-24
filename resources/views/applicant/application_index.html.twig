@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Job Post
+    Applicant: My Applications
 
 ============================================================================= #}
 
@@ -18,11 +18,11 @@
 
         {% include "common/goc" %}
 
-        {% include "common/header" %}
+        {% include "common/header" with {'header':application_index} %}
 
-        {% include "applicant/jobs-post/header" %}
+        {# include "applicant/application_index/filters" #}
 
-        {% include "applicant/jobs-post/layout" %}
+        {% include "applicant/application_index/index" %}
 
         {% include "common/footer" %}
 
