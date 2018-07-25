@@ -1,0 +1,115 @@
+// =============================================================================
+
+    // Application Post: Tracker
+
+// =============================================================================
+.application-post__tracker {
+    background-color: transparentize($palette--black, .15);
+    background-image: url("/images/bg_lightning_texture.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 75px;
+    position: relative;
+
+    @media #{$p-tablet} {
+        text-align: left;
+    }
+
+    @media #{$l-tablet} {
+        position: sticky;
+        top: 0;
+    }
+
+    >.container--layout {
+
+        >.flex-grid {
+
+            >.box {
+                padding: calc(#{$unit} * 2);
+
+                &:last-child {
+                    text-align: center;
+
+                    @media #{$l-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .application-post__tracker-user-photo {
+        background-position: center;
+        background-size: cover;
+        border: calc(#{$unit} / 2) solid $palette--blue;
+        border-radius: 100%;
+        display: block;
+        height: calc(#{$unit} * 5);
+        width: calc(#{$unit} * 5);
+    }
+
+    .application-post__tracker-job-title {
+        color: $palette--font-white;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 600;
+        margin: 0 0 $unit;
+    }
+
+    .application-post__tracker-job-department {
+        color: $palette--blue;
+        display: inline-block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        margin: 0;
+        width: 100%;
+    }
+
+    .application-post__tracker-step {
+        color: $palette--font-white;
+        display: inline-block;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 600;
+        margin: 0 0 $unit;
+        width: 100%;
+    }
+
+    .application-post__tracker-item {
+        background: darken($palette--white, 10%);
+        border-radius: 100%;
+        display: inline-block;
+        height: $unit;
+        margin: 0 calc(#{$unit} / 4);
+        transition: all .2s ease;
+        width: $unit;
+
+        @media #{$l-tablet} {
+            margin: 0 0 0 calc(#{$unit} / 2);
+        }
+
+        &.error {
+            background: $palette--red;
+        }
+
+        &.complete {
+            background: $palette--green;
+        }
+
+        &.active {
+            background: $palette--blue !important;
+        }
+
+        &:hover {
+            background: $palette--blue;
+            transition: all .2s ease;
+        }
+
+    }
+
+}

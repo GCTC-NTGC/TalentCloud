@@ -288,19 +288,23 @@ Route::get('applications', function () {
 Route::get('applications/00/step-01', function () {
     return view('applicant/application_post_01', [
         "application" => [
+            "id" => "00",
             "title" => "Apply Now",
+            "step" => "1",
             "job_context_copy" => "You are applying for:",
+            "tracker_label" => "Step",
+            "tracker_link_title" => "Go to step",
             "tracker" => [
                 "00" => [
                     "step" => "1",
                     "title" => "My Information",
-                    "status" => "complete",
+                    "status" => "error",
                     "url" => "/step-01/"
                 ],
                 "01" => [
                     "step" => "2",
                     "title" => "Skills: Need to Have",
-                    "status" => "incomplete",
+                    "status" => "complete",
                     "url" => "/step-02/"
                 ],
                 "02" => [
@@ -316,6 +320,10 @@ Route::get('applications/00/step-01', function () {
                     "url" => "/step-04/"
                 ]
             ]
+        ],
+        "user" => [
+            "name" => "Jason Greene",
+            "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661"
         ],
         /* Same with this - job ID - and then we pull what we need */
         "job" => [
@@ -401,7 +409,9 @@ Route::get('applications/00/step-04', function () {
 
 Route::get('profile', function () {
     return view('applicant/profile', [
-        
+        "profile" => [
+            "save_button_label" => "Save My Answer"
+        ],
         /* Applicant Profile Questions */
         "applicant_profile_questions" => [
             "0" => [
