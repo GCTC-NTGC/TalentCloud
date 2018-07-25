@@ -4,12 +4,9 @@
 
 // =============================================================================
 .application-post__tracker {
-    background-color: transparentize($palette--black, .15);
-    background-image: url("/images/bg_lightning_texture.png");
-    background-position: center;
-    background-repeat: repeat;
-    background-size: 75px;
+    background: $palette--white;
     position: relative;
+    z-index: 10;
 
     @media #{$p-tablet} {
         text-align: left;
@@ -20,7 +17,23 @@
         top: 0;
     }
 
+    &::before {
+        background-color: transparentize($palette--black, .15);
+        background-image: url("/images/bg_lightning_texture.png");
+        background-position: center;
+        background-repeat: repeat;
+        background-size: 75px;
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
     >.container--layout {
+        position: relative;
 
         >.flex-grid {
 
@@ -108,6 +121,27 @@
         &:hover {
             background: $palette--blue;
             transition: all .2s ease;
+        }
+
+    }
+
+}
+
+.application-post__action-wrapper {
+
+    >.box {
+        text-align: center;
+
+        @media #{$p-tablet} {
+            text-align: left;
+        }
+
+        &:last-child {
+
+            @media #{$p-tablet} {
+                text-align: right;
+            }
+
         }
 
     }

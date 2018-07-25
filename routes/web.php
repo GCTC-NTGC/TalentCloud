@@ -319,7 +319,10 @@ Route::get('applications/00/step-01', function () {
                     "status" => "incomplete",
                     "url" => "/step-04/"
                 ]
-            ]
+            ],
+            "question_title" => "My Fit",
+            "save_quit_button_label" => "Save & Quit",
+            "save_continue_button_label" => "Save & Continue"
         ],
         "user" => [
             "name" => "Jason Greene",
@@ -375,8 +378,23 @@ Route::get('applications/00/step-01', function () {
                     "title" => "Other Paperwork & Preparation",
                     "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
                 ]
+            ],
+            "questions" => [
+                "00" => [
+                    "value" => "Why are you interested in this job?",
+                    "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
+                    "input_name" => "jobPostQuestion0",
+                    "answer_label" => "Your Answer",
+                    "answer" => null
+                ],
+                "01" => [
+                    "value" => "Why are you the right person for this job?",
+                    "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
+                    "input_name" => "jobPostQuestion1",
+                    "answer_label" => "Your Answer",
+                    "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ]
             ]
-
         ]
     ]);
 })->name('application.post01');
@@ -385,7 +403,115 @@ Route::get('applications/00/step-01', function () {
 
 Route::get('applications/00/step-02', function () {
     return view('applicant/application_post_02', [
-        
+        "application" => [
+            "id" => "00",
+            "title" => "Apply Now",
+            "step" => "2",
+            "job_context_copy" => "You are applying for:",
+            "tracker_label" => "Step",
+            "tracker_link_title" => "Go to step",
+            "tracker" => [
+                "00" => [
+                    "step" => "1",
+                    "title" => "My Information",
+                    "status" => "error",
+                    "url" => "/step-01/"
+                ],
+                "01" => [
+                    "step" => "2",
+                    "title" => "Skills: Need to Have",
+                    "status" => "complete",
+                    "url" => "/step-02/"
+                ],
+                "02" => [
+                    "step" => "3",
+                    "title" => "Skills: Nice to Have",
+                    "status" => "incomplete",
+                    "url" => "/step-03/"
+                ],
+                "03" => [
+                    "step" => "4",
+                    "title" => "Review my Application",
+                    "status" => "incomplete",
+                    "url" => "/step-04/"
+                ]
+            ],
+            "question_title" => "My Fit",
+            "save_quit_button_label" => "Save & Quit",
+            "save_continue_button_label" => "Save & Continue"
+        ],
+        "user" => [
+            "name" => "Jason Greene",
+            "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661"
+        ],
+        /* Same with this - job ID - and then we pull what we need */
+        "job" => [
+            "link" => "/browse/jobs/00/",
+            "title" => "Front-end Developer",
+            "department" => "Treasury Board of Canada Secretariat",
+            "city" => "Ottawa",
+            "province" => "Ontario",
+            "salary" => "80,000 - 120,000",
+            "duration" => "1 Year",
+            "remote" => "Allowed",
+            "telework" => "Allowed",
+            "time_flexibility" => "Allowed",
+            "days_remaining" => "12",
+            "applicants" => "2",
+            "reference_id" => "14234",
+            "start" => "January 3rd, 2019",
+            "language" => "English Essential",
+            "security" => "Top Secret",
+            "classification" => "CS3",
+            "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+            "work" => [
+                "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+                "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+                "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+            ],
+            "criteria" => [
+                "essential" => [
+                    "00" => "Criteria 01",
+                    "01" => "Criteria 02",
+                    "02" => "Criteria 03"
+                ],
+                "asset" => [
+                    "00" => "Criteria 01",
+                    "01" => "Criteria 02",
+                    "02" => "Criteria 03"
+                ]
+            ],
+            "extras" => [
+                "00" => [
+                    "title" => "What You Need for Security Clearance",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ],
+                "01" => [
+                    "title" => "The Application Process",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ],
+                "02" => [
+                    "title" => "Other Paperwork & Preparation",
+                    "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ]
+            ],
+            "questions" => [
+                "00" => [
+                    "value" => "Why are you interested in this job?",
+                    "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
+                    "input_name" => "jobPostQuestion0",
+                    "answer_label" => "Your Answer",
+                    "answer" => null
+                ],
+                "01" => [
+                    "value" => "Why are you the right person for this job?",
+                    "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
+                    "input_name" => "jobPostQuestion1",
+                    "answer_label" => "Your Answer",
+                    "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ]
+            ]
+        ]
     ]);
 })->name('application.post02');
 

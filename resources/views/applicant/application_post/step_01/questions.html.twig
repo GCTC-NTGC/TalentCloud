@@ -10,7 +10,11 @@
     <div
         class="container--copy">
 
-        {% for question in applicant_profile_questions %}
+        <h3>
+            {{ application.question_title }}
+        </h3>
+
+        {% for question in job.questions %}
 
             <span>
                 {{ question.value }}
@@ -20,8 +24,11 @@
                 {{ question.description }}
             </p>
 
-            <div class="form__input-wrapper--float {% if question.answer %}active{% endif %}">
-                <label class="form__label" for="{{ question.input_name }}">
+            <div 
+                class="form__input-wrapper--float {% if question.answer %}active{% endif %}">
+                <label 
+                    class="form__label" 
+                    for="{{ question.input_name }}">
                     {{ question.answer_label }}
                 </label>
                 <textarea
@@ -31,10 +38,30 @@
 
         {% endfor %}
 
-        <button
-            class="button--blue light-bg">
-            {{ SAVE AND CONTINUE }}
-        </button>
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+
+            <div 
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg">
+                    {{ application.save_quit_button_label }}
+                </button>
+
+            </div>
+
+            <div 
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg">
+                    {{ application.save_continue_button_label }}
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
