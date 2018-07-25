@@ -1,0 +1,92 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Post - Tracker
+
+============================================================================= #}
+<section
+    class="application-post__skills-layout">
+
+    <div
+        class="container--copy">
+
+        {% if application.step == "2" %}
+            <h3>
+                {{ application.essential_title }}
+            </h3>
+            <p>
+                {{ application.essential_context }}
+            </p>
+        {% elseif application.step == "3" %}
+            <h3>
+                {{ application.asset_title }}
+            </h3>
+            <p>
+                {{ application.asset_context }}
+            </p>
+        {% endif %}
+
+        <a
+            class="button--blue light-bg"
+            href="#begin"
+            {% if application.step == "2" %}
+                title="{{ application.essential_start_button_title }}"
+            {% elseif application.step == "3" %}
+                title="{{ application.asset_start_button_title }}"
+            {% endif %}>
+            {{ application.skills_start_button_label }}
+        </a>
+
+    </div>
+
+    <div
+        class="container--layout">
+
+        <div 
+            class="flex-grid">
+
+            {# Include Sidebar #}
+
+                {% include "applicant/application_post/common/sidebar" %}
+
+            {# Skills Content #}
+
+                <div class="application-post__content-wrapper box lg-3of4">
+
+                    <a 
+                        aria-hidden="true"
+                        class="application-post__anchor"
+                        id="begin">
+                    </a>
+
+                    {# Include Skills #}
+
+                        {% for item in job.skills %}
+
+                            {% if application.step == "2" %}
+                
+                                {% if item.type == "essential" %}
+
+                                    {% include "applicant/application_post/common/skill" %}
+
+                                {% endif %}
+
+                            {% elseif application.step == "3" %}
+                                
+                                {% if item.type == "asset" %}
+
+                                    {% include "applicant/application_post/common/skill" %}
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+</section>

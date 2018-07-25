@@ -438,7 +438,17 @@ Route::get('applications/00/step-02', function () {
             ],
             "question_title" => "My Fit",
             "save_quit_button_label" => "Save & Quit",
-            "save_continue_button_label" => "Save & Continue"
+            "save_continue_button_label" => "Save & Continue",
+            "essential_title" => "Skills You Need to Have",
+            "asset_title" => "Skills That Are Nice to Have",
+            "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+            "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+            "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
+            "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
+            "skills_start_button_label" => "Get Started",
+            "essential_sidebar_label" => "Skills Checklist",
+            "asset_sidebar_label" => "Skills Checklist",
+            "sidebar_item_title" => "Scroll to this skill."
         ],
         "user" => [
             "name" => "Jason Greene",
@@ -509,6 +519,57 @@ Route::get('applications/00/step-02', function () {
                     "input_name" => "jobPostQuestion1",
                     "answer_label" => "Your Answer",
                     "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                ]
+            ],
+            "skills" => [
+                "00" => [
+                    "id" => "000",
+                    "title" => "HTML5",
+                    "type" => "essential",
+                    "status" => "complete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                ],
+                "01" => [
+                    "id" => "001",
+                    "title" => "JavaScript",
+                    "type" => "essential",
+                    "status" => "incomplete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                ],
+                "02" => [
+                    "id" => "002",
+                    "title" => "CSS3 & Sass",
+                    "type" => "essential",
+                    "status" => "incomplete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                ],
+                "03" => [
+                    "id" => "003",
+                    "title" => "Laravel",
+                    "type" => "essential",
+                    "status" => "incomplete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                ],
+                "04" => [
+                    "id" => "004",
+                    "title" => "Docker",
+                    "type" => "asset",
+                    "status" => "incomplete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                ],
+                "05" => [
+                    "id" => "005",
+                    "title" => "Responsive Web Design",
+                    "type" => "asset",
+                    "status" => "complete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                ],
+                "06" => [
+                    "id" => "006",
+                    "title" => "Adobe XD",
+                    "type" => "asset",
+                    "status" => "incomplete",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
                 ]
             ]
         ]

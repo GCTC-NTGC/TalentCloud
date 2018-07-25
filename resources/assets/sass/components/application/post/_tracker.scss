@@ -38,7 +38,7 @@
         >.flex-grid {
 
             >.box {
-                padding: calc(#{$unit} * 2);
+                padding: calc(#{$unit} * 1.5);
 
                 &:last-child {
                     text-align: center;
@@ -58,7 +58,7 @@
     .application-post__tracker-user-photo {
         background-position: center;
         background-size: cover;
-        border: calc(#{$unit} / 2) solid $palette--blue;
+        border: calc(#{$unit} / 4) solid $palette--blue;
         border-radius: 100%;
         display: block;
         height: calc(#{$unit} * 5);
