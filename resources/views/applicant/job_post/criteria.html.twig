@@ -1,0 +1,60 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Criteria
+
+============================================================================= #}
+<a 
+    aria-hidden="true"
+    id="criteria">
+</a>
+
+<section 
+    class="job-post__criteria">
+
+    <div 
+        class="flex-grid">
+
+        <div 
+            class="box full">
+            <h4 
+                class="job-post__criteria-title">
+                {{ job_post.criteria.title }}
+            </h4>
+        </div>
+
+        <div 
+            class="box med-1of2">
+            <h5 
+                class="job-post__criteria-subtitle">
+                {{ job_post.criteria.essential_title }}
+            </h5>
+            <ul 
+                class="job-post__criteria-list">
+                {% for criteria in job.criteria.essential %}
+                    <li>
+                        {{ criteria }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div 
+            class="box med-1of2">
+            <h5 
+                class="job-post__criteria-subtitle">
+                {{ job_post.criteria.asset_title }}
+            </h5>
+            <ul 
+                class="job-post__criteria-list">
+                {% for criteria in job.criteria.asset %}
+                    <li>
+                        {{ criteria }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+</section>

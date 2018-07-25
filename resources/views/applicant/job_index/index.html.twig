@@ -1,0 +1,115 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Browse - Index
+
+============================================================================= #}
+<section
+    class="browse__index">
+
+    <div
+        class="container--layout">
+
+        <div
+            div class="flex-grid top">
+
+            {% for job in jobs %}
+
+                <a
+                    class="browse__index-job box med-1of2 lg-1of3"
+                    href="{{ route('jobs.show', job.id) }}"
+                    title="{{ job_index.index.view_title }} {{ job.title }}.">
+
+                    <div
+                        class="browse__index-job-card">
+
+                        <div
+                            class="browse__index-job-card-title">
+                            <h3
+                                class="heading--03">
+                                {{ job.title }}
+                            </h3>
+                            <span>
+                                {{ job.department.value }}
+                            </span>
+                        </div>
+
+                        <div
+                            class="browse__index-job-card-content flex-grid">
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ job_index.index.location_label }}
+                                </span>
+                                <p>
+                                    {{ job.city }}, {{ job.province.value }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ job_index.index.salary_label }}
+                                </span>
+                                <p>
+                                    {{ job.salary_min }} - {{ job.salary_max }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ job_index.index.duration_label }}
+                                </span>
+                                <p>
+                                    {{ job_index.index.duration[job.job_term.name]|trans_choice(job.term_qty) }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+                                <span>
+                                    {{ job_index.index.remote_label }}
+                                </span>
+                                <p>
+                                    {{ job.remote }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="browse__index-job-card-metadata flex-grid">
+
+                            <div class="box med-1of2">
+                                <span>
+                                    {% set diffTime = date(job.close_date_time).diff(date()) %}
+                                    {{ diffTime.days }} {{ job_index.index.days_remaining_label|trans_choice(diffTime.days) }}
+                                </span>
+                            </div>
+                            <div class="box med-1of2">
+                                <span>
+                                    {% set applicantCount = job.job_applications|length %}
+                                    {{ applicantCount }} {{ job_index.index.applicants_label|trans_choice(applicantCount) }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="browse__index-job-card-cta">
+                            {{ job_index.index.button_label }}
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>

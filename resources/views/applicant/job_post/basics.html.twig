@@ -1,0 +1,101 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Basics
+
+============================================================================= #}
+<a 
+    aria-hidden="true"
+    id="basics">
+</a>
+
+<section 
+    class="job-poster__basics">
+
+    {# Basics Content #}
+
+        <div 
+            class="flex-grid">
+
+            <div 
+                class="box full">
+                <h4 
+                    class="job-poster__basics-title"
+                    id="jobPosterContentTitleBasics">
+                    {{ job_post.basics.title }}
+                </h4>
+            </div>
+
+            <div 
+                class="box med-1of2">
+
+                <span 
+                    class="job-poster__basics-label">
+                    {{ job_post.basics.salary_label }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-content">
+                    {{ job.salary }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-label">
+                    {{ job_post.basics.duration_label }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-content">
+                    {{ job.duration }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-label">
+                    {{ job_post.basics.start_label }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-content">
+                    {{ job.start }}
+                </span>
+
+            </div>
+
+            <div 
+                class="box med-1of2">
+
+                <span 
+                    class="job-poster__basics-label">
+                    {{ job_post.basics.language_label }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-content">
+                    {{ job.language }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-label">
+                    {{ job_post.basics.security_label }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-content">
+                    {{ job.security }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-label">
+                    {{ job_post.basics.classification_label }}
+                </span>
+
+                <span 
+                    class="job-poster__basics-content">
+                    {{ job.classification }}
+                </span>
+
+            </div>
+
+        </div>
+
+</section>

@@ -1,11 +1,11 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile - Header
+    Applicant: Application Post - Questions
 
 ============================================================================= #}
 <div
-    class="applicant-profile__questions">
+    class="application-post__questions">
 
     <div
         class="container--copy">
@@ -29,12 +29,12 @@
                     name="{{ question.input_name }}">{% if question.answer != null %}{{ question.answer }}{% endif %}</textarea>
             </div>
 
-            <button
-                class="button--blue light-bg">
-                {{ profile.save_button_label }}
-            </button>
-
         {% endfor %}
+
+        <button
+            class="button--blue light-bg">
+            {{ SAVE AND CONTINUE }}
+        </button>
 
     </div>
 

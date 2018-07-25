@@ -34,7 +34,7 @@ clean:
 
 code-sniff:
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 src/
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 app/src
 
 composer-up:
 	@docker run --rm -v $(shell pwd):/app composer update
@@ -63,7 +63,7 @@ mysql-restore:
 phpmd:
 	@docker-compose exec -T talentcloud \
 	./vendor/bin/phpmd \
-	./src \
+	./app/src \
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 test: code-sniff
@@ -71,6 +71,6 @@ test: code-sniff
 	@make resetOwner
 
 resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd)/data" 2> /dev/null)
+	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
 
 .PHONY: clean test code-sniff init

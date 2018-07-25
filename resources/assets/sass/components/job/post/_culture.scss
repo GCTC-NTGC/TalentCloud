@@ -1,0 +1,131 @@
+// =============================================================================
+
+    // Jobs: Post - Culture
+
+// =============================================================================
+.job-post__culture {
+    margin: 0 0 calc(#{$unit} * 4);
+
+    .job-post__culture-title {
+        border-bottom: 1px solid $palette--font-black;
+        color: $palette--black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 calc(#{$unit} * 2) 0;
+        padding: 0 0 2rem 0;
+    }
+
+    .job-post__culture-subtitle {
+        color: $palette--blue;
+        font-family: $font--sans;
+        font-size: $font-scale--h4;
+        font-weight: 600;
+        margin: calc(#{$unit} * 3) 0 calc(#{$unit} * 1) 0;
+    }
+
+    >.flex-grid {
+        margin: 0 calc(#{$unit} * -1);
+
+        >.box {
+            padding: 0 $unit;
+
+            &:first-child {
+
+                h5 {
+                    margin-top: $unit;
+                    margin-bottom: calc(#{$unit} * 2);
+                }
+
+            }
+
+        }
+
+    }
+
+    // Hiring Manager
+
+        .job-post__culture-manager-profile-photo {
+            background-color: $palette--white;
+            background-position: center;
+            background-size: cover;
+            border: calc(#{$unit} / 2) solid $palette--blue;
+            border-radius: 100%;
+            display: block;
+            height: calc(#{$unit} * 10);
+            margin: 0 auto calc(#{$unit} * 4) auto;
+            width: calc(#{$unit} * 10);
+
+            @media #{$l-tablet} {
+                margin: 0;
+            }
+
+        }
+
+        .job-post__culture-manager-name {
+            color: $palette--font-black;
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            font-weight: 800;
+            margin: 0 0 $unit;
+        }
+
+        .job-post__culture-manager-meta {
+            display: block;
+            margin: 0 0 $unit;
+
+            span {
+                color: $palette--font-black;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 400;
+            }
+
+        }
+
+        .job-post__culture-manager-profile-link {
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+        }
+
+        .job-post__manager-copy {
+            @extend %paragraph;
+            margin: calc(#{$unit} * 2) 0 0;
+
+            &.final {
+                margin-bottom: 0;
+            }
+
+        }
+
+    // Work Environment
+
+        .job-post__culture-heading {
+            color: $palette--font-black;
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--h5;
+            font-weight: 600;
+            margin: $unit 0 calc(#{$unit} /2);
+        }
+
+        .job-post__culture-copy {
+            @extend %paragraph;
+            margin: 0 0 calc(#{$unit} * 1);
+        }
+
+        .job-post__work-environment-photo {
+            background-postion: center;
+            background-size: cover;
+            height: 15rem;
+            margin: 0 0 calc(#{$unit} * 2);
+            width: 100%;
+
+            @media #{$p-tablet} {
+                margin: 0;
+            }
+
+        }
+}

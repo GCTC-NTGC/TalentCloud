@@ -2,20 +2,7 @@
 
     // Authored by: Talent Cloud
 
-    // This is a sample SASS file.
-
 // =============================================================================
-
-// Vendor Dependencies =========================================================
-
-    // @import "vendor/cds/mixins";
-    // @import "vendor/cds/variables";
-    // @import "vendor/cds/base";
-    // @import "vendor/cds/layout";
-    // @import "vendor/cds/nav";
-    // @import "vendor/cds/components";
-    // @import "vendor/cds/sections";
-    // @import "vendor/font-awesome/font-awesome";
 
 // Core Elements ===============================================================
 
@@ -40,7 +27,7 @@
 
     html,
     body {
-        background: darken($palette--white, 10%);
+        background: darken($palette--white, 5%);
         margin: 0;
     }
 
@@ -97,53 +84,42 @@
         @import "components/home/how";
         @import "components/home/team";
 
-    // Browse Jobs
+    // Job Index
 
-        @import "components/jobs/index/filters";
-        @import "components/jobs/index/index";
+        @import "components/job/index/filters";
+        @import "components/job/index/index";
 
     // Job Post
 
-        @import "components/jobs/post/header";
-        @import "components/jobs/post/sidebar";
-        @import "components/jobs/post/basics";
+        @import "components/job/post/header";
+        @import "components/job/post/sidebar";
+        @import "components/job/post/basics";
+        @import "components/job/post/impact";
+        @import "components/job/post/work";
+        @import "components/job/post/criteria";
+        @import "components/job/post/culture";
+        @import "components/job/post/extras";
+        @import "components/job/post/apply";
 
-    // Profile
+    // Application Index
+
+        // @import "components/application/filters";
+        @import "components/application/index/index";
+        @import "components/application/index/null";
+
+    // Application Post
+
+        @import "components/application/post/tracker";
+
+        // Step 01 (Open Ended Questions)
+
+        // Step 02 (Essential Criteria)
+
+        // Step 03 (Asset Criteria)
+
+        // Step 04 (Preview)
+
+    // Applicant Profile
 
         @import "components/profile/header";
         @import "components/profile/questions";
-
-// Atoms =======================================================================
-
-    // @import "atoms/buttons";
-    // @import "atoms/modals";
-    // @import "atoms/webfonts";
-    // @import "atoms/legacy-messaging";
-    // @import "atoms/legacy-slider-buttons";
-
-// Molecules ===================================================================
-
-    // @import "molecules/forms";
-    // @import "molecules/accordions";
-    // @import "molecules/login";
-    // @import "molecules/registration";
-    // @import "molecules/manager-job-posting-form";
-    // @import "molecules/page-hero";
-
-// Organisms ===================================================================
-
-    // @import "organisms/utility";
-    // @import "organisms/update-profile";
-    // @import "organisms/user-application";
-    // @import "organisms/profile-common";
-    // @import "organisms/profile-manager";
-    // @import "organisms/profile-pic";
-    // @import "organisms/job-poster";
-    // @import "organisms/job-application";
-    // @import "organisms/dashboard";
-    // @import "organisms/tabs-list";
-    // @import "organisms/faq";
-    // @import "organisms/applicant-landing";
-    // @import "organisms/browse-jobs";
-    // @import "organisms/admin-dashboard";
-    // @import "organisms/manager-job-poster";

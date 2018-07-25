@@ -1,0 +1,195 @@
+// =============================================================================
+
+    // Application Index
+
+// =============================================================================
+.application-index {
+    // background: $palette--white;
+    padding: $section-padding;
+
+    .application-index__section-title {
+        color: $palette--blue;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 600;
+        margin: calc(#{$unit} * 4) 0 calc(#{$unit} * 2) 0;
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+
+        &+.application-index__item {
+            margin-top: 0;
+        }
+
+    }
+
+    .application-index__item {
+        background: $palette--white;
+        border-radius: 3px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+        margin: calc(#{$unit} * 2) 0 0 0;
+        overflow: hidden;
+
+        .application-index__item-header {
+            background-color: transparentize($palette--black, .15);
+            background-image: url("/images/bg_lightning_texture.png");
+            background-position: center;
+            background-repeat: repeat;
+            background-size: 75px;
+            padding: calc(#{$unit} * 2);
+            position: relative;
+            text-align: center;
+
+            @media #{$p-tablet} {
+                text-align: left;
+            }
+
+            h4 {
+                color: $palette--font-white;
+                font-family: $font--sans;
+                font-size: $font-scale--h3;
+                font-weight: 600;
+                margin: 0 0 $unit;
+            }
+
+            .application-index__item-department {
+                color: $palette--blue;
+                display: inline-block;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                margin: 0 0 $unit;
+                width: 100%;
+
+                @media #{$p-tablet} {
+                    margin: 0;
+                }
+
+            }
+
+            .application-index__item-time-wrapper {
+                color: $palette--font-white;
+                display: inline-block;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                margin: 0;
+
+                @media #{$p-tablet} {
+                    position: absolute;
+                    right: calc(#{$unit} * 2);
+                    bottom: calc(#{$unit} * 2);
+                }
+
+                span {
+                    color: $palette--red;
+                }
+
+            }
+
+        }
+
+        .application-index__item-content {
+            position: relative;
+
+            @media #{$l-tablet} {
+
+                &::before {
+                    background: darken($palette--white, 20%);
+                    content: " ";
+                    display: block;
+                    height: calc(100% + (#{$unit} * 4));
+                    position: absolute;
+                    top: 0;
+                    left: 33%;
+                    width: 1px;
+                }
+
+            }
+
+            >.box {
+                padding: calc(#{$unit} * 1) calc(#{$unit} * 2);
+                text-align: center;
+
+                @media #{$l-tablet} {
+                    text-align: left;
+                }
+
+                &:last-child {
+
+                    @media #{$l-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+            span {
+                color: $palette--font-black;
+                display: block;
+                font-family: $font--sans;
+                font-size: $font-scale--h5;
+                font-weight: 600;
+                margin: 0 0 calc(#{$unit} /2) 0;
+            }
+
+            p {
+                @extend %paragraph;
+                margin: 0;
+            }
+
+            a {
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+            }
+
+            .application-index__item-manager-photo {
+                background-position: center;
+                background-size: cover;
+                border-radius: 100%;
+                display: block;
+                height: calc(#{$unit} * 5);
+                width: calc(#{$unit} * 5);
+            }
+
+            .button--blue {
+
+            }
+
+            .fa-check {
+                color: $palette--green;
+                font-size: $font-scale--h4;
+                line-height: 1;
+                margin: 0 0 0 calc(#{$unit} *2);
+                position: relative;
+                top: .05rem;
+            }
+
+            button {
+                background: none;
+                border: none;
+                color: $palette--black;
+                cursor: pointer;
+                font-size: $font-scale--h4;
+                line-height: 1;
+                margin: 0 0 0 calc(#{$unit} *2);
+                outline: none;
+                padding: 0;
+                position: relative;
+                top: .05rem;
+                transition: color .2s ease;
+
+                &:hover,
+                &:focus {
+                    color: $palette--red;
+                    transition: color .2s ease;
+                }
+
+            }
+
+        }
+
+    }
+
+}

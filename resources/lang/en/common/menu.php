@@ -19,7 +19,8 @@ return [
     ],
     "applications" => [
         "name" => "My Applications",
-        "link" => route('applications')
+        // "link" => route('application.index')
+        "link" => "/applications/"
     ],
     "profile" => [
         "name" => "My Profile",

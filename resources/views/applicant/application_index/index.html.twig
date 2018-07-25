@@ -1,0 +1,96 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Layout
+
+============================================================================= #}
+<section
+    class="application-index">
+
+    <div
+        class="container--layout">
+
+        {# Applications in Progress #}
+
+            <h3
+                class="application-index__section-title">
+                {{ application_index.progress_title }}
+            </h3>
+
+            {% set draftCounter = 0 %}
+
+            {% for item in applicant.applications %}
+
+                {% if item.status =="draft" %}
+
+                    {% set draftCounter = draftCounter + 1 %}
+
+                    {% include "applicant/application_index/application" %}
+
+                {% endif %}
+
+            {% endfor %}
+
+            {% if draftCounter == 0 %}
+
+                {% include "applicant/application_index/null" %}
+
+            {% endif %}
+
+        {# Completed Applications #}
+
+            <h3
+                class="application-index__section-title">
+                {{ application_index.completed_title }}
+            </h3>
+
+            {% set completedCounter = 0 %}
+
+            {% for item in applicant.applications %}
+
+                {% if item.status =="completed" %}
+
+                    {% set completedCounter = completedCounter + 1 %}
+
+                    {% include "applicant/application_index/application" %}
+
+                {% endif %}
+
+            {% endfor %}
+
+            {% if completedCounter == 0 %}
+
+                {% include "applicant/application_index/null" %}
+
+            {% endif %}
+
+        {# Expired Applications #}
+
+            <h3
+                class="application-index__section-title">
+                {{ application_index.expired_title }}
+            </h3>
+
+            {% set expiredCounter = 0 %}
+
+            {% for item in applicant.applications %}
+
+                {% if item.status =="expired" %}
+
+                    {% set expiredCounter = expiredCounter + 1 %}
+
+                    {% include "applicant/application_index/application" %}
+
+                {% endif %}
+
+            {% endfor %}
+
+            {% if expiredCounter == 0 %}
+
+                {% include "applicant/application_index/null" %}
+
+            {% endif %}
+
+    </div>
+
+</section>

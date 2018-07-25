@@ -1,0 +1,28 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Impact
+
+============================================================================= #}
+<a 
+    aria-hidden="true"
+    id="work">
+</a>
+
+<section 
+    class="job-poster__work">
+
+    <h4 
+        class="job-poster__work-title">
+        {{ job_post.work.title }}
+    </h4>
+
+    <ul>
+        {% for item in job.work %}
+            <li>
+                {{ item }}
+            </li>
+        {% endfor %}    
+    </ul>
+
+</section>

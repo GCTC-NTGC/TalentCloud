@@ -1,0 +1,124 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Index - Application
+
+============================================================================= #}
+<div
+    class="application-index__item">
+
+    <div
+        class="application-index__item-header">
+
+        <h4>
+            {{ item.job_title }}
+        </h4>
+
+        <span
+            class="application-index__item-department">
+            {{ item.job_department }}
+        </span>
+
+        <span
+            class="application-index__item-time-wrapper">
+            <span>{{ item.job_days_remaining }}</span> {{ application_index.days_remaining_label }}
+        </span>
+
+    </div>
+
+    <div
+        class="application-index__item-content flex-grid middle">
+
+        <div
+            class="box lg-1of3 flex-grid middle">
+
+            <div
+                class="box small-1of2">
+                <span>{{ application_index.edit_date_label }}</span>
+                <p>{{ item.edit_date }}</p>
+            </div>
+
+            <div
+                class="box small-1of2">
+                <span>{{ application_index.post_label }}</span>
+                <a
+                    href="{{ item.job_post_url }}"
+                    target="_blank"
+                    title="{{ application_index.post_link_title }}">
+                    {{ application_index.post_link_label }}
+                </a>
+            </div>
+
+        </div>
+
+        <div
+            class="box lg-1of3 flex-grid middle">
+
+            <div
+                class="box small-1of3">
+                <a 
+                    class="application-index__item-manager-photo"
+                    href="{{ item.manager_profile_link }}"
+                    target="_blank"
+                    title="{{ application_index.manager_profile_link_title }}"
+                    style="background-image:url('{{ item.manager_profile_photo }}');">
+                </a>
+            </div>
+
+            <div
+                class="box small-2of3">
+                <span>
+                    {{ item.manager_name }}
+                </span>
+                <a 
+                    href="{{ item.manager_profile_link }}"
+                    target="_blank"
+                    title="{{ application_index.manager_profile_link_title }}">
+                    {{ application_index.manager_profile_link_label }}
+                </a>
+            </div>
+
+        </div>
+
+        <div
+            class="box lg-1of3">
+
+            {% if item.status == "draft" %}
+
+                <a 
+                    class="button--blue light-bg"
+                    href="/applications/{{ item.id }}/step-01/"
+                    title="{{ application_index.draft_link_title }}">
+                    {{ application_index.draft_link_label }}
+                </a>
+
+            {% else %}
+
+                <a 
+                    class="button--blue light-bg"
+                    href="/applications/{{ item.id }}/step-04/"
+                    title="{{ application_index.view_link_title }}">
+                    {{ application_index.view_link_label }}
+                </a>
+
+            {% endif %}
+
+            {% if item.status == "completed" %}
+
+                <i class="fas fa-check"></i>
+
+            {% else %}
+
+                <button
+                    onclick=""
+                    title="{{ application_index.delete_title }}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>

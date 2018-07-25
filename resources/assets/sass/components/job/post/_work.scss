@@ -1,0 +1,38 @@
+// =============================================================================
+
+    // Jobs: Post - Work
+
+// =============================================================================
+.job-poster__work {
+    margin: 0 0 calc(#{$unit} * 4);
+
+    .job-poster__work-title {
+        border-bottom: 1px solid $palette--black;
+        color: $palette--black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 calc(#{$unit} * 2) 0;
+        padding: 0 0 2rem 0;
+    }
+
+    ul {
+        padding: 0 0 0 calc(#{$unit} * 1.5);
+
+        li {
+            color: $palette--font-black;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            line-height: 1.5;
+            margin: 0 0 $unit 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+        }
+
+    }
+
+}
