@@ -23,6 +23,7 @@ before_script:
   # sleep 2m
   - composer self-update
   - composer install --no-interaction --prefer-source
+  - npm i -g npm
   - npm install
 
 script:
