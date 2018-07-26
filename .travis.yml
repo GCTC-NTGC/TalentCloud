@@ -46,8 +46,9 @@ after_script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t gggrant/tc-laravel
-  - docker push gggrant/tc-laravel:travis
+  - docker push gggrant/tc-laravel
 
 # do not send emails
 notifications:
