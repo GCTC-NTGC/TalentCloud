@@ -25,11 +25,9 @@ before_script:
   - composer install --no-interaction --prefer-source
   - npm i -g npm
   - npm install
-
   - mysql -u root -e 'CREATE DATABASE talentcloud;'
   - mysql -u root -e "CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';"
   - mysql -u root -e "GRANT ALL ON *.* TO 'talentcloud'@'localhost';"
-
   - php artisan migrate --force
   # php artisan db:seed --force
 
@@ -47,7 +45,7 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gggrant/tc-laravel
+  - docker build -t gggrant/tc-laravel .
   - docker push gggrant/tc-laravel
 
 # do not send emails
