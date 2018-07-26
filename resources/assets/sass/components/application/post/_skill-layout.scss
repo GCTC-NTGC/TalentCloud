@@ -1,0 +1,61 @@
+// =============================================================================
+
+    // Application Post: Skills
+
+// =============================================================================
+.application-post__skills-layout {
+    background: $palette--white;
+    padding: $section-padding;
+
+    .container--copy {
+        text-align: center;
+
+        h3 {
+            border-bottom: 1px solid $palette--font-black;
+            color: $palette--black;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 400;
+            margin: 0 0 calc(#{$unit} * 2) 0;
+            padding: 0 0 2rem 0;
+            text-align: left;
+        }
+
+        p {
+            @extend %paragraph;
+            text-align: left;
+        }
+
+        button {
+
+        }
+
+    }
+
+    .container--layout {
+        border-top: 1px solid darken($palette--white, 20%);
+        margin-top: calc(#{$unit} * 5);
+    }
+
+    .application-post__content-wrapper {
+
+        @media #{$l-tablet} {
+            padding: 0 0 0 3rem;
+        }
+
+    }
+
+    .application-post__anchor {
+
+        &::before { 
+            display: block; 
+            content: " "; 
+            margin-top: -8rem; 
+            height: 8rem; 
+            visibility: hidden; 
+            pointer-events: none;
+        }
+
+    }
+
+}

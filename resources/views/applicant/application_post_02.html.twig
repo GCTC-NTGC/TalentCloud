@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Apply - Step 02
+
+============================================================================= #}
+
+<html
+    lang="en">
+
+    <head>
+        {% include "common/head" %}
+    </head>
+
+    <body>
+
+        {% include "common/alert" %}
+
+        {% include "common/goc" %}
+
+        {% include "common/header" with {'header':application} %}
+
+        {% include "applicant/application_post/common/tracker" %}
+
+        {% include "applicant/application_post/common/skill-layout" %}
+
+        {% include "common/footer" %}
+
+        {# Scripts #}
+
+        {% include "common/scripts" %}
+
+    </body>
+
+</html>
