@@ -1,75 +1,52 @@
 build:
     nodes:
-      docker-setup:
-        environment:
-            timezone: EST
-            docker: true
-            mysql: 5.6
-
-#            nginx:
-#                sites:
-#                    talentcloud:
-#                        host: '127.0.0.1'
-#                        web_root: 'public/'
-#                        index: 'index.php index.html'
-#           selenium:
-#               version: 2.53
-#               chrome_driver_version: 2.22
-#               browser_name:
-
-    dependencies:
-        before:
-            - sudo make docker-start
-            - composer self-update
-            - composer install --no-interaction --prefer-source
-            - npm i -g npm
-            - npm install
-            - mysql -u root -e 'CREATE DATABASE talentcloud;'
-            - mysql -u root -e "CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';"
-            - mysql -u root -e "GRANT ALL ON *.* TO 'talentcloud'@'localhost';"
-            - php artisan migrate --force
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    - js-scrutinizer-run
 
 filter:
-  excluded_paths:
-    - '*/data/*'
-    - '*/node_modules/*'
-    - '*/tests/*'
-    - '*/vendor/*'
+    excluded_paths:
+        - '*/data/*'
+        - '*/node_modules/*'
+        - '*/tests/*'
+        - '*/vendor/*'
 
 checks:
-  php:
-    remove_extra_empty_lines: true
-    remove_php_closing_tag: true
-    remove_trailing_whitespace: true
-    fix_use_statements:
-      remove_unused: true
-      preserve_multiple: false
-      preserve_blanklines: true
-      order_alphabetically: true
-    fix_php_opening_tag: true
-    fix_linefeed: true
-    fix_line_ending: true
-    fix_identation_4spaces: true
-    fix_doc_comments: true
+    php:
+        remove_extra_empty_lines: true
+        remove_php_closing_tag: true
+        remove_trailing_whitespace: true
+        fix_use_statements:
+            remove_unused: true
+            preserve_multiple: false
+            preserve_blanklines: true
+            order_alphabetically: true
+        fix_php_opening_tag: true
+        fix_linefeed: true
+        fix_line_ending: true
+        fix_identation_4spaces: true
+        fix_doc_comments: true
 
 tools:
-  external_code_coverage: false
-  js_hint:
-    filter:
-      excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
-  php_mess_detector:
-    filter:
-      excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
-  sensiolabs_security_checker: true
-  php_pdepend:
-    excluded_dirs:
-      - tests
-      - vendor
-      - data
-      - node_modules
+    external_code_coverage: false
+    js_hint:
+        filter:
+            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
+    php_mess_detector:
+        filter:
+            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
+    sensiolabs_security_checker: true
+    php_pdepend:
+        excluded_dirs:
+            - tests
+            - vendor
+            - data
+            - node_modules
 
-  php_hhvm: true
-  # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
-  # the same time right now. Make sure to either remove, or disable one.
-  php_sim: true
-  php_cpd: false
+    php_hhvm: true
+    # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
+    # the same time right now. Make sure to either remove, or disable one.
+    php_sim: true
+    php_cpd: false
