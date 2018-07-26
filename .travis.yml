@@ -25,12 +25,8 @@ before_script:
   - composer install --no-interaction --prefer-source
   - npm i -g npm
   - npm install
-  - php artisan migrate
-  - sleep 5
-  - yes
-  - php artisan db:seed
-  - sleep 5
-  - yes
+  - php artisan migrate --force
+  - php artisan db:seed --force
 
 script:
   - sudo make gen-certs
