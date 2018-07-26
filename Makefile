@@ -74,3 +74,22 @@ resetOwner:
 	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
 
 .PHONY: clean test code-sniff init
+
+## -----------------
+
+#.PHONY: sniff test vendor
+
+#validate:
+	# pear package-validate
+
+#package:
+	# pear package
+
+#update:
+	# php composer.phar update --dev
+
+#vendor:
+	# php composer.phar install --no-interaction --prefer-source --dev
+
+#test: vendor
+	# vendor/bin/phpunit --coverage-clover=coverage.xml

@@ -21,6 +21,9 @@ before_install:
 before_script:
   - sudo make docker-start
   - sleep 2m
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev
+  - sudo npm install
 
 script:
   - sudo make gen-certs
@@ -28,9 +31,13 @@ script:
   - sudo make mysql-restore
   # sudo make phpmd
   # sudo make test
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  - docker build -t gggrant/tc-laravel:travis
+  - docker build -t gggrant/tc-laravel-travis
   - sudo make docker-stop
 
 # do not send emails
