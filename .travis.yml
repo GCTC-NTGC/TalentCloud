@@ -27,7 +27,7 @@ before_script:
   - npm i -g npm
   - npm install
 
-  # mysql -u root -e 'CREATE DATABASE talentcloud;'
+  - mysql -u root -e 'CREATE DATABASE talentcloud;'
   - mysql -u root -e "CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';"
   - mysql -u root -e "GRANT ALL ON *.* TO 'talentcloud'@'localhost';"
 
