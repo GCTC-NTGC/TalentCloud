@@ -8,6 +8,7 @@ env-docker:
 
 services:
   - docker
+  - mysql
 
 before_install:
   - sudo apt update
