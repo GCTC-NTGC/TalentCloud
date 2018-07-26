@@ -26,8 +26,10 @@ before_script:
   - npm i -g npm
   - npm install
   - php artisan migrate
+  - sleep 5
   - yes
   - php artisan db:seed
+  - sleep 5
   - yes
 
 script:
