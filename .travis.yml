@@ -26,7 +26,9 @@ before_script:
   - npm i -g npm
   - npm install
   - php artisan migrate
+  - yes
   - php artisan db:seed
+  - yes
 
 script:
   - sudo make gen-certs
