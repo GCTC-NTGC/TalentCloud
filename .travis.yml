@@ -26,6 +26,7 @@ before_script:
   - npm i -g npm
   - npm install
   - php artisan migrate
+  - php artisan db:seed
 
 script:
   - sudo make gen-certs
@@ -36,11 +37,12 @@ script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_script:
-  - docker build -t gggrant/tc-laravel-travis
   - sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - docker build -t gggrant/tc-laravel
+  - docker push gggrant/tc-laravel:travis
 
 # do not send emails
 notifications:
