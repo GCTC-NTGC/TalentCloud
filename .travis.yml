@@ -8,6 +8,7 @@ env-docker:
 
 services:
   - docker
+  - mysql
 
 before_install:
   - sudo apt update
@@ -20,7 +21,15 @@ before_install:
 
 before_script:
   - sudo make docker-start
-  - sleep 2m
+  - composer self-update
+  - composer install --no-interaction --prefer-source
+  - npm i -g npm
+  - npm install
+  - mysql -u root -e 'CREATE DATABASE talentcloud;'
+  - mysql -u root -e "CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';"
+  - mysql -u root -e "GRANT ALL ON *.* TO 'talentcloud'@'localhost';"
+  - php artisan migrate --force
+  # php artisan db:seed --force
 
 script:
   - sudo make gen-certs
@@ -28,10 +37,16 @@ script:
   - sudo make mysql-restore
   # sudo make phpmd
   # sudo make test
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_script:
-  - docker build -t gggrant/tc-laravel:travis
   - sudo make docker-stop
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t gggrant/tc-laravel .
+  - docker push gggrant/tc-laravel
 
 # do not send emails
 notifications:

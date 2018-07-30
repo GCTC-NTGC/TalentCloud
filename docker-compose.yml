@@ -25,7 +25,7 @@ services:
     # Application / PHP-FPM
     talentcloud:
         build: .
-        # image: gggrant/tc-docker
+        # image: gctcntgc/talentcloud:dev_refactor
         container_name: talentcloud
         working_dir: /var/www
         restart: always

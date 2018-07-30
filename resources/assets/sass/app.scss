@@ -110,8 +110,13 @@
     // Application Post
 
         @import "components/application/post/tracker";
+        @import "components/application/post/skill-layout";
+        @import "components/application/post/sidebar";
+        @import "components/application/post/skill";
 
         // Step 01 (Open Ended Questions)
+
+            @import "components/application/post/questions";
 
         // Step 02 (Essential Criteria)
 
