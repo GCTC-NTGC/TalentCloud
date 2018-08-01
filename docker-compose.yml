@@ -32,6 +32,11 @@ services:
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./:/var/www"
+        links:
+            - talentcloud-db
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=talentcloud-db"
     # Database
     talentcloud-db:
         image: mysql:5.6
