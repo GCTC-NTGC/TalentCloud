@@ -60,5 +60,8 @@ services:
         ports:
             - "8080:80"
     # Composer
-    # Run this from Terminal/CMD:
-    # docker run --rm -v $(pwd):/app composer/composer:php5 install
+    composer:
+        image: "composer"
+        volumes:
+            - "./:/app"
+        command: install
