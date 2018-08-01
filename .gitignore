@@ -25,7 +25,7 @@ npm-debug.log
 ## TalentCloud
 /etc/ssl/
 /tests
-/data
+/database/db/mysql
 
 ## Laravel
 Homestead.json
