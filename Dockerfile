@@ -10,5 +10,3 @@ RUN apt-get update && apt-get install -y libmcrypt-dev \
 
 # Open up fcgi port
 EXPOSE 9000
-
-CMD bash -c "composer install && php artisan serve --host 0.0.0.0 --port 8000"
