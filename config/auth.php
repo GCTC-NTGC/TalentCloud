@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'oidconnect_applicants',
         'passwords' => 'users',
     ],
 
@@ -45,6 +45,12 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        
+        'oidconnect_applicants' => [
+            'driver' => 'oidconnect',
+            'provider' => 'oidc_make_applicant',
+            'valid_roles' => ['applicant']
+        ]
     ],
 
     /*
@@ -67,14 +73,16 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'oidc_make_applicant' => [
+            'driver' => 'oidconnect',
+            'model' => App\Models\User::class,
+            'default_role' => 'applicant'
+        ],
     ],
+    
 
     /*
     |--------------------------------------------------------------------------
