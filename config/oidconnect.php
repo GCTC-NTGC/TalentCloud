@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'guzzle' => [
+        'timeout' => 5,
+    ],
+    'key_cache_hour_limit' => 6,
+    'iss' => 'https://account.gccollab.ca/openid',
     'client_id' => '800830',
     'client_secret' => env('GCCOLLAB_CLIENT_SECRET'),
     'redirect' => env('APP_URL') . '/login',
