@@ -3,9 +3,9 @@
 namespace App\Services\Auth;
 
 use Carbon\Carbon;
-use App\Services\Auth\Contract\JSONGetter;
+use App\Services\Auth\Contracts\JSONGetter;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use LLcobucci\JWT\Parsing\Decoder;
+use Lcobucci\JWT\Parsing\Decoder;
 use Lcobucci\JWT\Signer\Key;
 
 /**
@@ -41,8 +41,9 @@ class JwtKeysFetcher
      * @param CacheRepository $cache
      * @param Decoder         $decoder
      * @param string          $jwksURI
+     * @param int             $cacheHourLimit
      */
-    public function __construct(JSONGetter $fetcher, CacheRepository $cache, Decoder $decoder, string $jwksURI, $cacheHourLimit)
+    public function __construct(JSONGetter $fetcher, CacheRepository $cache, Decoder $decoder, string $jwksURI, int $cacheHourLimit)
     {
         $this->fetcher = $fetcher;
         $this->cache = $cache;

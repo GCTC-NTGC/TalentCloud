@@ -6,15 +6,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use GuzzleHttp\Client;
-use Lcobucci\JWT\Token\Parser;
-use Lcobucci\JWT\Validation\Validator;
+use Lcobucci\JWT\Parsing\Decoder;
+use Lcobucci\JWT\Parser;
+use App\Services\Auth\Contracts\JSONGetter;
+use App\Services\Auth\Contracts\JSONPoster;
+use App\Services\Auth\Contracts\TokenRefresher;
+use App\Services\Auth\Contracts\TokenStorage;
 use App\Services\Auth\RequestTokenParser;
 use App\Services\Auth\BaseOidcUserProvider;
 use App\Services\Auth\OidConnectGuard;
 use App\Services\Auth\JSONFetcher;
-use App\Services\Auth\Contracts\JSONGetter;
-use App\Services\Auth\Contracts\JSONPoster;
-
+use App\Services\Auth\JwtKeysFetcher;
+use App\Services\Auth\JwtValidator;
+use App\Services\Auth\JumboJettTokenRefresher;
+use App\Services\Auth\SessionTokenStorage;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -29,15 +34,15 @@ class AuthServiceProvider extends ServiceProvider
 
     public function register() {
         $this->app->singleton(Parser::class, function ($app) {
-            return new Parser($app[Decoder::class]);
+            return new Parser();
         });
-        
-        $this->app->singleton(Validator::class, function ($app) {
-            return new Validator();
+
+        $this->app->singleton(Decoder::class, function ($app) {
+            return new Decoder();
         });
         
         $this->app->singleton(RequestTokenParser::class, function ($app) {
-            return new RequestTokenParser();            
+            return new RequestTokenParser($app[Parser::class]);            
         });
         
         $this->app->singleton(JSONFetcher::class, function ($app) {
@@ -45,16 +50,12 @@ class AuthServiceProvider extends ServiceProvider
             $cl = new Client($config);
             return new JSONFetcher($cl);
         });        
-        $this->app->singleton(JSONGetter::class, function ($app) {
-            return $app[JSONFetcherAdapter::class];
-        });
-        $this->app->singleton(JSONPoster::class, function ($app) {
-            return $app[JSONFetcherAdapter::class];
-        });
+        $this->app->bind(JSONGetter::class, JSONFetcher::class);
+        $this->app->bind(JSONPoster::class, JSONFetcher::class);
         
-        $this->app->bind(KeysFetcher::class, function ($app) {
-            $config = $app['config']['opidconnect'];
-            return new KeysFetcher(
+        $this->app->singleton(JwtKeysFetcher::class, function ($app) {
+            $config = $app['config']['oidconnect'];
+            return new JwtKeysFetcher(
                 $app[JSONGetter::class],
                 $app['cache.store'],
                 $app[Decoder::class],
@@ -62,7 +63,31 @@ class AuthServiceProvider extends ServiceProvider
                 $config['key_cache_hour_limit']
             );
         });
-
+        
+        $this->app->singleton(JwtValidator::class, function ($app) {
+            $config = $app['config']['oidconnect'];
+            return new JwtValidator(
+                    $app[JwtKeysFetcher::class], 
+                    [$config['iss'] => $config['client_id']]
+            );            
+        });
+        
+        $this->app->singleton(SessionTokenStorage::class, function ($app) {
+            return new SessionTokenStorage();
+        });        
+        $this->app->bind(TokenStorage::class, SessionTokenStorage::class);
+        
+        $this->app->singleton(JumboJettTokenRefresher::class, function ($app) {
+            $config = $app['config']['oidconnect'];
+            return new JumboJettTokenRefresher(
+                    $app[TokenStorage::class], 
+                    $app[Parser::class], 
+                    $config['auth_url'], 
+                    $config['client_id'], 
+                    $config['client_secret']                    
+            );            
+        });
+        $this->app->bind(TokenRefresher::class, JumboJettTokenRefresher::class);
     }
     
     /**
@@ -70,9 +95,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Parser $parser, 
-            Validator $jwtValidator, 
-            RequestTokenParser $requestTokenParser)
+    public function boot()
     {
         $this->registerPolicies();
 
@@ -87,8 +110,13 @@ class AuthServiceProvider extends ServiceProvider
             // Return an instance of Illuminate\Contracts\Auth\Guard...
             $userProvider = Auth::createUserProvider($config['provider']);
             $validRoles = $config['valid_roles'];
-            return new OidConnectGuard($userProvider, $requestTokenParser, 
-                    $jwtValidator, $validRoles, $app['request']);
+            return new OidConnectGuard(
+                    $userProvider, 
+                    $app[RequestTokenParser::class],
+                    $app[JwtValidator::class],
+                    $app[TokenRefresher::class],
+                    $validRoles, 
+                    $app['request']);
         });
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Services\Auth;
 
 use GuzzleHttp\Client;
-use App\Services\Contracts\JSONGetter;
-use App\Services\Contracts\JSONPoster;
+use App\Services\Auth\Contracts\JSONGetter;
+use App\Services\Auth\Contracts\JSONPoster;
 
 /**
  * Adapted from the OpenIDConnect Laravel package at

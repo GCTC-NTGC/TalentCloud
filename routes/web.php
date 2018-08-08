@@ -674,5 +674,11 @@ Route::get('logout', function() {
 })->name('logout');
 
 Route::get('laravel', function () {
-    return view('welcome', ['t1' => Auth::user()->name]);
+    if (Auth::check()) {
+        $user = Auth::user();
+    } else {
+        $user = (object)['name' => 'login failed'];
+    }
+    debugbar()->info("in laravel route");
+    return view('welcome', ['t1' => $user->name]);
 })->name('test');
