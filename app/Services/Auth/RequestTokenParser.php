@@ -18,7 +18,7 @@ class RequestTokenParser
 {
     const AUTH_HEADER = "Authorization";
     const COOKIE_KEY = "id_token";
-    
+
     /**
      * @var Parser
      */
@@ -40,7 +40,7 @@ class RequestTokenParser
      */
     public function parse(Request $request): Token
     {
-//        if ($request->session()->has(static::COOKIE_KEY)) {        
+//        if ($request->session()->has(static::COOKIE_KEY)) {
 //            $token = $request->session()->get(static::COOKIE_KEY);
 //        } else {
 //            throw new AuthenticationException("Request doesn't contain id token");
@@ -50,7 +50,7 @@ class RequestTokenParser
             throw new AuthenticationException("Request doesn't contain id token");
         }
         return $this->parser->parse($token);
-        
+
          /*
         $bearer = $request->headers->get(static::AUTH_HEADER);
         if (empty($bearer)) {
@@ -62,17 +62,22 @@ class RequestTokenParser
         }
         $jwt = $parts[1];
         return $this->parser->parse($jwt);
-          * 
+          *
           */
     }
-    
+
     public function save(Token $token) {
         //session([static::COOKIE_KEY => (string)$token]);
-        Cookie::queue(static::COOKIE_KEY, (string)$token);
+        //Cookie::queue(static::COOKIE_KEY, (string)$token);
+        cookie()->queue(cookie()->forever(static::COOKIE_KEY, (string)$token));
     }
-    
+
     public function forget() {
         //session()->forget(static::COOKIE_KEY);
-        Cookie::queue(Cookie::forget(static::COOKIE_KEY));
+        // if (Cookie::hasQueued(static::COOKIE_KEY)) {
+        //   Cookie::unqueue(static::COOKIE_KEY);
+        // }
+        // Cookie::queue(Cookie::forget(static::COOKIE_KEY));
+        cookie()->queue(cookie()->forget(static::COOKIE_KEY));
     }
 }

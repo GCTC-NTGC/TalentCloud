@@ -13,7 +13,7 @@
 
 /* Home */
 
-Route::get('/home', 'Applicant\HomepageController')->name('home');
+Route::get('/', 'Applicant\HomepageController')->name('home');
 
 /* Jobs */
 
@@ -25,7 +25,7 @@ Route::get('jobs/{id}', function () {
         "job_post" => [
             "title" => "Browse Jobs",
             "days_remaining_label" => "Days Remaining",
-            "applicants_label" => "Applicants", 
+            "applicants_label" => "Applicants",
             "location_icon_label" => "Location Icon.",
             "remote_icon_label" => "Remote Work Icon.",
             "reference_id_label" => "Reference ID #",
@@ -580,7 +580,7 @@ Route::get('applications/00/step-02', function () {
 
 Route::get('applications/00/step-03', function () {
     return view('applicant/application_post_03', [
-        
+
     ]);
 })->name('application.post03');
 
@@ -588,7 +588,7 @@ Route::get('applications/00/step-03', function () {
 
 Route::get('applications/00/step-04', function () {
     return view('applicant/application_post_04', [
-        
+
     ]);
 })->name('application.post04');
 
@@ -663,9 +663,11 @@ Route::get('profile', function () {
 
 /* Auth */
 
-Route::get('/', 'Auth\LoginController@login')->name('login');
+Route::get('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
 
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('logout/callback', 'Auth\LoginController@logoutCallback')->name('logout.callback');
 
 //Route::get('logout/gccollab', 'Auth')
 
@@ -675,6 +677,6 @@ Route::get('laravel', function () {
     } else {
         $user = (object)['name' => 'login failed'];
     }
-    debugbar()->info("in laravel route");
-    return view('welcome', ['t1' => $user->name]);
+    debugbar()->info(cookie('laravel_session'));
+    return view('welcome', ['t1' => 'test']);
 })->name('test');

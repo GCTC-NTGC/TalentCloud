@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\Contracts\TokenStorage;
+use App\Services\Auth\Contracts\JSONGetter;
 use App\Services\Auth\BaseOidcUserProvider;
 use App\Services\Auth\RequestTokenParser;
 use Jumbojett\OpenIDConnectClient;
@@ -26,12 +28,12 @@ class LoginController extends Controller
     | redirecting them to your home screen.
     |
     */
-    
+
     protected $authUrl;
     protected $callbackUrl;
     protected $clientId;
     protected $clientSecret;
-    
+
     /**
      *
      * @var OpenIDConnectClient
@@ -39,25 +41,29 @@ class LoginController extends Controller
     protected $oidcClient;
     /**
      *
-     * @var Parser 
+     * @var Parser
      */
     protected $tokenParser;
     /**
      *
-     * @var TokenStorage 
+     * @var TokenStorage
      */
     protected $tokenStorage;
     /**
      *
-     * @var RequestTokenParser 
+     * @var RequestTokenParser
      */
     protected $requestTokenParser;
     /**
      *
-     * @var BaseOidcUserProvider 
+     * @var BaseOidcUserProvider
      */
     protected $userProvider;
-    
+    /**
+     * @var JSONGetter
+     */
+    protected $jsonGetter;
+
     protected $scopes = ['openid', 'profile', 'email'];
 
     /**
@@ -65,30 +71,33 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct(TokenStorage $tokenStorage, 
+    public function __construct(TokenStorage $tokenStorage,
             RequestTokenParser $requestTokenParser,
             Parser $tokenParser,
-            BaseOidcUserProvider $userProvider)
+            BaseOidcUserProvider $userProvider,
+            JSONGetter $jsonGetter)
     {
-        $this->middleware('guest', ['except' => 'logout']);
-        
+        //$this->middleware('guest', ['only' => 'logout']);
+
         $this->tokenStorage = $tokenStorage;
         $this->tokenParser = $tokenParser;
         $this->userProvider = $userProvider;
         $this->requestTokenParser = $requestTokenParser;
-        
-        $config = Config::get('oidconnect');        
+        $this->jsonGetter = $jsonGetter;
+
+        $config = Config::get('oidconnect');
         $this->authUrl = $config['auth_url'];
         $this->callbackUrl = $config['redirect'];
         $this->clientId = $config['client_id'];
         $this->clientSecret = $config['client_secret'];
-        
+
         $this->oidcClient = new OpenIDConnectClient($this->authUrl, $this->clientId, $this->clientSecret);
         $this->oidcClient->addScope($this->scopes);
         $this->oidcClient->setVerifyPeer(false);
-        $this->oidcClient->setRedirectURL($this->callbackUrl);        
+        $this->oidcClient->setRedirectURL($this->callbackUrl);
+        //$this->oidcClient->addAuthParam(['prompt'=>'select_account']);
     }
-    
+
     /**
      * Begin the the log in process.
      * @return \Illuminate\Http\Response
@@ -97,7 +106,7 @@ class LoginController extends Controller
         //The authenticate function will cause a redirect to the OpenID provider
         // unless the current url contains a code parameter. In that case, the
         // code will be used to aquire tokens from the api endpoint.
-        
+
         try {
             $success = $this->oidcClient->authenticate();
         } catch (OpenIDConnectClientException $exception) {
@@ -106,20 +115,20 @@ class LoginController extends Controller
             }
             abort(400);
         }
-        
+
         if ($success) {
             //Request user info from the endpoint. This will be used below.
             $userInfo = $this->oidcClient->requestUserInfo();
-            
+
             //Retrieve (or create) user that matches token
-            $token = $this->tokenParser->parse($this->oidcClient->getIdToken());         
+            $token = $this->tokenParser->parse($this->oidcClient->getIdToken());
             $user = $this->userProvider->retrieveByCredentials($token->getClaims());
-            
+
             //Store refresh token
             $iss = $token->getClaim('iss');
             $sub = $token->getClaim('sub');
             $this->tokenStorage->saveRefresh($iss, $sub, $this->oidcClient->getRefreshToken());
-            
+
             //Update user model if it differs from openid user
             if($user->name !== $userInfo->name ||
                     $user->email !== $userInfo->email) {
@@ -127,48 +136,57 @@ class LoginController extends Controller
                 $user->email = $userInfo->email;
                 $user->save();
             }
-            
+
             //Set user in guard
             Auth::setUser($user);
-            
-            
+
+
             //Save id token stateless log-in
             $this->requestTokenParser->save($token);
-            
-            //Create a response redirecting user to intended route or home page            
+
+            //Create a response redirecting user to intended route or home page
             $response = redirect()->intended(route('home'));
-            
+
             return $response;
         } else {
             return redirect()->home();
-        }   
+        }
     }
-    
+
     /**
      * Log the user out.
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request) {
         $idToken = $this->requestTokenParser->parse($request);
-        $iss = $idToken->getClaim('iss');
-        $sub = $idToken->getClaim('sub');
-        
-        //Forget id token to log out
-        $this->requestTokenParser->forget();
-        
-        //Forget access and storage tokens
-        $this->tokenStorage->forgetAccess($iss, $sub);
-        $this->tokenStorage->forgetRefresh($iss, $sub);
-               
-        $request->session()->flush();
-        
-        //echo('Session has id_token = ' . $request->session()->has('id_token') );
-        
-        //TODO: Right now the gccollab end_session_end_point doesnt redirect
-        //back to us, and therefore the id_token is never removed, and logout
-        //is incomplete. For now, just redirect home.
-        //$this->oidcClient->signOut((string)$idToken, route('home'));        
-        
-        return redirect()->home();
-    }        
+
+        //This will cause a redirect
+        $this->oidcClient->signOut((string)$idToken, route('logout.callback'));
+
+        //This is a fallback, but don't expect this line to ever execute
+        throw new AuthenticationException('Redirect to end_session_endpoint failed');
+        //return redirect()->route('logout.callback');
+    }
+
+    /**
+     * Log the user out.
+     * @return \Illuminate\Http\Response
+     */
+    public function logoutCallback(Request $request) {
+      $idToken = $this->requestTokenParser->parse($request);
+      $iss = $idToken->getClaim('iss');
+      $sub = $idToken->getClaim('sub');
+
+      //Forget id token to log out
+      $this->requestTokenParser->forget();
+
+      //Forget access and storage tokens
+      $this->tokenStorage->forgetAccess($iss, $sub);
+      $this->tokenStorage->forgetRefresh($iss, $sub);
+
+      //Reset the session
+      $request->session()->flush();
+
+      return redirect()->route('home');
+    }
 }
