@@ -2,6 +2,7 @@
 namespace App\Services\Auth;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Cookie;
 
 use Illuminate\Http\Request;
 //use Lcobucci\JWT\Token;
@@ -16,6 +17,8 @@ use Lcobucci\JWT\Parser;
 class RequestTokenParser
 {
     const AUTH_HEADER = "Authorization";
+    const COOKIE_KEY = "id_token";
+    
     /**
      * @var Parser
      */
@@ -37,6 +40,13 @@ class RequestTokenParser
      */
     public function parse(Request $request): Token
     {
+        $token = $request->cookie(static::COOKIE_KEY);
+        if (empty($token)) {
+            throw new AuthenticationException("Request doesn't contain id token");
+        }
+        return $this->parser->parse($token);
+        
+         /*
         $bearer = $request->headers->get(static::AUTH_HEADER);
         if (empty($bearer)) {
             throw new AuthenticationException("Request doesn't contain auth token");
@@ -47,5 +57,11 @@ class RequestTokenParser
         }
         $jwt = $parts[1];
         return $this->parser->parse($jwt);
+          * 
+          */
+    }
+    
+    public function save(Token $token) {
+        Cookie::queue(static::COOKIE_KEY, (string)$token);
     }
 }

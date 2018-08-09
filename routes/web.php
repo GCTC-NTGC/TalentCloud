@@ -13,7 +13,7 @@
 
 /* Home */
 
-Route::get('/', 'Applicant\HomepageController')->name('home')->middleware('auth:oidconnect_applicants');
+Route::get('/home', 'Applicant\HomepageController')->name('home')->middleware('auth:oidconnect_applicants');
 
 /* Jobs */
 
@@ -663,10 +663,7 @@ Route::get('profile', function () {
 
 /* Auth */
 
-Route::get('login', function() {
-    //TODO
-    return redirect()->route('test');
-})->name('login');
+Route::get('/', 'Auth\LoginController@login')->name('login');
 
 Route::get('logout', function() {
     //TODO

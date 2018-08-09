@@ -8,7 +8,7 @@ return [
     'iss' => 'https://account.gccollab.ca/openid',
     'client_id' => '800830',
     'client_secret' => env('GCCOLLAB_CLIENT_SECRET'),
-    'redirect' => env('APP_URL') . '/login',
+    'redirect' => env('APP_URL') . '/',
     'register_url' => 'https://account.gccollab.ca/register',
     'auth_url' => 'https://account.gccollab.ca/openid',
     'token_url' => 'https://account.gccollab.ca/openid/token',

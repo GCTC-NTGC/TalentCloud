@@ -98,8 +98,6 @@ class BaseOidcUserProvider implements UserProvider {
                 debugbar()->info($user);
             }
             
-            
-            
             // If no user was found, use the provided credentials to create a 
             // new user
             if ($user === null) {
@@ -112,8 +110,7 @@ class BaseOidcUserProvider implements UserProvider {
                 }
                 
                 debugbar()->info("Provider created user:");
-                debugbar()->info($user);
-                
+                debugbar()->info($user);                
             }
             return $user;
         } else {

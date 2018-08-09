@@ -122,6 +122,8 @@ class OidConnectGuard implements Guard {
         
         //At this point, token is definitely valid
         if ($this->jwtValidator->isExpired($idToken)) {
+            debugbar()->info("Id token expired");
+            
             //TODO refresh token
             $iss = $idToken->getClaim("iss");
             $sub = $idToken->getClaim("sub");
@@ -137,7 +139,7 @@ class OidConnectGuard implements Guard {
                 return $user;
             }            
             //TODO store new id token
-            
+            $this->requestTokenParser->save($idToken);
         }
 
         $credentials = $idToken->getClaims();

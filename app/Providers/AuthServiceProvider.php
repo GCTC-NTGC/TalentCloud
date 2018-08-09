@@ -88,6 +88,14 @@ class AuthServiceProvider extends ServiceProvider
             );            
         });
         $this->app->bind(TokenRefresher::class, JumboJettTokenRefresher::class);
+        
+        $this->app->bind(BaseOidcUserProvider::class, function ($app) {
+            $config = $app['config']['auth']['providers']['oidc_make_applicant'];
+            $model = $config['model'];
+            $defaultRole = $config['default_role'];
+            return new BaseOidcUserProvider($model, $defaultRole);            
+        });
+        
     }
     
     /**
