@@ -40,6 +40,11 @@ class RequestTokenParser
      */
     public function parse(Request $request): Token
     {
+//        if ($request->session()->has(static::COOKIE_KEY)) {        
+//            $token = $request->session()->get(static::COOKIE_KEY);
+//        } else {
+//            throw new AuthenticationException("Request doesn't contain id token");
+//        }
         $token = $request->cookie(static::COOKIE_KEY);
         if (empty($token)) {
             throw new AuthenticationException("Request doesn't contain id token");
@@ -62,6 +67,12 @@ class RequestTokenParser
     }
     
     public function save(Token $token) {
+        //session([static::COOKIE_KEY => (string)$token]);
         Cookie::queue(static::COOKIE_KEY, (string)$token);
+    }
+    
+    public function forget() {
+        //session()->forget(static::COOKIE_KEY);
+        Cookie::queue(Cookie::forget(static::COOKIE_KEY));
     }
 }

@@ -49,21 +49,26 @@ class JumboJettTokenRefresher implements TokenRefresher {
      * @return Token $idToken
      */
     public function refreshIDToken(string $sub, string $iss): \Lcobucci\JWT\Token {
-        $refreshToken = $this->tokenStorage->fetchRefresh($sub, $iss);
+        $refreshToken = $this->tokenStorage->fetchRefresh($iss, $sub);
         if (!$refreshToken) {
             throw new TokenStorageException("Failed to fetch refresh token");
         }
         try {
             $response = $this->connectClient->refreshToken($refreshToken);
             if (isset($response->error)) {
+                //Delete refresh token if it failed
+                $this->tokenStorage->saveRefresh($iss, $sub, null);
                 throw new TokenRequestException($response->error);
             }
         } catch (OpenIDConnectClientException $exception) {
+            //Delete refresh token if it failed
+            $this->tokenStorage->saveRefresh($iss, $sub, null);
             throw new TokenRequestException($exception->getMessage());
         }        
-        if (!$this->tokenStorage->saveRefresh($sub, $iss, $response->refresh_token)) {
+        if (!$this->tokenStorage->saveRefresh($iss, $sub, $response->refresh_token)) {
             throw new TokenStorageException("Failed to store refresh token");
         }
+        $this->tokenStorage->saveAccess($iss, $sub, $response->access_token);
         return $this->parser->parse($response->id_token);
     }
 }

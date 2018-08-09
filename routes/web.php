@@ -13,7 +13,7 @@
 
 /* Home */
 
-Route::get('/home', 'Applicant\HomepageController')->name('home')->middleware('auth:oidconnect_applicants');
+Route::get('/home', 'Applicant\HomepageController')->name('home');
 
 /* Jobs */
 
@@ -659,16 +659,15 @@ Route::get('profile', function () {
             ]
         ]
     ]);
-})->name('profile');
+})->name('profile')->middleware('auth:oidconnect_applicants');
 
 /* Auth */
 
 Route::get('/', 'Auth\LoginController@login')->name('login');
 
-Route::get('logout', function() {
-    //TODO
-    return redirect()->route('test');
-})->name('logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+//Route::get('logout/gccollab', 'Auth')
 
 Route::get('laravel', function () {
     if (Auth::check()) {

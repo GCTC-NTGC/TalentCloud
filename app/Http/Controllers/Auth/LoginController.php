@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\Contracts\TokenStorage;
 use App\Services\Auth\BaseOidcUserProvider;
+use App\Services\Auth\RequestTokenParser;
 use Jumbojett\OpenIDConnectClient;
 use Jumbojett\OpenIDConnectClientException;
 use Lcobucci\JWT\Parser;
@@ -48,6 +49,11 @@ class LoginController extends Controller
     protected $tokenStorage;
     /**
      *
+     * @var RequestTokenParser 
+     */
+    protected $requestTokenParser;
+    /**
+     *
      * @var BaseOidcUserProvider 
      */
     protected $userProvider;
@@ -60,6 +66,7 @@ class LoginController extends Controller
      * @return void
      */
     public function __construct(TokenStorage $tokenStorage, 
+            RequestTokenParser $requestTokenParser,
             Parser $tokenParser,
             BaseOidcUserProvider $userProvider)
     {
@@ -68,6 +75,7 @@ class LoginController extends Controller
         $this->tokenStorage = $tokenStorage;
         $this->tokenParser = $tokenParser;
         $this->userProvider = $userProvider;
+        $this->requestTokenParser = $requestTokenParser;
         
         $config = Config::get('oidconnect');        
         $this->authUrl = $config['auth_url'];
@@ -124,8 +132,8 @@ class LoginController extends Controller
             Auth::setUser($user);
             
             
-            //Save id token as cookie for stateless log-in
-            Cookie::queue('id_token', (string)$token);
+            //Save id token stateless log-in
+            $this->requestTokenParser->save($token);
             
             //Create a response redirecting user to intended route or home page            
             $response = redirect()->intended(route('home'));
@@ -133,27 +141,34 @@ class LoginController extends Controller
             return $response;
         } else {
             return redirect()->home();
-        }
-        
-    }
-    
-    /**
-     * Process an OpenID Connect auth code to complete authentication.
-     * @return \Illuminate\Http\Response
-     */
-    public function callback() {
-        
+        }   
     }
     
     /**
      * Log the user out.
      * @return \Illuminate\Http\Response
      */
-    public function logout() {
-        //$this->oidcClient->signOut($accessToken, $redirect);
+    public function logout(Request $request) {
+        $idToken = $this->requestTokenParser->parse($request);
+        $iss = $idToken->getClaim('iss');
+        $sub = $idToken->getClaim('sub');
         
-        //Cookie::queue(Cookie::forget('vendor'));
-    }
-    
-    
+        //Forget id token to log out
+        $this->requestTokenParser->forget();
+        
+        //Forget access and storage tokens
+        $this->tokenStorage->forgetAccess($iss, $sub);
+        $this->tokenStorage->forgetRefresh($iss, $sub);
+               
+        $request->session()->flush();
+        
+        //echo('Session has id_token = ' . $request->session()->has('id_token') );
+        
+        //TODO: Right now the gccollab end_session_end_point doesnt redirect
+        //back to us, and therefore the id_token is never removed, and logout
+        //is incomplete. For now, just redirect home.
+        //$this->oidcClient->signOut((string)$idToken, route('home'));        
+        
+        return redirect()->home();
+    }        
 }
