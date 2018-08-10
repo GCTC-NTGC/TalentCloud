@@ -1,11 +1,8 @@
 matrix:
     include:
-        language: php
-        php:
-            - '7.0'
-            - '7.1'
-            - '7.2'
-        language: ruby
+        - language: php
+        php: 7.2
+        - language: ruby
 
 sudo: required
 
@@ -17,6 +14,7 @@ services:
   - mysql
 
 before_install:
+  - phpenv global 7.2
   - sudo apt update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
