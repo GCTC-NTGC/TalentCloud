@@ -173,20 +173,20 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function logoutCallback(Request $request) {
-      $idToken = $this->requestTokenParser->parse($request);
-      $iss = $idToken->getClaim('iss');
-      $sub = $idToken->getClaim('sub');
+        $idToken = $this->requestTokenParser->parse($request);
+        $iss = $idToken->getClaim('iss');
+        $sub = $idToken->getClaim('sub');
 
-      //Forget id token to log out
-      $this->requestTokenParser->forget();
+        //Forget id token to log out
+        $this->requestTokenParser->forget();
 
-      //Forget access and storage tokens
-      $this->tokenStorage->forgetAccess($iss, $sub);
-      $this->tokenStorage->forgetRefresh($iss, $sub);
+        //Forget access and storage tokens
+        $this->tokenStorage->forgetAccess($iss, $sub);
+        $this->tokenStorage->forgetRefresh($iss, $sub);
 
-      //Reset the session
-      $request->session()->flush();
+        //Reset the session
+        $request->session()->flush();
 
-      return redirect()->route('home');
+        return redirect()->route('home');
     }
 }

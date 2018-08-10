@@ -71,7 +71,7 @@ class RequestTokenParser
      * @return Token
      */
     public function parseFromString(string $tokenString): Token {
-      return $this->parser->parse($tokenString);
+        return $this->parser->parse($tokenString);
     }
 
     public function save(Token $token) {

@@ -145,7 +145,7 @@ class OidConnectGuard implements Guard {
         $token = $this->requestTokenParser->parseFromString($credentials['id_token']);
 
         return $this->jwtValidator->claimsAreValid($idToken) &&
-          !$this->jwtValidator->isExpired($idToken) &&
-          $this->jwtValidator->signatureIsValid($idToken);
+            !$this->jwtValidator->isExpired($idToken) &&
+            $this->jwtValidator->signatureIsValid($idToken);
     }
 }
