@@ -40,7 +40,12 @@
             &[class*="med-"] {
 
                 @media #{$p-tablet} {
-                    padding: 0 1rem;
+                    // padding: 0 1rem;
+
+                    // &+.full {
+                    //     padding-top: 2rem;
+                    // }
+
                 }
 
             }
@@ -48,7 +53,7 @@
             &[class*="lg-"] {
 
                 @media #{$l-tablet} {
-                    padding: 0 1rem;
+                    // padding: 0 1rem;
                 }
 
             }
@@ -120,6 +125,11 @@
     position: relative;
     width: 100%;
 
+    .form__input,
+    .form__textarea {
+        font-family: $font--sans;
+    }
+
     &[class*="float"] {
         margin: 3rem 0;
 
@@ -132,8 +142,8 @@
             padding: .5rem;
             pointer-events: none;
             position: absolute;
-            top: 1.7rem;
-            left: 1.6rem;
+            top: .7rem;
+            left: .55rem;
             transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
         }
 
@@ -151,7 +161,7 @@
                 font-size: $font-scale--regular;
                 line-height: 24px;
                 outline: none;
-                padding: 2rem 5rem 2rem 2rem;
+                padding: $unit 5rem $unit $unit;
                 transition: border-color .2s ease;
                 width: 100%;
 
@@ -175,7 +185,7 @@
             min-height: 10rem;
             min-width: 100%;
             outline: none;
-            padding: 2rem;
+            padding: $unit;
             transition: border-color .2s ease;
             width: 100%;
 
@@ -191,7 +201,7 @@
             .form__label {
                 background: white;
                 font-size: 12px;
-                top: -1.2rem;
+                top: -1.15rem;
                 transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
             }
 
@@ -318,14 +328,15 @@
         .form__label {
             background: white;
             color: rgba(100, 100, 100, 1);
+            font-family: $font--sans;
             font-size: 12px;
-            line-height: 1;
+            line-height: 20px;
             margin: 0;
             padding: .5rem;
             pointer-events: none;
             position: absolute;
             top: -1rem;
-            left: 1.6rem;
+            left: .55rem;
             transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
         }
 
@@ -336,7 +347,7 @@
             font-size: $font-scale--regular;
             line-height: 20px;
             outline: none;
-            padding: 2rem 5rem 2rem 2rem;
+            padding: $unit 5rem $unit $unit;
             transition: border-color .2s ease;
             width: 100%;
 
@@ -387,14 +398,15 @@
         .form__label {
             background: white;
             color: rgba(100, 100, 100, 1);
+            font-family: $font--sans;
             font-size: 12px;
             line-height: 20px;
             margin: 0;
             padding: .5rem;
             pointer-events: none;
             position: absolute;
-            top: -1.4rem;
-            left: 1.6rem;
+            top: -1.15rem;
+            left: .55rem;
             transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
         }
 
@@ -426,7 +438,7 @@
             font-size: $font-scale--regular;
             line-height: 24px;
             outline: none;
-            padding: 2rem 5rem 2rem 2rem;
+            padding: $unit 5rem $unit $unit;
             transition: border-color .2s ease;
             width: 100%;
 
@@ -463,33 +475,25 @@
 }
 
 .form__radio-group {
-    margin: 4rem 0;
+    margin: 0 0 calc(#{$unit} * 2);
     position: relative;
 
     &:first-of-type {
-        margin-top: 2rem;
+        // margin-top: 2rem;
 
         @media #{$p-tablet} {
-            margin-top: 0;
+            // margin-top: 0;
         }
 
     }
 
-    &:last-of-type {
-        margin-bottom: 0;
-    }
-
     .form__label {
-        background: white;
-        color: rgba(100, 100, 100, 1);
-        font-size: 12px;
-        line-height: 1;
-        margin: 0 0 0 1.6rem;
-        padding: .5rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(0, -100%);
+        color: $palette--black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        line-height: 20px;
+        margin: 0 0 calc(#{$unit} / 2);
     }
 
 }
@@ -502,7 +506,7 @@
     &:first-of-type {
 
         .form__radio-group-span {
-            border-left: 1px solid darken($palette--white, 20%);
+            border-left: 1px solid rgba(50, 50, 50, 1);
             border-radius: 3px 0 0 3px;
         }
 
@@ -523,7 +527,7 @@
     left: -1000vh;
 
     &:focus + .form__radio-group-span {
-        border-color: $palette--blue;
+        // border-color: $palette--blue;
     }
 
     &:checked + .form__radio-group-span{
@@ -535,17 +539,18 @@
 
 .form__radio-group-span {
     background: $palette--white;
-    border-top: 1px solid darken($palette--white, 20%);
-    border-right: 1px solid darken($palette--white, 20%);
-    border-bottom: 1px solid darken($palette--white, 20%);
+    border-top: 1px solid rgba(50, 50, 50, 1);
+    border-right: 1px solid rgba(50, 50, 50, 1);
+    border-bottom: 1px solid rgba(50, 50, 50, 1);
     border-left: none;
     color: $palette--black;
     display: block;
-    font-size: 12px;
-    font-weight: 400;
-    height: 100%;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    line-height: 20px;
     margin: 0;
     padding: 1rem;
+    pointer-events: none;
     text-align: center;
     word-wrap: break-word;
 

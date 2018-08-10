@@ -1,0 +1,151 @@
+.accordion {
+    background: $palette--white;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+    margin: 0 0 calc(#{$unit} * 2);
+    overflow: hidden;
+
+    .accordion-trigger {
+        cursor: pointer;
+        position: relative;
+
+        .accordion-status {
+            background: $palette--red;
+            display: inline-block;
+            height: calc(#{$unit} * 5);
+            position: relative;
+            vertical-align: middle;
+            width: calc(#{$unit} * 5);
+
+            .fas {
+                color: $palette--font-white;
+                font-size: $font-scale--h3;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .fa-exclamation-circle {
+                display: block;
+            }
+
+            .fa-check {
+                display: none;
+            }
+
+            &+.accordion-title {
+                margin: 0;
+            }
+
+        }
+
+        .accordion-title {
+            color: $palette--font-black;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            font-weight: 600;
+            margin: calc(#{$unit} * 2) 0;
+            padding: 0 0 0 calc(#{$unit} * 2);
+            vertical-align: middle;
+        }
+
+        .fa-chevron-up {
+            position: absolute;
+            top: 50%;
+            right: calc(#{$unit} * 2);
+            transform: translate(0, -50%) rotate(180deg);
+        }
+
+    }
+
+    .accordion-content {
+        border-top: 1px solid darken($palette--white, 20%);
+        display: none;
+
+        .form__wrapper {
+
+            .flex-grid {
+                margin: 0 calc(#{$unit} * -1);
+                padding: calc(#{$unit} * 2.5) calc(#{$unit} * 2) 0 calc(#{$unit} * 2);
+
+                .box {
+
+                    &[class*="med-1of2"],
+                    &[class*="lg-1of2"] {
+
+                        &:nth-last-child(1),
+                        &:nth-last-child(2) {
+                            padding-bottom: 0;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        .accordion-actions {
+
+            .box {
+                padding: calc(#{$unit} * 2);
+
+                &:last-child {
+
+                    @media #{$p-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // Active Status ===========================================================
+
+        &.active {
+
+            .accordion-trigger {
+
+                .fa-chevron-up {
+                    transform: translate(0, -50%) rotate(0deg);
+                }
+
+            }
+
+            .accordion-content {
+                display: block;
+            }
+
+        }
+
+    // Complete Status =========================================================
+
+        &.complete {
+
+            .accordion-trigger {
+
+                .accordion-status {
+                    background: $palette--green;
+
+                    .fa-exclamation-circle {
+                        display: none;
+                    }
+
+                    .fa-check {
+                        display: block;
+                    }
+
+                }
+
+            }
+
+        }
+
+}

@@ -22,4 +22,17 @@
         text-align: left;
     }
 
+    [class*="form__input-wrapper"] {
+
+        &[class*="float"] {
+            margin: $unit 0 calc(#{$unit} * 2) 0;
+        }
+
+    }
+
 }
+
+@import "components/application/post/skill/declaration";
+@import "components/application/post/skill/add";
+@import "components/application/post/skill/reference";
+@import "components/application/post/skill/sample";

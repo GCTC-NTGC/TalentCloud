@@ -16,8 +16,89 @@
     padding: $unit calc(#{$unit} * 2);
     text-decoration: none;
 
+    &[class*="add"] {
+        background: none;
+        border: 3px dashed darken($palette--white, 30%);
+        border-radius: 3px;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        width: 100%;
+
+        div {
+
+            &:first-child {
+                display: inline-block;
+                height: calc(#{$unit} * 5);
+                position: relative;
+                width: calc(#{$unit} * 5);
+                vertical-align: middle;
+
+                i {
+                    color: $palette--blue;
+                    font-size: $font-scale--h4;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+            }
+
+            &:last-child {
+                display: inline-block;
+                vertical-align: middle;
+
+                span {
+                    display: block;
+                    font-family: $font--sans;
+
+                    &:nth-child(1) {
+                        font-size: $font-scale--h4;
+                        font-weight: 600;
+                        margin: 0;
+
+                        &+span {
+                            margin-top: calc(#{$unit} / 4);
+                        }
+
+                    }
+
+                    &:nth-child(2) {
+                        font-size: $font-scale--regular;
+                    }
+
+                }
+                
+            }
+
+        }
+
+    }
+
     &[class*="blue"] {
         @extend %gradient--vertical;
+        color: $palette--font-white;
+        transition: none;
+
+        &:focus,
+        &:hover {
+            border: 2px solid $palette--white;
+            outline: none;
+            padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+            transition: none;
+
+            &.light-bg {
+                border: 2px solid $palette--black;
+            }
+
+        }
+
+    }
+
+    &[class*="red"] {
+        background: $palette--red;
         color: $palette--font-white;
         transition: none;
 

@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 03
+    Applicant: Manager
 
 ============================================================================= #}
 
@@ -18,11 +18,11 @@
 
         {% include "common/goc" %}
 
-        {% include "common/header" with {'header':application} %}
+        {% include "common/header" with {'header':manager_profile} %}
 
-        {% include "applicant/application_post/common/tracker" %}
+        {% include "applicant/manager/header" %}
 
-        {% include "applicant/application_post/common/skill-layout" %}
+        {% include "applicant/manager/questions" %}
 
         {% include "common/footer" %}
 

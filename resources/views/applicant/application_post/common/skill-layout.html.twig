@@ -10,14 +10,14 @@
     <div
         class="container--copy">
 
-        {% if application.step == "2" %}
+        {% if application.step == "3" %}
             <h3>
                 {{ application.essential_title }}
             </h3>
             <p>
                 {{ application.essential_context }}
             </p>
-        {% elseif application.step == "3" %}
+        {% elseif application.step == "4" %}
             <h3>
                 {{ application.asset_title }}
             </h3>
@@ -29,9 +29,9 @@
         <a
             class="button--blue light-bg"
             href="#begin"
-            {% if application.step == "2" %}
+            {% if application.step == "3" %}
                 title="{{ application.essential_start_button_title }}"
-            {% elseif application.step == "3" %}
+            {% elseif application.step == "4" %}
                 title="{{ application.asset_start_button_title }}"
             {% endif %}>
             {{ application.skills_start_button_label }}
@@ -63,19 +63,19 @@
 
                         {% for item in job.skills %}
 
-                            {% if application.step == "2" %}
+                            {% if application.step == "3" %}
                 
                                 {% if item.type == "essential" %}
 
-                                    {% include "applicant/application_post/common/skill" %}
+                                    {% include "applicant/application_post/common/skill-content" %}
 
                                 {% endif %}
 
-                            {% elseif application.step == "3" %}
+                            {% elseif application.step == "4" %}
                                 
                                 {% if item.type == "asset" %}
 
-                                    {% include "applicant/application_post/common/skill" %}
+                                    {% include "applicant/application_post/common/skill-content" %}
 
                                 {% endif %}
 
@@ -83,9 +83,47 @@
 
                         {% endfor %}
 
+                    {# Reference & Sample Templates #}
+
+                        {% include "applicant/application_post/common/reference" %}
+
+                        {% include "applicant/application_post/common/sample" %}
+
                 </div>
 
         </div>
+
+    </div>
+
+    <div 
+        class="container--copy">
+
+        {# Save Buttons #}
+
+            <div
+                class="flex-grid middle application-post__action-wrapper">
+
+                <div 
+                    class="box med-1of2">
+
+                    <button
+                        class="button--blue light-bg">
+                        {{ application.save_quit_button_label }}
+                    </button>
+
+                </div>
+
+                <div 
+                    class="box med-1of2">
+
+                    <button
+                        class="button--blue light-bg">
+                        {{ application.save_continue_button_label }}
+                    </button>
+
+                </div>
+
+            </div>
 
     </div>
 

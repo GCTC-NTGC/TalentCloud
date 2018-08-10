@@ -27,6 +27,72 @@
 
         {% include "common/footer" %}
 
+        <div class="container--layout">
+
+            {# Accordion Sample #}
+
+                <div
+                    class="application-post__accordion accordion active">
+
+                    <div
+                        aria-expanded="true"
+                        class="accordion-trigger"
+                        tabindex="0">
+
+                        <div 
+                            class="accordion-status">
+
+                            <i class="fas fa-check"></i>
+
+                            <i class="fas fa-exclamation-circle"></i>
+
+                        </div>
+
+                        <span
+                            class="accordion-title">
+                            Accordion Title
+                        </span>
+
+                        <i class="fas fa-chevron-up"></i>
+
+                    </div>
+
+                    <div
+                        aria-hidden="false"
+                        class="accordion-content">
+
+                        <div
+                            class="form__wrapper">
+                            Form
+                        </div>
+
+                        <div
+                            class="accordion-actions flex-grid">
+
+                            <div
+                                class="box med-1of2">
+                                <button
+                                    class="button--red light-bg">
+                                    Delete This
+                                </button>
+                            </div>
+
+                            <div
+                                class="box med-1of2">
+                                <button
+                                    class="button--blue light-bg">
+                                    Save This
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
         {# Scripts #}
 
         {% include "common/scripts" %}

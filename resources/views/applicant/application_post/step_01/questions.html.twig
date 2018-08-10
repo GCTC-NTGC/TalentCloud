@@ -11,6 +11,66 @@
         class="container--copy">
 
         <h3>
+            {{ application.language_title }}
+        </h3>
+
+        <div 
+            class="application-post__language-alert flex-grid middle">
+
+            <div class="box med-1of5">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+
+            <div 
+                class="box med-4of5">
+                <p 
+                    class="job-post__apply-content">
+                    {{ application.language_copy }}
+                </p>
+            </div>
+
+        </div>
+
+        <div 
+            class="flex-grid application-post__language-agreement">
+
+            <div 
+                class="box small-1of2">
+
+                <label
+                    for="languageAgree">
+
+                    <input 
+                        id="languageAgree"
+                        name="languageAgreement"
+                        type="radio">
+
+                    {{ application.language_agree }}
+
+                </label>
+
+            </div>
+
+            <div 
+                class="box small-1of2">
+
+                <label
+                    for="languageDisagree">
+
+                    <input 
+                        id="languageDisagree"
+                        name="languageAgreement"
+                        type="radio">
+
+                    {{ application.language_disagree }}
+
+                </label>
+
+            </div>
+
+        </div>
+
+        <h3>
             {{ application.question_title }}
         </h3>
 
