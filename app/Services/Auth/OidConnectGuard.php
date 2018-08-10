@@ -20,48 +20,36 @@ class OidConnectGuard implements Guard {
     protected $requestTokenParser;
     protected $jwtValidator;
     protected $tokenRefresher;
-    
+
     protected $user;
-    
+
     /**
      * Set to true when user() has already ran once.
-     * @var bool 
+     * @var bool
      */
     protected $userAlreadyAttempted;
-    
-    
-    
-    /**
-     * The user roles that will be considered valid
-     * 
-     * @var array
-     */
-    protected $validRoles;
 
     /**
      * Create a new authentication guard.
-     * 
-     * 
+     *
+     *
      * @param UserProvider $provider
      * @param RequestTokenParser $requestTokenParser
      * @param JwtValidator $jwtValidator
      * @param TokenRefresher $tokenRefresher
-     * @param array $validRoles
      * @param Request $request
      */
-    public function __construct(UserProvider $provider, 
-            RequestTokenParser $requestTokenParser, 
-            JwtValidator $jwtValidator, 
+    public function __construct(UserProvider $provider,
+            RequestTokenParser $requestTokenParser,
+            JwtValidator $jwtValidator,
             TokenRefresher $tokenRefresher,
-            array $validRoles, 
             Request $request) {
         $this->request = $request;
         $this->provider = $provider;
         $this->requestTokenParser = $requestTokenParser;
         $this->jwtValidator = $jwtValidator;
         $this->tokenRefresher = $tokenRefresher;
-        $this->validRoles = $validRoles;
-        $this->user = NULL;  
+        $this->user = NULL;
         $this->userAlreadyAttempted = false;
     }
 
@@ -95,17 +83,17 @@ class OidConnectGuard implements Guard {
 
     public function user() {
         debugbar()->info("in Guard.user()");
-        
+
         // If we've already retrieved the user for the current request we can just
         // return it back immediately. We do not want to fetch the user data on
         // every call to this method because that would be tremendously slow.
         if (! is_null($this->user) || $this->userAlreadyAttempted) {
             return $this->user;
         }
-        
+
         $this->userAlreadyAttempted = true;
         $user = null;
-        
+
         try {
             $idToken = $this->requestTokenParser->parse($this->request);
         } catch (AuthenticationException $exception) {
@@ -113,47 +101,51 @@ class OidConnectGuard implements Guard {
             debugbar()->warning($exception->getMessage());
             return $user;
         }
-        
+
         if (!$this->jwtValidator->claimsAreValid($idToken) ||
                 !$this->jwtValidator->signatureIsValid($idToken)) {
             debugbar()->warning("Bearer token exists but is not valid");
             return $user;
         }
-        
+
         //At this point, token is definitely valid
         if ($this->jwtValidator->isExpired($idToken)) {
             debugbar()->info("Id token expired");
-            
+
             //TODO refresh token
             $iss = $idToken->getClaim("iss");
             $sub = $idToken->getClaim("sub");
             try {
                 $idToken = $this->tokenRefresher->refreshIDToken($iss, $sub);
                 debugbar()->info("Refreshed id token");
-                
+
             } catch (TokenStorageException $storageException) {
                 debugbar()->warning($storageException->getMessage());
                 return $user;
             } catch (TokenRequestException $requestException) {
                 debugBar()->warning($requestException->getMessage());
                 return $user;
-            }            
-            //TODO store new id token
+            }
             $this->requestTokenParser->save($idToken);
         }
 
         $credentials = $idToken->getClaims();
 
         $user = $this->provider->retrieveByCredentials($credentials);
-        
-        $this->user = $user;        
+
+        $this->user = $user;
         return $user;
     }
 
     public function validate(array $credentials = array()): bool {
         debugbar()->info("in Guard.validate()");
-        
-        $user = $this->user();
-        return in_array($user->getRole(), $this->validRoles);
+        if (empty($credentials['id_token'])) {
+            return false;
+        }
+        $token = $this->requestTokenParser->parseFromString($credentials['id_token']);
+
+        return $this->jwtValidator->claimsAreValid($idToken) &&
+          !$this->jwtValidator->isExpired($idToken) &&
+          $this->jwtValidator->signatureIsValid($idToken);
     }
 }

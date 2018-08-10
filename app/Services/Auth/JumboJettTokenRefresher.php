@@ -16,34 +16,34 @@ use App\Exceptions\Auth\TokenStorageException;
  * https://github.com/furdarius/oidconnect-laravel
  */
 class JumboJettTokenRefresher implements TokenRefresher {
-    
+
     /**
      * Used for saving and fetching refresh tokens.
-     * @var TokenStorage 
+     * @var TokenStorage
      */
     protected $tokenStorage;
-    
+
     /**
      *
-     * @var Parser 
+     * @var Parser
      */
     protected $parser;
-    
+
     /**
      *
      * @var OpenIDConnectClient
      */
     protected $connectClient;
-    
-    public function __construct(TokenStorage $tokenStorage, Parser $parser, 
+
+    public function __construct(TokenStorage $tokenStorage, Parser $parser,
             string $authUrl, string $clientId, string $clientSecret) {
         $this->tokenStorage = $tokenStorage;
         $this->parser = $parser;
         $this->connectClient = new OpenIDConnectClient($authUrl, $clientId, $clientSecret);
     }
-    
+
     /**
-     * 
+     *
      * @param string $sub
      * @param string $iss
      * @return Token $idToken
@@ -57,19 +57,19 @@ class JumboJettTokenRefresher implements TokenRefresher {
             $response = $this->connectClient->refreshToken($refreshToken);
             if (isset($response->error)) {
                 //Delete refresh token if it failed
-                $this->tokenStorage->saveRefresh($iss, $sub, null);
+                $this->tokenStorage->forgetRefresh($iss, $sub);
                 throw new TokenRequestException($response->error);
             }
         } catch (OpenIDConnectClientException $exception) {
             //Delete refresh token if it failed
-            $this->tokenStorage->saveRefresh($iss, $sub, null);
+            $this->tokenStorage->forgetRefresh($iss, $sub);
             throw new TokenRequestException($exception->getMessage());
-        }        
+        }
         if (!$this->tokenStorage->saveRefresh($iss, $sub, $response->refresh_token)) {
             throw new TokenStorageException("Failed to store refresh token");
         }
+        //Save new access token we received as well
         $this->tokenStorage->saveAccess($iss, $sub, $response->access_token);
         return $this->parser->parse($response->id_token);
     }
 }
-

@@ -45,11 +45,10 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-        
+
         'oidconnect_applicants' => [
             'driver' => 'oidconnect',
             'provider' => 'oidc_make_applicant',
-            'valid_roles' => ['applicant']
         ]
     ],
 
@@ -82,7 +81,7 @@ return [
             'default_role' => 'applicant'
         ],
     ],
-    
+
 
     /*
     |--------------------------------------------------------------------------

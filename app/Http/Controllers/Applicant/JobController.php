@@ -17,7 +17,7 @@ class JobController extends Controller
     public function index()
     {
         /*
-         * 
+         *
         "jobs" => [
             "0" => [
                 "link" => "/browse/jobs/00/",
@@ -45,11 +45,10 @@ class JobController extends Controller
             ]
         ]
          */
-        \Illuminate\Support\Facades\Auth::user();
         $now = Carbon::now();
         //Find jobs that are currently open for applications
         $jobs = JobPoster::where('open_date_time', '<=', $now)->where('close_date_time', '>=', $now)->get();
-        return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'), 
+        return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs]);
     }
 

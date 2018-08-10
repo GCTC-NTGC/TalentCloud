@@ -66,6 +66,14 @@ class RequestTokenParser
           */
     }
 
+    /**
+     * @param string $tokenString     *
+     * @return Token
+     */
+    public function parseFromString(string $tokenString): Token {
+      return $this->parser->parse($tokenString);
+    }
+
     public function save(Token $token) {
         //session([static::COOKIE_KEY => (string)$token]);
         //Cookie::queue(static::COOKIE_KEY, (string)$token);
