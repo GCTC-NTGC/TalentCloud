@@ -1,8 +1,7 @@
-language:
-  - ruby
+# language: php, ruby
 
-php:
-  - 7.2
+# php:
+#   - 7.2
 
 sudo: required
 
