@@ -659,7 +659,7 @@ Route::get('profile', function () {
             ]
         ]
     ]);
-})->name('profile')->middleware('auth:oidconnect_applicants');
+})->name('profile');
 
 /* Auth */
 
@@ -677,6 +677,5 @@ Route::get('laravel', function () {
     } else {
         $user = (object)['name' => 'login failed'];
     }
-    debugbar()->info(cookie('laravel_session'));
-    return view('welcome', ['t1' => 'test']);
+    return view('welcome', ['t1' => $user->name]);
 })->name('test');
