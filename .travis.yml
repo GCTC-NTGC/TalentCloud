@@ -26,7 +26,7 @@ before_install:
 before_script:
   - sudo make docker-start
   - sleep 1m
-  - sudo make clean
+  # sudo make clean
   - composer self-update
   - composer install --no-interaction --prefer-source
   - npm i -g npm
