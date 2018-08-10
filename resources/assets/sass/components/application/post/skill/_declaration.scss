@@ -1,0 +1,160 @@
+// =============================================================================
+
+    // Application Post: Skill Declaration
+
+// =============================================================================
+.application-post__skill-declaration {
+    background: $palette--white;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+    margin: 0 0 calc(#{$unit} * 2);
+    overflow: hidden;
+
+    &.inactive {
+
+        .application-post__skill-declaration-content {
+            display: none;
+        }
+
+        .application-post__skill-declaration-trigger {
+            background: $palette--green;
+
+            .fa-chevron-up {
+                transform: translate(-50%, -50%) rotate(180deg);
+            }
+
+        }
+
+    }
+
+    &.complete {
+
+        .application-post__skill-declaration-trigger {
+
+            div {
+                background: $palette--green;
+
+                .fa-exclamation-triangle {
+                    display: none;
+                }
+
+                .fa-check {
+                    display: block;
+                }
+
+            }
+
+        }
+
+    }
+
+    .application-post__skill-declaration-trigger {
+        cursor: pointer;
+        position: relative;
+
+        div {
+            background: $palette--red;
+            display: inline-block;
+            height: 5rem;
+            position: relative;
+            width: 5rem;
+            vertical-align: middle;
+
+            i {
+                color: $palette--white;
+                font-size: $font-scale--h4;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .fa-exclamation-triangle {
+                display: block;
+            }
+
+            .fa-check {
+                display: none;
+            }
+
+        }
+
+        h5 {
+            color: $palette--font-black;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            font-weight: 600;
+            margin: 0;
+            padding: 0 0 0 calc(#{$unit} * 2);
+            vertical-align: middle;
+        }
+
+        .fa-chevron-up {
+            position: absolute;
+            top: 50%;
+            right: 2rem;
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+    }
+
+    .application-post__skill-declaration-content {
+        border-top: 1px solid darken($palette--white, 20%);
+        padding: calc(#{$unit} * 2);
+
+        .application-post__skill-declaration-help-button {
+            background: none;
+            border: 0;
+            color: $palette--font-black;
+            cursor: pointer;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            margin: 0 0 calc(#{$unit} * 2);
+            outline: none;
+            padding: 0;
+            text-decoration: underline;
+            transition: color .2s ease;
+
+            @media #{$p-tablet} {
+                margin: 0 0 calc(#{$unit} / 2);
+            }
+
+            &:hover {
+                color: $palette--blue;
+                transition: color .2s ease;
+            }
+
+        }
+
+        button {
+            position: relative;
+        }
+
+        >.flex-grid {
+
+            >.box {
+
+                &:first-child {
+
+                    @media #{$p-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+                &:nth-last-child(1) {
+
+                    @media #{$p-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

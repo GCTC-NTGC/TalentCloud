@@ -1,0 +1,152 @@
+<div
+    class="application-post__accordion--course accordion active {% if experience.course_name == null %}template{% endif %}" 
+    data-experience-id="{{ experienceCounter }}">
+
+    <div
+        aria-expanded="true"
+        class="accordion-trigger"
+        tabindex="0">
+
+        <span
+            class="accordion-title">
+            {% if experience.course_name %}
+                ({{ application.experience.course_label }}) {{ experience.course_name }}
+            {% else %}
+                New Course
+            {% endif %}
+        </span>
+
+        <i class="fas fa-chevron-up"></i>
+
+    </div>
+
+    <div
+        aria-hidden="false"
+        class="accordion-content">
+
+        <div
+            class="form__wrapper">
+            
+            <div 
+                class="flex-grid">
+
+                <div
+                class="box med-1of2">
+
+                    <div 
+                        class="form__input-wrapper--float {% if experience.course_name != null%}active{% endif %}"
+                        data-form-id="experience-course-name">
+
+                        <label 
+                            class="form__label"
+                            for="courseName{{ experienceCounter }}">
+                            {{ application.experience.course_name_label }}
+                        </label>
+
+                        <input
+                            class="form__input"
+                            id="courseName{{ experienceCounter }}"
+                            type="text"
+                            value="{{ experience.course_name }}">
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div 
+                        class="form__input-wrapper--float {% if experience.institution != null%}active{% endif %}"
+                        data-form-id="experience-institution">
+
+                        <label 
+                            class="form__label"
+                            for="institution{{ experienceCounter }}">
+                            {{ application.experience.institution_label }}
+                        </label>
+
+                        <input
+                            class="form__input"
+                            id="institution{{ experienceCounter }}"
+                            type="text"
+                            value="{{ experience.institution }}">
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div 
+                        class="form__input-wrapper--date"
+                        data-form-id="experience-start-date">
+
+                        <label 
+                            class="form__label"
+                            for="startDate{{ experienceCounter }}">
+                            {{ application.experience.start_date_label }}
+                        </label>
+
+                        <input
+                            class="form__input"
+                            id="startDate{{ experienceCounter }}"
+                            type="date"
+                            value="{{ experience.start_date }}">
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div 
+                        class="form__input-wrapper--date"
+                        data-form-id="experience-end-date">
+
+                        <label 
+                            class="form__label"
+                            for="endDate{{ experienceCounter }}">
+                            {{ application.experience.end_date_label }}
+                        </label>
+
+                        <input
+                            class="form__input"
+                            id="endDate{{ experienceCounter }}"
+                            type="date"
+                            value="{{ experience.end_date }}">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            class="accordion-actions flex-grid">
+
+            <div
+                class="box med-1of2">
+                <button
+                    class="button--red light-bg">
+                    {{ application.experience.delete_button_label }}
+                </button>
+            </div>
+
+            <div
+                class="box med-1of2">
+                <button
+                    class="button--blue light-bg">
+                    {{ application.experience.save_button_label }}
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

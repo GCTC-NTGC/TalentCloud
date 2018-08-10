@@ -32,7 +32,7 @@ return [
         "link" => "https://account.gccollab.ca/register/" 
     ],
     "login" => [
-        "name" => "Login",
+        "name" => "Login (GC Account)",
         "link" => route('login')
     ],
     "logout" => [
