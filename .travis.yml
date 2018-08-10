@@ -1,7 +1,9 @@
-language: php
-
-php:
-  - 7.2
+matrix:
+    include:
+        language: php
+        php:
+            - 7.2
+        language: ruby
 
 sudo: required
 
@@ -25,7 +27,7 @@ before_script:
   - sudo make docker-start
   - sleep 1m
   - sudo make clean
-  - composer update
+  - composer self-update
   - composer install --no-interaction --prefer-source
   - npm i -g npm
   - npm install
