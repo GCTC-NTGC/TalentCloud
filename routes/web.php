@@ -25,7 +25,7 @@ Route::get('jobs/{id}', function () {
         "job_post" => [
             "title" => "Browse Jobs",
             "days_remaining_label" => "Days Remaining",
-            "applicants_label" => "Applicants", 
+            "applicants_label" => "Applicants",
             "location_icon_label" => "Location Icon.",
             "remote_icon_label" => "Remote Work Icon.",
             "reference_id_label" => "Reference ID #",
@@ -911,7 +911,7 @@ Route::get('applications/00/step-03', function () {
 
 Route::get('applications/00/step-04', function () {
     return view('applicant/application_post_04', [
-        
+
     ]);
 })->name('application.post04');
 
@@ -1056,16 +1056,19 @@ Route::get('profile', function () {
 
 /* Auth */
 
-Route::get('login', function() {
-    //TODO
-    return redirect()->route('home');
-})->name('login');
+Route::get('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
 
-Route::get('logout', function() {
-    //TODO
-    return redirect()->route('home');
-})->name('logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('logout/callback', 'Auth\LoginController@logoutCallback')->name('logout.callback');
+
+//Route::get('logout/gccollab', 'Auth')
 
 Route::get('laravel', function () {
-    return view('welcome');
-});
+    if (Auth::check()) {
+        $user = Auth::user();
+    } else {
+        $user = (object)['name' => 'login failed'];
+    }
+    return view('welcome', ['t1' => $user->name]);
+})->name('test');
