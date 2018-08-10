@@ -13,6 +13,8 @@ services:
   - mysql
 
 before_install:
+  - rm -rf /vendor
+  - rm -rf /vendor-cache
   - sudo apt update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
@@ -23,8 +25,7 @@ before_install:
 
 before_script:
   - sudo make docker-start
-  - rm -rf /home/travis/build/GCTC-NTGC/TalentCloud/vendor/*
-  - composer update --prefer-dist
+  - composer self-update
   - composer install --no-interaction --prefer-source
   - npm i -g npm
   - npm install
