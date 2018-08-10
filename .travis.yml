@@ -2,7 +2,9 @@ matrix:
     include:
         language: php
         php:
-            - 7.2
+            - '7.0'
+            - '7.1'
+            - '7.2'
         language: ruby
 
 sudo: required
@@ -25,7 +27,6 @@ before_install:
 
 before_script:
   - sudo make docker-start
-  - sleep 1m
   # sudo make clean
   - composer self-update
   - composer install --no-interaction --prefer-source
