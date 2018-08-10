@@ -24,7 +24,7 @@ before_install:
 before_script:
   - sudo make docker-start
   - rm -rf /home/travis/build/GCTC-NTGC/TalentCloud/vendor/*
-  - composer self-update
+  - composer update --prefer-dist
   - composer install --no-interaction --prefer-source
   - npm i -g npm
   - npm install
