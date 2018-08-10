@@ -38,7 +38,7 @@
         >.flex-grid {
 
             >.box {
-                padding: calc(#{$unit} * 1.5);
+                padding: calc(#{$unit} * 1.5) 0;
 
                 &:last-child {
                     text-align: center;

@@ -1,0 +1,40 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Manager - Questions
+
+============================================================================= #}
+<div
+    class="applicant-profile__questions">
+
+    <div
+        class="container--copy">
+
+        {% for section in manager.profile_sections %}
+
+            <h4>
+                {{ section.title }}
+            </h4>
+
+            {% for question in section.questions %}
+
+                {% if question.answer %}
+
+                    <span>
+                        {{ question.title }}
+                    </span>
+
+                    <p
+                        class="applicant-manager__answer">
+                        {{ question.answer }}
+                    </p>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </div>
+
+</div>

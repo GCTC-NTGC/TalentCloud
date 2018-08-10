@@ -1,0 +1,147 @@
+<div
+    class="application-post__experience">
+
+    <div
+        class="container--copy">
+
+        <h3>
+            {{ application.experience.title }}
+        </h3>
+
+        <p>
+            {{ application.experience.description }}
+        </p>
+
+    </div>
+
+    <div
+        class="container--layout">
+
+        {# Experience Templates #}
+
+            {% include "applicant/application_post/step_02/degree" %}
+
+            {% include "applicant/application_post/step_02/course" %}
+
+            {% include "applicant/application_post/step_02/work" %}
+
+        {# Current Experience #}
+
+            <div 
+                class="application-post__experience-wrapper">
+
+                {% set experienceCounter = 0 %}
+
+                {% for experience in user.experience %}
+
+                    {% if experience.type == "degree" %}
+
+                        {% set experienceCounter = experienceCounter + 1 %}
+
+                        {% include "applicant/application_post/step_02/degree" %}
+
+                    {% elseif experience.type == "course" %}
+
+                        {% set experienceCounter = experienceCounter + 1 %}
+
+                        {% include "applicant/application_post/step_02/course" %}
+
+                    {% elseif experience.type == "work" %}
+
+                        {% set experienceCounter = experienceCounter + 1 %}
+
+                        {% include "applicant/application_post/step_02/work" %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        {# Experience Controls #}
+
+            <div
+                class="application-post__experience-controls flex-grid">
+
+                <div 
+                    class="box med-1of3">
+                    <button
+                        class="button--add"
+                        id="addDegreeButton">
+                        <div>
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div>
+                            <span>
+                                Add a Degree
+                            </span>
+                        </div>
+                    </button>
+                </div>
+
+                <div 
+                    class="box med-1of3">
+                    <button
+                        class="button--add"
+                        id="addCourseButton">
+                        <div>
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div>
+                            <span>
+                                Add a Course
+                            </span>
+                        </div>
+                    </button>
+                </div>
+
+                <div 
+                    class="box med-1of3">
+                    <button
+                        class="button--add"
+                        id="addWorkButton">
+                        <div>
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div>
+                            <span>
+                                Add Lived Experience
+                            </span>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+
+    </div>
+
+    <div class="container--copy">
+
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+
+            <div 
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg">
+                    {{ application.save_quit_button_label }}
+                </button>
+
+            </div>
+
+            <div 
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg">
+                    {{ application.save_continue_button_label }}
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

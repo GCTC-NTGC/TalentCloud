@@ -10,12 +10,12 @@
     <nav 
         class="application-post__subnav-sticky-wrapper">
 
-        {% if application.step == "2" %}
+        {% if application.step == "3" %}
             <h4 
                 class="application-post_subnav-label">
                 {{ application.essential_sidebar_label }}
             </h4>
-        {% elseif application.step == "3" %}
+        {% elseif application.step == "4" %}
             <h4 
                 class="application-post_subnav-label">
                 {{ application.asset_sidebar_label }}
@@ -24,7 +24,7 @@
 
         {% for item in job.skills %}
 
-            {% if application.step == "2" %}
+            {% if application.step == "3" %}
                 
                 {% if item.type == "essential" %}
 
@@ -37,7 +37,7 @@
 
                 {% endif %}
 
-            {% elseif application.step == "3" %}
+            {% elseif application.step == "4" %}
                 
                 {% if item.type == "asset" %}
 

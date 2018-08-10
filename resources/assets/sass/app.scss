@@ -27,7 +27,7 @@
 
     html,
     body {
-        background: darken($palette--white, 5%);
+        background: darken($palette--white, 10%);
         margin: 0;
     }
 
@@ -63,6 +63,12 @@
         width: 90%;
     }
 
+    .hidden {
+        display: none;
+        height: 0;
+        visibility: hidden;
+    }
+
 // Components ==================================================================
 
     // Common
@@ -76,6 +82,7 @@
 
         @import "components/buttons";
         @import "components/forms";
+        @import "components/accordions";
 
     // Home
 
@@ -118,11 +125,15 @@
 
             @import "components/application/post/questions";
 
-        // Step 02 (Essential Criteria)
+        // Step 02 (Experience)
 
-        // Step 03 (Asset Criteria)
+            @import "components/application/post/experience";
 
-        // Step 04 (Preview)
+        // Step 03 (Essential Criteria)
+
+        // Step 04 (Asset Criteria)
+
+        // Step 05 (Preview)
 
     // Applicant Profile
 

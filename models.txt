@@ -1,0 +1,170 @@
+Skills =========================================================================
+
+    Models
+        - root
+            - skill
+                - skill ID (generated)
+                - title (text)
+                - description (paragraph)
+                - type (radio)
+                    - hard
+                    - soft
+
+    Relationships
+        - skill declarations
+            - each applicant can have one skill declaration related to a skill
+        - job posts
+            - each skill can be related to each job post once
+            - this relationship is categorized by "essential" or "asset"
+
+
+    Skill Declarations =========================================================
+    
+        Model
+            - root
+                - user (applicant)
+                    - skill declaration
+                        - level (radio)
+                            - beginner
+                            - intermediate
+                            - expert
+                            - master
+                        - experience (radio)
+                            - > 1
+                            - 2 - 3
+                            - 4 - 5
+                            - 6 - 7
+                            - 8 +
+                        - knowledge (paragraph)
+
+        Relationships
+            - users (applicant)
+                - an applicant can have many declarations
+            - skills
+                - each applicant can have one declaration for each skill
+            - job application
+                - each applicant can have many declarations for each job application
+            - users (manager)
+                - an applicant's declaration can be accepted by many managers for each job application
+                - an applicant's declaration can be endorsed by many managers for each job/project
+
+        States
+            - completion (per user, per skill)
+                - null
+                - incomplete
+                - complete
+            - acceptance (per application)
+                - pending
+                - accepted
+                - declined
+            - endorsement (per job/project)
+                - default
+                - endorsed
+
+    References =================================================================
+
+        Model
+            - root
+                - user (applicant)
+                    - reference
+                        - full name (text)
+                        - email (email)
+                        - relationship (select)
+                            - subordinate
+                            - coworker
+                            - superior
+                        - start date (date)
+                        - end date (date)
+                        - experience at the time (radio)
+                            - > 1
+                            - 2 - 3
+                            - 4 - 5
+                            - 6 - 7
+                            - 8 +
+                        - work description (paragraph)
+
+        Relationships
+            - users (applicant)
+                - an applicant can have many references
+            - skill declarations
+                - each applicant can have many references related to multiple skill declarations
+
+        States
+            - completion (per user, per skill)
+                - null
+                - incomplete
+                - complete
+            - validation
+                - unvalidated
+                - validated
+
+    Work Samples ===============================================================
+
+        Model
+            - root
+                - user (applicant)
+                    - work sample
+                        - project name (text)
+                        - work type (select)
+                            - document
+                            - image
+                            - website / application
+                            - presentation
+                            - video
+                            - article / publication
+                            - other
+                        - date created (date)
+                        - link (text)
+                        - story (paragraph)
+
+        Relationships
+            - users (applicant)
+                - an applicant can have many work samples
+            - skill declarations
+                - each applicant can havee many work samples related to multiple skill declarations
+
+        States
+            - completion (per user, per skill)
+                - null
+                - incomplete
+                - complete
+
+Experience & Education =========================================================
+
+    Model
+        - root
+            - user (applicant)
+                - experience
+                    - degree
+                        - degree type (select)
+                            - diploma
+                            - certificate
+                            - bachelor's
+                            - master's
+                            - phd
+                        - area of study (text)
+                        - institution name (text)
+                        - start date (date)
+                        - end date (date)
+                    - course
+                        - course name (text)
+                        - institution name (text)
+                        - start date (date)
+                        - end date (date)
+                    - work
+                        - company/group name (text)
+                        - description (paragraph)
+                        - start date (date)
+                        - end date (date)
+
+    Relationships
+        - users (applicant)
+        - job post
+
+    States
+        - submission (per application)
+            - unsubmitted
+            - submitted
+
+    Other Info
+        - Job Post: managers can set experience restrictions on a job post. This can be an individual degree, a combination of a diploma and course work, a degree or alternative work experience, etc. The post creation form should allow for managers to select the minimum required degree for the job (select), specify which area of studies are acceptible (text), specify if specific course work is required (text), and finally, whether they are willing to accept equivalent work experience in place of the degree/courses (checkbox). Users will be shown the manager's requirements on the job post itself, as well as again on the job application (step 02). They will be allowed to CRUD types of experience right within the application and then select the experience they'd like to submit for that job application specifically (checkbox).

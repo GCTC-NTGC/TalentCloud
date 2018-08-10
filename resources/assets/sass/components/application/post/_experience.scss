@@ -1,15 +1,15 @@
 // =============================================================================
 
-    // Profile: Questions
+    // Application Post: Experience
 
 // =============================================================================
-.applicant-profile__questions {
-    background: $palette--white;
+.application-post__experience {
+    // background: $palette--white;
     padding: $section-padding;
 
-    .container--copy {
+    >.container--copy {
 
-        >h4 {
+        >h3 {
             border-bottom: 1px solid $palette--font-black;
             color: $palette--black;
             font-family: $font--sans;
@@ -49,20 +49,24 @@
 
         }
 
-        >div {
-            margin: calc(#{$unit} * 1.5) 0;
+    }
 
-            .form__textarea {
-                min-height: calc(#{$unit} * 15);
-            }
+    >.container--layout {
+        border-top: 1px solid darken($palette--white, 20%);
+        margin-top: calc(#{$unit} * 5);
+        border-bottom: 1px solid darken($palette--white, 20%);
+        margin-bottom: calc(#{$unit} * 5);
+        padding: $section-padding;
+    }
 
-        }
+    .application-post__experience-controls {
+        margin: 0 -1rem;
 
-        >button {
-            margin: 0 0 calc(#{$unit} * 4);
+        .box {
+            padding: 0 1rem 1rem 1rem;
 
-            &:last-child {
-                margin-bottom: 0;
+            @media #{$p-tablet} {
+                padding: 0 1rem;
             }
 
         }

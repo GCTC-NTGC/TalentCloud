@@ -29,10 +29,13 @@
                 <div
                     class="box small-2of3 lg-3of4">
 
-                    <span
-                        class="application-post__tracker-job-title">
+                    <a
+                        class="application-post__tracker-job-title"
+                        href="{{ job.link }}"
+                        target="_blank"
+                        title="{{ application.tracker_job_link_title }}">
                         {{ job.title }}
-                    </span>
+                    </a>
 
                     <span
                         class="application-post__tracker-job-department">
@@ -48,7 +51,7 @@
 
                 <span
                     class="application-post__tracker-step">
-                    {{ application.tracker_label }} {{ application.step }}/4
+                    {{ application.tracker_label }} {{ application.step }}/5
                 </span>
 
                 {% for item in application.tracker %}
