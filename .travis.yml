@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 7.1
+  - 7.2
 
 sudo: required
 
@@ -23,7 +23,7 @@ before_install:
 
 before_script:
   - sudo make docker-start
-  # sudo make clean
+  - rm -rf vendor
   - composer update
   - composer install --no-interaction --prefer-source
   - npm i -g npm
