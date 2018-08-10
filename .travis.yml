@@ -1,5 +1,8 @@
-# language:
-#   - php
+language:
+  - ruby
+
+php:
+  - 7.2
 
 sudo: required
 
@@ -20,6 +23,7 @@ before_install:
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
 before_script:
+  - sudo make clean
   - sudo make docker-start
   - composer self-update
   - composer install --no-interaction --prefer-source

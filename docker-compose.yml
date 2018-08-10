@@ -51,7 +51,7 @@ services:
             - "MYSQL_USER=talentcloud"
             - "MYSQL_PASSWORD=talentcloud"
         ports:
-            - "3306:3306"
+            - "33061:3306"
     # PHP MyAdmin
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -67,6 +67,7 @@ services:
     # Composer
     composer:
         image: "composer"
+        container_name: composer
         volumes:
             - "./:/app"
         command:
