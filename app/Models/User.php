@@ -26,7 +26,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
-class User extends Eloquent {
+
+use App\Services\Auth\Contracts\OidcAuthenticatable;
+
+class User extends Eloquent implements OidcAuthenticatable{
 
     protected $casts = [
         'is_confirmed' => 'bool',
@@ -48,6 +51,79 @@ class User extends Eloquent {
 
     public function user_role() {
         return $this->belongsTo(\App\Models\UserRole::class);
+    }
+
+    ///////////////////////////////////////////
+    //Authenticatable Interface Implementation
+    ///////////////////////////////////////////
+    
+    public function getAuthIdentifier() {
+        return $this->id;
+    }
+
+    public function getAuthIdentifierName() {
+        return "id";
+    }
+
+    public function getAuthPassword() {
+        return null;
+    }
+
+    public function getRememberToken() {
+        //TODO
+        return null;
+    }
+
+    public function getRememberTokenName() {
+        //TODO
+        return null;
+    }
+
+    public function setRememberToken($value) {
+        //TODO
+        return null;
+    }
+
+    ///////////////////////////////////////////
+    //OidcAuthenticatable Interface Implementation
+    ///////////////////////////////////////////
+    
+    public function getRole(): array {
+        return $this->role;
+    }
+
+    public function getSub($iss): string {
+        //TODO: implement alterative issuers
+        return $this->open_id_sub;
+    }
+
+    /**
+     * Get the OidcAuthenticatable object that matches the given issuer and sub. 
+     *
+     * @return App\Services\Auth\Contracts\OidcAuthenticatable|null
+     */
+    public function findByOidcSub($iss, $sub) {
+        //TODO: allow alternative issuers
+        return User::where('open_id_sub', $sub)->first();
+    }
+
+    /**
+     * Get the OidcAuthenticatable object initialized with the given data. 
+     *
+     * @return App\Services\Auth\Contracts\OidcAuthenticatable
+     */
+    public function createWithOidcCredentials($name, $email, $iss, $sub, $role) {
+        $user = new User();
+        $user->name = $name;
+        $user->email = $email;
+        //TODO: save iss
+        $user->open_id_sub = $sub;
+        $user->user_role_id = UserRole::where('name', $role)->first()->id;
+        
+        //TODO: switch to email authentication
+        $user->is_confirmed = true;     
+        
+        return $user;
     }
 
 }

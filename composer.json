@@ -2,8 +2,11 @@
     "require": {
         "php": "~7",
         "dimsav/laravel-translatable": "7.*",
+        "guzzlehttp/guzzle": "^6",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "jumbojett/openid-connect-php": "^0.4.1",
+        "lcobucci/jwt": "3.2",
         "rcrowe/twigbridge": "^0.9.6"
     },
 
