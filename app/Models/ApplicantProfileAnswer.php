@@ -32,6 +32,9 @@ class ApplicantProfileAnswer extends Eloquent {
         'applicant_profile_question_id',
         'answer'
     ];
+    protected $with = [
+        'applicant_profile_question'
+    ];
 
     public function applicant() {
         return $this->belongsTo(\App\Models\Applicant::class);
