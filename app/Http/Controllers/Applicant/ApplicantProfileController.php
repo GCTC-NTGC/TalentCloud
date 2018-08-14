@@ -38,7 +38,7 @@ class ApplicantProfileController extends Controller
         $applicant = $user->applicant;
         $profileQuestions = ApplicantProfileQuestion::all();
 
-        $profileText = 'job_index' => Lang::get('applicant/job_index');
+        $profileText = Lang::get('applicant/applicant_profile');
 
         $profileQuestionForms = [];
         foreach ($profileQuestions as $question) {
