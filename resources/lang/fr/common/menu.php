@@ -9,34 +9,35 @@ return [
      * The following language lines are used in the nav menu.
      *
      */
+    
     "home" => [
-        "name" => "Home",
+        "name" => "Accueil",
         "link" => route('home')
     ],
     "browse" => [
-        "name" => "Browse Jobs",
+        "name" => "Parcourir les emplois",
         "link" => route('jobs.index')
     ],
     "applications" => [
-        "name" => "My Applications",
+        "name" => "Mes applications",
         // "link" => route('application.index')
         "link" => "/applications/"
     ],
     "profile" => [
-        "name" => "My Profile",
+        "name" => "Mon profile",
         "link" => route('profile')
     ],
     "register" => [
-        "name" => "Register",
+        "name" => "Inscription",
         //A redirect parameter should be added to this link in MenuComposer
         "link" => "https://account.gccollab.ca/register/" 
     ],
     "login" => [
-        "name" => "Login (GC Account)",
+        "name" => "Ouverture de session (Compte GC)",
         "link" => route('login')
     ],
     "logout" => [
-        "name" => "Logout",
+        "name" => "Se déconnecter",
         "link" => route('logout')
     ]
 ];
