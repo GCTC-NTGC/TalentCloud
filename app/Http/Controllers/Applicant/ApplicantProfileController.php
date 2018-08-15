@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 class ApplicantProfileController extends Controller
 {
 
-    protected $questionFromNamePrefix = "applicantProfileQuestion_";
     protected $answerFormInputName = 'applicantProfileAnswer';
     protected $twitterProfilePrefix = 'https://twitter.com/';
 
@@ -50,26 +49,25 @@ class ApplicantProfileController extends Controller
             $formValues = ['value' => $question->value,
                 'description' => $question->description,
                 'answer' => $answer,
-                'answer_label' => $profileText->'answer_label',
-                'input_name' => $this->$questionFromNamePrefix . $question->id
+                'answer_label' => $profileText['answer_label'],
+                'input_name' => $this->answerFormInputName.'['.$question->id.']'
             ];
             array_push($profileQuestionForms, $formValues);
         }
 
         $userProfile = [
-            'name' => $user->name;
-            'tagline' => $applicant->tagline;
+            'name' => $user->name,
+            'tagline' => $applicant->tagline,
             'photo' => '/images/user.png', //TODO: get real photos
             'twitter' => [
-                'url' => $twitterProfilePrefix . $applicant->twitter_username,
+                'url' => $this->twitterProfilePrefix . $applicant->twitter_username,
                 'title' => Lang::get('applicant/applicant_profile.twitter_link_title', $user->name),
             ],
             'linkedin' => [
                 'url' => $applicant->linkedin_url,
                 'title' => Lang::get('applicant/applicant_profile.linkedin_link_title', $user->name),
             ]
-        ]
-
+        ];
 
         return view('applicant/profile', [
             /* Localized strings*/
