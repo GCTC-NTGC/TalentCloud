@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Applicant;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Applicant;
-use App\Models\Lookup\ApplicantProfileQuestion;
-use App\Models\ApplicantProfileAnswer;
 use Illuminate\Http\Request;
+use App\Models\Lookup\ApplicantProfileQuestion;
+use App\Models\Applicant;
+use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 
 class ApplicantProfileController extends Controller
 {
 
     protected $questionFromNamePrefix = "applicantProfileQuestion_";
+    protected $answerFormInputName = 'applicantProfileAnswer';
     protected $twitterProfilePrefix = 'https://twitter.com/';
 
     /**
@@ -84,11 +85,28 @@ class ApplicantProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Applicant $applicant)
+    public function update(Request $request)
     {
-        //
+        debugbar()->info($request->all());
+
+        $applicant = $request->user->applicant;
+
+        $questions = ApplicantProfileQuestion::all();
+
+        foreach($questions as $question) {
+            $answerName = $this->answerFormInputName . '.' . $question->id;
+            if ($request->has($answerName)) {
+                $answer = ApplicantProfileAnswer::firstOrNew(
+                        ['applicant_id' => $applicant->id,
+                            'applicant_profile_question_id' => $question->id]);
+                $answer->answer = $request->input($answerName);
+                $answer->save;
+            }
+        }
+
+        return redirect('profile');
     }
+
 }

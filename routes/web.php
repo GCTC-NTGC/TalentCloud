@@ -989,6 +989,8 @@ Route::get('browse/managers/123', function () {
 
 Route::get('profile', 'Applicant\ApplicantProfileController@edit')->name('profile')->middleware('auth');
 
+Route::post('profile/update','Applicant\ApplicantProfileController@update')->name('profile.update')->middleware('auth');
+
 /* Auth */
 
 Route::get('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
