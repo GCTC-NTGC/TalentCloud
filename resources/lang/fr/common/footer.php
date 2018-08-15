@@ -12,21 +12,21 @@ return [
 
     "terms" => [
         "link" => "/terms/",
-        "link_title" => "View our terms and conditions.",
-        "link_label" => "Terms & Conditions"
+        "link_title" => "Voir nos avis.",
+        "link_label" => "Avis"
     ],
     "privacy" => [
         "link" => "/privacy/",
-        "link_title" => "View our privacy policy.",
-        "link_label" => "Privacy Policy"
+        "link_title" => "Voir notre politique de confidentialité.",
+        "link_label" => "Confidentialité"
     ],
     "canada" => [
-        "link" => "https://www.canada.ca/en.html",
-        "link_title" => "Visit Canada.ca.",
+        "link" => "https://www.canada.ca/fr.html",
+        "link_title" => "Visiter Canada.ca",
         "link_label" => "Canada.ca"
     ],
-    "logo_link" => "https://www.canada.ca/en.html",
-    "logo_link_title" => "Visit Canada.ca.",
-    "logo_alt" => "Canada's Logo.",
+    "logo_link" => "https://www.canada.ca/fr.html",
+    "logo_link_title" => "Visiter Canada.ca",
+    "logo_alt" => "Symbole du gouvernement du Canada.",
     "logo_url" => "/images/logo_canada_white.png"
 ];
