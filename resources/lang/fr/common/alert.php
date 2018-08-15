@@ -11,9 +11,9 @@ return [
      *
      */
 
-    "copy" => "This site is under construction. The jobs are not in fact real at the moment.",
-    "feedback_copy" => "Help us improve GC Talent Cloud.",
+    "copy" => "Ce site est en construction. Les emplois ne sont pas réels en ce moment.",
+    "feedback_copy" => "Aidez-nous à améliorer le Nuage de talents.",
     "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
-    "feedback_link_title" => "Submit feedback to GC Talent Cloud via email.",
-    "feedback_link_copy" => "Submit Feedback"
+    "feedback_link_title" => "Soumettre des commentaires au Nuage de talents du GC par courriel.",
+    "feedback_link_copy" => "Soumettre des commentaires"
 ];
