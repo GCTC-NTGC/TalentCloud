@@ -9,24 +9,21 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "title" => "Browse Jobs",
+    "title" => "Parcourir les travaux",
     "index" => [
-        "view_title" => "View the job post for",
-        "location_label" => "Location",
-        "salary_label" => "Salary",
+        "view_title" => "Voir l'affiche de travail pour",
+        "location_label" => "Emplacement",
+        "salary_label" => "Salaire",
         "duration" => [
-            'week' => ':count week.|:count weeks.',
-            'month' => ':count month.|:count months.',
-            'year' => ':count year.|:count year.',
+            'week' => ':count semaine.|:count semaines.',
+            'month' => ':count mois.|:count mois.',
+            'year' => ':count ans.|:count ans.',
             'permanent' => 'Permanent.'
         ],
-        "duration_label" => "Duration",
-        "remote_label" => "Remote Work",
-        "days_remaining_label" => "day until close.|days until close.",
-        "applicants_label" => "applicant so far.|applicants so far.",
+        "duration_label" => "Durée",
+        "remote_label" => "Travail à distance",
+        "days_remaining_label" => "jour jusqu’à la date de clôture.|jours jusqu’à la date de clôture.",
+        "applicants_label" => "demandeur jusqu'à présent.|demandeurs jusqu'à présent.",
         "button_label" => "View Job"
     ]
 ];
-
-
-
