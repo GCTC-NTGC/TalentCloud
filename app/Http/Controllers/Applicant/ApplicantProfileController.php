@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Applicant;
 
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\GuardHelpers;
 use Illuminate\Http\Request;
+use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
@@ -43,7 +46,7 @@ class ApplicantProfileController extends Controller
         $profileQuestionForms = [];
         foreach ($profileQuestions as $question) {
             $answerObj = $applicant->applicant_profile_answers->
-                where('applicant_profile_question_id', $question->id);
+                where('applicant_profile_question_id', $question->id)->first();
             $answer = $answerObj ? $answerObj->answer : null;
 
             $formValues = ['value' => $question->value,
@@ -61,11 +64,11 @@ class ApplicantProfileController extends Controller
             'photo' => '/images/user.png', //TODO: get real photos
             'twitter' => [
                 'url' => $this->twitterProfilePrefix . $applicant->twitter_username,
-                'title' => Lang::get('applicant/applicant_profile.twitter_link_title', $user->name),
+                'title' => Lang::get('applicant/applicant_profile.twitter_link_title', ['name'=>$user->name]),
             ],
             'linkedin' => [
                 'url' => $applicant->linkedin_url,
-                'title' => Lang::get('applicant/applicant_profile.linkedin_link_title', $user->name),
+                'title' => Lang::get('applicant/applicant_profile.linkedin_link_title', ['name'=>$user->name]),
             ]
         ];
 
@@ -89,18 +92,24 @@ class ApplicantProfileController extends Controller
     {
         debugbar()->info($request->all());
 
-        $applicant = $request->user->applicant;
+        $applicant = $request->user()->applicant;
 
         $questions = ApplicantProfileQuestion::all();
 
         foreach($questions as $question) {
             $answerName = $this->answerFormInputName . '.' . $question->id;
             if ($request->has($answerName)) {
-                $answer = ApplicantProfileAnswer::firstOrNew(
+                $answer = ApplicantProfileAnswer::where(
                         ['applicant_id' => $applicant->id,
-                            'applicant_profile_question_id' => $question->id]);
+                            'applicant_profile_question_id' => $question->id])
+                            ->first();
+                if ($answer == null) {
+                    $answer = new ApplicantProfileAnswer();
+                    $answer->applicant_id =$applicant->id;
+                    $answer->applicant_profile_question_id = $question->id;
+                }
                 $answer->answer = $request->input($answerName);
-                $answer->save;
+                $answer->save();
             }
         }
 

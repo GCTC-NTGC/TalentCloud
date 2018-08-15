@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string $email
  * @property string $name
@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $open_id_sub
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
  * @property \App\Models\ProfilePic $profile_pic
@@ -36,6 +36,7 @@ class User extends Eloquent implements OidcAuthenticatable{
         'user_role_id' => 'int'
     ];
     protected $fillable = [];
+    protected $with = ['user_role'];
 
     public function applicant() {
         return $this->hasOne(\App\Models\Applicant::class);
@@ -56,7 +57,7 @@ class User extends Eloquent implements OidcAuthenticatable{
     ///////////////////////////////////////////
     //Authenticatable Interface Implementation
     ///////////////////////////////////////////
-    
+
     public function getAuthIdentifier() {
         return $this->id;
     }
@@ -87,7 +88,7 @@ class User extends Eloquent implements OidcAuthenticatable{
     ///////////////////////////////////////////
     //OidcAuthenticatable Interface Implementation
     ///////////////////////////////////////////
-    
+
     public function getRole(): array {
         return $this->role;
     }
@@ -98,7 +99,7 @@ class User extends Eloquent implements OidcAuthenticatable{
     }
 
     /**
-     * Get the OidcAuthenticatable object that matches the given issuer and sub. 
+     * Get the OidcAuthenticatable object that matches the given issuer and sub.
      *
      * @return App\Services\Auth\Contracts\OidcAuthenticatable|null
      */
@@ -108,7 +109,7 @@ class User extends Eloquent implements OidcAuthenticatable{
     }
 
     /**
-     * Get the OidcAuthenticatable object initialized with the given data. 
+     * Get the OidcAuthenticatable object initialized with the given data.
      *
      * @return App\Services\Auth\Contracts\OidcAuthenticatable
      */
@@ -119,10 +120,10 @@ class User extends Eloquent implements OidcAuthenticatable{
         //TODO: save iss
         $user->open_id_sub = $sub;
         $user->user_role_id = UserRole::where('name', $role)->first()->id;
-        
+
         //TODO: switch to email authentication
-        $user->is_confirmed = true;     
-        
+        $user->is_confirmed = true;
+
         return $user;
     }
 
