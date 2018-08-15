@@ -987,9 +987,20 @@ Route::get('browse/managers/123', function () {
 
 /* Profile */
 
-Route::get('profile', 'Applicant\ApplicantProfileController@edit')->name('profile')->middleware('auth');
+Route::middleware(['auth'])->group(function(){
 
-Route::post('profile/update','Applicant\ApplicantProfileController@update')->name('profile.update')->middleware('auth');
+    Route::get('profile', function() {
+        $applicant = Auth::user()->applicant;
+        return redirect(route('profile.edit', $applicant));
+    })->name('profile');
+
+    Route::get('profile/{applicant}/edit', 'Applicant\ApplicantProfileController@edit')->name('profile.edit');
+
+    Route::post('profile/{applicant}/update','Applicant\ApplicantProfileController@update')->name('profile.update');
+
+});
+
+
 
 /* Auth */
 

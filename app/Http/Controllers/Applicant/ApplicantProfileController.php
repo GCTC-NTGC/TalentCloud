@@ -33,12 +33,12 @@ class ApplicantProfileController extends Controller
      * Show the form for editing the logged-in user's applicant profile
      *
      * @param  Request  $request
+     * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, Applicant $applicant)
     {
         $user = $request->user();
-        $applicant = $user->applicant;
         $profileQuestions = ApplicantProfileQuestion::all();
 
         $profileText = Lang::get('applicant/applicant_profile');
@@ -78,7 +78,9 @@ class ApplicantProfileController extends Controller
             /* Applicant Profile Questions */
             'applicant_profile_questions' => $profileQuestionForms,
             /* User Data */
-            "user" => $userProfile,
+            'user' => $userProfile,
+
+            'form_submit_action' => route('profile.update', $applicant)
         ]);
     }
 
@@ -86,14 +88,11 @@ class ApplicantProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Applicant $applicant)
     {
-        debugbar()->info($request->all());
-
-        $applicant = $request->user()->applicant;
-
         $questions = ApplicantProfileQuestion::all();
 
         foreach($questions as $question) {
