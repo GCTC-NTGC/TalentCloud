@@ -986,7 +986,6 @@ Route::get('browse/managers/123', function () {
 })->name('manager');
 
 /* Profile */
-
 Route::middleware(['auth'])->group(function(){
 
     Route::get('profile', function() {

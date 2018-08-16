@@ -112,7 +112,7 @@ class ApplicantProfileController extends Controller
             }
         }
 
-        return redirect('profile');
+        return redirect()->route('profile.edit', $applicant);
     }
 
 }
