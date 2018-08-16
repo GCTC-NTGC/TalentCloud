@@ -23,8 +23,8 @@ return [
     "team_title" => "Our Team",
     "team_copy" => "We are a small but growing team of public servants passionate about the future of talent in Canada. Learn more about us and make your own contribution to GC Talent Cloud by joining us on one of these channels.",
     "team_button_gccollab_link" => "https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent",
-    "team_button_gccollab_title" => "Visit the team on GCCollab.",
-    "team_button_gccollab_label" => "GC Collab",
+    "team_button_gccollab_title" => "Visit the team on GCcollab.",
+    "team_button_gccollab_label" => "GCcollab",
     "team_button_twitter_link" => "https://twitter.com/TalentCloudGC",
     "team_button_twitter_title" => "Visit the team on Twitter.",
     "team_button_twitter_label" => "Twitter"
