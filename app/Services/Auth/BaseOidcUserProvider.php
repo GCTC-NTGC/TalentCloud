@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Services\Auth\Contracts\OidcAuthenticatable;
 use App\Services\Auth\Contracts\OidcUserValidator;
+use App\Models\Manager;
+use App\Models\Applicant;
 
 class BaseOidcUserProvider implements UserProvider {
 
@@ -15,15 +17,15 @@ class BaseOidcUserProvider implements UserProvider {
      * @var string
      */
     protected $model;
-    
+
     /**
      * The role new users should be created with
-     * 
+     *
      * @var string
      */
     protected $defaultRole;
-    
-    
+
+
 
     /**
      * Create a new user provider.
@@ -97,21 +99,41 @@ class BaseOidcUserProvider implements UserProvider {
                 debugbar()->info("Provider found user:");
                 debugbar()->info($user);
             }
-            
-            // If no user was found, use the provided credentials to create a 
+
+            // If no user was found, use the provided credentials to create a
             // new user
             if ($user === null) {
-                
-                echo("Creating by credentials");
+
                 $user = $this->createUserFromCredentials($credentials);
                 if ($user) {
                     //If a user was created successfully, save it to database
                     $user->save();
                 }
-                
+
                 debugbar()->info("Provider created user:");
-                debugbar()->info($user);                
+                debugbar()->info($user);
             }
+
+            //Ensure the user has a proper profile associated with it
+            //If now profile exists yet create one.
+            if ($user->user_role->name == 'applicant') {
+                $applicantProfile = Applicant::where(['user_id' => $user->id])->first();
+                if (!$applicantProfile) {
+                    $applicantProfile = new Applicant();
+                    $applicantProfile->user_id = $user->id;
+                    $applicantProfile->save();
+                }
+
+            }
+            if ($user->user_role->name == 'manager') {
+                $managerProfile = Manager::where(['user_id' => $user->id])->first();
+                if (!$managerProfile) {
+                    $managerProfile = new Manager();
+                    $managerProfile->user_id = $user->id;
+                    $managerProfile->save();
+                }
+            }
+
             return $user;
         } else {
             return;
@@ -130,13 +152,13 @@ class BaseOidcUserProvider implements UserProvider {
                 !isset($credentials['sub'])) {
             return null;
         }
-        
+
         $model = $this->createModel();
-        
+
         $name = isset($credentials['name']) ? $credentials['name'] : "";
-        
+
         return $model->createWithOidcCredentials($name, $credentials['email'],
-                $credentials['iss'], $credentials['sub'], $this->defaultRole);        
+                $credentials['iss'], $credentials['sub'], $this->defaultRole);
     }
 
     /**
@@ -148,7 +170,7 @@ class BaseOidcUserProvider implements UserProvider {
      */
     public function validateCredentials(Authenticatable $user, array $credentials) {
         debugbar()->info("in Provider.validateCredentials()");
-        
+
         return $user instanceof Authenticatable;
         //$subMatches = $credentials['sub'] === $user->getSub($credentials['iss']);
         //return $subMatches;

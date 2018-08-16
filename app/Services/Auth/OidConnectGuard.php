@@ -71,19 +71,30 @@ class OidConnectGuard implements Guard {
         return !$this->check();
     }
 
-    public function id() {
+    /**
+     * Get the ID for the currently authenticated user.
+     *
+     * @return int|null
+     */
+    public function id()
+    {
         if ($this->user()) {
             return $this->user()->getAuthIdentifier();
         }
     }
 
-    public function setUser(Authenticatable $user): void {
+    /**
+     * Set the current user.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return void
+     */
+    public function setUser(Authenticatable $user)
+    {
         $this->user = $user;
     }
 
     public function user() {
-        debugbar()->info("in Guard.user()");
-
         // If we've already retrieved the user for the current request we can just
         // return it back immediately. We do not want to fetch the user data on
         // every call to this method because that would be tremendously slow.
@@ -147,5 +158,42 @@ class OidConnectGuard implements Guard {
         return $this->jwtValidator->claimsAreValid($idToken) &&
             !$this->jwtValidator->isExpired($idToken) &&
             $this->jwtValidator->signatureIsValid($idToken);
+    }
+
+    /**
+     * Get the user provider used by the guard.
+     *
+     * @return \Illuminate\Contracts\Auth\UserProvider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set the user provider used by the guard.
+     *
+     * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
+     * @return void
+     */
+    public function setProvider(UserProvider $provider)
+    {
+        $this->provider = $provider;
+    }
+
+    /**
+     * Determine if the current user is authenticated.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     *
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
+    public function authenticate()
+    {
+        if (! is_null($user = $this->user())) {
+            return $user;
+        }
+
+        throw new AuthenticationException;
     }
 }
