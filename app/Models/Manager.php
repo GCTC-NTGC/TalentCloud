@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Manager
- * 
+ *
  * @property int $id
  * @property int $department_id
  * @property string $twitter_username
@@ -19,14 +19,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $user_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\User $user
  * @property \App\Models\Lookup\Department $department
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $manager_translations
  * @property \Illuminate\Database\Eloquent\Collection $manager_work_environments
  * @property \Illuminate\Database\Eloquent\Collection $team_cultures
- * 
+ *
  * Localized Properties:
  * @property string $aboutme
  * @property string $greatest_accomplishment
@@ -61,6 +61,9 @@ class Manager extends Eloquent {
         'twitter_username',
         'linkedin_username'
     ];
+    protected $with = [
+        'department'
+    ]
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class);
@@ -69,7 +72,7 @@ class Manager extends Eloquent {
     public function department() {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
-    
+
     public function job_posters() {
         return $this->hasMany(\App\Models\JobPoster::class);
     }

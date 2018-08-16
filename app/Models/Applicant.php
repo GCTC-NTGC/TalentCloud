@@ -11,16 +11,16 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Applicant
- * 
+ *
  * @property int $id
  * @property string $personal_website
  * @property string $tagline
  * @property string $twitter_username
- * @property string $linkedin_username
+ * @property string $linkedin_url
  * @property int $user_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\User $user
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
@@ -34,7 +34,7 @@ class Applicant extends Eloquent {
         'personal_website',
         'tagline',
         'twitter_username',
-        'linkedin_username'
+        'linkedin_url'
     ];
 
     public function user() {

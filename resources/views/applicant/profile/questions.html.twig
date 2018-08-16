@@ -10,6 +10,11 @@
     <div
         class="container--copy">
 
+        <form action="{{ form_submit_action }}" method="post">
+
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
+
         {% for question in applicant_profile_questions %}
 
             <span>
@@ -30,11 +35,14 @@
             </div>
 
             <button
-                class="button--blue light-bg">
+                class="button--blue light-bg"
+                type="submit"
+                value="submit">
                 {{ profile.save_button_label }}
             </button>
 
         {% endfor %}
+        </form>
 
     </div>
 
