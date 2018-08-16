@@ -45,7 +45,6 @@ services:
         volumes:
             - "./database/db/mysql:/var/lib/mysql"
             - "./database/db/dumps:/docker-entrypoint-initdb.d"
-            - './database/db/conf:/etc/mysql/conf.d'
         environment:
             - "MYSQL_DATABASE=talentcloud"
             - "MYSQL_ROOT_PASSWORD=talentcloud"
