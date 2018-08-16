@@ -104,7 +104,6 @@ class BaseOidcUserProvider implements UserProvider {
             // new user
             if ($user === null) {
 
-                echo("Creating by credentials");
                 $user = $this->createUserFromCredentials($credentials);
                 if ($user) {
                     //If a user was created successfully, save it to database

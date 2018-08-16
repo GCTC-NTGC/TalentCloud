@@ -19,7 +19,8 @@ class ApplicantPolicy
      */
     public function view(User $user, Applicant $applicant)
     {
-        //
+        return $user->user_role->name === "applicant" &&
+            $applicant->user_id === $user->id;
     }
 
     /**

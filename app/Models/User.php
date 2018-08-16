@@ -28,8 +28,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 
 use App\Services\Auth\Contracts\OidcAuthenticatable;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Foundation\Auth\Access\Authorizable as AuthorizableTrait;
 
-class User extends Eloquent implements OidcAuthenticatable{
+class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract {
+    use AuthorizableTrait;
 
     protected $casts = [
         'is_confirmed' => 'bool',

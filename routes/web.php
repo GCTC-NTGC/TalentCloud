@@ -993,9 +993,14 @@ Route::middleware(['auth'])->group(function(){
         return redirect(route('profile.edit', $applicant));
     })->name('profile');
 
-    Route::get('profile/{applicant}/edit', 'Applicant\ApplicantProfileController@edit')->name('profile.edit');
+    Route::get('profile/{applicant}/edit', 'Applicant\ApplicantProfileController@edit')
+        ->middleware('can:view,applicant')
+        ->middleware('can:update,applicant')
+        ->name('profile.edit');
 
-    Route::post('profile/{applicant}/update','Applicant\ApplicantProfileController@update')->name('profile.update');
+    Route::post('profile/{applicant}/update','Applicant\ApplicantProfileController@update')
+        ->middleware('can:update,applicant')
+        ->name('profile.update');
 
 });
 

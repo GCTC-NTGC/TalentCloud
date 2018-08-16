@@ -20,6 +20,8 @@ use App\Services\Auth\JwtKeysFetcher;
 use App\Services\Auth\JwtValidator;
 use App\Services\Auth\JumboJettTokenRefresher;
 use App\Services\Auth\SessionTokenStorage;
+use App\Models\Applicant;
+use App\Policies\ApplicantPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -29,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Applicant::class => ApplicantPolicy::class,
     ];
 
     public function register() {
