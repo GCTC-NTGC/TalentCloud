@@ -9,9 +9,11 @@ use App\Models\Lookup\Department;
 class UsersSeeder extends Seeder {
 
     protected $faker;
+    protected $faker_fr;
 
     public function __construct(Faker\Generator $faker) {
         $this->faker = $faker;
+        $this->faker_fr = Faker\Factory::create('fr');
     }
 
     /**
@@ -20,56 +22,59 @@ class UsersSeeder extends Seeder {
      * @return void
      */
     public function run() {
+        $faker = $this->faker;
+        $faker_fr = $this->faker_fr;
+
         //Create a manager
         $user = new User();
-        $user->name = $this->faker->name();
-        $user->email = $this->faker->unique()->email();
+        $user->name = $faker->name();
+        $user->email = $faker->unique()->email();
         $user->is_confirmed = 1;
         $user->user_role_id = UserRole::where('name', 'manager')->first()->id;
-        $user->open_id_sub = $this->faker->unique()->randomNumber(5);
+        $user->open_id_sub = $faker->unique()->randomNumber(5);
 
         $user->save();
 
         $manager = new Manager();
-        $nickname = $this->faker->firstName();
+        $nickname = $faker->firstName();
         $manager->twitter_username = $nickname;
         $manager->linkedin_username = $nickname;
         $manager->user_id = $user->id;
         $manager->department_id = Department::inRandomOrder()->first()->id;
         $manager->fill([
             'en' => [
-                'about_me' => $this->faker->paragraphs(3,true),
-                'greatest_accomplishment' => $this->faker->paragraphs(3,true),
-                'branch' => $this->faker->word(),
-                'division' => $this->faker->word(),
-                'position' => $this->faker->word(),
-                'leadership_style' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'employee_learning' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'expectations' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'review_options' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'staylate' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'engage' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'opportunities' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'low_value_work_requests' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'work_experience' => $this->faker->paragraphs(3,true),
-                'education' => $this->faker->paragraphs(3,true)
+                'about_me' => $faker->paragraphs(3,true),
+                'greatest_accomplishment' => $faker->paragraphs(3,true),
+                'branch' => $faker->word(),
+                'division' => $faker->word(),
+                'position' => $faker->word(),
+                'leadership_style' => $faker->randomElement(['option0','option1','option2','option3']),
+                'employee_learning' => $faker->randomElement(['option0','option1','option2','option3']),
+                'expectations' => $faker->randomElement(['option0','option1','option2','option3']),
+                'review_options' => $faker->randomElement(['option0','option1','option2','option3']),
+                'staylate' => $faker->randomElement(['option0','option1','option2','option3']),
+                'engage' => $faker->randomElement(['option0','option1','option2','option3']),
+                'opportunities' => $faker->randomElement(['option0','option1','option2','option3']),
+                'low_value_work_requests' => $faker->randomElement(['option0','option1','option2','option3']),
+                'work_experience' => $faker->paragraphs(3,true),
+                'education' => $faker->paragraphs(3,true)
             ],
             'fr' => [
-                'about_me' => $this->faker->paragraphs(3,true),
-                'greatest_accomplishment' => $this->faker->paragraphs(3,true),
-                'branch' => $this->faker->word(),
-                'division' => $this->faker->word(),
-                'position' => $this->faker->word(),
-                'leadership_style' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'employee_learning' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'expectations' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'review_options' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'staylate' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'engage' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'opportunities' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'low_value_work_requests' => $this->faker->randomElement(['option0','option1','option2','option3']),
-                'work_experience' => $this->faker->paragraphs(3,true),
-                'education' => $this->faker->paragraphs(3,true)
+                'about_me' => $faker_fr->paragraphs(3,true),
+                'greatest_accomplishment' => $faker_fr->paragraphs(3,true),
+                'branch' => $faker_fr->word(),
+                'division' => $faker_fr->word(),
+                'position' => $faker_fr->word(),
+                'leadership_style' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'employee_learning' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'expectations' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'review_options' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'staylate' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'engage' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'opportunities' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'low_value_work_requests' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'work_experience' => $faker_fr->paragraphs(3,true),
+                'education' => $faker_fr->paragraphs(3,true)
             ]
         ]);
         $manager->save();

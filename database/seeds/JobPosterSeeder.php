@@ -12,11 +12,13 @@ use App\Models\Lookup\LanguageRequirement;
 class JobPosterSeeder extends Seeder
 {
     protected $faker;
-    
+    protected $faker_fr;
+
     public function __construct(Faker\Generator $faker) {
         $this->faker = $faker;
+        $this->faker_fr = Faker\Factory::create('fr');
     }
-    
+
     /**
      * Run the Users table seeds.
      *
@@ -25,10 +27,11 @@ class JobPosterSeeder extends Seeder
     public function run()
     {
         $faker = $this->faker;
-        
+        $faker_fr = $this->faker_fr;
+
         $job = new JobPoster();
         $job->manager_id = Manager::inRandomOrder()->first()->id;
-        $job->fill([                
+        $job->fill([
             'job_term_id' => JobTerm::inRandomOrder()->first()->id,
             'term_qty' => $faker->numberBetween(1, 4),
             'open_date_time' => $faker->dateTimeBetween('-1 months','now'),
@@ -47,14 +50,14 @@ class JobPosterSeeder extends Seeder
                 'title' => $faker->word(),
                 'impact' => $faker->paragraphs(2, true),
                 'branch' => $faker->word(),
-                'division' => $faker->word()                
+                'division' => $faker->word()
             ],
             'fr' => [
-                'city' => $faker->city(),
-                'title' => $faker->word(),
-                'impact' => $faker->paragraphs(2, true),
-                'branch' => $faker->word(),
-                'division' => $faker->word()                
+                'city' => $faker_fr->city(),
+                'title' => $faker_fr->word(),
+                'impact' => $faker_fr->paragraphs(2, true),
+                'branch' => $faker_fr->word(),
+                'division' => $faker_fr->word()
             ]
         ]);
         $job->save();
