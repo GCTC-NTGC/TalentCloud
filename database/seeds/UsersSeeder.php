@@ -38,7 +38,7 @@ class UsersSeeder extends Seeder {
         $manager->department_id = Department::inRandomOrder()->first()->id;
         $manager->fill([
             'en' => [
-                'aboutme' => $this->faker->paragraphs(3,true),
+                'about_me' => $this->faker->paragraphs(3,true),
                 'greatest_accomplishment' => $this->faker->paragraphs(3,true),
                 'branch' => $this->faker->word(),
                 'division' => $this->faker->word(),
@@ -55,7 +55,7 @@ class UsersSeeder extends Seeder {
                 'education' => $this->faker->paragraphs(3,true)
             ],
             'fr' => [
-                'aboutme' => $this->faker->paragraphs(3,true),
+                'about_me' => $this->faker->paragraphs(3,true),
                 'greatest_accomplishment' => $this->faker->paragraphs(3,true),
                 'branch' => $this->faker->word(),
                 'division' => $this->faker->word(),

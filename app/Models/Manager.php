@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\TeamCulture;
 
 /**
  * Class Manager
@@ -23,12 +24,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\User $user
  * @property \App\Models\Lookup\Department $department
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
- * @property \Illuminate\Database\Eloquent\Collection $manager_translations
- * @property \Illuminate\Database\Eloquent\Collection $manager_work_environments
- * @property \Illuminate\Database\Eloquent\Collection $team_cultures
+ * @property \App\Models\WorkEnvironment $work_environment
+ * @property \App\Models\TeamCulture $team_culture
  *
  * Localized Properties:
- * @property string $aboutme
+ * @property string $about_me
  * @property string $greatest_accomplishment
  * @property string $branch
  * @property string $division
@@ -48,7 +48,7 @@ class Manager extends Eloquent {
 
     use \Dimsav\Translatable\Translatable;
 
-    public $translatedAttributes = ['aboutme', 'greatest_accomplishmest', 'branch',
+    public $translatedAttributes = ['about_me', 'greatest_accomplishmest', 'branch',
         'division', 'position', 'leadership_style', 'employee_learning',
         'expectations', 'review_options', 'staylate', 'engage', 'opportunities',
         'low_value_work_requests', 'work_experience', 'education'];
@@ -63,7 +63,7 @@ class Manager extends Eloquent {
     ];
     protected $with = [
         'department'
-    ]
+    ];
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class);
@@ -77,16 +77,12 @@ class Manager extends Eloquent {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
-    public function manager_translations() {
-        return $this->hasMany(\App\Models\ManagerTranslation::class);
+    public function work_environment() {
+        return $this->hasOne(\App\Models\WorkEnvironment::class);
     }
 
-    public function manager_work_environments() {
-        return $this->hasMany(\App\Models\ManagerWorkEnvironment::class);
-    }
-
-    public function team_cultures() {
-        return $this->hasMany(\App\Models\TeamCulture::class);
+    public function team_culture() {
+        return $this->hasOne(\App\Models\TeamCulture::class);
     }
 
 }
