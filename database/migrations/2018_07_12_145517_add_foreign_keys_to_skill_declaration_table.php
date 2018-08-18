@@ -31,10 +31,10 @@ class AddForeignKeysToSkillDeclarationTable extends Migration {
 	{
 		Schema::table('skill_declarations', function(Blueprint $table)
 		{
-			$table->dropForeign('skill_declaration_job_application_id_foreign');
-			$table->dropForeign('skill_declaration_criteria_id_foreign');
-			$table->dropForeign('skill_declaration_experience_level_id_foreign');
-			$table->dropForeign('skill_declaration_skill_level_id_foreign');
+			$table->dropForeign('skill_declarations_job_application_id_foreign');
+			$table->dropForeign('skill_declarations_criteria_id_foreign');
+			$table->dropForeign('skill_declarations_experience_level_id_foreign');
+			$table->dropForeign('skill_declarations_skill_level_id_foreign');
 		});
 	}
 
