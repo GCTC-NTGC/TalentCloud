@@ -7,16 +7,14 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class Criteria
  * 
  * @property int $id
  * @property int $criteria_type_id
  * @property int $job_poster_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\CriteriaType $criteria_type
  * @property \App\Models\JobPoster $job_poster
@@ -29,7 +27,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $description
  */
-class Criteria extends Eloquent {
+class Criteria extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

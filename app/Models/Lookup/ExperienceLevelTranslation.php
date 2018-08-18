@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ExperienceLevelTranslation
@@ -16,12 +16,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $locale
  * @property int $experience_level_id
  * @property string $value
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  */
-class ExperienceLevelTranslation extends Eloquent {
+class ExperienceLevelTranslation extends BaseModel {
 
     protected $casts = [
         'experience_level_id' => 'int'

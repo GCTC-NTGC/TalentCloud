@@ -6,8 +6,6 @@
  */
 
 namespace App\Models;
-
-use Reliese\Database\Eloquent\Model as Eloquent;
 use App\Models\TeamCulture;
 
 /**
@@ -18,8 +16,8 @@ use App\Models\TeamCulture;
  * @property string $twitter_username
  * @property string $linkedin_username
  * @property int $user_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\User $user
  * @property \App\Models\Lookup\Department $department
@@ -44,7 +42,7 @@ use App\Models\TeamCulture;
  * @property string $work_experience
  * @property string $education
  */
-class Manager extends Eloquent {
+class Manager extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

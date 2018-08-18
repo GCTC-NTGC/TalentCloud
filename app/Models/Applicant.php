@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class Applicant
  *
@@ -17,15 +15,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $tagline
  * @property string $twitter_username
  * @property string $linkedin_url
- * @property int $user_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int $user_ids
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\User $user
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  */
-class Applicant extends Eloquent {
+class Applicant extends BaseModel {
 
     protected $casts = [
         'user_id' => 'int'

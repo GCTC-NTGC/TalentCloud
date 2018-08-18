@@ -7,24 +7,27 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class WorkEnvironment
- * 
+ *
  * @property int $id
  * @property int $manager_id
  * @property string $remote_allowed
  * @property string $telework_allowed
  * @property string $flexible_allowed
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * 
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
  */
-class WorkEnvironment extends Eloquent {
+class WorkEnvironment extends BaseModel {
 
+    protected $casts = [
+        '$remote_allowed' => 'string',
+        '$telework_allowed' => 'string',
+        '$flexible_allowed' => 'string',
+    ];
     protected $fillable = [
         'remote_allowed',
         'telework_allowed',

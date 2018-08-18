@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class JobApplication
  * 
@@ -16,8 +14,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $job_poster_id
  * @property int $application_status_id
  * @property int $applicant_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicationStatus $application_status
@@ -27,7 +25,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
-class JobApplication extends Eloquent {
+class JobApplication extends BaseModel {
 
     protected $casts = [
         'job_poster_id' => 'int',

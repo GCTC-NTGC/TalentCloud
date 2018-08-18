@@ -7,24 +7,22 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class WorkSample
  * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $date_created
+ * @property \Jenssegers\Date\Date $date_created
  * @property int $file_type_id
  * @property string $url
  * @property string $story
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  */
-class WorkSample extends Eloquent {
+class WorkSample extends BaseModel {
 
     protected $casts = [
         'file_type_id' => 'int'

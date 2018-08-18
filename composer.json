@@ -9,7 +9,7 @@
         "jumbojett/openid-connect-php": "^0.4.1",
         "lcobucci/jwt": "3.2",
         "rcrowe/twigbridge": "^0.9.6",
-        "jenssegers/date": "2.0",
+        "jenssegers/date": "3.3.1"
     },
     "scripts": {
         "test": "phpunit",

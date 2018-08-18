@@ -7,17 +7,15 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class JobPoster
- * 
+ *
  * @property int $id
  * @property int $job_term_id
  * @property string $term_qty
- * @property \Carbon\Carbon $open_date_time
- * @property \Carbon\Carbon $close_date_time
- * @property \Carbon\Carbon $start_date_time
+ * @property \Jenssegers\Date\Date $open_date_time
+ * @property \Jenssegers\Date\Date $close_date_time
+ * @property \Jenssegers\Date\Date $start_date_time
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -27,9 +25,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $security_clearance_id
  * @property int $language_requirement_id
  * @property int $manager_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * 
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
  * @property \App\Models\Lookup\LanguageRequirement $language_requirement
@@ -41,7 +39,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_key_tasks
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
- * 
+ *
  * Localized Properties:
  * @property string $city
  * @property string $title
@@ -49,7 +47,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $branch
  * @property string $division
  */
-class JobPoster extends Eloquent {
+class JobPoster extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

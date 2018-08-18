@@ -7,28 +7,26 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class TeamCulture
- * 
+ *
  * @property int $id
  * @property int $team_size
  * @property string $gc_directory_url
  * @property int $manager_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * 
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $team_culture_translations
- * 
+ *
  * Localized Properties:
  * @property string $narrative_text
  * @property string $operating_context
  * @property string $what_we_value
  * @property string $how_we_work
  */
-class TeamCulture extends Eloquent {
+class TeamCulture extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
