@@ -4,26 +4,28 @@
     Applicant: Jobs - Post: Header
 
 ============================================================================= #}
-<header 
+<header
     class="job-post__header">
 
-    <div 
+    <div
         class="container--layout">
 
-        <div 
+        <div
             class="flex-grid bottom">
 
-            <div 
+            <div
                 class="box lg-2of3">
 
-                <p 
+                <p
                     class="job-post__header-meta">
                     <span>
-                        {{ job.days_remaining }} {{ job_post.days_remaining_label }}
+                        {% set diffTime = date(job.close_date_time).diff(date()) %}
+                        {{ job_post.header.days_remaining|trans_choice(diffTime.days) }}
                     </span>
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>
-                        {{ job.applicants }} {{ job_post.applicants_label }}
+                        {% set applicantCount = job.job_applications|length %}
+                        {{ job_post.header.applicants_so_far|trans_choice(applicantCount) }}
                     </span>
                 </p>
 
@@ -32,33 +34,33 @@
                 <div class="job-post__department">
 
                     <span>
-                        {{ job.department }}
+                        {{ job.department.value }}
                     </span>
 
                     <br>
 
                     <div>
-                        <i class="fas fa-map-marker-alt" title="{{ job_post.location_icon_label }}"></i>
+                        <i class="fas fa-map-marker-alt" title="{{ job_post.header.location_icon_label }}"></i>
                         <span>{{ job.city }}</span>,
-                        <span>{{ job.province }}</span>
+                        <span>{{ job.province.value }}</span>
                     </div>
 
                     <br>
 
                     <div>
-                        <i class="fas fa-home" title="{{ job_post.remote_icon_label }}"></i>
-                        <span>{{ job_post.remote_label }} {{ job.remote }}</span>
+                        <i class="fas fa-home" title="{{ job_post.header.remote_icon_label }}"></i>
+                        <span>{{ job_post.header.remote_allowed[work_environment.remote_allowed] }}</span>
                     </div>
 
                 </div>
 
             </div>
 
-            <div 
+            <div
                 class="box lg-1of3">
-                <p 
+                <p
                     class="job-post__reference-id">
-                    <span>{{ job_post.reference_id_label }}: {{ job.reference_id }}</span>
+                    <span>{{ job_post.header.reference_id|replace({':id':job.id}) }}</span>
                 </p>
             </div>
 
