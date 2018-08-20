@@ -9,20 +9,20 @@ namespace App\Models;
 
 /**
  * Class Criteria
- * 
+ *
  * @property int $id
  * @property int $criteria_type_id
  * @property int $job_poster_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
- * @property \App\Models\CriteriaType $criteria_type
+ *
+ * @property \App\Models\Lookup\CriteriaType $criteria_type
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- * 
+ *
  * Localized properties
  * @property string $name
  * @property string $description
@@ -41,9 +41,12 @@ class Criteria extends BaseModel {
         'criteria_type_id',
         'job_poster_id'
     ];
+    protected $with = [
+        'criteria_type'
+    ];
 
     public function criteria_type() {
-        return $this->belongsTo(\App\Models\CriteriaType::class);
+        return $this->belongsTo(\App\Models\Lookup\CriteriaType::class);
     }
 
     public function job_poster() {
