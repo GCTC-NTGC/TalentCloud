@@ -14,11 +14,11 @@ return [
         'days_remaining' => ':count day until close|:count days until close',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'location_icon_label' => 'Location Icon.',
-        'remote_icon_label' => 'Remote Work Icon.',
+        'remote_work_icon_label' => 'Remote Work Icon.',
         'reference_id' => 'Reference ID #:id',
-        'remote_allowed' => [
-            'option0' => 'Remote Work Allowed',
-            'option1' => 'Remote Work Not Allowed',
+        'remote_work_allowed' => [
+            true => 'Remote Work Allowed',
+            false => 'Remote Work Not Allowed',
         ],
         'sidebar_label' => 'About this job:',
     ],
@@ -75,26 +75,26 @@ return [
         'team_work_label' => 'How We Work'
     ],
     'work_environment' => [
-        'remote_label' => 'Remote Work Allowed:',
-        'remote_allowed' => [
-            'option0' => 'Yes',
-            'option1' => 'No',
+        'remote_work_label' => 'Remote Work Allowed:',
+        'remote_work_allowed' => [
+            true => 'Yes',
+            false => 'No',
         ],
         'telework_label' => 'Telework',
         'telework_allowed' => [
-            'option0' => 'Never',
-            'option1' => 'Occasionally',
-            'option2' => 'Sometimes',
-            'option3' => 'Frequently',
-            'option4' => 'Most of the time',
+            'never' => 'Never',
+            'rarely' => 'Occasionally',
+            'sometimes' => 'Sometimes',
+            'often' => 'Frequently',
+            'always' => 'Most of the time',
         ],
         'time_flexibility_label' => 'Flex Hours',
         'time_flexibility_allowed' => [
-            'option0' => 'Never',
-            'option1' => 'Occasionally',
-            'option2' => 'Sometimes',
-            'option3' => 'Frequently',
-            'option4' => 'Most of the time',
+            'never' => 'Never',
+            'rarely' => 'Occasionally',
+            'sometimes' => 'Sometimes',
+            'often' => 'Frequently',
+            'always' => 'Most of the time',
         ],
     ],
     'know' => [

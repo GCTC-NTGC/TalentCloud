@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
+use App\Models\Lookup\Frequency;
 
 class UsersSeeder extends Seeder {
 
@@ -41,6 +42,11 @@ class UsersSeeder extends Seeder {
         $manager->linkedin_username = $nickname;
         $manager->user_id = $user->id;
         $manager->department_id = Department::inRandomOrder()->first()->id;
+        $manager->work_review_frequency_id = Frequency::inRandomOrder()->first()->id;
+        $manager->stay_late_frequency_id = Frequency::inRandomOrder()->first()->id;
+        $manager->engage_team_frequency_id = Frequency::inRandomOrder()->first()->id;
+        $manager->development_opportunity_frequency_id = Frequency::inRandomOrder()->first()->id;
+        $manager->refuse_low_value_work_frequency_id = Frequency::inRandomOrder()->first()->id;
         $manager->fill([
             'en' => [
                 'about_me' => $faker->paragraphs(3,true),
@@ -48,14 +54,9 @@ class UsersSeeder extends Seeder {
                 'branch' => $faker->word(),
                 'division' => $faker->word(),
                 'position' => $faker->word(),
-                'leadership_style' => $faker->randomElement(['option0','option1','option2','option3']),
-                'employee_learning' => $faker->randomElement(['option0','option1','option2','option3']),
-                'expectations' => $faker->randomElement(['option0','option1','option2','option3']),
-                'review_options' => $faker->randomElement(['option0','option1','option2','option3']),
-                'staylate' => $faker->randomElement(['option0','option1','option2','option3']),
-                'engage' => $faker->randomElement(['option0','option1','option2','option3']),
-                'opportunities' => $faker->randomElement(['option0','option1','option2','option3']),
-                'low_value_work_requests' => $faker->randomElement(['option0','option1','option2','option3']),
+                'leadership_style' => $faker->paragraph(),
+                'employee_learning' => $faker->paragraph(),
+                'expectations' => $faker->paragraph(),
                 'work_experience' => $faker->paragraphs(3,true),
                 'education' => $faker->paragraphs(3,true)
             ],
@@ -65,14 +66,9 @@ class UsersSeeder extends Seeder {
                 'branch' => $faker_fr->word(),
                 'division' => $faker_fr->word(),
                 'position' => $faker_fr->word(),
-                'leadership_style' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'employee_learning' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'expectations' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'review_options' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'staylate' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'engage' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'opportunities' => $faker_fr->randomElement(['option0','option1','option2','option3']),
-                'low_value_work_requests' => $faker_fr->randomElement(['option0','option1','option2','option3']),
+                'leadership_style' => $faker_fr->paragraph(),
+                'employee_learning' => $faker_fr->paragraph(),
+                'expectations' => $faker_fr->paragraph(),
                 'work_experience' => $faker_fr->paragraphs(3,true),
                 'education' => $faker_fr->paragraphs(3,true)
             ]

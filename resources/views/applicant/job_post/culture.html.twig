@@ -98,11 +98,11 @@
                 class="box med-1of2">
                 <span
                     class="job-post__culture-heading">
-                    {{ job_post.work_environment.remote_label }}
+                    {{ job_post.work_environment.remote_work_label }}
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.remote_allowed[work_environment.remote_allowed] }}
+                    {{ job_post.work_environment.remote_work_allowed[work_environment.remote_work_allowed] }}
                 </p>
             </div>
 
@@ -114,7 +114,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.telework_allowed[work_environment.telework_allowed] }}
+                    {{ job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name] }}
                 </p>
             </div>
 
@@ -126,7 +126,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.time_flexibility_allowed[work_environment.flexible_allowed] }}
+                    {{ job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name] }}
                 </p>
             </div>
 

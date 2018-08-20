@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Manager;
 use App\Models\WorkEnvironment;
+use App\Models\Lookup\Frequency;
 
 class WorkEnvironmentSeeder extends Seeder
 {
@@ -28,11 +29,11 @@ class WorkEnvironmentSeeder extends Seeder
             $workEnvironment = new WorkEnvironment();
             $workEnvironment->manager_id = $manager->id;
             $workEnvironment->fill([
-                'remote_allowed' =>  $this->faker->randomElement(['option0','option1']),
-                'telework_allowed' =>  $this->faker->randomElement(['option0','option1','option2','option3','option4']),
-                'flexible_allowed' =>  $this->faker->randomElement(['option0','option1','option2','option3','option4']),
+                'remote_work_allowed' => $this->faker->boolean(),
+                'telework_allowed_frequency_id' => Frequency::inRandomOrder()->first()->id,
+                'flexible_hours_frequency_id' => Frequency::inRandomOrder()->first()->id,
             ]);
             $workEnvironment->save();
-        }        
+        }
     }
 }
