@@ -1,0 +1,433 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Profile - About Me
+
+============================================================================= #}
+<a
+    id="about">
+</a>
+
+<section
+    class="manager-profile__section">
+
+    <h4
+        class="manager-profile__section-title">
+        About Me
+    </h4>
+
+    <form
+        class="form__wrapper">
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                My Name
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box full">
+
+                    <div class="form__input-wrapper--float active">
+                        <label class="form__label" for="managerProfileName">
+                            My Name
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileName"
+                            type="text"
+                            value="{{ user.name }}">
+                        </input>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                Position
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.title %}active{% endif %}">
+                        <label class="form__label" for="managerProfileTitleEN">
+                            Title (English)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileTitleEN"
+                            type="text"
+                            value="{{ user.title }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.title_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileTitleFR">
+                            Title (Français)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileTitleFR"
+                            type="text"
+                            value="{{ user.title_fr }}">
+                        </input>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                Departmental Information
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box full">
+
+                    <div 
+                        class="form__input-wrapper--select">
+                        <label 
+                            class="form__label"
+                            for="managerProfileDepartment">
+                            Department
+                        </label>
+                        <div 
+                            class="form__select-wrapper">
+                            <select 
+                                class="form__input"
+                                id="managerProfileDepartment">
+                                {% for option in profile.departments %}
+                                    <option
+                                        {% if user.department | capitalize == option | capitalize %}selected="selected"{% endif %}
+                                        >{{ option }}</option>
+                                        }
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.branch %}active{% endif %}">
+                        <label class="form__label" for="managerProfileBranchEN">
+                            Branch (English)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileBranchEN"
+                            type="text"
+                            value="{{ user.branch }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.branch_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileBranchFR">
+                            Branch (Français)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileBranchFR"
+                            type="text"
+                            value="{{ user.branch_fr }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.division %}active{% endif %}">
+                        <label class="form__label" for="managerProfileDivision">
+                            Division (English)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileDivision"
+                            type="text"
+                            value="{{ user.division }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.division_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileDivision">
+                            Division (Français)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileDivision"
+                            type="text"
+                            value="{{ user.division_fr }}">
+                        </input>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                Personal Information
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.education %}active{% endif %}">
+                        <label class="form__label" for="managerProfileEducationEN">
+                            Education (English)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileEducationEN"
+                            type="text"
+                            value="{{ user.education }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.education_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileEducationFR">
+                            Education (Français)
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileEducationFR"
+                            type="text"
+                            value="{{ user.education_fr }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box full">
+
+                    <div class="form__input-wrapper--float {% if user.experience %}active{% endif %}">
+                        <label class="form__label" for="managerProfileExperience">
+                            Years of Experience
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileExperience"
+                            type="number"
+                            value="{{ user.experience }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.career_journey %}active{% endif %}">
+                        <label class="form__label" for="managerProfileCareerJourneyEN">
+                            My Career Journey So Far (English)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileCareerJourneyEN">{{ user.career_journey }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.career_journey_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileCareerJourneyFR">
+                            My Career Journey So Far (Français)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileCareerJourneyFR">{{ user.career_journey_fr }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.learning_path %}active{% endif %}">
+                        <label class="form__label" for="managerProfileLearningPathEN">
+                            My Learning Path (English)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileLearningPathEN">{{ user.learning_path }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.learning_path_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileLearningPathFR">
+                            My Learning Path (Français)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileLearningPathFR">{{ user.learning_path_fr }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.biography %}active{% endif %}">
+                        <label class="form__label" for="managerProfileBiographyEN">
+                            A Bit About Me Outside Work (English)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileBiographyEN">{{ user.biography }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.biography_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileBiographyFR">
+                            A Bit About Me Outside Work (Français)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileBiographyFR">{{ user.biography_fr }}</textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                Social Media
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.twitter.url %}active{% endif %}">
+                        <label class="form__label" for="managerProfileTwitter">
+                            Twitter Username
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileTwitter"
+                            type="text"
+                            value="{{ user.twitter.url }}">
+                        </input>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.linkedin.url %}active{% endif %}">
+                        <label class="form__label" for="managerProfileLinkedin">
+                            Linkedin Username
+                        </label>
+                        <input
+                            class="form__input"
+                            id="managerProfileLinkedin"
+                            type="text"
+                            value="{{ user.linkedin.url }}">
+                        </input>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box med-1of2">
+
+            </div>
+
+            <div
+                class="box med-1of2">
+                <button
+                    class="button--blue light-bg"
+                    type="submit">
+                    Save About Me
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+</section>

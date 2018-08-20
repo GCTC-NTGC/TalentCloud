@@ -1,0 +1,88 @@
+// =============================================================================
+
+    // Sidebar
+
+// =============================================================================
+.sidebar-wrapper {
+    display: none;
+
+    @media #{$l-tablet} {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+        padding: $section-padding;
+        width: 95%;
+
+        @media #{$l-tablet} {
+            display: block;
+            position: sticky;
+            top: 0;
+        }
+
+        .sidebar-label {
+            color: $palette--blue;
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            //font-weight: 700;
+            margin: 2rem 0;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+        }
+
+        .sidebar-link {
+            color: $palette--black !important;
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            margin: 0 0 1rem 0;
+            text-decoration: underline;
+            transition: color .2s ease;
+
+            &:hover {
+                color: $palette--blue !important;
+                text-decoration: underline;
+                transition: color .2s ease;
+            }
+
+        }
+
+        .sidebar-button {
+            @extend %gradient--vertical;
+            border: none;
+            border-radius: 5px;
+            box-shadow: none;
+            cursor: pointer;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            margin: 2rem 0 0 0;
+            outline: none;
+            padding: $unit calc(#{$unit} * 1.5);
+            text-decoration: none;
+
+            color: $palette--font-white;
+            transition: none;
+
+            text-align: center;
+            // width: 100%;
+
+            &:focus,
+            &:hover {
+                border: 2px solid $palette--black;
+                outline: none;
+                padding: calc(#{$unit} - 2px) calc((#{$unit} * 1.5) - 2px);
+                transition: none;
+            }
+
+        }
+
+    }
+
+}

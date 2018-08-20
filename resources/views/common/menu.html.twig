@@ -17,20 +17,49 @@
 
     <ul class="menu__list">
 
-        {% for item in menu %}
+        {% if "admin" in app.request.uri %}
+            
+            {% for item in menu %}
 
-            <li>
+                {% if item.access.manager == true %}
 
-                <a
-                    class="{% if item.active == true %}active{% endif %}"
-                    href="{{ item.link }}"
-                    title="Visit {{ item.name }}.">
-                    {{ item.name }}
-                </a>
+                    <li>
 
-            </li>
+                        <a
+                            class="{% if item.active == true %}active{% endif %}"
+                            href="{{ item.link }}"
+                            title="Visit {{ item.name }}.">
+                            {{ item.name }}
+                        </a>
 
-        {% endfor %}
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% else %}
+
+            {% for item in menu %}
+
+                {% if item.access.applicant == true %}
+
+                    <li>
+
+                        <a
+                            class="{% if item.active == true %}active{% endif %}"
+                            href="{{ item.link }}"
+                            title="Visit {{ item.name }}.">
+                            {{ item.name }}
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
 
     </ul>
 

@@ -218,12 +218,15 @@
 
                                         $("#addDegreeButton").on("click", function (e) {
 
+                                                            e.preventDefault();
+
                                                             addDegree(this);
                                         });
 
                                         $("#addDegreeButton").on("keyup", function (e) {
 
                                                             if (e.which == 13) {
+                                                                                e.preventDefault();
                                                                                 addDegree(this);
                                                             }
                                         });
@@ -274,12 +277,15 @@
 
                                         $("#addCourseButton").on("click", function (e) {
 
+                                                            e.preventDefault();
+
                                                             addCourse(this);
                                         });
 
                                         $("#addCourseButton").on("keyup", function (e) {
 
                                                             if (e.which == 13) {
+                                                                                e.preventDefault();
                                                                                 addCourse(this);
                                                             }
                                         });
@@ -334,15 +340,192 @@
 
                                         $("#addWorkButton").on("click", function (e) {
 
+                                                            e.preventDefault();
+
                                                             addWork(this);
                                         });
 
                                         $("#addWorkButton").on("keyup", function (e) {
 
                                                             if (e.which == 13) {
+                                                                                e.preventDefault();
                                                                                 addWork(this);
                                                             }
                                         });
+
+                                        // Create Job Handlers =================================================
+
+                                        // Tasks
+
+                                        function addTask(trigger) {
+
+                                                            // Get Wrapper
+                                                            var wrapper = $(".manager-jobs__create-task-wrapper");
+
+                                                            // Get Template
+                                                            var template = $(".manager-jobs__create-task.template").clone();
+
+                                                            console.log(wrapper.find(".manager-jobs__create-task"));
+
+                                                            // Get New ID
+                                                            if (wrapper.find(".manager-jobs__create-task").length == 0) {
+                                                                                var newID = parseInt(template.attr("data-task-id")) + 1;
+                                                            } else {
+                                                                                var newID = parseInt(wrapper.find("[class*='manager-jobs__create-task']").last().attr("data-task-id")) + 1;
+                                                            }
+
+                                                            // Remove Template Class
+                                                            template.removeClass("template");
+
+                                                            // Assign the New ID
+                                                            template.attr("data-task-id", newID);
+
+                                                            // Edit Form IDs
+
+                                                            // Task (English)
+                                                            template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
+                                                            template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
+
+                                                            // Task (French)
+                                                            template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
+                                                            template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
+
+                                                            // Append Clone to the Wrapper
+                                                            wrapper.append(template);
+
+                                                            requiredFields();
+                                                            labelHandlers();
+                                                            deleteTaskTrigger();
+                                        }
+
+                                        $("#addTaskButton").on("click", function (e) {
+
+                                                            e.preventDefault();
+
+                                                            addTask(this);
+                                        });
+
+                                        $("#addTaskButton").on("keyup", function (e) {
+
+                                                            if (e.which == 13) {
+                                                                                e.preventDefault();
+                                                                                addTask(this);
+                                                            }
+                                        });
+
+                                        // Task Deletion
+
+                                        function deleteTask(trigger) {
+
+                                                            $(trigger).parents(".manager-jobs__create-task").remove();
+                                        }
+
+                                        function deleteTaskTrigger() {
+
+                                                            $(".manager-jobs__delete-task-button").on("click", function (e) {
+
+                                                                                e.preventDefault();
+
+                                                                                deleteTask(this);
+                                                            });
+
+                                                            $(".manager-jobs__delete-task-button").on("keyup", function (e) {
+
+                                                                                if (e.which == 13) {
+                                                                                                    e.preventDefault();
+                                                                                                    deleteTask(this);
+                                                                                }
+                                                            });
+                                        }
+
+                                        deleteTaskTrigger();
+
+                                        // Skills
+
+                                        // Questions
+
+                                        function addQuestion(trigger) {
+
+                                                            // Get Wrapper
+                                                            var wrapper = $(".manager-jobs__create-question-wrapper");
+
+                                                            // Get Template
+                                                            var template = $(".manager-jobs__create-question.template").clone();
+
+                                                            console.log(wrapper.find(".manager-jobs__create-question"));
+
+                                                            // Get New ID
+                                                            if (wrapper.find(".manager-jobs__create-question").length == 0) {
+                                                                                var newID = parseInt(template.attr("data-question-id")) + 1;
+                                                            } else {
+                                                                                var newID = parseInt(wrapper.find("[class*='manager-jobs__create-question']").last().attr("data-question-id")) + 1;
+                                                            }
+
+                                                            // Remove Template Class
+                                                            template.removeClass("template");
+
+                                                            // Assign the New ID
+                                                            template.attr("data-question-id", newID);
+
+                                                            // Edit Form IDs
+
+                                                            // Queestion (English)
+                                                            template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
+                                                            template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
+
+                                                            // Queestion (French)
+                                                            template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
+                                                            template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
+
+                                                            // Append Clone to the Wrapper
+                                                            wrapper.append(template);
+
+                                                            requiredFields();
+                                                            labelHandlers();
+                                                            deleteQuestionTrigger();
+                                        }
+
+                                        $("#addQuestionButton").on("click", function (e) {
+
+                                                            e.preventDefault();
+
+                                                            addQuestion(this);
+                                        });
+
+                                        $("#addQuestionButton").on("keyup", function (e) {
+
+                                                            if (e.which == 13) {
+                                                                                e.preventDefault();
+                                                                                addQuestion(this);
+                                                            }
+                                        });
+
+                                        // Task Deletion
+
+                                        function deleteQuestion(trigger) {
+
+                                                            $(trigger).parents(".manager-jobs__create-question").remove();
+                                        }
+
+                                        function deleteQuestionTrigger() {
+
+                                                            $(".manager-jobs__delete-question-button").on("click", function (e) {
+
+                                                                                e.preventDefault();
+
+                                                                                deleteQuestion(this);
+                                                            });
+
+                                                            $(".manager-jobs__delete-question-button").on("keyup", function (e) {
+
+                                                                                if (e.which == 13) {
+                                                                                                    e.preventDefault();
+                                                                                                    deleteQuestion(this);
+                                                                                }
+                                                            });
+                                        }
+
+                                        deleteQuestionTrigger();
                     });
 })(jQuery);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))

@@ -1,0 +1,29 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager - Job Index Layout
+
+============================================================================= #}
+<div class="manager-job-index__section-wrapper">
+
+    <div class="container--layout">
+
+        <div class="flex-grid">
+
+            {# Include Sidebar #}
+
+                {% include "manager/job_index/sidebar" %}
+
+            {# Poster Content #}
+
+                <div class="manager-job-index__content-wrapper box lg-3of4">
+
+                    {% include "manager/job_index/index" %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,43 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager - Profile Layout
+
+============================================================================= #}
+<div class="manager-profile__section-wrapper">
+
+    <div class="container--layout">
+
+        <div class="flex-grid">
+
+            {# Include Sidebar #}
+
+                {% include "manager/profile/sidebar" %}
+
+            {# Poster Content #}
+
+                <div class="manager-profile__content-wrapper box lg-3of4">
+
+                    {# Include About Me #}
+
+                        {% include "manager/profile/about" %}
+
+                    {# Include My Leadership Style #}
+
+                        {% include "manager/profile/leadership" %}
+
+                    {# Include Our Work Environment #}
+
+                        {% include "manager/profile/environment" %}
+
+                    {# Include Our Team Culture #}
+
+                        {% include "manager/profile/culture" %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+</div>
