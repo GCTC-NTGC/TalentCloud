@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class SkillDeclaration
  * 
@@ -19,15 +17,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $skill_level_id
  * @property string $description
  * @property bool $is_active
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\Criteria $criterion
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\Lookup\SkillLevel $skill_level
  */
-class SkillDeclaration extends Eloquent {
+class SkillDeclaration extends BaseModel {
 
     protected $casts = [
         'criteria_id' => 'int',

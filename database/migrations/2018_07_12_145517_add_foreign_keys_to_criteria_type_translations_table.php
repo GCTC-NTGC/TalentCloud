@@ -28,7 +28,7 @@ class AddForeignKeysToCriteriaTypeTranslationsTable extends Migration {
 	{
 		Schema::table('criteria_type_translations', function(Blueprint $table)
 		{
-			$table->dropForeign('criteria__type_translations_criteria_type_id_foreign');
+			$table->dropForeign('criteria_type_translations_criteria_type_id_foreign');
 		});
 	}
 

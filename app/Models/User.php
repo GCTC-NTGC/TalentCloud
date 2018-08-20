@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class User
  *
@@ -18,8 +16,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property bool $is_confirmed
  * @property int $user_role_id
  * @property string $open_id_sub
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
@@ -31,7 +29,7 @@ use App\Services\Auth\Contracts\OidcAuthenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable as AuthorizableTrait;
 
-class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract {
+class User extends BaseModel implements OidcAuthenticatable, AuthorizableContract {
     use AuthorizableTrait;
 
     protected $casts = [

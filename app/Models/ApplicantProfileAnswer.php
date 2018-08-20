@@ -7,22 +7,20 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class ApplicantProfileAnswer
- * 
+ *
  * @property int $id
  * @property int $applicant_id
  * @property int $applicant_profile_question_id
  * @property string $answer
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * 
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
-class ApplicantProfileAnswer extends Eloquent {
+class ApplicantProfileAnswer extends BaseModel {
 
     protected $casts = [
         'applicant_id' => 'int',

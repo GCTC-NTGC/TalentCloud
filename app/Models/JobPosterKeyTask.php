@@ -7,22 +7,20 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class JobPosterKeyTask
  * 
  * @property int $id
  * @property int $job_poster_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\JobPoster $job_poster
  * 
  * Localized Properties:
  * @property string $description
  */
-class JobPosterKeyTask extends Eloquent {
+class JobPosterKeyTask extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

@@ -7,15 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class CriteriaType
  * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $criteria
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
@@ -24,7 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $value
  * @property string $description
  */
-class CriteriaType extends Eloquent {
+class CriteriaType extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

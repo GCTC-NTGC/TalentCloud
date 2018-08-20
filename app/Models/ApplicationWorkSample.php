@@ -7,24 +7,22 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class ApplicationWorkSample
- * 
+ *
  * @property int $id
  * @property int $job_application_id
  * @property int $criteria_id
  * @property int $work_sample_id
  * @property bool $is_active
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * 
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \App\Models\Criteria $criterion
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\WorkSample $work_sample
  */
-class ApplicationWorkSample extends Eloquent {
+class ApplicationWorkSample extends BaseModel {
 
     protected $casts = [
         'job_application_id' => 'int',

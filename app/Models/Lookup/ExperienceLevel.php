@@ -7,15 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ExperienceLevel
  * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $experience_level_translations
  * @property \Illuminate\Database\Eloquent\Collection $micro_references
@@ -24,7 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class ExperienceLevel extends Eloquent {
+class ExperienceLevel extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
