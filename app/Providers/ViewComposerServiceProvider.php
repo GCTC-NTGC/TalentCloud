@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class ComposerServiceProvider extends ServiceProvider
+class ViewComposerServiceProvider extends ServiceProvider
 {
     /**
      * Register bindings in the container.
@@ -18,17 +18,17 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             '*', 'App\Http\ViewComposers\AlertComposer'
         );
-        
+
         //Governement of Canada header bar
         View::composer(
             '*', 'App\Http\ViewComposers\GocComposer'
         );
-        
+
         //Nav menu
         View::composer(
-            '*', 'App\Http\ViewComposers\MenuComposer'    
+            '*', 'App\Http\ViewComposers\MenuComposer'
         );
-        
+
         //Sitewide Footer
         View::composer(
             '*', 'App\Http\ViewComposers\FooterComposer'

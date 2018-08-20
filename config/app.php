@@ -158,13 +158,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
 
         /*
          * Template Service Providers...
          */
         TwigBridge\ServiceProvider::class,
-        
+
         /*
          * Debug Service Providers...
          */

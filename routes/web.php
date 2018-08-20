@@ -124,7 +124,7 @@ Route::get('applications', function () {
             ]
         ]
     ]);
-})->name('application.index');
+})->name('applications.index');
 
 /* Step 01 */
 Route::get('applications/00/step-01', function () {
@@ -250,7 +250,7 @@ Route::get('applications/00/step-01', function () {
             ]
         ]
     ]);
-})->name('application.post01');
+})->name('applications.edit.1');
 
 /* Step 02 */
 Route::get('applications/00/step-02', function () {
@@ -526,7 +526,7 @@ Route::get('applications/00/step-02', function () {
             ]
         ]
     ]);
-})->name('application.post02');
+})->name('applications.edit.2');
 
 /* Step 03 */
 Route::get('applications/00/step-03', function () {
@@ -748,21 +748,21 @@ Route::get('applications/00/step-03', function () {
             ]
         ]
     ]);
-})->name('application.post03');
+})->name('applications.edit.3');
 
 /* Step 04 */
 Route::get('applications/00/step-04', function () {
     return view('applicant/application_post_04', [
 
     ]);
-})->name('application.post04');
+})->name('applications.edit.4');
 
 /* Step 05 */
 Route::get('applications/00/step-05', function () {
     return view('applicant/application_post_05', [
 
     ]);
-})->name('application.post05');
+})->name('applications.edit.5');
 
 /* Managers */
 
@@ -824,7 +824,7 @@ Route::get('browse/managers/{manager}', function () {
             ]
         ]
     ]);
-})->name('manager.show');
+})->name('managers.show');
 
 /* Profile */
 Route::middleware(['auth'])->group(function(){
@@ -1381,7 +1381,23 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('logout/callback', 'Auth\LoginController@logoutCallback')->name('logout.callback');
 
-//Route::get('logout/gccollab', 'Auth')
+Route::get('register', function() {
+    return redirect('https://account.gccollab.ca/register/');
+})->middleware('guest')->name('register');
+
+/* Language ================================================================= */
+
+Route::get('fr', function() {
+    //TODO
+    return redirect()->home();
+})->name('lang.fr');
+
+Route::get('en', function() {
+    //TODO
+    return redirect()->home();
+})->name('lang.en');
+
+/* Testing ================================================================== */
 
 Route::get('laravel', function () {
     if (Auth::check()) {

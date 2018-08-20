@@ -5,6 +5,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 class MenuComposer
 {
@@ -17,17 +18,18 @@ class MenuComposer
     public function compose(View $view)
     {
         $menuItems = Lang::get('common/menu');
-        
-        //if logged in
-        //  remove login item
-        //  remove register item
-        //  set profile link using user slug
-        //else
-        //  remove applications
-        //  remove profile
-        //  remove logout        
-        //  add redirect url parameter to register link  
-        
+
+        //Check if use is logged in, and remove invalid menu items
+        if (Auth::check()) {
+            unset($menuItems['login']);
+            unset($menuItmes['register']);
+            //TODO set profile like using user slug
+        } else {
+            unset($menuItems['logout']);
+            unset($menuItmes['applications']);
+            unset($menuItmes['profile']);
+        }
+
         //Set active on the proper item
         switch(Route::currentRouteName()) {
             case 'home':
@@ -35,12 +37,21 @@ class MenuComposer
                 break;
             case 'jobs.index':
             case 'jobs.show':
-                $menuItems['browse']['active'] = true;
+            case 'managers.show':
+                $menuItems['jobs']['active'] = true;
                 break;
-            case 'applications':
+            case 'applications.index':
+            case 'applications.edit':
+            case 'applications.edit.1':
+            case 'applications.edit.2':
+            case 'applications.edit.3':
+            case 'applications.edit.4':
+            case 'applications.edit.5':
                 $menuItems['applications']['active'] = true;
                 break;
             case 'profile':
+            case 'profile.edit':
+            case 'profile.show':
                 $menuItems['profile']['active'] = true;
                 break;
             case 'register':
@@ -54,9 +65,9 @@ class MenuComposer
                 break;
             default:
                 //No menu item will be active
-                break;                
+                break;
         }
-        
+
         $view->with('menu', $menuItems);
     }
 }

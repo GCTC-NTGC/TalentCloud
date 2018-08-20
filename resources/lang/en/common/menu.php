@@ -11,35 +11,18 @@ return [
      */
     "home" => [
         "name" => "Home",
-        "access" => [
-            "applicant" => true,
-            "manager" => false
-        ],
         "link" => route('home')
     ],
-    "browse" => [
+    "jobs" => [
         "name" => "Browse Jobs",
-        "access" => [
-            "applicant" => true,
-            "manager" => false
-        ],
         "link" => route('jobs.index')
     ],
     "applications" => [
         "name" => "My Applications",
-        "access" => [
-            "applicant" => true,
-            "manager" => false
-        ],
-        // "link" => route('application.index')
-        "link" => "/applications/"
+        "link" => route('applications.index')
     ],
     "profile" => [
         "name" => "My Profile",
-        "access" => [
-            "applicant" => true,
-            "manager" => false
-        ],
         "link" => route('profile')
     ],
     "admin" => [
@@ -73,7 +56,7 @@ return [
             "manager" => false
         ],
         //A redirect parameter should be added to this link in MenuComposer
-        "link" => "https://account.gccollab.ca/register/" 
+        "link" => route('register')
     ],
     "login" => [
         "name" => "Login (GC Account)",
@@ -92,6 +75,3 @@ return [
         "link" => route('logout')
     ]
 ];
-
-
-

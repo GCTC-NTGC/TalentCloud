@@ -6,7 +6,7 @@ return [
      * GoC Language Lines
      * --------------------------------------------------------------------------
      *
-     * The following language lines are used in the Government of Canada bar 
+     * The following language lines are used in the Government of Canada bar
      * in the header.
      *
      */
