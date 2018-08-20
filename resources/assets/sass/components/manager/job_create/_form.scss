@@ -1,0 +1,115 @@
+// =============================================================================
+
+    // Manager: Create Job Form
+
+// =============================================================================
+.manager-jobs__create {
+    background: $palette--white;
+
+    .container--layout {
+        border-bottom: 1px solid darken($palette--white, 30%);
+        margin-bottom: 5rem;
+    }
+
+    .manager-jobs__create-submission-wrapper {
+        padding-bottom: 5rem;
+
+        .box:last-child {
+
+            @media #{$p-tablet} {
+                text-align: right;
+            }
+
+        }
+
+    }
+
+}
+
+.manager-jobs__create-form {
+
+    .manager-jobs__create-form-section {
+        padding: 5rem 0 0 0;
+
+        &:last-child {
+            padding-bottom: 5rem;
+        }
+
+    }
+
+    h4 {
+        border-bottom: 1px solid $palette--font-black;
+        color: $palette--black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 calc(#{$unit} * 2) 0;
+        padding: 0 0 2rem 0;
+    }
+
+    fieldset {
+
+        .flex-grid {
+            margin: 0 -1rem;
+
+            >.box {
+
+                >.flex-grid {
+
+                    >.box {
+                        padding: 0 1rem;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .manager-jobs__create-action-wrapper {
+        display: block;
+        margin: 3rem 0 0 0;
+        text-align: center;
+    }
+
+}
+
+.manager-jobs__create-task,
+.manager-jobs__create-question {
+    margin: 0 0 2rem;
+
+    fieldset {
+
+        legend {
+
+            button {
+                cursor: pointer;
+            }
+
+            .flex-grid {
+                margin: 0;
+
+                .box {
+
+                    button {
+                        background: none;
+                        border: none;
+                        color: $palette--red;
+                        font-size: $font-scale--regular;
+                    }
+
+                    &:last-child {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

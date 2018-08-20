@@ -77,6 +77,7 @@
         @import "components/goc";
         @import "components/menu";
         @import "components/header";
+        @import "components/sidebar";
 
         @import "components/footer";
 
@@ -139,3 +140,18 @@
 
         @import "components/profile/header";
         @import "components/profile/questions";
+
+    // Managers ================================================================
+
+        // Profile
+
+            @import "components/manager/profile/layout";
+
+        // Job Index
+
+            @import "components/manager/job_index/index";
+
+        // Create Job
+
+            @import "components/manager/job_create/form";
+            

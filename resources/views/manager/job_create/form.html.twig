@@ -1,0 +1,679 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Create Job Form
+
+============================================================================= #}
+<form
+    class="form__wrapper manager-jobs__create-form">
+
+    <a
+        aria-hidden="true"
+        id="details">
+    </a>
+
+    <div 
+        class="manager-jobs__create-form-section">
+
+        <h4>Job Details</h4>
+
+        {# Job Title #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Job Title
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.title != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Job Title (English)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="{{ manager.post.title }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.title_fr != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Job Title (Français)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="{{ manager.post.title_fr }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Salary #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Salary Range
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.salary_min != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Minimum Value
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="number"
+                                value="{{ manager.post.salary_min }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.salary_max != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Maximum Value
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="number"
+                                value="{{ manager.post.salary_max }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Classifications #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Classifications
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.classification != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Occupational Group
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="{{ manager.post.classification }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.noc != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                NOC Code
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="number"
+                                value="{{ manager.post.noc }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--select">
+                            <label 
+                                class="form__label"
+                                for="">
+                                Security Clearance
+                            </label>
+                            <div 
+                                class="form__select-wrapper">
+                                <select 
+                                    class="form__input"
+                                    id="">
+                                    {% for option in manager_job_create.security %}
+                                        <option
+                                            {% if manager.post.security|capitalize == option|capitalize %}selected="selected"{% endif %}
+                                            >{{ option }}</option>
+                                            }
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--select">
+                            <label 
+                                class="form__label"
+                                for="">
+                                Language Requirement
+                            </label>
+                            <div 
+                                class="form__select-wrapper">
+                                <select 
+                                    class="form__input"
+                                    id="">
+                                    {% for option in manager_job_create.language %}
+                                        <option
+                                            {% if manager.post.language|capitalize == option|capitalize %}selected="selected"{% endif %}
+                                            >{{ option }}</option>
+                                            }
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Location #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Location
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.city != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                City
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="{{ manager.post.city }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--select">
+                            <label 
+                                class="form__label"
+                                for="">
+                                Province
+                            </label>
+                            <div 
+                                class="form__select-wrapper">
+                                <select 
+                                    class="form__input"
+                                    id="">
+                                    {% for option in manager_job_create.provinces %}
+                                        <option
+                                            {% if manager.post.province|capitalize == option|capitalize %}selected="selected"{% endif %}
+                                            >{{ option }}</option>
+                                            }
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Timetable #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Timetable
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--date">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Accepting Applications From
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="date"
+                                value="{{ manager.post.post_start }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div 
+                            class="form__input-wrapper--date">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Accepting Applications To
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="date"
+                                value="{{ manager.post.post_end }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <div 
+                            class="form__input-wrapper--date">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Position Start Date
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="date"
+                                value="{{ manager.post.start }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-full">
+
+                        <div 
+                            class="form__input-wrapper--float {% if manager.post.duration != null %}active{% endif %}">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                Position Duration (Months)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id=""
+                                type="number"
+                                value="{{ manager.post.duration }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Departmental Information #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Departmental Information
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box full">
+
+                        <div 
+                            class="form__input-wrapper--select">
+                            <label 
+                                class="form__label"
+                                for="">
+                                Department
+                            </label>
+                            <div 
+                                class="form__select-wrapper">
+                                <select 
+                                    class="form__input"
+                                    id="">
+                                    {% for option in profile.departments %}
+                                        <option
+                                            {% if user.department | capitalize == option | capitalize %}selected="selected"{% endif %}
+                                            >{{ option }}</option>
+                                            }
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="">
+                                Branch (English)
+                            </label>
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="">
+                            </input>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="">
+                                Branch (Français)
+                            </label>
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="">
+                            </input>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="">
+                                Division (English)
+                            </label>
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="">
+                            </input>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="">
+                                Division (Français)
+                            </label>
+                            <input
+                                class="form__input"
+                                id=""
+                                type="text"
+                                value="">
+                            </input>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Impact #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Impact
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="">
+                                Impact (English)
+                            </label>
+                            <textarea
+                                class="form__textarea"
+                                id=""></textarea>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
+                            <label class="form__label" for="">
+                                Impact (Français)
+                            </label>
+                            <textarea
+                                class="form__textarea"
+                                id=""></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+    </div>
+
+    <a
+        aria-hidden="true"
+        id="tasks">
+    </a>
+
+    <div 
+        class="manager-jobs__create-form-section">
+
+        <h4>Key Tasks</h4>
+
+        {# Task Template #}
+
+            {% include "manager/job_create/task" %}
+
+        {# Task List #}
+
+            <div 
+                class="manager-jobs__create-task-wrapper">
+
+                {# Tasks get added here. #}
+
+            </div>
+
+        {# Task Controls #}
+
+            <div
+                class="manager-jobs__create-action-wrapper">
+
+                <button
+                    class="button--blue light-bg"
+                    id="addTaskButton">
+                    Add a Task
+                </button>
+
+            </div>
+
+    </div>
+
+    <a
+        aria-hidden="true"
+        id="skills">
+    </a>
+
+    <div 
+        class="manager-jobs__create-form-section">
+
+        <h4>Skills &amp; Competencies</h4>
+
+        <h5>Essential Skills</h5>
+
+        <h5>Asset Skills</h5>
+
+    </div>
+
+    <a
+        aria-hidden="true"
+        id="questions">
+    </a>
+
+    <div 
+        class="manager-jobs__create-form-section">
+
+        <h4>Questions for the Applicant</h4>
+
+        {# Question Template #}
+
+            {% include "manager/job_create/question" %}
+
+        {# Question List #}
+
+            <div 
+                class="manager-jobs__create-question-wrapper">
+
+                {# Questions get added here. #}
+
+            </div>
+
+        {# Question Controls #}
+
+            <div
+                class="manager-jobs__create-action-wrapper">
+
+                <button
+                    class="button--blue light-bg"
+                    id="addQuestionButton">
+                    Add a Question
+                </button>
+
+            </div>
+
+    </div>
+
+</form>

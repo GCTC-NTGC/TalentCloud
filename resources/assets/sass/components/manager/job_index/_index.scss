@@ -1,0 +1,117 @@
+// =============================================================================
+
+    // Manager: Job Index - Index
+
+// =============================================================================
+.manager-jobs__list-wrapper {
+    padding: 5rem 0 0 0;
+
+    .manager-jobs__list-title {
+        border-bottom: 1px solid $palette--font-black;
+        color: $palette--black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 calc(#{$unit} * 2) 0;
+        padding: 0 0 2rem 0;
+    }
+
+    .manager-jobs__item {
+        margin: 0 0 2rem;;
+
+        .manager-jobs__item-wrapper {
+            background: $palette--white;
+            border-radius: 3px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+            margin: 0;
+            overflow: hidden;
+            padding: 2rem;
+            position: relative;
+
+            .box {
+
+                &:first-child {
+
+                    span {
+                        font-weight: 600;
+                    }
+
+                }
+
+                &:nth-child(2) {
+
+                    @media #{$p-tablet} {
+                        text-align: center;
+                    }
+
+                }
+
+                &:last-child {
+
+                    @media #{$p-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+        h5 {
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+            margin: 2rem;
+        }
+
+        span {
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+        }
+
+        a,
+        button {
+            background: none;
+            border: none;
+            color: $palette--black;
+            cursor: pointer;
+            font-size: $font-scale--regular;
+            margin: 0 .5rem;
+            padding: 0;
+            text-decoration: none;
+
+            @media #{$p-tablet} {
+                margin: 0 0 0 1rem;
+            }
+
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .manager-jobs__applicant-list {
+            margin: 0 1.5rem;
+
+            .box {
+                margin: 0 0 .5rem 0;
+                padding: 0 .5rem;
+            }
+
+            a {
+                color: $palette--blue;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                margin: 0;
+            }
+
+        }
+
+    }
+
+    &:last-child {
+        padding-bottom: 5rem;
+    }
+
+}

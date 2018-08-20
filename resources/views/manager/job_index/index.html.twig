@@ -1,0 +1,75 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager - Job Index List
+
+============================================================================= #}
+<section>
+
+    <a id="drafts" aria-hidden="true"></a>
+
+    <div 
+        class="manager-jobs__list-wrapper">
+
+        <h4
+            class="manager-jobs__list-title">
+            My Drafts
+        </h4>
+
+        {% for post in user.posts %}
+
+            {% if post.status == "draft" %}
+
+                {% include "manager/job_index/job" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <a id="inProgress" aria-hidden="true"></a>
+
+    <div 
+        class="manager-jobs__list-wrapper">
+
+        <h4
+            class="manager-jobs__list-title">
+            My Ongoing Competitions
+        </h4>
+
+        {% for post in user.posts %}
+
+            {% if post.status == "active" %}
+
+                {% include "manager/job_index/job" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <a id="closed" aria-hidden="true"></a>
+
+    <div 
+        class="manager-jobs__list-wrapper">
+
+        <h4
+            class="manager-jobs__list-title">
+            Closed Posts
+        </h4>
+
+        {% for post in user.posts %}
+
+            {% if post.status == "closed" %}
+
+                {% include "manager/job_index/job" %}
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+</section>

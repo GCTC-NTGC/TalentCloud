@@ -1,0 +1,109 @@
+// =============================================================================
+
+    // Manager: Profile Layout
+
+// =============================================================================
+.manager-profile__section-wrapper {
+    background: $palette--white;
+
+    .manager-profile__content-wrapper {
+
+        .manager-profile__section {
+            padding: 5rem 0 0 0;
+
+            @media #{$p-tablet} {
+                padding: 5rem 0 0 3rem;
+            }
+
+            &:last-child {
+                padding-bottom: 5rem;
+            }
+
+        }
+
+        .manager-profile__section-title {
+            border-bottom: 1px solid $palette--font-black;
+            color: $palette--black;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 400;
+            margin: 0 0 calc(#{$unit} * 2) 0;
+            padding: 0 0 2rem 0;
+        }
+
+        form {
+
+            fieldset {
+
+                .flex-grid {
+                    margin: 0 -1rem;
+
+                    .box {
+                        padding: 0 1rem;
+                    }
+
+                }
+
+                .form__radio-group {
+                    margin: 3rem 0 0 0;
+
+                    .flex-grid {
+                        margin: 0;
+
+                        .box {
+                            padding: 0;
+                        }
+
+                    }
+
+                }
+
+            }
+
+            >.flex-grid {
+
+                .box {
+
+                    &:last-child {
+                        padding-top: 2rem;
+
+                        @media #{$p-tablet} {
+                            text-align: right;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        .manager-profile__legend {
+            color: $palette--blue;
+            font-family: $font--sans;
+            float: none;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+            margin: 3rem 0 2rem 0;
+        }
+
+        .manager-profile__image-upload {
+
+            img {
+
+            }
+
+        }
+
+        .form__input-wrapper--upload {
+
+            label {
+                border-radius: 0 0 5px 5px;
+            }
+
+        }
+
+    }
+
+}

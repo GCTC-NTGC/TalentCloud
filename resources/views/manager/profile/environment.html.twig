@@ -1,0 +1,251 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Profile - About Me
+
+============================================================================= #}
+<a
+    id="environment">
+</a>
+
+<section
+    class="manager-profile__section">
+
+    <h4
+        class="manager-profile__section-title">
+        Our Work Environment
+    </h4>
+
+    <form
+        class="form__wrapper">
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                Things to Know
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.env_context %}active{% endif %}">
+                        <label class="form__label" for="managerProfileEnvContextEN">
+                            Answer (English)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileEnvContextEN">{{ user.env_context }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box med-1of2">
+
+                    <div class="form__input-wrapper--float {% if user.env_context_fr %}active{% endif %}">
+                        <label class="form__label" for="managerProfileEnvContextFR">
+                            Answer (Français)
+                        </label>
+                        <textarea
+                            class="form__textarea"
+                            id="managerProfileEnvContextFR">{{ user.env_context_fr }}</textarea>
+                    </div>
+
+                </div>
+
+                <div
+                    class="box full">
+
+                    <div
+                        aria-orientation="horizontal"
+                        class="form__radio-group" 
+                        role="radiogroup">
+
+                        <label 
+                            class="form__label"
+                            for="">
+                            How Often is Telework Allowed?
+                        </label>
+
+                        <div class="flex-grid">
+
+                            {% set counter = 0 %}
+
+                            {% for telework in profile.telework %}
+
+                                {% set counter = counter + 1 %}
+
+                                <label 
+                                    class="box form__radio-group-label small-1of{{ profile.telework|length }}"
+                                    for="telework{{ telework }}">
+                                    <span 
+                                        class="hidden">
+                                        {{ telework }}
+                                    </span>
+                                    <input 
+                                        class="form__radio-group-input"
+                                        id="telework{{ telework }}"
+                                        name="telework"
+                                        type="radio"
+                                        {% if user.telework|capitalize == telework|capitalize %}
+                                            checked
+                                        {% endif %} />
+                                    <span 
+                                        class="form__radio-group-span">
+                                        {{ telework }}
+                                    </span>
+                                </label>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="box full">
+
+                    <div
+                        aria-orientation="horizontal"
+                        class="form__radio-group" 
+                        role="radiogroup">
+
+                        <label 
+                            class="form__label"
+                            for="">
+                            How Often Are Flexible Hours Allowed?
+                        </label>
+
+                        <div class="flex-grid">
+
+                            {% set counter = 0 %}
+
+                            {% for flex_hours in profile.flex_hours %}
+
+                                {% set counter = counter + 1 %}
+
+                                <label 
+                                    class="box form__radio-group-label small-1of{{ profile.flex_hours|length }}"
+                                    for="flex_hours{{ flex_hours }}">
+                                    <span 
+                                        class="hidden">
+                                        {{ flex_hours }}
+                                    </span>
+                                    <input 
+                                        class="form__radio-group-input"
+                                        id="flex_hours{{ flex_hours }}"
+                                        name="flex_hours"
+                                        type="radio"
+                                        {% if user.flex_hours|capitalize == flex_hours|capitalize %}
+                                            checked
+                                        {% endif %} />
+                                    <span 
+                                        class="form__radio-group-span">
+                                        {{ flex_hours }}
+                                    </span>
+                                </label>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="box full">
+                    <h4
+                        class="manager-profile__legend">
+                        Work Environment Photos
+                    </h4>
+                </div>
+
+                {% for photo in user.env_photos %}
+
+                    <div
+                        class="box med-1of3">
+
+                        <div 
+                            class="manager-profile__image-upload">
+                            <img
+                                {% if photo.image != null %}
+                                    src="{{ photo.image }}"
+                                {% else %}
+                                    src="https://talentcloud-nuagedetalents.gccollab.ca/images/user.png"
+                                {% endif %}>
+                        </div>
+
+                        <div class="form__input-wrapper--upload">
+                            <label class="form__label" for="managerEnvPhoto01">
+                                Upload an Image
+                                <input
+                                    class="form__input"
+                                    id="managerEnvPhoto01"
+                                    type="file"
+                                    value="">
+                                </input>
+                            </label>
+                        </div>
+
+                        <div class="form__input-wrapper--float {% if photo.alt != null %}active{% endif %}">
+                            <label class="form__label" for="manageProfileAltEN{{ photo.id }}">
+                                Image Alt Text (English)
+                            </label>
+                            <input
+                                class="form__input"
+                                id="manageProfileAltEN{{ photo.id }}"
+                                type="text"
+                                value="{{ photo.alt }}">
+                            </input>
+                        </div>
+
+                        <div class="form__input-wrapper--float {% if photo.alt_fr != null %}active{% endif %}">
+                            <label class="form__label" for="manageProfileAltFR{{ photo.id }}">
+                                Image Alt Text (Français)
+                            </label>
+                            <input
+                                class="form__input"
+                                id="manageProfileAltFR{{ photo.id }}"
+                                type="text"
+                                value="{{ photo.alt_fr }}">
+                            </input>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </fieldset>
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box med-1of2">
+
+            </div>
+
+            <div
+                class="box med-1of2">
+                <button
+                    class="button--blue light-bg"
+                    type="submit">
+                    Save Our Work Environment
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+</section>
