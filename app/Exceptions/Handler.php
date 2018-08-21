@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Facades\App\Services\WhichPortal;
 
 class Handler extends ExceptionHandler
 {
@@ -62,6 +63,11 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
-        return redirect()->guest(route('login'));
+        if (WhichPortal::isManagerPortal()) {
+            $loginRoute = route('manager.login');
+        } else {
+            $loginRoute = route('login');
+        }
+        return redirect()->guest($loginRoute);
     }
 }

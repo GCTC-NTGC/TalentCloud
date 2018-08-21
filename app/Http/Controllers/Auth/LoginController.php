@@ -14,6 +14,7 @@ use App\Services\Auth\RequestTokenParser;
 use Jumbojett\OpenIDConnectClient;
 use Jumbojett\OpenIDConnectClientException;
 use Lcobucci\JWT\Parser;
+use Facades\App\Services\WhichPortal;
 
 use Illuminate\Support\Facades\Config;
 
@@ -87,9 +88,10 @@ class LoginController extends Controller
 
         $config = Config::get('oidconnect');
         $this->authUrl = $config['auth_url'];
-        $this->callbackUrl = $config['redirect'];
         $this->clientId = $config['client_id'];
         $this->clientSecret = $config['client_secret'];
+        $this->callbackUrl = WhichPortal::isManagerPortal() ?
+                $config['redirect_manager'] : $config['redirect'];
 
         $this->oidcClient = new OpenIDConnectClient($this->authUrl, $this->clientId, $this->clientSecret);
         $this->oidcClient->addScope($this->scopes);
@@ -145,11 +147,11 @@ class LoginController extends Controller
             $this->requestTokenParser->save($token);
 
             //Create a response redirecting user to intended route or home page
-            $response = redirect()->intended(route('home'));
+            $response = redirect()->intended(route($this->homeRoute()));
 
             return $response;
         } else {
-            return redirect()->home();
+            return redirect()->route($this->homeRoute());
         }
     }
 
@@ -161,7 +163,7 @@ class LoginController extends Controller
         $idToken = $this->requestTokenParser->parse($request);
 
         //This will cause a redirect
-        $this->oidcClient->signOut((string)$idToken, route('logout.callback'));
+        $this->oidcClient->signOut((string)$idToken, route($this->logoutCallbackRoute()));
 
         //This is a fallback, but don't expect this line to ever execute
         throw new AuthenticationException('Redirect to end_session_endpoint failed');
@@ -187,6 +189,22 @@ class LoginController extends Controller
         //Reset the session
         $request->session()->flush();
 
-        return redirect()->route('home');
+        return redirect()->route($this->homeRoute());
+    }
+
+    protected function homeRoute() {
+        if (WhichPortal::isManagerPortal()) {
+            return 'manager.home';
+        } else {
+            return 'home';
+        }
+    }
+
+    protected function logoutCallbackRoute() {
+        if (WhichPortal::isManagerPortal()) {
+            return 'manager.logout.callback';
+        } else {
+            return 'logout.callback';
+        }
     }
 }

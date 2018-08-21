@@ -27,14 +27,14 @@ return [
     ],
     "register" => [
         "name" => "Register",
-        "link" => route('register')
+        "link" => route('manager.register')
     ],
     "login" => [
         "name" => "Login (GC Account)",
-        "link" => route('login')
+        "link" => route('manager.login')
     ],
     "logout" => [
         "name" => "Logout",
-        "link" => route('logout')
+        "link" => route('manager.logout')
     ]
 ];

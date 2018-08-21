@@ -58,6 +58,17 @@ class MenuComposer
                     //No menu item will be active
                     break;
             }
+
+            //Check if use is logged in, and remove invalid menu items
+            if (Auth::check()) {
+                unset($menuItems['login']);
+                unset($menuItems['register']);
+                //TODO set profile like using user slug
+            } else {
+                unset($menuItems['logout']);
+                unset($menuItems['applications']);
+                unset($menuItems['profile']);
+            }
         } else if (WhichPortal::isManagerPortal()) {
             $menuItems = Lang::get('manager/menu');
 
@@ -93,17 +104,18 @@ class MenuComposer
                     //No menu item will be active
                     break;
             }
-        }
 
-        //Check if use is logged in, and remove invalid menu items
-        if (Auth::check()) {
-            unset($menuItems['login']);
-            unset($menuItems['register']);
-            //TODO set profile like using user slug
-        } else {
-            unset($menuItems['logout']);
-            unset($menuItems['applications']);
-            unset($menuItems['profile']);
+            //Check if use is logged in, and remove invalid menu items
+            if (Auth::check()) {
+                unset($menuItems['login']);
+                unset($menuItems['register']);
+                //TODO set profile like using user slug
+            } else {
+                unset($menuItems['logout']);
+                unset($menuItems['jobs']);
+                unset($menuItems['create_job']);
+                unset($menuItems['profile']);
+            }
         }
 
         $view->with('menu', $menuItems);
