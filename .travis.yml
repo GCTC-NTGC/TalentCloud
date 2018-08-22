@@ -10,7 +10,7 @@ env-docker:
 
 services:
   - docker
-  - mysql
+  - postgresql
 
 before_install:
   - rm -rf /vendor
@@ -29,9 +29,9 @@ before_script:
   - composer install --no-interaction --prefer-source
   - npm i -g npm
   - npm install
-  - mysql -u root -e 'CREATE DATABASE talentcloud;'
-  - mysql -u root -e "CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';"
-  - mysql -u root -e "GRANT ALL ON *.* TO 'talentcloud'@'localhost';"
+  - psql -c 'create database talentcloud;' -U postgres
+  - psql -c 'CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';' -U postgres
+  - psql -c 'GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;' -U postgres
   - php artisan migrate --force
   # php artisan db:seed --force
 

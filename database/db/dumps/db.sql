@@ -1,8 +1,20 @@
-CREATE DATABASE  IF NOT EXISTS `talentcloud`;
-USE `talentcloud`;
-CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';
-GRANT ALL ON *.* TO 'talentcloud'@'localhost';
-FLUSH PRIVILEGES;
+CREATE DATABASE testdb;
+
+\c testdb;
+
+DROP DATABASE IF EXISTS talentcloud;
+
+DROP ROLE IF EXISTS talentcloud;
+
+CREATE DATABASE talentcloud
+ WITH ENCODING='UTF8'
+ OWNER=talentcloud
+ CONNECTION LIMIT=25;
+
+CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';
+GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
+
+\c talentcloud;
 
 -- phpMyAdmin SQL Dump
 -- version 4.8.2
@@ -23,12 +35,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `talentcloud`
---
-CREATE DATABASE IF NOT EXISTS `talentcloud` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `talentcloud`;
 
 -- --------------------------------------------------------
 

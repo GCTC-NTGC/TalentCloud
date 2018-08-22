@@ -22,7 +22,7 @@ help:
 	@echo "  test                Test application"
 
 clean:
-	@rm -Rf database/db/mysql/*
+	@rm -Rf database/db/postgresql/*
 	@rm -Rf vendor/
 	@rm -Rf composer.lock
 	@rm -Rf etc/ssl/*
