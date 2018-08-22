@@ -15,7 +15,7 @@ CREATE DATABASE talentcloud
 
 GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 
-\c talentcloud talentcloud localhost 8080;
+\c talentcloud talentcloud;
 
 -- phpMyAdmin SQL Dump
 -- version 4.8.2
@@ -25,10 +25,6 @@ GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 -- Generation Time: Aug 01, 2018 at 07:41 PM
 -- Server version: 5.6.41
 -- PHP Version: 7.2.6
-
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
