@@ -15,6 +15,7 @@ services:
 before_install:
   - rm -rf /vendor
   - rm -rf /vendor-cache
+  - rm -rf composer.lock
   - sudo apt update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
