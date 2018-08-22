@@ -7,15 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ApplicationStatus
  * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $application_status_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
@@ -23,7 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class ApplicationStatus extends Eloquent {
+class ApplicationStatus extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

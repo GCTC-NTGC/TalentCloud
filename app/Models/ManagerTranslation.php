@@ -7,14 +7,12 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class ManagerTranslation
- * 
+ *
  * @property int $id
  * @property string $locale
- * @property string $aboutme
+ * @property string $about_me
  * @property string $greatest_accomplishment
  * @property string $branch
  * @property string $division
@@ -23,25 +21,20 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $employee_learning
  * @property string $expectations
  * @property int $manager_id
- * @property string $review_options
- * @property string $staylate
- * @property string $engage
- * @property string $opportunities
- * @property string $low_value_work_requests
  * @property string $work_experience
  * @property string $education
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * 
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends Eloquent {
+class ManagerTranslation extends BaseModel {
 
     protected $casts = [
         'manager_id' => 'int'
     ];
     protected $fillable = [
-        'aboutme',
+        'about_me',
         'greatest_accomplishment',
         'branch',
         'division',
@@ -49,11 +42,6 @@ class ManagerTranslation extends Eloquent {
         'leadership_style',
         'employee_learning',
         'expectations',
-        'review_options',
-        'staylate',
-        'engage',
-        'opportunities',
-        'low_value_work_requests',
         'work_experience',
         'education'
     ];

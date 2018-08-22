@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class CriteriaTranslation
  * 
@@ -17,12 +15,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $description
  * @property string $locale
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\Criteria $criterion
  */
-class CriteriaTranslation extends Eloquent {
+class CriteriaTranslation extends BaseModel {
 
     protected $casts = [
         'criteria_id' => 'int'

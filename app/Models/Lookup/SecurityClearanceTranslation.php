@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class SecurityClearanceTranslation
@@ -16,12 +16,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $locale
  * @property int $security_clearance_id
  * @property string $value
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\Lookup\SecurityClearance $security_clearance
  */
-class SecurityClearanceTranslation extends Eloquent {
+class SecurityClearanceTranslation extends BaseModel {
 
     protected $casts = [
         'security_clearance_id' => 'int'

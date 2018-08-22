@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class WorkplacePhoto
  * 
@@ -16,12 +14,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property boolean $image
  * @property string $mime_type
  * @property int $size
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \App\Models\WorkplacePhotoCaption $workplace_photo_caption
  */
-class WorkplacePhoto extends Eloquent {
+class WorkplacePhoto extends BaseModel {
 
     protected $casts = [
         'image' => 'boolean',

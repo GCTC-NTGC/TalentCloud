@@ -7,15 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class SecurityClearance
  * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $security_clearance_translations
@@ -23,7 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class SecurityClearance extends Eloquent {
+class SecurityClearance extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 

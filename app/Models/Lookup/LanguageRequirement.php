@@ -7,15 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class LanguageRequirement
  * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $language_requirement_translations
@@ -23,7 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
-class LanguageRequirement extends Eloquent {
+class LanguageRequirement extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
