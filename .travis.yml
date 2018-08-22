@@ -24,7 +24,7 @@ before_install:
   - sudo chmod +x /usr/bin/docker-compose
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
-before_script:
+install:
   - sudo make docker-start
   - composer self-update
   - composer install --no-interaction --prefer-source
