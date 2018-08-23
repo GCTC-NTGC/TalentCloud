@@ -305,7 +305,7 @@
 
                     <div class="form__input-wrapper--float {% if manager.translate('en').learning_path %}active{% endif %}">
                         <label class="form__label" for="managerProfileLearningPathEN">
-                            {{ profile.about_me.learning_path.en }}
+                            {{ profile.about_me.learning_path_label.en }}
                         </label>
                         <textarea
                             class="form__textarea"
@@ -319,7 +319,7 @@
 
                     <div class="form__input-wrapper--float {% if manager.translate('fr').learning_path %}active{% endif %}">
                         <label class="form__label" for="managerProfileLearningPathFR">
-                            {{ profile.about_me.learning_path.fr }}
+                            {{ profile.about_me.learning_path_label.fr }}
                         </label>
                         <textarea
                             class="form__textarea"
@@ -422,7 +422,7 @@
                 <button
                     class="button--blue light-bg"
                     type="submit">
-                    {{ profile_about_me.save_button_label }}
+                    {{ profile.about_me.save_button_label }}
                 </button>
             </div>
 

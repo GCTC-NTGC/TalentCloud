@@ -874,7 +874,6 @@ $managerGroup = function() {
 
         Route::get('profile', function() {
             $manager = Auth::user()->manager;
-            debugbar()->info($manager);
             return redirect()->route('manager.profile.edit', $manager);
         })->name('manager.profile');
 
