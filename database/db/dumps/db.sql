@@ -1,3 +1,5 @@
+pg_ctl -D /database/db/postgresql/data/pgdata -l logfile start;
+
 CREATE DATABASE testdb;
 
 \c testdb;
@@ -37,7 +39,7 @@ GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 -- Table structure for table 'applicants'
 --
 
-CREATE TABLE 'applicants' (
+CREATE TABLE applicants (
   'id' int(10) UNSIGNED NOT NULL,
   'personal_website' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   'tagline' text COLLATE utf8mb4_unicode_ci,
@@ -54,7 +56,7 @@ CREATE TABLE 'applicants' (
 -- Table structure for table 'applicant_profile_answers'
 --
 
-CREATE TABLE 'applicant_profile_answers' (
+CREATE TABLE applicant_profile_answers (
   'id' int(10) UNSIGNED NOT NULL,
   'applicant_id' int(10) UNSIGNED NOT NULL,
   'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
@@ -69,7 +71,7 @@ CREATE TABLE 'applicant_profile_answers' (
 -- Table structure for table 'applicant_profile_questions'
 --
 
-CREATE TABLE 'applicant_profile_questions' (
+CREATE TABLE applicant_profile_questions (
   'id' int(10) UNSIGNED NOT NULL,
   'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   'created_at' timestamp NULL DEFAULT NULL,

@@ -23,9 +23,9 @@ before_install:
 
 install:
   - sudo make docker-start
-  - rm -rf /vendor
-  - rm -rf /composer.lock
-  - composer update
+  - sudo rm -rf /vendor
+  - sudo rm -rf /composer.lock
+  - composer self-update
   - composer install -o
   - npm i -g npm
   - npm install
