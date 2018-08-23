@@ -35,6 +35,7 @@ install:
   # sleep 7m
 
 script:
+  - sudo mv .env-example .env
   - php artisan key:generate
   - php artisan config:cache
   # php artisan migrate --force
