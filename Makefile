@@ -29,7 +29,8 @@ clean:
 
 code-sniff:
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 --config-set show_warnings 0 ./app/Http
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
+	./vendor/bin/phpcs -v --standard=PSR2 --extensions=php app/Http
 
 docker-start:
 	docker-compose up -d
