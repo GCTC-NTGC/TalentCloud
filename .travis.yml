@@ -24,7 +24,8 @@ before_install:
 
 install:
   - sudo make docker-start
-  - sudo composer install
+  - composer update
+  - composer install
   - npm i -g npm
   - npm install
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
