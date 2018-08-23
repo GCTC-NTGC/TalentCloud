@@ -23,10 +23,9 @@ before_install:
 
 install:
   - sudo make docker-start
-  - sudo rm -rf /vendor
-  - sudo rm -rf /composer.lock
-  - composer self-update
-  - composer install -o
+  - sudo rm -rf vendor && composer update -v
+  - composer clear-cache
+  - composer install
   - npm i -g npm
   - npm install
   - psql -c 'create database talentcloud;' -U postgres

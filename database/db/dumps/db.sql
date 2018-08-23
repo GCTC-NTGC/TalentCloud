@@ -1,5 +1,3 @@
-pg_ctl -D /database/db/postgresql/data/pgdata -l logfile start;
-
 CREATE DATABASE testdb;
 
 \c testdb;
