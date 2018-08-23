@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class JobPosterKeyTaskTranslation
  *
@@ -16,6 +14,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $job_poster_key_task_id
  * @property string $locale
  * @property string $description
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -23,6 +22,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class JobPosterKeyTaskTranslation extends Eloquent
 {
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\JobPosterKeyTask $job_poster_key_task
+ */
+class JobPosterKeyTaskTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'job_poster_key_task_id' => 'int'

@@ -28,7 +28,7 @@ class AddForeignKeysToWorkEnvironmentsTable extends Migration {
 	{
 		Schema::table('work_environments', function(Blueprint $table)
 		{
-			$table->dropForeign('manager_work_environment_manager_id_foreign');
+			$table->dropForeign('work_environments_manager_id_foreign');
 		});
 	}
 

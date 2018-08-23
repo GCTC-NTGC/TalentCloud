@@ -7,16 +7,22 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class Department
  *
  * @property int $id
  * @property string $name
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+>>>>>>> dev
  * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $department_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
@@ -24,8 +30,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Localized Properties:
  * @property string $value
  */
+<<<<<<< HEAD
 class Department extends Eloquent
 {
+=======
+class Department extends BaseModel {
+>>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 

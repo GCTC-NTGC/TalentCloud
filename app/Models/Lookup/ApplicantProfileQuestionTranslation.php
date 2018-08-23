@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ApplicantProfileQuestionTranslation
@@ -17,6 +17,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $locale
  * @property string $value
  * @property string $description
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -24,6 +25,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class ApplicantProfileQuestionTranslation extends Eloquent
 {
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
+ */
+class ApplicantProfileQuestionTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'applicant_profile_question_id' => 'int'

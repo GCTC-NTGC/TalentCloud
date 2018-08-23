@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class CriteriaTypeTranslation
@@ -16,6 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $value
  * @property string $description
  * @property string $locale
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -23,6 +24,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class CriteriaTypeTranslation extends Eloquent
 {
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\CriteriaType $criteria_type
+ */
+class CriteriaTypeTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $fillable = [];
 

@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class JobTermTranslation
@@ -16,6 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $job_term_id
  * @property string $value
  * @property string $locale
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -23,6 +24,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class JobTermTranslation extends Eloquent
 {
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\Lookup\JobTerm $job_term
+ */
+class JobTermTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'job_term_id' => 'int'
