@@ -24,7 +24,7 @@ before_install:
 
 install:
   - sudo make docker-start
-  - sudo rm -rf vendor && composer update -v
+  - sudo rm -rf vendor
   - composer clear-cache
   - composer install
   - npm i -g npm
