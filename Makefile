@@ -3,7 +3,7 @@
 # include .env
 
 # MySQL
-MYSQL_DUMPS_DIR=database/db/dumps
+DB_DUMPS_DIR=database/db/dumps
 
 help:
 	@echo ""
@@ -45,12 +45,12 @@ logs:
 	@docker-compose logs -f
 
 mysql-dump:
-	@mkdir -p $(MYSQL_DUMPS_DIR)
-	@docker exec $(shell docker-compose ps -q talentcloud-db) mysqldump --all-databases -u"talentcloud" -p"talentcloud" > $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
+	@mkdir -p $(DB_DUMPS_DIR)
+	@docker exec $(shell docker-compose ps -q talentcloud-db) mysqldump --all-databases --compatible=postgresql -u"talentcloud" -p"talentcloud" > $(DB_DUMPS_DIR)/db.sql 2>/dev/null
 	@make resetOwner
 
 mysql-restore:
-	@docker exec -i $(shell docker-compose ps -q talentcloud-db) mysql -u"talentcloud" -p"talentcloud" < $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
+	@docker exec -i $(shell docker-compose ps -q talentcloud-db) mysql -u"talentcloud" -p"talentcloud" < $(DB_DUMPS_DIR)/db.sql 2>/dev/null
 
 phpmd:
 	@docker-compose exec -T talentcloud \
@@ -63,6 +63,6 @@ test: code-sniff
 	@make resetOwner
 
 resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
+	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(DB_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
 
 .PHONY: clean test code-sniff

@@ -30,11 +30,12 @@ install:
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
   - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
-  - sleep 5m
-  - php artisan migrate --force
-  # php artisan db:seed --force
+  # sleep 5m
+
 
 script:
+  - php artisan migrate --force
+  # php artisan db:seed --force
   - sudo make gen-certs
   - sudo make mysql-dump
   - sudo make mysql-restore
