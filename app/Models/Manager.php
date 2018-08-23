@@ -18,6 +18,7 @@ use App\Models\TeamCulture;
  * @property int $engage_team_frequency_id
  * @property int $development_opportunity_frequency_id
  * @property int $refuse_low_value_work_frequency_id
+ * @property int $years_experience
  * @property string $twitter_username
  * @property string $linkedin_url
  * @property int $user_id
@@ -41,11 +42,12 @@ use App\Models\TeamCulture;
  * @property string $branch
  * @property string $division
  * @property string $position
- * @property string $work_experience
  * @property string $leadership_style
  * @property string $employee_learning
  * @property string $expectations
  * @property string $education
+ * @property string $career_journey
+ * @property string $learning_path
  */
 class Manager extends BaseModel {
 
@@ -65,7 +67,8 @@ class Manager extends BaseModel {
         'stay_late_frequency_id',
         'engage_team_frequency_id',
         'development_opportunity_frequency_id',
-        'refuse_low_value_work_frequency_id'
+        'refuse_low_value_work_frequency_id',
+        'years_experience'
     ];
     protected $with = [
         'department',
