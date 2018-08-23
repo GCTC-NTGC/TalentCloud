@@ -25,6 +25,7 @@ before_install:
 install:
   - sudo make docker-start
   - sudo rm -rf vendor
+  - composer require phpseclib/phpseclib
   - COMPOSER_ROOT_VERSION=dev composer install
   - npm i -g npm
   - npm install
