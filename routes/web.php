@@ -13,12 +13,12 @@
 
 Route::group(['domain' => 'tc.gccollab.ca'], function() {
     /* Home */
-    Route::get('/', 'Applicant\HomepageController')->name('home');
+    Route::get('/', 'HomepageController')->name('home');
 
     /* Jobs */
-    Route::get('jobs', 'Applicant\JobController@index')->name('jobs.index');
+    Route::get('jobs', 'JobController@index')->name('jobs.index');
 
-    Route::get('jobs/{jobPoster}', 'Applicant\JobController@show')->name('jobs.show');
+    Route::get('jobs/{jobPoster}', 'JobController@show')->name('jobs.show');
 
     /* Applications */
     Route::get('applications', function () {
@@ -835,12 +835,12 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
             return redirect(route('profile.edit', $applicant));
         })->name('profile');
 
-        Route::get('profile/{applicant}/edit', 'Applicant\ApplicantProfileController@edit')
+        Route::get('profile/{applicant}/edit', 'ApplicantProfileController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
             ->name('profile.edit');
 
-        Route::post('profile/{applicant}/update','Applicant\ApplicantProfileController@update')
+        Route::post('profile/{applicant}/update','ApplicantProfileController@update')
             ->middleware('can:update,applicant')
             ->name('profile.update');
 
@@ -848,11 +848,11 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
 
     /* Authentication =========================================================== */
 
-    Route::get('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
+    Route::get('login', 'LoginController@login')->middleware('guest')->name('login');
 
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('logout', 'LoginController@logout')->name('logout');
 
-    Route::get('logout/callback', 'Auth\LoginController@logoutCallback')->name('logout.callback');
+    Route::get('logout/callback', 'LoginController@logoutCallback')->name('logout.callback');
 
     Route::get('register', function() {
         return redirect('https://account.gccollab.ca/register/');
@@ -1396,11 +1396,11 @@ $managerGroup = function() {
 
     /* Authentication =========================================================== */
 
-    Route::get('login', 'Auth\LoginController@login')->middleware('guest')->name('manager.login');
+    Route::get('login', 'LoginController@login')->middleware('guest')->name('manager.login');
 
-    Route::get('logout', 'Auth\LoginController@logout')->name('manager.logout');
+    Route::get('logout', 'LoginController@logout')->name('manager.logout');
 
-    Route::get('logout/callback', 'Auth\LoginController@logoutCallback')->name('manager.logout.callback');
+    Route::get('logout/callback', 'LoginController@logoutCallback')->name('manager.logout.callback');
 
     Route::get('register', function() {
         return redirect('https://account.gccollab.ca/register/');
