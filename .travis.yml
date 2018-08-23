@@ -31,6 +31,7 @@ install:
   - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
   - sleep 7m
+  - composer install
 
 
 script:
