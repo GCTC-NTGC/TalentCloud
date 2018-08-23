@@ -4,25 +4,25 @@
     Applicant: Jobs - Post: Impact
 
 ============================================================================= #}
-<a
+<a 
     aria-hidden="true"
     id="work">
 </a>
 
-<section
+<section 
     class="job-poster__work">
 
-    <h4
+    <h4 
         class="job-poster__work-title">
         {{ job_post.work.title }}
     </h4>
 
     <ul>
-        {% for task in job.job_poster_key_tasks %}
+        {% for item in job.work %}
             <li>
-                {{ task.description }}
+                {{ item }}
             </li>
-        {% endfor %}
+        {% endfor %}    
     </ul>
 
 </section>

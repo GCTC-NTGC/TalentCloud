@@ -7,6 +7,8 @@
 
 namespace App\Models;
 
+use Reliese\Database\Eloquent\Model as Eloquent;
+
 /**
  * Class ProfilePic
  *
@@ -15,17 +17,13 @@ namespace App\Models;
  * @property string $image
  * @property string $type
  * @property int $size
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  *
  * @property \App\Models\User $user
  */
-<<<<<<< HEAD
 class ProfilePic extends Eloquent
 {
-=======
-class ProfilePic extends BaseModel {
->>>>>>> dev
 
     protected $casts = [
         'user_id' => 'int',

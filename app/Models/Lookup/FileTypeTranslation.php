@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use App\Models\BaseModel;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class FileTypeTranslation
@@ -16,7 +16,6 @@ use App\Models\BaseModel;
  * @property int $file_type_id
  * @property string $locale
  * @property string $value
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -24,15 +23,6 @@ use App\Models\BaseModel;
  */
 class FileTypeTranslation extends Eloquent
 {
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- *
- * @property \App\Models\Lookup\FileType $file_type
- */
-class FileTypeTranslation extends BaseModel
-{
-    >>>>>>> dev
 
     protected $casts = [
         'file_type_id' => 'int'

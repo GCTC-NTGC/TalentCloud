@@ -3,10 +3,10 @@
 return [
     /*
      * --------------------------------------------------------------------------
-     * Job Index Language Lines
+     * Home Language Lines
      * --------------------------------------------------------------------------
      *
-     * The following language lines are used on the job index page.
+     * The following language lines are used in the applicant home page.
      *
      */
     "title" => "Browse Jobs",
@@ -27,3 +27,6 @@ return [
         "button_label" => "View Job"
     ]
 ];
+
+
+

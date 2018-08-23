@@ -7,15 +7,17 @@
 
 namespace App\Models;
 
+use Reliese\Database\Eloquent\Model as Eloquent;
+
 /**
  * Class JobPoster
  *
  * @property int $id
  * @property int $job_term_id
  * @property string $term_qty
- * @property \Jenssegers\Date\Date $open_date_time
- * @property \Jenssegers\Date\Date $close_date_time
- * @property \Jenssegers\Date\Date $start_date_time
+ * @property \Carbon\Carbon $open_date_time
+ * @property \Carbon\Carbon $close_date_time
+ * @property \Carbon\Carbon $start_date_time
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -25,13 +27,8 @@ namespace App\Models;
  * @property int $security_clearance_id
  * @property int $language_requirement_id
  * @property int $manager_id
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
->>>>>>> dev
  *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
@@ -52,12 +49,8 @@ namespace App\Models;
  * @property string $branch
  * @property string $division
  */
-<<<<<<< HEAD
 class JobPoster extends Eloquent
 {
-=======
-class JobPoster extends BaseModel {
->>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 

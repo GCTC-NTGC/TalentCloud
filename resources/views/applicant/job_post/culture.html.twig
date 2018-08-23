@@ -4,15 +4,15 @@
     Applicant: Jobs - Post: Impact
 
 ============================================================================= #}
-<a
+<a 
     aria-hidden="true"
     id="culture">
 </a>
 
-<section
+<section 
     class="job-post__culture">
 
-    <h4
+    <h4 
         class="job-post__culture-title">
         {{ job_post.culture.title }}
     </h4>
@@ -21,156 +21,172 @@
 
         {# Hiring Manager #}
 
-            <div
+            <div 
                 class="box full">
-                <h5
+                <h5 
                     class="job-post__culture-subtitle">
                     {{ job_post.culture.manager_title }}
                 </h5>
             </div>
 
-            <div
+            <div 
                 class="box med-1of4">
-                <a
+                <a 
                     class="job-post__culture-manager-profile-photo"
-                    href="{{ route('manager.show',{'manager':manager.id}) }}"
+                    href="{{ manager.url }}"
                     target="_blank"
-                    title="{{ job_post.manager.photo_title|trans({'name' : manager.user.name}) }}"
-                    style="background-image:url('{{ manager_profile_photo_url }}');">
+                    title="{{ manager.photo_title }}"
+                    style="background-image:url('{{ manager.photo }}');">
                 </a>
             </div>
 
-            <div
+            <div 
                 class="box med-3of4">
 
-                <span
+                <span 
                     class="job-post__culture-manager-name">
-                    {{ manager.user.name }}
+                    {{ manager.name }}
                 </span>
 
-                <div
+                <div 
                     class="job-post__culture-manager-meta">
-                    <span>{{ manager.position }}</span>
+                    <span>{{ manager.title }}</span>
                     <span>{{ job_post.culture.manager_department_bridge }}</span>
-                    <span>{{ manager.department.value }}</span>
+                    <span>{{ manager.department }}</span>
                 </div>
 
-                <a
+                <a 
                     class="job-post__culture-manager-profile-link"
-                    href="{{ route('manager.show',{'manager':manager.id}) }}"
-                    title="{{ job_post.manager.link_title|trans({'name':manager.user.name}) }}">
+                    href="{{ manager.url }}" 
+                    title="{{ manager.link_title }}">
                     {{ job_post.culture.manager_link_label }}
                 </a>
 
             </div>
 
-            <div
+            <div 
                 class="box full">
-                <p
+                <p 
                     class="job-post__manager-copy">
-                    {{ manager.about_me }}
+                    {{ manager.about_me }}    
                 </p>
             </div>
 
         {# Work Environment #}
 
-            <div
+            <div 
                 class="box full">
-                <h5
+                <h5 
                     class="job-post__culture-subtitle">
                     {{ job_post.culture.work_environment_label }}
                 </h5>
             </div>
 
-            <div
+            <div 
                 class="box full">
-                <span
+                <span 
                     class="job-post__culture-heading">
                     {{ job_post.culture.team_narrative_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    {{ team_culture.narrative_text }}
+                    {{ manager.team_narrative }}    
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box med-1of2">
-                <span
+                <span 
                     class="job-post__culture-heading">
-                    {{ job_post.work_environment.remote_work_label }}
+                    {{ job_post.remote_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.remote_work_allowed[work_environment.remote_work_allowed] }}
+                    {{ job.remote }}    
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box med-1of2">
-                <span
+                <span 
                     class="job-post__culture-heading">
-                    {{ job_post.work_environment.telework_label }}
+                    {{ job_post.culture.telework_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name] }}
+                    {{ job.telework }}    
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box full">
-                <span
+                <span 
                     class="job-post__culture-heading">
-                    {{ job_post.work_environment.time_flexibility_label }}
+                    {{ job_post.culture.time_flexibility_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name] }}
+                    {{ job.time_flexibility }}    
                 </p>
             </div>
 
-            {% for photo in workplace_photos %}
-            <div
+            <div 
                 class="box med-1of2 lg-1of3">
-                <div
+                <div 
                     class="job-post__work-environment-photo"
-                    style="background-image: url('{{ photo.url }}');"
-                    title=>"{{ photo.description }}"
+                    style="background-image: url('{{ manager.work_env_0.url }}');"
+                    title="manager.work_env_0.title">    
                 </div>
             </div>
-            {% endfor %}
+
+            <div 
+                class="box med-1of2 lg-1of3">
+                <div 
+                    class="job-post__work-environment-photo"
+                    style="background-image: url('{{ manager.work_env_1.url }}');"
+                    title="manager.work_env_1.title">    
+                </div>
+            </div>
+
+            <div 
+                class="box med-1of2 lg-1of3">
+                <div 
+                    class="job-post__work-environment-photo"
+                    style="background-image: url('{{ manager.work_env_2.url }}');"
+                    title="manager.work_env_2.title">    
+                </div>
+            </div>
 
         {# Team Culture #}
 
-            <div
+            <div 
                 class="box full">
-                <h5
+                <h5 
                     class="job-post__culture-subtitle">
                     {{ job_post.culture.team_culture_label }}
                 </h5>
             </div>
 
-            <div
+            <div 
                 class="box med-1of2">
                 <span class="job-post__culture-heading">
                     {{ job_post.culture.team_size_label }}
                 </span>
                 <p class="job-post__culture-copy">
-                    {{ team_culture.team_size }}
+                    {{ manager.team_size }}
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box med-1of2">
-                <span
+                <span 
                     class="job-post__culture-heading">
                     {{ job_post.culture.gcdirectory_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    <a
-                        href="{{ team_culture.gc_directory_url }}"
+                    <a 
+                        href="{{ manager.team_link }}" 
                         target="_blank"
                         title="{{ job_post.culture.team_link_title }}">
                         {{ job_post.culture.team_link_label }}
@@ -178,39 +194,39 @@
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box full">
-                <span
+                <span 
                     class="job-post__culture-heading">
                     {{ job_post.culture.operating_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    {{ team_culture.operating_context }}
+                    {{ manager.team_context }}    
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box full">
-                <span
+                <span 
                     class="job-post__culture-heading">
                     {{ job_post.culture.team_value_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy">
-                    {{ team_culture.what_we_value }}
+                    {{ manager.team_value }}
                 </p>
             </div>
 
-            <div
+            <div 
                 class="box full">
-                <span
+                <span 
                     class="job-post__culture-heading">
                     {{ job_post.culture.team_work_label }}
                 </span>
-                <p
+                <p 
                     class="job-post__culture-copy final">
-                    {{ team_culture.how_we_work }}
+                    {{ manager.team_work }}     
                 </p>
             </div>
 

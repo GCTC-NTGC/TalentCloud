@@ -7,21 +7,19 @@
 
 namespace App\Models;
 
+use Reliese\Database\Eloquent\Model as Eloquent;
+
 /**
  * Class UserRole
  *
  * @property int $id
  * @property string $name
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $users
  */
-<<<<<<< HEAD
 class UserRole extends Eloquent
 {
-=======
-class UserRole extends BaseModel {
->>>>>>> dev
 
     protected $fillable = [];
 

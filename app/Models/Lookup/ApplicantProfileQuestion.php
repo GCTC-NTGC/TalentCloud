@@ -7,20 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use App\Models\BaseModel;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class ApplicantProfileQuestion
  *
  * @property int $id
  * @property string $name
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
->>>>>>> dev
  *
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
@@ -29,12 +24,8 @@ use App\Models\BaseModel;
  * @property string $value
  * @property string $description
  */
-<<<<<<< HEAD
 class ApplicantProfileQuestion extends Eloquent
 {
-=======
-class ApplicantProfileQuestion extends BaseModel {
->>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 

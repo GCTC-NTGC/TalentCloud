@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use App\Models\BaseModel;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class LanguageRequirementTranslation
@@ -16,7 +16,6 @@ use App\Models\BaseModel;
  * @property string $locale
  * @property int $language_requirement_id
  * @property string $value
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -24,15 +23,6 @@ use App\Models\BaseModel;
  */
 class LanguageRequirementTranslation extends Eloquent
 {
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- *
- * @property \App\Models\Lookup\LanguageRequirement $language_requirement
- */
-class LanguageRequirementTranslation extends BaseModel
-{
-    >>>>>>> dev
 
     protected $casts = [
         'language_requirement_id' => 'int'
