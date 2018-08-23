@@ -25,7 +25,7 @@ before_install:
 
 install:
   - sudo make gen-certs
-  - sudo docker-compose up --build --no-start
+  - sudo docker-compose up --build --no-start -t
   - sudo docker-compose up -d
   - npm i -g npm
   - npm install
