@@ -21,10 +21,11 @@ before_install:
   - sudo mv ./docker-compose /usr/bin/docker-compose
   - sudo chmod +x /usr/bin/docker-compose
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
+  - sudo make docker-start
 
 install:
-  - sudo make docker-start
-  - sudo chmod +x /vendor
+  - sudo mkdir /vendor
+  - sudo chmod +x -R /vendor
   - composer update
   - composer install
   - npm i -g npm
