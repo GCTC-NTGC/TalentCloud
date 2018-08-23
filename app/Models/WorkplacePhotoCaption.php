@@ -27,13 +27,12 @@ class WorkplacePhotoCaption extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\WorkplacePhoto $workplace_photo
  */
-class WorkplacePhotoCaption extends BaseModel
-{
-    >>>>>>> dev
+class WorkplacePhotoCaption extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'work_environment_id' => 'int',

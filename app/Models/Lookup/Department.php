@@ -21,7 +21,7 @@ use App\Models\BaseModel;
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
 >>>>>>> dev
  * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $department_translations

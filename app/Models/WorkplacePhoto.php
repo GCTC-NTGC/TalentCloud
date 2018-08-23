@@ -25,12 +25,11 @@ class WorkplacePhoto extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\WorkplacePhotoCaption $workplace_photo_caption
  */
-class WorkplacePhoto extends BaseModel
-{
-    >>>>>>> dev
+class WorkplacePhoto extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'image' => 'boolean',

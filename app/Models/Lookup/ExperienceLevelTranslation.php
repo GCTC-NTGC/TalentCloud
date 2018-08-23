@@ -27,12 +27,11 @@ class ExperienceLevelTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  */
-class ExperienceLevelTranslation extends BaseModel
-{
-    >>>>>>> dev
+class ExperienceLevelTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'experience_level_id' => 'int'

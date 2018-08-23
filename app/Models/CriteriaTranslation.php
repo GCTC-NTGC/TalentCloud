@@ -26,12 +26,11 @@ class CriteriaTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Criteria $criterion
  */
-class CriteriaTranslation extends BaseModel
-{
-    >>>>>>> dev
+class CriteriaTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'criteria_id' => 'int'

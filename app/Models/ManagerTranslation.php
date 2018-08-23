@@ -37,9 +37,8 @@ class ManagerTranslation extends Eloquent
  *
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends BaseModel
-{
-    >>>>>>> dev
+class ManagerTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'manager_id' => 'int'

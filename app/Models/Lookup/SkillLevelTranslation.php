@@ -27,12 +27,11 @@ class SkillLevelTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\SkillLevel $skill_level
  */
-class SkillLevelTranslation extends BaseModel
-{
-    >>>>>>> dev
+class SkillLevelTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'skill_level_id' => 'int'

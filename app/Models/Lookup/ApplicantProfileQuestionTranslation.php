@@ -28,12 +28,11 @@ class ApplicantProfileQuestionTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
-class ApplicantProfileQuestionTranslation extends BaseModel
-{
-    >>>>>>> dev
+class ApplicantProfileQuestionTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'applicant_profile_question_id' => 'int'

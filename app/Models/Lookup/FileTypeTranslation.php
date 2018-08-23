@@ -27,12 +27,11 @@ class FileTypeTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\FileType $file_type
  */
-class FileTypeTranslation extends BaseModel
-{
-    >>>>>>> dev
+class FileTypeTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'file_type_id' => 'int'

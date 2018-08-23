@@ -6,7 +6,6 @@
  */
 
 namespace App\Models;
-
 use App\Models\Lookup\Frequency;
 
 /**

@@ -25,7 +25,7 @@ namespace App\Models;
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
 >>>>>>> dev
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  * @property \App\Models\Lookup\Relationship $relationship

@@ -27,12 +27,11 @@ class SecurityClearanceTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\SecurityClearance $security_clearance
  */
-class SecurityClearanceTranslation extends BaseModel
-{
-    >>>>>>> dev
+class SecurityClearanceTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'security_clearance_id' => 'int'

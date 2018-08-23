@@ -25,12 +25,11 @@ class JobPosterKeyTaskTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\JobPosterKeyTask $job_poster_key_task
  */
-class JobPosterKeyTaskTranslation extends BaseModel
-{
-    >>>>>>> dev
+class JobPosterKeyTaskTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'job_poster_key_task_id' => 'int'

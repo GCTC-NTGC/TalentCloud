@@ -27,12 +27,11 @@ class ProvinceTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\Province $province
  */
-class ProvinceTranslation extends BaseModel
-{
-    >>>>>>> dev
+class ProvinceTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'province_id' => 'int'
