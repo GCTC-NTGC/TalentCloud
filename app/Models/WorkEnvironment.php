@@ -7,6 +7,7 @@
 
 namespace App\Models;
 use App\Models\Lookup\Frequency;
+use Prophecy\Prediction\CallTimesPrediction;
 
 /**
  * Class WorkEnvironment
@@ -23,9 +24,16 @@ use App\Models\Lookup\Frequency;
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
+ * @property \Illuminate\Database\Eloquent\Collection $work_environment_translations
+ *
+ * Localized Properties:
+ * @property string $things_to_know
  */
 class WorkEnvironment extends BaseModel {
 
+    use \Dimsav\Translatable\Translatable;
+    
+    public $translatedAttributes = ['things_to_know'];
     protected $casts = [
         'remote_work_allowed' => 'boolean'
     ];
@@ -53,6 +61,10 @@ class WorkEnvironment extends BaseModel {
 
     public function workplace_photo_captions() {
         return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
+    }
+
+    public function work_environment_translations() {
+        return $this->hasMany(\App\Models\WorkEnvironmentTranslation::class);
     }
 
 }
