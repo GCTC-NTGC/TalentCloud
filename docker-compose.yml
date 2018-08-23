@@ -35,7 +35,7 @@ services:
         links:
             - talentcloud-db
         environment:
-            - "DB_PORT=8080"
+            - "DB_PORT=5432"
             - "DB_HOST=talentcloud-db"
     # Database
     talentcloud-db:
@@ -51,7 +51,7 @@ services:
             - "POSTGRES_PASSWORD=talentcloud"
             - "PGDATA=/database/db/postgresql/data/pgdata"
         ports:
-            - "8080:8080"
+            - "5432:80"
     # Postgres Admin
     pgadmin:
         image: dpage/pgadmin4
