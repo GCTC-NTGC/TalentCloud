@@ -26,7 +26,7 @@ before_install:
 
 install:
   - sudo make docker-start
-  - composer self-update
+  - composer update
   - composer install -o
   - npm i -g npm
   - npm install
