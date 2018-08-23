@@ -41,7 +41,7 @@ script:
   # php artisan db:seed --force
   # sudo make mysql-dump
   # sudo make mysql-restore
-  0 sudo make phpmd
+  - sudo make phpmd
   - sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
 
