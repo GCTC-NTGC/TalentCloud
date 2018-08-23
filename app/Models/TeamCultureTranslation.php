@@ -28,11 +28,12 @@ class TeamCultureTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\TeamCulture $team_culture
  */
-class TeamCultureTranslation extends BaseModel {
->>>>>>> dev
+class TeamCultureTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'team_culture_id' => 'int'

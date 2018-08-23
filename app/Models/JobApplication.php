@@ -21,7 +21,7 @@ namespace App\Models;
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
 >>>>>>> dev
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicationStatus $application_status

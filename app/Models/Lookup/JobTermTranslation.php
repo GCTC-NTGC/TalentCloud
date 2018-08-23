@@ -27,11 +27,12 @@ class JobTermTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\JobTerm $job_term
  */
-class JobTermTranslation extends BaseModel {
->>>>>>> dev
+class JobTermTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'job_term_id' => 'int'

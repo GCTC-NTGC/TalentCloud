@@ -26,12 +26,13 @@ class JobApplicationAnswer extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
-class JobApplicationAnswer extends BaseModel {
->>>>>>> dev
+class JobApplicationAnswer extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'job_poster_questions_id' => 'int',

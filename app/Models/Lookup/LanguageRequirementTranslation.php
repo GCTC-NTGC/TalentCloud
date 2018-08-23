@@ -27,11 +27,12 @@ class LanguageRequirementTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\LanguageRequirement $language_requirement
  */
-class LanguageRequirementTranslation extends BaseModel {
->>>>>>> dev
+class LanguageRequirementTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'language_requirement_id' => 'int'

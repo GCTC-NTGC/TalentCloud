@@ -22,7 +22,7 @@ namespace App\Models;
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
 >>>>>>> dev
  * @property \App\Models\Criteria $criterion
  * @property \App\Models\JobApplication $job_application

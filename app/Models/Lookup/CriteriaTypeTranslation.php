@@ -27,11 +27,12 @@ class CriteriaTypeTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\CriteriaType $criteria_type
  */
-class CriteriaTypeTranslation extends BaseModel {
->>>>>>> dev
+class CriteriaTypeTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $fillable = [];
 

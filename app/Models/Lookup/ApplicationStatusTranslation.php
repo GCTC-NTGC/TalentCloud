@@ -27,11 +27,12 @@ class ApplicationStatusTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  */
-class ApplicationStatusTranslation extends BaseModel {
->>>>>>> dev
+class ApplicationStatusTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'application_status_id' => 'int'

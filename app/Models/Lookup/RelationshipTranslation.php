@@ -27,11 +27,12 @@ class RelationshipTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\Relationship $relationship
  */
-class RelationshipTranslation extends BaseModel {
->>>>>>> dev
+class RelationshipTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'relationship_id' => 'int'

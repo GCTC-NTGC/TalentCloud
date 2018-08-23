@@ -28,12 +28,13 @@ class WorkSample extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  */
-class WorkSample extends BaseModel {
->>>>>>> dev
+class WorkSample extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'file_type_id' => 'int'

@@ -27,11 +27,12 @@ class DepartmentTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\Department $department
  */
-class DepartmentTranslation extends BaseModel {
->>>>>>> dev
+class DepartmentTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'department_id' => 'int'

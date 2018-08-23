@@ -27,11 +27,12 @@ class CitizenshipDeclarationTranslation extends Eloquent
 =======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Lookup\CitizenshipDeclaration $citizenship_declaration
  */
-class CitizenshipDeclarationTranslation extends BaseModel {
->>>>>>> dev
+class CitizenshipDeclarationTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'citizenship_declaration_id' => 'int'
