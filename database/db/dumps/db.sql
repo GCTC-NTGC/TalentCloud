@@ -17,6 +17,8 @@ GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 
 \c talentcloud talentcloud;
 
+DROP DATABASE IF EXISTS testdb;
+
 -- phpMyAdmin SQL Dump
 -- version 4.8.2
 -- https://www.phpmyadmin.net/
