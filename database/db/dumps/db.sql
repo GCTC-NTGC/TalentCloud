@@ -15,9 +15,11 @@ CREATE DATABASE talentcloud
 
 GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 
-\c talentcloud talentcloud;
+\c talentcloud;
 
 DROP DATABASE IF EXISTS testdb;
+
+\c talentcloud talentcloud;
 
 -- phpMyAdmin SQL Dump
 -- version 4.8.2
