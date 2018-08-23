@@ -59,7 +59,7 @@ phpmd:
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 test: code-sniff
-	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./app/
+	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 	@make resetOwner
 
 resetOwner:
