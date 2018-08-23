@@ -33,7 +33,7 @@
                 <div
                     class="box med-1of3">
 
-                    <div class="form__input-wrapper--float {% if user.team_size != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.team_size != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileTeamSize">
                             Team Size
                         </label>
@@ -41,7 +41,7 @@
                             class="form__input"
                             id="managerProfileTeamSize"
                             type="number"
-                            value="{{ user.team_size }}">
+                            value="{{ team_culture.team_size }}">
                         </input>
                     </div>
 
@@ -50,7 +50,7 @@
                 <div
                     class="box med-2of3">
 
-                    <div class="form__input-wrapper--float {% if user.gc_link != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.gc_directory_url != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileGCLink">
                             GC Directory Link
                         </label>
@@ -58,7 +58,7 @@
                             class="form__input"
                             id="managerProfileGCLink"
                             type="url"
-                            value="{{ user.gc_link }}">
+                            value="{{ team_culture.gc_directory_url }}">
                         </input>
                     </div>
 
@@ -82,13 +82,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.operating_context != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.translate('en').operating_context != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileOperatingContextEN">
                             Answer (English)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileOperatingContextEN">{{ user.operating_context }}</textarea>
+                            id="managerProfileOperatingContextEN">{{ team_culture.translate('en').operating_context }}</textarea>
                     </div>
 
                 </div>
@@ -96,13 +96,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.operating_context_fr != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.translate('fr').operating_context != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileOperatingContextFR">
                             Answer (Français)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileOperatingContextFR">{{ user.operating_context_fr }}</textarea>
+                            id="managerProfileOperatingContextFR">{{ team_culture.translate('fr').operating_context }}</textarea>
                     </div>
 
                 </div>
@@ -125,13 +125,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.values != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.translate('en').what_we_value != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileValuesEN">
                             Answer (English)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileValuesEN">{{ user.values }}</textarea>
+                            id="managerProfileValuesEN">{{ team_culture.translate('en').what_we_value }}</textarea>
                     </div>
 
                 </div>
@@ -139,13 +139,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.values_fr != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.translate('fr').what_we_value != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileValuesFR">
                             Answer (Français)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileValuesFR">{{ user.values_fr }}</textarea>
+                            id="managerProfileValuesFR">{{ team_culture.translate('fr').what_we_value }}</textarea>
                     </div>
 
                 </div>
@@ -168,13 +168,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.how_work != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.translate('en').how_we_work != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileHowWorkEN">
                             Answer (English)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileHowWorkEN">{{ user.how_work }}</textarea>
+                            id="managerProfileHowWorkEN">{{ team_culture.translate('en').how_we_work }}</textarea>
                     </div>
 
                 </div>
@@ -182,13 +182,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.how_work_fr != null %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if team_culture.translate('fr').how_we_work != null %}active{% endif %}">
                         <label class="form__label" for="managerProfileHowWorkFR">
                             Answer (Français)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileHowWorkFR">{{ user.how_work_fr }}</textarea>
+                            id="managerProfileHowWorkFR">{{ team_culture.translate('fr').how_we_work }}</textarea>
                     </div>
 
                 </div>

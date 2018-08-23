@@ -23,7 +23,7 @@ return [
     ],
     "profile" => [
         "name" => "My Profile",
-        "link" => route('manager.profile.edit')
+        "link" => route('manager.profile')
     ],
     "register" => [
         "name" => "Register",

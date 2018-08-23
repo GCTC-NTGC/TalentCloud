@@ -33,13 +33,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.env_context %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if work_environment.translate('en').things_to_know %}active{% endif %}">
                         <label class="form__label" for="managerProfileEnvContextEN">
                             Answer (English)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileEnvContextEN">{{ user.env_context }}</textarea>
+                            id="managerProfileEnvContextEN">{{ work_environment.translate('en').things_to_know }}</textarea>
                     </div>
 
                 </div>
@@ -47,13 +47,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.env_context_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if work_environment.translate('fr').things_to_know %}active{% endif %}">
                         <label class="form__label" for="managerProfileEnvContextFR">
                             Answer (Français)
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileEnvContextFR">{{ user.env_context_fr }}</textarea>
+                            id="managerProfileEnvContextFR">{{ work_environment.translate('fr').things_to_know }}</textarea>
                     </div>
 
                 </div>
@@ -63,10 +63,10 @@
 
                     <div
                         aria-orientation="horizontal"
-                        class="form__radio-group" 
+                        class="form__radio-group"
                         role="radiogroup">
 
-                        <label 
+                        <label
                             class="form__label"
                             for="">
                             How Often is Telework Allowed?
@@ -76,28 +76,28 @@
 
                             {% set counter = 0 %}
 
-                            {% for telework in profile.telework %}
+                            {% for option in telework_options %}
 
                                 {% set counter = counter + 1 %}
 
-                                <label 
-                                    class="box form__radio-group-label small-1of{{ profile.telework|length }}"
-                                    for="telework{{ telework }}">
-                                    <span 
+                                <label
+                                    class="box form__radio-group-label small-1of{{ telework_options|length }}"
+                                    for="telework{{ option.id }}">
+                                    <span
                                         class="hidden">
-                                        {{ telework }}
+                                        {{ profile.work_environment.telework_allowed[option.name] }}
                                     </span>
-                                    <input 
+                                    <input
                                         class="form__radio-group-input"
-                                        id="telework{{ telework }}"
+                                        id="telework{{ option.id }}"
                                         name="telework"
                                         type="radio"
-                                        {% if user.telework|capitalize == telework|capitalize %}
+                                        {% if work_environment.telework_allowed_frequency.name == option.name %}
                                             checked
                                         {% endif %} />
-                                    <span 
+                                    <span
                                         class="form__radio-group-span">
-                                        {{ telework }}
+                                        {{ profile.work_environment.telework_allowed[option.name] }}
                                     </span>
                                 </label>
 
@@ -114,10 +114,10 @@
 
                     <div
                         aria-orientation="horizontal"
-                        class="form__radio-group" 
+                        class="form__radio-group"
                         role="radiogroup">
 
-                        <label 
+                        <label
                             class="form__label"
                             for="">
                             How Often Are Flexible Hours Allowed?
@@ -127,28 +127,28 @@
 
                             {% set counter = 0 %}
 
-                            {% for flex_hours in profile.flex_hours %}
+                            {% for option in flex_hour_options %}
 
                                 {% set counter = counter + 1 %}
 
-                                <label 
-                                    class="box form__radio-group-label small-1of{{ profile.flex_hours|length }}"
-                                    for="flex_hours{{ flex_hours }}">
-                                    <span 
+                                <label
+                                    class="box form__radio-group-label small-1of{{ flex_hour_options|length }}"
+                                    for="flex_hours{{ option.id }}">
+                                    <span
                                         class="hidden">
-                                        {{ flex_hours }}
+                                        {{ profile.work_environment.flex_hours_allowed[option.name] }}
                                     </span>
-                                    <input 
+                                    <input
                                         class="form__radio-group-input"
-                                        id="flex_hours{{ flex_hours }}"
+                                        id="flex_hours{{ option.id }}"
                                         name="flex_hours"
                                         type="radio"
-                                        {% if user.flex_hours|capitalize == flex_hours|capitalize %}
+                                        {% if work_environment.flexible_hours_frequency.name == option.name %}
                                             checked
                                         {% endif %} />
-                                    <span 
+                                    <span
                                         class="form__radio-group-span">
-                                        {{ flex_hours }}
+                                        {{ profile.work_environment.flex_hours_allowed[option.name] }}
                                     </span>
                                 </label>
 
@@ -168,18 +168,18 @@
                     </h4>
                 </div>
 
-                {% for photo in user.env_photos %}
+                {% for photo in user.workplace_photos %}
 
                     <div
                         class="box med-1of3">
 
-                        <div 
+                        <div
                             class="manager-profile__image-upload">
                             <img
                                 {% if photo.image != null %}
-                                    src="{{ photo.image }}"
+                                    src="{{ photo.url }}"
                                 {% else %}
-                                    src="https://talentcloud-nuagedetalents.gccollab.ca/images/user.png"
+                                    src="/images/user.png"
                                 {% endif %}>
                         </div>
 

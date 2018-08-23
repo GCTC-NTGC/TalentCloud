@@ -13,7 +13,7 @@
 
     <h4
         class="manager-profile__section-title">
-        About Me
+        {{ profile.about_me.title}}
     </h4>
 
     <form
@@ -24,7 +24,7 @@
 
             <legend
                 class="form__legend">
-                My Name
+                {{ profile.about_me.name_label}}
             </legend>
 
             <div
@@ -35,7 +35,7 @@
 
                     <div class="form__input-wrapper--float active">
                         <label class="form__label" for="managerProfileName">
-                            My Name
+                            {{ profile.about_me.name_label }}
                         </label>
                         <input
                             class="form__input"
@@ -56,7 +56,7 @@
 
             <legend
                 class="form__legend">
-                Position
+                {{ profile.about_me.position_form_legend }}
             </legend>
 
             <div
@@ -65,15 +65,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.title %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').position %}active{% endif %}">
                         <label class="form__label" for="managerProfileTitleEN">
-                            Title (English)
+                            {{ profile.about_me.position_label.en }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileTitleEN"
                             type="text"
-                            value="{{ user.title }}">
+                            value="{{ manager.translate('en').position }}">
                         </input>
                     </div>
 
@@ -82,15 +82,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.title_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').position %}active{% endif %}">
                         <label class="form__label" for="managerProfileTitleFR">
-                            Title (Français)
+                            {{ profile.about_me.position_label.fr }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileTitleFR"
                             type="text"
-                            value="{{ user.title_fr }}">
+                            value="{{ manager.translate('fr').position }}">
                         </input>
                     </div>
 
@@ -105,7 +105,7 @@
 
             <legend
                 class="form__legend">
-                Departmental Information
+                {{ profile.about_me.department_form_legend }}
             </legend>
 
             <div
@@ -114,22 +114,22 @@
                 <div
                     class="box full">
 
-                    <div 
+                    <div
                         class="form__input-wrapper--select">
-                        <label 
+                        <label
                             class="form__label"
                             for="managerProfileDepartment">
-                            Department
+                            {{ profile.about_me.department_label }}
                         </label>
-                        <div 
+                        <div
                             class="form__select-wrapper">
-                            <select 
+                            <select
                                 class="form__input"
                                 id="managerProfileDepartment">
-                                {% for option in profile.departments %}
+                                {% for department in departments %}
                                     <option
-                                        {% if user.department | capitalize == option | capitalize %}selected="selected"{% endif %}
-                                        >{{ option }}</option>
+                                        {% if manager.department.name == deparment.name %}selected="selected"{% endif %}
+                                        >{{ department.value }}</option>
                                         }
                                 {% endfor %}
                             </select>
@@ -141,15 +141,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.branch %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').branch %}active{% endif %}">
                         <label class="form__label" for="managerProfileBranchEN">
-                            Branch (English)
+                            {{ profile.about_me.branch_label.en }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileBranchEN"
                             type="text"
-                            value="{{ user.branch }}">
+                            value="{{ manager.translate('en').branch }}">
                         </input>
                     </div>
 
@@ -158,15 +158,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.branch_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').branch %}active{% endif %}">
                         <label class="form__label" for="managerProfileBranchFR">
-                            Branch (Français)
+                            {{ profile.about_me.branch_label.fr }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileBranchFR"
                             type="text"
-                            value="{{ user.branch_fr }}">
+                            value="{{ manager.translate('fr').branch }}">
                         </input>
                     </div>
 
@@ -175,15 +175,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.division %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').division %}active{% endif %}">
                         <label class="form__label" for="managerProfileDivision">
-                            Division (English)
+                            {{ profile.about_me.division_label.en }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileDivision"
                             type="text"
-                            value="{{ user.division }}">
+                            value="{{ manager.translate('en').division }}">
                         </input>
                     </div>
 
@@ -192,15 +192,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.division_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').division %}active{% endif %}">
                         <label class="form__label" for="managerProfileDivision">
-                            Division (Français)
+                            {{ profile.about_me.division_label.fr }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileDivision"
                             type="text"
-                            value="{{ user.division_fr }}">
+                            value="{{ manager.translate('fr').division }}">
                         </input>
                     </div>
 
@@ -215,7 +215,7 @@
 
             <legend
                 class="form__legend">
-                Personal Information
+                {{ profile.about_me.personal_information_form_legend }}
             </legend>
 
             <div
@@ -224,15 +224,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.education %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').education %}active{% endif %}">
                         <label class="form__label" for="managerProfileEducationEN">
-                            Education (English)
+                            {{ profile.about_me.education_label.en }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileEducationEN"
                             type="text"
-                            value="{{ user.education }}">
+                            value="{{ manager.translate('en').education }}">
                         </input>
                     </div>
 
@@ -241,15 +241,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.education_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').education %}active{% endif %}">
                         <label class="form__label" for="managerProfileEducationFR">
-                            Education (Français)
+                            {{ profile.about_me.education_label.fr }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileEducationFR"
                             type="text"
-                            value="{{ user.education_fr }}">
+                            value="{{ manager.translate('fr').education }}">
                         </input>
                     </div>
 
@@ -258,7 +258,7 @@
                 <div
                     class="box full">
 
-                    <div class="form__input-wrapper--float {% if user.experience %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.years_experience %}active{% endif %}">
                         <label class="form__label" for="managerProfileExperience">
                             Years of Experience
                         </label>
@@ -266,7 +266,7 @@
                             class="form__input"
                             id="managerProfileExperience"
                             type="number"
-                            value="{{ user.experience }}">
+                            value="{{ manager.years_experience }}">
                         </input>
                     </div>
 
@@ -275,13 +275,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.career_journey %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').career_journey %}active{% endif %}">
                         <label class="form__label" for="managerProfileCareerJourneyEN">
-                            My Career Journey So Far (English)
+                            {{ profile.about_me.career_journey_label.en }}
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileCareerJourneyEN">{{ user.career_journey }}</textarea>
+                            id="managerProfileCareerJourneyEN">{{ manager.translate('en').career_journey }}</textarea>
                     </div>
 
                 </div>
@@ -289,13 +289,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.career_journey_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').career_journey %}active{% endif %}">
                         <label class="form__label" for="managerProfileCareerJourneyFR">
-                            My Career Journey So Far (Français)
+                            {{ profile.about_me.career_journey_label.fr }}
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileCareerJourneyFR">{{ user.career_journey_fr }}</textarea>
+                            id="managerProfileCareerJourneyFR">{{ manager.translate('fr').career_journey }}</textarea>
                     </div>
 
                 </div>
@@ -303,13 +303,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.learning_path %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').learning_path %}active{% endif %}">
                         <label class="form__label" for="managerProfileLearningPathEN">
-                            My Learning Path (English)
+                            {{ profile.about_me.learning_path.en }}
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileLearningPathEN">{{ user.learning_path }}</textarea>
+                            id="managerProfileLearningPathEN">{{ manager.translate('en').learning_path }}</textarea>
                     </div>
 
                 </div>
@@ -317,13 +317,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.learning_path_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').learning_path %}active{% endif %}">
                         <label class="form__label" for="managerProfileLearningPathFR">
-                            My Learning Path (Français)
+                            {{ profile.about_me.learning_path.fr }}
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileLearningPathFR">{{ user.learning_path_fr }}</textarea>
+                            id="managerProfileLearningPathFR">{{ manager.translate('fr').learning_path }}</textarea>
                     </div>
 
                 </div>
@@ -331,13 +331,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.biography %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('en').about_me %}active{% endif %}">
                         <label class="form__label" for="managerProfileBiographyEN">
-                            A Bit About Me Outside Work (English)
+                            {{ profile.about_me.biography_label.en }}
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileBiographyEN">{{ user.biography }}</textarea>
+                            id="managerProfileBiographyEN">{{ manager.translate('en').about_me }}</textarea>
                     </div>
 
                 </div>
@@ -345,13 +345,13 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.biography_fr %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.translate('fr').about_me %}active{% endif %}">
                         <label class="form__label" for="managerProfileBiographyFR">
-                            A Bit About Me Outside Work (Français)
+                            {{ profile.about_me.biography_label.fr }}
                         </label>
                         <textarea
                             class="form__textarea"
-                            id="managerProfileBiographyFR">{{ user.biography_fr }}</textarea>
+                            id="managerProfileBiographyFR">{{ manager.translate('fr').about_me }}</textarea>
                     </div>
 
                 </div>
@@ -365,7 +365,7 @@
 
             <legend
                 class="form__legend">
-                Social Media
+                {{ profile.about_me.social_media_form_legend }}
             </legend>
 
             <div
@@ -374,15 +374,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.twitter.url %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.twitter_username %}active{% endif %}">
                         <label class="form__label" for="managerProfileTwitter">
-                            Twitter Username
+                            {{ profile.about_me.twitter_label }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileTwitter"
                             type="text"
-                            value="{{ user.twitter.url }}">
+                            value="{{ urls.twitter|replace({':username':manager.twitter_username}) }}">
                         </input>
                     </div>
 
@@ -391,15 +391,15 @@
                 <div
                     class="box med-1of2">
 
-                    <div class="form__input-wrapper--float {% if user.linkedin.url %}active{% endif %}">
+                    <div class="form__input-wrapper--float {% if manager.linkedin_url %}active{% endif %}">
                         <label class="form__label" for="managerProfileLinkedin">
-                            Linkedin Username
+                            {{ profile.about_me.linkedin_label }}
                         </label>
                         <input
                             class="form__input"
                             id="managerProfileLinkedin"
                             type="text"
-                            value="{{ user.linkedin.url }}">
+                            value="{{ manager.linkedin_url }}">
                         </input>
                     </div>
 
@@ -422,7 +422,7 @@
                 <button
                     class="button--blue light-bg"
                     type="submit">
-                    Save About Me
+                    {{ profile_about_me.save_button_label }}
                 </button>
             </div>
 

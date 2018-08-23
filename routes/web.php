@@ -828,7 +828,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
     })->name('managers.show');
 
     /* Profile */
-    Route::middleware(['auth'])->group(function(){
+    Route::middleware(['auth', 'role:applicant'])->group(function(){
 
         Route::get('profile', function() {
             $applicant = Auth::user()->applicant;
@@ -870,104 +870,16 @@ $managerGroup = function() {
         ]);
     })->name('manager.home');
 
-    Route::middleware(['auth'])->group(function(){
+    Route::middleware(['auth', 'role:manager'])->group(function(){
+
+        Route::get('profile', function() {
+            $manager = Auth::user()->manager;
+            debugbar()->info($manager);
+            return redirect()->route('manager.profile.edit', $manager);
+        })->name('manager.profile');
 
         /* Profile */
-        Route::get('profile', function () {
-            return view('manager/profile', [
-                "profile" => [
-                    "title" => "My Profile",
-                    "departments" => [
-                        "00" => "Employment and Social Development Canada",
-                        "01" => "Environment and Climate Change Canada",
-                        "02" => "Natural Resources Canada",
-                        "03" => "Transport Canada",
-                        "04" => "Treasury Board of Canada Secretariat"
-                    ],
-                    "telework" => [
-                        "00" => "Never",
-                        "01" => "Occasionally",
-                        "02" => "Sometimes",
-                        "03" => "Frequently",
-                        "04" => "Most of the Time"
-                    ],
-                    "flex_hours" => [
-                        "00" => "Never",
-                        "01" => "Occasionally",
-                        "02" => "Sometimes",
-                        "03" => "Frequently",
-                        "04" => "Most of the Time"
-                    ]
-                ],
-                /* User Data */
-                "user" => [
-                    "name" => "Gray O'Byrne",
-                    "title" => "Hiring Manager",
-                    "title_fr" => null,
-                    "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/7?v=8291",
-                    "twitter" => [
-                        "url" => "https://twitter.com/joshdrink",
-                        "title" => "Visit Jason's Twitter profile."
-                    ],
-                    "linkedin" => [
-                        "url" => "https://linkedin.com/joshdrink",
-                        "title" => "Visit Jason's Linkedin profile."
-                    ],
-                    "department" => "Treasury Board of Canada Secretariat",
-                    "branch" => "CIOB",
-                    "branch_fr" => null,
-                    "division" => "Talent Cloud",
-                    "division_fr" => "Nuage de Talents",
-                    "education" => "Sample University",
-                    "education_fr" => null,
-                    "experience" => 5,
-                    "career_journey" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "career_journey_fr" => null,
-                    "learning_path" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "learning_path_fr" => null,
-                    "biography" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "biography_fr" => null,
-                    "leadership_style" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "leadership_style_fr" => null,
-                    "expectations" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "expectations_fr" => null,
-                    "approach" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "approach_fr" => null,
-                    "env_context" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "env_context_fr" => null,
-                    "telework" => "Occasionally",
-                    "flex_hours" => "Most of the Time",
-                    "env_photos" => [
-                        "00" => [
-                            "id" => 1,
-                            "image" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/getWorkplacePhotoByManagerProfileAndName/14/workplace_photo_1",
-                            "alt" => "Gray's Workspace",
-                            "alt_fr" => null
-                        ],
-                        "01" => [
-                            "id" => 2,
-                            "image" => null,
-                            "alt" => null,
-                            "alt_fr" => null
-                        ],
-                        "02" => [
-                            "id" => 3,
-                            "image" => null,
-                            "alt" => null,
-                            "alt_fr" => null
-                        ]
-                    ],
-                    "team_size" => 12,
-                    "gc_link" => null,
-                    "operating_context" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "operating_context_fr" => null,
-                    "values" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "values_fr" => null,
-                    "how_work" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "how_work_fr" => null
-                ]
-            ]);
-        })->name('manager.profile.edit');
+        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')->name('manager.profile.edit');
 
         /* Job Index */
         Route::get('jobs', function () {
