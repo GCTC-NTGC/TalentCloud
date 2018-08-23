@@ -34,562 +34,562 @@ GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicants`
+-- Table structure for table 'applicants'
 --
 
-CREATE TABLE `applicants` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `personal_website` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tagline` text COLLATE utf8mb4_unicode_ci,
-  `twitter_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'applicants' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'personal_website' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'tagline' text COLLATE utf8mb4_unicode_ci,
+  'twitter_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'linkedin_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'user_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicant_profile_answers`
+-- Table structure for table 'applicant_profile_answers'
 --
 
-CREATE TABLE `applicant_profile_answers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `applicant_id` int(10) UNSIGNED NOT NULL,
-  `applicant_profile_question_id` int(10) UNSIGNED NOT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'applicant_profile_answers' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'applicant_id' int(10) UNSIGNED NOT NULL,
+  'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
+  'answer' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicant_profile_questions`
+-- Table structure for table 'applicant_profile_questions'
 --
 
-CREATE TABLE `applicant_profile_questions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'applicant_profile_questions' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicant_profile_question_translations`
+-- Table structure for table 'applicant_profile_question_translations'
 --
 
-CREATE TABLE `applicant_profile_question_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `applicant_profile_question_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'applicant_profile_question_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `application_micro_references`
+-- Table structure for table 'application_micro_references'
 --
 
-CREATE TABLE `application_micro_references` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_application_id` int(10) UNSIGNED NOT NULL,
-  `criteria_id` int(10) UNSIGNED NOT NULL,
-  `micro_reference_id` int(10) UNSIGNED NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'application_micro_references' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_application_id' int(10) UNSIGNED NOT NULL,
+  'criteria_id' int(10) UNSIGNED NOT NULL,
+  'micro_reference_id' int(10) UNSIGNED NOT NULL,
+  'is_active' tinyint(1) NOT NULL DEFAULT '1',
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `application_status`
+-- Table structure for table 'application_status'
 --
 
-CREATE TABLE `application_status` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'application_status' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `application_status_translations`
+-- Table structure for table 'application_status_translations'
 --
 
-CREATE TABLE `application_status_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `application_status_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'application_status_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'application_status_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `application_work_samples`
+-- Table structure for table 'application_work_samples'
 --
 
-CREATE TABLE `application_work_samples` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_application_id` int(10) UNSIGNED NOT NULL,
-  `criteria_id` int(10) UNSIGNED NOT NULL,
-  `work_sample_id` int(10) UNSIGNED NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'application_work_samples' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_application_id' int(10) UNSIGNED NOT NULL,
+  'criteria_id' int(10) UNSIGNED NOT NULL,
+  'work_sample_id' int(10) UNSIGNED NOT NULL,
+  'is_active' tinyint(1) NOT NULL DEFAULT '1',
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `citizenship_declarations`
+-- Table structure for table 'citizenship_declarations'
 --
 
-CREATE TABLE `citizenship_declarations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'citizenship_declarations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `citizenship_declaration_translations`
+-- Table structure for table 'citizenship_declaration_translations'
 --
 
-CREATE TABLE `citizenship_declaration_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `citizenship_declaration_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'citizenship_declaration_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'citizenship_declaration_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `criteria`
+-- Table structure for table 'criteria'
 --
 
-CREATE TABLE `criteria` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `criteria_type_id` int(10) UNSIGNED NOT NULL,
-  `job_poster_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'criteria' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'criteria_type_id' int(10) UNSIGNED NOT NULL,
+  'job_poster_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `criteria_translations`
+-- Table structure for table 'criteria_translations'
 --
 
-CREATE TABLE `criteria_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `criteria_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'criteria_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'criteria_id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `criteria_types`
+-- Table structure for table 'criteria_types'
 --
 
-CREATE TABLE `criteria_types` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'criteria_types' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `criteria_type_translations`
+-- Table structure for table 'criteria_type_translations'
 --
 
-CREATE TABLE `criteria_type_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `criteria_type_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'criteria_type_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'criteria_type_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departments`
+-- Table structure for table 'departments'
 --
 
-CREATE TABLE `departments` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'departments' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `department_translations`
+-- Table structure for table 'department_translations'
 --
 
-CREATE TABLE `department_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `department_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'department_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'department_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `experience_levels`
+-- Table structure for table 'experience_levels'
 --
 
-CREATE TABLE `experience_levels` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'experience_levels' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `experience_level_translations`
+-- Table structure for table 'experience_level_translations'
 --
 
-CREATE TABLE `experience_level_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `experience_level_id` int(10) UNSIGNED NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'experience_level_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'experience_level_id' int(10) UNSIGNED NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `file_types`
+-- Table structure for table 'file_types'
 --
 
-CREATE TABLE `file_types` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'file_types' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `file_type_translations`
+-- Table structure for table 'file_type_translations'
 --
 
-CREATE TABLE `file_type_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `file_type_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'file_type_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'file_type_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_applications`
+-- Table structure for table 'job_applications'
 --
 
-CREATE TABLE `job_applications` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_id` int(10) UNSIGNED NOT NULL,
-  `application_status_id` int(10) UNSIGNED NOT NULL,
-  `applicant_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_applications' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_id' int(10) UNSIGNED NOT NULL,
+  'application_status_id' int(10) UNSIGNED NOT NULL,
+  'applicant_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_application_answers`
+-- Table structure for table 'job_application_answers'
 --
 
-CREATE TABLE `job_application_answers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_questions_id` int(10) UNSIGNED NOT NULL,
-  `job_application_id` int(10) UNSIGNED NOT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_application_answers' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_questions_id' int(10) UNSIGNED NOT NULL,
+  'job_application_id' int(10) UNSIGNED NOT NULL,
+  'answer' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_posters`
+-- Table structure for table 'job_posters'
 --
 
-CREATE TABLE `job_posters` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_term_id` int(10) UNSIGNED NOT NULL,
-  `term_qty` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `open_date_time` datetime NOT NULL,
-  `close_date_time` datetime NOT NULL,
-  `start_date_time` datetime NOT NULL,
-  `department_id` int(10) UNSIGNED NOT NULL,
-  `province_id` int(10) UNSIGNED NOT NULL,
-  `salary_min` int(11) DEFAULT NULL,
-  `salary_max` int(11) DEFAULT NULL,
-  `noc` int(11) NOT NULL,
-  `classification` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `security_clearance_id` int(10) UNSIGNED NOT NULL,
-  `language_requirement_id` int(10) UNSIGNED NOT NULL,
-  `manager_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_posters' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_term_id' int(10) UNSIGNED NOT NULL,
+  'term_qty' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'open_date_time' datetime NOT NULL,
+  'close_date_time' datetime NOT NULL,
+  'start_date_time' datetime NOT NULL,
+  'department_id' int(10) UNSIGNED NOT NULL,
+  'province_id' int(10) UNSIGNED NOT NULL,
+  'salary_min' int(11) DEFAULT NULL,
+  'salary_max' int(11) DEFAULT NULL,
+  'noc' int(11) NOT NULL,
+  'classification' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'security_clearance_id' int(10) UNSIGNED NOT NULL,
+  'language_requirement_id' int(10) UNSIGNED NOT NULL,
+  'manager_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_poster_key_tasks`
+-- Table structure for table 'job_poster_key_tasks'
 --
 
-CREATE TABLE `job_poster_key_tasks` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_id` int(10) UNSIGNED NOT NULL
+CREATE TABLE 'job_poster_key_tasks' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_id' int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_poster_key_task_translations`
+-- Table structure for table 'job_poster_key_task_translations'
 --
 
-CREATE TABLE `job_poster_key_task_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_key_task_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_poster_key_task_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_key_task_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_poster_questions`
+-- Table structure for table 'job_poster_questions'
 --
 
-CREATE TABLE `job_poster_questions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_poster_questions' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_poster_question_translations`
+-- Table structure for table 'job_poster_question_translations'
 --
 
-CREATE TABLE `job_poster_question_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_question_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_poster_question_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_question_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'question' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_poster_translations`
+-- Table structure for table 'job_poster_translations'
 --
 
-CREATE TABLE `job_poster_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_poster_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` text COLLATE utf8mb4_unicode_ci,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `impact` text COLLATE utf8mb4_unicode_ci,
-  `branch` text COLLATE utf8mb4_unicode_ci,
-  `division` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_poster_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_poster_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'city' text COLLATE utf8mb4_unicode_ci,
+  'title' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'impact' text COLLATE utf8mb4_unicode_ci,
+  'branch' text COLLATE utf8mb4_unicode_ci,
+  'division' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_terms`
+-- Table structure for table 'job_terms'
 --
 
-CREATE TABLE `job_terms` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_terms' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_term_translations`
+-- Table structure for table 'job_term_translations'
 --
 
-CREATE TABLE `job_term_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `job_term_id` int(10) UNSIGNED NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'job_term_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_term_id' int(10) UNSIGNED NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `language_requirements`
+-- Table structure for table 'language_requirements'
 --
 
-CREATE TABLE `language_requirements` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'language_requirements' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `language_requirement_translations`
+-- Table structure for table 'language_requirement_translations'
 --
 
-CREATE TABLE `language_requirement_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `language_requirement_id` int(10) UNSIGNED NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'language_requirement_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'language_requirement_id' int(10) UNSIGNED NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `managers`
+-- Table structure for table 'managers'
 --
 
-CREATE TABLE `managers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `department_id` int(10) UNSIGNED DEFAULT NULL,
-  `twitter_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'managers' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'department_id' int(10) UNSIGNED DEFAULT NULL,
+  'twitter_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'linkedin_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'user_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manager_translations`
+-- Table structure for table 'manager_translations'
 --
 
-CREATE TABLE `manager_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `aboutme` text COLLATE utf8mb4_unicode_ci,
-  `greatest_accomplishment` text COLLATE utf8mb4_unicode_ci,
-  `branch` text COLLATE utf8mb4_unicode_ci,
-  `division` text COLLATE utf8mb4_unicode_ci,
-  `position` text COLLATE utf8mb4_unicode_ci,
-  `leadership_style` text COLLATE utf8mb4_unicode_ci,
-  `employee_learning` text COLLATE utf8mb4_unicode_ci,
-  `expectations` text COLLATE utf8mb4_unicode_ci,
-  `manager_id` int(10) UNSIGNED NOT NULL,
-  `review_options` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `staylate` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `engage` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `opportunities` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `low_value_work_requests` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `work_experience` text COLLATE utf8mb4_unicode_ci,
-  `education` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'manager_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'aboutme' text COLLATE utf8mb4_unicode_ci,
+  'greatest_accomplishment' text COLLATE utf8mb4_unicode_ci,
+  'branch' text COLLATE utf8mb4_unicode_ci,
+  'division' text COLLATE utf8mb4_unicode_ci,
+  'position' text COLLATE utf8mb4_unicode_ci,
+  'leadership_style' text COLLATE utf8mb4_unicode_ci,
+  'employee_learning' text COLLATE utf8mb4_unicode_ci,
+  'expectations' text COLLATE utf8mb4_unicode_ci,
+  'manager_id' int(10) UNSIGNED NOT NULL,
+  'review_options' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'staylate' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'engage' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'opportunities' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'low_value_work_requests' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'work_experience' text COLLATE utf8mb4_unicode_ci,
+  'education' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `micro_references`
+-- Table structure for table 'micro_references'
 --
 
-CREATE TABLE `micro_references` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `relationship_id` int(10) UNSIGNED DEFAULT NULL,
-  `observed_from_date` date DEFAULT NULL,
-  `observed_until_date` date DEFAULT NULL,
-  `experience_level_id` int(10) UNSIGNED DEFAULT NULL,
-  `story` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'micro_references' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'email' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'relationship_id' int(10) UNSIGNED DEFAULT NULL,
+  'observed_from_date' date DEFAULT NULL,
+  'observed_until_date' date DEFAULT NULL,
+  'experience_level_id' int(10) UNSIGNED DEFAULT NULL,
+  'story' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table 'migrations'
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+CREATE TABLE 'migrations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'migration' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'batch' int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data for table 'migrations'
 --
 
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+INSERT INTO 'migrations' ('id', 'migration', 'batch') VALUES
 (1, '2018_07_12_145513_create_applicant_profile_answers_table', 1),
 (2, '2018_07_12_145513_create_applicant_profile_question_translations_table', 1),
 (3, '2018_07_12_145513_create_applicant_profile_questions_table', 1),
@@ -686,274 +686,274 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profile_pics`
+-- Table structure for table 'profile_pics'
 --
 
-CREATE TABLE `profile_pics` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `image` blob NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `size` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'profile_pics' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'user_id' int(10) UNSIGNED NOT NULL,
+  'image' blob NOT NULL,
+  'type' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'size' int(11) NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `provinces`
+-- Table structure for table 'provinces'
 --
 
-CREATE TABLE `provinces` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'provinces' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `province_translations`
+-- Table structure for table 'province_translations'
 --
 
-CREATE TABLE `province_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `province_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'province_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'province_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relationships`
+-- Table structure for table 'relationships'
 --
 
-CREATE TABLE `relationships` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'relationships' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relationship_translations`
+-- Table structure for table 'relationship_translations'
 --
 
-CREATE TABLE `relationship_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `relationship_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'relationship_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'relationship_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `security_clearances`
+-- Table structure for table 'security_clearances'
 --
 
-CREATE TABLE `security_clearances` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'security_clearances' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `security_clearance_translations`
+-- Table structure for table 'security_clearance_translations'
 --
 
-CREATE TABLE `security_clearance_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `security_clearance_id` int(10) UNSIGNED NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'security_clearance_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'security_clearance_id' int(10) UNSIGNED NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `skill_declarations`
+-- Table structure for table 'skill_declarations'
 --
 
-CREATE TABLE `skill_declarations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `criteria_id` int(10) UNSIGNED NOT NULL,
-  `job_application_id` int(10) UNSIGNED NOT NULL,
-  `experience_level_id` int(10) UNSIGNED DEFAULT NULL,
-  `skill_level_id` int(10) UNSIGNED DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `is_active` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'skill_declarations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'criteria_id' int(10) UNSIGNED NOT NULL,
+  'job_application_id' int(10) UNSIGNED NOT NULL,
+  'experience_level_id' int(10) UNSIGNED DEFAULT NULL,
+  'skill_level_id' int(10) UNSIGNED DEFAULT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci,
+  'is_active' tinyint(1) NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `skill_levels`
+-- Table structure for table 'skill_levels'
 --
 
-CREATE TABLE `skill_levels` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'skill_levels' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `skill_level_translations`
+-- Table structure for table 'skill_level_translations'
 --
 
-CREATE TABLE `skill_level_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `skill_level_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'skill_level_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'skill_level_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `team_cultures`
+-- Table structure for table 'team_cultures'
 --
 
-CREATE TABLE `team_cultures` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `team_size` int(11) DEFAULT NULL,
-  `gc_directory_url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manager_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'team_cultures' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'team_size' int(11) DEFAULT NULL,
+  'gc_directory_url' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'manager_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `team_culture_translations`
+-- Table structure for table 'team_culture_translations'
 --
 
-CREATE TABLE `team_culture_translations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `team_culture_id` int(10) UNSIGNED NOT NULL,
-  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `narrative_text` text COLLATE utf8mb4_unicode_ci,
-  `operating_context` text COLLATE utf8mb4_unicode_ci,
-  `what_we_value` text COLLATE utf8mb4_unicode_ci,
-  `how_we_work` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'team_culture_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'team_culture_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'narrative_text' text COLLATE utf8mb4_unicode_ci,
+  'operating_context' text COLLATE utf8mb4_unicode_ci,
+  'what_we_value' text COLLATE utf8mb4_unicode_ci,
+  'how_we_work' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table 'users'
 --
 
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_confirmed` tinyint(1) NOT NULL DEFAULT '0',
-  `user_role_id` int(10) UNSIGNED NOT NULL,
-  `open_id_sub` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'users' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'email' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'is_confirmed' tinyint(1) NOT NULL DEFAULT '0',
+  'user_role_id' int(10) UNSIGNED NOT NULL,
+  'open_id_sub' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_roles`
+-- Table structure for table 'user_roles'
 --
 
-CREATE TABLE `user_roles` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'user_roles' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workplace_photos`
+-- Table structure for table 'workplace_photos'
 --
 
-CREATE TABLE `workplace_photos` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `image` blob NOT NULL,
-  `mime_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `size` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'workplace_photos' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'image' blob NOT NULL,
+  'mime_type' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'size' int(11) NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workplace_photo_captions`
+-- Table structure for table 'workplace_photo_captions'
 --
 
-CREATE TABLE `workplace_photo_captions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `work_environment_id` int(10) UNSIGNED NOT NULL,
-  `photo_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `workplace_photo_id` int(10) UNSIGNED DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'workplace_photo_captions' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'work_environment_id' int(10) UNSIGNED NOT NULL,
+  'photo_name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'workplace_photo_id' int(10) UNSIGNED DEFAULT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `work_environments`
+-- Table structure for table 'work_environments'
 --
 
-CREATE TABLE `work_environments` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `manager_id` int(10) UNSIGNED NOT NULL,
-  `remote_allowed` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telework_allowed` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `flexible_allowed` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'work_environments' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'manager_id' int(10) UNSIGNED NOT NULL,
+  'remote_allowed' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'telework_allowed' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'flexible_allowed' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `work_samples`
+-- Table structure for table 'work_samples'
 --
 
-CREATE TABLE `work_samples` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci,
-  `date_created` date DEFAULT NULL,
-  `file_type_id` int(10) UNSIGNED DEFAULT NULL,
-  `url` text COLLATE utf8mb4_unicode_ci,
-  `story` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE 'work_samples' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' text COLLATE utf8mb4_unicode_ci,
+  'date_created' date DEFAULT NULL,
+  'file_type_id' int(10) UNSIGNED DEFAULT NULL,
+  'url' text COLLATE utf8mb4_unicode_ci,
+  'story' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -961,993 +961,993 @@ CREATE TABLE `work_samples` (
 --
 
 --
--- Indexes for table `applicants`
+-- Indexes for table 'applicants'
 --
-ALTER TABLE `applicants`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `applicants_user_id_unique` (`user_id`);
+ALTER TABLE 'applicants'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'applicants_user_id_unique' ('user_id');
 
 --
--- Indexes for table `applicant_profile_answers`
+-- Indexes for table 'applicant_profile_answers'
 --
-ALTER TABLE `applicant_profile_answers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `app_profile_answers_app_id_app_profile_question_id_unique` (`applicant_id`,`applicant_profile_question_id`),
-  ADD KEY `applicant_profile_answers_applicant_id_index` (`applicant_id`),
-  ADD KEY `applicant_profile_answers_applicant_profile_question_id_index` (`applicant_profile_question_id`);
+ALTER TABLE 'applicant_profile_answers'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'app_profile_answers_app_id_app_profile_question_id_unique' ('applicant_id','applicant_profile_question_id'),
+  ADD KEY 'applicant_profile_answers_applicant_id_index' ('applicant_id'),
+  ADD KEY 'applicant_profile_answers_applicant_profile_question_id_index' ('applicant_profile_question_id');
 
 --
--- Indexes for table `applicant_profile_questions`
+-- Indexes for table 'applicant_profile_questions'
 --
-ALTER TABLE `applicant_profile_questions`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'applicant_profile_questions'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `applicant_profile_question_translations`
+-- Indexes for table 'applicant_profile_question_translations'
 --
-ALTER TABLE `applicant_profile_question_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `app_profile_ques_trans_app_profile_question_id_locale_unique` (`applicant_profile_question_id`,`locale`),
-  ADD KEY `applicant_profile_question_trans_applicant_profile_question_idx` (`applicant_profile_question_id`);
+ALTER TABLE 'applicant_profile_question_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'app_profile_ques_trans_app_profile_question_id_locale_unique' ('applicant_profile_question_id','locale'),
+  ADD KEY 'applicant_profile_question_trans_applicant_profile_question_idx' ('applicant_profile_question_id');
 
 --
--- Indexes for table `application_micro_references`
+-- Indexes for table 'application_micro_references'
 --
-ALTER TABLE `application_micro_references`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `application_micro_references_job_application_id_index` (`job_application_id`),
-  ADD KEY `application_micro_references_criteria_id_index` (`criteria_id`),
-  ADD KEY `application_micro_references_micro_reference_id_index` (`micro_reference_id`);
+ALTER TABLE 'application_micro_references'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'application_micro_references_job_application_id_index' ('job_application_id'),
+  ADD KEY 'application_micro_references_criteria_id_index' ('criteria_id'),
+  ADD KEY 'application_micro_references_micro_reference_id_index' ('micro_reference_id');
 
 --
--- Indexes for table `application_status`
+-- Indexes for table 'application_status'
 --
-ALTER TABLE `application_status`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'application_status'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `application_status_translations`
+-- Indexes for table 'application_status_translations'
 --
-ALTER TABLE `application_status_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `application_status_trans_application_status_id_locale_unique` (`application_status_id`,`locale`),
-  ADD KEY `application_status_translations_application_status_id_index` (`application_status_id`);
+ALTER TABLE 'application_status_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'application_status_trans_application_status_id_locale_unique' ('application_status_id','locale'),
+  ADD KEY 'application_status_translations_application_status_id_index' ('application_status_id');
 
 --
--- Indexes for table `application_work_samples`
+-- Indexes for table 'application_work_samples'
 --
-ALTER TABLE `application_work_samples`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `application_work_samples_job_application_id_index` (`job_application_id`),
-  ADD KEY `application_work_samples_criteria_id_index` (`criteria_id`),
-  ADD KEY `application_work_samples_work_sample_id_index` (`work_sample_id`);
+ALTER TABLE 'application_work_samples'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'application_work_samples_job_application_id_index' ('job_application_id'),
+  ADD KEY 'application_work_samples_criteria_id_index' ('criteria_id'),
+  ADD KEY 'application_work_samples_work_sample_id_index' ('work_sample_id');
 
 --
--- Indexes for table `citizenship_declarations`
+-- Indexes for table 'citizenship_declarations'
 --
-ALTER TABLE `citizenship_declarations`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'citizenship_declarations'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `citizenship_declaration_translations`
+-- Indexes for table 'citizenship_declaration_translations'
 --
-ALTER TABLE `citizenship_declaration_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `citiz_declaration_trans_citiz_declaration_id_locale_unique` (`citizenship_declaration_id`,`locale`),
-  ADD KEY `citizenship_declaration_trans_citizenship_declaration_id_idx` (`citizenship_declaration_id`);
+ALTER TABLE 'citizenship_declaration_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'citiz_declaration_trans_citiz_declaration_id_locale_unique' ('citizenship_declaration_id','locale'),
+  ADD KEY 'citizenship_declaration_trans_citizenship_declaration_id_idx' ('citizenship_declaration_id');
 
 --
--- Indexes for table `criteria`
+-- Indexes for table 'criteria'
 --
-ALTER TABLE `criteria`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `criteria_criteria_type_id_index` (`criteria_type_id`),
-  ADD KEY `criteria_job_poster_id_index` (`job_poster_id`);
+ALTER TABLE 'criteria'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'criteria_criteria_type_id_index' ('criteria_type_id'),
+  ADD KEY 'criteria_job_poster_id_index' ('job_poster_id');
 
 --
--- Indexes for table `criteria_translations`
+-- Indexes for table 'criteria_translations'
 --
-ALTER TABLE `criteria_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `criteria_translations_criteria_id_locale_unique` (`criteria_id`,`locale`),
-  ADD KEY `criteria_translations_criteria_id_index` (`criteria_id`),
-  ADD KEY `criteria_translations_name_index` (`name`);
+ALTER TABLE 'criteria_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'criteria_translations_criteria_id_locale_unique' ('criteria_id','locale'),
+  ADD KEY 'criteria_translations_criteria_id_index' ('criteria_id'),
+  ADD KEY 'criteria_translations_name_index' ('name');
 
 --
--- Indexes for table `criteria_types`
+-- Indexes for table 'criteria_types'
 --
-ALTER TABLE `criteria_types`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'criteria_types'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `criteria_type_translations`
+-- Indexes for table 'criteria_type_translations'
 --
-ALTER TABLE `criteria_type_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `criteria_type_translations_criteria_type_id_index` (`criteria_type_id`);
+ALTER TABLE 'criteria_type_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'criteria_type_translations_criteria_type_id_index' ('criteria_type_id');
 
 --
--- Indexes for table `departments`
+-- Indexes for table 'departments'
 --
-ALTER TABLE `departments`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'departments'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `department_translations`
+-- Indexes for table 'department_translations'
 --
-ALTER TABLE `department_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `department_translations_department_id_locale_unique` (`department_id`,`locale`),
-  ADD KEY `department_translations_department_id_index` (`department_id`);
+ALTER TABLE 'department_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'department_translations_department_id_locale_unique' ('department_id','locale'),
+  ADD KEY 'department_translations_department_id_index' ('department_id');
 
 --
--- Indexes for table `experience_levels`
+-- Indexes for table 'experience_levels'
 --
-ALTER TABLE `experience_levels`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'experience_levels'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `experience_level_translations`
+-- Indexes for table 'experience_level_translations'
 --
-ALTER TABLE `experience_level_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `experience_level_translations_experience_level_id_locale_unique` (`experience_level_id`,`locale`),
-  ADD KEY `experience_level_translations_experience_level_id_index` (`experience_level_id`);
+ALTER TABLE 'experience_level_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'experience_level_translations_experience_level_id_locale_unique' ('experience_level_id','locale'),
+  ADD KEY 'experience_level_translations_experience_level_id_index' ('experience_level_id');
 
 --
--- Indexes for table `file_types`
+-- Indexes for table 'file_types'
 --
-ALTER TABLE `file_types`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'file_types'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `file_type_translations`
+-- Indexes for table 'file_type_translations'
 --
-ALTER TABLE `file_type_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `file_type_translations_file_type_id_locale_unique` (`file_type_id`,`locale`),
-  ADD KEY `file_type_translations_file_type_id_index` (`file_type_id`);
+ALTER TABLE 'file_type_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'file_type_translations_file_type_id_locale_unique' ('file_type_id','locale'),
+  ADD KEY 'file_type_translations_file_type_id_index' ('file_type_id');
 
 --
--- Indexes for table `job_applications`
+-- Indexes for table 'job_applications'
 --
-ALTER TABLE `job_applications`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `job_applications_job_poster_id_applicant_id_unique` (`job_poster_id`,`applicant_id`),
-  ADD KEY `job_applications_job_poster_id_index` (`job_poster_id`),
-  ADD KEY `job_applications_application_status_id_index` (`application_status_id`),
-  ADD KEY `job_applications_applicant_id_index` (`applicant_id`);
+ALTER TABLE 'job_applications'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'job_applications_job_poster_id_applicant_id_unique' ('job_poster_id','applicant_id'),
+  ADD KEY 'job_applications_job_poster_id_index' ('job_poster_id'),
+  ADD KEY 'job_applications_application_status_id_index' ('application_status_id'),
+  ADD KEY 'job_applications_applicant_id_index' ('applicant_id');
 
 --
--- Indexes for table `job_application_answers`
+-- Indexes for table 'job_application_answers'
 --
-ALTER TABLE `job_application_answers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `job_appl_ans_job_poster_ques_id_job_appl_id_unique` (`job_poster_questions_id`,`job_application_id`),
-  ADD KEY `job_application_answers_job_poster_questions_id_index` (`job_poster_questions_id`),
-  ADD KEY `job_application_answers_job_application_id_index` (`job_application_id`);
+ALTER TABLE 'job_application_answers'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'job_appl_ans_job_poster_ques_id_job_appl_id_unique' ('job_poster_questions_id','job_application_id'),
+  ADD KEY 'job_application_answers_job_poster_questions_id_index' ('job_poster_questions_id'),
+  ADD KEY 'job_application_answers_job_application_id_index' ('job_application_id');
 
 --
--- Indexes for table `job_posters`
+-- Indexes for table 'job_posters'
 --
-ALTER TABLE `job_posters`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `job_posters_job_term_id_index` (`job_term_id`),
-  ADD KEY `job_posters_department_id_index` (`department_id`),
-  ADD KEY `job_posters_province_id_index` (`province_id`),
-  ADD KEY `job_posters_security_clearance_id_index` (`security_clearance_id`),
-  ADD KEY `job_posters_language_requirement_id_index` (`language_requirement_id`),
-  ADD KEY `job_posters_manager_id_index` (`manager_id`);
+ALTER TABLE 'job_posters'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'job_posters_job_term_id_index' ('job_term_id'),
+  ADD KEY 'job_posters_department_id_index' ('department_id'),
+  ADD KEY 'job_posters_province_id_index' ('province_id'),
+  ADD KEY 'job_posters_security_clearance_id_index' ('security_clearance_id'),
+  ADD KEY 'job_posters_language_requirement_id_index' ('language_requirement_id'),
+  ADD KEY 'job_posters_manager_id_index' ('manager_id');
 
 --
--- Indexes for table `job_poster_key_tasks`
+-- Indexes for table 'job_poster_key_tasks'
 --
-ALTER TABLE `job_poster_key_tasks`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `job_poster_key_tasks_job_poster_id_index` (`job_poster_id`);
+ALTER TABLE 'job_poster_key_tasks'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'job_poster_key_tasks_job_poster_id_index' ('job_poster_id');
 
 --
--- Indexes for table `job_poster_key_task_translations`
+-- Indexes for table 'job_poster_key_task_translations'
 --
-ALTER TABLE `job_poster_key_task_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `job_poster_key_task_trans_job_poster_key_task_id_locale_unique` (`job_poster_key_task_id`,`locale`),
-  ADD KEY `job_poster_key_task_translations_job_poster_key_task_id_index` (`job_poster_key_task_id`);
+ALTER TABLE 'job_poster_key_task_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'job_poster_key_task_trans_job_poster_key_task_id_locale_unique' ('job_poster_key_task_id','locale'),
+  ADD KEY 'job_poster_key_task_translations_job_poster_key_task_id_index' ('job_poster_key_task_id');
 
 --
--- Indexes for table `job_poster_questions`
+-- Indexes for table 'job_poster_questions'
 --
-ALTER TABLE `job_poster_questions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `job_poster_questions_job_poster_id_index` (`job_poster_id`);
+ALTER TABLE 'job_poster_questions'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'job_poster_questions_job_poster_id_index' ('job_poster_id');
 
 --
--- Indexes for table `job_poster_question_translations`
+-- Indexes for table 'job_poster_question_translations'
 --
-ALTER TABLE `job_poster_question_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `job_poster_question_trans_job_poster_question_id_locale_unique` (`job_poster_question_id`,`locale`),
-  ADD KEY `job_poster_question_translations_job_poster_question_id_index` (`job_poster_question_id`);
+ALTER TABLE 'job_poster_question_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'job_poster_question_trans_job_poster_question_id_locale_unique' ('job_poster_question_id','locale'),
+  ADD KEY 'job_poster_question_translations_job_poster_question_id_index' ('job_poster_question_id');
 
 --
--- Indexes for table `job_poster_translations`
+-- Indexes for table 'job_poster_translations'
 --
-ALTER TABLE `job_poster_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `job_poster_translations_job_poster_id_locale_unique` (`job_poster_id`,`locale`),
-  ADD KEY `job_poster_translations_job_poster_id_index` (`job_poster_id`);
+ALTER TABLE 'job_poster_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'job_poster_translations_job_poster_id_locale_unique' ('job_poster_id','locale'),
+  ADD KEY 'job_poster_translations_job_poster_id_index' ('job_poster_id');
 
 --
--- Indexes for table `job_terms`
+-- Indexes for table 'job_terms'
 --
-ALTER TABLE `job_terms`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'job_terms'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `job_term_translations`
+-- Indexes for table 'job_term_translations'
 --
-ALTER TABLE `job_term_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `job_term_translations_job_term_id_locale_unique` (`job_term_id`,`locale`),
-  ADD KEY `job_term_translations_job_term_id_index` (`job_term_id`);
+ALTER TABLE 'job_term_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'job_term_translations_job_term_id_locale_unique' ('job_term_id','locale'),
+  ADD KEY 'job_term_translations_job_term_id_index' ('job_term_id');
 
 --
--- Indexes for table `language_requirements`
+-- Indexes for table 'language_requirements'
 --
-ALTER TABLE `language_requirements`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'language_requirements'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `language_requirement_translations`
+-- Indexes for table 'language_requirement_translations'
 --
-ALTER TABLE `language_requirement_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `lang_requirement_trans_lang_requirement_id_locale_unique` (`language_requirement_id`,`locale`),
-  ADD KEY `language_requirement_translations_language_requirement_id_index` (`language_requirement_id`);
+ALTER TABLE 'language_requirement_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'lang_requirement_trans_lang_requirement_id_locale_unique' ('language_requirement_id','locale'),
+  ADD KEY 'language_requirement_translations_language_requirement_id_index' ('language_requirement_id');
 
 --
--- Indexes for table `managers`
+-- Indexes for table 'managers'
 --
-ALTER TABLE `managers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `managers_user_id_unique` (`user_id`),
-  ADD KEY `managers_department_id_index` (`department_id`);
+ALTER TABLE 'managers'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'managers_user_id_unique' ('user_id'),
+  ADD KEY 'managers_department_id_index' ('department_id');
 
 --
--- Indexes for table `manager_translations`
+-- Indexes for table 'manager_translations'
 --
-ALTER TABLE `manager_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `manager_translations_manager_id_locale_unique` (`manager_id`,`locale`),
-  ADD KEY `manager_translations_manager_id_index` (`manager_id`);
+ALTER TABLE 'manager_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'manager_translations_manager_id_locale_unique' ('manager_id','locale'),
+  ADD KEY 'manager_translations_manager_id_index' ('manager_id');
 
 --
--- Indexes for table `micro_references`
+-- Indexes for table 'micro_references'
 --
-ALTER TABLE `micro_references`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `micro_references_relationship_id_index` (`relationship_id`),
-  ADD KEY `micro_references_experience_level_id_index` (`experience_level_id`);
+ALTER TABLE 'micro_references'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'micro_references_relationship_id_index' ('relationship_id'),
+  ADD KEY 'micro_references_experience_level_id_index' ('experience_level_id');
 
 --
--- Indexes for table `migrations`
+-- Indexes for table 'migrations'
 --
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'migrations'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `profile_pics`
+-- Indexes for table 'profile_pics'
 --
-ALTER TABLE `profile_pics`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `profile_pics_user_id_unique` (`user_id`);
+ALTER TABLE 'profile_pics'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'profile_pics_user_id_unique' ('user_id');
 
 --
--- Indexes for table `provinces`
+-- Indexes for table 'provinces'
 --
-ALTER TABLE `provinces`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'provinces'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `province_translations`
+-- Indexes for table 'province_translations'
 --
-ALTER TABLE `province_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `province_translations_province_id_locale_unique` (`province_id`,`locale`),
-  ADD KEY `province_translations_province_id_index` (`province_id`);
+ALTER TABLE 'province_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'province_translations_province_id_locale_unique' ('province_id','locale'),
+  ADD KEY 'province_translations_province_id_index' ('province_id');
 
 --
--- Indexes for table `relationships`
+-- Indexes for table 'relationships'
 --
-ALTER TABLE `relationships`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'relationships'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `relationship_translations`
+-- Indexes for table 'relationship_translations'
 --
-ALTER TABLE `relationship_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `relationship_translations_relationship_id_locale_unique` (`relationship_id`,`locale`),
-  ADD KEY `relationship_translations_relationship_id_index` (`relationship_id`);
+ALTER TABLE 'relationship_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'relationship_translations_relationship_id_locale_unique' ('relationship_id','locale'),
+  ADD KEY 'relationship_translations_relationship_id_index' ('relationship_id');
 
 --
--- Indexes for table `security_clearances`
+-- Indexes for table 'security_clearances'
 --
-ALTER TABLE `security_clearances`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'security_clearances'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `security_clearance_translations`
+-- Indexes for table 'security_clearance_translations'
 --
-ALTER TABLE `security_clearance_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `security_clearance_trans_security_clearance_id_locale_unique` (`security_clearance_id`,`locale`),
-  ADD KEY `security_clearance_translations_security_clearance_id_index` (`security_clearance_id`);
+ALTER TABLE 'security_clearance_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'security_clearance_trans_security_clearance_id_locale_unique' ('security_clearance_id','locale'),
+  ADD KEY 'security_clearance_translations_security_clearance_id_index' ('security_clearance_id');
 
 --
--- Indexes for table `skill_declarations`
+-- Indexes for table 'skill_declarations'
 --
-ALTER TABLE `skill_declarations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `skill_declarations_criteria_id_job_application_id_unique` (`criteria_id`,`job_application_id`),
-  ADD KEY `skill_declarations_criteria_id_index` (`criteria_id`),
-  ADD KEY `skill_declarations_job_application_id_index` (`job_application_id`),
-  ADD KEY `skill_declarations_experience_level_id_index` (`experience_level_id`),
-  ADD KEY `skill_declarations_skill_level_id_index` (`skill_level_id`);
+ALTER TABLE 'skill_declarations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'skill_declarations_criteria_id_job_application_id_unique' ('criteria_id','job_application_id'),
+  ADD KEY 'skill_declarations_criteria_id_index' ('criteria_id'),
+  ADD KEY 'skill_declarations_job_application_id_index' ('job_application_id'),
+  ADD KEY 'skill_declarations_experience_level_id_index' ('experience_level_id'),
+  ADD KEY 'skill_declarations_skill_level_id_index' ('skill_level_id');
 
 --
--- Indexes for table `skill_levels`
+-- Indexes for table 'skill_levels'
 --
-ALTER TABLE `skill_levels`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'skill_levels'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `skill_level_translations`
+-- Indexes for table 'skill_level_translations'
 --
-ALTER TABLE `skill_level_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `skill_level_translations_skill_level_id_locale_unique` (`skill_level_id`,`locale`),
-  ADD KEY `skill_level_translations_skill_level_id_index` (`skill_level_id`);
+ALTER TABLE 'skill_level_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'skill_level_translations_skill_level_id_locale_unique' ('skill_level_id','locale'),
+  ADD KEY 'skill_level_translations_skill_level_id_index' ('skill_level_id');
 
 --
--- Indexes for table `team_cultures`
+-- Indexes for table 'team_cultures'
 --
-ALTER TABLE `team_cultures`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `team_cultures_manager_id_unique` (`manager_id`);
+ALTER TABLE 'team_cultures'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'team_cultures_manager_id_unique' ('manager_id');
 
 --
--- Indexes for table `team_culture_translations`
+-- Indexes for table 'team_culture_translations'
 --
-ALTER TABLE `team_culture_translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `team_culture_translations_team_culture_id_locale_unique` (`team_culture_id`,`locale`),
-  ADD KEY `team_culture_translations_team_culture_id_index` (`team_culture_id`);
+ALTER TABLE 'team_culture_translations'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'team_culture_translations_team_culture_id_locale_unique' ('team_culture_id','locale'),
+  ADD KEY 'team_culture_translations_team_culture_id_index' ('team_culture_id');
 
 --
--- Indexes for table `users`
+-- Indexes for table 'users'
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD UNIQUE KEY `users_open_id_sub_unique` (`open_id_sub`),
-  ADD KEY `users_name_index` (`name`),
-  ADD KEY `users_user_role_id_index` (`user_role_id`);
+ALTER TABLE 'users'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'users_email_unique' ('email'),
+  ADD UNIQUE KEY 'users_open_id_sub_unique' ('open_id_sub'),
+  ADD KEY 'users_name_index' ('name'),
+  ADD KEY 'users_user_role_id_index' ('user_role_id');
 
 --
--- Indexes for table `user_roles`
+-- Indexes for table 'user_roles'
 --
-ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'user_roles'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `workplace_photos`
+-- Indexes for table 'workplace_photos'
 --
-ALTER TABLE `workplace_photos`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE 'workplace_photos'
+  ADD PRIMARY KEY ('id');
 
 --
--- Indexes for table `workplace_photo_captions`
+-- Indexes for table 'workplace_photo_captions'
 --
-ALTER TABLE `workplace_photo_captions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `workplace_photo_captions_work_environment_id_photo_name_unique` (`work_environment_id`,`photo_name`),
-  ADD UNIQUE KEY `workplace_photo_captions_workplace_photo_id_unique` (`workplace_photo_id`),
-  ADD KEY `workplace_photo_captions_work_environment_id_index` (`work_environment_id`);
+ALTER TABLE 'workplace_photo_captions'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'workplace_photo_captions_work_environment_id_photo_name_unique' ('work_environment_id','photo_name'),
+  ADD UNIQUE KEY 'workplace_photo_captions_workplace_photo_id_unique' ('workplace_photo_id'),
+  ADD KEY 'workplace_photo_captions_work_environment_id_index' ('work_environment_id');
 
 --
--- Indexes for table `work_environments`
+-- Indexes for table 'work_environments'
 --
-ALTER TABLE `work_environments`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `work_environments_manager_id_unique` (`manager_id`);
+ALTER TABLE 'work_environments'
+  ADD PRIMARY KEY ('id'),
+  ADD UNIQUE KEY 'work_environments_manager_id_unique' ('manager_id');
 
 --
--- Indexes for table `work_samples`
+-- Indexes for table 'work_samples'
 --
-ALTER TABLE `work_samples`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `work_samples_file_type_id_index` (`file_type_id`);
+ALTER TABLE 'work_samples'
+  ADD PRIMARY KEY ('id'),
+  ADD KEY 'work_samples_file_type_id_index' ('file_type_id');
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `applicants`
+-- AUTO_INCREMENT for table 'applicants'
 --
-ALTER TABLE `applicants`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'applicants'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `applicant_profile_answers`
+-- AUTO_INCREMENT for table 'applicant_profile_answers'
 --
-ALTER TABLE `applicant_profile_answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'applicant_profile_answers'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `applicant_profile_questions`
+-- AUTO_INCREMENT for table 'applicant_profile_questions'
 --
-ALTER TABLE `applicant_profile_questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'applicant_profile_questions'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `applicant_profile_question_translations`
+-- AUTO_INCREMENT for table 'applicant_profile_question_translations'
 --
-ALTER TABLE `applicant_profile_question_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'applicant_profile_question_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `application_micro_references`
+-- AUTO_INCREMENT for table 'application_micro_references'
 --
-ALTER TABLE `application_micro_references`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'application_micro_references'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `application_status`
+-- AUTO_INCREMENT for table 'application_status'
 --
-ALTER TABLE `application_status`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'application_status'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `application_status_translations`
+-- AUTO_INCREMENT for table 'application_status_translations'
 --
-ALTER TABLE `application_status_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'application_status_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `application_work_samples`
+-- AUTO_INCREMENT for table 'application_work_samples'
 --
-ALTER TABLE `application_work_samples`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'application_work_samples'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `citizenship_declarations`
+-- AUTO_INCREMENT for table 'citizenship_declarations'
 --
-ALTER TABLE `citizenship_declarations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'citizenship_declarations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `citizenship_declaration_translations`
+-- AUTO_INCREMENT for table 'citizenship_declaration_translations'
 --
-ALTER TABLE `citizenship_declaration_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'citizenship_declaration_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `criteria`
+-- AUTO_INCREMENT for table 'criteria'
 --
-ALTER TABLE `criteria`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'criteria'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `criteria_translations`
+-- AUTO_INCREMENT for table 'criteria_translations'
 --
-ALTER TABLE `criteria_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'criteria_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `criteria_types`
+-- AUTO_INCREMENT for table 'criteria_types'
 --
-ALTER TABLE `criteria_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'criteria_types'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `criteria_type_translations`
+-- AUTO_INCREMENT for table 'criteria_type_translations'
 --
-ALTER TABLE `criteria_type_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'criteria_type_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `departments`
+-- AUTO_INCREMENT for table 'departments'
 --
-ALTER TABLE `departments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'departments'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `department_translations`
+-- AUTO_INCREMENT for table 'department_translations'
 --
-ALTER TABLE `department_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'department_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `experience_levels`
+-- AUTO_INCREMENT for table 'experience_levels'
 --
-ALTER TABLE `experience_levels`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'experience_levels'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `experience_level_translations`
+-- AUTO_INCREMENT for table 'experience_level_translations'
 --
-ALTER TABLE `experience_level_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'experience_level_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `file_types`
+-- AUTO_INCREMENT for table 'file_types'
 --
-ALTER TABLE `file_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'file_types'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `file_type_translations`
+-- AUTO_INCREMENT for table 'file_type_translations'
 --
-ALTER TABLE `file_type_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'file_type_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_applications`
+-- AUTO_INCREMENT for table 'job_applications'
 --
-ALTER TABLE `job_applications`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_applications'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_application_answers`
+-- AUTO_INCREMENT for table 'job_application_answers'
 --
-ALTER TABLE `job_application_answers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_application_answers'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_posters`
+-- AUTO_INCREMENT for table 'job_posters'
 --
-ALTER TABLE `job_posters`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_posters'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_poster_key_tasks`
+-- AUTO_INCREMENT for table 'job_poster_key_tasks'
 --
-ALTER TABLE `job_poster_key_tasks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_poster_key_tasks'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_poster_key_task_translations`
+-- AUTO_INCREMENT for table 'job_poster_key_task_translations'
 --
-ALTER TABLE `job_poster_key_task_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_poster_key_task_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_poster_questions`
+-- AUTO_INCREMENT for table 'job_poster_questions'
 --
-ALTER TABLE `job_poster_questions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_poster_questions'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_poster_question_translations`
+-- AUTO_INCREMENT for table 'job_poster_question_translations'
 --
-ALTER TABLE `job_poster_question_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_poster_question_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_poster_translations`
+-- AUTO_INCREMENT for table 'job_poster_translations'
 --
-ALTER TABLE `job_poster_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_poster_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_terms`
+-- AUTO_INCREMENT for table 'job_terms'
 --
-ALTER TABLE `job_terms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_terms'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `job_term_translations`
+-- AUTO_INCREMENT for table 'job_term_translations'
 --
-ALTER TABLE `job_term_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'job_term_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `language_requirements`
+-- AUTO_INCREMENT for table 'language_requirements'
 --
-ALTER TABLE `language_requirements`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'language_requirements'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `language_requirement_translations`
+-- AUTO_INCREMENT for table 'language_requirement_translations'
 --
-ALTER TABLE `language_requirement_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'language_requirement_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `managers`
+-- AUTO_INCREMENT for table 'managers'
 --
-ALTER TABLE `managers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'managers'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `manager_translations`
+-- AUTO_INCREMENT for table 'manager_translations'
 --
-ALTER TABLE `manager_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'manager_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `micro_references`
+-- AUTO_INCREMENT for table 'micro_references'
 --
-ALTER TABLE `micro_references`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'micro_references'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT for table 'migrations'
 --
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+ALTER TABLE 'migrations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
--- AUTO_INCREMENT for table `profile_pics`
+-- AUTO_INCREMENT for table 'profile_pics'
 --
-ALTER TABLE `profile_pics`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'profile_pics'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `provinces`
+-- AUTO_INCREMENT for table 'provinces'
 --
-ALTER TABLE `provinces`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'provinces'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `province_translations`
+-- AUTO_INCREMENT for table 'province_translations'
 --
-ALTER TABLE `province_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'province_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `relationships`
+-- AUTO_INCREMENT for table 'relationships'
 --
-ALTER TABLE `relationships`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'relationships'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `relationship_translations`
+-- AUTO_INCREMENT for table 'relationship_translations'
 --
-ALTER TABLE `relationship_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'relationship_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `security_clearances`
+-- AUTO_INCREMENT for table 'security_clearances'
 --
-ALTER TABLE `security_clearances`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'security_clearances'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `security_clearance_translations`
+-- AUTO_INCREMENT for table 'security_clearance_translations'
 --
-ALTER TABLE `security_clearance_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'security_clearance_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `skill_declarations`
+-- AUTO_INCREMENT for table 'skill_declarations'
 --
-ALTER TABLE `skill_declarations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'skill_declarations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `skill_levels`
+-- AUTO_INCREMENT for table 'skill_levels'
 --
-ALTER TABLE `skill_levels`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'skill_levels'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `skill_level_translations`
+-- AUTO_INCREMENT for table 'skill_level_translations'
 --
-ALTER TABLE `skill_level_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'skill_level_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `team_cultures`
+-- AUTO_INCREMENT for table 'team_cultures'
 --
-ALTER TABLE `team_cultures`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'team_cultures'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `team_culture_translations`
+-- AUTO_INCREMENT for table 'team_culture_translations'
 --
-ALTER TABLE `team_culture_translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'team_culture_translations'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT for table 'users'
 --
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'users'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `user_roles`
+-- AUTO_INCREMENT for table 'user_roles'
 --
-ALTER TABLE `user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'user_roles'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `workplace_photos`
+-- AUTO_INCREMENT for table 'workplace_photos'
 --
-ALTER TABLE `workplace_photos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'workplace_photos'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `workplace_photo_captions`
+-- AUTO_INCREMENT for table 'workplace_photo_captions'
 --
-ALTER TABLE `workplace_photo_captions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'workplace_photo_captions'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `work_environments`
+-- AUTO_INCREMENT for table 'work_environments'
 --
-ALTER TABLE `work_environments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'work_environments'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `work_samples`
+-- AUTO_INCREMENT for table 'work_samples'
 --
-ALTER TABLE `work_samples`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE 'work_samples'
+  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `applicants`
+-- Constraints for table 'applicants'
 --
-ALTER TABLE `applicants`
-  ADD CONSTRAINT `applicants_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'applicants'
+  ADD CONSTRAINT 'applicants_user_id_foreign' FOREIGN KEY ('user_id') REFERENCES 'users' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `applicant_profile_answers`
+-- Constraints for table 'applicant_profile_answers'
 --
-ALTER TABLE `applicant_profile_answers`
-  ADD CONSTRAINT `applicant_profile_answers_applicant_id_foreign` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `applicant_profile_answers_applicant_profile_question_id_foreign` FOREIGN KEY (`applicant_profile_question_id`) REFERENCES `applicant_profile_questions` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'applicant_profile_answers'
+  ADD CONSTRAINT 'applicant_profile_answers_applicant_id_foreign' FOREIGN KEY ('applicant_id') REFERENCES 'applicants' ('id') ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT 'applicant_profile_answers_applicant_profile_question_id_foreign' FOREIGN KEY ('applicant_profile_question_id') REFERENCES 'applicant_profile_questions' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `applicant_profile_question_translations`
+-- Constraints for table 'applicant_profile_question_translations'
 --
-ALTER TABLE `applicant_profile_question_translations`
-  ADD CONSTRAINT `applicant_profile_question_trans_applicant_profile_question_fk` FOREIGN KEY (`applicant_profile_question_id`) REFERENCES `applicant_profile_questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'applicant_profile_question_translations'
+  ADD CONSTRAINT 'applicant_profile_question_trans_applicant_profile_question_fk' FOREIGN KEY ('applicant_profile_question_id') REFERENCES 'applicant_profile_questions' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `application_micro_references`
+-- Constraints for table 'application_micro_references'
 --
-ALTER TABLE `application_micro_references`
-  ADD CONSTRAINT `application_micro_references_criteria_id_foreign` FOREIGN KEY (`criteria_id`) REFERENCES `criteria` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `application_micro_references_job_application_id_foreign` FOREIGN KEY (`job_application_id`) REFERENCES `job_applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `application_micro_references_micro_reference_id_foreign` FOREIGN KEY (`micro_reference_id`) REFERENCES `micro_references` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'application_micro_references'
+  ADD CONSTRAINT 'application_micro_references_criteria_id_foreign' FOREIGN KEY ('criteria_id') REFERENCES 'criteria' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'application_micro_references_job_application_id_foreign' FOREIGN KEY ('job_application_id') REFERENCES 'job_applications' ('id') ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT 'application_micro_references_micro_reference_id_foreign' FOREIGN KEY ('micro_reference_id') REFERENCES 'micro_references' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `application_status_translations`
+-- Constraints for table 'application_status_translations'
 --
-ALTER TABLE `application_status_translations`
-  ADD CONSTRAINT `application_status_translations_application_status_id_foreign` FOREIGN KEY (`application_status_id`) REFERENCES `application_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'application_status_translations'
+  ADD CONSTRAINT 'application_status_translations_application_status_id_foreign' FOREIGN KEY ('application_status_id') REFERENCES 'application_status' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `application_work_samples`
+-- Constraints for table 'application_work_samples'
 --
-ALTER TABLE `application_work_samples`
-  ADD CONSTRAINT `application_work_samples_criteria_id_foreign` FOREIGN KEY (`criteria_id`) REFERENCES `criteria` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `application_work_samples_job_application_id_foreign` FOREIGN KEY (`job_application_id`) REFERENCES `job_applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `application_work_samples_work_sample_id_foreign` FOREIGN KEY (`work_sample_id`) REFERENCES `work_samples` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'application_work_samples'
+  ADD CONSTRAINT 'application_work_samples_criteria_id_foreign' FOREIGN KEY ('criteria_id') REFERENCES 'criteria' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'application_work_samples_job_application_id_foreign' FOREIGN KEY ('job_application_id') REFERENCES 'job_applications' ('id') ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT 'application_work_samples_work_sample_id_foreign' FOREIGN KEY ('work_sample_id') REFERENCES 'work_samples' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `citizenship_declaration_translations`
+-- Constraints for table 'citizenship_declaration_translations'
 --
-ALTER TABLE `citizenship_declaration_translations`
-  ADD CONSTRAINT `citizenship_declaration_trans_citizenship_declaration_fk` FOREIGN KEY (`citizenship_declaration_id`) REFERENCES `citizenship_declarations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'citizenship_declaration_translations'
+  ADD CONSTRAINT 'citizenship_declaration_trans_citizenship_declaration_fk' FOREIGN KEY ('citizenship_declaration_id') REFERENCES 'citizenship_declarations' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `criteria`
+-- Constraints for table 'criteria'
 --
-ALTER TABLE `criteria`
-  ADD CONSTRAINT `criteria_criteria_type_id_foreign` FOREIGN KEY (`criteria_type_id`) REFERENCES `criteria_types` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `criteria_job_poster_id_foreign` FOREIGN KEY (`job_poster_id`) REFERENCES `job_posters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'criteria'
+  ADD CONSTRAINT 'criteria_criteria_type_id_foreign' FOREIGN KEY ('criteria_type_id') REFERENCES 'criteria_types' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'criteria_job_poster_id_foreign' FOREIGN KEY ('job_poster_id') REFERENCES 'job_posters' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `criteria_translations`
+-- Constraints for table 'criteria_translations'
 --
-ALTER TABLE `criteria_translations`
-  ADD CONSTRAINT `criteria_translations_criteria_id_foreign` FOREIGN KEY (`criteria_id`) REFERENCES `criteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'criteria_translations'
+  ADD CONSTRAINT 'criteria_translations_criteria_id_foreign' FOREIGN KEY ('criteria_id') REFERENCES 'criteria' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `criteria_type_translations`
+-- Constraints for table 'criteria_type_translations'
 --
-ALTER TABLE `criteria_type_translations`
-  ADD CONSTRAINT `criteria_type_translations_criteria_type_id_foreign` FOREIGN KEY (`criteria_type_id`) REFERENCES `criteria_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'criteria_type_translations'
+  ADD CONSTRAINT 'criteria_type_translations_criteria_type_id_foreign' FOREIGN KEY ('criteria_type_id') REFERENCES 'criteria_types' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `department_translations`
+-- Constraints for table 'department_translations'
 --
-ALTER TABLE `department_translations`
-  ADD CONSTRAINT `department_translations_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'department_translations'
+  ADD CONSTRAINT 'department_translations_department_id_foreign' FOREIGN KEY ('department_id') REFERENCES 'departments' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `experience_level_translations`
+-- Constraints for table 'experience_level_translations'
 --
-ALTER TABLE `experience_level_translations`
-  ADD CONSTRAINT `experience_level_translations_experience_level_id_foreign` FOREIGN KEY (`experience_level_id`) REFERENCES `experience_levels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'experience_level_translations'
+  ADD CONSTRAINT 'experience_level_translations_experience_level_id_foreign' FOREIGN KEY ('experience_level_id') REFERENCES 'experience_levels' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `file_type_translations`
+-- Constraints for table 'file_type_translations'
 --
-ALTER TABLE `file_type_translations`
-  ADD CONSTRAINT `file_type_translations_file_type_id_foreign` FOREIGN KEY (`file_type_id`) REFERENCES `file_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'file_type_translations'
+  ADD CONSTRAINT 'file_type_translations_file_type_id_foreign' FOREIGN KEY ('file_type_id') REFERENCES 'file_types' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_applications`
+-- Constraints for table 'job_applications'
 --
-ALTER TABLE `job_applications`
-  ADD CONSTRAINT `job_applications_applicant_id_foreign` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_applications_application_status_id_foreign` FOREIGN KEY (`application_status_id`) REFERENCES `application_status` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_applications_job_poster_id_foreign` FOREIGN KEY (`job_poster_id`) REFERENCES `job_posters` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'job_applications'
+  ADD CONSTRAINT 'job_applications_applicant_id_foreign' FOREIGN KEY ('applicant_id') REFERENCES 'applicants' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_applications_application_status_id_foreign' FOREIGN KEY ('application_status_id') REFERENCES 'application_status' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_applications_job_poster_id_foreign' FOREIGN KEY ('job_poster_id') REFERENCES 'job_posters' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_application_answers`
+-- Constraints for table 'job_application_answers'
 --
-ALTER TABLE `job_application_answers`
-  ADD CONSTRAINT `job_application_answers_job_application_id_foreign` FOREIGN KEY (`job_application_id`) REFERENCES `job_applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_application_answers_job_poster_questions_id_foreign` FOREIGN KEY (`job_poster_questions_id`) REFERENCES `job_poster_questions` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'job_application_answers'
+  ADD CONSTRAINT 'job_application_answers_job_application_id_foreign' FOREIGN KEY ('job_application_id') REFERENCES 'job_applications' ('id') ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_application_answers_job_poster_questions_id_foreign' FOREIGN KEY ('job_poster_questions_id') REFERENCES 'job_poster_questions' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_posters`
+-- Constraints for table 'job_posters'
 --
-ALTER TABLE `job_posters`
-  ADD CONSTRAINT `job_posters_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_posters_job_term_id_foreign` FOREIGN KEY (`job_term_id`) REFERENCES `job_terms` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_posters_language_requirement_id_foreign` FOREIGN KEY (`language_requirement_id`) REFERENCES `language_requirements` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_posters_manager_id_foreign` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_posters_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_posters_security_clearance_id_foreign` FOREIGN KEY (`security_clearance_id`) REFERENCES `security_clearances` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'job_posters'
+  ADD CONSTRAINT 'job_posters_department_id_foreign' FOREIGN KEY ('department_id') REFERENCES 'departments' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_posters_job_term_id_foreign' FOREIGN KEY ('job_term_id') REFERENCES 'job_terms' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_posters_language_requirement_id_foreign' FOREIGN KEY ('language_requirement_id') REFERENCES 'language_requirements' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_posters_manager_id_foreign' FOREIGN KEY ('manager_id') REFERENCES 'managers' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_posters_province_id_foreign' FOREIGN KEY ('province_id') REFERENCES 'provinces' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'job_posters_security_clearance_id_foreign' FOREIGN KEY ('security_clearance_id') REFERENCES 'security_clearances' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_poster_key_tasks`
+-- Constraints for table 'job_poster_key_tasks'
 --
-ALTER TABLE `job_poster_key_tasks`
-  ADD CONSTRAINT `job_poster_key_tasks_job_poster_id_foreign` FOREIGN KEY (`job_poster_id`) REFERENCES `job_posters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'job_poster_key_tasks'
+  ADD CONSTRAINT 'job_poster_key_tasks_job_poster_id_foreign' FOREIGN KEY ('job_poster_id') REFERENCES 'job_posters' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_poster_key_task_translations`
+-- Constraints for table 'job_poster_key_task_translations'
 --
-ALTER TABLE `job_poster_key_task_translations`
-  ADD CONSTRAINT `job_poster_key_task_translations_job_poster_key_task_id_foreign` FOREIGN KEY (`job_poster_key_task_id`) REFERENCES `job_poster_key_tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'job_poster_key_task_translations'
+  ADD CONSTRAINT 'job_poster_key_task_translations_job_poster_key_task_id_foreign' FOREIGN KEY ('job_poster_key_task_id') REFERENCES 'job_poster_key_tasks' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_poster_questions`
+-- Constraints for table 'job_poster_questions'
 --
-ALTER TABLE `job_poster_questions`
-  ADD CONSTRAINT `job_poster_questions_job_poster_id_foreign` FOREIGN KEY (`job_poster_id`) REFERENCES `job_posters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'job_poster_questions'
+  ADD CONSTRAINT 'job_poster_questions_job_poster_id_foreign' FOREIGN KEY ('job_poster_id') REFERENCES 'job_posters' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_poster_question_translations`
+-- Constraints for table 'job_poster_question_translations'
 --
-ALTER TABLE `job_poster_question_translations`
-  ADD CONSTRAINT `job_poster_question_translations_job_poster_question_id_foreign` FOREIGN KEY (`job_poster_question_id`) REFERENCES `job_poster_questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'job_poster_question_translations'
+  ADD CONSTRAINT 'job_poster_question_translations_job_poster_question_id_foreign' FOREIGN KEY ('job_poster_question_id') REFERENCES 'job_poster_questions' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_poster_translations`
+-- Constraints for table 'job_poster_translations'
 --
-ALTER TABLE `job_poster_translations`
-  ADD CONSTRAINT `job_poster_translations_job_poster_id_foreign` FOREIGN KEY (`job_poster_id`) REFERENCES `job_posters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'job_poster_translations'
+  ADD CONSTRAINT 'job_poster_translations_job_poster_id_foreign' FOREIGN KEY ('job_poster_id') REFERENCES 'job_posters' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `job_term_translations`
+-- Constraints for table 'job_term_translations'
 --
-ALTER TABLE `job_term_translations`
-  ADD CONSTRAINT `job_term_translations_job_term_id_foreign` FOREIGN KEY (`job_term_id`) REFERENCES `job_terms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'job_term_translations'
+  ADD CONSTRAINT 'job_term_translations_job_term_id_foreign' FOREIGN KEY ('job_term_id') REFERENCES 'job_terms' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `language_requirement_translations`
+-- Constraints for table 'language_requirement_translations'
 --
-ALTER TABLE `language_requirement_translations`
-  ADD CONSTRAINT `language_requirement_trans_language_requirement_foreign` FOREIGN KEY (`language_requirement_id`) REFERENCES `language_requirements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'language_requirement_translations'
+  ADD CONSTRAINT 'language_requirement_trans_language_requirement_foreign' FOREIGN KEY ('language_requirement_id') REFERENCES 'language_requirements' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `managers`
+-- Constraints for table 'managers'
 --
-ALTER TABLE `managers`
-  ADD CONSTRAINT `managers_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `managers_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'managers'
+  ADD CONSTRAINT 'managers_department_id_foreign' FOREIGN KEY ('department_id') REFERENCES 'departments' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'managers_user_id_foreign' FOREIGN KEY ('user_id') REFERENCES 'users' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `manager_translations`
+-- Constraints for table 'manager_translations'
 --
-ALTER TABLE `manager_translations`
-  ADD CONSTRAINT `manager_translations_manager_id_foreign` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'manager_translations'
+  ADD CONSTRAINT 'manager_translations_manager_id_foreign' FOREIGN KEY ('manager_id') REFERENCES 'managers' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `micro_references`
+-- Constraints for table 'micro_references'
 --
-ALTER TABLE `micro_references`
-  ADD CONSTRAINT `micro_references_experience_level_id_foreign` FOREIGN KEY (`experience_level_id`) REFERENCES `experience_levels` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `micro_references_relationship_id_foreign` FOREIGN KEY (`relationship_id`) REFERENCES `relationships` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'micro_references'
+  ADD CONSTRAINT 'micro_references_experience_level_id_foreign' FOREIGN KEY ('experience_level_id') REFERENCES 'experience_levels' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'micro_references_relationship_id_foreign' FOREIGN KEY ('relationship_id') REFERENCES 'relationships' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `profile_pics`
+-- Constraints for table 'profile_pics'
 --
-ALTER TABLE `profile_pics`
-  ADD CONSTRAINT `profile_pics_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'profile_pics'
+  ADD CONSTRAINT 'profile_pics_user_id_foreign' FOREIGN KEY ('user_id') REFERENCES 'users' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `province_translations`
+-- Constraints for table 'province_translations'
 --
-ALTER TABLE `province_translations`
-  ADD CONSTRAINT `province_translations_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'province_translations'
+  ADD CONSTRAINT 'province_translations_province_id_foreign' FOREIGN KEY ('province_id') REFERENCES 'provinces' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `relationship_translations`
+-- Constraints for table 'relationship_translations'
 --
-ALTER TABLE `relationship_translations`
-  ADD CONSTRAINT `relationship_translations_relationship_id_foreign` FOREIGN KEY (`relationship_id`) REFERENCES `relationships` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'relationship_translations'
+  ADD CONSTRAINT 'relationship_translations_relationship_id_foreign' FOREIGN KEY ('relationship_id') REFERENCES 'relationships' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `security_clearance_translations`
+-- Constraints for table 'security_clearance_translations'
 --
-ALTER TABLE `security_clearance_translations`
-  ADD CONSTRAINT `security_clearance_translations_security_clearance_id_foreign` FOREIGN KEY (`security_clearance_id`) REFERENCES `security_clearances` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'security_clearance_translations'
+  ADD CONSTRAINT 'security_clearance_translations_security_clearance_id_foreign' FOREIGN KEY ('security_clearance_id') REFERENCES 'security_clearances' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `skill_declarations`
+-- Constraints for table 'skill_declarations'
 --
-ALTER TABLE `skill_declarations`
-  ADD CONSTRAINT `skill_declarations_criteria_id_foreign` FOREIGN KEY (`criteria_id`) REFERENCES `criteria` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `skill_declarations_experience_level_id_foreign` FOREIGN KEY (`experience_level_id`) REFERENCES `experience_levels` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `skill_declarations_job_application_id_foreign` FOREIGN KEY (`job_application_id`) REFERENCES `job_applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `skill_declarations_skill_level_id_foreign` FOREIGN KEY (`skill_level_id`) REFERENCES `skill_levels` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'skill_declarations'
+  ADD CONSTRAINT 'skill_declarations_criteria_id_foreign' FOREIGN KEY ('criteria_id') REFERENCES 'criteria' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'skill_declarations_experience_level_id_foreign' FOREIGN KEY ('experience_level_id') REFERENCES 'experience_levels' ('id') ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT 'skill_declarations_job_application_id_foreign' FOREIGN KEY ('job_application_id') REFERENCES 'job_applications' ('id') ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT 'skill_declarations_skill_level_id_foreign' FOREIGN KEY ('skill_level_id') REFERENCES 'skill_levels' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `skill_level_translations`
+-- Constraints for table 'skill_level_translations'
 --
-ALTER TABLE `skill_level_translations`
-  ADD CONSTRAINT `skill_level_translations_skill_level_id_foreign` FOREIGN KEY (`skill_level_id`) REFERENCES `skill_levels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'skill_level_translations'
+  ADD CONSTRAINT 'skill_level_translations_skill_level_id_foreign' FOREIGN KEY ('skill_level_id') REFERENCES 'skill_levels' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `team_cultures`
+-- Constraints for table 'team_cultures'
 --
-ALTER TABLE `team_cultures`
-  ADD CONSTRAINT `team_cultures_manager_id_foreign` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'team_cultures'
+  ADD CONSTRAINT 'team_cultures_manager_id_foreign' FOREIGN KEY ('manager_id') REFERENCES 'managers' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `team_culture_translations`
+-- Constraints for table 'team_culture_translations'
 --
-ALTER TABLE `team_culture_translations`
-  ADD CONSTRAINT `team_culture_translations_team_culture_id_foreign` FOREIGN KEY (`team_culture_id`) REFERENCES `team_cultures` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'team_culture_translations'
+  ADD CONSTRAINT 'team_culture_translations_team_culture_id_foreign' FOREIGN KEY ('team_culture_id') REFERENCES 'team_cultures' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `users`
+-- Constraints for table 'users'
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_user_role_id_foreign` FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE 'users'
+  ADD CONSTRAINT 'users_user_role_id_foreign' FOREIGN KEY ('user_role_id') REFERENCES 'user_roles' ('id') ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `workplace_photo_captions`
+-- Constraints for table 'workplace_photo_captions'
 --
-ALTER TABLE `workplace_photo_captions`
-  ADD CONSTRAINT `workplace_photo_captions_work_environment_id_foreign` FOREIGN KEY (`work_environment_id`) REFERENCES `work_environments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `workplace_photo_captions_workplace_photo_id_foreign` FOREIGN KEY (`workplace_photo_id`) REFERENCES `workplace_photos` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'workplace_photo_captions'
+  ADD CONSTRAINT 'workplace_photo_captions_work_environment_id_foreign' FOREIGN KEY ('work_environment_id') REFERENCES 'work_environments' ('id') ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT 'workplace_photo_captions_workplace_photo_id_foreign' FOREIGN KEY ('workplace_photo_id') REFERENCES 'workplace_photos' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `work_environments`
+-- Constraints for table 'work_environments'
 --
-ALTER TABLE `work_environments`
-  ADD CONSTRAINT `work_environments_manager_id_foreign` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE 'work_environments'
+  ADD CONSTRAINT 'work_environments_manager_id_foreign' FOREIGN KEY ('manager_id') REFERENCES 'managers' ('id') ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `work_samples`
+-- Constraints for table 'work_samples'
 --
-ALTER TABLE `work_samples`
-  ADD CONSTRAINT `work_samples_file_type_id_foreign` FOREIGN KEY (`file_type_id`) REFERENCES `file_types` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE 'work_samples'
+  ADD CONSTRAINT 'work_samples_file_type_id_foreign' FOREIGN KEY ('file_type_id') REFERENCES 'file_types' ('id') ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
