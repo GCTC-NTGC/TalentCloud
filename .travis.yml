@@ -14,25 +14,24 @@ services:
   - postgresql
 
 before_install:
-  - sudo rm -rf vendor/
   - sudo apt update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
   - sudo mv ./docker-compose /usr/bin/docker-compose
   - sudo chmod +x /usr/bin/docker-compose
+  - sudo chmod +x vendor/
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
 install:
   - sudo make docker-start
+  - composer install
   - npm i -g npm
   - npm install
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
   - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
-  - sleep 7m
-  - composer install
-
+  # sleep 7m
 
 script:
   - php artisan migrate --force
