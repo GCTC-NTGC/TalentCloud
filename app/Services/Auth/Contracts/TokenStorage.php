@@ -3,7 +3,8 @@
 namespace App\Services\Auth\Contracts;
 
 interface TokenStorage
-{    
+{
+
     /**
      * Save refresh token to be retrieved later
      *
@@ -48,7 +49,7 @@ interface TokenStorage
      * @param string $sub
      * @return null|string
      */
-    public function fetchAccess(string $iss, string $sub);  
+    public function fetchAccess(string $iss, string $sub);
     
     /**
      * Forget the access token, for the purpose of logging out
@@ -57,6 +58,4 @@ interface TokenStorage
      * @return void
      */
     public function forgetAccess(string $iss, string $sub);
-    
 }
-

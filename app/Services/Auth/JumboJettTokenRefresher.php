@@ -15,7 +15,8 @@ use App\Exceptions\Auth\TokenStorageException;
  * Adapted from the OpenIDConnect Laravel package at
  * https://github.com/furdarius/oidconnect-laravel
  */
-class JumboJettTokenRefresher implements TokenRefresher {
+class JumboJettTokenRefresher implements TokenRefresher
+{
 
     /**
      * Used for saving and fetching refresh tokens.
@@ -35,8 +36,13 @@ class JumboJettTokenRefresher implements TokenRefresher {
      */
     protected $connectClient;
 
-    public function __construct(TokenStorage $tokenStorage, Parser $parser,
-            string $authUrl, string $clientId, string $clientSecret) {
+    public function __construct(
+        TokenStorage $tokenStorage,
+        Parser $parser,
+        string $authUrl,
+        string $clientId,
+        string $clientSecret
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->parser = $parser;
         $this->connectClient = new OpenIDConnectClient($authUrl, $clientId, $clientSecret);
@@ -48,7 +54,8 @@ class JumboJettTokenRefresher implements TokenRefresher {
      * @param string $iss
      * @return Token $idToken
      */
-    public function refreshIDToken(string $sub, string $iss): \Lcobucci\JWT\Token {
+    public function refreshIDToken(string $sub, string $iss): \Lcobucci\JWT\Token
+    {
         $refreshToken = $this->tokenStorage->fetchRefresh($iss, $sub);
         if (!$refreshToken) {
             throw new TokenStorageException("Failed to fetch refresh token");

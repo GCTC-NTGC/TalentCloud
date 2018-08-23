@@ -8,7 +8,8 @@ use Carbon\Carbon;
 use DateTimeInterface;
 use Jenssegers\Date\Date;
 
-abstract class BaseModel extends Eloquent {
+abstract class BaseModel extends Eloquent
+{
     //Override date functions to return Jenssegers Data instead of Carbon
 
     /**
@@ -43,7 +44,8 @@ abstract class BaseModel extends Eloquent {
         // when checking the field. We will just return the DateTime right away.
         if ($value instanceof DateTimeInterface) {
             return new Date(
-                $value->format('Y-m-d H:i:s.u'), $value->getTimeZone()
+                $value->format('Y-m-d H:i:s.u'),
+                $value->getTimeZone()
             );
         }
         // If this value is an integer, we will assume it is a UNIX timestamp's value

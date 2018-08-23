@@ -25,11 +25,11 @@ class MenuComposer
         //else
         //  remove applications
         //  remove profile
-        //  remove logout        
-        //  add redirect url parameter to register link  
+        //  remove logout
+        //  add redirect url parameter to register link
         
         //Set active on the proper item
-        switch(Route::currentRouteName()) {
+        switch (Route::currentRouteName()) {
             case 'home':
                 $menuItems['home']['active'] = true;
                 break;
@@ -54,7 +54,7 @@ class MenuComposer
                 break;
             default:
                 //No menu item will be active
-                break;                
+                break;
         }
         
         $view->with('menu', $menuItems);

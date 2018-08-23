@@ -20,7 +20,12 @@ namespace App\Models;
  *
  * @property \App\Models\User $user
  */
+<<<<<<< HEAD
+class ProfilePic extends Eloquent
+{
+=======
 class ProfilePic extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'user_id' => 'int',
@@ -31,8 +36,8 @@ class ProfilePic extends BaseModel {
         'image'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
-
 }

@@ -9,20 +9,32 @@ namespace App\Models;
 
 /**
  * Class WorkSample
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Jenssegers\Date\Date $date_created
  * @property int $file_type_id
  * @property string $url
  * @property string $story
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- * 
+<<<<<<< HEAD
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
  * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  */
-class WorkSample extends BaseModel {
+class WorkSample extends Eloquent
+{
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\Lookup\FileType $file_type
+ * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
+ */
+class WorkSample extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'file_type_id' => 'int'
@@ -38,12 +50,13 @@ class WorkSample extends BaseModel {
         'story'
     ];
 
-    public function file_type() {
+    public function file_type()
+    {
         return $this->belongsTo(\App\Models\Lookup\FileType::class);
     }
 
-    public function application_work_samples() {
+    public function application_work_samples()
+    {
         return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
-
 }

@@ -9,7 +9,8 @@ use App\Services\Auth\Contracts\OidcUserValidator;
 use App\Models\Manager;
 use App\Models\Applicant;
 
-class BaseOidcUserProvider implements UserProvider {
+class BaseOidcUserProvider implements UserProvider
+{
 
     /**
      * The Eloquent user model.
@@ -34,7 +35,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  string  $defaultRole
      * @return void
      */
-    public function __construct($model, $defaultRole) {
+    public function __construct($model, $defaultRole)
+    {
         $this->model = $model;
         $this->defaultRole = $defaultRole;
     }
@@ -45,7 +47,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  mixed  $identifier
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function retrieveById($identifier) {
+    public function retrieveById($identifier)
+    {
         $model = $this->createModel();
 
         return $model->newQuery()
@@ -60,7 +63,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  string  $token
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function retrieveByToken($identifier, $token) {
+    public function retrieveByToken($identifier, $token)
+    {
         //TODO: Should we implement "remember me" tokens?
         return null;
     }
@@ -72,7 +76,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  string  $token
      * @return void
      */
-    public function updateRememberToken(Authenticatable $user, $token) {
+    public function updateRememberToken(Authenticatable $user, $token)
+    {
         //TODO: Should we implement "remember me" tokens?
     }
 
@@ -82,7 +87,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  array  $credentials
      * @return App\Services\Auth\Contracts\OidcAuthenticatable|null
      */
-    public function retrieveByCredentials(array $credentials) {
+    public function retrieveByCredentials(array $credentials)
+    {
         if (empty($credentials)) {
             return;
         }
@@ -103,7 +109,6 @@ class BaseOidcUserProvider implements UserProvider {
             // If no user was found, use the provided credentials to create a
             // new user
             if ($user === null) {
-
                 $user = $this->createUserFromCredentials($credentials);
                 if ($user) {
                     //If a user was created successfully, save it to database
@@ -123,7 +128,6 @@ class BaseOidcUserProvider implements UserProvider {
                     $applicantProfile->user_id = $user->id;
                     $applicantProfile->save();
                 }
-
             }
             if ($user->user_role->name == 'manager') {
                 $managerProfile = Manager::where(['user_id' => $user->id])->first();
@@ -146,7 +150,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  array  $credentials
      * @return App\Services\Auth\Contracts\OidcAuthenticatable|null
      */
-    public function createUserFromCredentials(array $credentials) {
+    public function createUserFromCredentials(array $credentials)
+    {
         //At a minimum, email, iss and sub codes must be available.
         if (!isset($credentials['email']) || !isset($credentials['iss']) ||
                 !isset($credentials['sub'])) {
@@ -157,8 +162,13 @@ class BaseOidcUserProvider implements UserProvider {
 
         $name = isset($credentials['name']) ? $credentials['name'] : "";
 
-        return $model->createWithOidcCredentials($name, $credentials['email'],
-                $credentials['iss'], $credentials['sub'], $this->defaultRole);
+        return $model->createWithOidcCredentials(
+            $name,
+            $credentials['email'],
+            $credentials['iss'],
+            $credentials['sub'],
+            $this->defaultRole
+        );
     }
 
     /**
@@ -168,7 +178,8 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  array  $credentials
      * @return bool
      */
-    public function validateCredentials(Authenticatable $user, array $credentials) {
+    public function validateCredentials(Authenticatable $user, array $credentials)
+    {
         debugbar()->info("in Provider.validateCredentials()");
 
         return $user instanceof Authenticatable;
@@ -181,7 +192,8 @@ class BaseOidcUserProvider implements UserProvider {
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function createModel() {
+    public function createModel()
+    {
         $class = '\\' . ltrim($this->model, '\\');
 
         return new $class;
@@ -192,7 +204,8 @@ class BaseOidcUserProvider implements UserProvider {
      *
      * @return string
      */
-    public function getModel() {
+    public function getModel()
+    {
         return $this->model;
     }
 
@@ -202,10 +215,10 @@ class BaseOidcUserProvider implements UserProvider {
      * @param  string  $model
      * @return $this
      */
-    public function setModel($model) {
+    public function setModel($model)
+    {
         $this->model = $model;
 
         return $this;
     }
-
 }

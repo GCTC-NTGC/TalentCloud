@@ -36,7 +36,7 @@ class JobController extends Controller
     {
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
-        foreach($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
+        foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
             $workplacePhotos[] = [
                 'description' => $photoCaption->description,
                 'url' => '/images/user.png'
@@ -46,10 +46,10 @@ class JobController extends Controller
         //TODO: replace route('manager.show',manager.id) in templates with link using slug
 
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(function($value, $key) {
+            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
                 return $value->criteria_type->name == 'essential';
             }),
-            'asset' => $jobPoster->criteria->filter(function($value, $key) {
+            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
                 return $value->criteria_type->name == 'asset';
             })
         ];

@@ -23,7 +23,12 @@ namespace App\Models;
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  */
+<<<<<<< HEAD
+class Applicant extends Eloquent
+{
+=======
 class Applicant extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'user_id' => 'int'
@@ -35,16 +40,18 @@ class Applicant extends BaseModel {
         'linkedin_url'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function applicant_profile_answers() {
+    public function applicant_profile_answers()
+    {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
     }
 
-    public function job_applications() {
+    public function job_applications()
+    {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
-
 }

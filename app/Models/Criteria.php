@@ -13,10 +13,17 @@ namespace App\Models;
  * @property int $id
  * @property int $criteria_type_id
  * @property int $job_poster_id
+<<<<<<< HEAD
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property \App\Models\CriteriaType $criteria_type
+=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\CriteriaType $criteria_type
+>>>>>>> dev
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
@@ -27,7 +34,12 @@ namespace App\Models;
  * @property string $name
  * @property string $description
  */
+<<<<<<< HEAD
+class Criteria extends Eloquent
+{
+=======
 class Criteria extends BaseModel {
+>>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 
@@ -45,28 +57,38 @@ class Criteria extends BaseModel {
         'criteria_type'
     ];
 
+<<<<<<< HEAD
+    public function criteria_type()
+    {
+        return $this->belongsTo(\App\Models\CriteriaType::class);
+=======
     public function criteria_type() {
         return $this->belongsTo(\App\Models\Lookup\CriteriaType::class);
+>>>>>>> dev
     }
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function application_micro_references() {
+    public function application_micro_references()
+    {
         return $this->hasMany(\App\Models\ApplicationMicroReference::class, 'criteria_id');
     }
 
-    public function application_work_samples() {
+    public function application_work_samples()
+    {
         return $this->hasMany(\App\Models\ApplicationWorkSample::class, 'criteria_id');
     }
 
-    public function criteria_translations() {
+    public function criteria_translations()
+    {
         return $this->hasMany(\App\Models\CriteriaTranslation::class, 'criteria_id');
     }
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->hasMany(\App\Models\SkillDeclaration::class, 'criteria_id');
     }
-
 }

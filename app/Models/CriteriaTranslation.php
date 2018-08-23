@@ -9,18 +9,29 @@ namespace App\Models;
 
 /**
  * Class CriteriaTranslation
- * 
+ *
  * @property int $id
  * @property int $criteria_id
  * @property string $name
  * @property string $description
  * @property string $locale
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- * 
+<<<<<<< HEAD
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
  * @property \App\Models\Criteria $criterion
  */
-class CriteriaTranslation extends BaseModel {
+class CriteriaTranslation extends Eloquent
+{
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\Criteria $criterion
+ */
+class CriteriaTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'criteria_id' => 'int'
@@ -31,8 +42,8 @@ class CriteriaTranslation extends BaseModel {
         'locale'
     ];
 
-    public function criterion() {
+    public function criterion()
+    {
         return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
     }
-
 }

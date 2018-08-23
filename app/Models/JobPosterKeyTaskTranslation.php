@@ -9,17 +9,28 @@ namespace App\Models;
 
 /**
  * Class JobPosterKeyTaskTranslation
- * 
+ *
  * @property int $id
  * @property int $job_poster_key_task_id
  * @property string $locale
  * @property string $description
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- * 
+<<<<<<< HEAD
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
  * @property \App\Models\JobPosterKeyTask $job_poster_key_task
  */
-class JobPosterKeyTaskTranslation extends BaseModel {
+class JobPosterKeyTaskTranslation extends Eloquent
+{
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\JobPosterKeyTask $job_poster_key_task
+ */
+class JobPosterKeyTaskTranslation extends BaseModel
+{
+    >>>>>>> dev
 
     protected $casts = [
         'job_poster_key_task_id' => 'int'
@@ -29,8 +40,8 @@ class JobPosterKeyTaskTranslation extends BaseModel {
         'description'
     ];
 
-    public function job_poster_key_task() {
+    public function job_poster_key_task()
+    {
         return $this->belongsTo(\App\Models\JobPosterKeyTask::class);
     }
-
 }
