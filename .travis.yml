@@ -31,7 +31,6 @@ install:
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
   - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
-  # sleep 7m
 
 script:
   - sudo cp -a .env.example .env
@@ -41,9 +40,9 @@ script:
   # php artisan db:seed --force
   # sudo make mysql-dump
   # sudo make mysql-restore
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - sudo make test
   # sudo make phpmd
-  # sudo make test
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_script:
   - sudo make docker-stop
