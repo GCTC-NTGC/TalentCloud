@@ -51,7 +51,7 @@ services:
             - "POSTGRES_PASSWORD=talentcloud"
             - "PGDATA=/database/db/postgresql/data/pgdata"
         ports:
-            - "5432:80"
+            - "5432:5432"
     # Postgres Admin
     pgadmin:
         image: dpage/pgadmin4
