@@ -13,6 +13,7 @@ services:
   - postgresql
 
 before_install:
+  - sudo rm -rf vendor/
   - sudo apt update
   - curl -sS https://getcomposer.org/installer | php -- --check
   - sudo rm /usr/local/bin/docker-compose
@@ -24,9 +25,8 @@ before_install:
 
 install:
   - sudo make docker-start
-  - sudo rm -rf vendor
   - composer clear-cache
-  - composer install
+  - composer install -vv
   - npm i -g npm
   - npm install
   - psql -c 'create database talentcloud;' -U postgres
