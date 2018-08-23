@@ -35,7 +35,7 @@ install:
   # sleep 7m
 
 script:
-  - php artisan migrate --force
+  # php artisan migrate --force
   # php artisan db:seed --force
   # sudo make mysql-dump
   # sudo make mysql-restore
