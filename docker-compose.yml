@@ -52,18 +52,6 @@ services:
             - "PGDATA=/database/db/postgresql/data/pgdata"
         ports:
             - "8080:8080"
-    # PHP MyAdmin
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
-        restart: always
-        links:
-            - talentcloud-db
-        environment:
-            - "PMA_ARBITRARY=1"
-            - "PMA_HOST=talentcloud-db"
-        ports:
-            - "8888:80"
     # Postgres Admin
     pgadmin:
         image: dpage/pgadmin4
@@ -74,6 +62,8 @@ services:
         environment:
             - "PGADMIN_DEFAULT_EMAIL=grant.d.barnes@gmail.com"
             - "PGADMIN_DEFAULT_PASSWORD=talentcloud"
+        ports:
+            - "8888:80"
     # Composer
     composer:
         image: "composer"
