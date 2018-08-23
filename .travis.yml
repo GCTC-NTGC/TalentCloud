@@ -14,6 +14,7 @@ services:
 
 before_install:
   - sudo apt update
+  - curl -sS https://getcomposer.org/installer | php -- --check
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
