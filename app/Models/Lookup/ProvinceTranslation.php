@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ProvinceTranslation
@@ -16,6 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $province_id
  * @property string $locale
  * @property string $value
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -23,6 +24,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class ProvinceTranslation extends Eloquent
 {
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
+ * @property \App\Models\Lookup\Province $province
+ */
+class ProvinceTranslation extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'province_id' => 'int'

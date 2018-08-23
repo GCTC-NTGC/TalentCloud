@@ -4,52 +4,54 @@
     Applicant: Jobs - Post: Criteria
 
 ============================================================================= #}
-<a 
+<a
     aria-hidden="true"
     id="criteria">
 </a>
 
-<section 
+<section
     class="job-post__criteria">
 
-    <div 
+    <div
         class="flex-grid">
 
-        <div 
+        <div
             class="box full">
-            <h4 
+            <h4
                 class="job-post__criteria-title">
                 {{ job_post.criteria.title }}
             </h4>
         </div>
 
-        <div 
+        <div
             class="box med-1of2">
-            <h5 
+            <h5
                 class="job-post__criteria-subtitle">
                 {{ job_post.criteria.essential_title }}
             </h5>
-            <ul 
+            <ul
                 class="job-post__criteria-list">
-                {% for criteria in job.criteria.essential %}
+                {% for criteria in criteria.essential %}
                     <li>
-                        {{ criteria }}
+                        <p>{{ criteria.name }}</p>
+                        <p>{{ criteria.description }}</p>
                     </li>
                 {% endfor %}
             </ul>
         </div>
 
-        <div 
+        <div
             class="box med-1of2">
-            <h5 
+            <h5
                 class="job-post__criteria-subtitle">
                 {{ job_post.criteria.asset_title }}
             </h5>
-            <ul 
+            <ul
                 class="job-post__criteria-list">
-                {% for criteria in job.criteria.asset %}
+                {% for criteria in criteria.asset %}
                     <li>
-                        {{ criteria }}
+                        <p>{{ criteria.name }}</p>
+                        <p>{{ criteria.description }}</p>
                     </li>
                 {% endfor %}
             </ul>

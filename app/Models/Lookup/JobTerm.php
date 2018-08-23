@@ -7,24 +7,34 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class JobTerm
  *
  * @property int $id
  * @property string $name
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
+>>>>>>> dev
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $job_term_translations
  *
  * Localized Properties:
  * @property string $value
  */
+<<<<<<< HEAD
 class JobTerm extends Eloquent
 {
+=======
+class JobTerm extends BaseModel {
+>>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 

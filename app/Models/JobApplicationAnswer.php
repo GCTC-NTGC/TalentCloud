@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class JobApplicationAnswer
  *
@@ -16,6 +14,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $job_poster_questions_id
  * @property int $job_application_id
  * @property string $answer
+<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -24,6 +23,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class JobApplicationAnswer extends Eloquent
 {
+=======
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
+ * @property \App\Models\JobApplication $job_application
+ * @property \App\Models\JobPosterQuestion $job_poster_question
+ */
+class JobApplicationAnswer extends BaseModel {
+>>>>>>> dev
 
     protected $casts = [
         'job_poster_questions_id' => 'int',
