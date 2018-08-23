@@ -31,7 +31,7 @@
         <env name="MAIL_DRIVER" value="array"/>
     </php>
     <logging>
-        <log type="coverage-html" target="./report/phpunit" charset="UTF-8" yui="true" highlight="true"/>
+        <log type="coverage-html" target="./report/phpunit"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
 </phpunit>
