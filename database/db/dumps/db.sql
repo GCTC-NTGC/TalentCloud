@@ -37,16 +37,16 @@ GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 -- Table structure for table 'applicants'
 --
 
-CREATE TABLE applicants (
-  'id' int(10) UNSIGNED NOT NULL,
-  'personal_website' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'tagline' text COLLATE utf8mb4_unicode_ci,
-  'twitter_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'linkedin_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'user_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE 'applicants' (
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'personal_website' varchar(191) DEFAULT NULL,
+  'tagline' text,
+  'twitter_username' varchar(191) DEFAULT NULL,
+  'linkedin_username' varchar(191) DEFAULT NULL,
+  'user_id' int CHECK ('user_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -54,14 +54,14 @@ CREATE TABLE applicants (
 -- Table structure for table 'applicant_profile_answers'
 --
 
-CREATE TABLE applicant_profile_answers (
-  'id' int(10) UNSIGNED NOT NULL,
-  'applicant_id' int(10) UNSIGNED NOT NULL,
-  'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
-  'answer' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE 'applicant_profile_answers' (
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'applicant_id' int CHECK ('applicant_id' > 0) NOT NULL,
+  'applicant_profile_question_id' int CHECK ('applicant_profile_question_id' > 0) NOT NULL,
+  'answer' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -69,12 +69,12 @@ CREATE TABLE applicant_profile_answers (
 -- Table structure for table 'applicant_profile_questions'
 --
 
-CREATE TABLE applicant_profile_questions (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE 'applicant_profile_questions' (
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -83,14 +83,14 @@ CREATE TABLE applicant_profile_questions (
 --
 
 CREATE TABLE 'applicant_profile_question_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'applicant_profile_question_id' int CHECK ('applicant_profile_question_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' text NOT NULL,
+  'description' text NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -99,14 +99,14 @@ CREATE TABLE 'applicant_profile_question_translations' (
 --
 
 CREATE TABLE 'application_micro_references' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_application_id' int(10) UNSIGNED NOT NULL,
-  'criteria_id' int(10) UNSIGNED NOT NULL,
-  'micro_reference_id' int(10) UNSIGNED NOT NULL,
-  'is_active' tinyint(1) NOT NULL DEFAULT '1',
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_application_id' int CHECK ('job_application_id' > 0) NOT NULL,
+  'criteria_id' int CHECK ('criteria_id' > 0) NOT NULL,
+  'micro_reference_id' int CHECK ('micro_reference_id' > 0) NOT NULL,
+  'is_active' smallint NOT NULL DEFAULT '1',
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -115,11 +115,11 @@ CREATE TABLE 'application_micro_references' (
 --
 
 CREATE TABLE 'application_status' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -128,13 +128,13 @@ CREATE TABLE 'application_status' (
 --
 
 CREATE TABLE 'application_status_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'application_status_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'application_status_id' int CHECK ('application_status_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) DEFAULT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -143,14 +143,14 @@ CREATE TABLE 'application_status_translations' (
 --
 
 CREATE TABLE 'application_work_samples' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_application_id' int(10) UNSIGNED NOT NULL,
-  'criteria_id' int(10) UNSIGNED NOT NULL,
-  'work_sample_id' int(10) UNSIGNED NOT NULL,
-  'is_active' tinyint(1) NOT NULL DEFAULT '1',
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_application_id' int CHECK ('job_application_id' > 0) NOT NULL,
+  'criteria_id' int CHECK ('criteria_id' > 0) NOT NULL,
+  'work_sample_id' int CHECK ('work_sample_id' > 0) NOT NULL,
+  'is_active' smallint NOT NULL DEFAULT '1',
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -159,11 +159,11 @@ CREATE TABLE 'application_work_samples' (
 --
 
 CREATE TABLE 'citizenship_declarations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' text NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -172,13 +172,13 @@ CREATE TABLE 'citizenship_declarations' (
 --
 
 CREATE TABLE 'citizenship_declaration_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'citizenship_declaration_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'citizenship_declaration_id' int CHECK ('citizenship_declaration_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' text NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -187,12 +187,12 @@ CREATE TABLE 'citizenship_declaration_translations' (
 --
 
 CREATE TABLE 'criteria' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'criteria_type_id' int(10) UNSIGNED NOT NULL,
-  'job_poster_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'criteria_type_id' int CHECK ('criteria_type_id' > 0) NOT NULL,
+  'job_poster_id' int CHECK ('job_poster_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -201,14 +201,14 @@ CREATE TABLE 'criteria' (
 --
 
 CREATE TABLE 'criteria_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'criteria_id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'criteria_id' int CHECK ('criteria_id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'description' text,
+  'locale' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -217,11 +217,11 @@ CREATE TABLE 'criteria_translations' (
 --
 
 CREATE TABLE 'criteria_types' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -230,14 +230,14 @@ CREATE TABLE 'criteria_types' (
 --
 
 CREATE TABLE 'criteria_type_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'criteria_type_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'criteria_type_id' int CHECK ('criteria_type_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'description' text NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -246,11 +246,11 @@ CREATE TABLE 'criteria_type_translations' (
 --
 
 CREATE TABLE 'departments' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -259,13 +259,13 @@ CREATE TABLE 'departments' (
 --
 
 CREATE TABLE 'department_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'department_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'department_id' int CHECK ('department_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -274,11 +274,11 @@ CREATE TABLE 'department_translations' (
 --
 
 CREATE TABLE 'experience_levels' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -287,13 +287,13 @@ CREATE TABLE 'experience_levels' (
 --
 
 CREATE TABLE 'experience_level_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'experience_level_id' int(10) UNSIGNED NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'experience_level_id' int CHECK ('experience_level_id' > 0) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -302,11 +302,11 @@ CREATE TABLE 'experience_level_translations' (
 --
 
 CREATE TABLE 'file_types' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -315,13 +315,13 @@ CREATE TABLE 'file_types' (
 --
 
 CREATE TABLE 'file_type_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'file_type_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'file_type_id' int CHECK ('file_type_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -330,13 +330,13 @@ CREATE TABLE 'file_type_translations' (
 --
 
 CREATE TABLE 'job_applications' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_id' int(10) UNSIGNED NOT NULL,
-  'application_status_id' int(10) UNSIGNED NOT NULL,
-  'applicant_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_id' int CHECK ('job_poster_id' > 0) NOT NULL,
+  'application_status_id' int CHECK ('application_status_id' > 0) NOT NULL,
+  'applicant_id' int CHECK ('applicant_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -345,13 +345,13 @@ CREATE TABLE 'job_applications' (
 --
 
 CREATE TABLE 'job_application_answers' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_questions_id' int(10) UNSIGNED NOT NULL,
-  'job_application_id' int(10) UNSIGNED NOT NULL,
-  'answer' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_questions_id' int CHECK ('job_poster_questions_id' > 0) NOT NULL,
+  'job_application_id' int CHECK ('job_application_id' > 0) NOT NULL,
+  'answer' text NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -360,24 +360,24 @@ CREATE TABLE 'job_application_answers' (
 --
 
 CREATE TABLE 'job_posters' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_term_id' int(10) UNSIGNED NOT NULL,
-  'term_qty' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'open_date_time' datetime NOT NULL,
-  'close_date_time' datetime NOT NULL,
-  'start_date_time' datetime NOT NULL,
-  'department_id' int(10) UNSIGNED NOT NULL,
-  'province_id' int(10) UNSIGNED NOT NULL,
-  'salary_min' int(11) DEFAULT NULL,
-  'salary_max' int(11) DEFAULT NULL,
-  'noc' int(11) NOT NULL,
-  'classification' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'security_clearance_id' int(10) UNSIGNED NOT NULL,
-  'language_requirement_id' int(10) UNSIGNED NOT NULL,
-  'manager_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_term_id' int CHECK ('job_term_id' > 0) NOT NULL,
+  'term_qty' varchar(191) NOT NULL,
+  'open_date_time' timestamp(0) NOT NULL,
+  'close_date_time' timestamp(0) NOT NULL,
+  'start_date_time' timestamp(0) NOT NULL,
+  'department_id' int CHECK ('department_id' > 0) NOT NULL,
+  'province_id' int CHECK ('province_id' > 0) NOT NULL,
+  'salary_min' int DEFAULT NULL,
+  'salary_max' int DEFAULT NULL,
+  'noc' int NOT NULL,
+  'classification' varchar(191) NOT NULL,
+  'security_clearance_id' int CHECK ('security_clearance_id' > 0) NOT NULL,
+  'language_requirement_id' int CHECK ('language_requirement_id' > 0) NOT NULL,
+  'manager_id' int CHECK ('manager_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -386,9 +386,9 @@ CREATE TABLE 'job_posters' (
 --
 
 CREATE TABLE 'job_poster_key_tasks' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_id' int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_id' int CHECK ('job_poster_id' > 0) NOT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -397,13 +397,13 @@ CREATE TABLE 'job_poster_key_tasks' (
 --
 
 CREATE TABLE 'job_poster_key_task_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_key_task_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_key_task_id' int CHECK ('job_poster_key_task_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'description' text NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -412,11 +412,11 @@ CREATE TABLE 'job_poster_key_task_translations' (
 --
 
 CREATE TABLE 'job_poster_questions' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_id' int CHECK ('job_poster_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -425,14 +425,14 @@ CREATE TABLE 'job_poster_questions' (
 --
 
 CREATE TABLE 'job_poster_question_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_question_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'question' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_question_id' int CHECK ('job_poster_question_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'question' text NOT NULL,
+  'description' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -441,17 +441,17 @@ CREATE TABLE 'job_poster_question_translations' (
 --
 
 CREATE TABLE 'job_poster_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_poster_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'city' text COLLATE utf8mb4_unicode_ci,
-  'title' text COLLATE utf8mb4_unicode_ci NOT NULL,
-  'impact' text COLLATE utf8mb4_unicode_ci,
-  'branch' text COLLATE utf8mb4_unicode_ci,
-  'division' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_poster_id' int CHECK ('job_poster_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'city' text,
+  'title' text NOT NULL,
+  'impact' text,
+  'branch' text,
+  'division' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -460,11 +460,11 @@ CREATE TABLE 'job_poster_translations' (
 --
 
 CREATE TABLE 'job_terms' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -473,13 +473,13 @@ CREATE TABLE 'job_terms' (
 --
 
 CREATE TABLE 'job_term_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'job_term_id' int(10) UNSIGNED NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'job_term_id' int CHECK ('job_term_id' > 0) NOT NULL,
+  'value' varchar(191) DEFAULT NULL,
+  'locale' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -488,11 +488,11 @@ CREATE TABLE 'job_term_translations' (
 --
 
 CREATE TABLE 'language_requirements' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -501,13 +501,13 @@ CREATE TABLE 'language_requirements' (
 --
 
 CREATE TABLE 'language_requirement_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'language_requirement_id' int(10) UNSIGNED NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'language_requirement_id' int CHECK ('language_requirement_id' > 0) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -516,14 +516,14 @@ CREATE TABLE 'language_requirement_translations' (
 --
 
 CREATE TABLE 'managers' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'department_id' int(10) UNSIGNED DEFAULT NULL,
-  'twitter_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'linkedin_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'user_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'department_id' int CHECK ('department_id' > 0) DEFAULT NULL,
+  'twitter_username' varchar(191) DEFAULT NULL,
+  'linkedin_username' varchar(191) DEFAULT NULL,
+  'user_id' int CHECK ('user_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -532,27 +532,27 @@ CREATE TABLE 'managers' (
 --
 
 CREATE TABLE 'manager_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'aboutme' text COLLATE utf8mb4_unicode_ci,
-  'greatest_accomplishment' text COLLATE utf8mb4_unicode_ci,
-  'branch' text COLLATE utf8mb4_unicode_ci,
-  'division' text COLLATE utf8mb4_unicode_ci,
-  'position' text COLLATE utf8mb4_unicode_ci,
-  'leadership_style' text COLLATE utf8mb4_unicode_ci,
-  'employee_learning' text COLLATE utf8mb4_unicode_ci,
-  'expectations' text COLLATE utf8mb4_unicode_ci,
-  'manager_id' int(10) UNSIGNED NOT NULL,
-  'review_options' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'staylate' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'engage' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'opportunities' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'low_value_work_requests' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'work_experience' text COLLATE utf8mb4_unicode_ci,
-  'education' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'aboutme' text,
+  'greatest_accomplishment' text,
+  'branch' text,
+  'division' text,
+  'position' text,
+  'leadership_style' text,
+  'employee_learning' text,
+  'expectations' text,
+  'manager_id' int CHECK ('manager_id' > 0) NOT NULL,
+  'review_options' varchar(191) DEFAULT NULL,
+  'staylate' varchar(191) DEFAULT NULL,
+  'engage' varchar(191) DEFAULT NULL,
+  'opportunities' varchar(191) DEFAULT NULL,
+  'low_value_work_requests' varchar(191) DEFAULT NULL,
+  'work_experience' text,
+  'education' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -561,17 +561,17 @@ CREATE TABLE 'manager_translations' (
 --
 
 CREATE TABLE 'micro_references' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'email' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'relationship_id' int(10) UNSIGNED DEFAULT NULL,
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) DEFAULT NULL,
+  'email' varchar(191) DEFAULT NULL,
+  'relationship_id' int CHECK ('relationship_id' > 0) DEFAULT NULL,
   'observed_from_date' date DEFAULT NULL,
   'observed_until_date' date DEFAULT NULL,
-  'experience_level_id' int(10) UNSIGNED DEFAULT NULL,
-  'story' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'experience_level_id' int CHECK ('experience_level_id' > 0) DEFAULT NULL,
+  'story' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -580,10 +580,10 @@ CREATE TABLE 'micro_references' (
 --
 
 CREATE TABLE 'migrations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'migration' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'batch' int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'migration' varchar(191) NOT NULL,
+  'batch' int NOT NULL
+)  ;
 
 --
 -- Dumping data for table 'migrations'
@@ -690,14 +690,14 @@ INSERT INTO 'migrations' ('id', 'migration', 'batch') VALUES
 --
 
 CREATE TABLE 'profile_pics' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'user_id' int(10) UNSIGNED NOT NULL,
-  'image' blob NOT NULL,
-  'type' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'size' int(11) NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'user_id' int CHECK ('user_id' > 0) NOT NULL,
+  'image' bytea NOT NULL,
+  'type' varchar(191) NOT NULL,
+  'size' int NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -706,11 +706,11 @@ CREATE TABLE 'profile_pics' (
 --
 
 CREATE TABLE 'provinces' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -719,13 +719,13 @@ CREATE TABLE 'provinces' (
 --
 
 CREATE TABLE 'province_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'province_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'province_id' int CHECK ('province_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -734,11 +734,11 @@ CREATE TABLE 'province_translations' (
 --
 
 CREATE TABLE 'relationships' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -747,13 +747,13 @@ CREATE TABLE 'relationships' (
 --
 
 CREATE TABLE 'relationship_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'relationship_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'relationship_id' int CHECK ('relationship_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -762,11 +762,11 @@ CREATE TABLE 'relationship_translations' (
 --
 
 CREATE TABLE 'security_clearances' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -775,13 +775,13 @@ CREATE TABLE 'security_clearances' (
 --
 
 CREATE TABLE 'security_clearance_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'security_clearance_id' int(10) UNSIGNED NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'security_clearance_id' int CHECK ('security_clearance_id' > 0) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -790,16 +790,16 @@ CREATE TABLE 'security_clearance_translations' (
 --
 
 CREATE TABLE 'skill_declarations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'criteria_id' int(10) UNSIGNED NOT NULL,
-  'job_application_id' int(10) UNSIGNED NOT NULL,
-  'experience_level_id' int(10) UNSIGNED DEFAULT NULL,
-  'skill_level_id' int(10) UNSIGNED DEFAULT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci,
-  'is_active' tinyint(1) NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'criteria_id' int CHECK ('criteria_id' > 0) NOT NULL,
+  'job_application_id' int CHECK ('job_application_id' > 0) NOT NULL,
+  'experience_level_id' int CHECK ('experience_level_id' > 0) DEFAULT NULL,
+  'skill_level_id' int CHECK ('skill_level_id' > 0) DEFAULT NULL,
+  'description' text,
+  'is_active' smallint NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -808,11 +808,11 @@ CREATE TABLE 'skill_declarations' (
 --
 
 CREATE TABLE 'skill_levels' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -821,13 +821,13 @@ CREATE TABLE 'skill_levels' (
 --
 
 CREATE TABLE 'skill_level_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'skill_level_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'value' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'skill_level_id' int CHECK ('skill_level_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'value' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -836,13 +836,13 @@ CREATE TABLE 'skill_level_translations' (
 --
 
 CREATE TABLE 'team_cultures' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'team_size' int(11) DEFAULT NULL,
-  'gc_directory_url' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'manager_id' int(10) UNSIGNED NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'team_size' int DEFAULT NULL,
+  'gc_directory_url' varchar(191) DEFAULT NULL,
+  'manager_id' int CHECK ('manager_id' > 0) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -851,16 +851,16 @@ CREATE TABLE 'team_cultures' (
 --
 
 CREATE TABLE 'team_culture_translations' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'team_culture_id' int(10) UNSIGNED NOT NULL,
-  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'narrative_text' text COLLATE utf8mb4_unicode_ci,
-  'operating_context' text COLLATE utf8mb4_unicode_ci,
-  'what_we_value' text COLLATE utf8mb4_unicode_ci,
-  'how_we_work' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'team_culture_id' int CHECK ('team_culture_id' > 0) NOT NULL,
+  'locale' varchar(191) NOT NULL,
+  'narrative_text' text,
+  'operating_context' text,
+  'what_we_value' text,
+  'how_we_work' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -869,15 +869,15 @@ CREATE TABLE 'team_culture_translations' (
 --
 
 CREATE TABLE 'users' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'email' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'is_confirmed' tinyint(1) NOT NULL DEFAULT '0',
-  'user_role_id' int(10) UNSIGNED NOT NULL,
-  'open_id_sub' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'email' varchar(191) NOT NULL,
+  'name' varchar(191) DEFAULT NULL,
+  'is_confirmed' smallint NOT NULL DEFAULT '0',
+  'user_role_id' int CHECK ('user_role_id' > 0) NOT NULL,
+  'open_id_sub' varchar(191) NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -886,11 +886,11 @@ CREATE TABLE 'users' (
 --
 
 CREATE TABLE 'user_roles' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' varchar(191) DEFAULT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -899,13 +899,13 @@ CREATE TABLE 'user_roles' (
 --
 
 CREATE TABLE 'workplace_photos' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'image' blob NOT NULL,
-  'mime_type' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'size' int(11) NOT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'image' bytea NOT NULL,
+  'mime_type' varchar(191) NOT NULL,
+  'size' int NOT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -914,14 +914,14 @@ CREATE TABLE 'workplace_photos' (
 --
 
 CREATE TABLE 'workplace_photo_captions' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'work_environment_id' int(10) UNSIGNED NOT NULL,
-  'photo_name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  'workplace_photo_id' int(10) UNSIGNED DEFAULT NULL,
-  'description' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'work_environment_id' int CHECK ('work_environment_id' > 0) NOT NULL,
+  'photo_name' varchar(191) NOT NULL,
+  'workplace_photo_id' int CHECK ('workplace_photo_id' > 0) DEFAULT NULL,
+  'description' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -930,14 +930,14 @@ CREATE TABLE 'workplace_photo_captions' (
 --
 
 CREATE TABLE 'work_environments' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'manager_id' int(10) UNSIGNED NOT NULL,
-  'remote_allowed' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'telework_allowed' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'flexible_allowed' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'manager_id' int CHECK ('manager_id' > 0) NOT NULL,
+  'remote_allowed' varchar(191) DEFAULT NULL,
+  'telework_allowed' varchar(191) DEFAULT NULL,
+  'flexible_allowed' varchar(191) DEFAULT NULL,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 -- --------------------------------------------------------
 
@@ -946,15 +946,15 @@ CREATE TABLE 'work_environments' (
 --
 
 CREATE TABLE 'work_samples' (
-  'id' int(10) UNSIGNED NOT NULL,
-  'name' text COLLATE utf8mb4_unicode_ci,
+  'id' int CHECK ('id' > 0) NOT NULL,
+  'name' text,
   'date_created' date DEFAULT NULL,
-  'file_type_id' int(10) UNSIGNED DEFAULT NULL,
-  'url' text COLLATE utf8mb4_unicode_ci,
-  'story' text COLLATE utf8mb4_unicode_ci,
-  'created_at' timestamp NULL DEFAULT NULL,
-  'updated_at' timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  'file_type_id' int CHECK ('file_type_id' > 0) DEFAULT NULL,
+  'url' text,
+  'story' text,
+  'created_at' timestamp(0) NULL DEFAULT NULL,
+  'updated_at' timestamp(0) NULL DEFAULT NULL
+)  ;
 
 --
 -- Indexes for dumped tables
@@ -1377,325 +1377,325 @@ ALTER TABLE 'work_samples'
 -- AUTO_INCREMENT for table 'applicants'
 --
 ALTER TABLE 'applicants'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'applicant_profile_answers'
 --
 ALTER TABLE 'applicant_profile_answers'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'applicant_profile_questions'
 --
 ALTER TABLE 'applicant_profile_questions'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'applicant_profile_question_translations'
 --
 ALTER TABLE 'applicant_profile_question_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'application_micro_references'
 --
 ALTER TABLE 'application_micro_references'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'application_status'
 --
 ALTER TABLE 'application_status'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'application_status_translations'
 --
 ALTER TABLE 'application_status_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'application_work_samples'
 --
 ALTER TABLE 'application_work_samples'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'citizenship_declarations'
 --
 ALTER TABLE 'citizenship_declarations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'citizenship_declaration_translations'
 --
 ALTER TABLE 'citizenship_declaration_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'criteria'
 --
 ALTER TABLE 'criteria'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'criteria_translations'
 --
 ALTER TABLE 'criteria_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'criteria_types'
 --
 ALTER TABLE 'criteria_types'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'criteria_type_translations'
 --
 ALTER TABLE 'criteria_type_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'departments'
 --
 ALTER TABLE 'departments'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'department_translations'
 --
 ALTER TABLE 'department_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'experience_levels'
 --
 ALTER TABLE 'experience_levels'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'experience_level_translations'
 --
 ALTER TABLE 'experience_level_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'file_types'
 --
 ALTER TABLE 'file_types'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'file_type_translations'
 --
 ALTER TABLE 'file_type_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_applications'
 --
 ALTER TABLE 'job_applications'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_application_answers'
 --
 ALTER TABLE 'job_application_answers'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_posters'
 --
 ALTER TABLE 'job_posters'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_poster_key_tasks'
 --
 ALTER TABLE 'job_poster_key_tasks'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_poster_key_task_translations'
 --
 ALTER TABLE 'job_poster_key_task_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_poster_questions'
 --
 ALTER TABLE 'job_poster_questions'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_poster_question_translations'
 --
 ALTER TABLE 'job_poster_question_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_poster_translations'
 --
 ALTER TABLE 'job_poster_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_terms'
 --
 ALTER TABLE 'job_terms'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'job_term_translations'
 --
 ALTER TABLE 'job_term_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'language_requirements'
 --
 ALTER TABLE 'language_requirements'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'language_requirement_translations'
 --
 ALTER TABLE 'language_requirement_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'managers'
 --
 ALTER TABLE 'managers'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'manager_translations'
 --
 ALTER TABLE 'manager_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'micro_references'
 --
 ALTER TABLE 'micro_references'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'migrations'
 --
 ALTER TABLE 'migrations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table 'profile_pics'
 --
 ALTER TABLE 'profile_pics'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'provinces'
 --
 ALTER TABLE 'provinces'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'province_translations'
 --
 ALTER TABLE 'province_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'relationships'
 --
 ALTER TABLE 'relationships'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'relationship_translations'
 --
 ALTER TABLE 'relationship_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'security_clearances'
 --
 ALTER TABLE 'security_clearances'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'security_clearance_translations'
 --
 ALTER TABLE 'security_clearance_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'skill_declarations'
 --
 ALTER TABLE 'skill_declarations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'skill_levels'
 --
 ALTER TABLE 'skill_levels'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'skill_level_translations'
 --
 ALTER TABLE 'skill_level_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'team_cultures'
 --
 ALTER TABLE 'team_cultures'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'team_culture_translations'
 --
 ALTER TABLE 'team_culture_translations'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'users'
 --
 ALTER TABLE 'users'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'user_roles'
 --
 ALTER TABLE 'user_roles'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'workplace_photos'
 --
 ALTER TABLE 'workplace_photos'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'workplace_photo_captions'
 --
 ALTER TABLE 'workplace_photo_captions'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'work_environments'
 --
 ALTER TABLE 'work_environments'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table 'work_samples'
 --
 ALTER TABLE 'work_samples'
-  MODIFY 'id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY 'id' cast(10 as int) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
