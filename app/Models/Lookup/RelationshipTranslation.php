@@ -11,25 +11,26 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class RelationshipTranslation
- * 
+ *
  * @property int $id
  * @property int $relationship_id
  * @property string $locale
  * @property string $value
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Lookup\Relationship $relationship
  */
-class RelationshipTranslation extends Eloquent {
+class RelationshipTranslation extends Eloquent
+{
 
     protected $casts = [
         'relationship_id' => 'int'
     ];
     protected $fillable = [];
 
-    public function relationship() {
+    public function relationship()
+    {
         return $this->belongsTo(\App\Models\Lookup\Relationship::class);
     }
-
 }

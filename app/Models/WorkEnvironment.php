@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class WorkEnvironment
- * 
+ *
  * @property int $id
  * @property int $manager_id
  * @property string $remote_allowed
@@ -19,11 +19,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $flexible_allowed
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $workplace_photo_captions
  */
-class WorkEnvironment extends Eloquent {
+class WorkEnvironment extends Eloquent
+{
 
     protected $fillable = [
         'remote_allowed',
@@ -31,12 +32,13 @@ class WorkEnvironment extends Eloquent {
         'flexible_allowed'
     ];
 
-    public function manager() {
+    public function manager()
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function workplace_photo_captions() {
+    public function workplace_photo_captions()
+    {
         return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
     }
-
 }

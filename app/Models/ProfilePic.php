@@ -22,7 +22,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @property \App\Models\User $user
  */
-class ProfilePic extends Eloquent {
+class ProfilePic extends Eloquent
+{
 
     protected $casts = [
         'user_id' => 'int',
@@ -33,8 +34,8 @@ class ProfilePic extends Eloquent {
         'image'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
-
 }

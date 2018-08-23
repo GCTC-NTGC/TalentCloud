@@ -11,32 +11,34 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class ApplicantProfileQuestion
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
- * 
+ *
  * Localized Properties:
  * @property string $value
  * @property string $description
  */
-class ApplicantProfileQuestion extends Eloquent {
+class ApplicantProfileQuestion extends Eloquent
+{
 
     use \Dimsav\Translatable\Translatable;
 
     public $translatedAttributes = ['value', 'description'];
     protected $fillable = [];
 
-    public function applicant_profile_answers() {
+    public function applicant_profile_answers()
+    {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
     }
 
-    public function applicant_profile_question_translations() {
+    public function applicant_profile_question_translations()
+    {
         return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
     }
-
 }

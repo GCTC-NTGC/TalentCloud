@@ -11,25 +11,26 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class JobTermTranslation
- * 
+ *
  * @property int $id
  * @property int $job_term_id
  * @property string $value
  * @property string $locale
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Lookup\JobTerm $job_term
  */
-class JobTermTranslation extends Eloquent {
+class JobTermTranslation extends Eloquent
+{
 
     protected $casts = [
         'job_term_id' => 'int'
     ];
     protected $fillable = [];
 
-    public function job_term() {
+    public function job_term()
+    {
         return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
     }
-
 }

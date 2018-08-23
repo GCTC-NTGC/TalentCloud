@@ -44,7 +44,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $work_experience
  * @property string $education
  */
-class Manager extends Eloquent {
+class Manager extends Eloquent
+{
 
     use \Dimsav\Translatable\Translatable;
 
@@ -65,28 +66,33 @@ class Manager extends Eloquent {
         'department'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function department() {
+    public function department()
+    {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_posters() {
+    public function job_posters()
+    {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
-    public function manager_translations() {
+    public function manager_translations()
+    {
         return $this->hasMany(\App\Models\ManagerTranslation::class);
     }
 
-    public function manager_work_environments() {
+    public function manager_work_environments()
+    {
         return $this->hasMany(\App\Models\ManagerWorkEnvironment::class);
     }
 
-    public function team_cultures() {
+    public function team_cultures()
+    {
         return $this->hasMany(\App\Models\TeamCulture::class);
     }
-
 }

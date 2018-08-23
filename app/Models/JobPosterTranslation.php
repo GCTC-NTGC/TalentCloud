@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class JobPosterTranslation
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property string $locale
@@ -22,10 +22,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $division
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\JobPoster $job_poster
  */
-class JobPosterTranslation extends Eloquent {
+class JobPosterTranslation extends Eloquent
+{
 
     protected $casts = [
         'job_poster_id' => 'int'
@@ -39,8 +40,8 @@ class JobPosterTranslation extends Eloquent {
         'division'
     ];
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
-
 }

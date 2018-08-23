@@ -11,20 +11,21 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class JobPosterQuestion
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
- * 
+ *
  * Localized Properties:
  * @property string $question
  * @property string $description
  */
-class JobPosterQuestion extends Eloquent {
+class JobPosterQuestion extends Eloquent
+{
 
     use \Dimsav\Translatable\Translatable;
 
@@ -34,12 +35,13 @@ class JobPosterQuestion extends Eloquent {
     ];
     protected $fillable = [];
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function job_application_answers() {
+    public function job_application_answers()
+    {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class, 'job_poster_questions_id');
     }
-
 }

@@ -11,31 +11,33 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class SkillLevel
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \Illuminate\Database\Eloquent\Collection $skill_level_translations
- * 
+ *
  * Localized Properties:
  * @property string $value
  */
-class SkillLevel extends Eloquent {
+class SkillLevel extends Eloquent
+{
 
     use \Dimsav\Translatable\Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
 
-    public function skill_level_translations() {
+    public function skill_level_translations()
+    {
         return $this->hasMany(\App\Models\Lookup\SkillLevelTranslation::class);
     }
-
 }

@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class CriteriaTranslation
- * 
+ *
  * @property int $id
  * @property int $criteria_id
  * @property string $name
@@ -19,10 +19,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $locale
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Criteria $criterion
  */
-class CriteriaTranslation extends Eloquent {
+class CriteriaTranslation extends Eloquent
+{
 
     protected $casts = [
         'criteria_id' => 'int'
@@ -33,8 +34,8 @@ class CriteriaTranslation extends Eloquent {
         'locale'
     ];
 
-    public function criterion() {
+    public function criterion()
+    {
         return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
     }
-
 }

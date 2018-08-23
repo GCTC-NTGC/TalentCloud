@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class ApplicationMicroReference
- * 
+ *
  * @property int $id
  * @property int $job_application_id
  * @property int $criteria_id
@@ -19,12 +19,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property bool $is_active
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Criteria $criterion
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\MicroReference $micro_reference
  */
-class ApplicationMicroReference extends Eloquent {
+class ApplicationMicroReference extends Eloquent
+{
 
     protected $casts = [
         'job_application_id' => 'int',
@@ -34,16 +35,18 @@ class ApplicationMicroReference extends Eloquent {
     ];
     protected $fillable = [];
 
-    public function criterion() {
+    public function criterion()
+    {
         return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
     }
 
-    public function job_application() {
+    public function job_application()
+    {
         return $this->belongsTo(\App\Models\JobApplication::class);
     }
 
-    public function micro_reference() {
+    public function micro_reference()
+    {
         return $this->belongsTo(\App\Models\MicroReference::class);
     }
-
 }

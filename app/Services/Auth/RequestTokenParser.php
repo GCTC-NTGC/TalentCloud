@@ -72,11 +72,13 @@ class RequestTokenParser
      * @param string $tokenString     *
      * @return Token
      */
-    public function parseFromString(string $tokenString): Token {
+    public function parseFromString(string $tokenString): Token
+    {
         return $this->parser->parse($tokenString);
     }
 
-    public function save(Token $token) {
+    public function save(Token $token)
+    {
         //session([static::COOKIE_KEY => (string)$token]);
         //Cookie::queue(static::COOKIE_KEY, (string)$token);
         Debugbar::info("Saving token:");
@@ -84,7 +86,8 @@ class RequestTokenParser
         cookie()->queue(cookie()->forever(static::COOKIE_KEY, (string)$token));
     }
 
-    public function forget() {
+    public function forget()
+    {
         //session()->forget(static::COOKIE_KEY);
         // if (Cookie::hasQueued(static::COOKIE_KEY)) {
         //   Cookie::unqueue(static::COOKIE_KEY);

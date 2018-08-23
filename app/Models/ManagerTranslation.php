@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class ManagerTranslation
- * 
+ *
  * @property int $id
  * @property string $locale
  * @property string $aboutme
@@ -32,10 +32,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $education
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends Eloquent {
+class ManagerTranslation extends Eloquent
+{
 
     protected $casts = [
         'manager_id' => 'int'
@@ -58,8 +59,8 @@ class ManagerTranslation extends Eloquent {
         'education'
     ];
 
-    public function manager() {
+    public function manager()
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
-
 }

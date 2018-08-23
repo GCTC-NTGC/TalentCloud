@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class JobPoster
- * 
+ *
  * @property int $id
  * @property int $job_term_id
  * @property string $term_qty
@@ -29,7 +29,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $manager_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
  * @property \App\Models\Lookup\LanguageRequirement $language_requirement
@@ -41,7 +41,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_key_tasks
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
- * 
+ *
  * Localized Properties:
  * @property string $city
  * @property string $title
@@ -49,7 +49,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $branch
  * @property string $division
  */
-class JobPoster extends Eloquent {
+class JobPoster extends Eloquent
+{
 
     use \Dimsav\Translatable\Translatable;
 
@@ -86,48 +87,58 @@ class JobPoster extends Eloquent {
         'language_requirement_id'
     ];
 
-    public function department() {
+    public function department()
+    {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_term() {
+    public function job_term()
+    {
         return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
     }
 
-    public function language_requirement() {
+    public function language_requirement()
+    {
         return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
     }
 
-    public function manager() {
+    public function manager()
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function province() {
+    public function province()
+    {
         return $this->belongsTo(\App\Models\Lookup\Province::class);
     }
 
-    public function security_clearance() {
+    public function security_clearance()
+    {
         return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
     }
 
-    public function criteria() {
+    public function criteria()
+    {
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
-    public function job_applications() {
+    public function job_applications()
+    {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
 
-    public function job_poster_key_tasks() {
+    public function job_poster_key_tasks()
+    {
         return $this->hasMany(\App\Models\JobPosterKeyTask::class);
     }
 
-    public function job_poster_questions() {
+    public function job_poster_questions()
+    {
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
     }
 
-    public function job_poster_translations() {
+    public function job_poster_translations()
+    {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
-
 }

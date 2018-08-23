@@ -11,18 +11,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class JobPosterKeyTask
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \App\Models\JobPoster $job_poster
- * 
+ *
  * Localized Properties:
  * @property string $description
  */
-class JobPosterKeyTask extends Eloquent {
+class JobPosterKeyTask extends Eloquent
+{
 
     use \Dimsav\Translatable\Translatable;
 
@@ -32,8 +33,8 @@ class JobPosterKeyTask extends Eloquent {
     ];
     protected $fillable = [];
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
-
 }
