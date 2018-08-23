@@ -35,6 +35,8 @@ install:
   # sleep 7m
 
 script:
+  - php artisan key:generate
+  - php artisan config:cache
   # php artisan migrate --force
   # php artisan db:seed --force
   # sudo make mysql-dump
