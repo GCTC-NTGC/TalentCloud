@@ -42,8 +42,8 @@ script:
   # sudo make mysql-dump
   # sudo make mysql-restore
   - vendor/bin/phpunit --coverage-clover=coverage.xml
-  - sudo make phpmd
-  - sudo make test
+  # sudo make phpmd
+  # sudo make test
 
 after_script:
   - sudo make docker-stop
