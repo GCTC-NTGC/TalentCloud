@@ -7,6 +7,8 @@
 
 namespace App\Models;
 
+use Reliese\Database\Eloquent\Model as Eloquent;
+
 /**
  * Class JobPosterQuestionTranslation
  *
@@ -15,7 +17,6 @@ namespace App\Models;
  * @property string $locale
  * @property string $question
  * @property string $description
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -23,14 +24,6 @@ namespace App\Models;
  */
 class JobPosterQuestionTranslation extends Eloquent
 {
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- * 
- * @property \App\Models\JobPosterQuestion $job_poster_question
- */
-class JobPosterQuestionTranslation extends BaseModel {
->>>>>>> dev
 
     protected $casts = [
         'job_poster_question_id' => 'int'

@@ -7,7 +7,7 @@
 
 namespace App\Models\Lookup;
 
-use App\Models\BaseModel;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class ApplicationStatusTranslation
@@ -16,7 +16,6 @@ use App\Models\BaseModel;
  * @property int $application_status_id
  * @property string $locale
  * @property string $value
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -24,14 +23,6 @@ use App\Models\BaseModel;
  */
 class ApplicationStatusTranslation extends Eloquent
 {
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- * 
- * @property \App\Models\Lookup\ApplicationStatus $application_status
- */
-class ApplicationStatusTranslation extends BaseModel {
->>>>>>> dev
 
     protected $casts = [
         'application_status_id' => 'int'

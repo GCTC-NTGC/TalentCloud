@@ -7,6 +7,8 @@
 
 namespace App\Models;
 
+use Reliese\Database\Eloquent\Model as Eloquent;
+
 /**
  * Class WorkplacePhotoCaption
  *
@@ -15,7 +17,6 @@ namespace App\Models;
  * @property string $photo_name
  * @property int $workplace_photo_id
  * @property string $description
-<<<<<<< HEAD
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -24,15 +25,6 @@ namespace App\Models;
  */
 class WorkplacePhotoCaption extends Eloquent
 {
-=======
- * @property \Jenssegers\Date\Date $created_at
- * @property \Jenssegers\Date\Date $updated_at
- * 
- * @property \App\Models\WorkEnvironment $work_environment
- * @property \App\Models\WorkplacePhoto $workplace_photo
- */
-class WorkplacePhotoCaption extends BaseModel {
->>>>>>> dev
 
     protected $casts = [
         'work_environment_id' => 'int',

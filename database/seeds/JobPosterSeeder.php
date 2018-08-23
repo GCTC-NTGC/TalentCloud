@@ -3,9 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Models\JobPoster;
 use App\Models\Manager;
-use App\Models\Criteria;
-use App\Models\Lookup\CriteriaType;
-use App\Models\JobPosterKeyTask;
 use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Province;
@@ -15,13 +12,11 @@ use App\Models\Lookup\LanguageRequirement;
 class JobPosterSeeder extends Seeder
 {
     protected $faker;
-    protected $faker_fr;
-
+    
     public function __construct(Faker\Generator $faker) {
         $this->faker = $faker;
-        $this->faker_fr = Faker\Factory::create('fr');
     }
-
+    
     /**
      * Run the Users table seeds.
      *
@@ -30,11 +25,10 @@ class JobPosterSeeder extends Seeder
     public function run()
     {
         $faker = $this->faker;
-        $faker_fr = $this->faker_fr;
-
+        
         $job = new JobPoster();
         $job->manager_id = Manager::inRandomOrder()->first()->id;
-        $job->fill([
+        $job->fill([                
             'job_term_id' => JobTerm::inRandomOrder()->first()->id,
             'term_qty' => $faker->numberBetween(1, 4),
             'open_date_time' => $faker->dateTimeBetween('-1 months','now'),
@@ -53,51 +47,16 @@ class JobPosterSeeder extends Seeder
                 'title' => $faker->word(),
                 'impact' => $faker->paragraphs(2, true),
                 'branch' => $faker->word(),
-                'division' => $faker->word()
+                'division' => $faker->word()                
             ],
             'fr' => [
-                'city' => $faker_fr->city(),
-                'title' => $faker_fr->word(),
-                'impact' => $faker_fr->paragraphs(2, true),
-                'branch' => $faker_fr->word(),
-                'division' => $faker_fr->word()
+                'city' => $faker->city(),
+                'title' => $faker->word(),
+                'impact' => $faker->paragraphs(2, true),
+                'branch' => $faker->word(),
+                'division' => $faker->word()                
             ]
         ]);
         $job->save();
-
-        //Create 3-6 criteria
-        for($i=0; $i< $faker->numberBetween(3,6); $i++) {
-            $criteria = new Criteria();
-            $criteria->criteria_type_id = CriteriaType::inRandomOrder()->first()->id;
-            $criteria->job_poster_id = $job->id;
-            $criteria->fill([
-                'en' => [
-                    'name' => $faker->word(),
-                    'description' => $faker->sentence()
-                ],
-                'fr' => [
-                    'name' => $faker_fr->word(),
-                    'description' => $faker_fr->sentence()
-                ]
-
-            ]);
-            $criteria->save();
-        }
-
-        //Create 2-4 key tasks
-        for($i=0; $i< $faker->numberBetween(2,4); $i++) {
-            $keyTask = new JobPosterKeyTask();
-            $keyTask->job_poster_id = $job->id;
-            $keyTask->fill([
-                'en' => [
-                    'description' => $faker->sentence()
-                ],
-                'fr' => [
-                    'description' => $faker_fr->sentence()
-                ]
-
-            ]);
-            $keyTask->save();
-        }
     }
 }
