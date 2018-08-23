@@ -1,7 +1,6 @@
 {
     "require": {
         "php": "~7",
-        "mollie/polyfill-libsodium": "1.1.1",
         "dimsav/laravel-translatable": "9.*",
         "guzzlehttp/guzzle": "^6",
         "fideloper/proxy": "^4.0",
@@ -61,7 +60,7 @@
         }
     },
     "config": {
-        "preferred-install": "source",
+        "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
     },
