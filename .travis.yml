@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 7.1
+  - 7.2
 
 sudo: required
 
@@ -25,7 +25,7 @@ before_install:
 install:
   - sudo make docker-start
   - sudo rm -rf vendor
-  - COMPOSER_ROOT_VERSION=gb_postgres composer install
+  - COMPOSER_ROOT_VERSION=dev composer install
   - npm i -g npm
   - npm install
   - psql -c 'create database talentcloud;' -U postgres

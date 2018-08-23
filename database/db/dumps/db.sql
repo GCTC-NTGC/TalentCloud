@@ -38,74 +38,74 @@ GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
 --
 
 CREATE TABLE applicants (
-  id int(10) UNSIGNED NOT NULL,
-  personal_website varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  tagline text COLLATE utf8mb4_unicode_ci,
-  twitter_username varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  linkedin_username varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  user_id int(10) UNSIGNED NOT NULL,
-  created_at timestamp NULL DEFAULT NULL,
-  updated_at timestamp NULL DEFAULT NULL
+  'id' int(10) UNSIGNED NOT NULL,
+  'personal_website' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'tagline' text COLLATE utf8mb4_unicode_ci,
+  'twitter_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'linkedin_username' varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  'user_id' int(10) UNSIGNED NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table applicant_profile_answers
+-- Table structure for table 'applicant_profile_answers'
 --
 
 CREATE TABLE applicant_profile_answers (
-  id int(10) UNSIGNED NOT NULL,
-  applicant_id int(10) UNSIGNED NOT NULL,
-  applicant_profile_question_id int(10) UNSIGNED NOT NULL,
-  answer text COLLATE utf8mb4_unicode_ci,
-  created_at timestamp NULL DEFAULT NULL,
-  updated_at timestamp NULL DEFAULT NULL
+  'id' int(10) UNSIGNED NOT NULL,
+  'applicant_id' int(10) UNSIGNED NOT NULL,
+  'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
+  'answer' text COLLATE utf8mb4_unicode_ci,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table applicant_profile_questions
+-- Table structure for table 'applicant_profile_questions'
 --
 
 CREATE TABLE applicant_profile_questions (
-  id int(10) UNSIGNED NOT NULL,
-  name varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  created_at timestamp NULL DEFAULT NULL,
-  updated_at timestamp NULL DEFAULT NULL
+  'id' int(10) UNSIGNED NOT NULL,
+  'name' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table applicant_profile_question_translations
+-- Table structure for table 'applicant_profile_question_translations'
 --
 
-CREATE TABLE applicant_profile_question_translations (
-  id int(10) UNSIGNED NOT NULL,
-  applicant_profile_question_id int(10) UNSIGNED NOT NULL,
-  locale varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  value text COLLATE utf8mb4_unicode_ci NOT NULL,
-  description text COLLATE utf8mb4_unicode_ci NOT NULL,
-  created_at timestamp NULL DEFAULT NULL,
-  updated_at timestamp NULL DEFAULT NULL
+CREATE TABLE 'applicant_profile_question_translations' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'applicant_profile_question_id' int(10) UNSIGNED NOT NULL,
+  'locale' varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  'value' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'description' text COLLATE utf8mb4_unicode_ci NOT NULL,
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table application_micro_references
+-- Table structure for table 'application_micro_references'
 --
 
-CREATE TABLE application_micro_references (
-  id int(10) UNSIGNED NOT NULL,
-  job_application_id int(10) UNSIGNED NOT NULL,
-  criteria_id int(10) UNSIGNED NOT NULL,
-  micro_reference_id int(10) UNSIGNED NOT NULL,
-  is_active tinyint(1) NOT NULL DEFAULT 1,
-  created_at timestamp NULL DEFAULT NULL,
-  updated_at timestamp NULL DEFAULT NULL
+CREATE TABLE 'application_micro_references' (
+  'id' int(10) UNSIGNED NOT NULL,
+  'job_application_id' int(10) UNSIGNED NOT NULL,
+  'criteria_id' int(10) UNSIGNED NOT NULL,
+  'micro_reference_id' int(10) UNSIGNED NOT NULL,
+  'is_active' tinyint(1) NOT NULL DEFAULT '1',
+  'created_at' timestamp NULL DEFAULT NULL,
+  'updated_at' timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
