@@ -30,7 +30,7 @@ clean:
 code-sniff:
 	@echo "Checking the standard code..."
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 --extensions=php app/
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v -d memory_limit=32M --standard=PSR2 --extensions=php app/
 
 docker-start:
 	docker-compose up -d
