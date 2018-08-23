@@ -29,7 +29,7 @@ clean:
 
 code-sniff:
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 app/src
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 ./app/Http
 
 docker-start:
 	docker-compose up -d
@@ -55,11 +55,11 @@ mysql-restore:
 phpmd:
 	@docker-compose exec -T talentcloud \
 	./vendor/bin/phpmd \
-	./app/src \
+	./app/Http \
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 test: code-sniff
-	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
+	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./app/
 	@make resetOwner
 
 resetOwner:
