@@ -54,9 +54,7 @@ mysql-restore:
 	@docker exec -i $(shell docker-compose ps -q talentcloud-db) mysql -u"talentcloud" -p"talentcloud" < $(DB_DUMPS_DIR)/db.sql 2>/dev/null
 
 phpmd:
-	@docker-compose exec -T talentcloud \
-	./vendor/bin/phpmd \
-	./app/Http \
+	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app/Http \
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 test: code-sniff
