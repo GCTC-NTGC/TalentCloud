@@ -19,8 +19,8 @@ class ReferenceFrequencyOnWorkEnvironment extends Migration
             $table->dropColumn('flexible_allowed');
 
             $table->boolean('remote_work_allowed')->nullable();
-            $table->integer('telework_allowed_frequency_id')->unsigned();
-            $table->integer('flexible_hours_frequency_id')->unsigned();
+            $table->integer('telework_allowed_frequency_id')->unsigned()->nullable();
+            $table->integer('flexible_hours_frequency_id')->unsigned()->nullable();
         });
 
         Schema::table('work_environments', function (Blueprint $table) {
