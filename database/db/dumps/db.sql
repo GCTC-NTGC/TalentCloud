@@ -543,7 +543,7 @@ CREATE TABLE `managers` (
   `id` int(10) UNSIGNED NOT NULL,
   `department_id` int(10) UNSIGNED DEFAULT NULL,
   `twitter_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin_url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,

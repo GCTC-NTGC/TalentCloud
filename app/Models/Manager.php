@@ -19,7 +19,7 @@ use App\Models\TeamCulture;
  * @property int $development_opportunity_frequency_id
  * @property int $refuse_low_value_work_frequency_id
  * @property string $twitter_username
- * @property string $linkedin_username
+ * @property string $linkedin_url
  * @property int $user_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -45,6 +45,7 @@ use App\Models\TeamCulture;
  * @property string $leadership_style
  * @property string $employee_learning
  * @property string $expectations
+ * @property string $education
  */
 class Manager extends BaseModel {
 
@@ -59,7 +60,7 @@ class Manager extends BaseModel {
     protected $fillable = [
         'department_id',
         'twitter_username',
-        'linkedin_username',
+        'linkedin_url',
         'work_review_frequency_id',
         'stay_late_frequency_id',
         'engage_team_frequency_id',

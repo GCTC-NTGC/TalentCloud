@@ -39,7 +39,7 @@ class UsersSeeder extends Seeder {
         $manager = new Manager();
         $nickname = $faker->firstName();
         $manager->twitter_username = $nickname;
-        $manager->linkedin_username = $nickname;
+        $manager->linkedin_url = $faker->url();
         $manager->user_id = $user->id;
         $manager->department_id = Department::inRandomOrder()->first()->id;
         $manager->work_review_frequency_id = Frequency::inRandomOrder()->first()->id;
