@@ -63,7 +63,7 @@ class Manager extends Eloquent {
     ];
     protected $with = [
         'department'
-    ]
+    ];
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class);
