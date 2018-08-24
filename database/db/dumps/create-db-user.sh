@@ -15,8 +15,6 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 	    WITH OWNER = "talentcloud"
 	        ENCODING = 'UTF8'
 	        TABLESPACE = pg_default
-	        LC_COLLATE = 'en_CA.UTF-8'
-	        LC_CTYPE = 'en_CA.UTF-8'
 	        CONNECTION LIMIT = 25;
 	GRANT CONNECT, TEMPORARY ON DATABASE talentcloud TO public;
 	GRANT ALL ON DATABASE talentcloud TO talentcloud;

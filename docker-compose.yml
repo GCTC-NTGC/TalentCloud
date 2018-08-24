@@ -1,6 +1,6 @@
 version: '2'
 services:
-    # Nginx Web Server
+    # Web Server / Nginx
     nginx:
         image: nginx:alpine
         container_name: nginx
@@ -37,7 +37,7 @@ services:
         environment:
             - "DB_PORT=5433"
             - "DB_HOST=talentcloud-db"
-    # Database
+    # Database / Postgres
     talentcloud-db:
         image: postgres
         container_name: talentcloud-db
@@ -52,20 +52,6 @@ services:
             - "PGDATA=/database/db/postgresql/data/pgdata"
         ports:
             - "5434:5432"
-    # Postgres Admin
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin
-        restart: always
-        depends_on:
-            - nginx
-        links:
-            - talentcloud-db
-        environment:
-            - "PGADMIN_DEFAULT_EMAIL=grant.d.barnes@gmail.com"
-            - "PGADMIN_DEFAULT_PASSWORD=talentcloud"
-        ports:
-            - "8888:80"
     # Composer
     composer:
         image: "composer"
@@ -74,3 +60,30 @@ services:
             - "./:/app"
         command:
             - install
+    # PHP Postgres Admin
+    phppgadmin:
+        image: dockage:phppgadmin
+        container_name: phppgadmin
+        restart: always
+        links:
+            - talentcloud-db
+        environment:
+            - "PHP_PG_ADMIN_SERVER_DESC=TalentCloud"
+            - "PHP_PG_ADMIN_SERVER_HOST=tc.gccollab.ca"
+            - "PHP_PG_ADMIN_SERVER_PORT=5432"
+            - "PHP_PG_ADMIN_SERVER_PG_DUMP_PATH=/database/db/dumps/"
+        ports:
+            - "8080:80"
+            
+    # Postgres Admin
+    #pgadmin:
+        #image: dpage/pgadmin4
+        #container_name: pgadmin
+        #restart: always
+        #links:
+            # talentcloud-db
+        #environment:
+            # "PGADMIN_DEFAULT_EMAIL=grant.d.barnes@gmail.com"
+            # "PGADMIN_DEFAULT_PASSWORD=talentcloud"
+        #ports:
+            # "8888:80"
