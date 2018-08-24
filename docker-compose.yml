@@ -62,7 +62,7 @@ services:
             - install
     # PHP Postgres Admin
     phppgadmin:
-        image: dockage:phppgadmin
+        image: phppgadmin
         container_name: phppgadmin
         restart: always
         links:
@@ -74,7 +74,7 @@ services:
             - "PHP_PG_ADMIN_SERVER_PG_DUMP_PATH=/database/db/dumps/"
         ports:
             - "8080:80"
-            
+
     # Postgres Admin
     #pgadmin:
         #image: dpage/pgadmin4
