@@ -3,7 +3,7 @@
 # include .env
 
 # MySQL
-DB_DUMPS_DIR=database/db/dumps
+MYSQL_DUMPS_DIR=database/db/dumps
 
 help:
 	@echo ""
@@ -22,16 +22,14 @@ help:
 	@echo "  test                Test application"
 
 clean:
-	@rm -Rf database/db/postgresql/*
+	@rm -Rf database/db/mysql/*
 	@rm -Rf vendor/
 	@rm -Rf composer.lock
 	@rm -Rf etc/ssl/*
 
 code-sniff:
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=32M -v --standard=PSR2 --extensions=php app/
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 app/src
 
 docker-start:
 	docker-compose up -d
@@ -47,15 +45,17 @@ logs:
 	@docker-compose logs -f
 
 mysql-dump:
-	@mkdir -p $(DB_DUMPS_DIR)
-	@docker exec $(shell docker-compose ps -q talentcloud-db) mysqldump --all-databases --compatible=postgresql -u"talentcloud" -p"talentcloud" > $(DB_DUMPS_DIR)/db.sql 2>/dev/null
+	@mkdir -p $(MYSQL_DUMPS_DIR)
+	@docker exec $(shell docker-compose ps -q talentcloud-db) mysqldump --all-databases -u"talentcloud" -p"talentcloud" > $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
 	@make resetOwner
 
 mysql-restore:
-	@docker exec -i $(shell docker-compose ps -q talentcloud-db) mysql -u"talentcloud" -p"talentcloud" < $(DB_DUMPS_DIR)/db.sql 2>/dev/null
+	@docker exec -i $(shell docker-compose ps -q talentcloud-db) mysql -u"talentcloud" -p"talentcloud" < $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
+	@docker-compose exec -T talentcloud \
+	./vendor/bin/phpmd \
+	./app/src \
 	text cleancode,codesize,controversial,design,naming,unusedcode
 
 test: code-sniff
@@ -63,6 +63,6 @@ test: code-sniff
 	@make resetOwner
 
 resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(DB_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
+	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(MYSQL_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
 
 .PHONY: clean test code-sniff

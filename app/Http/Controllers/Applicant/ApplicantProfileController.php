@@ -95,13 +95,12 @@ class ApplicantProfileController extends Controller
     {
         $questions = ApplicantProfileQuestion::all();
 
-        foreach ($questions as $question) {
+        foreach($questions as $question) {
             $answerName = $this->answerFormInputName . '.' . $question->id;
             if ($request->has($answerName)) {
                 $answer = ApplicantProfileAnswer::where(
-                    ['applicant_id' => $applicant->id,
-                    'applicant_profile_question_id' => $question->id]
-                )
+                        ['applicant_id' => $applicant->id,
+                            'applicant_profile_question_id' => $question->id])
                             ->first();
                 if ($answer == null) {
                     $answer = new ApplicantProfileAnswer();
@@ -115,4 +114,5 @@ class ApplicantProfileController extends Controller
 
         return redirect()->route('profile.edit', $applicant);
     }
+
 }

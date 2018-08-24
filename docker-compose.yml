@@ -35,35 +35,35 @@ services:
         links:
             - talentcloud-db
         environment:
-            - "DB_PORT=5432"
+            - "DB_PORT=3306"
             - "DB_HOST=talentcloud-db"
     # Database
     talentcloud-db:
-        image: postgres
+        image: mysql:5.6
         container_name: talentcloud-db
         restart: always
         volumes:
-            - "./database/db/postgresql/data:/var/lib/postgresql/data"
+            - "./database/db/mysql:/var/lib/mysql"
             - "./database/db/dumps:/docker-entrypoint-initdb.d"
         environment:
-            # "POSTGRES_DB=talentcloud"
-            # "POSTGRES_USER=talentcloud"
-            - "POSTGRES_PASSWORD=talentcloud"
-            - "PGDATA=/database/db/postgresql/data/pgdata"
+            - "MYSQL_DATABASE=talentcloud"
+            - "MYSQL_ROOT_PASSWORD=talentcloud"
+            - "MYSQL_USER=talentcloud"
+            - "MYSQL_PASSWORD=talentcloud"
         ports:
-            - "5433:5432"
-    # Postgres Admin
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin
+            - "33061:3306"
+    # PHP MyAdmin
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
         restart: always
         links:
             - talentcloud-db
         environment:
-            - "PGADMIN_DEFAULT_EMAIL=grant.d.barnes@gmail.com"
-            - "PGADMIN_DEFAULT_PASSWORD=talentcloud"
+            - "PMA_ARBITRARY=1"
+            - "PMA_HOST=talentcloud-db"
         ports:
-            - "8888:80"
+            - "8080:80"
     # Composer
     composer:
         image: "composer"

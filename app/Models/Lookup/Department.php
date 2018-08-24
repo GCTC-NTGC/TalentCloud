@@ -11,49 +11,36 @@ use App\Models\BaseModel;
 
 /**
  * Class Department
- *
+ * 
  * @property int $id
  * @property string $name
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
->>>>>>> dev
+ * 
  * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $department_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
- *
+ * 
  * Localized Properties:
  * @property string $value
  */
-<<<<<<< HEAD
-class Department extends Eloquent
-{
-=======
 class Department extends BaseModel {
->>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function managers()
-    {
+    public function managers() {
         return $this->hasMany(\App\Models\Manager::class);
     }
     
-    public function department_translations()
-    {
+    public function department_translations() {
         return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
     }
 
-    public function job_posters()
-    {
+    public function job_posters() {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
+
 }

@@ -23,23 +23,12 @@ namespace App\Models;
  * @property int $manager_id
  * @property string $work_experience
  * @property string $education
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @property \App\Models\Manager $manager
- */
-class ManagerTranslation extends Eloquent
-{
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends BaseModel
-{
-    >>>>>>> dev
+class ManagerTranslation extends BaseModel {
 
     protected $casts = [
         'manager_id' => 'int'
@@ -57,8 +46,8 @@ class ManagerTranslation extends BaseModel
         'education'
     ];
 
-    public function manager()
-    {
+    public function manager() {
         return $this->belongsTo(\App\Models\Manager::class);
     }
+
 }

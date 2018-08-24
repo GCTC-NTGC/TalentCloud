@@ -9,7 +9,7 @@ namespace App\Models;
 
 /**
  * Class JobPosterTranslation
- *
+ * 
  * @property int $id
  * @property int $job_poster_id
  * @property string $locale
@@ -18,23 +18,12 @@ namespace App\Models;
  * @property string $impact
  * @property string $branch
  * @property string $division
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @property \App\Models\JobPoster $job_poster
- */
-class JobPosterTranslation extends Eloquent
-{
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\JobPoster $job_poster
  */
-class JobPosterTranslation extends BaseModel
-{
-    >>>>>>> dev
+class JobPosterTranslation extends BaseModel {
 
     protected $casts = [
         'job_poster_id' => 'int'
@@ -48,8 +37,8 @@ class JobPosterTranslation extends BaseModel
         'division'
     ];
 
-    public function job_poster()
-    {
+    public function job_poster() {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
+
 }

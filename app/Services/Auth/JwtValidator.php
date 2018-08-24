@@ -5,29 +5,26 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use App\Services\Auth\JwtKeysFetcher;
 
-class JwtValidator
-{
+class JwtValidator {
     
     /**
      * Will fetch and cache JWT keys
-     * @var JwtKeysFetcher
+     * @var JwtKeysFetcher 
      */
     protected $keyFetcher;
     
     /**
      * A map of valid Issuer->Audience pairs
-     * @var array
+     * @var array 
      */
     protected $validIssAud;
     
-    public function __construct(JwtKeysFetcher $keyFetcher, array $validIssAud)
-    {
+    public function __construct(JwtKeysFetcher $keyFetcher, array $validIssAud) {
         $this->keyFetcher = $keyFetcher;
         $this->validIssAud = $validIssAud;
     }
     
-    public function signatureIsValid(Token $token)
-    {
+    public function signatureIsValid(Token $token) {
         $kid = $token->getHeader("kid");
         $alg = $token->getHeader("alg");
         $publicKey = $this->keyFetcher->getByKID($kid);
@@ -45,16 +42,14 @@ class JwtValidator
         return $signatureIsValid;
     }
     
-    public function isExpired(Token $token)
-    {
+    public function isExpired(Token $token) {
         return $token->isExpired();
     }
     
-    public function claimsAreValid(Token $token)
-    {
+    public function claimsAreValid(Token $token) {
         $iss = $token->getClaim("iss");
         $aud = $token->getClaim("aud");
-        return array_has($this->validIssAud, $iss) &&
+        return array_has($this->validIssAud, $iss) && 
                 $this->validIssAud[$iss] === $aud;
     }
 }

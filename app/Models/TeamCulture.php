@@ -14,13 +14,8 @@ namespace App\Models;
  * @property int $team_size
  * @property string $gc_directory_url
  * @property int $manager_id
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
->>>>>>> dev
  *
  * @property \App\Models\Manager $manager
  * @property \Illuminate\Database\Eloquent\Collection $team_culture_translations
@@ -31,12 +26,7 @@ namespace App\Models;
  * @property string $what_we_value
  * @property string $how_we_work
  */
-<<<<<<< HEAD
-class TeamCulture extends Eloquent
-{
-=======
 class TeamCulture extends BaseModel {
->>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 
@@ -50,13 +40,12 @@ class TeamCulture extends BaseModel {
         'gc_directory_url'
     ];
 
-    public function manager()
-    {
+    public function manager() {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function team_culture_translations()
-    {
+    public function team_culture_translations() {
         return $this->hasMany(\App\Models\TeamCultureTranslation::class);
     }
+
 }

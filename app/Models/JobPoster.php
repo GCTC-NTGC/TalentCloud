@@ -25,13 +25,8 @@ namespace App\Models;
  * @property int $security_clearance_id
  * @property int $language_requirement_id
  * @property int $manager_id
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
->>>>>>> dev
  *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
@@ -52,12 +47,7 @@ namespace App\Models;
  * @property string $branch
  * @property string $division
  */
-<<<<<<< HEAD
-class JobPoster extends Eloquent
-{
-=======
 class JobPoster extends BaseModel {
->>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 
@@ -94,58 +84,48 @@ class JobPoster extends BaseModel {
         'language_requirement_id'
     ];
 
-    public function department()
-    {
+    public function department() {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_term()
-    {
+    public function job_term() {
         return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
     }
 
-    public function language_requirement()
-    {
+    public function language_requirement() {
         return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
     }
 
-    public function manager()
-    {
+    public function manager() {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function province()
-    {
+    public function province() {
         return $this->belongsTo(\App\Models\Lookup\Province::class);
     }
 
-    public function security_clearance()
-    {
+    public function security_clearance() {
         return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
     }
 
-    public function criteria()
-    {
+    public function criteria() {
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
-    public function job_applications()
-    {
+    public function job_applications() {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
 
-    public function job_poster_key_tasks()
-    {
+    public function job_poster_key_tasks() {
         return $this->hasMany(\App\Models\JobPosterKeyTask::class);
     }
 
-    public function job_poster_questions()
-    {
+    public function job_poster_questions() {
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
     }
 
-    public function job_poster_translations()
-    {
+    public function job_poster_translations() {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
+
 }

@@ -9,20 +9,14 @@ namespace App\Models;
 
 /**
  * Class JobApplication
- *
+ * 
  * @property int $id
  * @property int $job_poster_id
  * @property int $application_status_id
  * @property int $applicant_id
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
->>>>>>> dev
+ * 
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  * @property \App\Models\JobPoster $job_poster
@@ -31,12 +25,7 @@ namespace App\Models;
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
-<<<<<<< HEAD
-class JobApplication extends Eloquent
-{
-=======
 class JobApplication extends BaseModel {
->>>>>>> dev
 
     protected $casts = [
         'job_poster_id' => 'int',
@@ -45,38 +34,32 @@ class JobApplication extends BaseModel {
     ];
     protected $fillable = [];
 
-    public function applicant()
-    {
+    public function applicant() {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function application_status()
-    {
+    public function application_status() {
         return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
     }
 
-    public function job_poster()
-    {
+    public function job_poster() {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function application_micro_references()
-    {
+    public function application_micro_references() {
         return $this->hasMany(\App\Models\ApplicationMicroReference::class);
     }
 
-    public function application_work_samples()
-    {
+    public function application_work_samples() {
         return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
 
-    public function job_application_answers()
-    {
+    public function job_application_answers() {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
 
-    public function skill_declarations()
-    {
+    public function skill_declarations() {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
+
 }

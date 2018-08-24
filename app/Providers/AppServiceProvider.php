@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // A lower default string length for migrations is required for
+        // A lower default string length for migrations is required for 
         // versions of MySQL < 5.7.7
         Schema::defaultStringLength(191);
     }

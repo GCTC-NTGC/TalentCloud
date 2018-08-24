@@ -11,36 +11,25 @@ use App\Models\BaseModel;
 
 /**
  * Class CitizenshipDeclarationTranslation
- *
+ * 
  * @property int $id
  * @property int $citizenship_declaration_id
  * @property string $locale
  * @property string $value
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @property \App\Models\Lookup\CitizenshipDeclaration $citizenship_declaration
- */
-class CitizenshipDeclarationTranslation extends Eloquent
-{
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\Lookup\CitizenshipDeclaration $citizenship_declaration
  */
-class CitizenshipDeclarationTranslation extends BaseModel
-{
-    >>>>>>> dev
+class CitizenshipDeclarationTranslation extends BaseModel {
 
     protected $casts = [
         'citizenship_declaration_id' => 'int'
     ];
     protected $fillable = [];
 
-    public function citizenship_declaration()
-    {
+    public function citizenship_declaration() {
         return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
     }
+
 }

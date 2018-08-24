@@ -6,7 +6,6 @@
  */
 
 namespace App\Models;
-
 use App\Models\TeamCulture;
 
 /**
@@ -47,12 +46,7 @@ use App\Models\TeamCulture;
  * @property string $employee_learning
  * @property string $expectations
  */
-<<<<<<< HEAD
-class Manager extends Eloquent
-{
-=======
 class Manager extends BaseModel {
->>>>>>> dev
 
     use \Dimsav\Translatable\Translatable;
 
@@ -73,49 +67,26 @@ class Manager extends BaseModel {
         'refuse_low_value_work_frequency_id'
     ];
     protected $with = [
-<<<<<<< HEAD
-        'department'
-=======
         'department',
         'work_review_frequency',
         'stay_late_frequency',
         'engage_team_frequency',
         'development_opportunity_frequency',
         'refuse_low_value_work_frequency'
->>>>>>> dev
     ];
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function department()
-    {
+    public function department() {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_posters()
-    {
+    public function job_posters() {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
-<<<<<<< HEAD
-    public function manager_translations()
-    {
-        return $this->hasMany(\App\Models\ManagerTranslation::class);
-    }
-
-    public function manager_work_environments()
-    {
-        return $this->hasMany(\App\Models\ManagerWorkEnvironment::class);
-    }
-
-    public function team_cultures()
-    {
-        return $this->hasMany(\App\Models\TeamCulture::class);
-    }
-=======
     public function work_environment() {
         return $this->hasOne(\App\Models\WorkEnvironment::class);
     }
@@ -155,5 +126,4 @@ class Manager extends BaseModel {
     public function refuse_low_value_work_frequency() {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
->>>>>>> dev
 }

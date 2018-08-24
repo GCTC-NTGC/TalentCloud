@@ -9,31 +9,19 @@ namespace App\Models;
 
 /**
  * Class WorkplacePhotoCaption
- *
+ * 
  * @property int $id
  * @property int $work_environment_id
  * @property string $photo_name
  * @property int $workplace_photo_id
  * @property string $description
-<<<<<<< HEAD
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @property \App\Models\WorkEnvironment $work_environment
- * @property \App\Models\WorkplacePhoto $workplace_photo
- */
-class WorkplacePhotoCaption extends Eloquent
-{
-=======
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
+ * 
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\WorkplacePhoto $workplace_photo
  */
-class WorkplacePhotoCaption extends BaseModel
-{
-    >>>>>>> dev
+class WorkplacePhotoCaption extends BaseModel {
 
     protected $casts = [
         'work_environment_id' => 'int',
@@ -44,13 +32,12 @@ class WorkplacePhotoCaption extends BaseModel
         'description'
     ];
 
-    public function work_environment()
-    {
+    public function work_environment() {
         return $this->belongsTo(\App\Models\WorkEnvironment::class);
     }
 
-    public function workplace_photo()
-    {
+    public function workplace_photo() {
         return $this->belongsTo(\App\Models\WorkplacePhoto::class);
     }
+
 }
