@@ -1,5 +1,3 @@
-CREATE SCHEMA talentcloud;
-
 CREATE TABLE `applicant_profile_answers` (
 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 `applicant_id` int(10) unsigned NOT NULL,
