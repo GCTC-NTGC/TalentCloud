@@ -25,8 +25,8 @@ install:
   - sudo make gen-certs
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
-  - npm i -g npm
-  - npm install
+  - sudo npm install
+  - sudo npm test
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
   - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
@@ -42,6 +42,8 @@ script:
   - sudo make code-sniff
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 after_script:
   - sudo make docker-stop
@@ -52,6 +54,9 @@ after_success:
   - docker build -t gctcntgc/talentcloud:travis-build .
   - docker push gctcntgc/talentcloud:travis-build
 
-# do not send emails
+# Slack notifications / do not send emails
 notifications:
-    email: never
+  email: never
+  slack:
+    rooms:
+      - talent-cloud:dW8Ftd2QBoDzyE3eEAiuWy9F#devrobotfam
