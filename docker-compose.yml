@@ -36,7 +36,7 @@ services:
         links:
             - talentcloud-db
         environment:
-            - "DB_PORT=5433"
+            - "DB_PORT=5432"
             - "DB_HOST=talentcloud-db"
     # Database / Postgres
     talentcloud-db:
@@ -50,7 +50,7 @@ services:
             - "POSTGRES_DB=talentcloud"
             - "POSTGRES_USER=talentcloud"
             - "POSTGRES_PASSWORD=talentcloud"
-            - "PGDATA=/database/db/postgresql/data/pgdata"
+            - "PGDATA=/database/db/postgresql/data"
         ports:
             - "5434:5432"
     # Adminer
