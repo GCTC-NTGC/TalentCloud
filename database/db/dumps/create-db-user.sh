@@ -5,25 +5,22 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
 	ALTER ROLE postgres WITH CREATEDB CREATEROLE;
 
-	CREATE DATABASE testdb;
-
 	\c postgres postgres;
 
-	DROP DATABASE IF EXISTS testdb;
 	DROP DATABASE IF EXISTS talentcloud;
 	DROP ROLE IF EXISTS talentcloud;
 
 	CREATE ROLE talentcloud WITH SUPERUSER LOGIN PASSWORD 'talentcloud';
-
 	CREATE DATABASE talentcloud
-	  WITH ENCODING='UTF8'
-	  OWNER=talentcloud
-	  CONNECTION LIMIT=25;
-
-	GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;
+	    WITH OWNER = "talentcloud"
+	        ENCODING = 'UTF8'
+	        TABLESPACE = pg_default
+	        LC_COLLATE = 'en_CA.UTF-8'
+	        LC_CTYPE = 'en_CA.UTF-8'
+	        CONNECTION LIMIT = 25;
+	GRANT CONNECT, TEMPORARY ON DATABASE talentcloud TO public;
+	GRANT ALL ON DATABASE talentcloud TO talentcloud;
 
 	\c talentcloud talentcloud;
 
 EOSQL
-
-psql -U postgres -d talentcloud -f db/dumps/pgbackup.txt;
