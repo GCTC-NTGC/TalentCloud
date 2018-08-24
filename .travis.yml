@@ -59,4 +59,4 @@ notifications:
   email: never
   slack:
     rooms:
-      - talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJ#devrobotfam
+      - talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam
