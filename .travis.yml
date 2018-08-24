@@ -25,8 +25,8 @@ install:
   - sudo make gen-certs
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
-  - sudo npm install
-  - sudo npm test
+  - npm install
+  - npm test
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
   - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
