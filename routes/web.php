@@ -878,7 +878,12 @@ $managerGroup = function() {
         })->name('manager.profile');
 
         /* Profile */
-        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')->name('manager.profile.edit');
+        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+            ->name('manager.profile.edit');
+
+        Route::post('profile/{manager}/update', 'ManagerProfileController@update')
+            ->name('manager.profile.update');
+
 
         /* Job Index */
         Route::get('jobs', function () {

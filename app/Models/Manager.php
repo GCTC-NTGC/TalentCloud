@@ -92,11 +92,11 @@ class Manager extends BaseModel {
     }
 
     public function work_environment() {
-        return $this->hasOne(\App\Models\WorkEnvironment::class);
+        return $this->hasOne(\App\Models\WorkEnvironment::class)->withDefault();
     }
 
     public function team_culture() {
-        return $this->hasOne(\App\Models\TeamCulture::class);
+        return $this->hasOne(\App\Models\TeamCulture::class)->withDefault();
     }
     /*
     * @property \App\Models\Lookup\Frequency $review_options

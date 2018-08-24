@@ -8,6 +8,8 @@ use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
+use App\Models\WorkEnvironment;
+use App\Models\TeamCulture;
 use App\Models\Manager;
 
 class ManagerProfileController extends Controller {
@@ -49,6 +51,93 @@ class ManagerProfileController extends Controller {
             'telework_options' => $frequencies,
             'flex_hour_options' => $frequencies,
         ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Manager  $manager
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Manager $manager) {
+        Debugbar::info($request->input());
+
+        $input = $request->input();
+
+        $manager->fill([
+            'department_id' => $input['department'],
+            'twitter_username' => $input['twitter_username'],
+            'linkedin_url' => $input['linkedin_url'],
+            //'work_review_frequency_id' => [],
+            //'stay_late_frequency_id' => [],
+            //'engage_team_frequency_id' => [],
+            //'development_opportunity_frequency_id',
+            //'refuse_low_value_work_frequency_id',
+            'years_experience' => $input['years_experience'],
+            'en' => [
+                'about_me' => $input['about_me']['en'],
+                //'greatest_accomplishment',
+                'branch' =>  $input['branch']['en'],
+                'division' => $input['division']['en'],
+                'position' => $input['position']['en'],
+                'leadership_style' => $input['leadership_style']['en'],
+                'employee_learning' => $input['employee_learning']['en'],
+                'expectations' => $input['expectations']['en'],
+                'education' => $input['education']['en'],
+                'career_journey' => $input['career_journey']['en'],
+                'learning_path' => $input['learning_path']['en']
+            ],
+            'fr' => [
+                'about_me' => $input['about_me']['fr'],
+                //'greatest_accomplishment',
+                'branch' =>  $input['branch']['fr'],
+                'division' => $input['division']['fr'],
+                'position' => $input['position']['fr'],
+                'leadership_style' => $input['leadership_style']['fr'],
+                'employee_learning' => $input['employee_learning']['fr'],
+                'expectations' => $input['expectations']['fr'],
+                'education' => $input['education']['fr'],
+                'career_journey' => $input['career_journey']['fr'],
+                'learning_path' => $input['learning_path']['fr']
+            ]
+        ]);
+
+        $manager->save();
+
+        $work_environment = $manager->work_environment;
+        $work_environment->fill([
+            'telework_allowed_frequency_id' => $input['telework'],
+            'flexible_hours_frequency_id' => $input['flex_hours'],
+            'en' => [
+                'things_to_know' => $input['things_to_know']['en']
+            ],
+            'fr' => [
+                'things_to_know' => $input['things_to_know']['fr']
+            ]
+        ]);
+        $work_environment->save();
+
+        $team_culture = $manager->team_culture;
+        $team_culture->fill([
+            'team_size' => $input['team_size'],
+            'gc_directory_url' => $input['gc_directory_url'],
+            'en' => [
+                'operating_context' => $input['operating_context']['en'],
+                'what_we_value' => $input['what_we_value']['en'],
+                'how_we_work' => $input['how_we_work']['en']
+            ],
+            'fr' => [
+                'operating_context' => $input['operating_context']['fr'],
+                'what_we_value' => $input['what_we_value']['fr'],
+                'how_we_work' => $input['how_we_work']['fr']
+            ]
+        ]);
+        $team_culture->save();
+
+        //TODO: save workplace Photos
+
+        return redirect( route('manager.profile.edit', $manager) );
     }
 
 }

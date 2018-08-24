@@ -16,137 +16,13 @@
         My Leadership Style
     </h4>
 
-    <form
-        class="form__wrapper">
+    <fieldset
+        class="form__fieldset">
 
-        <fieldset
-            class="form__fieldset">
-
-            <legend
-                class="form__legend">
-                My Leadership Style and Management Values
-            </legend>
-
-            <div
-                class="flex-grid">
-
-                <div
-                    class="box med-1of2">
-
-                    <div class="form__input-wrapper--float {% if manager.translate('en').leadership_style %}active{% endif %}">
-                        <label class="form__label" for="managerProfileLeadershipStyleEN">
-                            Answer (English)
-                        </label>
-                        <textarea
-                            class="form__textarea"
-                            id="managerProfileLeadershipStyleEN">{{ manager.translate('en').leadership_style }}</textarea>
-                    </div>
-
-                </div>
-
-                <div
-                    class="box med-1of2">
-
-                    <div class="form__input-wrapper--float {% if manager.translate('fr').leadership_style %}active{% endif %}">
-                        <label class="form__label" for="managerProfileLeadershipStyleFR">
-                            Answer (Français)
-                        </label>
-                        <textarea
-                            class="form__textarea"
-                            id="managerProfileLeadershipStyleFR">{{ manager.translate('fr').leadership_style }}</textarea>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </fieldset>
-
-        <fieldset
-            class="form__fieldset">
-
-            <legend
-                class="form__legend">
-                What I Expect from My Employees
-            </legend>
-
-            <div
-                class="flex-grid">
-
-                <div
-                    class="box med-1of2">
-
-                    <div class="form__input-wrapper--float {% if manager.translate('en').expectations %}active{% endif %}">
-                        <label class="form__label" for="managerProfileExpectationsEN">
-                            Answer (English)
-                        </label>
-                        <textarea
-                            class="form__textarea"
-                            id="managerProfileExpectationsEN">{{ manager.translate('en').expectations }}</textarea>
-                    </div>
-
-                </div>
-
-                <div
-                    class="box med-1of2">
-
-                    <div class="form__input-wrapper--float {% if manager.translate('fr').expectations %}active{% endif %}">
-                        <label class="form__label" for="managerProfileExpectationsFR">
-                            Answer (Français)
-                        </label>
-                        <textarea
-                            class="form__textarea"
-                            id="managerProfileExpectationsFR">{{ manager.translate('fr').expectations }}</textarea>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </fieldset>
-
-        <fieldset
-            class="form__fieldset">
-
-            <legend
-                class="form__legend">
-                My Approach to Employee Learning and Development
-            </legend>
-
-            <div
-                class="flex-grid">
-
-                <div
-                    class="box med-1of2">
-
-                    <div class="form__input-wrapper--float {% if manager.translate('en').employee_learning %}active{% endif %}">
-                        <label class="form__label" for="managerProfileApproachEN">
-                            Answer (English)
-                        </label>
-                        <textarea
-                            class="form__textarea"
-                            id="managerProfileApproachEN">{{ manager.translate('en').employee_learning }}</textarea>
-                    </div>
-
-                </div>
-
-                <div
-                    class="box med-1of2">
-
-                    <div class="form__input-wrapper--float {% if manager.translate('fr').employee_learning %}active{% endif %}">
-                        <label class="form__label" for="managerProfileApproachFR">
-                            Answer (Français)
-                        </label>
-                        <textarea
-                            class="form__textarea"
-                            id="managerProfileApproachFR">{{ manager.translate('fr').employee_learning }}</textarea>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </fieldset>
+        <legend
+            class="form__legend">
+            My Leadership Style and Management Values
+        </legend>
 
         <div
             class="flex-grid">
@@ -154,19 +30,158 @@
             <div
                 class="box med-1of2">
 
+                <div class="form__input-wrapper--float {% if manager.translate('en').leadership_style %}active{% endif %}">
+                    <label class="form__label" for="managerProfileLeadershipStyleEN">
+                        Answer (English)
+                    </label>
+                    <textarea
+                        class="form__textarea"
+                        id="managerProfileLeadershipStyleEN"
+                        name="leadership_style[en]">
+                        {{ manager.translate('en').leadership_style }}
+                    </textarea>
+                </div>
+
             </div>
 
             <div
                 class="box med-1of2">
-                <button
-                    class="button--blue light-bg"
-                    type="submit">
-                    Save My Leadership Style
-                </button>
+
+                <div class="form__input-wrapper--float {% if manager.translate('fr').leadership_style %}active{% endif %}">
+                    <label class="form__label" for="managerProfileLeadershipStyleFR">
+                        Answer (Français)
+                    </label>
+                    <textarea
+                        class="form__textarea"
+                        id="managerProfileLeadershipStyleFR"
+                        name="leadership_style[fr]">
+                        {{ manager.translate('fr').leadership_style }}
+                    </textarea>
+                </div>
+
             </div>
 
         </div>
 
-    </form>
+    </fieldset>
+
+    <fieldset
+        class="form__fieldset">
+
+        <legend
+            class="form__legend">
+            What I Expect from My Employees
+        </legend>
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box med-1of2">
+
+                <div class="form__input-wrapper--float {% if manager.translate('en').expectations %}active{% endif %}">
+                    <label class="form__label" for="managerProfileExpectationsEN">
+                        Answer (English)
+                    </label>
+                    <textarea
+                        class="form__textarea"
+                        id="managerProfileExpectationsEN"
+                        name="expectations[en]">
+                        {{ manager.translate('en').expectations }}
+                    </textarea>
+                </div>
+
+            </div>
+            <div
+                class="box med-1of2">
+
+                <div class="form__input-wrapper--float {% if manager.translate('fr').expectations %}active{% endif %}">
+                    <label class="form__label" for="managerProfileExpectationsFR">
+
+                        Answer (Français)
+                    </label>
+                    <textarea
+                        class="form__textarea"
+                        id="managerProfileExpectationsFR"
+                        name="expectations[fr]">
+                        {{ manager.translate('fr').expectations }}
+                    </textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+    <fieldset
+        class="form__fieldset">
+
+        <legend
+            class="form__legend">
+            My Approach to Employee Learning and Development
+        </legend>
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box med-1of2">
+
+                <div class="form__input-wrapper--float {% if manager.translate('en').employee_learning %}active{% endif %}">
+                    <label class="form__label" for="managerProfileApproachEN">
+                        Answer (English)
+                    </label>
+                    <textarea
+                        class="form__textarea"
+                        id="managerProfileApproachEN"
+                        name="employee_learning[en]">
+                        {{ manager.translate('en').employee_learning }}
+                    </textarea>
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div class="form__input-wrapper--float {% if manager.translate('fr').employee_learning %}active{% endif %}">
+                    <label class="form__label" for="managerProfileApproachFR">
+                        Answer (Français)
+                    </label>
+                    <textarea
+                        class="form__textarea"
+                        id="managerProfileApproachFR"
+                        name="employee_learning[fr]">
+                        {{ manager.translate('fr').employee_learning }}
+                    </textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+    <div
+        class="flex-grid">
+
+        <div
+            class="box med-1of2">
+
+        </div>
+
+        <div
+            class="box med-1of2">
+            <button
+                class="button--blue light-bg"
+                type="submit"
+                name="submit"
+                value="leadership">
+                Save My Leadership Style
+            </button>
+        </div>
+
+    </div>
 
 </section>

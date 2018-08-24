@@ -4,39 +4,39 @@
     Manager: Profile Sidebar
 
 ============================================================================= #}
-<div 
+<div
     class="sidebar-wrapper box lg-1of4">
 
-    <nav 
+    <nav
         class="sidebar">
 
-        <h4 
+        <h4
             class="sidebar-label">
             Profile Sections
         </h4>
 
-        <a 
+        <a
             class="sidebar-link"
             href="#about"
             title="{{ job_post.basics.sidebar_title }}">
             About Me
         </a>
 
-        <a 
+        <a
             class="sidebar-link"
             href="#leadership"
             title="{{ job_post.basics.sidebar_title }}">
             My Leadership Style
         </a>
 
-        <a 
+        <a
             class="sidebar-link"
             href="#environment"
             title="{{ job_post.basics.sidebar_title }}">
             Our Work Environment
         </a>
 
-        <a 
+        <a
             class="sidebar-link"
             href="#culture"
             title="{{ job_post.basics.sidebar_title }}">
@@ -45,7 +45,10 @@
 
         <button
             class="sidebar-button"
-            title="Save all sections.">
+            title="Save all sections."
+            type="submit"
+            name="submit"
+            value="all">
             Save All Sections
         </button>
 
