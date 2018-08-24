@@ -62,7 +62,7 @@ services:
             - install
     # PHP Postgres Admin
     phppgadmin:
-        image: phppgadmin
+        image: fizix/docker-pgadmin:php-fpm-environment
         container_name: phppgadmin
         restart: always
         links:
