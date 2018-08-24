@@ -30,7 +30,9 @@ checks:
         fix_doc_comments: true
 
 tools:
-    external_code_coverage: false
+    external_code_coverage: true
+        timeout: 777
+        runs: 2
     js_hint:
         filter:
             excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
@@ -48,5 +50,5 @@ tools:
     php_hhvm: true
     # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
     # the same time right now. Make sure to either remove, or disable one.
-    php_sim: false
-    php_cpd: true
+    php_sim: true
+    php_cpd: false
