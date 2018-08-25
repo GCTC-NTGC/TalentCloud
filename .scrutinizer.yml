@@ -1,12 +1,12 @@
 build:
     nodes:
-        environment:
-            analysis:
-                tests:
-                    override:
-                        - php-scrutinizer-run
-                        - phpcs-run
-                        - js-scrutinizer-run
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    - phpcs-run
+                    - js-scrutinizer-run
+
         talentcloud:
             php:
                 version: "7.2"
@@ -21,8 +21,6 @@ filter:
         - '*/node_modules/*'
         - '*/tests/*'
         - '*/vendor/*'
-
-
 
 checks:
     php:
