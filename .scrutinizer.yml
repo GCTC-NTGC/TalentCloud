@@ -6,13 +6,13 @@ build:
                     - php-scrutinizer-run
                     - phpcs-run
                     - js-scrutinizer-run
-        environment:
-            php:
-                version: "7.2"
-                ini:
-                    memory_limit: "-1"
-            postgresql: true
-            docker: true
+    environment:
+        php:
+            version: "7.2"
+            ini:
+                memory_limit: "-1"
+        postgresql: true
+        docker: true
 
 filter:
     excluded_paths:
