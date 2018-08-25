@@ -58,5 +58,7 @@ after_success:
 notifications:
   email: never
   slack:
+    rooms:
+      - "talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam"
     on_success: always
     on_failure: change
