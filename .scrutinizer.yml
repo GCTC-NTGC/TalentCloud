@@ -65,9 +65,6 @@ build:
             chrome_driver_version:  2.22
             # browser_name:           ~     # can also be set from your tests
 
-    commands:
-        - composer self-update
-
 filter:
     excluded_paths:
         - '*/data/*'
