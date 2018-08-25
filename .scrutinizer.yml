@@ -34,8 +34,8 @@ build:
 
             cache:
                 images:
-                - "gctcntgc/talentcloud"
-                - "scrutinizer/web:latest"
+                    - "gctcntgc/talentcloud"
+                    - "scrutinizer/web:latest"
 
         postgresql: true
         nginx:
