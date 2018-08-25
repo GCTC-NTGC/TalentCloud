@@ -43,7 +43,7 @@ script:
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
 after_script:
   - sudo make docker-stop
@@ -57,6 +57,6 @@ after_success:
 # Slack notifications / do not send emails
 notifications:
   email: never
-  slack: "talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam"
+  slack:
     on_success: always
     on_failure: change
