@@ -9,3 +9,4 @@ coverage:
 
 codecov:
   branch: dev
+  token: 0572959f-0c61-49a6-81d1-27272064b08c
