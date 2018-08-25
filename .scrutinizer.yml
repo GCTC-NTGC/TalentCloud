@@ -1,17 +1,17 @@
 build:
     nodes:
+        php:
+            version: "7.2"
+            ini:
+                memory_limit: "-1"
+        postgresql: true
         environment:
-            php:
-                version: "7.2"
-                ini:
-                    memory_limit: "-1"
-            postgresql: true
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    - phpcs-run
-                    - js-scrutinizer-run
+            analysis:
+                tests:
+                    override:
+                        - php-scrutinizer-run
+                        - phpcs-run
+                        - js-scrutinizer-run
 
 filter:
     excluded_paths:
