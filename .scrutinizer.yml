@@ -7,6 +7,11 @@ build:
                     - js-scrutinizer-run
                     - phpcs-run ./app
 
+    dependencies:
+        before:
+            - 'composer self-update'
+            - 'composer install'
+
     root_path: './'
 
     environment:
