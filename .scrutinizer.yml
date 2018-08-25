@@ -30,8 +30,9 @@ checks:
         fix_doc_comments: true
 
 tools:
-    external_code_coverage: true
+    external_code_coverage:
         timeout: 777
+        runs: 2
     js_hint:
         filter:
             excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
