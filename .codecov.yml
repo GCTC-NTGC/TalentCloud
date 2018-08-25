@@ -1,12 +1,13 @@
+codecov:
+  branch: gb_postgres
+  token: 0572959f-0c61-49a6-81d1-27272064b08c
+
 coverage:
-  range: 50..100
-  round: down
-  precision: 2
   notify:
     slack:
-      url: "https://hooks.slack.com/services/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"
-      threshold: 0%  # allow coverage to drop by % without posting a notification
-
-codecov:
-  branch: dev
-  token: 0572959f-0c61-49a6-81d1-27272064b08c
+      default:
+        url: "https://hooks.slack.com/services/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"
+        # threshold: 1%  # allow coverage to drop by 1% without posting a notification
+        branches: gb_postgres
+        flags: null
+        paths: null
