@@ -9,8 +9,8 @@ build:
 
     dependencies:
         before:
-            - 'composer install'
-            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER talentcloud'
+            - composer install
+            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
 
     root_path: './'
 
