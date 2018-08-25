@@ -9,8 +9,8 @@ build:
 
     dependencies:
         before:
-            - 'composer self-update'
             - 'composer install'
+            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER talentcloud'
 
     root_path: './'
 
