@@ -28,7 +28,7 @@ build:
 
         # Various pre-installed services that can be configured.
         docker:
-            #logins:
+            # logins:
             # { username: "user", password: "s3cret", server: "docker.io" }
             # # more logins
 
