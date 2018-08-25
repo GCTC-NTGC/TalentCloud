@@ -6,8 +6,7 @@ build:
                     - php-scrutinizer-run
                     - phpcs-run
                     - js-scrutinizer-run
-
-        talentcloud:
+        environment:
             php:
                 version: "7.2"
                 ini:
