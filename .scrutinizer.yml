@@ -1,17 +1,19 @@
 build:
     nodes:
-        php:
-            version: "7.2"
-            ini:
-                memory_limit: "-1"
-        postgresql: true
-        environment:
-            analysis:
-                tests:
-                    override:
-                        - php-scrutinizer-run
-                        - phpcs-run
-                        - js-scrutinizer-run
+        talentcloud:
+            php:
+                version: "7.2"
+                ini:
+                    memory_limit: "-1"
+            postgresql: true
+            docker: true
+            environment:
+                analysis:
+                    tests:
+                        override:
+                            - php-scrutinizer-run
+                            - phpcs-run
+                            - js-scrutinizer-run
 
 filter:
     excluded_paths:
