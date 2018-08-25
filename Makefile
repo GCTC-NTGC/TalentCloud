@@ -33,13 +33,6 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=32M -v --standard=PSR2 --extensions=php app/
 
-default: docker_build
-
-docker_build:
-	@docker build \
-    --build-arg VCS_REF=`git rev-parse --short HEAD` \
-    --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` .
-
 docker-start:
 	docker-compose up -d
 

@@ -70,16 +70,3 @@ services:
             - "./:/app"
         command:
             - install
-
-    # Postgres Admin
-    #pgadmin:
-        #image: dpage/pgadmin4
-        #container_name: pgadmin
-        #restart: always
-        #links:
-            # talentcloud-db
-        #environment:
-            # "PGADMIN_DEFAULT_EMAIL=grant.d.barnes@gmail.com"
-            # "PGADMIN_DEFAULT_PASSWORD=talentcloud"
-        #ports:
-            # "8888:80"
