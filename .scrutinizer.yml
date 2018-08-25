@@ -12,7 +12,6 @@ build:
 
     environment:
         # Any valid timezone identifier
-        # see TZ column on https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
         timezone: UTC
 
         # Sets up DNS entries for certain hosts
@@ -24,7 +23,6 @@ build:
             version: "7.2"
             ini:
                 memory_limit: "-1"
-
         ruby: "2.3.1"
         node: "v6.2.0"
 
@@ -34,40 +32,27 @@ build:
             # { username: "user", password: "s3cret", server: "docker.io" }
             # # more logins
 
-            #cache:
-            #    images:
-            #    - "scrutinizer/web:tag-name"
-            #    - "scrutinizer/*"
+            cache:
+                images:
+                - "gctcntgc/talentcloud"
+                - "scrutinizer/web:latest"
 
-        postgresql:           true
+        postgresql: true
         nginx:
             sites:
                 # will add configuration file to "/etc/nginx/sites-enabled"
                 talentcloud:
                     host: 'local.dev'
-                    #web_root: 'web/'
-
-                    # These are optional and usually do not require changing.
-                    index: 'index.php index.html'
-
-                    locations:
-                        - >
-                           location ~ [^/]\.php(/|$) {
-                               try_files $uri $uri/ /index.php /index.html;
-                               fastcgi_index index.php;
-                               fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-                               fastcgi_pass 127.0.0.1:9000;
-                               include fastcgi_params;
-                           }
+                    web_root: 'public/'
 
         selenium:
-            version:                2.53
-            chrome_driver_version:  2.22
-            # browser_name:           ~     # can also be set from your tests
+            version: 2.53
+            chrome_driver_version: 2.22
+            # browser_name: ~     # can also be set from your tests
 
 filter:
     excluded_paths:
-        - '*/data/*'
+        - '*/database/*'
         - '*/node_modules/*'
         - '*/tests/*'
         - '*/vendor/*'
@@ -94,16 +79,16 @@ tools:
         runs: 2
     js_hint:
         filter:
-            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
+            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/database/*']
     php_mess_detector:
         filter:
-            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
+            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/database/*']
     sensiolabs_security_checker: true
     php_pdepend:
         excluded_dirs:
             - tests
             - vendor
-            - data
+            - database
             - node_modules
 
     php_hhvm: true
