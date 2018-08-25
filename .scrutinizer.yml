@@ -1,9 +1,16 @@
 build:
     nodes:
+        environment:
+            php:
+                version: "7.2"
+                ini:
+                    memory_limit: "-1"
+            postgresql: true
         analysis:
             tests:
                 override:
                     - php-scrutinizer-run
+                    - phpcs-run
                     - js-scrutinizer-run
 
 filter:
@@ -12,6 +19,8 @@ filter:
         - '*/node_modules/*'
         - '*/tests/*'
         - '*/vendor/*'
+
+
 
 checks:
     php:
