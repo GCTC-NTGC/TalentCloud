@@ -27,7 +27,7 @@ build:
         node: "v6.2.0"
 
         # Various pre-installed services that can be configured.
-        docker: true
+        docker:
             #logins:
             # { username: "user", password: "s3cret", server: "docker.io" }
             # # more logins
