@@ -35,9 +35,7 @@ build:
                     host: 'local.dev'
                     web_root: 'public/'
 
-        selenium:
-            version: 2.53
-            chrome_driver_version: 2.22
+        selenium: true
 
 filter:
     excluded_paths:
