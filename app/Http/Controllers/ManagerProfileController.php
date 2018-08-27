@@ -65,6 +65,10 @@ class ManagerProfileController extends Controller {
 
         $input = $request->input();
 
+        //TODO: remove control of name in production
+        $manager->user->name = $input['name'];
+        $manager->user->save();
+
         $manager->fill([
             'department_id' => $input['department'],
             'twitter_username' => $input['twitter_username'],
@@ -107,8 +111,6 @@ class ManagerProfileController extends Controller {
 
         $work_environment = $manager->work_environment;
         $work_environment->fill([
-            'telework_allowed_frequency_id' => $input['telework'],
-            'flexible_hours_frequency_id' => $input['flex_hours'],
             'en' => [
                 'things_to_know' => $input['things_to_know']['en']
             ],
@@ -116,6 +118,13 @@ class ManagerProfileController extends Controller {
                 'things_to_know' => $input['things_to_know']['fr']
             ]
         ]);
+        //Slider select inputs can be missing from input if nothing was selected
+        if ($input['telework']) {
+            $work_environment->telework_allowed_frequency_id = $input['telework'];
+        }
+        if ($input['flex_hours']) {
+            $work_environment->flexible_hours_frequency_id = $input['flex_hours'];
+        }
         $work_environment->save();
 
         $team_culture = $manager->team_culture;
@@ -137,7 +146,26 @@ class ManagerProfileController extends Controller {
 
         //TODO: save workplace Photos
 
-        return redirect( route('manager.profile.edit', $manager) );
+        //Use the button that was clicked to decide which element to redirect to
+        switch ($input['submit']) {
+            case 'about_me':
+                $hash = '#managerProfileSectionAbout';
+                break;
+            case 'team_culture':
+                $hash = '#managerProfileSectionCulture';
+                break;
+            case 'work_environment':
+                $hash = '#managerProfileSectionEnvrionment';
+                break;
+            case 'leadership':
+                $hash = '#managerProfileSectionLeadership';
+                break;
+            default:
+                $hash = "";
+                break;
+        }
+
+        return redirect( route('manager.profile.edit', $manager).$hash );
     }
 
 }
