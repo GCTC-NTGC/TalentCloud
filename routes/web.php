@@ -879,9 +879,12 @@ $managerGroup = function() {
 
         /* Profile */
         Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+            ->middleware('can:view,manager')
+            ->middleware('can:update,manager')
             ->name('manager.profile.edit');
 
         Route::post('profile/{manager}/update', 'ManagerProfileController@update')
+            ->middleware('can:update,manager')
             ->name('manager.profile.update');
 
 

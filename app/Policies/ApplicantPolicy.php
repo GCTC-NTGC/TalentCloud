@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Applicant;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class ApplicantPolicy
 {
