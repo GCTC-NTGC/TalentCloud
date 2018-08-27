@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y libmcrypt-dev \
     && docker-php-ext-enable imagick \
     && pecl install mcrypt-1.0.1 \
     && docker-php-ext-enable mcrypt \
-    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install pdo_pgsql \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
