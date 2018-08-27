@@ -1,6 +1,6 @@
 version: '2'
 services:
-    # Nginx Web Server
+    # Web Server / Nginx
     nginx:
         image: nginx:alpine
         container_name: nginx
@@ -22,10 +22,11 @@ services:
         ports:
             - "80:80"
             - "443:443"
+
     # Application / PHP-FPM
     talentcloud:
         build: .
-        # image: gctcntgc/talentcloud:dev_refactor
+        # image: gctcntgc/talentcloud:dev
         container_name: talentcloud
         working_dir: /var/www
         restart: always
@@ -37,36 +38,33 @@ services:
         environment:
             - "DB_PORT=5432"
             - "DB_HOST=talentcloud-db"
-    # Database
+    # Database / Postgres
     talentcloud-db:
         image: postgres
         container_name: talentcloud-db
         restart: always
         volumes:
-            - "./database/db/postgresql/data:/var/lib/postgresql/data"
+            - "./database/db/pgsql/data:/var/lib/postgresql/data"
             - "./database/db/dumps:/docker-entrypoint-initdb.d"
         environment:
-            # "POSTGRES_DB=talentcloud"
-            # "POSTGRES_USER=talentcloud"
+            - "POSTGRES_DB=talentcloud"
+            - "POSTGRES_USER=talentcloud"
             - "POSTGRES_PASSWORD=talentcloud"
-            - "PGDATA=/database/db/postgresql/data/pgdata"
+            - "PGDATA=/database/db/pgsql/data"
         ports:
-            - "5433:5432"
-    # Postgres Admin
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin
+            - "5434:5432"
+    # Adminer
+    adminer:
+        image: adminer
+        container_name: adminer
         restart: always
         links:
             - talentcloud-db
-        environment:
-            - "PGADMIN_DEFAULT_EMAIL=grant.d.barnes@gmail.com"
-            - "PGADMIN_DEFAULT_PASSWORD=talentcloud"
         ports:
-            - "8888:80"
+            - "8080:8080"
     # Composer
     composer:
-        image: "composer"
+        image: composer
         container_name: composer
         volumes:
             - "./:/app"

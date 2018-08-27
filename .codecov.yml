@@ -1,0 +1,15 @@
+codecov:
+  bot: gggrant
+  branch: gb_postgres
+
+coverage:
+  notify:
+    slack:
+      default:
+        url: "https://hooks.slack.com/services/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"
+        attachments: "sunburst"
+        only_pulls: false
+        # threshold: 0%  # allow coverage to drop by % without posting a notification
+        # branches: null
+        # flags: null
+        # paths: null

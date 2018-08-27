@@ -5,48 +5,53 @@ build:
                 override:
                     - php-scrutinizer-run
                     - js-scrutinizer-run
+                    - phpcs-run ./app
+
+    dependencies:
+        before:
+            - composer install
+            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+
+    root_path: './'
+
+    environment:
+        # Sets up DNS entries for certain hosts
+        hosts:
+            local.dev: 127.0.0.1
+        # Languages
+        php:
+            version: "7.2"
+            ini:
+                memory_limit: "-1"
+        ruby: "2.3.1"
+        node: "v6.2.0"
+        # Various pre-installed services that can be configured.
+        docker: true
+        postgresql: true
+        nginx:
+            sites:
+                # will add configuration file to "/etc/nginx/sites-enabled"
+                tc.gccollab.ca:
+                    host: 'local.dev'
+                    web_root: 'public/'
+
+        selenium: true
 
 filter:
     excluded_paths:
-        - '*/data/*'
+        - '*/database/*'
         - '*/node_modules/*'
         - '*/tests/*'
         - '*/vendor/*'
 
 checks:
-    php:
-        remove_extra_empty_lines: true
-        remove_php_closing_tag: true
-        remove_trailing_whitespace: true
-        fix_use_statements:
-            remove_unused: true
-            preserve_multiple: false
-            preserve_blanklines: true
-            order_alphabetically: true
-        fix_php_opening_tag: true
-        fix_linefeed: true
-        fix_line_ending: true
-        fix_identation_4spaces: true
-        fix_doc_comments: true
+    php: true
 
 tools:
-    external_code_coverage: false
-    js_hint:
-        filter:
-            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
-    php_mess_detector:
-        filter:
-            excluded_paths: ['*/tests/*','*/vendor/*','*/node_modules/*','*/data/*']
-    sensiolabs_security_checker: true
-    php_pdepend:
-        excluded_dirs:
-            - tests
-            - vendor
-            - data
-            - node_modules
-
-    php_hhvm: true
-    # PHP Similarity Analyzer and Copy/paste Detector cannot be used at
-    # the same time right now. Make sure to either remove, or disable one.
-    php_sim: false
-    php_cpd: true
+    external_code_coverage:
+        timeout: 777
+        runs: 2
+    custom_commands:
+        -
+            scope: project
+            command: vendor/bin/slack --token=https://hooks.slack.com/services/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
