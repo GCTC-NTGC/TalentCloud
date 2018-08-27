@@ -253,6 +253,21 @@ INSERT INTO migrations VALUES
 (96,'2018_08_20_160509_reference_frequency_on_manager',1),
 (97,'2018_08_20_163214_reference_frequency_on_work_environment',1);
 
+INSERT INTO provinces VALUES
+(1,'Alberta',NULL,NULL),
+(2,'British Columbia',NULL,NULL),
+(3,'Manitoba',NULL,NULL),
+(4,'Newfoundland and Labrador',NULL,NULL),
+(5,'New Brunswick',NULL,NULL),
+(6,'Nova Scotia',NULL,NULL),
+(7,'Nunavut',NULL,NULL),
+(8,'North West Territories',NULL,NULL),
+(9,'Ontario',NULL,NULL),
+(10,'Prince Edward Island',NULL,NULL),
+(11,'Quebec',NULL,NULL),
+(12,'Saskatchewan',NULL,NULL),
+(13,'Yukon',NULL,NULL);
+
 INSERT INTO province_translations VALUES
 (1,1,'en','Alberta',NULL,NULL),
 (2,1,'fr','Alberta',NULL,NULL),
@@ -281,20 +296,10 @@ INSERT INTO province_translations VALUES
 (25,13,'en','Yukon',NULL,NULL),
 (26,13,'fr','Yukon',NULL,NULL);
 
-INSERT INTO provinces VALUES
-(1,'Alberta',NULL,NULL),
-(2,'British Columbia',NULL,NULL),
-(3,'Manitoba',NULL,NULL),
-(4,'Newfoundland and Labrador',NULL,NULL),
-(5,'New Brunswick',NULL,NULL),
-(6,'Nova Scotia',NULL,NULL),
-(7,'Nunavut',NULL,NULL),
-(8,'North West Territories',NULL,NULL),
-(9,'Ontario',NULL,NULL),
-(10,'Prince Edward Island',NULL,NULL),
-(11,'Quebec',NULL,NULL),
-(12,'Saskatchewan',NULL,NULL),
-(13,'Yukon',NULL,NULL);
+INSERT INTO relationships VALUES
+(1,'superior',NULL,NULL),
+(2,'coworker',NULL,NULL),
+(3,'subordinate',NULL,NULL);
 
 INSERT INTO relationship_translations VALUES
 (1,1,'en','Superior',NULL,NULL),
@@ -304,10 +309,10 @@ INSERT INTO relationship_translations VALUES
 (5,3,'en','Subordinate',NULL,NULL),
 (6,3,'fr','Subalterne',NULL,NULL);
 
-INSERT INTO relationships VALUES
-(1,'superior',NULL,NULL),
-(2,'coworker',NULL,NULL),
-(3,'subordinate',NULL,NULL);
+INSERT INTO security_clearances VALUES
+(1,'Reliability',NULL,NULL),
+(2,'Secret',NULL,NULL),
+(3,'Top Secret',NULL,NULL);
 
 INSERT INTO security_clearance_translations VALUES
 (1,'en',1,'Reliability',NULL,NULL),
@@ -317,10 +322,11 @@ INSERT INTO security_clearance_translations VALUES
 (5,'en',3,'Top Secret',NULL,NULL),
 (6,'fr',3,'Très secret',NULL,NULL);
 
-INSERT INTO security_clearances VALUES
-(1,'Reliability',NULL,NULL),
-(2,'Secret',NULL,NULL),
-(3,'Top Secret',NULL,NULL);
+INSERT INTO skill_levels VALUES
+(1,'Basic',NULL,NULL),
+(2,'Intermediate',NULL,NULL),
+(3,'Advanced',NULL,NULL),
+(4,'Expert',NULL,NULL);
 
 INSERT INTO skill_level_translations VALUES
 (1,1,'en','Basic',NULL,NULL),
@@ -331,12 +337,6 @@ INSERT INTO skill_level_translations VALUES
 (6,3,'fr','Avancé',NULL,NULL),
 (7,4,'en','Expert',NULL,NULL),
 (8,4,'fr','Expert',NULL,NULL);
-
-INSERT INTO skill_levels VALUES
-(1,'Basic',NULL,NULL),
-(2,'Intermediate',NULL,NULL),
-(3,'Advanced',NULL,NULL),
-(4,'Expert',NULL,NULL);
 
 INSERT INTO user_roles VALUES
 (1,'applicant',NULL,NULL),
