@@ -44,13 +44,13 @@ services:
         container_name: talentcloud-db
         restart: always
         volumes:
-            - "./database/db/postgresql/data:/var/lib/postgresql/data"
+            - "./database/db/pgsql/data:/var/lib/postgresql/data"
             - "./database/db/dumps:/docker-entrypoint-initdb.d"
         environment:
             - "POSTGRES_DB=talentcloud"
             - "POSTGRES_USER=talentcloud"
             - "POSTGRES_PASSWORD=talentcloud"
-            - "PGDATA=/database/db/postgresql/data"
+            - "PGDATA=/database/db/pgsql/data"
         ports:
             - "5434:5432"
     # Adminer
