@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class ProfilePic
  *
@@ -17,13 +15,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $image
  * @property string $type
  * @property int $size
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\User $user
  */
-class ProfilePic extends Eloquent
-{
+class ProfilePic extends BaseModel {
 
     protected $casts = [
         'user_id' => 'int',
@@ -34,8 +31,8 @@ class ProfilePic extends Eloquent
         'image'
     ];
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(\App\Models\User::class);
     }
+
 }

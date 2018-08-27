@@ -34,8 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         Applicant::class => ApplicantPolicy::class,
     ];
 
-    public function register()
-    {
+    public function register() {
         $this->app->singleton(Parser::class, function ($app) {
             return new Parser();
         });
@@ -70,8 +69,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->singleton(JwtValidator::class, function ($app) {
             $config = $app['config']['oidconnect'];
             return new JwtValidator(
-                $app[JwtKeysFetcher::class],
-                [$config['iss'] => $config['client_id']]
+                    $app[JwtKeysFetcher::class],
+                    [$config['iss'] => $config['client_id']]
             );
         });
 
@@ -83,11 +82,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->singleton(JumboJettTokenRefresher::class, function ($app) {
             $config = $app['config']['oidconnect'];
             return new JumboJettTokenRefresher(
-                $app[TokenStorage::class],
-                $app[Parser::class],
-                $config['auth_url'],
-                $config['client_id'],
-                $config['client_secret']
+                    $app[TokenStorage::class],
+                    $app[Parser::class],
+                    $config['auth_url'],
+                    $config['client_id'],
+                    $config['client_secret']
             );
         });
         $this->app->bind(TokenRefresher::class, JumboJettTokenRefresher::class);
@@ -98,6 +97,7 @@ class AuthServiceProvider extends ServiceProvider
             $defaultRole = $config['default_role'];
             return new BaseOidcUserProvider($model, $defaultRole);
         });
+
     }
 
     /**
@@ -120,12 +120,11 @@ class AuthServiceProvider extends ServiceProvider
             // Return an instance of Illuminate\Contracts\Auth\Guard...
             $userProvider = Auth::createUserProvider($config['provider']);
             return new OidConnectGuard(
-                $userProvider,
-                $app[RequestTokenParser::class],
-                $app[JwtValidator::class],
-                $app[TokenRefresher::class],
-                $app['request']
-            );
+                    $userProvider,
+                    $app[RequestTokenParser::class],
+                    $app[JwtValidator::class],
+                    $app[TokenRefresher::class],
+                    $app['request']);
         });
     }
 }

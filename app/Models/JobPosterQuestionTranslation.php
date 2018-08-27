@@ -7,23 +7,20 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class JobPosterQuestionTranslation
- *
+ * 
  * @property int $id
  * @property int $job_poster_question_id
  * @property string $locale
  * @property string $question
  * @property string $description
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
-class JobPosterQuestionTranslation extends Eloquent
-{
+class JobPosterQuestionTranslation extends BaseModel {
 
     protected $casts = [
         'job_poster_question_id' => 'int'
@@ -33,8 +30,8 @@ class JobPosterQuestionTranslation extends Eloquent
         'description'
     ];
 
-    public function job_poster_question()
-    {
+    public function job_poster_question() {
         return $this->belongsTo(\App\Models\JobPosterQuestion::class);
     }
+
 }

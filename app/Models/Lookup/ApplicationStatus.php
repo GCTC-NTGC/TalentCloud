@@ -7,24 +7,23 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ApplicationStatus
- *
+ * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \Illuminate\Database\Eloquent\Collection $application_status_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
- *
+ * 
  * Localized Properties:
  * @property string $value
  */
-class ApplicationStatus extends Eloquent
-{
+class ApplicationStatus extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
@@ -32,13 +31,12 @@ class ApplicationStatus extends Eloquent
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function application_status_translations()
-    {
+    public function application_status_translations() {
         return $this->hasMany(\App\Models\Lookup\ApplicationStatusTranslation::class);
     }
 
-    public function job_applications()
-    {
+    public function job_applications() {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
+
 }

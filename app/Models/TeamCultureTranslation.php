@@ -7,11 +7,9 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class TeamCultureTranslation
- *
+ * 
  * @property int $id
  * @property int $team_culture_id
  * @property string $locale
@@ -19,13 +17,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $operating_context
  * @property string $what_we_value
  * @property string $how_we_work
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \App\Models\TeamCulture $team_culture
  */
-class TeamCultureTranslation extends Eloquent
-{
+class TeamCultureTranslation extends BaseModel {
 
     protected $casts = [
         'team_culture_id' => 'int'
@@ -37,8 +34,8 @@ class TeamCultureTranslation extends Eloquent
         'how_we_work'
     ];
 
-    public function team_culture()
-    {
+    public function team_culture() {
         return $this->belongsTo(\App\Models\TeamCulture::class);
     }
+
 }

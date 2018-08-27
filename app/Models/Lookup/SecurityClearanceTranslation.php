@@ -7,30 +7,29 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class SecurityClearanceTranslation
- *
+ * 
  * @property int $id
  * @property string $locale
  * @property int $security_clearance_id
  * @property string $value
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \App\Models\Lookup\SecurityClearance $security_clearance
  */
-class SecurityClearanceTranslation extends Eloquent
-{
+class SecurityClearanceTranslation extends BaseModel {
 
     protected $casts = [
         'security_clearance_id' => 'int'
     ];
     protected $fillable = [];
 
-    public function security_clearance()
-    {
+    public function security_clearance() {
         return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
     }
+
 }
