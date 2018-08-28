@@ -12,6 +12,13 @@ services:
   - docker
   - postgresql
 
+addons:
+  postgresql: "9.4"
+
+env:
+  global:
+  - PGPORT=5433
+
 before_install:
   - rm -rf /vendor
   - rm -rf /vendor-cache
@@ -24,6 +31,7 @@ before_install:
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
 install:
+  - psql -c 'create database talentcloud;' -U postgres
   - sudo make gen-certs
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
