@@ -1209,7 +1209,7 @@ Route::get('profile/skills', function () {
                     "title" => "Delete this Skill?",
                     "content" => [
                         "00" => "Are you sure you want to permanently delete this skill from your profile?",
-                        "01" => "All previously submitted applications will retain this skill, its references and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
+                        "01" => "All previously submitted applications will retain this skill, its references, and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
                     ],
                     "id" => "deleteSkill",
                     "action_01" => "Cancel",
@@ -1221,6 +1221,17 @@ Route::get('profile/skills', function () {
             "skills" => [
                 "00" => [
                     "name" => "HTML",
+                    "type" => "hard",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ],
+                "01" => [
+                    "name" => "CSS",
+                    "type" => "hard",
                     "references" => [
                         "00" => "Mark Hamill"
                     ],
@@ -1229,7 +1240,21 @@ Route::get('profile/skills', function () {
                     ]
                 ]
             ],
-            "portfolio" => [
+            "references" => [
+                "00" => [
+                    "name" => "Mark Hamill"
+                ],
+                "01" => [
+                    "name" => "Jesse Markham"
+                ],
+                "02" => [
+                    "name" => "Lucy Ladderfield"
+                ],
+                "03" => [
+                    "name" => "Cameron Trovsky"
+                ]
+            ],
+            "samples" => [
                 "00" => [
                     "name" => "My Website",
                     "type" => "Website",
@@ -1250,22 +1275,52 @@ Route::get('profile/skills', function () {
                 "00" => "PDF",
                 "01" => "Website"
             ],
+            "levels" => [
+                "00" => "Beginner",
+                "01" => "Intermediate",
+                "02" => "Advanced",
+                "03" => "Expert"
+            ],
             "link_label" => "The Link to Your Work",
             "description_label" => "The Story Behind the Work",
-            "linked_skills_label" => "Linked Skills",
-            "search_label" => "Search Through My Skills",
-            "skill_label" => "Select a Skill",
-            "add_skill_label" => "Add a Skill",
-            "action_01" => "Delete Sample",
-            "action_02" => "Save Sample"
+            "action_01" => "Delete Skill",
+            "action_02" => "Save Skill"
+        ],
+        "relative_template" => [
+            "skill" => [
+                "title" => "Linked Skills",
+                "create_title" => "Create a new skill.",
+                "create_label" => "Create New Skill",
+                "label" => "Select a Skill",
+                "add_label" => "Add Existing Skill",
+                "delete_title" => "Remove this skill."
+            ],
+            "reference" => [
+                "title" => "Linked References",
+                "create_title" => "Create a new reference.",
+                "create_label" => "Create New Reference",
+                "label" => "Select a Reference",
+                "add_label" => "Add Existing Reference",
+                "delete_title" => "Remove this reference."
+            ],
+            "sample" => [
+                "title" => "Linked Work Samples",
+                "create_title" => "Create a new work sample.",
+                "create_label" => "Create New Work Sample",
+                "label" => "Select a Work Sample",
+                "add_label" => "Add Existing Work Sample",
+                "delete_title" => "Remove this work sample."
+            ]
         ],
         "skills" => [
-            "00" => "UX Research",
-            "01" => "Youth Leadership",
-            "02" => "Reading Comprehension",
-            "03" => "HTML",
-            "04" => "CSS",
-            "05" => "UX Surveying"
+            "00" => [
+                "name" => "Ux Research",
+                "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+            ],
+            "01" => [
+                "name" => "HTML",
+                "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+            ]
         ]
     ]);
 })->name('skills');
@@ -1346,9 +1401,26 @@ Route::get('profile/portfolio', function () {
         ],
         "user" => [
             "skills" => [
-                "00" => "HTML",
-                "01" => "CSS",
-                "02" => "UX Research"
+                "00" => [
+                    "name" => "HTML",
+                    "type" => "hard",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ],
+                "01" => [
+                    "name" => "CSS",
+                    "type" => "hard",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ]
             ],
             "portfolio" => [
                 "00" => [
@@ -1379,6 +1451,26 @@ Route::get('profile/portfolio', function () {
             "add_skill_label" => "Add a Skill",
             "action_01" => "Delete Sample",
             "action_02" => "Save Sample"
+        ],
+        "relative_template" => [
+            "skill" => [
+                "title" => "Linked Skills",
+                "label" => "Select a Skill",
+                "add_label" => "Add a Skill",
+                "delete_title" => "Remove this skill."
+            ],
+            "reference" => [
+                "title" => "Linked References",
+                "label" => "Select a Reference",
+                "add_label" => "Add a Reference",
+                "delete_title" => "Remove this reference."
+            ],
+            "sample" => [
+                "title" => "Linked Work Samples",
+                "label" => "Select a Work Sample",
+                "add_label" => "Add a Work Sample",
+                "delete_title" => "Remove this work sample."
+            ]
         ],
         "skills" => [
             "00" => "UX Research",

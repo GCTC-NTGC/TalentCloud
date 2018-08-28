@@ -136,12 +136,27 @@
                     <div
                         class="profile-relative-list">
 
-                        {# Relative List Label #}
+                        {# Relative List Title & Creation Trigger #}
 
-                            <span
-                                class="profile-relative-list__label">
-                                {{ sample_template.linked_skills_label }}
-                            </span>
+                            <div
+                                class="profile-relative-list__header flex-grid middle">
+
+                                <div
+                                    class="box small-1of2">
+
+                                    <span
+                                        class="profile-relative-list__label">
+                                        {{ relative_template.skill.title }}
+                                    </span>
+
+                                </div>
+
+                                <div
+                                    class="box small-1of2">
+                                    
+                                </div>
+
+                            </div>
 
                         {# Relative Template #}
 
@@ -173,7 +188,7 @@
 
                                 <button
                                     class="profile-relative__add-trigger">
-                                    {{ sample_template.add_skill_label }}
+                                    {{ relative_template.skill.add_label }}
                                 </button>
 
                             </div>

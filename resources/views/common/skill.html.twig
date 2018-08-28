@@ -18,14 +18,20 @@
             class="accordion-trigger"
             tabindex="0">
 
-            <div 
-                class="accordion-status">
+            {% if locale == "profile" %}
 
-                <i class="fas fa-check"></i>
+            {% else %}
 
-                <i class="fas fa-exclamation-circle"></i>
+                <div 
+                    class="accordion-status">
 
-            </div>
+                    <i class="fas fa-check"></i>
+
+                    <i class="fas fa-exclamation-circle"></i>
+
+                </div>
+
+            {% endif %}
 
             <span
                 class="accordion-title">
@@ -56,7 +62,118 @@
                 <div
                     class="flex-grid">
 
-                    
+                    {% if skill.type == "soft" %}
+
+                        {% if skill == false %}
+
+                            <div
+                                class="box full">
+
+                                <div class="form__input-wrapper--select">
+                                    <label class="form__label" for="">
+                                        {{ sample_template.type_label }}
+                                    </label>
+                                    <div
+                                        class="form__select-wrapper fas fa-chevron-down">
+                                        <select
+                                            class="form__input">
+                                            {% for option in sample_template.types %}
+                                                <option
+                                                    {% if sample.type|capitalize == option|capitalize %}selected="selected"{% endif %}
+                                                    >{{ option }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                        {% for siteSkill in skills %}
+
+                            {% if skill.name == siteSkill.name %}
+
+                                <div
+                                    class="box full">
+                                    <p>{{ siteSkill.description }}</p>
+                                </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% elseif skill.type == "hard" %}
+
+                        {% for siteSkill in skills %}
+
+                            {% if skill.name == siteSkill.name %}
+
+                                <div
+                                    class="box full">
+                                    <p>{{ siteSkill.description }}</p>
+                                </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                        <div
+                            class="box full">
+
+                            <div
+                                aria-orientation="horizontal"
+                                class="form__radio-group" 
+                                role="radiogroup">
+
+                                <label 
+                                    class="form__label"
+                                    for="">
+                                    My Level
+                                </label>
+
+                                <div class="flex-grid">
+
+                                    {% set counter = 0 %}
+
+                                    {% for level in skill_template.levels %}
+
+                                        {% set counter = counter + 1 %}
+
+                                        <label 
+                                            class="box form__radio-group-label small-1of{{ skill_template.levels|length }}"
+                                            for="">
+                                            <span 
+                                                class="hidden">
+                                                {{ level }}
+                                            </span>
+                                            <input 
+                                                class="form__radio-group-input"
+                                                id="expertise-{{ item.id }}-{{ counter }}"
+                                                name="expertise-{{ item.id }}"
+                                                type="radio"
+                                                {% for declaration in user.declarations %}
+                                                    {% if declaration.skill_id == item.id %}
+                                                        {% if declaration.expertise == counter %}
+                                                            checked
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}/>
+                                            <span 
+                                                class="form__radio-group-span">
+                                                {{ level }}
+                                            </span>
+                                        </label>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
 
                 </div>
 
@@ -65,12 +182,36 @@
                     <div
                         class="profile-relative-list">
 
-                        {# Relative List Label #}
+                        {# Relative List Title & Creation Trigger #}
 
-                            <span
-                                class="profile-relative-list__label">
-                                {{ skill_template.linked_skills_label }}
-                            </span>
+                            <div
+                                class="profile-relative-list__header flex-grid middle">
+
+                                <div
+                                    class="box small-1of2">
+
+                                    <span
+                                        class="profile-relative-list__label">
+                                        {{ relative_template.reference.title }}
+                                    </span>
+
+                                </div>
+
+                                <div
+                                    class="box small-1of2">
+
+                                <button
+                                    class="modal-trigger"
+                                    data-modal-id="createReference"
+                                    title="{{ relative_template.reference.create_title }}">
+
+                                    {{ relative_template.reference.create_label }}
+
+                                </button>
+                                    
+                                </div>
+
+                            </div>
 
                         {# Relative Template #}
 
@@ -102,7 +243,7 @@
 
                                 <button
                                     class="profile-relative__add-trigger">
-                                    {{ skill_template.add_skill_label }}
+                                    {{ relative_template.reference.add_label }}
                                 </button>
 
                             </div>
@@ -114,12 +255,36 @@
                     <div
                         class="profile-relative-list">
 
-                        {# Relative List Label #}
+                        {# Relative List Title & Creation Trigger #}
 
-                            <span
-                                class="profile-relative-list__label">
-                                {{ skill_template.linked_skills_label }}
-                            </span>
+                            <div
+                                class="profile-relative-list__header flex-grid middle">
+
+                                <div
+                                    class="box small-1of2">
+
+                                    <span
+                                        class="profile-relative-list__label">
+                                        {{ relative_template.sample.title }}
+                                    </span>
+
+                                </div>
+
+                                <div
+                                    class="box small-1of2">
+
+                                <button
+                                    class="modal-trigger"
+                                    data-modal-id="createSample"
+                                    title="{{ relative_template.sample.create_title }}">
+
+                                    {{ relative_template.sample.create_label }}
+
+                                </button>
+                                    
+                                </div>
+
+                            </div>
 
                         {# Relative Template #}
 
@@ -151,7 +316,7 @@
 
                                 <button
                                     class="profile-relative__add-trigger">
-                                    {{ skill_template.add_skill_label }}
+                                    {{ relative_template.sample.add_label }}
                                 </button>
 
                             </div>
@@ -168,7 +333,7 @@
                     <button
                         class="button--red light-bg modal-trigger"
                         data-modal-id="deleteSkill">
-                        {{ sample_template.action_01 }}
+                        {{ skill_template.action_01 }}
                     </button>
                 </div>
 
@@ -176,7 +341,7 @@
                     class="box med-1of2">
                     <button
                         class="button--blue light-bg">
-                        {{ sample_template.action_02 }}
+                        {{ skill_template.action_02 }}
                     </button>
                 </div>
 

@@ -10,64 +10,139 @@
     <div
         class="container--layout">
 
-        {# Profile List #}
+        {# Profile List (Soft Skills) #}
 
-        <div
-            class="profile-list">
+            <div
+                class="profile-list">
 
-            {# Profile List Header #}
-
-                <div
-                    class="profile-list__header flex-grid middle">
+                {# Profile List Header #}
 
                     <div
-                        class="box med-1of2">
+                        class="profile-list__header flex-grid middle">
 
-                        <h3>My Soft Skills</h3>
+                        <div
+                            class="box med-1of2">
+
+                            <h3>My Soft Skills</h3>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                Add a Skill
+                            </button>
+
+                        </div>
 
                     </div>
 
-                    <div
-                        class="box med-1of2">
+                {# Set Locale #}
 
-                        <button
-                            class="profile-list__add-element-trigger">
-                            Add a Skill
-                        </button>
+                    {% set locale = "profile" %}
+
+                {# Profile Element Template (Sample) #}
+
+                    {% include "common/skill" %}
+
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set softSkillCounter = 0 %}
+
+                        {% for skill in user.skills %}
+
+                            {% if skill.type == "soft" %}
+
+                                {% set softSkillCounter = softSkillCounter + 1 %}
+
+                                {% include "common/skill" %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if softSkillCounter == 0 %}active{% endif %}">
+
+                            <p>You don't currently have any skills on your profile! Use the button above to add a skill.</p>
+
+                        </div>
 
                     </div>
 
-                </div>
+            </div>
 
-            {# Set Locale #}
+        {# Profile List (Hard Skills) #}
 
-                {% set locale = "profile" %}
+            <div
+                class="profile-list">
 
-            {# Profile Element Template (Sample) #}
-
-                {% include "common/skill" %}
-
-            {# Profile Element List #}
-
-                <div 
-                    class="profile-element-list">
+                {# Profile List Header #}
 
                     <div
-                        class="profile-null {% if user.portfolio == false %}active{% endif %}">
+                        class="profile-list__header flex-grid middle">
 
-                        <p>You don't currently have any skills on your profile! Use the button above to add a skill.</p>
+                        <div
+                            class="box med-1of2">
+
+                            <h3>My Hard Skills</h3>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                Add a Skill
+                            </button>
+
+                        </div>
 
                     </div>
 
-                    {% for skill in user.skills %}
+                {# Set Locale #}
 
-                        {% include "common/skill" %}
+                    {% set locale = "profile" %}
 
-                    {% endfor %}
+                {# Profile Element Template (Sample) #}
 
-                </div>
+                    {% include "common/skill" %}
 
-        </div>
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set hardSkillCounter = 0 %}
+
+                        {% for skill in user.skills %}
+
+                            {% if skill.type == "hard" %}
+
+                                {% set hardSkillCounter = hardSkillCounter + 1 %}
+
+                                {% include "common/skill" %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if hardSkillCounter == 0 %}active{% endif %}">
+
+                            <p>You don't currently have any skills on your profile! Use the button above to add a skill.</p>
+
+                        </div>
+
+                    </div>
+
+            </div>
 
     </div>
 

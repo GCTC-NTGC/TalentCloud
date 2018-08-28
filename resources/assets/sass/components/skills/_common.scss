@@ -99,15 +99,49 @@
 
             // Relatives =======================================================
             .profile-relative-list {
-                padding: 2rem 2rem 0 2rem;
+                border-top: 1px solid darken($palette--white, 20%);
+                margin: 2rem 0;
+                padding: 2rem 2rem 0;
 
-                .profile-relative-list__label {
-                    color: $palette--blue;
-                    display: block;
-                    font-family: $font--sans;
-                    font-size: $font-scale--h5;
-                    font-weight: 600;
-                    margin: 0 0 1rem 0;
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+
+                .profile-relative-list__header {
+                    padding: 0 1rem !important;
+
+                    .box {
+
+                        .profile-relative-list__label {
+                            color: $palette--font-black;
+                            display: block;
+                            font-family: $font--sans;
+                            font-size: $font-scale--h5;
+                            font-weight: 600;
+                            margin: 0;
+                        }
+
+                        button {
+                            background: none;
+                            border: none;
+                            color: $palette--blue;
+                            cursor: pointer;
+                            font-family: $font--sans;
+                            font-size: $font-scale--h5;
+                            font-weight: 600;
+                            text-decoration: underline;
+                        }
+
+                        &:last-child {
+
+                            @media #{$p-tablet} {
+                                text-align: right;
+                            }
+
+                        }
+
+                    }
+
                 }
 
                 .profile-relative-list__wrapper {
