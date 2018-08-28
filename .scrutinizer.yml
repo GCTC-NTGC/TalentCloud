@@ -22,7 +22,7 @@ build:
     environment:
         # Sets up DNS entries for certain hosts
         hosts:
-            local.dev: 0.0.0.0
+            local.dev: 127.0.0.1
         # Languages
         php:
             version: "7.2"
@@ -41,6 +41,14 @@ build:
                     web_root: 'public/'
 
         selenium: true
+        variables:
+            APP_NAME: 'Talent Cloud'
+            APP_ENV: 'local'
+            DB_HOST: 'talentcloud-db'
+            DB_PORT: '5432'
+            DB_DATABASE: 'talentcloud'
+            DB_USERNAME: 'talentcloud'
+            DB_PASSWORD: 'talentcloud'
 
 filter:
     excluded_paths:
