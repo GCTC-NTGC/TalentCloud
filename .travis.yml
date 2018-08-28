@@ -35,8 +35,7 @@ script:
   - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
-  - sudo make code-sniff
-  # sudo make test
+  - sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml

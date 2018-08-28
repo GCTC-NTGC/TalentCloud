@@ -34,7 +34,7 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpmd/phpmd": "* 2.6.0",
+        "phpmd/phpmd" : "@stable",
         "phpunit/phpunit": "^7.0",
         "reliese/laravel": "^0.0.13",
         "squizlabs/php_codesniffer": "3.*",

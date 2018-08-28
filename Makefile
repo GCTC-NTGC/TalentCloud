@@ -17,6 +17,7 @@ clean:
 	@rm -Rf vendor/
 	@rm -Rf composer.lock
 	@rm -Rf etc/ssl/*
+	@rm -Rf report/*
 
 code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
@@ -38,14 +39,10 @@ logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
-	text cleancode,codesize,controversial,design,naming,unusedcode
+	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
+	text cleancode,codesize
 
 test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
-	@make resetOwner
-
-resetOwner:
-	@$(shell chown -Rf $(SUDO_USER):$(shell id -g -n $(SUDO_USER)) $(DB_DUMPS_DIR) "$(shell pwd)/etc/ssl" "$(shell pwd):/app" 2> /dev/null)
 
 .PHONY: clean test code-sniff
