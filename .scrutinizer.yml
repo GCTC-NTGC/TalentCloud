@@ -10,8 +10,7 @@ build:
                     - sudo make docker-start
                     - sudo cp -a .env.example .env
                     - make build-db
-                    - make test
-                    # psql --cluster 9.4/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+                    - make docker-stop
 
             root_path: './'
 
