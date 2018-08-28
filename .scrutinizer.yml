@@ -5,12 +5,12 @@ build:
                 before:
                     - npm rebuild
                     - npm install
-                    - make gen-certs
+                    - sudo make gen-certs
                     - sudo docker-compose up --abort-on-container-exit
                     - sudo make docker-start
                     - sudo cp -a .env.example .env
-                    - make build-db
-                    - make docker-stop
+                    - sudo make build-db
+                    - sudo make docker-stop
 
             root_path: './'
 
