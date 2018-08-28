@@ -15,7 +15,7 @@ services:
 before_install:
   - rm -rf /vendor
   - rm -rf /vendor-cache
-  - sudo apt update
+  - sudo apt-get update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
