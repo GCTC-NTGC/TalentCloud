@@ -38,8 +38,7 @@ logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
-	text cleancode,codesize
+	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app text cleancode,codesize,controversial,design,naming,unusedcode --ignore-violations-on-exit --reportfile report/phpmd.txt
 
 test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
