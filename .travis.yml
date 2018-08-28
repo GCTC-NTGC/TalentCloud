@@ -12,13 +12,6 @@ services:
   - docker
   - postgresql
 
-addons:
-  postgresql: "9.6"
-
-env:
-  global:
-    - PGPORT=5434
-
 before_install:
   - rm -rf /vendor
   - rm -rf /vendor-cache
@@ -55,7 +48,7 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t gctcntgc/talentcloud:travis .
-  - docker push gctcntgc/talentcloud:travis
+  # docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:
