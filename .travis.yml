@@ -28,6 +28,7 @@ install:
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
   - npm i npm@latest -g
+  - npm rebuild
   - npm install
 
 script:
