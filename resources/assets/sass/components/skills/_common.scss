@@ -1,0 +1,294 @@
+// =============================================================================
+
+    // Skills - Common Features
+
+// =============================================================================
+
+    // Lists ===================================================================
+    .profile-list {
+
+        .profile-list__header {
+
+            .box {
+
+                h3 {
+                    color: $palette--black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--h3;
+                    font-weight: 400;
+                    margin: 0;
+                    padding: 0;
+                    text-align: left;
+                }
+
+                button {
+                    @extend %gradient--vertical;
+                    border: none;
+                    border-radius: 5px;
+                    box-shadow: none;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 400;
+                    outline: none;
+                    padding: $unit calc(#{$unit} * 2);
+                    text-decoration: none;
+                    color: $palette--font-white;
+                    transition: none;
+
+                    &:focus,
+                    &:hover {
+                        border: 2px solid $palette--black;
+                        outline: none;
+                        padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+                        transition: none;
+                    }
+
+                }
+
+                &:last-child {
+
+                    @media #{$p-tablet} {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+        &+.profile-list {
+            margin-top: 5rem;
+        }
+
+    }
+
+        // Null State ==========================================================
+        .profile-null {
+            background: $palette--white;
+            border-radius: 3px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+            display: none;
+            padding: calc(#{$unit} * 2);
+            text-align: center;
+
+            p {
+                color: $palette--font-black;
+                font-family: $font--sans;
+                font-size: $font-scale--h4;
+                font-weight: 400;
+            }
+
+            &.active {
+                display: block;
+            }
+
+        }
+
+        // Elements ============================================================
+        .profile-element-list {
+            padding: 2rem 0 0 0;
+
+            .profile-element {
+
+            }
+
+        }
+
+            // Relatives =======================================================
+            .profile-relative-list {
+                border-top: 1px solid darken($palette--white, 20%);
+                margin: 2rem 0;
+                padding: 2rem 2rem 0;
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+
+                .profile-relative-list__header {
+                    padding: 0 1rem !important;
+
+                    .box {
+
+                        .profile-relative-list__label {
+                            color: $palette--font-black;
+                            display: block;
+                            font-family: $font--sans;
+                            font-size: $font-scale--h5;
+                            font-weight: 600;
+                            margin: 0;
+                        }
+
+                        button {
+                            background: none;
+                            border: none;
+                            color: $palette--blue;
+                            cursor: pointer;
+                            font-family: $font--sans;
+                            font-size: $font-scale--h5;
+                            font-weight: 600;
+                            text-decoration: underline;
+                        }
+
+                        &:last-child {
+
+                            @media #{$p-tablet} {
+                                text-align: right;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                .profile-relative-list__wrapper {
+
+                }
+
+                .profile-relative {
+                    position: relative;
+
+                    .form__input-wrapper--select {
+                        width: 90%;
+                    }
+
+                    .profile-relative__remove-trigger {
+                        background: none;
+                        border: none;
+                        color: $palette--red;
+                        cursor: pointer;
+                        font-size: $font-scale--h3;
+                        position: absolute;
+                        top: 50%;
+                        right: 2rem;
+                        transform: translate(0, -50%);
+                    }
+
+                }
+
+                .profile-relative__add-trigger-wrapper {
+                    text-align: center;
+
+                    .profile-relative__add-trigger {
+                        background: none;
+                        border: none;
+                        color: $palette--blue;
+                        cursor: pointer;
+                        font-family: $font--sans;
+                        font-size: $font-scale--regular;
+                        font-weight: 600;
+                        text-decoration: underline;
+                    }
+
+                }
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.skill-relative-section {
+    padding: 2rem 2rem 0 2rem;
+
+    .skill-relative-label {
+        color: $palette--blue;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--h5;
+        font-weight: 600;
+        margin: 0 0 1rem 0;
+    }
+
+    .skill-relative {
+        margin-bottom: 1rem;
+        position: relative;
+
+        .form__input-wrapper--select {
+            width: 90%;
+        }
+
+        .skill-relative-delete-trigger {
+            background: none;
+            border: none;
+            color: $palette--red;
+            cursor: pointer;
+            font-size: $font-scale--h3;
+            position: absolute;
+            top: 50%;
+            right: 2rem;
+            transform: translate(0, -50%);
+        }
+
+    }
+
+    .skill-relative-add-trigger-wrapper {
+        text-align: center;
+
+        .skill-relative-add-trigger {
+            background: none;
+            border: none;
+            color: $palette--blue;
+            cursor: pointer;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+    }
+
+}
+
+
+// .skill-relative {
+//     background: $palette--blue;
+//     border-radius: 3rem;
+//     display: inline-block;
+//     padding: 1rem 1.5rem;
+
+//     span {
+//         color: $palette--font-white;
+//         display: inline-block;
+//         font-family: $font--sans;
+//         font-size: $font-scale--regular;
+//         font-weight: 400;
+//         vertical-align: middle;
+//     }
+
+//     button {
+//         background: none;
+//         border: none;
+//         cursor: pointer;
+//         display: inline-block;
+//         margin: 0 0 0 .5rem;
+//         padding: 0;
+//         vertical-align: middle;
+
+//         i {
+//             color: $palette--font-white;
+//             font-size: $font-scale--h4;
+//         }
+
+//     }
+
+// }

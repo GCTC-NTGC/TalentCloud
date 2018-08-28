@@ -1,0 +1,74 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Portfolio Index
+
+============================================================================= #}
+<section
+    class="applicant-profile__portfolio">
+
+    <div
+        class="container--layout">
+
+        {# Profile List #}
+
+        <div
+            class="profile-list">
+
+            {# Profile List Header #}
+
+                <div
+                    class="profile-list__header flex-grid middle">
+
+                    <div
+                        class="box med-1of2">
+
+                        <h3>My Work Samples</h3>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <button
+                            class="profile-list__add-element-trigger">
+                            Add a Sample
+                        </button>
+
+                    </div>
+
+                </div>
+
+            {# Set Locale #}
+
+                {% set locale = "profile" %}
+
+            {# Profile Element Template (Sample) #}
+
+                {% include "common/sample" %}
+
+            {# Profile Element List #}
+
+                <div 
+                    class="profile-element-list">
+
+                    <div
+                        class="profile-null {% if user.portfolio == false %}active{% endif %}">
+
+                        <p>You don't currently have any work samples in your portfolio! Use the button above to add a work sample.</p>
+
+                    </div>
+
+                    {% for sample in user.portfolio %}
+
+                        {% include "common/sample" %}
+
+                    {% endfor %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+</section>

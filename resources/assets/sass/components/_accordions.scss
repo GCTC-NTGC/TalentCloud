@@ -1,3 +1,8 @@
+// =============================================================================
+
+    // Accordions
+
+// =============================================================================
 .accordion {
     background: $palette--white;
     border-radius: 3px;
@@ -6,6 +11,7 @@
     overflow: hidden;
 
     .accordion-trigger {
+        background-color: transparentize($palette--black, .15);
         cursor: pointer;
         position: relative;
 
@@ -41,7 +47,8 @@
         }
 
         .accordion-title {
-            color: $palette--font-black;
+            // color: $palette--font-black;
+            color: $palette--white;
             display: inline-block;
             font-family: $font--sans;
             font-size: $font-scale--h4;
@@ -52,6 +59,7 @@
         }
 
         .fa-chevron-up {
+            color: $palette--white;
             position: absolute;
             top: 50%;
             right: calc(#{$unit} * 2);

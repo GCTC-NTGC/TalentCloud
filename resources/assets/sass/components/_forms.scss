@@ -419,20 +419,16 @@
         }
 
         .form__select-wrapper {
+            width: 100%;
 
-            &:before {
+            &::before {
                 color: rgba(50, 50, 50, 1);
-                content: "\f078";
-                display: block;
-                font: normal normal normal 14px/1 FontAwesome;
                 font-size: $font-scale--regular;
                 pointer-events: none;
                 position: absolute;
                 top: 50%;
                 right: 2rem;
-                text-rendering: auto;
-                transform: translate(0, -50%);
-                -webkit-font-smoothing: antialiased;
+                transform: translate(0, -50%);;
             }
 
         }
@@ -492,6 +488,84 @@
                 left: 0rem;
                 width: 1px;
                 visibility: none;
+            }
+
+            &:focus,
+            &:hover {
+                border: 2px solid $palette--black;
+                outline: none;
+                padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+                transition: none;
+            }
+
+        }
+
+    }
+
+    &[class*="autocomplete"] {
+        margin: 2rem 0;
+
+        .form__label {
+            background: white;
+            color: rgba(100, 100, 100, 1);
+            font-family: $font--sans;
+            font-size: 12px;
+            line-height: 20px;
+            margin: 0;
+            padding: .5rem;
+            pointer-events: none;
+            position: absolute;
+            top: -1.15rem;
+            left: .55rem;
+            transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
+        }
+
+        .form__input {
+
+            &[type="text"] {
+                appearance: none;
+                border: 1px solid rgba(50, 50, 50, 1);
+                border-radius: 3px 0 0 3px;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                line-height: 24px;
+                outline: none;
+                padding: $unit 5rem $unit $unit;
+                transition: border-color .2s ease;
+                width: 80%;
+
+                @media #{$p-tablet} {
+                    width: 90%;
+                }
+
+                &:focus {
+                    border: 1px solid $palette--blue !important;
+                    transition: border-color .2s ease;
+                }
+
+            }
+
+        }
+
+        .combobox-clear-button {
+            @extend %gradient--vertical;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            box-shadow: none;
+            cursor: pointer;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            outline: none;
+            padding: $unit calc(#{$unit} * 2);
+            text-decoration: none;
+            color: $palette--font-white;
+            transition: none;
+            width: 20%;
+
+            @media #{$p-tablet} {
+                width: 10%;
             }
 
             &:focus,

@@ -1,0 +1,126 @@
+// =============================================================================
+
+    // Modals
+
+// =============================================================================
+.modal-overlay {
+    background: rgba(0, 0, 10, .8);
+    height: 100vh;
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-100%, 0);
+    transition: opacity .2s ease .2s, transform 0s linear .4s;
+    width: 100vw;
+    z-index: 500;
+
+    &.active {
+        opacity: 1;
+        transform: translate(0, 0);
+        transition: opacity .2s ease, transform 0s linear;
+    }
+
+}
+
+.modal {
+    background: $palette--white;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+    max-heiht: 80vh;
+    opacity: 0;
+    position: fixed;
+    top: 50%;
+    left: -100%;
+    transform: translate(-50%, -25%);
+    transition: opacity .2s ease, transform 0s linear .2s, left 0s linear .2s;
+    width: 40vw;
+    z-index: 550;
+
+    .modal-heading {
+        background-color: transparentize($palette--black, .15);
+        background-image: url("/images/bg_lightning_texture.png");
+        background-position: center;
+        background-repeat: repeat;
+        background-size: 75px;
+        padding: calc(#{$unit} * 2) calc(#{$unit} * 6) calc(#{$unit} * 2) calc(#{$unit} * 2);
+        position: relative;
+
+        h1 {
+            color: $palette--font-white;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: $palette--font-white;
+            cursor: pointer;
+            font-size: $font-scale--h4;
+            position: absolute;
+            top: 50%;
+            right: 2rem;
+            transform: translate(0, -50%);
+        }
+
+    }
+
+    .modal-content {
+
+        .modal-copy {
+            padding: 2rem;
+
+            p {
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                line-height: 1.5;
+                margin: 1rem 0;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+            }
+
+        }
+
+        .modal-action-wrapper {
+            border-top: 1px solid darken($palette--white, 30%);
+            padding: 1.5rem 1rem;
+
+            .flex-grid {
+                margin: 0;
+                width: 100%;
+
+                .box {
+                    padding: 0 1rem;
+
+                    &:last-child {
+                        text-align: right;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    &.active {
+        opacity: 1;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity .2s ease .2s, transform .2s ease .2s, left 0s linear;
+    }
+
+}

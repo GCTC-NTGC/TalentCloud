@@ -42,6 +42,40 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                 "delete_title" => "Delete this application.",
                 "null" => [
                     "title" => "There are no applications."
+                ],
+                "modals" => [
+                    "00" => [
+                        "type" => "confirmation",
+                        "title" => "Application Deletion",
+                        "content" => [
+                            "00" => "Are you sure you want to delete this application? All progress will be lost.",
+                            "01" =>  "Experience and Skills that have been saved will remain accessible on your profile for later use."
+                        ],
+                        "id" => "deleteTrash",
+                        "action_01" => "Cancel",
+                        "action_02" => "Delete"
+                    ],
+                    "01" => [
+                        "type" => "login",
+                        "title" => "Register or Login with GC Account",
+                        "content" => [
+                            "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                            "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                        ],
+                        "id" => "login",
+                        "action_01" => "Register",
+                        "action_02" => "Login"
+                    ],
+                    "02" => [
+                        "type" => "logout",
+                        "title" => "Logout of Talent Cloud",
+                        "content" => [
+                            "00" => "Are you sure you want to logout of Talent Cloud?"
+                        ],
+                        "id" => "logout",
+                        "action_01" => "Cancel",
+                        "action_02" => "Logout"
+                    ]
                 ]
             ],
             "applicant" => [
@@ -123,9 +157,8 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                         "edit_date" => "2018/09/01"
                     ]
                 ]
-            ]
-        ]);
-    })->name('applications.index');
+            ]);
+        })->name('applications.index');
 
     /* Step 01 */
     Route::get('applications/00/step-01', function () {
@@ -835,6 +868,492 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
             return redirect(route('profile.edit', $applicant));
         })->name('profile');
 
+        /* Profile - About Me */
+        Route::get('profile/about', function () {
+            return view('applicant/profile_01_about', [
+                "profile" => [
+                    "title" => "About Me",
+                    "about_title" => "My Information",
+                    "about_gc_disclaimer" => "Please note that your name can be changed through your GC Account settings. Profile photos will be added as a feature at a later time.",
+                    "gc_link" => "https://account.gccollab.ca/profile/",
+                    "gc_link_title" => "Visit your GC Account in a new tab or window.",
+                    "gc_link_label" => "Visit GC Account",
+                    "questions_title" => "Things to Know About Me",
+                    "menu" => [
+                        "00" => [
+                            "active" => true,
+                            "link" => "/profile/about",
+                            "title" => "Go to the About Me section of your profile.",
+                            "label" => "About Me"
+                        ],
+                        "01" => [
+                            "active" => false,
+                            "link" => "/profile/experience",
+                            "title" => "Go to the Experience section of your profile.",
+                            "label" => "My Experience"
+                        ],
+                        "02" => [
+                            "active" => false,
+                            "link" => "/profile/skills",
+                            "title" => "Go to the Skills section of your profile.",
+                            "label" => "My Skills"
+                        ],
+                        "03" => [
+                            "active" => false,
+                            "link" => "/profile/references",
+                            "title" => "Go to the References section of your profile.",
+                            "label" => "My References"
+                        ],
+                        "04" => [
+                            "active" => false,
+                            "link" => "/profile/portfolio",
+                            "title" => "Go to the Portfolio section of your profile.",
+                            "label" => "My Portfolio"
+                        ]
+                    ],
+                    "save_button_label" => "Save My Answer",
+                    "modals" => [
+                        "00" => [
+                            "type" => "login",
+                            "title" => "Register or Login with GC Account",
+                            "content" => [
+                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                            ],
+                            "id" => "login",
+                            "action_01" => "Register",
+                            "action_02" => "Login"
+                        ],
+                        "01" => [
+                            "type" => "logout",
+                            "title" => "Logout of Talent Cloud",
+                            "content" => [
+                                "00" => "Are you sure you want to logout of Talent Cloud?"
+                            ],
+                            "id" => "logout",
+                            "action_01" => "Cancel",
+                            "action_02" => "Logout"
+                        ]
+                    ]
+                ],
+                /* Applicant Profile Questions */
+                "applicant_profile_questions" => [
+                    "0" => [
+                        "value" => "My career journey so far...",
+                        "description" => "This is your chance to share the unique story of how you got to where you are now… and where you want to go from here.",
+                        "answer_label" => "Your Answer",
+                        "input_name" => "applicantProfileQuestion0",
+                        "answer" => null
+                    ],
+                    "1" => [
+                        "value" => "My learning journey so far...",
+                        "description" => "Learning never stops, and it comes to all of us in different ways. Whether it comes from formal education or life lessons, knowledge passed on from elders or things you’ve picked up along the way, here’s your chance to share a bit about this side of who you are.",
+                        "answer_label" => "Your Answer",
+                        "input_name" => "applicantProfileQuestion1",
+                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    ],
+                    "2" => [
+                        "value" => "What I bring to a team...",
+                        "description" => "People take note of the rock star and forget they are nothing without the band. Help potential teams and managers see what unique skills, attributes and knowledge you bring to help a team do great work.",
+                        "answer_label" => "Your Answer",
+                        "input_name" => "applicantProfileQuestion2",
+                        "answer" => null
+                    ],
+                    "3" => [
+                        "value" => "I work best when...",
+                        "description" => "Introvert? Extrovert? Bit of both? Do you like tight deadlines or do you prefer to have time to process ideas? Do you work well independently or are team products more your thing? Here’s your chance to let a potential manager know what will let you give the team your best.",
+                        "answer_label" => "Your Answer",
+                        "input_name" => "applicantProfileQuestion3",
+                        "answer" => null
+                    ],
+                    "4" => [
+                        "value" => "I learn best when...",
+                        "description" => "Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.",
+                        "answer_label" => "Your Answer",
+                        "input_name" => "applicantProfileQuestion4",
+                        "answer" => null
+                    ],
+                    "5" => [
+                        "value" => "Types of teams I work well on...",
+                        "description" => "Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.",
+                        "answer_label" => "Your Answer",
+                        "input_name" => "applicantProfileQuestion5",
+                        "answer" => null
+                    ],
+                ],
+                /* User Data */
+                "user" => [
+                    "name" => "Jason Greene",
+                    "tagline" => "This is Jason's default tagline.",
+                    "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                    "twitter" => [
+                        "url" => "https://twitter.com/joshdrink",
+                        "title" => "Visit Jason's Twitter profile."
+                    ],
+                    "linkedin" => [
+                        "url" => "https://linkedin.com/joshdrink",
+                        "title" => "Visit Jason's Linkedin profile."
+                    ]
+                ]
+            ]);
+        })->name('profile.about');
+
+        /* Profile - My Experience */
+
+        /* Profile - My Skills */
+        Route::get('profile/skills', function () {
+            return view('applicant/profile_03_skills', [
+                "profile" => [
+                    "title" => "My Skills",
+                    "menu" => [
+                        "00" => [
+                            "active" => false,
+                            "link" => "/profile/about",
+                            "title" => "Go to the About Me section of your profile.",
+                            "label" => "About Me"
+                        ],
+                        "01" => [
+                            "active" => false,
+                            "link" => "/profile/experience",
+                            "title" => "Go to the Experience section of your profile.",
+                            "label" => "My Experience"
+                        ],
+                        "02" => [
+                            "active" => true,
+                            "link" => "/profile/skills",
+                            "title" => "Go to the Skills section of your profile.",
+                            "label" => "My Skills"
+                        ],
+                        "03" => [
+                            "active" => false,
+                            "link" => "/profile/references",
+                            "title" => "Go to the References section of your profile.",
+                            "label" => "My References"
+                        ],
+                        "04" => [
+                            "active" => false,
+                            "link" => "/profile/portfolio",
+                            "title" => "Go to the Portfolio section of your profile.",
+                            "label" => "My Portfolio"
+                        ]
+                    ],
+                    "modals" => [
+                        "00" => [
+                            "type" => "login",
+                            "title" => "Register or Login with GC Account",
+                            "content" => [
+                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                            ],
+                            "id" => "login",
+                            "action_01" => "Register",
+                            "action_02" => "Login"
+                        ],
+                        "01" => [
+                            "type" => "logout",
+                            "title" => "Logout of Talent Cloud",
+                            "content" => [
+                                "00" => "Are you sure you want to logout of Talent Cloud?"
+                            ],
+                            "id" => "logout",
+                            "action_01" => "Cancel",
+                            "action_02" => "Logout"
+                        ],
+                        "02" => [
+                            "type" => "confirmation",
+                            "title" => "Delete this Skill?",
+                            "content" => [
+                                "00" => "Are you sure you want to permanently delete this skill from your profile?",
+                                "01" => "All previously submitted applications will retain this skill, its references, and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
+                            ],
+                            "id" => "deleteSkill",
+                            "action_01" => "Cancel",
+                            "action_02" => "Delete"
+                        ]
+                    ]
+                ],
+                "user" => [
+                    "skills" => [
+                        "00" => [
+                            "name" => "HTML",
+                            "level" => "beginner",
+                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                            "references" => [
+                                "00" => "Mark Hamill"
+                            ],
+                            "samples" => [
+                                "00" => "My Website"
+                            ]
+                        ],
+                        "01" => [
+                            "name" => "CSS",
+                            "level" => "advanced",
+                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                            "references" => [
+                                "00" => "Mark Hamill"
+                            ],
+                            "samples" => [
+                                "00" => "My Website"
+                            ]
+                        ],
+                        "02" => [
+                            "name" => "UX Research",
+                            "level" => "beginner",
+                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                            "references" => [],
+                            "samples" => []
+                        ]
+                    ],
+                    "references" => [
+                        "00" => [
+                            "name" => "Mark Hamill"
+                        ],
+                        "01" => [
+                            "name" => "Jesse Markham"
+                        ],
+                        "02" => [
+                            "name" => "Lucy Ladderfield"
+                        ],
+                        "03" => [
+                            "name" => "Cameron Trovsky"
+                        ]
+                    ],
+                    "samples" => [
+                        "00" => [
+                            "name" => "My Website",
+                            "type" => "Website",
+                            "date_created" => "2018-01-01",
+                            "link" => "https://google.com",
+                            "description" => "Lorem Ipsum",
+                            "skills" => [
+                                "00" => "HTML",
+                                "01" => "CSS"
+                            ]
+                        ]
+                    ]
+                ],
+                "skill_template" => [
+                    "name_label" => "Project Name",
+                    "type_label" => "Project Type",
+                    "types" => [
+                        "00" => "PDF",
+                        "01" => "Website"
+                    ],
+                    "levels" => [
+                        "00" => "Beginner",
+                        "01" => "Intermediate",
+                        "02" => "Advanced",
+                        "03" => "Expert"
+                    ],
+                    "link_label" => "The Link to Your Work",
+                    "description_label" => "The Story Behind the Work",
+                    "action_01" => "Delete Skill",
+                    "action_02" => "Save Skill"
+                ],
+                "relative_template" => [
+                    "skill" => [
+                        "title" => "Linked Skills",
+                        "create_title" => "Create a new skill.",
+                        "create_label" => "Create New Skill",
+                        "label" => "Select a Skill",
+                        "add_label" => "Add Existing Skill",
+                        "delete_title" => "Remove this skill."
+                    ],
+                    "reference" => [
+                        "title" => "Linked References",
+                        "create_title" => "Create a new reference.",
+                        "create_label" => "Create New Reference",
+                        "label" => "Select a Reference",
+                        "add_label" => "Add Existing Reference",
+                        "delete_title" => "Remove this reference."
+                    ],
+                    "sample" => [
+                        "title" => "Linked Work Samples",
+                        "create_title" => "Create a new work sample.",
+                        "create_label" => "Create New Work Sample",
+                        "label" => "Select a Work Sample",
+                        "add_label" => "Add Existing Work Sample",
+                        "delete_title" => "Remove this work sample."
+                    ]
+                ],
+                "skills" => [
+                    "00" => [
+                        "name" => "UX Research",
+                        "type" => "soft",
+                        "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                    ],
+                    "01" => [
+                        "name" => "HTML",
+                        "type" => "hard",
+                        "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                    ],
+                    "02" => [
+                        "name" => "CSS",
+                        "type" => "hard",
+                        "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                    ]
+                ]
+            ]);
+        })->name('profile.skills');
+
+        /* Profile - My References */
+
+        /* Profile - My Portfolio */
+        Route::get('profile/portfolio', function () {
+            return view('applicant/profile_05_portfolio', [
+                "profile" => [
+                    "title" => "My Portfolio",
+                    "menu" => [
+                        "00" => [
+                            "active" => false,
+                            "link" => "/profile/about",
+                            "title" => "Go to the About Me section of your profile.",
+                            "label" => "About Me"
+                        ],
+                        "01" => [
+                            "active" => false,
+                            "link" => "/profile/experience",
+                            "title" => "Go to the Experience section of your profile.",
+                            "label" => "My Experience"
+                        ],
+                        "02" => [
+                            "active" => false,
+                            "link" => "/profile/skills",
+                            "title" => "Go to the Skills section of your profile.",
+                            "label" => "My Skills"
+                        ],
+                        "03" => [
+                            "active" => false,
+                            "link" => "/profile/references",
+                            "title" => "Go to the References section of your profile.",
+                            "label" => "My References"
+                        ],
+                        "04" => [
+                            "active" => true,
+                            "link" => "/profile/portfolio",
+                            "title" => "Go to the Portfolio section of your profile.",
+                            "label" => "My Portfolio"
+                        ]
+                    ],
+                    "modals" => [
+                        "00" => [
+                            "type" => "login",
+                            "title" => "Register or Login with GC Account",
+                            "content" => [
+                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                            ],
+                            "id" => "login",
+                            "action_01" => "Register",
+                            "action_02" => "Login"
+                        ],
+                        "01" => [
+                            "type" => "logout",
+                            "title" => "Logout of Talent Cloud",
+                            "content" => [
+                                "00" => "Are you sure you want to logout of Talent Cloud?"
+                            ],
+                            "id" => "logout",
+                            "action_01" => "Cancel",
+                            "action_02" => "Logout"
+                        ],
+                        "02" => [
+                            "type" => "confirmation",
+                            "title" => "Delete this Work Sample?",
+                            "content" => [
+                                "00" => "Are you sure you want to permanently delete this work sample from your portfolio?",
+                                "01" => "All previously submitted applications will retain this work sample, however new applications or applications in progress will no longer include it."
+                            ],
+                            "id" => "deleteSample",
+                            "action_01" => "Cancel",
+                            "action_02" => "Delete"
+                        ]
+                    ]
+                ],
+                "user" => [
+                    "skills" => [
+                        "00" => [
+                            "name" => "HTML",
+                            "type" => "hard",
+                            "references" => [
+                                "00" => "Mark Hamill"
+                            ],
+                            "samples" => [
+                                "00" => "My Website"
+                            ]
+                        ],
+                        "01" => [
+                            "name" => "CSS",
+                            "type" => "hard",
+                            "references" => [
+                                "00" => "Mark Hamill"
+                            ],
+                            "samples" => [
+                                "00" => "My Website"
+                            ]
+                        ]
+                    ],
+                    "portfolio" => [
+                        "00" => [
+                            "name" => "My Website",
+                            "type" => "Website",
+                            "date_created" => "2018-01-01",
+                            "link" => "https://google.com",
+                            "description" => "Lorem Ipsum",
+                            "skills" => [
+                                "00" => "HTML",
+                                "01" => "CSS"
+                            ]
+                        ]
+                    ]
+                ],
+                "sample_template" => [
+                    "name_label" => "Project Name",
+                    "type_label" => "Project Type",
+                    "types" => [
+                        "00" => "PDF",
+                        "01" => "Website"
+                    ],
+                    "link_label" => "The Link to Your Work",
+                    "description_label" => "The Story Behind the Work",
+                    "linked_skills_label" => "Linked Skills",
+                    "search_label" => "Search Through My Skills",
+                    "skill_label" => "Select a Skill",
+                    "add_skill_label" => "Add a Skill",
+                    "action_01" => "Delete Sample",
+                    "action_02" => "Save Sample"
+                ],
+                "relative_template" => [
+                    "skill" => [
+                        "title" => "Linked Skills",
+                        "label" => "Select a Skill",
+                        "add_label" => "Add a Skill",
+                        "delete_title" => "Remove this skill."
+                    ],
+                    "reference" => [
+                        "title" => "Linked References",
+                        "label" => "Select a Reference",
+                        "add_label" => "Add a Reference",
+                        "delete_title" => "Remove this reference."
+                    ],
+                    "sample" => [
+                        "title" => "Linked Work Samples",
+                        "label" => "Select a Work Sample",
+                        "add_label" => "Add a Work Sample",
+                        "delete_title" => "Remove this work sample."
+                    ]
+                ],
+                "skills" => [
+                    "00" => "UX Research",
+                    "01" => "Youth Leadership",
+                    "02" => "Reading Comprehension",
+                    "03" => "HTML",
+                    "04" => "CSS",
+                    "05" => "UX Surveying"
+                ]
+            ]);
+        })->name('profile.portfolio');
+
         Route::get('profile/{applicant}/edit', 'ApplicantProfileController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
@@ -1310,8 +1829,6 @@ $managerGroup = function() {
 
 
     });
-
-
 
     /* Authentication =========================================================== */
 

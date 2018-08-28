@@ -453,9 +453,9 @@
                                 <select 
                                     class="form__input"
                                     id="">
-                                    {% for option in profile.departments %}
+                                    {% for option in manager_job_create.departments %}
                                         <option
-                                            {% if user.department | capitalize == option | capitalize %}selected="selected"{% endif %}
+                                            {% if manager.post.department|capitalize == option|capitalize %}selected="selected"{% elseif manager.post.department == null and manager.department|capitalize == option|capitalize %}selected="selected"{% endif %}
                                             >{{ option }}</option>
                                             }
                                     {% endfor %}
@@ -468,7 +468,7 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
+                        <div class="form__input-wrapper--float {% if manager.post.branch != false %}active{% elseif manager.post.branch == false and manager.branch != false %}active{% endif %}">
                             <label class="form__label" for="">
                                 Branch (English)
                             </label>
@@ -476,7 +476,7 @@
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="">
+                                value="{% if manager.post.branch == false %}{{ manager.branch }}{% else %}{{ manager.post.branch }}{% endif %}">
                             </input>
                         </div>
 
@@ -485,7 +485,7 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
+                        <div class="form__input-wrapper--float {% if manager.post.branch_fr != false %}active{% elseif manager.post.branch_fr == false and manager.branch_fr != false %}active{% endif %}">
                             <label class="form__label" for="">
                                 Branch (Français)
                             </label>
@@ -493,7 +493,7 @@
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="">
+                                value="{% if manager.post.branch_fr == false %}{{ manager.branch_fr }}{% else %}{{ manager.post.branch_fr }}{% endif %}">
                             </input>
                         </div>
 
@@ -502,7 +502,7 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
+                        <div class="form__input-wrapper--float {% if manager.post.division != false %}active{% elseif manager.post.division == false and manager.division != false %}active{% endif %}">
                             <label class="form__label" for="">
                                 Division (English)
                             </label>
@@ -510,7 +510,7 @@
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="">
+                                value="{% if manager.post.division == false %}{{ manager.division }}{% else %}{{ manager.post.division }}{% endif %}">
                             </input>
                         </div>
 
@@ -519,7 +519,7 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
+                        <div class="form__input-wrapper--float {% if manager.post.division_fr != false %}active{% elseif manager.post.division_fr == false and manager.division_fr != false %}active{% endif %}">
                             <label class="form__label" for="">
                                 Division (Français)
                             </label>
@@ -527,7 +527,7 @@
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="">
+                                value="{% if manager.post.division_fr == false %}{{ manager.division_fr }}{% else %}{{ manager.post.division_fr }}{% endif %}">
                             </input>
                         </div>
 
@@ -553,13 +553,13 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
+                        <div class="form__input-wrapper--float {% if manager.post.impact != false %}active{% endif %}">
                             <label class="form__label" for="">
                                 Impact (English)
                             </label>
                             <textarea
                                 class="form__textarea"
-                                id=""></textarea>
+                                id="">{{ manager.post.impact }}</textarea>
                         </div>
 
                     </div>
@@ -567,13 +567,13 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
+                        <div class="form__input-wrapper--float {% if manager.post.impact_fr != false %}active{% endif %}">
                             <label class="form__label" for="">
                                 Impact (Français)
                             </label>
                             <textarea
                                 class="form__textarea"
-                                id=""></textarea>
+                                id="">{{ manager.post.impact_fr }}</textarea>
                         </div>
 
                     </div>
@@ -602,6 +602,16 @@
 
             <div 
                 class="manager-jobs__create-task-wrapper">
+
+                {% set taskCounter = 0 %}
+
+                {% for task in manager.post.tasks %}
+
+                    {% set taskCounter = taskCounter + 1 %}
+
+                    {% include "manager/job_create/task" %}
+
+                {% endfor %}
 
                 {# Tasks get added here. #}
 
@@ -656,6 +666,16 @@
 
             <div 
                 class="manager-jobs__create-question-wrapper">
+
+                {% set questionCounter = 0 %}
+
+                {% for question in manager.post.questions %}
+
+                    {% set questionCounter = questionCounter + 1 %}
+
+                    {% include "manager/job_create/question" %}
+
+                {% endfor %}
 
                 {# Questions get added here. #}
 
