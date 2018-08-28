@@ -7,43 +7,40 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ExperienceLevel
- *
+ * 
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \Illuminate\Database\Eloquent\Collection $experience_level_translations
  * @property \Illuminate\Database\Eloquent\Collection $micro_references
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- *
+ * 
  * Localized Properties:
  * @property string $value
  */
-class ExperienceLevel extends Eloquent
-{
+class ExperienceLevel extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function experience_level_translations()
-    {
+    public function experience_level_translations() {
         return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
     }
 
-    public function micro_references()
-    {
+    public function micro_references() {
         return $this->hasMany(\App\Models\MicroReference::class);
     }
 
-    public function skill_declarations()
-    {
+    public function skill_declarations() {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
+
 }

@@ -242,3 +242,10 @@ INSERT INTO skill_level_translations VALUES
 INSERT INTO user_roles VALUES
 (1,'applicant',NULL,NULL),
 (2,'manager',NULL,NULL);
+
+INSERT INTO frequencies VALUES
+(1,'never',NULL,NULL),
+(2,'rarely',NULL,NULL),
+(3,'sometimes',NULL,NULL),
+(4,'often',NULL,NULL),
+(5,'always',NULL,NULL);

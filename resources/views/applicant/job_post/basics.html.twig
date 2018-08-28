@@ -4,92 +4,92 @@
     Applicant: Jobs - Post: Basics
 
 ============================================================================= #}
-<a 
+<a
     aria-hidden="true"
     id="basics">
 </a>
 
-<section 
+<section
     class="job-poster__basics">
 
     {# Basics Content #}
 
-        <div 
+        <div
             class="flex-grid">
 
-            <div 
+            <div
                 class="box full">
-                <h4 
+                <h4
                     class="job-poster__basics-title"
                     id="jobPosterContentTitleBasics">
                     {{ job_post.basics.title }}
                 </h4>
             </div>
 
-            <div 
+            <div
                 class="box med-1of2">
 
-                <span 
+                <span
                     class="job-poster__basics-label">
                     {{ job_post.basics.salary_label }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-content">
-                    {{ job.salary }}
+                    {{ job.salary_min }} - {{ job.salary_max }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-label">
                     {{ job_post.basics.duration_label }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-content">
-                    {{ job.duration }}
+                    {{ job_post.basics.duration[job.job_term.name]|trans_choice(job.term_qty) }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-label">
                     {{ job_post.basics.start_label }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-content">
-                    {{ job.start }}
+                    {{ job.start_date_time.format(job_post.basics.start_date_format) }}
                 </span>
 
             </div>
 
-            <div 
+            <div
                 class="box med-1of2">
 
-                <span 
+                <span
                     class="job-poster__basics-label">
                     {{ job_post.basics.language_label }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-content">
-                    {{ job.language }}
+                    {{ job.language_requirement.value }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-label">
                     {{ job_post.basics.security_label }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-content">
-                    {{ job.security }}
+                    {{ job.security_clearance.value }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-label">
                     {{ job_post.basics.classification_label }}
                 </span>
 
-                <span 
+                <span
                     class="job-poster__basics-content">
                     {{ job.classification }}
                 </span>

@@ -13,8 +13,7 @@ use App\Services\Auth\Contracts\TokenRefresher;
 use App\Exceptions\Auth\TokenStorageException;
 use App\Exceptions\Auth\TokenRequestException;
 
-class OidConnectGuard implements Guard
-{
+class OidConnectGuard implements Guard {
 
     protected $request;
     protected $provider;
@@ -40,19 +39,17 @@ class OidConnectGuard implements Guard
      * @param TokenRefresher $tokenRefresher
      * @param Request $request
      */
-    public function __construct(
-        UserProvider $provider,
-        RequestTokenParser $requestTokenParser,
-        JwtValidator $jwtValidator,
-        TokenRefresher $tokenRefresher,
-        Request $request
-    ) {
+    public function __construct(UserProvider $provider,
+            RequestTokenParser $requestTokenParser,
+            JwtValidator $jwtValidator,
+            TokenRefresher $tokenRefresher,
+            Request $request) {
         $this->request = $request;
         $this->provider = $provider;
         $this->requestTokenParser = $requestTokenParser;
         $this->jwtValidator = $jwtValidator;
         $this->tokenRefresher = $tokenRefresher;
-        $this->user = null;
+        $this->user = NULL;
         $this->userAlreadyAttempted = false;
     }
 
@@ -61,8 +58,7 @@ class OidConnectGuard implements Guard
      *
      * @return bool
      */
-    public function check()
-    {
+    public function check() {
         return !is_null($this->user());
     }
 
@@ -71,8 +67,7 @@ class OidConnectGuard implements Guard
      *
      * @return bool
      */
-    public function guest()
-    {
+    public function guest() {
         return !$this->check();
     }
 
@@ -99,8 +94,7 @@ class OidConnectGuard implements Guard
         $this->user = $user;
     }
 
-    public function user()
-    {
+    public function user() {
         // If we've already retrieved the user for the current request we can just
         // return it back immediately. We do not want to fetch the user data on
         // every call to this method because that would be tremendously slow.
@@ -135,6 +129,7 @@ class OidConnectGuard implements Guard
             try {
                 $idToken = $this->tokenRefresher->refreshIDToken($iss, $sub);
                 debugbar()->info("Refreshed id token");
+
             } catch (TokenStorageException $storageException) {
                 debugbar()->warning($storageException->getMessage());
                 return $user;
@@ -153,8 +148,7 @@ class OidConnectGuard implements Guard
         return $user;
     }
 
-    public function validate(array $credentials = array()): bool
-    {
+    public function validate(array $credentials = array()): bool {
         debugbar()->info("in Guard.validate()");
         if (empty($credentials['id_token'])) {
             return false;
