@@ -27,7 +27,7 @@ install:
   - sudo make gen-certs
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
-  - npm rebuild
+  - npm i npm@latest -g
   - npm install
   - npm test
   # psql -c "CREATE DATABASE talentcloud;" -U postgres
@@ -55,8 +55,8 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gctcntgc/talentcloud:travis-build .
-  - docker push gctcntgc/talentcloud:travis-build
+  - docker build -t gctcntgc/talentcloud:latest .
+  - docker push gctcntgc/talentcloud:latest
 
 # Slack notifications / do not send emails
 notifications:
