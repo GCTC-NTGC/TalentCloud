@@ -10,10 +10,10 @@ build:
 
     dependencies:
         before:
-            # composer install
             - make gen-certs
-            - docker-compose up --abort-on-container-exit
-            - sudo make docker-start
+            - docker-compose up
+            - composer install
+            # sudo make docker-start
             - make build-db
             - make test
             # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
