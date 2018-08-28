@@ -62,21 +62,27 @@
                 margin: 0;
             }
 
+            >.form__radio-group {
+                margin-top: 3rem;
+            }
+
         }
 
     }
 
     fieldset {
-        border-top: none;
+        border: none;
+        margin: 0;
         padding: 0;
 
-        &.form__form-section {
+        >.flex-grid {
+            margin: -3rem -1rem 0 -1rem;
 
-            >.flex-grid {
-                margin: -3rem -1rem 0 -1rem;
+            >.box {
+                padding: 0 1rem;
 
-                >.box {
-                    padding: 0 1rem;
+                >.form__radio-group {
+                    margin-top: 3rem;
                 }
 
             }
@@ -90,10 +96,12 @@
 
         legend {
             color: $palette--blue;
+            font-family: $font--sans;
             float: none;
             font-size: $font-scale--regular;
-            font-weight: 900;
-            margin: 0 0 1.5rem 0;
+            font-weight: 600;
+            margin: 0 0 -.5rem 0;
+            width: 100%;
         }
 
         &+fieldset {
@@ -131,7 +139,7 @@
     }
 
     &[class*="float"] {
-        margin: 3rem 0;
+        margin: 2rem 0;
 
         .form__label {
             color: rgba(100, 100, 100, 1);
@@ -268,7 +276,7 @@
     }
 
     &[class*="range"] {
-        margin: 3rem 0 4rem;
+        margin: 2rem 0 4rem;
 
         .form__label {
             color: rgba(50, 50, 50, 1);
@@ -323,7 +331,7 @@
     }
 
     &[class*="date"] {
-        margin: 3rem 0;
+        margin: 2rem 0;
 
         .form__label {
             background: white;
@@ -393,7 +401,7 @@
     }
 
     &[class*="select"] {
-        margin: 3rem 0;
+        margin: 2rem 0;
 
         .form__label {
             background: white;
@@ -445,6 +453,53 @@
             &:focus {
                 border: 1px solid $palette--blue !important;
                 transition: border-color .2s ease;
+            }
+
+        }
+
+    }
+
+    &[class*="upload"] {
+
+        .form__label {
+            @extend %gradient--vertical;
+            border: none;
+            border-radius: 5px;
+            box-shadow: none;
+            cursor: pointer;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            outline: none;
+            padding: $unit calc(#{$unit} * 2);
+            text-decoration: none;
+
+            color: $palette--font-white;
+            transition: none;
+
+            overflow: hidden;
+            position: relative;
+
+            text-align: center;
+            width: 100%;
+
+            .form__input {
+                height: 1px;
+                opacity: 0;
+                position: absolute;
+                top: 0rem;
+                left: 0rem;
+                width: 1px;
+                visibility: none;
+            }
+
+            &:focus,
+            &:hover {
+                border: 2px solid $palette--black;
+                outline: none;
+                padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+                transition: none;
             }
 
         }

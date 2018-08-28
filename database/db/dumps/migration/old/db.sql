@@ -9,7 +9,7 @@ FLUSH PRIVILEGES;
 -- https://www.phpmyadmin.net/
 --
 -- Host: talentcloud-db
--- Generation Time: Aug 20, 2018 at 05:32 PM
+-- Generation Time: Aug 23, 2018 at 10:17 PM
 -- Server version: 5.6.41
 -- PHP Version: 7.2.6
 
@@ -543,15 +543,16 @@ CREATE TABLE `managers` (
   `id` int(10) UNSIGNED NOT NULL,
   `department_id` int(10) UNSIGNED DEFAULT NULL,
   `twitter_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin_username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin_url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `work_review_frequency_id` int(10) UNSIGNED NOT NULL,
-  `stay_late_frequency_id` int(10) UNSIGNED NOT NULL,
-  `engage_team_frequency_id` int(10) UNSIGNED NOT NULL,
-  `development_opportunity_frequency_id` int(10) UNSIGNED NOT NULL,
-  `refuse_low_value_work_frequency_id` int(10) UNSIGNED NOT NULL
+  `work_review_frequency_id` int(10) UNSIGNED DEFAULT NULL,
+  `stay_late_frequency_id` int(10) UNSIGNED DEFAULT NULL,
+  `engage_team_frequency_id` int(10) UNSIGNED DEFAULT NULL,
+  `development_opportunity_frequency_id` int(10) UNSIGNED DEFAULT NULL,
+  `refuse_low_value_work_frequency_id` int(10) UNSIGNED DEFAULT NULL,
+  `years_experience` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -572,10 +573,11 @@ CREATE TABLE `manager_translations` (
   `employee_learning` text COLLATE utf8mb4_unicode_ci,
   `expectations` text COLLATE utf8mb4_unicode_ci,
   `manager_id` int(10) UNSIGNED NOT NULL,
-  `work_experience` text COLLATE utf8mb4_unicode_ci,
   `education` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `career_journey` text COLLATE utf8mb4_unicode_ci,
+  `learning_path` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -614,103 +616,106 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(191, '2018_07_12_145513_create_applicant_profile_answers_table', 1),
-(192, '2018_07_12_145513_create_applicant_profile_question_translations_table', 1),
-(193, '2018_07_12_145513_create_applicant_profile_questions_table', 1),
-(194, '2018_07_12_145513_create_applicants_table', 1),
-(195, '2018_07_12_145513_create_application_micro_references_table', 1),
-(196, '2018_07_12_145513_create_application_status_table', 1),
-(197, '2018_07_12_145513_create_application_status_translations_table', 1),
-(198, '2018_07_12_145513_create_application_work_samples_table', 1),
-(199, '2018_07_12_145513_create_citizenship_declaration_translations_table', 1),
-(200, '2018_07_12_145513_create_citizenship_declarations_table', 1),
-(201, '2018_07_12_145513_create_criteria_table', 1),
-(202, '2018_07_12_145513_create_criteria_translations_table', 1),
-(203, '2018_07_12_145513_create_criteria_type_translations_table', 1),
-(204, '2018_07_12_145513_create_criteria_types_table', 1),
-(205, '2018_07_12_145513_create_department_translations_table', 1),
-(206, '2018_07_12_145513_create_departments_table', 1),
-(207, '2018_07_12_145513_create_experience_level_translations_table', 1),
-(208, '2018_07_12_145513_create_experience_levels_table', 1),
-(209, '2018_07_12_145513_create_file_type_translations_table', 1),
-(210, '2018_07_12_145513_create_file_types_table', 1),
-(211, '2018_07_12_145513_create_job_application_answers_table', 1),
-(212, '2018_07_12_145513_create_job_applications_table', 1),
-(213, '2018_07_12_145513_create_job_poster_key_task_translations_table', 1),
-(214, '2018_07_12_145513_create_job_poster_key_tasks_table', 1),
-(215, '2018_07_12_145513_create_job_poster_question_translations_table', 1),
-(216, '2018_07_12_145513_create_job_poster_questions_table', 1),
-(217, '2018_07_12_145513_create_job_poster_translations_table', 1),
-(218, '2018_07_12_145513_create_job_posters_table', 1),
-(219, '2018_07_12_145513_create_job_term_translations_table', 1),
-(220, '2018_07_12_145513_create_job_terms_table', 1),
-(221, '2018_07_12_145513_create_language_requirement_translations_table', 1),
-(222, '2018_07_12_145513_create_language_requirements_table', 1),
-(223, '2018_07_12_145513_create_manager_translations_table', 1),
-(224, '2018_07_12_145513_create_managers_table', 1),
-(225, '2018_07_12_145513_create_micro_references_table', 1),
-(226, '2018_07_12_145513_create_profile_pics_table', 1),
-(227, '2018_07_12_145513_create_province_translations_table', 1),
-(228, '2018_07_12_145513_create_provinces_table', 1),
-(229, '2018_07_12_145513_create_relationship_translations_table', 1),
-(230, '2018_07_12_145513_create_relationships_table', 1),
-(231, '2018_07_12_145513_create_security_clearance_translations_table', 1),
-(232, '2018_07_12_145513_create_security_clearances_table', 1),
-(233, '2018_07_12_145513_create_skill_declaration_table', 1),
-(234, '2018_07_12_145513_create_skill_level_translations_table', 1),
-(235, '2018_07_12_145513_create_skill_levels_table', 1),
-(236, '2018_07_12_145513_create_team_culture_translations_table', 1),
-(237, '2018_07_12_145513_create_team_cultures_table', 1),
-(238, '2018_07_12_145513_create_user_roles_table', 1),
-(239, '2018_07_12_145513_create_users_table', 1),
-(240, '2018_07_12_145513_create_work_environments_table', 1),
-(241, '2018_07_12_145513_create_work_samples_table', 1),
-(242, '2018_07_12_145513_create_workplace_photo_captions_table', 1),
-(243, '2018_07_12_145513_create_workplace_photos_table', 1),
-(244, '2018_07_12_145517_add_foreign_keys_to_applicant_profile_answers_table', 1),
-(245, '2018_07_12_145517_add_foreign_keys_to_applicant_profile_question_translations_table', 1),
-(246, '2018_07_12_145517_add_foreign_keys_to_applicants_table', 1),
-(247, '2018_07_12_145517_add_foreign_keys_to_application_micro_references_table', 1),
-(248, '2018_07_12_145517_add_foreign_keys_to_application_status_translations_table', 1),
-(249, '2018_07_12_145517_add_foreign_keys_to_application_work_samples_table', 1),
-(250, '2018_07_12_145517_add_foreign_keys_to_citizenship_declaration_translations_table', 1),
-(251, '2018_07_12_145517_add_foreign_keys_to_criteria_table', 1),
-(252, '2018_07_12_145517_add_foreign_keys_to_criteria_translations_table', 1),
-(253, '2018_07_12_145517_add_foreign_keys_to_criteria_type_translations_table', 1),
-(254, '2018_07_12_145517_add_foreign_keys_to_department_translations_table', 1),
-(255, '2018_07_12_145517_add_foreign_keys_to_experience_level_translations_table', 1),
-(256, '2018_07_12_145517_add_foreign_keys_to_file_type_translations_table', 1),
-(257, '2018_07_12_145517_add_foreign_keys_to_job_application_answers_table', 1),
-(258, '2018_07_12_145517_add_foreign_keys_to_job_applications_table', 1),
-(259, '2018_07_12_145517_add_foreign_keys_to_job_poster_key_task_translations_table', 1),
-(260, '2018_07_12_145517_add_foreign_keys_to_job_poster_key_tasks_table', 1),
-(261, '2018_07_12_145517_add_foreign_keys_to_job_poster_question_translations_table', 1),
-(262, '2018_07_12_145517_add_foreign_keys_to_job_poster_questions_table', 1),
-(263, '2018_07_12_145517_add_foreign_keys_to_job_poster_translations_table', 1),
-(264, '2018_07_12_145517_add_foreign_keys_to_job_posters_table', 1),
-(265, '2018_07_12_145517_add_foreign_keys_to_job_term_translations_table', 1),
-(266, '2018_07_12_145517_add_foreign_keys_to_language_requirement_translations_table', 1),
-(267, '2018_07_12_145517_add_foreign_keys_to_manager_translations_table', 1),
-(268, '2018_07_12_145517_add_foreign_keys_to_managers_table', 1),
-(269, '2018_07_12_145517_add_foreign_keys_to_micro_references_table', 1),
-(270, '2018_07_12_145517_add_foreign_keys_to_profile_pics_table', 1),
-(271, '2018_07_12_145517_add_foreign_keys_to_province_translations_table', 1),
-(272, '2018_07_12_145517_add_foreign_keys_to_relationship_translations_table', 1),
-(273, '2018_07_12_145517_add_foreign_keys_to_security_clearance_translations_table', 1),
-(274, '2018_07_12_145517_add_foreign_keys_to_skill_declaration_table', 1),
-(275, '2018_07_12_145517_add_foreign_keys_to_skill_level_translations_table', 1),
-(276, '2018_07_12_145517_add_foreign_keys_to_team_culture_translations_table', 1),
-(277, '2018_07_12_145517_add_foreign_keys_to_team_cultures_table', 1),
-(278, '2018_07_12_145517_add_foreign_keys_to_users_table', 1),
-(279, '2018_07_12_145517_add_foreign_keys_to_work_environments_table', 1),
-(280, '2018_07_12_145517_add_foreign_keys_to_work_samples_table', 1),
-(281, '2018_07_12_145517_add_foreign_keys_to_workplace_photo_captions_table', 1),
-(282, '2018_07_19_161639_AddDepartmentForeignIdToManager', 1),
-(283, '2018_08_10_201854_rename_applicant_linkedin_column', 1),
-(284, '2018_08_16_211708_rename_manager_aboutme_col', 1),
-(285, '2018_08_17_203204_create_frequency_lookup_table', 1),
-(286, '2018_08_20_160509_reference_frequency_on_manager', 1),
-(287, '2018_08_20_163214_reference_frequency_on_work_environment', 1);
+(590, '2018_07_12_145513_create_applicant_profile_answers_table', 1),
+(591, '2018_07_12_145513_create_applicant_profile_question_translations_table', 1),
+(592, '2018_07_12_145513_create_applicant_profile_questions_table', 1),
+(593, '2018_07_12_145513_create_applicants_table', 1),
+(594, '2018_07_12_145513_create_application_micro_references_table', 1),
+(595, '2018_07_12_145513_create_application_status_table', 1),
+(596, '2018_07_12_145513_create_application_status_translations_table', 1),
+(597, '2018_07_12_145513_create_application_work_samples_table', 1),
+(598, '2018_07_12_145513_create_citizenship_declaration_translations_table', 1),
+(599, '2018_07_12_145513_create_citizenship_declarations_table', 1),
+(600, '2018_07_12_145513_create_criteria_table', 1),
+(601, '2018_07_12_145513_create_criteria_translations_table', 1),
+(602, '2018_07_12_145513_create_criteria_type_translations_table', 1),
+(603, '2018_07_12_145513_create_criteria_types_table', 1),
+(604, '2018_07_12_145513_create_department_translations_table', 1),
+(605, '2018_07_12_145513_create_departments_table', 1),
+(606, '2018_07_12_145513_create_experience_level_translations_table', 1),
+(607, '2018_07_12_145513_create_experience_levels_table', 1),
+(608, '2018_07_12_145513_create_file_type_translations_table', 1),
+(609, '2018_07_12_145513_create_file_types_table', 1),
+(610, '2018_07_12_145513_create_job_application_answers_table', 1),
+(611, '2018_07_12_145513_create_job_applications_table', 1),
+(612, '2018_07_12_145513_create_job_poster_key_task_translations_table', 1),
+(613, '2018_07_12_145513_create_job_poster_key_tasks_table', 1),
+(614, '2018_07_12_145513_create_job_poster_question_translations_table', 1),
+(615, '2018_07_12_145513_create_job_poster_questions_table', 1),
+(616, '2018_07_12_145513_create_job_poster_translations_table', 1),
+(617, '2018_07_12_145513_create_job_posters_table', 1),
+(618, '2018_07_12_145513_create_job_term_translations_table', 1),
+(619, '2018_07_12_145513_create_job_terms_table', 1),
+(620, '2018_07_12_145513_create_language_requirement_translations_table', 1),
+(621, '2018_07_12_145513_create_language_requirements_table', 1),
+(622, '2018_07_12_145513_create_manager_translations_table', 1),
+(623, '2018_07_12_145513_create_managers_table', 1),
+(624, '2018_07_12_145513_create_micro_references_table', 1),
+(625, '2018_07_12_145513_create_profile_pics_table', 1),
+(626, '2018_07_12_145513_create_province_translations_table', 1),
+(627, '2018_07_12_145513_create_provinces_table', 1),
+(628, '2018_07_12_145513_create_relationship_translations_table', 1),
+(629, '2018_07_12_145513_create_relationships_table', 1),
+(630, '2018_07_12_145513_create_security_clearance_translations_table', 1),
+(631, '2018_07_12_145513_create_security_clearances_table', 1),
+(632, '2018_07_12_145513_create_skill_declaration_table', 1),
+(633, '2018_07_12_145513_create_skill_level_translations_table', 1),
+(634, '2018_07_12_145513_create_skill_levels_table', 1),
+(635, '2018_07_12_145513_create_team_culture_translations_table', 1),
+(636, '2018_07_12_145513_create_team_cultures_table', 1),
+(637, '2018_07_12_145513_create_user_roles_table', 1),
+(638, '2018_07_12_145513_create_users_table', 1),
+(639, '2018_07_12_145513_create_work_environments_table', 1),
+(640, '2018_07_12_145513_create_work_samples_table', 1),
+(641, '2018_07_12_145513_create_workplace_photo_captions_table', 1),
+(642, '2018_07_12_145513_create_workplace_photos_table', 1),
+(643, '2018_07_12_145517_add_foreign_keys_to_applicant_profile_answers_table', 1),
+(644, '2018_07_12_145517_add_foreign_keys_to_applicant_profile_question_translations_table', 1),
+(645, '2018_07_12_145517_add_foreign_keys_to_applicants_table', 1),
+(646, '2018_07_12_145517_add_foreign_keys_to_application_micro_references_table', 1),
+(647, '2018_07_12_145517_add_foreign_keys_to_application_status_translations_table', 1),
+(648, '2018_07_12_145517_add_foreign_keys_to_application_work_samples_table', 1),
+(649, '2018_07_12_145517_add_foreign_keys_to_citizenship_declaration_translations_table', 1),
+(650, '2018_07_12_145517_add_foreign_keys_to_criteria_table', 1),
+(651, '2018_07_12_145517_add_foreign_keys_to_criteria_translations_table', 1),
+(652, '2018_07_12_145517_add_foreign_keys_to_criteria_type_translations_table', 1),
+(653, '2018_07_12_145517_add_foreign_keys_to_department_translations_table', 1),
+(654, '2018_07_12_145517_add_foreign_keys_to_experience_level_translations_table', 1),
+(655, '2018_07_12_145517_add_foreign_keys_to_file_type_translations_table', 1),
+(656, '2018_07_12_145517_add_foreign_keys_to_job_application_answers_table', 1),
+(657, '2018_07_12_145517_add_foreign_keys_to_job_applications_table', 1),
+(658, '2018_07_12_145517_add_foreign_keys_to_job_poster_key_task_translations_table', 1),
+(659, '2018_07_12_145517_add_foreign_keys_to_job_poster_key_tasks_table', 1),
+(660, '2018_07_12_145517_add_foreign_keys_to_job_poster_question_translations_table', 1),
+(661, '2018_07_12_145517_add_foreign_keys_to_job_poster_questions_table', 1),
+(662, '2018_07_12_145517_add_foreign_keys_to_job_poster_translations_table', 1),
+(663, '2018_07_12_145517_add_foreign_keys_to_job_posters_table', 1),
+(664, '2018_07_12_145517_add_foreign_keys_to_job_term_translations_table', 1),
+(665, '2018_07_12_145517_add_foreign_keys_to_language_requirement_translations_table', 1),
+(666, '2018_07_12_145517_add_foreign_keys_to_manager_translations_table', 1),
+(667, '2018_07_12_145517_add_foreign_keys_to_managers_table', 1),
+(668, '2018_07_12_145517_add_foreign_keys_to_micro_references_table', 1),
+(669, '2018_07_12_145517_add_foreign_keys_to_profile_pics_table', 1),
+(670, '2018_07_12_145517_add_foreign_keys_to_province_translations_table', 1),
+(671, '2018_07_12_145517_add_foreign_keys_to_relationship_translations_table', 1),
+(672, '2018_07_12_145517_add_foreign_keys_to_security_clearance_translations_table', 1),
+(673, '2018_07_12_145517_add_foreign_keys_to_skill_declaration_table', 1),
+(674, '2018_07_12_145517_add_foreign_keys_to_skill_level_translations_table', 1),
+(675, '2018_07_12_145517_add_foreign_keys_to_team_culture_translations_table', 1),
+(676, '2018_07_12_145517_add_foreign_keys_to_team_cultures_table', 1),
+(677, '2018_07_12_145517_add_foreign_keys_to_users_table', 1),
+(678, '2018_07_12_145517_add_foreign_keys_to_work_environments_table', 1),
+(679, '2018_07_12_145517_add_foreign_keys_to_work_samples_table', 1),
+(680, '2018_07_12_145517_add_foreign_keys_to_workplace_photo_captions_table', 1),
+(681, '2018_07_19_161639_AddDepartmentForeignIdToManager', 1),
+(682, '2018_08_10_201854_rename_applicant_linkedin_column', 1),
+(683, '2018_08_16_211708_rename_manager_aboutme_col', 1),
+(684, '2018_08_17_203204_create_frequency_lookup_table', 1),
+(685, '2018_08_20_160509_reference_frequency_on_manager', 1),
+(686, '2018_08_20_163214_reference_frequency_on_work_environment', 1),
+(687, '2018_08_23_191114_rename_manager_linkedin_column', 1),
+(688, '2018_08_23_201039_adjust_manager_columns', 1),
+(689, '2018_08_23_204734_add_things_to_know_col_to_work_environment', 1);
 
 -- --------------------------------------------------------
 
@@ -964,8 +969,23 @@ CREATE TABLE `work_environments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `remote_work_allowed` tinyint(1) DEFAULT NULL,
-  `telework_allowed_frequency_id` int(10) UNSIGNED NOT NULL,
-  `flexible_hours_frequency_id` int(10) UNSIGNED NOT NULL
+  `telework_allowed_frequency_id` int(10) UNSIGNED DEFAULT NULL,
+  `flexible_hours_frequency_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `work_environment_translations`
+--
+
+CREATE TABLE `work_environment_translations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `work_environment_id` int(10) UNSIGNED NOT NULL,
+  `locale` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `things_to_know` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1411,6 +1431,13 @@ ALTER TABLE `work_environments`
   ADD KEY `work_environments_flexible_hours_frequency_id_foreign` (`flexible_hours_frequency_id`);
 
 --
+-- Indexes for table `work_environment_translations`
+--
+ALTER TABLE `work_environment_translations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `work_environment_translations_work_environment_id_locale_unique` (`work_environment_id`,`locale`);
+
+--
 -- Indexes for table `work_samples`
 --
 ALTER TABLE `work_samples`
@@ -1647,7 +1674,7 @@ ALTER TABLE `micro_references`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=690;
 
 --
 -- AUTO_INCREMENT for table `profile_pics`
@@ -1749,6 +1776,12 @@ ALTER TABLE `workplace_photo_captions`
 -- AUTO_INCREMENT for table `work_environments`
 --
 ALTER TABLE `work_environments`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `work_environment_translations`
+--
+ALTER TABLE `work_environment_translations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -2009,6 +2042,12 @@ ALTER TABLE `work_environments`
   ADD CONSTRAINT `work_environments_flexible_hours_frequency_id_foreign` FOREIGN KEY (`flexible_hours_frequency_id`) REFERENCES `frequencies` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `work_environments_manager_id_foreign` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `work_environments_telework_allowed_frequency_id_foreign` FOREIGN KEY (`telework_allowed_frequency_id`) REFERENCES `frequencies` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `work_environment_translations`
+--
+ALTER TABLE `work_environment_translations`
+  ADD CONSTRAINT `work_environment_translations_work_environment_id_foreign` FOREIGN KEY (`work_environment_id`) REFERENCES `work_environments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `work_samples`

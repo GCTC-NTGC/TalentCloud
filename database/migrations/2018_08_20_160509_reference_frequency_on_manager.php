@@ -14,11 +14,11 @@ class ReferenceFrequencyOnManager extends Migration
     public function up()
     {
         Schema::table('managers', function (Blueprint $table) {
-            $table->integer('work_review_frequency_id')->unsigned();
-            $table->integer('stay_late_frequency_id')->unsigned();
-            $table->integer('engage_team_frequency_id')->unsigned();
-            $table->integer('development_opportunity_frequency_id')->unsigned();
-            $table->integer('refuse_low_value_work_frequency_id')->unsigned();
+            $table->integer('work_review_frequency_id')->unsigned()->nullable();
+            $table->integer('stay_late_frequency_id')->unsigned()->nullable();
+            $table->integer('engage_team_frequency_id')->unsigned()->nullable();
+            $table->integer('development_opportunity_frequency_id')->unsigned()->nullable();
+            $table->integer('refuse_low_value_work_frequency_id')->unsigned()->nullable();
         });
 
         Schema::table('managers', function (Blueprint $table) {

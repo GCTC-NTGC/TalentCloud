@@ -1,0 +1,63 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager - Create Job Layout
+
+============================================================================= #}
+<div class="manager-jobs__create">
+
+    <div class="container--layout">
+
+        <div class="flex-grid">
+
+            {# Include Sidebar #}
+
+                {% include "manager/job_create/sidebar" %}
+
+            {# Poster Content #}
+
+                <div class="manager-job-index__content-wrapper box lg-3of4">
+
+                    {% include "manager/job_create/form" %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="container--copy">
+
+        <div 
+            class="flex-grid manager-jobs__create-submission-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <a
+                    class="button--blue light-bg"
+                    href=""
+                    title="">
+                    Save and Quit
+                </a>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <a
+                    class="button--blue light-bg"
+                    href=""
+                    title="">
+                    Publish
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

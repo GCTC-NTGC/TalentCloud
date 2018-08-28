@@ -39,7 +39,7 @@ class UsersSeeder extends Seeder {
         $manager = new Manager();
         $nickname = $faker->firstName();
         $manager->twitter_username = $nickname;
-        $manager->linkedin_username = $nickname;
+        $manager->linkedin_url = $faker->url();
         $manager->user_id = $user->id;
         $manager->department_id = Department::inRandomOrder()->first()->id;
         $manager->work_review_frequency_id = Frequency::inRandomOrder()->first()->id;
@@ -47,6 +47,7 @@ class UsersSeeder extends Seeder {
         $manager->engage_team_frequency_id = Frequency::inRandomOrder()->first()->id;
         $manager->development_opportunity_frequency_id = Frequency::inRandomOrder()->first()->id;
         $manager->refuse_low_value_work_frequency_id = Frequency::inRandomOrder()->first()->id;
+        $manager->years_experience = $faker->numberBetween(2,25);
         $manager->fill([
             'en' => [
                 'about_me' => $faker->paragraphs(3,true),
@@ -57,7 +58,8 @@ class UsersSeeder extends Seeder {
                 'leadership_style' => $faker->paragraph(),
                 'employee_learning' => $faker->paragraph(),
                 'expectations' => $faker->paragraph(),
-                'work_experience' => $faker->paragraphs(3,true),
+                'career_journey' => $faker->paragraphs(3,true),
+                'learning_path' => $faker->paragraphs(3,true),
                 'education' => $faker->paragraphs(3,true)
             ],
             'fr' => [
@@ -69,7 +71,8 @@ class UsersSeeder extends Seeder {
                 'leadership_style' => $faker_fr->paragraph(),
                 'employee_learning' => $faker_fr->paragraph(),
                 'expectations' => $faker_fr->paragraph(),
-                'work_experience' => $faker_fr->paragraphs(3,true),
+                'career_journey' => $faker_fr->paragraphs(3,true),
+                'learning_path' => $faker_fr->paragraphs(3,true),
                 'education' => $faker_fr->paragraphs(3,true)
             ]
         ]);

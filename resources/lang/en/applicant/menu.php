@@ -13,14 +13,13 @@ return [
         "name" => "Home",
         "link" => route('home')
     ],
-    "browse" => [
+    "jobs" => [
         "name" => "Browse Jobs",
         "link" => route('jobs.index')
     ],
     "applications" => [
         "name" => "My Applications",
-        // "link" => route('application.index')
-        "link" => "/applications/"
+        "link" => route('applications.index')
     ],
     "profile" => [
         "name" => "My Profile",
@@ -28,8 +27,7 @@ return [
     ],
     "register" => [
         "name" => "Register",
-        //A redirect parameter should be added to this link in MenuComposer
-        "link" => "https://account.gccollab.ca/register/" 
+        "link" => route('register')
     ],
     "login" => [
         "name" => "Login (GC Account)",
@@ -40,6 +38,3 @@ return [
         "link" => route('logout')
     ]
 ];
-
-
-
