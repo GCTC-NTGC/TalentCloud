@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile - Header
+    Applicant: Profile - Questions
 
 ============================================================================= #}
 <div
@@ -9,6 +9,8 @@
 
     <div
         class="container--copy">
+
+        <h3>{{ profile.questions_title }}</h3>
 
         {% for question in applicant_profile_questions %}
 

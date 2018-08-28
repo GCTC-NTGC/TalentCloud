@@ -65,31 +65,6 @@ return [
             "manager" => true
         ],
         "link" => "/admin/profile/"
-    ],
-    "register" => [
-        "name" => "Register",
-        "access" => [
-            "applicant" => true,
-            "manager" => false
-        ],
-        //A redirect parameter should be added to this link in MenuComposer
-        "link" => "https://account.gccollab.ca/register/" 
-    ],
-    "login" => [
-        "name" => "Login (GC Account)",
-        "access" => [
-            "applicant" => true,
-            "manager" => true
-        ],
-        "link" => route('login')
-    ],
-    "logout" => [
-        "name" => "Logout",
-        "access" => [
-            "applicant" => true,
-            "manager" => true
-        ],
-        "link" => route('logout')
     ]
 ];
 

@@ -1,0 +1,54 @@
+// =============================================================================
+
+    // Applicant Profile: About Me
+
+// =============================================================================
+.applicant-profile__about {
+    background: $palette--white;
+    padding: 5rem 0 1px 0;
+
+    fieldset {
+
+        .flex-grid {
+            margin: 0 -1rem;
+
+            >.box {
+
+                >.flex-grid {
+
+                    >.box {
+                        padding: 0 1rem;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .applicant-profile__data-wrapper {
+        padding: 0 0 5rem 0;
+
+        h3 {
+            border-bottom: 1px solid $palette--font-black;
+            color: $palette--black;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 400;
+            margin: 0 0 calc(#{$unit} * 2) 0;
+            padding: 0 0 2rem 0;
+            width: 100%;
+        }
+
+        p {
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            line-height: 1.5;
+            margin: 0 0 2rem 0;
+        }
+
+    }
+
+}

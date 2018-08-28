@@ -1,0 +1,31 @@
+<div
+    class="profile-relative {% if skill == null %}template{% endif %}">
+
+    <div class="form__input-wrapper--select">
+        <label 
+            class="form__label" 
+            for="">
+            {{ sample_template.skill_label }}
+        </label>
+        <div
+            class="form__select-wrapper fas fa-chevron-down">
+            <select
+                class="form__input"
+                id="">
+                {% for userSkill in user.skills %}
+                    <option
+                        {% if skill|capitalize == userSkill|capitalize %}selected="selected"{% endif %}
+                        >{{ userSkill }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <button
+        class="profile-relative__remove-trigger">
+
+        <i class="fas fa-times"></i>
+
+    </button>
+
+</div>

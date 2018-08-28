@@ -1,0 +1,40 @@
+// =============================================================================
+
+    // Applicant Profile: Portfolio
+
+// =============================================================================
+.applicant-profile__portfolio {
+    padding: $section-padding;
+
+    .applicant-profile__portfolio-actions {
+
+        .box {
+
+            h3 {
+                color: $palette--black;
+                font-family: $font--sans;
+                font-size: $font-scale--h3;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+            }
+
+            &:last-child {
+
+                @media #{$p-tablet} {
+                    text-align: right;
+                }
+
+            }
+
+        }
+
+    }
+
+    .applicant-profile__portfolio-index {
+        padding: 2rem 0 0 0;
+
+    }
+
+}

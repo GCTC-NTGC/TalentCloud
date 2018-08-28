@@ -81,9 +81,15 @@
 
         @import "components/footer";
 
+        @import "components/modal";
+
         @import "components/buttons";
         @import "components/forms";
         @import "components/accordions";
+
+        // Skills
+
+            @import "components/skills/common";
 
     // Home
 
@@ -139,7 +145,10 @@
     // Applicant Profile
 
         @import "components/profile/header";
-        @import "components/profile/questions";
+        @import "components/profile/menu";
+        @import "components/profile/about/about";
+        @import "components/profile/about/questions";
+        @import "components/profile/portfolio/portfolio";
 
     // Managers ================================================================
 

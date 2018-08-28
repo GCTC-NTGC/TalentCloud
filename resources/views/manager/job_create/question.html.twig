@@ -5,8 +5,8 @@
 
 ============================================================================= #}
 <div
-    class="manager-jobs__create-question template" 
-    data-question-id="0">
+    class="manager-jobs__create-question {% if question == false %}template{% endif %}" 
+    data-question-id="{% if question == false %}0{% else %}{{ questionCounter }}{% endif %}">
 
     <fieldset
         class="form__fieldset">
@@ -45,7 +45,7 @@
                     <div class="box full">
 
                         <div 
-                            class="form__input-wrapper--float"
+                            class="form__input-wrapper--float {% if question.title != false %}active{% endif %}"
                             data-form-id="question-title-english">
 
                             <label 
@@ -58,7 +58,7 @@
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="">
+                                value="{{ question.title }}">
 
                         </div>
 
@@ -67,7 +67,7 @@
                     <div class="box full">
 
                         <div 
-                            class="form__input-wrapper--float"
+                            class="form__input-wrapper--float {% if question.description != false %}active{% endif %}"
                             data-form-id="question-description-english">
 
                             <label 
@@ -77,7 +77,7 @@
                             </label>
 
                             <textarea
-                                class="form__textarea"></textarea>
+                                class="form__textarea">{{ question.description }}</textarea>
 
                         </div>
 
@@ -96,7 +96,7 @@
                     <div class="box full">
 
                         <div 
-                            class="form__input-wrapper--float"
+                            class="form__input-wrapper--float {% if question.title_fr != false %}active{% endif %}"
                             data-form-id="question-title-french">
 
                             <label 
@@ -109,7 +109,7 @@
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="">
+                                value="{{ question.title_fr }}">
 
                         </div>
 
@@ -118,7 +118,7 @@
                     <div class="box full">
 
                         <div 
-                            class="form__input-wrapper--float"
+                            class="form__input-wrapper--float {% if question.description_fr != false %}active{% endif %}"
                             data-form-id="question-description-french">
 
                             <label 
@@ -128,7 +128,7 @@
                             </label>
 
                             <textarea
-                                class="form__textarea"></textarea>
+                                class="form__textarea">{{ question.description_fr }}</textarea>
 
                         </div>
 

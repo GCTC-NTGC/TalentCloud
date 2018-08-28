@@ -1,0 +1,179 @@
+{# =============================================================================
+
+    Talent Cloud
+    Modals
+
+============================================================================= #}
+<div
+    class="modal-overlay modal-cancel-trigger"></div>
+
+{% for modal in page.modals %}
+
+    <div
+        aria-hidden="true"
+        class="modal"
+        data-modal-id="{{ modal.id }}">
+
+        <div
+            class="modal-heading">
+
+            <h1>{{ modal.title }}</h1>
+
+            <button>
+                <i class="fas fa-times modal-cancel-trigger"></i>
+            </button>
+
+        </div>
+
+        <div
+            class="modal-content">
+
+            <div
+                class="modal-scroll-wrapper">
+
+                {% if modal.type == "confirmation" %}
+
+                    <div
+                        class="modal-copy">
+
+                        {% for item in modal.content %}
+
+                            <p>{{ item }}</p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div
+                        class="flex-grid modal-action-wrapper">
+
+                        <div
+                            class="flex-grid">
+
+                            <div
+                                class="box small-1of2">
+
+                                <button
+                                    class="modal-cancel-trigger button--blue light-bg">
+                                    {{ modal.action_01 }}
+                                </button>
+
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+
+                                <button
+                                    class="button--red light-bg">
+                                    {{ modal.action_02 }}
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+                {% if modal.type == "login" %}
+
+                    <div
+                        class="modal-copy">
+
+                        {% for item in modal.content %}
+
+                            <p>{{ item }}</p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div
+                        class="flex-grid modal-action-wrapper">
+
+                        <div
+                            class="flex-grid">
+
+                            <div
+                                class="box small-1of2">
+
+                                <a
+                                    class="button--blue light-bg"
+                                    href=""
+                                    title="">
+                                    {{ modal.action_01 }}
+                                </a>
+
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+
+                                <a
+                                    class="button--blue light-bg"
+                                    href=""
+                                    title="">
+                                    {{ modal.action_02 }}
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+                {% if modal.type == "logout" %}
+
+                    <div
+                        class="modal-copy">
+
+                        {% for item in modal.content %}
+
+                            <p>{{ item }}</p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div
+                        class="flex-grid modal-action-wrapper">
+
+                        <div
+                            class="flex-grid">
+
+                            <div
+                                class="box small-1of2">
+
+                                <button
+                                    class="modal-cancel-trigger button--blue light-bg">
+                                    {{ modal.action_01 }}
+                                </button>
+
+                            </div>
+
+                            <div
+                                class="box small-1of2">
+
+                                <button
+                                    class="button--red light-bg">
+                                    {{ modal.action_02 }}
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endfor %}

@@ -1,0 +1,183 @@
+{# =============================================================================
+
+    Talent Cloud
+    Skill
+
+============================================================================= #}
+<div
+    class="profile-element accordion {% if skill == false %}template active{% endif %}">
+
+    {# Accordion Trigger #}
+
+        <div
+            {% if skill == false %}
+                aria-expanded="true"
+            {% else %}
+                aria-expanded="false"
+            {% endif %}
+            class="accordion-trigger"
+            tabindex="0">
+
+            <div 
+                class="accordion-status">
+
+                <i class="fas fa-check"></i>
+
+                <i class="fas fa-exclamation-circle"></i>
+
+            </div>
+
+            <span
+                class="accordion-title">
+                {% if skill == false %}
+                    New Skill
+                {% else %}
+                    {{ skill.name }}
+                {% endif %}
+            </span>
+
+            <i class="fas fa-chevron-up"></i>
+
+        </div>
+
+    {# Accordion Content #}
+
+        <div
+            {% if skill == false %}
+                aria-hidden="false"
+            {% else %}
+                aria-hidden="true"
+            {% endif %}
+            class="accordion-content">
+
+            <div
+                class="form__wrapper">
+                
+                <div
+                    class="flex-grid">
+
+                    
+
+                </div>
+
+                {# Relatives (References) #}
+
+                    <div
+                        class="profile-relative-list">
+
+                        {# Relative List Label #}
+
+                            <span
+                                class="profile-relative-list__label">
+                                {{ skill_template.linked_skills_label }}
+                            </span>
+
+                        {# Relative Template #}
+
+                            {% include "common/relatives" %}
+
+                        {# Relative List #}
+
+                            {% set referenceCounter = 0 %}
+
+                            <div 
+                                class="profile-relative-list__wrapper">
+
+                                {% for reference in skill.references %}
+
+                                    {% set referenceCounter = referenceCounter + 1 %}
+
+                                    {% include "common/relatives" %}             
+
+                                {% endfor %}
+
+                            </div>
+
+                        {# Add Relative Trigger #}
+
+                            <div
+                                class="profile-relative__add-trigger-wrapper">
+
+                                <button
+                                    class="profile-relative__add-trigger">
+                                    {{ skill_template.add_skill_label }}
+                                </button>
+
+                            </div>
+
+                    </div>
+
+                {# Relatives (Work Samples) #}
+
+                    <div
+                        class="profile-relative-list">
+
+                        {# Relative List Label #}
+
+                            <span
+                                class="profile-relative-list__label">
+                                {{ skill_template.linked_skills_label }}
+                            </span>
+
+                        {# Relative Template #}
+
+                            {% include "common/relatives" %}
+
+                        {# Relative List #}
+
+                            {% set sampleCounter = 0 %}
+
+                            <div 
+                                class="profile-relative-list__wrapper">
+
+                                {% for sample in skill.samples %}
+
+                                    {% set sampleCounter = sampleCounter + 1 %}
+
+                                    {% include "common/relatives" %}             
+
+                                {% endfor %}
+
+                            </div>
+
+                        {# Add Relative Trigger #}
+
+                            <div
+                                class="profile-relative__add-trigger-wrapper">
+
+                                <button
+                                    class="profile-relative__add-trigger">
+                                    {{ skill_template.add_skill_label }}
+                                </button>
+
+                            </div>
+
+                    </div>
+
+            </div>
+
+            <div
+                class="accordion-actions flex-grid">
+
+                <div
+                    class="box med-1of2">
+                    <button
+                        class="button--red light-bg modal-trigger"
+                        data-modal-id="deleteSkill">
+                        {{ sample_template.action_01 }}
+                    </button>
+                </div>
+
+                <div
+                    class="box med-1of2">
+                    <button
+                        class="button--blue light-bg">
+                        {{ sample_template.action_02 }}
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+</div>

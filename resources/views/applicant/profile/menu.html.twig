@@ -1,0 +1,38 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Submenu
+
+============================================================================= #}
+<section
+    class="applicant-profile__sticky-menu">
+
+    <div 
+        class="container--layout">
+
+        <nav>
+
+            <ul>
+
+                {% for item in profile.menu %}
+
+                    <li>
+
+                        <a
+                            class="{% if item.active == true %}active{% endif %}"
+                            href="{{ item.link }}"
+                            title="{{ item.title }}">
+                            {{ item.label }}
+                        </a>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+</section>

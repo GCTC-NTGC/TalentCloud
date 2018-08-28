@@ -1,0 +1,74 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Skills Index
+
+============================================================================= #}
+<section
+    class="applicant-profile__portfolio">
+
+    <div
+        class="container--layout">
+
+        {# Profile List #}
+
+        <div
+            class="profile-list">
+
+            {# Profile List Header #}
+
+                <div
+                    class="profile-list__header flex-grid middle">
+
+                    <div
+                        class="box med-1of2">
+
+                        <h3>My Soft Skills</h3>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <button
+                            class="profile-list__add-element-trigger">
+                            Add a Skill
+                        </button>
+
+                    </div>
+
+                </div>
+
+            {# Set Locale #}
+
+                {% set locale = "profile" %}
+
+            {# Profile Element Template (Sample) #}
+
+                {% include "common/skill" %}
+
+            {# Profile Element List #}
+
+                <div 
+                    class="profile-element-list">
+
+                    <div
+                        class="profile-null {% if user.portfolio == false %}active{% endif %}">
+
+                        <p>You don't currently have any skills on your profile! Use the button above to add a skill.</p>
+
+                    </div>
+
+                    {% for skill in user.skills %}
+
+                        {% include "common/skill" %}
+
+                    {% endfor %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+</section>
