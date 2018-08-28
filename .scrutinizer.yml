@@ -14,11 +14,14 @@ build:
                     - docker-compose up
                     - make build-db
                     - make test
-                    - psql --cluster 9.4/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+                    # psql --cluster 9.4/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
 
             root_path: './'
 
             environment:
+                variables:
+                    DB_HOST: '0.0.0.0'
+                    DB_PORT: '5432'
                 # Languages
                 php:
                     version: "7.2"
