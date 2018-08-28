@@ -1,0 +1,32 @@
+codecov:
+  bot: gggrant
+  branch: dev
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: null
+        base: auto
+
+coverage:
+  notify:
+    slack:
+      default:
+        url: "https://hooks.slack.com/services/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"
+        # threshold: null
+        only_pulls: false
+        flags: null
+        paths: null
+
+parsers:
+  javascript:
+    enable_partials: yes
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  # require_changes: false  # if true: only post the comment if coverage changes
+  # require_base: no        # [yes :: must have a base report to post]
+  # require_head: yes       # [yes :: must have a head report to post]
