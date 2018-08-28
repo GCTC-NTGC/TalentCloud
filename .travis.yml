@@ -27,6 +27,7 @@ install:
   - sudo make gen-certs
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
+  - npm rebuild
   - npm install
   - npm test
   - psql -c "CREATE DATABASE talentcloud;" -U postgres
