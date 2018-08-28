@@ -20,8 +20,6 @@ env:
   - PGPORT=5433
 
 before_install:
-  - rm -rf /vendor
-  - rm -rf /vendor-cache
   - sudo apt-get update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
@@ -31,7 +29,6 @@ before_install:
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
 install:
-  - psql -c 'create database talentcloud;' -U postgres
   - sudo make gen-certs
   - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start

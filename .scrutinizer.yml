@@ -17,6 +17,7 @@ build:
 
             environment:
                 variables:
+                    DB_HOST: "talentcloud-db"
                     DB_PORT: "5433"
                 # Languages
                 php:
