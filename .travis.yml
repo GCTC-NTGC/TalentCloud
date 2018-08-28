@@ -12,6 +12,9 @@ services:
   - docker
   - postgresql
 
+addons:
+  postgresql: "9.4"
+
 before_install:
   - rm -rf /vendor
   - rm -rf /vendor-cache
