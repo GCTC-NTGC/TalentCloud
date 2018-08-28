@@ -36,8 +36,9 @@ script:
   - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
-  - sudo make code-sniff
-  # sudo make test
+  # sudo make code-sniff
+  - sudo make phpmd
+  - sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
@@ -48,8 +49,8 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gctcntgc/talentcloud:travis .
-  # docker push gctcntgc/talentcloud:travis
+  - docker tag talentcloud gctcntgc/talentcloud:travis
+  - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:
