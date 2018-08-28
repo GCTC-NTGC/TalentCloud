@@ -8,9 +8,7 @@ DB_DUMPS_DIR=database/db/dumps
 build-db:
 	@docker exec -ti talentcloud sh -c "php artisan migrate"
 	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
-
-fake-data:
-	@docker exec -ti talentcloud-db sh -c "php artisan db:seed"
+	@docker exec -ti talentcloud sh -c "php artisan db:seed"
 
 clean:
 	@rm -Rf database/db/pgsql/*
@@ -42,7 +40,8 @@ phpmd:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
 	text cleancode,codesize
 
-test: code-sniff
+test:
+	code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
 .PHONY: clean test code-sniff
