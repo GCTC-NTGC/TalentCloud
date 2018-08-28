@@ -3,22 +3,17 @@ build:
         talentcloud:
             dependencies:
                 before:
-                    - npm install
-                    - composer install
-                    - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
                     - sudo make gen-certs
                     - sudo docker-compose up --abort-on-container-exit
                     - sudo make docker-start
-                    # sudo cp -a .env.example .env
                     - sudo make build-db
                     # sudo docker-compose down -v
 
             root_path: './'
 
             environment:
-                variables:
-                    DB_HOST: 'talentcloud-db'
-                    DB_PORT: '5433'
+                hosts:
+                    local.dev: 127.0.0.1
                 # Languages
                 php:
                     version: "7.2"
@@ -29,6 +24,12 @@ build:
                 # Various pre-installed services that can be configured.
                 docker: true
                 postgresql: true
+                nginx:
+                    sites:
+                        # will add configuration file to "/etc/nginx/sites-enabled"
+                        tc.gccollab.ca:
+                            host: 'local.dev'
+                            web_root: 'public/'
                 selenium: true
 
         analysis:
