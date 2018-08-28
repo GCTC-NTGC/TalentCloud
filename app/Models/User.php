@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class User
  *
@@ -18,8 +16,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property bool $is_confirmed
  * @property int $user_role_id
  * @property string $open_id_sub
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
@@ -31,8 +29,7 @@ use App\Services\Auth\Contracts\OidcAuthenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable as AuthorizableTrait;
 
-class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
-{
+class User extends BaseModel implements OidcAuthenticatable, AuthorizableContract {
     use AuthorizableTrait;
 
     protected $casts = [
@@ -42,23 +39,19 @@ class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
     protected $fillable = [];
     protected $with = ['user_role'];
 
-    public function applicant()
-    {
+    public function applicant() {
         return $this->hasOne(\App\Models\Applicant::class);
     }
 
-    public function manager()
-    {
+    public function manager() {
         return $this->hasOne(\App\Models\Manager::class);
     }
 
-    public function profile_pic()
-    {
+    public function profile_pic() {
         return $this->hasOne(\App\Models\ProfilePic::class);
     }
 
-    public function user_role()
-    {
+    public function user_role() {
         return $this->belongsTo(\App\Models\UserRole::class);
     }
 
@@ -66,35 +59,29 @@ class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
     //Authenticatable Interface Implementation
     ///////////////////////////////////////////
 
-    public function getAuthIdentifier()
-    {
+    public function getAuthIdentifier() {
         return $this->id;
     }
 
-    public function getAuthIdentifierName()
-    {
+    public function getAuthIdentifierName() {
         return "id";
     }
 
-    public function getAuthPassword()
-    {
+    public function getAuthPassword() {
         return null;
     }
 
-    public function getRememberToken()
-    {
+    public function getRememberToken() {
         //TODO
         return null;
     }
 
-    public function getRememberTokenName()
-    {
+    public function getRememberTokenName() {
         //TODO
         return null;
     }
 
-    public function setRememberToken($value)
-    {
+    public function setRememberToken($value) {
         //TODO
         return null;
     }
@@ -103,13 +90,11 @@ class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
     //OidcAuthenticatable Interface Implementation
     ///////////////////////////////////////////
 
-    public function getRole(): array
-    {
+    public function getRole(): array {
         return $this->role;
     }
 
-    public function getSub($iss): string
-    {
+    public function getSub($iss): string {
         //TODO: implement alterative issuers
         return $this->open_id_sub;
     }
@@ -119,8 +104,7 @@ class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
      *
      * @return App\Services\Auth\Contracts\OidcAuthenticatable|null
      */
-    public function findByOidcSub($iss, $sub)
-    {
+    public function findByOidcSub($iss, $sub) {
         //TODO: allow alternative issuers
         return User::where('open_id_sub', $sub)->first();
     }
@@ -130,8 +114,7 @@ class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
      *
      * @return App\Services\Auth\Contracts\OidcAuthenticatable
      */
-    public function createWithOidcCredentials($name, $email, $iss, $sub, $role)
-    {
+    public function createWithOidcCredentials($name, $email, $iss, $sub, $role) {
         $user = new User();
         $user->name = $name;
         $user->email = $email;
@@ -144,4 +127,5 @@ class User extends Eloquent implements OidcAuthenticatable, AuthorizableContract
 
         return $user;
     }
+
 }

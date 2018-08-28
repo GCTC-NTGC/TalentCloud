@@ -71,13 +71,12 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct(
-        TokenStorage $tokenStorage,
-        RequestTokenParser $requestTokenParser,
-        Parser $tokenParser,
-        BaseOidcUserProvider $userProvider,
-        JSONGetter $jsonGetter
-    ) {
+    public function __construct(TokenStorage $tokenStorage,
+            RequestTokenParser $requestTokenParser,
+            Parser $tokenParser,
+            BaseOidcUserProvider $userProvider,
+            JSONGetter $jsonGetter)
+    {
         //$this->middleware('guest', ['only' => 'logout']);
 
         $this->tokenStorage = $tokenStorage;
@@ -103,8 +102,7 @@ class LoginController extends Controller
      * Begin the the log in process.
      * @return \Illuminate\Http\Response
      */
-    public function login()
-    {
+    public function login() {
         //The authenticate function will cause a redirect to the OpenID provider
         // unless the current url contains a code parameter. In that case, the
         // code will be used to aquire tokens from the api endpoint.
@@ -132,7 +130,7 @@ class LoginController extends Controller
             $this->tokenStorage->saveRefresh($iss, $sub, $this->oidcClient->getRefreshToken());
 
             //Update user model if it differs from openid user
-            if ($user->name !== $userInfo->name ||
+            if($user->name !== $userInfo->name ||
                     $user->email !== $userInfo->email) {
                 $user->name = $userInfo->name;
                 $user->email = $userInfo->email;
@@ -159,8 +157,7 @@ class LoginController extends Controller
      * Log the user out.
      * @return \Illuminate\Http\Response
      */
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         $idToken = $this->requestTokenParser->parse($request);
 
         //This will cause a redirect
@@ -175,8 +172,7 @@ class LoginController extends Controller
      * Log the user out.
      * @return \Illuminate\Http\Response
      */
-    public function logoutCallback(Request $request)
-    {
+    public function logoutCallback(Request $request) {
         $idToken = $this->requestTokenParser->parse($request);
         $iss = $idToken->getClaim('iss');
         $sub = $idToken->getClaim('sub');

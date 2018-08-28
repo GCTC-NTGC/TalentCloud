@@ -7,28 +7,25 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class MicroReference
- *
+ * 
  * @property int $id
  * @property string $name
  * @property string $email
  * @property int $relationship_id
- * @property \Carbon\Carbon $observed_from_date
- * @property \Carbon\Carbon $observed_until_date
+ * @property \Jenssegers\Date\Date $observed_from_date
+ * @property \Jenssegers\Date\Date $observed_until_date
  * @property int $experience_level_id
  * @property string $story
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  * @property \App\Models\Lookup\Relationship $relationship
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  */
-class MicroReference extends Eloquent
-{
+class MicroReference extends BaseModel {
 
     protected $casts = [
         'relationship_id' => 'int',
@@ -48,18 +45,16 @@ class MicroReference extends Eloquent
         'story'
     ];
 
-    public function experience_level()
-    {
+    public function experience_level() {
         return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
     }
 
-    public function relationship()
-    {
+    public function relationship() {
         return $this->belongsTo(\App\Models\Lookup\Relationship::class);
     }
 
-    public function application_micro_references()
-    {
+    public function application_micro_references() {
         return $this->hasMany(\App\Models\ApplicationMicroReference::class);
     }
+
 }

@@ -7,15 +7,15 @@
 
 namespace App\Models\Lookup;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use App\Models\BaseModel;
 
 /**
  * Class ApplicantProfileQuestion
  *
  * @property int $id
  * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
@@ -24,21 +24,19 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $value
  * @property string $description
  */
-class ApplicantProfileQuestion extends Eloquent
-{
+class ApplicantProfileQuestion extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
     public $translatedAttributes = ['value', 'description'];
     protected $fillable = [];
 
-    public function applicant_profile_answers()
-    {
+    public function applicant_profile_answers() {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
     }
 
-    public function applicant_profile_question_translations()
-    {
+    public function applicant_profile_question_translations() {
         return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
     }
+
 }

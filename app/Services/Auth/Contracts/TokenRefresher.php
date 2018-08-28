@@ -9,7 +9,7 @@ interface TokenRefresher
 {
     /**
      * Fetch and return Refresh token by iss and sub params.
-     *
+     * 
      * @param string $sub
      * @param string $iss
      * @return Token

@@ -7,11 +7,9 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
 /**
  * Class SkillDeclaration
- *
+ * 
  * @property int $id
  * @property int $criteria_id
  * @property int $job_application_id
@@ -19,16 +17,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $skill_level_id
  * @property string $description
  * @property bool $is_active
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
+ * 
  * @property \App\Models\Criteria $criterion
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\Lookup\SkillLevel $skill_level
  */
-class SkillDeclaration extends Eloquent
-{
+class SkillDeclaration extends BaseModel {
 
     protected $casts = [
         'criteria_id' => 'int',
@@ -45,23 +42,20 @@ class SkillDeclaration extends Eloquent
         'description'
     ];
 
-    public function criterion()
-    {
+    public function criterion() {
         return $this->belongsTo(\App\Models\Criteria::class, 'criteria_id');
     }
 
-    public function experience_level()
-    {
+    public function experience_level() {
         return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
     }
 
-    public function job_application()
-    {
+    public function job_application() {
         return $this->belongsTo(\App\Models\JobApplication::class);
     }
 
-    public function skill_level()
-    {
+    public function skill_level() {
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
     }
+
 }
