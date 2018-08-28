@@ -6,6 +6,27 @@
 
 {# Form Input =============================================================== #}
 
+    {# Textarea #}
+
+        <div
+            class="box full">
+
+            <div 
+                class="form__input-wrapper--float {% if experience.description != null%}active{% endif %}"
+                data-form-id="experience-description">
+
+                <label 
+                    class="form__label"
+                    for="description{{ experienceCounter }}">
+                    {{ application.experience.description_label }}
+                </label>
+
+                <textarea class="form__textarea" id="description{{ experienceCounter }}">{{ experience.description }}</textarea>
+
+            </div>
+
+        </div>
+
 {# Form Select ============================================================== #}
 
     <div

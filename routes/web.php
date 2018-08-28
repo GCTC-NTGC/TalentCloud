@@ -1221,7 +1221,8 @@ Route::get('profile/skills', function () {
             "skills" => [
                 "00" => [
                     "name" => "HTML",
-                    "type" => "hard",
+                    "level" => "beginner",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
                     "references" => [
                         "00" => "Mark Hamill"
                     ],
@@ -1231,13 +1232,21 @@ Route::get('profile/skills', function () {
                 ],
                 "01" => [
                     "name" => "CSS",
-                    "type" => "hard",
+                    "level" => "advanced",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
                     "references" => [
                         "00" => "Mark Hamill"
                     ],
                     "samples" => [
                         "00" => "My Website"
                     ]
+                ],
+                "02" => [
+                    "name" => "UX Research",
+                    "level" => "beginner",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [],
+                    "samples" => []
                 ]
             ],
             "references" => [
@@ -1314,12 +1323,19 @@ Route::get('profile/skills', function () {
         ],
         "skills" => [
             "00" => [
-                "name" => "Ux Research",
+                "name" => "UX Research",
+                "type" => "soft",
                 "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
             ],
             "01" => [
                 "name" => "HTML",
+                "type" => "hard",
                 "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+            ],
+            "02" => [
+                "name" => "CSS",
+                "type" => "hard",
+                "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
             ]
         ]
     ]);

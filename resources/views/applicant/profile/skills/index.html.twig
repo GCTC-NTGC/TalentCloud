@@ -43,6 +43,10 @@
 
                     {% set locale = "profile" %}
 
+                {# Set Type #}
+
+                    {% set skillType = "soft" %}
+
                 {# Profile Element Template (Sample) #}
 
                     {% include "common/skill" %}
@@ -56,13 +60,21 @@
 
                         {% for skill in user.skills %}
 
-                            {% if skill.type == "soft" %}
+                            {% for siteSkill in skills %}
 
-                                {% set softSkillCounter = softSkillCounter + 1 %}
+                                {% if siteSkill.type == "soft" %}
 
-                                {% include "common/skill" %}
+                                    {% if skill.name|capitalize == siteSkill.name|capitalize %}
 
-                            {% endif %}
+                                        {% set softSkillCounter = softSkillCounter + 1 %}
+
+                                        {% include "common/skill" %}
+
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
 
                         {% endfor %}
 
@@ -110,6 +122,10 @@
 
                     {% set locale = "profile" %}
 
+                {# Set Type #}
+
+                    {% set skillType = "hard" %}
+
                 {# Profile Element Template (Sample) #}
 
                     {% include "common/skill" %}
@@ -123,13 +139,21 @@
 
                         {% for skill in user.skills %}
 
-                            {% if skill.type == "hard" %}
+                            {% for siteSkill in skills %}
 
-                                {% set hardSkillCounter = hardSkillCounter + 1 %}
+                                {% if siteSkill.type == "hard" %}
 
-                                {% include "common/skill" %}
+                                    {% if skill.name|capitalize == siteSkill.name|capitalize %}
 
-                            {% endif %}
+                                        {% set hardSkillCounter = hardSkillCounter + 1 %}
+
+                                        {% include "common/skill" %}
+
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
 
                         {% endfor %}
 
