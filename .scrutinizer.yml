@@ -26,9 +26,6 @@ build:
             DB_DATABASE: 'talentcloud'
             DB_USERNAME: 'scrutinizer'
             DB_PASSWORD: 'scrutinizer'
-        # Sets up DNS entries for certain hosts
-        hosts:
-            local.dev: 127.0.0.1
         # Languages
         php:
             version: "7.2"
@@ -39,12 +36,6 @@ build:
         # Various pre-installed services that can be configured.
         docker: true
         postgresql: true
-        nginx:
-            sites:
-                # will add configuration file to "/etc/nginx/sites-enabled"
-                tc.gccollab.ca:
-                    host: 'local.dev'
-                    web_root: 'public/'
         selenium: true
 
 filter:
