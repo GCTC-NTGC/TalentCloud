@@ -10,7 +10,7 @@ build:
     dependencies:
         before:
             - make gen-certs
-            - docker-compose up
+            - make docker-start
             - composer install
             # sudo make docker-start
             - make build-db
@@ -43,7 +43,7 @@ build:
         selenium: true
         variables:
             DB_HOST: 'localhost'
-            DB_PORT: '5432'
+            DB_PORT: '5434'
             DB_DATABASE: 'talentcloud'
             DB_USERNAME: 'scrutinizer'
             DB_PASSWORD: 'scrutinizer'
