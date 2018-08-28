@@ -6,11 +6,11 @@ build:
                     - npm install
                     - composer install
                     - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
-                    - make gen-certs
-                    # sudo docker-compose up --abort-on-container-exit
-                    # sudo make docker-start
+                    - sudo make gen-certs
+                    - sudo docker-compose up --abort-on-container-exit
+                    - sudo make docker-start
                     # sudo cp -a .env.example .env
-                    # sudo make build-db
+                    - sudo make build-db
                     # sudo docker-compose down -v
 
             root_path: './'
