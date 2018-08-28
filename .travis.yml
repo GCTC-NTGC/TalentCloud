@@ -17,7 +17,8 @@ addons:
 
 env:
   global:
-  - PGPORT=5433
+    - PGHOST=talentcloud-db
+    - PGPORT=5433
 
 before_install:
   - sudo apt-get update
