@@ -15,6 +15,10 @@ services:
 addons:
   postgresql: "9.4"
 
+env:
+  global:
+    - PGPORT=5433
+
 before_install:
   - rm -rf /vendor
   - rm -rf /vendor-cache
