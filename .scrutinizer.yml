@@ -6,12 +6,15 @@ build:
                     - php-scrutinizer-run
                     - js-scrutinizer-run
                     - phpcs-run ./app
+                    - phpcs-run ./public
 
     dependencies:
         before:
             - composer install
             - make gen-certs
+            - make docker-start
             - make build-db
+            - make test
             # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
 
     root_path: './'
