@@ -7,7 +7,7 @@ coverage:
     project:
       default:
         target: auto
-        threshold: null
+        # threshold: null
         base: auto
 
 coverage:
