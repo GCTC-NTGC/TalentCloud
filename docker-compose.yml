@@ -1,6 +1,6 @@
 version: '2'
 services:
-    # Nginx Web Server
+    # Web Server / Nginx
     nginx:
         image: nginx:alpine
         container_name: nginx
@@ -25,7 +25,7 @@ services:
     # Application / PHP-FPM
     talentcloud:
         build: .
-        # image: gctcntgc/talentcloud:dev_refactor
+        # image: gctcntgc/talentcloud
         container_name: talentcloud
         working_dir: /var/www
         restart: always
@@ -35,38 +35,35 @@ services:
         links:
             - talentcloud-db
         environment:
-            - "DB_PORT=3306"
+            - "DB_PORT=5432"
             - "DB_HOST=talentcloud-db"
-    # Database
+    # Database / Postgres
     talentcloud-db:
-        image: mysql:5.6
+        image: postgres
         container_name: talentcloud-db
         restart: always
         volumes:
-            - "./database/db/mysql:/var/lib/mysql"
-            - "./database/db/dumps:/docker-entrypoint-initdb.d"
+            - "./database/db/pgsql/data:/var/lib/postgresql/data"
+            - "./database/db/dumps:/manual_db"
         environment:
-            - "MYSQL_DATABASE=talentcloud"
-            - "MYSQL_ROOT_PASSWORD=talentcloud"
-            - "MYSQL_USER=talentcloud"
-            - "MYSQL_PASSWORD=talentcloud"
+            - "POSTGRES_DB=talentcloud"
+            - "POSTGRES_USER=talentcloud"
+            - "POSTGRES_PASSWORD=talentcloud"
+            - "PGDATA=/database/db/pgsql/data"
         ports:
-            - "33061:3306"
-    # PHP MyAdmin
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
+            - "5434:5432"
+    # Adminer
+    adminer:
+        image: adminer
+        container_name: adminer
         restart: always
         links:
             - talentcloud-db
-        environment:
-            - "PMA_ARBITRARY=1"
-            - "PMA_HOST=talentcloud-db"
         ports:
-            - "8080:80"
+            - "8080:8080"
     # Composer
     composer:
-        image: "composer"
+        image: composer
         container_name: composer
         volumes:
             - "./:/app"
