@@ -45,7 +45,7 @@ services:
         restart: always
         volumes:
             - "./database/db/pgsql/data:/var/lib/postgresql/data"
-            - "./database/db/dumps:/docker-entrypoint-initdb.d"
+            # "./database/db/dumps:/docker-entrypoint-initdb.d"
             - "./database/db/dumps/migration/pgsql:/manual_db"
         environment:
             - "POSTGRES_DB=talentcloud"
