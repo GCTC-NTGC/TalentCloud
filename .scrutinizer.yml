@@ -22,7 +22,7 @@ build:
     environment:
         # Sets up DNS entries for certain hosts
         hosts:
-            local.dev: 127.0.0.1
+            local.dev: 0.0.0.0
         # Languages
         php:
             version: "7.2"
