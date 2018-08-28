@@ -42,11 +42,11 @@ build:
 
         selenium: true
         variables:
-            DB_HOST: 'talentcloud-db'
-            DB_PORT: '5434'
+            DB_HOST: 'localhost'
+            DB_PORT: '5432'
             DB_DATABASE: 'talentcloud'
-            DB_USERNAME: 'talentcloud'
-            DB_PASSWORD: 'talentcloud'
+            DB_USERNAME: 'scrutinizer'
+            DB_PASSWORD: 'scrutinizer'
 
 filter:
     excluded_paths:
