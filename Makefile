@@ -5,6 +5,10 @@
 # MySQL
 MYSQL_DUMPS_DIR=database/db/dumps
 
+build-db:
+	@docker exec -ti talentcloud sh -c "php artisan migrate"
+	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+
 clean:
 	@rm -Rf database/db/pgsql/*
 	@rm -Rf vendor/
@@ -27,18 +31,6 @@ gen-certs:
 
 logs:
 	@docker-compose logs -f
-
-build-db:
-	@docker exec -ti talentcloud sh -c "php artisan migrate"
-	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
-
-mysql-dump:
-	@mkdir -p $(MYSQL_DUMPS_DIR)
-	@docker exec $(shell docker-compose ps -q talentcloud-db) mysqldump --all-databases -u"talentcloud" -p"talentcloud" > $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
-	@make resetOwner
-
-mysql-restore:
-	@docker exec -i $(shell docker-compose ps -q talentcloud-db) mysql -u"talentcloud" -p"talentcloud" < $(MYSQL_DUMPS_DIR)/db.sql 2>/dev/null
 
 phpmd:
 	@docker-compose exec -T talentcloud \
