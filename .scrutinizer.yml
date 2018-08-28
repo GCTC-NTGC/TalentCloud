@@ -3,12 +3,12 @@ build:
         talentcloud:
             dependencies:
                 before:
-                    - sudo cp -a .env.example .env
-                    - composer install
                     - npm rebuild
                     - npm install
                     - make gen-certs
-                    - docker-compose up
+                    - sudo docker-compose up --abort-on-container-exit
+                    - sudo make docker-start
+                    - sudo cp -a .env.example .env
                     - make build-db
                     - make test
                     # psql --cluster 9.4/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
