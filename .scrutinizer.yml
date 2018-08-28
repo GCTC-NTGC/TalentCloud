@@ -42,10 +42,8 @@ build:
 
         selenium: true
         variables:
-            APP_NAME: 'Talent Cloud'
-            APP_ENV: 'local'
             DB_HOST: 'talentcloud-db'
-            DB_PORT: '5432'
+            DB_PORT: '5434'
             DB_DATABASE: 'talentcloud'
             DB_USERNAME: 'talentcloud'
             DB_PASSWORD: 'talentcloud'
