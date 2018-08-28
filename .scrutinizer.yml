@@ -9,13 +9,12 @@ build:
 
     dependencies:
         before:
-            - make gen-certs
-            - make docker-start
             - composer install
-            # sudo make docker-start
+            - make gen-certs
+            - docker-compose up
             - make build-db
             - make test
-            # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
 
     root_path: './'
 
@@ -23,7 +22,7 @@ build:
         variables:
             # DB_HOST: 'localhost'
             DB_PORT: '5434'
-            DB_DATABASE: 'scrutinizer'
+            DB_DATABASE: 'talentcloud'
             DB_USERNAME: 'scrutinizer'
             DB_PASSWORD: 'scrutinizer'
         # Languages
