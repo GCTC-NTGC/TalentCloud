@@ -1,39 +1,5 @@
 build:
     nodes:
-        talentcloud:
-            dependencies:
-                before:
-                    - sudo make gen-certs
-                    - sudo docker-compose up --abort-on-container-exit
-                    - sudo make docker-start
-                    - sudo make build-db
-                    # sudo docker-compose down -v
-
-            root_path: './'
-
-            environment:
-                variables:
-                    DB_HOST: 'local.dev'
-                hosts:
-                    local.dev: 127.0.0.1
-                # Languages
-                php:
-                    version: "7.2"
-                    ini:
-                        memory_limit: "-1"
-                ruby: "2.3.1"
-                node: "v6.2.0"
-                # Various pre-installed services that can be configured.
-                docker: true
-                postgresql: true
-                nginx:
-                    sites:
-                        # will add configuration file to "/etc/nginx/sites-enabled"
-                        tc.gccollab.ca:
-                            host: 'local.dev'
-                            web_root: 'public/'
-                selenium: true
-
         analysis:
             tests:
                 override:
@@ -41,6 +7,39 @@ build:
                     - js-scrutinizer-run
                     - phpcs-run ./app
                     - phpcs-run ./public
+
+    dependencies:
+        before:
+            - sudo make gen-certs
+            - sudo docker-compose up --abort-on-container-exit
+            - sudo make docker-start
+            - sudo make build-db
+            # sudo docker-compose down -v
+
+    root_path: './'
+
+    environment:
+        variables:
+            DB_HOST: 'local.dev'
+        hosts:
+            local.dev: 127.0.0.1
+        # Languages
+        php:
+            version: "7.2"
+            ini:
+                memory_limit: "-1"
+        ruby: "2.3.1"
+        node: "v6.2.0"
+        # Various pre-installed services that can be configured.
+        docker: true
+        postgresql: true
+        nginx:
+            sites:
+                # will add configuration file to "/etc/nginx/sites-enabled"
+                tc.gccollab.ca:
+                    host: 'local.dev'
+                    web_root: 'public/'
+        selenium: true
 
 filter:
     excluded_paths:
