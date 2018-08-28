@@ -51,7 +51,9 @@ services:
             - "POSTGRES_PASSWORD=talentcloud"
             - "PGDATA=/database/db/pgsql/data"
         ports:
-            - "5435:5432"
+            - "5432:5432"
+            - "5433:5433"
+            - "5434:5434"
     # Adminer
     adminer:
         image: adminer
