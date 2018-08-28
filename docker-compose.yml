@@ -22,7 +22,6 @@ services:
         ports:
             - "80:80"
             - "443:443"
-
     # Application / PHP-FPM
     talentcloud:
         build: .
@@ -45,7 +44,7 @@ services:
         restart: always
         volumes:
             - "./database/db/pgsql/data:/var/lib/postgresql/data"
-            - "./database/db/dumps/migration/pgsql:/manual_db"
+            - "./database/db/dumps:/manual_db"
         environment:
             - "POSTGRES_DB=talentcloud"
             - "POSTGRES_USER=talentcloud"
