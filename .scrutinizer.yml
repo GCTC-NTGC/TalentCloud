@@ -36,9 +36,15 @@ build:
                 override:
                     - php-scrutinizer-run # --enable-security-analysis
                     - js-scrutinizer-run
-                    - csslint-run ./public/css
-                    - phpcs-run ./app
-                    - phpcs-run ./public
+                    -
+                        command: phpcs-run
+                        use_website_config: true
+                    -
+                        command: scss-lint-run
+                        use_website_config: true
+                    -
+                        command: csslint-run
+                        use_website_config: true
 
 filter:
     excluded_paths:
@@ -48,6 +54,7 @@ filter:
         - '*/vendor/*'
 
 checks:
+    javascript: true
     php: true
 
 tools:
