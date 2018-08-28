@@ -13,12 +13,12 @@ services:
   - postgresql
 
 addons:
-  postgresql: "9.4"
+  postgresql: "9.6"
 
 env:
   global:
     - PGHOST=talentcloud-db
-    - PGPORT=5433
+    - PGPORT=5434
 
 before_install:
   - sudo apt-get update
