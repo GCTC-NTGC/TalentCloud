@@ -12,14 +12,6 @@ services:
   - docker
   - postgresql
 
-addons:
-  postgresql: "9.6"
-
-env:
-  global:
-    - PGHOST=talentcloud-db
-    - PGPORT=5434
-
 before_install:
   - sudo apt-get update
   - sudo rm /usr/local/bin/docker-compose
