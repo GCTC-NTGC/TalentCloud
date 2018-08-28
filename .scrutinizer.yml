@@ -1,14 +1,6 @@
 build:
     root_path: './'
 
-    dependencies:
-        before:
-            - sudo make gen-certs
-            - sudo docker-compose up --abort-on-container-exit
-            - sudo make docker-start
-            - sudo make build-db
-            # sudo docker-compose down -v
-
     environment:
         variables:
             DB_HOST: 'talentcloud-db'
@@ -26,6 +18,15 @@ build:
         docker: true
         postgresql: true
         selenium: true
+
+    dependencies:
+        override:
+            - npm install
+            - sudo make gen-certs
+            - sudo docker-compose up --abort-on-container-exit
+            - sudo make docker-start
+            - sudo make build-db
+            # sudo docker-compose down -v
 
     nodes:
         analysis:
