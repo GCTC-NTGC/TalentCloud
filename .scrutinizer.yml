@@ -21,6 +21,8 @@ build:
 
     dependencies:
         override:
+            - true
+        before:
             - npm install
             - sudo make gen-certs
             - sudo docker-compose up --abort-on-container-exit
