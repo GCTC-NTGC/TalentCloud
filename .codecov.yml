@@ -1,6 +1,6 @@
 codecov:
   bot: gggrant
-  branch: dev, gb_postgres, master
+  branch: dev
 
 coverage:
   notify:
