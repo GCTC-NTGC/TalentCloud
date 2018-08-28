@@ -64,5 +64,5 @@ notifications:
   slack:
     rooms:
       - "talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam"
-    on_success: always
+    on_success: change
     on_failure: always
