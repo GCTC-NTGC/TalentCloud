@@ -12,6 +12,8 @@ build:
             root_path: './'
 
             environment:
+                variables:
+                    DB_HOST: 'local.dev'
                 hosts:
                     local.dev: 127.0.0.1
                 # Languages
