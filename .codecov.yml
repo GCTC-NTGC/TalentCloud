@@ -8,7 +8,7 @@ coverage:
       default:
         target: auto
         # threshold: null
-        base: auto
+        base: dev
 
 coverage:
   notify:
