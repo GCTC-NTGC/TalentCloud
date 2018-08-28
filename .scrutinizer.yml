@@ -3,6 +3,7 @@ build:
         talentcloud:
             dependencies:
                 before:
+                    - sudo cp -a .env.example .env
                     - composer install
                     - npm rebuild
                     - npm install
@@ -15,9 +16,6 @@ build:
             root_path: './'
 
             environment:
-                variables:
-                    DB_HOST: '0.0.0.0'
-                    DB_PORT: '5432'
                 # Languages
                 php:
                     version: "7.2"
