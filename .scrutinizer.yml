@@ -35,7 +35,7 @@ build:
                 override:
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
-                    - phpcs-run
+                    - phpcs-run ./app ./public
 
 filter:
     excluded_paths:
