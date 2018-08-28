@@ -34,12 +34,6 @@ build:
         # Various pre-installed services that can be configured.
         docker: true
         postgresql: true
-        nginx:
-            sites:
-                # will add configuration file to "/etc/nginx/sites-enabled"
-                tc.gccollab.ca:
-                    host: 'local.dev'
-                    web_root: 'public/'
         selenium: true
 
 filter:
