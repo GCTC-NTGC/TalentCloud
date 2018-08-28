@@ -1,15 +1,11 @@
 build:
     nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run --enable-security-analysis
-                    - js-scrutinizer-run
-                    - phpcs-run
         talentcloud:
             dependencies:
                 before:
                     - composer install
+                    - npm rebuild
+                    - npm install
                     - make gen-certs
                     - docker-compose up
                     - make build-db
@@ -33,6 +29,13 @@ build:
                 docker: true
                 postgresql: true
                 selenium: true
+
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run --enable-security-analysis
+                    - js-scrutinizer-run
+                    - phpcs-run
 
 filter:
     excluded_paths:
