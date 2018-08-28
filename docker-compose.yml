@@ -36,7 +36,7 @@ services:
             - talentcloud-db
         environment:
             - "DB_PORT=5432"
-            - "DB_HOST=localhost"
+            - "DB_HOST=talentcloud-db"
     # Database / Postgres
     talentcloud-db:
         image: postgres
