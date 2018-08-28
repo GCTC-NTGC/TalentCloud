@@ -1,12 +1,5 @@
 build:
-    nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run --enable-security-analysis
-                    - js-scrutinizer-run
-                    - phpcs-run ./app
-                    - phpcs-run ./public
+    root_path: './'
 
     dependencies:
         before:
@@ -15,8 +8,6 @@ build:
             - sudo make docker-start
             - sudo make build-db
             # sudo docker-compose down -v
-
-    root_path: './'
 
     environment:
         variables:
@@ -35,6 +26,15 @@ build:
         docker: true
         postgresql: true
         selenium: true
+
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run --enable-security-analysis
+                    - js-scrutinizer-run
+                    - phpcs-run ./app
+                    - phpcs-run ./public
 
 filter:
     excluded_paths:
