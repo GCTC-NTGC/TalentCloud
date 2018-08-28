@@ -10,7 +10,9 @@ build:
     dependencies:
         before:
             - composer install
-            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+            - make gen-certs
+            - make build-db
+            # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
 
     root_path: './'
 
