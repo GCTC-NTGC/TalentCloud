@@ -5,7 +5,8 @@ build:
                 before:
                     - npm install
                     - composer install
-                    # sudo make gen-certs
+                    - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+                    - make gen-certs
                     # sudo docker-compose up --abort-on-container-exit
                     # sudo make docker-start
                     # sudo cp -a .env.example .env
@@ -15,9 +16,6 @@ build:
             root_path: './'
 
             environment:
-                variables:
-                    DB_HOST: "talentcloud-db"
-                    DB_PORT: "5433"
                 # Languages
                 php:
                     version: "7.2"
@@ -35,7 +33,8 @@ build:
                 override:
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
-                    - phpcs-run ./app ./public
+                    - phpcs-run ./app
+                    - phpcs-run ./public
 
 filter:
     excluded_paths:
