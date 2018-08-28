@@ -20,6 +20,12 @@ build:
     root_path: './'
 
     environment:
+        variables:
+            DB_HOST: 'localhost'
+            DB_PORT: '5434'
+            DB_DATABASE: 'talentcloud'
+            DB_USERNAME: 'scrutinizer'
+            DB_PASSWORD: 'scrutinizer'
         # Sets up DNS entries for certain hosts
         hosts:
             local.dev: 127.0.0.1
@@ -39,14 +45,7 @@ build:
                 tc.gccollab.ca:
                     host: 'local.dev'
                     web_root: 'public/'
-
         selenium: true
-        variables:
-            DB_HOST: 'localhost'
-            DB_PORT: '5434'
-            DB_DATABASE: 'talentcloud'
-            DB_USERNAME: 'scrutinizer'
-            DB_PASSWORD: 'scrutinizer'
 
 filter:
     excluded_paths:
