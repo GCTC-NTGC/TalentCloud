@@ -8,7 +8,7 @@ coverage:
       default:
         target: auto
         # threshold: null
-        base: dev
+        base: auto
   notify:
     slack:
       default:
