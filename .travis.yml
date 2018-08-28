@@ -35,10 +35,6 @@ script:
   - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
-  # php artisan migrate --force
-  # php artisan db:seed --force
-  # sudo make mysql-dump
-  # sudo make mysql-restore
   - sudo make code-sniff
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
