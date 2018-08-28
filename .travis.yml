@@ -25,15 +25,11 @@ before_install:
 
 before_script:
   - sudo make docker-start
-  - composer self-update
-  - composer install --no-interaction --prefer-source
-  - npm i -g npm
   - npm install
-  - mysql -u root -e 'CREATE DATABASE talentcloud;'
-  - mysql -u root -e "CREATE USER 'talentcloud'@'localhost' IDENTIFIED BY 'talentcloud';"
-  - mysql -u root -e "GRANT ALL ON *.* TO 'talentcloud'@'localhost';"
-  - php artisan migrate --force
-  # php artisan db:seed --force
+  - npm test
+  - psql -c "CREATE DATABASE talentcloud;" -U postgres
+  - psql -c "CREATE ROLE talentcloud WITH LOGIN PASSWORD 'talentcloud';" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
 
 script:
   - sudo make gen-certs
@@ -42,6 +38,8 @@ script:
   # sudo make phpmd
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
 after_script:
   - sudo make docker-stop
@@ -49,9 +47,14 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gggrant/tc-laravel .
-  - docker push gggrant/tc-laravel
+  - docker build -t gctcntgc/talentcloud:travis-build .
+  - docker push gctcntgc/talentcloud:travis-build
 
-# do not send emails
+# Slack notifications / do not send emails
 notifications:
-    email: never
+  email: never
+  slack:
+    rooms:
+      - "talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam"
+    on_success: always
+    on_failure: always
