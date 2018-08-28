@@ -119,10 +119,10 @@ class ManagerProfileController extends Controller {
             ]
         ]);
         //Slider select inputs can be missing from input if nothing was selected
-        if ($input['telework']) {
+        if (isset($input['telework'])) {
             $work_environment->telework_allowed_frequency_id = $input['telework'];
         }
-        if ($input['flex_hours']) {
+        if (isset($input['flex_hours'])) {
             $work_environment->flexible_hours_frequency_id = $input['flex_hours'];
         }
         $work_environment->save();
