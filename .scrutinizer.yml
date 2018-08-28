@@ -20,7 +20,8 @@ build:
 
     environment:
         variables:
-            DB_HOST: 'local.dev'
+            DB_HOST: 'talentcloud-db'
+            DB_PORT: '5433'
         hosts:
             local.dev: 127.0.0.1
         # Languages
