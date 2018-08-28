@@ -52,5 +52,6 @@ after_success:
 # Slack notifications / do not send emails
 notifications:
   email: never
+  slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
   on_success: change
   on_failure: always
