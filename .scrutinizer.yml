@@ -3,14 +3,14 @@ build:
         talentcloud:
             dependencies:
                 before:
-                    - npm rebuild
                     - npm install
-                    - sudo make gen-certs
-                    - sudo docker-compose up --abort-on-container-exit
-                    - sudo make docker-start
-                    - sudo cp -a .env.example .env
-                    - sudo make build-db
-                    - sudo docker-compose down -v
+                    - composer install
+                    # sudo make gen-certs
+                    # sudo docker-compose up --abort-on-container-exit
+                    # sudo make docker-start
+                    # sudo cp -a .env.example .env
+                    # sudo make build-db
+                    # sudo docker-compose down -v
 
             root_path: './'
 
