@@ -12,7 +12,7 @@ namespace App\Models;
  *
  * @property int $id
  * @property int $job_term_id
- * @property string $term_qty
+ * @property int $term_qty
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
