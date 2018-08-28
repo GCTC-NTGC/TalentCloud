@@ -22,7 +22,7 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set memory_limit 512M
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 --extensions=php public/ app/
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 --extensions=php app/ public/
 
 docker-start:
 	docker-compose up -d
