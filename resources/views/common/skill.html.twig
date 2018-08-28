@@ -74,18 +74,20 @@
 
                         {# Relative Template #}
 
+                            {% set relativeToken = "references" %}
+
                             {% include "common/relatives" %}
 
                         {# Relative List #}
 
-                            {% set referenceCounter = 0 %}
+                            {% set relativeCounter = 0 %}
 
                             <div 
                                 class="profile-relative-list__wrapper">
 
-                                {% for reference in skill.references %}
+                                {% for relative in skill.references %}
 
-                                    {% set referenceCounter = referenceCounter + 1 %}
+                                    {% set relativeCounter = relativeCounter + 1 %}
 
                                     {% include "common/relatives" %}             
 
@@ -121,18 +123,20 @@
 
                         {# Relative Template #}
 
+                            {% set relativeToken = "samples" %}
+
                             {% include "common/relatives" %}
 
                         {# Relative List #}
 
-                            {% set sampleCounter = 0 %}
+                            {% set relativeCounter = 0 %}
 
                             <div 
                                 class="profile-relative-list__wrapper">
 
-                                {% for sample in skill.samples %}
+                                {% for relative in skill.samples %}
 
-                                    {% set sampleCounter = sampleCounter + 1 %}
+                                    {% set relativeCounter = relativeCounter + 1 %}
 
                                     {% include "common/relatives" %}             
 

@@ -1,5 +1,5 @@
 <div
-    class="profile-relative {% if skill == null %}template{% endif %}">
+    class="profile-relative {% if relative == null %}template{% endif %}">
 
     <div class="form__input-wrapper--select">
         <label 
@@ -12,11 +12,34 @@
             <select
                 class="form__input"
                 id="">
-                {% for userSkill in user.skills %}
-                    <option
-                        {% if skill|capitalize == userSkill|capitalize %}selected="selected"{% endif %}
-                        >{{ userSkill }}</option>
-                {% endfor %}
+
+                {# Skills #}
+                    {% if relativeToken == "skills" %}
+                        {% for userSkill in user.skills %}
+                            <option
+                                {% if relative|capitalize == userSkill|capitalize %}selected="selected"{% endif %}
+                                >{{ userSkill }}</option>
+                        {% endfor %}
+                    {% endif %}
+
+                {# References #}
+                    {% if relativeToken == "references" %}
+                        {% for userReference in user.references %}
+                            <option
+                                {% if relative|capitalize == userReference|capitalize %}selected="selected"{% endif %}
+                                >{{ userReference }}</option>
+                        {% endfor %}
+                    {% endif %}
+
+                {# Samples #}
+                    {% if relativeToken == "samples" %}
+                        {% for userSample in user.samples %}
+                            <option
+                                {% if relative|capitalize == userSample|capitalize %}selected="selected"{% endif %}
+                                >{{ userSample }}</option>
+                        {% endfor %}
+                    {% endif %}
+
             </select>
         </div>
     </div>

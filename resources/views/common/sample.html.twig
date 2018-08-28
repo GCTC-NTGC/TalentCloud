@@ -145,18 +145,20 @@
 
                         {# Relative Template #}
 
+                            {% set relativeToken = "skills" %}
+
                             {% include "common/relatives" %}
 
                         {# Relative List #}
 
-                            {% set skillCounter = 0 %}
+                            {% set relativeCounter = 0 %}
 
                             <div 
                                 class="profile-relative-list__wrapper">
 
-                                {% for skill in sample.skills %}
+                                {% for relative in sample.skills %}
 
-                                    {% set skillCounter = skillCounter + 1 %}
+                                    {% set relativeCounter = relativeCounter + 1 %}
 
                                     {% include "common/relatives" %}             
 
