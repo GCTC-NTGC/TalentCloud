@@ -52,8 +52,5 @@ after_success:
 # Slack notifications / do not send emails
 notifications:
   email: never
-  slack:
-    rooms:
-      - "talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam"
-    on_success: change
-    on_failure: always
+  on_success: change
+  on_failure: always
