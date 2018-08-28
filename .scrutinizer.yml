@@ -10,7 +10,7 @@ build:
                     - sudo make docker-start
                     - sudo cp -a .env.example .env
                     - sudo make build-db
-                    - sudo make docker-stop
+                    - sudo docker-compose down -v
 
             root_path: './'
 
