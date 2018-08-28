@@ -154,20 +154,104 @@ INSERT INTO language_requirement_translations VALUES
 (5,'en',3,'Bilingual',NULL,NULL),
 (6,'fr',3,'Bilingue',NULL,NULL);
 
-INSERT INTO provinces VALUES
-(1,'Alberta',NULL,NULL),
-(2,'British Columbia',NULL,NULL),
-(3,'Manitoba',NULL,NULL),
-(4,'Newfoundland and Labrador',NULL,NULL),
-(5,'New Brunswick',NULL,NULL),
-(6,'Nova Scotia',NULL,NULL),
-(7,'Nunavut',NULL,NULL),
-(8,'North West Territories',NULL,NULL),
-(9,'Ontario',NULL,NULL),
-(10,'Prince Edward Island',NULL,NULL),
-(11,'Quebec',NULL,NULL),
-(12,'Saskatchewan',NULL,NULL),
-(13,'Yukon',NULL,NULL);
+INSERT INTO migrations VALUES
+(191,'2018_07_12_145513_create_applicant_profile_answers_table',1),
+(192,'2018_07_12_145513_create_applicant_profile_question_translations_table',1),
+(193,'2018_07_12_145513_create_applicant_profile_questions_table',1),
+(194,'2018_07_12_145513_create_applicants_table',1),
+(195,'2018_07_12_145513_create_application_micro_references_table',1),
+(196,'2018_07_12_145513_create_application_status_table',1),
+(197,'2018_07_12_145513_create_application_status_translations_table',1),
+(198,'2018_07_12_145513_create_application_work_samples_table',1),
+(199,'2018_07_12_145513_create_citizenship_declaration_translations_table',1),
+(200,'2018_07_12_145513_create_citizenship_declarations_table',1),
+(201,'2018_07_12_145513_create_criteria_table',1),
+(202,'2018_07_12_145513_create_criteria_translations_table',1),
+(203,'2018_07_12_145513_create_criteria_type_translations_table',1),
+(204,'2018_07_12_145513_create_criteria_types_table',1),
+(205,'2018_07_12_145513_create_department_translations_table',1),
+(206,'2018_07_12_145513_create_departments_table',1),
+(207,'2018_07_12_145513_create_experience_level_translations_table',1),
+(208,'2018_07_12_145513_create_experience_levels_table',1),
+(209,'2018_07_12_145513_create_file_type_translations_table',1),
+(210,'2018_07_12_145513_create_file_types_table',1),
+(211,'2018_07_12_145513_create_job_application_answers_table',1),
+(212,'2018_07_12_145513_create_job_applications_table',1),
+(213,'2018_07_12_145513_create_job_poster_key_task_translations_table',1),
+(214,'2018_07_12_145513_create_job_poster_key_tasks_table',1),
+(215,'2018_07_12_145513_create_job_poster_question_translations_table',1),
+(216,'2018_07_12_145513_create_job_poster_questions_table',1),
+(217,'2018_07_12_145513_create_job_poster_translations_table',1),
+(218,'2018_07_12_145513_create_job_posters_table',1),
+(219,'2018_07_12_145513_create_job_term_translations_table',1),
+(220,'2018_07_12_145513_create_job_terms_table',1),
+(221,'2018_07_12_145513_create_language_requirement_translations_table',1),
+(222,'2018_07_12_145513_create_language_requirements_table',1),
+(223,'2018_07_12_145513_create_manager_translations_table',1),
+(224,'2018_07_12_145513_create_managers_table',1),
+(225,'2018_07_12_145513_create_micro_references_table',1),
+(226,'2018_07_12_145513_create_profile_pics_table',1),
+(227,'2018_07_12_145513_create_province_translations_table',1),
+(228,'2018_07_12_145513_create_provinces_table',1),
+(229,'2018_07_12_145513_create_relationship_translations_table',1),
+(230,'2018_07_12_145513_create_relationships_table',1),
+(231,'2018_07_12_145513_create_security_clearance_translations_table',1),
+(232,'2018_07_12_145513_create_security_clearances_table',1),
+(233,'2018_07_12_145513_create_skill_declaration_table',1),
+(234,'2018_07_12_145513_create_skill_level_translations_table',1),
+(235,'2018_07_12_145513_create_skill_levels_table',1),
+(236,'2018_07_12_145513_create_team_culture_translations_table',1),
+(237,'2018_07_12_145513_create_team_cultures_table',1),
+(238,'2018_07_12_145513_create_user_roles_table',1),
+(239,'2018_07_12_145513_create_users_table',1),
+(240,'2018_07_12_145513_create_work_environments_table',1),
+(241,'2018_07_12_145513_create_work_samples_table',1),
+(242,'2018_07_12_145513_create_workplace_photo_captions_table',1),
+(243,'2018_07_12_145513_create_workplace_photos_table',1),
+(244,'2018_07_12_145517_add_foreign_keys_to_applicant_profile_answers_table',1),
+(245,'2018_07_12_145517_add_foreign_keys_to_applicant_profile_question_translations_table',1),
+(246,'2018_07_12_145517_add_foreign_keys_to_applicants_table',1),
+(247,'2018_07_12_145517_add_foreign_keys_to_application_micro_references_table',1),
+(248,'2018_07_12_145517_add_foreign_keys_to_application_status_translations_table',1),
+(249,'2018_07_12_145517_add_foreign_keys_to_application_work_samples_table',1),
+(250,'2018_07_12_145517_add_foreign_keys_to_citizenship_declaration_translations_table',1),
+(251,'2018_07_12_145517_add_foreign_keys_to_criteria_table',1),
+(252,'2018_07_12_145517_add_foreign_keys_to_criteria_translations_table',1),
+(253,'2018_07_12_145517_add_foreign_keys_to_criteria_type_translations_table',1),
+(254,'2018_07_12_145517_add_foreign_keys_to_department_translations_table',1),
+(255,'2018_07_12_145517_add_foreign_keys_to_experience_level_translations_table',1),
+(256,'2018_07_12_145517_add_foreign_keys_to_file_type_translations_table',1),
+(257,'2018_07_12_145517_add_foreign_keys_to_job_application_answers_table',1),
+(258,'2018_07_12_145517_add_foreign_keys_to_job_applications_table',1),
+(259,'2018_07_12_145517_add_foreign_keys_to_job_poster_key_task_translations_table',1),
+(260,'2018_07_12_145517_add_foreign_keys_to_job_poster_key_tasks_table',1),
+(261,'2018_07_12_145517_add_foreign_keys_to_job_poster_question_translations_table',1),
+(262,'2018_07_12_145517_add_foreign_keys_to_job_poster_questions_table',1),
+(263,'2018_07_12_145517_add_foreign_keys_to_job_poster_translations_table',1),
+(264,'2018_07_12_145517_add_foreign_keys_to_job_posters_table',1),
+(265,'2018_07_12_145517_add_foreign_keys_to_job_term_translations_table',1),
+(266,'2018_07_12_145517_add_foreign_keys_to_language_requirement_translations_table',1),
+(267,'2018_07_12_145517_add_foreign_keys_to_manager_translations_table',1),
+(268,'2018_07_12_145517_add_foreign_keys_to_managers_table',1),
+(269,'2018_07_12_145517_add_foreign_keys_to_micro_references_table',1),
+(270,'2018_07_12_145517_add_foreign_keys_to_profile_pics_table',1),
+(271,'2018_07_12_145517_add_foreign_keys_to_province_translations_table',1),
+(272,'2018_07_12_145517_add_foreign_keys_to_relationship_translations_table',1),
+(273,'2018_07_12_145517_add_foreign_keys_to_security_clearance_translations_table',1),
+(274,'2018_07_12_145517_add_foreign_keys_to_skill_declaration_table',1),
+(275,'2018_07_12_145517_add_foreign_keys_to_skill_level_translations_table',1),
+(276,'2018_07_12_145517_add_foreign_keys_to_team_culture_translations_table',1),
+(277,'2018_07_12_145517_add_foreign_keys_to_team_cultures_table',1),
+(278,'2018_07_12_145517_add_foreign_keys_to_users_table',1),
+(279,'2018_07_12_145517_add_foreign_keys_to_work_environments_table',1),
+(280,'2018_07_12_145517_add_foreign_keys_to_work_samples_table',1),
+(281,'2018_07_12_145517_add_foreign_keys_to_workplace_photo_captions_table',1),
+(282,'2018_07_19_161639_AddDepartmentForeignIdToManager',1),
+(283,'2018_08_10_201854_rename_applicant_linkedin_column',1),
+(284,'2018_08_16_211708_rename_manager_aboutme_col',1),
+(285,'2018_08_17_203204_create_frequency_lookup_table',1),
+(286,'2018_08_20_160509_reference_frequency_on_manager',1),
+(287,'2018_08_20_163214_reference_frequency_on_work_environment',1);
 
 INSERT INTO province_translations VALUES
 (1,1,'en','Alberta',NULL,NULL),
@@ -197,10 +281,20 @@ INSERT INTO province_translations VALUES
 (25,13,'en','Yukon',NULL,NULL),
 (26,13,'fr','Yukon',NULL,NULL);
 
-INSERT INTO relationships VALUES
-(1,'superior',NULL,NULL),
-(2,'coworker',NULL,NULL),
-(3,'subordinate',NULL,NULL);
+INSERT INTO provinces VALUES
+(1,'Alberta',NULL,NULL),
+(2,'British Columbia',NULL,NULL),
+(3,'Manitoba',NULL,NULL),
+(4,'Newfoundland and Labrador',NULL,NULL),
+(5,'New Brunswick',NULL,NULL),
+(6,'Nova Scotia',NULL,NULL),
+(7,'Nunavut',NULL,NULL),
+(8,'North West Territories',NULL,NULL),
+(9,'Ontario',NULL,NULL),
+(10,'Prince Edward Island',NULL,NULL),
+(11,'Quebec',NULL,NULL),
+(12,'Saskatchewan',NULL,NULL),
+(13,'Yukon',NULL,NULL);
 
 INSERT INTO relationship_translations VALUES
 (1,1,'en','Superior',NULL,NULL),
@@ -210,10 +304,10 @@ INSERT INTO relationship_translations VALUES
 (5,3,'en','Subordinate',NULL,NULL),
 (6,3,'fr','Subalterne',NULL,NULL);
 
-INSERT INTO security_clearances VALUES
-(1,'Reliability',NULL,NULL),
-(2,'Secret',NULL,NULL),
-(3,'Top Secret',NULL,NULL);
+INSERT INTO relationships VALUES
+(1,'superior',NULL,NULL),
+(2,'coworker',NULL,NULL),
+(3,'subordinate',NULL,NULL);
 
 INSERT INTO security_clearance_translations VALUES
 (1,'en',1,'Reliability',NULL,NULL),
@@ -223,11 +317,10 @@ INSERT INTO security_clearance_translations VALUES
 (5,'en',3,'Top Secret',NULL,NULL),
 (6,'fr',3,'Très secret',NULL,NULL);
 
-INSERT INTO skill_levels VALUES
-(1,'Basic',NULL,NULL),
-(2,'Intermediate',NULL,NULL),
-(3,'Advanced',NULL,NULL),
-(4,'Expert',NULL,NULL);
+INSERT INTO security_clearances VALUES
+(1,'Reliability',NULL,NULL),
+(2,'Secret',NULL,NULL),
+(3,'Top Secret',NULL,NULL);
 
 INSERT INTO skill_level_translations VALUES
 (1,1,'en','Basic',NULL,NULL),
@@ -239,13 +332,12 @@ INSERT INTO skill_level_translations VALUES
 (7,4,'en','Expert',NULL,NULL),
 (8,4,'fr','Expert',NULL,NULL);
 
+INSERT INTO skill_levels VALUES
+(1,'Basic',NULL,NULL),
+(2,'Intermediate',NULL,NULL),
+(3,'Advanced',NULL,NULL),
+(4,'Expert',NULL,NULL);
+
 INSERT INTO user_roles VALUES
 (1,'applicant',NULL,NULL),
 (2,'manager',NULL,NULL);
-
-INSERT INTO frequencies VALUES
-(1,'never',NULL,NULL),
-(2,'rarely',NULL,NULL),
-(3,'sometimes',NULL,NULL),
-(4,'often',NULL,NULL),
-(5,'always',NULL,NULL);

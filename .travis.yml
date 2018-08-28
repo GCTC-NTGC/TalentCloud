@@ -10,9 +10,11 @@ env-docker:
 
 services:
   - docker
-  - postgresql
+  - mysql
 
 before_install:
+  - rm -rf /vendor
+  - rm -rf /vendor-cache
   - sudo apt update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
@@ -21,9 +23,7 @@ before_install:
   - sudo chmod +x /usr/bin/docker-compose
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
-install:
-  - sudo make gen-certs
-  - sudo docker-compose up --abort-on-container-exit
+before_script:
   - sudo make docker-start
   - npm install
   - npm test
@@ -32,14 +32,10 @@ install:
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE talentcloud TO talentcloud;" -U postgres
 
 script:
-  - sudo cp -a .env.example .env
-  - php artisan key:generate
-  - php artisan config:cache
-  # php artisan migrate --force
-  # php artisan db:seed --force
-  # sudo make mysql-dump
-  # sudo make mysql-restore
-  - sudo make code-sniff
+  - sudo make gen-certs
+  - sudo make mysql-dump
+  - sudo make mysql-restore
+  # sudo make phpmd
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
