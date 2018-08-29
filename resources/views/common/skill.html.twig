@@ -36,7 +36,7 @@
             <span
                 class="accordion-title">
                 {% if skill == false %}
-                    New Skill
+                    {{ skill_template.new_skill_title }}
                 {% else %}
                     {{ skill.name }}
                 {% endif %}
@@ -82,7 +82,7 @@
 
                                 <div class="form__input-wrapper--select">
                                     <label class="form__label" for="">
-                                        Select a Skill
+                                        {{ skill_template.skill_selection_label }}
                                     </label>
                                     <div
                                         class="form__select-wrapper fas fa-chevron-down">
@@ -107,6 +107,7 @@
 
                             <div
                                 class="box full">
+                                {# Tristan, this is where we need to dynamically load the skill's description. #}
                                 <p
                                     class="skill__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor enim ut velit tempus, ut bibendum sem dictum. In maximus pulvinar diam, in pulvinar dolor cursus auctor. Curabitur congue sollicitudin euismod. Duis malesuada sollicitudin eros a malesuada. Nullam efficitur quis arcu at rutrum.</p>
                             </div>
@@ -146,7 +147,7 @@
                                     <label 
                                         class="form__label"
                                         for="">
-                                        My Level
+                                        {{ skill_template.level_label }}
                                     </label>
 
                                     <div class="flex-grid">
@@ -195,7 +196,7 @@
                                     <label 
                                         class="form__label"
                                         for="">
-                                        My Knowledge
+                                        {{ skill_template.knowledge_label }}
                                     </label>
 
                                     <textarea 
@@ -223,7 +224,7 @@
                                     <label 
                                         class="form__label"
                                         for="">
-                                        My Level
+                                        {{ skill_template.level_label }}
                                     </label>
 
                                     <div class="flex-grid">
@@ -272,7 +273,7 @@
                                     <label 
                                         class="form__label"
                                         for="">
-                                        My Knowledge
+                                        {{ skill_template.knowledge_label }}
                                     </label>
 
                                     <textarea 

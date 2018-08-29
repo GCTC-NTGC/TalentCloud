@@ -36,7 +36,7 @@
             <span
                 class="accordion-title">
                 {% if reference == false %}
-                    New Reference
+                    {{ reference_template.new_reference_title }}
                 {% else %}
                     {{ reference.name }}
                 {% endif %}
@@ -67,7 +67,7 @@
 
                         <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
                             <label class="form__label" for="">
-                                Reference's Name
+                                {{ reference_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
@@ -83,7 +83,7 @@
 
                         <div class="form__input-wrapper--select">
                             <label class="form__label" for="">
-                                Your Relationship
+                                {{ reference_template.relationship_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -105,7 +105,7 @@
 
                         <div class="form__input-wrapper--float {% if reference.email == true %}active{% endif %}">
                             <label class="form__label" for="">
-                                Reference's Email
+                                {{ reference_template.email_label }}
                             </label>
                             <input
                                 class="form__input"
@@ -126,7 +126,7 @@
                             <label 
                                 class="form__label"
                                 for="">
-                                How You Worked Together
+                                {{ reference_template.description_label }}
                             </label>
 
                             <textarea 
@@ -276,7 +276,7 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deletereference">
+                        data-modal-id="deleteReference">
                         {{ reference_template.action_01 }}
                     </button>
                 </div>

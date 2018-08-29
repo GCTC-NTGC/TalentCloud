@@ -1150,6 +1150,22 @@ Route::get('profile/skills', function () {
     return view('applicant/profile_03_skills', [
         "profile" => [
             "title" => "My Skills",
+            "experience_section" => [
+            ],
+            "skills_section" => [
+                "soft_title" => "My Soft Skills",
+                "hard_title" => "My Hard Skills",
+                "add_button_label" => "Add Skill",
+                "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+            ],
+            "reference_section" => [
+                "section_title" => "My References",
+                "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
+                "add_button_label" => "Add Reference",
+                "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
+            ],
+            "sample_section" => [
+            ],
             "menu" => [
                 "00" => [
                     "active" => false,
@@ -1281,12 +1297,12 @@ Route::get('profile/skills', function () {
             ]
         ],
         "skill_template" => [
+            "new_skill_title" => "New Skill",
             "name_label" => "Project Name",
             "type_label" => "Project Type",
-            "types" => [
-                "00" => "PDF",
-                "01" => "Website"
-            ],
+            "skill_selection_label" => "Select Skill",
+            "level_label" => "My Level",
+            "knowledge_label" => "My Knowledge",
             "hard_levels" => [
                 "00" => "Beginner",
                 "01" => "Intermediate",
@@ -1299,8 +1315,6 @@ Route::get('profile/skills', function () {
                 "02" => "Strongly in Evidence",
                 "03" => "Deep Level Demonstration"
             ],
-            "link_label" => "The Link to Your Work",
-            "description_label" => "The Story Behind the Work",
             "action_01" => "Delete Skill",
             "action_02" => "Save Skill"
         ],
@@ -1355,6 +1369,18 @@ Route::get('profile/references', function () {
     return view('applicant/profile_04_references', [
         "profile" => [
             "title" => "My References",
+            "experience_section" => [
+            ],
+            "skills_section" => [
+            ],
+            "reference_section" => [
+                "section_title" => "My References",
+                "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
+                "add_button_label" => "Add Reference",
+                "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
+            ],
+            "sample_section" => [
+            ],
             "menu" => [
                 "00" => [
                     "active" => false,
@@ -1411,12 +1437,12 @@ Route::get('profile/references', function () {
                 ],
                 "02" => [
                     "type" => "confirmation",
-                    "title" => "Delete this Skill?",
+                    "title" => "Delete this Reference?",
                     "content" => [
-                        "00" => "Are you sure you want to permanently delete this skill from your profile?",
-                        "01" => "All previously submitted applications will retain this skill, its references, and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
+                        "00" => "Are you sure you want to permanently delete this reference from your profile?",
+                        "01" => "All previously submitted applications will retain this reference."
                     ],
-                    "id" => "deleteSkill",
+                    "id" => "deleteReference",
                     "action_01" => "Cancel",
                     "action_02" => "Delete"
                 ]
@@ -1505,6 +1531,7 @@ Route::get('profile/references', function () {
             ]
         ],
         "reference_template" => [
+            "new_reference_title" => "New Reference",
             "name_label" => "Reference's Name",
             "relationship_label" => "Your Relationship",
             "relationships" => [
@@ -1576,6 +1603,25 @@ Route::get('profile/portfolio', function () {
     return view('applicant/profile_05_portfolio', [
         "profile" => [
             "title" => "My Portfolio",
+            "experience_section" => [
+            ],
+            "skills_section" => [
+                "soft_title" => "My Soft Skills",
+                "hard_title" => "My Hard Skills",
+                "add_button_label" => "Add Skill",
+                "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+            ],
+            "reference_section" => [
+                "section_title" => "My References",
+                "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
+                "add_button_label" => "Add Reference",
+                "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
+            ],
+            "sample_section" => [
+                "section_title" => "My Work Samples",
+                "add_button_label" => "Add Sample",
+                "null_copy" => "You don't currently have any work samples in your portfolio! Use the button above to add a work sample."
+            ],
             "menu" => [
                 "00" => [
                     "active" => false,

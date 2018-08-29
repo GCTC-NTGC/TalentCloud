@@ -23,7 +23,7 @@
                     <div
                         class="box med-1of2">
 
-                        <h3>My Work Samples</h3>
+                        <h3>{{ profile.sample_section.section_title }}</h3>
 
                     </div>
 
@@ -32,7 +32,7 @@
 
                         <button
                             class="profile-list__add-element-trigger">
-                            Add a Sample
+                            {{ profile.sample_section.add_label }}
                         </button>
 
                     </div>
@@ -55,7 +55,7 @@
                     <div
                         class="profile-null {% if user.portfolio == false %}active{% endif %}">
 
-                        <p>You don't currently have any work samples in your portfolio! Use the button above to add a work sample.</p>
+                        <p>{{ profile.sample_section.null_copy }}</p>
 
                     </div>
 

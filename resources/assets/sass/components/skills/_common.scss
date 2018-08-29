@@ -47,7 +47,16 @@
 
                 }
 
-                &:last-child {
+                p {
+                    color: $palette--font-black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    margin: 2rem 0 0 0;
+                }
+
+                &:nth-child(2) {
 
                     @media #{$p-tablet} {
                         text-align: right;

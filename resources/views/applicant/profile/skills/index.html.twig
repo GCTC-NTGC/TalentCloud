@@ -23,7 +23,7 @@
                         <div
                             class="box med-1of2">
 
-                            <h3>My Soft Skills</h3>
+                            <h3>{{ profile.skills_section.soft_title }}</h3>
 
                         </div>
 
@@ -32,7 +32,7 @@
 
                             <button
                                 class="profile-list__add-element-trigger">
-                                Add a Skill
+                                {{ profile.skills_section.add_button_label }}
                             </button>
 
                         </div>
@@ -81,7 +81,7 @@
                         <div
                             class="profile-null {% if softSkillCounter == 0 %}active{% endif %}">
 
-                            <p>You don't currently have any skills on your profile! Use the button above to add a skill.</p>
+                            <p>{{ profile.skills_section.null_copy }}</p>
 
                         </div>
 
@@ -102,7 +102,7 @@
                         <div
                             class="box med-1of2">
 
-                            <h3>My Hard Skills</h3>
+                            <h3>{{ profile.skills_section.hard_title }}</h3>
 
                         </div>
 
@@ -111,7 +111,7 @@
 
                             <button
                                 class="profile-list__add-element-trigger">
-                                Add a Skill
+                                {{ profile.skills_section.add_button_label }}
                             </button>
 
                         </div>
@@ -160,7 +160,7 @@
                         <div
                             class="profile-null {% if hardSkillCounter == 0 %}active{% endif %}">
 
-                            <p>You don't currently have any skills on your profile! Use the button above to add a skill.</p>
+                            <p>{{ profile.skills_section.null_copy }}</p>
 
                         </div>
 

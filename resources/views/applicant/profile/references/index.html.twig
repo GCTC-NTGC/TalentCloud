@@ -23,7 +23,7 @@
                     <div
                         class="box med-1of2">
 
-                        <h3>My References</h3>
+                        <h3>{{ profile.reference_section.section_title }}</h3>
 
                     </div>
 
@@ -32,8 +32,15 @@
 
                         <button
                             class="profile-list__add-element-trigger">
-                            Add a Reference
+                            {{ profile.reference_section.add_button_label }}
                         </button>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <p>{{ profile.reference_section.section_description }}</p>
 
                     </div>
 
@@ -55,7 +62,7 @@
                     <div
                         class="profile-null {% if user.references == false %}active{% endif %}">
 
-                        <p>You don't currently have any references in your portfolio! Use the button above to add a reference.</p>
+                        <p>{{ profile.reference_section.null_copy }}</p>
 
                     </div>
 
