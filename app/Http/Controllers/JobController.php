@@ -28,8 +28,11 @@ class JobController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        //Find jobs that are currently open for applications
-        $jobs = JobPoster::where('open_date_time', '<=', $now)->where('close_date_time', '>=', $now)->get();
+        //Find published jobs that are currently open for applications
+        $jobs = JobPoster::where('open_date_time', '<=', $now)
+            ->where('close_date_time', '>=', $now)
+            ->where('published', true)
+            ->get();
         return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs]);
     }

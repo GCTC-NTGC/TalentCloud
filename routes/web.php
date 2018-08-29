@@ -18,7 +18,9 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
 
-    Route::get('jobs/{jobPoster}', 'JobController@show')->name('jobs.show');
+    Route::get('jobs/{jobPoster}', 'JobController@show')
+        ->middleware('can:view,jobPoster')
+        ->name('jobs.show');
 
     /* Applications */
     Route::get('applications', function () {
