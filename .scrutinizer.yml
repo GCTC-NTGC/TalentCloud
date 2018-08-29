@@ -45,6 +45,9 @@ build:
         -
             commands:
                 # heroku create
+                - touch readme
+                - git add .
+                - git commit -m "init"
                 - heroku git:remote -a gc-talentcloud
                 - git push heroku master
 
