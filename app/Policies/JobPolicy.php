@@ -4,11 +4,10 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\JobPoster;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Policies\BasePolicy;
 
-class JobPolicy
+class JobPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view the job poster.

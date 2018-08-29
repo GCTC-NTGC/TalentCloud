@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use App\Services\Auth\Contracts\OidcAuthenticatable;
 use App\Services\Auth\Contracts\OidcUserValidator;
 use App\Models\Manager;
+use App\Models\UserRole;
 use App\Models\Applicant;
 
 class BaseOidcUserProvider implements UserProvider {
@@ -114,9 +115,19 @@ class BaseOidcUserProvider implements UserProvider {
                 debugbar()->info($user);
             }
 
+            //If running in a local environment, and FORCE_ADMIN is true,
+            //automatically set any logged in user to (temporarilly) be an admin
+            if (env('APP_ENV') == 'local' && env('FORCE_ADMIN', false)) {
+                $adminRole = UserRole::where('name', 'admin')->firstOrFail();
+                $user->user_role_id = $adminRole->id;
+                $user->user_role = $adminRole;
+            }
+
             //Ensure the user has a proper profile associated with it
             //If now profile exists yet create one.
-            if ($user->user_role->name == 'applicant') {
+            //Admins should be givven an applicant and manager profile
+            if ($user->user_role->name == 'applicant' ||
+                $user->user_role->name == 'admin') {
                 $applicantProfile = Applicant::where(['user_id' => $user->id])->first();
                 if (!$applicantProfile) {
                     $applicantProfile = new Applicant();
@@ -125,7 +136,8 @@ class BaseOidcUserProvider implements UserProvider {
                 }
 
             }
-            if ($user->user_role->name == 'manager') {
+            if ($user->user_role->name == 'manager' ||
+                $user->user_role->name == 'admin') {
                 $managerProfile = Manager::where(['user_id' => $user->id])->first();
                 if (!$managerProfile) {
                     $managerProfile = new Manager();

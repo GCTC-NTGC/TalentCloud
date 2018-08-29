@@ -1220,7 +1220,7 @@ $managerGroup = function() {
                     ]
                 ]
             ]);
-        })->middleware('can:view,job')->name('manager.jobs.index');
+        })->name('manager.jobs.index');
 
         /* Create Job */
         Route::get('jobs/create', 'JobController@create')
