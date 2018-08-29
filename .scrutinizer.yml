@@ -44,8 +44,6 @@ build:
     deployment:
         -
             commands:
-                - git config --global user.email "grant.d.barnes@gmail.com"
-                - git config --global user.name "Grant Barnes"
                 - heroku git:remote -a gc-talentcloud
                 - git add .
                 - git commit -m "heroku init"
