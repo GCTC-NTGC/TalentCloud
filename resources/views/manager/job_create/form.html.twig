@@ -569,7 +569,7 @@
 
                         <div class="form__input-wrapper--float
                             {% if job.translate('fr').divison != null or
-                                manager.translate('fr'.division) %}
+                                manager.translate('fr').division %}
                                 active
                             {% endif %}
                             ">
@@ -622,9 +622,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="createJobImpactEN"
-                                name="impact[en]">
-                                {{ job.translate('en').impact }}
-                            </textarea>
+                                name="impact[en]">{{ job.translate('en').impact }}</textarea>
                         </div>
 
                     </div>
@@ -640,9 +638,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="createJobImpactFR"
-                                name="impact[fr]">
-                                {{ job.translate('fr').impact }}
-                            </textarea>
+                                name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
                         </div>
 
                     </div>
