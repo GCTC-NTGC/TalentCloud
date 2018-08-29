@@ -33,7 +33,7 @@
                 class="box med-1of4">
                 <a
                     class="job-post__culture-manager-profile-photo"
-                    href="{{ route('manager.show',{'manager':manager.id}) }}"
+                    href="{{ route('managers.show',{'manager':manager.id}) }}"
                     target="_blank"
                     title="{{ job_post.manager.photo_title|trans({'name' : manager.user.name}) }}"
                     style="background-image:url('{{ manager_profile_photo_url }}');">
@@ -57,7 +57,7 @@
 
                 <a
                     class="job-post__culture-manager-profile-link"
-                    href="{{ route('manager.show',{'manager':manager.id}) }}"
+                    href="{{ route('managers.show',{'manager':manager.id}) }}"
                     title="{{ job_post.manager.link_title|trans({'name':manager.user.name}) }}">
                     {{ job_post.culture.manager_link_label }}
                 </a>

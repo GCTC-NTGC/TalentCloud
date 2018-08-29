@@ -18,7 +18,7 @@ class CreateJobPosterTranslationsTable extends Migration {
 			$table->integer('job_poster_id')->unsigned()->index();
 			$table->string('locale');
 			$table->text('city')->nullable();
-			$table->text('title');
+			$table->text('title')->nullable();
 			$table->text('impact')->nullable();
 			$table->text('branch')->nullable();
 			$table->text('division')->nullable();

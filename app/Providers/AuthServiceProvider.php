@@ -22,6 +22,8 @@ use App\Services\Auth\JumboJettTokenRefresher;
 use App\Services\Auth\SessionTokenStorage;
 use App\Models\Applicant;
 use App\Models\Manager;
+use App\Models\JobPoster;
+use App\Policies\JobPolicy;
 use App\Policies\ManagerPolicy;
 use App\Policies\ApplicantPolicy;
 
@@ -34,7 +36,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Applicant::class => ApplicantPolicy::class,
-        Manager::class => ManagerPolicy::class
+        Manager::class => ManagerPolicy::class,
+        JobPoster::class => JobPolicy::class,
     ];
 
     public function register() {
