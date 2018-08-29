@@ -49,9 +49,10 @@ build:
                 # heroku create gc-talentcloud-s
                 - heroku git:remote -a gc-talentcloud
                 - heroku container:push web
+                - heroku container:release web
                 # git init
-                - git add -A
-                - git commit -m "commit for deploy to heroku"
+                # git add -A
+                # git commit -m "commit for deploy to heroku"
                 - git push -f heroku HEAD:master
 
 filter:
