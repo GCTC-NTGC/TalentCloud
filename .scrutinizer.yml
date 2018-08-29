@@ -43,10 +43,8 @@ build:
 
             deployment:
                 -
-                    # Optional. If this should only be executed for pushes to a certain branch.
-                    branch: dev            # The branch name is exactly "master"
-
                     commands:
+                        - git init
                         - heroku git:remote -a gc-talentcloud
                         - git add .
                         - git commit -am "more awesomeness"
