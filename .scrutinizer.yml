@@ -41,12 +41,12 @@ build:
                     - phpcs-run ./app
                     - phpcs-run ./public
 
-        deployment:
-            -
-                commands:
-                    - heroku create
-                    # heroku git:remote -a gc-talentcloud
-                    - git push heroku master
+    deployment:
+        -
+            commands:
+                - heroku create
+                # heroku git:remote -a gc-talentcloud
+                - git push heroku master
 
 filter:
     excluded_paths:
