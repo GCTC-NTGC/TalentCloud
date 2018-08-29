@@ -41,13 +41,13 @@ build:
                     - phpcs-run ./app
                     - phpcs-run ./public
 
-    deployment:
-        -
-            # Optional. If this should only be executed for pushes to a certain branch.
-            branch: dev            # The branch name is exactly "master"
+            deployment:
+                -
+                    # Optional. If this should only be executed for pushes to a certain branch.
+                    branch: dev            # The branch name is exactly "master"
 
-            commands:
-                - heroku git:remote -a gc-talentcloud
+                    commands:
+                        - heroku git:remote -a gc-talentcloud
 
 filter:
     excluded_paths:
