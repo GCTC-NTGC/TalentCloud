@@ -4,12 +4,11 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Manager;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Policies\BasePolicy;
 use Barryvdh\Debugbar\Facade as Debugbar;
 
-class ManagerPolicy
+class ManagerPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view the manager.
