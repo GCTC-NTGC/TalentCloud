@@ -40,7 +40,15 @@ build:
                     - csslint-run ./public/css
                     - phpcs-run ./app
                     - phpcs-run ./public
-                    
+
+    deployment:
+        -
+            # Optional. If this should only be executed for pushes to a certain branch.
+            branch: dev            # The branch name is exactly "master"
+
+            commands:
+                - heroku git:remote -a gc-talentcloud
+
 filter:
     excluded_paths:
         - '*/database/*'
@@ -56,11 +64,3 @@ tools:
     external_code_coverage:
         timeout: 777
         runs: 2
-
-deployment:
-    -
-        # Optional. If this should only be executed for pushes to a certain branch.
-        branch: dev            # The branch name is exactly "master"
-
-        commands:
-            - heroku git:remote -a gc-talentcloud
