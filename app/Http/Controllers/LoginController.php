@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\Contracts\TokenStorage;
@@ -151,6 +152,7 @@ class LoginController extends Controller
 
             return $response;
         } else {
+            Session::forget('url.intented');
             return redirect()->route($this->homeRoute());
         }
     }

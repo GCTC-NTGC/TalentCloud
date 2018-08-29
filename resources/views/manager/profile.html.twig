@@ -12,7 +12,7 @@
         {% include "common/head" %}
     </head>
 
-    <body>        
+    <body>
         {% include "common/alert" %}
 
         {% include "common/goc" %}
@@ -22,6 +22,10 @@
         {% include "manager/profile/header" %}
 
         {% include "manager/profile/layout" %}
+
+        {# Login Modals #}
+
+        {% include "common/modal" with {"page":login_modals} %}
 
         {% include "common/footer" %}
 

@@ -117,7 +117,23 @@ class MenuComposer
                 unset($menuItems['profile']);
             }
         }
+        if (WhichPortal::isManagerPortal()) {
+            $loginModals = [
+                'modals' => Lang::get('common/login_modals'),
+                'register_link' => route('manager.register'),
+                'login_link' => route('manager.login'),
+                'logout_link' => route('manager.logout'),
+            ];
+        } else {
+            $loginModals = [
+                'modals' => Lang::get('common/login_modals'),
+                'register_link' => route('register'),
+                'login_link' => route('login'),
+                'logout_link' => route('logout'),
+            ];
+        }
 
-        $view->with('menu', $menuItems);
+        $view->with('menu', $menuItems)
+            ->with('login_modals', $loginModals);
     }
 }

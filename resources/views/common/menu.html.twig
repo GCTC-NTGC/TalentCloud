@@ -17,7 +17,7 @@
 
     <ul class="menu__list">
 
-        {% for item in menu %}
+        {% for item in menu.items %}
 
             <li>
 
@@ -32,15 +32,15 @@
 
         {% endfor %}
 
-        <li>
+        {% if auth_guest() %}
 
+        <li>
             <button
                 class="modal-trigger"
                 data-modal-id="login"
                 title="">
-                Register
+                {{ menu.register }}
             </button>
-
         </li>
 
         <li>
@@ -49,10 +49,12 @@
                 class="modal-trigger"
                 data-modal-id="login"
                 title="">
-                Login
+                {{ menu.login }}
             </button>
 
         </li>
+
+        {% else %}
 
         <li>
 
@@ -60,10 +62,11 @@
                 class="modal-trigger"
                 data-modal-id="logout"
                 title="">
-                Logout
+                {{ menu.logout }}
             </button>
-
         </li>
+
+        {% endif %}
 
     </ul>
 

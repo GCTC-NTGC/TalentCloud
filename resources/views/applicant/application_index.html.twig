@@ -26,7 +26,11 @@
 
         {# Modals #}
 
-            {% include "common.modal" with {"page":application_index} %}
+        {% include "common.modal" with {"page":application_index} %}
+
+        {# Login Modals #}
+
+        {% include "common/modal" with {"page":login_modals} %}
 
         {% include "common/footer" %}
 
