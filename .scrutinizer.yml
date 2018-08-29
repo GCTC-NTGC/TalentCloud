@@ -46,9 +46,10 @@ build:
             commands:
                 - git config --global user.email "grant.d.barnes@gmail.com"
                 - git config --global user.name "Grant Barnes"
-                - heroku create gc-talentcloud-s
-                - heroku git:remote -a gc-talentcloud-s
-                - git init
+                # heroku create gc-talentcloud-s
+                - heroku git:remote -a gc-talentcloud
+                - heroku container:push web
+                # git init
                 - git add -A
                 - git commit -m "commit for deploy to heroku"
                 - git push -f heroku
