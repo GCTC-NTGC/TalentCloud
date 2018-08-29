@@ -35,6 +35,7 @@ class JobPosterSeeder extends Seeder
         $job = new JobPoster();
         $job->manager_id = Manager::inRandomOrder()->first()->id;
         $job->fill([
+            'published' => true,
             'job_term_id' => JobTerm::inRandomOrder()->first()->id,
             'term_qty' => $faker->numberBetween(1, 4),
             'open_date_time' => $faker->dateTimeBetween('-1 months','now'),
@@ -63,6 +64,7 @@ class JobPosterSeeder extends Seeder
                 'division' => $faker_fr->word()
             ]
         ]);
+
         $job->save();
 
         //Create 3-6 criteria
