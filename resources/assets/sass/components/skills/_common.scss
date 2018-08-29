@@ -104,7 +104,7 @@
                 padding: 2rem 2rem 0;
 
                 &:last-of-type {
-                    margin-bottom: 0;
+                    // margin-bottom: 0;
                 }
 
                 .profile-relative-list__header {
@@ -119,6 +119,12 @@
                             font-size: $font-scale--h5;
                             font-weight: 600;
                             margin: 0;
+
+                            i {
+                                color: $palette--blue;
+                                margin: 0 .2rem 0 0;
+                            }
+
                         }
 
                         button {
@@ -151,6 +157,10 @@
                 .profile-relative {
                     position: relative;
 
+                    &:last-child {
+                        margin-bottom: -2rem;
+                    }
+
                     .form__input-wrapper--select {
                         width: 90%;
                     }
@@ -167,128 +177,54 @@
                         transform: translate(0, -50%);
                     }
 
+                    &.project {
+                        border: 1px solid darken($palette--white, 20%);
+                        border-radius: 5px;
+                        margin: 2rem 0;
+                        padding: .5rem 2rem 2rem 2rem;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .profile-relative__remove-trigger {
+                            background: white;
+                            padding: 1rem;
+                            top: 0;
+                            right: 1.5rem;
+                            transform: translate(0, -50%);
+                        }
+
+                        .flex-grid {
+                            padding: 0;
+
+                            .box {
+                                padding: 0 1rem;
+                            }
+
+                        }
+
+                    }
+
                 }
 
                 .profile-relative__add-trigger-wrapper {
+                    padding: 2rem 0 0;
                     text-align: center;
 
                     .profile-relative__add-trigger {
                         background: none;
-                        border: none;
-                        color: $palette--blue;
+                        border: 2px dashed darken($palette--white, 20%);
+                        border-radius: 5px;
+                        color: $palette--font-black;
                         cursor: pointer;
                         font-family: $font--sans;
                         font-size: $font-scale--regular;
                         font-weight: 600;
-                        text-decoration: underline;
+                        padding: 1rem;
+                        text-decoration: none;
                     }
 
                 }
 
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.skill-relative-section {
-    padding: 2rem 2rem 0 2rem;
-
-    .skill-relative-label {
-        color: $palette--blue;
-        display: block;
-        font-family: $font--sans;
-        font-size: $font-scale--h5;
-        font-weight: 600;
-        margin: 0 0 1rem 0;
-    }
-
-    .skill-relative {
-        margin-bottom: 1rem;
-        position: relative;
-
-        .form__input-wrapper--select {
-            width: 90%;
-        }
-
-        .skill-relative-delete-trigger {
-            background: none;
-            border: none;
-            color: $palette--red;
-            cursor: pointer;
-            font-size: $font-scale--h3;
-            position: absolute;
-            top: 50%;
-            right: 2rem;
-            transform: translate(0, -50%);
-        }
-
-    }
-
-    .skill-relative-add-trigger-wrapper {
-        text-align: center;
-
-        .skill-relative-add-trigger {
-            background: none;
-            border: none;
-            color: $palette--blue;
-            cursor: pointer;
-            font-family: $font--sans;
-            font-size: $font-scale--regular;
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
-    }
-
-}
-
-
-// .skill-relative {
-//     background: $palette--blue;
-//     border-radius: 3rem;
-//     display: inline-block;
-//     padding: 1rem 1.5rem;
-
-//     span {
-//         color: $palette--font-white;
-//         display: inline-block;
-//         font-family: $font--sans;
-//         font-size: $font-scale--regular;
-//         font-weight: 400;
-//         vertical-align: middle;
-//     }
-
-//     button {
-//         background: none;
-//         border: none;
-//         cursor: pointer;
-//         display: inline-block;
-//         margin: 0 0 0 .5rem;
-//         padding: 0;
-//         vertical-align: middle;
-
-//         i {
-//             color: $palette--font-white;
-//             font-size: $font-scale--h4;
-//         }
-
-//     }
-
-// }

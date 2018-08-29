@@ -6,6 +6,48 @@
 
 {# Form Input =============================================================== #}
 
+    {# Float #}
+
+        <div
+            class="box full">
+
+            <div class="form__input-wrapper--float {% if sample.name == true %}active{% endif %}">
+                <label class="form__label" for="">
+                    {{ sample_template.name_label }}
+                </label>
+                <input
+                    class="form__input"
+                    id=""
+                    type="text"
+                    value="{{ sample.name }}" />
+            </div>
+
+        </div>
+
+    {# Date #}
+
+        <div
+            class="box med-1of2">
+
+            <div 
+                class="form__input-wrapper--date">
+
+                <label 
+                    class="form__label"
+                    for="">
+                    Accepting Applications From
+                </label>
+
+                <input
+                    class="form__input"
+                    id=""
+                    type="date"
+                    value="{{ manager.post.post_start }}">
+
+            </div>
+
+        </div>
+
     {# Textarea #}
 
         <div

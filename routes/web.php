@@ -1221,6 +1221,7 @@ Route::get('profile/skills', function () {
             "skills" => [
                 "00" => [
                     "name" => "HTML",
+                    "status" => "Claimed",
                     "level" => "beginner",
                     "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
                     "references" => [
@@ -1232,6 +1233,7 @@ Route::get('profile/skills', function () {
                 ],
                 "01" => [
                     "name" => "CSS",
+                    "status" => "Claimed",
                     "level" => "advanced",
                     "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
                     "references" => [
@@ -1243,7 +1245,8 @@ Route::get('profile/skills', function () {
                 ],
                 "02" => [
                     "name" => "UX Research",
-                    "level" => "beginner",
+                    "status" => "Claimed",
+                    "level" => "Moderately in Evidence",
                     "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
                     "references" => [],
                     "samples" => []
@@ -1284,11 +1287,17 @@ Route::get('profile/skills', function () {
                 "00" => "PDF",
                 "01" => "Website"
             ],
-            "levels" => [
+            "hard_levels" => [
                 "00" => "Beginner",
                 "01" => "Intermediate",
                 "02" => "Advanced",
                 "03" => "Expert"
+            ],
+            "soft_levels" => [
+                "00" => "In Early Development",
+                "01" => "Moderately in Evidence",
+                "02" => "Strongly in Evidence",
+                "03" => "Deep Level Demonstration"
             ],
             "link_label" => "The Link to Your Work",
             "description_label" => "The Story Behind the Work",
@@ -1342,6 +1351,225 @@ Route::get('profile/skills', function () {
 })->name('skills');
 
 /* Profile - My References */
+Route::get('profile/references', function () {
+    return view('applicant/profile_04_references', [
+        "profile" => [
+            "title" => "My References",
+            "menu" => [
+                "00" => [
+                    "active" => false,
+                    "link" => "/profile/about",
+                    "title" => "Go to the About Me section of your profile.",
+                    "label" => "About Me"
+                ],
+                "01" => [
+                    "active" => false,
+                    "link" => "/profile/experience",
+                    "title" => "Go to the Experience section of your profile.",
+                    "label" => "My Experience"
+                ],
+                "02" => [
+                    "active" => false,
+                    "link" => "/profile/skills",
+                    "title" => "Go to the Skills section of your profile.",
+                    "label" => "My Skills"
+                ],
+                "03" => [
+                    "active" => true,
+                    "link" => "/profile/references",
+                    "title" => "Go to the References section of your profile.",
+                    "label" => "My References"
+                ],
+                "04" => [
+                    "active" => false,
+                    "link" => "/profile/portfolio",
+                    "title" => "Go to the Portfolio section of your profile.",
+                    "label" => "My Portfolio"
+                ]
+            ],
+            "modals" => [
+                "00" => [
+                    "type" => "login",
+                    "title" => "Register or Login with GC Account",
+                    "content" => [
+                        "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                        "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                    ],
+                    "id" => "login",
+                    "action_01" => "Register",
+                    "action_02" => "Login"
+                ],
+                "01" => [
+                    "type" => "logout",
+                    "title" => "Logout of Talent Cloud",
+                    "content" => [
+                        "00" => "Are you sure you want to logout of Talent Cloud?"
+                    ],
+                    "id" => "logout",
+                    "action_01" => "Cancel",
+                    "action_02" => "Logout"
+                ],
+                "02" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Skill?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this skill from your profile?",
+                        "01" => "All previously submitted applications will retain this skill, its references, and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
+                    ],
+                    "id" => "deleteSkill",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ]
+            ]
+        ],
+        "user" => [
+            "skills" => [
+                "00" => [
+                    "name" => "HTML",
+                    "status" => "Claimed",
+                    "level" => "beginner",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ],
+                "01" => [
+                    "name" => "CSS",
+                    "status" => "Claimed",
+                    "level" => "advanced",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ],
+                "02" => [
+                    "name" => "UX Research",
+                    "status" => "Claimed",
+                    "level" => "Moderately in Evidence",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [],
+                    "samples" => []
+                ]
+            ],
+            "references" => [
+                "00" => [
+                    "name" => "Mark Hamill",
+                    "relationship" => "coworker",
+                    "email" => "sample@sample.com",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "projects" => [
+                        "00" => [
+                            "name" => "NAFTA Renegotiation",
+                            "start_date" => "2018-01-01",
+                            "end_date" => "2018-02-01"
+                        ],
+                        "01" => [
+                            "name" => "Star Wars XV",
+                            "start_date" => "2020-09-09",
+                            "end_date" => "2021-10-10"
+                        ]
+                    ],
+                    "skills" => [
+                        "00" => "HTML",
+                        "01" => "CSS"
+                    ]
+                ],
+                "01" => [
+                    "name" => "Jesse Markham"
+                ],
+                "02" => [
+                    "name" => "Lucy Ladderfield"
+                ],
+                "03" => [
+                    "name" => "Cameron Trovsky"
+                ]
+            ],
+            "samples" => [
+                "00" => [
+                    "name" => "My Website",
+                    "type" => "Website",
+                    "date_created" => "2018-01-01",
+                    "link" => "https://google.com",
+                    "description" => "Lorem Ipsum",
+                    "skills" => [
+                        "00" => "HTML",
+                        "01" => "CSS"
+                    ]
+                ]
+            ]
+        ],
+        "reference_template" => [
+            "name_label" => "Reference's Name",
+            "relationship_label" => "Your Relationship",
+            "relationships" => [
+                "00" => "Coworker",
+                "01" => "Supervisor",
+                "02" => "Employee"
+            ],
+            "email_label" => "Reference's Email",
+            "description_label" => "How You Worked Together",
+            "action_01" => "Delete Reference",
+            "action_02" => "Save Reference"
+        ],
+        "relative_template" => [
+            "skill" => [
+                "title" => "Linked Skills",
+                "create_title" => "Create a new skill.",
+                "create_label" => "Create New Skill",
+                "label" => "Select a Skill",
+                "add_label" => "Add Existing Skill",
+                "delete_title" => "Remove this skill."
+            ],
+            "reference" => [
+                "title" => "Linked References",
+                "create_title" => "Create a new reference.",
+                "create_label" => "Create New Reference",
+                "label" => "Select a Reference",
+                "add_label" => "Add Existing Reference",
+                "delete_title" => "Remove this reference."
+            ],
+            "sample" => [
+                "title" => "Linked Work Samples",
+                "create_title" => "Create a new work sample.",
+                "create_label" => "Create New Work Sample",
+                "label" => "Select a Work Sample",
+                "add_label" => "Add Existing Work Sample",
+                "delete_title" => "Remove this work sample."
+            ],
+            "project" => [
+                "title" => "Related Projects",
+                "name_label" => "Project Name",
+                "start_date_label" => "Project Started",
+                "end_date_label" => "Project Ended",
+                "add_label" => "Add Project",
+                "delete_title" => "Delete this project."
+            ]
+        ],
+        "skills" => [
+            "00" => [
+                "name" => "UX Research",
+                "type" => "soft",
+                "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+            ],
+            "01" => [
+                "name" => "HTML",
+                "type" => "hard",
+                "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+            ],
+            "02" => [
+                "name" => "CSS",
+                "type" => "hard",
+                "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+            ]
+        ]
+    ]);
+})->name('references');
 
 /* Profile - My Portfolio */
 Route::get('profile/portfolio', function () {
