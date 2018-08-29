@@ -1,6 +1,6 @@
 build:
     resources:
-        cpus: 4
+        cpus: 2
 
     environment:
         variables:
