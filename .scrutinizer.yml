@@ -44,7 +44,7 @@ build:
     deployment:
         -
             commands:
-                - heroku create talentclouddddd
+                - heroku create
                 - git init
                 - touch readme
                 - git add .
