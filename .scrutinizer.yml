@@ -52,7 +52,7 @@ build:
                 # git init
                 - git add -A
                 - git commit -m "commit for deploy to heroku"
-                - git push -f heroku
+                - git push -f heroku HEAD:master
 
 filter:
     excluded_paths:
