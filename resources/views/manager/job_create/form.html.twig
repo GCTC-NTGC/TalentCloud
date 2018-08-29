@@ -5,14 +5,19 @@
 
 ============================================================================= #}
 <form
-    class="form__wrapper manager-jobs__create-form">
+    class="form__wrapper manager-jobs__create-form"
+    action="{{ form_action_url }}"
+    method="post">
+
+    {# Builds an input field for CSRF token validation #}
+    {{ csrf_field() }}
 
     <a
         aria-hidden="true"
         id="details">
     </a>
 
-    <div 
+    <div
         class="manager-jobs__create-form-section">
 
         <h4>Job Details</h4>
@@ -33,20 +38,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.title != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('en').title != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobTitleEN">
                                 Job Title (English)
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobTitleEN"
                                 type="text"
-                                value="{{ manager.post.title }}">
+                                name="title[en]"
+                                value="{{ job.translate('en').title }}">
 
                         </div>
 
@@ -55,20 +61,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.title_fr != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('fr').title != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobTitleFR">
                                 Job Title (Français)
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobTitleFR"
                                 type="text"
-                                value="{{ manager.post.title_fr }}">
+                                name="title[fr]"
+                                value="{{ job.translate('fr').title }}">
 
                         </div>
 
@@ -94,20 +101,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.salary_min != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.salary_min != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobSalaryMin">
                                 Minimum Value
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobSalaryMin"
                                 type="number"
-                                value="{{ manager.post.salary_min }}">
+                                name="salary_min"
+                                value="{{ job.salary_min }}">
 
                         </div>
 
@@ -116,20 +124,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.salary_max != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.salary_max != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobSalaryMax">
                                 Maximum Value
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobSalaryMax"
                                 type="number"
-                                value="{{ manager.post.salary_max }}">
+                                name="salary_max"
+                                value="{{ job.salary_max }}">
 
                         </div>
 
@@ -155,20 +164,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.classification != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.classification != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobClassification">
                                 Occupational Group
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobClassification"
                                 type="text"
-                                value="{{ manager.post.classification }}">
+                                name="classification"
+                                value="{{ job.classification }}">
 
                         </div>
 
@@ -177,20 +187,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.noc != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.noc != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobNoc">
                                 NOC Code
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobNoc"
                                 type="number"
-                                value="{{ manager.post.noc }}">
+                                name='noc'
+                                value="{{ job.noc }}">
 
                         </div>
 
@@ -199,22 +210,24 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--select">
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobSecurityClearance">
                                 Security Clearance
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper">
-                                <select 
+                                <select
                                     class="form__input"
-                                    id="">
-                                    {% for option in manager_job_create.security %}
+                                    id="createJobSecurityClearance"
+                                    name="security_clearance">
+                                    {% for clearance in security_clearances %}
                                         <option
-                                            {% if manager.post.security|capitalize == option|capitalize %}selected="selected"{% endif %}
-                                            >{{ option }}</option>
+                                            value="{{ clearance.id }}"
+                                            {% if clearance.id == job.security_clearance_id %}selected="selected"{% endif %}
+                                            >{{ clearance.value }}</option>
                                             }
                                     {% endfor %}
                                 </select>
@@ -226,22 +239,24 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--select">
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobLanguageRequirement">
                                 Language Requirement
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper">
-                                <select 
+                                <select
                                     class="form__input"
-                                    id="">
-                                    {% for option in manager_job_create.language %}
+                                    id="createJobLanguageRequirement"
+                                    name="language_requirement">
+                                    {% for language in language_requirments %}
                                         <option
-                                            {% if manager.post.language|capitalize == option|capitalize %}selected="selected"{% endif %}
-                                            >{{ option }}</option>
+                                            value="{{ language.id }}"
+                                            {% if language.id == job.language_requirement_id %}selected="selected"{% endif %}
+                                            >{{ language.value }}</option>
                                             }
                                     {% endfor %}
                                 </select>
@@ -270,20 +285,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.city != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.city != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobCity">
                                 City
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobCity"
                                 type="text"
-                                value="{{ manager.post.city }}">
+                                name="city"
+                                value="{{ job.city }}">
 
                         </div>
 
@@ -292,22 +308,24 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--select">
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobProvince">
                                 Province
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper">
-                                <select 
+                                <select
                                     class="form__input"
-                                    id="">
-                                    {% for option in manager_job_create.provinces %}
+                                    id="createJobProvince"
+                                    name="province">
+                                    {% for province in provinces %}
                                         <option
-                                            {% if manager.post.province|capitalize == option|capitalize %}selected="selected"{% endif %}
-                                            >{{ option }}</option>
+                                            value="{{ province.id }}"
+                                            {% if province.id == job.province_id %}selected="selected"{% endif %}
+                                            >{{ province.value }}</option>
                                             }
                                     {% endfor %}
                                 </select>
@@ -336,20 +354,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobOpenDate">
                                 Accepting Applications From
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobOpenDate"
                                 type="date"
-                                value="{{ manager.post.post_start }}">
+                                name="open_date_time"
+                                value="{{ job.open_date_time }}">
 
                         </div>
 
@@ -358,20 +377,21 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobCloseDate">
                                 Accepting Applications To
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobCloseDate"
                                 type="date"
-                                value="{{ manager.post.post_end }}">
+                                name="close_date_time"
+                                value="{{ job.close_date_time }}">
 
                         </div>
 
@@ -380,20 +400,21 @@
                     <div
                         class="box full">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobStartDate">
                                 Position Start Date
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobStartDate"
                                 type="date"
-                                value="{{ manager.post.start }}">
+                                name="start_date_time"
+                                value="{{ job.start_date_time }}">
 
                         </div>
 
@@ -402,20 +423,21 @@
                     <div
                         class="box med-full">
 
-                        <div 
-                            class="form__input-wrapper--float {% if manager.post.duration != null %}active{% endif %}">
+                        <div
+                            class="form__input-wrapper--float {% if job.term_qty != null %}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobDuration">
                                 Position Duration (Months)
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobDuration"
                                 type="number"
-                                value="{{ manager.post.duration }}">
+                                name="term_qty"
+                                value="{{ job.term_qty }}">
 
                         </div>
 
@@ -441,23 +463,26 @@
                     <div
                         class="box full">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--select">
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="createJobDepartment">
                                 Department
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper">
-                                <select 
+                                <select
                                     class="form__input"
-                                    id="">
-                                    {% for option in profile.departments %}
+                                    id="createJobDepartment"
+                                    name="department">
+                                    {% for department in departments %}
                                         <option
-                                            {% if user.department | capitalize == option | capitalize %}selected="selected"{% endif %}
-                                            >{{ option }}</option>
-                                            }
+                                            value="{{ department.id }}"
+                                            {% if (department.id == job.department_id) or
+                                                (job.department_id == null and department.id == manager.department_id) %}selected="selected"{% endif %}>
+                                            {{ department.value }}
+                                        </option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -468,15 +493,24 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="">
+                        <div
+                            class="form__input-wrapper--float"
+                            {% if job.translate('en').branch != null or
+                                manager.translate('en').branch %}active{% endif %}>
+                            <label
+                                class="form__label"
+                                for="createJobBranchEN">
                                 Branch (English)
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobBranchEN"
                                 type="text"
-                                value="">
+                                name="branch[en]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('en').branch ?
+                                    job.translate('en').branch :
+                                    manager.translate('en').branch }}">
                             </input>
                         </div>
 
@@ -485,15 +519,22 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="">
+                        <div
+                            class="form__input-wrapper--float"
+                            {% if job.translate('fr').branch != null or
+                                manager.translate('fr').branch %}active{% endif %}>
+                            <label class="form__label" for="createJobBranchFR">
                                 Branch (Français)
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobBranchFR"
                                 type="text"
-                                value="">
+                                name="branch[fr]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('fr').branch ?
+                                    job.translate('fr').branch :
+                                    manager.translate('fr').branch }}">
                             </input>
                         </div>
 
@@ -502,15 +543,23 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="">
+                        <div class="form__input-wrapper--float"
+                            {% if job.translate('en').divison != null or
+                                manager.translate('en').division != null %}active{% endif %}>
+                            <label
+                                class="form__label"
+                                for="createJobDivisionEN">
                                 Division (English)
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobDivisionEN"
                                 type="text"
-                                value="">
+                                name="division[en]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('en').division ?
+                                    job.translate('en').division :
+                                    manager.translate('en').division }}">
                             </input>
                         </div>
 
@@ -519,15 +568,23 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="">
+                        <div class="form__input-wrapper--float"
+                            {% if job.translate('fr').divison != null or
+                                manager.translate('fr'.division) %}active{% endif %}>
+                            <label
+                                class="form__label"
+                                for="createJobDivisionFR">
                                 Division (Français)
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="createJobDivisionFR"
                                 type="text"
-                                value="">
+                                name="division[fr]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('fr').division ?
+                                    job.translate('fr').division :
+                                    manager.translate('fr').division }}">
                             </input>
                         </div>
 
@@ -553,13 +610,19 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="">
+                        <div class="form__input-wrapper--float"
+                            {% if job.translate('en').impact != null %}active{% endif %}>
+                            <label
+                                class="form__label"
+                                for="createJobImpactEN">
                                 Impact (English)
                             </label>
                             <textarea
                                 class="form__textarea"
-                                id=""></textarea>
+                                id="createJobImpactEN"
+                                name="impact[en]">
+                                {{ job.translate('en').impact }}
+                            </textarea>
                         </div>
 
                     </div>
@@ -567,13 +630,17 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="">
+                        <div class="form__input-wrapper--float"
+                            {% if job.translate('fr').impact != null %}active{% endif %}>
+                            <label class="form__label" for="createJobImpactFR">
                                 Impact (Français)
                             </label>
                             <textarea
                                 class="form__textarea"
-                                id=""></textarea>
+                                id="createJobImpactFR"
+                                name="impact[fr]">
+                                {{ job.translate('fr').impact }}
+                            </textarea>
                         </div>
 
                     </div>
@@ -589,18 +656,14 @@
         id="tasks">
     </a>
 
-    <div 
+    <div
         class="manager-jobs__create-form-section">
 
         <h4>Key Tasks</h4>
 
-        {# Task Template #}
-
-            {% include "manager/job_create/task" %}
-
         {# Task List #}
 
-            <div 
+            <div
                 class="manager-jobs__create-task-wrapper">
 
                 {# Tasks get added here. #}
@@ -627,7 +690,7 @@
         id="skills">
     </a>
 
-    <div 
+    <div
         class="manager-jobs__create-form-section">
 
         <h4>Skills &amp; Competencies</h4>
@@ -643,18 +706,14 @@
         id="questions">
     </a>
 
-    <div 
+    <div
         class="manager-jobs__create-form-section">
 
         <h4>Questions for the Applicant</h4>
 
-        {# Question Template #}
-
-            {% include "manager/job_create/question" %}
-
         {# Question List #}
 
-            <div 
+            <div
                 class="manager-jobs__create-question-wrapper">
 
                 {# Questions get added here. #}
@@ -676,4 +735,50 @@
 
     </div>
 
+    <div
+        class="manager-jobs__create-form-section">
+
+        <div
+            class="flex-grid manager-jobs__create-submission-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save">
+                    Save and Quit
+                </button>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="publish">
+                    Publish
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </form>
+
+{# Templates are placed outside the form, to avoid submitting them #}
+
+{# Question Template #}
+
+{% include "manager/job_create/question" %}
+
+{# Task Template #}
+
+{% include "manager/job_create/task" %}
