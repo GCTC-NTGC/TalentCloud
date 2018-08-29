@@ -44,6 +44,7 @@ build:
     deployment:
         -
             commands:
+                - cd /
                 - heroku git:remote -a gc-talentcloud
                 - git add .
                 - git commit -m "heroku init"
