@@ -62,7 +62,7 @@ class ApplicantProfileController extends Controller
             'tagline' => $applicant->tagline,
             'photo' => '/images/user.png', //TODO: get real photos
             'twitter' => [
-                'url' => trans('common/urls', ['username' => $applicant->twitter_username]),
+                'url' => Lang::get('common/urls.twitter', ['username' => $applicant->twitter_username]),
                 'title' => Lang::get('applicant/applicant_profile.twitter_link_title', ['name'=>$user->name]),
             ],
             'linkedin' => [
