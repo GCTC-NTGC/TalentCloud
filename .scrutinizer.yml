@@ -34,7 +34,7 @@ build:
     nodes:
         analysis:
             tests:
-                override:
+                after:
                     - php-scrutinizer-run # --enable-security-analysis
                     - js-scrutinizer-run
                     -
