@@ -44,7 +44,8 @@ build:
         deployment:
             -
                 commands:
-                    - heroku git:remote -a gc-talentcloud
+                    - heroku create
+                    # heroku git:remote -a gc-talentcloud
                     - git push heroku master
 
 filter:
