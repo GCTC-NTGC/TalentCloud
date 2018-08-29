@@ -157,7 +157,8 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                         "edit_date" => "2018/09/01"
                     ]
                 ]
-            ]);
+            ]
+        ]);
         })->name('applications.index');
 
     /* Step 01 */
