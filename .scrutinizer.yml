@@ -47,10 +47,9 @@ build:
                 - git config --global user.email "grant.d.barnes@gmail.com"
                 - git config --global user.name "Grant Barnes"
                 - heroku git:remote -a gc-talentcloud
-                - touch readme
                 - git add .
                 - git commit -m "heroku init"
-                - git push heroku master
+                - git push heroku codecov_config
 
 filter:
     excluded_paths:
