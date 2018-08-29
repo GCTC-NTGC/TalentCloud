@@ -1,5 +1,6 @@
 build:
-    root_path: './'
+    resources:
+        cpus: 4
 
     environment:
         variables:
@@ -61,3 +62,11 @@ tools:
     external_code_coverage:
         timeout: 777
         runs: 2
+
+deployment:
+    -
+        # Optional. If this should only be executed for pushes to a certain branch.
+        branch: dev            # The branch name is exactly "master"
+
+        commands:
+            - heroku git:remote -a gc-talentcloud
