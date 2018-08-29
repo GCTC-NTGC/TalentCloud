@@ -44,7 +44,7 @@ build:
     deployment:
         -
             commands:
-                - git config --global user.email "grant.d.barnes@gmail.com
+                - git config --global user.email "grant.d.barnes@gmail.com"
                 - git config --global user.name "Grant Barnes"
                 - heroku create
                 - git init
