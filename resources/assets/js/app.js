@@ -555,15 +555,20 @@
                     // Assign the New ID
                     template.attr("data-task-id", newID);
 
-                    // Edit Form IDs
+                    // Add newID as suffix to all "id" and "for" attributes
+                    template.find("*[id]").each(function() { $(this).attr("id", this.id + newID)});
+                    template.find("*[for]").each(function() { $(this).attr("for",  $(this).attr("for") + newID)});
 
-                        // Task (English)
-                        template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
-                        template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
+                    // Replace :id with newID in all form names
+                    template.find("*[name]").each(function() { $(this).attr('name', $(this).attr("name").replace(":id", newID))});
 
-                        // Task (French)
-                        template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
-                        template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
+                    // Task (English)
+                    //template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
+                    //template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
+
+                    // Task (French)
+                    //template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
+                    //template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);
@@ -650,15 +655,22 @@
                     // Assign the New ID
                     template.attr("data-question-id", newID);
 
+                    // Add newID as suffix to all "id" and "for" attributes
+                    template.find("*[id]").each(function() { $(this).attr("id", this.id + newID)});
+                    template.find("*[for]").each(function() { $(this).attr("for",  $(this).attr("for") + newID)});
+
+                    // Replace :id with newID in all form names
+                    template.find("*[name]").each(function() { $(this).attr('name', $(this).attr("name").replace(":id", newID))});
+
                     // Edit Form IDs
-
-                        // Queestion (English)
-                        template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
-                        template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
-
-                        // Queestion (French)
-                        template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
-                        template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
+                        //
+                        // // Queestion (English)
+                        // template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
+                        // template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
+                        //
+                        // // Queestion (French)
+                        // template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
+                        // template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);

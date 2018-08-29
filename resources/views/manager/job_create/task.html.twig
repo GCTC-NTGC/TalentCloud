@@ -5,7 +5,7 @@
 
 ============================================================================= #}
 <div
-    class="manager-jobs__create-task {% if task == false %}template{% endif %}" 
+    class="manager-jobs__create-task {% if task == false %}template{% endif %}"
     data-task-id="{% if task == false %}0{% else %}{{ taskCounter }}{% endif %}">
 
     <fieldset
@@ -33,27 +33,28 @@
 
         </legend>
 
-        <div 
+        <div
             class="flex-grid">
 
             <div
                 class="box med-1of2">
 
-                <div 
-                    class="form__input-wrapper--float {% if task.en != false %}active{% endif %}"
+                <div
+                    class="form__input-wrapper--float {% if task.translate('en').description != false %}active{% endif %}"
                     data-form-id="task-english">
 
-                    <label 
+                    <label
                         class="form__label"
-                        for="">
+                        for="createJobTaskEN">
                         Task Name (English)
                     </label>
 
                     <input
                         class="form__input"
-                        id=""
+                        id="createJobTaskEN"
                         type="text"
-                        value="{{ task.en }}">
+                        name="task[:id][en]"
+                        value="{{ task.translate('en').description }}">
 
                 </div>
 
@@ -62,21 +63,22 @@
             <div
                 class="box med-1of2">
 
-                <div 
-                    class="form__input-wrapper--float {% if task.fr != false %}active{% endif %}"
+                <div
+                    class="form__input-wrapper--float {% if task.translate('fr').description != false %}active{% endif %}"
                     data-form-id="task-french">
 
-                    <label 
+                    <label
                         class="form__label"
-                        for="">
+                        for="createJobTaskFR">
                         Task Name (Français)
                     </label>
 
                     <input
                         class="form__input"
-                        id=""
+                        id="createJobTaskFR"
                         type="text"
-                        value="{{ task.fr }}">
+                        name="task[:id][fr]"
+                        value="{{ task.translate('fr').description }}">
 
                 </div>
 

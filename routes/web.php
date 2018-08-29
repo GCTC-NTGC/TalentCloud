@@ -18,7 +18,9 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
 
-    Route::get('jobs/{jobPoster}', 'JobController@show')->name('jobs.show');
+    Route::get('jobs/{jobPoster}', 'JobController@show')
+        ->middleware('can:view,jobPoster')
+        ->name('jobs.show');
 
     /* Applications */
     Route::get('applications', function () {
@@ -1741,92 +1743,13 @@ $managerGroup = function() {
         })->name('manager.jobs.index');
 
         /* Create Job */
-        Route::get('jobs/create', function () {
-            return view('manager/job_create', [
-                "manager_job_create" => [
-                    "title" => "Create a Job Poster",
-                    "security" => [
-                        "00" => "Reliability",
-                        "01" => "Secret",
-                        "02" => "Top Secret"
-                    ],
-                    "language" => [
-                        "00" => "English Essential",
-                        "01" => "French Essential",
-                        "02" => "Bilingual"
-                    ],
-                    "provinces" => [
-                        "00" => "Alberta",
-                        "01" => "British-Colombia",
-                        "02" => "Manitoba",
-                        "03" => "New Brunswick",
-                        "04" => "Newfoundland and Labrador",
-                        "05" => "Northwest Territories",
-                        "06" => "Nova Scotia",
-                        "07" => "Nunavut",
-                        "08" => "Ontario",
-                        "09" => "Prince Edward Island",
-                        "10" => "Quebec",
-                        "11" => "Saskatchewan",
-                        "12" => "Yukon"
-                    ],
-                    "departments" => [
-                        "00" => "Employment and Social Development Canada",
-                        "01" => "Environment and Climate Change Canada",
-                        "02" => "Natural Resources Canada",
-                        "03" => "Transport Canada",
-                        "04" => "Treasury Board of Canada Secretariat"
-                    ]
-                ],
-                "manager" => [
-                    "department" => "Treasury Board of Canada Secretariat",
-                    "branch" => "CIOB",
-                    "branch_fr" => null,
-                    "division" => "Talent Cloud",
-                    "division_fr" => "Nuage de Talents",
-                    "post" => [
-                        "status" => "draft",
-                        "title" => "Front-end Developer",
-                        "title_fr" => null,
-                        "salary_min" => 90000,
-                        "salary_max" => 120000,
-                        "classification" => "CS3",
-                        "noc" => "90123",
-                        "security" => "Top Secret",
-                        "language" => "English Essential",
-                        "city" => "Ottawa",
-                        "province" => "Ontario",
-                        "post_start" => "2018-08-19",
-                        "post_end" => "2019-12-28",
-                        "start" => "January 3rd, 2019",
-                        "duration" => 12,
-                        "department" => "Natural Resources Canada",
-                        "branch" => null,
-                        "branch_fr" => null,
-                        "division" => null,
-                        "division_fr" => null,
-                        "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
-                        "impact_fr" => null,
-                        /* Tristan, I changed "work" to tasks. I've updated the job poster template to reflect this. Had to account for the language options here too. */
-                        "tasks" => [
-                            "00" => [
-                                "en" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                                "fr" => null
-                            ],
-                            "01" => [
-                                "en" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                                "fr" => null
-                            ],
-                            "02" => [
-                                "en" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                                "fr" => null
-                            ]
-                        ],
-                        "questions" => null
-                    ]
-                ]
-            ]);
-        })->name('manager.jobs.create');
+        Route::get('jobs/create', 'JobController@create')
+            ->middleware('can:create,App\Models\JobPoster')
+            ->name('manager.jobs.create');
+
+        Route::post('jobs', 'JobController@store')
+            ->middleware('can:create,App\Models\JobPoster')
+            ->name('manager.jobs.store');
 
 
     });
