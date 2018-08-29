@@ -37,16 +37,10 @@ build:
                 after:
                     - php-scrutinizer-run # --enable-security-analysis
                     - js-scrutinizer-run
-                    -
-                        command: phpcs-run
-                        use_website_config: true
-                    -
-                        command: scss-lint-run
-                        use_website_config: true
-                    -
-                        command: csslint-run
-                        use_website_config: true
-
+                    - csslint-run ./public/css
+                    - phpcs-run ./app
+                    - phpcs-run ./public
+                    
 filter:
     excluded_paths:
         - '*/database/*'
