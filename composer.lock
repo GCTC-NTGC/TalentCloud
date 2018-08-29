@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc6786a72c90dfb0098d45a6529c0d51",
+    "content-hash": "9d3c4ced7179216292f1de101d21831e",
     "packages": [
         {
             "name": "dimsav/laravel-translatable",
@@ -3687,52 +3687,6 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
-        },
-        {
-            "name": "laravel/installer",
-            "version": "v1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/installer.git",
-                "reference": "83afefb279070144318c391fdab33cb86ca6a74b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/installer/zipball/83afefb279070144318c391fdab33cb86ca6a74b",
-                "reference": "83afefb279070144318c391fdab33cb86ca6a74b",
-                "shasum": ""
-            },
-            "require": {
-                "ext-zip": "*",
-                "guzzlehttp/guzzle": "~4.0|~5.0|~6.0",
-                "symfony/console": "~3.0|~4.0",
-                "symfony/filesystem": "~3.0|~4.0",
-                "symfony/process": "~3.0|~4.0"
-            },
-            "bin": [
-                "laravel"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Installer\\Console\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "description": "Laravel application installer.",
-            "keywords": [
-                "laravel"
-            ],
-            "time": "2017-12-13T19:25:28+00:00"
         },
         {
             "name": "maximebf/debugbar",
