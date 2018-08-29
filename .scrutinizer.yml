@@ -49,7 +49,7 @@ build:
                 - heroku git:remote -a gc-talentcloud
                 - git add .
                 - git commit -m "heroku init"
-                - git push heroku master
+                - git push heroku master -f
 
 filter:
     excluded_paths:
