@@ -17,22 +17,6 @@ build:
         docker: true
         postgresql: true
         selenium: true
-        nginx:
-            sites:
-                # will add configuration file to "/etc/nginx/sites-enabled"
-                tc.gccollab.ca:
-                    host: 'local.dev'
-                    web_root: 'public/'
-                    index: 'index.php'
-                    locations:
-                        - >
-                           location ~ [^/]\.php(/|$) {
-                               try_files $uri $uri/ /index.php /index.html;
-                               fastcgi_index index.php;
-                               fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-                               fastcgi_pass 127.0.0.1:9000;
-                               include fastcgi_params;
-                           }
 
     dependencies:
         override:
