@@ -357,17 +357,255 @@ Route::get('applications/00/step-01', function () {
                     "url" => "/step-05/"
                 ]
             ],
+            "modals" => [
+                "00" => [
+                    "type" => "login",
+                    "title" => "Register or Login with GC Account",
+                    "content" => [
+                        "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                        "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                    ],
+                    "id" => "login",
+                    "action_01" => "Register",
+                    "action_02" => "Login"
+                ],
+                "01" => [
+                    "type" => "logout",
+                    "title" => "Logout of Talent Cloud",
+                    "content" => [
+                        "00" => "Are you sure you want to logout of Talent Cloud?"
+                    ],
+                    "id" => "logout",
+                    "action_01" => "Cancel",
+                    "action_02" => "Logout"
+                ],
+                "02" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Diploma/Degree?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
+                        "01" => "All previously submitted applications will retain this experience."
+                    ],
+                    "id" => "deleteDegree",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ],
+                "03" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Course/Certification?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
+                        "01" => "All previously submitted applications will retain this experience."
+                    ],
+                    "id" => "deleteCourse",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ],
+                "04" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Lived Experience?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
+                        "01" => "All previously submitted applications will retain this experience."
+                    ],
+                    "id" => "deleteWork",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ]
+            ],
             "question_title" => "My Fit",
             "save_quit_button_label" => "Save & Quit",
             "save_continue_button_label" => "Save & Continue",
             "language_title" => "Language Requirement",
             "language_copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
             "language_agree" => "I Agree",
-            "language_disagree" => "I Disagree"
+            "language_disagree" => "I Disagree",
+            "citizenship_title" => "Citizenship Claim",
+            "citizenship_content" => "Which of the following applies to you?",
+            "citizenship_label" => "Select One",
+            "citizenship_options" => [
+                "00" => "Canadian Citizen",
+                "01" => "Permanent Resident of Canada",
+                "02" => "Open - Work Permit",
+                "03" => "Closed - Work Permit",
+                "04" => "I am currently not entitled to work in Canada"
+            ],
+            "veterans_title" => "Veterans Claim Claim",
+            "veterans_content" => "Are you a veteran or a member of the Canadian Armed Forces?",
+            "veterans_label" => "Select One",
+            "veterans_options" => [
+                "00" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
+                "01" => "Yes - I am currently a member of the Canadian Armed Forces.",
+                "02" => "Yes - I am a veteran."
+            ],
+            "experience_section" => [
+                "section_degree_title" => "My Diplomas/Degrees",
+                "add_degree_label" => "Add Diploma/Degree",
+                "null_degree_copy" => "You don't currently have any diplomas or degrees on your profile! Use the button above to add one.",
+                "section_course_title" => "My Courses/Certifications",
+                "add_course_label" => "Add Course/Certification",
+                "null_course_copy" => "You don't currently have any courses or certifications on your profile! Use the button above to add one.",
+                "section_work_title" => "My Lived Experience",
+                "add_work_label" => "Add Lived Experience",
+                "null_work_copy" => "You don't currently have any lived experience on your profile! Use the button above to add some.",
+            ]
         ],
         "user" => [
             "name" => "Jason Greene",
-            "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661"
+            "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+            "degrees" => [
+                "00" => [
+                    "type" => "Bachelor's Degree",
+                    "area_of_study" => "Psychology",
+                    "institution" => "Stanford",
+                    "thesis" => null,
+                    "start_date" => "2018-03-01",
+                    "end_date" => "2018-03-02"
+                ]
+            ],
+            "courses" => [
+                "00" => [
+                    "name" => "Sample Certification",
+                    "institution" => "Stanford",
+                    "status" => "Audited",
+                    "start_date" => "2018-03-01",
+                    "end_date" => "2018-03-02"
+                ]
+            ],
+            "work" => [
+                "00" => [
+                    "role" => "Front-end Developer",
+                    "company" => "Talent Cloud",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero.",
+                    "start_date" => "2018-03-01",
+                    "end_date" => "2018-03-02"
+                ]
+            ],
+            "skills" => [
+                "00" => [
+                    "name" => "HTML",
+                    "status" => "Claimed",
+                    "level" => "beginner",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ],
+                "01" => [
+                    "name" => "CSS",
+                    "status" => "Claimed",
+                    "level" => "advanced",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
+                ],
+                "02" => [
+                    "name" => "UX Research",
+                    "status" => "Claimed",
+                    "level" => "Moderately in Evidence",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [],
+                    "samples" => []
+                ]
+            ],
+            "references" => [
+                "00" => [
+                    "name" => "Mark Hamill",
+                    "relationship" => "coworker",
+                    "email" => "sample@sample.com",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "projects" => [
+                        "00" => [
+                            "name" => "NAFTA Renegotiation",
+                            "start_date" => "2018-01-01",
+                            "end_date" => "2018-02-01"
+                        ],
+                        "01" => [
+                            "name" => "Star Wars XV",
+                            "start_date" => "2020-09-09",
+                            "end_date" => "2021-10-10"
+                        ]
+                    ],
+                    "skills" => [
+                        "00" => "HTML",
+                        "01" => "CSS"
+                    ]
+                ],
+                "01" => [
+                    "name" => "Jesse Markham"
+                ],
+                "02" => [
+                    "name" => "Lucy Ladderfield"
+                ],
+                "03" => [
+                    "name" => "Cameron Trovsky"
+                ]
+            ],
+            "samples" => [
+                "00" => [
+                    "name" => "My Website",
+                    "type" => "Website",
+                    "date_created" => "2018-01-01",
+                    "link" => "https://google.com",
+                    "description" => "Lorem Ipsum",
+                    "skills" => [
+                        "00" => "HTML",
+                        "01" => "CSS"
+                    ]
+                ]
+            ]
+        ],
+        "degree_template" => [
+            "new_degree_label" => "New Diploma/Degree",
+            "type_label" => "Type",
+            "types" => [
+                "00" => "Bachelor's Degree",
+                "02" => "Diploma",
+                "03" => "Master's Degree",
+                "04" => "PhD"
+            ],
+            "aoe_label" => "Area of Study",
+            "institution_label" => "Institution",
+            "thesis_label" => "Thesis Title (Optional)",
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Diploma/Degree",
+            "action_02" => "Save Diploma/Degree"
+        ],
+        "course_template" => [
+            "new_course_label" => "New Course/Certification",
+            "name_label" => "Course/Certification Name",
+            "institution_label" => "Institution",
+            "status_label" => "Status",
+            "statuses" => [
+                "00" => "Course Certificate Granted",
+                "01" => "Credits Towards Degree (Passing Grade)",
+                "02" => "Audited",
+                "03" => "Online Course (No Proof of Completion)",
+                "04" => "Online Course (With Certificate/License)",
+                "05" => "Learning in Progress"
+            ],
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Diploma/Degree",
+            "action_02" => "Save Diploma/Degree"
+        ],
+        "work_template" => [
+            "new_work_label" => "New Lived Experience",
+            "role_label" => "Role",
+            "company_label" => "Company/Group",
+            "description_label" => "Description",
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Lived Experience",
+            "action_02" => "Save Lived Experience"
         ],
         /* Same with this - job ID - and then we pull what we need */
         "job" => [
@@ -483,116 +721,259 @@ Route::get('applications/00/step-02', function () {
                     "url" => "/step-05/"
                 ]
             ],
+            "modals" => [
+                "00" => [
+                    "type" => "login",
+                    "title" => "Register or Login with GC Account",
+                    "content" => [
+                        "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                        "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                    ],
+                    "id" => "login",
+                    "action_01" => "Register",
+                    "action_02" => "Login"
+                ],
+                "01" => [
+                    "type" => "logout",
+                    "title" => "Logout of Talent Cloud",
+                    "content" => [
+                        "00" => "Are you sure you want to logout of Talent Cloud?"
+                    ],
+                    "id" => "logout",
+                    "action_01" => "Cancel",
+                    "action_02" => "Logout"
+                ],
+                "02" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Diploma/Degree?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
+                        "01" => "All previously submitted applications will retain this experience."
+                    ],
+                    "id" => "deleteDegree",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ],
+                "03" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Course/Certification?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
+                        "01" => "All previously submitted applications will retain this experience."
+                    ],
+                    "id" => "deleteCourse",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ],
+                "04" => [
+                    "type" => "confirmation",
+                    "title" => "Delete this Lived Experience?",
+                    "content" => [
+                        "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
+                        "01" => "All previously submitted applications will retain this experience."
+                    ],
+                    "id" => "deleteWork",
+                    "action_01" => "Cancel",
+                    "action_02" => "Delete"
+                ]
+            ],
+            "experience" => [
+                "title" => "My Experience",
+                "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+            ],
             "question_title" => "My Fit",
             "save_quit_button_label" => "Save & Quit",
             "save_continue_button_label" => "Save & Continue",
-            "essential_title" => "Skills You Need to Have",
-            "asset_title" => "Skills That Are Nice to Have",
-            "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
-            "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
-            "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
-            "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
-            "skills_start_button_label" => "Get Started",
-            "essential_sidebar_label" => "Skills Checklist",
-            "asset_sidebar_label" => "Skills Checklist",
-            "sidebar_item_title" => "Scroll to this skill.",
-            "experience" => [
-                "title" => "My Experience",
-                "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
-                "degree_label" => "Diploma / Degree",
-                "degree_label_bridge" => "in",
-                "degree_type_label" => "Degree Type",
-                "degree_options" => [
-                    "00" => "Bachelor's Degree",
-                    "01" => "Certificate",
-                    "02" => "Diploma",
-                    "03" => "Master's Degree",
-                    "04" => "PhD"
-                ],
-                "area_of_study_label" => "Area of Study",
-                "institution_label" => "Institution Name",
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "delete_button_label" => "Delete This",
-                "save_button_label" => "Save This",
-                "course_label" => "Course",
-                "course_name_label" => "Course Name",
-                "lived_label" => "Lived",
-                "role_label" => "Role",
-                "group_label" => "Group / Company Name",
-                "description_label" => "Description",
-                "add_degree_label" => "Add a Diploma / Degree",
-                "add_course_label" => "Add a Course",
-                "add_work_label" => "Add Lived Experience"
+            "language_title" => "Language Requirement",
+            "language_copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
+            "language_agree" => "I Agree",
+            "language_disagree" => "I Disagree",
+            "citizenship_title" => "Citizenship Claim",
+            "citizenship_content" => "Which of the following applies to you?",
+            "citizenship_label" => "Select One",
+            "citizenship_options" => [
+                "00" => "Canadian Citizen",
+                "01" => "Permanent Resident of Canada",
+                "02" => "Open - Work Permit",
+                "03" => "Closed - Work Permit",
+                "04" => "I am currently not entitled to work in Canada"
             ],
-            "skill_ui" => [
-                "declaration_title" => "Required Information",
-                "declaration_level_help_label" => "Unsure of your level?",
-                "declaration_expertise_title" => "My Level of Expertise",
-                "declaration_expertise" => [
-                    "Beginner",
-                    "Intermediate",
-                    "Expert",
-                    "Master"
-                ],
-                "declaration_experience_title" => "My Years of Experience",
-                "declaration_experience" => [
-                    "1 of Less",
-                    "2 - 3",
-                    "4 - 5",
-                    "6 - 7",
-                    "8 or More"
-                ],
-                "declaration_knowledge_label" => "My Knowledge & Experience",
-                "reference" => [
-                    "add_title" => "Add an optional reference.",
-                    "add_context" => "Appoint someone who can vouch for your ability in this skill."
-                ],
-                "sample" => [
-                    "add_title" => "Add an optional work sample.",
-                    "add_context" => "Provide a link to a sample of your work that showcases this skill."
-                ],
-                "save_button_label" => "Save",
-                "delete_button_label" => "Remove"
+            "veterans_title" => "Veterans Claim Claim",
+            "veterans_content" => "Are you a veteran or a member of the Canadian Armed Forces?",
+            "veterans_label" => "Select One",
+            "veterans_options" => [
+                "00" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
+                "01" => "Yes - I am currently a member of the Canadian Armed Forces.",
+                "02" => "Yes - I am a veteran."
+            ],
+            "experience_section" => [
+                "section_degree_title" => "My Diplomas/Degrees",
+                "add_degree_label" => "Add Diploma/Degree",
+                "null_degree_copy" => "You don't currently have any diplomas or degrees on your profile! Use the button above to add one.",
+                "section_course_title" => "My Courses/Certifications",
+                "add_course_label" => "Add Course/Certification",
+                "null_course_copy" => "You don't currently have any courses or certifications on your profile! Use the button above to add one.",
+                "section_work_title" => "My Lived Experience",
+                "add_work_label" => "Add Lived Experience",
+                "null_work_copy" => "You don't currently have any lived experience on your profile! Use the button above to add some.",
             ]
         ],
         "user" => [
             "name" => "Jason Greene",
             "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
-            "declarations" => [
+            "degrees" => [
                 "00" => [
-                    "skill_id" => "000",
-                    "status" => "complete",
-                    "expertise" => "2",
-                    "experience" => "3",
-                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                    "type" => "Bachelor's Degree",
+                    "area_of_study" => "Psychology",
+                    "institution" => "Stanford",
+                    "thesis" => null,
+                    "start_date" => "2018-03-01",
+                    "end_date" => "2018-03-02"
                 ]
             ],
-            "experience" => [
+            "courses" => [
                 "00" => [
-                    "type" => "degree",
-                    "level" => "diploma",
-                    "area_of_study" => "Psychology",
-                    "institution" => "Sample University",
-                    "start_date" => "2018-01-01",
-                    "end_date" => "2018-01-02"
+                    "name" => "Sample Certification",
+                    "institution" => "Stanford",
+                    "status" => "Audited",
+                    "start_date" => "2018-03-01",
+                    "end_date" => "2018-03-02"
+                ]
+            ],
+            "work" => [
+                "00" => [
+                    "role" => "Front-end Developer",
+                    "company" => "Talent Cloud",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero.",
+                    "start_date" => "2018-03-01",
+                    "end_date" => "2018-03-02"
+                ]
+            ],
+            "skills" => [
+                "00" => [
+                    "name" => "HTML",
+                    "status" => "Claimed",
+                    "level" => "beginner",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
                 ],
                 "01" => [
-                    "type" => "course",
-                    "course_name" => "Experimental Physics and their Properties",
-                    "institution" => "Sample University",
-                    "start_date" => "2018-01-01",
-                    "end_date" => "2018-01-02"
+                    "name" => "CSS",
+                    "status" => "Claimed",
+                    "level" => "advanced",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [
+                        "00" => "Mark Hamill"
+                    ],
+                    "samples" => [
+                        "00" => "My Website"
+                    ]
                 ],
                 "02" => [
-                    "type" => "work",
-                    "role" => "Front-end Developer",
-                    "group" => "Government of Canada",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio.",
-                    "start_date" => "2018-01-01",
-                    "end_date" => "2018-01-02"
+                    "name" => "UX Research",
+                    "status" => "Claimed",
+                    "level" => "Moderately in Evidence",
+                    "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "references" => [],
+                    "samples" => []
+                ]
+            ],
+            "references" => [
+                "00" => [
+                    "name" => "Mark Hamill",
+                    "relationship" => "coworker",
+                    "email" => "sample@sample.com",
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                    "projects" => [
+                        "00" => [
+                            "name" => "NAFTA Renegotiation",
+                            "start_date" => "2018-01-01",
+                            "end_date" => "2018-02-01"
+                        ],
+                        "01" => [
+                            "name" => "Star Wars XV",
+                            "start_date" => "2020-09-09",
+                            "end_date" => "2021-10-10"
+                        ]
+                    ],
+                    "skills" => [
+                        "00" => "HTML",
+                        "01" => "CSS"
+                    ]
+                ],
+                "01" => [
+                    "name" => "Jesse Markham"
+                ],
+                "02" => [
+                    "name" => "Lucy Ladderfield"
+                ],
+                "03" => [
+                    "name" => "Cameron Trovsky"
+                ]
+            ],
+            "samples" => [
+                "00" => [
+                    "name" => "My Website",
+                    "type" => "Website",
+                    "date_created" => "2018-01-01",
+                    "link" => "https://google.com",
+                    "description" => "Lorem Ipsum",
+                    "skills" => [
+                        "00" => "HTML",
+                        "01" => "CSS"
+                    ]
                 ]
             ]
+        ],
+        "degree_template" => [
+            "new_degree_label" => "New Diploma/Degree",
+            "type_label" => "Type",
+            "types" => [
+                "00" => "Bachelor's Degree",
+                "02" => "Diploma",
+                "03" => "Master's Degree",
+                "04" => "PhD"
+            ],
+            "aoe_label" => "Area of Study",
+            "institution_label" => "Institution",
+            "thesis_label" => "Thesis Title (Optional)",
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Diploma/Degree",
+            "action_02" => "Save Diploma/Degree"
+        ],
+        "course_template" => [
+            "new_course_label" => "New Course/Certification",
+            "name_label" => "Course/Certification Name",
+            "institution_label" => "Institution",
+            "status_label" => "Status",
+            "statuses" => [
+                "00" => "Course Certificate Granted",
+                "01" => "Credits Towards Degree (Passing Grade)",
+                "02" => "Audited",
+                "03" => "Online Course (No Proof of Completion)",
+                "04" => "Online Course (With Certificate/License)",
+                "05" => "Learning in Progress"
+            ],
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Diploma/Degree",
+            "action_02" => "Save Diploma/Degree"
+        ],
+        "work_template" => [
+            "new_work_label" => "New Lived Experience",
+            "role_label" => "Role",
+            "company_label" => "Company/Group",
+            "description_label" => "Description",
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Lived Experience",
+            "action_02" => "Save Lived Experience"
         ],
         /* Same with this - job ID - and then we pull what we need */
         "job" => [
@@ -659,57 +1040,6 @@ Route::get('applications/00/step-02', function () {
                     "input_name" => "jobPostQuestion1",
                     "answer_label" => "Your Answer",
                     "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-                ]
-            ],
-            "skills" => [
-                "00" => [
-                    "id" => "000",
-                    "title" => "HTML5",
-                    "type" => "essential",
-                    "status" => "complete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
-                ],
-                "01" => [
-                    "id" => "001",
-                    "title" => "JavaScript",
-                    "type" => "essential",
-                    "status" => "incomplete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
-                ],
-                "02" => [
-                    "id" => "002",
-                    "title" => "CSS3 & Sass",
-                    "type" => "essential",
-                    "status" => "incomplete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
-                ],
-                "03" => [
-                    "id" => "003",
-                    "title" => "Laravel",
-                    "type" => "essential",
-                    "status" => "incomplete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
-                ],
-                "04" => [
-                    "id" => "004",
-                    "title" => "Docker",
-                    "type" => "asset",
-                    "status" => "incomplete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
-                ],
-                "05" => [
-                    "id" => "005",
-                    "title" => "Responsive Web Design",
-                    "type" => "asset",
-                    "status" => "complete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
-                ],
-                "06" => [
-                    "id" => "006",
-                    "title" => "Adobe XD",
-                    "type" => "asset",
-                    "status" => "incomplete",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
                 ]
             ]
         ]
