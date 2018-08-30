@@ -905,6 +905,12 @@
                 "tracker_job_link_title" => "Visit this job's post.",
                 "tracker_label" => "Step",
                 "tracker_link_title" => "Go to step",
+                "skills_section" => [
+                    "essential_title" => "Need to Have",
+                    "asset_title" => "Nice to Have",
+                    "add_button_label" => "Add Skill",
+                    "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+                ],
                 "tracker" => [
                     "00" => [
                         "step" => "1",
@@ -935,6 +941,27 @@
                         "title" => "Review my Application",
                         "status" => "incomplete",
                         "url" => "/step-05/"
+                    ]
+                ],
+                "modals" => [
+                    "00" => [
+                        "type" => "createReference",
+                        "title" => "Create a New Reference",
+                        "content" => [
+                            "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
+                        ],
+                        "id" => "createReference",
+                        "action_01" => "Cancel",
+                        "action_02" => "Save"
+                    ],
+                    "01" => [
+                        "type" => "createSample",
+                        "title" => "Create a New Work Sample",
+                        "content" => [
+                        ],
+                        "id" => "createSample",
+                        "action_01" => "Cancel",
+                        "action_02" => "Save"
                     ]
                 ],
                 "question_title" => "My Fit",
@@ -984,13 +1011,65 @@
             "user" => [
                 "name" => "Jason Greene",
                 "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
-                "declarations" => [
+                "skills" => [
                     "00" => [
-                        "skill_id" => "000",
-                        "status" => "complete",
-                        "expertise" => "2",
-                        "experience" => "3",
-                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "HTML",
+                        "status" => "Claimed",
+                        "level" => "beginner",
+                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                        "references" => [
+                            "00" => "Mark Hamill"
+                        ],
+                        "samples" => [
+                            "00" => "My Website"
+                        ]
+                    ],
+                    "01" => [
+                        "name" => "CSS",
+                        "status" => "Claimed",
+                        "level" => "advanced",
+                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                        "references" => [
+                            "00" => "Mark Hamill"
+                        ],
+                        "samples" => [
+                            "00" => "My Website"
+                        ]
+                    ],
+                    "02" => [
+                        "name" => "UX Research",
+                        "status" => "Claimed",
+                        "level" => "Moderately in Evidence",
+                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                        "references" => [],
+                        "samples" => []
+                    ]
+                ],
+                "references" => [
+                    "00" => [
+                        "name" => "Mark Hamill"
+                    ],
+                    "01" => [
+                        "name" => "Jesse Markham"
+                    ],
+                    "02" => [
+                        "name" => "Lucy Ladderfield"
+                    ],
+                    "03" => [
+                        "name" => "Cameron Trovsky"
+                    ]
+                ],
+                "samples" => [
+                    "00" => [
+                        "name" => "My Website",
+                        "type" => "Website",
+                        "date_created" => "2018-01-01",
+                        "link" => "https://google.com",
+                        "description" => "Lorem Ipsum",
+                        "skills" => [
+                            "00" => "HTML",
+                            "01" => "CSS"
+                        ]
                     ]
                 ]
             ],
@@ -1063,54 +1142,156 @@
                 ],
                 "skills" => [
                     "00" => [
-                        "id" => "000",
-                        "title" => "HTML5",
-                        "type" => "essential",
-                        "status" => "complete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "HTML",
+                        "requirement" => "essential",
+                        "level" => "Intermediate"
                     ],
                     "01" => [
-                        "id" => "001",
-                        "title" => "JavaScript",
-                        "type" => "essential",
-                        "status" => "incomplete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "JavaScript",
+                        "requirement" => "essential",
+                        "level" => "Moderately in Evidence"
                     ],
                     "02" => [
-                        "id" => "002",
-                        "title" => "CSS3 & Sass",
-                        "type" => "essential",
-                        "status" => "incomplete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "CSS",
+                        "requirement" => "essential",
+                        "level" => "Advanced"
                     ],
                     "03" => [
-                        "id" => "003",
-                        "title" => "Laravel",
-                        "type" => "essential",
-                        "status" => "incomplete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "Laravel",
+                        "requirement" => "essential",
+                        "level" => "Intermediate"
                     ],
                     "04" => [
-                        "id" => "004",
-                        "title" => "Docker",
-                        "type" => "asset",
-                        "status" => "incomplete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "Docker",
+                        "requirement" => "asset",
+                        "level" => "Beginner"
                     ],
                     "05" => [
-                        "id" => "005",
-                        "title" => "Responsive Web Design",
-                        "type" => "asset",
-                        "status" => "complete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "Responsive Web Design",
+                        "requirement" => "asset",
+                        "level" => "Beginner"
                     ],
                     "06" => [
-                        "id" => "006",
-                        "title" => "Adobe XD",
-                        "type" => "asset",
-                        "status" => "incomplete",
-                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis iaculis justo ac finibus. Aliquam iaculis maximus velit, in cursus sapien rhoncus ac. Vivamus felis sem, iaculis tristique vulputate quis, iaculis eget est. In arcu mauris, tincidunt sed interdum eget, semper quis neque. Donec libero lectus, dapibus sed ante sed, sagittis ornare odio."
+                        "name" => "Adobe XD",
+                        "requirement" => "asset",
+                        "level" => "Beginner"
                     ]
+                ]
+            ],
+            "skill_template" => [
+                "application_soft_requirement_label" => "Recommended",
+                "application_hard_requirement_label" => "Required",
+                "new_skill_title" => "New Skill",
+                "name_label" => "Project Name",
+                "type_label" => "Project Type",
+                "skill_selection_label" => "Select Skill",
+                "level_label" => "My Level",
+                "knowledge_label" => "My Knowledge",
+                "hard_levels" => [
+                    "00" => "Beginner",
+                    "01" => "Intermediate",
+                    "02" => "Advanced",
+                    "03" => "Expert"
+                ],
+                "soft_levels" => [
+                    "00" => "In Early Development",
+                    "01" => "Moderately in Evidence",
+                    "02" => "Strongly in Evidence",
+                    "03" => "Deep Level Demonstration"
+                ],
+                "action_01" => "Delete Skill",
+                "action_02" => "Save Skill"
+            ],
+            "reference_template" => [
+                "new_reference_title" => "New Reference",
+                "name_label" => "Reference's Name",
+                "relationship_label" => "Your Relationship",
+                "relationships" => [
+                    "00" => "Coworker",
+                    "01" => "Supervisor",
+                    "02" => "Employee"
+                ],
+                "email_label" => "Reference's Email",
+                "description_label" => "How You Worked Together",
+                "action_01" => "Delete Reference",
+                "action_02" => "Save Reference"
+            ],
+            "sample_template" => [
+                "new_sample_label" => "New Work Sample",
+                "name_label" => "Project Name",
+                "type_label" => "Project Type",
+                "types" => [
+                    "00" => "PDF",
+                    "01" => "Website"
+                ],
+                "link_label" => "The Link to Your Work",
+                "description_label" => "The Story Behind the Work",
+                "linked_skills_label" => "Linked Skills",
+                "search_label" => "Search Through My Skills",
+                "skill_label" => "Select a Skill",
+                "add_skill_label" => "Add a Skill",
+                "action_01" => "Delete Sample",
+                "action_02" => "Save Sample"
+            ],
+            "relative_template" => [
+                "skill" => [
+                    "title" => "Linked Skills",
+                    "create_title" => "Create a new skill.",
+                    "create_label" => "Create New Skill",
+                    "label" => "Select a Skill",
+                    "add_label" => "Add Existing Skill",
+                    "delete_title" => "Remove this skill."
+                ],
+                "reference" => [
+                    "title" => "Linked References",
+                    "create_title" => "Create a new reference.",
+                    "create_label" => "Create New Reference",
+                    "label" => "Select a Reference",
+                    "add_label" => "Add Existing Reference",
+                    "delete_title" => "Remove this reference."
+                ],
+                "sample" => [
+                    "title" => "Linked Work Samples",
+                    "create_title" => "Create a new work sample.",
+                    "create_label" => "Create New Work Sample",
+                    "label" => "Select a Work Sample",
+                    "add_label" => "Add Existing Work Sample",
+                    "delete_title" => "Remove this work sample."
+                ],
+                "project" => [
+                    "title" => "Related Projects",
+                    "name_label" => "Project Name",
+                    "start_date_label" => "Project Started",
+                    "end_date_label" => "Project Ended",
+                    "add_label" => "Add Project",
+                    "delete_title" => "Delete this project."
+                ]
+            ],
+            "skills" => [
+                "00" => [
+                    "name" => "UX Research",
+                    "type" => "soft",
+                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "01" => [
+                    "name" => "HTML",
+                    "type" => "hard",
+                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "02" => [
+                    "name" => "CSS",
+                    "type" => "hard",
+                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "03" => [
+                    "name" => "Laravel",
+                    "type" => "hard",
+                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "04" => [
+                    "name" => "JavaScript",
+                    "type" => "soft",
+                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
                 ]
             ]
         ]);
@@ -1119,7 +1300,418 @@
     /* Step 04 */
     Route::get('applications/00/step-04', function () {
         return view('applicant/application_post_04', [
-
+            "application" => [
+                "id" => "00",
+                "title" => "Apply Now",
+                "step" => "4",
+                "job_context_copy" => "You are applying for:",
+                "tracker_job_link_title" => "Visit this job's post.",
+                "tracker_label" => "Step",
+                "tracker_link_title" => "Go to step",
+                "skills_section" => [
+                    "essential_title" => "Need to Have",
+                    "asset_title" => "Nice to Have",
+                    "add_button_label" => "Add Skill",
+                    "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+                ],
+                "tracker" => [
+                    "00" => [
+                        "step" => "1",
+                        "title" => "My Information",
+                        "status" => "error",
+                        "url" => "/step-01/"
+                    ],
+                    "01" => [
+                        "step" => "2",
+                        "title" => "My Experience",
+                        "status" => "complete",
+                        "url" => "/step-02/"
+                    ],
+                    "02" => [
+                        "step" => "3",
+                        "title" => "Skills: Need to Have",
+                        "status" => "complete",
+                        "url" => "/step-03/"
+                    ],
+                    "03" => [
+                        "step" => "4",
+                        "title" => "Skills: Nice to Have",
+                        "status" => "incomplete",
+                        "url" => "/step-04/"
+                    ],
+                    "04" => [
+                        "step" => "5",
+                        "title" => "Review my Application",
+                        "status" => "incomplete",
+                        "url" => "/step-05/"
+                    ]
+                ],
+                "modals" => [
+                    "00" => [
+                        "type" => "createReference",
+                        "title" => "Create a New Reference",
+                        "content" => [
+                            "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
+                        ],
+                        "id" => "createReference",
+                        "action_01" => "Cancel",
+                        "action_02" => "Save"
+                    ],
+                    "01" => [
+                        "type" => "createSample",
+                        "title" => "Create a New Work Sample",
+                        "content" => [
+                        ],
+                        "id" => "createSample",
+                        "action_01" => "Cancel",
+                        "action_02" => "Save"
+                    ]
+                ],
+                "question_title" => "My Fit",
+                "save_quit_button_label" => "Save & Quit",
+                "save_continue_button_label" => "Save & Continue",
+                "essential_title" => "Skills You Need to Have",
+                "asset_title" => "Skills That Are Nice to Have",
+                "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+                "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+                "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
+                "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
+                "skills_start_button_label" => "Get Started",
+                "essential_sidebar_label" => "Skills Checklist",
+                "asset_sidebar_label" => "Skills Checklist",
+                "sidebar_item_title" => "Scroll to this skill.",
+                "skill_ui" => [
+                    "declaration_title" => "Required Information",
+                    "declaration_level_help_label" => "Unsure of your level?",
+                    "declaration_expertise_title" => "My Level of Expertise",
+                    "declaration_expertise" => [
+                        "Beginner",
+                        "Intermediate",
+                        "Expert",
+                        "Master"
+                    ],
+                    "declaration_experience_title" => "My Years of Experience",
+                    "declaration_experience" => [
+                        "1 of Less",
+                        "2 - 3",
+                        "4 - 5",
+                        "6 - 7",
+                        "8 or More"
+                    ],
+                    "declaration_knowledge_label" => "My Knowledge & Experience",
+                    "reference" => [
+                        "add_title" => "Add an optional reference.",
+                        "add_context" => "Appoint someone who can vouch for your ability in this skill."
+                    ],
+                    "sample" => [
+                        "add_title" => "Add an optional work sample.",
+                        "add_context" => "Provide a link to a sample of your work that showcases this skill."
+                    ],
+                    "save_button_label" => "Save",
+                    "delete_button_label" => "Remove"
+                ]
+            ],
+            "user" => [
+                "name" => "Jason Greene",
+                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "skills" => [
+                    "00" => [
+                        "name" => "HTML",
+                        "status" => "Claimed",
+                        "level" => "beginner",
+                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                        "references" => [
+                            "00" => "Mark Hamill"
+                        ],
+                        "samples" => [
+                            "00" => "My Website"
+                        ]
+                    ],
+                    "01" => [
+                        "name" => "CSS",
+                        "status" => "Claimed",
+                        "level" => "advanced",
+                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                        "references" => [
+                            "00" => "Mark Hamill"
+                        ],
+                        "samples" => [
+                            "00" => "My Website"
+                        ]
+                    ],
+                    "02" => [
+                        "name" => "UX Research",
+                        "status" => "Claimed",
+                        "level" => "Moderately in Evidence",
+                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
+                        "references" => [],
+                        "samples" => []
+                    ]
+                ],
+                "references" => [
+                    "00" => [
+                        "name" => "Mark Hamill"
+                    ],
+                    "01" => [
+                        "name" => "Jesse Markham"
+                    ],
+                    "02" => [
+                        "name" => "Lucy Ladderfield"
+                    ],
+                    "03" => [
+                        "name" => "Cameron Trovsky"
+                    ]
+                ],
+                "samples" => [
+                    "00" => [
+                        "name" => "My Website",
+                        "type" => "Website",
+                        "date_created" => "2018-01-01",
+                        "link" => "https://google.com",
+                        "description" => "Lorem Ipsum",
+                        "skills" => [
+                            "00" => "HTML",
+                            "01" => "CSS"
+                        ]
+                    ]
+                ]
+            ],
+            /* Same with this - job ID - and then we pull what we need */
+            "job" => [
+                "link" => "/browse/jobs/00/",
+                "title" => "Front-end Developer",
+                "department" => "Treasury Board of Canada Secretariat",
+                "city" => "Ottawa",
+                "province" => "Ontario",
+                "salary" => "80,000 - 120,000",
+                "duration" => "1 Year",
+                "remote" => "Allowed",
+                "telework" => "Allowed",
+                "time_flexibility" => "Allowed",
+                "days_remaining" => "12",
+                "applicants" => "2",
+                "reference_id" => "14234",
+                "start" => "January 3rd, 2019",
+                "language" => "English Essential",
+                "security" => "Top Secret",
+                "classification" => "CS3",
+                "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+                "work" => [
+                    "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+                    "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+                    "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+                ],
+                "criteria" => [
+                    "essential" => [
+                        "00" => "Criteria 01",
+                        "01" => "Criteria 02",
+                        "02" => "Criteria 03"
+                    ],
+                    "asset" => [
+                        "00" => "Criteria 01",
+                        "01" => "Criteria 02",
+                        "02" => "Criteria 03"
+                    ]
+                ],
+                "extras" => [
+                    "00" => [
+                        "title" => "What You Need for Security Clearance",
+                        "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                    ],
+                    "01" => [
+                        "title" => "The Application Process",
+                        "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                    ],
+                    "02" => [
+                        "title" => "Other Paperwork & Preparation",
+                        "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                    ]
+                ],
+                "questions" => [
+                    "00" => [
+                        "value" => "Why are you interested in this job?",
+                        "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
+                        "input_name" => "jobPostQuestion0",
+                        "answer_label" => "Your Answer",
+                        "answer" => null
+                    ],
+                    "01" => [
+                        "value" => "Why are you the right person for this job?",
+                        "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
+                        "input_name" => "jobPostQuestion1",
+                        "answer_label" => "Your Answer",
+                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                    ]
+                ],
+                "skills" => [
+                    "00" => [
+                        "name" => "HTML",
+                        "requirement" => "essential",
+                        "level" => "Intermediate"
+                    ],
+                    "01" => [
+                        "name" => "JavaScript",
+                        "requirement" => "essential",
+                        "level" => "Moderately in Evidence"
+                    ],
+                    "02" => [
+                        "name" => "CSS",
+                        "requirement" => "essential",
+                        "level" => "Advanced"
+                    ],
+                    "03" => [
+                        "name" => "Laravel",
+                        "requirement" => "essential",
+                        "level" => "Intermediate"
+                    ],
+                    "04" => [
+                        "name" => "Docker",
+                        "requirement" => "asset",
+                        "level" => "Beginner"
+                    ],
+                    "05" => [
+                        "name" => "Responsive Web Design",
+                        "requirement" => "asset",
+                        "level" => "Beginner"
+                    ],
+                    "06" => [
+                        "name" => "Adobe XD",
+                        "requirement" => "asset",
+                        "level" => "Beginner"
+                    ]
+                ]
+            ],
+            "skill_template" => [
+                "application_soft_requirement_label" => "Recommended",
+                "application_hard_requirement_label" => "Required",
+                "new_skill_title" => "New Skill",
+                "name_label" => "Project Name",
+                "type_label" => "Project Type",
+                "skill_selection_label" => "Select Skill",
+                "level_label" => "My Level",
+                "knowledge_label" => "My Knowledge",
+                "hard_levels" => [
+                    "00" => "Beginner",
+                    "01" => "Intermediate",
+                    "02" => "Advanced",
+                    "03" => "Expert"
+                ],
+                "soft_levels" => [
+                    "00" => "In Early Development",
+                    "01" => "Moderately in Evidence",
+                    "02" => "Strongly in Evidence",
+                    "03" => "Deep Level Demonstration"
+                ],
+                "action_01" => "Delete Skill",
+                "action_02" => "Save Skill"
+            ],
+            "reference_template" => [
+                "new_reference_title" => "New Reference",
+                "name_label" => "Reference's Name",
+                "relationship_label" => "Your Relationship",
+                "relationships" => [
+                    "00" => "Coworker",
+                    "01" => "Supervisor",
+                    "02" => "Employee"
+                ],
+                "email_label" => "Reference's Email",
+                "description_label" => "How You Worked Together",
+                "action_01" => "Delete Reference",
+                "action_02" => "Save Reference"
+            ],
+            "sample_template" => [
+                "new_sample_label" => "New Work Sample",
+                "name_label" => "Project Name",
+                "type_label" => "Project Type",
+                "types" => [
+                    "00" => "PDF",
+                    "01" => "Website"
+                ],
+                "link_label" => "The Link to Your Work",
+                "description_label" => "The Story Behind the Work",
+                "linked_skills_label" => "Linked Skills",
+                "search_label" => "Search Through My Skills",
+                "skill_label" => "Select a Skill",
+                "add_skill_label" => "Add a Skill",
+                "action_01" => "Delete Sample",
+                "action_02" => "Save Sample"
+            ],
+            "relative_template" => [
+                "skill" => [
+                    "title" => "Linked Skills",
+                    "create_title" => "Create a new skill.",
+                    "create_label" => "Create New Skill",
+                    "label" => "Select a Skill",
+                    "add_label" => "Add Existing Skill",
+                    "delete_title" => "Remove this skill."
+                ],
+                "reference" => [
+                    "title" => "Linked References",
+                    "create_title" => "Create a new reference.",
+                    "create_label" => "Create New Reference",
+                    "label" => "Select a Reference",
+                    "add_label" => "Add Existing Reference",
+                    "delete_title" => "Remove this reference."
+                ],
+                "sample" => [
+                    "title" => "Linked Work Samples",
+                    "create_title" => "Create a new work sample.",
+                    "create_label" => "Create New Work Sample",
+                    "label" => "Select a Work Sample",
+                    "add_label" => "Add Existing Work Sample",
+                    "delete_title" => "Remove this work sample."
+                ],
+                "project" => [
+                    "title" => "Related Projects",
+                    "name_label" => "Project Name",
+                    "start_date_label" => "Project Started",
+                    "end_date_label" => "Project Ended",
+                    "add_label" => "Add Project",
+                    "delete_title" => "Delete this project."
+                ]
+            ],
+            "skills" => [
+                "00" => [
+                    "name" => "UX Research",
+                    "type" => "soft",
+                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "01" => [
+                    "name" => "HTML",
+                    "type" => "hard",
+                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "02" => [
+                    "name" => "CSS",
+                    "type" => "hard",
+                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "03" => [
+                    "name" => "Laravel",
+                    "type" => "hard",
+                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "04" => [
+                    "name" => "JavaScript",
+                    "type" => "soft",
+                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "05" => [
+                    "name" => "Docker",
+                    "type" => "soft",
+                    "description" => "Docker: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "06" => [
+                    "name" => "Responsive Web Design",
+                    "type" => "soft",
+                    "description" => "RWD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "07" => [
+                    "name" => "Adobe XD",
+                    "type" => "hard",
+                    "description" => "XD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ]
+            ]
         ]);
     })->name('applications.edit.4');
 

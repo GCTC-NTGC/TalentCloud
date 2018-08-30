@@ -22,30 +22,30 @@
             </h4>
         {% endif %}
 
-        {% for item in job.skills %}
+        {% for jobSkill in job.skills %}
 
             {% if application.step == "3" %}
                 
-                {% if item.type == "essential" %}
+                {% if jobSkill.requirement == "essential" %}
 
                     <a
                         class="application-post__subnav-item"
-                        href="#skill{{ item.id }}"
+                        href="#skill{{ jobSkill.name }}"
                         title="{{ application.sidebar_item_title }}">
-                        {{ item.title }}
+                        {{ jobSkill.name }}
                     </a>
 
                 {% endif %}
 
             {% elseif application.step == "4" %}
                 
-                {% if item.type == "asset" %}
+                {% if jobSkill.requirement == "asset" %}
 
                     <a
                         class="application-post__subnav-item"
-                        href="#skill{{ item.id }}"
+                        href="#skill{{ jobSkill.name }}"
                         title="{{ application.sidebar_item_title }}">
-                        {{ item.title }}
+                        {{ jobSkill.name }}
                     </a>
 
                 {% endif %}

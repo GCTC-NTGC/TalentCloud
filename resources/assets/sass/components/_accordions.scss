@@ -56,6 +56,16 @@
             margin: calc(#{$unit} * 2) 0;
             padding: 0 0 0 calc(#{$unit} * 2);
             vertical-align: middle;
+
+            span {
+                color: $palette--font-white;
+                display: block;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 400;
+                margin: .3rem 0 0 0;
+            }
+
         }
 
         .fa-chevron-up {

@@ -49,12 +49,16 @@
         &::before { 
             display: block; 
             content: " "; 
-            margin-top: -8rem; 
-            height: 8rem; 
+            margin-top: -13rem; 
+            height: 13rem; 
             visibility: hidden; 
             pointer-events: none;
         }
 
+    }
+
+    .profile-list {
+        padding: 5rem 0 4rem;
     }
 
 }

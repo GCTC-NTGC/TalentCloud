@@ -5,7 +5,7 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion skill {% if skill == false %}template active{% endif %}">
+    class="profile-element accordion skill {% if locale == "profile" and skill == false %}template active{% endif %} {% if locale == "application" and jobSkill == false %}template{% endif %} {% if locale == "application" and skill == true %}complete{% endif %}">
 
     {# Accordion Trigger #}
 
@@ -35,14 +35,21 @@
 
             <span
                 class="accordion-title">
-                {% if skill == false %}
+                {% if locale == "profile" and skill == false %}
                     {{ skill_template.new_skill_title }}
-                {% else %}
+                {% elseif locale == "profile" and skill == true %}
                     {{ skill.name }}
+                {% elseif locale == "application" %}
+                    {{ jobSkill.name }}
+                    {% if skillType == "soft" %}
+                        <span>{{ jobSkill.level }} {{ skill_template.application_soft_requirement_label }}</span>
+                    {% elseif skillType == "hard" %}
+                        <span>{{ jobSkill.level }} {{ skill_template.application_hard_requirement_label }}</span>
+                    {% endif %}
                 {% endif %}
             </span>
 
-            {% if skill == true %}
+            {% if locale == "profile" and skill == true %}
 
                 <div
                     class="skill-summary">
@@ -73,9 +80,9 @@
                 <div
                     class="flex-grid">
 
-                    {# Template Specific Content #}
+                    {# Profile Template Specific Content #}
 
-                        {% if skill == false %}
+                        {% if locale == "profile" and skill == false %}
 
                             <div
                                 class="box full">
@@ -114,23 +121,54 @@
 
                         {% endif %}
 
-                    {# SKill Description Matching #}
+                    {# Profile SKill Description Matching #}
 
-                        {% for siteSkill in skills %}
+                        {% if locale == "profile" %}
 
-                            {% if skill.name|capitalize == siteSkill.name|capitalize %}
+                            {% for siteSkill in skills %}
 
-                                <div
-                                    class="box full">
-                                    <p
-                                        class="skill__description">{{ siteSkill.description }}</p>
+                                {% if skill.name|capitalize == siteSkill.name|capitalize %}
+
+                                    <div
+                                        class="box full">
+                                        <p
+                                            class="skill__description">{{ siteSkill.description }}</p>
+                                        <p
+                                            class="skill__status">Status: Skill {{ skill.status }}</p>
+                                    </div>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {# Application Skill Description #}
+
+                        {% if locale == "application" %}
+
+                            <div
+                                class="box full">
+
+                                {% for siteSkill in skills %}
+
+                                    {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+
+                                        <p
+                                            class="skill__description">{{ siteSkill.description }}</p>
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {% if skill == true %}
                                     <p
                                         class="skill__status">Status: Skill {{ skill.status }}</p>
-                                </div>
+                                {% endif %}
 
-                            {% endif %}
+                            </div>
 
-                        {% endfor %}
+                        {% endif %}
 
                     {# Soft Skill Form Elements #}
 
@@ -441,11 +479,15 @@
 
                 <div
                     class="box med-1of2">
-                    <button
-                        class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteSkill">
-                        {{ skill_template.action_01 }}
-                    </button>
+
+                    {% if locale != "application" %}
+                        <button
+                            class="button--red light-bg modal-trigger"
+                            data-modal-id="deleteSkill">
+                            {{ skill_template.action_01 }}
+                        </button>
+                    {% endif %}
+
                 </div>
 
                 <div

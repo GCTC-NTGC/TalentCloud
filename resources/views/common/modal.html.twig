@@ -172,6 +172,18 @@
 
                 {% endif %}
 
+                {% if modal.type == "createReference" %}
+
+                    {% include "common/modals/create_reference" %}
+
+                {% endif %}
+
+                {% if modal.type == "createSample" %}
+
+                    {% include "common/modals/create_sample" %}
+
+                {% endif %}
+
             </div>
 
         </div>
