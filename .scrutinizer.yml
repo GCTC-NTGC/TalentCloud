@@ -1,6 +1,4 @@
 build:
-    resources:
-        cpus: 1
 
     environment:
         variables:
@@ -19,6 +17,22 @@ build:
         docker: true
         postgresql: true
         selenium: true
+        nginx:
+            sites:
+                # will add configuration file to "/etc/nginx/sites-enabled"
+                tc.gccollab.ca:
+                    host: 'local.dev'
+                    web_root: 'public/'
+                    index: 'index.php'
+                    locations:
+                        - >
+                           location ~ [^/]\.php(/|$) {
+                               try_files $uri $uri/ /index.php /index.html;
+                               fastcgi_index index.php;
+                               fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+                               fastcgi_pass 127.0.0.1:9000;
+                               include fastcgi_params;
+                           }
 
     dependencies:
         override:
@@ -40,20 +54,6 @@ build:
                     - csslint-run ./public/css
                     - phpcs-run ./app
                     - phpcs-run ./public
-
-    deployment:
-        -
-            commands:
-                - git config --global user.email "grant.d.barnes@gmail.com"
-                - git config --global user.name "Grant Barnes"
-                # heroku create gc-talentcloud-s
-                - heroku git:remote -a gc-talentcloud
-                - heroku container:push web
-                - heroku container:release web
-                # git init
-                # git add -A
-                # git commit -m "commit for deploy to heroku"
-                - git push -f heroku HEAD:master
 
 filter:
     excluded_paths:
