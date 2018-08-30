@@ -1,0 +1,196 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Experience Index
+
+============================================================================= #}
+<section
+    class="applicant-profile__portfolio">
+
+    <div
+        class="container--layout">
+
+        {# Profile List (Degrees) #}
+
+            <div
+                class="profile-list">
+
+                {# Profile List Header #}
+
+                    <div
+                        class="profile-list__header flex-grid middle">
+
+                        <div
+                            class="box med-1of2">
+
+                            <h3>{{ profile.experience_section.section_degree_title }}</h3>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                {{ profile.experience_section.add_degree_label }}
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {# Set Locale #}
+
+                    {% set locale = "profile" %}
+
+                {# Profile Element Template #}
+
+                    {% include "common/degree" %}
+
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set degreeCounter = 0 %}
+
+                        {% for degree in user.degrees %}
+
+                            {% set degreeCounter = degreeCounter + 1 %}
+
+                            {% include "common/degree" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
+
+                            <p>{{ profile.experience_section.null_degree_copy }}</p>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+        {# Profile List (Courses) #}
+
+            <div
+                class="profile-list">
+
+                {# Profile List Header #}
+
+                    <div
+                        class="profile-list__header flex-grid middle">
+
+                        <div
+                            class="box med-1of2">
+
+                            <h3>{{ profile.experience_section.section_course_title }}</h3>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                {{ profile.experience_section.add_course_label }}
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {# Profile Element Template #}
+
+                    {% include "common/course" %}
+
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set courseCounter = 0 %}
+
+                        {% for course in user.courses %}
+
+                            {% set courseCounter = courseCounter + 1 %}
+
+                            {% include "common/course" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if courseCounter == 0 %}active{% endif %}">
+
+                            <p>{{ profile.experience_section.null_course_copy }}</p>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+        {# Profile List (Work) #}
+
+            <div
+                class="profile-list">
+
+                {# Profile List Header #}
+
+                    <div
+                        class="profile-list__header flex-grid middle">
+
+                        <div
+                            class="box med-1of2">
+
+                            <h3>{{ profile.experience_section.section_work_title }}</h3>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                {{ profile.experience_section.add_work_label }}
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {# Profile Element Template #}
+
+                    {% include "common/work" %}
+
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set workCounter = 0 %}
+
+                        {% for work in user.work %}
+
+                            {% set workCounter = workCounter + 1 %}
+
+                            {% include "common/work" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if workCounter == 0 %}active{% endif %}">
+
+                            <p>{{ profile.experience_section.null_work_copy }}</p>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+    </div>
+
+</section>

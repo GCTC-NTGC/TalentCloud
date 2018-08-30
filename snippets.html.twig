@@ -6,22 +6,68 @@
 
 {# Form Input =============================================================== #}
 
+    {# Float #}
+
+        <div
+            class="box full">
+
+            <div 
+                class="form__input-wrapper--float {% if sample.name == true %}active{% endif %}">
+                <label 
+                    class="form__label" 
+                    for="">
+                    {{ sample_template.name_label }}
+                </label>
+                <input
+                    class="form__input"
+                    id=""
+                    type="text"
+                    value="{{ sample.name }}" />
+            </div>
+
+        </div>
+
+    {# Date #}
+
+        <div
+            class="box med-1of2">
+
+            <div 
+                class="form__input-wrapper--date">
+
+                <label 
+                    class="form__label"
+                    for="">
+                    Accepting Applications From
+                </label>
+
+                <input
+                    class="form__input"
+                    id=""
+                    type="date"
+                    value="{{ manager.post.post_start }}">
+
+            </div>
+
+        </div>
+
     {# Textarea #}
 
         <div
             class="box full">
 
             <div 
-                class="form__input-wrapper--float {% if experience.description != null%}active{% endif %}"
-                data-form-id="experience-description">
+                class="form__input-wrapper--float {% if experience.description != null%}active{% endif %}">
 
                 <label 
                     class="form__label"
-                    for="description{{ experienceCounter }}">
+                    for="">
                     {{ application.experience.description_label }}
                 </label>
 
-                <textarea class="form__textarea" id="description{{ experienceCounter }}">{{ experience.description }}</textarea>
+                <textarea 
+                    class="form__textarea" 
+                    id="">{{ experience.description }}</textarea>
 
             </div>
 
@@ -32,8 +78,11 @@
     <div
         class="box med-1of2">
 
-        <div class="form__input-wrapper--select">
-            <label class="form__label" for="">
+        <div 
+            class="form__input-wrapper--select">
+            <label 
+                class="form__label" 
+                for="">
                 {{ sample_template.type_label }}
             </label>
             <div

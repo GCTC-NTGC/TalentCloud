@@ -1,16 +1,16 @@
 {# =============================================================================
 
     Talent Cloud
-    Work Sample
+    Reference
 
 ============================================================================= #}
 <div
-    class="profile-element accordion sample {% if sample == false %}template active{% endif %}">
+    class="profile-element accordion reference {% if reference == false %}template active{% endif %}">
 
     {# Accordion Trigger #}
 
         <div
-            {% if sample == false %}
+            {% if reference == false %}
                 aria-expanded="true"
             {% else %}
                 aria-expanded="false"
@@ -35,10 +35,10 @@
 
             <span
                 class="accordion-title">
-                {% if sample == false %}
-                    {{ sample_template.new_sample_label }}
+                {% if reference == false %}
+                    {{ reference_template.new_reference_title }}
                 {% else %}
-                    {{ sample.name }}
+                    {{ reference.name }}
                 {% endif %}
             </span>
 
@@ -49,7 +49,7 @@
     {# Accordion Content #}
 
         <div
-            {% if sample == false %}
+            {% if reference == false %}
                 aria-hidden="false"
             {% else %}
                 aria-hidden="true"
@@ -63,17 +63,17 @@
                     class="flex-grid">
 
                     <div
-                        class="box full">
+                        class="box med-1of2">
 
-                        <div class="form__input-wrapper--float {% if sample.name == true %}active{% endif %}">
+                        <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
                             <label class="form__label" for="">
-                                {{ sample_template.name_label }}
+                                {{ reference_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
                                 id=""
                                 type="text"
-                                value="{{ sample.name }}" />
+                                value="{{ reference.name }}" />
                         </div>
 
                     </div>
@@ -83,16 +83,16 @@
 
                         <div class="form__input-wrapper--select">
                             <label class="form__label" for="">
-                                {{ sample_template.type_label }}
+                                {{ reference_template.relationship_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
                                     class="form__input">
-                                    {% for option in sample_template.types %}
+                                    {% for relationship in reference_template.relationships|sort %}
                                         <option
-                                            {% if sample.type|capitalize == option|capitalize %}selected="selected"{% endif %}
-                                            >{{ option }}</option>
+                                            {% if reference.relationship|capitalize == relationship|capitalize %}selected="selected"{% endif %}
+                                            >{{ relationship }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -101,17 +101,17 @@
                     </div>
 
                     <div
-                        class="box med-1of2">
+                        class="box full">
 
-                        <div class="form__input-wrapper--float {% if sample.link == true %}active{% endif %}">
+                        <div class="form__input-wrapper--float {% if reference.email == true %}active{% endif %}">
                             <label class="form__label" for="">
-                                {{ sample_template.link_label }}
+                                {{ reference_template.email_label }}
                             </label>
                             <input
                                 class="form__input"
                                 id=""
-                                type="url"
-                                value="{{ sample.link }}" />
+                                type="email"
+                                value="{{ reference.email }}" />
                         </div>
 
                     </div>
@@ -119,17 +119,89 @@
                     <div
                         class="box full">
 
-                        <div class="form__input-wrapper--float {% if sample.description == true %}active{% endif %}">
-                            <label class="form__label" for="">
-                                {{ sample_template.description_label }}
+                        <div 
+                            class="form__input-wrapper--float {% if reference.description != null%}active{% endif %}"
+                            data-form-id="experience-description">
+
+                            <label 
+                                class="form__label"
+                                for="">
+                                {{ reference_template.description_label }}
                             </label>
-                            <textarea
-                                class="form__textarea">{{ sample.description }}</textarea>
+
+                            <textarea 
+                                class="form__textarea" 
+                                id="">{{ reference.description }}</textarea>
+
                         </div>
 
                     </div>
 
                 </div>
+
+                {# Relatives (Projects) #}
+
+                    <div
+                        class="profile-relative-list">
+
+                        {# Relative List Title & Creation Trigger #}
+
+                            <div
+                                class="profile-relative-list__header flex-grid middle">
+
+                                <div
+                                    class="box small-1of2">
+
+                                    <span
+                                        class="profile-relative-list__label">
+                                        {{ relative_template.project.title }}
+                                    </span>
+
+                                </div>
+
+                                <div
+                                    class="box small-1of2">
+                                    
+                                </div>
+
+                            </div>
+
+                        {# Relative Template #}
+
+                            {% set relativeToken = "projects" %}
+
+                            {% include "common/relatives-projects" %}
+
+                        {# Relative List #}
+
+                            {% set relativeCounter = 0 %}
+
+                            <div 
+                                class="profile-relative-list__wrapper">
+
+                                {% for relative in reference.projects %}
+
+                                    {% set relativeCounter = relativeCounter + 1 %}
+
+                                    {% include "common/relatives-projects" %}             
+
+                                {% endfor %}
+
+                            </div>
+
+                        {# Add Relative Trigger #}
+
+                            <div
+                                class="profile-relative__add-trigger-wrapper">
+
+                                <button
+                                    class="profile-relative__add-trigger">
+                                    {{ relative_template.project.add_label }}
+                                </button>
+
+                            </div>
+
+                    </div>
 
                 {# Relatives (SKills) #}
 
@@ -171,7 +243,7 @@
                             <div 
                                 class="profile-relative-list__wrapper">
 
-                                {% for relative in sample.skills %}
+                                {% for relative in reference.skills %}
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
@@ -204,8 +276,8 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteSample">
-                        {{ sample_template.action_01 }}
+                        data-modal-id="deleteReference">
+                        {{ reference_template.action_01 }}
                     </button>
                 </div>
 
@@ -213,7 +285,7 @@
                     class="box med-1of2">
                     <button
                         class="button--blue light-bg">
-                        {{ sample_template.action_02 }}
+                        {{ reference_template.action_02 }}
                     </button>
                 </div>
 

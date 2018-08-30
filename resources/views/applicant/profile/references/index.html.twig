@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile - Portfolio Index
+    Applicant: Profile - References Index
 
 ============================================================================= #}
 <section
@@ -23,7 +23,7 @@
                     <div
                         class="box med-1of2">
 
-                        <h3>{{ profile.sample_section.section_title }}</h3>
+                        <h3>{{ profile.reference_section.section_title }}</h3>
 
                     </div>
 
@@ -32,8 +32,15 @@
 
                         <button
                             class="profile-list__add-element-trigger">
-                            {{ profile.sample_section.add_button_label }}
+                            {{ profile.reference_section.add_button_label }}
                         </button>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <p>{{ profile.reference_section.section_description }}</p>
 
                     </div>
 
@@ -45,7 +52,7 @@
 
             {# Profile Element Template (Sample) #}
 
-                {% include "common/sample" %}
+                {% include "common/reference" %}
 
             {# Profile Element List #}
 
@@ -53,15 +60,15 @@
                     class="profile-element-list">
 
                     <div
-                        class="profile-null {% if user.portfolio == false %}active{% endif %}">
+                        class="profile-null {% if user.references == false %}active{% endif %}">
 
-                        <p>{{ profile.sample_section.null_copy }}</p>
+                        <p>{{ profile.reference_section.null_copy }}</p>
 
                     </div>
 
-                    {% for sample in user.portfolio %}
+                    {% for reference in user.references %}
 
-                        {% include "common/sample" %}
+                        {% include "common/reference" %}
 
                     {% endfor %}
 

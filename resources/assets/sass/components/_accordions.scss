@@ -97,6 +97,8 @@
         }
 
         .accordion-actions {
+            border-top: 1px solid darken($palette--white, 20%);
+            margin-top: calc(#{$unit} * 2);
 
             .box {
                 padding: calc(#{$unit} * 2);
