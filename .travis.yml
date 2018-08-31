@@ -26,8 +26,6 @@ install:
   - npm install
   - sudo make gen-certs
   - sudo make docker-start
-  - sudo cp . /var/www
-  - sudo chmod +x /var/www/vendor/
   - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
