@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\GuardHelpers;
 use Illuminate\Http\Request;
 use Barryvdh\Debugbar\Facade as Debugbar;
-use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
-use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 
 class ApplicantProfileController extends Controller
@@ -18,7 +14,7 @@ class ApplicantProfileController extends Controller
     protected $answerFormInputName = 'applicantProfileAnswer';
 
     /**
-     * Display the specified resource.
+     * Display the Experience page associated with the applicant.
      *
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
@@ -29,7 +25,7 @@ class ApplicantProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the logged-in user's applicant profile
+     * Show the form for editing the applicant's experience
      *
      * @param  Request  $request
      * @param  \App\Models\Applicant  $applicant

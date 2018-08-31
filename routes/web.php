@@ -880,6 +880,9 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
         /* Profile - My Experience */
         Route::get('profile/experience', function () {
             return view('applicant/profile_02_experience', [
+                'applicant' => [
+                    "id" => 1
+                ],
                 "profile" => [
                     "title" => "My Experience",
                     "experience_section" => [
@@ -1213,11 +1216,14 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ]
                 ]
             ]);
-        })->name('experience.edit');
+        })->name('profile.experience.edit');
 
         /* Profile - My Skills */
         Route::get('profile/skills', function () {
             return view('applicant/profile_03_skills', [
+                'applicant' => [
+                    "id" => 1
+                ],
                 "profile" => [
                     "title" => "My Skills",
                     "experience_section" => [
@@ -1432,11 +1438,14 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ]
                 ]
             ]);
-        })->name('skills.edit');
+        })->name('profile.skills.edit');
 
         /* Profile - My References */
         Route::get('profile/references', function () {
             return view('applicant/profile_04_references', [
+                'applicant' => [
+                    "id" => 1
+                ],
                 "profile" => [
                     "title" => "My References",
                     "experience_section" => [
@@ -1671,6 +1680,9 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
         /* Profile - My Portfolio */
         Route::get('profile/portfolio', function () {
             return view('applicant/profile_05_portfolio', [
+                'applicant' => [
+                    "id" => 1
+                ],
                 "profile" => [
                     "title" => "My Portfolio",
                     "experience_section" => [
