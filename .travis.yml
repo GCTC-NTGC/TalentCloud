@@ -22,12 +22,12 @@ before_install:
   - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
 
 install:
-  - sudo mv /app/vendor/ /var/www/vendor/
-  - sudo chmod +x /var/www/vendor/
   - sudo cp -a .env.example .env
   - npm install
   - sudo make gen-certs
   - sudo make docker-start
+  - sudo mv /app/vendor/ /var/www/vendor/
+  - sudo chmod +x /var/www/vendor/
   - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
