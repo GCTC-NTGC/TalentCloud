@@ -6,9 +6,9 @@
 DB_DUMPS_DIR=database/db/dumps
 
 build-db:
-	@docker-compose exec -ti talentcloud sh -c "php artisan migrate"
-	@docker-compose exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
-	@docker-compose exec -ti talentcloud sh -c "php artisan db:seed --force"
+	@docker-compose exec -T talentcloud sh -c "php artisan migrate"
+	@docker-compose exec -T talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	@docker-compose exec -T talentcloud sh -c "php artisan db:seed --force"
 
 clean:
 	@rm -Rf database/db/pgsql/*
