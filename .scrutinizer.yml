@@ -41,11 +41,9 @@ build:
                 - git config --global user.email "grant.d.barnes@gmail.com"
                 - git config --global user.name "Grant Barnes"
                 - heroku create
-                - git add .
-                - git commit -m "heroku init"
-                - git push heroku master
                 - heroku container:push web
                 - heroku container:release web
+                - git push heroku HEAD:master
 
 
 filter:
