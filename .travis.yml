@@ -27,8 +27,8 @@ install:
   - sudo make gen-certs
   - sudo make docker-start
   # sudo make build-db
-  - docker exec -it talentcloud sh -c php artisan key:generate
-  - docker exec -it talentcloud sh -c php artisan config:cache
+  - docker exec -it talentcloud sh -c "php artisan key:generate"
+  - docker exec -it talentcloud sh -c "php artisan config:cache"
 
 script:
   - sudo make code-sniff
