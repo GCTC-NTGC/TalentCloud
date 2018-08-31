@@ -43,7 +43,7 @@ build:
                 - heroku create
                 - heroku container:push web
                 # heroku container:release web
-                - git push heroku HEAD:master
+                # git push heroku HEAD:master
 
 
 filter:

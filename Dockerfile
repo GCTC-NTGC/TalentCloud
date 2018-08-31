@@ -28,9 +28,6 @@ RUN apk update && apk upgrade && \
         mv composer.phar /usr/local/bin/ && \
         ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
-COPY . /var/www
-WORKDIR /var/www
-
 RUN mkdir -p /var/www/vendor && \
     chown -R www-data /var/www/vendor && \
     rm -rf .composer && \
@@ -42,6 +39,9 @@ USER www-data
 RUN composer install --no-interaction
 
 USER root
+
+COPY . /var/www
+WORKDIR /var/www
 
 # ENV PATH="~/.composer/vendor/bin:./vendor/bin:${PATH}"
 
