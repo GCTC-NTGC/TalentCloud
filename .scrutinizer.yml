@@ -40,9 +40,9 @@ build:
             commands:
                 - git config --global user.email "grant.d.barnes@gmail.com"
                 - git config --global user.name "Grant Barnes"
-                - heroku git:remote -a gc-talentcloud
-                - heroku container:push web
-                - heroku container:release web
+                # heroku git:remote -a gc-talentcloud
+                # heroku container:push web
+                # heroku container:release web
 
 filter:
     excluded_paths:
