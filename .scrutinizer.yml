@@ -46,7 +46,9 @@ build:
                 - heroku git:remote -a gc-talentcloud
                 - heroku container:push web
                 - heroku container:release web
-                # git push -f heroku HEAD:master
+                - git add .
+                - git commit -m "heroku deploy commit"
+                - git push -f heroku HEAD:master
 
 filter:
     excluded_paths:
