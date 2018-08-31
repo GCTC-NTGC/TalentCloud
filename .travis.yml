@@ -23,15 +23,16 @@ before_install:
 
 install:
   - sudo cp -a .env.example .env
+  - composer install
   - npm install
   - sudo make gen-certs
   - sudo make docker-start
-  # sudo make build-db
-  # php artisan key:generate
-  # php artisan config:cache
+  - sudo make build-db
+  - php artisan key:generate
+  - php artisan config:cache
 
 script:
-  # sudo make code-sniff
+  - sudo make code-sniff
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
