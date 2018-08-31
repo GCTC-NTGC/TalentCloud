@@ -41,10 +41,10 @@
                     {{ skill.name }}
                 {% elseif locale == "application" %}
                     {{ jobSkill.name }}
-                    {% if skillType == "soft" %}
-                        <span>{{ jobSkill.level }} {{ skill_template.application_soft_requirement_label }}</span>
-                    {% elseif skillType == "hard" %}
-                        <span>{{ jobSkill.level }} {{ skill_template.application_hard_requirement_label }}</span>
+                    {% if jobSkill.requirement == "asset" %}
+                        <span>{{ jobSkill.level }} {{ skill_template.application_asset_requirement_label }}</span>
+                    {% elseif jobSkill.requirement == "essential" %}
+                        <span>{{ jobSkill.level }} {{ skill_template.application_essential_requirement_label }}</span>
                     {% endif %}
                 {% endif %}
             </span>
