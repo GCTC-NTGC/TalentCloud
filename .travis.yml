@@ -23,15 +23,15 @@ before_install:
 
 install:
   - sudo mv ./app/vendor/ /var/www/vendor/
+  - sudo cp -a .env.example .env
+  - npm install
   - sudo make gen-certs
   - sudo make docker-start
-  - npm install
-
-script:
-  - sudo cp -a .env.example .env
   - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
+
+script:
   - sudo make code-sniff
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml

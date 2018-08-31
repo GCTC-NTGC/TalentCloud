@@ -24,7 +24,6 @@ build:
         before:
             - npm install
             - sudo make gen-certs
-            - sudo docker-compose up --abort-on-container-exit
             - sudo make docker-start
             - sudo make build-db
             # sudo docker-compose down -v
