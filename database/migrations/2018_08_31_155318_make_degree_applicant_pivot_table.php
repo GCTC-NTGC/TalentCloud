@@ -13,7 +13,7 @@ class MakeDegreeApplicantPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('degree_applicant_pivot', function (Blueprint $table) {
+        Schema::create('applicant_degree', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('applicant_id')->unsigned();
@@ -22,11 +22,11 @@ class MakeDegreeApplicantPivotTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('degree_applicant_pivot', function (Blueprint $table) {
+        Schema::table('applicant_degree', function (Blueprint $table) {
             $table->foreign('degree_id')->references('id')->
-                on('degree')->onUpdate('CASCADE')->onDelete('CASCADE');
+                on('degrees')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('applicant_id')->references('id')->
-                on('applicant')->onUpdate('CASCADE')->onDelete('CASCADE');
+                on('applicants')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -37,6 +37,6 @@ class MakeDegreeApplicantPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('degree_applicant_pivot');
+        Schema::dropIfExists('applicant_degree');
     }
 }
