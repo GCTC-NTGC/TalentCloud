@@ -26,7 +26,6 @@ build:
             - sudo make gen-certs
             - sudo make docker-start
             # sudo make build-db
-            # sudo docker-compose down -v
 
     nodes:
         analysis:
@@ -47,7 +46,7 @@ build:
                 - heroku git:remote -a gc-talentcloud
                 - heroku container:push web
                 - heroku container:release web
-                - git push -f heroku HEAD:master
+                # git push -f heroku HEAD:master
 
 filter:
     excluded_paths:
