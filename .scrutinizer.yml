@@ -41,12 +41,12 @@ build:
                 - git config --global user.email "grant.d.barnes@gmail.com"
                 - git config --global user.name "Grant Barnes"
                 - heroku create
-                # heroku git:remote -a gc-talentcloud
-                - heroku container:push web
-                - heroku container:release web
                 - git add .
                 - git commit -m "heroku init"
                 - git push heroku master
+                - heroku container:push web
+                - heroku container:release web
+
 
 filter:
     excluded_paths:
