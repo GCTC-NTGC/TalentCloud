@@ -3,7 +3,7 @@ build:
     environment:
         variables:
             DB_HOST: 'talentcloud-db'
-            DB_PORT: '5433'
+            DB_PORT: '5432'
         hosts:
             local.dev: 127.0.0.1
         # Languages
@@ -38,6 +38,17 @@ build:
                     - csslint-run ./public/css
                     - phpcs-run ./app
                     - phpcs-run ./public
+
+    deployment:
+        -
+            commands:
+                - git config --global user.email "grant.d.barnes@gmail.com"
+                - git config --global user.name "Grant Barnes"
+                # heroku create gc-talentcloud-s
+                - heroku git:remote -a gc-talentcloud
+                - heroku container:push web
+                - heroku container:release web
+                - git push -f heroku HEAD:master
 
 filter:
     excluded_paths:
