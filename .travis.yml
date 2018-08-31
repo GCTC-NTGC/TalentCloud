@@ -12,8 +12,9 @@ services:
 install:
   - sudo cp -a .env.example .env
   - npm install
+  - composer install
   - sudo make gen-certs
-  - sudo make docker-start
+  # sudo make docker-start
   # sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
@@ -25,8 +26,8 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
-after_script:
-  - sudo make docker-stop
+# after_script:
+  # sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
