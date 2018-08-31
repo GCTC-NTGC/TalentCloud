@@ -25,7 +25,7 @@ build:
             - npm install
             - sudo make gen-certs
             - sudo make docker-start
-            - sudo make build-db
+            # sudo make build-db
             # sudo docker-compose down -v
 
     nodes:
