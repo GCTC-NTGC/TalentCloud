@@ -32,18 +32,15 @@ COPY . /var/www
 WORKDIR /var/www
 
 RUN mkdir -p /var/www/vendor && \
-    chown -R www-data /var/www/vendor && \
     rm -rf .composer && \
-    sudo chown -R www-data /usr/local/bin/composer && \
-    sudo chown -R www-data /var/www
+    chown -R www-data /var/www && \
+    sudo chown -R www-data /usr/local
 
 USER www-data
 
 RUN composer install --no-interaction
 
 USER root
-
-# ENV PATH="~/.composer/vendor/bin:./vendor/bin:${PATH}"
 
 # Open up fcgi port
 EXPOSE 9000
