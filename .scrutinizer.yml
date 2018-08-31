@@ -4,8 +4,6 @@ build:
         variables:
             DB_HOST: 'talentcloud-db'
             DB_PORT: '5432'
-        hosts:
-            local.dev: 127.0.0.1
         # Languages
         php:
             version: "7.2"
