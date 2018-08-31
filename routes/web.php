@@ -998,6 +998,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                 "user" => [
                     "degrees" => [
                         "00" => [
+                            "id" => 1,
                             "type" => "Bachelor's Degree",
                             "area_of_study" => "Psychology",
                             "institution" => "Stanford",
@@ -1008,6 +1009,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ],
                     "courses" => [
                         "00" => [
+                            "id" => 1,
                             "name" => "Sample Certification",
                             "institution" => "Stanford",
                             "status" => "Audited",
@@ -1017,6 +1019,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ],
                     "work" => [
                         "00" => [
+                            "id" => 1,
                             "role" => "Front-end Developer",
                             "company" => "Talent Cloud",
                             "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero.",
@@ -1026,6 +1029,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ],
                     "skills" => [
                         "00" => [
+                            "id" => 1,
                             "name" => "HTML",
                             "status" => "Claimed",
                             "level" => "beginner",
@@ -1038,6 +1042,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                             ]
                         ],
                         "01" => [
+                            "id" => 2,
                             "name" => "CSS",
                             "status" => "Claimed",
                             "level" => "advanced",
@@ -1050,6 +1055,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                             ]
                         ],
                         "02" => [
+                            "id" => 3,
                             "name" => "UX Research",
                             "status" => "Claimed",
                             "level" => "Moderately in Evidence",
@@ -1060,17 +1066,20 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ],
                     "references" => [
                         "00" => [
+                            "id" => 1,
                             "name" => "Mark Hamill",
                             "relationship" => "coworker",
                             "email" => "sample@sample.com",
                             "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
                             "projects" => [
                                 "00" => [
+                                    "id" => 1,
                                     "name" => "NAFTA Renegotiation",
                                     "start_date" => "2018-01-01",
                                     "end_date" => "2018-02-01"
                                 ],
                                 "01" => [
+                                    "id" => 2,
                                     "name" => "Star Wars XV",
                                     "start_date" => "2020-09-09",
                                     "end_date" => "2021-10-10"
@@ -1093,6 +1102,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                     ],
                     "samples" => [
                         "00" => [
+                            "id" => 1,
                             "name" => "My Website",
                             "type" => "Website",
                             "date_created" => "2018-01-01",
