@@ -31,7 +31,7 @@ install:
   # php artisan config:cache
 
 script:
-  - sudo make code-sniff
+  # sudo make code-sniff
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
