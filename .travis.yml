@@ -23,9 +23,7 @@ before_install:
 
 install:
   - sudo make gen-certs
-  - sudo docker-compose up --abort-on-container-exit
   - sudo make docker-start
-  - npm i npm@latest -g
   - npm rebuild
   - npm install
 

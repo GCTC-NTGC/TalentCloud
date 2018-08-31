@@ -15,33 +15,31 @@ RUN apk update && apk upgrade && \
     apk add --no-cache \
         sudo \
         postgresql-dev \
-        imagemagick-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-        # && pecl install xdebug \
-        # && docker-php-ext-enable xdebug \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pgsql pdo_pgsql \
-    && apk del .build-dependencies \
-    && rm -rf /var/cache/apk/*
-
-RUN curl -sS https://getcomposer.org/installer | php \
-        && mv composer.phar /usr/local/bin/ \
-        && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
+        imagemagick-dev && \
+        pecl install imagick && \
+        docker-php-ext-enable imagick && \
+            # pecl install xdebug && \
+            # docker-php-ext-enable xdebug && \
+        docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+        docker-php-ext-install pgsql pdo_pgsql && \
+    apk del .build-dependencies && \
+        rm -rf /var/cache/apk/* && \
+    curl -sS https://getcomposer.org/installer | php && \
+        mv composer.phar /usr/local/bin/ && \
+        ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 COPY . /var/www
 WORKDIR /var/www
 
-RUN mkdir -p /var/www/vendor \
-    && chown -R www-data /var/www/vendor \
-    && rm -rf .composer
-
-RUN sudo chown -R www-data /usr/local/bin/composer \
-    && sudo chown -R www-data /var/www
+RUN mkdir -p /var/www/vendor && \
+    chown -R www-data /var/www/vendor && \
+    rm -rf .composer && \
+    sudo chown -R www-data /usr/local/bin/composer && \
+    sudo chown -R www-data /var/www
 
 USER www-data
 
-RUN composer install --prefer-dist --no-interaction
+RUN composer install --no-interaction
 
 USER root
 
