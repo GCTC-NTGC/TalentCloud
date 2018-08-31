@@ -43,7 +43,7 @@ RUN composer install --no-interaction
 
 USER root
 
-ENV PATH="~/.composer/vendor/bin:./vendor/bin:${PATH}"
+# ENV PATH="~/.composer/vendor/bin:./vendor/bin:${PATH}"
 
 # Open up fcgi port
 EXPOSE 9000
