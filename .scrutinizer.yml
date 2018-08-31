@@ -42,7 +42,7 @@ build:
                 - git config --global user.name "Grant Barnes"
                 - heroku create
                 - heroku container:push web
-                - heroku container:release web
+                # heroku container:release web
                 - git push heroku HEAD:master
 
 
