@@ -152,6 +152,26 @@
 
                 labelHandlers();
 
+                //Individualize template attributes
+                function appendToAttributes(parent, attribute, suffix) {
+                    var selector = "*[" + attribute + "]";
+                    parent.find(selector).each(function() {
+                        $(this).attr(attribute, $(this).attr(attribute) + suffix);
+                    });
+                }
+
+                //Return the next unused data-item-id value
+                function getNextItemId(parent) {
+                    var maxId = 0;
+                    parent.find("*[data-item-id]").each(function() {
+                        var id = $(this).attr('data-item-id');
+                        if (id > maxId) {
+                            maxId = id;
+                        }
+                    });
+                    return maxId + 1;
+                }
+
         // Profile List Handlers ===============================================
 
             // Add Profile Element
@@ -172,9 +192,13 @@
                     // Remove Template Class
                         template.removeClass("template");
 
-                    // Edit Form IDs
+                    // Get New ID
+                        var newId = getNextItemId(wrapper);
 
-                        // Tristan, help! x_x
+                    // Edit Form IDs and names
+                        appendToAttributes(parent, 'id', '_' + newId);
+                        appendToAttributes(parent, 'for', '_' + newId);
+                        appendToAttributes(parent, 'name', '[' + newId + ']');
 
                     // Prepend Clone to the Wrapper
                     wrapper.prepend(template);
@@ -205,7 +229,7 @@
                     $(".profile-list__add-element-trigger").on("keyup", function(e) {
 
                         if(e.which == 13) {
-                            
+
                             // Prevent Default Functions
                                 e.preventDefault();
 
@@ -276,7 +300,7 @@
                             $(".profile-relative__add-trigger").on("keyup", function(e) {
 
                                 if(e.which == 13) {
-                                    
+
                                     // Prevent Default Functions
                                         e.preventDefault();
 
@@ -316,7 +340,7 @@
                             $(".profile-relative__remove-trigger").on("keyup", function(e) {
 
                                 if(e.which == 13) {
-                                    
+
                                     // Prevent Default Functions
                                         e.preventDefault();
 

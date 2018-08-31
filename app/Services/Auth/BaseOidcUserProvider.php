@@ -120,7 +120,8 @@ class BaseOidcUserProvider implements UserProvider {
             if (env('APP_ENV') == 'local' && env('FORCE_ADMIN', false)) {
                 $adminRole = UserRole::where('name', 'admin')->firstOrFail();
                 $user->user_role_id = $adminRole->id;
-                $user->user_role = $adminRole;
+                $user->save();
+                //$user->user_role = $adminRole;
             }
 
             //Ensure the user has a proper profile associated with it
