@@ -11,6 +11,8 @@
 |
 */
 
+Route::group(['domain' => 'tc.gccollab.ca'], function() {
+
     /* Home */
     Route::get('/', 'HomepageController')->name('home');
 
@@ -2146,7 +2148,6 @@
     })->name('applications.edit.5');
 
     /* Managers */
-
     Route::get('browse/managers/{manager}', function () {
         return view('applicant/manager', [
             "manager_profile" => [
@@ -3337,6 +3338,8 @@
         return redirect('https://account.gccollab.ca/register/');
     })->middleware('guest')->name('register');
 
+});
+
 
 /* Manager Portal =========================================================== */
 
@@ -3723,7 +3726,7 @@ $managerGroup = function() {
     })->middleware('guest')->name('manager.register');
 };
 
-Route::group(['prefix' => 'manager'], $managerGroup);
+Route::group(['domain' => 'manager.tc.gccollab.ca'], $managerGroup);
 //Route::group(['domain' => 'hr.tc.gccollab.ca'], $managerGroup);
 
 
