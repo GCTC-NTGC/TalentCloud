@@ -43,9 +43,9 @@ USER www-data
 
 RUN composer install --prefer-dist --no-interaction
 
-ENV PATH="~/.composer/vendor/bin:./vendor/bin:${PATH}"
-
 USER root
+
+ENV PATH="~/.composer/vendor/bin:./vendor/bin:${PATH}"
 
 # Open up fcgi port
 EXPOSE 9000

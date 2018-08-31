@@ -30,7 +30,6 @@ services:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
-            - "./:/app"
         links:
             - talentcloud-db
         environment:
@@ -40,7 +39,7 @@ services:
             - "9000:9000"
     # Database / Postgres
     talentcloud-db:
-        image: postgres:9.6
+        image: postgres:9.6-alpine
         container_name: talentcloud-db
         restart: always
         volumes:
