@@ -1,0 +1,47 @@
+================================================================================
+
+    Talent Cloud
+    Model: Relative
+
+================================================================================
+
+    Model ======================================================================
+
+        Relatives aren't a model on their own. This template data is populated when you relate two models (the models that can be related are Skill, Reference, Work Sample, Project).
+
+    Template ===================================================================
+
+        "relative_template" => [
+            "skill" => [
+                "title" => "Linked Skills",
+                "create_title" => "Create a new skill.",
+                "create_label" => "Create New Skill",
+                "label" => "Select a Skill",
+                "add_label" => "Add Existing Skill",
+                "delete_title" => "Remove this skill."
+            ],
+            "reference" => [
+                "title" => "Linked References",
+                "create_title" => "Create a new reference.",
+                "create_label" => "Create New Reference",
+                "label" => "Select a Reference",
+                "add_label" => "Add Existing Reference",
+                "delete_title" => "Remove this reference."
+            ],
+            "sample" => [
+                "title" => "Linked Work Samples",
+                "create_title" => "Create a new work sample.",
+                "create_label" => "Create New Work Sample",
+                "label" => "Select a Work Sample",
+                "add_label" => "Add Existing Work Sample",
+                "delete_title" => "Remove this work sample."
+            ],
+            "project" => [
+                "title" => "Related Projects",
+                "name_label" => "Project Name",
+                "start_date_label" => "Project Started",
+                "end_date_label" => "Project Ended",
+                "add_label" => "Add Project",
+                "delete_title" => "Delete this project."
+            ]
+        ]
