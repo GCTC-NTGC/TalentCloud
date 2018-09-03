@@ -20,6 +20,7 @@ class MakeCourseTable extends Migration
             $table->integer('course_status_id')->unsigned()->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->integer('applicant_id')->unsigned();
             $table->timestamps();
         });
 
@@ -32,6 +33,8 @@ class MakeCourseTable extends Migration
         Schema::table('courses', function (Blueprint $table) {
             $table->foreign('course_status_id')->references('id')->
                 on('course_status')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('applicant_id')->references('id')->
+                on('applicants')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
