@@ -5,7 +5,14 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion course {% if course == false %}template active{% endif %}">
+    class="profile-element accordion course {% if course == false %}template active{% endif %}"
+    data-item-id="{{ course ? course.id : 0 }}">
+    
+    {% if course %}
+        {% set name_suffix = "[old][:id]"|replace({":id":course.id}) %}
+    {% else %}
+        {% set name_suffix = "[new]" %}
+    {% endif %}
 
     {# Accordion Trigger #}
 

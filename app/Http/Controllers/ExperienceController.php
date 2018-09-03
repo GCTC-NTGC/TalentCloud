@@ -8,10 +8,8 @@ use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
 
-class ApplicantProfileController extends Controller
+class ExperienceController extends Controller
 {
-
-    protected $answerFormInputName = 'applicantProfileAnswer';
 
     /**
      * Display the Experience page associated with the applicant.

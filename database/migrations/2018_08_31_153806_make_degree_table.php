@@ -13,7 +13,7 @@ class MakeDegreeTable extends Migration
      */
     public function up()
     {
-        Schema::create('degree', function (Blueprint $table) {
+        Schema::create('degrees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('degree_type_id')->unsigned()->nullable();
             $table->string('area_of_study')->nullable();
@@ -24,9 +24,15 @@ class MakeDegreeTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('degree', function (Blueprint $table) {
+         Schema::create('degree_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+        
+        Schema::table('degrees', function (Blueprint $table) {
             $table->foreign('degree_type_id')->references('id')->
-                on('degree_type')->onUpdate('CASCADE')->onDelete('NO ACTION');
+                on('degree_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
     }
 
@@ -37,6 +43,7 @@ class MakeDegreeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('degree');
+        Schema::dropIfExists('degrees');
+        Schema::dropIfExists('degree_types');
     }
 }
