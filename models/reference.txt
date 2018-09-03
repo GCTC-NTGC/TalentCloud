@@ -1,0 +1,46 @@
+================================================================================
+
+    Talent Cloud
+    Model: Reference
+
+================================================================================
+
+    Model ======================================================================
+
+        "references" => [
+            "00" => [
+                "name" => "Name (Input, Text)",
+                "relationship" => "(Select)",
+                "email" => "Email (Input, Email)",
+                "description" => "About This Reference (Textarea)",
+                "projects" => [
+                    "00" => [
+                        "name" => "Project Name (Input, Text)",
+                        "start_date" => "YYYY-MM-DD",
+                        "end_date" => "YYYY-MM-DD"
+                    ]
+                ],
+                "skills" => [
+                    "00" => "Related Skill Name (Eventually ID)"
+                ]
+            ]
+        ]
+
+        ** Tristan, I've been using "names" as a unique identifier for matching things in templates, but it might be worthwhile, after launch, to do all matching (checking to see if a skill matches a related sample, for example), using an ID number instead.
+
+    Template ===================================================================
+
+        "reference_template" => [
+            "new_reference_title" => "New Reference",
+            "name_label" => "Reference's Name",
+            "relationship_label" => "Your Relationship",
+            "relationships" => [
+                "00" => "Coworker",
+                "01" => "Supervisor",
+                "02" => "Employee"
+            ],
+            "email_label" => "Reference's Email",
+            "description_label" => "How You Worked Together",
+            "action_01" => "Delete Reference",
+            "action_02" => "Save Reference"
+        ]
