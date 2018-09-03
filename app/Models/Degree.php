@@ -26,7 +26,7 @@ use App\Models\Applicant;
  * @property \App\Models\Lookup\DegreeType $degree_type
  * @property \App\Models\Applicant $applicant
  */
-class SkillDeclaration extends BaseModel {
+class Degree extends BaseModel {
 
     protected $casts = [
         'degree_type_id' => 'int',
