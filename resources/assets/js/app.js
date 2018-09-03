@@ -48,9 +48,27 @@
             function openModal(trigger) {
 
                 var modalID = $(trigger).attr("data-modal-id");
+                var modal = $(".modal[data-modal-id="+modalID+"]");
                 $(".modal-overlay").addClass("active");
-                $(".modal[data-modal-id="+modalID+"]").addClass("active");
+                modal.addClass("active");
                 $("body").css("overflow", "hidden");
+
+                // Tab Items
+
+                var focusableItems = modal.find(":focusable");
+
+                var firstInput = focusableItems.first();
+                var lastInput = focusableItems.last();
+
+                if (modal.find("form").length == 0) {
+                    lastInput.focus();
+                }
+                else {
+                    firstInput.focus();
+                }
+
+                modalTabHandler(firstInput, lastInput);
+                escapeModalHandler();
 
             }
 
@@ -90,6 +108,59 @@
                 }
 
             });
+
+            // Tab Handler =====================================================
+
+                function modalTabHandler(first, last) {
+
+                    $(document).on("keydown", function(e){
+
+                        var keyCode = e.keyCode || e.which; 
+
+                        if (keyCode == 9 && !e.shiftKey) {
+                            
+                            if ($(last).is(":focus")) {
+                                e.preventDefault(); 
+                                $(first).focus();
+                            }
+
+                        }
+                        else if (keyCode == 9 && e.shiftKey) {
+
+                            if($(first).is(":focus")) {
+                                e.preventDefault();
+                                $(last).focus();
+                            }
+
+                        }
+
+                    });
+
+                }
+
+            // Escape Handler ==================================================
+
+                function escapeModalHandler() {
+
+                    $(document).on("keyup", function(e){
+
+                        if((e.key==='Escape'||e.key==='Esc'||e.keyCode===27)){
+
+                            $(".modal-overlay").removeClass("active");
+                            $(".modal").removeClass("active");
+                            $("body").css("overflow", "visible");
+
+                            // FF and compatible
+                            if (e.stopPropagation) {
+                                e.stopPropagation();
+                                e.preventDefault();
+                            }
+
+                        }
+
+                    });
+
+                }
 
         // Form Handlers =======================================================
 
@@ -666,6 +737,107 @@
 
             // Skills
 
+                function addSkill(trigger) {
+
+                    // Get Parent
+                    var parent = $(trigger).parents(".manager-jobs__skill-wrapper");
+
+                    // Get Wrapper
+                    var wrapper = parent.find(".manager-jobs__create-skill-wrapper");
+
+                    // Get Template
+                    var template = parent.find(".manager-jobs__create-skill.template").clone();
+
+                    console.log(wrapper.find(".manager-jobs__create-skill"));
+
+                    // Get New ID
+                    if (wrapper.find(".manager-jobs__create-skill").length == 0) {
+                        var newID = parseInt(template.attr("data-skill-id")) + 1;
+                    }
+                    else {
+                        var newID = parseInt(wrapper.find("[class*='manager-jobs__create-skill']").last().attr("data-skill-id")) + 1;
+                    }
+
+                    // Remove Template Class
+                    template.removeClass("template");
+
+                    // Assign the New ID
+                    template.attr("data-skill-id", newID);
+
+                    // Add newID as suffix to all "id" and "for" attributes
+                    template.find("*[id]").each(function() { $(this).attr("id", this.id + newID)});
+                    template.find("*[for]").each(function() { $(this).attr("for",  $(this).attr("for") + newID)});
+
+                    // Replace :id with newID in all form names
+                    template.find("*[name]").each(function() { $(this).attr('name', $(this).attr("name").replace(":id", newID))});
+
+                    // Edit Form IDs
+                        //
+                        // // Queestion (English)
+                        // template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
+                        // template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
+                        //
+                        // // Queestion (French)
+                        // template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
+                        // template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
+
+                    // Append Clone to the Wrapper
+                    wrapper.append(template);
+
+                    requiredFields();
+                    labelHandlers();
+                    deleteSkillTrigger();
+
+                }
+
+                $(".manager-jobs__add-skill-button").on("click", function(e) {
+
+                    e.preventDefault();
+
+                    addSkill(this);
+
+                });
+
+                $(".manager-jobs__add-skill-button").on("keyup", function(e) {
+
+                    if(e.which == 13) {
+                        e.preventDefault();
+                        addSkill(this);
+                    }
+
+                });
+
+                // Skill Deletion
+
+                function deleteSkill(trigger) {
+
+                    $(trigger).parents(".manager-jobs__create-skill").remove();
+
+                }
+
+                function deleteSkillTrigger() {
+
+                    $(".manager-jobs__delete-skill-button").on("click", function(e) {
+
+                        e.preventDefault();
+
+                        deleteSkill(this);
+
+                    });
+
+                    $(".manager-jobs__delete-skill-button").on("keyup", function(e) {
+
+                        if(e.which == 13) {
+                            e.preventDefault();
+                            deleteSkill(this);
+                        }
+
+                    });
+
+                }
+
+                deleteSkillTrigger();
+
             // Questions
 
                 function addQuestion(trigger) {
@@ -735,7 +907,7 @@
 
                 });
 
-                // Task Deletion
+                // Question Deletion
 
                 function deleteQuestion(trigger) {
 

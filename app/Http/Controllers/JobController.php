@@ -97,7 +97,64 @@ class JobController extends Controller
             'language_requirments' => LanguageRequirement::all(),
             'security_clearances' => SecurityClearance::all(),
             'job' => $job,
-            'form_action_url' => route('manager.jobs.store')
+            'form_action_url' => route('manager.jobs.store'),
+            // Fake Data
+            "skills" => [
+                "00" => [
+                    "name" => "UX Research",
+                    "type" => "soft",
+                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "01" => [
+                    "name" => "HTML",
+                    "type" => "hard",
+                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "02" => [
+                    "name" => "CSS",
+                    "type" => "hard",
+                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "03" => [
+                    "name" => "Laravel",
+                    "type" => "hard",
+                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "04" => [
+                    "name" => "JavaScript",
+                    "type" => "soft",
+                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "05" => [
+                    "name" => "Docker",
+                    "type" => "soft",
+                    "description" => "Docker: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "06" => [
+                    "name" => "Responsive Web Design",
+                    "type" => "soft",
+                    "description" => "RWD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ],
+                "07" => [
+                    "name" => "Adobe XD",
+                    "type" => "hard",
+                    "description" => "XD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
+                ]
+            ],
+            "skill_levels" => [
+                "hard" => [
+                    "00" => "Beginner",
+                    "01" => "Intermediate",
+                    "02" => "Advanced",
+                    "03" => "Expert"
+                ],
+                "soft" => [
+                    "00" => "In Early Development",
+                    "01" => "Moderately in Evidence",
+                    "02" => "Strongly in Evidence",
+                    "03" => "Deep Level Demonstration"
+                ]
+            ]
         ]);
     }
 
