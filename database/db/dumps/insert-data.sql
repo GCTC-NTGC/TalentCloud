@@ -250,3 +250,17 @@ INSERT INTO frequencies VALUES
 (3,'sometimes',current_timestamp,current_timestamp),
 (4,'often',current_timestamp,current_timestamp),
 (5,'always',current_timestamp,current_timestamp);
+
+INSERT INTO degree_types (name) VALUES
+('diploma', current_timestamp, current_timestamp),
+('bachelors', current_timestamp, current_timestamp),
+('masters', current_timestamp, current_timestamp),
+('phd', current_timestamp, current_timestamp);
+
+INSERT INTO course_status (name, created_at, updated_at) VALUES
+('certificate_granted', current_timestamp, current_timestamp),
+('credits_towards_degree', current_timestamp, current_timestamp),
+('audited', current_timestamp, current_timestamp),
+('online_no_proof', current_timestamp, current_timestamp),
+('online_certificate', current_timestamp, current_timestamp),
+('learning_in_progress', current_timestamp, current_timestamp);
