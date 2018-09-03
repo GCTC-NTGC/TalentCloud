@@ -1,6 +1,7 @@
 {
+  "/js/jquery-ui.min.js": "/js/jquery-ui.min.js",
   "/js/app.js": "/js/app.js",
   "/css/app.css": "/css/app.css",
-  "/js/autocomplete.js": "/js/autocomplete.js",
-  "/js/modernizr.js": "/js/modernizr.js"
+  "/js/modernizr.js": "/js/modernizr.js",
+  "/js/autocomplete.js": "/js/autocomplete.js"
 }

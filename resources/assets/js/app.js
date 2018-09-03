@@ -48,9 +48,27 @@
             function openModal(trigger) {
 
                 var modalID = $(trigger).attr("data-modal-id");
+                var modal = $(".modal[data-modal-id="+modalID+"]");
                 $(".modal-overlay").addClass("active");
-                $(".modal[data-modal-id="+modalID+"]").addClass("active");
+                modal.addClass("active");
                 $("body").css("overflow", "hidden");
+
+                // Tab Items
+
+                var focusableItems = modal.find(":focusable");
+
+                var firstInput = focusableItems.first();
+                var lastInput = focusableItems.last();
+
+                if (modal.find("form").length == 0) {
+                    lastInput.focus();
+                }
+                else {
+                    firstInput.focus();
+                }
+
+                modalTabHandler(firstInput, lastInput);
+                escapeModalHandler();
 
             }
 
@@ -90,6 +108,59 @@
                 }
 
             });
+
+            // Tab Handler =====================================================
+
+                function modalTabHandler(first, last) {
+
+                    $(document).on("keydown", function(e){
+
+                        var keyCode = e.keyCode || e.which; 
+
+                        if (keyCode == 9 && !e.shiftKey) {
+                            
+                            if ($(last).is(":focus")) {
+                                e.preventDefault(); 
+                                $(first).focus();
+                            }
+
+                        }
+                        else if (keyCode == 9 && e.shiftKey) {
+
+                            if($(first).is(":focus")) {
+                                e.preventDefault();
+                                $(last).focus();
+                            }
+
+                        }
+
+                    });
+
+                }
+
+            // Escape Handler ==================================================
+
+                function escapeModalHandler() {
+
+                    $(document).on("keyup", function(e){
+
+                        if((e.key==='Escape'||e.key==='Esc'||e.keyCode===27)){
+
+                            $(".modal-overlay").removeClass("active");
+                            $(".modal").removeClass("active");
+                            $("body").css("overflow", "visible");
+
+                            // FF and compatible
+                            if (e.stopPropagation) {
+                                e.stopPropagation();
+                                e.preventDefault();
+                            }
+
+                        }
+
+                    });
+
+                }
 
         // Form Handlers =======================================================
 
