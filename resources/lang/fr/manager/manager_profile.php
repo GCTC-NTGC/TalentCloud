@@ -51,7 +51,7 @@ return [
             'fr' => 'Un peu à propos de moi en dehors du travail (Français)',
         ],
         'social_media_form_legend' => 'Médias sociaux',
-        'twitter_label' => 'Nom d'utilisateur Twitter',
+        'twitter_label' => 'Nom d\'utilisateur Twitter',
         'linkedin_label' => 'URL de profil LinkedIn',
         'save_button_label' => 'Sauvegarder à propos de moi',
     ],
