@@ -7,7 +7,7 @@
 <div
     class="profile-element accordion course {% if course == false %}template active{% endif %}"
     data-item-id="{{ course ? course.id : 0 }}">
-    
+
     {% if course %}
         {% set name_suffix = "[old][:id]"|replace({":id":course.id}) %}
         {% set id_suffix = "_old_:id"|replace({":id":course.id}) %}
@@ -52,17 +52,17 @@
 
             <div
                 class="form__wrapper">
-                
-                <div 
+
+                <div
                     class="flex-grid">
 
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if course.name == true %}active{% endif %}">
-                            <label 
-                                class="form__label" 
+                            <label
+                                class="form__label"
                                 for="courseName{{ id_suffix }}">
                                 {{ course_template.name_label }}
                             </label>
@@ -79,10 +79,10 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if course.institution == true %}active{% endif %}">
-                            <label 
-                                class="form__label" 
+                            <label
+                                class="form__label"
                                 for="courseInstitution{{ id_suffix }}">
                                 {{ course_template.institution_label }}
                             </label>
@@ -99,10 +99,10 @@
                     <div
                         class="box full">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--select">
-                            <label 
-                                class="form__label" 
+                            <label
+                                class="form__label"
                                 for="courseStatus{{ id_suffix }}">
                                 {{ course_template.status_label }}
                             </label>
@@ -126,10 +126,10 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
                                 for="courseStartDate{{ id_suffix }}">
                                 {{ course_template.start_date_label }}
@@ -149,10 +149,10 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
                                 for="courseEndDate{{ id_suffix }}">
                                 {{ course_template.end_date_label }}
@@ -162,7 +162,7 @@
                                 class="form__input"
                                 id="courseEndDate{{ id_suffix }}"
                                 type="date"
-                                name="course_end_date{{ end_suffix }}"
+                                name="course_end_date{{ name_suffix }}"
                                 value="{{ course.end_date }}">
 
                         </div>
