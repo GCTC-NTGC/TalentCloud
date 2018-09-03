@@ -43,8 +43,8 @@ return [
             'fr' => 'Mon parcours de carrière jusqu\'à présent (Français)',
         ],
         'learning_path_label' => [
-            'en' => 'Mon parcours d'apprentissage (English)',
-            'fr' => 'Mon parcours d'apprentissage (Français)',
+            'en' => 'Mon parcours d\'apprentissage (English)',
+            'fr' => 'Mon parcours d\'apprentissage (Français)',
         ],
         'biography_label' => [
             'en' => 'Un peu à propos de moi en dehors du travail (English)',
