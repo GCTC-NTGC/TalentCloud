@@ -37,7 +37,7 @@ return [
             'year' => ':count year.|:count year',
             'permanent' => 'Permanent'
         ],
-        'start_date_format' => 'l F d Y',
+        'start_date_format' => 'F, Y',
     ],
     'manager' => [
         'photo_title' => ':name\'s profile photo.',
