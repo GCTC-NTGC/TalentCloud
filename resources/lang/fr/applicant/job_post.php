@@ -12,7 +12,7 @@ return [
     'header' => [
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
-        'location_icon_label' => 'Symbole d'emplacement.',
+        'location_icon_label' => 'Symbole d\'emplacement.',
         'remote_work_icon_label' => 'Symbole de travail à distance.',
         'reference_id' => 'Numéro de référence #:id',
         'remote_work_allowed' => [
