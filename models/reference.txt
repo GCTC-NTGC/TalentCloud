@@ -7,20 +7,22 @@
 
     Model ======================================================================
 
-        "00" => [
-            "name" => "Name (Input, Text)",
-            "relationship" => "(Select)",
-            "email" => "Email (Input, Email)",
-            "description" => "About This Reference (Textarea)",
-            "projects" => [
-                "00" => [
-                    "name" => "Project Name (Input, Text)",
-                    "start_date" => "YYYY-MM-DD",
-                    "end_date" => "YYYY-MM-DD"
+        "references" => [
+            "00" => [
+                "name" => "Name (Input, Text)",
+                "relationship" => "(Select)",
+                "email" => "Email (Input, Email)",
+                "description" => "About This Reference (Textarea)",
+                "projects" => [
+                    "00" => [
+                        "name" => "Project Name (Input, Text)",
+                        "start_date" => "YYYY-MM-DD",
+                        "end_date" => "YYYY-MM-DD"
+                    ]
+                ],
+                "skills" => [
+                    "00" => "Related Skill Name (Eventually ID)"
                 ]
-            ],
-            "skills" => [
-                "00" => "Related Skill Name (Eventually ID)"
             ]
         ]
 

@@ -9,25 +9,29 @@
 
         Site Skill
 
-            "00" => [
-                "id" => "Number",
-                "name" => "Skill Name (From DB)",
-                "type" => "Hard or Soft (From DB)",
-                "description" => "EN/FR (From DB)"
+            "skills" => [
+                "00" => [
+                    "id" => "Number",
+                    "name" => "Skill Name (From DB)",
+                    "type" => "Hard or Soft (From DB)",
+                    "description" => "EN/FR (From DB)"
+                ]
             ]
 
         User Skill
 
-            "00" => [
-                "id" => "Number",
-                "name" => "Skill Name (From DB)",
-                "status" => "Skill Status (Automatic)",
-                "level" => "Level (Radio)",
-                "knowledge" => "User Skill Description (Textarea)" => [
-                    "00" => "Related Reference Name (Eventually ID)"
-                ],
-                "samples" => [
-                    "00" => "Related Sample Name (Eventually ID)"
+            "skills" => [
+                "00" => [
+                    "id" => "Number",
+                    "name" => "Skill Name (From DB)",
+                    "status" => "Skill Status (Automatic)",
+                    "level" => "Level (Radio)",
+                    "knowledge" => "User Skill Description (Textarea)" => [
+                        "00" => "Related Reference Name (Eventually ID)"
+                    ],
+                    "samples" => [
+                        "00" => "Related Sample Name (Eventually ID)"
+                    ]
                 ]
             ]
 

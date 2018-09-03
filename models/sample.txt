@@ -7,14 +7,16 @@
 
     Model ======================================================================
 
-        "00" => [
-            "name" => "Project Name (Input, Text)",
-            "type" => "Type (Select)",
-            "date_created" => "YYYY-MM-DD",
-            "link" => "Link (Input, Email)",
-            "description" => "Project Description (Textarea)",
-            "skills" => [
-                "00" => "Related Skill Name (Eventually ID)"
+        "samples" => [
+            "00" => [
+                "name" => "Project Name (Input, Text)",
+                "type" => "Type (Select)",
+                "date_created" => "YYYY-MM-DD",
+                "link" => "Link (Input, Email)",
+                "description" => "Project Description (Textarea)",
+                "skills" => [
+                    "00" => "Related Skill Name (Eventually ID)"
+                ]
             ]
         ]
 
