@@ -155,13 +155,13 @@
                 //Individualize template attributes
                 function appendToAttributes(parent, attribute, suffix, conditions) {
                     var selector = "*[" + attribute + "]";
-                    
+
                     //If conditions is set, only modify attributes that also
                     //satisfy that selector
                     if (conditions) {
                         selector = conditions + selector;
                     }
-                    
+
                     parent.find(selector).each(function() {
                         $(this).attr(attribute, $(this).attr(attribute) + suffix);
                     });
@@ -202,10 +202,16 @@
                     // Get New ID
                         var newId = getNextItemId(wrapper);
 
-                    // Edit Form IDs and names
+                        template.attr('data-item-id', newId);
+
+                    // Individualize Form IDs and labels
                         appendToAttributes(template, 'id', '_' + newId);
                         appendToAttributes(template, 'for', '_' + newId);
-                        appendToAttributes(template, 'name', '[' + newId + ']', ':not([type=submit])');
+
+                    // Individualize form names, except for submit buttons
+                        appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
+                    // Individualize values on submit buttons
+                        appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
 
                     // Prepend Clone to the Wrapper
                     wrapper.prepend(template);
