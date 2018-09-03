@@ -1,0 +1,75 @@
+<div
+    class="profile-relative project {% if relative == null %}template{% endif %}">
+
+    <button
+        class="profile-relative__remove-trigger"
+        title="{{ relative_template.project.delete_title }}">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div
+        class="flex-grid">
+
+        <div
+            class="box full">
+
+            <div class="form__input-wrapper--float {% if relative.name == true %}active{% endif %}">
+                <label class="form__label" for="">
+                    {{ relative_template.project.name_label }}
+                </label>
+                <input
+                    class="form__input"
+                    id=""
+                    type="text"
+                    value="{{ relative.name }}" />
+            </div>
+
+        </div>
+
+        <div
+            class="box med-1of2">
+
+            <div 
+                class="form__input-wrapper--date">
+
+                <label 
+                    class="form__label"
+                    for="">
+                    {{ relative_template.project.start_date_label }}
+                </label>
+
+                <input
+                    class="form__input"
+                    id=""
+                    type="date"
+                    value="{{ relative.start_date }}">
+
+            </div>
+
+        </div>
+
+        <div
+            class="box med-1of2">
+
+            <div 
+                class="form__input-wrapper--date">
+
+                <label 
+                    class="form__label"
+                    for="">
+                    {{ relative_template.project.end_date_label }}
+                </label>
+
+                <input
+                    class="form__input"
+                    id=""
+                    type="date"
+                    value="{{ relative.end_date }}">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

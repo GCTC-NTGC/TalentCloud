@@ -12,12 +12,16 @@
         {% include "common/head" %}
     </head>
 
-    <body>        
+    <body>
         {% include "common/alert" %}
 
         {% include "common/goc" %}
 
         {% include "common/home/hero" %}
+
+        {# Login Modals #}
+
+        {% include "common/modal" with {"page":login_modals} %}
 
         {% include "common/footer" %}
 

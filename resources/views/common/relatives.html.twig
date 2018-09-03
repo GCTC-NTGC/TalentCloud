@@ -1,0 +1,67 @@
+<div
+    class="profile-relative {% if relative == null %}template{% endif %}">
+
+    <div class="form__input-wrapper--select">
+        <label 
+            class="form__label" 
+            for="">
+            {% if relativeToken == "skills" %}
+                {{ relative_template.skill.label }}
+            {% elseif relativeToken == "references" %}
+                {{ relative_template.reference.label }}
+            {% elseif relativeToken == "samples" %}
+                {{ relative_template.sample.label }}
+            {% endif %}
+        </label>
+        <div
+            class="form__select-wrapper fas fa-chevron-down">
+            <select
+                class="form__input"
+                id="">
+
+                {# Skills #}
+                    {% if relativeToken == "skills" %}
+                        {% for userSkill in user.skills %}
+                            <option
+                                {% if relative|capitalize == userSkill.name|capitalize %}selected="selected"{% endif %}
+                                >{{ userSkill.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+
+                {# References #}
+                    {% if relativeToken == "references" %}
+                        {% for userReference in user.references %}
+                            <option
+                                {% if relative|capitalize == userReference.name|capitalize %}selected="selected"{% endif %}
+                                >{{ userReference.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+
+                {# Samples #}
+                    {% if relativeToken == "samples" %}
+                        {% for userSample in user.samples %}
+                            <option
+                                {% if relative|capitalize == userSample.name|capitalize %}selected="selected"{% endif %}
+                                >{{ userSample.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+
+            </select>
+        </div>
+    </div>
+
+    <button
+        class="profile-relative__remove-trigger"
+        {% if relativeToken == "skills" %}
+            title="{{ relative_template.skill.delete_title }}"
+        {% elseif relativeToken == "references" %}
+            title="{{ relative_template.reference.delete_title }}"
+        {% elseif relativetoken == "samples" %}
+            title="{{ relative_template.sample.delete_title }}"
+        {% endif %}>
+
+        <i class="fas fa-times"></i>
+
+    </button>
+
+</div>

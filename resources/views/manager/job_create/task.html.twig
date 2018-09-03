@@ -5,8 +5,8 @@
 
 ============================================================================= #}
 <div
-    class="manager-jobs__create-task template"
-    data-task-id="0">
+    class="manager-jobs__create-task {% if task == false %}template{% endif %}"
+    data-task-id="{% if task == false %}0{% else %}{{ taskCounter }}{% endif %}">
 
     <fieldset
         class="form__fieldset">
@@ -40,7 +40,7 @@
                 class="box med-1of2">
 
                 <div
-                    class="form__input-wrapper--float"
+                    class="form__input-wrapper--float {% if task.translate('en').description != false %}active{% endif %}"
                     data-form-id="task-english">
 
                     <label
@@ -54,7 +54,7 @@
                         id="createJobTaskEN"
                         type="text"
                         name="task[:id][en]"
-                        value="">
+                        value="{{ task.translate('en').description }}">
 
                 </div>
 
@@ -64,7 +64,7 @@
                 class="box med-1of2">
 
                 <div
-                    class="form__input-wrapper--float"
+                    class="form__input-wrapper--float {% if task.translate('fr').description != false %}active{% endif %}"
                     data-form-id="task-french">
 
                     <label
@@ -78,7 +78,7 @@
                         id="createJobTaskFR"
                         type="text"
                         name="task[:id][fr]"
-                        value="">
+                        value="{{ task.translate('fr').description }}">
 
                 </div>
 

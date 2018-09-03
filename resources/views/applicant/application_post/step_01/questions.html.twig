@@ -10,6 +10,98 @@
     <div
         class="container--copy">
 
+        {# Citizenship #}
+
+            <div
+                class="application-post__citizenship">
+
+                <h3>
+                    {{ application.citizenship_title }}
+                </h3>
+
+                <div 
+                    class="form_wrapper">
+
+                    <div
+                        class="flex-grid">
+
+                        <p>{{ application.citizenship_content }}</p>
+
+                        <div
+                            class="box full">
+
+                            <div 
+                                class="form__input-wrapper--select">
+                                <label 
+                                    class="form__label" 
+                                    for="">
+                                    {{ application.citizenship_label }}
+                                </label>
+                                <div
+                                    class="form__select-wrapper fas fa-chevron-down">
+                                    <select
+                                        class="form__input">
+                                        {% for option in application.citizenship_options|sort %}
+                                            <option>{{ option }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {# Veterans #}
+
+            <div
+                class="application-post__veterans">
+
+                <h3>
+                    {{ application.veterans_title }}
+                </h3>
+
+                <div 
+                    class="form_wrapper">
+
+                    <div
+                        class="flex-grid">
+
+                        <p>{{ application.veterans_content }}</p>
+
+                        <div
+                            class="box full">
+
+                            <div 
+                                class="form__input-wrapper--select">
+                                <label 
+                                    class="form__label" 
+                                    for="">
+                                    {{ application.veterans_label }}
+                                </label>
+                                <div
+                                    class="form__select-wrapper fas fa-chevron-down">
+                                    <select
+                                        class="form__input">
+                                        {% for option in application.veterans_options|sort %}
+                                            <option>{{ option }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         <h3>
             {{ application.language_title }}
         </h3>

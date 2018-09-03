@@ -117,4 +117,24 @@
 
     }
 
+    &[class*="purple"] {
+        background: $palette--purple;
+        color: $palette--font-white;
+        transition: none;
+
+        &:focus,
+        &:hover {
+            border: 2px solid $palette--white;
+            outline: none;
+            padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+            transition: none;
+
+            &.light-bg {
+                border: 2px solid $palette--black;
+            }
+
+        }
+
+    }
+
 }

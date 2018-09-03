@@ -43,6 +43,54 @@
 
             });
 
+        // Modal Handlers ======================================================
+
+            function openModal(trigger) {
+
+                var modalID = $(trigger).attr("data-modal-id");
+                $(".modal-overlay").addClass("active");
+                $(".modal[data-modal-id="+modalID+"]").addClass("active");
+                $("body").css("overflow", "hidden");
+
+            }
+
+            $(document).on("click", ".modal-trigger", function(e){
+
+                openModal(this);
+
+            });
+
+            $(document).on("keyup", ".modal-trigger", function(e){
+
+                if(e.which == 13) {
+                    openModal(this);
+                }
+
+            });
+
+
+            function closeModal(trigger) {
+
+                $(".modal-overlay").removeClass("active");
+                $(".modal").removeClass("active");
+                $("body").css("overflow", "visible");
+
+            }
+
+            $(document).on("click", ".modal-cancel-trigger", function(e){
+
+                closeModal(this);
+
+            });
+
+            $(document).on("keyup", ".modal-cancel-trigger", function(e){
+
+                if(e.which == 13) {
+                    closeModal(this);
+                }
+
+            });
+
         // Form Handlers =======================================================
 
             // Required Fields
@@ -103,6 +151,185 @@
                 }
 
                 labelHandlers();
+
+        // Profile List Handlers ===============================================
+
+            // Add Profile Element
+                function addProfileElement(trigger) {
+
+                    // Get Parent
+                        var parent = $(trigger).parents(".profile-list");
+
+                    // Get List Wrapper
+                        var wrapper = parent.find(".profile-element-list");
+
+                    // Set Null to Hidden
+                        parent.find(".profile-null").removeClass("active");
+
+                    // Get Template
+                        var template = parent.find(".profile-element.template").clone();
+
+                    // Remove Template Class
+                        template.removeClass("template");
+
+                    // Edit Form IDs
+
+                        // Tristan, help! x_x
+
+                    // Prepend Clone to the Wrapper
+                    wrapper.prepend(template);
+
+                    // Reactivate Required Fields
+                        requiredFields();
+
+                    // Reactivate Labels
+                        labelHandlers();
+
+                    // Reactivate Nested Relatives
+                        loadProfileRelatives();
+
+                }
+
+                // Click Trigger
+                    $(".profile-list__add-element-trigger").on("click", function(e) {
+
+                        // Prevent Default Functions
+                            e.preventDefault();
+
+                        // Add Profile Elements
+                            addProfileElement(this);
+
+                    });
+
+                // Enter Key Trigger
+                    $(".profile-list__add-element-trigger").on("keyup", function(e) {
+
+                        if(e.which == 13) {
+                            
+                            // Prevent Default Functions
+                                e.preventDefault();
+
+                            // Add Profile Elements
+                                addProfileElement(this);
+
+                        }
+
+                    });
+
+            // Remove Profile Element
+
+            // Add Profile Relative
+                function addProfileRelative(trigger) {
+
+                    // Get Parent
+                        var parent = $(trigger).parents(".profile-relative-list");
+
+                    // Get List Wrapper
+                        var wrapper = parent.find(".profile-relative-list__wrapper");
+
+                    // Set Null to Hidden
+                        // parent.find(".profile-null").removeClass("active");
+
+                    // Get Template
+                        var template = parent.find(".profile-relative.template").clone();
+
+                    // Remove Template Class
+                        template.removeClass("template");
+
+                    // Edit Form IDs
+
+                        // Tristan, help! x_x
+
+                    // Append Clone to the Wrapper
+                    wrapper.append(template);
+
+                    // Reactivate Required Fields
+                        requiredFields();
+
+                    // Reactivate Labels
+                        labelHandlers();
+
+                    // Reactivate Nested Relatives
+                        loadProfileRelativeDeletion();
+
+                }
+
+                // Load Function
+                    function loadProfileRelatives() {
+
+                        // Click Trigger
+                            $(".profile-relative__add-trigger").off("click");
+
+                            $(".profile-relative__add-trigger").on("click", function(e) {
+
+                                // Prevent Default Functions
+                                    e.preventDefault();
+
+                                // Add Profile Relative
+                                    addProfileRelative(this);
+
+                            });
+
+                        // Enter Key Trigger
+                            $(".profile-relative__add-trigger").off("keyup");
+
+                            $(".profile-relative__add-trigger").on("keyup", function(e) {
+
+                                if(e.which == 13) {
+                                    
+                                    // Prevent Default Functions
+                                        e.preventDefault();
+
+                                    // Add Profile Relative
+                                        addProfileRelative(this);
+
+                                }
+
+                            });
+
+                    }
+
+                    loadProfileRelatives();
+
+            // Remove Profile Relative
+                function deleteProfileRelative(trigger) {
+
+                    $(trigger).parents(".profile-relative").remove();
+
+                }
+
+                // Load Function
+                    function loadProfileRelativeDeletion() {
+
+                        // Click Trigger
+                            $(".profile-relative__remove-trigger").on("click", function(e) {
+
+                                // Prevent Default Functions
+                                    e.preventDefault();
+
+                                // Delete Profile Relative
+                                    deleteProfileRelative(this);
+
+                            });
+
+                        // Enter Key Trigger
+                            $(".profile-relative__remove-trigger").on("keyup", function(e) {
+
+                                if(e.which == 13) {
+                                    
+                                    // Prevent Default Functions
+                                        e.preventDefault();
+
+                                    // Delete Profile Relative
+                                        deleteProfileRelative(this);
+
+                                }
+
+                            });
+
+                    }
+
+                    loadProfileRelativeDeletion();
 
         // Experience Handlers =================================================
 

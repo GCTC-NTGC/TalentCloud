@@ -1,10 +1,9 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile
+    Applicant Profile - Skills
 
 ============================================================================= #}
-
 <html
     lang="en">
 
@@ -18,13 +17,23 @@
 
         {% include "common/goc" %}
 
-        {% include "common/header" %}
+        {% include "common/header" with {"header":profile} %}
 
-        {% include "applicant/profile/header" %}
+        {# Menu #}
 
-        {% include "applicant/profile/questions" %}
+            {% include "applicant/profile/menu" %}
 
-        {% include "common/footer" %}
+        {# Skills #}
+
+            {% include "applicant/profile/references/index" %}
+
+        {# Modals #}
+
+            {% include "common/modal" with {"page":profile} %}
+
+        {# Footer #}
+
+            {% include "common/footer" %}
 
         {# Scripts #}
 

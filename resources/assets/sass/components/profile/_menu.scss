@@ -1,0 +1,72 @@
+// =============================================================================
+
+    // Applicant Profile: Menu
+
+// =============================================================================
+.applicant-profile__sticky-menu {
+    background-color: $palette--white;
+    padding: calc(#{$unit} * 1.5);
+    position: relative;
+    z-index: 50;
+
+    &::before {
+        background-color: transparentize($palette--black, .15);
+        background-image: url("/images/bg_lightning_texture.png");
+        background-position: center;
+        background-repeat: repeat;
+        background-size: 75px;
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    @media #{$p-tablet} {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .container--layout {
+        position: relative;
+
+        nav {
+
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+
+                li {
+                    display: inline-block;
+                    margin: 0 1rem 0 0;
+
+                    a {
+                        color: $palette--font-white;
+                        font-family: $font--sans;
+                        font-size: $font-scale--regular;
+
+                        &:hover {
+                            color: $palette--blue;
+                        }
+
+                        &.active {
+                            color: $palette--blue;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -24,6 +24,14 @@
 
         {% include "applicant/application_index/index" %}
 
+        {# Modals #}
+
+        {% include "common.modal" with {"page":application_index} %}
+
+        {# Login Modals #}
+
+        {% include "common/modal" with {"page":login_modals} %}
+
         {% include "common/footer" %}
 
         {# Scripts #}

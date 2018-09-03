@@ -53,7 +53,7 @@
 
     .container--layout {
         margin: 0 auto;
-        max-width: calc(#{$unit * 70});
+        max-width: calc(#{$unit * 60});
         width: 90%;
     }
 
@@ -69,6 +69,12 @@
         visibility: hidden;
     }
 
+    span.centre,
+    span.center {
+        text-align: center;
+        width: 100%;
+    }
+
 // Components ==================================================================
 
     // Common
@@ -81,9 +87,16 @@
 
         @import "components/footer";
 
+        @import "components/modal";
+
         @import "components/buttons";
         @import "components/forms";
         @import "components/accordions";
+
+        // Skills
+
+            @import "components/skills/common";
+            @import "components/skills/skill/skill";
 
     // Home
 
@@ -120,10 +133,10 @@
         @import "components/application/post/tracker";
         @import "components/application/post/skill-layout";
         @import "components/application/post/sidebar";
-        @import "components/application/post/skill";
 
         // Step 01 (Open Ended Questions)
 
+            @import "components/application/post/citizenship";
             @import "components/application/post/questions";
 
         // Step 02 (Experience)
@@ -139,7 +152,10 @@
     // Applicant Profile
 
         @import "components/profile/header";
-        @import "components/profile/questions";
+        @import "components/profile/menu";
+        @import "components/profile/about/about";
+        @import "components/profile/about/questions";
+        @import "components/profile/portfolio/portfolio";
 
     // Managers ================================================================
 

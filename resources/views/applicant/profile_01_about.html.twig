@@ -1,0 +1,55 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile
+
+============================================================================= #}
+
+<html
+    lang="en">
+
+    <head>
+        {% include "common/head" %}
+    </head>
+
+    <body>
+
+        {% include "common/alert" %}
+
+        {% include "common/goc" %}
+
+        {% include "common/header" with {"header":profile} %}
+
+        {# {% include "applicant/profile/header" %} #}
+
+        {# Menu #}
+
+            {% include "applicant/profile/menu" %}
+
+        {# About #}
+
+            {% include "applicant/profile/about/about" %}
+
+        {# Questions #}
+
+            {% include "applicant/profile/about/questions" %}
+
+        {# Modals #}
+
+            {% include "common/modal" with {"page":profile} %}
+
+        {# Login Modals #}
+
+            {% include "common/modal" with {"page":login_modals} %}
+
+        {# Footer #}
+
+            {% include "common/footer" %}
+
+        {# Scripts #}
+
+            {% include "common/scripts" %}
+
+    </body>
+
+</html>

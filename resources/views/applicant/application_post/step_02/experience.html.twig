@@ -17,99 +17,184 @@
     <div
         class="container--layout">
 
-        {# Experience Templates #}
+        {# Profile List (Degrees) #}
 
-            {% include "applicant/application_post/step_02/degree" %}
+            <div
+                class="profile-list">
 
-            {% include "applicant/application_post/step_02/course" %}
+                {# Profile List Header #}
 
-            {% include "applicant/application_post/step_02/work" %}
+                    <div
+                        class="profile-list__header flex-grid middle">
 
-        {# Current Experience #}
+                        <div
+                            class="box med-1of2">
 
-            <div 
-                class="application-post__experience-wrapper">
+                            <h3>{{ application.experience_section.section_degree_title }}</h3>
 
-                {% set experienceCounter = 0 %}
+                        </div>
 
-                {% for experience in user.experience %}
+                        <div
+                            class="box med-1of2">
 
-                    {% if experience.type == "degree" %}
+                            <button
+                                class="profile-list__add-element-trigger">
+                                {{ application.experience_section.add_degree_label }}
+                            </button>
 
-                        {% set experienceCounter = experienceCounter + 1 %}
+                        </div>
 
-                        {% include "applicant/application_post/step_02/degree" %}
+                    </div>
 
-                    {% elseif experience.type == "course" %}
+                {# Set Locale #}
 
-                        {% set experienceCounter = experienceCounter + 1 %}
+                    {% set locale = "profile" %}
 
-                        {% include "applicant/application_post/step_02/course" %}
+                {# Profile Element Template #}
 
-                    {% elseif experience.type == "work" %}
+                    {% include "common/degree" %}
 
-                        {% set experienceCounter = experienceCounter + 1 %}
+                {# Profile Element List #}
 
-                        {% include "applicant/application_post/step_02/work" %}
+                    <div 
+                        class="profile-element-list">
 
-                    {% endif %}
+                        {% set degreeCounter = 0 %}
 
-                {% endfor %}
+                        {% for degree in user.degrees %}
+
+                            {% set degreeCounter = degreeCounter + 1 %}
+
+                            {% include "common/degree" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
+
+                            <p>{{ application.experience_section.null_degree_copy }}</p>
+
+                        </div>
+
+                    </div>
 
             </div>
 
-        {# Experience Controls #}
+        {# Profile List (Courses) #}
 
             <div
-                class="application-post__experience-controls flex-grid">
+                class="profile-list">
 
-                <div 
-                    class="box med-1of3">
-                    <button
-                        class="button--add"
-                        id="addDegreeButton">
-                        <div>
-                            <i class="fas fa-plus-circle"></i>
-                        </div>
-                        <div>
-                            <span>
-                                {{ application.experience.add_degree_label }}
-                            </span>
-                        </div>
-                    </button>
-                </div>
+                {# Profile List Header #}
 
-                <div 
-                    class="box med-1of3">
-                    <button
-                        class="button--add"
-                        id="addCourseButton">
-                        <div>
-                            <i class="fas fa-plus-circle"></i>
-                        </div>
-                        <div>
-                            <span>
-                                {{ application.experience.add_course_label }}
-                            </span>
-                        </div>
-                    </button>
-                </div>
+                    <div
+                        class="profile-list__header flex-grid middle">
 
-                <div 
-                    class="box med-1of3">
-                    <button
-                        class="button--add"
-                        id="addWorkButton">
-                        <div>
-                            <i class="fas fa-plus-circle"></i>
+                        <div
+                            class="box med-1of2">
+
+                            <h3>{{ application.experience_section.section_course_title }}</h3>
+
                         </div>
-                        <div>
-                            <span>
-                                {{ application.experience.add_work_label }}
-                            </span>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                {{ application.experience_section.add_course_label }}
+                            </button>
+
                         </div>
-                    </button>
-                </div>
+
+                    </div>
+
+                {# Profile Element Template #}
+
+                    {% include "common/course" %}
+
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set courseCounter = 0 %}
+
+                        {% for course in user.courses %}
+
+                            {% set courseCounter = courseCounter + 1 %}
+
+                            {% include "common/course" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if courseCounter == 0 %}active{% endif %}">
+
+                            <p>{{ application.experience_section.null_course_copy }}</p>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+        {# Profile List (Work) #}
+
+            <div
+                class="profile-list">
+
+                {# Profile List Header #}
+
+                    <div
+                        class="profile-list__header flex-grid middle">
+
+                        <div
+                            class="box med-1of2">
+
+                            <h3>{{ application.experience_section.section_work_title }}</h3>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger">
+                                {{ application.experience_section.add_work_label }}
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {# Profile Element Template #}
+
+                    {% include "common/work" %}
+
+                {# Profile Element List #}
+
+                    <div 
+                        class="profile-element-list">
+
+                        {% set workCounter = 0 %}
+
+                        {% for work in user.work %}
+
+                            {% set workCounter = workCounter + 1 %}
+
+                            {% include "common/work" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if workCounter == 0 %}active{% endif %}">
+
+                            <p>{{ application.experience_section.null_work_copy }}</p>
+
+                        </div>
+
+                    </div>
 
             </div>
 

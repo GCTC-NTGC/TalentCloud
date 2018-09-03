@@ -217,9 +217,9 @@
                                 for="createJobSecurityClearance">
                                 Security Clearance
                             </label>
-                            <div
-                                class="form__select-wrapper">
-                                <select
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
                                     class="form__input"
                                     id="createJobSecurityClearance"
                                     name="security_clearance">
@@ -228,7 +228,6 @@
                                             value="{{ clearance.id }}"
                                             {% if clearance.id == job.security_clearance_id %}selected="selected"{% endif %}
                                             >{{ clearance.value }}</option>
-                                            }
                                     {% endfor %}
                                 </select>
                             </div>
@@ -246,9 +245,9 @@
                                 for="createJobLanguageRequirement">
                                 Language Requirement
                             </label>
-                            <div
-                                class="form__select-wrapper">
-                                <select
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
                                     class="form__input"
                                     id="createJobLanguageRequirement"
                                     name="language_requirement">
@@ -257,7 +256,6 @@
                                             value="{{ language.id }}"
                                             {% if language.id == job.language_requirement_id %}selected="selected"{% endif %}
                                             >{{ language.value }}</option>
-                                            }
                                     {% endfor %}
                                 </select>
                             </div>
@@ -315,9 +313,9 @@
                                 for="createJobProvince">
                                 Province
                             </label>
-                            <div
-                                class="form__select-wrapper">
-                                <select
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
                                     class="form__input"
                                     id="createJobProvince"
                                     name="province">
@@ -326,7 +324,6 @@
                                             value="{{ province.id }}"
                                             {% if province.id == job.province_id %}selected="selected"{% endif %}
                                             >{{ province.value }}</option>
-                                            }
                                     {% endfor %}
                                 </select>
                             </div>
@@ -470,9 +467,9 @@
                                 for="createJobDepartment">
                                 Department
                             </label>
-                            <div
-                                class="form__select-wrapper">
-                                <select
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
                                     class="form__input"
                                     id="createJobDepartment"
                                     name="department">
@@ -494,9 +491,7 @@
                         class="box med-1of2">
 
                         <div
-                            class="form__input-wrapper--float"
-                            {% if job.translate('en').branch != null or
-                                manager.translate('en').branch %}active{% endif %}>
+                            class="form__input-wrapper--float {% if job.translate('en').branch != null or manager.translate('en').branch %}active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobBranchEN">
@@ -520,9 +515,11 @@
                         class="box med-1of2">
 
                         <div
-                            class="form__input-wrapper--float"
+                            class="form__input-wrapper--float
                             {% if job.translate('fr').branch != null or
-                                manager.translate('fr').branch %}active{% endif %}>
+                                manager.translate('fr').branch %}
+                                active
+                            {% endif %}">
                             <label class="form__label" for="createJobBranchFR">
                                 Branch (Français)
                             </label>
@@ -543,9 +540,11 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float"
+                        <div class="form__input-wrapper--float
                             {% if job.translate('en').divison != null or
-                                manager.translate('en').division != null %}active{% endif %}>
+                                manager.translate('en').division != null %}
+                                active
+                            {% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobDivisionEN">
@@ -568,9 +567,12 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float"
+                        <div class="form__input-wrapper--float
                             {% if job.translate('fr').divison != null or
-                                manager.translate('fr'.division) %}active{% endif %}>
+                                manager.translate('fr').division %}
+                                active
+                            {% endif %}
+                            ">
                             <label
                                 class="form__label"
                                 for="createJobDivisionFR">
@@ -610,8 +612,8 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float"
-                            {% if job.translate('en').impact != null %}active{% endif %}>
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('en').impact != null %}active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
@@ -620,9 +622,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="createJobImpactEN"
-                                name="impact[en]">
-                                {{ job.translate('en').impact }}
-                            </textarea>
+                                name="impact[en]">{{ job.translate('en').impact }}</textarea>
                         </div>
 
                     </div>
@@ -630,17 +630,15 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float"
-                            {% if job.translate('fr').impact != null %}active{% endif %}>
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('fr').impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
                                 Impact (Français)
                             </label>
                             <textarea
                                 class="form__textarea"
                                 id="createJobImpactFR"
-                                name="impact[fr]">
-                                {{ job.translate('fr').impact }}
-                            </textarea>
+                                name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
                         </div>
 
                     </div>
@@ -665,6 +663,16 @@
 
             <div
                 class="manager-jobs__create-task-wrapper">
+
+                {% set taskCounter = 0 %}
+
+                {% for task in job.job_poster_key_tasks %}
+
+                    {% set taskCounter = taskCounter + 1 %}
+
+                    {% include "manager/job_create/task" %}
+
+                {% endfor %}
 
                 {# Tasks get added here. #}
 
@@ -715,6 +723,16 @@
 
             <div
                 class="manager-jobs__create-question-wrapper">
+
+                {% set questionCounter = 0 %}
+
+                {% for question in job.job_poster_questions %}
+
+                    {% set questionCounter = questionCounter + 1 %}
+
+                    {% include "manager/job_create/question" %}
+
+                {% endfor %}
 
                 {# Questions get added here. #}
 
