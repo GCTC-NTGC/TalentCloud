@@ -153,8 +153,15 @@
                 labelHandlers();
 
                 //Individualize template attributes
-                function appendToAttributes(parent, attribute, suffix) {
+                function appendToAttributes(parent, attribute, suffix, conditions) {
                     var selector = "*[" + attribute + "]";
+                    
+                    //If conditions is set, only modify attributes that also
+                    //satisfy that selector
+                    if (conditions) {
+                        selector = conditions + selector;
+                    }
+                    
                     parent.find(selector).each(function() {
                         $(this).attr(attribute, $(this).attr(attribute) + suffix);
                     });
@@ -164,7 +171,7 @@
                 function getNextItemId(parent) {
                     var maxId = 0;
                     parent.find("*[data-item-id]").each(function() {
-                        var id = $(this).attr('data-item-id');
+                        var id = parseInt( $(this).attr('data-item-id') );
                         if (id > maxId) {
                             maxId = id;
                         }
@@ -196,9 +203,9 @@
                         var newId = getNextItemId(wrapper);
 
                     // Edit Form IDs and names
-                        appendToAttributes(parent, 'id', '_' + newId);
-                        appendToAttributes(parent, 'for', '_' + newId);
-                        appendToAttributes(parent, 'name', '[' + newId + ']');
+                        appendToAttributes(template, 'id', '_' + newId);
+                        appendToAttributes(template, 'for', '_' + newId);
+                        appendToAttributes(template, 'name', '[' + newId + ']', ':not([type=submit])');
 
                     // Prepend Clone to the Wrapper
                     wrapper.prepend(template);

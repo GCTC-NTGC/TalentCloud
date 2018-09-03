@@ -10578,6 +10578,26 @@ return jQuery;
 
                                         labelHandlers();
 
+                                        //Individualize template attributes
+                                        function appendToAttributes(parent, attribute, suffix) {
+                                                            var selector = "*[" + attribute + "]";
+                                                            parent.find(selector).each(function () {
+                                                                                $(this).attr(attribute, $(this).attr(attribute) + suffix);
+                                                            });
+                                        }
+
+                                        //Return the next unused data-item-id value
+                                        function getNextItemId(parent) {
+                                                            var maxId = 0;
+                                                            parent.find("*[data-item-id]").each(function () {
+                                                                                var id = parseInt($(this).attr('data-item-id'));
+                                                                                if (id > maxId) {
+                                                                                                    maxId = id;
+                                                                                }
+                                                            });
+                                                            return maxId + 1;
+                                        }
+
                                         // Profile List Handlers ===============================================
 
                                         // Add Profile Element
@@ -10598,9 +10618,13 @@ return jQuery;
                                                             // Remove Template Class
                                                             template.removeClass("template");
 
-                                                            // Edit Form IDs
+                                                            // Get New ID
+                                                            var newId = getNextItemId(wrapper);
 
-                                                            // Tristan, help! x_x
+                                                            // Edit Form IDs and names
+                                                            appendToAttributes(template, 'id', '_' + newId);
+                                                            appendToAttributes(template, 'for', '_' + newId);
+                                                            appendToAttributes(template, 'name', '[' + newId + ']');
 
                                                             // Prepend Clone to the Wrapper
                                                             wrapper.prepend(template);
