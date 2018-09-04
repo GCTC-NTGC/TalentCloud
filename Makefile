@@ -31,7 +31,7 @@ docker-stop:
 	@make clean
 
 gen-certs:
-	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate
+	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talentcloud-nuagedetalents.gccollab.ca" jacoelho/generate-certificate
 
 logs:
 	@docker-compose logs -f
