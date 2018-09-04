@@ -161,7 +161,7 @@
                                 id="degreeStartDate{{ id_suffix }}"
                                 type="date"
                                 name="degree_start_date{{ name_suffix }}"
-                                value="{{ degree.start_date }}">
+                                value="{{ degree.start_date|date("Y-m-d") }}">
 
                         </div>
 
@@ -184,7 +184,7 @@
                                 id="degreeEndDate{{ id_suffix }}"
                                 type="date"
                                 name="degree_end_date{{ name_suffix }}"
-                                value="{{ degree.end_date }}">
+                                value="{{ degree.end_date|date("Y-m-d") }}">
 
                         </div>
 

@@ -134,7 +134,7 @@
                                 id="workStartDate{{ id_suffix }}"
                                 type="date"
                                 name="work_start_date{{ name_suffix }}"
-                                value="{{ work.start_date }}">
+                                value="{{ work.start_date|date("Y-m-d") }}">
 
                         </div>
 
@@ -157,7 +157,7 @@
                                 id="workEndDate{{ id_suffix }}"
                                 type="date"
                                 name="work_end_date{{ name_suffix }}"
-                                value="{{ work.end_date }}">
+                                value="{{ work.end_date|date("Y-m-d") }}">
 
                         </div>
 

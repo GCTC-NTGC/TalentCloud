@@ -140,7 +140,7 @@
                                 id="courseStartDate{{ id_suffix }}"
                                 type="date"
                                 name="course_start_date{{ name_suffix }}"
-                                value="{{ course.start_date }}">
+                                value="{{ course.start_date|date("Y-m-d") }}">
 
                         </div>
 
@@ -163,7 +163,7 @@
                                 id="courseEndDate{{ id_suffix }}"
                                 type="date"
                                 name="course_end_date{{ name_suffix }}"
-                                value="{{ course.end_date }}">
+                                value="{{ course.end_date|date("Y-m-d") }}">
 
                         </div>
 
