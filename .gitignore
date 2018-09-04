@@ -23,7 +23,7 @@ npm-debug.log
 *~
 
 ## TalentCloud
-#/etc/ssl/
+/etc/ssl/
 /tests
 /report
 /database/db/pgsql
