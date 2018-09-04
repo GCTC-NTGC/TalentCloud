@@ -29,4 +29,5 @@
             "start_date_label" => "Start Date",
             "end_date_label" => "End Date",
             "action_01" => "Delete Lived Experience",
+            "action_02" => "Save Lived Experience"
         ]

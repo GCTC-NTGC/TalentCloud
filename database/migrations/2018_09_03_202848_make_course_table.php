@@ -16,7 +16,7 @@ class MakeCourseTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->string('instituation')->nullable();
+            $table->string('institution')->nullable();
             $table->integer('course_status_id')->unsigned()->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

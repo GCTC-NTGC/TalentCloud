@@ -17,7 +17,7 @@ class MakeDegreeTable extends Migration
             $table->increments('id');
             $table->integer('degree_type_id')->unsigned()->nullable();
             $table->string('area_of_study')->nullable();
-            $table->string('instituation')->nullable();
+            $table->string('institution')->nullable();
             $table->string('thesis')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

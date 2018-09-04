@@ -112,10 +112,10 @@
                                     class="form__input"
                                     id="courseStatus{{ id_suffix }}"
                                     name="course_status{{ name_suffix }}">
-                                    {% for status in course_template.statuses|sort %}
+                                    {% for status in course_status %}
                                         <option
-                                            {% if course.status|capitalize == status|capitalize %}selected="selected"{% endif %}
-                                            >{{ status }}</option>
+                                            {% if course.course_status.id == status.id %}selected="selected"{% endif %}
+                                            value="{{ status.id }}">{{ course_template.statuses[status.name] }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -180,7 +180,8 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteCourse">
+                        data-modal-id="deleteCourse"
+                        type="button">
                         {{ course_template.action_01 }}
                     </button>
                 </div>

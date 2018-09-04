@@ -7,7 +7,7 @@
 <div
     class="profile-element accordion degree {% if degree == false %}template active{% endif %}"
     data-item-id="{{ degree ? degree.id : 0 }}">
-    
+
     {% if degree %}
         {% set name_suffix = "[old][:id]"|replace({":id":degree.id}) %}
         {% set id_suffix = "_old_:id"|replace({":id":degree.id}) %}
@@ -32,7 +32,7 @@
                 {% if degree == false %}
                     {{ degree_template.new_degree_label }}
                 {% else %}
-                    {{ degree.type|title }}, {{ degree.area_of_study }}
+                    {{ degree_template.types[degree.degree_type.name]|title }}, {{ degree.area_of_study }}
                 {% endif %}
             </span>
 
@@ -72,10 +72,11 @@
                                     class="form__input"
                                     id="degreeType{{ id_suffix }}"
                                     name="degree_type{{ name_suffix }}">
-                                    {% for type in degree_template.types|sort %}
+                                    {% for degree_type in degree_types %}
                                         <option
-                                            {% if degree.type|capitalize == type|capitalize %}selected="selected"{% endif %}
-                                            >{{ type }}</option>
+                                            {% if degree.degree_type.id == degree_type.id %}selected="selected"{% endif %}
+                                            value="{{ degree_type.id }}"
+                                            >{{ degree_template.types[degree_type.name] }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -200,7 +201,8 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteDegree">
+                        data-modal-id="deleteDegree"
+                        type="button">
                         {{ degree_template.action_01 }}
                     </button>
                 </div>

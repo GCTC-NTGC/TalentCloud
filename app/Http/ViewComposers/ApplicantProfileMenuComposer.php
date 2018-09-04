@@ -26,7 +26,7 @@ class ApplicantProfileMenuComposer
             ],
             "experience" => [
                 "active" => false,
-                "link" => "/profile/experience",
+                "link" => route('profile.experience.edit', $view->getData()['applicant']),
                 "title" => "Go to the Experience section of your profile.",
                 "label" => "My Experience"
             ],
