@@ -8,7 +8,7 @@
 namespace App\Models;
 
 /**
- * Class MicroReference
+ * Class Reference
  *
  * @property int $id
  * @property string $name
@@ -20,13 +20,14 @@ namespace App\Models;
  *
  * @property \App\Models\Lookup\Relationship $relationship
  * @property \Illuminate\Database\Eloquent\Collection $projects
- * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  */
-class MicroReference extends BaseModel {
+class Reference extends BaseModel {
 
     protected $casts = [
+        'name' => 'string',
+        'email' => 'string',
+        'description' => 'string',
         'relationship_id' => 'int',
-        'experience_level_id' => 'int'
     ];
     protected $fillable = [
         'name',
@@ -41,10 +42,6 @@ class MicroReference extends BaseModel {
 
     public function projects() {
         return $this->belongsToMany(\App\Models\Project::class);
-    }
-    
-    public function application_micro_references() {
-        return $this->hasMany(\App\Models\ApplicationMicroReference::class);
     }
 
 }
