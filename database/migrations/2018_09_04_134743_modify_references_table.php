@@ -14,10 +14,13 @@ class ModifyReferencesTable extends Migration
     public function up()
     {
         Schema::table('micro_references', function (Blueprint $table) {
+            $table->dropForeign(['experience_level_id']);
+            $table->dropIndex(['experience_level_id']);
+
             $table->dropColumn('experience_level_id');
             $table->dropColumn('observed_from_date');
-            $table->dropColumn('observed_to_date');
-            $table->rename('story', 'description');
+            $table->dropColumn('observed_until_date');
+            $table->renameColumn('story', 'description');
         });
     }
 
@@ -32,7 +35,7 @@ class ModifyReferencesTable extends Migration
             $table->integer('experience_level_id')->unsigned()->nullable()->index();
             $table->date('observed_from_date')->nullable();
 			$table->date('observed_until_date')->nullable();
-            $table->rename('description', 'story');
+            $table->renameColumn('description', 'story');
         });
 
         Schema::table('micro_references', function (Blueprint $table) {
