@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MakeDegreeApplicantPivotTable extends Migration
+class MakeWorkExperienceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class MakeDegreeApplicantPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('applicant_degree', function (Blueprint $table) {
+        Schema::create('work_experiences', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->string('role')->nullable();
+            $table->string('company')->nullable();
+            $table->text('description')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->integer('applicant_id')->unsigned();
-            $table->integer('degree_id')->unsigned();
-
             $table->timestamps();
         });
 
-        Schema::table('applicant_degree', function (Blueprint $table) {
-            $table->foreign('degree_id')->references('id')->
-                on('degrees')->onUpdate('CASCADE')->onDelete('CASCADE');
+        Schema::table('work_experiences', function (Blueprint $table) {
             $table->foreign('applicant_id')->references('id')->
                 on('applicants')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
@@ -37,6 +37,6 @@ class MakeDegreeApplicantPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicant_degree');
+        Schema::dropIfExists('work_experiences');
     }
 }
