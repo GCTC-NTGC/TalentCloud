@@ -118,6 +118,7 @@
 
                                                             var modalID = $(trigger).attr("data-modal-id");
                                                             var modal = $(".modal[data-modal-id=" + modalID + "]");
+                                                            var modalObject = $(trigger).parents(".modal-target-object");
                                                             $(".modal-overlay").addClass("active");
                                                             modal.addClass("active");
                                                             $("body").css("overflow", "hidden");
@@ -136,6 +137,7 @@
                                                             }
 
                                                             modalTabHandler(firstInput, lastInput);
+                                                            modalDeleteTrigger(trigger, modal, modalObject);
                                                             escapeModalHandler();
                                         }
 
@@ -169,6 +171,18 @@
                                                                                 closeModal(this);
                                                             }
                                         });
+
+                                        // Delete Trigger ==================================================
+
+                                        function modalDeleteTrigger(trigger, modal, object) {
+
+                                                            $(document).on("click", ".modal-delete-trigger", function (e) {
+
+                                                                                closeModal(trigger);
+
+                                                                                $(object).remove();
+                                                            });
+                                        }
 
                                         // Tab Handler =====================================================
 

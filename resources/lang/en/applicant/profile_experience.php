@@ -26,7 +26,7 @@ return [
     //TODO: move modals to under a ViewComposer's responsability
     "modals" => [
         "delete_degree" => [
-            "type" => "confirmation",
+            "type" => "deleteConfirmation",
             "title" => "Delete this Diploma/Degree?",
             "content" => [
                 "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
@@ -37,7 +37,7 @@ return [
             "action_02" => "Delete"
         ],
         "delete_course" => [
-            "type" => "confirmation",
+            "type" => "deleteConfirmation",
             "title" => "Delete this Course/Certification?",
             "content" => [
                 "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
@@ -48,7 +48,7 @@ return [
             "action_02" => "Delete"
         ],
         "delete_work_experience" => [
-            "type" => "confirmation",
+            "type" => "deleteConfirmation",
             "title" => "Delete this Lived Experience?",
             "content" => [
                 "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
