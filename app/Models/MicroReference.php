@@ -9,20 +9,17 @@ namespace App\Models;
 
 /**
  * Class MicroReference
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $email
  * @property int $relationship_id
- * @property \Jenssegers\Date\Date $observed_from_date
- * @property \Jenssegers\Date\Date $observed_until_date
- * @property int $experience_level_id
- * @property string $story
+ * @property string $description
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
- * @property \App\Models\Lookup\ExperienceLevel $experience_level
+ *
  * @property \App\Models\Lookup\Relationship $relationship
+ * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  */
 class MicroReference extends BaseModel {
@@ -31,28 +28,21 @@ class MicroReference extends BaseModel {
         'relationship_id' => 'int',
         'experience_level_id' => 'int'
     ];
-    protected $dates = [
-        'observed_from_date',
-        'observed_until_date'
-    ];
     protected $fillable = [
         'name',
         'email',
         'relationship_id',
-        'observed_from_date',
-        'observed_until_date',
-        'experience_level_id',
-        'story'
+        'description'
     ];
-
-    public function experience_level() {
-        return $this->belongsTo(\App\Models\Lookup\ExperienceLevel::class);
-    }
 
     public function relationship() {
         return $this->belongsTo(\App\Models\Lookup\Relationship::class);
     }
 
+    public function projects() {
+        return $this->belongsToMany(\App\Models\Project::class);
+    }
+    
     public function application_micro_references() {
         return $this->hasMany(\App\Models\ApplicationMicroReference::class);
     }
