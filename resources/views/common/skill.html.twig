@@ -5,7 +5,16 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion skill {% if locale == "profile" and skill == false %}template active{% endif %} {% if locale == "application" and jobSkill == false %}template{% endif %} {% if locale == "application" and skill == true %}complete{% endif %} modal-target-object">
+    class="profile-element accordion skill {% if locale == "profile" and skill == false %}template active{% endif %} {% if locale == "application" and jobSkill == false %}template{% endif %} {% if locale == "application" and skill == true %}complete{% endif %} modal-target-object"
+    data-item-id="{{ skill ? skill.id : 0 }}">
+
+    {% if skill %}
+        {% set name_suffix = "[old][:id]"|replace({":id":skill.id}) %}
+        {% set id_suffix = "_old_:id"|replace({":id":skill.id}) %}
+    {% else %}
+        {% set name_suffix = "[new]" %}
+        {% set id_suffix = "_new" %}
+    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -87,14 +96,19 @@
                             <div
                                 class="box full">
 
-                                <div class="form__input-wrapper--select">
-                                    <label class="form__label" for="">
+                                <div 
+                                    class="form__input-wrapper--select">
+                                    <label 
+                                        class="form__label" 
+                                        for="skillSelection{{ id_suffix }}">
                                         {{ skill_template.skill_selection_label }}
                                     </label>
                                     <div
                                         class="form__select-wrapper fas fa-chevron-down">
                                         <select
-                                            class="form__input">
+                                            class="form__input"
+                                            id="skillSelection{{ id_suffix }}"
+                                            name="skill_selection{{ name_suffix }}">
                                             {% for skill in skills %}
                                                 {% if skillType == "soft" %}
                                                     {% if skill.type == "soft" %}
@@ -184,7 +198,7 @@
 
                                     <label 
                                         class="form__label"
-                                        for="">
+                                        for="softSkillLevel{{ id_suffix }}">
                                         {{ skill_template.level_label }}
                                     </label>
 
@@ -198,15 +212,15 @@
 
                                             <label 
                                                 class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
-                                                for="">
+                                                for="softSkillLevel{{ id_suffix }}{{ counter }}">
                                                 <span 
                                                     class="hidden">
                                                     {{ level }}
                                                 </span>
                                                 <input 
                                                     class="form__radio-group-input"
-                                                    id=""
-                                                    name=""
+                                                    id="softSkillLevel{{ id_suffix }}{{ counter }}"
+                                                    name="softSkillLevel{{ name_suffix }}{{ counter }}"
                                                     type="radio"
                                                     {% if skill.level|capitalize == level|capitalize %}
                                                         checked
@@ -352,7 +366,8 @@
                                 <button
                                     class="modal-trigger"
                                     data-modal-id="createReference"
-                                    title="{{ relative_template.reference.create_title }}">
+                                    title="{{ relative_template.reference.create_title }}"
+                                    type="button">
 
                                     {{ relative_template.reference.create_label }}
 
@@ -391,7 +406,8 @@
                                 class="profile-relative__add-trigger-wrapper">
 
                                 <button
-                                    class="profile-relative__add-trigger">
+                                    class="profile-relative__add-trigger"
+                                    type="button">
                                     {{ relative_template.reference.add_label }}
                                 </button>
 
@@ -425,7 +441,8 @@
                                 <button
                                     class="modal-trigger"
                                     data-modal-id="createSample"
-                                    title="{{ relative_template.sample.create_title }}">
+                                    title="{{ relative_template.sample.create_title }}"
+                                    type="button">
 
                                     {{ relative_template.sample.create_label }}
 
@@ -464,7 +481,8 @@
                                 class="profile-relative__add-trigger-wrapper">
 
                                 <button
-                                    class="profile-relative__add-trigger">
+                                    class="profile-relative__add-trigger"
+                                    type="button">
                                     {{ relative_template.sample.add_label }}
                                 </button>
 
@@ -483,7 +501,8 @@
                     {% if locale != "application" %}
                         <button
                             class="button--red light-bg modal-trigger"
-                            data-modal-id="deleteSkill">
+                            data-modal-id="deleteSkill"
+                            type="button">
                             {{ skill_template.action_01 }}
                         </button>
                     {% endif %}
@@ -493,7 +512,10 @@
                 <div
                     class="box med-1of2">
                     <button
-                        class="button--blue light-bg">
+                        class="button--blue light-bg"
+                        name="submit"
+                        type="submit"
+                        value="skillSubmit{{ name_suffix }}">
                         {{ skill_template.action_02 }}
                     </button>
                 </div>

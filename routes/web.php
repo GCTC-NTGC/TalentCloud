@@ -267,10 +267,13 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",
                 "save_continue_button_label" => "Save & Continue",
-                "language_title" => "Language Requirement",
-                "language_copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
-                "language_agree" => "I Agree",
-                "language_disagree" => "I Disagree",
+                "language_title" => "Language Selection",
+                "language_copy" => "Which language would you prefer for this application process?",
+                "language_label" => "Select One",
+                "language_options" => [
+                    "00" => "English",
+                    "01" => "French"
+                ],
                 "citizenship_title" => "Citizenship Claim",
                 "citizenship_content" => "Which of the following applies to you?",
                 "citizenship_label" => "Select One",
