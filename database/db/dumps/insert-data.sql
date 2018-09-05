@@ -142,9 +142,9 @@ INSERT INTO job_term_translations VALUES
 (8,4,'permanent','fr',current_timestamp,current_timestamp);
 
 INSERT INTO language_requirements VALUES
-(1,'English essential',current_timestamp,current_timestamp),
-(2,'French essential',current_timestamp,current_timestamp),
-(3,'Bilingual',current_timestamp,current_timestamp);
+(1,'english',current_timestamp,current_timestamp),
+(2,'french',current_timestamp,current_timestamp),
+(3,'bilingual',current_timestamp,current_timestamp);
 
 INSERT INTO language_requirement_translations VALUES
 (1,'en',1,'English essential',current_timestamp,current_timestamp),
@@ -211,9 +211,9 @@ INSERT INTO relationship_translations VALUES
 (6,3,'fr','Subalterne',current_timestamp,current_timestamp);
 
 INSERT INTO security_clearances VALUES
-(1,'Reliability',current_timestamp,current_timestamp),
-(2,'Secret',current_timestamp,current_timestamp),
-(3,'Top Secret',current_timestamp,current_timestamp);
+(1,'reliability',current_timestamp,current_timestamp),
+(2,'secret',current_timestamp,current_timestamp),
+(3,'top_secret',current_timestamp,current_timestamp);
 
 INSERT INTO security_clearance_translations VALUES
 (1,'en',1,'Reliability',current_timestamp,current_timestamp),
@@ -224,10 +224,10 @@ INSERT INTO security_clearance_translations VALUES
 (6,'fr',3,'Très secret',current_timestamp,current_timestamp);
 
 INSERT INTO skill_levels VALUES
-(1,'Basic',current_timestamp,current_timestamp),
-(2,'Intermediate',current_timestamp,current_timestamp),
-(3,'Advanced',current_timestamp,current_timestamp),
-(4,'Expert',current_timestamp,current_timestamp);
+(1,'basic',current_timestamp,current_timestamp),
+(2,'intermediate',current_timestamp,current_timestamp),
+(3,'advanced',current_timestamp,current_timestamp),
+(4,'expert',current_timestamp,current_timestamp);
 
 INSERT INTO skill_level_translations VALUES
 (1,1,'en','Basic',current_timestamp,current_timestamp),
@@ -267,3 +267,12 @@ INSERT INTO course_status (name, created_at, updated_at) VALUES
 
 INSERT INTO skill_statuses (name, created_at, updated_at) VALUES
 ('claimed', current_timestamp, current_timestamp);
+
+INSERT INTO skill_types (id, name, created_at, updated_at) VALUES
+(1, 'soft', current_timestamp, current_timestamp),
+(2, 'hard', current_timestamp, current_timestamp);
+
+INSERT INTO skills (name, skill_type_id, created_at, updated_at) VALUES
+('ux_research', 1, current_timestamp, current_timestamp),
+('html', 2, current_timestamp, current_timestamp),
+('css', 2, current_timestamp, current_timestamp);

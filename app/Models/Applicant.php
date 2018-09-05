@@ -6,7 +6,7 @@
  */
 
 namespace App\Models;
-use App\Models\WorkExperience;
+use App\Models\WorkSample;
 
 /**
  * Class Applicant
@@ -26,6 +26,9 @@ use App\Models\WorkExperience;
  * @property \Illuminate\Database\Eloquent\Collection $degrees
  * @property \Illuminate\Database\Eloquent\Collection $courses
  * @property \Illuminate\Database\Eloquent\Collection $work_experiences
+ * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
+ * @property \Illuminate\Database\Eloquent\Collection $references
+ * @property \Illuminate\Database\Eloquent\Collection $work_samples
  */
 class Applicant extends BaseModel {
 
@@ -61,5 +64,17 @@ class Applicant extends BaseModel {
 
     public function work_experiences() {
         return $this->hasMany(\App\Models\WorkExperience::class);
+    }
+
+    public function skill_declarations() {
+        return $this->hasMany(\App\Models\SkillDeclaration::class);
+    }
+
+    public function references() {
+        return $this->hasMany(\App\Models\Reference::class);
+    }
+
+    public function work_samples() {
+        return $this->hasMany(\App\Models\WorkSample::class);
     }
 }

@@ -53,18 +53,18 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set softSkillCounter = 0 %}
 
-                        {% for skill in user.skills %}
+                        {% for skill_declaration in applicant.skill_declarations %}
 
                             {% for siteSkill in skills %}
 
-                                {% if siteSkill.type == "soft" %}
+                                {% if siteSkill.type.name == "soft" %}
 
-                                    {% if skill.name|capitalize == siteSkill.name|capitalize %}
+                                    {% if skill_declaration.skill.id == siteSkill.id %}
 
                                         {% set softSkillCounter = softSkillCounter + 1 %}
 
@@ -132,18 +132,18 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set hardSkillCounter = 0 %}
 
-                        {% for skill in user.skills %}
+                        {% for skill_declaration in applicant.skill_declarations %}
 
                             {% for siteSkill in skills %}
 
                                 {% if siteSkill.type == "hard" %}
 
-                                    {% if skill.name|capitalize == siteSkill.name|capitalize %}
+                                    {% if skill_declaration.skill.id == siteSkill.id %}
 
                                         {% set hardSkillCounter = hardSkillCounter + 1 %}
 

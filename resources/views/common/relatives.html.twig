@@ -2,8 +2,8 @@
     class="profile-relative {% if relative == null %}template{% endif %}">
 
     <div class="form__input-wrapper--select">
-        <label 
-            class="form__label" 
+        <label
+            class="form__label"
             for="">
             {% if relativeToken == "skills" %}
                 {{ relative_template.skill.label }}
@@ -21,27 +21,27 @@
 
                 {# Skills #}
                     {% if relativeToken == "skills" %}
-                        {% for userSkill in user.skills %}
+                        {% for skillDeclaration in applicant.skill_declarations %}
                             <option
-                                {% if relative|capitalize == userSkill.name|capitalize %}selected="selected"{% endif %}
-                                >{{ userSkill.name }}</option>
+                                {% if relative.id == skillDeclaration.id %}selected="selected"{% endif %}
+                                >{{ skill_template.skills[skillDeclaration.skill.name].name }}</option>
                         {% endfor %}
                     {% endif %}
 
                 {# References #}
                     {% if relativeToken == "references" %}
-                        {% for userReference in user.references %}
+                        {% for userReference in applicant.references %}
                             <option
-                                {% if relative|capitalize == userReference.name|capitalize %}selected="selected"{% endif %}
+                                {% if relative.id == userReference.id %}selected="selected"{% endif %}
                                 >{{ userReference.name }}</option>
                         {% endfor %}
                     {% endif %}
 
                 {# Samples #}
                     {% if relativeToken == "samples" %}
-                        {% for userSample in user.samples %}
+                        {% for userSample in applicant.work_samples %}
                             <option
-                                {% if relative|capitalize == userSample.name|capitalize %}selected="selected"{% endif %}
+                                {% if relative.id == userSample.id %}selected="selected"{% endif %}
                                 >{{ userSample.name }}</option>
                         {% endfor %}
                     {% endif %}

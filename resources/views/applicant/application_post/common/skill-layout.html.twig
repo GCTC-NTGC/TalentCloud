@@ -42,7 +42,7 @@
     <div
         class="container--layout">
 
-        <div 
+        <div
             class="flex-grid">
 
             {# Include Sidebar #}
@@ -53,7 +53,7 @@
 
                 <div class="application-post__content-wrapper box lg-3of4">
 
-                    <a 
+                    <a
                         aria-hidden="true"
                         class="application-post__anchor"
                         id="begin">
@@ -99,7 +99,7 @@
 
                                 {# Profile Element List #}
 
-                                    <div 
+                                    <div
                                         class="profile-element-list">
 
                                         {% for jobSkill in job.skills %}
@@ -112,11 +112,11 @@
 
                                                         {% set skill = false %}
 
-                                                        {% for userSkill in user.skills %}
+                                                        {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+                                                            {% if jobSkill.name|capitalize == skillDeclaration.name|capitalize %}
 
-                                                                {% set skill = userSkill %}
+                                                                {% set skill = skillDeclaration %}
 
                                                             {% endif %}
 
@@ -164,11 +164,11 @@
 
                                                         {% set skill = false %}
 
-                                                        {% for userSkill in user.skills %}
+                                                        {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+                                                            {% if jobSkill.name|capitalize == skillDeclaration.name|capitalize %}
 
-                                                                {% set skill = userSkill %}
+                                                                {% set skill = skillDeclaration %}
 
                                                             {% endif %}
 
@@ -220,7 +220,7 @@
 
     </div>
 
-    <div 
+    <div
         class="container--copy">
 
         {# Save Buttons #}
@@ -228,7 +228,7 @@
             <div
                 class="flex-grid middle application-post__action-wrapper">
 
-                <div 
+                <div
                     class="box med-1of2">
 
                     <button
@@ -238,7 +238,7 @@
 
                 </div>
 
-                <div 
+                <div
                     class="box med-1of2">
 
                     <button
