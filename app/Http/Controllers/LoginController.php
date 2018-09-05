@@ -91,7 +91,7 @@ class LoginController extends Controller
         $this->clientId = $config['client_id'];
         $this->clientSecret = $config['client_secret'];
         $this->callbackUrl = WhichPortal::isManagerPortal() ?
-                $config['redirect_manager'] : $config['redirect'];
+                route('manager.login') : route('login');
 
         $this->oidcClient = new OpenIDConnectClient($this->authUrl, $this->clientId, $this->clientSecret);
         $this->oidcClient->addScope($this->scopes);

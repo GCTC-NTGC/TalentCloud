@@ -54,6 +54,12 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'applicant_domain' => env('APPLICANT_DOMAIN', 'localhost'),
+    'manager_domain' => env('MANAGER_DOMAIN', 'localhost'),
+    'applicant_prefix' => env('APPLICANT_PREFIX', ''),
+    'manager_prefix' => env('MANAGER_PREFIX', ''),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
