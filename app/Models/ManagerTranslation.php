@@ -21,8 +21,9 @@ namespace App\Models;
  * @property string $employee_learning
  * @property string $expectations
  * @property int $manager_id
- * @property string $work_experience
  * @property string $education
+ * @property string $career_journey
+ * @property string $learning_path
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -42,8 +43,9 @@ class ManagerTranslation extends BaseModel {
         'leadership_style',
         'employee_learning',
         'expectations',
-        'work_experience',
-        'education'
+        'education',
+        'career_journey',
+        'learning_path'
     ];
 
     public function manager() {

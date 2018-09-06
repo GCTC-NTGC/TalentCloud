@@ -1,0 +1,124 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - About Info
+
+============================================================================= #}
+<div
+    class="applicant-profile__about">
+
+    <div
+        class="container--copy">
+
+        <div
+            class="applicant-profile__data-wrapper flex-grid">
+
+            <h3>{{ profile.about_title }}</h3>
+
+            <p>* {{ profile.about_gc_disclaimer }}</p>
+
+            <span
+                class="centre">
+
+                <a
+                    class="button--purple light-bg"
+                    href="{{ profile.gc_link }}"
+                    target="_blank"
+                    title="{{ profile.gc_link_title }}">
+                    {{ profile.gc_link_label }}
+                </a>
+
+            </span>
+
+        </div>
+
+        <form
+            class="form__wrapper">
+
+            {# Social Media #}
+
+                <fieldset
+                    class="form__fieldset">
+
+                    <legend
+                        class="form__legend">
+                        Social Media
+                    </legend>
+
+                    <div
+                        class="flex-grid">
+
+                        <div
+                            class="box med-1of2">
+
+                            <div class="form__input-wrapper--float {% if user.twitter.url == true %}active{% endif %}">
+                                <label class="form__label" for="{{ question.input_name }}">
+                                    Twitter Profile
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id=""
+                                    type="text"
+                                    value="{{ user.twitter.url }}" />
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <div class="form__input-wrapper--float {% if user.linkedin.url == true %}active{% endif %}">
+                                <label class="form__label" for="{{ question.input_name }}">
+                                    Linkedin Profile
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id=""
+                                    type="text"
+                                    value="{{ user.linkedin.url }}" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+            {# Other Info #}
+
+                <fieldset
+                    class="form__fieldset">
+
+                    <legend
+                        class="form__legend">
+                        Other Information
+                    </legend>
+
+                    <div
+                        class="flex-grid">
+
+                        <div
+                            class="box full">
+
+                            <div class="form__input-wrapper--float {% if user.tagline == true %}active{% endif %}">
+                                <label class="form__label" for="{{ question.input_name }}">
+                                    Tagline
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id=""
+                                    type="text"
+                                    value="{{ user.tagline }}" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+        </form>
+
+    </div>
+
+</div>

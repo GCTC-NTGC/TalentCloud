@@ -1,0 +1,36 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Job Index
+
+============================================================================= #}
+
+<html
+    lang="en">
+
+    <head>
+        {% include "common/head" %}
+    </head>
+
+    <body>
+        {% include "common/alert" %}
+
+        {% include "common/goc" %}
+
+        {% include "common/header" with {"header":manager_job_index} %}
+
+        {% include "manager/job_index/layout" %}
+
+        {# Login Modals #}
+
+        {% include "common/modal" with {"page":login_modals} %}
+
+        {% include "common/footer" %}
+
+        {# Scripts #}
+
+        {% include "common/scripts" %}
+
+    </body>
+
+</html>

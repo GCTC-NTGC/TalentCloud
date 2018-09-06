@@ -48,7 +48,7 @@ class JumboJettTokenRefresher implements TokenRefresher {
      * @param string $iss
      * @return Token $idToken
      */
-    public function refreshIDToken(string $sub, string $iss): \Lcobucci\JWT\Token {
+    public function refreshIDToken(string $iss, string $sub): \Lcobucci\JWT\Token {
         $refreshToken = $this->tokenStorage->fetchRefresh($iss, $sub);
         if (!$refreshToken) {
             throw new TokenStorageException("Failed to fetch refresh token");

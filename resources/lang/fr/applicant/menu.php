@@ -1,0 +1,34 @@
+<?php
+
+return [
+    /*
+     * --------------------------------------------------------------------------
+     * Menu Language Lines
+     * --------------------------------------------------------------------------
+     *
+     * The following language lines are used in the nav menu.
+     *
+     */
+    "items" => [
+        "home" => [
+            "name" => "Accueil",
+            "link" => route('home')
+        ],
+        "browse" => [
+            "name" => "Parcourir les emplois",
+            "link" => route('jobs.index')
+        ],
+        "applications" => [
+            "name" => "Mes applications",
+            // "link" => route('application.index')
+            "link" => "/applications/"
+        ],
+        "profile" => [
+            "name" => "Mon profile",
+            "link" => route('profile')
+        ],
+    ],
+    "register" => "Inscription",
+    "login" => "Ouverture de session (Compte GC)",
+    "logout" => "Se déconnecter",
+];

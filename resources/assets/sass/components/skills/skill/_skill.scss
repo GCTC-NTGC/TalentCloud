@@ -1,0 +1,76 @@
+// =============================================================================
+
+    // Skill Accordion
+
+// =============================================================================
+.profile-element.skill {
+
+    .accordion-title {
+        margin: calc(#{$unit} * 2) 0 calc(#{$unit} * .5);
+
+        @media #{$l-tablet} {
+            margin: calc(#{$unit} * 2) 0;
+            max-width: 30%;
+        }
+
+    }
+
+    .skill-summary {
+        color: black;
+        padding: 0 0 2rem 1.5rem;
+        
+        @media #{$l-tablet} {
+            padding: 0;
+            position: absolute;
+            top: 50%;
+            right: 5rem;
+            transform: translate(0, -50%);
+        }
+
+        span {
+            color: $palette--white;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            margin: 0 .5rem;
+
+            i {
+                color: $palette--blue;
+                margin: 0 .2rem 0 0;
+            }
+
+        }
+
+    }
+
+    .form__wrapper {
+
+        .skill__description {
+            color: $palette--font-black;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 400;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .skill__status {
+            color: $palette--blue;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+            margin: 2rem 0 0;
+        }
+
+        .form__radio-group {
+            margin: 0 0 1rem !important;
+
+            .flex-grid {
+                padding: 0 1rem !important;
+            }
+
+        }
+
+    }
+
+}

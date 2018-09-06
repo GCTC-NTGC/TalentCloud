@@ -6,7 +6,7 @@ return [
      * GoC Language Lines
      * --------------------------------------------------------------------------
      *
-     * The following language lines are used in the Government of Canada bar 
+     * The following language lines are used in the Government of Canada bar
      * in the header.
      *
      */
@@ -17,6 +17,7 @@ return [
     "logo_url" => "/images/logo_goc_white.svg",
     "talent_cloud" => "GC Talent Cloud",
     "portal" => "Applicant Portal",
+    "admin_portal" => "Manager Portal",
     "language_link" => "/fr",
     "language_link_title" => "Cliquez içi pour le site Français.",
     "language" => "Français"

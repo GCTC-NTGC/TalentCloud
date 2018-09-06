@@ -1,0 +1,802 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Create Job Form
+
+============================================================================= #}
+<form
+    class="form__wrapper manager-jobs__create-form"
+    action="{{ form_action_url }}"
+    method="post">
+
+    {# Builds an input field for CSRF token validation #}
+    {{ csrf_field() }}
+
+    <a
+        aria-hidden="true"
+        id="details">
+    </a>
+
+    <div
+        class="manager-jobs__create-form-section">
+
+        <h4>Job Details</h4>
+
+        {# Job Title #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Job Title
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('en').title != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobTitleEN">
+                                Job Title (English)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobTitleEN"
+                                type="text"
+                                name="title[en]"
+                                value="{{ job.translate('en').title }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('fr').title != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobTitleFR">
+                                Job Title (Français)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobTitleFR"
+                                type="text"
+                                name="title[fr]"
+                                value="{{ job.translate('fr').title }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Salary #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Salary Range
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.salary_min != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobSalaryMin">
+                                Minimum Value
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobSalaryMin"
+                                type="number"
+                                name="salary_min"
+                                value="{{ job.salary_min }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.salary_max != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobSalaryMax">
+                                Maximum Value
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobSalaryMax"
+                                type="number"
+                                name="salary_max"
+                                value="{{ job.salary_max }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Classifications #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Classifications
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.classification != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobClassification">
+                                Occupational Group
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobClassification"
+                                type="text"
+                                name="classification"
+                                value="{{ job.classification }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.noc != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobNoc">
+                                NOC Code
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobNoc"
+                                type="number"
+                                name='noc'
+                                value="{{ job.noc }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="createJobSecurityClearance">
+                                Security Clearance
+                            </label>
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
+                                    class="form__input"
+                                    id="createJobSecurityClearance"
+                                    name="security_clearance">
+                                    {% for clearance in security_clearances %}
+                                        <option
+                                            value="{{ clearance.id }}"
+                                            {% if clearance.id == job.security_clearance_id %}selected="selected"{% endif %}
+                                            >{{ clearance.value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="createJobLanguageRequirement">
+                                Language Requirement
+                            </label>
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
+                                    class="form__input"
+                                    id="createJobLanguageRequirement"
+                                    name="language_requirement">
+                                    {% for language in language_requirments %}
+                                        <option
+                                            value="{{ language.id }}"
+                                            {% if language.id == job.language_requirement_id %}selected="selected"{% endif %}
+                                            >{{ language.value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Location #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Location
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.city != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobCity">
+                                City
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobCity"
+                                type="text"
+                                name="city"
+                                value="{{ job.city }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="createJobProvince">
+                                Province
+                            </label>
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
+                                    class="form__input"
+                                    id="createJobProvince"
+                                    name="province">
+                                    {% for province in provinces %}
+                                        <option
+                                            value="{{ province.id }}"
+                                            {% if province.id == job.province_id %}selected="selected"{% endif %}
+                                            >{{ province.value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Timetable #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Timetable
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--date">
+
+                            <label
+                                class="form__label"
+                                for="createJobOpenDate">
+                                Accepting Applications From
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobOpenDate"
+                                type="date"
+                                name="open_date_time"
+                                value="{{ job.open_date_time }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--date">
+
+                            <label
+                                class="form__label"
+                                for="createJobCloseDate">
+                                Accepting Applications To
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobCloseDate"
+                                type="date"
+                                name="close_date_time"
+                                value="{{ job.close_date_time }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <div
+                            class="form__input-wrapper--date">
+
+                            <label
+                                class="form__label"
+                                for="createJobStartDate">
+                                Position Start Date
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobStartDate"
+                                type="date"
+                                name="start_date_time"
+                                value="{{ job.start_date_time }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-full">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.term_qty != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobDuration">
+                                Position Duration (Months)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobDuration"
+                                type="number"
+                                name="term_qty"
+                                value="{{ job.term_qty }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Departmental Information #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Departmental Information
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box full">
+
+                        <div
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="createJobDepartment">
+                                Department
+                            </label>
+                            <div 
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select 
+                                    class="form__input"
+                                    id="createJobDepartment"
+                                    name="department">
+                                    {% for department in departments %}
+                                        <option
+                                            value="{{ department.id }}"
+                                            {% if (department.id == job.department_id) or
+                                                (job.department_id == null and department.id == manager.department_id) %}selected="selected"{% endif %}>
+                                            {{ department.value }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('en').branch != null or manager.translate('en').branch %}active{% endif %}">
+                            <label
+                                class="form__label"
+                                for="createJobBranchEN">
+                                Branch (English)
+                            </label>
+                            <input
+                                class="form__input"
+                                id="createJobBranchEN"
+                                type="text"
+                                name="branch[en]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('en').branch ?
+                                    job.translate('en').branch :
+                                    manager.translate('en').branch }}">
+                            </input>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float
+                            {% if job.translate('fr').branch != null or
+                                manager.translate('fr').branch %}
+                                active
+                            {% endif %}">
+                            <label class="form__label" for="createJobBranchFR">
+                                Branch (Français)
+                            </label>
+                            <input
+                                class="form__input"
+                                id="createJobBranchFR"
+                                type="text"
+                                name="branch[fr]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('fr').branch ?
+                                    job.translate('fr').branch :
+                                    manager.translate('fr').branch }}">
+                            </input>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('en').divison != null or
+                                manager.translate('en').division != null %}
+                                active
+                            {% endif %}">
+                            <label
+                                class="form__label"
+                                for="createJobDivisionEN">
+                                Division (English)
+                            </label>
+                            <input
+                                class="form__input"
+                                id="createJobDivisionEN"
+                                type="text"
+                                name="division[en]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('en').division ?
+                                    job.translate('en').division :
+                                    manager.translate('en').division }}">
+                            </input>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('fr').divison != null or
+                                manager.translate('fr').division %}
+                                active
+                            {% endif %}
+                            ">
+                            <label
+                                class="form__label"
+                                for="createJobDivisionFR">
+                                Division (Français)
+                            </label>
+                            <input
+                                class="form__input"
+                                id="createJobDivisionFR"
+                                type="text"
+                                name="division[fr]"
+                                {# Default value comes from job, if set. Otherwise, comes from manager #}
+                                value="{{ job.translate('fr').division ?
+                                    job.translate('fr').division :
+                                    manager.translate('fr').division }}">
+                            </input>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        {# Impact #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Impact
+                </legend>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('en').impact != null %}active{% endif %}">
+                            <label
+                                class="form__label"
+                                for="createJobImpactEN">
+                                Impact (English)
+                            </label>
+                            <textarea
+                                class="form__textarea"
+                                id="createJobImpactEN"
+                                name="impact[en]">{{ job.translate('en').impact }}</textarea>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('fr').impact != null %}active{% endif %}">
+                            <label class="form__label" for="createJobImpactFR">
+                                Impact (Français)
+                            </label>
+                            <textarea
+                                class="form__textarea"
+                                id="createJobImpactFR"
+                                name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+    </div>
+
+    <a
+        aria-hidden="true"
+        id="tasks">
+    </a>
+
+    <div
+        class="manager-jobs__create-form-section">
+
+        <h4>Key Tasks</h4>
+
+        {# Task List #}
+
+            <div
+                class="manager-jobs__create-task-wrapper">
+
+                {% set taskCounter = 0 %}
+
+                {% for task in job.job_poster_key_tasks %}
+
+                    {% set taskCounter = taskCounter + 1 %}
+
+                    {% include "manager/job_create/task" %}
+
+                {% endfor %}
+
+                {# Tasks get added here. #}
+
+            </div>
+
+        {# Task Controls #}
+
+            <div
+                class="manager-jobs__create-action-wrapper">
+
+                <button
+                    class="button--blue light-bg"
+                    id="addTaskButton">
+                    Add a Task
+                </button>
+
+            </div>
+
+    </div>
+
+    <a
+        aria-hidden="true"
+        id="skills">
+    </a>
+
+    <div
+        class="manager-jobs__create-form-section">
+
+        <h4>Skills &amp; Competencies</h4>
+
+        <h5>Essential Skills</h5>
+
+        <h5>Asset Skills</h5>
+
+    </div>
+
+    <a
+        aria-hidden="true"
+        id="questions">
+    </a>
+
+    <div
+        class="manager-jobs__create-form-section">
+
+        <h4>Questions for the Applicant</h4>
+
+        {# Question List #}
+
+            <div
+                class="manager-jobs__create-question-wrapper">
+
+                {% set questionCounter = 0 %}
+
+                {% for question in job.job_poster_questions %}
+
+                    {% set questionCounter = questionCounter + 1 %}
+
+                    {% include "manager/job_create/question" %}
+
+                {% endfor %}
+
+                {# Questions get added here. #}
+
+            </div>
+
+        {# Question Controls #}
+
+            <div
+                class="manager-jobs__create-action-wrapper">
+
+                <button
+                    class="button--blue light-bg"
+                    id="addQuestionButton">
+                    Add a Question
+                </button>
+
+            </div>
+
+    </div>
+
+    <div
+        class="manager-jobs__create-form-section">
+
+        <div
+            class="flex-grid manager-jobs__create-submission-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save">
+                    Save and Quit
+                </button>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="publish">
+                    Publish
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+{# Templates are placed outside the form, to avoid submitting them #}
+
+{# Question Template #}
+
+{% include "manager/job_create/question" %}
+
+{# Task Template #}
+
+{% include "manager/job_create/task" %}

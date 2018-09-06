@@ -43,6 +43,54 @@
 
             });
 
+        // Modal Handlers ======================================================
+
+            function openModal(trigger) {
+
+                var modalID = $(trigger).attr("data-modal-id");
+                $(".modal-overlay").addClass("active");
+                $(".modal[data-modal-id="+modalID+"]").addClass("active");
+                $("body").css("overflow", "hidden");
+
+            }
+
+            $(document).on("click", ".modal-trigger", function(e){
+
+                openModal(this);
+
+            });
+
+            $(document).on("keyup", ".modal-trigger", function(e){
+
+                if(e.which == 13) {
+                    openModal(this);
+                }
+
+            });
+
+
+            function closeModal(trigger) {
+
+                $(".modal-overlay").removeClass("active");
+                $(".modal").removeClass("active");
+                $("body").css("overflow", "visible");
+
+            }
+
+            $(document).on("click", ".modal-cancel-trigger", function(e){
+
+                closeModal(this);
+
+            });
+
+            $(document).on("keyup", ".modal-cancel-trigger", function(e){
+
+                if(e.which == 13) {
+                    closeModal(this);
+                }
+
+            });
+
         // Form Handlers =======================================================
 
             // Required Fields
@@ -104,6 +152,185 @@
 
                 labelHandlers();
 
+        // Profile List Handlers ===============================================
+
+            // Add Profile Element
+                function addProfileElement(trigger) {
+
+                    // Get Parent
+                        var parent = $(trigger).parents(".profile-list");
+
+                    // Get List Wrapper
+                        var wrapper = parent.find(".profile-element-list");
+
+                    // Set Null to Hidden
+                        parent.find(".profile-null").removeClass("active");
+
+                    // Get Template
+                        var template = parent.find(".profile-element.template").clone();
+
+                    // Remove Template Class
+                        template.removeClass("template");
+
+                    // Edit Form IDs
+
+                        // Tristan, help! x_x
+
+                    // Prepend Clone to the Wrapper
+                    wrapper.prepend(template);
+
+                    // Reactivate Required Fields
+                        requiredFields();
+
+                    // Reactivate Labels
+                        labelHandlers();
+
+                    // Reactivate Nested Relatives
+                        loadProfileRelatives();
+
+                }
+
+                // Click Trigger
+                    $(".profile-list__add-element-trigger").on("click", function(e) {
+
+                        // Prevent Default Functions
+                            e.preventDefault();
+
+                        // Add Profile Elements
+                            addProfileElement(this);
+
+                    });
+
+                // Enter Key Trigger
+                    $(".profile-list__add-element-trigger").on("keyup", function(e) {
+
+                        if(e.which == 13) {
+                            
+                            // Prevent Default Functions
+                                e.preventDefault();
+
+                            // Add Profile Elements
+                                addProfileElement(this);
+
+                        }
+
+                    });
+
+            // Remove Profile Element
+
+            // Add Profile Relative
+                function addProfileRelative(trigger) {
+
+                    // Get Parent
+                        var parent = $(trigger).parents(".profile-relative-list");
+
+                    // Get List Wrapper
+                        var wrapper = parent.find(".profile-relative-list__wrapper");
+
+                    // Set Null to Hidden
+                        // parent.find(".profile-null").removeClass("active");
+
+                    // Get Template
+                        var template = parent.find(".profile-relative.template").clone();
+
+                    // Remove Template Class
+                        template.removeClass("template");
+
+                    // Edit Form IDs
+
+                        // Tristan, help! x_x
+
+                    // Append Clone to the Wrapper
+                    wrapper.append(template);
+
+                    // Reactivate Required Fields
+                        requiredFields();
+
+                    // Reactivate Labels
+                        labelHandlers();
+
+                    // Reactivate Nested Relatives
+                        loadProfileRelativeDeletion();
+
+                }
+
+                // Load Function
+                    function loadProfileRelatives() {
+
+                        // Click Trigger
+                            $(".profile-relative__add-trigger").off("click");
+
+                            $(".profile-relative__add-trigger").on("click", function(e) {
+
+                                // Prevent Default Functions
+                                    e.preventDefault();
+
+                                // Add Profile Relative
+                                    addProfileRelative(this);
+
+                            });
+
+                        // Enter Key Trigger
+                            $(".profile-relative__add-trigger").off("keyup");
+
+                            $(".profile-relative__add-trigger").on("keyup", function(e) {
+
+                                if(e.which == 13) {
+                                    
+                                    // Prevent Default Functions
+                                        e.preventDefault();
+
+                                    // Add Profile Relative
+                                        addProfileRelative(this);
+
+                                }
+
+                            });
+
+                    }
+
+                    loadProfileRelatives();
+
+            // Remove Profile Relative
+                function deleteProfileRelative(trigger) {
+
+                    $(trigger).parents(".profile-relative").remove();
+
+                }
+
+                // Load Function
+                    function loadProfileRelativeDeletion() {
+
+                        // Click Trigger
+                            $(".profile-relative__remove-trigger").on("click", function(e) {
+
+                                // Prevent Default Functions
+                                    e.preventDefault();
+
+                                // Delete Profile Relative
+                                    deleteProfileRelative(this);
+
+                            });
+
+                        // Enter Key Trigger
+                            $(".profile-relative__remove-trigger").on("keyup", function(e) {
+
+                                if(e.which == 13) {
+                                    
+                                    // Prevent Default Functions
+                                        e.preventDefault();
+
+                                    // Delete Profile Relative
+                                        deleteProfileRelative(this);
+
+                                }
+
+                            });
+
+                    }
+
+                    loadProfileRelativeDeletion();
+
         // Experience Handlers =================================================
 
             // Degrees
@@ -157,6 +384,8 @@
 
                 $("#addDegreeButton").on("click", function(e) {
 
+                    e.preventDefault();
+
                     addDegree(this);
 
                 });
@@ -164,6 +393,7 @@
                 $("#addDegreeButton").on("keyup", function(e) {
 
                     if(e.which == 13) {
+                        e.preventDefault();
                         addDegree(this);
                     }
 
@@ -216,6 +446,8 @@
 
                 $("#addCourseButton").on("click", function(e) {
 
+                    e.preventDefault();
+
                     addCourse(this);
 
                 });
@@ -223,6 +455,7 @@
                 $("#addCourseButton").on("keyup", function(e) {
 
                     if(e.which == 13) {
+                        e.preventDefault();
                         addCourse(this);
                     }
 
@@ -279,6 +512,8 @@
 
                 $("#addWorkButton").on("click", function(e) {
 
+                    e.preventDefault();
+
                     addWork(this);
 
                 });
@@ -286,10 +521,213 @@
                 $("#addWorkButton").on("keyup", function(e) {
 
                     if(e.which == 13) {
+                        e.preventDefault();
                         addWork(this);
                     }
 
                 });
+
+        // Create Job Handlers =================================================
+
+            // Tasks
+
+                function addTask(trigger) {
+
+                    // Get Wrapper
+                    var wrapper = $(".manager-jobs__create-task-wrapper");
+
+                    // Get Template
+                    var template = $(".manager-jobs__create-task.template").clone();
+
+                    console.log(wrapper.find(".manager-jobs__create-task"));
+
+                    // Get New ID
+                    if (wrapper.find(".manager-jobs__create-task").length == 0) {
+                        var newID = parseInt(template.attr("data-task-id")) + 1;
+                    }
+                    else {
+                        var newID = parseInt(wrapper.find("[class*='manager-jobs__create-task']").last().attr("data-task-id")) + 1;
+                    }
+
+                    // Remove Template Class
+                    template.removeClass("template");
+
+                    // Assign the New ID
+                    template.attr("data-task-id", newID);
+
+                    // Add newID as suffix to all "id" and "for" attributes
+                    template.find("*[id]").each(function() { $(this).attr("id", this.id + newID)});
+                    template.find("*[for]").each(function() { $(this).attr("for",  $(this).attr("for") + newID)});
+
+                    // Replace :id with newID in all form names
+                    template.find("*[name]").each(function() { $(this).attr('name', $(this).attr("name").replace(":id", newID))});
+
+                    // Task (English)
+                    //template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
+                    //template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
+
+                    // Task (French)
+                    //template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
+                    //template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
+
+                    // Append Clone to the Wrapper
+                    wrapper.append(template);
+
+                    requiredFields();
+                    labelHandlers();
+                    deleteTaskTrigger();
+
+                }
+
+                $("#addTaskButton").on("click", function(e) {
+
+                    e.preventDefault();
+
+                    addTask(this);
+
+                });
+
+                $("#addTaskButton").on("keyup", function(e) {
+
+                    if(e.which == 13) {
+                        e.preventDefault();
+                        addTask(this);
+                    }
+
+                });
+
+                // Task Deletion
+
+                function deleteTask(trigger) {
+
+                    $(trigger).parents(".manager-jobs__create-task").remove();
+
+                }
+
+                function deleteTaskTrigger() {
+
+                    $(".manager-jobs__delete-task-button").on("click", function(e) {
+
+                        e.preventDefault();
+
+                        deleteTask(this);
+
+                    });
+
+                    $(".manager-jobs__delete-task-button").on("keyup", function(e) {
+
+                        if(e.which == 13) {
+                            e.preventDefault();
+                            deleteTask(this);
+                        }
+
+                    });
+
+                }
+
+                deleteTaskTrigger();
+
+            // Skills
+
+            // Questions
+
+                function addQuestion(trigger) {
+
+                    // Get Wrapper
+                    var wrapper = $(".manager-jobs__create-question-wrapper");
+
+                    // Get Template
+                    var template = $(".manager-jobs__create-question.template").clone();
+
+                    console.log(wrapper.find(".manager-jobs__create-question"));
+
+                    // Get New ID
+                    if (wrapper.find(".manager-jobs__create-question").length == 0) {
+                        var newID = parseInt(template.attr("data-question-id")) + 1;
+                    }
+                    else {
+                        var newID = parseInt(wrapper.find("[class*='manager-jobs__create-question']").last().attr("data-question-id")) + 1;
+                    }
+
+                    // Remove Template Class
+                    template.removeClass("template");
+
+                    // Assign the New ID
+                    template.attr("data-question-id", newID);
+
+                    // Add newID as suffix to all "id" and "for" attributes
+                    template.find("*[id]").each(function() { $(this).attr("id", this.id + newID)});
+                    template.find("*[for]").each(function() { $(this).attr("for",  $(this).attr("for") + newID)});
+
+                    // Replace :id with newID in all form names
+                    template.find("*[name]").each(function() { $(this).attr('name', $(this).attr("name").replace(":id", newID))});
+
+                    // Edit Form IDs
+                        //
+                        // // Queestion (English)
+                        // template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
+                        // template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
+                        //
+                        // // Queestion (French)
+                        // template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
+                        // template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
+
+                    // Append Clone to the Wrapper
+                    wrapper.append(template);
+
+                    requiredFields();
+                    labelHandlers();
+                    deleteQuestionTrigger();
+
+                }
+
+                $("#addQuestionButton").on("click", function(e) {
+
+                    e.preventDefault();
+
+                    addQuestion(this);
+
+                });
+
+                $("#addQuestionButton").on("keyup", function(e) {
+
+                    if(e.which == 13) {
+                        e.preventDefault();
+                        addQuestion(this);
+                    }
+
+                });
+
+                // Task Deletion
+
+                function deleteQuestion(trigger) {
+
+                    $(trigger).parents(".manager-jobs__create-question").remove();
+
+                }
+
+                function deleteQuestionTrigger() {
+
+                    $(".manager-jobs__delete-question-button").on("click", function(e) {
+
+                        e.preventDefault();
+
+                        deleteQuestion(this);
+
+                    });
+
+                    $(".manager-jobs__delete-question-button").on("keyup", function(e) {
+
+                        if(e.which == 13) {
+                            e.preventDefault();
+                            deleteQuestion(this);
+                        }
+
+                    });
+
+                }
+
+                deleteQuestionTrigger();
 
     });
 

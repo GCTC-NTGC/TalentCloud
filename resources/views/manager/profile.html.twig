@@ -1,0 +1,38 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Profile
+
+============================================================================= #}
+
+<html
+    lang="en">
+
+    <head>
+        {% include "common/head" %}
+    </head>
+
+    <body>
+        {% include "common/alert" %}
+
+        {% include "common/goc" %}
+
+        {% include "common/header" with {"header":profile} %}
+
+        {% include "manager/profile/header" %}
+
+        {% include "manager/profile/layout" %}
+
+        {# Login Modals #}
+
+        {% include "common/modal" with {"page":login_modals} %}
+
+        {% include "common/footer" %}
+
+        {# Scripts #}
+
+        {% include "common/scripts" %}
+
+    </body>
+
+</html>

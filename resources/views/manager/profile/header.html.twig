@@ -1,0 +1,75 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Header
+
+============================================================================= #}
+<div
+    class="applicant-profile__header">
+
+    <div
+        class="container--copy">
+
+        {# Profile Photo #}
+
+            <button
+                class="applicant-profile__header-photo"
+                onclick="">
+                <div
+                    style="background-image:url('{{ manager_profile_photo_url }}')">
+                </div>
+            </button>
+
+        {# Name #}
+
+            <h3>
+                {{ user.name }}
+            </h3>
+
+        {# Title & Department #}
+
+            <span>
+                {{ manager.position }} {% if manager.department %}{{ profile.department_bridge }} {{ user.department.value }}{% endif %}
+            </span>
+
+        {# Social Accounts #}
+
+            {% if manager.twitter_username or manager.linkedin_url %}
+
+                <ul
+                    class="applicant-profile__social-links">
+
+                    <li>
+                        <a
+                            href="{{ urls.twitter|replace({':username':manager.twitter_username}) }}"
+                            target="_blank"
+                            title="{{ profile.header.twitter_title|replace({':name':user.name}) }}">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="{{ manager.linkedin_url }}"
+                            target="_blank"
+                            title="{{ profile.header.linkedin_title|replace({':name':user.name}) }}">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+
+                </ul>
+
+            {% endif %}
+
+        {# Edit Profile Trigger #}
+
+            {#<div class="applicant-profile__header-edit-wrapper">
+                <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()" title="Edit my profile.">
+                    <span class="hidden">Edit your profile</span>
+                    <i class="fa fa-pencil-square"></i>
+                </a>
+            </div>#}
+
+    </div>
+
+</div>

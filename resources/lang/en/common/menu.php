@@ -11,33 +11,60 @@ return [
      */
     "home" => [
         "name" => "Home",
+        "access" => [
+            "applicant" => true,
+            "manager" => false
+        ],
         "link" => route('home')
     ],
     "browse" => [
         "name" => "Browse Jobs",
+        "access" => [
+            "applicant" => true,
+            "manager" => false
+        ],
         "link" => route('jobs.index')
     ],
     "applications" => [
         "name" => "My Applications",
+        "access" => [
+            "applicant" => true,
+            "manager" => false
+        ],
         // "link" => route('application.index')
         "link" => "/applications/"
     ],
     "profile" => [
         "name" => "My Profile",
+        "access" => [
+            "applicant" => true,
+            "manager" => false
+        ],
         "link" => route('profile')
     ],
-    "register" => [
-        "name" => "Register",
-        //A redirect parameter should be added to this link in MenuComposer
-        "link" => "https://account.gccollab.ca/register/" 
+    "admin" => [
+        "name" => "Home",
+        "access" => [
+            "applicant" => false,
+            "manager" => true
+        ],
+        "link" => "/admin/"
     ],
-    "login" => [
-        "name" => "Login (GC Account)",
-        "link" => route('login')
+    "adminjobs" => [
+        "name" => "My Jobs",
+        "access" => [
+            "applicant" => false,
+            "manager" => true
+        ],
+        "link" => "/admin/jobs/"
     ],
-    "logout" => [
-        "name" => "Logout",
-        "link" => route('logout')
+    "adminprofile" => [
+        "name" => "My Profile",
+        "access" => [
+            "applicant" => false,
+            "manager" => true
+        ],
+        "link" => "/admin/profile/"
     ]
 ];
 

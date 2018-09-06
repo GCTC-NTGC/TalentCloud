@@ -62,4 +62,5 @@ INSERT INTO application_status (name) VALUES ('Rejected');SELECT LAST_INSERT_ID(
 INSERT INTO criteria_types (name) VALUES ('Essential');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO criteria_type_translations (criteria_type_id,locale,value,description) VALUES (@base_table_id,'en','Need to Have',''),(@base_table_id,'fr','Qualifications essentielles','');
 INSERT INTO criteria_types (name) VALUES ('Asset');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO criteria_type_translations (criteria_type_id,locale,value,description) VALUES (@base_table_id,'en','Nice to Have',''),(@base_table_id,'fr','Qualifications constituant un atout','');
 
-INSERT INTO user_roles (name) VALUES('applicant'),('manager');
+INSERT INTO user_roles (name) VALUES('applicant'),('manager'),('admin');
+INSERT INTO frequencies (name) VALUES ('never'),('rarely'),('sometimes'),('often'),('always');

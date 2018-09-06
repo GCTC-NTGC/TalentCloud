@@ -1,0 +1,151 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Create Job Question
+
+============================================================================= #}
+<div
+    class="manager-jobs__create-question {% if question == false %}template{% endif %}"
+    data-question-id="{% if question == false %}0{% else %}{{ questionCounter }}{% endif %}">
+
+    <fieldset
+        class="form__fieldset">
+
+        <legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box small-2of3">
+                    Question Information
+                </div>
+
+                <div
+                    class="box small-1of3">
+                    <button
+                        class="manager-jobs__delete-question-button">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </legend>
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box med-1of2">
+
+                <div
+                    class="flex-grid">
+
+                    <div class="box full">
+
+                        <div
+                            class="form__input-wrapper--float {% if question.translate('en').question != false %}active{% endif %}"
+                            data-form-id="question-title-english">
+
+                            <label
+                                class="form__label"
+                                for="createJobQuestionEN">
+                                Question (English)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobQuestionEN"
+                                type="text"
+                                name="question[:id][question][en]"
+                                value="{{ question.translate('en').question }}">
+
+                        </div>
+
+                    </div>
+
+                    <div class="box full">
+
+                        <div
+                            class="form__input-wrapper--float {% if question.translate('en').description != false %}active{% endif %}"
+                            data-form-id="question-description-english">
+
+                            <label
+                                class="form__label"
+                                for="createJobQuestionDescriptionEN">
+                                Description (English)
+                            </label>
+
+                            <textarea
+                                class="form__textarea"
+                                id="createJobQuestionDescriptionEN"
+                                name="question[:id][description][en]">{{ question.translate('en').description }}</textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div
+                    class="flex-grid">
+
+                    <div class="box full">
+
+                        <div
+                            class="form__input-wrapper--float {% if question.translate('fr').question != false %}active{% endif %}"
+                            data-form-id="question-title-french">
+
+                            <label
+                                class="form__label"
+                                for="createJobQuestionFR">
+                                Question (Français)
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobQuestionFR"
+                                type="text"
+                                name="question[:id][question][fr]"
+                                value="{{ question.translate('fr').question }}">
+
+                        </div>
+
+                    </div>
+
+                    <div class="box full">
+
+                        <div
+                            class="form__input-wrapper--float {% if question.translate('fr').description != false %}active{% endif %}"
+                            data-form-id="question-description-french">
+
+                            <label
+                                class="form__label"
+                                for="createJobQuestionDescriptionFR">
+                                Description (Français)
+                            </label>
+
+                            <textarea
+                                class="form__textarea"
+                                id="createJobQuestionDescriptionFR"
+                                name="question[:id][description][fr]">{{ question.translate('fr').description }}</textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+</div>

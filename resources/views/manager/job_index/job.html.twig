@@ -1,0 +1,93 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager - Job Index Item
+
+============================================================================= #}
+<div
+    class="manager-jobs__item">
+
+    <div
+        class="manager-jobs__item-wrapper flex-grid">
+
+        <div
+            class="box med-1of3">
+            <span>{{ post.title }} ({{ post.classification }})</span>
+        </div>
+
+        <div
+            class="box med-1of3">
+            {% if post.status == "active" %}
+                <span>Days Remaining: {{ post.days_remaining }}</span>
+            {% elseif post.status == "closed" %}
+                <span>Closed on: {{ post.end_date }}</span>
+            {% endif %}
+        </div>
+
+        <div
+            class="box med-1of3">
+
+            {% if post.status == "draft" %}
+
+                <a
+                    href=""
+                    title="">
+                    <i class="fas fa-edit"></i>
+                </a>
+
+                <button
+                    class="">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+
+            {% else %}
+                <a
+                    href="{{ post.link }}"
+                    title="">
+                    <i class="fas fa-eye"></i>
+                </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% set counter = 0 %}
+
+    {% for applicant in post.applicants %}
+
+        {% set counter = counter + 1 %}
+
+    {% endfor %}
+
+    {% if counter > 1 %}
+
+        <h5>Applicants</h5>
+
+        <div
+            class="manager-jobs__applicant-list flex-grid">
+
+            {% for applicant in post.applicants %}
+
+                <div
+                    class="box med-1of2">
+
+                    <a
+                        href="{{ applicant.link }}"
+                        title="View {{ applicant.name }}'s profile.">
+                        {{ applicant.name }}
+                    </a> | <a
+                        href="{{ applicant.application_link }}"
+                        title="View {{ applicant.name }}'s application.">
+                        View Application
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+</div>
