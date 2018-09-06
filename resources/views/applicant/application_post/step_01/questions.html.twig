@@ -42,7 +42,8 @@
                                     <select
                                         class="form__input">
                                         {% for option in application.citizenship_options|sort %}
-                                            <option>{{ option }}</option>
+                                            <option
+                                                {% if option|capitalize == user.application.citizenship|capitalize %}selected{% endif %}>{{ option }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -88,7 +89,8 @@
                                     <select
                                         class="form__input">
                                         {% for option in application.veterans_options|sort %}
-                                            <option>{{ option }}</option>
+                                            <option
+                                                {% if option|capitalize == user.application.veteran|capitalize %}selected{% endif %}>{{ option }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -135,7 +137,8 @@
                     <input 
                         id="languageAgree"
                         name="languageAgreement"
-                        type="radio">
+                        type="radio"
+                        {% if user.application.language == true %}checked{% endif %}>
 
                     {{ application.language_agree }}
 
@@ -152,7 +155,8 @@
                     <input 
                         id="languageDisagree"
                         name="languageAgreement"
-                        type="radio">
+                        type="radio"
+                        {% if user.application.language == false %}checked{% endif %}>
 
                     {{ application.language_disagree }}
 
@@ -177,15 +181,15 @@
             </p>
 
             <div 
-                class="form__input-wrapper--float {% if question.answer %}active{% endif %}">
+                class="form__input-wrapper--float {% for userQuestion in user.application.questions %}{% if userQuestion.id == question.id %}active{% endif %}{% endfor %}">
                 <label 
                     class="form__label" 
-                    for="{{ question.input_name }}">
-                    {{ question.answer_label }}
+                    for="">
+                    {{ application.question_label }}
                 </label>
                 <textarea
                     class="form__textarea"
-                    name="{{ question.input_name }}">{% if question.answer != null %}{{ question.answer }}{% endif %}</textarea>
+                    name="">{% for userQuestion in user.application.questions %}{% if userQuestion.id == question.id %}{{ userQuestion.answer }}{% endif %}{% endfor %}</textarea>
             </div>
 
         {% endfor %}

@@ -29,8 +29,10 @@
     background: $palette--white;
     border-radius: 5px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
-    max-heiht: 80vh;
+    max-height: 80vh;
     opacity: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
     position: fixed;
     top: 50%;
     left: -100%;
@@ -89,6 +91,19 @@
                     margin-bottom: 0;
                 }
 
+            }
+
+            &+.form__wrapper {
+                margin-top: 0;
+            }
+
+        }
+
+        .form__wrapper {
+            margin: 2rem 0;
+
+            >.flex-grid {
+                padding: 0 2rem;
             }
 
         }

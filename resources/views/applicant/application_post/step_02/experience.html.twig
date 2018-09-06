@@ -61,7 +61,7 @@
 
                         {% set degreeCounter = 0 %}
 
-                        {% for degree in user.degrees %}
+                        {% for degree in applicant.degrees %}
 
                             {% set degreeCounter = degreeCounter + 1 %}
 
@@ -120,7 +120,7 @@
 
                         {% set courseCounter = 0 %}
 
-                        {% for course in user.courses %}
+                        {% for course in applicant.courses %}
 
                             {% set courseCounter = courseCounter + 1 %}
 
@@ -179,7 +179,7 @@
 
                         {% set workCounter = 0 %}
 
-                        {% for work in user.work %}
+                        {% for work in applicant.work_experiences %}
 
                             {% set workCounter = workCounter + 1 %}
 

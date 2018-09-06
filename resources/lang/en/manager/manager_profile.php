@@ -54,7 +54,7 @@ return [
         ],
         'social_media_form_legend' => 'Social Media',
         'twitter_label' => 'Twitter Username',
-        'linkedin_label' => 'LinkedIn Profile Url',
+        'linkedin_label' => 'LinkedIn Profile URL',
         'save_button_label' => 'Save About Me',
     ],
     'work_environment' => [

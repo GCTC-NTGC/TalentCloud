@@ -11,16 +11,21 @@
 
     <div
         aria-hidden="true"
+        aria-labelled-by="dialogLabel{{ modal.id }}"
+        aria-modal="true"
         class="modal"
-        data-modal-id="{{ modal.id }}">
+        data-modal-id="{{ modal.id }}"
+        role="dialog">
 
         <div
             class="modal-heading">
 
-            <h1>{{ modal.title }}</h1>
+            <h1
+                id="dialogLabel{{ modal.id }}">{{ modal.title }}</h1>
 
             <button>
-                <i class="fas fa-times modal-cancel-trigger"></i>
+                <i class="fas fa-times modal-cancel-trigger"
+                type="button"></i>
             </button>
 
         </div>
@@ -54,7 +59,8 @@
                                 class="box small-1of2">
 
                                 <button
-                                    class="modal-cancel-trigger button--blue light-bg">
+                                    class="modal-cancel-trigger button--blue light-bg"
+                                    type="button">
                                     {{ modal.action_01 }}
                                 </button>
 
@@ -64,7 +70,8 @@
                                 class="box small-1of2">
 
                                 <button
-                                    class="button--red light-bg">
+                                    class="button--red light-bg"
+                                    type="button">
                                     {{ modal.action_02 }}
                                 </button>
 
@@ -148,7 +155,8 @@
                                 class="box small-1of2">
 
                                 <button
-                                    class="modal-cancel-trigger button--blue light-bg">
+                                    class="modal-cancel-trigger button--blue light-bg"
+                                    type="button">
                                     {{ modal.action_01 }}
                                 </button>
 
@@ -156,7 +164,7 @@
 
                             <div
                                 class="box small-1of2">
-                                
+
                                 <a
                                     class="button--red light-bg"
                                     href=" {{ login_modals.logout_link }}"
@@ -169,6 +177,18 @@
                         </div>
 
                     </div>
+
+                {% endif %}
+
+                {% if modal.type == "createReference" %}
+
+                    {% include "common/modals/create_reference" %}
+
+                {% endif %}
+
+                {% if modal.type == "createSample" %}
+
+                    {% include "common/modals/create_sample" %}
 
                 {% endif %}
 

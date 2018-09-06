@@ -16,12 +16,12 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         //Site Under Construction header bar
         View::composer(
-            '*', 'App\Http\ViewComposers\AlertComposer'
+            'common/alert', 'App\Http\ViewComposers\AlertComposer'
         );
 
         //Governement of Canada header bar
         View::composer(
-            '*', 'App\Http\ViewComposers\GocComposer'
+            'common/goc', 'App\Http\ViewComposers\GocComposer'
         );
 
         //Nav menu
@@ -31,7 +31,11 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         //Sitewide Footer
         View::composer(
-            '*', 'App\Http\ViewComposers\FooterComposer'
+            'common/footer', 'App\Http\ViewComposers\FooterComposer'
+        );
+
+        View::composer(
+            'applicant/profile/menu', 'App\Http\ViewComposers\ApplicantProfileMenuComposer'
         );
     }
 

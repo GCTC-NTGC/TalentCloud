@@ -5,7 +5,16 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion course {% if course == false %}template active{% endif %}">
+    class="profile-element accordion course {% if course == false %}template active{% endif %}"
+    data-item-id="{{ course ? course.id : 0 }}">
+
+    {% if course %}
+        {% set name_suffix = "[old][:id]"|replace({":id":course.id}) %}
+        {% set id_suffix = "_old_:id"|replace({":id":course.id}) %}
+    {% else %}
+        {% set name_suffix = "[new]" %}
+        {% set id_suffix = "_new" %}
+    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -43,24 +52,25 @@
 
             <div
                 class="form__wrapper">
-                
-                <div 
+
+                <div
                     class="flex-grid">
 
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if course.name == true %}active{% endif %}">
-                            <label 
-                                class="form__label" 
-                                for="">
+                            <label
+                                class="form__label"
+                                for="courseName{{ id_suffix }}">
                                 {{ course_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="courseName{{ id_suffix }}"
                                 type="text"
+                                name="course_name{{ name_suffix }}"
                                 value="{{ course.name }}" />
                         </div>
 
@@ -69,17 +79,18 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if course.institution == true %}active{% endif %}">
-                            <label 
-                                class="form__label" 
-                                for="">
+                            <label
+                                class="form__label"
+                                for="courseInstitution{{ id_suffix }}">
                                 {{ course_template.institution_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="courseInstitution{{ id_suffix }}"
                                 type="text"
+                                name="course_institution{{ name_suffix }}"
                                 value="{{ course.institution }}" />
                         </div>
 
@@ -88,21 +99,23 @@
                     <div
                         class="box full">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--select">
-                            <label 
-                                class="form__label" 
-                                for="">
+                            <label
+                                class="form__label"
+                                for="courseStatus{{ id_suffix }}">
                                 {{ course_template.status_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
-                                    class="form__input">
-                                    {% for status in course_template.statuses|sort %}
+                                    class="form__input"
+                                    id="courseStatus{{ id_suffix }}"
+                                    name="course_status{{ name_suffix }}">
+                                    {% for status in course_status %}
                                         <option
-                                            {% if course.status|capitalize == status|capitalize %}selected="selected"{% endif %}
-                                            >{{ status }}</option>
+                                            {% if course.course_status.id == status.id %}selected="selected"{% endif %}
+                                            value="{{ status.id }}">{{ course_template.statuses[status.name] }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -113,19 +126,20 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="courseStartDate{{ id_suffix }}">
                                 {{ course_template.start_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="courseStartDate{{ id_suffix }}"
                                 type="date"
+                                name="course_start_date{{ name_suffix }}"
                                 value="{{ course.start_date }}">
 
                         </div>
@@ -135,19 +149,20 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="courseEndDate{{ id_suffix }}">
                                 {{ course_template.end_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="courseEndDate{{ id_suffix }}"
                                 type="date"
+                                name="course_end_date{{ name_suffix }}"
                                 value="{{ course.end_date }}">
 
                         </div>
@@ -165,7 +180,8 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteCourse">
+                        data-modal-id="deleteCourse"
+                        type="button">
                         {{ course_template.action_01 }}
                     </button>
                 </div>
@@ -173,7 +189,10 @@
                 <div
                     class="box med-1of2">
                     <button
-                        class="button--blue light-bg">
+                        class="button--blue light-bg"
+                        type="submit"
+                        name="submit"
+                        value="course{{ name_suffix }}">
                         {{ course_template.action_02 }}
                     </button>
                 </div>
