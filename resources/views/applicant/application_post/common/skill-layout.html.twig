@@ -59,35 +59,160 @@
                         id="begin">
                     </a>
 
-                    {# Include Skills #}
+                    {# Skills Layout #}
 
-                        {% for item in job.skills %}
+                        {# Profile List (Soft Skills) #}
 
-                            {% if application.step == "3" %}
-                
-                                {% if item.type == "essential" %}
+                            <div
+                                class="profile-list">
 
-                                    {% include "applicant/application_post/common/skill-content" %}
+                                {# Profile List Header #}
 
-                                {% endif %}
+                                    <div
+                                        class="profile-list__header flex-grid middle">
 
-                            {% elseif application.step == "4" %}
-                                
-                                {% if item.type == "asset" %}
+                                        <div
+                                            class="box med-1of2">
 
-                                    {% include "applicant/application_post/common/skill-content" %}
+                                            {% if application.step == "3" %}
+                                                <h3>{{ application.skills_section.essential_title }}</h3>
+                                            {% elseif application.step == "4" %}
+                                                <h3>{{ application.skills_section.asset_title }}</h3>
+                                            {% endif %}
 
-                                {% endif %}
+                                        </div>
 
-                            {% endif %}
+                                        <div
+                                            class="box med-1of2">
 
-                        {% endfor %}
+                                        </div>
 
-                    {# Reference & Sample Templates #}
+                                    </div>
 
-                        {% include "applicant/application_post/common/reference" %}
+                                {# Set Locale #}
 
-                        {% include "applicant/application_post/common/sample" %}
+                                    {% set locale = "application" %}
+
+                                {# Profile Element Template (Sample) #}
+
+                                    {% include "common/skill" %}
+
+                                {# Profile Element List #}
+
+                                    <div 
+                                        class="profile-element-list">
+
+                                        {% for jobSkill in job.skills %}
+
+                                            {% if application.step == "3" %}
+
+                                                {% if jobSkill.requirement == "essential" %}
+
+                                                    {# Get User Skill #}
+
+                                                        {% set skill = false %}
+
+                                                        {% for userSkill in user.skills %}
+
+                                                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+
+                                                                {% set skill = userSkill %}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                    {# Get Skill Type #}
+
+                                                        {% set skillType = false %}
+
+                                                        {% for siteSkill in skills %}
+
+                                                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+
+                                                                {% if siteSkill.type == "soft" %}
+
+                                                                    {% set skillType = "soft" %}
+
+                                                                {% elseif siteSkill.type == "hard" %}
+
+                                                                    {% set skillType = "hard" %}
+
+                                                                {% endif %}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                    {# Import Skill Template #}
+
+                                                        <a
+                                                            class="application-post__anchor"
+                                                            id="skill{{ jobSkill.name }}"></a>
+
+                                                        {% include "common/skill" %}
+
+                                                {% endif %}
+
+                                            {% endif %}
+
+                                            {% if application.step == "4" %}
+
+                                                {% if jobSkill.requirement == "asset" %}
+
+                                                    {# Get User Skill #}
+
+                                                        {% set skill = false %}
+
+                                                        {% for userSkill in user.skills %}
+
+                                                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+
+                                                                {% set skill = userSkill %}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                    {# Get Skill Type #}
+
+                                                        {% set skillType = false %}
+
+                                                        {% for siteSkill in skills %}
+
+                                                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+
+                                                                {% if siteSkill.type == "soft" %}
+
+                                                                    {% set skillType = "soft" %}
+
+                                                                {% elseif siteSkill.type == "hard" %}
+
+                                                                    {% set skillType = "hard" %}
+
+                                                                {% endif %}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                    {# Import Skill Template #}
+
+                                                        <a
+                                                            class="application-post__anchor"
+                                                            id="skill{{ jobSkill.name }}"></a>
+
+                                                        {% include "common/skill" %}
+
+                                                {% endif %}
+
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                    </div>
+
+                            </div>
 
                 </div>
 

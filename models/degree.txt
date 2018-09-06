@@ -1,0 +1,41 @@
+================================================================================
+
+    Talent Cloud
+    Model: Degree
+
+================================================================================
+
+    Model ======================================================================
+
+        "degrees" => [
+            "00" => [
+                "type" => "Degree Type (Select)",
+                "area_of_study" => "Area of Stufy (Input, Text)",
+                "institution" => "Institution (Input, Text)",
+                "thesis" => "Thesis Title (Input, Text),
+                "start_date" => "YYYY-MM-DD",
+                "end_date" => "YYYY-MM-DD"
+            ]
+        ]
+
+        ** Tristan, I've been using "names" as a unique identifier for matching things in templates, but it might be worthwhile, after launch, to do all matching (checking to see if a skill matches a related sample, for example), using an ID number instead.
+
+    Template ===================================================================
+
+        "degree_template" => [
+            "new_degree_label" => "New Diploma/Degree",
+            "type_label" => "Type",
+            "types" => [
+                "00" => "Bachelor's Degree",
+                "02" => "Diploma",
+                "03" => "Master's Degree",
+                "04" => "PhD"
+            ],
+            "aoe_label" => "Area of Study",
+            "institution_label" => "Institution",
+            "thesis_label" => "Thesis Title (Optional)",
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Diploma/Degree",
+            "action_02" => "Save Diploma/Degree"
+        ]

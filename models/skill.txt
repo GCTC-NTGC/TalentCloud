@@ -1,0 +1,64 @@
+================================================================================
+
+    Talent Cloud
+    Model: Skill
+
+================================================================================
+
+    Model ======================================================================
+
+        Site Skill
+
+            "skills" => [
+                "00" => [
+                    "id" => "Number",
+                    "name" => "Skill Name (From DB)",
+                    "type" => "Hard or Soft (From DB)",
+                    "description" => "EN/FR (From DB)"
+                ]
+            ]
+
+        User Skill
+
+            "skills" => [
+                "00" => [
+                    "id" => "Number",
+                    "name" => "Skill Name (From DB)",
+                    "status" => "Skill Status (Automatic)",
+                    "level" => "Level (Radio)",
+                    "knowledge" => "User Skill Description (Textarea)" ,
+                    "references" => [
+                        "00" => "Related Reference Name (Eventually ID)"
+                    ],
+                    "samples" => [
+                        "00" => "Related Sample Name (Eventually ID)"
+                    ]
+                ]
+            ]
+
+            ** Tristan, I've been using "names" as a unique identifier for matching things in templates, but it might be worthwhile, after launch, to do all matching (checking to see if a skill matches a related sample, for example), using an ID number instead.
+
+    Template ===================================================================
+
+        "skill_template" => [
+            "new_skill_title" => "New Skill",
+            "name_label" => "Project Name",
+            "type_label" => "Project Type",
+            "skill_selection_label" => "Select Skill",
+            "level_label" => "My Level",
+            "knowledge_label" => "My Knowledge",
+            "hard_levels" => [
+                "00" => "Beginner",
+                "01" => "Intermediate",
+                "02" => "Advanced",
+                "03" => "Expert"
+            ],
+            "soft_levels" => [
+                "00" => "In Early Development",
+                "01" => "Moderately in Evidence",
+                "02" => "Strongly in Evidence",
+                "03" => "Deep Level Demonstration"
+            ],
+            "action_01" => "Delete Skill",
+            "action_02" => "Save Skill"
+        ]

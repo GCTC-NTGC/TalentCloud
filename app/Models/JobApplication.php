@@ -9,18 +9,17 @@ namespace App\Models;
 
 /**
  * Class JobApplication
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property int $application_status_id
  * @property int $applicant_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  * @property \App\Models\JobPoster $job_poster
- * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
@@ -44,10 +43,6 @@ class JobApplication extends BaseModel {
 
     public function job_poster() {
         return $this->belongsTo(\App\Models\JobPoster::class);
-    }
-
-    public function application_micro_references() {
-        return $this->hasMany(\App\Models\ApplicationMicroReference::class);
     }
 
     public function application_work_samples() {

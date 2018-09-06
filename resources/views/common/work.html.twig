@@ -5,7 +5,16 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion work {% if work == false %}template active{% endif %}">
+    class="profile-element accordion work {% if work == false %}template active{% endif %}"
+    data-item-id="{{ work ? work.id : 0 }}">
+
+    {% if work %}
+        {% set name_suffix = "[old][:id]"|replace({":id":work.id}) %}
+        {% set id_suffix = "_old_:id"|replace({":id":work.id}) %}
+    {% else %}
+        {% set name_suffix = "[new]" %}
+        {% set id_suffix = "_new" %}
+    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -43,24 +52,25 @@
 
             <div
                 class="form__wrapper">
-                
-                <div 
+
+                <div
                     class="flex-grid">
 
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if work.role == true %}active{% endif %}">
-                            <label 
-                                class="form__label" 
-                                for="">
+                            <label
+                                class="form__label"
+                                for="workRole{{ id_suffix }}">
                                 {{ work_template.role_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="workRole{{ id_suffix }}"
                                 type="text"
+                                name="work_role{{ name_suffix }}"
                                 value="{{ work.role }}" />
                         </div>
 
@@ -69,17 +79,18 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if work.company == true %}active{% endif %}">
-                            <label 
-                                class="form__label" 
-                                for="">
+                            <label
+                                class="form__label"
+                                for="workCompany{{ id_suffix }}">
                                 {{ work_template.company_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="workCompany{{ id_suffix }}"
                                 type="text"
+                                name="work_company{{ name_suffix }}"
                                 value="{{ work.company }}" />
                         </div>
 
@@ -88,18 +99,19 @@
                     <div
                         class="box full">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if work.description != null%}active{% endif %}">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="workDescription{{ id_suffix }}">
                                 {{ work_template.description_label }}
                             </label>
 
-                            <textarea 
-                                class="form__textarea" 
-                                id="">{{ work.description }}</textarea>
+                            <textarea
+                                class="form__textarea"
+                                id="workDescription{{ id_suffix }}"
+                                name="work_description{{ name_suffix }}">{{ work.description }}</textarea>
 
                         </div>
 
@@ -108,19 +120,20 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="workStartDate{{ id_suffix }}">
                                 {{ work_template.start_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="workStartDate{{ id_suffix }}"
                                 type="date"
+                                name="work_start_date{{ name_suffix }}"
                                 value="{{ work.start_date }}">
 
                         </div>
@@ -130,19 +143,20 @@
                     <div
                         class="box med-1of2">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--date">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="workEndDate{{ id_suffix }}">
                                 {{ work_template.end_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id=""
+                                id="workEndDate{{ id_suffix }}"
                                 type="date"
+                                name="work_end_date{{ name_suffix }}"
                                 value="{{ work.end_date }}">
 
                         </div>
@@ -160,7 +174,8 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteWork">
+                        data-modal-id="deleteWork"
+                        type="button">
                         {{ work_template.action_01 }}
                     </button>
                 </div>
@@ -168,7 +183,10 @@
                 <div
                     class="box med-1of2">
                     <button
-                        class="button--blue light-bg">
+                        class="button--blue light-bg"
+                        type="submit"
+                        name="submit"
+                        value="work{{ name_suffix }}">
                         {{ work_template.action_02 }}
                     </button>
                 </div>

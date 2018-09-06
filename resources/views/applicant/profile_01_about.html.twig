@@ -26,13 +26,22 @@
 
             {% include "applicant/profile/menu" %}
 
-        {# About #}
 
-            {% include "applicant/profile/about/about" %}
+        {# Form containing all about_me editable elements #}
+        <form action="{{ form_submit_action }}" method="post">
 
-        {# Questions #}
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
 
-            {% include "applicant/profile/about/questions" %}
+            {# About #}
+
+                {% include "applicant/profile/about/about" %}
+
+            {# Questions #}
+
+                {% include "applicant/profile/about/questions" %}
+
+        </form>
 
         {# Modals #}
 

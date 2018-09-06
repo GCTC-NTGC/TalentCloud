@@ -22,17 +22,19 @@
 
         {% include "applicant/application_post/common/tracker" %}
 
-        {# {% include "applicant/application_post/step_01/questions" %} #}
+        {% include "applicant/application_post/step_05/preview_layout" %}
 
         {# Login Modals #}
 
-        {% include "common/modal" with {"page":login_modals} %}
+            {% include "common/modal" with {"page":login_modals} %}
 
-        {% include "common/footer" %}
+        {# Footer #}
+
+            {% include "common/footer" %}
 
         {# Scripts #}
 
-        {% include "common/scripts" %}
+            {% include "common/scripts" %}
 
     </body>
 

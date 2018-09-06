@@ -1,0 +1,41 @@
+================================================================================
+
+    Talent Cloud
+    Model: Course
+
+================================================================================
+
+    Model ======================================================================
+
+        "courses" => [
+            "00" => [
+                "name" => "Course Name (Input, Text)",
+                "institution" => "Institution Name (Input, Text)",
+                "status" => "Status (Select)",
+                "start_date" => "YYYY-MM-DD",
+                "end_date" => "YYYY-MM-DD"
+            ]
+        ]
+
+        ** Tristan, I've been using "names" as a unique identifier for matching things in templates, but it might be worthwhile, after launch, to do all matching (checking to see if a skill matches a related sample, for example), using an ID number instead.
+
+    Template ===================================================================
+
+        "course_template" => [
+            "new_course_label" => "New Course/Certification",
+            "name_label" => "Course/Certification Name",
+            "institution_label" => "Institution",
+            "status_label" => "Status",
+            "statuses" => [
+                "00" => "Course Certificate Granted",
+                "01" => "Credits Towards Degree (Passing Grade)",
+                "02" => "Audited",
+                "03" => "Online Course (No Proof of Completion)",
+                "04" => "Online Course (With Certificate/License)",
+                "05" => "Learning in Progress"
+            ],
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Diploma/Degree",
+            "action_02" => "Save Diploma/Degree"
+        ]

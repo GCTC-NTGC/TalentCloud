@@ -11,16 +11,15 @@ use App\Models\BaseModel;
 
 /**
  * Class ExperienceLevel
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $experience_level_translations
- * @property \Illuminate\Database\Eloquent\Collection $micro_references
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- * 
+ *
  * Localized Properties:
  * @property string $value
  */
@@ -33,10 +32,6 @@ class ExperienceLevel extends BaseModel {
 
     public function experience_level_translations() {
         return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
-    }
-
-    public function micro_references() {
-        return $this->hasMany(\App\Models\MicroReference::class);
     }
 
     public function skill_declarations() {
