@@ -1,0 +1,114 @@
+{# =============================================================================
+
+    Talent Cloud
+    Modal: Create Sample
+
+============================================================================= #}
+<div
+    class="form__wrapper">
+    
+    <div
+        class="flex-grid">
+
+            <div
+                class="box full">
+
+                <div class="form__input-wrapper--float {% if sample.name == true %}active{% endif %}">
+                    <label class="form__label" for="">
+                        {{ sample_template.name_label }}
+                    </label>
+                    <input
+                        class="form__input"
+                        id=""
+                        type="text"
+                        value="{{ sample.name }}" />
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div class="form__input-wrapper--select">
+                    <label class="form__label" for="">
+                        {{ sample_template.type_label }}
+                    </label>
+                    <div
+                        class="form__select-wrapper fas fa-chevron-down">
+                        <select
+                            class="form__input">
+                            {% for option in sample_template.types %}
+                                <option
+                                    {% if sample.type|capitalize == option|capitalize %}selected="selected"{% endif %}
+                                    >{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div class="form__input-wrapper--float {% if sample.link == true %}active{% endif %}">
+                    <label class="form__label" for="">
+                        {{ sample_template.link_label }}
+                    </label>
+                    <input
+                        class="form__input"
+                        id=""
+                        type="url"
+                        value="{{ sample.link }}" />
+                </div>
+
+            </div>
+
+            <div
+                class="box full">
+
+                <div class="form__input-wrapper--float {% if sample.description == true %}active{% endif %}">
+                    <label class="form__label" for="">
+                        {{ sample_template.description_label }}
+                    </label>
+                    <textarea
+                        class="form__textarea">{{ sample.description }}</textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    class="flex-grid modal-action-wrapper">
+
+    <div
+        class="flex-grid">
+
+        <div
+            class="box small-1of2">
+
+            <button
+                class="modal-cancel-trigger button--red light-bg">
+                {{ modal.action_01 }}
+            </button>
+
+        </div>
+
+        <div
+            class="box small-1of2">
+            
+            <button
+                class="button--blue light-bg">
+                {{ modal.action_02 }}
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

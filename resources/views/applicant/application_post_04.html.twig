@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 03
+    Applicant: Apply - Step 02
 
 ============================================================================= #}
 
@@ -24,11 +24,13 @@
 
         {% include "applicant/application_post/common/skill-layout" %}
 
+        {% include "common/footer" %}
+
         {# Login Modals #}
 
         {% include "common/modal" with {"page":login_modals} %}
 
-        {% include "common/footer" %}
+        {% include "common/modal" with {"page":application} %}
 
         {# Scripts #}
 

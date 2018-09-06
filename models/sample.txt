@@ -1,0 +1,41 @@
+================================================================================
+
+    Talent Cloud
+    Model: Work Sample
+
+================================================================================
+
+    Model ======================================================================
+
+        "samples" => [
+            "00" => [
+                "name" => "Project Name (Input, Text)",
+                "type" => "Type (Select)",
+                "date_created" => "YYYY-MM-DD",
+                "link" => "Link (Input, Email)",
+                "description" => "Project Description (Textarea)",
+                "skills" => [
+                    "00" => "Related Skill Name (Eventually ID)"
+                ]
+            ]
+        ]
+
+        ** Tristan, I've been using "names" as a unique identifier for matching things in templates, but it might be worthwhile, after launch, to do all matching (checking to see if a skill matches a related sample, for example), using an ID number instead.
+
+    Template ===================================================================
+
+        "sample_template" => [
+            "new_sample_label" => "New Work Sample",
+            "name_label" => "Project Name",
+            "type_label" => "Project Type",
+            "types" => [
+                "00" => "Work Sample Types"
+            ],
+            "link_label" => "The Link to Your Work",
+            "description_label" => "The Story Behind the Work",
+            "linked_skills_label" => "Linked Skills",
+            "skill_label" => "Select a Skill",
+            "add_skill_label" => "Add a Skill",
+            "action_01" => "Delete Sample",
+            "action_02" => "Save Sample"
+        ]
