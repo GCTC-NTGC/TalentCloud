@@ -19,10 +19,13 @@ class CreateReferencesTable extends Migration
 			$table->string('email')->nullable();
 			$table->integer('relationship_id')->unsigned()->nullable();
 			$table->text('description')->nullable();
+            $table->integer('applicant_id')->unsigned();
 			$table->timestamps();
         });
 
         Schema::table('references', function (Blueprint $table) {
+            $table->foreign('applicant_id')->references('id')->
+                on('applicants')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('relationship_id')->references('id')
                 ->on('relationships')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
