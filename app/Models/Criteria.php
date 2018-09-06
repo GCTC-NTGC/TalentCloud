@@ -18,7 +18,6 @@ namespace App\Models;
  *
  * @property \App\Models\Lookup\CriteriaType $criteria_type
  * @property \App\Models\JobPoster $job_poster
- * @property \Illuminate\Database\Eloquent\Collection $application_micro_references
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
@@ -51,10 +50,6 @@ class Criteria extends BaseModel {
 
     public function job_poster() {
         return $this->belongsTo(\App\Models\JobPoster::class);
-    }
-
-    public function application_micro_references() {
-        return $this->hasMany(\App\Models\ApplicationMicroReference::class, 'criteria_id');
     }
 
     public function application_work_samples() {
