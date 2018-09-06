@@ -35,14 +35,14 @@ build:
                     - phpcs-run ./app
                     - phpcs-run ./public
 
-    deployment:
-        -
-            commands:
-                - git config --global user.email "grant.d.barnes@gmail.com"
-                - git config --global user.name "Grant Barnes"
-                - heroku git:remote -a gc-talentcloud
-                - heroku container:push web
-                - heroku container:release web
+#    deployment:
+        #-
+            #commands:
+                # git config --global user.email "grant.d.barnes@gmail.com"
+                # git config --global user.name "Grant Barnes"
+                # heroku git:remote -a gc-talentcloud
+                # heroku container:push web
+                # heroku container:release web
                 # git push heroku HEAD:master
 
 
