@@ -12,7 +12,7 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
 class SkillStatus extends BaseModel {
 
@@ -20,7 +20,7 @@ class SkillStatus extends BaseModel {
         'name'
     ];
 
-    public function skills() {
-        return $this->hasMany(\App\Models\Skill::class);
+    public function skill_declarations() {
+        return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
 }
