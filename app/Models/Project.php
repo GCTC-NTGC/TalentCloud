@@ -6,7 +6,6 @@
  */
 
 namespace App\Models;
-use App\Models\MicroReference;
 
 /**
  * Class Project
@@ -19,7 +18,7 @@ use App\Models\MicroReference;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $micro_references
+ * @property \Illuminate\Database\Eloquent\Collection $references
  */
 class Project extends BaseModel {
 
@@ -34,7 +33,7 @@ class Project extends BaseModel {
         'end_date'
     ];
 
-    public function micro_references() {
-        return $this->belongsToMany(\App\Models\MicroReference::class);
+    public function references() {
+        return $this->belongsToMany(\App\Models\Reference::class);
     }
 }
