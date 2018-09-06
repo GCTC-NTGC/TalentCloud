@@ -13,7 +13,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Talent Cloud',
+    'name' => env('APP_NAME', 'Talent Cloud'),
 
     /*
     |--------------------------------------------------------------------------
@@ -40,6 +40,8 @@ return [
     */
 
     'debug' => env('APP_DEBUG', false),
+
+    'force_admin' => env('FORCE_ADMIN', false),
 
     /*
     |--------------------------------------------------------------------------
