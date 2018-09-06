@@ -29,6 +29,6 @@ return [
         ],
     ],
     "register" => "Inscription",
-    "login" => "Ouverture de session (Compte GC)",
+    "login" => "Ouverture de session / Inscription",
     "logout" => "Se déconnecter",
 ];
