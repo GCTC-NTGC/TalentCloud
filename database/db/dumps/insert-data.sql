@@ -264,3 +264,6 @@ INSERT INTO course_status (name, created_at, updated_at) VALUES
 ('online_no_proof', current_timestamp, current_timestamp),
 ('online_certificate', current_timestamp, current_timestamp),
 ('learning_in_progress', current_timestamp, current_timestamp);
+
+INSERT INTO skill_statuses (name, created_at, updated_at) VALUES
+('claimed', current_timestamp, current_timestamp);
