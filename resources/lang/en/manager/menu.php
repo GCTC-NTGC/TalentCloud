@@ -28,6 +28,6 @@ return [
         ],
     ],
     "register" => "Register",
-    "login" => "Login (GCcollab Account)",
+    "login" => "Login / Register",
     "logout" => "Logout",
 ];
