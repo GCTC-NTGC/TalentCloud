@@ -703,9 +703,235 @@
 
         <h4>Skills &amp; Competencies</h4>
 
-        <h5>Essential Skills</h5>
+        {# Essential Skills #}
 
-        <h5>Asset Skills</h5>
+            <h5>Essential Criteria (Hard Skills)</h5>
+
+            <div
+                class="manager-jobs__skill-wrapper">
+
+                {# Essential Hard Skills List #}
+
+                    <div
+                        class="manager-jobs__create-skill-wrapper">
+
+                        {% set skillCounter = 0 %}
+
+                        {% set skillType = "hard" %}
+
+                        {% for jobSkill in job.skills %}
+
+                            {% set skillCounter = skillCounter + 1 %}
+
+                            {% for skill in skills %}
+
+                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+
+                                    {% set skillType = skill.type %}
+
+                                    {% if skillType == "hard" %}
+                                        {% include "manager/job_create/skill" %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+
+                        {# Skills get added here. #}
+
+                    </div>
+
+                    {# Skill Template #}
+
+                    {% include "manager/job_create/skill" %}
+
+                {# Skill Controls #}
+
+                    <div
+                        class="manager-jobs__create-action-wrapper">
+
+                        <button
+                            class="manager-jobs__add-skill-button"
+                            id="addSkillButton">
+                            Add an Essential Hard Skill
+                        </button>
+
+                    </div>
+
+            </div>
+
+            <h5>Essential Criteria (Soft Skills)</h5>
+
+            <div
+                class="manager-jobs__skill-wrapper">
+
+                {# Essential Soft Skills List #}
+
+                    <div
+                        class="manager-jobs__create-skill-wrapper">
+
+                        {% set skillCounter = 0 %}
+
+                        {% set skillType = "soft" %}
+
+                        {% for jobSkill in job.skills %}
+
+                            {% set skillCounter = skillCounter + 1 %}
+
+                            {% for skill in skills %}
+
+                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+
+                                    {% set skillType = skill.type %}
+
+                                    {% if skillType == "soft" %}
+                                        {% include "manager/job_create/skill" %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+
+                        {# Skills get added here. #}
+
+                    </div>
+
+                    {# Skill Template #}
+
+                    {% include "manager/job_create/skill" %}
+
+                {# Skill Controls #}
+
+                    <div
+                        class="manager-jobs__create-action-wrapper">
+
+                        <button
+                            class="manager-jobs__add-skill-button"
+                            id="addSkillButton">
+                            Add an Essential Hard Skill
+                        </button>
+
+                    </div>
+
+            </div>
+
+            <h5>Asset Criteria (Hard Skills)</h5>
+
+            <div
+                class="manager-jobs__skill-wrapper">
+
+                {# Asset Hard Skills List #}
+
+                    <div
+                        class="manager-jobs__create-skill-wrapper">
+
+                        {% set skillCounter = 0 %}
+
+                        {% set skillType = "hard" %}
+
+                        {% for jobSkill in job.skills %}
+
+                            {% set skillCounter = skillCounter + 1 %}
+
+                            {% for skill in skills %}
+
+                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+
+                                    {% set skillType = skill.type %}
+
+                                    {% if skillType == "hard" %}
+                                        {% include "manager/job_create/skill" %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+
+                        {# Skills get added here. #}
+
+                    </div>
+
+                    {# Skill Template #}
+
+                    {% include "manager/job_create/skill" %}
+
+                {# Skill Controls #}
+
+                    <div
+                        class="manager-jobs__create-action-wrapper">
+
+                        <button
+                            class="manager-jobs__add-skill-button"
+                            id="addSkillButton">
+                            Add an Asset Hard Skill
+                        </button>
+
+                    </div>
+
+            </div>
+
+            <h5>Asset Criteria (Soft Skills)</h5>
+
+            <div
+                class="manager-jobs__skill-wrapper">
+
+                {# Asset Soft Skills List #}
+
+                    <div
+                        class="manager-jobs__create-skill-wrapper">
+
+                        {% set skillCounter = 0 %}
+
+                        {% set skillType = "soft" %}
+
+                        {% for jobSkill in job.skills %}
+
+                            {% set skillCounter = skillCounter + 1 %}
+
+                            {% for skill in skills %}
+
+                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+
+                                    {% set skillType = skill.type %}
+
+                                    {% if skillType == "soft" %}
+                                        {% include "manager/job_create/skill" %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+
+                        {# Skills get added here. #}
+
+                    </div>
+
+                    {# Skill Template #}
+
+                    {% include "manager/job_create/skill" %}
+
+                {# Skill Controls #}
+
+                    <div
+                        class="manager-jobs__create-action-wrapper">
+
+                        <button
+                            class="manager-jobs__add-skill-button"
+                            id="addSkillButton">
+                            Add an Asset Soft Skill
+                        </button>
+
+                    </div>
+
+            </div>
 
     </div>
 

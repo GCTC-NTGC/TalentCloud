@@ -31,7 +31,8 @@
                             class="box med-1of2">
 
                             <button
-                                class="profile-list__add-element-trigger">
+                                class="profile-list__add-element-trigger"
+                                type="button">
                                 {{ profile.experience_section.add_degree_label }}
                             </button>
 
@@ -49,12 +50,12 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set degreeCounter = 0 %}
 
-                        {% for degree in user.degrees %}
+                        {% for degree in applicant.degrees %}
 
                             {% set degreeCounter = degreeCounter + 1 %}
 
@@ -94,7 +95,8 @@
                             class="box med-1of2">
 
                             <button
-                                class="profile-list__add-element-trigger">
+                                class="profile-list__add-element-trigger"
+                                type="button">
                                 {{ profile.experience_section.add_course_label }}
                             </button>
 
@@ -108,12 +110,12 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set courseCounter = 0 %}
 
-                        {% for course in user.courses %}
+                        {% for course in applicant.courses %}
 
                             {% set courseCounter = courseCounter + 1 %}
 
@@ -153,7 +155,8 @@
                             class="box med-1of2">
 
                             <button
-                                class="profile-list__add-element-trigger">
+                                class="profile-list__add-element-trigger"
+                                type="button">
                                 {{ profile.experience_section.add_work_label }}
                             </button>
 
@@ -167,12 +170,12 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set workCounter = 0 %}
 
-                        {% for work in user.work %}
+                        {% for work in applicant.work_experiences %}
 
                             {% set workCounter = workCounter + 1 %}
 

@@ -32,92 +32,90 @@
 
         </div>
 
-        <form
-            class="form__wrapper">
+        {# Social Media #}
 
-            {# Social Media #}
+        <fieldset
+            class="form__fieldset">
 
-                <fieldset
-                    class="form__fieldset">
+            <legend
+                class="form__legend">
+                {{ profile.social_media_form_legend }}
+            </legend>
 
-                    <legend
-                        class="form__legend">
-                        Social Media
-                    </legend>
+            <div
+                class="flex-grid">
 
-                    <div
-                        class="flex-grid">
+                <div
+                    class="box med-1of2">
 
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float {% if user.twitter.url == true %}active{% endif %}">
-                                <label class="form__label" for="{{ question.input_name }}">
-                                    Twitter Profile
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id=""
-                                    type="text"
-                                    value="{{ user.twitter.url }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float {% if user.linkedin.url == true %}active{% endif %}">
-                                <label class="form__label" for="{{ question.input_name }}">
-                                    Linkedin Profile
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id=""
-                                    type="text"
-                                    value="{{ user.linkedin.url }}" />
-                            </div>
-
-                        </div>
-
+                    <div class="form__input-wrapper--float {% if user.twitter.url == true %}active{% endif %}">
+                        <label class="form__label" for="editProfileTwitter">
+                            {{ profile.twitter_label }}
+                        </label>
+                        <input
+                            class="form__input"
+                            id="editProfileTwitter"
+                            type="text"
+                            name="twitter_username"
+                            value="{{ user.twitter.url }}" />
                     </div>
 
-                </fieldset>
+                </div>
 
-            {# Other Info #}
+                <div
+                    class="box med-1of2">
 
-                <fieldset
-                    class="form__fieldset">
-
-                    <legend
-                        class="form__legend">
-                        Other Information
-                    </legend>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box full">
-
-                            <div class="form__input-wrapper--float {% if user.tagline == true %}active{% endif %}">
-                                <label class="form__label" for="{{ question.input_name }}">
-                                    Tagline
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id=""
-                                    type="text"
-                                    value="{{ user.tagline }}" />
-                            </div>
-
-                        </div>
-
+                    <div class="form__input-wrapper--float {% if user.linkedin.url == true %}active{% endif %}">
+                        <label class="form__label" for="editProfileLinkedin">
+                            {{ profile.linkedin_label }}
+                        </label>
+                        <input
+                            class="form__input"
+                            id="editProfileLinkedin"
+                            type="text"
+                            name="linkedin_url"
+                            value="{{ user.linkedin.url }}" />
                     </div>
 
-                </fieldset>
+                </div>
 
-        </form>
+            </div>
+
+        </fieldset>
+
+        {# Other Info #}
+
+        <fieldset
+            class="form__fieldset">
+
+            <legend
+                class="form__legend">
+                {{ profile.other_form_legend }}
+            </legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box full">
+
+                    <div class="form__input-wrapper--float {% if user.tagline == true %}active{% endif %}">
+                        <label class="form__label" for="editProfileTagline">
+                            {{ profile.tagline_label }}
+                        </label>
+                        <input
+                            class="form__input"
+                            id="editProfileTagline"
+                            type="text"
+                            name="tagline"
+                            value="{{ user.tagline }}" />
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
 
     </div>
 

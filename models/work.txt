@@ -1,0 +1,33 @@
+================================================================================
+
+    Talent Cloud
+    Model: Work Experience
+
+================================================================================
+
+    Model ======================================================================
+
+        "work" => [
+            "00" => [
+                "role" => "Role (Input, Text)",
+                "company" => "Group/Company (Input, Text)",
+                "description" => "Description of Work (Textarea)",
+                "start_date" => "YYYY-MM-DD",
+                "end_date" => "YYYY-MM-DD"
+            ]
+        ]
+
+        ** Tristan, I've been using "names" as a unique identifier for matching things in templates, but it might be worthwhile, after launch, to do all matching (checking to see if a skill matches a related sample, for example), using an ID number instead.
+
+    Template ===================================================================
+
+        "work_template" => [
+            "new_work_label" => "New Lived Experience",
+            "role_label" => "Role",
+            "company_label" => "Company/Group",
+            "description_label" => "Description",
+            "start_date_label" => "Start Date",
+            "end_date_label" => "End Date",
+            "action_01" => "Delete Lived Experience",
+            "action_02" => "Save Lived Experience"
+        ]

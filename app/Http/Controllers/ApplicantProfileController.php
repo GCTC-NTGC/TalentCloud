@@ -48,7 +48,9 @@ class ApplicantProfileController extends Controller
                 where('applicant_profile_question_id', $question->id)->first();
             $answer = $answerObj ? $answerObj->answer : null;
 
-            $formValues = ['value' => $question->value,
+            $formValues = [
+                'id' => $question->id,
+                'value' => $question->value,
                 'description' => $question->description,
                 'answer' => $answer,
                 'answer_label' => $profileText['answer_label'],
@@ -62,7 +64,8 @@ class ApplicantProfileController extends Controller
             'tagline' => $applicant->tagline,
             'photo' => '/images/user.png', //TODO: get real photos
             'twitter' => [
-                'url' => Lang::get('common/urls.twitter', ['username' => $applicant->twitter_username]),
+                //'url' => Lang::get('common/urls.twitter', ['username' => $applicant->twitter_username]),
+                'url' => $applicant->twitter_username,
                 'title' => Lang::get('applicant/applicant_profile.twitter_link_title', ['name'=>$user->name]),
             ],
             'linkedin' => [
@@ -71,13 +74,14 @@ class ApplicantProfileController extends Controller
             ]
         ];
 
-        return view('applicant/profile', [
+        return view('applicant/profile_01_about', [
             /* Localized strings*/
             'profile' => $profileText,
             /* Applicant Profile Questions */
             'applicant_profile_questions' => $profileQuestionForms,
             /* User Data */
             'user' => $userProfile,
+            'applicant' => $applicant,
 
             'form_submit_action' => route('profile.update', $applicant)
         ]);
@@ -111,7 +115,17 @@ class ApplicantProfileController extends Controller
             }
         }
 
+        $input = $request->input();
+        $applicant->fill([
+            'tagline' => $input['tagline'], //TODO change to tagline_label
+            'twitter_username' => $input['twitter_username'],
+            'linkedin_url' => $input['linkedin_url'],
+        ]);
+        $applicant->save();
+
         return redirect()->route('profile.edit', $applicant);
+        //Debugbar::info($input);
+        //return view('welcome', ['t1' => 'update applicant']);
     }
 
 }
