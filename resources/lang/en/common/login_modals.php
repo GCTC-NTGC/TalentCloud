@@ -12,10 +12,10 @@ return [
 
     'login' => [
         "type" => "login",
-        "title" => "Register or Login with GC Account",
+        "title" => "Register or Login with GCcollab Account",
         "content" => [
-            "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
-            "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+            "Talent Cloud uses GCcollab Account which can sign you into a variety of GC tools.",
+            "If you have a GCcollab Account, please use the Login link below. If you don't, please use the Register link to create one."
         ],
         "id" => "login",
         "action_01" => "Register",
