@@ -55,7 +55,8 @@ return [
         'sidebar_title' => 'View this job\'s criteria information.',
         'title' => 'Criteria',
         'essential_title' => 'Need to Have',
-        'asset_title' => 'Nice to Have'
+        'asset_title' => 'Nice to Have',
+        'requirement_label' => 'Level Required: ',
     ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',

@@ -67,7 +67,7 @@ class JobController extends Controller
             }),
             'asset' => $jobPoster->criteria->filter(function($value, $key) {
                 return $value->criteria_type->name == 'asset';
-            })
+            }),
         ];
 
         return view('applicant/job_post', [
@@ -79,6 +79,7 @@ class JobController extends Controller
             'workplace_photos' => $workplacePhotos,
             'job' => $jobPoster,
             'criteria' => $criteria,
+            'skill_template' => Lang::get('common/skills'),
         ]);
     }
 
@@ -193,13 +194,9 @@ class JobController extends Controller
             //Save new criteria
             if (isset($criteria['new']) && is_array($criteria['new'])) {
                 foreach($criteria['new'] as $criteria_type=>$criteria_type_criteria) {
-                    debugbar()->info($criteria_type_criteria);
                     foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
-                        debugbar()->info($skill_type_criteria);
                         foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
-                            debugbar()->info($id_criteria);
                             $criterion = new Criteria();
-                            debugbar()->info('criteria_type = ' . $criteria_type);
 
                             $criteria_type_obj = CriteriaType::where('name', $criteria_type)->first();
                             if($criteria_type_obj != null) {
@@ -209,7 +206,6 @@ class JobController extends Controller
                                 $criterion->criteria_type_id = $criteria_type_obj->id;
 
                                 $criterion->save();
-                                debugbar()->info($criterion);
                             }
                         }
                     }

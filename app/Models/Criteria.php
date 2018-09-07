@@ -21,7 +21,7 @@ namespace App\Models;
  * @property \App\Models\Lookup\CriteriaType $criteria_type
  * @property \App\Models\JobPoster $job_poster
  * @property \App\Models\Skill $skill
- * @property \App\Models\SkillLevel $skill_level
+ * @property \App\Models\Lookup\SkillLevel $skill_level
  */
 class Criteria extends BaseModel {
 
@@ -56,7 +56,7 @@ class Criteria extends BaseModel {
     }
 
     public function skill_level() {
-        return $this->belongsTo(\App\Models\Skill::class);
+        return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
     }
 
 }
