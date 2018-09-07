@@ -5,8 +5,8 @@
 
 ============================================================================= #}
 <div
-    class="manager-jobs__create-skill {% if skill == false %}template{% endif %}"
-    data-skill-id="{% if skill == false %}0{% else %}{{ skillCounter }}{% endif %}">
+    class="manager-jobs__create-skill {% if criteria == false %}template{% endif %}"
+    data-skill-id="{% if criteria == false %}0{% else %}{{ skillCounter }}{% endif %}">
 
     <fieldset
         class="form__fieldset">
@@ -39,11 +39,11 @@
             <div
                 class="box med-1of2">
 
-                <div 
+                <div
                     class="form__input-wrapper--select">
 
-                    <label 
-                        class="form__label" 
+                    <label
+                        class="form__label"
                         for="">
                         Select Skill
                     </label>
@@ -56,9 +56,11 @@
 
                             {% for skill in skills %}
 
-                                {% if skill.type == skillType %}
+                                {% if skill.skill_type.name == skillType %}
 
-                                    <option {% if jobSkill.name == skill.name %}selected{% endif %}>{{ skill.name }}</option>
+                                    <option
+                                        value="{{ skill.id }}"
+                                        {% if criteria.skill.id == skill.id %}selected{% endif %}>{{ skill_template.skills[skill.name].name }}</option>
 
                                 {% endif %}
 
@@ -74,10 +76,10 @@
             <div
                 class="box med-1of2">
 
-                <div 
+                <div
                     class="form__input-wrapper--select">
-                    <label 
-                        class="form__label" 
+                    <label
+                        class="form__label"
                         for="">
                         Select Level Required
                     </label>
@@ -86,23 +88,14 @@
                         <select
                             class="form__input">
 
-                            {% if skillType == "hard" %}
+                            {% for level in skill_levels %}
 
-                                {% for level in skill_levels.hard %}
+                                <option
+                                    value="{{ level.id }}"
+                                    {% if criteria.skill_level_id == level.id %}selected{% endif %}
+                                    >{{ skill_template.skill_levels[skillType][level.name] }}</option>
 
-                                    <option {% if jobSkill.requirement == level %}selected{% endif %}>{{ level }}</option>
-
-                                {% endfor %}
-
-                            {% elseif skillType == "soft" %}
-
-                                {% for level in skill_levels.soft %}
-
-                                    <option {% if jobSkill.requirement == level %}selected{% endif %}>{{ level }}</option>
-
-                                {% endfor %}
-
-                            {% endif %}
+                            {% endfor %}
 
                         </select>
                     </div>
