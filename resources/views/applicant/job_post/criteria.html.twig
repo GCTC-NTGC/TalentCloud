@@ -31,10 +31,11 @@
             </h5>
             <ul
                 class="job-post__criteria-list">
-                {% for criteria in criteria.essential %}
+                {% for criterion in criteria.essential %}
                     <li>
-                        <p>{{ criteria.name }}</p>
-                        <p>{{ criteria.description }}</p>
+                        <p>{{ skill_template.skills[criterion.skill.name].name }}</p>
+                        <p>{{ skill_template.skills[criterion.skill.name].description }}</p>
+                        <p>{{ job_post.criteria.requirement_label }}{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name] }}
                     </li>
                 {% endfor %}
             </ul>
@@ -48,10 +49,11 @@
             </h5>
             <ul
                 class="job-post__criteria-list">
-                {% for criteria in criteria.asset %}
+                {% for criterion in criteria.asset %}
                     <li>
-                        <p>{{ criteria.name }}</p>
-                        <p>{{ criteria.description }}</p>
+                        <p>{{ skill_template.skills[criterion.skill.name].name }}</p>
+                        <p>{{ skill_template.skills[criterion.skill.name].description }}</p>
+                        <p>{{ job_post.criteria.requirement_label }}{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name] }}
                     </li>
                 {% endfor %}
             </ul>

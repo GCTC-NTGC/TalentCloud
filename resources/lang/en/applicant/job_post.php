@@ -37,11 +37,11 @@ return [
             'year' => ':count year.|:count year',
             'permanent' => 'Permanent'
         ],
-        'start_date_format' => 'l F d Y',
+        'start_date_format' => 'F, Y',
     ],
     'manager' => [
         'photo_title' => ':name\'s profile photo.',
-        'link_title' => '"View :name\'s Profile.'
+        'link_title' => 'View :name\'s Profile.'
     ],
     'impact' => [
         'sidebar_title' => 'View this job\'s impact information.',
@@ -55,14 +55,15 @@ return [
         'sidebar_title' => 'View this job\'s criteria information.',
         'title' => 'Criteria',
         'essential_title' => 'Need to Have',
-        'asset_title' => 'Nice to Have'
+        'asset_title' => 'Nice to Have',
+        'requirement_label' => 'Level Required: ',
     ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',
         'title' => 'Team Culture',
         'manager_title' => 'Your Manager',
         'manager_department_bridge' => ' at ',
-        'manager_link_label' => 'View Profile',
+        'manager_link_label' => 'View :name\'s Profile.',
         'work_environment_label' => 'Work Environment',
         'team_narrative_label' => 'Things to Know',
         'team_culture_label' => 'Team Culture',
@@ -86,7 +87,7 @@ return [
             'rarely' => 'Occasionally',
             'sometimes' => 'Sometimes',
             'often' => 'Frequently',
-            'always' => 'Most of the time',
+            'always' => 'Almost always',
         ],
         'time_flexibility_label' => 'Flex Hours',
         'time_flexibility_allowed' => [
@@ -94,7 +95,7 @@ return [
             'rarely' => 'Occasionally',
             'sometimes' => 'Sometimes',
             'often' => 'Frequently',
-            'always' => 'Most of the time',
+            'always' => 'Almost always',
         ],
     ],
     'know' => [
