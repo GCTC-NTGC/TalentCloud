@@ -20,6 +20,7 @@ namespace App\Models;
  *
  * @property \App\Models\Lookup\Relationship $relationship
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ * @property \Illuminate\Database\Eloquent\Collection $skills
  */
 class Reference extends BaseModel {
 
@@ -42,6 +43,10 @@ class Reference extends BaseModel {
 
     public function projects() {
         return $this->belongsToMany(\App\Models\Project::class);
+    }
+
+    public function skills() {
+        return $this->belongsToMany(\App\Models\Skill::class);
     }
 
 }

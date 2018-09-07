@@ -8,9 +8,11 @@ use App\Models\Lookup\CriteriaType;
 use App\Models\JobPosterKeyTask;
 use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Department;
+use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\Skill;
 
 class JobPosterSeeder extends Seeder
 {
@@ -72,17 +74,8 @@ class JobPosterSeeder extends Seeder
             $criteria = new Criteria();
             $criteria->criteria_type_id = CriteriaType::inRandomOrder()->first()->id;
             $criteria->job_poster_id = $job->id;
-            $criteria->fill([
-                'en' => [
-                    'name' => $faker->word(),
-                    'description' => $faker->sentence()
-                ],
-                'fr' => [
-                    'name' => $faker_fr->word(),
-                    'description' => $faker_fr->sentence()
-                ]
-
-            ]);
+            $criteria->skill_id = Skill::inRandomOrder()->first()->id;
+            $criteria->skill_level_id = SkillLevel::inRandomOrder()->first()->id;
             $criteria->save();
         }
 

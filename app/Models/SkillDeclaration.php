@@ -22,6 +22,10 @@ namespace App\Models;
  * @property \App\Models\Skill $skill
  * @property \App\Models\Lookup\SkillStatus $skill_status
  * @property \App\Models\Lookup\SkillLevel $skill_level
+ * @property \App\Models\Applicant $applicant
+ * @property \Illuminate\Database\Eloquent\Collection $work_experiences
+ * @property \Illuminate\Database\Eloquent\Collection $references
+ * @property \Illuminate\Database\Eloquent\Collection $work_samples
  */
 class SkillDeclaration extends BaseModel {
 
@@ -47,6 +51,40 @@ class SkillDeclaration extends BaseModel {
 
     public function skill_level() {
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
+    }
+
+    public function applicant() {
+        return $this->belongsTo(\App\Models\Applicant::class);
+    }
+
+    public function work_experiences() {
+        $skill_id = $this->skill->id;
+        return $this->applicant->work_experiences->filter(
+            function($work_experience) use ($skill_id) {
+                //Returns true if $work_experience is connected to a skill
+                // that matches this skill declaration
+                return $work_experience->skills->where(id, $skill_id) != null;
+        });
+    }
+
+    public function references() {
+        // Retrieve all references belonging to the same applicant and skill
+        // as this object
+        $skill_id = $this->skill->id;
+        return Reference::where('applicant_id', $this->applcant_id)
+            ->whereHas('skills', function($query) use ($skill_id){
+                $query->where('id', $skill_id);
+            })->get();
+    }
+
+    public function work_samples() {
+        // Retrieve all work samples belonging to the same applicant and skill
+        // as this object
+        $skill_id = $this->skill->id;
+        return WorkSample::where('applicant_id', $this->applcant_id)
+            ->whereHas('skills', function($query) use ($skill_id){
+                $query->where('id', $skill_id);
+            })->get();
     }
 
 }
