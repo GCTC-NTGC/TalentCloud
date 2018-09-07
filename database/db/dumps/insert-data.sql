@@ -1,10 +1,10 @@
 INSERT INTO applicant_profile_questions VALUES
-(1,'My career journey so far...',current_timestamp,current_timestamp),
-(2,'My learning journey so far...',current_timestamp,current_timestamp),
-(3,'What I bring to a team...',current_timestamp,current_timestamp),
-(4,'I work best when...',current_timestamp,current_timestamp),
-(5,'I learn best when...',current_timestamp,current_timestamp),
-(6,'Types of teams I work well on...',current_timestamp,current_timestamp);
+(1,'career_journey',current_timestamp,current_timestamp),
+(2,'learning_journey',current_timestamp,current_timestamp),
+(3,'bring_to_team',current_timestamp,current_timestamp),
+(4,'work_best_when',current_timestamp,current_timestamp),
+(5,'learn_best_when',current_timestamp,current_timestamp),
+(6,'types_of_teams',current_timestamp,current_timestamp);
 
 INSERT INTO applicant_profile_question_translations VALUES
 (1,1,'en','My career journey so far...','This is your chance to share the unique story of how you got to where you are now… and where you want to go from here.',current_timestamp,current_timestamp),
@@ -21,11 +21,11 @@ INSERT INTO applicant_profile_question_translations VALUES
 (12,6,'fr','Les types d’équipe dans lesquels je travaille bien ','Retiens-tu mieux l’information en la lisant, en la mettant en pratique, ou encore en observant son application? Es-tu de ceux qui apprennent rapidement, ou préfères-tu acquérir une expertise approfondie au fil du temps? Se joindre à une nouvelle équipe signifie apprendre de nouvelles choses. Décris ton style d’apprentissage à tes gestionnaires potentiels pour qu’ils puissent t’aider à te mettre au diapason et à mettre tes talents à contribution rapidement.',current_timestamp,current_timestamp);
 
 INSERT INTO application_status VALUES
-(1,'Draft',current_timestamp,current_timestamp),
-(2,'Submitted',current_timestamp,current_timestamp),
-(3,'Requires Action',current_timestamp,current_timestamp),
-(4,'Under Review',current_timestamp,current_timestamp),
-(5,'Rejected',current_timestamp,current_timestamp);
+(1,'draft',current_timestamp,current_timestamp),
+(2,'submitted',current_timestamp,current_timestamp),
+(3,'requires_action',current_timestamp,current_timestamp),
+(4,'under_review',current_timestamp,current_timestamp),
+(5,'rejected',current_timestamp,current_timestamp);
 
 INSERT INTO application_status_translations VALUES
 (1,1,'en','Draft',current_timestamp,current_timestamp),
@@ -40,11 +40,11 @@ INSERT INTO application_status_translations VALUES
 (10,5,'fr','Rejeté',current_timestamp,current_timestamp);
 
 INSERT INTO citizenship_declarations VALUES
-(1,'Canadian Citizen',current_timestamp,current_timestamp),
-(2,'Permanent Resident of Canada',current_timestamp,current_timestamp),
-(3,'Open - Work Permit',current_timestamp,current_timestamp),
-(4,'Closed - Work Permit',current_timestamp,current_timestamp),
-(5,'I am currently not entitled to work in Canada',current_timestamp,current_timestamp);
+(1,'citizen',current_timestamp,current_timestamp),
+(2,'permanent_resident',current_timestamp,current_timestamp),
+(3,'work_permit_open',current_timestamp,current_timestamp),
+(4,'work_permit_closed',current_timestamp,current_timestamp),
+(5,'not_entitled',current_timestamp,current_timestamp);
 
 INSERT INTO citizenship_declaration_translations VALUES
 (1,1,'en','Canadian Citizen',current_timestamp,current_timestamp),
@@ -59,8 +59,8 @@ INSERT INTO citizenship_declaration_translations VALUES
 (10,5,'fr','Je nai Actuellement pas le Droit de Travailler au Canada',current_timestamp,current_timestamp);
 
 INSERT INTO criteria_types VALUES
-(1,'Essential',current_timestamp,current_timestamp),
-(2,'Asset',current_timestamp,current_timestamp);
+(1,'essential',current_timestamp,current_timestamp),
+(2,'asset',current_timestamp,current_timestamp);
 
 INSERT INTO criteria_type_translations VALUES
 (1,1,'en','Need to Have','',current_timestamp,current_timestamp),
@@ -69,11 +69,11 @@ INSERT INTO criteria_type_translations VALUES
 (4,2,'fr','Qualifications constituant un atout','',current_timestamp,current_timestamp);
 
 INSERT INTO departments VALUES
-(1,'Treasury Board of Canada Secretariat',current_timestamp,current_timestamp),
-(2,'Natural Resources Canada',current_timestamp,current_timestamp),
-(3,'Transport Canada',current_timestamp,current_timestamp),
-(4,'Environment and Climate Change Canada',current_timestamp,current_timestamp),
-(5,'Employment and Social Development Canada',current_timestamp,current_timestamp);
+(1,'treasury_board',current_timestamp,current_timestamp),
+(2,'natural_resources',current_timestamp,current_timestamp),
+(3,'transport',current_timestamp,current_timestamp),
+(4,'enviroment_and_climate_change',current_timestamp,current_timestamp),
+(5,'employment_and_social_development',current_timestamp,current_timestamp);
 
 INSERT INTO department_translations VALUES
 (1,1,'en','Treasury Board of Canada Secretariat',current_timestamp,current_timestamp),
@@ -107,10 +107,10 @@ INSERT INTO experience_level_translations VALUES
 (10,'fr',5,'Huit ans ou plus',current_timestamp,current_timestamp);
 
 INSERT INTO file_types VALUES
-(1,'word document',current_timestamp,current_timestamp),
-(2,'powerpoint presentation',current_timestamp,current_timestamp),
+(1,'word',current_timestamp,current_timestamp),
+(2,'powerpoint',current_timestamp,current_timestamp),
 (3,'video',current_timestamp,current_timestamp),
-(4,'article publication',current_timestamp,current_timestamp),
+(4,'publication',current_timestamp,current_timestamp),
 (5,'other',current_timestamp,current_timestamp);
 
 INSERT INTO file_type_translations VALUES
@@ -155,19 +155,19 @@ INSERT INTO language_requirement_translations VALUES
 (6,'fr',3,'Bilingue',current_timestamp,current_timestamp);
 
 INSERT INTO provinces VALUES
-(1,'Alberta',current_timestamp,current_timestamp),
-(2,'British Columbia',current_timestamp,current_timestamp),
-(3,'Manitoba',current_timestamp,current_timestamp),
-(4,'Newfoundland and Labrador',current_timestamp,current_timestamp),
-(5,'New Brunswick',current_timestamp,current_timestamp),
-(6,'Nova Scotia',current_timestamp,current_timestamp),
-(7,'Nunavut',current_timestamp,current_timestamp),
-(8,'North West Territories',current_timestamp,current_timestamp),
-(9,'Ontario',current_timestamp,current_timestamp),
-(10,'Prince Edward Island',current_timestamp,current_timestamp),
-(11,'Quebec',current_timestamp,current_timestamp),
-(12,'Saskatchewan',current_timestamp,current_timestamp),
-(13,'Yukon',current_timestamp,current_timestamp);
+(1,'ab',current_timestamp,current_timestamp),
+(2,'bc',current_timestamp,current_timestamp),
+(3,'mb',current_timestamp,current_timestamp),
+(4,'nl',current_timestamp,current_timestamp),
+(5,'nb',current_timestamp,current_timestamp),
+(6,'ns',current_timestamp,current_timestamp),
+(7,'nu',current_timestamp,current_timestamp),
+(8,'nt',current_timestamp,current_timestamp),
+(9,'on',current_timestamp,current_timestamp),
+(10,'pe',current_timestamp,current_timestamp),
+(11,'qc',current_timestamp,current_timestamp),
+(12,'sk',current_timestamp,current_timestamp),
+(13,'ty',current_timestamp,current_timestamp);
 
 INSERT INTO province_translations VALUES
 (1,1,'en','Alberta',current_timestamp,current_timestamp),

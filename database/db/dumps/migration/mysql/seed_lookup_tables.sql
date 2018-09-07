@@ -59,8 +59,8 @@ INSERT INTO application_status (name) VALUES ('Submitted');SELECT LAST_INSERT_ID
 INSERT INTO application_status (name) VALUES ('Requires Action');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO application_status_translations (application_status_id,locale,value) VALUES (@base_table_id,'en','Requires Action'),(@base_table_id,'fr','Nécessite une action');
 INSERT INTO application_status (name) VALUES ('Under Review');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO application_status_translations (application_status_id,locale,value) VALUES (@base_table_id,'en','Under Review'),(@base_table_id,'fr','À létude');
 INSERT INTO application_status (name) VALUES ('Rejected');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO application_status_translations (application_status_id,locale,value) VALUES (@base_table_id,'en','Rejected'),(@base_table_id,'fr','Rejeté');
-INSERT INTO criteria_types (name) VALUES ('Essential');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO criteria_type_translations (criteria_type_id,locale,value,description) VALUES (@base_table_id,'en','Need to Have',''),(@base_table_id,'fr','Qualifications essentielles','');
-INSERT INTO criteria_types (name) VALUES ('Asset');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO criteria_type_translations (criteria_type_id,locale,value,description) VALUES (@base_table_id,'en','Nice to Have',''),(@base_table_id,'fr','Qualifications constituant un atout','');
+INSERT INTO criteria_types (name) VALUES ('essential');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO criteria_type_translations (criteria_type_id,locale,value,description) VALUES (@base_table_id,'en','Need to Have',''),(@base_table_id,'fr','Qualifications essentielles','');
+INSERT INTO criteria_types (name) VALUES ('asset');SELECT LAST_INSERT_ID() INTO @base_table_id;INSERT INTO criteria_type_translations (criteria_type_id,locale,value,description) VALUES (@base_table_id,'en','Nice to Have',''),(@base_table_id,'fr','Qualifications constituant un atout','');
 
 INSERT INTO user_roles (name) VALUES('applicant'),('manager'),('admin');
 INSERT INTO frequencies (name) VALUES

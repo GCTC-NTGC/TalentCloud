@@ -15,6 +15,8 @@ use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\SkillLevel;
+use App\Models\Lookup\CriteriaType;
+use App\Models\Criteria;
 use App\Models\Skill;
 use App\Models\JobPosterQuestion;
 use App\Models\JobPosterKeyTask;
@@ -182,6 +184,80 @@ class JobController extends Controller
                 $jobQuestion->save();
             }
         }
-        return redirect( route('manager.jobs.index') );
+
+        $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
+
+        if (isset($shiftedInput['criteria']) && is_array($shiftedInput['criteria'])) {
+            $criteria = $shiftedInput['criteria'];
+
+            //Save new criteria
+            if (isset($criteria['new']) && is_array($criteria['new'])) {
+                foreach($criteria['new'] as $criteria_type=>$criteria_type_criteria) {
+                    debugbar()->info($criteria_type_criteria);
+                    foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
+                        debugbar()->info($skill_type_criteria);
+                        foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
+                            debugbar()->info($id_criteria);
+                            $criterion = new Criteria();
+                            debugbar()->info('criteria_type = ' . $criteria_type);
+
+                            $criteria_type_obj = CriteriaType::where('name', $criteria_type)->first();
+                            if($criteria_type_obj != null) {
+                                $criterion->job_poster_id = $job->id;
+                                $criterion->skill_id = $id_criteria['criteria_skill'];
+                                $criterion->skill_level_id = $id_criteria['criteria_level'];
+                                $criterion->criteria_type_id = $criteria_type_obj->id;
+
+                                $criterion->save();
+                                debugbar()->info($criterion);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Update old criteria
+            if (isset($criteria['old']) && is_array($criteria['old'])) {
+                foreach($criteria['old'] as $criteria_type=>$criteria_type_criteria) {
+                    foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
+                        foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
+                            $criterion = $job->criteria->where('id', $criteria_id)->first();
+                            if ($criterion != null) {
+                                //$criterion->job_poster_id = $job->id;
+                                $criterion->skill_id = $id_criteria['criteria_skill'];
+                                $criterion->skill_level_id = $id_criteria['criteria_level'];
+                                //$criterion->criteria_type_id = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
+
+                                $criterion->save();
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        //return redirect( route('manager.jobs.index') );
+        //
+        //
+        debugbar()->info($shiftedInput);
+
+        $manager = $request->user() ? $request->user()->manager : null;
+
+        //No job details exist yet because we're creating a new one
+        $job = [];
+
+        return view('manager/job_create', [
+            'job_create' => Lang::get('manager/job_create'),
+            'manager' => $manager,
+            'provinces' => Province::all(),
+            'departments' => Department::all(),
+            'language_requirments' => LanguageRequirement::all(),
+            'security_clearances' => SecurityClearance::all(),
+            'job' => $job,
+            'form_action_url' => route('manager.jobs.store'),
+            'skills' => Skill::all(),
+            'skill_levels' => SkillLevel::all(),
+            'skill_template' => Lang::get('common/skills'),
+        ]);
     }
 }

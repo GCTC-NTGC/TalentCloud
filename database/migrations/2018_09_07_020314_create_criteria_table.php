@@ -20,8 +20,6 @@ class CreateCriteriaTable extends Migration
             $table->integer('skill_id')->unsigned();
             $table->integer('skill_level_id')->unsigned();
 			$table->timestamps();
-
-            $table->unique(['job_poster_id','skill_id']);
         });
 
         Schema::table('criteria', function (Blueprint $table) {

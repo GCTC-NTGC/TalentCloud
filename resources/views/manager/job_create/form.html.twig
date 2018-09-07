@@ -684,6 +684,7 @@
                 class="manager-jobs__create-action-wrapper">
 
                 <button
+                    type="button"
                     class="button--blue light-bg"
                     id="addTaskButton">
                     Add a Task
@@ -730,7 +731,7 @@
                                     {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "hard" %}
-                                        {% include "manager/job_create/criteria" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -745,7 +746,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/criteria" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
 
                 {# Skill Controls #}
 
@@ -753,6 +754,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Essential Hard Skill
@@ -787,7 +789,7 @@
                                     {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "soft" %}
-                                        {% include "manager/job_create/criteria" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -802,7 +804,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/criteria" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
 
                 {# Skill Controls #}
 
@@ -810,6 +812,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Essential Hard Skill
@@ -844,7 +847,7 @@
                                     {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "hard" %}
-                                        {% include "manager/job_create/criteria" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -859,7 +862,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/criteria" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
 
                 {# Skill Controls #}
 
@@ -867,6 +870,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Asset Hard Skill
@@ -901,7 +905,7 @@
                                     {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "soft" %}
-                                        {% include "manager/job_create/criteria" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -916,7 +920,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/criteria" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
 
                 {# Skill Controls #}
 
@@ -924,6 +928,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Asset Soft Skill
@@ -970,6 +975,7 @@
                 class="manager-jobs__create-action-wrapper">
 
                 <button
+                    type="button"
                     class="button--blue light-bg"
                     id="addQuestionButton">
                     Add a Question
