@@ -20,7 +20,6 @@ namespace App\Models;
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  * @property \App\Models\JobPoster $job_poster
- * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
@@ -43,10 +42,6 @@ class JobApplication extends BaseModel {
 
     public function job_poster() {
         return $this->belongsTo(\App\Models\JobPoster::class);
-    }
-
-    public function application_work_samples() {
-        return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
 
     public function job_application_answers() {

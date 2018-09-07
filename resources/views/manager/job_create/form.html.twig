@@ -719,15 +719,15 @@
 
                         {% set skillType = "hard" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "hard" %}
                                         {% include "manager/job_create/skill" %}
@@ -776,15 +776,15 @@
 
                         {% set skillType = "soft" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "soft" %}
                                         {% include "manager/job_create/skill" %}
@@ -833,15 +833,15 @@
 
                         {% set skillType = "hard" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "hard" %}
                                         {% include "manager/job_create/skill" %}
@@ -890,15 +890,15 @@
 
                         {% set skillType = "soft" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "soft" %}
                                         {% include "manager/job_create/skill" %}

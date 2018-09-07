@@ -68,23 +68,23 @@ class SkillDeclaration extends BaseModel {
     }
 
     public function references() {
+        // Retrieve all references belonging to the same applicant and skill
+        // as this object
         $skill_id = $this->skill->id;
-        return $this->applicant->references->filter(
-            function($reference) use ($skill_id) {
-                //Returns true if $reference is connected to a skill
-                // that matches this skill declaration
-                return $reference->skills->where(id, $skill_id) != null;
-        });
+        return Reference::where('applicant_id', $this->applcant_id)
+            ->whereHas('skills', function($query) use ($skill_id){
+                $query->where('id', $skill_id);
+            })->get();
     }
 
     public function work_samples() {
+        // Retrieve all work samples belonging to the same applicant and skill
+        // as this object
         $skill_id = $this->skill->id;
-        return $this->applicant->work_samples->filter(
-            function($work_sample) use ($skill_id) {
-                //Returns true if $reference is connected to a skill
-                // that matches this skill declaration
-                return $work_sample->skills->where(id, $skill_id) != null;
-        });
+        return WorkSample::where('applicant_id', $this->applcant_id)
+            ->whereHas('skills', function($query) use ($skill_id){
+                $query->where('id', $skill_id);
+            })->get();
     }
 
 }
