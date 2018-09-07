@@ -236,28 +236,6 @@ class JobController extends Controller
                 }
             }
         }
-        //return redirect( route('manager.jobs.index') );
-        //
-        //
-        debugbar()->info($shiftedInput);
-
-        $manager = $request->user() ? $request->user()->manager : null;
-
-        //No job details exist yet because we're creating a new one
-        $job = [];
-
-        return view('manager/job_create', [
-            'job_create' => Lang::get('manager/job_create'),
-            'manager' => $manager,
-            'provinces' => Province::all(),
-            'departments' => Department::all(),
-            'language_requirments' => LanguageRequirement::all(),
-            'security_clearances' => SecurityClearance::all(),
-            'job' => $job,
-            'form_action_url' => route('manager.jobs.store'),
-            'skills' => Skill::all(),
-            'skill_levels' => SkillLevel::all(),
-            'skill_template' => Lang::get('common/skills'),
-        ]);
+        return redirect( route('manager.jobs.index') );
     }
 }
