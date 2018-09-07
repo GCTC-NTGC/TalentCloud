@@ -5,14 +5,14 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion skill {% if locale == "profile" and skill == false %}template active{% endif %} {% if locale == "application" and jobSkill == false %}template{% endif %} {% if locale == "application" and skill == true %}complete{% endif %} modal-target-object"
-    data-item-id="{{ skill ? skill.id : 0 }}">
+    class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and criteria == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% endif %} modal-target-object"
+    data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
-    {% if skill %}
-        {% set name_suffix = "[old][:id]"|replace({":id":skill.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":skill.id}) %}
+    {% if skill_declaration %}
+        {% set name_suffix = "[old][:id]"|replace({":id":skill_declaration.id}) %}
+        {% set id_suffix = "_old_:id"|replace({":id":skill_declaration.id}) %}
     {% else %}
-        {% set name_suffix = "[new]" %}
+        {% set name_suffix = "[:template]" %}
         {% set id_suffix = "_new" %}
     {% endif %}
 
@@ -49,11 +49,11 @@
                 {% elseif locale == "profile" and skill_declaration == true %}
                     {{ skill_template.skills[skill_declaration.skill.name].name }}
                 {% elseif locale == "application" %}
-                    {{ jobSkill.name }}
-                    {% if jobSkill.requirement == "asset" %}
-                        <span>{{ jobSkill.level }} {{ skill_template.application_asset_requirement_label }}</span>
-                    {% elseif jobSkill.requirement == "essential" %}
-                        <span>{{ jobSkill.level }} {{ skill_template.application_essential_requirement_label }}</span>
+                    {{ criteria.name }}
+                    {% if criteria.requirement == "asset" %}
+                        <span>{{ criteria.level }} {{ skill_template.application_asset_requirement_label }}</span>
+                    {% elseif criteria.requirement == "essential" %}
+                        <span>{{ criteria.level }} {{ skill_template.application_essential_requirement_label }}</span>
                     {% endif %}
                 {% endif %}
             </span>
@@ -64,8 +64,9 @@
                     class="skill-summary">
 
                     {% set type = skill_declaration.skill.skill_type.name %}
-                    <span>{{ skill_template.skill_levels[type][skill_declaration.skill_level.name]|title }}</span> | <span>{{ skill_template.status[skill_declaration.skill_status.name] }}</span> | <span><i class="fas fa-users"></i> {{ skill_declaration.references|length }}</span> | <span><i class="fas fa-briefcase"></i> {{ skill_declaration.samples|length }}</span>
-
+                    {#
+                    <span>{{ skill_template.skill_levels[type][skill_declaration.skill_level.name]|title }}</span> | <span>{{ skill_template.status[skill_declaration.skill_status.name] }}</span> | <span><i class="fas fa-users"></i> {{ skill_declaration.references|length }}</span> | <span><i class="fas fa-briefcase"></i> {{ skill_declaration.work_samples|length }}</span>
+                    #}
                 </div>
 
             {% endif %}
@@ -97,10 +98,10 @@
                             <div
                                 class="box full">
 
-                                <div 
+                                <div
                                     class="form__input-wrapper--select">
-                                    <label 
-                                        class="form__label" 
+                                    <label
+                                        class="form__label"
                                         for="skillSelection{{ id_suffix }}">
                                         {{ skill_template.skill_selection_label }}
                                     </label>
@@ -112,7 +113,7 @@
                                             name="skill_selection{{ name_suffix }}">
                                             {% for skill in skills %}
                                                 {% if skillType == skill.skill_type.name %}
-                                                    <option>{{ skill_template.skills[skill.name].name }}</option>
+                                                    <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
                                                 {% endif %}
                                             {% endfor %}
                                         </select>
@@ -125,30 +126,23 @@
                                 class="box full">
                                 {# Tristan, this is where we need to dynamically load the skill's description. #}
                                 <p
-                                    class="skill__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor enim ut velit tempus, ut bibendum sem dictum. In maximus pulvinar diam, in pulvinar dolor cursus auctor. Curabitur congue sollicitudin euismod. Duis malesuada sollicitudin eros a malesuada. Nullam efficitur quis arcu at rutrum.</p>
+                                    class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
+
                             </div>
 
                         {% endif %}
 
                     {# Profile SKill Description Matching #}
 
-                        {% if locale == "profile" %}
+                        {% if locale == "profile" and skill_declaration %}
 
-                            {% for siteSkill in skills %}
-
-                                {% if skill_declaration.skill.id == siteSkill.id %}
-
-                                    <div
-                                        class="box full">
-                                        <p
-                                            class="skill__description">{{ skill_template.skills[siteSkill.name].description }}</p>
-                                        <p
-                                            class="skill__status">Status: Skill {{ skill_template.status[skill_declaration.skill_status.name] }}</p>
-                                    </div>
-
-                                {% endif %}
-
-                            {% endfor %}
+                            <div
+                                class="box full">
+                                <p
+                                    class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
+                                <p
+                                    class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
+                            </div>
 
                         {% endif %}
 
@@ -159,179 +153,93 @@
                             <div
                                 class="box full">
 
-                                {% for siteSkill in skills %}
+                                    <p
+                                        class="skill__description">{{ skill_template.skills[criteria.skill.name].description }}</p>
 
-                                    {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
-
-                                        <p
-                                            class="skill__description">{{ siteSkill.description }}</p>
-
-                                    {% endif %}
-
-                                {% endfor %}
 
                                 {% if skill_declaration == true %}
                                     <p
-                                        class="skill__status">Status: Skill {{ skill_template.status[skill_declaration.skill_status.name] }}</p>
+                                        class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
                                 {% endif %}
 
                             </div>
 
                         {% endif %}
 
-                    {# Soft Skill Form Elements #}
+                    {# Skill Form Elements #}
 
-                        {% if skillType == "soft" %}
+                        <div
+                            class="box full">
 
                             <div
-                                class="box full">
+                                aria-orientation="horizontal"
+                                class="form__radio-group"
+                                role="radiogroup">
 
-                                <div
-                                    aria-orientation="horizontal"
-                                    class="form__radio-group"
-                                    role="radiogroup">
+                                <label
+                                    class="form__label"
+                                    for="skillLevel{{ id_suffix }}">
+                                    {{ skill_template.level_label }}
+                                </label>
 
-                                    <label
-                                        class="form__label"
-                                        for="softSkillLevel{{ id_suffix }}">
-                                        {{ skill_template.level_label }}
-                                    </label>
+                                <div class="flex-grid">
 
-                                    <div class="flex-grid">
+                                    {% set counter = 0 %}
 
-                                        {% set counter = 0 %}
+                                    {% for level in skill_levels %}
 
-                                        {% for level_name,level in skill_template.skill_levels.soft %}
+                                        {% set counter = counter + 1 %}
 
-                                            {% set counter = counter + 1 %}
+                                        <label
+                                            class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
+                                            for="skillLevel_{{ counter }}{{ id_suffix }}">
+                                            <span
+                                                class="hidden">
+                                                {{ skill_template.skill_levels[skillType][level.name] }}
+                                            </span>
+                                            <input
+                                                class="form__radio-group-input"
+                                                id="skillLevel_{{ counter }}{{ id_suffix }}"
+                                                name="skill_level{{ name_suffix }}"
+                                                type="radio"
+                                                value="{{ level.id }}"
+                                                {% if skill_declaration.skill_level.id == level.id %}
+                                                    checked
+                                                {% endif %}>
+                                            <span
+                                                class="form__radio-group-span">
+                                                {{ skill_template.skill_levels[skillType][level.name] }}
+                                            </span>
+                                        </label>
 
-                                            <label 
-                                                class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
-                                                for="softSkillLevel{{ id_suffix }}{{ counter }}">
-                                                <span 
-                                                    class="hidden">
-                                                    {{ level }}
-                                                </span>
-                                                <input
-                                                    class="form__radio-group-input"
-                                                    id="softSkillLevel{{ id_suffix }}{{ counter }}"
-                                                    name="softSkillLevel{{ name_suffix }}{{ counter }}"
-                                                    type="radio"
-                                                    {% if skill_declaration.skill_level.name == level_name %}
-                                                        checked
-                                                    {% endif %}>
-                                                <span
-                                                    class="form__radio-group-span">
-                                                    {{ level }}
-                                                </span>
-                                            </label>
-
-                                        {% endfor %}
-
-                                    </div>
+                                    {% endfor %}
 
                                 </div>
 
                             </div>
 
+                        </div>
+
+                        <div
+                            class="box full">
+
                             <div
-                                class="box full">
+                                class="form__input-wrapper--float {% if skill_declaration.description != null %}active{% endif %}">
 
-                                <div
-                                    class="form__input-wrapper--float {% if skill_declaration.description != null%}active{% endif %}">
+                                <label
+                                    class="form__label"
+                                    for="skillDescription{{ id_suffix }}">
+                                    {{ skill_template.knowledge_label }}
+                                </label>
 
-                                    <label
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.knowledge_label }}
-                                    </label>
-
-                                    <textarea
-                                        class="form__textarea"
-                                        id="">{{ skill_declaration.description }}</textarea>
-
-                                </div>
+                                <textarea
+                                    class="form__textarea"
+                                    id="skillDescription{{ id_suffix }}"
+                                    name="skill_description{{ name_suffix }}">{{ skill_declaration.description }}</textarea>
 
                             </div>
 
-                        {% endif %}
-
-                    {# Hard Skill Form Elements #}
-
-                        {% if skillType == "hard" %}
-
-                            <div
-                                class="box full">
-
-                                <div
-                                    aria-orientation="horizontal"
-                                    class="form__radio-group"
-                                    role="radiogroup">
-
-                                    <label
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.level_label }}
-                                    </label>
-
-                                    <div class="flex-grid">
-
-                                        {% set counter = 0 %}
-
-                                        {% for level_name,level in skill_template.skill_levels.hard %}
-
-                                            {% set counter = counter + 1 %}
-
-                                            <label
-                                                class="box form__radio-group-label small-1of{{ skill_template.skill_levels.hard|length }}"
-                                                for="">
-                                                <span
-                                                    class="hidden">
-                                                    {{ level }}
-                                                </span>
-                                                <input
-                                                    class="form__radio-group-input"
-                                                    id=""
-                                                    name=""
-                                                    type="radio"
-                                                    {% if skill_declaration.skill_level.name == level_name %}
-                                                        checked
-                                                    {% endif %}>
-                                                <span
-                                                    class="form__radio-group-span">
-                                                    {{ level }}
-                                                </span>
-                                            </label>
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="box full">
-
-                                <div
-                                    class="form__input-wrapper--float {% if skill_declaration.description != null%}active{% endif %}">
-
-                                    <label
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.knowledge_label }}
-                                    </label>
-
-                                    <textarea
-                                        class="form__textarea"
-                                        id="">{{ skill_declaration.description }}</textarea>
-
-                                </div>
-
-                            </div>
-
-                        {% endif %}
+                        </div>
 
                 </div>
 
@@ -510,7 +418,7 @@
                         class="button--blue light-bg"
                         name="submit"
                         type="submit"
-                        value="skillSubmit{{ name_suffix }}">
+                        value="skill{{ name_suffix }}">
                         {{ skill_template.action_02 }}
                     </button>
                 </div>

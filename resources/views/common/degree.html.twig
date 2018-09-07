@@ -12,7 +12,7 @@
         {% set name_suffix = "[old][:id]"|replace({":id":degree.id}) %}
         {% set id_suffix = "_old_:id"|replace({":id":degree.id}) %}
     {% else %}
-        {% set name_suffix = "[new]" %}
+        {% set name_suffix = "[:template]" %}
         {% set id_suffix = "_new" %}
     {% endif %}
 

@@ -21,27 +21,34 @@
 
         {# Menu #}
 
-            {% include "applicant/profile/menu" %}
+        {% include "applicant/profile/menu" %}
 
-        {# Skills #}
+        {# Form containing all about_me editable elements #}
+        <form action="{{ form_submit_action }}" method="post">
 
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
+
+            {# Skills #}
             {% include "applicant/profile/skills/index" %}
+
+        </form>
 
         {# Modals #}
 
-            {% include "common/modal" with {"page":profile} %}
+        {% include "common/modal" with {"page":profile} %}
 
         {# Login Modals #}
 
-            {% include "common/modal" with {"page":login_modals} %}
+        {% include "common/modal" with {"page":login_modals} %}
 
         {# Footer #}
 
-            {% include "common/footer" %}
+        {% include "common/footer" %}
 
         {# Scripts #}
 
-            {% include "common/scripts" %}
+        {% include "common/scripts" %}
 
     </body>
 

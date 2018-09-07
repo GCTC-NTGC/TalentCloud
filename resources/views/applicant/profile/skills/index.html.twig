@@ -39,53 +39,7 @@
 
                     </div>
 
-                {# Set Locale #}
-
-                    {% set locale = "profile" %}
-
-                {# Set Type #}
-
-                    {% set skillType = "soft" %}
-
-                {# Profile Element Template (Sample) #}
-
-                    {% include "common/skill" %}
-
-                {# Profile Element List #}
-
-                    <div
-                        class="profile-element-list">
-
-                        {% set softSkillCounter = 0 %}
-
-                        {% for skill_declaration in applicant.skill_declarations %}
-
-                            {% for siteSkill in skills %}
-
-                                {% if siteSkill.type.name == "soft" %}
-
-                                    {% if skill_declaration.skill.id == siteSkill.id %}
-
-                                        {% set softSkillCounter = softSkillCounter + 1 %}
-
-                                        {% include "common/skill" %}
-
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {% endfor %}
-
-                        {% endfor %}
-
-                        <div
-                            class="profile-null {% if softSkillCounter == 0 %}active{% endif %}">
-
-                            <p>{{ profile.skills_section.null_copy }}</p>
-
-                        </div>
-
-                    </div>
+                {% include "applicant/profile/skills/skill_list" with {"skillType":'soft'} %}
 
             </div>
 
@@ -118,53 +72,7 @@
 
                     </div>
 
-                {# Set Locale #}
-
-                    {% set locale = "profile" %}
-
-                {# Set Type #}
-
-                    {% set skillType = "hard" %}
-
-                {# Profile Element Template (Sample) #}
-
-                    {% include "common/skill" %}
-
-                {# Profile Element List #}
-
-                    <div
-                        class="profile-element-list">
-
-                        {% set hardSkillCounter = 0 %}
-
-                        {% for skill_declaration in applicant.skill_declarations %}
-
-                            {% for siteSkill in skills %}
-
-                                {% if siteSkill.type == "hard" %}
-
-                                    {% if skill_declaration.skill.id == siteSkill.id %}
-
-                                        {% set hardSkillCounter = hardSkillCounter + 1 %}
-
-                                        {% include "common/skill" %}
-
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {% endfor %}
-
-                        {% endfor %}
-
-                        <div
-                            class="profile-null {% if hardSkillCounter == 0 %}active{% endif %}">
-
-                            <p>{{ profile.skills_section.null_copy }}</p>
-
-                        </div>
-
-                    </div>
+                {% include "applicant/profile/skills/skill_list" with {"skillType":'hard'} %}
 
             </div>
 

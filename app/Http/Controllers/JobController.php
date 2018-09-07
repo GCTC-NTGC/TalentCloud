@@ -218,6 +218,7 @@ class JobController extends Controller
                     foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
                         foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
                             $criterion = $job->criteria->where('id', $criteria_id)->first();
+                            //Ensure input can be connected to an existing criterion
                             if ($criterion != null) {
                                 //$criterion->job_poster_id = $job->id;
                                 $criterion->skill_id = $id_criteria['criteria_skill'];
@@ -225,6 +226,8 @@ class JobController extends Controller
                                 //$criterion->criteria_type_id = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
 
                                 $criterion->save();
+                            } else {
+                                Debugbar::warning('User '.$request->user()->id.' attempted to update Criteria with invalid id '.$criteria_id.' on Job '.$job->id);
                             }
 
                         }

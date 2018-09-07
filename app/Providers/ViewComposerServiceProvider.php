@@ -37,6 +37,12 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer(
             'applicant/profile/menu', 'App\Http\ViewComposers\ApplicantProfileMenuComposer'
         );
+
+        View::composer(
+            ['common/skill', 'common/relatives'], 'App\Http\ViewComposers\SkillComposer'
+        );
+
+
     }
 
     /**

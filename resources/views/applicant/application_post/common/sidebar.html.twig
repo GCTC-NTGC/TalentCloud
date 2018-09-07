@@ -4,48 +4,48 @@
     Applicant: Application - Post: Sidebar
 
 ============================================================================= #}
-<div 
+<div
     class="application-post__subnav-wrapper box lg-1of4">
 
-    <nav 
+    <nav
         class="application-post__subnav-sticky-wrapper">
 
         {% if application.step == "3" %}
-            <h4 
+            <h4
                 class="application-post_subnav-label">
                 {{ application.essential_sidebar_label }}
             </h4>
         {% elseif application.step == "4" %}
-            <h4 
+            <h4
                 class="application-post_subnav-label">
                 {{ application.asset_sidebar_label }}
             </h4>
         {% endif %}
 
-        {% for jobSkill in job.skills %}
+        {% for criteria in job.skills %}
 
             {% if application.step == "3" %}
-                
-                {% if jobSkill.requirement == "essential" %}
+
+                {% if criteria.requirement == "essential" %}
 
                     <a
                         class="application-post__subnav-item"
-                        href="#skill{{ jobSkill.name }}"
+                        href="#skill{{ criteria.name }}"
                         title="{{ application.sidebar_item_title }}">
-                        {{ jobSkill.name }}
+                        {{ criteria.name }}
                     </a>
 
                 {% endif %}
 
             {% elseif application.step == "4" %}
-                
-                {% if jobSkill.requirement == "asset" %}
+
+                {% if criteria.requirement == "asset" %}
 
                     <a
                         class="application-post__subnav-item"
-                        href="#skill{{ jobSkill.name }}"
+                        href="#skill{{ criteria.name }}"
                         title="{{ application.sidebar_item_title }}">
-                        {{ jobSkill.name }}
+                        {{ criteria.name }}
                     </a>
 
                 {% endif %}

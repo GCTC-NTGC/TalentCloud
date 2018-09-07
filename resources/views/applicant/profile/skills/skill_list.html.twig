@@ -1,0 +1,44 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Skills List section
+
+    Set skillType to 'soft' or 'hard'.
+
+============================================================================= #}
+
+<div
+    class="profile-element-list">
+
+    {# Set Locale #}
+
+    {% set locale = "profile" %}
+
+
+    {# Profile Element Template (Sample) #}
+
+    {% include "common/skill" %}
+
+
+    {% set skillCounter = 0 %}
+
+    {% for skill_declaration in applicant.skill_declarations %}
+
+        {% if skillType == false or skill_declaration.skill.skill_type.name == skillType %}
+
+            {% set skillCounter = skillCounter + 1 %}
+
+            {% include "common/skill" %}
+
+        {% endif %}
+
+    {% endfor %}
+
+    <div
+        class="profile-null {% if skillCounter == 0 %}active{% endif %}">
+
+        <p>{{ profile.skills_section.null_copy }}</p>
+
+    </div>
+
+</div>

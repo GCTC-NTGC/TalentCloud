@@ -10736,6 +10736,9 @@ return jQuery;
                                                             // Individualize values on submit buttons
                                                             appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
 
+                                                            //Differentiate real forms from templates
+                                                            replaceInAttributes(template, 'name', ':template', 'new');
+
                                                             // Prepend Clone to the Wrapper
                                                             wrapper.prepend(template);
 
