@@ -83,6 +83,10 @@ class ApplicantProfileController extends Controller
             'user' => $userProfile,
             'applicant' => $applicant,
 
+            // Fake Data
+            'applicant_profile_question_section_title' => 'Your Narrative',
+            'applicant_profile_question_context' => 'Please don’t include any sensitive personal information.',
+
             'form_submit_action' => route('profile.update', $applicant)
         ]);
     }
