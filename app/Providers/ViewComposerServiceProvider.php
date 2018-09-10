@@ -42,6 +42,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             ['common/skill', 'common/relatives'], 'App\Http\ViewComposers\SkillComposer'
         );
 
+        View::composer(
+            ['common/reference', 'common/modals/create_reference'], 'App\Http\ViewComposers\ReferenceComposer'
+        );
+
 
     }
 

@@ -41,7 +41,6 @@ class SkillsController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        Debugbar::info($applicant->references);
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
@@ -71,9 +70,7 @@ class SkillsController extends Controller
         //Save new skill declarations
         if (isset($shiftedInput['new']) && is_array($shiftedInput['new'])) {
             $skillInputs = $shiftedInput['new'];
-            Debugbar::info($skillInputs);
             foreach($skillInputs as $skillInput) {
-                Debugbar::info($skillInput);
                 $skillDeclaration = new SkillDeclaration();
                 $skillDeclaration->applicant_id = $applicant->id;
                 //All new skills start with 'claimed' status
@@ -104,16 +101,7 @@ class SkillsController extends Controller
             }
         }
 
-        //return redirect( route('profile.skills.edit', $applicant) );
-        return view('applicant/profile_03_skills', [
-            'applicant' => $applicant,
-            'profile' => Lang::get('applicant/profile_skills'),
-            'skill_template' => Lang::get('common/skills'),
-            'relative_template' => Lang::get('common/relatives'),
-            'skills' => Skill::all(),
-            'skill_levels' => SkillLevel::all(),
-            'form_submit_action' => route('profile.skills.update', $applicant),
-        ]);
+        return redirect( route('profile.skills.edit', $applicant) );
     }
 
 }

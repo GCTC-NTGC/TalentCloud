@@ -10738,6 +10738,8 @@ return jQuery;
 
                                                             //Differentiate real forms from templates
                                                             replaceInAttributes(template, 'name', ':template', 'new');
+                                                            replaceInAttributes(template, 'submit', ':template', 'new');
+                                                            replaceInAttributes(template, 'value', ':template', 'new', '[name=submit]');
 
                                                             // Prepend Clone to the Wrapper
                                                             wrapper.prepend(template);
@@ -11200,6 +11202,7 @@ return jQuery;
 
                                                             //Differentiate real forms from templates
                                                             replaceInAttributes(template, 'name', ':template', 'new');
+                                                            replaceInAttributes(template, 'submit', ':template', 'new');
 
                                                             // Append Clone to the Wrapper
                                                             wrapper.append(template);

@@ -53,7 +53,7 @@ class ApplicantProfileController extends Controller
                 'value' => $question->value,
                 'description' => $question->description,
                 'answer' => $answer,
-                'answer_label' => $profileText['answer_label'],
+                'answer_label' => $profileText['about_section']['answer_label'],
                 'input_name' => $this->answerFormInputName.'['.$question->id.']'
             ];
             array_push($profileQuestionForms, $formValues);

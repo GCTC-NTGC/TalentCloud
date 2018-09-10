@@ -56,17 +56,17 @@
 
             {# Profile Element List #}
 
-                <div 
+                <div
                     class="profile-element-list">
 
                     <div
-                        class="profile-null {% if user.references == false %}active{% endif %}">
+                        class="profile-null {% if (applicant.references|length) == 0 %}active{% endif %}">
 
                         <p>{{ profile.reference_section.null_copy }}</p>
 
                     </div>
 
-                    {% for reference in user.references %}
+                    {% for reference in applicant.references %}
 
                         {% include "common/reference" %}
 

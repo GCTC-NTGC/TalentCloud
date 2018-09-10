@@ -5,7 +5,16 @@
 
 ============================================================================= #}
 <div
-    class="profile-element accordion reference {% if reference == false %}template active{% endif %} modal-target-object">
+    class="profile-element accordion reference {% if reference == false %}template active{% endif %} modal-target-object"
+    data-item-id="{{ reference ? reference.id : 0 }}">
+
+    {% if reference %}
+        {% set name_suffix = "[old][:id]"|replace({":id":reference.id}) %}
+        {% set id_suffix = "_old_:id"|replace({":id":reference.id}) %}
+    {% else %}
+        {% set name_suffix = "[:template]" %}
+        {% set id_suffix = "_new" %}
+    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -22,7 +31,7 @@
 
             {% else %}
 
-                <div 
+                <div
                     class="accordion-status">
 
                     <i class="fas fa-check"></i>
@@ -58,7 +67,7 @@
 
             <div
                 class="form__wrapper">
-                
+
                 <div
                     class="flex-grid">
 
@@ -66,13 +75,14 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
-                            <label class="form__label" for="">
+                            <label class="form__label" for="referenceName{{ id_suffix }}">
                                 {{ reference_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="referenceName{{ id_suffix }}"
                                 type="text"
+                                name="reference_name{{ name_suffix }}"
                                 value="{{ reference.name }}" />
                         </div>
 
@@ -82,17 +92,20 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--select">
-                            <label class="form__label" for="">
+                            <label class="form__label" for="referenceRelationship{{ id_suffix }}">
                                 {{ reference_template.relationship_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
-                                    class="form__input">
-                                    {% for relationship in reference_template.relationships|sort %}
+                                    id="referenceRelationship{{ id_suffix }}"
+                                    class="form__input"
+                                    name="reference_relationship{{ name_suffix }}">
+                                    {% for relationship in relationships %}
                                         <option
-                                            {% if reference.relationship|capitalize == relationship|capitalize %}selected="selected"{% endif %}
-                                            >{{ relationship }}</option>
+                                            value="{{ relationship.id }}"
+                                            {% if reference.relationship_id == relationship.id %}selected="selected"{% endif %}
+                                            >{{ reference_template.relationships[relationship.name] }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -104,13 +117,14 @@
                         class="box full">
 
                         <div class="form__input-wrapper--float {% if reference.email == true %}active{% endif %}">
-                            <label class="form__label" for="">
+                            <label class="form__label" for="referenceEmail{{ id_suffix }}">
                                 {{ reference_template.email_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id=""
+                                id="referenceEmail{{ id_suffix }}"
                                 type="email"
+                                name="reference_email{{ name_suffix }}"
                                 value="{{ reference.email }}" />
                         </div>
 
@@ -119,19 +133,21 @@
                     <div
                         class="box full">
 
-                        <div 
+                        <div
                             class="form__input-wrapper--float {% if reference.description != null%}active{% endif %}"
                             data-form-id="experience-description">
 
-                            <label 
+                            <label
                                 class="form__label"
-                                for="">
+                                for="referenceDescription{{ id_suffix }}">
                                 {{ reference_template.description_label }}
                             </label>
 
-                            <textarea 
-                                class="form__textarea" 
-                                id="">{{ reference.description }}</textarea>
+                            <textarea
+                                class="form__textarea"
+                                id="referenceDescription{{ id_suffix }}"
+                                name="reference_description{{ name_suffix }}"
+                                >{{ reference.description }}</textarea>
 
                         </div>
 
@@ -161,7 +177,7 @@
 
                                 <div
                                     class="box small-1of2">
-                                    
+
                                 </div>
 
                             </div>
@@ -176,14 +192,14 @@
 
                             {% set relativeCounter = 0 %}
 
-                            <div 
+                            <div
                                 class="profile-relative-list__wrapper">
 
                                 {% for relative in reference.projects %}
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives-projects" %}             
+                                    {% include "common/relatives-projects" %}
 
                                 {% endfor %}
 
@@ -225,7 +241,7 @@
 
                                 <div
                                     class="box small-1of2">
-                                    
+
                                 </div>
 
                             </div>
@@ -240,14 +256,14 @@
 
                             {% set relativeCounter = 0 %}
 
-                            <div 
+                            <div
                                 class="profile-relative-list__wrapper">
 
                                 {% for relative in reference.skills %}
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" %}             
+                                    {% include "common/relatives" %}
 
                                 {% endfor %}
 
@@ -276,7 +292,8 @@
                     class="box med-1of2">
                     <button
                         class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteReference">
+                        data-modal-id="deleteReference"
+                        type="button">
                         {{ reference_template.action_01 }}
                     </button>
                 </div>
@@ -284,7 +301,10 @@
                 <div
                     class="box med-1of2">
                     <button
-                        class="button--blue light-bg">
+                        class="button--blue light-bg"
+                        type="submit"
+                        name="submit"
+                        value="reference{{ name_suffix }}">
                         {{ reference_template.action_02 }}
                     </button>
                 </div>

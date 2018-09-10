@@ -318,6 +318,7 @@
                     //Differentiate real forms from templates
                         replaceInAttributes(template, 'name', ':template', 'new');
                         replaceInAttributes(template, 'submit', ':template', 'new');
+                        replaceInAttributes(template, 'value', ':template', 'new', '[name=submit]');
 
 
                     // Prepend Clone to the Wrapper
