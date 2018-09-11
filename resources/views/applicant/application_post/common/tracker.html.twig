@@ -21,7 +21,11 @@
 
                     <div 
                         class="application-post__tracker-user-photo"
-                        style="background-image:url('{{ user.photo }}');">
+                        {% if user.photo %}
+                            style="background-image:url('{{ user.photo }}');"
+                        {% else %}
+                            style="background-image:url('/images/user.png');"
+                        {% endif %}>
                     </div>
 
                 </div>
@@ -51,7 +55,7 @@
 
                 <span
                     class="application-post__tracker-step">
-                    {{ application.tracker_label }} {{ application.step }}/5
+                    {{ application.tracker_label }} {{ application.step }} / 5
                 </span>
 
                 {% for item in application.tracker %}

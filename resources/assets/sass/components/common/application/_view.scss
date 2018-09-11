@@ -1,0 +1,197 @@
+// =============================================================================
+
+    // Common: Application View
+
+// =============================================================================
+
+    .application__view-layout {
+        padding: 0 0 5rem 0;
+
+        .sidebar {
+            top: 8rem !important;
+        }
+
+        .application__view-context {
+            background: $palette--white;
+
+            .container--copy {
+                padding: 5rem 0 4rem 0;
+                text-align: center;
+
+                h3 {
+                    border-bottom: 1px solid $palette--font-black;
+                    color: $palette--black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--h3;
+                    font-weight: 400;
+                    margin: 0 0 calc(#{$unit} * 2) 0;
+                    padding: 0 0 2rem 0;
+                    text-align: left;
+                }
+
+                p {
+                    @extend %paragraph;
+                    text-align: left;
+                }
+
+                button {
+
+                }
+
+            }
+
+        }
+
+        .container--layout {
+            // border-top: 1px solid darken($palette--white, 20%);
+            border-bottom: 1px solid darken($palette--white, 20%);
+            // margin-top: calc(#{$unit} * 5);
+            margin-bottom: calc(#{$unit} * 5);
+
+            section {
+
+                &:first-of-type {
+
+                    h3 {
+                        margin-top: 0;
+                    }
+
+                }
+
+            }
+
+            h3 {
+                border-bottom: 1px solid $palette--font-black;
+                color: $palette--black;
+                font-family: $font--sans;
+                font-size: $font-scale--h3;
+                font-weight: 400;
+                margin: calc(#{$unit} * 4) 0 calc(#{$unit} * 2) 0;
+                padding: 0 0 2rem 0;
+            }
+
+            h4 {
+                color: $palette--blue;
+                font-family: $font--sans;
+                font-size: $font-scale--h4;
+                font-weight: 600;
+                margin: 3rem 0 0 0;
+            }
+
+            .application__view-anchor {
+
+                &::before {
+                    content: "";
+                    display: block;
+                    height: 9rem;
+                    margin: -9rem 0 0;
+                }
+
+                &:first-of-type {
+
+                    &::before {
+                        height: 13rem;
+                        margin: -13rem 0 0;
+                    }
+
+                }
+
+            }
+
+        }
+
+        .application__view-content-wrapper {
+
+            @media #{$l-tablet} {
+                padding: 5rem 0 5rem 3rem;
+            }
+
+        }
+
+        .application-post__anchor {
+
+            &::before { 
+                display: block; 
+                content: " "; 
+                margin-top: -13rem; 
+                height: 13rem; 
+                visibility: hidden; 
+                pointer-events: none;
+            }
+
+        }
+
+    }
+
+    // About
+
+        .application-preview__section-01 {
+            
+            .container--copy {
+                text-align: left;
+            }
+
+            .application-preview__status {
+                margin: 2rem 0;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                i {
+                    margin: 0 .5rem 0 0;
+
+                    &.fa-check {
+                        color: $palette--green;
+                    }
+
+                    &.fa-times {
+                        color: $palette--red;
+                    }
+
+                }
+
+                span {
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 400;
+                }
+
+            }
+
+            .application-preview__long-question {
+                margin: 0 0 2rem 0;
+
+                span {
+                    color: $palette--blue;
+                    display: block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--h4;
+                    font-weight: 600;
+                    margin: 0 0 1rem 0;
+                }
+
+                p {
+                    color: $palette--font-black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    line-height: 1.5;
+                    margin: 0;
+                }
+
+            }
+
+        }
+
+    // Experience
+
+    // Skills
+
+    // Actions
+
+        .application-preview__attestation {
+            background: $palette--white;
+            border-radius: 5px;
+            margin: 0 0 4rem 0;
+            padding: 2rem;
+        }

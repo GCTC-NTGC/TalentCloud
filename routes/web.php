@@ -303,7 +303,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => null,
                 "application" => [
                     "citizenship" => "Canadian Citizen",
                     "veteran" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
@@ -682,7 +682,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => null,
                 "degrees" => [
                     "00" => [
                         "type" => "Bachelor's Degree",
@@ -1024,7 +1024,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => null,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1427,7 +1427,7 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => null,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1812,40 +1812,54 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                 "essential_sidebar_label" => "Skills Checklist",
                 "asset_sidebar_label" => "Skills Checklist",
                 "sidebar_item_title" => "Scroll to this skill.",
-                "skill_ui" => [
-                    "declaration_title" => "Required Information",
-                    "declaration_level_help_label" => "Unsure of your level?",
-                    "declaration_expertise_title" => "My Level of Expertise",
-                    "declaration_expertise" => [
-                        "Beginner",
-                        "Intermediate",
-                        "Expert",
-                        "Master"
-                    ],
-                    "declaration_experience_title" => "My Years of Experience",
-                    "declaration_experience" => [
-                        "1 of Less",
-                        "2 - 3",
-                        "4 - 5",
-                        "6 - 7",
-                        "8 or More"
-                    ],
-                    "declaration_knowledge_label" => "My Knowledge & Experience",
-                    "reference" => [
-                        "add_title" => "Add an optional reference.",
-                        "add_context" => "Appoint someone who can vouch for your ability in this skill."
-                    ],
-                    "sample" => [
-                        "add_title" => "Add an optional work sample.",
-                        "add_context" => "Provide a link to a sample of your work that showcases this skill."
-                    ],
-                    "save_button_label" => "Save",
-                    "delete_button_label" => "Remove"
-                ]
+                "application_preview_long_question_null" => "No answer provided"
             ],
-            "user" => [
+            "applicant" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => null,
+                "application" => [
+                    "citizenship" => "Canadian Citizen",
+                    "veteran" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
+                    "language" => "English",
+                    "questions" => [
+                        "00" => [
+                            "id" => "00",
+                            "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        ],
+                        "01" => [
+                            "id" => "01",
+                            "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        ]
+                    ]
+                ],
+                "degrees" => [
+                    "00" => [
+                        "type" => "Bachelor's Degree",
+                        "area_of_study" => "Psychology",
+                        "institution" => "Stanford",
+                        "thesis" => null,
+                        "start_date" => "2018-03-01",
+                        "end_date" => "2018-03-02"
+                    ]
+                ],
+                "courses" => [
+                    "00" => [
+                        "name" => "Sample Certification",
+                        "institution" => "Stanford",
+                        "status" => "Audited",
+                        "start_date" => "2018-03-01",
+                        "end_date" => "2018-03-02"
+                    ]
+                ],
+                "work" => [
+                    "00" => [
+                        "role" => "Front-end Developer",
+                        "company" => "Talent Cloud",
+                        "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero.",
+                        "start_date" => "2018-03-01",
+                        "end_date" => "2018-03-02"
+                    ]
+                ],
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1962,17 +1976,13 @@ Route::group(['domain' => 'tc.gccollab.ca'], function() {
                 "questions" => [
                     "00" => [
                         "value" => "Why are you interested in this job?",
-                        "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
-                        "input_name" => "jobPostQuestion0",
-                        "answer_label" => "Your Answer",
-                        "answer" => null
+                        "id" => "00",
+                        "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
                     ],
                     "01" => [
                         "value" => "Why are you the right person for this job?",
-                        "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
-                        "input_name" => "jobPostQuestion1",
-                        "answer_label" => "Your Answer",
-                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                        "id" => "01",
+                        "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
                     ]
                 ],
                 "skills" => [

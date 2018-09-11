@@ -1,0 +1,91 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application View - Step 01
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="application__view-anchor"
+    id="applicationView01">
+</a>
+
+<section
+    class="application-preview__section-01">
+
+    <h3>
+        Basic Information
+    </h3>
+
+    {# Citizenship #}
+
+        <div
+            class="application-preview__status">
+                {% if applicant.application.citizenship != false %}
+                    <i class="fas fa-check"></i>
+                    <span>{{ applicant.application.citizenship }}</span>
+                {% else %}
+                    <i class="fas fa-times"></i>
+                    <span>{{ application.preview.citizenship_null_copy }}</span>
+                {% endif %}
+        </div>
+
+    {# Veteran Status #}
+    
+        <div
+            class="application-preview__status">
+                {% if applicant.application.veteran != false %}
+                    <i class="fas fa-check"></i>
+                    <span>{{ applicant.application.veteran }}</span>
+                {% else %}
+                    <i class="fas fa-times"></i>
+                    <span>{{ application.preview.veteran_null_copy }}</span>
+                {% endif %}
+        </div>
+
+    {# Language Choice #}
+    
+        <div
+            class="application-preview__status">
+                {% if applicant.application.language != false %}
+                    <i class="fas fa-check"></i>
+                    <span>{{ applicant.application.language }}</span>
+                {% else %}
+                    <i class="fas fa-times"></i>
+                    <span>{{ application.preview.language_null_copy }}</span>
+                {% endif %}
+        </div>
+
+    {# Long Form Questions #}
+
+        {% for question in job.questions %}
+
+            <div
+                class="application-preview__long-question">
+
+                <span>
+                    {{ question.value }}
+                </span>
+
+                <p>
+
+                    {% set questionCounter = 0 %}
+
+                    {% for applicantQuestion in applicant.application.questions %}
+                        {% if applicantQuestion.id == question.id %}
+                            {% set questionCounter = questionCounter + 1 %} 
+                            {{ applicantQuestion.answer }}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if questionCounter == 0 %}
+                        {{ application_preview_long_question_null }}
+                    {% endif %}
+                    
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+</section>

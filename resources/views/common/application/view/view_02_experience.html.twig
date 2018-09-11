@@ -1,0 +1,114 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application View - Step 02
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="application__view-anchor"
+    id="applicationView02">
+</a>
+
+<section
+    class="application-preview__section-02">
+
+    <h3>
+        My Experience
+    </h3>
+
+    {# Set Locale #}
+
+        {% set locale = "application-view" %}
+
+    <div>
+
+        <h4>My Diplomas / Degrees</h4>
+
+        {# Profile Element List #}
+
+            <div
+                class="profile-element-list">
+
+                {% set degreeCounter = 0 %}
+
+                {% for degree in applicant.degrees %}
+
+                    {% set degreeCounter = degreeCounter + 1 %}
+
+                    {% include "common/degree" %}
+
+                {% endfor %}
+
+                <div
+                    class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
+
+                    <p>{{ profile.experience_section.null_degree_copy }}</p>
+
+                </div>
+
+            </div>
+
+    </div>
+
+    <div>
+
+        <h4>My Courses / Certifications</h4>
+
+        {# Profile Element List #}
+
+            <div
+                class="profile-element-list">
+
+                {% set courseCounter = 0 %}
+
+                {% for course in applicant.courses %}
+
+                    {% set courseCounter = courseCounter + 1 %}
+
+                    {% include "common/course" %}
+
+                {% endfor %}
+
+                <div
+                    class="profile-null {% if courseCounter == 0 %}active{% endif %}">
+
+                    <p>{{ profile.experience_section.null_course_copy }}</p>
+
+                </div>
+
+            </div>
+
+    </div>
+
+    <div>
+
+        <h4>My Equivalent Experience</h4>
+
+        {# Profile Element List #}
+
+            <div
+                class="profile-element-list">
+
+                {% set workCounter = 0 %}
+
+                {% for work in applicant.work_experiences %}
+
+                    {% set workCounter = workCounter + 1 %}
+
+                    {% include "common/work" %}
+
+                {% endfor %}
+
+                <div
+                    class="profile-null {% if workCounter == 0 %}active{% endif %}">
+
+                    <p>{{ profile.experience_section.null_work_copy }}</p>
+
+                </div>
+
+            </div>
+
+    </div>
+
+</section>
