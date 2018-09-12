@@ -46,6 +46,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             ['common/reference', 'common/modals/create_reference'], 'App\Http\ViewComposers\ReferenceComposer'
         );
 
+        View::composer(
+            ['common/sample', 'common/modals/create_sample'], 'App\Http\ViewComposers\WorkSampleComposer'
+        );
+
 
     }
 

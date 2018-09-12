@@ -281,6 +281,29 @@
                     return maxId + 1;
                 }
 
+                //The all in one function to set proper ids and form names
+                function individualizeFormIdsAndNames(template, wrapper) {
+                    // Get New ID
+                    var newId = getNextItemId(wrapper);
+
+                    //Set date-item-id, used to track which newId's are taken
+                    template.attr('data-item-id', newId);
+
+                    // Individualize Form IDs and labels
+                    appendToAttributes(template, 'id', '_' + newId);
+                    appendToAttributes(template, 'for', '_' + newId);
+
+                    // Individualize form names, except for submit buttons
+                    appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
+                    // Individualize values on submit buttons
+                    appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
+
+                    //Differentiate real forms from templates
+                    replaceInAttributes(template, 'name', ':template', 'new');
+                    replaceInAttributes(template, 'submit', ':template', 'new');
+                    replaceInAttributes(template, 'value', ':template', 'new', '[name=submit]');
+                }
+
         // Profile List Handlers ===============================================
 
             // Add Profile Element
@@ -301,25 +324,8 @@
                     // Remove Template Class
                         template.removeClass("template");
 
-                    // Get New ID
-                        var newId = getNextItemId(wrapper);
-
-                        template.attr('data-item-id', newId);
-
-                    // Individualize Form IDs and labels
-                        appendToAttributes(template, 'id', '_' + newId);
-                        appendToAttributes(template, 'for', '_' + newId);
-
-                    // Individualize form names, except for submit buttons
-                        appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
-                    // Individualize values on submit buttons
-                        appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
-
-                    //Differentiate real forms from templates
-                        replaceInAttributes(template, 'name', ':template', 'new');
-                        replaceInAttributes(template, 'submit', ':template', 'new');
-                        replaceInAttributes(template, 'value', ':template', 'new', '[name=submit]');
-
+                    //Set ids and form names to be unique
+                    individualizeFormIdsAndNames(template, wrapper);
 
                     // Prepend Clone to the Wrapper
                     wrapper.prepend(template);
@@ -381,9 +387,8 @@
                     // Remove Template Class
                         template.removeClass("template");
 
-                    // Edit Form IDs
-
-                        // Tristan, help! x_x
+                    //Set ids and form names to be unique
+                    individualizeFormIdsAndNames(template, wrapper);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);
@@ -488,36 +493,11 @@
                     // Get Template
                     var template = $(".application-post__accordion--degree.template").clone();
 
-                    // Get New ID
-                    var newID = parseInt(wrapper.find("[class*='application-post__accordion--']").last().attr("data-experience-id")) + 1;
-
                     // Remove Template Class
                     template.removeClass("template");
 
-                    // Assign the New ID
-                    template.attr("data-experience-id", newID);
-
-                    // Edit Form IDs
-
-                        // Degree Type
-                        template.find("[data-form-id*='experience-degree']").find("label").attr("for", "degree" + newID);
-                        template.find("[data-form-id*='experience-degree']").find("select").attr("id", "degree" + newID);
-
-                        // Area of Study
-                        template.find("[data-form-id*='experience-aos']").find("label").attr("for", "areaOfStudy" + newID);
-                        template.find("[data-form-id*='experience-aos']").find("input").attr("id", "areaOfStudy" + newID);
-
-                        // Institution
-                        template.find("[data-form-id*='experience-institution']").find("label").attr("for", "institution" + newID);
-                        template.find("[data-form-id*='experience-institution']").find("input").attr("id", "institution" + newID);
-
-                        // Start Date
-                        template.find("[data-form-id*='experience-start-date']").find("label").attr("for", "startDate" + newID);
-                        template.find("[data-form-id*='experience-start-date']").find("input").attr("id", "startDate" + newID);
-
-                        // End Date
-                        template.find("[data-form-id*='experience-end-date']").find("label").attr("for", "endDate" + newID);
-                        template.find("[data-form-id*='experience-end-date']").find("input").attr("id", "endDate" + newID);
+                    //Set ids and form names to be unique
+                    individualizeFormIdsAndNames(template, wrapper);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);
@@ -554,32 +534,11 @@
                     // Get Template
                     var template = $(".application-post__accordion--course.template").clone();
 
-                    // Get New ID
-                    var newID = parseInt(wrapper.find("[class*='application-post__accordion--']").last().attr("data-experience-id")) + 1;
-
                     // Remove Template Class
                     template.removeClass("template");
 
-                    // Assign the New ID
-                    template.attr("data-experience-id", newID);
-
-                    // Edit Form IDs
-
-                        // Course Name
-                        template.find("[data-form-id*='experience-course-name']").find("label").attr("for", "courseName" + newID);
-                        template.find("[data-form-id*='experience-course-name']").find("input").attr("id", "courseName" + newID);
-
-                        // Institution
-                        template.find("[data-form-id*='experience-institution']").find("label").attr("for", "institution" + newID);
-                        template.find("[data-form-id*='experience-institution']").find("input").attr("id", "institution" + newID);
-
-                        // Start Date
-                        template.find("[data-form-id*='experience-start-date']").find("label").attr("for", "startDate" + newID);
-                        template.find("[data-form-id*='experience-start-date']").find("input").attr("id", "startDate" + newID);
-
-                        // End Date
-                        template.find("[data-form-id*='experience-end-date']").find("label").attr("for", "endDate" + newID);
-                        template.find("[data-form-id*='experience-end-date']").find("input").attr("id", "endDate" + newID);
+                    //Set ids and form names to be unique
+                    individualizeFormIdsAndNames(template, wrapper);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);
@@ -616,36 +575,11 @@
                     // Get Template
                     var template = $(".application-post__accordion--work.template").clone();
 
-                    // Get New ID
-                    var newID = parseInt(wrapper.find("[class*='application-post__accordion--']").last().attr("data-experience-id")) + 1;
-
                     // Remove Template Class
                     template.removeClass("template");
 
-                    // Assign the New ID
-                    template.attr("data-experience-id", newID);
-
-                    // Edit Form IDs
-
-                        // Role
-                        template.find("[data-form-id*='experience-course-name']").find("label").attr("for", "role" + newID);
-                        template.find("[data-form-id*='experience-course-name']").find("input").attr("id", "role" + newID);
-
-                        // Group / Company
-                        template.find("[data-form-id*='experience-institution']").find("label").attr("for", "group" + newID);
-                        template.find("[data-form-id*='experience-institution']").find("input").attr("id", "group" + newID);
-
-                        // Description
-                        template.find("[data-form-id*='experience-description']").find("label").attr("for", "description" + newID);
-                        template.find("[data-form-id*='experience-description']").find("input").attr("id", "description" + newID);
-
-                        // Start Date
-                        template.find("[data-form-id*='experience-start-date']").find("label").attr("for", "startDate" + newID);
-                        template.find("[data-form-id*='experience-start-date']").find("input").attr("id", "startDate" + newID);
-
-                        // End Date
-                        template.find("[data-form-id*='experience-end-date']").find("label").attr("for", "endDate" + newID);
-                        template.find("[data-form-id*='experience-end-date']").find("input").attr("id", "endDate" + newID);
+                    //Set ids and form names to be unique
+                    individualizeFormIdsAndNames(template, wrapper);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);
@@ -696,6 +630,9 @@
 
                     // Remove Template Class
                     template.removeClass("template");
+
+                    //TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
+                    //TODO: This requires changes to JobController@create, because the id would change places
 
                     // Assign the New ID
                     template.attr("data-task-id", newID);
@@ -790,24 +727,8 @@
                     // Remove Template Class
                     template.removeClass("template");
 
-                    // Get New ID
-                    var newId = getNextItemId(wrapper, "data-skill-id");
-
-                    // Assign the New ID
-                    template.attr('data-skill-id', newId);
-
-                    // Individualize Form IDs and labels
-                    appendToAttributes(template, 'id', '_' + newId);
-                    appendToAttributes(template, 'for', '_' + newId);
-
-                    // Individualize form names, except for submit buttons
-                    appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
-                    // Individualize values on submit buttons
-                    appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
-
-                    //Differentiate real forms from templates
-                    replaceInAttributes(template, 'name', ':template', 'new');
-                    replaceInAttributes(template, 'submit', ':template', 'new');
+                    //Set ids and form names to be unique
+                    individualizeFormIdsAndNames(template, wrapper);
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);
@@ -888,6 +809,9 @@
 
                     // Remove Template Class
                     template.removeClass("template");
+
+                    //TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
+                    //TODO: This requires changes to JobController@create, because the id would change places
 
                     // Assign the New ID
                     template.attr("data-question-id", newID);

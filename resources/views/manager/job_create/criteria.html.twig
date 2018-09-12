@@ -6,7 +6,7 @@
 ============================================================================= #}
 <div
     class="manager-jobs__create-skill {% if criteria == false %}template{% endif %}"
-    data-skill-id="{% if criteria == false %}0{% else %}{{ criteria.id }}{% endif %}">
+    data-item-id="{% if criteria == false %}0{% else %}{{ criteria.id }}{% endif %}">
 
     {% if criteria %}
         {% set name_suffix = "[old][:criteria_type][:skill_type][:id]"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}

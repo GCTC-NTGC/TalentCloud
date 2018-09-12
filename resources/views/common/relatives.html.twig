@@ -1,10 +1,19 @@
 <div
-    class="profile-relative {% if relative == null %}template{% endif %}">
+    class="profile-relative {% if relative == null %}template{% endif %}"
+    data-item-id="{{ relative ? relative.id : 0 }}">
+
+    {% if relative %}
+        {% set name_suffix = "[old][:id]"|replace({":id":relative.id}) %}
+        {% set id_suffix = "_old_:id"|replace({":id":relative.id}) %}
+    {% else %}
+        {% set name_suffix = "[:template]" %}
+        {% set id_suffix = "_new" %}
+    {% endif %}
 
     <div class="form__input-wrapper--select">
         <label
             class="form__label"
-            for="">
+            for="relativeId{{ id_suffix }}">
             {% if relativeToken == "skills" %}
                 {{ relative_template.skill.label }}
             {% elseif relativeToken == "references" %}
@@ -17,12 +26,14 @@
             class="form__select-wrapper fas fa-chevron-down">
             <select
                 class="form__input"
-                id="">
+                id="relativeId{{ id_suffix }}"
+                name="relative_id{{ name_suffix }}">
 
                 {# Skills #}
                     {% if relativeToken == "skills" %}
                         {% for skillDeclaration in applicant.skill_declarations %}
                             <option
+                                value="{{ skillDeclaration.id }}"
                                 {% if relative.id == skillDeclaration.id %}selected="selected"{% endif %}
                                 >{{ skill_template.skills[skillDeclaration.skill.name].name }}</option>
                         {% endfor %}
@@ -32,6 +43,7 @@
                     {% if relativeToken == "references" %}
                         {% for userReference in applicant.references %}
                             <option
+                                value="{{ userReference.id }}"
                                 {% if relative.id == userReference.id %}selected="selected"{% endif %}
                                 >{{ userReference.name }}</option>
                         {% endfor %}
@@ -41,6 +53,7 @@
                     {% if relativeToken == "samples" %}
                         {% for userSample in applicant.work_samples %}
                             <option
+                                value="{{ userSample.id }}"
                                 {% if relative.id == userSample.id %}selected="selected"{% endif %}
                                 >{{ userSample.name }}</option>
                         {% endfor %}

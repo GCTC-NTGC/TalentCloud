@@ -8,14 +8,14 @@ use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
-use App\Models\Reference;
-use App\Models\Lookup\Relationship;
+use App\Models\WorkSample;
+use App\Models\Lookup\FileType;
 
-class ReferencesController extends Controller
+class WorkSamplesController extends Controller
 {
 
     /**
-     * Display the Skills page associated with the applicant.
+     * Display the Work Samples associated with the applicant.
      *
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
@@ -27,7 +27,7 @@ class ReferencesController extends Controller
     }
 
     /**
-     * Show the form for editing the applicant's references
+     * Show the form for editing the applicant's work samples
      *
      * @param  Request  $request
      * @param  \App\Models\Applicant  $applicant
@@ -35,13 +35,13 @@ class ReferencesController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        return view('applicant/profile_04_references', [
+        return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,
-            'profile' => Lang::get('applicant/profile_references'),
+            'profile' => Lang::get('applicant/profile_references'), //TODO
             'relative_template' => Lang::get('common/relatives'),
             'skills' => Skill::all(),
-            'relationships' => Relationship::all(),
-            'form_submit_action' => route('profile.references.update', $applicant),
+            'file_types' => FileType::all(),
+            'form_submit_action' => route('profile.work_samples.update', $applicant),
         ]);
     }
 
@@ -58,26 +58,23 @@ class ReferencesController extends Controller
         $input = $request->input();
         $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
 
-        Debugbar::info($input);
-        Debugbar::info($shiftedInput);
-
         //Save new skill declarations
-        if (isset($shiftedInput['new']) && is_array($shiftedInput['new'])) {
-            $refInputs = $shiftedInput['new'];
-            Debugbar::info($refInputs);
-            foreach($refInputs as $refInput) {
-                Debugbar::info($refInput);
-                $reference = new Reference();
-                $reference->applicant_id = $applicant->id;
-                //All new skills start with 'claimed' status
-                $reference->name = $refInput['reference_name'];
-                $reference->email = $refInput['reference_email'];
-                $reference->relationship_id = $refInput['reference_relationship'];
-                $reference->description = $refInput['reference_description'];
-
-                $reference->save();
-            }
-        }
+        // if (isset($shiftedInput['new']) && is_array($shiftedInput['new'])) {
+        //     $refInputs = $shiftedInput['new'];
+        //     Debugbar::info($refInputs);
+        //     foreach($refInputs as $refInput) {
+        //         Debugbar::info($refInput);
+        //         $reference = new Reference();
+        //         $reference->applicant_id = $applicant->id;
+        //         //All new skills start with 'claimed' status
+        //         $reference->name = $refInput['reference_name'];
+        //         $reference->email = $refInput['reference_email'];
+        //         $reference->relationship_id = $refInput['reference_relationship'];
+        //         $reference->description = $refInput['reference_description'];
+        //
+        //         $reference->save();
+        //     }
+        // }
 
         //Update old skill declarations
         // if (isset($shiftedInput['old']) && is_array($shiftedInput['old'])) {
@@ -98,7 +95,8 @@ class ReferencesController extends Controller
         // }
 
 
-
+        Debugbar::info($input);
+        Debugbar::info($shiftedInput);
         //return redirect( route('profile.skills.edit', $applicant) );
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,

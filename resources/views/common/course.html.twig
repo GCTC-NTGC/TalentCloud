@@ -9,11 +9,21 @@
     data-item-id="{{ course ? course.id : 0 }}">
 
     {% if course %}
-        {% set name_suffix = "[old][:id]"|replace({":id":course.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":course.id}) %}
+        {% if prefix %}
+            {% set name_suffix = prefix + "[courses][old][:id]"|replace({":id":course.id}) %}
+            {% set id_suffix = name_suffix %}
+        {% else %}
+            {% set name_suffix = "courses[old][:id]"|replace({":id":course.id}) %}
+            {% set id_suffix = name_suffix %}
+        {% endif %}
     {% else %}
-        {% set name_suffix = "[:template]" %}
-        {% set id_suffix = "_new" %}
+        {% if prefix %}
+            {% set name_suffix = prefix + "[courses][:template][:id]" %}
+            {% set id_suffix = name_suffix %}
+        {% else %}
+            {% set name_suffix = "courses[:template][:id]" %}
+            {% set id_suffix = name_suffix %}
+        {% endif %}
     {% endif %}
 
     {# Accordion Trigger #}
