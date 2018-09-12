@@ -5,10 +5,10 @@
 
 ============================================================================= #}
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[skill_declarations][:template][:id]" %}
+    {% set name_prefix = prefix ~ "[skill_declarations][:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
     {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_prefix = "skill_declarations[:template][:id]" %}
+    {% set name_prefix = "skill_declarations[:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
     {% set id_prefix = name_prefix %}
 {% endif %}
 

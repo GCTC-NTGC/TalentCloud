@@ -10713,32 +10713,22 @@ return jQuery;
                                                             //Set date-item-id, used to track which newId's are taken
                                                             template.attr('data-item-id', newId);
 
-                                                            // Individualize Form IDs and labels
-                                                            //appendToAttributes(template, 'id', '_' + newId);
-                                                            //appendToAttributes(template, 'for', '_' + newId);
-
-                                                            // Individualize form names, except for submit buttons
-                                                            //appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
-                                                            // Individualize values on submit buttons
-                                                            //appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
-
                                                             //Differentiate real forms from templates
 
-                                                            // Avoid modifying attributes in templates
-                                                            //var templateFilter = ':not(.template *)';
-                                                            var templateFilter = '';
+                                                            // filter, if we only want to affect certain results
+                                                            var filter = '';
 
-                                                            replaceInAttributes(template, 'id', ':template', 'new', templateFilter);
-                                                            replaceInAttributes(template, 'for', ':template', 'new', templateFilter);
-                                                            replaceInAttributes(template, 'name', ':template', 'new', templateFilter);
-                                                            replaceInAttributes(template, 'submit', ':template', 'new', templateFilter);
-                                                            replaceInAttributes(template, 'value', ':template', 'new', templateFilter + '[name=submit]');
+                                                            replaceInAttributes(template, 'id', ':template', 'new', filter);
+                                                            replaceInAttributes(template, 'for', ':template', 'new', filter);
+                                                            replaceInAttributes(template, 'name', ':template', 'new', filter);
+                                                            replaceInAttributes(template, 'submit', ':template', 'new', filter);
+                                                            replaceInAttributes(template, 'value', ':template', 'new', filter + '[name=submit]');
 
-                                                            replaceInAttributes(template, 'id', ':id', newId, templateFilter);
-                                                            replaceInAttributes(template, 'for', ':id', newId, templateFilter);
-                                                            replaceInAttributes(template, 'name', ':id', newId, templateFilter);
-                                                            replaceInAttributes(template, 'submit', ':id', newId, templateFilter);
-                                                            replaceInAttributes(template, 'value', ':id', newId, templateFilter + '[name=submit]');
+                                                            replaceInAttributes(template, 'id', ':id', newId, filter);
+                                                            replaceInAttributes(template, 'for', ':id', newId, filter);
+                                                            replaceInAttributes(template, 'name', ':id', newId, filter);
+                                                            replaceInAttributes(template, 'submit', ':id', newId, filter);
+                                                            replaceInAttributes(template, 'value', ':id', newId, filter + '[name=submit]');
                                         }
 
                                         // Profile List Handlers ===============================================
