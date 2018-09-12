@@ -4,17 +4,22 @@
     Work Sample
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[work_samples][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "work_samples[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if reference %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":sample.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":sample.id}) %}
+{% endif %}
+
 <div
     class="profile-element accordion sample {% if sample == false %}template active{% endif %} modal-target-object"
     data-item-id="{{ sample ? sample.id : 0 }}">
-
-    {% if sample %}
-        {% set name_suffix = "[old][:id]"|replace({":id":sample.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":sample.id}) %}
-    {% else %}
-        {% set name_suffix = "[:template]" %}
-        {% set id_suffix = "_new" %}
-    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -75,14 +80,14 @@
                         class="box full">
 
                         <div class="form__input-wrapper--float {% if sample.name == true %}active{% endif %}">
-                            <label class="form__label" for="sampleName{{ id_suffix }}">
+                            <label class="form__label" for="{{ id_prefix }}sampleName">
                                 {{ sample_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="sampleName{{ id_suffix }}"
+                                id="{{ id_prefix }}sampleName"
                                 type="text"
-                                name="sample_name{{ name_suffix }}"
+                                name="{{ name_prefix }}[name]"
                                 value="{{ sample.name }}" />
                         </div>
 
@@ -92,14 +97,14 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--select">
-                            <label class="form__label" for="sampleType{{ id_suffix }}">
+                            <label class="form__label" for="{{ id_prefix }}sampleType">
                                 {{ sample_template.type_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
-                                    id="sampleType{{ id_suffix }}"
-                                    name="sample_type{{ name_suffix }}"
+                                    id="{{ id_prefix }}sampleType"
+                                    name="{{ name_prefix }}[file_type_id]"
                                     class="form__input">
                                     {% for option in file_types %}
                                         <option
@@ -117,14 +122,14 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float {% if sample.link == true %}active{% endif %}">
-                            <label class="form__label" for="sampleLink{{ id_suffix }}">
+                            <label class="form__label" for="{{ id_prefix }}sampleLink">
                                 {{ sample_template.link_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="sampleLink{{ id_suffix }}"
+                                id="{{ id_prefix }}sampleLink"
                                 type="url"
-                                name="sample_url{{ name_suffix }}"
+                                name="{{ name_prefix }}[url]"
                                 value="{{ sample.url }}" />
                         </div>
 
@@ -134,12 +139,12 @@
                         class="box full">
 
                         <div class="form__input-wrapper--float {% if sample.description == true %}active{% endif %}">
-                            <label class="form__label" for="sampleDescription{{ id_suffix }}">
+                            <label class="form__label" for="{{ id_prefix }}sampleDescription">
                                 {{ sample_template.description_label }}
                             </label>
                             <textarea
-                                id="sampleDescription{{ id_suffix }}"
-                                name="sampleDescription{{ name_suffix }}"
+                                id="{{ id_prefix }}sampleDescription"
+                                name="{{ name_prefix }}[description]"
                                 class="form__textarea">{{ sample.description }}</textarea>
                         </div>
 
@@ -178,7 +183,7 @@
 
                             {% set relativeToken = "skills" %}
 
-                            {% include "common/relatives" %}
+                            {% include "common/relatives" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
@@ -191,7 +196,7 @@
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" %}
+                                    {% include "common/relatives" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -231,7 +236,7 @@
                     <button
                         type="submit"
                         name="submit"
-                        value="sample{{ name_suffix }}"
+                        value="{{ name_prefix }}"
                         class="button--blue light-bg">
                         {{ sample_template.action_02 }}
                     </button>

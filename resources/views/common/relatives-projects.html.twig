@@ -1,14 +1,19 @@
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[projects][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "projects[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if relative %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":relative.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":relative.id}) %}
+{% endif %}
+
 <div
     class="profile-relative project {% if relative == null %}template{% endif %}"
     data-item-id="{{ relative ? relative.id : 0 }}">
-
-    {% if relative %}
-        {% set name_suffix = "[old][:id]"|replace({":id":relative.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":relative.id}) %}
-    {% else %}
-        {% set name_suffix = "[:template]" %}
-        {% set id_suffix = "_new" %}
-    {% endif %}
 
     <button
         class="profile-relative__remove-trigger"
@@ -23,14 +28,14 @@
             class="box full">
 
             <div class="form__input-wrapper--float {% if relative.name == true %}active{% endif %}">
-                <label class="form__label" for="projectName{{ id_suffix }}">
+                <label class="form__label" for="{{ id_prefix }}projectName">
                     {{ relative_template.project.name_label }}
                 </label>
                 <input
                     class="form__input"
-                    id="projectName{{ id_suffix }}"
+                    id="{{ id_prefix }}projectName"
                     type="text"
-                    name="project_name{{ name_suffix }}"
+                    name="{{ name_prefix }}[name]"
                     value="{{ relative.name }}" />
             </div>
 
@@ -44,15 +49,15 @@
 
                 <label
                     class="form__label"
-                    for="relativeStartDate{{ id_suffix }}">
+                    for="{{ id_prefix }}relativeStartDate">
                     {{ relative_template.project.start_date_label }}
                 </label>
 
                 <input
                     class="form__input"
-                    id="relativeStartDate{{ id_suffix }}"
+                    id="{{ id_prefix }}relativeStartDate"
                     type="date"
-                    name="relative_start_date{{ name_suffix }}"
+                    name="{{ name_prefix }}[start_date]"
                     value="{{ relative.start_date|date("Y-m-d") }}">
 
             </div>
@@ -67,15 +72,15 @@
 
                 <label
                     class="form__label"
-                    for="relativeEndDate{{ id_suffix }}">
+                    for="{{ id_prefix }}relativeEndDate">
                     {{ relative_template.project.end_date_label }}
                 </label>
 
                 <input
                     class="form__input"
-                    id="relativeEndDate{{ id_suffix }}"
+                    id="{{ id_prefix }}relativeEndDate"
                     type="date"
-                    name="relative_end_date{{ name_suffix }}"
+                    name="{{ name_prefix }}[end_date]"
                     value="{{ relative.end_date|date("Y-m-d") }}">
 
             </div>

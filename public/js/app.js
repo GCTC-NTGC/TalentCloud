@@ -10654,6 +10654,8 @@ return jQuery;
 
                                         labelHandlers();
 
+                                        // Individualizing repeater name and id attributes======================
+
                                         //Individualize template attributes
                                         function appendToAttributes(parent, attribute, suffix) {
                                                             var conditions = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
@@ -10684,6 +10686,7 @@ return jQuery;
                                                             }
 
                                                             parent.find(selector).each(function () {
+                                                                                //replaces only the first instance of a match in a string
                                                                                 $(this).attr(attribute, $(this).attr(attribute).replace(oldString, newString));
                                                             });
                                         }
@@ -10711,18 +10714,31 @@ return jQuery;
                                                             template.attr('data-item-id', newId);
 
                                                             // Individualize Form IDs and labels
-                                                            appendToAttributes(template, 'id', '_' + newId);
-                                                            appendToAttributes(template, 'for', '_' + newId);
+                                                            //appendToAttributes(template, 'id', '_' + newId);
+                                                            //appendToAttributes(template, 'for', '_' + newId);
 
                                                             // Individualize form names, except for submit buttons
-                                                            appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
+                                                            //appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
                                                             // Individualize values on submit buttons
-                                                            appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
+                                                            //appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
 
                                                             //Differentiate real forms from templates
-                                                            replaceInAttributes(template, 'name', ':template', 'new');
-                                                            replaceInAttributes(template, 'submit', ':template', 'new');
-                                                            replaceInAttributes(template, 'value', ':template', 'new', '[name=submit]');
+
+                                                            // Avoid modifying attributes in templates
+                                                            //var templateFilter = ':not(.template *)';
+                                                            var templateFilter = '';
+
+                                                            replaceInAttributes(template, 'id', ':template', 'new', templateFilter);
+                                                            replaceInAttributes(template, 'for', ':template', 'new', templateFilter);
+                                                            replaceInAttributes(template, 'name', ':template', 'new', templateFilter);
+                                                            replaceInAttributes(template, 'submit', ':template', 'new', templateFilter);
+                                                            replaceInAttributes(template, 'value', ':template', 'new', templateFilter + '[name=submit]');
+
+                                                            replaceInAttributes(template, 'id', ':id', newId, templateFilter);
+                                                            replaceInAttributes(template, 'for', ':id', newId, templateFilter);
+                                                            replaceInAttributes(template, 'name', ':id', newId, templateFilter);
+                                                            replaceInAttributes(template, 'submit', ':id', newId, templateFilter);
+                                                            replaceInAttributes(template, 'value', ':id', newId, templateFilter + '[name=submit]');
                                         }
 
                                         // Profile List Handlers ===============================================

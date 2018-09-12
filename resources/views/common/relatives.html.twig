@@ -1,19 +1,24 @@
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[relatives][:relativeType][:template][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "relatives[:relativeType][:template][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if relative %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":relative.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":relative.id}) %}
+{% endif %}
+
 <div
     class="profile-relative {% if relative == null %}template{% endif %}"
     data-item-id="{{ relative ? relative.id : 0 }}">
 
-    {% if relative %}
-        {% set name_suffix = "[old][:id]"|replace({":id":relative.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":relative.id}) %}
-    {% else %}
-        {% set name_suffix = "[:template]" %}
-        {% set id_suffix = "_new" %}
-    {% endif %}
-
     <div class="form__input-wrapper--select">
         <label
             class="form__label"
-            for="relativeId{{ id_suffix }}">
+            for="{{ id_prefix }}relativeId">
             {% if relativeToken == "skills" %}
                 {{ relative_template.skill.label }}
             {% elseif relativeToken == "references" %}
@@ -26,8 +31,8 @@
             class="form__select-wrapper fas fa-chevron-down">
             <select
                 class="form__input"
-                id="relativeId{{ id_suffix }}"
-                name="relative_id{{ name_suffix }}">
+                id="{{ id_prefix }}relativeId"
+                name="{{ name_prefix }}[id]">
 
                 {# Skills #}
                     {% if relativeToken == "skills" %}

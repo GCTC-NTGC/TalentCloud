@@ -4,17 +4,22 @@
     Skill
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[skill_declarations][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "skill_declarations[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if reference %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+{% endif %}
+
 <div
     class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and criteria == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% endif %} modal-target-object"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
-
-    {% if skill_declaration %}
-        {% set name_suffix = "[old][:id]"|replace({":id":skill_declaration.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":skill_declaration.id}) %}
-    {% else %}
-        {% set name_suffix = "[:template]" %}
-        {% set id_suffix = "_new" %}
-    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -102,15 +107,15 @@
                                     class="form__input-wrapper--select">
                                     <label
                                         class="form__label"
-                                        for="skillSelection{{ id_suffix }}">
+                                        for="{{ id_prefix }}skillSelection">
                                         {{ skill_template.skill_selection_label }}
                                     </label>
                                     <div
                                         class="form__select-wrapper fas fa-chevron-down">
                                         <select
                                             class="form__input"
-                                            id="skillSelection{{ id_suffix }}"
-                                            name="skill_selection{{ name_suffix }}">
+                                            id="{{ id_prefix }}skillSelection"
+                                            name="{{ name_prefix }}[skill_id]">
                                             {% for skill in skills %}
                                                 {% if skillType == skill.skill_type.name %}
                                                     <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
@@ -178,7 +183,7 @@
 
                                 <label
                                     class="form__label"
-                                    for="skillLevel{{ id_suffix }}">
+                                    for="{{ id_prefix }}skillLevel">
                                     {{ skill_template.level_label }}
                                 </label>
 
@@ -192,15 +197,15 @@
 
                                         <label
                                             class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
-                                            for="skillLevel_{{ counter }}{{ id_suffix }}">
+                                            for="{{ id_prefix }}skillLevel_{{ counter }}">
                                             <span
                                                 class="hidden">
                                                 {{ skill_template.skill_levels[skillType][level.name] }}
                                             </span>
                                             <input
                                                 class="form__radio-group-input"
-                                                id="skillLevel_{{ counter }}{{ id_suffix }}"
-                                                name="skill_level{{ name_suffix }}"
+                                                id="{{ id_prefix }}skillLevel_{{ counter }}"
+                                                name="{{ name_prefix }}[skill_level_id]"
                                                 type="radio"
                                                 value="{{ level.id }}"
                                                 {% if skill_declaration.skill_level.id == level.id %}
@@ -228,14 +233,14 @@
 
                                 <label
                                     class="form__label"
-                                    for="skillDescription{{ id_suffix }}">
+                                    for="{{ id_prefix }}skillDescription">
                                     {{ skill_template.knowledge_label }}
                                 </label>
 
                                 <textarea
                                     class="form__textarea"
-                                    id="skillDescription{{ id_suffix }}"
-                                    name="skill_description{{ name_suffix }}">{{ skill_declaration.description }}</textarea>
+                                    id="{{ id_prefix }}skillDescription"
+                                    name="{{ name_prefix }}[description]">{{ skill_declaration.description }}</textarea>
 
                             </div>
 
@@ -284,7 +289,7 @@
 
                             {% set relativeToken = "references" %}
 
-                            {% include "common/relatives" %}
+                            {% include "common/relatives" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
@@ -297,7 +302,7 @@
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" %}
+                                    {% include "common/relatives" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -359,7 +364,7 @@
 
                             {% set relativeToken = "samples" %}
 
-                            {% include "common/relatives" %}
+                            {% include "common/relatives" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
@@ -372,7 +377,7 @@
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" %}
+                                    {% include "common/relatives" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -418,7 +423,7 @@
                         class="button--blue light-bg"
                         name="submit"
                         type="submit"
-                        value="skill{{ name_suffix }}">
+                        value="{{ name_prefix }}">
                         {{ skill_template.action_02 }}
                     </button>
                 </div>

@@ -4,27 +4,22 @@
     Course
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[courses][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "courses[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if reference %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":course.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":course.id}) %}
+{% endif %}
+
 <div
     class="profile-element accordion course {% if course == false %}template active{% endif %} modal-target-object"
     data-item-id="{{ course ? course.id : 0 }}">
-
-    {% if course %}
-        {% if prefix %}
-            {% set name_suffix = prefix + "[courses][old][:id]"|replace({":id":course.id}) %}
-            {% set id_suffix = name_suffix %}
-        {% else %}
-            {% set name_suffix = "courses[old][:id]"|replace({":id":course.id}) %}
-            {% set id_suffix = name_suffix %}
-        {% endif %}
-    {% else %}
-        {% if prefix %}
-            {% set name_suffix = prefix + "[courses][:template][:id]" %}
-            {% set id_suffix = name_suffix %}
-        {% else %}
-            {% set name_suffix = "courses[:template][:id]" %}
-            {% set id_suffix = name_suffix %}
-        {% endif %}
-    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -73,14 +68,14 @@
                             class="form__input-wrapper--float {% if course.name == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="courseName{{ id_suffix }}">
+                                for="{{ id_prefix }}courseName">
                                 {{ course_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="courseName{{ id_suffix }}"
+                                id="{{ id_prefix }}courseName"
                                 type="text"
-                                name="course_name{{ name_suffix }}"
+                                name="{{ name_prefix }}[name]"
                                 value="{{ course.name }}" />
                         </div>
 
@@ -93,14 +88,14 @@
                             class="form__input-wrapper--float {% if course.institution == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="courseInstitution{{ id_suffix }}">
+                                for="{{ id_prefix }}courseInstitution">
                                 {{ course_template.institution_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="courseInstitution{{ id_suffix }}"
+                                id="{{ id_prefix }}courseInstitution"
                                 type="text"
-                                name="course_institution{{ name_suffix }}"
+                                name="{{ name_prefix }}[institution]"
                                 value="{{ course.institution }}" />
                         </div>
 
@@ -113,15 +108,15 @@
                             class="form__input-wrapper--select">
                             <label
                                 class="form__label"
-                                for="courseStatus{{ id_suffix }}">
+                                for="{{ id_prefix }}courseStatus">
                                 {{ course_template.status_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
                                     class="form__input"
-                                    id="courseStatus{{ id_suffix }}"
-                                    name="course_status{{ name_suffix }}">
+                                    id="{{ id_prefix }}courseStatus"
+                                    name="{{ name_prefix }}[course_status]">
                                     {% for status in course_status %}
                                         <option
                                             {% if course.course_status.id == status.id %}selected="selected"{% endif %}
@@ -141,15 +136,15 @@
 
                             <label
                                 class="form__label"
-                                for="courseStartDate{{ id_suffix }}">
+                                for="{{ id_prefix }}courseStartDate">
                                 {{ course_template.start_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id="courseStartDate{{ id_suffix }}"
+                                id="{{ id_prefix }}courseStartDate"
                                 type="date"
-                                name="course_start_date{{ name_suffix }}"
+                                name="{{ name_prefix }}[start_date]"
                                 value="{{ course.start_date|date("Y-m-d") }}">
 
                         </div>
@@ -164,15 +159,15 @@
 
                             <label
                                 class="form__label"
-                                for="courseEndDate{{ id_suffix }}">
+                                for="{{ id_prefix }}courseEndDate">
                                 {{ course_template.end_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id="courseEndDate{{ id_suffix }}"
+                                id="{{ id_prefix }}courseEndDate"
                                 type="date"
-                                name="course_end_date{{ name_suffix }}"
+                                name="{{ name_prefix }}[end_date]"
                                 value="{{ course.end_date|date("Y-m-d") }}">
 
                         </div>
@@ -202,7 +197,7 @@
                         class="button--blue light-bg"
                         type="submit"
                         name="submit"
-                        value="course{{ name_suffix }}">
+                        value="{{ name_prefix }}">
                         {{ course_template.action_02 }}
                     </button>
                 </div>

@@ -5,16 +5,16 @@
 
 ============================================================================= #}
 {% if prefix %}
-    {% set name_suffix = prefix + "[references][:template][:id]"|replace({":id":reference.id}) %}
-    {% set id_suffix = name_suffix %}
+    {% set name_prefix = prefix ~ "[references][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_suffix = "references[:template][:id]"|replace({":id":reference.id}) %}
-    {% set id_suffix = name_suffix %}
+    {% set name_prefix = "references[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
 {% endif %}
 
 {% if reference %}
-    {% set name_suffix = name_suffix|replace({":template":"old", ":id":reference.id}) %}
-    {% set id_suffix = id_suffix|replace({":template":"old", ":id":reference.id}) %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":reference.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":reference.id}) %}
 {% endif %}
 
 <div
@@ -80,14 +80,14 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
-                            <label class="form__label" for="{{ id_suffix }}referenceName">
+                            <label class="form__label" for="{{ id_prefix }}referenceName">
                                 {{ reference_template.name_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="{{ id_suffix }}referenceName"
+                                id="{{ id_prefix }}referenceName"
                                 type="text"
-                                name="{{ name_suffix }}[name]"
+                                name="{{ name_prefix }}[name]"
                                 value="{{ reference.name }}" />
                         </div>
 
@@ -97,15 +97,15 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--select">
-                            <label class="form__label" for="{{ id_suffix }}referenceRelationship">
+                            <label class="form__label" for="{{ id_prefix }}referenceRelationship">
                                 {{ reference_template.relationship_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
-                                    id="{{ id_suffix }}referenceRelationship"
+                                    id="{{ id_prefix }}referenceRelationship"
                                     class="form__input"
-                                    name="{{ name_suffix }}[relationship]">
+                                    name="{{ name_prefix }}[relationship]">
                                     {% for relationship in relationships %}
                                         <option
                                             value="{{ relationship.id }}"
@@ -122,14 +122,14 @@
                         class="box full">
 
                         <div class="form__input-wrapper--float {% if reference.email == true %}active{% endif %}">
-                            <label class="form__label" for="{{ id_suffix }}referenceEmail">
+                            <label class="form__label" for="{{ id_prefix }}referenceEmail">
                                 {{ reference_template.email_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="{{ id_suffix }}referenceEmail"
+                                id="{{ id_prefix }}referenceEmail"
                                 type="email"
-                                name="{{ name_suffix }}[email]"
+                                name="{{ name_prefix }}[email]"
                                 value="{{ reference.email }}" />
                         </div>
 
@@ -144,14 +144,14 @@
 
                             <label
                                 class="form__label"
-                                for="{{ id_suffix }}referenceDescription">
+                                for="{{ id_prefix }}referenceDescription">
                                 {{ reference_template.description_label }}
                             </label>
 
                             <textarea
                                 class="form__textarea"
-                                id="{{ id_suffix }}referenceDescription"
-                                name="{{ name_suffix }}[description]"
+                                id="{{ id_prefix }}referenceDescription"
+                                name="{{ name_prefix }}[description]"
                                 >{{ reference.description }}</textarea>
 
                         </div>
@@ -191,7 +191,7 @@
 
                             {% set relativeToken = "projects" %}
 
-                            {% include "common/relatives-projects" with {"prefix":name_suffix} %}
+                            {% include "common/relatives-projects" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
@@ -204,7 +204,7 @@
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives-projects" with {"prefix":name_suffix} %}
+                                    {% include "common/relatives-projects" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -255,7 +255,7 @@
 
                             {% set relativeToken = "skills" %}
 
-                            {% include "common/relatives" with {"prefix":name_suffix} %}
+                            {% include "common/relatives" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
@@ -268,7 +268,7 @@
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" with {"prefix":name_suffix} %}
+                                    {% include "common/relatives" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -309,7 +309,7 @@
                         class="button--blue light-bg"
                         type="submit"
                         name="submit"
-                        value="{{ name_suffix }}">
+                        value="{{ name_prefix }}">
                         {{ reference_template.action_02 }}
                     </button>
                 </div>
