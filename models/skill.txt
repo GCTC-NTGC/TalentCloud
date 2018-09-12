@@ -26,7 +26,8 @@
                     "name" => "Skill Name (From DB)",
                     "status" => "Skill Status (Automatic)",
                     "level" => "Level (Radio)",
-                    "knowledge" => "User Skill Description (Textarea)" => [
+                    "knowledge" => "User Skill Description (Textarea)" ,
+                    "references" => [
                         "00" => "Related Reference Name (Eventually ID)"
                     ],
                     "samples" => [

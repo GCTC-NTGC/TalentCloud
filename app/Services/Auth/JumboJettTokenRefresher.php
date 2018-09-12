@@ -64,6 +64,10 @@ class JumboJettTokenRefresher implements TokenRefresher {
             //Delete refresh token if it failed
             $this->tokenStorage->forgetRefresh($iss, $sub);
             throw new TokenRequestException($exception->getMessage());
+        } catch (\Exception $exception) {
+            //Delete refresh token if it failed
+            $this->tokenStorage->forgetRefresh($iss, $sub);
+            throw new TokenRequestException($exception->getMessage());
         }
         if (!$this->tokenStorage->saveRefresh($iss, $sub, $response->refresh_token)) {
             throw new TokenStorageException("Failed to store refresh token");

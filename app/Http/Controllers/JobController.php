@@ -14,6 +14,10 @@ use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\Lookup\Department;
+use App\Models\Lookup\SkillLevel;
+use App\Models\Lookup\CriteriaType;
+use App\Models\Criteria;
+use App\Models\Skill;
 use App\Models\JobPosterQuestion;
 use App\Models\JobPosterKeyTask;
 use Jenssegers\Date\Date;
@@ -63,7 +67,7 @@ class JobController extends Controller
             }),
             'asset' => $jobPoster->criteria->filter(function($value, $key) {
                 return $value->criteria_type->name == 'asset';
-            })
+            }),
         ];
 
         return view('applicant/job_post', [
@@ -75,6 +79,7 @@ class JobController extends Controller
             'workplace_photos' => $workplacePhotos,
             'job' => $jobPoster,
             'criteria' => $criteria,
+            'skill_template' => Lang::get('common/skills'),
         ]);
     }
 
@@ -90,7 +95,7 @@ class JobController extends Controller
         $job = [];
 
         return view('manager/job_create', [
-            'manager_job_create' => Lang::get('manager/job_create'),
+            'job_create' => Lang::get('manager/job_create'),
             'manager' => $manager,
             'provinces' => Province::all(),
             'departments' => Department::all(),
@@ -98,63 +103,9 @@ class JobController extends Controller
             'security_clearances' => SecurityClearance::all(),
             'job' => $job,
             'form_action_url' => route('manager.jobs.store'),
-            // Fake Data
-            "skills" => [
-                "00" => [
-                    "name" => "UX Research",
-                    "type" => "soft",
-                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "01" => [
-                    "name" => "HTML",
-                    "type" => "hard",
-                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "02" => [
-                    "name" => "CSS",
-                    "type" => "hard",
-                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "03" => [
-                    "name" => "Laravel",
-                    "type" => "hard",
-                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "04" => [
-                    "name" => "JavaScript",
-                    "type" => "soft",
-                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "05" => [
-                    "name" => "Docker",
-                    "type" => "soft",
-                    "description" => "Docker: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "06" => [
-                    "name" => "Responsive Web Design",
-                    "type" => "soft",
-                    "description" => "RWD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "07" => [
-                    "name" => "Adobe XD",
-                    "type" => "hard",
-                    "description" => "XD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ]
-            ],
-            "skill_levels" => [
-                "hard" => [
-                    "00" => "Beginner",
-                    "01" => "Intermediate",
-                    "02" => "Advanced",
-                    "03" => "Expert"
-                ],
-                "soft" => [
-                    "00" => "In Early Development",
-                    "01" => "Moderately in Evidence",
-                    "02" => "Strongly in Evidence",
-                    "03" => "Deep Level Demonstration"
-                ]
-            ]
+            'skills' => Skill::all(),
+            'skill_levels' => SkillLevel::all(),
+            'skill_template' => Lang::get('common/skills'),
         ]);
     }
 
@@ -232,6 +183,53 @@ class JobController extends Controller
                     ]
                 ]);
                 $jobQuestion->save();
+            }
+        }
+
+        $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
+
+        if (isset($shiftedInput['criteria']) && is_array($shiftedInput['criteria'])) {
+            $criteria = $shiftedInput['criteria'];
+
+            //Save new criteria
+            if (isset($criteria['new']) && is_array($criteria['new'])) {
+                foreach($criteria['new'] as $criteria_type=>$criteria_type_criteria) {
+                    foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
+                        foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
+                            $criterion = new Criteria();
+
+                            $criteria_type_obj = CriteriaType::where('name', $criteria_type)->first();
+                            if($criteria_type_obj != null) {
+                                $criterion->job_poster_id = $job->id;
+                                $criterion->skill_id = $id_criteria['criteria_skill'];
+                                $criterion->skill_level_id = $id_criteria['criteria_level'];
+                                $criterion->criteria_type_id = $criteria_type_obj->id;
+
+                                $criterion->save();
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Update old criteria
+            if (isset($criteria['old']) && is_array($criteria['old'])) {
+                foreach($criteria['old'] as $criteria_type=>$criteria_type_criteria) {
+                    foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
+                        foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
+                            $criterion = $job->criteria->where('id', $criteria_id)->first();
+                            if ($criterion != null) {
+                                //$criterion->job_poster_id = $job->id;
+                                $criterion->skill_id = $id_criteria['criteria_skill'];
+                                $criterion->skill_level_id = $id_criteria['criteria_level'];
+                                //$criterion->criteria_type_id = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
+
+                                $criterion->save();
+                            }
+
+                        }
+                    }
+                }
             }
         }
         return redirect( route('manager.jobs.index') );

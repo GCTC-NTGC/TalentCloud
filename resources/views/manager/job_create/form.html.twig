@@ -217,9 +217,9 @@
                                 for="createJobSecurityClearance">
                                 Security Clearance
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper fas fa-chevron-down">
-                                <select 
+                                <select
                                     class="form__input"
                                     id="createJobSecurityClearance"
                                     name="security_clearance">
@@ -245,9 +245,9 @@
                                 for="createJobLanguageRequirement">
                                 Language Requirement
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper fas fa-chevron-down">
-                                <select 
+                                <select
                                     class="form__input"
                                     id="createJobLanguageRequirement"
                                     name="language_requirement">
@@ -313,9 +313,9 @@
                                 for="createJobProvince">
                                 Province
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper fas fa-chevron-down">
-                                <select 
+                                <select
                                     class="form__input"
                                     id="createJobProvince"
                                     name="province">
@@ -365,7 +365,7 @@
                                 id="createJobOpenDate"
                                 type="date"
                                 name="open_date_time"
-                                value="{{ job.open_date_time }}">
+                                value="{{ job.open_date_time|date("Y-m-d") }}">
 
                         </div>
 
@@ -388,7 +388,7 @@
                                 id="createJobCloseDate"
                                 type="date"
                                 name="close_date_time"
-                                value="{{ job.close_date_time }}">
+                                value="{{ job.close_date_time|date("Y-m-d") }}">
 
                         </div>
 
@@ -411,7 +411,7 @@
                                 id="createJobStartDate"
                                 type="date"
                                 name="start_date_time"
-                                value="{{ job.start_date_time }}">
+                                value="{{ job.start_date_time|date("Y-m-d") }}">
 
                         </div>
 
@@ -467,9 +467,9 @@
                                 for="createJobDepartment">
                                 Department
                             </label>
-                            <div 
+                            <div
                                 class="form__select-wrapper fas fa-chevron-down">
-                                <select 
+                                <select
                                     class="form__input"
                                     id="createJobDepartment"
                                     name="department">
@@ -684,6 +684,7 @@
                 class="manager-jobs__create-action-wrapper">
 
                 <button
+                    type="button"
                     class="button--blue light-bg"
                     id="addTaskButton">
                     Add a Task
@@ -719,18 +720,18 @@
 
                         {% set skillType = "hard" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "hard" %}
-                                        {% include "manager/job_create/skill" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -745,7 +746,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/skill" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
 
                 {# Skill Controls #}
 
@@ -753,6 +754,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Essential Hard Skill
@@ -776,18 +778,18 @@
 
                         {% set skillType = "soft" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "soft" %}
-                                        {% include "manager/job_create/skill" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -802,7 +804,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/skill" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
 
                 {# Skill Controls #}
 
@@ -810,6 +812,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Essential Hard Skill
@@ -833,18 +836,18 @@
 
                         {% set skillType = "hard" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "hard" %}
-                                        {% include "manager/job_create/skill" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -859,7 +862,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/skill" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
 
                 {# Skill Controls #}
 
@@ -867,6 +870,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Asset Hard Skill
@@ -890,18 +894,18 @@
 
                         {% set skillType = "soft" %}
 
-                        {% for jobSkill in job.skills %}
+                        {% for criteria in job.criteria %}
 
                             {% set skillCounter = skillCounter + 1 %}
 
                             {% for skill in skills %}
 
-                                {% if jobSkill.name|capitalize == skill.name|capitalize %}
+                                {% if criteria.skill.id == skill.id %}
 
-                                    {% set skillType = skill.type %}
+                                    {% set skillType = skill.skill_type.name %}
 
                                     {% if skillType == "soft" %}
-                                        {% include "manager/job_create/skill" %}
+                                        {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
                                     {% endif %}
 
                                 {% endif %}
@@ -916,7 +920,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/skill" %}
+                    {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
 
                 {# Skill Controls #}
 
@@ -924,6 +928,7 @@
                         class="manager-jobs__create-action-wrapper">
 
                         <button
+                            type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton">
                             Add an Asset Soft Skill
@@ -970,6 +975,7 @@
                 class="manager-jobs__create-action-wrapper">
 
                 <button
+                    type="button"
                     class="button--blue light-bg"
                     id="addQuestionButton">
                     Add a Question

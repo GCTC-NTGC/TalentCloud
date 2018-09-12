@@ -49,6 +49,7 @@
 
                 var modalID = $(trigger).attr("data-modal-id");
                 var modal = $(".modal[data-modal-id="+modalID+"]");
+                var modalObject = $(trigger).parents(".modal-target-object");
                 $(".modal-overlay").addClass("active");
                 modal.addClass("active");
                 $("body").css("overflow", "hidden");
@@ -68,6 +69,7 @@
                 }
 
                 modalTabHandler(firstInput, lastInput);
+                modalDeleteTrigger(trigger, modal, modalObject);
                 escapeModalHandler();
 
             }
@@ -109,18 +111,32 @@
 
             });
 
+            // Delete Trigger ==================================================
+
+                function modalDeleteTrigger(trigger, modal, object) {
+
+                    $(document).on("click", ".modal-delete-trigger", function(e){
+
+                        closeModal(trigger);
+
+                        $(object).remove();
+
+                    });
+
+                }
+
             // Tab Handler =====================================================
 
                 function modalTabHandler(first, last) {
 
                     $(document).on("keydown", function(e){
 
-                        var keyCode = e.keyCode || e.which; 
+                        var keyCode = e.keyCode || e.which;
 
                         if (keyCode == 9 && !e.shiftKey) {
-                            
+
                             if ($(last).is(":focus")) {
-                                e.preventDefault(); 
+                                e.preventDefault();
                                 $(first).focus();
                             }
 
@@ -224,7 +240,7 @@
                 labelHandlers();
 
                 //Individualize template attributes
-                function appendToAttributes(parent, attribute, suffix, conditions) {
+                function appendToAttributes(parent, attribute, suffix, conditions = null) {
                     var selector = "*[" + attribute + "]";
 
                     //If conditions is set, only modify attributes that also
@@ -238,11 +254,26 @@
                     });
                 }
 
-                //Return the next unused data-item-id value
-                function getNextItemId(parent) {
+                //Individualize template attributes
+                function replaceInAttributes(parent, attribute, oldString, newString, conditions = null) {
+                    var selector = "*[" + attribute + "]";
+
+                    //If conditions is set, only modify attributes that also
+                    //satisfy that selector
+                    if (conditions) {
+                        selector = conditions + selector;
+                    }
+
+                    parent.find(selector).each(function() {
+                        $(this).attr(attribute, $(this).attr(attribute).replace(oldString, newString));
+                    });
+                }
+
+                //Return the next unused idAttr value
+                function getNextItemId(parent, idAttr = "data-item-id") {
                     var maxId = 0;
-                    parent.find("*[data-item-id]").each(function() {
-                        var id = parseInt( $(this).attr('data-item-id') );
+                    parent.find("*[" + idAttr + "]").each(function() {
+                        var id = parseInt( $(this).attr(idAttr) );
                         if (id > maxId) {
                             maxId = id;
                         }
@@ -750,36 +781,26 @@
 
                     console.log(wrapper.find(".manager-jobs__create-skill"));
 
-                    // Get New ID
-                    if (wrapper.find(".manager-jobs__create-skill").length == 0) {
-                        var newID = parseInt(template.attr("data-skill-id")) + 1;
-                    }
-                    else {
-                        var newID = parseInt(wrapper.find("[class*='manager-jobs__create-skill']").last().attr("data-skill-id")) + 1;
-                    }
-
                     // Remove Template Class
                     template.removeClass("template");
 
+                    // Get New ID
+                    var newId = getNextItemId(wrapper, "data-skill-id");
+
                     // Assign the New ID
-                    template.attr("data-skill-id", newID);
+                    template.attr('data-skill-id', newId);
 
-                    // Add newID as suffix to all "id" and "for" attributes
-                    template.find("*[id]").each(function() { $(this).attr("id", this.id + newID)});
-                    template.find("*[for]").each(function() { $(this).attr("for",  $(this).attr("for") + newID)});
+                    // Individualize Form IDs and labels
+                    appendToAttributes(template, 'id', '_' + newId);
+                    appendToAttributes(template, 'for', '_' + newId);
 
-                    // Replace :id with newID in all form names
-                    template.find("*[name]").each(function() { $(this).attr('name', $(this).attr("name").replace(":id", newID))});
+                    // Individualize form names, except for submit buttons
+                    appendToAttributes(template, 'name', '[' + newId + ']', ':not([name=submit])');
+                    // Individualize values on submit buttons
+                    appendToAttributes(template, 'value', '[' + newId + ']', '[name=submit]');
 
-                    // Edit Form IDs
-                        //
-                        // // Queestion (English)
-                        // template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
-                        // template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
-                        //
-                        // // Queestion (French)
-                        // template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
-                        // template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
+                    //Differentiate real forms from templates
+                    replaceInAttributes(template, 'name', ':template', 'new');
 
                     // Append Clone to the Wrapper
                     wrapper.append(template);

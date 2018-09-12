@@ -11,15 +11,15 @@ use App\Models\BaseModel;
 
 /**
  * Class Relationship
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
- * @property \Illuminate\Database\Eloquent\Collection $micro_references
+ *
+ * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $relationship_translations
- * 
+ *
  * Localized Properties:
  * @property string $value
  */
@@ -30,8 +30,8 @@ class Relationship extends BaseModel {
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function micro_references() {
-        return $this->hasMany(\App\Models\MicroReference::class);
+    public function references() {
+        return $this->hasMany(\App\Models\References::class);
     }
 
     public function relationship_translations() {

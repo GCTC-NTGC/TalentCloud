@@ -1,0 +1,123 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Create Job Task
+
+============================================================================= #}
+<div
+    class="manager-jobs__create-skill {% if criteria == false %}template{% endif %}"
+    data-skill-id="{% if criteria == false %}0{% else %}{{ criteria.id }}{% endif %}">
+
+    {% if criteria %}
+        {% set name_suffix = "[old][:criteria_type][:skill_type][:id]"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}
+        {% set id_suffix = "_old_:criteria_type_:skill_type_:id"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}
+    {% else %}
+        {% set name_suffix = "[:template][:criteria_type][:skill_type]"|replace({":criteria_type":criteria_type, ":skill_type":skillType}) %}
+        {% set id_suffix = "_new_:criteria_type_:skill_type"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}
+    {% endif %}
+
+    <fieldset
+        class="form__fieldset">
+
+        <legend>
+
+            <div
+                class="flex-grid">
+
+                <div
+                    class="box small-2of3">
+                    Skill Information
+                </div>
+
+                <div
+                    class="box small-1of3">
+                    <button
+                        type="button"
+                        class="manager-jobs__delete-skill-button">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </legend>
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box med-1of2">
+
+                <div
+                    class="form__input-wrapper--select">
+
+                    <label
+                        class="form__label"
+                        for="criteriaSkill{{ id_suffix }}">
+                        Select Skill
+                    </label>
+
+                    <div
+                        class="form__select-wrapper fas fa-chevron-down">
+
+                        <select
+                            id="criteriaSkill{{ id_suffix }}"
+                            class="form__input"
+                            name="criteria_skill[criteria]{{ name_suffix }}">
+
+                            {% for skill in skills %}
+
+                                {% if skill.skill_type.name == skillType %}
+
+                                    <option
+                                        value="{{ skill.id }}"
+                                        {% if criteria.skill.id == skill.id %}selected{% endif %}>{{ skill_template.skills[skill.name].name }}</option>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div
+                    class="form__input-wrapper--select">
+                    <label
+                        class="form__label"
+                        for="criteriaLevel{{ id_suffix }}">
+                        Select Level Required
+                    </label>
+                    <div
+                        class="form__select-wrapper fas fa-chevron-down">
+                        <select
+                            id="criteriaLevel{{ id_suffix }}"
+                            class="form__input"
+                            name="criteria_level[criteria]{{ name_suffix }}">
+
+                            {% for level in skill_levels %}
+
+                                <option
+                                    value="{{ level.id }}"
+                                    {% if criteria.skill_level_id == level.id %}selected{% endif %}
+                                    >{{ skill_template.skill_levels[skillType][level.name] }}</option>
+
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+</div>

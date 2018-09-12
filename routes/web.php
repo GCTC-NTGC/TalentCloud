@@ -609,7 +609,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                         "action_02" => "Logout"
                     ],
                     "02" => [
-                        "type" => "confirmation",
+                        "type" => "deleteConfirmation",
                         "title" => "Delete this Diploma/Degree?",
                         "content" => [
                             "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
@@ -620,7 +620,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                         "action_02" => "Delete"
                     ],
                     "03" => [
-                        "type" => "confirmation",
+                        "type" => "deleteConfirmation",
                         "title" => "Delete this Course/Certification?",
                         "content" => [
                             "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
@@ -631,7 +631,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                         "action_02" => "Delete"
                     ],
                     "04" => [
-                        "type" => "confirmation",
+                        "type" => "deleteConfirmation",
                         "title" => "Delete this Lived Experience?",
                         "content" => [
                             "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
@@ -2315,7 +2315,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                             "action_02" => "Logout"
                         ],
                         "02" => [
-                            "type" => "confirmation",
+                            "type" => "deleteConfirmation",
                             "title" => "Delete this Skill?",
                             "content" => [
                                 "00" => "Are you sure you want to permanently delete this skill from your profile?",
@@ -2533,7 +2533,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                             "action_02" => "Logout"
                         ],
                         "02" => [
-                            "type" => "confirmation",
+                            "type" => "deleteConfirmation",
                             "title" => "Delete this Reference?",
                             "content" => [
                                 "00" => "Are you sure you want to permanently delete this reference from your profile?",
@@ -2777,7 +2777,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                             "action_02" => "Logout"
                         ],
                         "02" => [
-                            "type" => "confirmation",
+                            "type" => "deleteConfirmation",
                             "title" => "Delete this Work Sample?",
                             "content" => [
                                 "00" => "Are you sure you want to permanently delete this work sample from your portfolio?",
@@ -2873,8 +2873,6 @@ Route::group(['domain' => config('app.applicant_domain'),
                 ]
             ]);
         })->name('portfolio.edit');
-
-        /* Profile - My Experience */
 
         Route::get('profile/{applicant}/edit', 'ApplicantProfileController@edit')
             ->middleware('can:view,applicant')
