@@ -37,16 +37,15 @@ class WorkSamplesController extends Controller
     {
         return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,
-            'profile' => Lang::get('applicant/profile_references'), //TODO
+            'profile' => Lang::get('applicant/profile_work_samples'), //TODO
             'relative_template' => Lang::get('common/relatives'),
-            'skills' => Skill::all(),
             'file_types' => FileType::all(),
             'form_submit_action' => route('profile.work_samples.update', $applicant),
         ]);
     }
 
     /**
-     * Update the applicant's references in storage.
+     * Update the applicant's workSamples in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Applicant  $applicant
@@ -56,56 +55,73 @@ class WorkSamplesController extends Controller
     {
 
         $input = $request->input();
-        $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
 
-        //Save new skill declarations
-        // if (isset($shiftedInput['new']) && is_array($shiftedInput['new'])) {
-        //     $refInputs = $shiftedInput['new'];
-        //     Debugbar::info($refInputs);
-        //     foreach($refInputs as $refInput) {
-        //         Debugbar::info($refInput);
-        //         $reference = new Reference();
-        //         $reference->applicant_id = $applicant->id;
-        //         //All new skills start with 'claimed' status
-        //         $reference->name = $refInput['reference_name'];
-        //         $reference->email = $refInput['reference_email'];
-        //         $reference->relationship_id = $refInput['reference_relationship'];
-        //         $reference->description = $refInput['reference_description'];
-        //
-        //         $reference->save();
-        //     }
-        // }
+        $workSamples = $input['work_samples'];
 
-        //Update old skill declarations
-        // if (isset($shiftedInput['old']) && is_array($shiftedInput['old'])) {
-        //     //Save new skill declarations
-        //     $refInputs = $shiftedInput['old'];
-        //     foreach($refInputs as $id=>$refInput) {
-        //         $reference = $applicant->skill_declarations->where('id', $id)->first();
-        //         //Ensure input can be connected to an existing declaration
-        //         if ($reference != null) {
-        //             $reference->description = $refInput['skill_description'];
-        //             $reference->skill_level_id = $refInput['skill_level'];
-        //
-        //             $reference->save();
-        //         } else {
-        //             Debugbar::warning('Applicant '.$applicant->id.' attempted to update Skill Declaration with invalid id '.$criteria_id);
-        //         }
-        //     }
-        // }
+        //Delete old workSamples that weren't resubmitted
+        //Note: this must be done before adding new workSamples, so we don't delete
+        // them right after adding them
+        foreach($applicant->work_samples as $oldWorkSample) {
+            //Check if no workSamples were resubmitted, or if this specific one wasn't
+            if (!isset($workSamples['old']) ||
+                !isset($workSamples['old'][$oldWorkSample->id])) {
+                $oldWorkSample->delete();
+            }
+        }
 
+        //Save new workSamples
+        if (isset($workSamples['new'])) {
+            foreach($workSamples['new'] as $workSampleInput) {
+                $workSample = new WorkSample();
+                $workSample->applicant_id = $applicant->id;
+                $workSample->fill([
+                    'name' => $workSampleInput['name'],
+                    'date_created' => isset($workSampleInput['date_created']) ? $workSampleInput['date_created'] : null,
+                    'file_type_id' => $workSampleInput['file_type_id'],
+                    'url' => $workSampleInput['url'],
+                    'description' => $workSampleInput['description'],
+                ]);
 
-        Debugbar::info($input);
-        Debugbar::info($shiftedInput);
-        //return redirect( route('profile.skills.edit', $applicant) );
-        return view('applicant/profile_04_references', [
-            'applicant' => $applicant,
-            'profile' => Lang::get('applicant/profile_references'),
-            'relative_template' => Lang::get('common/relatives'),
-            'skills' => Skill::all(),
-            'relationships' => Relationship::all(),
-            'form_submit_action' => route('profile.references.update', $applicant),
-        ]);
+                $workSample->save();
+
+                $skillDeclarationIds =$this->getRelativeIds($workSampleInput, 'skills');
+                $workSample->skill_declarations()->sync($skillDeclarationIds);
+            }
+        }
+
+        //Update old workSamples
+        if (isset($workSamples['old'])) {
+            foreach($workSamples['old'] as $id=>$workSampleInput) {
+                //Ensure this workSample belongs to this applicant
+                $workSample = $applicant->work_samples->firstWhere('id', $id);
+                if ($workSample != null) {
+                    $workSample->fill([
+                        'name' => $workSampleInput['name'],
+                        'date_created' => isset($workSampleInput['date_created']) ? $workSampleInput['date_created'] : null,
+                        'file_type_id' => $workSampleInput['file_type_id'],
+                        'url' => $workSampleInput['url'],
+                        'description' => $workSampleInput['description'],
+                    ]);
+                    $workSample->save();
+
+                    $skillDeclarationIds =$this->getRelativeIds($workSampleInput, 'skills');
+                    $workSample->skill_declarations()->sync($skillDeclarationIds);
+                } else {
+                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update workSample with invalid id '.$id);
+                }
+            }
+        }
+
+        return redirect( route('profile.work_samples.edit', $applicant) );
+        // Debugbar::info($input);
+        // return view('applicant/profile_04_workSamples', [
+        //     'applicant' => $applicant,
+        //     'profile' => Lang::get('applicant/profile_workSamples'),
+        //     'relative_template' => Lang::get('common/relatives'),
+        //     'skills' => Skill::all(),
+        //     'relationships' => Relationship::all(),
+        //     'form_submit_action' => route('profile.workSamples.update', $applicant),
+        // ]);
     }
 
 }

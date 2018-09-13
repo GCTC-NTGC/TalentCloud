@@ -2215,7 +2215,7 @@ Route::group(['domain' => config('app.applicant_domain'),
     })->name('managers.show');
 
     /* Profile */
-    Route::middleware(['auth', 'role:applicant'])->group(function(){
+    Route::middleware(['auth', 'role:manager'])->group(function(){
 
         Route::get('profile', function() {
             $applicant = Auth::user()->applicant;
@@ -2265,6 +2265,11 @@ Route::group(['domain' => config('app.applicant_domain'),
             ->name('profile.skills.update');
 
         /* Profile - My References */
+        Route::get('profile/references', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.references.edit', $applicant) );
+        });
+
         Route::get('profile/{applicant}/references','ReferencesController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
@@ -2275,193 +2280,19 @@ Route::group(['domain' => config('app.applicant_domain'),
             ->name('profile.references.update');
 
         /* Profile - My Portfolio */
-        Route::get('profile/portfolio', function () {
-            return view('applicant/profile_05_portfolio', [
-                'applicant' => [
-                    "id" => 1
-                ],
-                "profile" => [
-                    "title" => "My Portfolio",
-                    "experience_section" => [
-                    ],
-                    "skills_section" => [
-                        "soft_title" => "My Soft Skills",
-                        "hard_title" => "My Hard Skills",
-                        "add_button_label" => "Add Skill",
-                        "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
-                    ],
-                    "reference_section" => [
-                        "section_title" => "My References",
-                        "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
-                        "add_button_label" => "Add Reference",
-                        "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
-                    ],
-                    "sample_section" => [
-                        "section_title" => "My Work Samples",
-                        "add_button_label" => "Add Sample",
-                        "null_copy" => "You don't currently have any work samples in your portfolio! Use the button above to add a work sample."
-                    ],
-                    "menu" => [
-                        "00" => [
-                            "active" => false,
-                            "link" => "/profile/about",
-                            "title" => "Go to the About Me section of your profile.",
-                            "label" => "About Me"
-                        ],
-                        "01" => [
-                            "active" => false,
-                            "link" => "/profile/experience",
-                            "title" => "Go to the Experience section of your profile.",
-                            "label" => "My Experience"
-                        ],
-                        "02" => [
-                            "active" => false,
-                            "link" => "/profile/skills",
-                            "title" => "Go to the Skills section of your profile.",
-                            "label" => "My Skills"
-                        ],
-                        "03" => [
-                            "active" => false,
-                            "link" => "/profile/references",
-                            "title" => "Go to the References section of your profile.",
-                            "label" => "My References"
-                        ],
-                        "04" => [
-                            "active" => true,
-                            "link" => "/profile/portfolio",
-                            "title" => "Go to the Portfolio section of your profile.",
-                            "label" => "My Portfolio"
-                        ]
-                    ],
-                    "modals" => [
-                        "00" => [
-                            "type" => "login",
-                            "title" => "Register or Login with GC Account",
-                            "content" => [
-                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
-                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
-                            ],
-                            "id" => "login",
-                            "action_01" => "Register",
-                            "action_02" => "Login"
-                        ],
-                        "01" => [
-                            "type" => "logout",
-                            "title" => "Logout of Talent Cloud",
-                            "content" => [
-                                "00" => "Are you sure you want to logout of Talent Cloud?"
-                            ],
-                            "id" => "logout",
-                            "action_01" => "Cancel",
-                            "action_02" => "Logout"
-                        ],
-                        "02" => [
-                            "type" => "deleteConfirmation",
-                            "title" => "Delete this Work Sample?",
-                            "content" => [
-                                "00" => "Are you sure you want to permanently delete this work sample from your portfolio?",
-                                "01" => "All previously submitted applications will retain this work sample, however new applications or applications in progress will no longer include it."
-                            ],
-                            "id" => "deleteSample",
-                            "action_01" => "Cancel",
-                            "action_02" => "Delete"
-                        ]
-                    ]
-                ],
-                "user" => [
-                    "skills" => [
-                        "00" => [
-                            "name" => "HTML",
-                            "type" => "hard",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ],
-                        "01" => [
-                            "name" => "CSS",
-                            "type" => "hard",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ]
-                    ],
-                    "portfolio" => [
-                        "00" => [
-                            "name" => "My Website",
-                            "type" => "Website",
-                            "date_created" => "2018-01-01",
-                            "link" => "https://google.com",
-                            "description" => "Lorem Ipsum",
-                            "skills" => [
-                                "00" => "HTML",
-                                "01" => "CSS"
-                            ]
-                        ]
-                    ]
-                ],
-                "sample_template" => [
-                    "new_sample_label" => "New Work Sample",
-                    "name_label" => "Project Name",
-                    "type_label" => "Project Type",
-                    "types" => [
-                        "00" => "PDF",
-                        "01" => "Website"
-                    ],
-                    "link_label" => "The Link to Your Work",
-                    "description_label" => "The Story Behind the Work",
-                    "linked_skills_label" => "Linked Skills",
-                    "search_label" => "Search Through My Skills",
-                    "skill_label" => "Select a Skill",
-                    "add_skill_label" => "Add a Skill",
-                    "action_01" => "Delete Sample",
-                    "action_02" => "Save Sample"
-                ],
-                "relative_template" => [
-                    "skill" => [
-                        "title" => "Linked Skills",
-                        "label" => "Select a Skill",
-                        "add_label" => "Add a Skill",
-                        "delete_title" => "Remove this skill."
-                    ],
-                    "reference" => [
-                        "title" => "Linked References",
-                        "label" => "Select a Reference",
-                        "add_label" => "Add a Reference",
-                        "delete_title" => "Remove this reference."
-                    ],
-                    "sample" => [
-                        "title" => "Linked Work Samples",
-                        "label" => "Select a Work Sample",
-                        "add_label" => "Add a Work Sample",
-                        "delete_title" => "Remove this work sample."
-                    ]
-                ],
-                "skills" => [
-                    "00" => "UX Research",
-                    "01" => "Youth Leadership",
-                    "02" => "Reading Comprehension",
-                    "03" => "HTML",
-                    "04" => "CSS",
-                    "05" => "UX Surveying"
-                ]
-            ]);
-        })->name('profile.work_samples.edit');
+        Route::get('profile/portfolio', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.work_samples.edit', $applicant) );
+        });
 
-        Route::get('profile/{applicant}/edit', 'ApplicantProfileController@edit')
+        Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
-            ->name('profile.edit');
+            ->name('profile.work_samples.edit');
 
-        Route::post('profile/{applicant}/update','ApplicantProfileController@update')
+        Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
             ->middleware('can:update,applicant')
-            ->name('profile.update');
-
+            ->name('profile.work_samples.update');
     });
 
     /* Authentication =========================================================== */

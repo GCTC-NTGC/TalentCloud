@@ -49,17 +49,17 @@
 
             {# Profile Element List #}
 
-                <div 
+                <div
                     class="profile-element-list">
 
                     <div
-                        class="profile-null {% if user.portfolio == false %}active{% endif %}">
+                        class="profile-null {% if applicant.work_samples|length == 0 %}active{% endif %}">
 
                         <p>{{ profile.sample_section.null_copy }}</p>
 
                     </div>
 
-                    {% for sample in user.portfolio %}
+                    {% for sample in applicant.work_samples %}
 
                         {% include "common/sample" %}
 

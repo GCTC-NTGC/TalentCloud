@@ -5,7 +5,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Lang;
 
-class ReferenceComposer
+class WorkSampleComposer
 {
     /**
      * Bind data to the view.
