@@ -54,6 +54,7 @@ return [
     'criteria' => [
         'sidebar_title' => 'View this job\'s criteria information.',
         'title' => 'Criteria',
+        'education_title' => "Education Requirements",
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
