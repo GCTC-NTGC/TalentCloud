@@ -2151,65 +2151,7 @@ Route::group(['domain' => config('app.applicant_domain'),
     })->name('applications.edit.5');
 
     /* Managers */
-    Route::get('browse/managers/{manager}', function () {
-        return view('applicant/manager', [
-            "manager_profile" => [
-                "title" => "Manager Profile",
-                "manager_department_bridge" => " at ",
-            ],
-            "manager" => [
-                "name" => "Jason Greene",
-                "title" => "Project Manager",
-                "department" => "Treasury Board of Canada Secretariat",
-                "tagline" => "This is Jason's default tagline.",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
-                "twitter" => [
-                    "url" => "https://twitter.com/joshdrink",
-                    "title" => "Visit Jason's Twitter profile."
-                ],
-                "linkedin" => [
-                    "url" => "https://linkedin.com/joshdrink",
-                    "title" => "Visit Jason's Linkedin profile."
-                ],
-                "profile_sections" => [
-                    "00" => [
-                        "title" => "My Approach as a Manager",
-                        "questions" => [
-                            "00" => [
-                                "title" => "My Leadership Style and Management Values",
-                                "answer" => null
-                            ],
-                            "01" => [
-                                "title" => "What I Expect from My Employees",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ],
-                            "02" => [
-                                "title" => "My Approach to Employee Learning and Development",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ]
-                        ]
-                    ],
-                    "01" => [
-                        "title" => "About Me",
-                        "questions" => [
-                            "00" => [
-                                "title" => "My Career Journey So Far",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ],
-                            "01" => [
-                                "title" => "My Learning Path",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ],
-                            "02" => [
-                                "title" => "A Bit About Me Outside Work",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]);
-    })->name('managers.show');
+    Route::get('managers/{manager}', 'ManagerProfileController@show')->name('managers.show');
 
     /* Profile */
     Route::middleware(['auth', 'role:applicant'])->group(function(){
