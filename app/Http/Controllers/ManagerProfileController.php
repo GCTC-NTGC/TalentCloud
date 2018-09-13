@@ -22,62 +22,55 @@ class ManagerProfileController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Manager $manager) {
-        return view('applicant/manager', [
-            "manager_profile" => [
-                "title" => "Manager Profile",
-                "manager_department_bridge" => " at ",
-                'twitter_label' => "Visit :name's Twitter profile."
-                'linkedin_label' => "Visit :name's LinkedIn profile."
+        $manager_profile = Lang::get('applicant/manager_profile');
+
+        $manager_profile_sections = [
+            [
+                "title" => $manager_profile['section_titles']['approach'],
+                "questions" => [
+                    [
+                        "title" => $manager_profile['questions']['leadership_style'],
+                        "answer" => $manager->leadership_style,
+                    ],
+                    [
+                        "title" => $manager_profile['questions']['employee_expectations'],
+                        "answer" => $manager->employee_expectations,
+                    ],
+                    [
+                        "title" => $manager_profile['questions']['employee_learning'],
+                        "answer" => $manager->employee_expectations,
+                    ]
+                ]
             ],
+            //TODO: replace with lang file variables and $manager properties
+            [
+                "title" => "About Me",
+                "questions" => [
+                    "00" => [
+                        "title" => "My Career Journey So Far",
+                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    ],
+                    "01" => [
+                        "title" => "My Learning Path",
+                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    ],
+                    "02" => [
+                        "title" => "A Bit About Me Outside Work",
+                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    ]
+                ]
+            ],
+
+
+        ];
+
+
+        return view('applicant/manager', [
+            "manager_profile" => $manager_profile,
             'urls' => Lang::get('common/urls'),
             'manager' => $manager,
             'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
-            "manager" => [
-
-                "twitter" => [
-                    "url" => "https://twitter.com/joshdrink",
-                ],
-                "linkedin" => [
-                    "url" => "https://linkedin.com/joshdrink",
-                    "title" => "Visit Jason's Linkedin profile."
-                ],
-                "profile_sections" => [
-                    "00" => [
-                        "title" => "My Approach as a Manager",
-                        "questions" => [
-                            "00" => [
-                                "title" => "My Leadership Style and Management Values",
-                                "answer" => null
-                            ],
-                            "01" => [
-                                "title" => "What I Expect from My Employees",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ],
-                            "02" => [
-                                "title" => "My Approach to Employee Learning and Development",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ]
-                        ]
-                    ],
-                    "01" => [
-                        "title" => "About Me",
-                        "questions" => [
-                            "00" => [
-                                "title" => "My Career Journey So Far",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ],
-                            "01" => [
-                                "title" => "My Learning Path",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ],
-                            "02" => [
-                                "title" => "A Bit About Me Outside Work",
-                                "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+            "manager_profile_sections" => $manager_profile_sections,
         ]);
     }
 
