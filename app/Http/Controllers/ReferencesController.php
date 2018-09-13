@@ -55,7 +55,6 @@ class ReferencesController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-
         $input = $request->input();
 
         Debugbar::info($input);
@@ -168,7 +167,7 @@ class ReferencesController extends Controller
 
         return redirect( route('profile.references.edit', $applicant) );
         // return view('applicant/profile_04_references', [
-        //     'applicant' => $applicant->fresh(),
+        //     'applicant' => $applicant,
         //     'profile' => Lang::get('applicant/profile_references'),
         //     'relative_template' => Lang::get('common/relatives'),
         //     'skills' => Skill::all(),

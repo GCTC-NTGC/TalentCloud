@@ -90,6 +90,12 @@ class SkillsController extends Controller
                         'skill_level_id' => $skillDeclarationInput['skill_level_id'],
                     ]);
                     $skillDeclaration->save();
+
+                    $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
+                    $skillDeclaration->references()->sync($referenceIds);
+
+                    $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
+                    $skillDeclaration->work_samples()->sync($sampleIds);
                 }
             }
         }
@@ -107,6 +113,12 @@ class SkillsController extends Controller
                             'skill_level_id' => $skillDeclarationInput['skill_level_id'],
                         ]);
                         $skillDeclaration->save();
+
+                        $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
+                        $skillDeclaration->references()->sync($referenceIds);
+
+                        $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
+                        $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
                         Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
                     }
