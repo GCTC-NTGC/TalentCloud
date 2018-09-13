@@ -104,6 +104,10 @@ class ReferencesController extends Controller
                 }
                 //Sync attaches the specified ids, and detaches all others
                 $reference->projects()->sync($projectIds);
+
+
+                $skillIds =$this->getRelativeIds($referenceInput, 'skills');
+                $reference->skills()->sync($skillIds);
             }
         }
 
@@ -154,21 +158,23 @@ class ReferencesController extends Controller
                     //Sync attaches the specified ids, and detaches all others
                     $reference->projects()->sync($projectIds);
 
+                    $skillIds =$this->getRelativeIds($referenceInput, 'skills');
+                    $reference->skills()->sync($skillIds);
                 } else {
                     Debugbar::warning('Applicant '.$applicant->id.' attempted to update reference with invalid id '.$id);
                 }
             }
         }
 
-        //return redirect( route('profile.references.edit', $applicant) );
-        return view('applicant/profile_04_references', [
-            'applicant' => $applicant->fresh(),
-            'profile' => Lang::get('applicant/profile_references'),
-            'relative_template' => Lang::get('common/relatives'),
-            'skills' => Skill::all(),
-            'relationships' => Relationship::all(),
-            'form_submit_action' => route('profile.references.update', $applicant),
-        ]);
+        return redirect( route('profile.references.edit', $applicant) );
+        // return view('applicant/profile_04_references', [
+        //     'applicant' => $applicant->fresh(),
+        //     'profile' => Lang::get('applicant/profile_references'),
+        //     'relative_template' => Lang::get('common/relatives'),
+        //     'skills' => Skill::all(),
+        //     'relationships' => Relationship::all(),
+        //     'form_submit_action' => route('profile.references.update', $applicant),
+        // ]);
     }
 
 }
