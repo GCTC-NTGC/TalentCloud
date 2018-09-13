@@ -185,56 +185,56 @@ class JobController extends Controller
                 $jobQuestion->save();
             }
         }
-
-        $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
-
-        if (isset($shiftedInput['criteria']) && is_array($shiftedInput['criteria'])) {
-            $criteria = $shiftedInput['criteria'];
-
-            //Save new criteria
-            if (isset($criteria['new']) && is_array($criteria['new'])) {
-                foreach($criteria['new'] as $criteria_type=>$criteria_type_criteria) {
-                    foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
-                        foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
-                            $criterion = new Criteria();
-
-                            $criteria_type_obj = CriteriaType::where('name', $criteria_type)->first();
-                            if($criteria_type_obj != null) {
-                                $criterion->job_poster_id = $job->id;
-                                $criterion->skill_id = $id_criteria['criteria_skill'];
-                                $criterion->skill_level_id = $id_criteria['criteria_level'];
-                                $criterion->criteria_type_id = $criteria_type_obj->id;
-
-                                $criterion->save();
-                            }
-                        }
-                    }
-                }
-            }
-
-            //Update old criteria
-            if (isset($criteria['old']) && is_array($criteria['old'])) {
-                foreach($criteria['old'] as $criteria_type=>$criteria_type_criteria) {
-                    foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
-                        foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
-                            $criterion = $job->criteria->where('id', $criteria_id)->first();
-                            //Ensure input can be connected to an existing criterion
-                            if ($criterion != null) {
-                                //$criterion->job_poster_id = $job->id;
-                                $criterion->skill_id = $id_criteria['criteria_skill'];
-                                $criterion->skill_level_id = $id_criteria['criteria_level'];
-                                //$criterion->criteria_type_id = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
-
-                                $criterion->save();
-                            } else {
-                                Debugbar::warning('User '.$request->user()->id.' attempted to update Criteria with invalid id '.$criteria_id.' on Job '.$job->id);
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
+        //TODO: fix this to use new prefix form name system
+        // $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
+        //
+        // if (isset($shiftedInput['criteria']) && is_array($shiftedInput['criteria'])) {
+        //     $criteria = $shiftedInput['criteria'];
+        //
+        //     //Save new criteria
+        //     if (isset($criteria['new']) && is_array($criteria['new'])) {
+        //         foreach($criteria['new'] as $criteria_type=>$criteria_type_criteria) {
+        //             foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
+        //                 foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
+        //                     $criterion = new Criteria();
+        //
+        //                     $criteria_type_obj = CriteriaType::where('name', $criteria_type)->first();
+        //                     if($criteria_type_obj != null) {
+        //                         $criterion->job_poster_id = $job->id;
+        //                         $criterion->skill_id = $id_criteria['criteria_skill'];
+        //                         $criterion->skill_level_id = $id_criteria['criteria_level'];
+        //                         $criterion->criteria_type_id = $criteria_type_obj->id;
+        //
+        //                         $criterion->save();
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //
+        //     //Update old criteria
+        //     if (isset($criteria['old']) && is_array($criteria['old'])) {
+        //         foreach($criteria['old'] as $criteria_type=>$criteria_type_criteria) {
+        //             foreach($criteria_type_criteria as $skill_type=>$skill_type_criteria) {
+        //                 foreach($skill_type_criteria as $criteria_id=>$id_criteria) {
+        //                     $criterion = $job->criteria->where('id', $criteria_id)->first();
+        //                     //Ensure input can be connected to an existing criterion
+        //                     if ($criterion != null) {
+        //                         //$criterion->job_poster_id = $job->id;
+        //                         $criterion->skill_id = $id_criteria['criteria_skill'];
+        //                         $criterion->skill_level_id = $id_criteria['criteria_level'];
+        //                         //$criterion->criteria_type_id = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
+        //
+        //                         $criterion->save();
+        //                     } else {
+        //                         Debugbar::warning('User '.$request->user()->id.' attempted to update Criteria with invalid id '.$criteria_id.' on Job '.$job->id);
+        //                     }
+        //
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         return redirect( route('manager.jobs.index') );
     }
 }

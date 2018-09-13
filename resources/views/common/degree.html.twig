@@ -12,7 +12,7 @@
     {% set id_prefix = name_prefix %}
 {% endif %}
 
-{% if reference %}
+{% if degree %}
     {% set name_prefix = name_prefix|replace({":template":"old", ":id":degree.id}) %}
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":degree.id}) %}
 {% endif %}
@@ -76,7 +76,7 @@
                                 <select
                                     class="form__input"
                                     id="{{ id_prefix }}degreeType"
-                                    name="{{ name_prefix }}[degree_type]">
+                                    name="{{ name_prefix }}[degree_type_id]">
                                     {% for degree_type in degree_types %}
                                         <option
                                             {% if degree.degree_type.id == degree_type.id %}selected="selected"{% endif %}

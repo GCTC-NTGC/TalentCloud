@@ -12,7 +12,7 @@
     {% set id_prefix = name_prefix %}
 {% endif %}
 
-{% if reference %}
+{% if work %}
     {% set name_prefix = name_prefix|replace({":template":"old", ":id":work.id}) %}
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":work.id}) %}
 {% endif %}
