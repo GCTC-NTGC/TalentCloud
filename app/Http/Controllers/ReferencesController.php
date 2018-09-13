@@ -106,8 +106,8 @@ class ReferencesController extends Controller
                 $reference->projects()->sync($projectIds);
 
 
-                $skillIds =$this->getRelativeIds($referenceInput, 'skills');
-                $reference->skills()->sync($skillIds);
+                $skillDeclarationIds =$this->getRelativeIds($referenceInput, 'skills');
+                $reference->skill_declarations()->sync($skillDeclarationIds);
             }
         }
 
@@ -158,8 +158,8 @@ class ReferencesController extends Controller
                     //Sync attaches the specified ids, and detaches all others
                     $reference->projects()->sync($projectIds);
 
-                    $skillIds =$this->getRelativeIds($referenceInput, 'skills');
-                    $reference->skills()->sync($skillIds);
+                    $skillDeclarationIds =$this->getRelativeIds($referenceInput, 'skills');
+                    $reference->skill_declarations()->sync($skillDeclarationIds);
                 } else {
                     Debugbar::warning('Applicant '.$applicant->id.' attempted to update reference with invalid id '.$id);
                 }

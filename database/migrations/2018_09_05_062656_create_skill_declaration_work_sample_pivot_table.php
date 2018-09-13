@@ -13,16 +13,16 @@ class CreateSkillWorkSamplePivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('skill_work_sample', function (Blueprint $table) {
+        Schema::create('skill_declaration_work_sample', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('work_sample_id')->unsigned();
-            $table->integer('skill_id')->unsigned();
+            $table->integer('skill_declaration_id')->unsigned();
             $table->timestamps();
         });
 
-        Schema::table('skill_work_sample', function (Blueprint $table) {
+        Schema::table('skill_declaration_work_sample', function (Blueprint $table) {
             $table->foreign('work_sample_id')->references('id')->on('work_samples')->onUpdate('CASCADE')->onDelete('CASCADE');
-			$table->foreign('skill_id')->references('id')->on('skills')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('skill_declaration_id')->references('id')->on('skill_declarations')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateSkillWorkSamplePivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skill_work_sample');
+        Schema::dropIfExists('skill_declaration_work_sample');
     }
 }

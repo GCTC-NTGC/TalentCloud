@@ -22,7 +22,6 @@ namespace App\Models;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant $applicant
- * @property \Illuminate\Database\Eloquent\Collection $skills
  */
 class WorkExperience extends BaseModel {
 
@@ -44,9 +43,5 @@ class WorkExperience extends BaseModel {
 
     public function applicant() {
         return $this->belongsTo(\App\Models\Applicant::class);
-    }
-
-    public function skills() {
-        return $this->belongsToMany(\App\Models\Skill::class);
     }
 }

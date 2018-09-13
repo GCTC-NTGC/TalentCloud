@@ -13,16 +13,16 @@ class CreateReferenceSkillPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('reference_skill', function (Blueprint $table) {
+        Schema::create('reference_skill_declaration', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reference_id')->unsigned();
-            $table->integer('skill_id')->unsigned();
+            $table->integer('skill_declaration_id')->unsigned();
             $table->timestamps();
         });
 
-        Schema::table('reference_skill', function (Blueprint $table) {
+        Schema::table('reference_skill_declaration', function (Blueprint $table) {
             $table->foreign('reference_id')->references('id')->on('references')->onUpdate('CASCADE')->onDelete('CASCADE');
-			$table->foreign('skill_id')->references('id')->on('skills')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('skill_declaration_id')->references('id')->on('skill_declarations')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateReferenceSkillPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reference_skill');
+        Schema::dropIfExists('reference_skill_declaration');
     }
 }

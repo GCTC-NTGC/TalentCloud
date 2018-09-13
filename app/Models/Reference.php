@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+use App\Models\SkillDeclaration;
 
 /**
  * Class Reference
@@ -22,7 +23,7 @@ namespace App\Models;
  * @property \App\Models\Lookup\Relationship $relationship
  * @property \App\Models\Applicant $applicant
  * @property \Illuminate\Database\Eloquent\Collection $projects
- * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $skill_declaractions
  */
 class Reference extends BaseModel {
 
@@ -52,8 +53,8 @@ class Reference extends BaseModel {
         return $this->belongsToMany(\App\Models\Project::class);
     }
 
-    public function skills() {
-        return $this->belongsToMany(\App\Models\Skill::class);
+    public function skill_declarations() {
+        return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
 
 }

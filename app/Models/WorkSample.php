@@ -22,7 +22,7 @@ namespace App\Models;
  *
  * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
- * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\Applicant $applicant
  */
 class WorkSample extends BaseModel {
@@ -51,8 +51,8 @@ class WorkSample extends BaseModel {
         return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
 
-    public function skills() {
-        return $this->belongsToMany(\App\Models\Skill::class);
+    public function skill_declarations() {
+        return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
 
     public function application() {
