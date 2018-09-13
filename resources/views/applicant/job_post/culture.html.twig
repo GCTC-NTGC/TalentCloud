@@ -59,7 +59,7 @@
                     class="job-post__culture-manager-profile-link"
                     href="{{ route('managers.show',{'manager':manager.id}) }}"
                     title="{{ job_post.manager.link_title|trans({'name':manager.user.name}) }}">
-                    {{ job_post.culture.manager_link_label |trans({'name' : manager.user.name}) }}
+                    {{ job_post.culture.manager_link_label|trans({'name':manager.user.name}) }}
                 </a>
 
             </div>

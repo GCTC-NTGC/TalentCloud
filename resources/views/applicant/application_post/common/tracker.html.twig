@@ -21,7 +21,7 @@
 
                     <div 
                         class="application-post__tracker-user-photo"
-                        style="background-image:url('{{ user.photo }}');">
+                        style="background-image:url('{% if user.photo %}{{ user.photo }}{% else %}/images/user.png{% endif %}');">
                     </div>
 
                 </div>

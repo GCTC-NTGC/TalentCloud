@@ -306,7 +306,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "application" => [
                     "citizenship" => "Canadian Citizen",
                     "veteran" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
@@ -685,7 +685,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "degrees" => [
                     "00" => [
                         "type" => "Bachelor's Degree",
@@ -1027,7 +1027,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1430,7 +1430,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1848,7 +1848,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -2162,7 +2162,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                 "title" => "Project Manager",
                 "department" => "Treasury Board of Canada Secretariat",
                 "tagline" => "This is Jason's default tagline.",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "twitter" => [
                     "url" => "https://twitter.com/joshdrink",
                     "title" => "Visit Jason's Twitter profile."
