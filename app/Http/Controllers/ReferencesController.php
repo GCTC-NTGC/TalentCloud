@@ -10,6 +10,7 @@ use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\Reference;
 use App\Models\Lookup\Relationship;
+use App\Models\Project;
 
 class ReferencesController extends Controller
 {
@@ -56,52 +57,112 @@ class ReferencesController extends Controller
     {
 
         $input = $request->input();
-        $shiftedInput = $this->shiftFirstLevelArrayKeysToBottom($input);
 
         Debugbar::info($input);
-        Debugbar::info($shiftedInput);
 
-        //Save new skill declarations
-        if (isset($shiftedInput['new']) && is_array($shiftedInput['new'])) {
-            $refInputs = $shiftedInput['new'];
-            Debugbar::info($refInputs);
-            foreach($refInputs as $refInput) {
-                Debugbar::info($refInput);
-                $reference = new Reference();
-                $reference->applicant_id = $applicant->id;
-                //All new skills start with 'claimed' status
-                $reference->name = $refInput['reference_name'];
-                $reference->email = $refInput['reference_email'];
-                $reference->relationship_id = $refInput['reference_relationship'];
-                $reference->description = $refInput['reference_description'];
+        $references = $input['references'];
 
-                $reference->save();
+        //Delete old references that weren't resubmitted
+        //Note: this must be done before adding new references, so we don't delete
+        // them right after adding them
+        foreach($applicant->references as $oldReference) {
+            //Check if no references were resubmitted, or if this specific one wasn't
+            if (!isset($references['old']) ||
+                !isset($references['old'][$oldReference->id])) {
+                $oldReference->delete();
             }
         }
 
-        //Update old skill declarations
-        // if (isset($shiftedInput['old']) && is_array($shiftedInput['old'])) {
-        //     //Save new skill declarations
-        //     $refInputs = $shiftedInput['old'];
-        //     foreach($refInputs as $id=>$refInput) {
-        //         $reference = $applicant->skill_declarations->where('id', $id)->first();
-        //         //Ensure input can be connected to an existing declaration
-        //         if ($reference != null) {
-        //             $reference->description = $refInput['skill_description'];
-        //             $reference->skill_level_id = $refInput['skill_level'];
-        //
-        //             $reference->save();
-        //         } else {
-        //             Debugbar::warning('Applicant '.$applicant->id.' attempted to update Skill Declaration with invalid id '.$criteria_id);
-        //         }
-        //     }
-        // }
+        //Save new references
+        if (isset($references['new'])) {
+            foreach($references['new'] as $referenceInput) {
+                $reference = new Reference();
+                $reference->applicant_id = $applicant->id;
+                $reference->fill([
+                    'name' => $referenceInput['name'],
+                    'email' => $referenceInput['email'],
+                    'relationship_id' => $referenceInput['relationship_id'],
+                    'description' => $referenceInput['description'],
+                ]);
 
+                $reference->save();
 
+                $projectIds = [];
+                $projects = $referenceInput['projects'];
+                if (isset($projects['new'])) {
+                    foreach($projects['new'] as $projectInput) {
+                        $project = new Project();
+                        $project->applicant_id = $applicant->id;
+                        $project->fill([
+                            'name' => $projectInput['name'],
+                            'start_date' => $projectInput['start_date'],
+                            'end_date' => $projectInput['end_date'],
+                        ]);
+                        $project->save();
+                        $projectIds[] = $project->id;
+                    }
+                }
+                //Sync attaches the specified ids, and detaches all others
+                $reference->projects()->sync($projectIds);
+            }
+        }
 
-        //return redirect( route('profile.skills.edit', $applicant) );
+        //Update old references
+        if (isset($references['old'])) {
+            foreach($references['old'] as $id=>$referenceInput) {
+                //Ensure this reference belongs to this applicant
+                $reference = $applicant->references->firstWhere('id', $id);
+                if ($reference != null) {
+                    $reference->fill([
+                        'name' => $referenceInput['name'],
+                        'email' => $referenceInput['email'],
+                        'relationship_id' => $referenceInput['relationship_id'],
+                        'description' => $referenceInput['description'],
+                    ]);
+                    $reference->save();
+
+                    $projectIds = [];
+                    $projects = $referenceInput['projects'];
+                    if (isset($projects['new'])) {
+                        foreach($projects['new'] as $projectInput) {
+                            $project = new Project();
+                            $project->applicant_id = $applicant->id;
+                            $project->fill([
+                                'name' => $projectInput['name'],
+                                'start_date' => $projectInput['start_date'],
+                                'end_date' => $projectInput['end_date'],
+                            ]);
+                            $project->save();
+                            $projectIds[] = $project->id;
+                        }
+                    }
+                    if (isset($projects['old'])) {
+                        foreach($projects['old'] as $projectId=>$projectInput) {
+                            //Ensure this project belongs to this applicant
+                            $project = $applicant->projects->firstWhere('id', $projectId);
+                            if ($project != null) {
+                                $project->fill([
+                                    'name' => $projectInput['name'],
+                                    'start_date' => $projectInput['start_date'],
+                                    'end_date' => $projectInput['end_date'],
+                                ]);
+                                $project->save();
+                                $projectIds[] = $project->id;
+                            }
+                        }
+                    }
+                    //Sync attaches the specified ids, and detaches all others
+                    $reference->projects()->sync($projectIds);
+
+                } else {
+                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update reference with invalid id '.$id);
+                }
+            }
+        }
+
+        //return redirect( route('profile.references.edit', $applicant) );
         return view('applicant/profile_04_references', [
-            'applicant' => $applicant,
+            'applicant' => $applicant->fresh(),
             'profile' => Lang::get('applicant/profile_references'),
             'relative_template' => Lang::get('common/relatives'),
             'skills' => Skill::all(),

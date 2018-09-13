@@ -86,7 +86,6 @@ class ExperienceController extends Controller
                     'end_date' => $degreeInput['end_date']
                 ]);
                 $degree->save();
-                Debugbar::info($degree);
             }
         }
 
@@ -120,10 +119,6 @@ class ExperienceController extends Controller
             //Check if no courses were resubmitted, or if this specific one wasn't
             if (!isset($courses['old']) ||
                 !isset($courses['old'][$oldCourse->id])) {
-                Debugbar::info('deleting');
-                Debugbar::info($oldCourse);
-                Debugbar::info($courses);
-
                 $oldCourse->delete();
             }
         }
