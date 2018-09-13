@@ -44,9 +44,14 @@ The Talent Cloud site uses:
 
 7. in root folder run `docker-compose up --build --force-recreate -d`
 
+8. Copy `.env.example` to `.env`. Configure it with the following steps:
+ 	- run `docker-compose exec talentcloud sh -c "php artisan key:generate"` to create a random APP_KEY variable.
+	- Get the `GCCOLLAB_CLIENT_SECRET` from another team member and paste it in
+	- If testing, consider setting `FORCE_ADMIN` and/or `DEBUGBAR_ENABLED` to true.
+
 8. Run the following commands to manually set up database
 	```
-	docker-compose exec talentcloud sh -c "php artisan migrate"
+	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
 	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /docker-entrypoint-initdb.d/insert-data.sql"
 	```
 
