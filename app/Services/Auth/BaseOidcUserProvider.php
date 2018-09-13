@@ -2,6 +2,8 @@
 
 namespace App\Services\Auth;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Services\Auth\Contracts\OidcAuthenticatable;
@@ -117,7 +119,7 @@ class BaseOidcUserProvider implements UserProvider {
 
             //If running in a local environment, and FORCE_ADMIN is true,
             //automatically set any logged in user to (temporarilly) be an admin
-            if (env('APP_ENV') == 'local' && env('FORCE_ADMIN', false)) {
+            if (App::environment() == 'local' && Config::get('app.force_admin')) {
                 $adminRole = UserRole::where('name', 'admin')->firstOrFail();
                 $user->user_role_id = $adminRole->id;
                 // $user->user_role = $adminRole;
