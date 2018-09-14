@@ -21,7 +21,15 @@
         font-family: $font--sans;
         font-size: $font-scale--h4;
         font-weight: 600;
-        margin: $unit 0 calc(#{$unit} * 1) 0;
+        margin: 0 0 calc(#{$unit} * 1) 0;
+    }
+
+    p {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        margin: 0 0 2rem 0;
     }
 
     ul {

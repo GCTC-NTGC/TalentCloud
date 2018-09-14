@@ -309,7 +309,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "application" => [
                     "citizenship" => "Canadian Citizen",
                     "veteran" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
@@ -688,7 +688,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "degrees" => [
                     "00" => [
                         "type" => "Bachelor's Degree",
@@ -1030,7 +1030,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1433,7 +1433,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -1851,7 +1851,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ],
             "user" => [
                 "name" => "Jason Greene",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "skills" => [
                     "00" => [
                         "name" => "HTML",
@@ -2165,7 +2165,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                 "title" => "Project Manager",
                 "department" => "Treasury Board of Canada Secretariat",
                 "tagline" => "This is Jason's default tagline.",
-                "photo" => "https://talentcloud-nuagedetalents.gccollab.ca/tc/api/v1/profilePic/10?v=7661",
+                "photo" => false,
                 "twitter" => [
                     "url" => "https://twitter.com/joshdrink",
                     "title" => "Visit Jason's Twitter profile."
@@ -2297,6 +2297,71 @@ Route::group(['domain' => config('app.applicant_domain'),
             ->middleware('can:update,applicant')
             ->name('profile.work_samples.update');
     });
+
+    /* FAQ */
+
+        Route::get('faq', function () {
+            return view('applicant/faq', [
+                "faq" => [
+                    "modals" => [
+                        "00" => [
+                            "type" => "login",
+                            "title" => "Register or Login with GC Account",
+                            "content" => [
+                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
+                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
+                            ],
+                            "id" => "login",
+                            "action_01" => "Register",
+                            "action_02" => "Login"
+                        ],
+                        "01" => [
+                            "type" => "logout",
+                            "title" => "Logout of Talent Cloud",
+                            "content" => [
+                                "00" => "Are you sure you want to logout of Talent Cloud?"
+                            ],
+                            "id" => "logout",
+                            "action_01" => "Cancel",
+                            "action_02" => "Logout"
+                        ],
+                        "02" => [
+                            "type" => "confirmation",
+                            "title" => "Delete this Diploma/Degree?",
+                            "content" => [
+                                "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
+                                "01" => "All previously submitted applications will retain this experience."
+                            ],
+                            "id" => "deleteDegree",
+                            "action_01" => "Cancel",
+                            "action_02" => "Delete"
+                        ],
+                        "03" => [
+                            "type" => "confirmation",
+                            "title" => "Delete this Course/Certification?",
+                            "content" => [
+                                "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
+                                "01" => "All previously submitted applications will retain this experience."
+                            ],
+                            "id" => "deleteCourse",
+                            "action_01" => "Cancel",
+                            "action_02" => "Delete"
+                        ],
+                        "04" => [
+                            "type" => "confirmation",
+                            "title" => "Delete this Lived Experience?",
+                            "content" => [
+                                "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
+                                "01" => "All previously submitted applications will retain this experience."
+                            ],
+                            "id" => "deleteWork",
+                            "action_01" => "Cancel",
+                            "action_02" => "Delete"
+                        ]
+                    ]
+                ]
+            ]);
+        })->name('faq');
 
     /* Authentication =========================================================== */
 

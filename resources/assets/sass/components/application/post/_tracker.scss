@@ -94,33 +94,78 @@
     }
 
     .application-post__tracker-item {
-        background: darken($palette--white, 10%);
-        border-radius: 100%;
+        color: $palette--red;
         display: inline-block;
-        height: $unit;
         margin: 0 calc(#{$unit} / 4);
+        text-decoration: none;
         transition: all .2s ease;
-        width: $unit;
+
+        .fa-times-circle {
+            display: block;
+        }
+        .fa-circle {
+            display: none;
+        }
+        .fa-check-circle {
+            display: none;
+        }
 
         @media #{$l-tablet} {
             margin: 0 0 0 calc(#{$unit} / 2);
         }
 
         &.error {
-            background: $palette--red;
+            .fa-times-circle {
+                color: $palette--red;
+                display: block;
+            }
+            .fa-circle {
+                display: none;
+            }
+            .fa-check-circle {
+                display: none;
+            }
         }
 
         &.complete {
-            background: $palette--green;
+            .fa-times-circle {
+                display: none;
+            }
+            .fa-circle {
+                display: none;
+            }
+            .fa-check-circle {
+                color: $palette--green;
+                display: block;
+            }
         }
 
         &.active {
-            background: $palette--blue !important;
+            .fa-times-circle {
+                display: none;
+            }
+            .fa-circle {
+                color: $palette--blue;
+                display: block;
+            }
+            .fa-check-circle {
+                display: none;
+            }
         }
 
         &:hover {
-            background: $palette--blue;
-            transition: all .2s ease;
+            .fa-times-circle {
+                color: $palette--blue;
+                transition: all .2s ease;
+            }
+            .fa-circle {
+                color: $palette--blue;
+                transition: all .2s ease;
+            }
+            .fa-check-circle {
+                color: $palette--blue;
+                transition: all .2s ease;
+            }
         }
 
     }
