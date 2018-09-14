@@ -15,9 +15,10 @@ class CreateJobApplicationsTable extends Migration {
 		Schema::create('job_applications', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('job_poster_id')->unsigned()->index();
-			$table->integer('application_status_id')->unsigned()->index();
-			$table->integer('applicant_id')->unsigned()->index();
+			$table->integer('job_poster_id')->unsigned();
+			$table->integer('application_status_id')->unsigned();
+			$table->integer('applicant_id')->unsigned();
+			$table->integer('applicant_snapshot_id')->unsigned()->nullable();
 			$table->timestamps();
 
 			$table->unique(['job_poster_id','applicant_id']);

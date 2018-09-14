@@ -14,10 +14,12 @@ namespace App\Models;
  * @property int $job_poster_id
  * @property int $application_status_id
  * @property int $applicant_id
+ * @property int $applicant_snapshot_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant $applicant_snapshot
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
@@ -28,12 +30,24 @@ class JobApplication extends BaseModel {
     protected $casts = [
         'job_poster_id' => 'int',
         'application_status_id' => 'int',
-        'applicant_id' => 'int'
+        'applicant_id' => 'int',
+        'applicant_snapshot_id' => 'int'
     ];
     protected $fillable = [];
 
+    protected function createApplicantSnapshot($applicant_id) {
+        $applicant = Applicant::where('id', $applicant_id)->firstOrFail();
+
+        $snapshot = $applicant->replicate();
+
+    }
+
     public function applicant() {
         return $this->belongsTo(\App\Models\Applicant::class);
+    }
+
+    public function applicant_snapshot() {
+        return $this->belongsTo(\App\Models\Applicant::class, 'applicant_snapshot_id');
     }
 
     public function application_status() {
@@ -47,9 +61,4 @@ class JobApplication extends BaseModel {
     public function job_application_answers() {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
-
-    public function skill_declarations() {
-        return $this->hasMany(\App\Models\SkillDeclaration::class);
-    }
-
 }
