@@ -18,7 +18,4 @@ return [
     "talent_cloud" => "GC Talent Cloud",
     "portal" => "Applicant Portal",
     "admin_portal" => "Manager Portal",
-    "language_link" => "/fr",
-    "language_link_title" => "Cliquez içi pour le site Français.",
-    "language" => "Français"
 ];

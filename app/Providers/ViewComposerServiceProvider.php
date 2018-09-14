@@ -50,6 +50,9 @@ class ViewComposerServiceProvider extends ServiceProvider
             ['common/sample', 'common/modals/create_sample'], 'App\Http\ViewComposers\WorkSampleComposer'
         );
 
+        View::composer(
+            'common/lang_menu', 'App\Http\ViewComposers\LangMenuComposer'
+        );
 
     }
 
