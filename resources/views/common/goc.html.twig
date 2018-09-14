@@ -45,18 +45,7 @@
 
         {# Language Toggle #}
 
-            <div
-                class="box med-1of3">
-
-                <a
-                    class=""
-                    href="{{ goc.language_link }}"
-                    target=""
-                    title="{{ goc.language_link_title }}">
-                    {{ goc.language }}
-                </a>
-
-            </div>
+            {% include "common/lang_menu" %}
 
     </div>
 

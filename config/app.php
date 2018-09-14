@@ -197,6 +197,11 @@ return [
          */
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        /*
+         * Localization Service Provider
+         */
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+
     ],
 
     /*
@@ -250,6 +255,8 @@ return [
         'Date' => Jenssegers\Date\Date::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
     ],
 
 ];
