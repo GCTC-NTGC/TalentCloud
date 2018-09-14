@@ -30,38 +30,35 @@ class ManagerProfileController extends Controller {
                 "questions" => [
                     [
                         "title" => $manager_profile['questions']['leadership_style'],
-                        "answer" => $manager->leadership_style,
+                        "answer" => $manager->leadership_style
                     ],
                     [
                         "title" => $manager_profile['questions']['employee_expectations'],
-                        "answer" => $manager->employee_expectations,
+                        "answer" => $manager->employee_expectations
                     ],
                     [
                         "title" => $manager_profile['questions']['employee_learning'],
-                        "answer" => $manager->employee_expectations,
+                        "answer" => $manager->employee_learning
                     ]
                 ]
             ],
-            //TODO: replace with lang file variables and $manager properties
             [
-                "title" => "About Me",
+                "title" => $manager_profile['section_titles']['about_me'],
                 "questions" => [
-                    "00" => [
-                        "title" => "My Career Journey So Far",
-                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    [
+                        "title" => $manager_profile['questions']['career_journey'],
+                        "answer" => $manager->career_journey
                     ],
-                    "01" => [
-                        "title" => "My Learning Path",
-                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    [
+                        "title" => $manager_profile['questions']['learning_path'],
+                        "answer" => $manager->learning_path
                     ],
-                    "02" => [
-                        "title" => "A Bit About Me Outside Work",
-                        "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
+                    [
+                        "title" => $manager_profile['questions']['about_me'],
+                        "answer" => $manager->about_me
                     ]
                 ]
-            ],
-
-
+            ]
         ];
 
 

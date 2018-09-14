@@ -15,19 +15,14 @@ return [
     "linkedin_label" => "Visit :name's LinkedIn profile.",
     "section_titles" => [
         "approach" =>  "My Approach as a Manager",
+        "about_me" => "About Me"
     ],
     "questions" => [
-        "leadership_style" => [
-            "title" => "My Leadership Style and Management Values",
-            "answer" => null
-        ],
-        "employee_expectations" => [
-            "title" => "What I Expect from My Employees",
-            "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-        ],
-        "employee_learning" => [
-            "title" => "My Approach to Employee Learning and Development",
-            "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ante aliquet felis finibus luctus. Vivamus justo ante, convallis id justo sed, venenatis ornare magna. Maecenas tempor nunc sit amet mollis venenatis. Proin vitae nunc interdum, porttitor leo a, mollis diam. Sed auctor ultricies massa at aliquam."
-        ]
+        "leadership_style" => "My Leadership Style and Management Values",
+        "employee_expectations" => "What I Expect from My Employees",
+        "employee_learning" => "My Approach to Employee Learning and Development",
+        "career_journey" => "My Career Journey So Far",
+        "learning_path" => "My Learning Path",
+        "about_me" => "A Bit About Me Outside Work"
     ]
 ];
