@@ -87,7 +87,7 @@ class ApplicantProfileController extends Controller
             'applicant_profile_question_section_title' => 'Your Narrative',
             'applicant_profile_question_context' => 'Please don’t include any sensitive personal information.',
 
-            'form_submit_action' => route('profile.update', $applicant)
+            'form_submit_action' => route('profile.about.update', $applicant)
         ]);
     }
 
@@ -127,7 +127,7 @@ class ApplicantProfileController extends Controller
         ]);
         $applicant->save();
 
-        return redirect()->route('profile.edit', $applicant);
+        return redirect()->route('profile.about.edit', $applicant);
         //Debugbar::info($input);
         //return view('welcome', ['t1' => 'update applicant']);
     }

@@ -2233,28 +2233,31 @@ Route::group(['domain' => config('app.applicant_domain'),
             ->middleware('can:update,applicant')
             ->name('profile.about.edit');
 
+        Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@edit')
+            ->middleware('can:update,applicant')
+            ->name('profile.about.update');
+
+        /* Profile - My Experience */
         Route::get('profile/experience', function() {
             $applicant = Auth::user()->applicant;
             return redirect( route('profile.experience.edit', $applicant) );
         });
 
-        /* Profile - My Experience */
         Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
             ->name('profile.experience.edit');
 
-        /* Profile - My Experience */
         Route::post('profile/{applicant}/experience/update', 'ExperienceController@update')
             ->middleware('can:update,applicant')
             ->name('profile.experience.update');
 
+        /* Profile - My Skills */
         Route::get('profile/skills', function() {
             $applicant = Auth::user()->applicant;
             return redirect( route('profile.skills.edit', $applicant) );
         });
 
-        /* Profile - My Skills */
         Route::get('profile/{applicant}/skills', 'SkillsController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
