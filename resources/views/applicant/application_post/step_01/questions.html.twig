@@ -104,67 +104,52 @@
 
             </div>
 
-        <h3>
-            {{ application.language_title }}
-        </h3>
+        {# Language #}
 
-        <div 
-            class="application-post__language-alert flex-grid middle">
+            <div
+                class="application-post__veterans">
 
-            <div class="box med-1of5">
-                <i class="fas fa-exclamation-triangle"></i>
-            </div>
+                <h3>
+                    {{ application.language_title }}
+                </h3>
 
-            <div 
-                class="box med-4of5">
-                <p 
-                    class="job-post__apply-content">
-                    {{ application.language_copy }}
-                </p>
-            </div>
+                <div 
+                    class="form_wrapper">
 
-        </div>
+                    <div
+                        class="flex-grid">
 
-        <div 
-            class="flex-grid application-post__language-agreement">
+                        <p>{{ application.language_copy }}</p>
 
-            <div 
-                class="box small-1of2">
+                        <div
+                            class="box full">
 
-                <label
-                    for="languageAgree">
+                            <div 
+                                class="form__input-wrapper--select">
+                                <label 
+                                    class="form__label" 
+                                    for="">
+                                    {{ application.language_label }}
+                                </label>
+                                <div
+                                    class="form__select-wrapper fas fa-chevron-down">
+                                    <select
+                                        class="form__input">
+                                        {% for option in application.language_options|sort %}
+                                            <option
+                                                {% if option|capitalize == user.application.language|capitalize %}selected{% endif %}>{{ option }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
 
-                    <input 
-                        id="languageAgree"
-                        name="languageAgreement"
-                        type="radio"
-                        {% if user.application.language == true %}checked{% endif %}>
+                        </div>
 
-                    {{ application.language_agree }}
+                    </div>
 
-                </label>
-
-            </div>
-
-            <div 
-                class="box small-1of2">
-
-                <label
-                    for="languageDisagree">
-
-                    <input 
-                        id="languageDisagree"
-                        name="languageAgreement"
-                        type="radio"
-                        {% if user.application.language == false %}checked{% endif %}>
-
-                    {{ application.language_disagree }}
-
-                </label>
+                </div>
 
             </div>
-
-        </div>
 
         <h3>
             {{ application.question_title }}

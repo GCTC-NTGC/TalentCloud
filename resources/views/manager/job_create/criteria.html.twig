@@ -4,17 +4,22 @@
     Manager: Create Job Task
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[criteria][:template][:criteria_type][:skill_type][:id]"|replace({":criteria_type":criteria_type, ":skill_type":skillType}) %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "criteria[:template][:criteria_type][:skill_type][:id]"|replace({":criteria_type":criteria_type, ":skill_type":skillType}) %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if criteria %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":criteria.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":criteria.id}) %}
+{% endif %}
+
 <div
     class="manager-jobs__create-skill {% if criteria == false %}template{% endif %}"
-    data-skill-id="{% if criteria == false %}0{% else %}{{ criteria.id }}{% endif %}">
-
-    {% if criteria %}
-        {% set name_suffix = "[old][:criteria_type][:skill_type][:id]"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}
-        {% set id_suffix = "_old_:criteria_type_:skill_type_:id"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}
-    {% else %}
-        {% set name_suffix = "[:template][:criteria_type][:skill_type]"|replace({":criteria_type":criteria_type, ":skill_type":skillType}) %}
-        {% set id_suffix = "_new_:criteria_type_:skill_type"|replace({":id":criteria.id, ":criteria_type":criteria_type, ":skill_type":skillType}) %}
-    {% endif %}
+    data-item-id="{% if criteria == false %}0{% else %}{{ criteria.id }}{% endif %}">
 
     <fieldset
         class="form__fieldset">
@@ -53,7 +58,7 @@
 
                     <label
                         class="form__label"
-                        for="criteriaSkill{{ id_suffix }}">
+                        for="{{ id_prefix }}criteriaSkill">
                         Select Skill
                     </label>
 
@@ -61,9 +66,9 @@
                         class="form__select-wrapper fas fa-chevron-down">
 
                         <select
-                            id="criteriaSkill{{ id_suffix }}"
+                            id="{{ id_prefix }}criteriaSkill"
                             class="form__input"
-                            name="criteria_skill[criteria]{{ name_suffix }}">
+                            name="{{ name_prefix }}[skill_id]">
 
                             {% for skill in skills %}
 
@@ -91,15 +96,15 @@
                     class="form__input-wrapper--select">
                     <label
                         class="form__label"
-                        for="criteriaLevel{{ id_suffix }}">
+                        for="{{ id_prefix }}criteriaLevel">
                         Select Level Required
                     </label>
                     <div
                         class="form__select-wrapper fas fa-chevron-down">
                         <select
-                            id="criteriaLevel{{ id_suffix }}"
+                            id="{{ id_prefix }}criteriaLevel"
                             class="form__input"
-                            name="criteria_level[criteria]{{ name_suffix }}">
+                            name="{{ name_prefix }}[skill_level_id]">
 
                             {% for level in skill_levels %}
 

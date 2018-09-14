@@ -4,17 +4,22 @@
     Degree
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[degrees][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "degrees[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if degree %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":degree.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":degree.id}) %}
+{% endif %}
+
 <div
     class="profile-element accordion degree {% if degree == false %}template active{% endif %} modal-target-object"
     data-item-id="{{ degree ? degree.id : 0 }}">
-
-    {% if degree %}
-        {% set name_suffix = "[old][:id]"|replace({":id":degree.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":degree.id}) %}
-    {% else %}
-        {% set name_suffix = "[new]" %}
-        {% set id_suffix = "_new" %}
-    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -63,15 +68,15 @@
                             class="form__input-wrapper--select">
                             <label
                                 class="form__label"
-                                for="degreeType{{ id_suffix }}">
+                                for="{{ id_prefix }}degreeType">
                                 {{ degree_template.type_label }}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
                                     class="form__input"
-                                    id="degreeType{{ id_suffix }}"
-                                    name="degree_type{{ name_suffix }}">
+                                    id="{{ id_prefix }}degreeType"
+                                    name="{{ name_prefix }}[degree_type_id]">
                                     {% for degree_type in degree_types %}
                                         <option
                                             {% if degree.degree_type.id == degree_type.id %}selected="selected"{% endif %}
@@ -91,14 +96,14 @@
                             class="form__input-wrapper--float {% if degree.area_of_study == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="degreeArea{{ id_suffix }}">
+                                for="{{ id_prefix }}degreeArea">
                                 {{ degree_template.aoe_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="degreeArea{{ id_suffix }}"
+                                id="{{ id_prefix }}degreeArea"
                                 type="text"
-                                name="degree_area{{ name_suffix }}"
+                                name="{{ name_prefix }}[area_of_study]"
                                 value="{{ degree.area_of_study }}" />
                         </div>
 
@@ -111,14 +116,14 @@
                             class="form__input-wrapper--float {% if degree.institution == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="degreeInstitution{{ id_suffix }}">
+                                for="{{ id_prefix }}degreeInstitution">
                                 {{ degree_template.institution_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="degreeInstitution{{ id_suffix }}"
+                                id="{{ id_prefix }}degreeInstitution"
                                 type="text"
-                                name="degree_institution{{ name_suffix }}"
+                                name="{{ name_prefix }}[institution]"
                                 value="{{ degree.institution }}" />
                         </div>
 
@@ -131,14 +136,14 @@
                             class="form__input-wrapper--float {% if degree.thesis == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="degreeThesis{{ id_suffix }}">
+                                for="{{ id_prefix }}degreeThesis">
                                 {{ degree_template.thesis_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="degreeThesis{{ id_suffix }}"
+                                id="{{ id_prefix }}degreeThesis"
                                 type="text"
-                                name="degree_thesis{{ name_suffix }}"
+                                name="{{ name_prefix }}[thesis]"
                                 value="{{ degree.thesis }}" />
                         </div>
 
@@ -152,15 +157,15 @@
 
                             <label
                                 class="form__label"
-                                for="degreeStartDate{{ id_suffix }}">
+                                for="{{ id_prefix }}degreeStartDate">
                                 {{ degree_template.start_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id="degreeStartDate{{ id_suffix }}"
+                                id="{{ id_prefix }}degreeStartDate"
                                 type="date"
-                                name="degree_start_date{{ name_suffix }}"
+                                name="{{ name_prefix }}[start_date]"
                                 value="{{ degree.start_date|date("Y-m-d") }}">
 
                         </div>
@@ -175,15 +180,15 @@
 
                             <label
                                 class="form__label"
-                                for="degreeEndDate{{ id_suffix }}">
+                                for="{{ id_prefix }}degreeEndDate">
                                 {{ degree_template.end_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id="degreeEndDate{{ id_suffix }}"
+                                id="{{ id_prefix }}degreeEndDate"
                                 type="date"
-                                name="degree_end_date{{ name_suffix }}"
+                                name="{{ name_prefix }}[end_date]"
                                 value="{{ degree.end_date|date("Y-m-d") }}">
 
                         </div>
@@ -213,7 +218,7 @@
                         class="button--blue light-bg"
                         type="submit"
                         name="submit"
-                        value="degree{{ name_suffix }}">
+                        value="{{ name_prefix }}">
                         {{ degree_template.action_02 }}
                     </button>
                 </div>

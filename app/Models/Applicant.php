@@ -7,6 +7,7 @@
 
 namespace App\Models;
 use App\Models\WorkSample;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Applicant
@@ -29,6 +30,7 @@ use App\Models\WorkSample;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
+ * @property \Illuminate\Database\Eloquent\Collection $projects
  */
 class Applicant extends BaseModel {
 
@@ -76,5 +78,9 @@ class Applicant extends BaseModel {
 
     public function work_samples() {
         return $this->hasMany(\App\Models\WorkSample::class);
+    }
+
+    public function projects() {
+        return $this->hasMany(\App\Models\Project::class);
     }
 }

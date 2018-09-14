@@ -16,9 +16,6 @@ namespace App\Models;
  *
  * @property \App\Models\Lookup\SkillType $skill_type
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- * @property \Illuminate\Database\Eloquent\Collection $work_experiences
- * @property \Illuminate\Database\Eloquent\Collection $references
- * @property \Illuminate\Database\Eloquent\Collection $work_samples
  */
 class Skill extends BaseModel {
 
@@ -37,18 +34,6 @@ class Skill extends BaseModel {
 
     public function skill_declarations() {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
-    }
-
-    public function work_experiences() {
-        return $this->belongsToMany(\App\Models\WorkExperience::class);
-    }
-
-    public function references() {
-        return $this->belongsToMany(\App\Models\Reference::class);
-    }
-
-    public function work_samples() {
-        return $this->belongsToMany(\App\Models\WorkSample::class);
     }
 
 }

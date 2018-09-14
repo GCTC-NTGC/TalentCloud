@@ -43,6 +43,16 @@ class MenuComposer
                 case 'profile':
                 case 'profile.edit':
                 case 'profile.show':
+                case 'profile.about.edit':
+                case 'profile.about.show':
+                case 'profile.experience.edit':
+                case 'profile.experience.show':
+                case 'profile.references.edit':
+                case 'profile.references.show':
+                case 'profile.skills.edit':
+                case 'profile.skills.show':
+                case 'profile.work_samples.edit':
+                case 'profile.work_samples.show':
                     $menu['items']['profile']['active'] = true;
                     break;
                 case 'register':

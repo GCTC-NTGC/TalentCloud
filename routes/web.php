@@ -270,10 +270,13 @@ Route::group(['domain' => config('app.applicant_domain'),
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",
                 "save_continue_button_label" => "Save & Continue",
-                "language_title" => "Language Requirement",
-                "language_copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
-                "language_agree" => "I Agree",
-                "language_disagree" => "I Disagree",
+                "language_title" => "Language Selection",
+                "language_copy" => "Which language would you prefer for this application process?",
+                "language_label" => "Select One",
+                "language_options" => [
+                    "00" => "English",
+                    "01" => "French"
+                ],
                 "citizenship_title" => "Citizenship Claim",
                 "citizenship_content" => "Which of the following applies to you?",
                 "citizenship_label" => "Select One",
@@ -2212,12 +2215,17 @@ Route::group(['domain' => config('app.applicant_domain'),
     })->name('managers.show');
 
     /* Profile */
-    Route::middleware(['auth', 'role:applicant'])->group(function(){
+    Route::middleware(['auth', 'role:manager'])->group(function(){
 
         Route::get('profile', function() {
             $applicant = Auth::user()->applicant;
             return redirect(route('profile.about.edit', $applicant));
         })->name('profile');
+
+        Route::get('profile/about', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.about.edit', $applicant) );
+        });
 
         /* Profile - About Me */
         Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
@@ -2225,664 +2233,69 @@ Route::group(['domain' => config('app.applicant_domain'),
             ->middleware('can:update,applicant')
             ->name('profile.about.edit');
 
+        Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@edit')
+            ->middleware('can:update,applicant')
+            ->name('profile.about.update');
+
         /* Profile - My Experience */
+        Route::get('profile/experience', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.experience.edit', $applicant) );
+        });
+
         Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
             ->name('profile.experience.edit');
 
-        /* Profile - My Experience */
         Route::post('profile/{applicant}/experience/update', 'ExperienceController@update')
             ->middleware('can:update,applicant')
             ->name('profile.experience.update');
 
         /* Profile - My Skills */
-        Route::get('profile/skills', function () {
-            return view('applicant/profile_03_skills', [
-                'applicant' => [
-                    "id" => 1
-                ],
-                "profile" => [
-                    "title" => "My Skills",
-                    "experience_section" => [
-                    ],
-                    "skills_section" => [
-                        "soft_title" => "My Soft Skills",
-                        "hard_title" => "My Hard Skills",
-                        "add_button_label" => "Add Skill",
-                        "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
-                    ],
-                    "reference_section" => [
-                        "section_title" => "My References",
-                        "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
-                        "add_button_label" => "Add Reference",
-                        "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
-                    ],
-                    "sample_section" => [
-                    ],
-                    "menu" => [
-                        "00" => [
-                            "active" => false,
-                            "link" => "/profile/about",
-                            "title" => "Go to the About Me section of your profile.",
-                            "label" => "About Me"
-                        ],
-                        "01" => [
-                            "active" => false,
-                            "link" => "/profile/experience",
-                            "title" => "Go to the Experience section of your profile.",
-                            "label" => "My Experience"
-                        ],
-                        "02" => [
-                            "active" => true,
-                            "link" => "/profile/skills",
-                            "title" => "Go to the Skills section of your profile.",
-                            "label" => "My Skills"
-                        ],
-                        "03" => [
-                            "active" => false,
-                            "link" => "/profile/references",
-                            "title" => "Go to the References section of your profile.",
-                            "label" => "My References"
-                        ],
-                        "04" => [
-                            "active" => false,
-                            "link" => "/profile/portfolio",
-                            "title" => "Go to the Portfolio section of your profile.",
-                            "label" => "My Portfolio"
-                        ]
-                    ],
-                    "modals" => [
-                        "00" => [
-                            "type" => "login",
-                            "title" => "Register or Login with GC Account",
-                            "content" => [
-                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
-                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
-                            ],
-                            "id" => "login",
-                            "action_01" => "Register",
-                            "action_02" => "Login"
-                        ],
-                        "01" => [
-                            "type" => "logout",
-                            "title" => "Logout of Talent Cloud",
-                            "content" => [
-                                "00" => "Are you sure you want to logout of Talent Cloud?"
-                            ],
-                            "id" => "logout",
-                            "action_01" => "Cancel",
-                            "action_02" => "Logout"
-                        ],
-                        "02" => [
-                            "type" => "deleteConfirmation",
-                            "title" => "Delete this Skill?",
-                            "content" => [
-                                "00" => "Are you sure you want to permanently delete this skill from your profile?",
-                                "01" => "All previously submitted applications will retain this skill, its references, and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
-                            ],
-                            "id" => "deleteSkill",
-                            "action_01" => "Cancel",
-                            "action_02" => "Delete"
-                        ]
-                    ]
-                ],
-                "user" => [
-                    "skills" => [
-                        "00" => [
-                            "name" => "HTML",
-                            "status" => "Claimed",
-                            "level" => "beginner",
-                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ],
-                        "01" => [
-                            "name" => "CSS",
-                            "status" => "Claimed",
-                            "level" => "advanced",
-                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ],
-                        "02" => [
-                            "name" => "UX Research",
-                            "status" => "Claimed",
-                            "level" => "Moderately in Evidence",
-                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "references" => [],
-                            "samples" => []
-                        ]
-                    ],
-                    "references" => [
-                        "00" => [
-                            "name" => "Mark Hamill"
-                        ],
-                        "01" => [
-                            "name" => "Jesse Markham"
-                        ],
-                        "02" => [
-                            "name" => "Lucy Ladderfield"
-                        ],
-                        "03" => [
-                            "name" => "Cameron Trovsky"
-                        ]
-                    ],
-                    "samples" => [
-                        "00" => [
-                            "name" => "My Website",
-                            "type" => "Website",
-                            "date_created" => "2018-01-01",
-                            "link" => "https://google.com",
-                            "description" => "Lorem Ipsum",
-                            "skills" => [
-                                "00" => "HTML",
-                                "01" => "CSS"
-                            ]
-                        ]
-                    ]
-                ],
-                "skill_template" => [
-                    "new_skill_title" => "New Skill",
-                    "name_label" => "Project Name",
-                    "type_label" => "Project Type",
-                    "skill_selection_label" => "Select Skill",
-                    "level_label" => "My Level",
-                    "knowledge_label" => "My Knowledge",
-                    "hard_levels" => [
-                        "00" => "Beginner",
-                        "01" => "Intermediate",
-                        "02" => "Advanced",
-                        "03" => "Expert"
-                    ],
-                    "soft_levels" => [
-                        "00" => "In Early Development",
-                        "01" => "Moderately in Evidence",
-                        "02" => "Strongly in Evidence",
-                        "03" => "Deep Level Demonstration"
-                    ],
-                    "action_01" => "Delete Skill",
-                    "action_02" => "Save Skill"
-                ],
-                "relative_template" => [
-                    "skill" => [
-                        "title" => "Linked Skills",
-                        "create_title" => "Create a new skill.",
-                        "create_label" => "Create New Skill",
-                        "label" => "Select a Skill",
-                        "add_label" => "Add Existing Skill",
-                        "delete_title" => "Remove this skill."
-                    ],
-                    "reference" => [
-                        "title" => "Linked References",
-                        "create_title" => "Create a new reference.",
-                        "create_label" => "Create New Reference",
-                        "label" => "Select a Reference",
-                        "add_label" => "Add Existing Reference",
-                        "delete_title" => "Remove this reference."
-                    ],
-                    "sample" => [
-                        "title" => "Linked Work Samples",
-                        "create_title" => "Create a new work sample.",
-                        "create_label" => "Create New Work Sample",
-                        "label" => "Select a Work Sample",
-                        "add_label" => "Add Existing Work Sample",
-                        "delete_title" => "Remove this work sample."
-                    ]
-                ],
-                "skills" => [
-                    "00" => [
-                        "name" => "UX Research",
-                        "type" => "soft",
-                        "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                    ],
-                    "01" => [
-                        "name" => "HTML",
-                        "type" => "hard",
-                        "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                    ],
-                    "02" => [
-                        "name" => "CSS",
-                        "type" => "hard",
-                        "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                    ]
-                ]
-            ]);
-        })->name('profile.skills.edit');
+        Route::get('profile/skills', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.skills.edit', $applicant) );
+        });
 
-        /* Profile - My References */
-        Route::get('profile/references', function () {
-            return view('applicant/profile_04_references', [
-                'applicant' => [
-                    "id" => 1
-                ],
-                "profile" => [
-                    "title" => "My References",
-                    "experience_section" => [
-                    ],
-                    "skills_section" => [
-                    ],
-                    "reference_section" => [
-                        "section_title" => "My References",
-                        "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
-                        "add_button_label" => "Add Reference",
-                        "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
-                    ],
-                    "sample_section" => [
-                    ],
-                    "menu" => [
-                        "00" => [
-                            "active" => false,
-                            "link" => "/profile/about",
-                            "title" => "Go to the About Me section of your profile.",
-                            "label" => "About Me"
-                        ],
-                        "01" => [
-                            "active" => false,
-                            "link" => "/profile/experience",
-                            "title" => "Go to the Experience section of your profile.",
-                            "label" => "My Experience"
-                        ],
-                        "02" => [
-                            "active" => false,
-                            "link" => "/profile/skills",
-                            "title" => "Go to the Skills section of your profile.",
-                            "label" => "My Skills"
-                        ],
-                        "03" => [
-                            "active" => true,
-                            "link" => "/profile/references",
-                            "title" => "Go to the References section of your profile.",
-                            "label" => "My References"
-                        ],
-                        "04" => [
-                            "active" => false,
-                            "link" => "/profile/portfolio",
-                            "title" => "Go to the Portfolio section of your profile.",
-                            "label" => "My Portfolio"
-                        ]
-                    ],
-                    "modals" => [
-                        "00" => [
-                            "type" => "login",
-                            "title" => "Register or Login with GC Account",
-                            "content" => [
-                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
-                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
-                            ],
-                            "id" => "login",
-                            "action_01" => "Register",
-                            "action_02" => "Login"
-                        ],
-                        "01" => [
-                            "type" => "logout",
-                            "title" => "Logout of Talent Cloud",
-                            "content" => [
-                                "00" => "Are you sure you want to logout of Talent Cloud?"
-                            ],
-                            "id" => "logout",
-                            "action_01" => "Cancel",
-                            "action_02" => "Logout"
-                        ],
-                        "02" => [
-                            "type" => "deleteConfirmation",
-                            "title" => "Delete this Reference?",
-                            "content" => [
-                                "00" => "Are you sure you want to permanently delete this reference from your profile?",
-                                "01" => "All previously submitted applications will retain this reference."
-                            ],
-                            "id" => "deleteReference",
-                            "action_01" => "Cancel",
-                            "action_02" => "Delete"
-                        ]
-                    ]
-                ],
-                "user" => [
-                    "skills" => [
-                        "00" => [
-                            "name" => "HTML",
-                            "status" => "Claimed",
-                            "level" => "beginner",
-                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ],
-                        "01" => [
-                            "name" => "CSS",
-                            "status" => "Claimed",
-                            "level" => "advanced",
-                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ],
-                        "02" => [
-                            "name" => "UX Research",
-                            "status" => "Claimed",
-                            "level" => "Moderately in Evidence",
-                            "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "references" => [],
-                            "samples" => []
-                        ]
-                    ],
-                    "references" => [
-                        "00" => [
-                            "name" => "Mark Hamill",
-                            "relationship" => "coworker",
-                            "email" => "sample@sample.com",
-                            "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                            "projects" => [
-                                "00" => [
-                                    "name" => "NAFTA Renegotiation",
-                                    "start_date" => "2018-01-01",
-                                    "end_date" => "2018-02-01"
-                                ],
-                                "01" => [
-                                    "name" => "Star Wars XV",
-                                    "start_date" => "2020-09-09",
-                                    "end_date" => "2021-10-10"
-                                ]
-                            ],
-                            "skills" => [
-                                "00" => "HTML",
-                                "01" => "CSS"
-                            ]
-                        ],
-                        "01" => [
-                            "name" => "Jesse Markham"
-                        ],
-                        "02" => [
-                            "name" => "Lucy Ladderfield"
-                        ],
-                        "03" => [
-                            "name" => "Cameron Trovsky"
-                        ]
-                    ],
-                    "samples" => [
-                        "00" => [
-                            "name" => "My Website",
-                            "type" => "Website",
-                            "date_created" => "2018-01-01",
-                            "link" => "https://google.com",
-                            "description" => "Lorem Ipsum",
-                            "skills" => [
-                                "00" => "HTML",
-                                "01" => "CSS"
-                            ]
-                        ]
-                    ]
-                ],
-                "reference_template" => [
-                    "new_reference_title" => "New Reference",
-                    "name_label" => "Reference's Name",
-                    "relationship_label" => "Your Relationship",
-                    "relationships" => [
-                        "00" => "Coworker",
-                        "01" => "Supervisor",
-                        "02" => "Employee"
-                    ],
-                    "email_label" => "Reference's Email",
-                    "description_label" => "How You Worked Together",
-                    "action_01" => "Delete Reference",
-                    "action_02" => "Save Reference"
-                ],
-                "relative_template" => [
-                    "skill" => [
-                        "title" => "Linked Skills",
-                        "create_title" => "Create a new skill.",
-                        "create_label" => "Create New Skill",
-                        "label" => "Select a Skill",
-                        "add_label" => "Add Existing Skill",
-                        "delete_title" => "Remove this skill."
-                    ],
-                    "reference" => [
-                        "title" => "Linked References",
-                        "create_title" => "Create a new reference.",
-                        "create_label" => "Create New Reference",
-                        "label" => "Select a Reference",
-                        "add_label" => "Add Existing Reference",
-                        "delete_title" => "Remove this reference."
-                    ],
-                    "sample" => [
-                        "title" => "Linked Work Samples",
-                        "create_title" => "Create a new work sample.",
-                        "create_label" => "Create New Work Sample",
-                        "label" => "Select a Work Sample",
-                        "add_label" => "Add Existing Work Sample",
-                        "delete_title" => "Remove this work sample."
-                    ],
-                    "project" => [
-                        "title" => "Related Projects",
-                        "name_label" => "Project Name",
-                        "start_date_label" => "Project Started",
-                        "end_date_label" => "Project Ended",
-                        "add_label" => "Add Project",
-                        "delete_title" => "Delete this project."
-                    ]
-                ],
-                "skills" => [
-                    "00" => [
-                        "name" => "UX Research",
-                        "type" => "soft",
-                        "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                    ],
-                    "01" => [
-                        "name" => "HTML",
-                        "type" => "hard",
-                        "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                    ],
-                    "02" => [
-                        "name" => "CSS",
-                        "type" => "hard",
-                        "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                    ]
-                ]
-            ]);
-        })->name('references.edit');
-
-        /* Profile - My Portfolio */
-        Route::get('profile/portfolio', function () {
-            return view('applicant/profile_05_portfolio', [
-                'applicant' => [
-                    "id" => 1
-                ],
-                "profile" => [
-                    "title" => "My Portfolio",
-                    "experience_section" => [
-                    ],
-                    "skills_section" => [
-                        "soft_title" => "My Soft Skills",
-                        "hard_title" => "My Hard Skills",
-                        "add_button_label" => "Add Skill",
-                        "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
-                    ],
-                    "reference_section" => [
-                        "section_title" => "My References",
-                        "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
-                        "add_button_label" => "Add Reference",
-                        "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
-                    ],
-                    "sample_section" => [
-                        "section_title" => "My Work Samples",
-                        "add_button_label" => "Add Sample",
-                        "null_copy" => "You don't currently have any work samples in your portfolio! Use the button above to add a work sample."
-                    ],
-                    "menu" => [
-                        "00" => [
-                            "active" => false,
-                            "link" => "/profile/about",
-                            "title" => "Go to the About Me section of your profile.",
-                            "label" => "About Me"
-                        ],
-                        "01" => [
-                            "active" => false,
-                            "link" => "/profile/experience",
-                            "title" => "Go to the Experience section of your profile.",
-                            "label" => "My Experience"
-                        ],
-                        "02" => [
-                            "active" => false,
-                            "link" => "/profile/skills",
-                            "title" => "Go to the Skills section of your profile.",
-                            "label" => "My Skills"
-                        ],
-                        "03" => [
-                            "active" => false,
-                            "link" => "/profile/references",
-                            "title" => "Go to the References section of your profile.",
-                            "label" => "My References"
-                        ],
-                        "04" => [
-                            "active" => true,
-                            "link" => "/profile/portfolio",
-                            "title" => "Go to the Portfolio section of your profile.",
-                            "label" => "My Portfolio"
-                        ]
-                    ],
-                    "modals" => [
-                        "00" => [
-                            "type" => "login",
-                            "title" => "Register or Login with GC Account",
-                            "content" => [
-                                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
-                                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
-                            ],
-                            "id" => "login",
-                            "action_01" => "Register",
-                            "action_02" => "Login"
-                        ],
-                        "01" => [
-                            "type" => "logout",
-                            "title" => "Logout of Talent Cloud",
-                            "content" => [
-                                "00" => "Are you sure you want to logout of Talent Cloud?"
-                            ],
-                            "id" => "logout",
-                            "action_01" => "Cancel",
-                            "action_02" => "Logout"
-                        ],
-                        "02" => [
-                            "type" => "deleteConfirmation",
-                            "title" => "Delete this Work Sample?",
-                            "content" => [
-                                "00" => "Are you sure you want to permanently delete this work sample from your portfolio?",
-                                "01" => "All previously submitted applications will retain this work sample, however new applications or applications in progress will no longer include it."
-                            ],
-                            "id" => "deleteSample",
-                            "action_01" => "Cancel",
-                            "action_02" => "Delete"
-                        ]
-                    ]
-                ],
-                "user" => [
-                    "skills" => [
-                        "00" => [
-                            "name" => "HTML",
-                            "type" => "hard",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ],
-                        "01" => [
-                            "name" => "CSS",
-                            "type" => "hard",
-                            "references" => [
-                                "00" => "Mark Hamill"
-                            ],
-                            "samples" => [
-                                "00" => "My Website"
-                            ]
-                        ]
-                    ],
-                    "portfolio" => [
-                        "00" => [
-                            "name" => "My Website",
-                            "type" => "Website",
-                            "date_created" => "2018-01-01",
-                            "link" => "https://google.com",
-                            "description" => "Lorem Ipsum",
-                            "skills" => [
-                                "00" => "HTML",
-                                "01" => "CSS"
-                            ]
-                        ]
-                    ]
-                ],
-                "sample_template" => [
-                    "new_sample_label" => "New Work Sample",
-                    "name_label" => "Project Name",
-                    "type_label" => "Project Type",
-                    "types" => [
-                        "00" => "PDF",
-                        "01" => "Website"
-                    ],
-                    "link_label" => "The Link to Your Work",
-                    "description_label" => "The Story Behind the Work",
-                    "linked_skills_label" => "Linked Skills",
-                    "search_label" => "Search Through My Skills",
-                    "skill_label" => "Select a Skill",
-                    "add_skill_label" => "Add a Skill",
-                    "action_01" => "Delete Sample",
-                    "action_02" => "Save Sample"
-                ],
-                "relative_template" => [
-                    "skill" => [
-                        "title" => "Linked Skills",
-                        "label" => "Select a Skill",
-                        "add_label" => "Add a Skill",
-                        "delete_title" => "Remove this skill."
-                    ],
-                    "reference" => [
-                        "title" => "Linked References",
-                        "label" => "Select a Reference",
-                        "add_label" => "Add a Reference",
-                        "delete_title" => "Remove this reference."
-                    ],
-                    "sample" => [
-                        "title" => "Linked Work Samples",
-                        "label" => "Select a Work Sample",
-                        "add_label" => "Add a Work Sample",
-                        "delete_title" => "Remove this work sample."
-                    ]
-                ],
-                "skills" => [
-                    "00" => "UX Research",
-                    "01" => "Youth Leadership",
-                    "02" => "Reading Comprehension",
-                    "03" => "HTML",
-                    "04" => "CSS",
-                    "05" => "UX Surveying"
-                ]
-            ]);
-        })->name('portfolio.edit');
-
-        Route::get('profile/{applicant}/edit', 'ApplicantProfileController@edit')
+        Route::get('profile/{applicant}/skills', 'SkillsController@edit')
             ->middleware('can:view,applicant')
             ->middleware('can:update,applicant')
-            ->name('profile.edit');
+            ->name('profile.skills.edit');
 
-        Route::post('profile/{applicant}/update','ApplicantProfileController@update')
+        Route::post('profile/{applicant}/skills/update', 'SkillsController@update')
             ->middleware('can:update,applicant')
-            ->name('profile.update');
+            ->name('profile.skills.update');
 
+        /* Profile - My References */
+        Route::get('profile/references', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.references.edit', $applicant) );
+        });
+
+        Route::get('profile/{applicant}/references','ReferencesController@edit')
+            ->middleware('can:view,applicant')
+            ->middleware('can:update,applicant')
+            ->name('profile.references.edit');
+
+        Route::post('profile/{applicant}/references/update','ReferencesController@update')
+            ->middleware('can:update,applicant')
+            ->name('profile.references.update');
+
+        /* Profile - My Portfolio */
+        Route::get('profile/portfolio', function() {
+            $applicant = Auth::user()->applicant;
+            return redirect( route('profile.work_samples.edit', $applicant) );
+        });
+
+        Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
+            ->middleware('can:view,applicant')
+            ->middleware('can:update,applicant')
+            ->name('profile.work_samples.edit');
+
+        Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
+            ->middleware('can:update,applicant')
+            ->name('profile.work_samples.update');
     });
 
     /* Authentication =========================================================== */

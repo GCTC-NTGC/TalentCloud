@@ -50,6 +50,7 @@ class ManagerProfileController extends Controller {
             'departments' => Department::all(),
             'telework_options' => $frequencies,
             'flex_hour_options' => $frequencies,
+            'radio_options' => $frequencies
         ]);
     }
 

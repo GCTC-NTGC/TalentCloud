@@ -4,17 +4,22 @@
     Work
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[work_experiences][:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "work_experiences[:template][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if work %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":work.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":work.id}) %}
+{% endif %}
+
 <div
     class="profile-element accordion work {% if work == false %}template active{% endif %} modal-target-object"
     data-item-id="{{ work ? work.id : 0 }}">
-
-    {% if work %}
-        {% set name_suffix = "[old][:id]"|replace({":id":work.id}) %}
-        {% set id_suffix = "_old_:id"|replace({":id":work.id}) %}
-    {% else %}
-        {% set name_suffix = "[new]" %}
-        {% set id_suffix = "_new" %}
-    {% endif %}
 
     {# Accordion Trigger #}
 
@@ -63,14 +68,14 @@
                             class="form__input-wrapper--float {% if work.role == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="workRole{{ id_suffix }}">
+                                for="{{ id_prefix }}workRole">
                                 {{ work_template.role_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="workRole{{ id_suffix }}"
+                                id="{{ id_prefix }}workRole"
                                 type="text"
-                                name="work_role{{ name_suffix }}"
+                                name="{{ name_prefix }}[role]"
                                 value="{{ work.role }}" />
                         </div>
 
@@ -83,14 +88,14 @@
                             class="form__input-wrapper--float {% if work.company == true %}active{% endif %}">
                             <label
                                 class="form__label"
-                                for="workCompany{{ id_suffix }}">
+                                for="{{ id_prefix }}workCompany">
                                 {{ work_template.company_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="workCompany{{ id_suffix }}"
+                                id="{{ id_prefix }}workCompany"
                                 type="text"
-                                name="work_company{{ name_suffix }}"
+                                name="{{ name_prefix }}[company]"
                                 value="{{ work.company }}" />
                         </div>
 
@@ -104,14 +109,14 @@
 
                             <label
                                 class="form__label"
-                                for="workDescription{{ id_suffix }}">
+                                for="{{ id_prefix }}workDescription">
                                 {{ work_template.description_label }}
                             </label>
 
                             <textarea
                                 class="form__textarea"
-                                id="workDescription{{ id_suffix }}"
-                                name="work_description{{ name_suffix }}">{{ work.description }}</textarea>
+                                id="{{ id_prefix }}workDescription"
+                                name="{{ name_prefix }}[description]">{{ work.description }}</textarea>
 
                         </div>
 
@@ -125,15 +130,15 @@
 
                             <label
                                 class="form__label"
-                                for="workStartDate{{ id_suffix }}">
+                                for="{{ id_prefix }}workStartDate">
                                 {{ work_template.start_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id="workStartDate{{ id_suffix }}"
+                                id="{{ id_prefix }}workStartDate"
                                 type="date"
-                                name="work_start_date{{ name_suffix }}"
+                                name="{{ name_prefix }}[start_date]"
                                 value="{{ work.start_date|date("Y-m-d") }}">
 
                         </div>
@@ -148,15 +153,15 @@
 
                             <label
                                 class="form__label"
-                                for="workEndDate{{ id_suffix }}">
+                                for="{{ id_prefix }}workEndDate">
                                 {{ work_template.end_date_label }}
                             </label>
 
                             <input
                                 class="form__input"
-                                id="workEndDate{{ id_suffix }}"
+                                id="{{ id_prefix }}workEndDate"
                                 type="date"
-                                name="work_end_date{{ name_suffix }}"
+                                name="{{ name_prefix }}[end_date]"
                                 value="{{ work.end_date|date("Y-m-d") }}">
 
                         </div>
@@ -186,7 +191,7 @@
                         class="button--blue light-bg"
                         type="submit"
                         name="submit"
-                        value="work{{ name_suffix }}">
+                        value="{{ name_prefix }}">
                         {{ work_template.action_02 }}
                     </button>
                 </div>

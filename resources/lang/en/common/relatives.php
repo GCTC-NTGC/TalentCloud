@@ -31,5 +31,13 @@ return [
         "label" => "Select a Work Sample",
         "add_label" => "Add Existing Work Sample",
         "delete_title" => "Remove this work sample."
+    ],
+    "project" => [
+        "title" => "Related Projects",
+        "name_label" => "Project Name",
+        "start_date_label" => "Project Started",
+        "end_date_label" => "Project Ended",
+        "add_label" => "Add Project",
+        "delete_title" => "Delete this project."
     ]
 ];

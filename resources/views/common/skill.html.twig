@@ -4,13 +4,27 @@
     Skill
 
 ============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[skill_declarations][:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "skill_declarations[:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if skill_declaration %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+{% endif %}
+
 <div
-    class="profile-element accordion skill {% if locale == "profile" and skill == false %}template active{% endif %} {% if locale == "application" and jobSkill == false %}template{% endif %} {% if locale == "application" and skill == true %}complete{% endif %} modal-target-object">
+    class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and criteria == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% endif %} modal-target-object"
+    data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
 
         <div
-            {% if skill == false %}
+            {% if skill_declaration == false %}
                 aria-expanded="true"
             {% else %}
                 aria-expanded="false"
@@ -22,7 +36,7 @@
 
             {% else %}
 
-                <div 
+                <div
                     class="accordion-status">
 
                     <i class="fas fa-check"></i>
@@ -35,27 +49,29 @@
 
             <span
                 class="accordion-title">
-                {% if locale == "profile" and skill == false %}
+                {% if locale == "profile" and skill_declaration == false %}
                     {{ skill_template.new_skill_title }}
-                {% elseif locale == "profile" and skill == true %}
-                    {{ skill.name }}
+                {% elseif locale == "profile" and skill_declaration == true %}
+                    {{ skill_template.skills[skill_declaration.skill.name].name }}
                 {% elseif locale == "application" %}
-                    {{ jobSkill.name }}
-                    {% if jobSkill.requirement == "asset" %}
-                        <span>{{ jobSkill.level }} {{ skill_template.application_asset_requirement_label }}</span>
-                    {% elseif jobSkill.requirement == "essential" %}
-                        <span>{{ jobSkill.level }} {{ skill_template.application_essential_requirement_label }}</span>
+                    {{ criteria.name }}
+                    {% if criteria.requirement == "asset" %}
+                        <span>{{ criteria.level }} {{ skill_template.application_asset_requirement_label }}</span>
+                    {% elseif criteria.requirement == "essential" %}
+                        <span>{{ criteria.level }} {{ skill_template.application_essential_requirement_label }}</span>
                     {% endif %}
                 {% endif %}
             </span>
 
-            {% if locale == "profile" and skill == true %}
+            {% if locale == "profile" and skill_declaration == true %}
 
                 <div
                     class="skill-summary">
 
-                    <span>{{ skill.level|title }}</span> | <span>{{ skill.status }}</span> | <span><i class="fas fa-users"></i> {{ skill.references|length }}</span> | <span><i class="fas fa-briefcase"></i> {{ skill.samples|length }}</span>
-
+                    {% set type = skill_declaration.skill.skill_type.name %}
+                    {#
+                    <span>{{ skill_template.skill_levels[type][skill_declaration.skill_level.name]|title }}</span> | <span>{{ skill_template.status[skill_declaration.skill_status.name] }}</span> | <span><i class="fas fa-users"></i> {{ skill_declaration.references|length }}</span> | <span><i class="fas fa-briefcase"></i> {{ skill_declaration.work_samples|length }}</span>
+                    #}
                 </div>
 
             {% endif %}
@@ -67,7 +83,7 @@
     {# Accordion Content #}
 
         <div
-            {% if skill == false %}
+            {% if skill_declaration == false %}
                 aria-hidden="false"
             {% else %}
                 aria-hidden="true"
@@ -76,34 +92,33 @@
 
             <div
                 class="form__wrapper">
-                
+
                 <div
                     class="flex-grid">
 
                     {# Profile Template Specific Content #}
 
-                        {% if locale == "profile" and skill == false %}
+                        {% if locale == "profile" and skill_declaration == false %}
 
                             <div
                                 class="box full">
 
-                                <div class="form__input-wrapper--select">
-                                    <label class="form__label" for="">
+                                <div
+                                    class="form__input-wrapper--select">
+                                    <label
+                                        class="form__label"
+                                        for="{{ id_prefix }}skillSelection">
                                         {{ skill_template.skill_selection_label }}
                                     </label>
                                     <div
                                         class="form__select-wrapper fas fa-chevron-down">
                                         <select
-                                            class="form__input">
+                                            class="form__input"
+                                            id="{{ id_prefix }}skillSelection"
+                                            name="{{ name_prefix }}[skill_id]">
                                             {% for skill in skills %}
-                                                {% if skillType == "soft" %}
-                                                    {% if skill.type == "soft" %}
-                                                        <option>{{ skill.name }}</option>
-                                                    {% endif %}
-                                                {% elseif skillType == "hard" %}
-                                                    {% if skill.type == "hard" %}
-                                                        <option>{{ skill.name }}</option>
-                                                    {% endif %}
+                                                {% if skillType == skill.skill_type.name %}
+                                                    <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
                                                 {% endif %}
                                             {% endfor %}
                                         </select>
@@ -116,30 +131,23 @@
                                 class="box full">
                                 {# Tristan, this is where we need to dynamically load the skill's description. #}
                                 <p
-                                    class="skill__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor enim ut velit tempus, ut bibendum sem dictum. In maximus pulvinar diam, in pulvinar dolor cursus auctor. Curabitur congue sollicitudin euismod. Duis malesuada sollicitudin eros a malesuada. Nullam efficitur quis arcu at rutrum.</p>
+                                    class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
+
                             </div>
 
                         {% endif %}
 
                     {# Profile SKill Description Matching #}
 
-                        {% if locale == "profile" %}
+                        {% if locale == "profile" and skill_declaration %}
 
-                            {% for siteSkill in skills %}
-
-                                {% if skill.name|capitalize == siteSkill.name|capitalize %}
-
-                                    <div
-                                        class="box full">
-                                        <p
-                                            class="skill__description">{{ siteSkill.description }}</p>
-                                        <p
-                                            class="skill__status">Status: Skill {{ skill.status }}</p>
-                                    </div>
-
-                                {% endif %}
-
-                            {% endfor %}
+                            <div
+                                class="box full">
+                                <p
+                                    class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
+                                <p
+                                    class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
+                            </div>
 
                         {% endif %}
 
@@ -150,179 +158,93 @@
                             <div
                                 class="box full">
 
-                                {% for siteSkill in skills %}
-
-                                    {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
-
-                                        <p
-                                            class="skill__description">{{ siteSkill.description }}</p>
-
-                                    {% endif %}
-
-                                {% endfor %}
-
-                                {% if skill == true %}
                                     <p
-                                        class="skill__status">Status: Skill {{ skill.status }}</p>
+                                        class="skill__description">{{ skill_template.skills[criteria.skill.name].description }}</p>
+
+
+                                {% if skill_declaration == true %}
+                                    <p
+                                        class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
                                 {% endif %}
 
                             </div>
 
                         {% endif %}
 
-                    {# Soft Skill Form Elements #}
+                    {# Skill Form Elements #}
 
-                        {% if skillType == "soft" %}
+                        <div
+                            class="box full">
 
                             <div
-                                class="box full">
+                                aria-orientation="horizontal"
+                                class="form__radio-group"
+                                role="radiogroup">
 
-                                <div
-                                    aria-orientation="horizontal"
-                                    class="form__radio-group" 
-                                    role="radiogroup">
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}skillLevel">
+                                    {{ skill_template.level_label }}
+                                </label>
 
-                                    <label 
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.level_label }}
-                                    </label>
+                                <div class="flex-grid">
 
-                                    <div class="flex-grid">
+                                    {% set counter = 0 %}
 
-                                        {% set counter = 0 %}
+                                    {% for level in skill_levels %}
 
-                                        {% for level in skill_template.soft_levels %}
+                                        {% set counter = counter + 1 %}
 
-                                            {% set counter = counter + 1 %}
+                                        <label
+                                            class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
+                                            for="{{ id_prefix }}skillLevel_{{ counter }}">
+                                            <span
+                                                class="hidden">
+                                                {{ skill_template.skill_levels[skillType][level.name] }}
+                                            </span>
+                                            <input
+                                                class="form__radio-group-input"
+                                                id="{{ id_prefix }}skillLevel_{{ counter }}"
+                                                name="{{ name_prefix }}[skill_level_id]"
+                                                type="radio"
+                                                value="{{ level.id }}"
+                                                {% if skill_declaration.skill_level.id == level.id %}
+                                                    checked
+                                                {% endif %}>
+                                            <span
+                                                class="form__radio-group-span">
+                                                {{ skill_template.skill_levels[skillType][level.name] }}
+                                            </span>
+                                        </label>
 
-                                            <label 
-                                                class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
-                                                for="">
-                                                <span 
-                                                    class="hidden">
-                                                    {{ level }}
-                                                </span>
-                                                <input 
-                                                    class="form__radio-group-input"
-                                                    id=""
-                                                    name=""
-                                                    type="radio"
-                                                    {% if skill.level|capitalize == level|capitalize %}
-                                                        checked
-                                                    {% endif %}>
-                                                <span 
-                                                    class="form__radio-group-span">
-                                                    {{ level }}
-                                                </span>
-                                            </label>
-
-                                        {% endfor %}
-
-                                    </div>
+                                    {% endfor %}
 
                                 </div>
 
                             </div>
 
+                        </div>
+
+                        <div
+                            class="box full">
+
                             <div
-                                class="box full">
+                                class="form__input-wrapper--float {% if skill_declaration.description != null %}active{% endif %}">
 
-                                <div 
-                                    class="form__input-wrapper--float {% if skill.knowledge != null%}active{% endif %}">
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}skillDescription">
+                                    {{ skill_template.knowledge_label }}
+                                </label>
 
-                                    <label 
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.knowledge_label }}
-                                    </label>
-
-                                    <textarea 
-                                        class="form__textarea" 
-                                        id="">{{ skill.knowledge }}</textarea>
-
-                                </div>
+                                <textarea
+                                    class="form__textarea"
+                                    id="{{ id_prefix }}skillDescription"
+                                    name="{{ name_prefix }}[description]">{{ skill_declaration.description }}</textarea>
 
                             </div>
 
-                        {% endif %}
-
-                    {# Hard Skill Form Elements #}
-
-                        {% if skillType == "hard" %}
-
-                            <div
-                                class="box full">
-
-                                <div
-                                    aria-orientation="horizontal"
-                                    class="form__radio-group" 
-                                    role="radiogroup">
-
-                                    <label 
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.level_label }}
-                                    </label>
-
-                                    <div class="flex-grid">
-
-                                        {% set counter = 0 %}
-
-                                        {% for level in skill_template.hard_levels %}
-
-                                            {% set counter = counter + 1 %}
-
-                                            <label 
-                                                class="box form__radio-group-label small-1of{{ skill_template.hard_levels|length }}"
-                                                for="">
-                                                <span 
-                                                    class="hidden">
-                                                    {{ level }}
-                                                </span>
-                                                <input 
-                                                    class="form__radio-group-input"
-                                                    id=""
-                                                    name=""
-                                                    type="radio"
-                                                    {% if skill.level|capitalize == level|capitalize %}
-                                                        checked
-                                                    {% endif %}>
-                                                <span 
-                                                    class="form__radio-group-span">
-                                                    {{ level }}
-                                                </span>
-                                            </label>
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="box full">
-
-                                <div 
-                                    class="form__input-wrapper--float {% if skill.knowledge != null%}active{% endif %}">
-
-                                    <label 
-                                        class="form__label"
-                                        for="">
-                                        {{ skill_template.knowledge_label }}
-                                    </label>
-
-                                    <textarea 
-                                        class="form__textarea" 
-                                        id="">{{ skill.knowledge }}</textarea>
-
-                                </div>
-
-                            </div>
-
-                        {% endif %}
+                        </div>
 
                 </div>
 
@@ -352,12 +274,13 @@
                                 <button
                                     class="modal-trigger"
                                     data-modal-id="createReference"
-                                    title="{{ relative_template.reference.create_title }}">
+                                    title="{{ relative_template.reference.create_title }}"
+                                    type="button">
 
                                     {{ relative_template.reference.create_label }}
 
                                 </button>
-                                    
+
                                 </div>
 
                             </div>
@@ -366,20 +289,20 @@
 
                             {% set relativeToken = "references" %}
 
-                            {% include "common/relatives" %}
+                            {% include "common/relatives" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
                             {% set relativeCounter = 0 %}
 
-                            <div 
+                            <div
                                 class="profile-relative-list__wrapper">
 
-                                {% for relative in skill.references %}
+                                {% for relative in skill_declaration.references %}
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" %}             
+                                    {% include "common/relatives" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -391,7 +314,8 @@
                                 class="profile-relative__add-trigger-wrapper">
 
                                 <button
-                                    class="profile-relative__add-trigger">
+                                    class="profile-relative__add-trigger"
+                                    type="button">
                                     {{ relative_template.reference.add_label }}
                                 </button>
 
@@ -425,12 +349,13 @@
                                 <button
                                     class="modal-trigger"
                                     data-modal-id="createSample"
-                                    title="{{ relative_template.sample.create_title }}">
+                                    title="{{ relative_template.sample.create_title }}"
+                                    type="button">
 
                                     {{ relative_template.sample.create_label }}
 
                                 </button>
-                                    
+
                                 </div>
 
                             </div>
@@ -439,20 +364,20 @@
 
                             {% set relativeToken = "samples" %}
 
-                            {% include "common/relatives" %}
+                            {% include "common/relatives" with {"prefix":name_prefix} %}
 
                         {# Relative List #}
 
                             {% set relativeCounter = 0 %}
 
-                            <div 
+                            <div
                                 class="profile-relative-list__wrapper">
 
-                                {% for relative in skill.samples %}
+                                {% for relative in skill_declaration.work_samples %}
 
                                     {% set relativeCounter = relativeCounter + 1 %}
 
-                                    {% include "common/relatives" %}             
+                                    {% include "common/relatives" with {"prefix":name_prefix} %}
 
                                 {% endfor %}
 
@@ -464,7 +389,8 @@
                                 class="profile-relative__add-trigger-wrapper">
 
                                 <button
-                                    class="profile-relative__add-trigger">
+                                    class="profile-relative__add-trigger"
+                                    type="button">
                                     {{ relative_template.sample.add_label }}
                                 </button>
 
@@ -483,7 +409,8 @@
                     {% if locale != "application" %}
                         <button
                             class="button--red light-bg modal-trigger"
-                            data-modal-id="deleteSkill">
+                            data-modal-id="deleteSkill"
+                            type="button">
                             {{ skill_template.action_01 }}
                         </button>
                     {% endif %}
@@ -493,7 +420,10 @@
                 <div
                     class="box med-1of2">
                     <button
-                        class="button--blue light-bg">
+                        class="button--blue light-bg"
+                        name="submit"
+                        type="submit"
+                        value="{{ name_prefix }}">
                         {{ skill_template.action_02 }}
                     </button>
                 </div>
