@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Http\Request;
-use App\Models\JobApplication;
 use App\Models\Lookup\ApplicationStatus;
+use App\Models\Lookup\VeteranStatus;
+use App\Models\Lookup\PreferredLanguage;
+use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Applicant;
 use App\Models\JobPoster;
+use App\Models\JobApplication;
+use App\Models\JobApplicationAnswer;
+use App\Models\Skill;
+use App\Models\Degree;
+use App\Models\Course;
+use App\Models\WorkExperience;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -53,6 +63,7 @@ class ApplicationByJobController extends Controller
      */
     public function edit_basics(JobPoster $jobPoster)
     {
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //This is an alternative way of using policies instead of via middleware
@@ -62,6 +73,11 @@ class ApplicationByJobController extends Controller
         }
 
         return view('applicant/application_post_01', [
+            "language_options" => PreferredLanguage::all(),
+            "citizenship_options" => CitizenshipDeclaration::all(),
+            "veteran_options" => VeteranStatus::all(),
+            "applicant" => $applicant,
+            "form_submit_action" => route('job.application.update.1', $jobPoster),
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -168,21 +184,6 @@ class ApplicationByJobController extends Controller
             "user" => [
                 "name" => "Jason Greene",
                 "photo" => false,
-                "application" => [
-                    "citizenship" => "Canadian Citizen",
-                    "veteran" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
-                    "language" => true,
-                    "questions" => [
-                        "00" => [
-                            "id" => "00",
-                            "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        ],
-                        "01" => [
-                            "id" => "01",
-                            "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        ]
-                    ]
-                ],
                 "degrees" => [
                     "00" => [
                         "type" => "Bachelor's Degree",
@@ -292,116 +293,70 @@ class ApplicationByJobController extends Controller
                     ]
                 ]
             ],
-            "degree_template" => [
-                "new_degree_label" => "New Diploma/Degree",
-                "type_label" => "Type",
-                "types" => [
-                    "00" => "Bachelor's Degree",
-                    "02" => "Diploma",
-                    "03" => "Master's Degree",
-                    "04" => "PhD"
-                ],
-                "aoe_label" => "Area of Study",
-                "institution_label" => "Institution",
-                "thesis_label" => "Thesis Title (Optional)",
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "action_01" => "Delete Diploma/Degree",
-                "action_02" => "Save Diploma/Degree"
-            ],
-            "course_template" => [
-                "new_course_label" => "New Course/Certification",
-                "name_label" => "Course/Certification Name",
-                "institution_label" => "Institution",
-                "status_label" => "Status",
-                "statuses" => [
-                    "00" => "Course Certificate Granted",
-                    "01" => "Credits Towards Degree (Passing Grade)",
-                    "02" => "Audited",
-                    "03" => "Online Course (No Proof of Completion)",
-                    "04" => "Online Course (With Certificate/License)",
-                    "05" => "Learning in Progress"
-                ],
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "action_01" => "Delete Diploma/Degree",
-                "action_02" => "Save Diploma/Degree"
-            ],
-            "work_template" => [
-                "new_work_label" => "New Lived Experience",
-                "role_label" => "Role",
-                "company_label" => "Company/Group",
-                "description_label" => "Description",
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "action_01" => "Delete Lived Experience",
-                "action_02" => "Save Lived Experience"
-            ],
-            "job" => $jobPoster
-            /* Same with this - job ID - and then we pull what we need */
-            /*"job" => [
-                "link" => "/browse/jobs/00/",
-                "title" => "Front-end Developer",
-                "department" => "Treasury Board of Canada Secretariat",
-                "city" => "Ottawa",
-                "province" => "Ontario",
-                "salary" => "80,000 - 120,000",
-                "duration" => "1 Year",
-                "remote" => "Allowed",
-                "telework" => "Allowed",
-                "time_flexibility" => "Allowed",
-                "days_remaining" => "12",
-                "applicants" => "2",
-                "reference_id" => "14234",
-                "start" => "January 3rd, 2019",
-                "language" => "English Essential",
-                "security" => "Top Secret",
-                "classification" => "CS3",
-                "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
-                "work" => [
-                    "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                    "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-                    "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
-                ],
-                "criteria" => [
-                    "essential" => [
-                        "00" => "Criteria 01",
-                        "01" => "Criteria 02",
-                        "02" => "Criteria 03"
-                    ],
-                    "asset" => [
-                        "00" => "Criteria 01",
-                        "01" => "Criteria 02",
-                        "02" => "Criteria 03"
-                    ]
-                ],
-                "extras" => [
-                    "00" => [
-                        "title" => "What You Need for Security Clearance",
-                        "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-                    ],
-                    "01" => [
-                        "title" => "The Application Process",
-                        "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-                    ],
-                    "02" => [
-                        "title" => "Other Paperwork & Preparation",
-                        "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-                    ]
-                ],
-                "questions" => [
-                    "00" => [
-                        "value" => "Why are you interested in this job?",
-                        "id" => "00",
-                        "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
-                    ],
-                    "01" => [
-                        "value" => "Why are you the right person for this job?",
-                        "id" => "01",
-                        "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
-                    ]
-                ]
-            ]*/
+            "job" => $jobPoster,
+            // "job" => [
+            //     "link" => "/browse/jobs/00/",
+            //     "title" => "Front-end Developer",
+            //     "department" => "Treasury Board of Canada Secretariat",
+            //     "city" => "Ottawa",
+            //     "province" => "Ontario",
+            //     "salary" => "80,000 - 120,000",
+            //     "duration" => "1 Year",
+            //     "remote" => "Allowed",
+            //     "telework" => "Allowed",
+            //     "time_flexibility" => "Allowed",
+            //     "days_remaining" => "12",
+            //     "applicants" => "2",
+            //     "reference_id" => "14234",
+            //     "start" => "January 3rd, 2019",
+            //     "language" => "English Essential",
+            //     "security" => "Top Secret",
+            //     "classification" => "CS3",
+            //     "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+            //     "work" => [
+            //         "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+            //         "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+            //         "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+            //     ],
+            //     "criteria" => [
+            //         "essential" => [
+            //             "00" => "Criteria 01",
+            //             "01" => "Criteria 02",
+            //             "02" => "Criteria 03"
+            //         ],
+            //         "asset" => [
+            //             "00" => "Criteria 01",
+            //             "01" => "Criteria 02",
+            //             "02" => "Criteria 03"
+            //         ]
+            //     ],
+            //     "extras" => [
+            //         "00" => [
+            //             "title" => "What You Need for Security Clearance",
+            //             "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+            //         ],
+            //         "01" => [
+            //             "title" => "The Application Process",
+            //             "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+            //         ],
+            //         "02" => [
+            //             "title" => "Other Paperwork & Preparation",
+            //             "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+            //         ]
+            //     ],
+            //     "questions" => [
+            //         "00" => [
+            //             "value" => "Why are you interested in this job?",
+            //             "id" => "00",
+            //             "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
+            //         ],
+            //         "01" => [
+            //             "value" => "Why are you the right person for this job?",
+            //             "id" => "01",
+            //             "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
+            //         ]
+            //     ]
+            // ]
         ]);
     }
 
@@ -413,8 +368,11 @@ class ApplicationByJobController extends Controller
      */
     public function edit_experience(JobPoster $jobPoster)
     {
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
         return view('applicant/application_post_02', [
+            "form_submit_action" => route('job.application.update.2', $jobPoster),
+            "applicant" => $applicant,
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -630,51 +588,6 @@ class ApplicationByJobController extends Controller
                     ]
                 ]
             ],
-            "degree_template" => [
-                "new_degree_label" => "New Diploma/Degree",
-                "type_label" => "Type",
-                "types" => [
-                    "00" => "Bachelor's Degree",
-                    "02" => "Diploma",
-                    "03" => "Master's Degree",
-                    "04" => "PhD"
-                ],
-                "aoe_label" => "Area of Study",
-                "institution_label" => "Institution",
-                "thesis_label" => "Thesis Title (Optional)",
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "action_01" => "Delete Diploma/Degree",
-                "action_02" => "Save Diploma/Degree"
-            ],
-            "course_template" => [
-                "new_course_label" => "New Course/Certification",
-                "name_label" => "Course/Certification Name",
-                "institution_label" => "Institution",
-                "status_label" => "Status",
-                "statuses" => [
-                    "00" => "Course Certificate Granted",
-                    "01" => "Credits Towards Degree (Passing Grade)",
-                    "02" => "Audited",
-                    "03" => "Online Course (No Proof of Completion)",
-                    "04" => "Online Course (With Certificate/License)",
-                    "05" => "Learning in Progress"
-                ],
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "action_01" => "Delete Diploma/Degree",
-                "action_02" => "Save Diploma/Degree"
-            ],
-            "work_template" => [
-                "new_work_label" => "New Lived Experience",
-                "role_label" => "Role",
-                "company_label" => "Company/Group",
-                "description_label" => "Description",
-                "start_date_label" => "Start Date",
-                "end_date_label" => "End Date",
-                "action_01" => "Delete Lived Experience",
-                "action_02" => "Save Lived Experience"
-            ],
             "job_application" => $application,
             "job" => $jobPoster,
             // [
@@ -756,9 +669,12 @@ class ApplicationByJobController extends Controller
      */
     public function edit_essential_skills(JobPoster $jobPoster)
     {
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         return view('applicant/application_post_03', [
+            "applicant" => $applicant,
+            "form_submit_action" => route('job.application.update.3', $jobPoster),
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -1009,122 +925,7 @@ class ApplicationByJobController extends Controller
             //         ]
             //     ]
             // ],
-            "skill_template" => [
-                "application_asset_requirement_label" => "Recommended",
-                "application_essential_requirement_label" => "Required",
-                "new_skill_title" => "New Skill",
-                "name_label" => "Project Name",
-                "type_label" => "Project Type",
-                "skill_selection_label" => "Select Skill",
-                "level_label" => "My Level",
-                "knowledge_label" => "My Knowledge",
-                "hard_levels" => [
-                    "00" => "Beginner",
-                    "01" => "Intermediate",
-                    "02" => "Advanced",
-                    "03" => "Expert"
-                ],
-                "soft_levels" => [
-                    "00" => "In Early Development",
-                    "01" => "Moderately in Evidence",
-                    "02" => "Strongly in Evidence",
-                    "03" => "Deep Level Demonstration"
-                ],
-                "action_01" => "Delete Skill",
-                "action_02" => "Save Skill"
-            ],
-            "reference_template" => [
-                "new_reference_title" => "New Reference",
-                "name_label" => "Reference's Name",
-                "relationship_label" => "Your Relationship",
-                "relationships" => [
-                    "00" => "Coworker",
-                    "01" => "Supervisor",
-                    "02" => "Employee"
-                ],
-                "email_label" => "Reference's Email",
-                "description_label" => "How You Worked Together",
-                "action_01" => "Delete Reference",
-                "action_02" => "Save Reference"
-            ],
-            "sample_template" => [
-                "new_sample_label" => "New Work Sample",
-                "name_label" => "Project Name",
-                "type_label" => "Project Type",
-                "types" => [
-                    "00" => "PDF",
-                    "01" => "Website"
-                ],
-                "link_label" => "The Link to Your Work",
-                "description_label" => "The Story Behind the Work",
-                "linked_skills_label" => "Linked Skills",
-                "search_label" => "Search Through My Skills",
-                "skill_label" => "Select a Skill",
-                "add_skill_label" => "Add a Skill",
-                "action_01" => "Delete Sample",
-                "action_02" => "Save Sample"
-            ],
-            "relative_template" => [
-                "skill" => [
-                    "title" => "Linked Skills",
-                    "create_title" => "Create a new skill.",
-                    "create_label" => "Create New Skill",
-                    "label" => "Select a Skill",
-                    "add_label" => "Add Existing Skill",
-                    "delete_title" => "Remove this skill."
-                ],
-                "reference" => [
-                    "title" => "Linked References",
-                    "create_title" => "Create a new reference.",
-                    "create_label" => "Create New Reference",
-                    "label" => "Select a Reference",
-                    "add_label" => "Add Existing Reference",
-                    "delete_title" => "Remove this reference."
-                ],
-                "sample" => [
-                    "title" => "Linked Work Samples",
-                    "create_title" => "Create a new work sample.",
-                    "create_label" => "Create New Work Sample",
-                    "label" => "Select a Work Sample",
-                    "add_label" => "Add Existing Work Sample",
-                    "delete_title" => "Remove this work sample."
-                ],
-                "project" => [
-                    "title" => "Related Projects",
-                    "name_label" => "Project Name",
-                    "start_date_label" => "Project Started",
-                    "end_date_label" => "Project Ended",
-                    "add_label" => "Add Project",
-                    "delete_title" => "Delete this project."
-                ]
-            ],
-            "skills" => [
-                "00" => [
-                    "name" => "UX Research",
-                    "type" => "soft",
-                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "01" => [
-                    "name" => "HTML",
-                    "type" => "hard",
-                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "02" => [
-                    "name" => "CSS",
-                    "type" => "hard",
-                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "03" => [
-                    "name" => "Laravel",
-                    "type" => "hard",
-                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "04" => [
-                    "name" => "JavaScript",
-                    "type" => "soft",
-                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ]
-            ]
+            "skills" => Skill::all(),
         ]);
     }
 
@@ -1136,9 +937,12 @@ class ApplicationByJobController extends Controller
      */
     public function edit_asset_skills(JobPoster $jobPoster)
     {
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         return view('applicant/application_post_04', [
+            "applicant" => $applicant,
+            "form_submit_action" => route('job.application.update.4', $jobPoster),
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -1389,137 +1193,7 @@ class ApplicationByJobController extends Controller
             //         ]
             //     ]
             // ],
-            "skill_template" => [
-                "application_asset_requirement_label" => "Recommended",
-                "application_essential_requirement_label" => "Required",
-                "new_skill_title" => "New Skill",
-                "name_label" => "Project Name",
-                "type_label" => "Project Type",
-                "skill_selection_label" => "Select Skill",
-                "level_label" => "My Level",
-                "knowledge_label" => "My Knowledge",
-                "hard_levels" => [
-                    "00" => "Beginner",
-                    "01" => "Intermediate",
-                    "02" => "Advanced",
-                    "03" => "Expert"
-                ],
-                "soft_levels" => [
-                    "00" => "In Early Development",
-                    "01" => "Moderately in Evidence",
-                    "02" => "Strongly in Evidence",
-                    "03" => "Deep Level Demonstration"
-                ],
-                "action_01" => "Delete Skill",
-                "action_02" => "Save Skill"
-            ],
-            "reference_template" => [
-                "new_reference_title" => "New Reference",
-                "name_label" => "Reference's Name",
-                "relationship_label" => "Your Relationship",
-                "relationships" => [
-                    "00" => "Coworker",
-                    "01" => "Supervisor",
-                    "02" => "Employee"
-                ],
-                "email_label" => "Reference's Email",
-                "description_label" => "How You Worked Together",
-                "action_01" => "Delete Reference",
-                "action_02" => "Save Reference"
-            ],
-            "sample_template" => [
-                "new_sample_label" => "New Work Sample",
-                "name_label" => "Project Name",
-                "type_label" => "Project Type",
-                "types" => [
-                    "00" => "PDF",
-                    "01" => "Website"
-                ],
-                "link_label" => "The Link to Your Work",
-                "description_label" => "The Story Behind the Work",
-                "linked_skills_label" => "Linked Skills",
-                "search_label" => "Search Through My Skills",
-                "skill_label" => "Select a Skill",
-                "add_skill_label" => "Add a Skill",
-                "action_01" => "Delete Sample",
-                "action_02" => "Save Sample"
-            ],
-            "relative_template" => [
-                "skill" => [
-                    "title" => "Linked Skills",
-                    "create_title" => "Create a new skill.",
-                    "create_label" => "Create New Skill",
-                    "label" => "Select a Skill",
-                    "add_label" => "Add Existing Skill",
-                    "delete_title" => "Remove this skill."
-                ],
-                "reference" => [
-                    "title" => "Linked References",
-                    "create_title" => "Create a new reference.",
-                    "create_label" => "Create New Reference",
-                    "label" => "Select a Reference",
-                    "add_label" => "Add Existing Reference",
-                    "delete_title" => "Remove this reference."
-                ],
-                "sample" => [
-                    "title" => "Linked Work Samples",
-                    "create_title" => "Create a new work sample.",
-                    "create_label" => "Create New Work Sample",
-                    "label" => "Select a Work Sample",
-                    "add_label" => "Add Existing Work Sample",
-                    "delete_title" => "Remove this work sample."
-                ],
-                "project" => [
-                    "title" => "Related Projects",
-                    "name_label" => "Project Name",
-                    "start_date_label" => "Project Started",
-                    "end_date_label" => "Project Ended",
-                    "add_label" => "Add Project",
-                    "delete_title" => "Delete this project."
-                ]
-            ],
-            "skills" => [
-                "00" => [
-                    "name" => "UX Research",
-                    "type" => "soft",
-                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "01" => [
-                    "name" => "HTML",
-                    "type" => "hard",
-                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "02" => [
-                    "name" => "CSS",
-                    "type" => "hard",
-                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "03" => [
-                    "name" => "Laravel",
-                    "type" => "hard",
-                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "04" => [
-                    "name" => "JavaScript",
-                    "type" => "soft",
-                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "05" => [
-                    "name" => "Docker",
-                    "type" => "soft",
-                    "description" => "Docker: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "06" => [
-                    "name" => "Responsive Web Design",
-                    "type" => "soft",
-                    "description" => "RWD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "07" => [
-                    "name" => "Adobe XD",
-                    "type" => "hard",
-                    "description" => "XD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ]
-            ]
+            "skills" => Skill::all(),
         ]);
     }
 
@@ -1530,9 +1204,12 @@ class ApplicationByJobController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function preview(JobPoster $jobPoster) {
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         return view('applicant/application_post_05', [
+            "applicant" => $applicant,
+            "form_submit_action" => route('job.application.submit', $jobPoster),
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -1782,137 +1459,7 @@ class ApplicationByJobController extends Controller
             //         ]
             //     ]
             // ],
-            "skill_template" => [
-                "application_asset_requirement_label" => "Recommended",
-                "application_essential_requirement_label" => "Required",
-                "new_skill_title" => "New Skill",
-                "name_label" => "Project Name",
-                "type_label" => "Project Type",
-                "skill_selection_label" => "Select Skill",
-                "level_label" => "My Level",
-                "knowledge_label" => "My Knowledge",
-                "hard_levels" => [
-                    "00" => "Beginner",
-                    "01" => "Intermediate",
-                    "02" => "Advanced",
-                    "03" => "Expert"
-                ],
-                "soft_levels" => [
-                    "00" => "In Early Development",
-                    "01" => "Moderately in Evidence",
-                    "02" => "Strongly in Evidence",
-                    "03" => "Deep Level Demonstration"
-                ],
-                "action_01" => "Delete Skill",
-                "action_02" => "Save Skill"
-            ],
-            "reference_template" => [
-                "new_reference_title" => "New Reference",
-                "name_label" => "Reference's Name",
-                "relationship_label" => "Your Relationship",
-                "relationships" => [
-                    "00" => "Coworker",
-                    "01" => "Supervisor",
-                    "02" => "Employee"
-                ],
-                "email_label" => "Reference's Email",
-                "description_label" => "How You Worked Together",
-                "action_01" => "Delete Reference",
-                "action_02" => "Save Reference"
-            ],
-            "sample_template" => [
-                "new_sample_label" => "New Work Sample",
-                "name_label" => "Project Name",
-                "type_label" => "Project Type",
-                "types" => [
-                    "00" => "PDF",
-                    "01" => "Website"
-                ],
-                "link_label" => "The Link to Your Work",
-                "description_label" => "The Story Behind the Work",
-                "linked_skills_label" => "Linked Skills",
-                "search_label" => "Search Through My Skills",
-                "skill_label" => "Select a Skill",
-                "add_skill_label" => "Add a Skill",
-                "action_01" => "Delete Sample",
-                "action_02" => "Save Sample"
-            ],
-            "relative_template" => [
-                "skill" => [
-                    "title" => "Linked Skills",
-                    "create_title" => "Create a new skill.",
-                    "create_label" => "Create New Skill",
-                    "label" => "Select a Skill",
-                    "add_label" => "Add Existing Skill",
-                    "delete_title" => "Remove this skill."
-                ],
-                "reference" => [
-                    "title" => "Linked References",
-                    "create_title" => "Create a new reference.",
-                    "create_label" => "Create New Reference",
-                    "label" => "Select a Reference",
-                    "add_label" => "Add Existing Reference",
-                    "delete_title" => "Remove this reference."
-                ],
-                "sample" => [
-                    "title" => "Linked Work Samples",
-                    "create_title" => "Create a new work sample.",
-                    "create_label" => "Create New Work Sample",
-                    "label" => "Select a Work Sample",
-                    "add_label" => "Add Existing Work Sample",
-                    "delete_title" => "Remove this work sample."
-                ],
-                "project" => [
-                    "title" => "Related Projects",
-                    "name_label" => "Project Name",
-                    "start_date_label" => "Project Started",
-                    "end_date_label" => "Project Ended",
-                    "add_label" => "Add Project",
-                    "delete_title" => "Delete this project."
-                ]
-            ],
-            "skills" => [
-                "00" => [
-                    "name" => "UX Research",
-                    "type" => "soft",
-                    "description" => "UX: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "01" => [
-                    "name" => "HTML",
-                    "type" => "hard",
-                    "description" => "HTML: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "02" => [
-                    "name" => "CSS",
-                    "type" => "hard",
-                    "description" => "CSS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "03" => [
-                    "name" => "Laravel",
-                    "type" => "hard",
-                    "description" => "Laravel: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "04" => [
-                    "name" => "JavaScript",
-                    "type" => "soft",
-                    "description" => "JS: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "05" => [
-                    "name" => "Docker",
-                    "type" => "soft",
-                    "description" => "Docker: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "06" => [
-                    "name" => "Responsive Web Design",
-                    "type" => "soft",
-                    "description" => "RWD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ],
-                "07" => [
-                    "name" => "Adobe XD",
-                    "type" => "hard",
-                    "description" => "XD: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat."
-                ]
-            ]
+            "skills" => Skill::all(),
         ]);
     }
 
@@ -1926,9 +1473,32 @@ class ApplicationByJobController extends Controller
     public function update_basics(Request $request, JobPoster $jobPoster)
     {
         $input = $request->input();
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: save stuff to application
+        $application->fill([
+            'citizenship_declaration_id' => $input['citizenship_declaration_id'],
+            'veteran_status_id' => $input['veteran_status_id'],
+            'preferred_language_id' => $input['preferred_language_id'],
+        ]);
+
+        $questions = $jobPoster->job_poster_questions;
+        foreach($questions as $question) {
+            $answer = null;
+            if (isset($input['questions']) &&
+                isset($input['questions'][$question->id])) {
+                $answer = $input['questions'][$question->id];
+            }
+            $answerObj = $application->job_application_answers
+                ->firstWhere('job_poster_question_id', $question->id);
+            if ($answerObj == null) {
+                $answerObj = new JobApplicationAnswer();
+                $answerObj->job_poster_question_id = $question->id;
+                $answerObj->job_application_id = $application->id;
+            }
+            $answerObj->answer = $answer;
+            $answerObj->save();
+        }
 
         return redirect( route('job.application.edit.2', $jobPoster));
     }
@@ -1943,9 +1513,131 @@ class ApplicationByJobController extends Controller
     public function update_experience(Request $request, JobPoster $jobPoster)
     {
         $input = $request->input();
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //TODO: save stuff to application
+
+        //TODO: Note from Tristan: I haven't tested this. This was copied from the ExperienceController.
+        //TODO: But for now, if we're just updating the Applicant's Profile through this page,
+        //TODO: then this same code, or something very close, should work.
+
+
+        $degrees = $input['degrees'];
+
+        //Save new degrees
+        if (isset($degrees['new'])) {
+            foreach($degrees['new'] as $degreeInput) {
+                $degree = new Degree();
+                $degree->applicant_id = $applicant->id;
+                $degree->fill([
+                    'degree_type_id' => $degreeInput['degree_type_id'],
+                    'area_of_study' => $degreeInput['area_of_study'],
+                    'institution' => $degreeInput['institution'],
+                    'thesis' => $degreeInput['thesis'],
+                    'start_date' => $degreeInput['start_date'],
+                    'end_date' => $degreeInput['end_date']
+                ]);
+                $degree->save();
+            }
+        }
+
+        //Update old degrees
+        if (isset($degrees['old'])) {
+            foreach($degrees['old'] as $id=>$degreeInput) {
+                //Ensure this degree belongs to this applicant
+                $degree = $applicant->degrees->firstWhere('id', $id);
+                if ($degree != null) {
+                    $degree->fill([
+                        'degree_type_id' => $degreeInput['degree_type_id'],
+                        'area_of_study' => $degreeInput['area_of_study'],
+                        'institution' => $degreeInput['institution'],
+                        'thesis' => $degreeInput['thesis'],
+                        'start_date' => $degreeInput['start_date'],
+                        'end_date' => $degreeInput['end_date']
+                    ]);
+                    $degree->save();
+                } else {
+                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update degree with invalid id '.$id);
+                }
+            }
+        }
+
+        $courses = $input['courses'];
+
+        //Save new courses
+        if (isset($courses['new'])) {
+            foreach($courses['new'] as $courseInput) {
+                $course = new Course();
+                $course->applicant_id = $applicant->id;
+                $course->fill([
+                    'name' => $courseInput['name'],
+                    'institution' => $courseInput['institution'],
+                    'course_status_id' => $courseInput['course_status_id'],
+                    'start_date' => $courseInput['start_date'],
+                    'end_date' => $courseInput['end_date']
+                ]);
+                $course->save();
+            }
+        }
+
+        //Update old courses
+        if (isset($courses['old'])) {
+            foreach($courses['old'] as $id=>$courseInput) {
+                //Ensure this course belongs to this applicant
+                $course = $applicant->courses->firstWhere('id', $id);
+                if ($course != null) {
+                    $course->fill([
+                        'name' => $courseInput['name'],
+                        'institution' => $courseInput['institution'],
+                        'course_status_id' => $courseInput['course_status_id'],
+                        'start_date' => $courseInput['start_date'],
+                        'end_date' => $courseInput['end_date']
+                    ]);
+                    $course->save();
+                } else {
+                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update course with invalid id '.$id);
+                }
+            }
+        }
+
+        $work_experiences = $input['work_experiences'] ;
+
+        //Save new work_experiences
+        if (isset($work_experiences['new'])) {
+            foreach($work_experiences['new'] as $workExperienceInput) {
+                $workExperience = new WorkExperience();
+                $workExperience->applicant_id = $applicant->id;
+                $workExperience->fill([
+                    'role' => $workExperienceInput['role'],
+                    'company' => $workExperienceInput['company'],
+                    'description' => $workExperienceInput['description'],
+                    'start_date' => $workExperienceInput['start_date'],
+                    'end_date' => $workExperienceInput['end_date']
+                ]);
+                $workExperience->save();
+            }
+        }
+
+        //Update old work_experiences
+        if (isset($work_experiences['old'])) {
+            foreach($work_experiences['old'] as $id=>$workExperienceInput) {
+                //Ensure this work_experience belongs to this applicant
+                $workExperience = $applicant->work_experiences->firstWhere('id', $id);
+                if ($workExperience != null) {
+                    $workExperience->fill([
+                        'role' => $workExperienceInput['role'],
+                        'company' => $workExperienceInput['company'],
+                        'description' => $workExperienceInput['description'],
+                        'start_date' => $workExperienceInput['start_date'],
+                        'end_date' => $workExperienceInput['end_date']
+                    ]);
+                    $workExperience->save();
+                } else {
+                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update work_experience with invalid id '.$id);
+                }
+            }
+        }
 
         return redirect( route('job.application.edit.3', $jobPoster));
     }
@@ -1960,9 +1652,66 @@ class ApplicationByJobController extends Controller
     public function update_essential_skills(Request $request, JobPoster $jobPoster)
     {
         $input = $request->input();
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //TODO: save stuff to application
+
+        //TODO: Note from Tristan: I haven't tested this. This was copied from the SkillsController.
+        //TODO: But for now, if we're just updating the Applicant's Profile through this page,
+        //TODO: then this same code, or something very close, should work.
+
+        $skillDeclarations = $input['skill_declarations'];
+        $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
+
+        //Save new skill declarartions
+        if (isset($skillDeclarations['new'])) {
+            foreach($skillDeclarations['new'] as $skillType => $typeInput) {
+                foreach($typeInput as $skillDeclarationInput) {
+                    $skillDeclaration = new SkillDeclaration();
+                    $skillDeclaration->applicant_id = $applicant->id;
+                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_status_id = $claimedStatusId;
+                    $skillDeclaration->fill([
+                        'description' => $skillDeclarationInput['description'],
+                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                    ]);
+                    $skillDeclaration->save();
+
+                    $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
+                    $skillDeclaration->references()->sync($referenceIds);
+
+                    $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
+                    $skillDeclaration->work_samples()->sync($sampleIds);
+                }
+            }
+        }
+
+        //Update old declarations
+        if (isset($skillDeclarations['old'])) {
+            foreach($skillDeclarations['old'] as $skillType => $typeInput) {
+                foreach($typeInput as $id=>$skillDeclarationInput) {
+                    //Ensure this declaration belongs to this applicant
+                    $skillDeclaration = $applicant->skill_declarations->firstWhere('id', $id);
+                    if ($skillDeclaration != null) {
+                        //skill_id and skill_status cannot be changed
+                        $skillDeclaration->fill([
+                            'description' => $skillDeclarationInput['description'],
+                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        ]);
+                        $skillDeclaration->save();
+
+                        $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
+                        $skillDeclaration->references()->sync($referenceIds);
+
+                        $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
+                        $skillDeclaration->work_samples()->sync($sampleIds);
+                    } else {
+                        Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
+                    }
+                }
+            }
+        }
 
         return redirect( route('job.application.edit.4', $jobPoster));
     }
@@ -1977,9 +1726,66 @@ class ApplicationByJobController extends Controller
     public function update_asset_skills(Request $request, JobPoster $jobPoster)
     {
         $input = $request->input();
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //TODO: save stuff to application
+
+        //TODO: Note from Tristan: I haven't tested this. This was copied from the SkillsController.
+        //TODO: But for now, if we're just updating the Applicant's Profile through this page,
+        //TODO: then this same code, or something very close, should work.
+
+        $skillDeclarations = $input['skill_declarations'];
+        $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
+
+        //Save new skill declarartions
+        if (isset($skillDeclarations['new'])) {
+            foreach($skillDeclarations['new'] as $skillType => $typeInput) {
+                foreach($typeInput as $skillDeclarationInput) {
+                    $skillDeclaration = new SkillDeclaration();
+                    $skillDeclaration->applicant_id = $applicant->id;
+                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_status_id = $claimedStatusId;
+                    $skillDeclaration->fill([
+                        'description' => $skillDeclarationInput['description'],
+                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                    ]);
+                    $skillDeclaration->save();
+
+                    $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
+                    $skillDeclaration->references()->sync($referenceIds);
+
+                    $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
+                    $skillDeclaration->work_samples()->sync($sampleIds);
+                }
+            }
+        }
+
+        //Update old declarations
+        if (isset($skillDeclarations['old'])) {
+            foreach($skillDeclarations['old'] as $skillType => $typeInput) {
+                foreach($typeInput as $id=>$skillDeclarationInput) {
+                    //Ensure this declaration belongs to this applicant
+                    $skillDeclaration = $applicant->skill_declarations->firstWhere('id', $id);
+                    if ($skillDeclaration != null) {
+                        //skill_id and skill_status cannot be changed
+                        $skillDeclaration->fill([
+                            'description' => $skillDeclarationInput['description'],
+                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        ]);
+                        $skillDeclaration->save();
+
+                        $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
+                        $skillDeclaration->references()->sync($referenceIds);
+
+                        $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
+                        $skillDeclaration->work_samples()->sync($sampleIds);
+                    } else {
+                        Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
+                    }
+                }
+            }
+        }
 
         return redirect( route('job.application.edit.5', $jobPoster));
     }
@@ -1994,6 +1800,7 @@ class ApplicationByJobController extends Controller
     public function submit(Request $request, JobPoster $jobPoster)
     {
         $input = $request->input();
+        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //TODO: Save any input (vows, etc)
@@ -2004,6 +1811,6 @@ class ApplicationByJobController extends Controller
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
 
         //TODO: where should we redirect after submitting?
-        return redirect( route('applications.index'));
+        return redirect( route('applications.index', $jobPoster));
     }
 }

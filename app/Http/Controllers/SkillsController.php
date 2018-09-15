@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use Barryvdh\Debugbar\Facade as Debugbar;
-use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
-use App\Models\Skill;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
 
@@ -39,10 +37,6 @@ class SkillsController extends Controller
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
-            'skill_template' => Lang::get('common/skills'),
-            'relative_template' => Lang::get('common/relatives'),
-            'skills' => Skill::all(),
-            'skill_levels' => SkillLevel::all(),
             'form_submit_action' => route('profile.skills.update', $applicant),
         ]);
     }

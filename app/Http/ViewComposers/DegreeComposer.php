@@ -4,9 +4,9 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Lang;
-use App\Models\Lookup\SkillLevel;
+use App\Models\Lookup\DegreeType;
 
-class SkillComposer
+class DegreeComposer
 {
     /**
      * Bind data to the view.
@@ -16,7 +16,7 @@ class SkillComposer
      */
     public function compose(View $view)
     {
-        $view->with('skill_levels', SkillLevel::all());
-        $view->with('skill_template', Lang::get('common/skills'));
+        $view->with('degree_types', DegreeType::all());
+        $view->with('degree_template', Lang::get('common/degree'));
     }
 }
