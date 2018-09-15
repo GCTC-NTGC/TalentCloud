@@ -19,6 +19,9 @@ class CreateJobApplicationsTable extends Migration {
 			$table->integer('application_status_id')->unsigned();
 			$table->integer('applicant_id')->unsigned();
 			$table->integer('applicant_snapshot_id')->unsigned()->nullable();
+			$table->integer('citizenship_declaration_id')->unsigned()->nullable();
+			$table->integer('veteran_status_id')->unsigned()->nullable();
+			$table->integer('preferred_language_id')->unsigned()->nullable();
 			$table->timestamps();
 
 			$table->unique(['job_poster_id','applicant_id']);
