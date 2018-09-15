@@ -54,6 +54,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             'common/lang_menu', 'App\Http\ViewComposers\LangMenuComposer'
         );
 
+        View::composer(
+            'applicant/application_post/common/tracker', 'App\Http\ViewComposers\ApplicationTrackerComposer'
+        );
+
     }
 
     /**

@@ -61,4 +61,39 @@ class JobApplication extends BaseModel {
     public function job_application_answers() {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
+
+    /**
+     * Return either 'complete', 'incomplete' or 'error', depending on the
+     * status of the requested section.
+     *
+     * @param  string $section Should be one of:
+     *                              'basics'
+     *                              'experience'
+     *                              'essential_skills'
+     *                              'asset_skills'
+     *                              'preview'
+     *
+     * @return string $status   'complete', 'incomplete' or 'error'
+     */
+    public function getSectionStatus(string $section) {
+        //TODO: determine whether sections are complete or opcache_invalid 
+
+        $status = 'incomplete';
+        switch($section) {
+            case 'basics':
+                break;
+            case 'experience':
+                break;
+            case 'essential_skills':
+                break;
+            case 'asset_skills':
+                break;
+            case 'preview':
+                break;
+            default:
+                $status = 'error';
+                break;
+        }
+        return $status;
+    }
 }

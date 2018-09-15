@@ -3,10 +3,11 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\JobApplication;
+use App\Models\JobApplication;
+use App\Policies\BasePolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ApplicationPolicy
+class ApplicationPolicy extends BasePolicy
 {
     use HandlesAuthorization;
 

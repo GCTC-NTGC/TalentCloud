@@ -1,9 +1,5 @@
 <?php
-use App\Models\JobApplication;
 use App\Models\JobPoster;
-use App\Models\Lookup\ApplicationStatus;
-use App\Http\Controllers\ApplicationController;
-use Illuminate\Routing\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -234,54 +230,20 @@ Route::group(['domain' => config('app.applicant_domain'),
                     ]
                 ]
             ]);
-            })->name('applications.index');
+        })->name('applications.index');
 
         /* Step 01 */
         Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@edit_basics')->name('job.application.edit.1');
 
         /* Step 02 */
-        Route::get('jobs/{jobPoster}/application/step-02', function () {
+        Route::get('jobs/{jobPoster}/application/step-02', function (JobPoster $jobPoster) {
             return view('applicant/application_post_02', [
                 "application" => [
                     "id" => "00",
                     "title" => "Apply Now",
                     "step" => "2",
                     "job_context_copy" => "You are applying for:",
-                    "tracker_job_link_title" => "Visit this job's post.",
-                    "tracker_label" => "Step",
-                    "tracker_link_title" => "Go to step",
-                    "tracker" => [
-                        "00" => [
-                            "step" => "1",
-                            "title" => "My Information",
-                            "status" => "error",
-                            "url" => "/step-01/"
-                        ],
-                        "01" => [
-                            "step" => "2",
-                            "title" => "My Experience",
-                            "status" => "complete",
-                            "url" => "/step-02/"
-                        ],
-                        "02" => [
-                            "step" => "3",
-                            "title" => "Skills: Need to Have",
-                            "status" => "complete",
-                            "url" => "/step-03/"
-                        ],
-                        "03" => [
-                            "step" => "4",
-                            "title" => "Skills: Nice to Have",
-                            "status" => "incomplete",
-                            "url" => "/step-04/"
-                        ],
-                        "04" => [
-                            "step" => "5",
-                            "title" => "Review my Application",
-                            "status" => "incomplete",
-                            "url" => "/step-05/"
-                        ]
-                    ],
+
                     "modals" => [
                         "00" => [
                             "type" => "login",
@@ -538,6 +500,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                 ],
                 /* Same with this - job ID - and then we pull what we need */
                 "job" => [
+                    "id" => $jobPoster->id,
                     "link" => "/browse/jobs/00/",
                     "title" => "Front-end Developer",
                     "department" => "Treasury Board of Canada Secretariat",
@@ -608,54 +571,21 @@ Route::group(['domain' => config('app.applicant_domain'),
         })->name('job.application.edit.2');
 
         /* Step 03 */
-        Route::get('jobs/{jobPoster}/application/step-03', function () {
+        Route::get('jobs/{jobPoster}/application/step-03', function (JobPoster $jobPoster) {
             return view('applicant/application_post_03', [
                 "application" => [
                     "id" => "00",
                     "title" => "Apply Now",
                     "step" => "3",
                     "job_context_copy" => "You are applying for:",
-                    "tracker_job_link_title" => "Visit this job's post.",
-                    "tracker_label" => "Step",
-                    "tracker_link_title" => "Go to step",
+
                     "skills_section" => [
                         "essential_title" => "Need to Have",
                         "asset_title" => "Nice to Have",
                         "add_button_label" => "Add Skill",
                         "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
                     ],
-                    "tracker" => [
-                        "00" => [
-                            "step" => "1",
-                            "title" => "My Information",
-                            "status" => "error",
-                            "url" => "/step-01/"
-                        ],
-                        "01" => [
-                            "step" => "2",
-                            "title" => "My Experience",
-                            "status" => "complete",
-                            "url" => "/step-02/"
-                        ],
-                        "02" => [
-                            "step" => "3",
-                            "title" => "Skills: Need to Have",
-                            "status" => "complete",
-                            "url" => "/step-03/"
-                        ],
-                        "03" => [
-                            "step" => "4",
-                            "title" => "Skills: Nice to Have",
-                            "status" => "incomplete",
-                            "url" => "/step-04/"
-                        ],
-                        "04" => [
-                            "step" => "5",
-                            "title" => "Review my Application",
-                            "status" => "incomplete",
-                            "url" => "/step-05/"
-                        ]
-                    ],
+
                     "modals" => [
                         "00" => [
                             "type" => "createReference",
@@ -788,6 +718,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                 ],
                 /* Same with this - job ID - and then we pull what we need */
                 "job" => [
+                    "id" => $jobPoster->id,
                     "link" => "/browse/jobs/00/",
                     "title" => "Front-end Developer",
                     "department" => "Treasury Board of Canada Secretariat",
@@ -1011,54 +942,21 @@ Route::group(['domain' => config('app.applicant_domain'),
         })->name('job.application.edit.3');
 
         /* Step 04 */
-        Route::get('jobs/{jobPoster}/application/step-04', function () {
+        Route::get('jobs/{jobPoster}/application/step-04', function (JobPoster $jobPoster) {
             return view('applicant/application_post_04', [
                 "application" => [
                     "id" => "00",
                     "title" => "Apply Now",
                     "step" => "4",
                     "job_context_copy" => "You are applying for:",
-                    "tracker_job_link_title" => "Visit this job's post.",
-                    "tracker_label" => "Step",
-                    "tracker_link_title" => "Go to step",
+
                     "skills_section" => [
                         "essential_title" => "Need to Have",
                         "asset_title" => "Nice to Have",
                         "add_button_label" => "Add Skill",
                         "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
                     ],
-                    "tracker" => [
-                        "00" => [
-                            "step" => "1",
-                            "title" => "My Information",
-                            "status" => "error",
-                            "url" => "/step-01/"
-                        ],
-                        "01" => [
-                            "step" => "2",
-                            "title" => "My Experience",
-                            "status" => "complete",
-                            "url" => "/step-02/"
-                        ],
-                        "02" => [
-                            "step" => "3",
-                            "title" => "Skills: Need to Have",
-                            "status" => "complete",
-                            "url" => "/step-03/"
-                        ],
-                        "03" => [
-                            "step" => "4",
-                            "title" => "Skills: Nice to Have",
-                            "status" => "incomplete",
-                            "url" => "/step-04/"
-                        ],
-                        "04" => [
-                            "step" => "5",
-                            "title" => "Review my Application",
-                            "status" => "incomplete",
-                            "url" => "/step-05/"
-                        ]
-                    ],
+
                     "modals" => [
                         "00" => [
                             "type" => "createReference",
@@ -1191,6 +1089,7 @@ Route::group(['domain' => config('app.applicant_domain'),
                 ],
                 /* Same with this - job ID - and then we pull what we need */
                 "job" => [
+                    "id" => $jobPoster->id,
                     "link" => "/browse/jobs/00/",
                     "title" => "Front-end Developer",
                     "department" => "Treasury Board of Canada Secretariat",
@@ -1429,54 +1328,21 @@ Route::group(['domain' => config('app.applicant_domain'),
         })->name('job.application.edit.4');
 
         /* Step 05 */
-        Route::get('jobs/{jobPoster}/application/step-05', function () {
+        Route::get('jobs/{jobPoster}/application/step-05', function (JobPoster $jobPoster) {
             return view('applicant/application_post_05', [
                 "application" => [
                     "id" => "00",
                     "title" => "Apply Now",
                     "step" => "5",
                     "job_context_copy" => "You are applying for:",
-                    "tracker_job_link_title" => "Visit this job's post.",
-                    "tracker_label" => "Step",
-                    "tracker_link_title" => "Go to step",
+
                     "skills_section" => [
                         "essential_title" => "Need to Have",
                         "asset_title" => "Nice to Have",
                         "add_button_label" => "Add Skill",
                         "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
                     ],
-                    "tracker" => [
-                        "00" => [
-                            "step" => "1",
-                            "title" => "My Information",
-                            "status" => "error",
-                            "url" => "/step-01/"
-                        ],
-                        "01" => [
-                            "step" => "2",
-                            "title" => "My Experience",
-                            "status" => "complete",
-                            "url" => "/step-02/"
-                        ],
-                        "02" => [
-                            "step" => "3",
-                            "title" => "Skills: Need to Have",
-                            "status" => "complete",
-                            "url" => "/step-03/"
-                        ],
-                        "03" => [
-                            "step" => "4",
-                            "title" => "Skills: Nice to Have",
-                            "status" => "incomplete",
-                            "url" => "/step-04/"
-                        ],
-                        "04" => [
-                            "step" => "5",
-                            "title" => "Review my Application",
-                            "status" => "incomplete",
-                            "url" => "/step-05/"
-                        ]
-                    ],
+
                     "modals" => [
                         "00" => [
                             "type" => "createReference",

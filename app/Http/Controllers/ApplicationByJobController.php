@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
+use Illuminate\Support\Facades\Auth;
 
 
 class ApplicationByJobController extends Controller
@@ -65,41 +66,6 @@ class ApplicationByJobController extends Controller
                 "title" => "Apply Now",
                 "step" => "1",
                 "job_context_copy" => "You are applying for:",
-                "tracker_job_link_title" => "Visit this job's post.",
-                "tracker_label" => "Step",
-                "tracker_link_title" => "Go to step",
-                "tracker" => [
-                    "00" => [
-                        "step" => "1",
-                        "title" => "My Information",
-                        "status" => "error",
-                        "url" => "/step-01/"
-                    ],
-                    "01" => [
-                        "step" => "2",
-                        "title" => "My Experience",
-                        "status" => "complete",
-                        "url" => "/step-02/"
-                    ],
-                    "02" => [
-                        "step" => "3",
-                        "title" => "Skills: Need to Have",
-                        "status" => "complete",
-                        "url" => "/step-03/"
-                    ],
-                    "03" => [
-                        "step" => "4",
-                        "title" => "Skills: Nice to Have",
-                        "status" => "incomplete",
-                        "url" => "/step-04/"
-                    ],
-                    "04" => [
-                        "step" => "5",
-                        "title" => "Review my Application",
-                        "status" => "incomplete",
-                        "url" => "/step-05/"
-                    ]
-                ],
                 "modals" => [
                     "00" => [
                         "type" => "login",
@@ -197,6 +163,7 @@ class ApplicationByJobController extends Controller
                     "null_work_copy" => "You don't currently have any lived experience on your profile! Use the button above to add some.",
                 ]
             ],
+            "job_application" => $application,
             "user" => [
                 "name" => "Jason Greene",
                 "photo" => false,
@@ -369,8 +336,9 @@ class ApplicationByJobController extends Controller
                 "action_01" => "Delete Lived Experience",
                 "action_02" => "Save Lived Experience"
             ],
+            "job" => $jobPoster
             /* Same with this - job ID - and then we pull what we need */
-            "job" => [
+            /*"job" => [
                 "link" => "/browse/jobs/00/",
                 "title" => "Front-end Developer",
                 "department" => "Treasury Board of Canada Secretariat",
@@ -432,7 +400,7 @@ class ApplicationByJobController extends Controller
                         "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process."
                     ]
                 ]
-            ]
+            ]*/
         ]);
     }
 
