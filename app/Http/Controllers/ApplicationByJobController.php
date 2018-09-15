@@ -1919,55 +1919,91 @@ class ApplicationByJobController extends Controller
     /**
      * Update the Application Basics in storage for the specified job.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function update_basics(JobPoster $jobPoster)
+    public function update_basics(Request $request, JobPoster $jobPoster)
     {
-        //
+        $input = $request->input();
+        $application = $this->getApplicationFromJob($jobPoster);
+
+        //TODO: save stuff to application
+
+        return redirect( route('job.application.edit.2', $jobPoster));
     }
 
     /**
      * Update the Application Basics in storage for the specified job.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function update_experience(JobPoster $jobPoster)
+    public function update_experience(Request $request, JobPoster $jobPoster)
     {
-        //
+        $input = $request->input();
+        $application = $this->getApplicationFromJob($jobPoster);
+
+        //TODO: save stuff to application
+
+        return redirect( route('job.application.edit.3', $jobPoster));
     }
 
     /**
      * Update the Application Essential Skills in storage for the specified job.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function update_essential_skills(JobPoster $jobPoster)
+    public function update_essential_skills(Request $request, JobPoster $jobPoster)
     {
-        //
+        $input = $request->input();
+        $application = $this->getApplicationFromJob($jobPoster);
+
+        //TODO: save stuff to application
+
+        return redirect( route('job.application.edit.4', $jobPoster));
     }
 
     /**
      * Update the Application Asset Skills in storage for the specified job.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function update_asset_skills(JobPoster $jobPoster)
+    public function update_asset_skills(Request $request, JobPoster $jobPoster)
     {
-        //
+        $input = $request->input();
+        $application = $this->getApplicationFromJob($jobPoster);
+
+        //TODO: save stuff to application
+
+        return redirect( route('job.application.edit.5', $jobPoster));
     }
 
     /**
      * Submit the Application for the specified job.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function submit(JobPoster $jobPoster)
+    public function submit(Request $request, JobPoster $jobPoster)
     {
-        //
+        $input = $request->input();
+        $application = $this->getApplicationFromJob($jobPoster);
+
+        //TODO: Save any input (vows, etc)
+
+        //TODO: Check that application is valid and complete
+
+        //Change status to 'submitted'
+        $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+
+        //TODO: where should we redirect after submitting?
+        return redirect( route('applications.index'));
     }
 }

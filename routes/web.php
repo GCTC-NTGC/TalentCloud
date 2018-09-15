@@ -247,6 +247,23 @@ Route::group(['domain' => config('app.applicant_domain'),
         /* Step 05 */
         Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
 
+        /* Application Update routes */
+
+        /* Step 01 */
+        Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@update_basics')->name('job.application.update.1');
+
+        /* Step 02 */
+        Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@update_experience')->name('job.application.update.2');
+
+        /* Step 03 */
+        Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@update_essential_skills')->name('job.application.update.3');
+
+        /* Step 04 */
+        Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@update_asset_skills')->name('job.application.update.4');
+
+        /* Step 05 */
+        Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
+
         Route::get('profile', function() {
             $applicant = Auth::user()->applicant;
             return redirect(route('profile.about.edit', $applicant));
