@@ -1481,6 +1481,7 @@ class ApplicationByJobController extends Controller
             'veteran_status_id' => $input['veteran_status_id'],
             'preferred_language_id' => $input['preferred_language_id'],
         ]);
+        $application->save();
 
         $questions = $jobPoster->job_poster_questions;
         foreach($questions as $question) {
@@ -1520,7 +1521,7 @@ class ApplicationByJobController extends Controller
 
         //TODO: Note from Tristan: I did test this function, and it works as I expect,
         //TODO:     saving new/updated degrees, courses and work experiences
-        //TODO:     to the profile. 
+        //TODO:     to the profile.
         $degrees = $input['degrees'];
 
         //Save new degrees
