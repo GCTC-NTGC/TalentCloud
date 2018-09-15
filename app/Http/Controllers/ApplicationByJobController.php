@@ -1518,11 +1518,9 @@ class ApplicationByJobController extends Controller
 
         //TODO: save stuff to application
 
-        //TODO: Note from Tristan: I haven't tested this. This was copied from the ExperienceController.
-        //TODO: But for now, if we're just updating the Applicant's Profile through this page,
-        //TODO: then this same code, or something very close, should work.
-
-
+        //TODO: Note from Tristan: I did test this function, and it works as I expect,
+        //TODO:     saving new/updated degrees, courses and work experiences
+        //TODO:     to the profile. 
         $degrees = $input['degrees'];
 
         //Save new degrees
