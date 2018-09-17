@@ -53,8 +53,9 @@ class Manager extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
 
-    public $translatedAttributes = ['about_me', 'greatest_accomplishmest', 'branch',
-        'division', 'position', 'work_experience', 'education'];
+    public $translatedAttributes = ['about_me', 'greatest_accomplishment', 'branch',
+        'division', 'position', 'work_experience', 'education','leadership_style',
+        'employee_learning','expectations','education','career_journey','learning_path'];
     protected $casts = [
         'department_id' => 'int',
         'user_id' => 'int'

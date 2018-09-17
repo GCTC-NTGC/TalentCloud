@@ -15,6 +15,63 @@ use App\Models\Manager;
 class ManagerProfileController extends Controller {
 
     /**
+     * Show a manager profile
+     *
+     * @param  Request  $request
+     * @param  \App\Models\Manager  $manager
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Manager $manager) {
+        $manager_profile = Lang::get('applicant/manager_profile');
+
+        $manager_profile_sections = [
+            [
+                "title" => $manager_profile['section_titles']['approach'],
+                "questions" => [
+                    [
+                        "title" => $manager_profile['questions']['leadership_style'],
+                        "answer" => $manager->leadership_style
+                    ],
+                    [
+                        "title" => $manager_profile['questions']['employee_expectations'],
+                        "answer" => $manager->expectations
+                    ],
+                    [
+                        "title" => $manager_profile['questions']['employee_learning'],
+                        "answer" => $manager->employee_learning
+                    ]
+                ]
+            ],
+            [
+                "title" => $manager_profile['section_titles']['about_me'],
+                "questions" => [
+                    [
+                        "title" => $manager_profile['questions']['career_journey'],
+                        "answer" => $manager->career_journey
+                    ],
+                    [
+                        "title" => $manager_profile['questions']['learning_path'],
+                        "answer" => $manager->learning_path
+                    ],
+                    [
+                        "title" => $manager_profile['questions']['about_me'],
+                        "answer" => $manager->about_me
+                    ]
+                ]
+            ]
+        ];
+
+
+        return view('applicant/manager', [
+            "manager_profile" => $manager_profile,
+            'urls' => Lang::get('common/urls'),
+            'manager' => $manager,
+            'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
+            "manager_profile_sections" => $manager_profile_sections,
+        ]);
+    }
+
+    /**
      * Show the form for editing the logged-in user's manager profile
      *
      * @param  Request  $request
