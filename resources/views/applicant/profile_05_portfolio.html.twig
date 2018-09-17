@@ -8,10 +8,14 @@
     lang="en">
 
     <head>
-        {% include "common/head" %}
-    </head>
 
-    <body>
+        {% include "common/head" %}
+
+        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+
+    {# /head #}
+
+    {# body #}
 
         {% include "common/alert" %}
 
@@ -23,9 +27,16 @@
 
             {% include "applicant/profile/menu" %}
 
-        {# Portfolio #}
+        {# Form containing all about_me editable elements #}
+        <form action="{{ form_submit_action }}" method="post">
 
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
+
+            {# Portfolio #}
             {% include "applicant/profile/portfolio/index" %}
+
+        </form>                   
 
         {# Modals #}
 

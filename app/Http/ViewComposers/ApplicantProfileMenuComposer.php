@@ -32,19 +32,19 @@ class ApplicantProfileMenuComposer
             ],
             "skills" => [
                 "active" => false,
-                "link" => "/profile/skills",
+                "link" => route('profile.skills.edit', $view->getData()['applicant']),
                 "title" => "Go to the Skills section of your profile.",
                 "label" => "My Skills"
             ],
             "references" => [
                 "active" => false,
-                "link" => "/profile/references",
+                "link" => route('profile.references.edit', $view->getData()['applicant']),
                 "title" => "Go to the References section of your profile.",
                 "label" => "My References"
             ],
             "portfolio" => [
                 "active" => false,
-                "link" => "/profile/portfolio",
+                "link" =>route('profile.work_samples.edit', $view->getData()['applicant']),
                 "title" => "Go to the Portfolio section of your profile.",
                 "label" => "My Portfolio"
             ]
@@ -54,22 +54,27 @@ class ApplicantProfileMenuComposer
         switch(Route::currentRouteName()) {
             case('profile.about'):
             case('profile.about.edit'):
+            case('profile.about.update'):
                 $profileMenu['about']['active'] = true;
                 break;
             case('profile.experience'):
             case('profile.experience.edit'):
+            case('profile.experience.update'):
                 $profileMenu['experience']['active'] = true;
                 break;
             case('profile.skills'):
             case('profile.skills.edit'):
+            case('profile.skills.update'):
                 $profileMenu['skills']['active'] = true;
                 break;
             case('profile.references'):
             case('profile.references.edit'):
+            case('profile.references.update'):
                 $profileMenu['references']['active'] = true;
                 break;
             case('profile.portfolio'):
-            case('profile.portfolio.edit'):
+            case('profile.work_samples.edit'):
+            case('profile.work_samples.update'):
                 $profileMenu['portfolio']['active'] = true;
                 break;
             default:

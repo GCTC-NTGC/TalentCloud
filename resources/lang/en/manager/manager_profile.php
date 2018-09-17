@@ -73,4 +73,12 @@ return [
             'always' => 'Most of the time',
         ],
     ],
+    // Fake Data
+    "radio_levels" => [
+        "00" => "Almost Never",
+        "01" => "Rarely",
+        "02" => "Sometimes",
+        "03" => "Usually",
+        "04" => "Almost Always"
+    ]
 ];

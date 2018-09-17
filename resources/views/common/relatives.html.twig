@@ -1,10 +1,24 @@
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[relatives][:relativeType][:template][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "relatives[:relativeType][:template][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if relative %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":relative.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":relative.id}) %}
+{% endif %}
+
 <div
-    class="profile-relative {% if relative == null %}template{% endif %}">
+    class="profile-relative {% if relative == null %}template{% endif %}"
+    data-item-id="{{ relative ? relative.id : 0 }}">
 
     <div class="form__input-wrapper--select">
-        <label 
-            class="form__label" 
-            for="">
+        <label
+            class="form__label"
+            for="{{ id_prefix }}relativeId">
             {% if relativeToken == "skills" %}
                 {{ relative_template.skill.label }}
             {% elseif relativeToken == "references" %}
@@ -17,31 +31,35 @@
             class="form__select-wrapper fas fa-chevron-down">
             <select
                 class="form__input"
-                id="">
+                id="{{ id_prefix }}relativeId"
+                name="{{ name_prefix }}[id]">
 
                 {# Skills #}
                     {% if relativeToken == "skills" %}
-                        {% for userSkill in user.skills %}
+                        {% for skillDeclaration in applicant.skill_declarations %}
                             <option
-                                {% if relative|capitalize == userSkill.name|capitalize %}selected="selected"{% endif %}
-                                >{{ userSkill.name }}</option>
+                                value="{{ skillDeclaration.id }}"
+                                {% if relative.id == skillDeclaration.id %}selected="selected"{% endif %}
+                                >{{ skill_template.skills[skillDeclaration.skill.name].name }}</option>
                         {% endfor %}
                     {% endif %}
 
                 {# References #}
                     {% if relativeToken == "references" %}
-                        {% for userReference in user.references %}
+                        {% for userReference in applicant.references %}
                             <option
-                                {% if relative|capitalize == userReference.name|capitalize %}selected="selected"{% endif %}
+                                value="{{ userReference.id }}"
+                                {% if relative.id == userReference.id %}selected="selected"{% endif %}
                                 >{{ userReference.name }}</option>
                         {% endfor %}
                     {% endif %}
 
                 {# Samples #}
                     {% if relativeToken == "samples" %}
-                        {% for userSample in user.samples %}
+                        {% for userSample in applicant.work_samples %}
                             <option
-                                {% if relative|capitalize == userSample.name|capitalize %}selected="selected"{% endif %}
+                                value="{{ userSample.id }}"
+                                {% if relative.id == userSample.id %}selected="selected"{% endif %}
                                 >{{ userSample.name }}</option>
                         {% endfor %}
                     {% endif %}

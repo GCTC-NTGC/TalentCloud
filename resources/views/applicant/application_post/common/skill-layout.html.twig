@@ -42,7 +42,7 @@
     <div
         class="container--layout">
 
-        <div 
+        <div
             class="flex-grid">
 
             {# Include Sidebar #}
@@ -53,7 +53,7 @@
 
                 <div class="application-post__content-wrapper box lg-3of4">
 
-                    <a 
+                    <a
                         aria-hidden="true"
                         class="application-post__anchor"
                         id="begin">
@@ -99,24 +99,24 @@
 
                                 {# Profile Element List #}
 
-                                    <div 
+                                    <div
                                         class="profile-element-list">
 
-                                        {% for jobSkill in job.skills %}
+                                        {% for criteria in job.skills %}
 
                                             {% if application.step == "3" %}
 
-                                                {% if jobSkill.requirement == "essential" %}
+                                                {% if criteria.requirement == "essential" %}
 
                                                     {# Get User Skill #}
 
                                                         {% set skill = false %}
 
-                                                        {% for userSkill in user.skills %}
+                                                        {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+                                                            {% if criteria.name|capitalize == skillDeclaration.name|capitalize %}
 
-                                                                {% set skill = userSkill %}
+                                                                {% set skill_declaration = skillDeclaration %}
 
                                                             {% endif %}
 
@@ -128,7 +128,7 @@
 
                                                         {% for siteSkill in skills %}
 
-                                                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+                                                            {% if criteria.name|capitalize == siteSkill.name|capitalize %}
 
                                                                 {% if siteSkill.type == "soft" %}
 
@@ -148,7 +148,7 @@
 
                                                         <a
                                                             class="application-post__anchor"
-                                                            id="skill{{ jobSkill.name }}"></a>
+                                                            id="skill{{ criteria.name }}"></a>
 
                                                         {% include "common/skill" %}
 
@@ -158,17 +158,17 @@
 
                                             {% if application.step == "4" %}
 
-                                                {% if jobSkill.requirement == "asset" %}
+                                                {% if criteria.requirement == "asset" %}
 
                                                     {# Get User Skill #}
 
                                                         {% set skill = false %}
 
-                                                        {% for userSkill in user.skills %}
+                                                        {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+                                                            {% if criteria.name|capitalize == skillDeclaration.name|capitalize %}
 
-                                                                {% set skill = userSkill %}
+                                                                {% set skill_declaration = skillDeclaration %}
 
                                                             {% endif %}
 
@@ -180,7 +180,7 @@
 
                                                         {% for siteSkill in skills %}
 
-                                                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+                                                            {% if criteria.name|capitalize == siteSkill.name|capitalize %}
 
                                                                 {% if siteSkill.type == "soft" %}
 
@@ -200,7 +200,7 @@
 
                                                         <a
                                                             class="application-post__anchor"
-                                                            id="skill{{ jobSkill.name }}"></a>
+                                                            id="skill{{ criteria.name }}"></a>
 
                                                         {% include "common/skill" %}
 
@@ -220,7 +220,7 @@
 
     </div>
 
-    <div 
+    <div
         class="container--copy">
 
         {# Save Buttons #}
@@ -228,7 +228,7 @@
             <div
                 class="flex-grid middle application-post__action-wrapper">
 
-                <div 
+                <div
                     class="box med-1of2">
 
                     <button
@@ -238,7 +238,7 @@
 
                 </div>
 
-                <div 
+                <div
                     class="box med-1of2">
 
                     <button

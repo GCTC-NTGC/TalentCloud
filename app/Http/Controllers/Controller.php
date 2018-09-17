@@ -11,6 +11,26 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function getRelativeIds($input, $relativeType) {
+        $relativeIds = [];
+        if (isset($input['relatives'])) {
+            $relatives = $input['relatives'];
+            if (isset($relatives[$relativeType])) {
+                if (isset($relatives[$relativeType]['new'])) {
+                    foreach($relatives[$relativeType]['new'] as $relativeInput) {
+                        $relativeIds[] = $relativeInput['id'];
+                    }
+                }
+                if (isset($relatives[$relativeType]['old'])) {
+                    foreach($relatives[$relativeType]['old'] as $relativeInput) {
+                        $relativeIds[] = $relativeInput['id'];
+                    }
+                }
+            }
+        }
+        return $relativeIds;
+    }
+
     public function shiftFirstLevelArrayKeysToBottom(array $nestedArray) {
         $expandedArray = $this->expandNestedArraysIntoKeyListAndValue($nestedArray);
         $rotatedArray = $this->rotateKeys($expandedArray, 1);

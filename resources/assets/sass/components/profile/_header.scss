@@ -63,9 +63,9 @@
             background-size: cover;
             border: calc(#{$unit} / 2) solid $palette--blue;
             border-radius: 100%;
-            height: calc(#{$unit} * 10);
+            height: calc(#{$unit} * 7);
             margin: 0 auto calc(#{$unit} * 4) auto;
-            width: calc(#{$unit} * 10);
+            width: calc(#{$unit} * 7);
 
             @media #{$l-tablet} {
                 margin: 0;

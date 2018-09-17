@@ -14,6 +14,7 @@ return [
     'skill_selection_label' => 'Select Skill',
     'level_label' => 'My Level',
     'knowledge_label' => 'My Knowledge',
+    'skill_status_label' => 'Status: Skill ',
     'skill_levels' => [
         'hard' => [
             'basic' => 'Beginner',

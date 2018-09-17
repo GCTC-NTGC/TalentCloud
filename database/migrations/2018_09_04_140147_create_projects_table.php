@@ -16,9 +16,15 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
+            $table->integer('applicant_id')->unsigned();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('projects', function (Blueprint $table) {
+            $table->foreign('applicant_id')->references('id')->
+                on('applicants')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
