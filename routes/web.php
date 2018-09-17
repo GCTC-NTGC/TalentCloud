@@ -2215,7 +2215,7 @@ Route::group(['domain' => config('app.applicant_domain'),
     })->name('managers.show');
 
     /* Profile */
-    Route::middleware(['auth', 'role:manager'])->group(function(){
+    Route::middleware(['auth', 'role:applicant'])->group(function(){
 
         Route::get('profile', function() {
             $applicant = Auth::user()->applicant;
