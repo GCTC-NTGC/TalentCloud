@@ -16,6 +16,7 @@ use Jumbojett\OpenIDConnectClient;
 use Jumbojett\OpenIDConnectClientException;
 use Lcobucci\JWT\Parser;
 use Facades\App\Services\WhichPortal;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 use Illuminate\Support\Facades\Config;
 
@@ -92,7 +93,8 @@ class LoginController extends Controller
         $this->clientId = $config['client_id'];
         $this->clientSecret = $config['client_secret'];
         $this->callbackUrl = WhichPortal::isManagerPortal() ?
-                route('manager.login') : route('login');
+                LaravelLocalization::getNonLocalizedURL(route('manager.login')) :
+                LaravelLocalization::getNonLocalizedURL(route('login'));
 
         $this->oidcClient = new OpenIDConnectClient($this->authUrl, $this->clientId, $this->clientSecret);
         $this->oidcClient->addScope($this->scopes);

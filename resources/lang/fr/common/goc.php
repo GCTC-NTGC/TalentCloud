@@ -17,7 +17,4 @@ return [
     "logo_url" => "/images/logo_goc_white.svg",
     "talent_cloud" => "Nuage de talents du GC",
     "portal" => "Portail demandeur",
-    "language_link" => "/en",
-    "language_link_title" => "Click here for the English site",
-    "language" => "English"
 ];
