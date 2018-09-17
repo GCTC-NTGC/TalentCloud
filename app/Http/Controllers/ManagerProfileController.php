@@ -34,7 +34,7 @@ class ManagerProfileController extends Controller {
                     ],
                     [
                         "title" => $manager_profile['questions']['employee_expectations'],
-                        "answer" => $manager->employee_expectations
+                        "answer" => $manager->expectations
                     ],
                     [
                         "title" => $manager_profile['questions']['employee_learning'],
