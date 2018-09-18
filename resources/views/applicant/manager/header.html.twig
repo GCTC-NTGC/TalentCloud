@@ -16,43 +16,43 @@
                 class="applicant-profile__header-photo"
                 onclick="">
                 <div
-                    style="background-image:url('{{ manager.photo }}')">
+                    style="background-image:url('{{ manager_profile_photo_url }}')">
                 </div>
             </button>
 
         {# Name #}
 
             <h3>
-                {{ manager.name }}
+                {{ manager.user.name }}
             </h3>
 
         {# Tagline #}
 
             <span>
-                {{ manager.title }}{{ manager_profile.manager_department_bridge }}{{ manager.department }}
+                {{ manager.position }}{{ manager_profile.manager_department_bridge }}{{ manager.department.value }}
             </span>
 
         {# Social Accounts #}
 
-            {% if manager.twitter or manager.linkedin %}
+            {% if manager.twitter_username or manager.linkedin_url %}
 
                 <ul
                     class="applicant-profile__social-links">
 
                     <li>
                         <a
-                            href="{{ manager.twitter.url }}"
+                            href="{{ urls.twitter|replace({":username":manager.twitter_username}) }}"
                             target="_blank"
-                            title="{{ manager.twitter.title }}">
+                            title="{{ manager_profile.twitter_label|replace({":name":manager.user.name}) }}">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </li>
 
                     <li>
                         <a
-                            href="{{ manager.linkedin.url }}"
+                            href="{{ manager.linkedin_url }}"
                             target="_blank"
-                            title="{{ manager.linkedin.title }}">
+                            title="{{ manager_profile.linkedin_label|replace({":name":manager.user.name}) }}">
                             <i class="fab fa-linkedin"></i>
                         </a>
                     </li>
