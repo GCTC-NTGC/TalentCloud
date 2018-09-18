@@ -36,7 +36,7 @@
                     class="job-post__culture-manager-profile-photo"
                     href="{{ route('managers.show',{'manager':manager.id}) }}"
                     target="_blank"
-                    title="{{ job_post.manager.photo_title|trans({'name' : manager.user.name}) }}"
+                    title="{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}"
                     style="background-image:url('{{ manager_profile_photo_url }}');">
                 </a>
             </div>
@@ -59,8 +59,8 @@
                 <a
                     class="job-post__culture-manager-profile-link"
                     href="{{ route('managers.show',{'manager':manager.id}) }}"
-                    title="{{ job_post.manager.link_title|trans({'name':manager.user.name}) }}">
-                    {{ job_post.culture.manager_link_label|trans({'name':manager.user.name}) }}
+                    title="{{ job_post.manager.link_title|replace({":name":manager.user.name}) }}">
+                    {{ job_post.culture.manager_link_label|replace({":name":manager.user.name}) }}
                 </a>
 
             </div>
@@ -69,7 +69,7 @@
                 class="box full">
                 <p
                     class="job-post__manager-copy">
-                    {{ manager.about_me }}
+                    {{ manager.leadership_style }}
                 </p>
             </div>
 
