@@ -275,6 +275,111 @@
 
     }
 
+    &[class*="signature"] {
+        margin: 2rem 0;
+
+        .form__label {
+            color: rgba(100, 100, 100, 1);
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            line-height: 20px;
+            margin: 0;
+            padding: .5rem;
+            pointer-events: none;
+            position: absolute;
+            top: .7rem;
+            left: .55rem;
+            transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
+        }
+
+        .form__input {
+
+            &[type="text"],
+            &[type="password"],
+            &[type="email"],
+            &[type="number"],
+            &[type="url"] {
+                appearance: none;
+                border: 1px solid rgba(50, 50, 50, 1);
+                border-radius: 3px;
+                font-family: $font--cursive;
+                font-size: 1.5rem;
+                line-height: 2.5rem;
+                outline: none;
+                padding: .6rem 5rem .4rem 1rem;
+                transition: border-color .2s ease;
+                width: 100%;
+
+                &:focus {
+                    border: 1px solid $palette--blue !important;
+                    transition: border-color .2s ease;
+                }
+
+            }
+
+        }
+
+        &.active {
+
+            .form__label {
+                background: white;
+                font-size: 12px;
+                top: -1.15rem;
+                transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
+            }
+
+        }
+
+        &.valid {
+
+            .form__input {
+
+                &[type="text"],
+                &[type="password"],
+                &[type="email"],
+                &[type="number"],
+                &[type="url"] {
+                    border: 1px solid rgba(67, 197, 69, 1);
+                    transition: border-color .2s ease;
+                }
+
+            }
+
+        }
+
+        &.invalid {
+
+            &:before {
+                color: red;
+                content: "\f06a";
+                display: block;
+                font: "Font Awesome 5 Free";
+                font-size: $font-scale--regular;
+                position: absolute;
+                top: 50%;
+                right: 2rem;
+                text-rendering: auto;
+                transform: translate(0, -50%);
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .form__input {
+
+                &[type="text"],
+                &[type="password"],
+                &[type="email"],
+                &[type="number"],
+                &[type="url"] {
+                    border: 1px solid red;
+                    transition: border-color .2s ease;
+                }
+
+            }
+
+        }
+
+    }
+
     &[class*="range"] {
         margin: 2rem 0 4rem;
 

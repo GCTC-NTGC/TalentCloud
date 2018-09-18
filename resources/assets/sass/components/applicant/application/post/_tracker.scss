@@ -115,6 +115,7 @@
         }
 
         &.error {
+
             .fa-times-circle {
                 color: $palette--red;
                 display: block;
@@ -125,9 +126,11 @@
             .fa-check-circle {
                 display: none;
             }
+
         }
 
         &.complete {
+            
             .fa-times-circle {
                 display: none;
             }
@@ -138,6 +141,7 @@
                 color: $palette--green;
                 display: block;
             }
+
         }
 
         &.active {
