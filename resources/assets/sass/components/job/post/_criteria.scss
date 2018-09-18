@@ -41,10 +41,27 @@
             font-size: $font-scale--regular;
             font-weight: 400;
             line-height: 1.5;
-            margin: 0 0 calc(#{$unit} / 2) 0;
+            margin: 0 0 $unit 0;
+
+            p {
+                margin: 0;
+
+                &:first-child {
+                    font-weight: 600;
+                }
+
+                &.job-post__criteria-level span {
+                    color: $palette--blue;
+                }
+
+            }
 
             &:last-child {
-                margin-bottom: 0;
+                
+                p {
+                    margin-bottom: 0;
+                }
+
             }
 
         }

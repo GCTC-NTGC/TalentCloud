@@ -57,6 +57,12 @@
         width: 90%;
     }
 
+     .container--layout-xl {
+        margin: 0 auto;
+        max-width: calc(#{$unit * 100});
+        width: 90%;
+    }
+
     .container--copy {
         margin: 0 auto;
         max-width: calc(#{$unit * 40});
