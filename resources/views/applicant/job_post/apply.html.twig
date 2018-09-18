@@ -65,11 +65,11 @@
         <a
             class="job-post__apply-button"
             {% if auth_check() %}
-                href="{{ route("job.application.edit.1", job.id) }}"
+                href="{{ route('job.application.edit.1', job.id) }}"
                 title="{{ job_post.apply.apply_link_title }}">
                 {{ job_post.apply.apply_link_label }}
             {% else %}
-                href="{{ route("job.application.edit.1", job.id) }}"
+                href="{{ route('job.application.edit.1', job.id) }}"
                 title="{{ job_post.apply.login_link_title }}">
                 {{ job_post.apply.login_link_label }}
             {% endif %}

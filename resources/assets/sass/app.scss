@@ -29,6 +29,11 @@
     body {
         background: darken($palette--white, 10%);
         margin: 0;
+
+        >form {
+            margin-bottom: 0;
+        }
+
     }
 
     a,
@@ -77,6 +82,7 @@
 
     span.centre,
     span.center {
+        display: block;
         text-align: center;
         width: 100%;
     }
