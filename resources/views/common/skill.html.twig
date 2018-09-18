@@ -196,7 +196,7 @@
                                         {% set counter = counter + 1 %}
 
                                         <label
-                                            class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
+                                            class="box form__radio-group-label small-1of{{ skill_template.skill_levels[skillType]|length }}"
                                             for="{{ id_prefix }}skillLevel_{{ counter }}">
                                             <span
                                                 class="hidden">

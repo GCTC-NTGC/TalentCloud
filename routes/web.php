@@ -374,7 +374,11 @@ $managerGroup = function() {
     /* Home */
     Route::get('/', function () {
         return view('manager/home', [
-
+            "hero" => [
+                "hero_logo" => "/images/logo_tc_colour.png",
+                "hero_logo_alt" => "The GC Talent Cloud Graphic Identifier.",
+                "hero_tagline" => "People want meaningful work."
+            ]
         ]);
     })->name('manager.home');
 
