@@ -26,6 +26,7 @@ npm-debug.log
 /etc/ssl/
 /report
 /database/db/pgsql
+/tests
 
 ## Laravel
 /node_modules
