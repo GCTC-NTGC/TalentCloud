@@ -4,7 +4,6 @@ services:
     nginx:
         image: nginx:1.13.9-alpine
         container_name: nginx
-        working_dir: /var/www
         volumes_from:
             - talentcloud
         restart: always
@@ -51,7 +50,7 @@ services:
             - "POSTGRES_PASSWORD=talentcloud"
             - "PGDATA=/database/db/pgsql/data"
         ports:
-            - "5434-5432"
+            - "5432:5432"
     # Adminer
     adminer:
         image: adminer:4.6
