@@ -6,22 +6,22 @@
 DB_DUMPS_DIR=database/db/dumps
 
 build-db:
-	@docker exec -ti talentcloud sh -c "php artisan migrate"
-	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
-	@docker exec -ti talentcloud sh -c "php artisan db:seed"
+	@docker-compose exec -T talentcloud sh -c "php artisan migrate"
+	@docker-compose exec -T talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	@docker-compose exec -T talentcloud sh -c "php artisan db:seed --force"
 
 clean:
 	@rm -Rf database/db/pgsql/*
 	@rm -Rf vendor/
-	@rm -Rf composer.lock
 	@rm -Rf etc/ssl/*
 	@rm -Rf report/*
 
 code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set memory_limit 512M
 	@echo "Checking the standard code..."
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
+	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -v --standard=PSR2 --extensions=php app/ public/
 
 docker-start:
 	docker-compose up -d
@@ -37,11 +37,9 @@ logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
-	text cleancode,codesize
+	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app text cleancode,codesize,controversial,design,naming,unusedcode --ignore-violations-on-exit --reportfile report/phpmd.txt
 
-test:
-	code-sniff
+test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
 .PHONY: clean test code-sniff
