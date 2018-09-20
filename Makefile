@@ -13,8 +13,10 @@ build-db:
 clean:
 	@rm -Rf database/db/pgsql/*
 	@rm -Rf vendor/
-	@rm -Rf etc/ssl/*
 	@rm -Rf report/*
+
+clean-certs:
+	@rm -Rf etc/ssl/*
 
 code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
@@ -37,9 +39,10 @@ logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app text cleancode,codesize,controversial,design,naming,unusedcode --ignore-violations-on-exit --reportfile report/phpmd.txt
+	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app text cleancode,codesize,controversial,design,naming,unusedcode --ignore-violations-on-exit
 
 test: code-sniff
+	@make phpmd
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
 .PHONY: clean test code-sniff
