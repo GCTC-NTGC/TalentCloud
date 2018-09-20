@@ -13,6 +13,7 @@ build-db:
 clean:
 	@rm -Rf database/db/pgsql/*
 	@rm -Rf vendor/
+	@rm -Rf composer.lock
 	@rm -Rf report/*
 
 clean-certs:
