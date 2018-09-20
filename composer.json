@@ -10,10 +10,10 @@
         "lcobucci/jwt": "3.2",
         "rcrowe/twigbridge": "^0.9.6",
         "jenssegers/date": "3.3.1",
-        "mcamara/laravel-localization": "~1.3"
+        "mcamara/laravel-localization": "~1.3",
+        "barryvdh/laravel-debugbar": "3.1.5"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "3.1.5",
         "friendsofphp/php-cs-fixer": "v2.10.4",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
@@ -46,26 +46,26 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
-        "lint": [
-            "composer validate"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
-        ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
-}
+         "test": "phpunit",
+         "lint": [
+             "composer validate"
+         ],
+         "post-root-package-install": [
+             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+         ],
+         "post-create-project-cmd": [
+             "@php artisan key:generate"
+         ],
+         "post-autoload-dump": [
+             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+             "@php artisan package:discover"
+         ]
+     },
+     "config": {
+         "preferred-install": "dist",
+         "sort-packages": true,
+         "optimize-autoloader": true
+     },
+     "minimum-stability": "dev",
+     "prefer-stable": true
+ }
