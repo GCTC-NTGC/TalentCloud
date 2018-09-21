@@ -1,23 +1,9 @@
 build:
-    nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    - js-scrutinizer-run
-                    - phpcs-run ./app
-
-    dependencies:
-        before:
-            - composer install
-            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
-
-    root_path: './'
 
     environment:
-        # Sets up DNS entries for certain hosts
-        hosts:
-            local.dev: 127.0.0.1
+        variables:
+            DB_HOST: 'talentcloud-db'
+            DB_PORT: '5432'
         # Languages
         php:
             version: "7.2"
@@ -28,14 +14,37 @@ build:
         # Various pre-installed services that can be configured.
         docker: true
         postgresql: true
-        nginx:
-            sites:
-                # will add configuration file to "/etc/nginx/sites-enabled"
-                tc.gccollab.ca:
-                    host: 'local.dev'
-                    web_root: 'public/'
-
         selenium: true
+
+    dependencies:
+        override:
+            - true
+        before:
+            - npm install
+            - sudo make gen-certs
+            - sudo make docker-start
+            # sudo make build-db
+
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run # --enable-security-analysis
+                    - js-scrutinizer-run
+                    - csslint-run ./public/css
+                    - phpcs-run ./app
+                    - phpcs-run ./public
+
+#    deployment:
+        #-
+            #commands:
+                # git config --global user.email "grant.d.barnes@gmail.com"
+                # git config --global user.name "Grant Barnes"
+                # heroku git:remote -a gc-talentcloud
+                # heroku container:push web
+                # heroku container:release web
+                # git push heroku HEAD:master
+
 
 filter:
     excluded_paths:
@@ -45,13 +54,10 @@ filter:
         - '*/vendor/*'
 
 checks:
+    javascript: true
     php: true
 
 tools:
     external_code_coverage:
         timeout: 777
         runs: 2
-    custom_commands:
-        -
-            scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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

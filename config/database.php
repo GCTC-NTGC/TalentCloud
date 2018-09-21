@@ -1,5 +1,7 @@
 <?php
 
+$heroku_db_url = parse_url(env('DATABASE_URL', "postgres://wshgudtzyexxsa:2775f8de8a4c0344b1f155eee298848cde1c9bdcc1be772d08ad9bee3c6155b7@ec2-54-243-147-162.compute-1.amazonaws.com:5432/dd8iltnt1ohc0c"));
+
 return [
 
     /*
@@ -13,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'pg-heroku'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,6 +67,17 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'pg-heroku' => [
+            'driver'   => 'pgsql',
+            'host'     => $heroku_db_url['host'],
+            'database' => substr($heroku_db_url['path'], 1),
+            'username' => $heroku_db_url['user'],
+            'password' => $heroku_db_url['pass'],
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
         ],
 
         'sqlsrv' => [

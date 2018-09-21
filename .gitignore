@@ -27,6 +27,7 @@ npm-debug.log
 /report
 /tests
 /database/db/pgsql
+/tests
 
 ## Laravel
 /node_modules
@@ -37,16 +38,16 @@ npm-debug.log
 /.idea
 /.vscode
 /.vagrant
+.env
+.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.env
-.phpunit.result.cache
 
 ## Composer
 /vendor
-composer.lock
+#composer.lock
 
 ## node.js
 /node_modules

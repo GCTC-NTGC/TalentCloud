@@ -1,7 +1,5 @@
 Dockerfile
 docker-compose.yml
-app.docker
-web.docker
 
 .tags
 .env
