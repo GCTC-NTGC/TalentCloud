@@ -25,6 +25,7 @@ npm-debug.log
 ## TalentCloud
 /etc/ssl/
 /report
+/tests
 /database/db/pgsql
 
 ## Laravel
