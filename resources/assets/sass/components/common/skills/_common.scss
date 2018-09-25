@@ -234,6 +234,14 @@
                         text-decoration: none;
                     }
 
+                    .profile-relative__null {
+                        color: rgba(180, 180, 180, 1);
+                        font-family: $font--sans;
+                        font-size: $font-scale--regular;
+                        font-weight: 600;
+                        margin: 1rem 0 2.5rem 0;
+                    }
+
                 }
 
             }

@@ -313,11 +313,18 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
-                                    class="profile-relative__add-trigger"
-                                    type="button">
-                                    {{ relative_template.reference.add_label }}
-                                </button>
+                                {% if applicant.references|length > 0 %}
+                                    <button
+                                        class="profile-relative__add-trigger"
+                                        type="button">
+                                        {{ relative_template.reference.add_label }}
+                                    </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.reference.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 
@@ -388,11 +395,18 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
-                                    class="profile-relative__add-trigger"
-                                    type="button">
-                                    {{ relative_template.sample.add_label }}
-                                </button>
+                                {% if applicant.work_samples|length > 0 %}
+                                    <button
+                                        class="profile-relative__add-trigger"
+                                        type="button">
+                                        {{ relative_template.sample.add_label }}
+                                    </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.sample.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 

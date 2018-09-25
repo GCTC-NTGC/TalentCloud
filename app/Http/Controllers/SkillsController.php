@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use Barryvdh\Debugbar\Facade as Debugbar;
+use App\Models\Skill;
 use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
 use App\Models\Applicant;
@@ -34,10 +35,12 @@ class SkillsController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $skills = Skill::all();
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
             'form_submit_action' => route('profile.skills.update', $applicant),
+            'skills' => $skills
         ]);
     }
 

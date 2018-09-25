@@ -279,10 +279,17 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
+                                {% if applicant.skill_declarations|length > 0 %}
+                                    <button
                                     class="profile-relative__add-trigger">
                                     {{ relative_template.skill.add_label }}
                                 </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.skill.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 
