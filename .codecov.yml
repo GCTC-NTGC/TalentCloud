@@ -3,6 +3,14 @@ codecov:
   branch: dev
 
 coverage:
+  status:
+    project:
+      default:
+        # basic
+        target: 5
+        base: auto
+
+coverage:
   notify:
     slack:
       default:
