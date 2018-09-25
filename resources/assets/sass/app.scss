@@ -51,6 +51,12 @@
 
     $section-padding: calc(#{$unit} * 5) 0;
 
+    .container--layout-xl {
+        margin: 0 auto;
+        max-width: calc(#{$unit * 100});
+        width: 90%;
+    }
+
     .container--layout {
         margin: 0 auto;
         max-width: calc(#{$unit * 60});
@@ -80,69 +86,71 @@
 
     // Common
 
-        @import "components/alert";
-        @import "components/goc";
-        @import "components/menu";
-        @import "components/header";
-        @import "components/sidebar";
+        // Site Chrome
 
-        @import "components/footer";
+            @import "components/common/alert";
+            @import "components/common/goc";
+            @import "components/common/menu";
+            @import "components/common/footer";
 
-        @import "components/modal";
+        // Elements
 
-        @import "components/buttons";
-        @import "components/forms";
-        @import "components/accordions";
+            @import "components/common/header";
+            @import "components/common/sidebar";
+            @import "components/common/modal";
+            @import "components/common/buttons";
+            @import "components/common/forms";
+            @import "components/common/accordions";
 
         // Skills
 
-            @import "components/skills/common";
-            @import "components/skills/skill/skill";
+            @import "components/common/skills/common";
+            @import "components/common/skills/skill/skill";
 
     // Home
 
-        @import "components/home/hero";
-        @import "components/home/about";
-        @import "components/home/how";
-        @import "components/home/team";
+        @import "components/common/home/hero";
+        @import "components/applicant/home/about";
+        @import "components/applicant/home/how";
+        @import "components/applicant/home/team";
 
     // Job Index
 
-        @import "components/job/index/filters";
-        @import "components/job/index/index";
+        @import "components/applicant/job/index/filters";
+        @import "components/applicant/job/index/index";
 
     // Job Post
 
-        @import "components/job/post/header";
-        @import "components/job/post/sidebar";
-        @import "components/job/post/basics";
-        @import "components/job/post/impact";
-        @import "components/job/post/work";
-        @import "components/job/post/criteria";
-        @import "components/job/post/culture";
-        @import "components/job/post/extras";
-        @import "components/job/post/apply";
+        @import "components/applicant/job/post/header";
+        @import "components/applicant/job/post/sidebar";
+        @import "components/applicant/job/post/basics";
+        @import "components/applicant/job/post/impact";
+        @import "components/applicant/job/post/work";
+        @import "components/applicant/job/post/criteria";
+        @import "components/applicant/job/post/culture";
+        @import "components/applicant/job/post/extras";
+        @import "components/applicant/job/post/apply";
 
     // Application Index
 
         // @import "components/application/filters";
-        @import "components/application/index/index";
-        @import "components/application/index/null";
+        @import "components/applicant/application/index/index";
+        @import "components/applicant/application/index/null";
 
     // Application Post
 
-        @import "components/application/post/tracker";
-        @import "components/application/post/skill-layout";
-        @import "components/application/post/sidebar";
+        @import "components/applicant/application/post/tracker";
+        @import "components/applicant/application/post/skill-layout";
+        @import "components/applicant/application/post/sidebar";
 
         // Step 01 (Open Ended Questions)
 
-            @import "components/application/post/citizenship";
-            @import "components/application/post/questions";
+            @import "components/applicant/application/post/citizenship";
+            @import "components/applicant/application/post/questions";
 
         // Step 02 (Experience)
 
-            @import "components/application/post/experience";
+            @import "components/applicant/application/post/experience";
 
         // Step 03 (Essential Criteria)
 
@@ -152,11 +160,11 @@
 
     // Applicant Profile
 
-        @import "components/profile/header";
-        @import "components/profile/menu";
-        @import "components/profile/about/about";
-        @import "components/profile/about/questions";
-        @import "components/profile/portfolio/portfolio";
+        @import "components/applicant/profile/header";
+        @import "components/applicant/profile/menu";
+        @import "components/applicant/profile/about/about";
+        @import "components/applicant/profile/about/questions";
+        @import "components/applicant/profile/portfolio/portfolio";
 
     // Managers ================================================================
 
