@@ -13,7 +13,7 @@
 
     .browse__index-job {
         cursor: pointer;
-        display: block;
+        display: flex;
         margin: 0;
         padding: $unit;
         text-decoration: none;
@@ -128,6 +128,18 @@
                 width: 100%;
             }
 
+        }
+
+    }
+
+}
+
+body[id*="Trident/7.0"] {
+
+    .browse__index {
+
+        .browse__index-job {
+            display: block;
         }
 
     }
