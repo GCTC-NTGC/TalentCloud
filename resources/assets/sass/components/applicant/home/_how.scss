@@ -29,9 +29,23 @@
 
     p {
         @extend %paragraph;
-
+        
         &:last-child {
             margin-bottom: 0;
+        }
+
+    }
+    
+    a {
+        color: $palette--blue;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        transition: all .2s ease;
+
+        &:hover {
+            color: $palette--font-black;
+            transition: all .2s ease;
         }
 
     }
@@ -84,6 +98,11 @@
 
                 p {
 
+                }
+
+                a {
+                    display: block;
+                    margin-top: -1rem;
                 }
 
             }

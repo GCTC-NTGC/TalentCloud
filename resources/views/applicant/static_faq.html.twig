@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Manager
+    Applicant: Home
 
 ============================================================================= #}
 
@@ -19,16 +19,14 @@
     {# /head #}
 
     {# body #}
-
+    
         {% include "common/alert" %}
 
         {% include "common/goc" %}
 
-        {% include "common/header" with {'header':manager_profile} %}
+        {# FAQ Sections #}
 
-        {% include "applicant/manager/header" %}
-
-        {% include "applicant/manager/questions" %}
+            {% include "common/header" with {'header':faq} %}
 
         {# Login Modals #}
 
