@@ -1,0 +1,82 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application View - Step 04
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="application__view-anchor"
+    id="applicationView04">
+</a>
+
+<section
+    class="application-preview__section-04">
+
+    <h3>
+        Skills That Are Nice to Have
+    </h3>
+
+    {# Set Locale #}
+
+        {% set locale = "application-view" %}
+
+    {# Profile Element List #}
+
+        <div>
+
+            {% for jobSkill in job.skills %}
+
+                {% if jobSkill.requirement == "asset" %}
+
+                    {# Get User Skill #}
+
+                        {% set skill = false %}
+
+                        {% for userSkill in user.skills %}
+
+                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+
+                                {% set skill = userSkill %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {# Get Skill Type #}
+
+                        {% set skillType = false %}
+
+                        {% for siteSkill in skills %}
+
+                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+
+                                {% if siteSkill.type == "soft" %}
+
+                                    {% set skillType = "soft" %}
+
+                                {% elseif siteSkill.type == "hard" %}
+
+                                    {% set skillType = "hard" %}
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {# Import Skill Template #}
+
+                        <a
+                            class="application-post__anchor"
+                            id="skill{{ jobSkill.name }}"></a>
+
+                        {% include "common/skill" %}
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+</section>

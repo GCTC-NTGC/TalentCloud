@@ -29,6 +29,11 @@
     body {
         background: darken($palette--white, 10%);
         margin: 0;
+
+        >form {
+            margin-bottom: 0;
+        }
+
     }
 
     a,
@@ -57,6 +62,12 @@
         width: 90%;
     }
 
+     .container--layout-xl {
+        margin: 0 auto;
+        max-width: calc(#{$unit * 100});
+        width: 90%;
+    }
+
     .container--copy {
         margin: 0 auto;
         max-width: calc(#{$unit * 40});
@@ -78,85 +89,96 @@
 
 // Components ==================================================================
 
-    // Common
+    // Common ==================================================================
 
-        @import "components/alert";
-        @import "components/goc";
-        @import "components/menu";
-        @import "components/header";
-        @import "components/sidebar";
+        // Site Chrome
 
-        @import "components/footer";
+            @import "components/common/alert";
+            @import "components/common/goc";
+            @import "components/common/menu";
+            @import "components/common/header";
+            @import "components/common/footer";
 
-        @import "components/modal";
+        // Site Elements
 
-        @import "components/buttons";
-        @import "components/forms";
-        @import "components/accordions";
+            @import "components/common/sidebar";
+            @import "components/common/modal";
+            @import "components/common/buttons";
+            @import "components/common/forms";
+            @import "components/common/accordions";
 
         // Skills
 
-            @import "components/skills/common";
-            @import "components/skills/skill/skill";
+            @import "components/common/skills/common";
+            @import "components/common/skills/skill/skill";
 
-    // Home
+        // Home
 
-        @import "components/home/hero";
-        @import "components/home/about";
-        @import "components/home/how";
-        @import "components/home/team";
+            @import "components/common/home/hero";
 
-    // Job Index
+        // Application View
 
-        @import "components/job/index/filters";
-        @import "components/job/index/index";
+            @import "components/common/application/view";
 
-    // Job Post
+    // Applicant ===============================================================
 
-        @import "components/job/post/header";
-        @import "components/job/post/sidebar";
-        @import "components/job/post/basics";
-        @import "components/job/post/impact";
-        @import "components/job/post/work";
-        @import "components/job/post/criteria";
-        @import "components/job/post/culture";
-        @import "components/job/post/extras";
-        @import "components/job/post/apply";
+        // Home
 
-    // Application Index
+            @import "components/applicant/home/about";
+            @import "components/applicant/home/how";
+            @import "components/applicant/home/team";
 
-        // @import "components/application/filters";
-        @import "components/application/index/index";
-        @import "components/application/index/null";
+        // Browse Jobs
 
-    // Application Post
+            @import "components/applicant/job/index/filters";
+            @import "components/applicant/job/index/index";
 
-        @import "components/application/post/tracker";
-        @import "components/application/post/skill-layout";
-        @import "components/application/post/sidebar";
+        // Job Poster
 
-        // Step 01 (Open Ended Questions)
+            @import "components/applicant/job/post/header";
+            @import "components/applicant/job/post/sidebar";
+            @import "components/applicant/job/post/basics";
+            @import "components/applicant/job/post/impact";
+            @import "components/applicant/job/post/work";
+            @import "components/applicant/job/post/criteria";
+            @import "components/applicant/job/post/culture";
+            @import "components/applicant/job/post/extras";
+            @import "components/applicant/job/post/apply";
 
-            @import "components/application/post/citizenship";
-            @import "components/application/post/questions";
+        // My Applications
 
-        // Step 02 (Experience)
+            // @import "components/application/filters";
+            @import "components/applicant/application/index/index";
+            @import "components/applicant/application/index/null";
 
-            @import "components/application/post/experience";
+        // Application
 
-        // Step 03 (Essential Criteria)
+            @import "components/applicant/application/post/tracker";
+            @import "components/applicant/application/post/skill-layout";
+            @import "components/applicant/application/post/sidebar";
 
-        // Step 04 (Asset Criteria)
+            // Step 01 (Open Ended Questions)
 
-        // Step 05 (Preview)
+                @import "components/applicant/application/post/citizenship";
+                @import "components/applicant/application/post/questions";
 
-    // Applicant Profile
+            // Step 02 (Experience)
 
-        @import "components/profile/header";
-        @import "components/profile/menu";
-        @import "components/profile/about/about";
-        @import "components/profile/about/questions";
-        @import "components/profile/portfolio/portfolio";
+                @import "components/applicant/application/post/experience";
+
+            // Step 03 (Essential Criteria)
+
+            // Step 04 (Asset Criteria)
+
+            // Step 05 (Preview)
+
+        // Profile
+
+            @import "components/applicant/profile/header";
+            @import "components/applicant/profile/menu";
+            @import "components/applicant/profile/about/about";
+            @import "components/applicant/profile/about/questions";
+            @import "components/applicant/profile/portfolio/portfolio";
 
     // Managers ================================================================
 

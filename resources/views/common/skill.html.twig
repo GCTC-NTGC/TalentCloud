@@ -196,7 +196,7 @@
                                         {% set counter = counter + 1 %}
 
                                         <label
-                                            class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
+                                            class="box form__radio-group-label small-1of{{ skill_template.skill_levels[skillType]|length }}"
                                             for="{{ id_prefix }}skillLevel_{{ counter }}">
                                             <span
                                                 class="hidden">
@@ -313,11 +313,18 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
-                                    class="profile-relative__add-trigger"
-                                    type="button">
-                                    {{ relative_template.reference.add_label }}
-                                </button>
+                                {% if applicant.references|length > 0 %}
+                                    <button
+                                        class="profile-relative__add-trigger"
+                                        type="button">
+                                        {{ relative_template.reference.add_label }}
+                                    </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.reference.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 
@@ -388,11 +395,18 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
-                                    class="profile-relative__add-trigger"
-                                    type="button">
-                                    {{ relative_template.sample.add_label }}
-                                </button>
+                                {% if applicant.work_samples|length > 0 %}
+                                    <button
+                                        class="profile-relative__add-trigger"
+                                        type="button">
+                                        {{ relative_template.sample.add_label }}
+                                    </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.sample.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 

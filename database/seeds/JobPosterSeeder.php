@@ -12,6 +12,7 @@ use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\JobPosterQuestion;
 use App\Models\Skill;
 
 class JobPosterSeeder extends Seeder
@@ -93,6 +94,24 @@ class JobPosterSeeder extends Seeder
 
             ]);
             $keyTask->save();
+        }
+
+        //Create 2-3 questions tasks
+        for($i=0; $i< $faker->numberBetween(2,3); $i++) {
+            $question = new JobPosterQuestion();
+            $question->job_poster_id = $job->id;
+            $question->fill([
+                'en' => [
+                    'question' => $faker->sentence(),
+                    'description' => $faker->paragraph()
+                ],
+                'fr' => [
+                    'question' => $faker->sentence(),
+                    'description' => $faker->paragraph()
+                ]
+
+            ]);
+            $question->save();
         }
     }
 }

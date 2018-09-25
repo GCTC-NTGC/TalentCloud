@@ -23,9 +23,11 @@ use App\Services\Auth\SessionTokenStorage;
 use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\JobPoster;
+use App\Models\JobApplication;
 use App\Policies\JobPolicy;
 use App\Policies\ManagerPolicy;
 use App\Policies\ApplicantPolicy;
+use App\Policies\ApplicationPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,6 +40,7 @@ class AuthServiceProvider extends ServiceProvider
         Applicant::class => ApplicantPolicy::class,
         Manager::class => ManagerPolicy::class,
         JobPoster::class => JobPolicy::class,
+        JobApplication::class => ApplicationPolicy::class,
     ];
 
     public function register() {

@@ -25,8 +25,16 @@
         {% include "common/header" with {'header':application} %}
 
         {% include "applicant/application_post/common/tracker" %}
+        
+        {# Form containing all about_me editable elements #}
+        <form action="{{ form_submit_action }}" method="post">
 
-        {% include "applicant/application_post/step_05/preview_layout" %}
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
+
+            {% include "common/application/view/view_layout" %}
+
+        </form>
 
         {# Login Modals #}
 

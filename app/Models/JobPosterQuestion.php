@@ -9,15 +9,15 @@ namespace App\Models;
 
 /**
  * Class JobPosterQuestion
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
- * 
+ *
  * Localized Properties:
  * @property string $question
  * @property string $description
