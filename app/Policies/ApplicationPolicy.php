@@ -21,7 +21,7 @@ class ApplicationPolicy extends BasePolicy
     public function view(User $user, JobApplication $jobApplication)
     {
         return $user->user_role->name === "applicant" &&
-            $applicant->id === $jobApplication->applicant_id;
+            $user->applicant->id === $jobApplication->applicant_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class ApplicationPolicy extends BasePolicy
     public function update(User $user, JobApplication $jobApplication)
     {
         return $user->user_role->name === "applicant" &&
-            $applicant->id === $jobApplication->applicant_id &&
+            $user->applicant->id === $jobApplication->applicant_id &&
             $jobApplication->application_status->name == "draft";
     }
 
@@ -59,7 +59,7 @@ class ApplicationPolicy extends BasePolicy
     public function delete(User $user, JobApplication $jobApplication)
     {
         return $user->user_role->name === "applicant" &&
-            $applicant->id === $jobApplication->applicant_id &&
+            $user->applicant->id === $jobApplication->applicant_id &&
             $jobApplication->application_status->name == "draft";
     }
 }
