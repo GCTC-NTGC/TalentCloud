@@ -58,6 +58,15 @@ INSERT INTO citizenship_declaration_translations VALUES
 (9,5,'en','I am currently not entitled to work in Canada',current_timestamp,current_timestamp),
 (10,5,'fr','Je nai Actuellement pas le Droit de Travailler au Canada',current_timestamp,current_timestamp);
 
+INSERT INTO veteran_statuses VALUES
+(1,'none',current_timestamp,current_timestamp),
+(2,'current',current_timestamp,current_timestamp),
+(3,'past',current_timestamp,current_timestamp);
+
+INSERT INTO preferred_languages VALUES
+(1,'en',current_timestamp,current_timestamp),
+(2,'fr',current_timestamp,current_timestamp);
+
 INSERT INTO criteria_types VALUES
 (1,'essential',current_timestamp,current_timestamp),
 (2,'asset',current_timestamp,current_timestamp);

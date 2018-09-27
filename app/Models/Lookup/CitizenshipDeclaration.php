@@ -11,14 +11,15 @@ use App\Models\BaseModel;
 
 /**
  * Class CitizenshipDeclaration
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $citizenship_declaration_translations
- * 
+ * @property \Illuminate\Database\Eloquent\Collection $job_applications
+ *
  * Localized Properties:
  * @property string $value
  */
@@ -31,6 +32,10 @@ class CitizenshipDeclaration extends BaseModel {
 
     public function citizenship_declaration_translations() {
         return $this->hasMany(\App\Models\Lookup\CitizenshipDeclarationTranslation::class);
+    }
+
+    public function job_applications() {
+        return $this->hasMany(\App\Models\JobApplication::class);
     }
 
 }

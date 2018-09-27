@@ -1,0 +1,50 @@
+// =============================================================================
+
+    // Application Post: Citizenship
+
+// =============================================================================
+.application-post__citizenship {
+
+    h3 {
+        margin-top: 0;
+    }
+
+    p {
+        color: $palette--blue;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 600;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .form__input-wrapper--select {
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+    }
+
+}
+
+.application-post__veterans {
+
+    h3 {
+        margin-top: 4rem !important;
+    }
+
+    p {
+        color: $palette--blue;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 600;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .form__input-wrapper--select {
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+    }
+
+}

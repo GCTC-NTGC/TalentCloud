@@ -18,7 +18,7 @@
 {% endif %}
 
 <div
-    class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and criteria == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% endif %} modal-target-object"
+    class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and application.step == "3" and criterion == false %}template{% endif %} {% if locale == "application" and application.step == "4" and criterion == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% endif %} modal-target-object"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
@@ -54,11 +54,11 @@
                 {% elseif locale == "profile" and skill_declaration == true %}
                     {{ skill_template.skills[skill_declaration.skill.name].name }}
                 {% elseif locale == "application" %}
-                    {{ criteria.name }}
-                    {% if criteria.requirement == "asset" %}
-                        <span>{{ criteria.level }} {{ skill_template.application_asset_requirement_label }}</span>
-                    {% elseif criteria.requirement == "essential" %}
-                        <span>{{ criteria.level }} {{ skill_template.application_essential_requirement_label }}</span>
+                    {{ skill_template.skills[criterion.skill.name].name }}
+                    {% if application.step == "4" %}
+                        <span>{{ criterion.skill_level.name|title }} {{ skill_template.application_asset_requirement_label }}</span>
+                    {% elseif application.step == "3" %}
+                        <span>{{ criterion.skill_level.name|title }} {{ skill_template.application_essential_requirement_label }}</span>
                     {% endif %}
                 {% endif %}
             </span>
@@ -159,7 +159,7 @@
                                 class="box full">
 
                                     <p
-                                        class="skill__description">{{ skill_template.skills[criteria.skill.name].description }}</p>
+                                        class="skill__description">{{ skill_template.skills[criterion.skill.name].description }}</p>
 
 
                                 {% if skill_declaration == true %}
@@ -196,7 +196,7 @@
                                         {% set counter = counter + 1 %}
 
                                         <label
-                                            class="box form__radio-group-label small-1of{{ skill_template.soft_levels|length }}"
+                                            class="box form__radio-group-label small-1of{{ skill_template.skill_levels[skillType]|length }}"
                                             for="{{ id_prefix }}skillLevel_{{ counter }}">
                                             <span
                                                 class="hidden">
@@ -313,11 +313,18 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
-                                    class="profile-relative__add-trigger"
-                                    type="button">
-                                    {{ relative_template.reference.add_label }}
-                                </button>
+                                {% if applicant.references|length > 0 %}
+                                    <button
+                                        class="profile-relative__add-trigger"
+                                        type="button">
+                                        {{ relative_template.reference.add_label }}
+                                    </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.reference.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 
@@ -388,11 +395,18 @@
                             <div
                                 class="profile-relative__add-trigger-wrapper">
 
-                                <button
-                                    class="profile-relative__add-trigger"
-                                    type="button">
-                                    {{ relative_template.sample.add_label }}
-                                </button>
+                                {% if applicant.work_samples|length > 0 %}
+                                    <button
+                                        class="profile-relative__add-trigger"
+                                        type="button">
+                                        {{ relative_template.sample.add_label }}
+                                    </button>
+                                {% else %}
+                                    <p
+                                        class="profile-relative__null">
+                                        {{ relative_template.sample.null_copy }}
+                                    </p>
+                                {% endif %}
 
                             </div>
 

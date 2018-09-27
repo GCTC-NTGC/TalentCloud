@@ -4,6 +4,7 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Lang;
+use App\Models\Lookup\Relationship;
 
 class ReferenceComposer
 {
@@ -15,6 +16,7 @@ class ReferenceComposer
      */
     public function compose(View $view)
     {
+        $view->with('relationships', Relationship::all());
         $view->with('reference_template', Lang::get('common/references'));
     }
 }

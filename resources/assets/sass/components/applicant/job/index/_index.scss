@@ -1,0 +1,147 @@
+// =============================================================================
+
+    // Browse: Index
+
+// =============================================================================
+.browse__index {
+    // background: $palette--white;
+    padding: $section-padding;
+
+    >div >.flex-grid {
+        margin: calc(#{$unit} * -1);
+    }
+
+    .browse__index-job {
+        cursor: pointer;
+        display: flex;
+        margin: 0;
+        padding: $unit;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            outline: none;
+
+            .browse__index-job-card {
+                box-shadow: 0 2px 15px rgba(0, 0, 0, .5);
+                transform: translate(0, 0) scale(1.025);
+                transition: all .2s ease;
+            }
+
+        }
+
+        .browse__index-job-card {
+            background: $palette--white;
+            border-radius: 3px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translate(0, 0) scale(1);
+            transition: all .2s ease;
+
+            .browse__index-job-card-title {
+                background-color: transparentize($palette--black, .15);
+                background-image: url("/images/bg_lightning_texture.png");
+                background-position: center;
+                background-repeat: repeat;
+                background-size: 75px;
+                padding: calc(#{$unit} * 1.5);
+
+                h3 {
+                    color: $palette--font-white;
+                    display: block;
+                    font-weight: 600;
+                    margin: 0 0 $unit 0;
+                    width: 100%;
+                }
+
+                span {
+                    color: $palette--blue;
+                    display: block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 400;
+                    margin: 0;
+                }
+
+            }
+
+            .browse__index-job-card-content {
+                flex-grow: 1;
+                padding: calc(#{$unit} * 1.5);
+
+                span {
+                    color: $palette--font-black;
+                    display: block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 600;
+                    line-height: 1.2;
+                    margin: 0 0 calc(#{$unit} /2) 0;
+                }
+
+                p {
+                    color: $palette--font-black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    line-height: 1.5;
+                    margin: 0 0 1rem;
+                    width: 90%;
+
+                    span {
+                        display: inline-block;
+                        font-family: $font--sans;
+                        font-weight: 400;
+                        line-height: 1.5;
+                    }
+
+                }
+
+            }
+
+            .browse__index-job-card-metadata {
+                border-top: 1px solid darken($palette--white, 30%);
+                margin: calc(#{$unit} * -1) 0 0;
+                padding: calc(#{$unit} * 1.5);
+
+                .box {
+                    color: $palette--font-black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    padding: 0;
+                    text-align: left;
+                }
+
+            }
+
+            .browse__index-job-card-cta {
+                // @extend %gradient--vertical;
+                background: $palette--blue;
+                color: $palette--font-white;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 600;
+                padding: $unit;
+                text-align: center;
+                transition: all .2s ease;
+                width: 100%;
+            }
+
+        }
+
+    }
+
+}
+
+body[id*="Trident/7.0"] {
+
+    .browse__index {
+
+        .browse__index-job {
+            display: block;
+        }
+
+    }
+
+}

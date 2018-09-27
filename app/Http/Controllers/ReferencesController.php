@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\Reference;
-use App\Models\Lookup\Relationship;
 use App\Models\Project;
 
 class ReferencesController extends Controller
@@ -39,9 +38,6 @@ class ReferencesController extends Controller
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_references'),
-            'relative_template' => Lang::get('common/relatives'),
-            'skills' => Skill::all(),
-            'relationships' => Relationship::all(),
             'form_submit_action' => route('profile.references.update', $applicant),
         ]);
     }

@@ -1,0 +1,114 @@
+// =============================================================================
+
+    // Home: How
+
+// =============================================================================
+.home__how {
+    background: $palette--white;
+    padding: $section-padding;
+    text-align: center;
+
+    .home__how-title {
+        display: inline-block;
+        margin: 0 0 calc(#{$unit} * 4);
+        position: relative;
+
+        &::before {
+            @extend %gradient--horizontal;
+            content: " ";
+            display: block;
+            height: calc(#{$unit} / 2);
+            position: absolute;
+            left: 50%;
+            bottom: calc(#{$unit} * -1.5);
+            transform: translate(-50%, 0);
+            width: 80%;
+        }
+
+    }
+
+    p {
+        @extend %paragraph;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+    }
+    
+    a {
+        color: $palette--blue;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        transition: all .2s ease;
+
+        &:hover {
+            color: $palette--font-black;
+            transition: all .2s ease;
+        }
+
+    }
+
+    .home__how-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin: calc(#{$unit} * 4) 0;
+            position: relative;
+
+            .home__how-list-icon {
+                border: calc(#{$unit} / 2) solid $palette--blue;
+            	border-radius: 100%;
+            	display: block;
+            	height: calc(#{$unit} *7);
+            	margin: 0 auto calc(#{$unit} * 2);
+                position: relative;
+            	width: calc(#{$unit} *7);
+
+                @media #{$p-tablet} {
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translate(0, -50%);
+                }
+
+                i {
+                    font-size: $font-scale--h1;
+            		position: absolute;
+            		top: 50%;
+            		left: 50%;
+            		transform: translate(-50%, -50%);
+                }
+
+            }
+
+            .home__how-list-copy {
+
+                @media #{$p-tablet} {
+                    padding: 0 0 0 calc(#{$unit} * 10);
+                    text-align: left;
+                }
+
+                h4 {
+                    margin: 0 0 calc(#{$unit} * 1);
+                }
+
+                p {
+
+                }
+
+                a {
+                    display: block;
+                    margin-top: -1rem;
+                }
+
+            }
+
+        }
+
+    }
+
+}

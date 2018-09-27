@@ -22,37 +22,33 @@
             </h4>
         {% endif %}
 
-        {% for criteria in job.skills %}
-
             {% if application.step == "3" %}
 
-                {% if criteria.requirement == "essential" %}
+                {% for criterion in criteria.essential %}
 
                     <a
                         class="application-post__subnav-item"
-                        href="#skill{{ criteria.name }}"
+                        href="#skill{{ criterion.skill.name }}"
                         title="{{ application.sidebar_item_title }}">
-                        {{ criteria.name }}
+                        {{ skill_template.skills[criterion.skill.name].name }}
                     </a>
 
-                {% endif %}
+                {% endfor %}
 
             {% elseif application.step == "4" %}
 
-                {% if criteria.requirement == "asset" %}
+                {% for criterion in criteria.asset %}
 
                     <a
                         class="application-post__subnav-item"
-                        href="#skill{{ criteria.name }}"
+                        href="#skill{{ criterion.skill.name }}"
                         title="{{ application.sidebar_item_title }}">
-                        {{ criteria.name }}
+                        {{ skill_template.skills[criterion.skill.name].name }}
                     </a>
 
-                {% endif %}
+                {% endfor %}
 
             {% endif %}
-
-        {% endfor %}
 
     </nav>
 
