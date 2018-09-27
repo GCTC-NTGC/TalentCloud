@@ -26,9 +26,9 @@
     span {
         color: $palette--blue;
         font-family: $font--sans;
-        font-size: $font-scale--h4;
+        font-size: $font-scale--regular;
         font-weight: 600;
-        margin: 0 0 calc(#{$unit} * 1.5);
+        margin: 0 0 $unit;
     }
 
     p {
@@ -67,6 +67,10 @@
             margin: 0;
         }
 
+    }
+
+    .application-post__veterans {
+        margin: 2rem 0;
     }
 
     .application-post__language-agreement {

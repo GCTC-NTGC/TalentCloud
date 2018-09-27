@@ -94,7 +94,7 @@
                                     {% set locale = "application" %}
 
                                 {# Profile Element Template (Sample) #}
-
+                                
                                     {% include "common/skill" %}
 
                                 {# Profile Element List #}
@@ -102,113 +102,109 @@
                                     <div
                                         class="profile-element-list">
 
-                                        {% for criteria in job.skills %}
+                                        {% if application.step == "3" %}
 
-                                            {% if application.step == "3" %}
+                                            {% for criterion in criteria.essential %}
 
-                                                {% if criteria.requirement == "essential" %}
+                                                {# Get User Skill #}
 
-                                                    {# Get User Skill #}
+                                                    {% set skill_declaration = false %}
 
-                                                        {% set skill = false %}
+                                                    {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                        {% for skillDeclaration in applicant.skill_declarations %}
+                                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
 
-                                                            {% if criteria.name|capitalize == skillDeclaration.name|capitalize %}
+                                                            {% set skill_declaration = skillDeclaration %}
 
-                                                                {% set skill_declaration = skillDeclaration %}
+                                                        {% endif %}
 
-                                                            {% endif %}
+                                                    {% endfor %}
 
-                                                        {% endfor %}
+                                                {# Get Skill Type #}
 
-                                                    {# Get Skill Type #}
+                                                    {% set skillType = false %}
 
-                                                        {% set skillType = false %}
+                                                    {% for siteSkill in skills %}
 
-                                                        {% for siteSkill in skills %}
+                                                        {% if criterion.skill.name|capitalize == siteSkill.name|capitalize %}
 
-                                                            {% if criteria.name|capitalize == siteSkill.name|capitalize %}
+                                                            {% if siteSkill.skill_type_id == "1" %}
 
-                                                                {% if siteSkill.type == "soft" %}
+                                                                {% set skillType = "soft" %}
 
-                                                                    {% set skillType = "soft" %}
+                                                            {% elseif siteSkill.skill_type_id == "2" %}
 
-                                                                {% elseif siteSkill.type == "hard" %}
-
-                                                                    {% set skillType = "hard" %}
-
-                                                                {% endif %}
+                                                                {% set skillType = "hard" %}
 
                                                             {% endif %}
 
-                                                        {% endfor %}
+                                                        {% endif %}
 
-                                                    {# Import Skill Template #}
+                                                    {% endfor %}
 
-                                                        <a
-                                                            class="application-post__anchor"
-                                                            id="skill{{ criteria.name }}"></a>
+                                                {# Import Skill Template #}
 
-                                                        {% include "common/skill" %}
+                                                    <a
+                                                        class="application-post__anchor"
+                                                        id="skill{{ criterion.skill.name }}"></a>
 
-                                                {% endif %}
+                                                    {% include "common/skill" %}
 
-                                            {% endif %}
+                                            {% endfor %}
 
-                                            {% if application.step == "4" %}
+                                        {% endif %}
 
-                                                {% if criteria.requirement == "asset" %}
+                                        {% if application.step == "4" %}
 
-                                                    {# Get User Skill #}
+                                            {% for criterion in criteria.asset %}
 
-                                                        {% set skill = false %}
+                                                {# Get User Skill #}
 
-                                                        {% for skillDeclaration in applicant.skill_declarations %}
+                                                    {% set skill_declaration = false %}
 
-                                                            {% if criteria.name|capitalize == skillDeclaration.name|capitalize %}
+                                                    {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                                {% set skill_declaration = skillDeclaration %}
+                                                        {% if criterion.skill.name|capitalize == skillDeclaration.name|capitalize %}
+
+                                                            {% set skill_declaration = skillDeclaration %}
+
+                                                        {% endif %}
+
+                                                    {% endfor %}
+
+                                                {# Get Skill Type #}
+
+                                                    {% set skillType = false %}
+
+                                                    {% for siteSkill in skills %}
+
+                                                        {% if criterion.skill.name|capitalize == siteSkill.name|capitalize %}
+
+                                                            {% if siteSkill.skill_type_id == "1" %}
+
+                                                                {% set skillType = "soft" %}
+
+                                                            {% elseif siteSkill.skill_type_id == "2" %}
+
+                                                                {% set skillType = "hard" %}
 
                                                             {% endif %}
 
-                                                        {% endfor %}
+                                                        {% endif %}
 
-                                                    {# Get Skill Type #}
+                                                    {% endfor %}
 
-                                                        {% set skillType = false %}
+                                                {# Import Skill Template #}
 
-                                                        {% for siteSkill in skills %}
+                                                    <a
+                                                        class="application-post__anchor"
+                                                        id="skill{{ criterion.skill.name }}"></a>
 
-                                                            {% if criteria.name|capitalize == siteSkill.name|capitalize %}
+                                                    {% include "common/skill" %}
 
-                                                                {% if siteSkill.type == "soft" %}
+                                            {% endfor %}
 
-                                                                    {% set skillType = "soft" %}
-
-                                                                {% elseif siteSkill.type == "hard" %}
-
-                                                                    {% set skillType = "hard" %}
-
-                                                                {% endif %}
-
-                                                            {% endif %}
-
-                                                        {% endfor %}
-
-                                                    {# Import Skill Template #}
-
-                                                        <a
-                                                            class="application-post__anchor"
-                                                            id="skill{{ criteria.name }}"></a>
-
-                                                        {% include "common/skill" %}
-
-                                                {% endif %}
-
-                                            {% endif %}
-
-                                        {% endfor %}
+                                        {% endif %}
 
                                     </div>
 

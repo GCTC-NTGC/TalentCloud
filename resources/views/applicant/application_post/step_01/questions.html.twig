@@ -16,7 +16,8 @@
                 class="application-post__citizenship">
 
                 <h3>
-                    {{ application.citizenship_title }}
+                    {# {{ application.citizenship_title }} #}
+                    {{ application.claim_title }}
                 </h3>
 
                 <div
@@ -42,7 +43,7 @@
                                     <select
                                         class="form__input"
                                         name="citizenship_declaration_id" >
-                                        {% for option in citizenship_options|sort %}
+                                        {% for option in application.citizenship_options|sort %}
                                             <option
                                                 value="{{ option.id }}"
                                                 {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ option }}</option>
@@ -64,9 +65,9 @@
             <div
                 class="application-post__veterans">
 
-                <h3>
+                {# <h3>
                     {{ application.veterans_title }}
-                </h3>
+                </h3> #}
 
                 <div
                     class="form_wrapper">
@@ -91,7 +92,7 @@
                                     <select
                                         class="form__input"
                                         name="veteran_status_id">
-                                        {% for option in veteran_options|sort %}
+                                        {% for option in application.veterans_options|sort %}
                                             <option
                                                 value="{{ option.id }}"
                                                 {% if option.id == job_application.veteran_status_id %}selected{% endif %}>{{ option }}</option>
@@ -113,9 +114,9 @@
             <div
                 class="application-post__veterans">
 
-                <h3>
+                {# <h3>
                     {{ application.language_title }}
-                </h3>
+                </h3> #}
 
                 <div
                     class="form_wrapper">
@@ -140,7 +141,7 @@
                                     <select
                                         class="form__input"
                                         name="preferred_language_id">
-                                        {% for option in language_options %}
+                                        {% for option in application.language_options %}
                                             <option
                                                 value="{{ option.id }}"
                                                 {% if option.id == job_application.preferred_language_id %}selected{% endif %}>{{ option }}</option>

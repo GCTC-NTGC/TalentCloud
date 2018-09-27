@@ -13,13 +13,14 @@
         color: $palette--blue;
         display: block;
         font-family: $font--sans;
-        font-size: $font-scale--h4;
+        font-size: $font-scale--regular;
         font-weight: 600;
         margin: 0 !important;
         width: 100%;
     }
 
     .form__input-wrapper--select {
+        margin-top: 1.5rem;
         margin-bottom: 0;
     }
 
@@ -35,13 +36,14 @@
         color: $palette--blue;
         display: block;
         font-family: $font--sans;
-        font-size: $font-scale--h4;
+        font-size: $font-scale--regular;
         font-weight: 600;
         margin: 0 !important;
         width: 100%;
     }
 
     .form__input-wrapper--select {
+        margin-top: 1.5rem;
         margin-bottom: 0;
     }
 

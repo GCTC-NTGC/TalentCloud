@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\Debugbar\Facade as Debugbar;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\VeteranStatus;
@@ -14,6 +15,8 @@ use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\Skill;
 use App\Models\Degree;
+use App\Models\Lookup\CriteriaType;
+use App\Models\Criteria;
 use App\Models\Course;
 use App\Models\WorkExperience;
 use Illuminate\Support\Facades\Auth;
@@ -143,6 +146,7 @@ class ApplicationByJobController extends Controller
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",
                 "save_continue_button_label" => "Save & Continue",
+                "claim_title" => "Basic Information",
                 "language_title" => "Language Selection",
                 "language_copy" => "Which language would you prefer for this application process?",
                 "language_label" => "Select One",
@@ -160,7 +164,7 @@ class ApplicationByJobController extends Controller
                     "03" => "Closed - Work Permit",
                     "04" => "I am currently not entitled to work in Canada"
                 ],
-                "veterans_title" => "Veterans Claim Claim",
+                "veterans_title" => "Veterans Claim",
                 "veterans_content" => "Are you a veteran or a member of the Canadian Armed Forces?",
                 "veterans_label" => "Select One",
                 "veterans_options" => [
@@ -671,10 +675,20 @@ class ApplicationByJobController extends Controller
     {
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+        $criteria = [
+            'essential' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }),
+            'asset' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }),
+        ];
 
         return view('applicant/application_post_03', [
             "applicant" => $applicant,
+            'skill_template' => Lang::get('common/skills'),
             "form_submit_action" => route('job.application.update.3', $jobPoster),
+            'criteria' => $criteria,
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -939,10 +953,20 @@ class ApplicationByJobController extends Controller
     {
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+        $criteria = [
+            'essential' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }),
+            'asset' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }),
+        ];
 
         return view('applicant/application_post_04', [
             "applicant" => $applicant,
+            'skill_template' => Lang::get('common/skills'),
             "form_submit_action" => route('job.application.update.4', $jobPoster),
+            'criteria' => $criteria,
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
