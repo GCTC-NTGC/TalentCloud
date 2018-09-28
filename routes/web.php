@@ -13,11 +13,12 @@
 
 URL::forceScheme('https');
 
+Auth::routes();
+
 Route::group(['domain' => config('app.applicant_domain'),
     'prefix' => config('app.applicant_prefix')], function() {
 
-    /* Home */
-    Route::get('/', 'HomepageController')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');

@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class HomepageController extends Controller {
-
+class HomeController extends Controller
+{
     /**
-     * Show the home page
-     * @return \Illuminate\Http\Response
+     * Create a new controller instance.
+     *
+     * @return void
      */
-    public function __invoke() {
-        return view('applicant/home', [
-            'home' => Lang::get('applicant/home'),
-            'hero' => Lang::get('common/hero')
-        ]);
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('home');
+    }
 }
