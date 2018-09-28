@@ -17,7 +17,9 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string $tagline
  * @property string $twitter_username
  * @property string $linkedin_url
- * @property int $user_ids
+ * @property int $user_id
+ * @property boolean $is_snapshot
+ *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -35,7 +37,12 @@ use Illuminate\Database\Eloquent\Collection;
 class Applicant extends BaseModel {
 
     protected $casts = [
-        'user_id' => 'int'
+        'user_id' => 'int',
+        'personal_website' => 'string',
+        'tagline' => 'string',
+        'twitter_username' => 'string',
+        'linkedin_url' => 'string',
+        'is_snapshot' => 'boolean'
     ];
     protected $fillable = [
         'personal_website',
@@ -53,6 +60,9 @@ class Applicant extends BaseModel {
     }
 
     public function job_applications() {
+        if ($this->is_snapshot) {
+            return $this->hasMany(\App\Models\JobApplication::class, 'applicant_snapshot_id');
+        }
         return $this->hasMany(\App\Models\JobApplication::class);
     }
 

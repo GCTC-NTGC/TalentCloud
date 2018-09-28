@@ -1,0 +1,65 @@
+// =============================================================================
+
+    // Application Post: Sidebar
+
+// =============================================================================
+.application-post__subnav-wrapper {
+    display: none;
+
+    @media #{$l-tablet} {
+        display: block;
+    }
+
+}
+
+.application-post__subnav-sticky-wrapper {
+    display: none;
+    padding: $section-padding;
+    width: 95%;
+
+    @media #{$l-tablet} {
+        display: block;
+        position: sticky;
+        top: 8rem;
+    }
+
+}
+
+.application-post_subnav-label {
+    color: $palette--blue;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--h4;
+    //font-weight: 700;
+    margin: 2rem 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+}
+
+.application-post__subnav-item {
+    color: $palette--black !important;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    margin: 0 0 1rem 0;
+    text-decoration: underline;
+    transition: color .2s ease;
+
+    &:hover {
+        color: $palette--blue !important;
+        text-decoration: underline;
+        transition: color .2s ease;
+    }
+
+}
+
+.application-post__content-wrapper {
+
+    @media #{$l-tablet} {
+        padding: 0 0 0 1rem;
+    }
+
+}

@@ -12,6 +12,17 @@
             return this[0].checkValidity()
         }
 
+    // Root
+
+        var $root = $('html, body');
+
+    // User Agent Data Attributes ==============================================
+    
+        var ua = navigator.userAgent;
+        ua = ua.toString();
+        console.log("hello");
+        $('body').attr('id', ua);
+
     $(document).ready(function() {
 
         // Accordion Handlers ==================================================

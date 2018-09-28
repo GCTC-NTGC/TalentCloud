@@ -39,7 +39,8 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            ['common/skill', 'common/relatives'], 'App\Http\ViewComposers\SkillComposer'
+            ['common/skill', 'common/relatives', 'applicant/job_post/criteria',
+            'manager/job_create/criteria'], 'App\Http\ViewComposers\SkillComposer'
         );
 
         View::composer(
@@ -51,7 +52,29 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
+            ['common/relatives','common/reference','common/relatives-projects',
+             'common/sample', 'common/skill', 'common/modals/create_reference'],
+             'App\Http\ViewComposers\RelativeComposer'
+        );
+
+        View::composer(
             'common/lang_menu', 'App\Http\ViewComposers\LangMenuComposer'
+        );
+
+        View::composer(
+            'applicant/application_post/common/tracker', 'App\Http\ViewComposers\ApplicationTrackerComposer'
+        );
+
+        View::composer(
+            'common/degree', 'App\Http\ViewComposers\DegreeComposer'
+        );
+
+        View::composer(
+            'common/course', 'App\Http\ViewComposers\CourseComposer'
+        );
+
+        View::composer(
+            'common/work', 'App\Http\ViewComposers\WorkExperienceComposer'
         );
 
     }

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\WorkSample;
-use App\Models\Lookup\FileType;
 
 class WorkSamplesController extends Controller
 {
@@ -37,9 +36,7 @@ class WorkSamplesController extends Controller
     {
         return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,
-            'profile' => Lang::get('applicant/profile_work_samples'), //TODO
-            'relative_template' => Lang::get('common/relatives'),
-            'file_types' => FileType::all(),
+            'profile' => Lang::get('applicant/profile_work_samples'),
             'form_submit_action' => route('profile.work_samples.update', $applicant),
         ]);
     }

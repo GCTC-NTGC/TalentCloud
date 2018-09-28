@@ -1,0 +1,103 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Post - Tracker
+
+============================================================================= #}
+<section
+    class="application__view-layout">
+
+    <div
+        class="application__view-context">
+
+        <div class="container--copy">
+
+            <h3>
+                Review My Application
+            </h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet suscipit nisi, et interdum nibh vulputate quis. Etiam quis sapien sed ex placerat sodales convallis et nibh. Phasellus placerat dapibus erat, at vestibulum purus eleifend vel. Sed at orci nisl. Donec vel rutrum eros. Pellentesque quis euismod neque. Etiam ligula enim, ultrices at elementum a, pellentesque eu magna. Maecenas tempus sit amet mi at efficitur. Curabitur nisl quam, porta a pretium sit amet, consequat id tortor. Vivamus ornare nisi ipsum. Nunc placerat non eros quis dapibus. Vivamus commodo tortor odio, quis tincidunt tortor venenatis vitae.</p>
+
+            <div
+                class="form__wrapper">
+
+                <div
+                    class="flex-grid">
+
+                        <div
+                            class="box med-2of3">
+
+                            <div 
+                                class="form__input-wrapper--signature">
+                                <label 
+                                    class="form__label" 
+                                    for="">
+                                    Sign (Type) Your Full Name
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id=""
+                                    type="text" />
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="box med-1of3">
+
+                            <div 
+                                class="form__input-wrapper--float">
+                                <label 
+                                    class="form__label" 
+                                    for="">
+                                    Today's Date
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id=""
+                                    type="text" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="container--layout">
+
+        <div 
+            class="flex-grid">
+
+            {# Include Sidebar #}
+
+                {% include "common/application/view/view_sidebar" %}
+
+            {# Preview Content #}
+
+                <div class="application__view-content-wrapper box lg-3of4">
+
+                    {% include "common/application/view/view_01_about" %}
+
+                    {% include "common/application/view/view_02_experience" %}
+
+                    {% include "common/application/view/view_03_essential" %}
+
+                    {% include "common/application/view/view_04_asset" %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+    {% include "common/application/view/view_05_actions" %}
+
+</section>

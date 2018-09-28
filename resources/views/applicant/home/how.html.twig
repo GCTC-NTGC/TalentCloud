@@ -34,10 +34,10 @@
                     class="home__how-list-copy">
                     <h4
                         class="heading--04">
-                        Own Your Story
+                        {{ home.how_step01_title }}
                     </h4>
                     <p>
-                        Everyone is unique. Participate in a job selection process that lets you tell your story your way.
+                        {{ home.how_step01_copy }}
                     </p>
                 </div>
 
@@ -55,10 +55,10 @@
                     class="home__how-list-copy">
                     <h4
                         class="heading--04">
-                        Get Found
+                        {{ home.how_step02_title }}
                     </h4>
                     <p>
-                        Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.
+                        {{ home.how_step02_copy }}
                     </p>
                 </div>
 
@@ -76,11 +76,33 @@
                     class="home__how-list-copy">
                     <h4
                         class="heading--04">
-                        Contribute
+                        {{ home.how_step03_title }}
                     </h4>
                     <p>
-                        Find meaningful work that has an impact on Canadians... and be part of the effort to design a new platform for project-based work in Government.
+                        {{ home.how_step03_copy }}
                     </p>
+                </div>
+
+            </li>
+
+            <li
+                class="flex-grid middle">
+
+                <div
+                    class="home__how-list-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+
+                <div
+                    class="home__how-list-copy">
+                    <h4
+                        class="heading--04">
+                        {{ home.how_step04_title }}
+                    </h4>
+                    <p>
+                        {{ home.how_step04_copy }}
+                    </p>
+                    <a href='{{ home.how_step04_link }}' title='{{ home.how_step04_link_title }}'>{{ home.how_step04_link_label }}</a>
                 </div>
 
             </li>

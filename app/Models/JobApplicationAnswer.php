@@ -9,14 +9,14 @@ namespace App\Models;
 
 /**
  * Class JobApplicationAnswer
- * 
+ *
  * @property int $id
- * @property int $job_poster_questions_id
+ * @property int $job_poster_question_id
  * @property int $job_application_id
  * @property string $answer
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
@@ -35,7 +35,7 @@ class JobApplicationAnswer extends BaseModel {
     }
 
     public function job_poster_question() {
-        return $this->belongsTo(\App\Models\JobPosterQuestion::class, 'job_poster_questions_id');
+        return $this->belongsTo(\App\Models\JobPosterQuestion::class);
     }
 
 }

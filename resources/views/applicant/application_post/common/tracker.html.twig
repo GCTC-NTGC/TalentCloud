@@ -7,21 +7,25 @@
 <section
     class="application-post__tracker">
 
-    <div 
+    <div
         class="container--layout">
 
         <div
             class="flex-grid middle">
 
-            <div 
+            <div
                 class="box lg-1of2 flex-grid middle">
 
-                <div 
+                <div
                     class="box small-1of3 lg-1of4">
 
-                    <div 
+                    <div
                         class="application-post__tracker-user-photo"
-                        style="background-image:url('{% if user.photo %}{{ user.photo }}{% else %}/images/user.png{% endif %}');">
+                        {% if user.photo %}
+                            style="background-image:url('{{ user.photo }}');"
+                        {% else %}
+                            style="background-image:url('/images/user.png');"
+                        {% endif %}>
                     </div>
 
                 </div>
@@ -33,42 +37,42 @@
                         class="application-post__tracker-job-title"
                         href="{{ job.link }}"
                         target="_blank"
-                        title="{{ application.tracker_job_link_title }}">
+                        title="{{ application_tracker.job_link_title }}">
                         {{ job.title }}
                     </a>
 
                     <span
                         class="application-post__tracker-job-department">
-                        {{ job.department }}
+                        {{ job.department.value }}
                     </span>
 
                 </div>
 
             </div>
 
-            <div 
+            <div
                 class="box lg-1of2">
 
                 <span
                     class="application-post__tracker-step">
-                    {{ application.tracker_label }} {{ application.step }}/5
+                    {{ application.tracker_label }} {{ application.step }} / 5
                 </span>
 
-                {% for item in application.tracker %}
+                {% for item in application_tracker.items %}
 
                     <a
-                        class="application-post__tracker-item 
+                        class="application-post__tracker-item
                             {% if item.status == "error" %}
-                                error 
+                                error
                             {% elseif item.status == "complete" %}
-                                complete 
+                                complete
                             {% endif %}
                             {% if item.step == application.step %}
-                                active 
+                                active
                             {% endif %}
                         "
-                        href="/applications/{{ application.id }}{{ item.url }}"
-                        title="{{ application.tracker_link_title }} {{ item.step }}.">
+                        href="{{ item.url }}"
+                        title="{{ application_tracker.tracker_link_title }} {{ item.step }}.">
 
                         <i class="fas fa-times-circle"></i>
 
