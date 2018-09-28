@@ -53,11 +53,20 @@
             border-radius: 100%;
             display: block;
             height: calc(#{$unit} * 7);
-            margin: 0 auto calc(#{$unit} * 4) auto;
+            margin: 0 auto calc(#{$unit} * 2) auto;
             width: calc(#{$unit} * 7);
 
             @media #{$l-tablet} {
                 margin: 0;
+            }
+
+        }
+
+        .job-post__culture-manager-copy {
+            text-align: center;
+
+            @media #{$l-tablet} {
+                text-align: left;
             }
 
         }
