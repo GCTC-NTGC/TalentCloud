@@ -15,10 +15,13 @@ URL::forceScheme('https');
 
 Auth::routes();
 
+/* Home */
+// Route::get('/', 'HomepageController')->name('home');
+
+Route::get('/', 'HomeController@index')->name('home');
+
 Route::group(['domain' => config('app.applicant_domain'),
     'prefix' => config('app.applicant_prefix')], function() {
-
-    Route::get('/home', 'HomeController@index')->name('home');
 
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
@@ -811,18 +814,6 @@ $managerGroup = function() {
 
 
     });
-
-    /* Authentication =========================================================== */
-
-    Route::get('login', 'LoginController@login')->middleware('guest')->name('manager.login');
-
-    Route::get('logout', 'LoginController@logout')->name('manager.logout');
-
-    Route::get('logout/callback', 'LoginController@logoutCallback')->name('manager.logout.callback');
-
-    Route::get('register', function() {
-        return redirect('https://account.gccollab.ca/register/');
-    })->middleware('guest')->name('manager.register');
 };
 
 Route::group(['domain' => config('app.manager_domain'),
