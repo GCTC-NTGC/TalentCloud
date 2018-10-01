@@ -18,7 +18,7 @@ Auth::routes();
 /* Home */
 // Route::get('/', 'HomepageController')->name('home');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomepageController')->name('home');
 
 Route::group(['domain' => config('app.applicant_domain'),
     'prefix' => config('app.applicant_prefix')], function() {
