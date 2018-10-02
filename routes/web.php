@@ -13,15 +13,14 @@
 
 URL::forceScheme('https');
 
-Auth::routes();
-
 /* Home */
 // Route::get('/', 'HomepageController')->name('home');
 
-Route::get('/', 'HomepageController')->name('home');
-
 Route::group(['domain' => config('app.applicant_domain'),
     'prefix' => config('app.applicant_prefix')], function() {
+
+    /* Home */
+    Route::get('/', 'HomepageController')->name('home');
 
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
@@ -177,8 +176,8 @@ Route::group(['domain' => config('app.applicant_domain'),
             ]);
             })->name('applications.index');
 
-        
-        
+
+
         /* Step 01 */
         Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@edit_basics')->name('job.application.edit.1');
 
@@ -426,15 +425,18 @@ Route::group(['domain' => config('app.applicant_domain'),
 
     /* Authentication =========================================================== */
 
-    Route::get('login', 'LoginController@login')->middleware('guest')->name('login');
+    //Laravel default login, logout, register, and reset routes
+    Auth::routes();
 
-    Route::get('logout', 'LoginController@logout')->name('logout');
-
-    Route::get('logout/callback', 'LoginController@logoutCallback')->name('logout.callback');
-
-    Route::get('register', function() {
-        return redirect('https://account.gccollab.ca/register/');
-    })->middleware('guest')->name('register');
+    // Route::get('login', 'LoginController@login')->middleware('guest')->name('login');
+    //
+    // Route::get('logout', 'LoginController@logout')->name('logout');
+    //
+    // Route::get('logout/callback', 'LoginController@logoutCallback')->name('logout.callback');
+    //
+    // Route::get('register', function() {
+    //     return redirect('https://account.gccollab.ca/register/');
+    // })->middleware('guest')->name('register');
 
 });
 
