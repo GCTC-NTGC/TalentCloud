@@ -9,16 +9,20 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "about_card_copy_01" => "The jobs are not real (for now).",
+    "about_card_copy_01" => "The jobs are real.",
     "about_card_copy_02" => "The platform is experimental.",
-    "about_cta" => "Help us build a new hiring model for the Government of Canada.",
-    "about_copy" => "GC Talent Cloud is making government hiring transparent and connecting hiring managers to people with mad wicked skills, like you.",
+    "about_cta" => "Talent Cloud is the Government of Canada's experimental new hiring platform for project-based or \"gig\" employment. For the next few months, Government will be posting a few cool new jobs a week in digital, tech, and user experience design.",
+    "about_copy" => "Each poster lets you learn about the work, the teams, and the managers of each position, so you can think about where you'll fit before you apply.",
+    "about_copy_2" => "Test it out and tell us what you think.",
+    "about_copy_3" => "Help us buld a new hiring model for the Government of Canada.",
     "how_title" => "How It Works",
     "how_intro" => "GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.",
+    "how_intro_2" => "All Talent Cloud jobs are competitively staffed term positions, open to the public.",
+    "how_intro_3" => "Do good, with pension and benefits.",
     "how_step01_title" => "Own Your Story",
-    "how_step01_copy" => "Everyone is unique. Participate in a job selection process that lets you tell your story your way.",
-    "how_step02_title" => "Get Found",
-    "how_step02_copy" => "Learn about the work environment and teams that are part of the jobs you’re interested in. Showcase your unique skills and experiences for hiring managers across the country.",
+    "how_step01_copy" => "Everyone is unique. Participate in a job selection process that lets you showcase your skills in your own way. Have access to information about the job that lets you choose your own right fit.",
+    "how_step02_title" => "Get Recognized",
+    "how_step02_copy" => "Earn and validate skills, knowledge, and abilities through Talent Cloud by applying to jobs and while you're on the job. What does this mean? Credentials earned through Talent Cloud are recognized and transferable between job applications... and one day potentially across Canada.",
     "how_step03_title" => "Contribute",
     "how_step03_copy" => "Find meaningful work that has an impact on Canadians... and be part of the effort to design a new platform for project-based work in Government.",
     "how_step04_title" => "Credentialing TBD",
@@ -38,7 +42,10 @@ return [
     "team_button_gccollab_label" => "GCcollab",
     "team_button_twitter_link" => "https://twitter.com/TalentCloudGC",
     "team_button_twitter_title" => "Visit the team on Twitter.",
-    "team_button_twitter_label" => "Twitter"
+    "team_button_twitter_label" => "Twitter",
+    "team_button_email_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
+    "team_button_email_title" => "Get in touch with GC Talent Cloud via email.",
+    "team_button_email_label" => "Email"
 ];
 
 
