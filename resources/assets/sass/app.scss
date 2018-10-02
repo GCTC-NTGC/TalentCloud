@@ -107,6 +107,11 @@
             @import "components/common/forms";
             @import "components/common/accordions";
 
+        // Authentication
+
+            @import "components/common/auth/login";
+            @import "components/common/auth/register";
+
         // Skills
 
             @import "components/common/skills/common";

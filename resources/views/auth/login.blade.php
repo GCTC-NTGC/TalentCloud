@@ -1,69 +1,141 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+    
+    <section 
+        class="auth"
+        style="background-image: url('/images/bg_crowd.jpg');">
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+        <div
+            class="login">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+            <a
+                class="login-return-link"
+                href="/"
+                title="Return Home">
+                <i class="fas fa-chevron-left"></i> Return Home
+            </a>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+            <div
+                class="login-heading">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                <h1>Login to Talent Cloud</h1>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </div>
+
+            <form
+                action="{{ route('login') }}"
+                class="form__wrapper"
+                method="POST">
+
+                {{ csrf_field() }}
+
+                <div
+                    class="login-content">
+
+                    <div
+                        class="login-scroll-wrapper">
+
+                        <div
+                            class="login-copy">
+                            
+                            <div 
+                                class="form__input-wrapper--float @if (old('email'))active @endif">
+                                <label 
+                                    class="form__label" 
+                                    for="email">
+                                    E-Mail Address
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id="email"
+                                    name="email"
+                                    required
+                                    type="email"
+                                    value="{{ old('email') }}" />
+                            </div>
+
+                            <div 
+                                class="form__input-wrapper--float">
+                                <label 
+                                    class="form__label" 
+                                    for="password">
+                                    Password
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    type="password" />
+                            </div>
+
+                            <div
+                                class="form__checkbox-wrapper">
+
+                                <label
+                                    class="form__label">
+                                    <input
+                                        class="form__input"
+                                        {{ old('remember') ? 'checked' : '' }}
+                                        name="remember" 
+                                        type="checkbox"> Remember Me
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="login-action-wrapper">
+
+                    <div
+                        class="flex-grid">
+
+                        <div
+                            class="box small-1of2">
+
+                            <a 
+                                class="button--red light-bg" 
+                                href="{{ route('password.request') }}">
+                                Forgot Password
+                            </a>
+
+                        </div>
+
+                        <div
+                            class="box small-1of2">
+
+                            <button 
+                                class="button--blue light-bg"
+                                type="submit">
+                                Login
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
         </div>
-    </div>
-</div>
+
+        <a
+            class="login-logo"
+            href="/"
+            title="Return to Talent Cloud.">
+            <img
+                alt="The Talent Cloud Logo"
+                class=""
+                src="/images/logo_tc_colour.png">
+        </a>
+
+    </section>
+
 @endsection
