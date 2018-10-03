@@ -15,7 +15,7 @@ return [
             "applicant" => true,
             "manager" => false
         ],
-        "link" => route('home')
+        //"link" => route('home')
     ],
     "browse" => [
         "name" => "Browse Jobs",
@@ -23,7 +23,7 @@ return [
             "applicant" => true,
             "manager" => false
         ],
-        "link" => route('jobs.index')
+        //"link" => route('jobs.index')
     ],
     "applications" => [
         "name" => "My Applications",
@@ -31,8 +31,8 @@ return [
             "applicant" => true,
             "manager" => false
         ],
-        // "link" => route('application.index')
-        "link" => "/applications/"
+        // //"link" => route('application.index')
+        //"link" => "/applications/"
     ],
     "profile" => [
         "name" => "My Profile",
@@ -40,7 +40,7 @@ return [
             "applicant" => true,
             "manager" => false
         ],
-        "link" => route('profile')
+        //"link" => route('profile')
     ],
     "admin" => [
         "name" => "Home",
@@ -48,7 +48,7 @@ return [
             "applicant" => false,
             "manager" => true
         ],
-        "link" => "/admin/"
+        //"link" => "/admin/"
     ],
     "adminjobs" => [
         "name" => "My Jobs",
@@ -56,7 +56,7 @@ return [
             "applicant" => false,
             "manager" => true
         ],
-        "link" => "/admin/jobs/"
+        //"link" => "/admin/jobs/"
     ],
     "adminprofile" => [
         "name" => "My Profile",
@@ -64,7 +64,7 @@ return [
             "applicant" => false,
             "manager" => true
         ],
-        "link" => "/admin/profile/"
+        //"link" => "/admin/profile/"
     ]
 ];
 

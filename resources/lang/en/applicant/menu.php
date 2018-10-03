@@ -12,19 +12,19 @@ return [
     "items" => [
         "home" => [
             "name" => "Home",
-            "link" => route('home')
+            //"link" => route('home')
         ],
         "jobs" => [
             "name" => "Browse Jobs",
-            "link" => route('jobs.index')
+            //"link" => route('jobs.index')
         ],
         "applications" => [
             "name" => "My Applications",
-            "link" => route('applications.index')
+            //"link" => route('applications.index')
         ],
         "profile" => [
             "name" => "My Profile",
-            "link" => route('profile')
+            //"link" => route('profile')
         ],
     ],
     "register" => "Register",

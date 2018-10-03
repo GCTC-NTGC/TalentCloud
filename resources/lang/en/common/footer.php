@@ -11,17 +11,17 @@ return [
      */
 
     "terms" => [
-        "link" => "/terms/",
+        //"link" => "/terms/",
         "link_title" => "View our terms and conditions.",
         "link_label" => "Terms & Conditions"
     ],
     "privacy" => [
-        "link" => "/privacy/",
+        //"link" => "/privacy/",
         "link_title" => "View our privacy policy.",
         "link_label" => "Privacy Policy"
     ],
     "canada" => [
-        "link" => "https://www.canada.ca/en.html",
+        //"link" => "https://www.canada.ca/en.html",
         "link_title" => "Visit Canada.ca.",
         "link_label" => "Canada.ca"
     ],
