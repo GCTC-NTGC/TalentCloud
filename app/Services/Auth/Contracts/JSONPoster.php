@@ -12,6 +12,5 @@ interface JSONPoster
      *
      * @return array
      */
-    public function post(string $url, array $params = [], $body = null, array $options = []): array;
+    public function post(string $url, array $params = [], $body = null, array $options = []);
 }
-

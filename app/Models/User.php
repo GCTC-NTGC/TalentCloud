@@ -90,11 +90,11 @@ class User extends BaseModel implements OidcAuthenticatable, AuthorizableContrac
     //OidcAuthenticatable Interface Implementation
     ///////////////////////////////////////////
 
-    public function getRole(): array {
+    public function getRole() {
         return $this->role;
     }
 
-    public function getSub($iss): string {
+    public function getSub($iss) {
         //TODO: implement alterative issuers
         return $this->open_id_sub;
     }

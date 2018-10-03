@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 class WhichPortal {
 
-    public function isApplicantPortal() : bool {
+    public function isApplicantPortal() {
         return !$this->isManagerPortal();
     }
 
-    public function isManagerPortal() : bool {
+    public function isManagerPortal() {
         $routeName = Route::currentRouteName();
         return str_is('manager.*',$routeName);
     }

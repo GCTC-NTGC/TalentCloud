@@ -58,7 +58,7 @@ class JwtKeysFetcher
      *
      * @return Key|null
      */
-    public function getByKID(string $kid): Key
+    public function getByKID(string $kid)
     {
         $cacheKey = 'keys.' . $kid;
         if ($this->cache->has($cacheKey)) {
@@ -77,7 +77,7 @@ class JwtKeysFetcher
      *
      * @return array
      */
-    public function fetch(): array
+    public function fetch()
     {
         $result = [];
         $data = $this->fetcher->get($this->jwksURI);
@@ -95,7 +95,7 @@ class JwtKeysFetcher
      *
      * @return string the RSA public key represented in PEM format
      */
-    protected function createPemFromModulusAndExponent(string $n, string $e): string
+    protected function createPemFromModulusAndExponent(string $n, string $e)
     {
         $modulus = $this->decoder->base64UrlDecode($n);
         $publicExponent = $this->decoder->base64UrlDecode($e);
@@ -135,7 +135,7 @@ class JwtKeysFetcher
      *
      * @return string
      */
-    protected function encodeLength(int $length): string
+    protected function encodeLength(int $length)
     {
         if ($length <= 0x7F) {
             return chr($length);
