@@ -7,15 +7,23 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Notifications\Notifiable;
+
 /**
  * Class User
  *
  * @property int $id
  * @property string $email
  * @property string $name
+ * @property string $password
  * @property bool $is_confirmed
  * @property int $user_role_id
- * @property string $open_id_sub
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -24,11 +32,21 @@ namespace App\Models;
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
+class User extends BaseModel implements
+    // Laravel contracts for native login
+        AuthenticatableContract,
+        CanResetPasswordContract,
+    // Contract for use with Gates and Policies
+        AuthorizableContract
+    // Custom contract for use with openid login
+    //    \App\Services\Auth\Contracts\OidcAuthenticatable
+        {
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable {
+    //Traits for Laravel basic authentication
+    use Authenticatable, CanResetPassword;
+    // Trait for working with Gates and Policies
+    use Authorizable;
+    // Trait for notifications
     use Notifiable;
 
     protected $casts = [
