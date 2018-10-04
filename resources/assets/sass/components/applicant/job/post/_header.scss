@@ -102,5 +102,10 @@
     font-size: $font-scale--regular;
     font-weight: 400;
     line-height: 1.2;
-    margin: 0 !important;
+    margin: 2rem 0 0 0;
+
+    @media #{$p-tablet} {
+        margin: 0 !important;
+    }
+
 }

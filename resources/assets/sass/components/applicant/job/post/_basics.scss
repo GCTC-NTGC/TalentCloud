@@ -4,7 +4,12 @@
 
 // =============================================================================
 .job-poster__content-wrapper {
-    padding: 5rem 0 5rem 3rem;
+    padding: 5rem 0;
+
+    @media #{$l-tablet} {
+        padding: 5rem 0 5rem 3rem;
+    }
+
 }
 
 .job-poster__basics {

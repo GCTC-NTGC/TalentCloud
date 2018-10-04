@@ -20,22 +20,31 @@
     }
 
     .home__hero-content {
-        padding: calc(#{$unit} * 7) 0 calc(#{$unit} * 6);
+        padding: calc(#{$unit} * 6) 0 calc(#{$unit} * 6);
         margin: 0 auto;
         max-width: calc(#{$unit * 70});
         position: relative;
         width: 90%;
 
+        @media #{$p-tablet} {
+            padding: calc(#{$unit} * 7) 0 calc(#{$unit} * 6);
+        }
+
         &::before {
             background: $palette--white;
             content: " ";
-            display: block;
+            display: none;
             height: 35%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: calc(#{$unit} / 2);
+
+            @media #{$p-tablet} {
+                display: block;
+            }
+
         }
 
         .box {
@@ -54,9 +63,13 @@
                 font-family: $font--sans;
                 font-size: $font-scale--h3;
                 font-weight: 400;
+                margin: 2rem 0 0 0;
+                text-align: center;
 
                 @media #{$p-tablet} {
+                    margin: 0;
                     padding: 0 0 0 calc(#{$unit} * 4);
+                    text-align: left;
                 }
 
             }
