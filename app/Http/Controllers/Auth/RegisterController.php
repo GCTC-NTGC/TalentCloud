@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserRole;
+use App\Models\Applicant;
 
 class RegisterController extends Controller
 {
@@ -73,6 +74,8 @@ class RegisterController extends Controller
         $user->user_role()->associate(UserRole::where('name', 'applicant')->first());
 
         $user->save();
+
+        $user->applicant()->save(new Applicant());
 
         return $user;
 
