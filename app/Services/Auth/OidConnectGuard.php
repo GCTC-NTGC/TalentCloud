@@ -147,7 +147,7 @@ class OidConnectGuard implements Guard {
         return $user;
     }
 
-    public function validate(array $credentials = array()): bool {
+    public function validate(array $credentials = array()) {
         debugbar()->info("in Guard.validate()");
         if (empty($credentials['id_token'])) {
             return false;

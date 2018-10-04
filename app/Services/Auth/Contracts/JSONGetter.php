@@ -11,5 +11,5 @@ interface JSONGetter
      *
      * @return array
      */
-    public function get(string $url, array $params = [], array $options = []): ?array;
+    public function get(string $url, array $params = [], array $options = []);
 }

@@ -74,6 +74,12 @@ class MenuComposer
                     break;
             }
 
+            //Set route links
+            $menu['items']['home']['link'] = route('home');
+            $menu['items']['jobs']['link'] = route('jobs.index');
+            $menu['items']['applications']['link'] = route('applications.index');
+            $menu['items']['profile']['link'] = route('profile');
+
             //Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
                 unset($menu['items']['login']);
@@ -120,6 +126,12 @@ class MenuComposer
                     break;
             }
 
+            //Set route links
+            $menu['items']['home']['link'] = route('manager.home');
+            $menu['items']['jobs']['link'] = route('manager.jobs.index');
+            $menu['items']['create_job']['link'] = route('manager.jobs.create');
+            $menu['items']['profile']['link'] = route('manager.profile');
+
             //Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
                 unset($menu['items']['login']);
@@ -132,6 +144,7 @@ class MenuComposer
                 unset($menu['items']['profile']);
             }
         }
+        //Set login modals data
         if (WhichPortal::isManagerPortal()) {
             $loginModals = [
                 'modals' => Lang::get('common/login_modals'),

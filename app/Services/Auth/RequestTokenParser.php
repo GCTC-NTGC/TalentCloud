@@ -38,7 +38,7 @@ class RequestTokenParser
      *
      * @return Token
      */
-    public function parse(Request $request): Token
+    public function parse(Request $request)
     {
 //        if ($request->session()->has(static::COOKIE_KEY)) {
 //            $token = $request->session()->get(static::COOKIE_KEY);
@@ -72,7 +72,7 @@ class RequestTokenParser
      * @param string $tokenString     *
      * @return Token
      */
-    public function parseFromString(string $tokenString): Token {
+    public function parseFromString(string $tokenString) {
         return $this->parser->parse($tokenString);
     }
 
