@@ -28,7 +28,7 @@ class JSONFetcher implements JSONGetter, JSONPoster
     /**
      * {@inheritdoc}
      */
-    public function get(string $url, array $params = [], array $options = []): ?array
+    public function get(string $url, array $params = [], array $options = [])
     {
         $reqOpts = array_merge([
             'query' => $params,
@@ -45,7 +45,7 @@ class JSONFetcher implements JSONGetter, JSONPoster
      *
      * @return array
      */
-    protected function request(string $method, string $url, array $options): ?array
+    protected function request(string $method, string $url, array $options)
     {
         $response = $this->client->request($method, $url, $options);
         // TODO: Handle request errors (ex.: authorization error with 403 status code)
@@ -55,7 +55,7 @@ class JSONFetcher implements JSONGetter, JSONPoster
     /**
      * {@inheritdoc}
      */
-    public function post(string $url, array $params = [], $body = null, array $options = []): array
+    public function post(string $url, array $params = [], $body = null, array $options = [])
     {
         $reqOpts = array_merge([
             'query' => $params,
