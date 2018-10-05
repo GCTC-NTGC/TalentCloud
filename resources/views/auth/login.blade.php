@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    
-    <section 
+
+    <section
         class="auth"
         style="background-image: url('/images/bg_crowd.jpg');">
 
@@ -24,7 +24,7 @@
             </div>
 
             <form
-                action="{{ route('login') }}"
+                action="{{ routes.login }}"
                 class="form__wrapper"
                 method="POST">
 
@@ -38,11 +38,11 @@
 
                         <div
                             class="login-copy">
-                            
-                            <div 
+
+                            <div
                                 class="form__input-wrapper--float @if (old('email'))active @endif">
-                                <label 
-                                    class="form__label" 
+                                <label
+                                    class="form__label"
                                     for="email">
                                     E-Mail Address
                                 </label>
@@ -55,10 +55,10 @@
                                     value="{{ old('email') }}" />
                             </div>
 
-                            <div 
+                            <div
                                 class="form__input-wrapper--float">
-                                <label 
-                                    class="form__label" 
+                                <label
+                                    class="form__label"
                                     for="password">
                                     Password
                                 </label>
@@ -78,7 +78,7 @@
                                     <input
                                         class="form__input"
                                         {{ old('remember') ? 'checked' : '' }}
-                                        name="remember" 
+                                        name="remember"
                                         type="checkbox"> Remember Me
                                 </label>
 
@@ -99,9 +99,9 @@
                         <div
                             class="box small-1of2">
 
-                            <a 
-                                class="button--red light-bg" 
-                                href="{{ route('password.request') }}">
+                            <a
+                                class="button--red light-bg"
+                                href="{{ routes.password.request }}">
                                 Forgot Password
                             </a>
 
@@ -110,7 +110,7 @@
                         <div
                             class="box small-1of2">
 
-                            <button 
+                            <button
                                 class="button--blue light-bg"
                                 type="submit">
                                 Login

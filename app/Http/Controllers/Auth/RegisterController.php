@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserRole;
 use App\Models\Applicant;
+use Facades\App\Services\WhichPortal;
 
-class RegisterController extends Controller
+class RegisterController extends AuthController
 {
     /*
     |--------------------------------------------------------------------------
@@ -30,7 +31,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected function redirectTo(Request $request)
+    {
+        $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
+        return $redirectTo;
+    }
 
     /**
      * Create a new controller instance.
@@ -40,6 +45,16 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register', ['routes' => $this->auth_routes()]);
     }
 
     /**

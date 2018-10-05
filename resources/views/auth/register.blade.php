@@ -24,7 +24,7 @@
             </div>
 
             <form
-                action="{{ route('register') }}"
+                action="{{ routes.register }}"
                 class="form__wrapper"
                 method="POST">
 

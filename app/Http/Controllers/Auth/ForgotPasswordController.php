@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Http\Controllers\Auth\AuthController;
 
-class ForgotPasswordController extends Controller
+class ForgotPasswordController extends AuthController
 {
     /*
     |--------------------------------------------------------------------------
@@ -28,5 +28,17 @@ class ForgotPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * OVERRIDE
+     *
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
+    {
+        return view('auth.passwords.email', ['routes' => $this->auth_routes()]);
     }
 }
