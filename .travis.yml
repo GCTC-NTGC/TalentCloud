@@ -12,7 +12,7 @@ services:
 install:
   - sudo cp -a .env.example .env
   - sudo make gen-certs
-  - sudo docker-compose up --abort-on-container-exit
+  - sudo docker-compose up --abort-on-container-exit -d
   # sudo make docker-start
   - npm i npm@latest -g
   - npm install
