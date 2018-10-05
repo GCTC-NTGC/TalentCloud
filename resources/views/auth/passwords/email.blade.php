@@ -51,8 +51,8 @@
  @extends('layouts.app')
 
 @section('content')
-    
-    <section 
+
+    <section
         class="auth"
         style="background-image: url('/images/bg_crowd.jpg');">
 
@@ -74,7 +74,7 @@
             </div>
 
             <form
-                action="{{ routes.password.email }}"
+                action="{{ $routes['password']['email'] }}"
                 class="form__wrapper"
                 method="POST">
 
@@ -101,10 +101,10 @@
                                 </span>
                             @endif
 
-                            <div 
+                            <div
                                 class="form__input-wrapper--float @if (old('email'))active @endif">
-                                <label 
-                                    class="form__label" 
+                                <label
+                                    class="form__label"
                                     for="email">
                                     E-Mail Address
                                 </label>
@@ -137,7 +137,7 @@
                         <div
                             class="box small-1of2">
 
-                            <button 
+                            <button
                                 class="button--blue light-bg"
                                 type="submit">
                                 Send Reset Password Link

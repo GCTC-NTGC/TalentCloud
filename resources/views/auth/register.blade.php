@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    
-    <section 
+
+    <section
         class="auth"
         style="background-image: url('/images/bg_crowd.jpg');">
 
@@ -24,7 +24,7 @@
             </div>
 
             <form
-                action="{{ routes.register }}"
+                action="{{ $routes['register'] }}"
                 class="form__wrapper"
                 method="POST">
 
@@ -45,7 +45,7 @@
                                 @if ($errors->has('password'))
                                     <div
                                         class="box full register-alert">
-                                        
+
                                         <span class="help-block">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
@@ -56,10 +56,10 @@
                                 <div
                                     class="box full">
 
-                                    <div 
+                                    <div
                                         class="form__input-wrapper--float @if (old('name'))active @endif">
-                                        <label 
-                                            class="form__label" 
+                                        <label
+                                            class="form__label"
                                             for="name">
                                             Name
                                         </label>
@@ -77,10 +77,10 @@
                                 <div
                                     class="box full">
 
-                                    <div 
+                                    <div
                                         class="form__input-wrapper--float @if (old('email'))active @endif">
-                                        <label 
-                                            class="form__label" 
+                                        <label
+                                            class="form__label"
                                             for="email">
                                             E-Mail Address
                                         </label>
@@ -98,10 +98,10 @@
                                 <div
                                     class="box med-1of2">
 
-                                    <div 
+                                    <div
                                         class="form__input-wrapper--float">
-                                        <label 
-                                            class="form__label" 
+                                        <label
+                                            class="form__label"
                                             for="password">
                                             Password
                                         </label>
@@ -118,10 +118,10 @@
                                 <div
                                     class="box med-1of2">
 
-                                    <div 
+                                    <div
                                         class="form__input-wrapper--float">
-                                        <label 
-                                            class="form__label" 
+                                        <label
+                                            class="form__label"
                                             for="password-confirm">
                                             Confirm Password
                                         </label>
@@ -157,7 +157,7 @@
                         <div
                             class="box small-1of2">
 
-                            <button 
+                            <button
                                 class="button--blue light-bg"
                                 type="submit">
                                 Register

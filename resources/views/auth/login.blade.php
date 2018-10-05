@@ -24,7 +24,7 @@
             </div>
 
             <form
-                action="{{ routes.login }}"
+                action="{{ $routes['login'] }}"
                 class="form__wrapper"
                 method="POST">
 
@@ -101,7 +101,7 @@
 
                             <a
                                 class="button--red light-bg"
-                                href="{{ routes.password.request }}">
+                                href="{{ $routes['password']['request'] }}">
                                 Forgot Password
                             </a>
 

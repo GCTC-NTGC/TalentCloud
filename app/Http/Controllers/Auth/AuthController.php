@@ -12,16 +12,20 @@ class AuthController extends Controller {
             $routes = [
                 'login' => route('manager.login'),
                 'register' => route('manager.register'),
-                'passwords.email' => route('manager.password.email'),
-                'passwords.request' => route('manager.password.request'),
+                'password' => [
+                    'email' => route('manager.password.email'),
+                    'request' => route('manager.password.request'),
+                ],
                 //'passwords.reset' => route('manager.password.reset'),
             ];
         } else {
             $routes = [
                 'login' => route('login'),
                 'register' => route('register'),
-                'passwords.email' => route('password.email'),
-                'passwords.request' => route('password.request'),
+                'password' => [
+                    'email' => route('password.email'),
+                    'request' => route('password.request'),
+                ],
                 //'passwords.reset' => route('password.reset'),
             ];
         }
