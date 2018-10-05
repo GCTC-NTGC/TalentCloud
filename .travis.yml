@@ -26,8 +26,8 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
-#after_script:
-  # sudo make docker-stop
+after_script:
+  - sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
