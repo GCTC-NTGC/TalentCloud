@@ -94,7 +94,7 @@ class User extends BaseModel implements OidcAuthenticatable, AuthorizableContrac
         return $this->role;
     }
 
-    public function getSub($iss) {
+    public function getSub(string $iss) {
         //TODO: implement alterative issuers
         return $this->open_id_sub;
     }
