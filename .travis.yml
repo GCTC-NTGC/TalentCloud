@@ -6,15 +6,14 @@ php:
 sudo: required
 
 services:
-  - docker
+  # docker
   - postgresql
 
 install:
   - sudo cp -a .env.example .env
-  - sudo make gen-certs
-  - sudo docker-compose up --abort-on-container-exit -d
-  # sudo make docker-start
-  - npm i npm@latest -g
+  # sudo make gen-certs
+  # sudo docker-compose up --abort-on-container-exit -d
+  - composer install
   - npm install
   - php artisan key:generate
   - php artisan config:cache
@@ -26,14 +25,14 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
-after_script:
-  - sudo make docker-stop
+#after_script:
+  # sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gctcntgc/talentcloud:travis
-  - docker push gctcntgc/talentcloud:travis
+  # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # docker build -t gctcntgc/talentcloud:travis
+  # docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:
