@@ -11,11 +11,6 @@ services:
         depends_on:
             - talentcloud
             - talentcloud-db
-        volumes:
-            - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
-            - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
-            - "./etc/ssl:/etc/ssl"
-            - "./:/var/www"
         environment:
             - "NGINX_HOST=tc.gccollab.ca"
         command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
@@ -30,16 +25,21 @@ services:
         working_dir: /var/www
         restart: always
         volumes:
+            - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
+            - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+            - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
         links:
             - talentcloud-db
         environment:
             - "DB_PORT=5432"
             - "DB_HOST=talentcloud-db"
+        ports:
+            - "9000:9000"
     # Database / Postgres
     talentcloud-db:
-        image: postgres
+        image: postgres:9.6-alpine
         container_name: talentcloud-db
         restart: always
         volumes:
@@ -51,21 +51,13 @@ services:
             - "POSTGRES_PASSWORD=talentcloud"
             - "PGDATA=/database/db/pgsql/data"
         ports:
-            - "5434:5432"
+            - "5434-5432"
     # Adminer
     adminer:
-        image: adminer
+        image: adminer:4.6
         container_name: adminer
         restart: always
         links:
             - talentcloud-db
         ports:
             - "8080:8080"
-    # Composer
-    composer:
-        image: composer
-        container_name: composer
-        volumes:
-            - "./:/app"
-        command:
-            - install
