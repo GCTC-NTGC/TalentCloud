@@ -1,61 +1,43 @@
 language: php
 
 php:
-  - 7.2
   - 7.0
 
 sudo: required
-
-env-docker:
-  DOCKER_COMPOSE_VERSION: 1.18.0
 
 services:
   - docker
   - postgresql
 
-before_install:
-  - rm -rf /vendor
-  - rm -rf /vendor-cache
-  - sudo apt-get update
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` > ./docker-compose
-  - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-  - sudo mv ./docker-compose /usr/bin/docker-compose
-  - sudo chmod +x /usr/bin/docker-compose
-  - docker-compose ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | grep -v 0 | wc -l | tr -d ' '
-
 install:
-  - sudo make gen-certs
-  - sudo docker-compose up --abort-on-container-exit
-  - sudo make docker-start
-  - npm i npm@latest -g
-  - npm install
-
-script:
   - sudo cp -a .env.example .env
-  - sudo make build-db
+  - npm install
+  - composer install
+  - sudo make gen-certs
+  # sudo make docker-start
+  # sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
-  - sudo make code-sniff
+
+script:
+  # sudo make code-sniff
   # sudo make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
-after_script:
-  - sudo make docker-stop
+#after_script:
+  # sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gctcntgc/talentcloud:travis .
+  - docker build -t gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:
   email: never
-  slack:
-    rooms:
-      - "talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg#devrobotfam"
-    on_success: change
-    on_failure: always
+  slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
+  on_success: change
+  on_failure: always
