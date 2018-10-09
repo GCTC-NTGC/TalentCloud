@@ -16,7 +16,23 @@ The Talent Cloud site uses:
 * An image from Unsplash.com (Photo by José Martín Ramírez C on Unsplash)
 
 ## Running the Talent Cloud server with Docker on a Windows machine:
-1. Install Docker for Windows or Docker Toolbox
+1. Install Docker for Windows
+
+A) Check your evironment variables for any Docker Toolboxor or previous Docker installaion version remnants and clear them.
+
+Go to Control Panel\All Control Panel Items\System Then click Advanced system settings, In System Properties, Go to Advanced Tab and Click Environment Variables. Delete all DOCKER_* from System/User variables.
+
+Remove DOCKER_* from command prompt or PowerShell, i used PowerShell. using following steps
+```
+[Environment]::SetEnvironmentVariable("DOCKER_CERT_PATH", $null, "User")
+[Environment]::SetEnvironmentVariable("DOCKER_HOST", $null, "User")
+[Environment]::SetEnvironmentVariable("DOCKER_MACHINE_NAME", $null, "User")
+[Environment]::SetEnvironmentVariable("DOCKER_TLS_VERIFY", $null, "User")
+[Environment]::SetEnvironmentVariable("DOCKER_TOOLBOX_INSTALL_PATH", $null, "User")
+```
+Instructions sourced from : https://github.com/docker/for-win/issues/1746#issuecomment-376280377
+
+B) If prompted, allow Docker through Windows Firewall.
 
 2. If using Docker for Windows, add
 	```
@@ -29,18 +45,23 @@ The Talent Cloud site uses:
 
 3. Check out an appropriate branch of the `GCTC-NTGC/TalentCloud/` repository from github.com. (Best branch is currently `dev`)
 	`git clone --single-branch -b dev https://github.com/GCTC-NTGC/TalentCloud.git`
-	If you're using Docker Toolbox, clone the git repo into somewhere in your C:\\Users folder. If you're using Docker for Windows, you can put it anywhere, just make sure that in Docker Settings > Shared Drives, the appropriate drive is available to Docker.
+
+	If you're using Docker Toolbox, ideally don't, but if you must clone the git repo into somewhere in your C:\\Users folder. If you're using Docker for Windows, you can put it anywhere, just make sure that in Docker Settings > Shared Drives, the appropriate drive is available to Docker.
 
 4. If using Docker for Windows, ensure the Docker for Windows app is running. Open a Powershell terminal and navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
+
     If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 5. Execute gen_certs.bat or run
 	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate`
+
 	If that doesn't work, try manually replacing $pwd with the absolute path to the TalentCloud directory.
+
+    If that doesn't work, you should restart your computer and attempt to run gen_certs.bat again.
 
 6. In Task Manager > Services, stop any MySQL and Apache services you have running.
 
-7. in root folder run `docker-compose up --build --force-recreate -d`
+7. in root folder run `docker-compose up --build --force-recreate`
 
 8. Copy `.env.example` to `.env`. Configure it with the following steps:
  	- run `docker-compose exec talentcloud sh -c "php artisan key:generate"` to create a random APP_KEY variable.
@@ -50,7 +71,7 @@ The Talent Cloud site uses:
 8. Run the following commands to manually set up database
 	```
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /docker-entrypoint-initdb.d/insert-data.sql"
+	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	```
 
 9. For testing, you may want to create fake data with the following command:
@@ -62,17 +83,22 @@ useful commands:
 ```
 Generate site certificate
 	docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate
+
 Run composer install
 	docker run --rm -v $(pwd):/app composer/composer install
+
 Run composer update
 	docker run --rm --interactive --tty --volume $pwd/:/app composer "update"
+
 To stop and delete all existing Docker containers (can fix some errors)
 	docker stop $(docker ps -a -q)
 	docker rm $(docker ps -a -q)
+
 To set up your database manually (MySQL)
-	docker-compose exec talentcloud sh -c "php artisan migrate"
+	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
 	docker-compose exec talentcloud-db sh -c "mysql --password talentcloud < /docker-entrypoint-initdb.d/seed_lookup_tables.sql"
+
 To set up your database manually (PostGres)
-	docker-compose exec talentcloud sh -c "php artisan migrate"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /docker-entrypoint-initdb.d/insert-data.sql"
+	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
+	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 ```
