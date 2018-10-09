@@ -24,6 +24,12 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0">
 
+    {# CRF Token #}
+
+        <meta 
+            content="{{ csrf_token() }}"
+            name="csrf-token">
+
 {# Page Title #}
 
     <title>{{ page.title }}</title>

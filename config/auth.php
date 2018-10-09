@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'oidconnect_applicants',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 

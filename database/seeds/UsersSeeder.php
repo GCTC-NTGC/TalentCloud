@@ -6,6 +6,7 @@ use App\Models\UserRole;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
+use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder {
 
@@ -29,10 +30,12 @@ class UsersSeeder extends Seeder {
         //Create a manager
         $user = new User();
         $user->name = $faker->name();
-        $user->email = $faker->unique()->email();
+        $user->email = $faker->unique()->safeEmail();
+        $user->password = Hash::make('password');
         $user->is_confirmed = 1;
         $user->user_role_id = UserRole::where('name', 'manager')->first()->id;
-        $user->open_id_sub = $faker->unique()->randomNumber(5);
+        $user->remember_token = str_random(10);
+        //$user->open_id_sub = $faker->unique()->randomNumber(5);
 
         $user->save();
 

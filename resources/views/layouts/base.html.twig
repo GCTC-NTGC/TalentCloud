@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application Template
+
+============================================================================= #}
+
+<!DOCTYPE html>
+
+<html
+    lang="en">
+
+    <head>
+
+        {% include "common/head" %}
+
+        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+
+    {# /head #}
+
+    {# body #}
+
+        {% block body %}{% endblock %}
+
+        {# Footer #}
+
+            {% include "common/footer" %}
+
+        {# Scripts #}
+
+            {% include "common/scripts" %}
+
+    </body>
+
+</html>
