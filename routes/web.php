@@ -13,6 +13,9 @@
 
 URL::forceScheme('https');
 
+/* Home */
+// Route::get('/', 'HomepageController')->name('home');
+
 Route::group(['domain' => config('app.applicant_domain'),
     'prefix' => config('app.applicant_prefix')], function() {
 
@@ -173,8 +176,8 @@ Route::group(['domain' => config('app.applicant_domain'),
             ]);
             })->name('applications.index');
 
-        
-        
+
+
         /* Step 01 */
         Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@edit_basics')->name('job.application.edit.1');
 
@@ -223,7 +226,7 @@ Route::group(['domain' => config('app.applicant_domain'),
             ->middleware('can:update,applicant')
             ->name('profile.about.edit');
 
-        Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@edit')
+        Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@update')
             ->middleware('can:update,applicant')
             ->name('profile.about.update');
 
@@ -422,15 +425,30 @@ Route::group(['domain' => config('app.applicant_domain'),
 
     /* Authentication =========================================================== */
 
-    Route::get('login', 'LoginController@login')->middleware('guest')->name('login');
+    //Laravel default login, logout, register, and reset routes
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->name('login.post');
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::get('logout', 'LoginController@logout')->name('logout');
+    // Registration Routes...
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'Auth\RegisterController@register')->name('register.post');
 
-    Route::get('logout/callback', 'LoginController@logoutCallback')->name('logout.callback');
+    // Password Reset Routes...
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset.post');
 
-    Route::get('register', function() {
-        return redirect('https://account.gccollab.ca/register/');
-    })->middleware('guest')->name('register');
+    // Route::get('login', 'LoginController@login')->middleware('guest')->name('login');
+    //
+    // Route::get('logout', 'LoginController@logout')->name('logout');
+    //
+    // Route::get('logout/callback', 'LoginController@logoutCallback')->name('logout.callback');
+    //
+    // Route::get('register', function() {
+    //     return redirect('https://account.gccollab.ca/register/');
+    // })->middleware('guest')->name('register');
 
 });
 
@@ -811,17 +829,20 @@ $managerGroup = function() {
 
     });
 
-    /* Authentication =========================================================== */
+    //Laravel default login, logout, register, and reset routes
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
+    Route::post('login', 'Auth\LoginController@login')->name('manager.login.post');
+    Route::post('logout', 'Auth\LoginController@logout')->name('manager.logout');
 
-    Route::get('login', 'LoginController@login')->middleware('guest')->name('manager.login');
+    // Registration Routes...
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('manager.register');
+    Route::post('register', 'Auth\RegisterController@register')->name('manager.register.post');
 
-    Route::get('logout', 'LoginController@logout')->name('manager.logout');
-
-    Route::get('logout/callback', 'LoginController@logoutCallback')->name('manager.logout.callback');
-
-    Route::get('register', function() {
-        return redirect('https://account.gccollab.ca/register/');
-    })->middleware('guest')->name('manager.register');
+    // Password Reset Routes...
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('manager.password.request');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('manager.password.email');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('manager.password.reset');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('manager.password.reset.post');
 };
 
 Route::group(['domain' => config('app.manager_domain'),

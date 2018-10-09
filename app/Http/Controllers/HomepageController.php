@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 
 class HomepageController extends Controller {
-
     /**
      * Show the home page
      * @return \Illuminate\Http\Response
@@ -17,5 +17,4 @@ class HomepageController extends Controller {
             'hero' => Lang::get('common/hero')
         ]);
     }
-
 }

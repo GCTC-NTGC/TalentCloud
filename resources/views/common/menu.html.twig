@@ -34,25 +34,22 @@
 
         {% if auth_guest() %}
 
-        <li>
-            <button
-                class="modal-trigger"
-                data-modal-id="login"
-                title="">
-                {{ menu.login }}
-            </button>
-        </li>
+            <li><a href="{{ login_modals.login_link }}">Login</a></li>
+            <li><a href="{{ login_modals.register_link }}">Register</a></li>
+
         {% else %}
 
-        <li>
+            <li>
+                <a href="{{ login_modals.logout_link }}"
+                    onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
 
-            <button
-                class="modal-trigger"
-                data-modal-id="logout"
-                title="">
-                {{ menu.logout }}
-            </button>
-        </li>
+                <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
 
         {% endif %}
 

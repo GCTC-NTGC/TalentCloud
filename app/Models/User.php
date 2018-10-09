@@ -7,15 +7,23 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Notifications\Notifiable;
+
 /**
  * Class User
  *
  * @property int $id
  * @property string $email
  * @property string $name
+ * @property string $password
  * @property bool $is_confirmed
  * @property int $user_role_id
- * @property string $open_id_sub
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -24,20 +32,34 @@ namespace App\Models;
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
+class User extends BaseModel implements
+    // Laravel contracts for native login
+        AuthenticatableContract,
+        CanResetPasswordContract,
+    // Contract for use with Gates and Policies
+        AuthorizableContract
+    // Custom contract for use with openid login
+    //    \App\Services\Auth\Contracts\OidcAuthenticatable
+        {
 
-use App\Services\Auth\Contracts\OidcAuthenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Foundation\Auth\Access\Authorizable as AuthorizableTrait;
-
-class User extends BaseModel implements OidcAuthenticatable, AuthorizableContract {
-    use AuthorizableTrait;
+    //Traits for Laravel basic authentication
+    use Authenticatable, CanResetPassword;
+    // Trait for working with Gates and Policies
+    use Authorizable;
+    // Trait for notifications
+    use Notifiable;
 
     protected $casts = [
         'is_confirmed' => 'bool',
         'user_role_id' => 'int'
     ];
-    protected $fillable = [];
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
     protected $with = ['user_role'];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public function applicant() {
         return $this->hasOne(\App\Models\Applicant::class);
@@ -55,77 +77,40 @@ class User extends BaseModel implements OidcAuthenticatable, AuthorizableContrac
         return $this->belongsTo(\App\Models\UserRole::class);
     }
 
-    ///////////////////////////////////////////
-    //Authenticatable Interface Implementation
-    ///////////////////////////////////////////
+    //Role related functions
 
-    public function getAuthIdentifier() {
-        return $this->id;
-    }
-
-    public function getAuthIdentifierName() {
-        return "id";
-    }
-
-    public function getAuthPassword() {
-        return null;
-    }
-
-    public function getRememberToken() {
-        //TODO
-        return null;
-    }
-
-    public function getRememberTokenName() {
-        //TODO
-        return null;
-    }
-
-    public function setRememberToken($value) {
-        //TODO
-        return null;
-    }
-
-    ///////////////////////////////////////////
-    //OidcAuthenticatable Interface Implementation
-    ///////////////////////////////////////////
-
-    public function getRole() {
-        return $this->role;
-    }
-
-    public function getSub(string $iss) {
-        //TODO: implement alterative issuers
-        return $this->open_id_sub;
+    /**
+    * Abort with an HTTP error if user doesn't have correct roles
+    * @param string|array $roles
+    */
+    public function authorizeRoles($roles)
+    {
+      if (is_array($roles)) {
+          return $this->hasAnyRole($roles) ||
+                 abort(401, 'This action is unauthorized.');
+      }
+      return $this->hasRole($roles) ||
+             abort(401, 'This action is unauthorized.');
     }
 
     /**
-     * Get the OidcAuthenticatable object that matches the given issuer and sub.
-     *
-     * @return App\Services\Auth\Contracts\OidcAuthenticatable|null
-     */
-    public function findByOidcSub($iss, $sub) {
-        //TODO: allow alternative issuers
-        return User::where('open_id_sub', $sub)->first();
+    * Check multiple roles
+    * @param array $roles
+    */
+    public function hasAnyRole($roles)
+    {
+        return in_array($this->user_role->name, $roles);
+        //return null !== $this->roles()->whereIn(‘name’, $roles)->first();
     }
 
     /**
-     * Get the OidcAuthenticatable object initialized with the given data.
-     *
-     * @return App\Services\Auth\Contracts\OidcAuthenticatable
-     */
-    public function createWithOidcCredentials($name, $email, $iss, $sub, $role) {
-        $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        //TODO: save iss
-        $user->open_id_sub = $sub;
-        $user->user_role_id = UserRole::where('name', $role)->first()->id;
-
-        //TODO: switch to email authentication
-        $user->is_confirmed = true;
-
-        return $user;
+    * Check one role
+    * @param string $role
+    */
+    public function hasRole($role)
+    {
+        return $this->user_role->name == $role;
+        //return null !== $this->roles()->where(‘name’, $role)->first();
     }
 
 }
