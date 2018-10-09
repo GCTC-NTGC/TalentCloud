@@ -34,19 +34,19 @@
 
         {% if auth_guest() %}
 
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+            <li><a href="{{ login_modals.login_link }}">Login</a></li>
+            <li><a href="{{ login_modals.register_link }}">Register</a></li>
 
         {% else %}
 
             <li>
-                <a href="{{ route('logout') }}"
+                <a href="{{ login_modals.logout_link }}"
                     onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
                     Logout
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
             </li>

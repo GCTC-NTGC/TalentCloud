@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Facades\App\Services\WhichPortal;
 
 class LoginController extends AuthController
@@ -26,7 +27,7 @@ class LoginController extends AuthController
      *
      * @var string
      */
-    protected function redirectTo(Request $request)
+    protected function redirectTo()
     {
         $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
         return $redirectTo;

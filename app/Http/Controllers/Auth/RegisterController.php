@@ -31,7 +31,7 @@ class RegisterController extends AuthController
      *
      * @var string
      */
-    protected function redirectTo(Request $request)
+    protected function redirectTo()
     {
         $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
         return $redirectTo;
