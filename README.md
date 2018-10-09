@@ -59,7 +59,7 @@ The Talent Cloud site uses:
 10. After the first-time set up, you should be able to start up the server simply by running `docker-compose up`, as long as other MySQL and Apache services are stopped.
 
 useful commands:
-
+```
 Generate site certificate
 	docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate
 Run composer install
@@ -75,3 +75,4 @@ To set up your database manually (MySQL)
 To set up your database manually (PostGres)
 	docker-compose exec talentcloud sh -c "php artisan migrate"
 	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /docker-entrypoint-initdb.d/insert-data.sql"
+```
