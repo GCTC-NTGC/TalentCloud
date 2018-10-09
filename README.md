@@ -61,7 +61,7 @@ B) If prompted, allow Docker through Windows Firewall.
 
 6. In Task Manager > Services, stop any MySQL and Apache services you have running.
 
-7. in root folder run `docker-compose up --build --force-recreate -d`
+7. in root folder run `docker-compose up --build --force-recreate`
 
 8. Copy `.env.example` to `.env`. Configure it with the following steps:
  	- run `docker-compose exec talentcloud sh -c "php artisan key:generate"` to create a random APP_KEY variable.
@@ -71,8 +71,7 @@ B) If prompted, allow Docker through Windows Firewall.
 8. Run the following commands to manually set up database
 	```
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-    
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /docker-entrypoint-initdb.d/insert-data.sql"
+	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	```
 
 9. For testing, you may want to create fake data with the following command:
@@ -96,9 +95,10 @@ To stop and delete all existing Docker containers (can fix some errors)
 	docker rm $(docker ps -a -q)
     
 To set up your database manually (MySQL)
-	docker-compose exec talentcloud sh -c "php artisan migrate"
+	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
 	docker-compose exec talentcloud-db sh -c "mysql --password talentcloud < /docker-entrypoint-initdb.d/seed_lookup_tables.sql"
     
 To set up your database manually (PostGres)
-	docker-compose exec talentcloud sh -c "php artisan migrate"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /docker-entrypoint-initdb.d/insert-data.sql"
+	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
+	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+```
