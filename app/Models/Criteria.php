@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+use App\Models\Lookup\CriteriaTypeTranslation;
 
 /**
  * Class Criteria
@@ -22,15 +23,22 @@ namespace App\Models;
  * @property \App\Models\JobPoster $job_poster
  * @property \App\Models\Skill $skill
  * @property \App\Models\Lookup\SkillLevel $skill_level
+ * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
+ *
+ *  Localized Properties:
+  * @property string $description
  */
 class Criteria extends BaseModel {
+
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['description'];
 
     protected $table = 'criteria';
     protected $casts = [
         'criteria_type_id' => 'int',
         'job_poster_id' => 'int',
         'skill_id' => 'int',
-        'skill_level_id' => 'int'
+        'skill_level_id' => 'int',
     ];
     protected $fillable = [
         'criteria_type_id',
@@ -57,6 +65,10 @@ class Criteria extends BaseModel {
 
     public function skill_level() {
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
+    }
+
+    public function criteria_translations() {
+        return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
     }
 
 }
