@@ -19,7 +19,7 @@
 
     {# Citizenship #}
 
-        <div
+        {# <div
             class="application-preview__status">
                 {% if applicant.application.citizenship != false %}
                     <i class="fas fa-check"></i>
@@ -28,32 +28,75 @@
                     <i class="fas fa-times"></i>
                     <span>{{ application.preview.citizenship_null_copy }}</span>
                 {% endif %}
+        </div> #}
+
+        <div
+            class="application-preview__status">
+            {% if job_application.citizenship_declaration_id != false %}
+                <i class="fas fa-check"></i>
+                <span>
+                    {% for option in application.citizenship_options|sort %}
+                        {% if option.id == job_application.citizenship_declaration_id %}{{ option }}{% endif %}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <i class="fas fa-times"></i>
+                <span>{{ application.preview.citizenship_null_copy }}</span>
+            {% endif %}
         </div>
 
     {# Veteran Status #}
     
+        {# <div
+            class="application-preview__status">
+            {% if applicant.application.veteran != false %}
+                <i class="fas fa-check"></i>
+                <span>{{ applicant.application.veteran }}</span>
+            {% else %}
+                <i class="fas fa-times"></i>
+                <span>{{ application.preview.veteran_null_copy }}</span>
+            {% endif %}
+        </div> #}
+
         <div
             class="application-preview__status">
-                {% if applicant.application.veteran != false %}
-                    <i class="fas fa-check"></i>
-                    <span>{{ applicant.application.veteran }}</span>
-                {% else %}
-                    <i class="fas fa-times"></i>
-                    <span>{{ application.preview.veteran_null_copy }}</span>
-                {% endif %}
+            {% if job_application.veteran_status_id != false %}
+                <i class="fas fa-check"></i>
+                <span>
+                    {% for option in application.veterans_options|sort %}
+                        {% if option.id == job_application.veteran_status_id %}{{ option }}{% endif %}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <i class="fas fa-times"></i>
+                <span>{{ application.preview.veteran_null_copy }}</span>
+            {% endif %}
         </div>
 
     {# Language Choice #}
     
+        {# <div
+            class="application-preview__status">
+            {% if applicant.application.language != false %}
+                <i class="fas fa-check"></i>
+                <span>{{ applicant.application.language }}</span>
+            {% else %}
+                <i class="fas fa-times"></i>
+                <span>{{ application.preview.language_null_copy }}</span>
+            {% endif %}
+        </div> #}
+
         <div
             class="application-preview__status">
-                {% if applicant.application.language != false %}
-                    <i class="fas fa-check"></i>
-                    <span>{{ applicant.application.language }}</span>
-                {% else %}
-                    <i class="fas fa-times"></i>
-                    <span>{{ application.preview.language_null_copy }}</span>
-                {% endif %}
+            {% if job_application.preferred_language_id != false %}
+                <i class="fas fa-check"></i>
+                <span>
+                    {% if option.id == job_application.preferred_language_id %}{{ option }}{% endif %}
+                </span>
+            {% else %}
+                <i class="fas fa-times"></i>
+                <span>{{ application.preview.language_null_copy }}</span>
+            {% endif %}
         </div>
 
     {# Long Form Questions #}

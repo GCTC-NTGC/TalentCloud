@@ -374,6 +374,7 @@ class ApplicationByJobController extends Controller
     {
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+
         return view('applicant/application_post_02', [
             "form_submit_action" => route('job.application.update.2', $jobPoster),
             "applicant" => $applicant,
@@ -441,7 +442,8 @@ class ApplicationByJobController extends Controller
                 ],
                 "experience" => [
                     "title" => "My Experience",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
+                    "requirement_label" => "Required Experience:"
                 ],
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",
@@ -1230,10 +1232,19 @@ class ApplicationByJobController extends Controller
     public function preview(JobPoster $jobPoster) {
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+        $criteria = [
+            'essential' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }),
+            'asset' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }),
+        ];
 
         return view('applicant/application_post_05', [
             "applicant" => $applicant,
             "form_submit_action" => route('job.application.submit', $jobPoster),
+            'criteria' => $criteria,
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -1267,6 +1278,11 @@ class ApplicationByJobController extends Controller
                         "action_01" => "Cancel",
                         "action_02" => "Save"
                     ]
+                ],
+                "preview" => [
+                    "citizenship_null_copy" => "No Citizenship Selected",
+                    "veteran_null_copy" => "No Veteran Status Selected",
+                    "language_null_copy" => "No Language Selected"
                 ],
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",

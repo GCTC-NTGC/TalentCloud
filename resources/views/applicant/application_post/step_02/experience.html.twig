@@ -4,12 +4,18 @@
     <div
         class="container--copy">
 
+        {{ dump() }}
+
         <h3>
             {{ application.experience.title }}
         </h3>
 
         <p>
             {{ application.experience.description }}
+        </p>
+
+        <p>
+            <span>{{ application.experience.requirement_label }}</span> {{ job.education }}
         </p>
 
     </div>
