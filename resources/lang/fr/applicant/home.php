@@ -11,14 +11,16 @@ return [
      */
     "about_card_copy_01" => "Les emplois ne sont pas reels (pour l'instant).",
     "about_card_copy_02" => "La plateforme est expérimentale.",
-    "about_cta" => "Aidez-nous à élaborer un nouveau modèle d'embauche pour le gouvernement du Canada.",
-    "about_copy" => "Le Nuage de talents du GC s'efforce de rendre le recrutement du gouvernement transparent et met en relation les responsables du recrutement avec des personnes aux compétences insensées, comme vous",
+    "about_cta" => "TRANSLATION",
+    "about_copy" => "TRANSLATION",
+    "about_copy_2" => "TRANSLATION",
     "how_title" => "Comment fonctionne-t- il?",
     "how_intro" => "Le Nuage de talents du GC vous relie à des équipes et à des projets vous permettant d'utiliser vos compétences uniques pour faire une différence dans la vie des Canadiens.",
+    "how_intro_2" => "TRANSLATION",
     "how_step01_title" => "Assumez votre histoire",
-    "how_step01_copy" => "Chacun est unique. Participez à un processus de sélection d’emploi qui vous permet de raconter votre histoire à votre façon.",
-    "how_step02_title" => "Sortez du lot",
-    "how_step02_copy" => "Renseignez-vous sur les équipes et le milieu de travail qui font partie des emplois qui vous intéressent. Présentez vos compétences et expériences uniques aux gestionnaires d’embauche partout au pays.",
+    "how_step01_copy" => "TRANSLATION",
+    "how_step02_title" => "TRANSLATION",
+    "how_step02_copy" => "TRANSLATION",
     "how_step03_title" => "Contribuez",
     "how_step03_copy" => "Trouvez un travail significatif qui a une incidence sur les Canadiens et participez à la conception d’une nouvelle plateforme pour le travail axé sur les projets du gouvernement.",
     "how_step04_title" => "FR Credentialing TBD",
@@ -38,5 +40,8 @@ return [
     "team_button_gccollab_label" => "GCcollab",
     "team_button_twitter_link" => "https://twitter.com/TalentCloudGC",
     "team_button_twitter_title" => "Visitez l'équipe sur Twitter.",
-    "team_button_twitter_label" => "Twitter"
+    "team_button_twitter_label" => "Twitter",
+    "team_button_email_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
+    "team_button_email_title" => "TRANSLATION",
+    "team_button_email_label" => "TRANSLATION"
 ];

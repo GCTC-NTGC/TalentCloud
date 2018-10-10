@@ -12,5 +12,5 @@ return [
 
     "hero_logo_alt" => "The GC Talent Cloud Logo.",
     "hero_logo" => "/images/logo_tc_colour.png",
-    "hero_tagline" => "People want meaningful work.",
+    "hero_tagline" => "Your next gig: making Canada better.",
 ];
