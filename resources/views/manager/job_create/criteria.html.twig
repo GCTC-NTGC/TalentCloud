@@ -136,8 +136,7 @@
                     <textarea
                         class="form__textarea"
                         id="createJobCriteriaDescriptionEN"
-                        name="description[en]">
-                        {{ criteria.translate('en').description }}</textarea>
+                        name="{{ name_prefix }}[description][en]">{{ criteria.translate('en').description }}</textarea>
 
                 </div>
 
@@ -158,8 +157,7 @@
                     <textarea
                         class="form__textarea"
                         id="createJobCriteriaDescriptionFR"
-                        name="description[fr]">
-                        {{ criteria.translate('fr').description }}</textarea>
+                        name="{{ name_prefix }}[description][fr]">{{ criteria.translate('fr').description }}</textarea>
 
                 </div>
 

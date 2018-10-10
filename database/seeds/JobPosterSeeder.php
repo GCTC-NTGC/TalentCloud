@@ -58,14 +58,16 @@ class JobPosterSeeder extends Seeder
                 'title' => $faker->word(),
                 'impact' => $faker->paragraphs(2, true),
                 'branch' => $faker->word(),
-                'division' => $faker->word()
+                'division' => $faker->word(),
+                'education' => $faker->sentence(),
             ],
             'fr' => [
                 'city' => $faker_fr->city(),
                 'title' => $faker_fr->word(),
                 'impact' => $faker_fr->paragraphs(2, true),
                 'branch' => $faker_fr->word(),
-                'division' => $faker_fr->word()
+                'division' => $faker_fr->word(),
+                'education' => $faker_fr->sentence(),
             ]
         ]);
 
@@ -78,6 +80,14 @@ class JobPosterSeeder extends Seeder
             $criteria->job_poster_id = $job->id;
             $criteria->skill_id = Skill::inRandomOrder()->first()->id;
             $criteria->skill_level_id = SkillLevel::inRandomOrder()->first()->id;
+            $criteria->fill([
+                'en' => [
+                    'description' => $faker->sentence(),
+                ],
+                'fr' => [
+                    'description' => $faker_fr->sentence(),
+                ],
+            ]);
             $criteria->save();
         }
 
