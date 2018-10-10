@@ -10,6 +10,8 @@
     <div
         class="container--copy form__wrapper">
 
+        {% include "errors/form_errors" %}
+
         <div
             class="applicant-profile__data-wrapper">
 
@@ -100,14 +102,14 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float">
-                            <label class="form__label" for="editProfileTwitter">
+                            <label class="form__label" for="editProfilePassword">
                                 {{ profile.about_section.user_new_password_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="editProfileTwitter"
-                                type="text"
-                                name="twitter_username"
+                                id="editProfilePassword"
+                                type="password"
+                                name="new_password"
                                 value="" />
                         </div>
 
@@ -117,14 +119,14 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float">
-                            <label class="form__label" for="editProfileLinkedin">
+                            <label class="form__label" for="editProfileConfirmPassword">
                                 {{ profile.about_section.user_confirm_new_password_label }}
                             </label>
                             <input
                                 class="form__input"
-                                id="editProfileLinkedin"
-                                type="text"
-                                name="linkedin_url"
+                                id="editProfileConfirmPassword"
+                                type="password"
+                                name="new_password_confirmation"
                                 value="" />
                         </div>
 
@@ -150,7 +152,7 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float {% if user.twitter.url == true %}active{% endif %}">
+                        <div class="form__input-wrapper--float {% if applicant.twitter_username %}active{% endif %}">
                             <label class="form__label" for="editProfileTwitter">
                                 {{ profile.about_section.twitter_label }}
                             </label>
@@ -159,7 +161,7 @@
                                 id="editProfileTwitter"
                                 type="text"
                                 name="twitter_username"
-                                value="{{ user.twitter.url }}" />
+                                value="{{ applicant.twitter_username }}" />
                         </div>
 
                     </div>
@@ -167,7 +169,7 @@
                     <div
                         class="box med-1of2">
 
-                        <div class="form__input-wrapper--float {% if user.linkedin.url == true %}active{% endif %}">
+                        <div class="form__input-wrapper--float {% if applicant.linkedin_url %}active{% endif %}">
                             <label class="form__label" for="editProfileLinkedin">
                                 {{ profile.about_section.linkedin_label }}
                             </label>
@@ -176,7 +178,7 @@
                                 id="editProfileLinkedin"
                                 type="text"
                                 name="linkedin_url"
-                                value="{{ user.linkedin.url }}" />
+                                value="{{ applicant.linkedin_url }}" />
                         </div>
 
                     </div>
@@ -201,7 +203,7 @@
                     <div
                         class="box full">
 
-                        <div class="form__input-wrapper--float {% if user.tagline == true %}active{% endif %}">
+                        <div class="form__input-wrapper--float {% if applicant.tagline == true %}active{% endif %}">
                             <label class="form__label" for="editProfileTagline">
                                 {{ profile.about_section.tagline_label }}
                             </label>
@@ -210,7 +212,7 @@
                                 id="editProfileTagline"
                                 type="text"
                                 name="tagline"
-                                value="{{ user.tagline }}" />
+                                value="{{ applicant.tagline }}" />
                         </div>
 
                     </div>
@@ -222,12 +224,13 @@
         <span
             class="centre">
 
-            <a
+            <button
                 class="button--blue light-bg"
                 name="submit"
-                type="submit">
+                type="submit"
+                value="about">
                 Save Changes
-            </a>
+            </button>
 
         </span>
 

@@ -32,6 +32,8 @@ return [
         'twitter_link_title' => 'Visit :name\'s Twitter profile',
         'linkedin_link_title' => 'Visit :name\'s LinkedIn profile',
         'questions_title' => 'Things to Know About Me',
+        'applicant_profile_question_section_title' => 'Your Narrative',
+        'applicant_profile_question_context' => 'Please don’t include any sensitive personal information.',
     ],
 
 
