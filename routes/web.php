@@ -26,14 +26,18 @@ Route::group(['domain' => config('app.applicant_domain'),
     Route::get('jobs', 'JobController@index')->name('jobs.index');
 
     Route::get('jobs/{jobPoster}', 'JobController@show')
-        ->middleware('can:view,jobPoster')
         ->name('jobs.show');
 
-    /* Managers */
-    Route::get('managers/{manager}', 'ManagerProfileController@show')->name('managers.show');
+    /* Require being logged in */
+    Route::middleware(['auth'])->group(function(){
+        /* Managers */
+        Route::get('managers/{manager}', 'ManagerProfileController@show')
+            ->middleware('can:view,manager')
+            ->name('managers.show');
+    });
 
-    /* Profile */
-    Route::middleware(['auth', 'role:applicant'])->group(function(){
+    /* Require being logged in as applicant */
+    Route::middleware(['auth', 'role:applicant'])->group(function() {
 
         /* Applications */
         Route::get('applications', function () {
