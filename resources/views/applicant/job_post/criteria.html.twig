@@ -46,7 +46,7 @@
                         <p>{{ skill_template.skills[criterion.skill.name].name }}</p>
                         <p
                             class="job-post__criteria-level">{{ job_post.criteria.requirement_label }}<span>{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name] }}</span></p>
-                        <p>{{ skill_template.skills[criterion.skill.name].description }}</p>
+                        <p>{{ criterion.description ? criterion.description : skill_template.skills[criterion.skill.name].description }}</p>
                     </li>
                 {% endfor %}
             </ul>
@@ -67,7 +67,7 @@
                             <p>{{ skill_template.skills[criterion.skill.name].name }}</p>
                             <p
                                 class="job-post__criteria-level">{{ job_post.criteria.requirement_label }}<span>{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name] }}</span></p>
-                            <p>{{ skill_template.skills[criterion.skill.name].description }}</p>
+                            <p>{{ criterion.description ? criterion.description : skill_template.skills[criterion.skill.name].description }}</p>
                         </li>
                     {% endfor %}
                 </ul>
