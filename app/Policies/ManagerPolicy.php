@@ -19,8 +19,8 @@ class ManagerPolicy extends BasePolicy
      */
     public function view(User $user, Manager $manager)
     {
-        //Manager profiles are viewable by the public
-        return true;
+        //Manager profiles are viewable by any logged-in user
+        return $user != null;
     }
 
     /**

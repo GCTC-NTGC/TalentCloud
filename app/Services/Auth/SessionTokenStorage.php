@@ -11,7 +11,7 @@ class SessionTokenStorage implements TokenStorage {
         return session($key);
     }
 
-    public function saveRefresh(string $iss, string $sub, string $refreshToken): bool {
+    public function saveRefresh(string $iss, string $sub, string $refreshToken) {
         $key = $this->refreshKey($iss, $sub);
         session([$key => $refreshToken]);
         return true;
@@ -26,7 +26,7 @@ class SessionTokenStorage implements TokenStorage {
         return session($key);
     }
 
-    public function saveAccess(string $iss, string $sub, string $accessToken): bool {
+    public function saveAccess(string $iss, string $sub, string $accessToken) {
         $key = $this->accessKey($iss, $sub);
         session([$key => $accessToken]);
         return true;
@@ -36,12 +36,12 @@ class SessionTokenStorage implements TokenStorage {
         return $key = implode('.', ['accessToken', $iss, $sub]);
     }
 
-    public function forgetAccess(string $iss, string $sub): void {
+    public function forgetAccess(string $iss, string $sub) {
         $key = $this->accessKey($iss, $sub);
         session()->forget($key);
     }
 
-    public function forgetRefresh(string $iss, string $sub): void {
+    public function forgetRefresh(string $iss, string $sub) {
         $key = $this->refreshKey($iss, $sub);
         session()->forget($key);
     }

@@ -12,20 +12,20 @@ return [
     "items" => [
         "home" => [
             "name" => "Accueil",
-            "link" => route('home')
+            //"link" => route('home')
         ],
         "browse" => [
             "name" => "Parcourir les emplois",
-            "link" => route('jobs.index')
+            //"link" => route('jobs.index')
         ],
         "applications" => [
             "name" => "Mes applications",
-            // "link" => route('application.index')
-            "link" => "/applications/"
+            // //"link" => route('application.index')
+            //"link" => "/applications/"
         ],
         "profile" => [
             "name" => "Mon profile",
-            "link" => route('profile')
+            //"link" => route('profile')
         ],
     ],
     "register" => "Inscription",
