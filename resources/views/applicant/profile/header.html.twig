@@ -16,7 +16,7 @@
                 class="applicant-profile__header-photo"
                 onclick="">
                 <div
-                    style="background-image:url('{{ user.photo }}')">
+                    style="background-image:url('{{ profile_photo_url }}')">
                 </div>
             </button>
 
@@ -28,33 +28,33 @@
 
         {# Tagline #}
 
-            {% if user.tagline %}
+            {% if applicant.tagline %}
                 <span>
-                    {{ user.tagline }}
+                    {{ applicant.tagline }}
                 </span>
             {% endif %}
 
         {# Social Accounts #}
 
-            {% if user.twitter or user.linkedin %}
+            {% if applicant.twitter_username or applicant.linkedin_url %}
 
                 <ul
                     class="applicant-profile__social-links">
 
                     <li>
                         <a
-                            href="{{ user.twitter.url }}"
+                            href="{{ urls.twitter|replace({":username":manager.twitter_username}) }}"
                             target="_blank"
-                            title="{{ user.twitter.title }}">
+                            title="{{ profile.twitter_link_title|replace(":name":user.name) }}">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </li>
 
                     <li>
                         <a
-                            href="{{ user.linkedin.url }}"
+                            href="{{ applicant.linkedin_url }}"
                             target="_blank"
-                            title="{{ user.linkedin.title }}">
+                            title="{{ profile.linkedin_link_title|replace(":name":user.name) }}">
                             <i class="fab fa-linkedin"></i>
                         </a>
                     </li>

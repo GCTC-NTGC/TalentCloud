@@ -29,7 +29,7 @@
     }
 
     .applicant-profile__data-wrapper {
-        padding: 0 0 5rem 0;
+        // padding: 0 0 5rem 0;
 
         h3 {
             border-bottom: 1px solid $palette--font-black;
@@ -49,6 +49,11 @@
             margin: 0 0 2rem 0;
         }
 
+    }
+
+    .center,
+    .centre {
+        margin-top: 2rem;
     }
 
 }
