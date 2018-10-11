@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use Illuminate\Auth\Events\Login;
+use App\Events\UserCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 
-class LogSuccessfulLogin
+class LogUserCreated
 {
     /**
      * Create the event listener.
@@ -20,14 +20,13 @@ class LogSuccessfulLogin
     }
 
     /**
-     * Handle the Login event.
-     * Note: the Login event is fired in Illuminate\Auth\SessionGuard.
+     * Handle the event.
      *
-     * @param  Login  $event
+     * @param  UserCreated  $event
      * @return void
      */
-    public function handle(Login $event)
+    public function handle(UserCreated $event)
     {
-        Log::notice("Login by user id=".$event->user->id.", email=".$event->user->email);
+        Log::notice("User created: ".$event->user);
     }
 }
