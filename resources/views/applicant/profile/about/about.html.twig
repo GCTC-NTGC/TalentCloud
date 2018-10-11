@@ -10,14 +10,14 @@
     <div
         class="container--copy form__wrapper">
 
-        {% include "errors/form_errors" %}
-
         <div
             class="applicant-profile__data-wrapper">
 
             <h3>{{ profile.about_section.about_title }}</h3>
 
             <p>* {{ profile.about_section.about_gc_disclaimer }}</p>
+
+            {% include "errors/form_errors" %}
 
             {# <span
                 class="centre">

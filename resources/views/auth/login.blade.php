@@ -38,12 +38,14 @@
 
                         <div
                             class="login-copy">
-    
-                            @if(!empty($errors->first()))
-                                <div class="row col-lg-12">
-                                    <div class="alert alert-danger">
-                                        <span>{{ $errors->first() }}</span>
-                                    </div>
+
+                            @if ($errors->any())
+                                <div class="box full register-alert">
+                                    @foreach ($errors->all() as $error)
+                                        <span class="help-block">
+                                            <strong>{{ $error }}</strong>
+                                        </span>
+                                    @endforeach
                                 </div>
                             @endif
 

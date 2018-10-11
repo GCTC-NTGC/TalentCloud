@@ -82,9 +82,15 @@ class ApplicantProfileController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
+        $messages = Lang::get('passwords.password_validation');
         $request->validate([
-            'new_password' => 'nullable|string|min:6|confirmed'
-        ]);
+            'new_password' => [
+                'nullable',
+                'min:8',
+                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\d\X]).*$/',
+                'confirmed'
+           ]
+       ], $messages);
 
         $questions = ApplicantProfileQuestion::all();
 
