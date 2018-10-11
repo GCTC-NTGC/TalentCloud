@@ -18,7 +18,7 @@
 {% endif %}
 
 <div
-    class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and application.step == "3" and criterion == false %}template{% endif %} {% if locale == "application" and application.step == "4" and criterion == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% endif %} modal-target-object"
+    class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and application.step == "3" and criterion == false %}template{% endif %} {% if locale == "application" and application.step == "4" and criterion == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% elseif locale == "application-view" and skill_declaration == true %}complete{% endif %} modal-target-object"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
@@ -97,6 +97,61 @@
 
             {% if locale == "application-view" %}
 
+                <div
+                    class="profile-element__preview flex-grid">
+
+                    <div
+                        class="box full">
+
+                        <p>
+                            {% if criterion.description == false %}
+                                {{ skill_template.skills[criterion.skill.name].description }}
+                            {% else %}
+                                {{ criterion.description }}
+                            {% endif %}
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <span>{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</span>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <span>
+                            {{ skill_template.level_label }}
+                        </span>
+
+                        <p>
+                            {% for level in skill_levels %}
+                                {% if skill_declaration.skill_level.id == level.id %}
+                                    {{ skill_template.skill_levels[skillType][level.name] }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <span>
+                            {{ skill_template.knowledge_label }}
+                        </span>
+
+                        <p>
+                            {{ skill_declaration.description }}
+                        </p>
+
+                    </div>
+
+                </div>
+
             {% else %}
 
                 <div
@@ -146,7 +201,7 @@
 
                             {% endif %}
 
-                        {# Profile SKill Description Matching #}
+                        {# Profile Skill Description Matching #}
 
                             {% if locale == "profile" and skill_declaration %}
 
