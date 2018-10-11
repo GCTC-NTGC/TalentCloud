@@ -40,8 +40,7 @@ phpmd:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
 	text cleancode,codesize
 
-test:
-	code-sniff
+test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
 .PHONY: clean test code-sniff
