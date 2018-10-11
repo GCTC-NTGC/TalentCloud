@@ -14,7 +14,9 @@
     "laravel-mix": "^0.8.8",
     "lodash": "^4.17.4",
     "vue": "^2.0.1",
-    "webpack": "2.2.1"
+    "webpack": "2.2.1",
+    "resolve-url-loader": "^2.0.0",
+    "sass-loader": "^6.0.0"
   },
   "dependencies": {
     "cssnano": "^4.0.0"

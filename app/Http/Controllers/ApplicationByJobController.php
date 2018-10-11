@@ -1282,7 +1282,13 @@ class ApplicationByJobController extends Controller
                 "preview" => [
                     "citizenship_null_copy" => "No Citizenship Selected",
                     "veteran_null_copy" => "No Veteran Status Selected",
-                    "language_null_copy" => "No Language Selected"
+                    "language_null_copy" => "No Language Selected",
+                    "long_question_null" => "This question has not been answered.",
+                    "experience" => [
+                        "null_degree_copy" => "You have no diplomas or degrees added to your profile.",
+                        "null_course_copy" => "You have no courses or certifications added to your profile.",
+                        "null_work_copy" => "You have no lived experience added to your profile."
+                    ]
                 ],
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",

@@ -101,28 +101,28 @@
 
     {# Long Form Questions #}
 
-        {% for question in job.questions %}
+        {% for question in job.job_poster_questions %}
 
             <div
                 class="application-preview__long-question">
 
                 <span>
-                    {{ question.value }}
+                    {{ question.question }}
                 </span>
 
                 <p>
 
                     {% set questionCounter = 0 %}
 
-                    {% for applicantQuestion in applicant.application.questions %}
-                        {% if applicantQuestion.id == question.id %}
+                    {% for userAnswer in job_application.job_application_answers %}
+                        {% if userAnswer.job_poster_question.id == question.id %}
                             {% set questionCounter = questionCounter + 1 %} 
-                            {{ applicantQuestion.answer }}
+                            {{ userAnswer.answer }}
                         {% endif %}
                     {% endfor %}
 
                     {% if questionCounter == 0 %}
-                        {{ application_preview_long_question_null }}
+                        {{ application.preview.long_question_null }}
                     {% endif %}
                     
                 </p>

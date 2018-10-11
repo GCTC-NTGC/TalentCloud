@@ -25,55 +25,51 @@
 
         <div>
 
-            {% for jobSkill in job.skills %}
+            {% for criterion in criteria.essential %}
 
-                {% if jobSkill.requirement == "essential" %}
+                {# Get User Skill #}
 
-                    {# Get User Skill #}
+                    {% set skill_declaration = false %}
 
-                        {% set skill = false %}
+                    {% for skillDeclaration in applicant.skill_declarations %}
 
-                        {% for userSkill in user.skills %}
+                        {% if criterion.skill.id == skillDeclaration.skill_id %}
 
-                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+                            {% set skill_declaration = skillDeclaration %}
 
-                                {% set skill = userSkill %}
+                        {% endif %}
 
-                            {% endif %}
+                    {% endfor %}
 
-                        {% endfor %}
+                {# Get Skill Type #}
 
-                    {# Get Skill Type #}
+                    {% set skillType = false %}
 
-                        {% set skillType = false %}
+                    {% for siteSkill in skills %}
 
-                        {% for siteSkill in skills %}
+                        {% if criterion.skill.name|capitalize == siteSkill.name|capitalize %}
 
-                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
+                            {% if siteSkill.skill_type_id == "1" %}
 
-                                {% if siteSkill.type == "soft" %}
+                                {% set skillType = "soft" %}
 
-                                    {% set skillType = "soft" %}
+                            {% elseif siteSkill.skill_type_id == "2" %}
 
-                                {% elseif siteSkill.type == "hard" %}
-
-                                    {% set skillType = "hard" %}
-
-                                {% endif %}
+                                {% set skillType = "hard" %}
 
                             {% endif %}
 
-                        {% endfor %}
+                        {% endif %}
 
-                    {# Import Skill Template #}
+                    {% endfor %}
 
-                        <a
-                            class="application-post__anchor"
-                            id="skill{{ jobSkill.name }}"></a>
+                {# Import Skill Template #}
 
-                        {% include "common/skill" %}
+                    <a
+                        class="application-post__anchor"
+                        id="skill{{ criterion.skill.name }}"></a>
 
-                {% endif %}
+                    {% include "common/skill" %}
 
             {% endfor %}
 
