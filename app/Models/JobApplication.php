@@ -9,6 +9,8 @@ namespace App\Models;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
+use Illuminate\Notifications\Notifiable;
+use App\Events\ApplicationSaved;
 
 /**
  * Class JobApplication
@@ -35,6 +37,12 @@ use App\Models\Lookup\CitizenshipDeclaration;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
 class JobApplication extends BaseModel {
+
+    use Notifiable;
+
+    protected $dispatchesEvents = [
+        'saved' => ApplicationSaved::class,
+    ];
 
     protected $casts = [
         'job_poster_id' => 'int',
