@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Lang;
 
 class ResetPasswordController extends AuthController
 {
@@ -58,5 +59,36 @@ class ResetPasswordController extends AuthController
             ['token' => $token, 'email' => $request->email,
             'routes' => $this->auth_routes()]
         );
+    }
+
+    /**
+     * OVERRIDE
+     * Get the password reset validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\d\X]).*$/',
+                'confirmed'
+           ],
+        ];
+    }
+
+    /**
+     * OVERRIDE
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return Lang::get('validation.custom.password');
     }
 }

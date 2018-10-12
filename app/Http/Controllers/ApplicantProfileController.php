@@ -11,6 +11,8 @@ use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
+use App\Services\Validation\PasswordCorrectRule;
+use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller
 {
@@ -84,6 +86,11 @@ class ApplicantProfileController extends Controller
     {
         $messages = Lang::get('passwords.password_validation');
         $request->validate([
+            'old_password' => [
+                'nullable',
+                'required_with:new_password',
+                new PasswordCorrectRule
+            ],
             'new_password' => [
                 'nullable',
                 'min:8',
@@ -125,7 +132,7 @@ class ApplicantProfileController extends Controller
             'email' => $input['profile_email'], //TODO make changing email harder!
         ]);
         if ($input['new_password']) {
-            $user->password = $input['new_password']; //TODO: change password in seperate form!
+            $user->password =  Hash::make($input['new_password']); //TODO: change password in seperate form!
         }
         $user->save();
 

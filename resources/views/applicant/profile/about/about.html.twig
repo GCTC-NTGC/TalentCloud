@@ -102,6 +102,27 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float">
+                            <label class="form__label" for="editProfileOldPassword">
+                                {{ profile.about_section.user_old_password_label }}
+                            </label>
+                            <input
+                                class="form__input"
+                                id="editProfileOldPassword"
+                                type="password"
+                                name="old_password"
+                                value="" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div
+                    class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float">
                             <label class="form__label" for="editProfilePassword">
                                 {{ profile.about_section.user_new_password_label }}
                             </label>

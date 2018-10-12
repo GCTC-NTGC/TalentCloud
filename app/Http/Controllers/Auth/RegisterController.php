@@ -66,7 +66,7 @@ class RegisterController extends AuthController
      */
     protected function validator(array $data)
     {
-        $messages = Lang::get('passwords.password_validation');
+        $messages = Lang::get('validation.custom.password');
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
