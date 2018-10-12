@@ -116,7 +116,11 @@
                     <div
                         class="box full">
 
-                        <span>{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</span>
+                        {% if skill_declaration == false %}
+                            <span>{{ skill_template.skill_status_null_label }}</span>
+                        {% else %}
+                            <span>{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</span>
+                        {% endif %}
 
                     </div>
 
@@ -128,11 +132,17 @@
                         </span>
 
                         <p>
-                            {% for level in skill_levels %}
-                                {% if skill_declaration.skill_level.id == level.id %}
-                                    {{ skill_template.skill_levels[skillType][level.name] }}
-                                {% endif %}
-                            {% endfor %}
+
+                            {% if skill_declaration == false %}
+                                {{ skill_template.skill_level_null }}
+                            {% else %}
+                                {% for level in skill_levels %}
+                                    {% if skill_declaration.skill_level.id == level.id %}
+                                        {{ skill_template.skill_levels[skillType][level.name] }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
                         </p>
 
                     </div>
@@ -145,10 +155,70 @@
                         </span>
 
                         <p>
-                            {{ skill_declaration.description }}
+                            {% if skill_declaration == false %}
+                                {{ skill_template.skill_description_null }}
+                            {% else %}
+                                {{ skill_declaration.description }}
+                            {% endif %}
                         </p>
 
                     </div>
+
+                    {# References #}
+
+                        {% if skill_declaration == true %}
+
+                            {% if skill_declaration.references is empty %}
+
+                            {% else %}
+
+                                <div
+                                    class="box med-1of2">
+
+                                    <span
+                                        class="profile-relative-list__label">
+                                        <i class="fas fa-users"></i> {{ relative_template.reference.title }}
+                                    </span>
+
+                                    {% for relative in skill_declaration.references %}
+
+                                        <p>{{ relative.name }}</p>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {# Work Samples #}
+
+                        {% if skill_declaration == true %}
+
+                            {% if skill_declaration.samples is empty %}
+
+                            {% else %}
+
+                                <div
+                                    class="box med-1of2">
+
+                                    <span
+                                        class="profile-relative-list__label">
+                                        <i class="fas fa-users"></i> {{ relative_template.sample.title }}
+                                    </span>
+
+                                    {% for relative in skill_declaration.samples %}
+
+                                        <p>{{ relative.name }}</p>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endif %}
 
                 </div>
 

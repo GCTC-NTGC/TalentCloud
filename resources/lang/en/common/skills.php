@@ -14,7 +14,9 @@ return [
     'skill_selection_label' => 'Select Skill',
     'level_label' => 'My Level',
     'knowledge_label' => 'My Knowledge',
+    'skill_status_null_label' => 'Status: Skill Unclaimed',
     'skill_status_label' => 'Status: Skill ',
+    'skill_level_null' => 'No level has been selected.',
     'skill_levels' => [
         'hard' => [
             'basic' => 'Beginner',
@@ -29,6 +31,7 @@ return [
             'expert' => 'Deep Level Demonstration'
         ],
     ],
+    'skill_description_null' => 'You have not yet described how this skill applies to you.',
     'action_01' => 'Delete Skill',
     'action_02' => 'Save Skill',
     'skills' => [
