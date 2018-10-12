@@ -11,6 +11,7 @@ use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
+use App\Events\ApplicationRetrieved;
 
 /**
  * Class JobApplication
@@ -41,6 +42,7 @@ class JobApplication extends BaseModel {
     use Notifiable;
 
     protected $dispatchesEvents = [
+        'retrieved' => ApplicationRetrieved::class,
         'saved' => ApplicationSaved::class,
     ];
 
