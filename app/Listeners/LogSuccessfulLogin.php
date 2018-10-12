@@ -28,6 +28,6 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event)
     {
-        Log::notice("Login by user id=".$event->user->id.", email=".$event->user->email);
+        Log::notice("Login by user {id=".$event->user->id.", email=".$event->user->email.", role=".$event->user->user_role->name."}");
     }
 }
