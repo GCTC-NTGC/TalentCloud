@@ -64,6 +64,7 @@ return [
         'title' => 'Team Culture',
         'manager_title' => 'Your Manager',
         'manager_department_bridge' => ' at ',
+        'guest_manager_link_label' => 'Please Log In to View :name\'s Profile.',
         'manager_link_label' => 'View :name\'s Profile.',
         'work_environment_label' => 'Work Environment',
         'team_narrative_label' => 'Things to Know',
