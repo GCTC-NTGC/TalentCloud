@@ -13,6 +13,8 @@ return [
     'type_label' => 'Project Type',
     'skill_selection_label' => 'Select Skill',
     'level_label' => 'My Level',
+    'level_link_title' => 'Learn more about finding your skill level.',
+    'level_link_label' => '(Find Your Level)',
     'knowledge_label' => 'My Knowledge',
     'skill_status_label' => 'Status: Skill ',
     'skill_levels' => [
