@@ -10,12 +10,12 @@ return [
     *
     */
 
-    "new_work_label" => "New Lived Experience",
+    "new_work_label" => "New Equivalent Experience",
     "role_label" => "Role",
     "company_label" => "Company/Group",
     "description_label" => "Description",
     "start_date_label" => "Start Date",
     "end_date_label" => "End Date",
-    "action_01" => "Delete Lived Experience",
-    "action_02" => "Save Lived Experience"
+    "action_01" => "Delete Equivalent Experience",
+    "action_02" => "Save Equivalent Experience"
 ];
