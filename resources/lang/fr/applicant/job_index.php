@@ -17,7 +17,7 @@ return [
         "duration" => [
             'week' => ':count semaine.|:count semaines.',
             'month' => ':count mois.|:count mois.',
-            'year' => ':count ans.|:count ans.',
+            'year' => ':count ans.|:count années.',
             'permanent' => 'Permanent.'
         ],
         "duration_label" => "Durée",
