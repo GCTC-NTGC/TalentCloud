@@ -14,6 +14,7 @@ use App\Models\JobPoster;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\Skill;
+use App\Models\SkillStatus;
 use App\Models\Degree;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Criteria;
@@ -1854,6 +1855,8 @@ class ApplicationByJobController extends Controller
 
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+        
+        $application->save();
 
         //TODO: where should we redirect after submitting?
         return redirect( route('applications.index', $jobPoster));
