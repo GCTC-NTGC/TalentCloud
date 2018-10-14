@@ -46,6 +46,6 @@ return [
         ],
     ],
     'status' => [
-        'claimed' => 'Claimed'
+        'claimed' => 'Revendiqué'
     ]
 ];
