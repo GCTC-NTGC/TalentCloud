@@ -42,14 +42,13 @@
                             <div
                                 class="flex-grid">
 
-                                @if ($errors->has('password'))
-                                    <div
-                                        class="box full register-alert">
-
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-
+                                @if ($errors->any())
+                                    <div class="box full register-alert">
+                                        @foreach ($errors->all() as $error)
+                                            <span class="help-block">
+                                                <strong>{{ $error }}</strong>
+                                            </span>
+                                        @endforeach
                                     </div>
                                 @endif
 
