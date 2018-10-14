@@ -43,25 +43,7 @@
 
                 {# Get Skill Type #}
 
-                    {% set skillType = false %}
-
-                    {% for siteSkill in skills %}
-
-                        {% if criterion.skill.name|capitalize == siteSkill.name|capitalize %}
-
-                            {% if siteSkill.skill_type_id == "1" %}
-
-                                {% set skillType = "soft" %}
-
-                            {% elseif siteSkill.skill_type_id == "2" %}
-
-                                {% set skillType = "hard" %}
-
-                            {% endif %}
-
-                        {% endif %}
-
-                    {% endfor %}
+                    {% set skillType = criterion.skill.skill_type.name %}
 
                 {# Import Skill Template #}
 
