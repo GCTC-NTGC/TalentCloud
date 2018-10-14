@@ -162,7 +162,8 @@
                             {% endif %}
                         </p>
 
-                    </div>
+                                    <p
+                                        class="skill__description">{{ (criterion and criterion.description) ? criterion.description : skill_template.skills[criterion.skill.name].description }}</p>
 
                     {# References #}
 

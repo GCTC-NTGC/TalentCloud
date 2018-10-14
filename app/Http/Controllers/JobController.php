@@ -140,14 +140,16 @@ class JobController extends Controller
                 'title' => $input['title']['en'],
                 'impact' => $input['impact']['en'],
                 'branch' => $input['branch']['en'],
-                'division' => $input['division']['en']
+                'division' => $input['division']['en'],
+                'education' => $input['education']['en'],
             ],
             'fr' => [
                 'city' => $input['city'],
                 'title' => $input['title']['fr'],
                 'impact' => $input['impact']['fr'],
                 'branch' => $input['branch']['fr'],
-                'division' => $input['division']['fr']
+                'division' => $input['division']['fr'],
+                'education' => $input['education']['fr'],
             ],
         ]);
         $job->save();
@@ -199,6 +201,12 @@ class JobController extends Controller
                             'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
                             'skill_id' => $criteriaInput['skill_id'],
                             'skill_level_id' => $criteriaInput['skill_level_id'],
+                            'en' => [
+                                'description' => $criteriaInput['description']['en'],
+                            ],
+                            'fr' => [
+                                'description' => $criteriaInput['description']['fr'],
+                            ],
                         ]);
                         $criteria->save();
                     }

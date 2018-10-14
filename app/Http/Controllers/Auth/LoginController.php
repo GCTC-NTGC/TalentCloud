@@ -23,6 +23,20 @@ class LoginController extends AuthController
     use AuthenticatesUsers;
 
     /**
+     * The maximum number of login attempts to allow.
+     *
+     * @var string
+     */
+    protected $maxAttempts = 5;
+
+    /**
+     * The number of minutes to throttle for.
+     *
+     * @var string
+     */
+    protected $decayMinutes = 5;
+
+    /**
      * Where to redirect users after login.
      *
      * @var string
