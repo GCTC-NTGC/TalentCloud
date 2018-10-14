@@ -15,5 +15,5 @@ return [
     "start_date_label" => "Début",
     "end_date_label" => "Fin",
     "action_01" => "Supprimer cet expérience équivalente",
-    "action_02" => "Save cet expérience équivalent'"
+    "action_02" => "Enregistrer cet expérience équivalent'"
 ];
