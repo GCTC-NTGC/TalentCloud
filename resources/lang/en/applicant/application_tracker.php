@@ -26,12 +26,12 @@ return [
         ],
         "essential_skills" => [
             "step" => "3",
-            "title" => "Skills: Need to Have",
+            "title" => "Need to Have",
             "status" => "incomplete",
         ],
         "asset_skills" => [
             "step" => "4",
-            "title" => "Skills: Nice to Have",
+            "title" => "Nice to Have",
             "status" => "incomplete",
         ],
         "preview" => [
