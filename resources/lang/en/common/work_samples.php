@@ -12,10 +12,10 @@ return [
     "name_label" => "Project Name",
     "type_label" => "Project Type",
     "types" => [
-        "word" => "Word Document",
-        "powerpoint" => "Powerpoint",
+        "word" => "Writing sample or report",
+        "powerpoint" => "Presentation or Infographic",
         "video" => "Video",
-        "publication" => "Article Publication",
+        "publication" => "Published article",
         "other" => "Other",
     ],
     "link_label" => "The Link to Your Work",

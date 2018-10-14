@@ -12,7 +12,7 @@ return [
      "type_label" => "Type",
      "types" => [
          "diploma" => "Diplôme",
-         "bachelors" => "Licence",
+         "bachelors" => "Baccalauréat",
          "masters" => "Maîtrise",
          "phd" => "Doctorat"
      ],

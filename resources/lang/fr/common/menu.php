@@ -11,24 +11,24 @@ return [
     "home" => [
         "name" => "Page d'accueil",
         "access" => [
-            "applicant" => vrai,
-            "manager" => faux
+            "applicant" => true,
+            "manager" => false
         ],
         //"link" => route('home')
     ],
     "browse" => [
         "name" => "Parcourir les emplois",
         "access" => [
-            "applicant" => vrai,
-            "manager" => faux
+            "applicant" => true,
+            "manager" => false
         ],
         //"link" => route('jobs.index')
     ],
     "applications" => [
         "name" => "Mes applications",
         "access" => [
-            "applicant" => vrai,
-            "manager" => faux
+            "applicant" => true,
+            "manager" => false
         ],
         // //"link" => route('application.index')
         //"link" => "/applications/"
@@ -36,32 +36,32 @@ return [
     "profile" => [
         "name" => "Mon profil",
         "access" => [
-            "applicant" => vrai,
-            "manager" => faux
+            "applicant" => true,
+            "manager" => false
         ],
         //"link" => route('profile')
     ],
     "admin" => [
         "name" => "Page d'accueil",
         "access" => [
-            "applicant" => faux,
-            "manager" => vrai
+            "applicant" => false,
+            "manager" => true
         ],
         //"link" => "/admin/"
     ],
     "adminjobs" => [
         "name" => "Mes emplois",
         "access" => [
-            "applicant" => faux,
-            "manager" => vrai
+            "applicant" => false,
+            "manager" => true
         ],
         //"link" => "/admin/emplois/"
     ],
     "adminprofile" => [
         "name" => "My profile",
         "access" => [
-            "applicant" => faux,
-            "manager" => vrai
+            "applicant" => false,
+            "manager" => true
         ],
         //"link" => "/admin/profil/"
     ]
