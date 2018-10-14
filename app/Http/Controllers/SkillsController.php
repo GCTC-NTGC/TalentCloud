@@ -84,7 +84,7 @@ class SkillsController extends Controller
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -107,7 +107,7 @@ class SkillsController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 

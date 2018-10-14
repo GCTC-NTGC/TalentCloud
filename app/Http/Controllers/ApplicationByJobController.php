@@ -13,8 +13,9 @@ use App\Models\Applicant;
 use App\Models\JobPoster;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
+use App\Models\SkillDeclaration;
 use App\Models\Skill;
-use App\Models\SkillStatus;
+use App\Models\Lookup\SkillStatus;
 use App\Models\Degree;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Criteria;
@@ -1705,14 +1706,14 @@ class ApplicationByJobController extends Controller
         //Save new skill declarartions
         if (isset($skillDeclarations['new'])) {
             foreach($skillDeclarations['new'] as $skillType => $typeInput) {
-                foreach($typeInput as $skillDeclarationInput) {
+                foreach($typeInput as $criterion_id=>$skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
-                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -1735,7 +1736,7 @@ class ApplicationByJobController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 
@@ -1779,14 +1780,14 @@ class ApplicationByJobController extends Controller
         //Save new skill declarartions
         if (isset($skillDeclarations['new'])) {
             foreach($skillDeclarations['new'] as $skillType => $typeInput) {
-                foreach($typeInput as $skillDeclarationInput) {
+                foreach($typeInput as $criterion_id=>$skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
-                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -1809,7 +1810,7 @@ class ApplicationByJobController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 
@@ -1854,14 +1855,15 @@ class ApplicationByJobController extends Controller
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: Check that application is valid and complete
-        $validator = new ApplicationValidator();
-        $validator->validate($application);
-
+        //Save any final info
         $application->fill([
             'submission_signature' => $input['submission_signature'],
             'submission_date' => $input['submission_date'],
         ]);
+
+        //TODO: Check that application is valid and complete
+        $validator = new ApplicationValidator();
+        $validator->validate($application);
 
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;

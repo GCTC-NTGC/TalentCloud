@@ -12,10 +12,25 @@
     {% set id_prefix = name_prefix %}
 {% endif %}
 
-{% if skill_declaration %}
-    {% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+{% if locale=="application" %}
+    {# application skills will never be templates. #}
+    {# New items should index themselves by criterion_id #}
+    {% if skill_declaration %}
+        {% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+        {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+    {% else %}
+        {% set name_prefix = name_prefix|replace({":template":"new", ":id":criterion.id}) %}
+        {% set id_prefix = id_prefix|replace({":template":"new", ":id":criterion.id}) %}
+    {% endif %}
+{% else %}
+    {# on non-application locale, if skill_declaration isn't set this is a template #}
+    {% if skill_declaration %}
+        {% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+        {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+    {% endif %}
 {% endif %}
+
+
 
 <div
     class="profile-element accordion skill {% if locale == "profile" and skill_declaration == false %}template active{% endif %} {% if locale == "application" and application.step == "3" and criterion == false %}template{% endif %} {% if locale == "application" and application.step == "4" and criterion == false %}template{% endif %} {% if locale == "application" and skill_declaration == true %}complete{% elseif locale == "application-view" and skill_declaration == true %}complete{% endif %} modal-target-object"

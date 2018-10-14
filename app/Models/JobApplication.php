@@ -57,7 +57,7 @@ class JobApplication extends BaseModel {
         'applicant_id' => 'int',
         'applicant_snapshot_id' => 'int',
         'submission_signature' => 'string',
-        'submission_date' => 'date',
+        'submission_date' => 'string',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
