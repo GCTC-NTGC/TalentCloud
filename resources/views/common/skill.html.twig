@@ -70,11 +70,7 @@
                     {{ skill_template.skills[skill_declaration.skill.name].name }}
                 {% elseif locale == "application" %}
                     {{ skill_template.skills[criterion.skill.name].name }}
-                    {% if application.step == "4" %}
-                        <span>{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }} {{ skill_template.application_asset_requirement_label }}</span>
-                    {% elseif application.step == "3" %}
-                        <span>{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }} {{ skill_template.application_essential_requirement_label }}</span>
-                    {% endif %}
+                    <span>{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }} {{ skill_template.application_asset_requirement_label }}</span>
                 {% elseif locale == "application-view" %}
                     {{ skill_template.skills[criterion.skill.name].name }}
                     <span>
