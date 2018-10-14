@@ -21,6 +21,8 @@ use App\Models\Lookup\CitizenshipDeclaration;
  * @property int $preferred_language_id
  * @property int $applicant_id
  * @property int $applicant_snapshot_id
+ * @property string $submission_signature
+ * @property string $submission_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -43,12 +45,16 @@ class JobApplication extends BaseModel {
         'veteran_status_id' => 'int',
         'preferred_language_id' => 'int',
         'applicant_id' => 'int',
-        'applicant_snapshot_id' => 'int'
+        'applicant_snapshot_id' => 'int',
+        'submission_signature' => 'string',
+        'submission_date' => 'date',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
         'veteran_status_id',
         'preferred_language_id',
+        'submission_signature',
+        'submission_date',
     ];
 
     protected function createApplicantSnapshot($applicant_id) {

@@ -1853,6 +1853,11 @@ class ApplicationByJobController extends Controller
 
         //TODO: Check that application is valid and complete
 
+        $application->fill([
+            'submission_signature' => $input['submission_signature'],
+            'submission_date' => $input['submission_date'],
+        ]);
+        
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
         
