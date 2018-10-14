@@ -3,41 +3,41 @@
 return [
     /*
     * --------------------------------------------------------------------------
-    * Application Tracker Language Lines
+    * French Application Tracker Language Lines
     * --------------------------------------------------------------------------
     *
     * The following language lines are used on the application tracker partial
     *
     */
 
-    "job_link_title" => "View the poster for this job.",
-    "tracker_label" => "Step",
-    "tracker_link_title" => "Go to step",
+    "job_link_title" => "Voir l'affiche pour cet emploi.",
+    "tracker_label" => "Étape",
+    "tracker_link_title" => "Aller à l'étape",
     "items" => [
         "basics" => [
             "step" => "1",
-            "title" => "My Information",
-            "status" => "incomplete",
+            "title" => "Mon information",
+            "status" => "incomplet",
         ],
         "experience" => [
             "step" => "2",
-            "title" => "My Experience",
-            "status" => "incomplete",
+            "title" => "Mon expérience",
+            "status" => "incomplet",
         ],
         "essential_skills" => [
             "step" => "3",
-            "title" => "Skills: Need to Have",
-            "status" => "incomplete",
+            "title" => "Nécessaires d'avoir",
+            "status" => "incomplet",
         ],
         "asset_skills" => [
             "step" => "4",
-            "title" => "Skills: Nice to Have",
-            "status" => "incomplete",
+            "title" => "Bon d'avoir",
+            "status" => "incomplet",
         ],
         "preview" => [
             "step" => "5",
-            "title" => "Review my Application",
-            "status" => "incomplete",
+            "title" => "Revoir ma candidature",
+            "status" => "incomplet",
         ]
     ],
 ];

@@ -63,14 +63,14 @@ return [
             'rarely' => 'Occasionally',
             'sometimes' => 'Sometimes',
             'often' => 'Frequently',
-            'always' => 'Most of the time',
+            'always' => 'Almost Always',
         ],
         'flex_hours_allowed' => [
             'never' => 'Never',
             'rarely' => 'Occasionally',
             'sometimes' => 'Sometimes',
             'often' => 'Frequently',
-            'always' => 'Most of the time',
+            'always' => 'Almost Always',
         ],
     ],
     // Fake Data
