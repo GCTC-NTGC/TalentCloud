@@ -11,16 +11,16 @@ return [
      "new_degree_label" => "Nouveau diplôme ou diplôme universitaire",
      "type_label" => "Type",
      "types" => [
-         "diploma" => "diplôme",
-         "bachelors" => "licence",
-         "masters" => "maîtrise",
-         "phd" => "PhD"
+         "diploma" => "Diplôme",
+         "bachelors" => "Licence",
+         "masters" => "Maîtrise",
+         "phd" => "Doctorat"
      ],
-     "aoe_label" => "Area of Study",
+     "aoe_label" => "Domaine d'étude",
      "institution_label" => "Institution",
-     "thesis_label" => "Thesis Title (Optional)",
-     "start_date_label" => "Start Date",
-     "end_date_label" => "End Date",
-     "action_01" => "Delete Diploma/Degree",
-     "action_02" => "Save Diploma/Degree"
+     "thesis_label" => "Titre de thèse (Optionnel)",
+     "start_date_label" => "Début",
+     "end_date_label" => "Fin",
+     "action_01" => "Supprimer un diplôme",
+     "action_02" => "Enregistrer un diplôme"
 ];
