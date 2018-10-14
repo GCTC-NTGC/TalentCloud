@@ -17,7 +17,7 @@ return [
     'skill_status_label' => 'Status: Skill ',
     'skill_levels' => [
         'hard' => [
-            'basic' => 'Beginner',
+            'basic' => 'Basic',
             'intermediate' => 'Intermediate',
             'advanced' => 'Advanced',
             'expert' => 'Expert'
