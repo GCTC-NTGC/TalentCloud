@@ -18,9 +18,9 @@ return [
         "section_course_title" => "Mes cours et certifications",
         "add_course_label" => "Ajouter un cours ou une certification",
         "null_course_copy" => "Vous n'avez actuellement aucun cours ou certification sur votre profil! Utilisez le bouton ci-dessus pour en ajouter un.",
-        "section_work_title" => "Mon expérience vécue",
-        "add_work_label" => "Ajouter une expérience vécue",
-        "null_work_copy" => "Vous n'avez actuellement aucune expérience vécue sur votre profil! Utilisez le bouton ci-dessus pour en ajouter.",
+        "section_work_title" => "Mon expérience équivalente",
+        "add_work_label" => "Ajouter une expérience équivalente",
+        "null_work_copy" => "Vous n'avez actuellement aucune expérience équivalente sur votre profil! Utilisez le bouton ci-dessus pour en ajouter.",
     ],
 
     //TODO: move modals to under a ViewComposer's responsability
@@ -51,8 +51,8 @@ return [
             "type" => "deleteConfirmation",
             "title" => "Supprimer cette expérience vécue?",
             "content" => [
-                "00" => "Êtes-vous sûr de vouloir supprimer définitivement cette expérience vécue de votre profil?",
-                "01" => "Toutes les applications soumises précédemment conserveront cette expérience."
+                "00" => "Êtes-vous sûr de vouloir supprimer définitivement cette expérience équivalente de votre profil?",
+                "01" => "Toutes les applications soumises précédemment conserveront cette expérience équivalente."
             ],
             "id" => "deleteWork",
             "action_01" => "Annuler",
