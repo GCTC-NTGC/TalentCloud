@@ -1845,11 +1845,22 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
+        $request->validate([
+            'submission_signature' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'submission_date' => [
+                'required',
+                'string',
+                'max:191',
+           ]
+       ]);
+        
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
-
-        //TODO: Save any input (vows, etc)
 
         //TODO: Check that application is valid and complete
 

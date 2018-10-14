@@ -141,6 +141,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'submisstion_signature' => 'Signature',
+        'submission_date' => 'Submission Date',
+    ],
 
 ];
