@@ -16,12 +16,12 @@ return [
          "certificate_granted" => "Certificat de cours accordé",
          "credits_towards_degree" => "Crédits vers un diplome (Cours réussi)",
          "audited" => "Audited",
-         "online_no_proof" => "Cours en ligne (No Proof of Completion)",
-         "online_certificate" => "Cours en ligne (With Certificate/License)",
-         "learning_in_progress" => "Learning in Progress"
+         "online_no_proof" => "Cours en ligne (Aucune preuve d'achèvement)",
+         "online_certificate" => "Cours en ligne (Avec certificat / licence)",
+         "learning_in_progress" => "Apprentissage en cours"
      ],
-     "start_date_label" => "Start Date",
-     "end_date_label" => "End Date",
-     "action_01" => "Delete Diploma/Degree",
-     "action_02" => "Save Diploma/Degree"
+     "start_date_label" => "début",
+     "end_date_label" => "fin",
+     "action_01" => "Supprimer un diplôme",
+     "action_02" => "Enregistrer un diplôme"
 ];   
