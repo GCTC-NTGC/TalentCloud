@@ -1,5 +1,4 @@
 <?php
-
 return [
     /*
     * --------------------------------------------------------------------------
@@ -9,13 +8,12 @@ return [
     * The following language lines are used when displaying Work Experience
     *
     */
-
-    "new_work_label" => "New Equivalent Experience",
-    "role_label" => "Role",
-    "company_label" => "Company/Group",
+    "new_work_label" => "Nouvelle 'expérience équivalente'",
+    "role_label" => "Votre rôle",
+    "company_label" => "Entreprise ou groupe",
     "description_label" => "Description",
-    "start_date_label" => "Start Date",
-    "end_date_label" => "End Date",
-    "action_01" => "Delete Equivalent Experience",
-    "action_02" => "Save Equivalent Experience"
+    "start_date_label" => "Début",
+    "end_date_label" => "Fin",
+    "action_01" => "Supprimer cet expérience équivalente",
+    "action_02" => "Enregistrer cet expérience équivalent'"
 ];

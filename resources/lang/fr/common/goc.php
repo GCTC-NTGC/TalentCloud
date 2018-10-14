@@ -17,4 +17,5 @@ return [
     "logo_url" => "/images/logo_goc_white.svg",
     "talent_cloud" => "Nuage de talents du GC",
     "portal" => "Portail demandeur",
+    "admin_portal" => "Portail gestionnaire",
 ];

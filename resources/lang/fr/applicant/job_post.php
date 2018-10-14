@@ -33,7 +33,7 @@ return [
         'duration' => [
             'week' => ':count semaine.|:count semaines',
             'month' => ':count mois.|:count mois',
-            'year' => ':count un année.|:count un années',
+            'year' => ':count ans.|:count années',
             'permanent' => 'Permanent'
         ],
         'start_date_format' => 'F, Y',
@@ -55,6 +55,7 @@ return [
         'title' => 'Critères',
         'essential_title' => 'Nécessaires d\'avoir',
         'asset_title' => 'Bon d\'avoir'
+        'requirement_label' => 'Niveau requis: ',
     ],
     'culture' => [
         'sidebar_title' => 'Voir la culture à cet emploi.',
@@ -108,8 +109,8 @@ return [
         'accommodation' => 'Veuillez informer l\'équipe du nuage de talents de toute mesure d\'adaptation dont vous pourriez avez besoin au cours du processus en écrivant à talent.cloud-nuage.de.talents@tbs-sct.gc.ca.',
         'preference' => 'On accordera la préférence aux anciens combattants et aux citoyens canadiens dans cet ordre.',
         'apply_link_title' => 'Postuler pour cet emploi.',
-        'apply_link_label' => 'Postuler maintenant',
+        'apply_link_label' => 'Postuler maintenant.',
         'login_link_title' => 'Ouvrir une session et postuler pour cet emploi.',
-        'login_link_label' => 'Ouvrir une session et postuler '
+        'login_link_label' => 'Ouvrir une session et postuler. '
     ],
 ];
