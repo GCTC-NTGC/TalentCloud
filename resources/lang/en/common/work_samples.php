@@ -18,7 +18,7 @@ return [
         "publication" => "Published article",
         "other" => "Other",
     ],
-    "link_label" => "The Link to Your Work",
+    "link_label" => "Hyperlink to Your Work",
     "description_label" => "The Story Behind the Work",
     "linked_skills_label" => "Linked Skills",
     "search_label" => "Search Through My Skills",
