@@ -10,13 +10,10 @@ class ApplicationValidator {
 
     public function validate(JobApplication $application) {
 
-        debugbar()->info($application);
-        debugbar()->info($application->getAttributes());
-        debugbar()->info($application->toArray());
-
         $rules = [
 
         ];
+        
         //Validate basic data is filled in
         Validator::make($application->getAttributes(), [
             'job_poster_id' => 'required',
