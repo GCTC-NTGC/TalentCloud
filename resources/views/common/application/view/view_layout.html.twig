@@ -12,6 +12,8 @@
 
         <div class="container--copy">
 
+            {% include "errors/form_errors" %}
+
             <h3>
                 Review My Application
             </h3>
@@ -27,10 +29,10 @@
                         <div
                             class="box med-2of3">
 
-                            <div 
+                            <div
                                 class="form__input-wrapper--signature">
-                                <label 
-                                    class="form__label" 
+                                <label
+                                    class="form__label"
                                     for="applicationReviewSignature">
                                     Sign (Type) Your Full Name
                                 </label>
@@ -46,10 +48,10 @@
                         <div
                             class="box med-1of3">
 
-                            <div 
+                            <div
                                 class="form__input-wrapper--float">
-                                <label 
-                                    class="form__label" 
+                                <label
+                                    class="form__label"
                                     for="applicationReviewDate">
                                     Today's Date
                                 </label>
@@ -75,7 +77,7 @@
     <div
         class="container--layout">
 
-        <div 
+        <div
             class="flex-grid">
 
             {# Include Sidebar #}

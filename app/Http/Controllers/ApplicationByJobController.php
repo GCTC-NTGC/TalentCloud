@@ -20,6 +20,7 @@ use App\Models\Lookup\CriteriaType;
 use App\Models\Criteria;
 use App\Models\Course;
 use App\Models\WorkExperience;
+use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -80,6 +81,10 @@ class ApplicationByJobController extends Controller
             "language_options" => PreferredLanguage::all(),
             "citizenship_options" => CitizenshipDeclaration::all(),
             "veteran_options" => VeteranStatus::all(),
+            "preferred_language_template" => Lang::get('common/preferred_language'),
+            "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+            "veteran_status_template" => Lang::get('common/veteran_status'),
+
             "applicant" => $applicant,
             "form_submit_action" => route('job.application.update.1', $jobPoster),
             "application" => [
@@ -151,28 +156,12 @@ class ApplicationByJobController extends Controller
                 "language_title" => "Language Selection",
                 "language_copy" => "Which language would you prefer for this application process?",
                 "language_label" => "Select One",
-                "language_options" => [
-                    "00" => "English",
-                    "01" => "French"
-                ],
                 "citizenship_title" => "Citizenship Claim",
                 "citizenship_content" => "Which of the following applies to you?",
                 "citizenship_label" => "Select One",
-                "citizenship_options" => [
-                    "00" => "Canadian Citizen",
-                    "01" => "Permanent Resident of Canada",
-                    "02" => "Open - Work Permit",
-                    "03" => "Closed - Work Permit",
-                    "04" => "I am currently not entitled to work in Canada"
-                ],
                 "veterans_title" => "Veterans Claim",
                 "veterans_content" => "Are you a veteran or a member of the Canadian Armed Forces?",
                 "veterans_label" => "Select One",
-                "veterans_options" => [
-                    "00" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
-                    "01" => "Yes - I am currently a member of the Canadian Armed Forces.",
-                    "02" => "Yes - I am a veteran."
-                ],
                 "experience_section" => [
                     "section_degree_title" => "My Diplomas/Degrees",
                     "add_degree_label" => "Add Diploma/Degree",
@@ -1246,6 +1235,9 @@ class ApplicationByJobController extends Controller
             "applicant" => $applicant,
             "form_submit_action" => route('job.application.submit', $jobPoster),
             'criteria' => $criteria,
+            "preferred_language_template" => Lang::get('common/preferred_language'),
+            "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+            "veteran_status_template" => Lang::get('common/veteran_status'),
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -1857,21 +1849,23 @@ class ApplicationByJobController extends Controller
                 'max:191',
            ]
        ]);
-        
+
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //TODO: Check that application is valid and complete
+        $validator = new ApplicationValidator();
+        $validator->validate($application);
 
         $application->fill([
             'submission_signature' => $input['submission_signature'],
             'submission_date' => $input['submission_date'],
         ]);
-        
+
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
-        
+
         $application->save();
 
         //TODO: where should we redirect after submitting?
