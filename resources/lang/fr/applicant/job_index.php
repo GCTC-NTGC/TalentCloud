@@ -9,7 +9,7 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "title" => "Parcourir les travaux",
+    "title" => "Parcourir les emplois",
     "index" => [
         "view_title" => "Voir l'affiche de travail pour",
         "location_label" => "Emplacement",
