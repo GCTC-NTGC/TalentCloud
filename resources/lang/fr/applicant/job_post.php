@@ -54,7 +54,7 @@ return [
         'sidebar_title' => 'Voir les critères pour cet emploi.',
         'title' => 'Critères',
         'essential_title' => 'Nécessaires d\'avoir',
-        'asset_title' => 'Bon d\'avoir'
+        'asset_title' => 'Bon d\'avoir',
         'requirement_label' => 'Niveau requis: ',
     ],
     'culture' => [
@@ -62,15 +62,15 @@ return [
         'title' => 'Culture d\'équipe',
         'manager_title' => 'Votre gestionnaire',
         'manager_department_bridge' => ' au ',
-        'guest_manager_link_label' => 'Please Log In to View :name\'s Profile.',
+        'guest_manager_link_label' => 'Veuillez vous connecter pour voir le profil de :name.',
         'manager_link_label' => 'Voir le profil de :name.',
         'work_environment_label' => 'Environnement de travail',
         'team_narrative_label' => 'Ce qu\'il faut savoir',
         'team_culture_label' => 'Culture d\'équipe',
         'team_size_label' => 'Taille de l\'équipe',
         'gcdirectory_label' => 'Rencontre l\'équipe dans GCdirectory',
-        'team_link_title' => 'View le profile de l\'équipe.',
-        'team_link_label' => 'Profile de l\'équipe',
+        'team_link_title' => 'Voir le profil de l\'équipe.',
+        'team_link_label' => 'Profil de l\'équipe',
         'operating_label' => 'Notre contexte opérationnel',
         'team_value_label' => 'Nos valeurs',
         'team_work_label' => 'Notre mode de fonctionnement'
