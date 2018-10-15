@@ -11,6 +11,8 @@ use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
+use App\Services\Validation\PasswordCorrectRule;
+use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller
 {
@@ -59,33 +61,15 @@ class ApplicantProfileController extends Controller
             array_push($profileQuestionForms, $formValues);
         }
 
-        $userProfile = [
-            'name' => $user->name,
-            'tagline' => $applicant->tagline,
-            'photo' => '/images/user.png', //TODO: get real photos
-            'twitter' => [
-                //'url' => Lang::get('common/urls.twitter', ['username' => $applicant->twitter_username]),
-                'url' => $applicant->twitter_username,
-                'title' => Lang::get('applicant/applicant_profile.twitter_link_title', ['name'=>$user->name]),
-            ],
-            'linkedin' => [
-                'url' => $applicant->linkedin_url,
-                'title' => Lang::get('applicant/applicant_profile.linkedin_link_title', ['name'=>$user->name]),
-            ]
-        ];
-
         return view('applicant/profile_01_about', [
             /* Localized strings*/
             'profile' => $profileText,
             /* Applicant Profile Questions */
             'applicant_profile_questions' => $profileQuestionForms,
             /* User Data */
-            'user' => $userProfile,
+            'user' => $user,
             'applicant' => $applicant,
-
-            // Fake Data
-            'applicant_profile_question_section_title' => 'Your Narrative',
-            'applicant_profile_question_context' => 'Please don’t include any sensitive personal information.',
+            'profile_photo_url' => '/images/user.png', //TODO: get real photos
 
             'form_submit_action' => route('profile.about.update', $applicant)
         ]);
@@ -100,6 +84,21 @@ class ApplicantProfileController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
+        $messages = Lang::get('passwords.password_validation');
+        $request->validate([
+            'old_password' => [
+                'nullable',
+                'required_with:new_password',
+                new PasswordCorrectRule
+            ],
+            'new_password' => [
+                'nullable',
+                'min:8',
+                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                'confirmed'
+           ]
+       ], $messages);
+
         $questions = ApplicantProfileQuestion::all();
 
         foreach($questions as $question) {
@@ -121,11 +120,21 @@ class ApplicantProfileController extends Controller
 
         $input = $request->input();
         $applicant->fill([
-            'tagline' => $input['tagline'], //TODO change to tagline_label
+            'tagline' => $input['tagline'],
             'twitter_username' => $input['twitter_username'],
             'linkedin_url' => $input['linkedin_url'],
         ]);
         $applicant->save();
+
+        $user = $applicant->user;
+        $user->fill([
+            'name' => $input['profile_name'],
+            'email' => $input['profile_email'], //TODO make changing email harder!
+        ]);
+        if ($input['new_password']) {
+            $user->password =  Hash::make($input['new_password']); //TODO: change password in seperate form!
+        }
+        $user->save();
 
         return redirect()->route('profile.about.edit', $applicant);
         //Debugbar::info($input);

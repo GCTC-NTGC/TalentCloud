@@ -9,7 +9,7 @@ namespace App\Models;
 
 /**
  * Class JobPosterTranslation
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property string $locale
@@ -18,9 +18,10 @@ namespace App\Models;
  * @property string $impact
  * @property string $branch
  * @property string $division
+ * @property string $education
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\JobPoster $job_poster
  */
 class JobPosterTranslation extends BaseModel {
@@ -34,7 +35,8 @@ class JobPosterTranslation extends BaseModel {
         'title',
         'impact',
         'branch',
-        'division'
+        'division',
+        'education'
     ];
 
     public function job_poster() {

@@ -24,7 +24,7 @@ return [
             //"link" => "/applications/"
         ],
         "profile" => [
-            "name" => "Mon profile",
+            "name" => "Mon profil",
             //"link" => route('profile')
         ],
         "faq" => [

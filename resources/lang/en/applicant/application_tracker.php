@@ -10,7 +10,7 @@ return [
     *
     */
 
-    "job_link_title" => "Visit this job's post.",
+    "job_link_title" => "View the poster for this job.",
     "tracker_label" => "Step",
     "tracker_link_title" => "Go to step",
     "items" => [
@@ -26,12 +26,12 @@ return [
         ],
         "essential_skills" => [
             "step" => "3",
-            "title" => "Skills: Need to Have",
+            "title" => "Need to Have",
             "status" => "incomplete",
         ],
         "asset_skills" => [
             "step" => "4",
-            "title" => "Skills: Nice to Have",
+            "title" => "Nice to Have",
             "status" => "incomplete",
         ],
         "preview" => [

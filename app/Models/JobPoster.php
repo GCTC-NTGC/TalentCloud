@@ -7,6 +7,9 @@
 
 namespace App\Models;
 
+use App\Events\JobSaved;
+use Illuminate\Notifications\Notifiable;
+
 /**
  * Class JobPoster
  *
@@ -47,12 +50,14 @@ namespace App\Models;
  * @property string $impact
  * @property string $branch
  * @property string $division
+ * @property string $education
  */
 class JobPoster extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
+    use Notifiable;
 
-    public $translatedAttributes = ['city', 'title', 'impact', 'branch', 'division'];
+    public $translatedAttributes = ['city', 'title', 'impact', 'branch', 'division', 'education'];
     protected $casts = [
         'job_term_id' => 'int',
         'department_id' => 'int',
@@ -85,6 +90,10 @@ class JobPoster extends BaseModel {
         'security_clearance_id',
         'language_requirement_id',
         'published'
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => JobSaved::class,
     ];
 
     public function department() {
