@@ -8,9 +8,9 @@ return [
     * The following language lines are used in the applicant profile.
     *
     */
-    'title' => 'About Me',
+    'title' => 'À propos de moi',
     'about_section' => [
-        'about_title' => 'My Information',
+        'about_title' => 'Mes renseignements',
         'about_gc_disclaimer' => 'Please note that your name can be changed through your GC Account settings. Profile photos will be added as a feature at a later time.',
         'gc_link' => 'https://account.gccollab.ca/profile/',
         'gc_link_title' => 'Visit your GC Account in a new tab or window.',
