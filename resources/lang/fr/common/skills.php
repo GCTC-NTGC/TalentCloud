@@ -32,17 +32,29 @@ return [
     'action_01' => 'Supprimer cette compétence',
     'action_02' => 'Enregistrer cette compétence',
     'skills' => [
-        'html' => [
-            'name' => 'HTML',
-            'description' => 'lorem ipsum html '
+        'front_end_dev' => [
+            'name' => 'Développement frontal',
+            'description' => 'Se définissant comme suit : Développement d’applications Web à l’aide de HTML5, CSS3 et JavaScript.'
+        ],
+        'web_programming' => [
+            'name' => 'Programmation Web',
+            'description' => 'Se définissant comme suit : Développement d’applications Web à l’aide de JavaScript et un langage finaux comme PHP, Python ou autre'
+        ],
+        'server_admin' => [
+            'name' => 'Administration de serveurs Web',
+            'description' => 'Se définissant comme suit : Configuration et administration de serveurs Web.'
+        ],
+        'linux' => [
+            'name' => 'Linux',
+            'description' => 'Se définissant comme suit : Expérience de travail de Linux et de la configuration d’applications dans des environnements basés sur Linux.'
         ],
         'css' => [
             'name' => 'CSS',
-            'description' => 'lorem ipsum css'
+            'description' => 'Se définissant comme suit : Création de pages Web à l’aide de HTML et de CSS.'
         ],
-        'ux_research' => [
-            'name' => 'UX Research',
-            'description' => 'lorem ipsum ux research'
+        'javascript' => [
+            'name' => 'Javascript',
+            'description' => 'Se définissant comme suit : Développement d’applications Web à l’aide de JavaScript.'
         ],
     ],
     'status' => [
