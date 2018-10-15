@@ -299,98 +299,17 @@ class ApplicationByJobController extends Controller
         /* Return the Completion View */
 
             return view('applicant/application_post_complete', [
-                "applicant" => $applicant,
-                "form_submit_action" => route('job.application.submit', $jobPoster),
-                "application" => [
-                    "id" => "00",
-                    "title" => "Apply Now",
-                    "step" => "5",
-                    "job_context_copy" => "You are applying for:",
-                    "skills_section" => [
-                        "essential_title" => "Need to Have",
-                        "asset_title" => "Nice to Have",
-                        "add_button_label" => "Add Skill",
-                        "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
-                    ],
-                    "modals" => [
-                        "00" => [
-                            "type" => "createReference",
-                            "title" => "Create a New Reference",
-                            "content" => [
-                                "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
-                            ],
-                            "id" => "createReference",
-                            "action_01" => "Cancel",
-                            "action_02" => "Save"
-                        ],
-                        "01" => [
-                            "type" => "createSample",
-                            "title" => "Create a New Work Sample",
-                            "content" => [
-                            ],
-                            "id" => "createSample",
-                            "action_01" => "Cancel",
-                            "action_02" => "Save"
-                        ]
-                    ],
-                    "question_title" => "My Fit",
-                    "save_quit_button_label" => "Save & Quit",
-                    "save_continue_button_label" => "Save & Continue",
-                    "essential_title" => "Skills You Need to Have",
-                    "asset_title" => "Skills That Are Nice to Have",
-                    "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
-                    "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
-                    "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
-                    "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
-                    "skills_start_button_label" => "Get Started",
-                    "essential_sidebar_label" => "Skills Checklist",
-                    "asset_sidebar_label" => "Skills Checklist",
-                    "sidebar_item_title" => "Scroll to this skill.",
-                    "skill_ui" => [
-                        "declaration_title" => "Required Information",
-                        "declaration_level_help_label" => "Unsure of your level?",
-                        "declaration_expertise_title" => "My Level of Expertise",
-                        "declaration_expertise" => [
-                            "Beginner",
-                            "Intermediate",
-                            "Expert",
-                            "Master"
-                        ],
-                        "declaration_experience_title" => "My Years of Experience",
-                        "declaration_experience" => [
-                            "1 of Less",
-                            "2 - 3",
-                            "4 - 5",
-                            "6 - 7",
-                            "8 or More"
-                        ],
-                        "declaration_knowledge_label" => "My Knowledge & Experience",
-                        "reference" => [
-                            "add_title" => "Add an optional reference.",
-                            "add_context" => "Appoint someone who can vouch for your ability in this skill."
-                        ],
-                        "sample" => [
-                            "add_title" => "Add an optional work sample.",
-                            "add_context" => "Provide a link to a sample of your work that showcases this skill."
-                        ],
-                        "save_button_label" => "Save",
-                        "delete_button_label" => "Remove"
-                    ],
-                    "complete" => [
-                        "title" => "Thanks for applying!",
-                        "copy_01" => "Talent Cloud is an experimental site. Please help us improve the federal staffing process by completing a short experience survey. This information will be anonymous and go directly towards helping us improve the platform!",
-                        "survey_link" => "GOOGLE",
-                        "survey_title" => "Take the survey.",
-                        "survey_label" => "Take the Survey",
-                        "copy_02" => "Curious about what's next for your application? Learn more about the staffing process in our FAQ",
-                        "return_title" => "Go to the Talent Cloud homepage.",
-                        "return_label" => "Return Home",
-                        "faq_title" => "Go to the Talent Cloud FAQ.",
-                        "faq_label" => "View the FAQ"
-                    ]
-                ],
-                "job_application" => $application,
-                "job" => $jobPoster
+
+                /* Application Template Data */
+                    "application_template" => Lang::get("applicant/application_template"),
+
+                /* Job Data */
+                    "job" => $jobPoster,
+
+                /* Applicant Data */
+                    "applicant" => $applicant,
+                    "job_application" => $application
+
             ]);
 
     }

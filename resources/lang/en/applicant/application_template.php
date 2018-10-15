@@ -13,6 +13,7 @@ return [
     "job_context_copy" => "You are applying for:",
     "save_quit_button_label" => "Save & Quit",
     "save_continue_button_label" => "Save & Continue",
+    "submit_button_label" => "Submit",
 
     /* Modals */
         "modals" => [
@@ -161,7 +162,7 @@ return [
         "complete" => [
             "title" => "Thanks for applying!",
             "copy_01" => "Talent Cloud is an experimental site. Please help us improve the federal staffing process by completing a short experience survey. This information will be anonymous and go directly towards helping us improve the platform!",
-            "survey_link" => "GOOGLE",
+            "survey_link" => "https://talentcloud1.typeform.com/to/tWIPup",
             "survey_title" => "Take the survey.",
             "survey_label" => "Take the Survey",
             "copy_02" => "Curious about what's next for your application? Learn more about the staffing process in our FAQ",
