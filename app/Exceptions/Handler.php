@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Lang;
 
 class Handler extends ExceptionHandler
 {
@@ -85,7 +86,14 @@ class Handler extends ExceptionHandler
     protected function renderHttpException(HttpException $e)
     {
         if (! view()->exists("errors.{$e->getStatusCode()}")) {
-            return response()->view('errors.default', ['exception' => $e], 500, $e->getHeaders());
+            return response()->view('errors.default', [
+                'exception' => $e,
+                'goc' => Lang::get('common/goc'),
+                'alert' => Lang::get('common/alert'),
+                'error' => [
+                    "title" => "Error"
+                ]
+            ], 500, $e->getHeaders());
         }
         return parent::renderHttpException($e);
     }
