@@ -1,0 +1,31 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application: Success Message
+
+============================================================================= #}
+{% extends "layouts/base" %}
+
+{% block body %}
+
+	{# Alert #}
+
+		{% include "common/alert" %}
+
+	{# Government of Canada Block #}
+
+        {% include "common/goc" %}
+
+    {# Page Header #}
+
+        {% include "common/header" with {"header":application} %}
+
+    {# Menu #}
+
+        {% include "applicant/profile/menu" %}
+
+    {# Page Content #}
+
+    	{% include "applicant/application_post/complete" %}
+
+{% endblock %}

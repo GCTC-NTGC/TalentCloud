@@ -13,12 +13,15 @@ use App\Models\Applicant;
 use App\Models\JobPoster;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
+use App\Models\SkillDeclaration;
 use App\Models\Skill;
+use App\Models\Lookup\SkillStatus;
 use App\Models\Degree;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Criteria;
 use App\Models\Course;
 use App\Models\WorkExperience;
+use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -79,6 +82,10 @@ class ApplicationByJobController extends Controller
             "language_options" => PreferredLanguage::all(),
             "citizenship_options" => CitizenshipDeclaration::all(),
             "veteran_options" => VeteranStatus::all(),
+            "preferred_language_template" => Lang::get('common/preferred_language'),
+            "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+            "veteran_status_template" => Lang::get('common/veteran_status'),
+
             "applicant" => $applicant,
             "form_submit_action" => route('job.application.update.1', $jobPoster),
             "application" => [
@@ -150,28 +157,12 @@ class ApplicationByJobController extends Controller
                 "language_title" => "Language Selection",
                 "language_copy" => "Which language would you prefer for this application process?",
                 "language_label" => "Select One",
-                "language_options" => [
-                    "00" => "English",
-                    "01" => "French"
-                ],
                 "citizenship_title" => "Citizenship Claim",
                 "citizenship_content" => "Which of the following applies to you?",
                 "citizenship_label" => "Select One",
-                "citizenship_options" => [
-                    "00" => "Canadian Citizen",
-                    "01" => "Permanent Resident of Canada",
-                    "02" => "Open - Work Permit",
-                    "03" => "Closed - Work Permit",
-                    "04" => "I am currently not entitled to work in Canada"
-                ],
                 "veterans_title" => "Veterans Claim",
                 "veterans_content" => "Are you a veteran or a member of the Canadian Armed Forces?",
                 "veterans_label" => "Select One",
-                "veterans_options" => [
-                    "00" => "No - I am not a veteran or a member of the Canadian Armed Forces.",
-                    "01" => "Yes - I am currently a member of the Canadian Armed Forces.",
-                    "02" => "Yes - I am a veteran."
-                ],
                 "experience_section" => [
                     "section_degree_title" => "My Diplomas/Degrees",
                     "add_degree_label" => "Add Diploma/Degree",
@@ -374,6 +365,7 @@ class ApplicationByJobController extends Controller
     {
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+
         return view('applicant/application_post_02', [
             "form_submit_action" => route('job.application.update.2', $jobPoster),
             "applicant" => $applicant,
@@ -441,7 +433,8 @@ class ApplicationByJobController extends Controller
                 ],
                 "experience" => [
                     "title" => "My Experience",
-                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+                    "description" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci.",
+                    "requirement_label" => "Required Experience:"
                 ],
                 "question_title" => "My Fit",
                 "save_quit_button_label" => "Save & Quit",
@@ -1230,10 +1223,22 @@ class ApplicationByJobController extends Controller
     public function preview(JobPoster $jobPoster) {
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+        $criteria = [
+            'essential' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }),
+            'asset' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }),
+        ];
 
         return view('applicant/application_post_05', [
             "applicant" => $applicant,
             "form_submit_action" => route('job.application.submit', $jobPoster),
+            'criteria' => $criteria,
+            "preferred_language_template" => Lang::get('common/preferred_language'),
+            "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+            "veteran_status_template" => Lang::get('common/veteran_status'),
             "application" => [
                 "id" => "00",
                 "title" => "Apply Now",
@@ -1266,6 +1271,17 @@ class ApplicationByJobController extends Controller
                         "id" => "createSample",
                         "action_01" => "Cancel",
                         "action_02" => "Save"
+                    ]
+                ],
+                "preview" => [
+                    "citizenship_null_copy" => "No Citizenship Selected",
+                    "veteran_null_copy" => "No Veteran Status Selected",
+                    "language_null_copy" => "No Language Selected",
+                    "long_question_null" => "This question has not been answered.",
+                    "experience" => [
+                        "null_degree_copy" => "You have no diplomas or degrees added to your profile.",
+                        "null_course_copy" => "You have no courses or certifications added to your profile.",
+                        "null_work_copy" => "You have no lived experience added to your profile."
                     ]
                 ],
                 "question_title" => "My Fit",
@@ -1488,6 +1504,121 @@ class ApplicationByJobController extends Controller
     }
 
     /**
+     * Show the application submission information.
+     *
+     * @param  \App\Models\JobPoster  $jobPoster
+     * @return \Illuminate\Http\Response
+     */
+    public function complete(JobPoster $jobPoster) {
+
+        /* Include Applicant Data */
+
+            $applicant = Auth::user()->applicant;
+
+        /* Include Application Data */
+
+            $application = $this->getApplicationFromJob($jobPoster);
+
+        /* Return the Completion View */
+
+            return view('applicant/application_post_complete', [
+                "applicant" => $applicant,
+                "form_submit_action" => route('job.application.submit', $jobPoster),
+                "application" => [
+                    "id" => "00",
+                    "title" => "Apply Now",
+                    "step" => "5",
+                    "job_context_copy" => "You are applying for:",
+                    "skills_section" => [
+                        "essential_title" => "Need to Have",
+                        "asset_title" => "Nice to Have",
+                        "add_button_label" => "Add Skill",
+                        "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+                    ],
+                    "modals" => [
+                        "00" => [
+                            "type" => "createReference",
+                            "title" => "Create a New Reference",
+                            "content" => [
+                                "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
+                            ],
+                            "id" => "createReference",
+                            "action_01" => "Cancel",
+                            "action_02" => "Save"
+                        ],
+                        "01" => [
+                            "type" => "createSample",
+                            "title" => "Create a New Work Sample",
+                            "content" => [
+                            ],
+                            "id" => "createSample",
+                            "action_01" => "Cancel",
+                            "action_02" => "Save"
+                        ]
+                    ],
+                    "question_title" => "My Fit",
+                    "save_quit_button_label" => "Save & Quit",
+                    "save_continue_button_label" => "Save & Continue",
+                    "essential_title" => "Skills You Need to Have",
+                    "asset_title" => "Skills That Are Nice to Have",
+                    "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+                    "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+                    "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
+                    "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
+                    "skills_start_button_label" => "Get Started",
+                    "essential_sidebar_label" => "Skills Checklist",
+                    "asset_sidebar_label" => "Skills Checklist",
+                    "sidebar_item_title" => "Scroll to this skill.",
+                    "skill_ui" => [
+                        "declaration_title" => "Required Information",
+                        "declaration_level_help_label" => "Unsure of your level?",
+                        "declaration_expertise_title" => "My Level of Expertise",
+                        "declaration_expertise" => [
+                            "Beginner",
+                            "Intermediate",
+                            "Expert",
+                            "Master"
+                        ],
+                        "declaration_experience_title" => "My Years of Experience",
+                        "declaration_experience" => [
+                            "1 of Less",
+                            "2 - 3",
+                            "4 - 5",
+                            "6 - 7",
+                            "8 or More"
+                        ],
+                        "declaration_knowledge_label" => "My Knowledge & Experience",
+                        "reference" => [
+                            "add_title" => "Add an optional reference.",
+                            "add_context" => "Appoint someone who can vouch for your ability in this skill."
+                        ],
+                        "sample" => [
+                            "add_title" => "Add an optional work sample.",
+                            "add_context" => "Provide a link to a sample of your work that showcases this skill."
+                        ],
+                        "save_button_label" => "Save",
+                        "delete_button_label" => "Remove"
+                    ],
+                    "complete" => [
+                        "title" => "Thanks for applying!",
+                        "copy_01" => "Talent Cloud is an experimental site. Please help us improve the federal staffing process by completing a short experience survey. This information will be anonymous and go directly towards helping us improve the platform!",
+                        "survey_link" => "GOOGLE",
+                        "survey_title" => "Take the survey.",
+                        "survey_label" => "Take the Survey",
+                        "copy_02" => "Curious about what's next for your application? Learn more about the staffing process in our FAQ",
+                        "return_title" => "Go to the Talent Cloud homepage.",
+                        "return_label" => "Return Home",
+                        "faq_title" => "Go to the Talent Cloud FAQ.",
+                        "faq_label" => "View the FAQ"
+                    ]
+                ],
+                "job_application" => $application,
+                "job" => $jobPoster
+            ]);
+
+    }
+
+    /**
      * Update the Application Basics in storage for the specified job.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -1690,14 +1821,14 @@ class ApplicationByJobController extends Controller
         //Save new skill declarartions
         if (isset($skillDeclarations['new'])) {
             foreach($skillDeclarations['new'] as $skillType => $typeInput) {
-                foreach($typeInput as $skillDeclarationInput) {
+                foreach($typeInput as $criterion_id=>$skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
-                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -1720,7 +1851,7 @@ class ApplicationByJobController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 
@@ -1764,14 +1895,14 @@ class ApplicationByJobController extends Controller
         //Save new skill declarartions
         if (isset($skillDeclarations['new'])) {
             foreach($skillDeclarations['new'] as $skillType => $typeInput) {
-                foreach($typeInput as $skillDeclarationInput) {
+                foreach($typeInput as $criterion_id=>$skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
-                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -1794,7 +1925,7 @@ class ApplicationByJobController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 
@@ -1822,18 +1953,38 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
+        $request->validate([
+            'submission_signature' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'submission_date' => [
+                'required',
+                'string',
+                'max:191',
+           ]
+       ]);
+
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: Save any input (vows, etc)
+        //Save any final info
+        $application->fill([
+            'submission_signature' => $input['submission_signature'],
+            'submission_date' => $input['submission_date'],
+        ]);
 
         //TODO: Check that application is valid and complete
+        $validator = new ApplicationValidator();
+        $validator->validate($application);
 
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
 
-        //TODO: where should we redirect after submitting?
-        return redirect( route('applications.index', $jobPoster));
+        $application->save();
+
+        return redirect( route('job.application.complete', $jobPoster));
     }
 }
