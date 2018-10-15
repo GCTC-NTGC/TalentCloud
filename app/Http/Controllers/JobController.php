@@ -37,6 +37,8 @@ class JobController extends Controller
             ->where('close_date_time', '>=', $now)
             ->where('published', true)
             ->get();
+        $jobs->load('manager.work_environment');
+        debugbar()->info($jobs->toArray());
         return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs]);
     }

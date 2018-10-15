@@ -11,7 +11,7 @@ return [
      *
      */
 
-    "copy" => "Ce site est en construction. Les emplois ne sont pas réels en ce moment.",
+    "copy" => "Ce site est en cours de développement, avec le modèle d’embauche qui le sous-tend. Attendez-vous à des problèmes et bugs.",
     "feedback_copy" => "Aidez-nous à améliorer le Nuage de talents.",
     "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
     "feedback_link_title" => "Soumettre des commentaires au Nuage de talents du GC par courriel.",
