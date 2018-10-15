@@ -30,7 +30,7 @@ return [
         'save_button_label' => 'Enregistrer ma réponse',
         'answer_label' => 'Votre réponse',
         'twitter_link_title' => 'Visiter mon profil Twitter',
-        'linkedin_link_title' => 'Visit mon profil LinkedIn',
+        'linkedin_link_title' => 'Visiter mon profil LinkedIn',
         'questions_title' => 'Choses à savoir de moi',
         'applicant_profile_question_section_title' => 'Votre histoire',
         'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.',
