@@ -11,8 +11,8 @@ return [
     */
     "title" => "Profil du gestionnaire",
     "manager_department_bridge" => " à ",
-    "twitter_label" => 'Voir le profile Twitter de :name.',
-    "linkedin_label" => 'Voir le profile LinkedIn de :name.',
+    "twitter_label" => 'Voir le profil Twitter de :name.',
+    "linkedin_label" => 'Voir le profil LinkedIn de :name.',
     "section_titles" => [
         "approach" =>  "Mon approche en tant que gestionnaire",
         "about_me" => "À propos de moi"
