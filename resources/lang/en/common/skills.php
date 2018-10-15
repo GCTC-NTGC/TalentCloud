@@ -16,7 +16,9 @@ return [
     'level_link_title' => 'Learn more about finding your skill level.',
     'level_link_label' => '(Find Your Level)',
     'knowledge_label' => 'My Knowledge',
+    'skill_status_null_label' => 'Status: Skill Unclaimed',
     'skill_status_label' => 'Status: Skill ',
+    'skill_level_null' => 'No level has been selected.',
     'skill_levels' => [
         'hard' => [
             'basic' => 'Basic',
@@ -31,6 +33,7 @@ return [
             'expert' => 'Deep Level Demonstration'
         ],
     ],
+    'skill_description_null' => 'You have not yet described how this skill applies to you.',
     'action_01' => 'Delete Skill',
     'action_02' => 'Save Skill',
     'skills' => [

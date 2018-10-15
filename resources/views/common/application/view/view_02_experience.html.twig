@@ -14,8 +14,11 @@
     class="application-preview__section-02">
 
     <h3>
-        My Experience
+        {{ application_template.preview.section_02_title }}
     </h3>
+
+    <p
+        class="application-preview__context">{{ application_template.preview.experience.requirement_label }} {{ job.education }}</p>
 
     {# Set Locale #}
 
@@ -23,7 +26,7 @@
 
     <div>
 
-        <h4>My Diplomas / Degrees</h4>
+        <h4>{{ application_template.preview.experience.degree_label }}</h4>
 
         {# Profile Element List #}
 
@@ -43,7 +46,7 @@
                 <div
                     class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
 
-                    <p>{{ profile.experience_section.null_degree_copy }}</p>
+                    <p>{{ application_template.preview.experience.null_degree_copy }}</p>
 
                 </div>
 
@@ -53,7 +56,7 @@
 
     <div>
 
-        <h4>My Courses / Certifications</h4>
+        <h4>{{ application_template.preview.experience.course_label }}</h4>
 
         {# Profile Element List #}
 
@@ -73,7 +76,7 @@
                 <div
                     class="profile-null {% if courseCounter == 0 %}active{% endif %}">
 
-                    <p>{{ profile.experience_section.null_course_copy }}</p>
+                    <p>{{ application_template.preview.experience.null_course_copy }}</p>
 
                 </div>
 
@@ -83,7 +86,7 @@
 
     <div>
 
-        <h4>My Equivalent Experience</h4>
+        <h4>{{ application_template.preview.experience.work_label }}</h4>
 
         {# Profile Element List #}
 
@@ -103,7 +106,7 @@
                 <div
                     class="profile-null {% if workCounter == 0 %}active{% endif %}">
 
-                    <p>{{ profile.experience_section.null_work_copy }}</p>
+                    <p>{{ application_template.preview.experience.null_work_copy }}</p>
 
                 </div>
 

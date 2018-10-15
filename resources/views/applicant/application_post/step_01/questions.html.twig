@@ -47,6 +47,7 @@
                                             <option
                                                 value="{{ option.id }}"
                                                 {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ option.value|title }}</option>
+                                                {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ citizenship_declaration_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -95,7 +96,7 @@
                                         {% for option in veteran_options %}
                                             <option
                                                 value="{{ option.id }}"
-                                                {% if option.id == job_application.veteran_status_id %}selected{% endif %}>{{ option.name|title }}</option>
+                                                {% if option.id == job_application.veteran_status_id %}selected{% endif %}>{{ veteran_status_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -144,7 +145,7 @@
                                         {% for option in language_options %}
                                             <option
                                                 value="{{ option.id }}"
-                                                {% if option.id == job_application.preferred_language_id %}selected{% endif %}>{{ option.name|upper }}</option>
+                                                {% if option.id == job_application.preferred_language_id %}selected{% endif %}>{{ preferred_language_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

@@ -93,10 +93,6 @@
 
                                     {% set locale = "application" %}
 
-                                {# Profile Element Template (Sample) #}
-                                
-                                    {% include "common/skill" %}
-
                                 {# Profile Element List #}
 
                                     <div
@@ -122,25 +118,7 @@
 
                                                 {# Get Skill Type #}
 
-                                                    {% set skillType = false %}
-
-                                                    {% for siteSkill in skills %}
-
-                                                        {% if criterion.skill.name|capitalize == siteSkill.name|capitalize %}
-
-                                                            {% if siteSkill.skill_type_id == "1" %}
-
-                                                                {% set skillType = "soft" %}
-
-                                                            {% elseif siteSkill.skill_type_id == "2" %}
-
-                                                                {% set skillType = "hard" %}
-
-                                                            {% endif %}
-
-                                                        {% endif %}
-
-                                                    {% endfor %}
+                                                    {% set skillType = criterion.skill.skill_type.name %}
 
                                                 {# Import Skill Template #}
 
@@ -164,7 +142,7 @@
 
                                                     {% for skillDeclaration in applicant.skill_declarations %}
 
-                                                        {% if criterion.skill.name|capitalize == skillDeclaration.name|capitalize %}
+                                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
 
                                                             {% set skill_declaration = skillDeclaration %}
 
@@ -174,25 +152,7 @@
 
                                                 {# Get Skill Type #}
 
-                                                    {% set skillType = false %}
-
-                                                    {% for siteSkill in skills %}
-
-                                                        {% if criterion.skill.name|capitalize == siteSkill.name|capitalize %}
-
-                                                            {% if siteSkill.skill_type_id == "1" %}
-
-                                                                {% set skillType = "soft" %}
-
-                                                            {% elseif siteSkill.skill_type_id == "2" %}
-
-                                                                {% set skillType = "hard" %}
-
-                                                            {% endif %}
-
-                                                        {% endif %}
-
-                                                    {% endfor %}
+                                                    {% set skillType = criterion.skill.skill_type.name %}
 
                                                 {# Import Skill Template #}
 

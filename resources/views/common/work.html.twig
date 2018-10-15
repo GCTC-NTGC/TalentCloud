@@ -55,114 +55,190 @@
             {% endif %}
             class="accordion-content">
 
-            <div
-                class="form__wrapper">
+            {% if locale == "application-view" %}
 
                 <div
-                    class="flex-grid">
+                    class="profile-element__preview flex-grid">
 
                     <div
                         class="box med-1of2">
 
-                        <div
-                            class="form__input-wrapper--float {% if work.role == true %}active{% endif %}">
-                            <label
-                                class="form__label"
-                                for="{{ id_prefix }}workRole">
-                                {{ work_template.role_label }}
-                            </label>
-                            <input
-                                class="form__input"
-                                id="{{ id_prefix }}workRole"
-                                type="text"
-                                name="{{ name_prefix }}[role]"
-                                value="{{ work.role }}" />
-                        </div>
+                        <span>
+                            {{ work_template.role_label }}
+                        </span>
+
+                        <p>
+                            {{ work.role }}
+                        </p>
 
                     </div>
 
                     <div
                         class="box med-1of2">
 
-                        <div
-                            class="form__input-wrapper--float {% if work.company == true %}active{% endif %}">
-                            <label
-                                class="form__label"
-                                for="{{ id_prefix }}workCompany">
-                                {{ work_template.company_label }}
-                            </label>
-                            <input
-                                class="form__input"
-                                id="{{ id_prefix }}workCompany"
-                                type="text"
-                                name="{{ name_prefix }}[company]"
-                                value="{{ work.company }}" />
-                        </div>
+                        <span>
+                            {{ work_template.company_label }}
+                        </span>
+
+                        <p>
+                            {{ work.company }}
+                        </p>
 
                     </div>
 
                     <div
                         class="box full">
 
-                        <div
-                            class="form__input-wrapper--float {% if work.description != null%}active{% endif %}">
+                        <span>
+                            {{ work_template.description_label }}
+                        </span>
 
-                            <label
-                                class="form__label"
-                                for="{{ id_prefix }}workDescription">
-                                {{ work_template.description_label }}
-                            </label>
-
-                            <textarea
-                                class="form__textarea"
-                                id="{{ id_prefix }}workDescription"
-                                name="{{ name_prefix }}[description]">{{ work.description }}</textarea>
-
-                        </div>
+                        <p>
+                            {{ work.description }}
+                        </p>
 
                     </div>
 
                     <div
                         class="box med-1of2">
 
-                        <div
-                            class="form__input-wrapper--date">
+                        <span>
+                            {{ work_template.start_date_label }}
+                        </span>
 
-                            <label
-                                class="form__label"
-                                for="{{ id_prefix }}workStartDate">
-                                {{ work_template.start_date_label }}
-                            </label>
-
-                            <input
-                                class="form__input"
-                                id="{{ id_prefix }}workStartDate"
-                                type="date"
-                                name="{{ name_prefix }}[start_date]"
-                                value="{{ work.start_date|date("Y-m-d") }}">
-
-                        </div>
+                        <p>
+                            {{ work.start_date|date("Y-m-d") }}
+                        </p>
 
                     </div>
 
                     <div
                         class="box med-1of2">
 
+                        <span>
+                            {{ work_template.end_date_label }}
+                        </span>
+
+                        <p>
+                            {{ work.end_date|date("Y-m-d") }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div
+                    class="form__wrapper">
+
+                    <div
+                        class="flex-grid">
+
                         <div
-                            class="form__input-wrapper--date">
+                            class="box med-1of2">
 
-                            <label
-                                class="form__label"
-                                for="{{ id_prefix }}workEndDate">
-                                {{ work_template.end_date_label }}
-                            </label>
+                            <div
+                                class="form__input-wrapper--float {% if work.role == true %}active{% endif %}">
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}workRole">
+                                    {{ work_template.role_label }}
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id="{{ id_prefix }}workRole"
+                                    type="text"
+                                    name="{{ name_prefix }}[role]"
+                                    value="{{ work.role }}" />
+                            </div>
 
-                            <input
-                                class="form__input"
-                                id="{{ id_prefix }}workEndDate"
-                                type="date"
-                                name="{{ name_prefix }}[end_date]"
-                                value="{{ work.end_date|date("Y-m-d") }}">
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <div
+                                class="form__input-wrapper--float {% if work.company == true %}active{% endif %}">
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}workCompany">
+                                    {{ work_template.company_label }}
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id="{{ id_prefix }}workCompany"
+                                    type="text"
+                                    name="{{ name_prefix }}[company]"
+                                    value="{{ work.company }}" />
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="box full">
+
+                            <div
+                                class="form__input-wrapper--float {% if work.description != null%}active{% endif %}">
+
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}workDescription">
+                                    {{ work_template.description_label }}
+                                </label>
+
+                                <textarea
+                                    class="form__textarea"
+                                    id="{{ id_prefix }}workDescription"
+                                    name="{{ name_prefix }}[description]">{{ work.description }}</textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <div
+                                class="form__input-wrapper--date">
+
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}workStartDate">
+                                    {{ work_template.start_date_label }}
+                                </label>
+
+                                <input
+                                    class="form__input"
+                                    id="{{ id_prefix }}workStartDate"
+                                    type="date"
+                                    name="{{ name_prefix }}[start_date]"
+                                    value="{{ work.start_date|date("Y-m-d") }}">
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <div
+                                class="form__input-wrapper--date">
+
+                                <label
+                                    class="form__label"
+                                    for="{{ id_prefix }}workEndDate">
+                                    {{ work_template.end_date_label }}
+                                </label>
+
+                                <input
+                                    class="form__input"
+                                    id="{{ id_prefix }}workEndDate"
+                                    type="date"
+                                    name="{{ name_prefix }}[end_date]"
+                                    value="{{ work.end_date|date("Y-m-d") }}">
+
+                            </div>
 
                         </div>
 
@@ -170,33 +246,33 @@
 
                 </div>
 
-            </div>
-
-            <div
-                class="accordion-actions flex-grid">
-
                 <div
-                    class="box med-1of2">
-                    <button
-                        class="button--red light-bg modal-trigger"
-                        data-modal-id="deleteWork"
-                        type="button">
-                        {{ work_template.action_01 }}
-                    </button>
+                    class="accordion-actions flex-grid">
+
+                    <div
+                        class="box med-1of2">
+                        <button
+                            class="button--red light-bg modal-trigger"
+                            data-modal-id="deleteWork"
+                            type="button">
+                            {{ work_template.action_01 }}
+                        </button>
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+                        <button
+                            class="button--blue light-bg"
+                            type="submit"
+                            name="submit"
+                            value="{{ name_prefix }}">
+                            {{ work_template.action_02 }}
+                        </button>
+                    </div>
+
                 </div>
 
-                <div
-                    class="box med-1of2">
-                    <button
-                        class="button--blue light-bg"
-                        type="submit"
-                        name="submit"
-                        value="{{ name_prefix }}">
-                        {{ work_template.action_02 }}
-                    </button>
-                </div>
-
-            </div>
+            {% endif %}
 
         </div>
 

@@ -90,7 +90,7 @@ return [
     /* Step 02 */
         "experience" => [
             "title" => "My Experience",
-            "description" => "The job you’re about to apply to requires the following minimum education or experience. You can’t be considered for this job unless you have this. Even if you’re really awesome. Managers are not allowed to hire you for this job in this classification without this education or experience."
+            "description" => "Le poste auquel vous êtes sur le point de postuler requiert les études ou l'expérience minimales suivantes. Vous ne pouvez pas être considéré(e) pour ce travail à moins que vous ayez celles-ci, même si vous êtes vraiment génial(e). Les gestionnaires ne sont pas autorisés à vous engager pour cet emploi dans cette classification sans cette éducation ou cette expérience."
         ],
         "experience_section" => [
             "section_degree_title" => "My Diplomas/Degrees",
@@ -114,8 +114,8 @@ return [
         ],
         "essential_title" => "Skills You Need to Have",
         "asset_title" => "Skills That Are Nice to Have",
-        "essential_context" => "The job you’re about to apply to requires the following skills. Yes, really, all of them. Each one at the minimum level of expertise specified by the hiring manager. Even if you’re amazing and you’re only missing one of these skills, you won’t be considered for this job.  And you have to provide evidence against any skill claims you make… claims that become part of a government record. So don’t be tempted to stretch the truth just to apply. You’re better than that. Save yourself the time and consider applying for something else instead.",
-        "asset_context" => "You can apply for this job if you don’t have any of these skills. These are assets that the hiring manager thinks will help with the work. They’re often used to help select the best candidate amongst all those who meet all the “Need to Have” criteria. So if you do have these skills, now is the time to let the hiring manager know.",
+        "essential_context" => "Le poste auquel vous êtes sur le point de postuler requiert les compétences suivantes. Oui, vraiment, toutes. Chacune au niveau minimum d’expertise précisé par le responsable du recrutement. Même si vous êtes incroyable et qu'il ne vous manque qu'une de ces compétences, on ne tiendra pas compte de votre candidature dans le cadre de ce poste. Vous devez également fournir des preuves de toute revendication de compétence que vous faites qui font partie d'un dossier gouvernemental. Donc, ne soyez pas tenté(e) d’étirer la vérité juste pour postuler. Vous êtes meilleur(e) que ça. Gagnez du temps et envisagez plutôt de postuler pour autre chose.",
+        "asset_context" => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
         "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
         "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
         "skills_start_button_label" => "Get Started",
@@ -125,9 +125,9 @@ return [
     /* Step 05 */
         "preview" => [
             "title" => "Review My Application",
-            "copy_01" => "This is your final chance to review your application before submitting. Scroll down to review. If there’s anything you’d like to change, feel free to go back and do so now.",
-            "copy_02" => "By signing your name below, you’re confirming:",
-            "copy_03" => "I’ve reviewed what I wrote in my application.\nI understand that I am part of a community of people who trust each other.\nI promise that the information I am providing is true.",
+            "copy_01" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
+            "copy_02" => "En signant votre nom ci-dessous, vous confirmez:",
+            "copy_03" => "J'ai examiné ce que j'ai écrit dans ma candidature.\nJe comprends que je fais partie d'une collectivité de gens qui se font confiance.\nJe jure que l’information que je fournis est vraie.",
             "integrity_name_label" => "Sign (Type) Your Full Name",
             "integrity_date_label" => "Today's Date",
             "sidebar" => [

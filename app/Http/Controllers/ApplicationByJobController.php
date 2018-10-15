@@ -13,12 +13,15 @@ use App\Models\Applicant;
 use App\Models\JobPoster;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
+use App\Models\SkillDeclaration;
 use App\Models\Skill;
+use App\Models\Lookup\SkillStatus;
 use App\Models\Degree;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Criteria;
 use App\Models\Course;
 use App\Models\WorkExperience;
+use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -85,6 +88,9 @@ class ApplicationByJobController extends Controller
                 "language_options" => PreferredLanguage::all(),
                 "citizenship_options" => CitizenshipDeclaration::all(),
                 "veteran_options" => VeteranStatus::all(),
+                "preferred_language_template" => Lang::get('common/preferred_language'),
+                "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+                "veteran_status_template" => Lang::get('common/veteran_status'),
 
             /* Job Data */
                 "job" => $jobPoster,
@@ -233,263 +239,160 @@ class ApplicationByJobController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function preview(JobPoster $jobPoster) {
+
         $applicant = Auth::user()->applicant;
+
         $application = $this->getApplicationFromJob($jobPoster);
 
+        $criteria = [
+            'essential' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }),
+            'asset' => $jobPoster->criteria->filter(function($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }),
+        ];
+
         return view('applicant/application_post_05', [
-            "applicant" => $applicant,
-            "form_submit_action" => route('job.application.submit', $jobPoster),
-            "application" => [
-                "id" => "00",
-                "title" => "Apply Now",
-                "step" => "5",
-                "job_context_copy" => "You are applying for:",
 
-                "skills_section" => [
-                    "essential_title" => "Need to Have",
-                    "asset_title" => "Nice to Have",
-                    "add_button_label" => "Add Skill",
-                    "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
-                ],
+            /* Application Template Data */
+                "application_step" => 5,
+                "application_template" => Lang::get("applicant/application_template"),
+                "preferred_language_template" => Lang::get('common/preferred_language'),
+                "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+                "veteran_status_template" => Lang::get('common/veteran_status'),
 
-                "modals" => [
-                    "00" => [
-                        "type" => "createReference",
-                        "title" => "Create a New Reference",
-                        "content" => [
-                            "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
-                        ],
-                        "id" => "createReference",
-                        "action_01" => "Cancel",
-                        "action_02" => "Save"
-                    ],
-                    "01" => [
-                        "type" => "createSample",
-                        "title" => "Create a New Work Sample",
-                        "content" => [
-                        ],
-                        "id" => "createSample",
-                        "action_01" => "Cancel",
-                        "action_02" => "Save"
-                    ]
-                ],
-                "question_title" => "My Fit",
-                "save_quit_button_label" => "Save & Quit",
-                "save_continue_button_label" => "Save & Continue",
-                "essential_title" => "Skills You Need to Have",
-                "asset_title" => "Skills That Are Nice to Have",
-                "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
-                "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
-                "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
-                "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
-                "skills_start_button_label" => "Get Started",
-                "essential_sidebar_label" => "Skills Checklist",
-                "asset_sidebar_label" => "Skills Checklist",
-                "sidebar_item_title" => "Scroll to this skill.",
-                "skill_ui" => [
-                    "declaration_title" => "Required Information",
-                    "declaration_level_help_label" => "Unsure of your level?",
-                    "declaration_expertise_title" => "My Level of Expertise",
-                    "declaration_expertise" => [
-                        "Beginner",
-                        "Intermediate",
-                        "Expert",
-                        "Master"
-                    ],
-                    "declaration_experience_title" => "My Years of Experience",
-                    "declaration_experience" => [
-                        "1 of Less",
-                        "2 - 3",
-                        "4 - 5",
-                        "6 - 7",
-                        "8 or More"
-                    ],
-                    "declaration_knowledge_label" => "My Knowledge & Experience",
-                    "reference" => [
-                        "add_title" => "Add an optional reference.",
-                        "add_context" => "Appoint someone who can vouch for your ability in this skill."
-                    ],
-                    "sample" => [
-                        "add_title" => "Add an optional work sample.",
-                        "add_context" => "Provide a link to a sample of your work that showcases this skill."
-                    ],
-                    "save_button_label" => "Save",
-                    "delete_button_label" => "Remove"
-                ]
-            ],
-            "user" => [
-                "name" => "Jason Greene",
-                "photo" => false,
-                "skills" => [
-                    "00" => [
-                        "name" => "HTML",
-                        "status" => "Claimed",
-                        "level" => "beginner",
-                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                        "references" => [
-                            "00" => "Mark Hamill"
-                        ],
-                        "samples" => [
-                            "00" => "My Website"
-                        ]
-                    ],
-                    "01" => [
-                        "name" => "CSS",
-                        "status" => "Claimed",
-                        "level" => "advanced",
-                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                        "references" => [
-                            "00" => "Mark Hamill"
-                        ],
-                        "samples" => [
-                            "00" => "My Website"
-                        ]
-                    ],
-                    "02" => [
-                        "name" => "UX Research",
-                        "status" => "Claimed",
-                        "level" => "Moderately in Evidence",
-                        "knowledge" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut dolor tincidunt, malesuada enim vel, ullamcorper velit. Donec sit amet commodo libero. Curabitur gravida consectetur dolor, eu vulputate ligula aliquam in. Praesent tempus lectus et mauris placerat, nec congue lectus placerat.",
-                        "references" => [],
-                        "samples" => []
-                    ]
-                ],
-                "references" => [
-                    "00" => [
-                        "name" => "Mark Hamill"
-                    ],
-                    "01" => [
-                        "name" => "Jesse Markham"
-                    ],
-                    "02" => [
-                        "name" => "Lucy Ladderfield"
-                    ],
-                    "03" => [
-                        "name" => "Cameron Trovsky"
-                    ]
-                ],
-                "samples" => [
-                    "00" => [
-                        "name" => "My Website",
-                        "type" => "Website",
-                        "date_created" => "2018-01-01",
-                        "link" => "https://google.com",
-                        "description" => "Lorem Ipsum",
-                        "skills" => [
-                            "00" => "HTML",
-                            "01" => "CSS"
-                        ]
-                    ]
-                ]
-            ],
-            "job_application" => $application,
-            "job" => $jobPoster,
-            // "job" => [
-            //     "link" => "/browse/jobs/00/",
-            //     "title" => "Front-end Developer",
-            //     "department" => "Treasury Board of Canada Secretariat",
-            //     "city" => "Ottawa",
-            //     "province" => "Ontario",
-            //     "salary" => "80,000 - 120,000",
-            //     "duration" => "1 Year",
-            //     "remote" => "Allowed",
-            //     "telework" => "Allowed",
-            //     "time_flexibility" => "Allowed",
-            //     "days_remaining" => "12",
-            //     "applicants" => "2",
-            //     "reference_id" => "14234",
-            //     "start" => "January 3rd, 2019",
-            //     "language" => "English Essential",
-            //     "security" => "Top Secret",
-            //     "classification" => "CS3",
-            //     "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
-            //     "work" => [
-            //         "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-            //         "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
-            //         "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
-            //     ],
-            //     "criteria" => [
-            //         "essential" => [
-            //             "00" => "Criteria 01",
-            //             "01" => "Criteria 02",
-            //             "02" => "Criteria 03"
-            //         ],
-            //         "asset" => [
-            //             "00" => "Criteria 01",
-            //             "01" => "Criteria 02",
-            //             "02" => "Criteria 03"
-            //         ]
-            //     ],
-            //     "extras" => [
-            //         "00" => [
-            //             "title" => "What You Need for Security Clearance",
-            //             "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-            //         ],
-            //         "01" => [
-            //             "title" => "The Application Process",
-            //             "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-            //         ],
-            //         "02" => [
-            //             "title" => "Other Paperwork & Preparation",
-            //             "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-            //         ]
-            //     ],
-            //     "questions" => [
-            //         "00" => [
-            //             "value" => "Why are you interested in this job?",
-            //             "description" => "We want to know why you are interested in this job instead of other similar ones. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
-            //             "input_name" => "jobPostQuestion0",
-            //             "answer_label" => "Your Answer",
-            //             "answer" => null
-            //         ],
-            //         "01" => [
-            //             "value" => "Why are you the right person for this job?",
-            //             "description" => "Tell us what makes you unique. Why should you stand out from other candidates. This information will be used to help inform a decision to choose between fully qualified candidates at the end of the selection process.",
-            //             "input_name" => "jobPostQuestion1",
-            //             "answer_label" => "Your Answer",
-            //             "answer" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
-            //         ]
-            //     ],
-            //     "skills" => [
-            //         "00" => [
-            //             "name" => "HTML",
-            //             "requirement" => "essential",
-            //             "level" => "Intermediate"
-            //         ],
-            //         "01" => [
-            //             "name" => "JavaScript",
-            //             "requirement" => "essential",
-            //             "level" => "Moderately in Evidence"
-            //         ],
-            //         "02" => [
-            //             "name" => "CSS",
-            //             "requirement" => "essential",
-            //             "level" => "Advanced"
-            //         ],
-            //         "03" => [
-            //             "name" => "Laravel",
-            //             "requirement" => "essential",
-            //             "level" => "Intermediate"
-            //         ],
-            //         "04" => [
-            //             "name" => "Docker",
-            //             "requirement" => "asset",
-            //             "level" => "In Early Development"
-            //         ],
-            //         "05" => [
-            //             "name" => "Responsive Web Design",
-            //             "requirement" => "asset",
-            //             "level" => "In Early Development"
-            //         ],
-            //         "06" => [
-            //             "name" => "Adobe XD",
-            //             "requirement" => "asset",
-            //             "level" => "In Early Development"
-            //         ]
-            //     ]
-            // ],
-            "skills" => Skill::all(),
+            /* Job Data */
+                "job" => $jobPoster,
+
+            /* Skills Data */
+                "skills" => Skill::all(),
+                "skill_template" => Lang::get("common/skills"),
+                "criteria" => $criteria,
+
+            /* Applicant Data */
+                "applicant" => $applicant,
+                "job_application" => $application,
+
+            /* Submission */
+                "form_submit_action" => route('job.application.submit', $jobPoster)
+
         ]);
+    }
+
+    /**
+     * Show the application submission information.
+     *
+     * @param  \App\Models\JobPoster  $jobPoster
+     * @return \Illuminate\Http\Response
+     */
+    public function complete(JobPoster $jobPoster) {
+
+        /* Include Applicant Data */
+
+            $applicant = Auth::user()->applicant;
+
+        /* Include Application Data */
+
+            $application = $this->getApplicationFromJob($jobPoster);
+
+        /* Return the Completion View */
+
+            return view('applicant/application_post_complete', [
+                "applicant" => $applicant,
+                "form_submit_action" => route('job.application.submit', $jobPoster),
+                "application" => [
+                    "id" => "00",
+                    "title" => "Apply Now",
+                    "step" => "5",
+                    "job_context_copy" => "You are applying for:",
+                    "skills_section" => [
+                        "essential_title" => "Need to Have",
+                        "asset_title" => "Nice to Have",
+                        "add_button_label" => "Add Skill",
+                        "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+                    ],
+                    "modals" => [
+                        "00" => [
+                            "type" => "createReference",
+                            "title" => "Create a New Reference",
+                            "content" => [
+                                "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
+                            ],
+                            "id" => "createReference",
+                            "action_01" => "Cancel",
+                            "action_02" => "Save"
+                        ],
+                        "01" => [
+                            "type" => "createSample",
+                            "title" => "Create a New Work Sample",
+                            "content" => [
+                            ],
+                            "id" => "createSample",
+                            "action_01" => "Cancel",
+                            "action_02" => "Save"
+                        ]
+                    ],
+                    "question_title" => "My Fit",
+                    "save_quit_button_label" => "Save & Quit",
+                    "save_continue_button_label" => "Save & Continue",
+                    "essential_title" => "Skills You Need to Have",
+                    "asset_title" => "Skills That Are Nice to Have",
+                    "essential_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+                    "asset_context" => "This text is intended to explain the difference between essential and asset criteria while providing context for micro-references and work samples.",
+                    "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
+                    "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
+                    "skills_start_button_label" => "Get Started",
+                    "essential_sidebar_label" => "Skills Checklist",
+                    "asset_sidebar_label" => "Skills Checklist",
+                    "sidebar_item_title" => "Scroll to this skill.",
+                    "skill_ui" => [
+                        "declaration_title" => "Required Information",
+                        "declaration_level_help_label" => "Unsure of your level?",
+                        "declaration_expertise_title" => "My Level of Expertise",
+                        "declaration_expertise" => [
+                            "Beginner",
+                            "Intermediate",
+                            "Expert",
+                            "Master"
+                        ],
+                        "declaration_experience_title" => "My Years of Experience",
+                        "declaration_experience" => [
+                            "1 of Less",
+                            "2 - 3",
+                            "4 - 5",
+                            "6 - 7",
+                            "8 or More"
+                        ],
+                        "declaration_knowledge_label" => "My Knowledge & Experience",
+                        "reference" => [
+                            "add_title" => "Add an optional reference.",
+                            "add_context" => "Appoint someone who can vouch for your ability in this skill."
+                        ],
+                        "sample" => [
+                            "add_title" => "Add an optional work sample.",
+                            "add_context" => "Provide a link to a sample of your work that showcases this skill."
+                        ],
+                        "save_button_label" => "Save",
+                        "delete_button_label" => "Remove"
+                    ],
+                    "complete" => [
+                        "title" => "Thanks for applying!",
+                        "copy_01" => "Talent Cloud is an experimental site. Please help us improve the federal staffing process by completing a short experience survey. This information will be anonymous and go directly towards helping us improve the platform!",
+                        "survey_link" => "GOOGLE",
+                        "survey_title" => "Take the survey.",
+                        "survey_label" => "Take the Survey",
+                        "copy_02" => "Curious about what's next for your application? Learn more about the staffing process in our FAQ",
+                        "return_title" => "Go to the Talent Cloud homepage.",
+                        "return_label" => "Return Home",
+                        "faq_title" => "Go to the Talent Cloud FAQ.",
+                        "faq_label" => "View the FAQ"
+                    ]
+                ],
+                "job_application" => $application,
+                "job" => $jobPoster
+            ]);
+
     }
 
     /**
@@ -695,14 +598,14 @@ class ApplicationByJobController extends Controller
         //Save new skill declarartions
         if (isset($skillDeclarations['new'])) {
             foreach($skillDeclarations['new'] as $skillType => $typeInput) {
-                foreach($typeInput as $skillDeclarationInput) {
+                foreach($typeInput as $criterion_id=>$skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
-                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -725,7 +628,7 @@ class ApplicationByJobController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 
@@ -769,14 +672,14 @@ class ApplicationByJobController extends Controller
         //Save new skill declarartions
         if (isset($skillDeclarations['new'])) {
             foreach($skillDeclarations['new'] as $skillType => $typeInput) {
-                foreach($typeInput as $skillDeclarationInput) {
+                foreach($typeInput as $criterion_id=>$skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
-                    $skillDeclaration->skill_id = $skillDeclarationInput['skill_id'];
+                    $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
-                        'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                        'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
                     $skillDeclaration->save();
 
@@ -799,7 +702,7 @@ class ApplicationByJobController extends Controller
                         //skill_id and skill_status cannot be changed
                         $skillDeclaration->fill([
                             'description' => $skillDeclarationInput['description'],
-                            'skill_level_id' => $skillDeclarationInput['skill_level_id'],
+                            'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                         ]);
                         $skillDeclaration->save();
 
@@ -827,18 +730,38 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
+        $request->validate([
+            'submission_signature' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'submission_date' => [
+                'required',
+                'string',
+                'max:191',
+           ]
+       ]);
+
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: Save any input (vows, etc)
+        //Save any final info
+        $application->fill([
+            'submission_signature' => $input['submission_signature'],
+            'submission_date' => $input['submission_date'],
+        ]);
 
         //TODO: Check that application is valid and complete
+        $validator = new ApplicationValidator();
+        $validator->validate($application);
 
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
 
-        //TODO: where should we redirect after submitting?
-        return redirect( route('applications.index', $jobPoster));
+        $application->save();
+
+        return redirect( route('job.application.complete', $jobPoster));
     }
 }

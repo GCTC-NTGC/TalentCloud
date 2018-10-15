@@ -14,7 +14,7 @@
     class="application-preview__section-04">
 
     <h3>
-        Skills That Are Nice to Have
+        {{ application_template.preview.section_04_title }}
     </h3>
 
     {# Set Locale #}
@@ -25,55 +25,33 @@
 
         <div>
 
-            {% for jobSkill in job.skills %}
+            {% for criterion in criteria.asset %}
 
-                {% if jobSkill.requirement == "asset" %}
+                {# Get User Skill #}
 
-                    {# Get User Skill #}
+                    {% set skill_declaration = false %}
 
-                        {% set skill = false %}
+                    {% for skillDeclaration in applicant.skill_declarations %}
 
-                        {% for userSkill in user.skills %}
+                        {% if criterion.skill.id == skillDeclaration.skill_id %}
 
-                            {% if jobSkill.name|capitalize == userSkill.name|capitalize %}
+                            {% set skill_declaration = skillDeclaration %}
 
-                                {% set skill = userSkill %}
+                        {% endif %}
 
-                            {% endif %}
+                    {% endfor %}
 
-                        {% endfor %}
+                {# Get Skill Type #}
 
-                    {# Get Skill Type #}
+                    {% set skillType = criterion.skill.skill_type.name %}
 
-                        {% set skillType = false %}
+                {# Import Skill Template #}
 
-                        {% for siteSkill in skills %}
+                    <a
+                        class="application-post__anchor"
+                        id="skill{{ criterion.skill.name }}"></a>
 
-                            {% if jobSkill.name|capitalize == siteSkill.name|capitalize %}
-
-                                {% if siteSkill.type == "soft" %}
-
-                                    {% set skillType = "soft" %}
-
-                                {% elseif siteSkill.type == "hard" %}
-
-                                    {% set skillType = "hard" %}
-
-                                {% endif %}
-
-                            {% endif %}
-
-                        {% endfor %}
-
-                    {# Import Skill Template #}
-
-                        <a
-                            class="application-post__anchor"
-                            id="skill{{ jobSkill.name }}"></a>
-
-                        {% include "common/skill" %}
-
-                {% endif %}
+                    {% include "common/skill" %}
 
             {% endfor %}
 
