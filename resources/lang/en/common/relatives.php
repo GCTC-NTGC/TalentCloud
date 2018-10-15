@@ -31,7 +31,7 @@ return [
         "create_title" => "Create a new work sample.",
         "create_label" => "Create New Work Sample",
         "label" => "Select a Work Sample",
-        "null_copy" => "No work samples exist - create one in 'My Portfolio'",
+        "null_copy" => "No work samples exist - create one in 'My Work Samples'",
         "add_label" => "Add Existing Work Sample",
         "delete_title" => "Remove this work sample."
     ],
