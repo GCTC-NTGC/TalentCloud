@@ -61,6 +61,38 @@ return [
             'name' => 'Javascript',
             'description' => 'Defined as: Developing web applications using Javascript'
         ],
+        'c_plus_plus' => [
+            'name' => 'C++',
+            'description' => 'Defined As: A middle level object oriented programming language to develop low to high end software applications.'
+        ],
+        'sass' => [
+            'name' => 'SASS',
+            'description' => 'Defined as: A preprocessor scripting, stylesheet language that is interpreted or compiled into CSS for web development.'
+        ],
+        'python' => [
+            'name' => 'Python',
+            'description' => 'Defined as: An interpreted, object oriented, and high level programming language that is flexibly used to accomplish various programming objectives.'
+        ],
+        'php' => [
+            'name' => 'PHP',
+            'description' => 'Defined as: A programming language used for developing and executing web application code that processed on the server side.'
+        ],
+        'git' => [
+            'name' => 'Git',
+            'description' => 'Defined as: A version control system used for tracking changes in files and coordinating work on projects involving multiple users.'
+        ],
+        'docker' => [
+            'name' => 'Docker',
+            'description' => 'Defined as: A safe virtual environment to create, edit, and freely develop projects on.'
+        ],
+        'html' => [
+            'name' => 'HTML',
+            'description' => 'Defined as: A markup language to build the framework and essential blocks of a webpage.'
+        ],
+        'sql' => [
+            'name' => 'SQL',
+            'description' => 'Defined as: A language used in database programming, to manage, query, update, and govern databases and information banks.'
+        ],
         'open_source' => [
             'name' => 'Open Source Development',
             'description' => 'Defined as: Developing applications using open source tools and languages '
@@ -111,8 +143,11 @@ return [
         ],
         'adaptability' => [
             'name' => 'Adaptability',
-            'description' => 'Defined as: Being open to changing circumstances and considerable variety in the workplace.
-            Accountability	Defined as: Taking responsibility for one’s own actions and the actions of a group. '
+            'description' => 'Defined as: Being open to changing circumstances and considerable variety in the workplace.'
+        ],
+        'accountability' => [
+            'name' => 'Accountability',
+            'description' => 'Defined as: Taking responsibility for one’s own actions and the actions of a group.'
         ],
         'attention_detail' => [
             'name' => 'Attention to Detail',
@@ -177,38 +212,6 @@ return [
         'willingness_learn' => [
             'name' => 'Willingness to learn',
             'description' => 'Defined as: Seeking opportunities and taking the initiative to continuously develop.'
-        ],
-        'c_plus_plus' => [
-            'name' => 'C++',
-            'description' => 'Defined As: A middle level object oriented programming language to develop low to high end software applications.'
-        ],
-        'sass' => [
-            'name' => 'SASS',
-            'description' => 'Defined as: A preprocessor scripting, stylesheet language that is interpreted or compiled into CSS for web development.'
-        ],
-        'python' => [
-            'name' => 'Python',
-            'description' => 'Defined as: An interpreted, object oriented, and high level programming language that is flexibly used to accomplish various programming objectives.'
-        ],
-        'php' => [
-            'name' => 'PHP',
-            'description' => 'Defined as: A programming language used for developing and executing web application code that processed on the server side.'
-        ],
-        'git' => [
-            'name' => 'Git',
-            'description' => 'Defined as: A version control system used for tracking changes in files and coordinating work on projects involving multiple users.'
-        ],
-        'docker' => [
-            'name' => 'Docker',
-            'description' => 'Defined as: A safe virtual environment to create, edit, and freely develop projects on.'
-        ],
-        'html' => [
-            'name' => 'HTML',
-            'description' => 'Defined as: A markup language to build the framework and essential blocks of a webpage.'
-        ],
-        'sql' => [
-            'name' => 'SQL',
-            'description' => 'Defined as: A language used in database programming, to manage, query, update, and govern databases and information banks.'
         ],
     ],
     'status' => [
