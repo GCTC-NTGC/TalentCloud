@@ -43,10 +43,10 @@
                                     <select
                                         class="form__input"
                                         name="citizenship_declaration_id" >
-                                        {% for option in application.citizenship_options|sort %}
+                                        {% for option in citizenship_options %}
                                             <option
                                                 value="{{ option.id }}"
-                                                {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ option }}</option>
+                                                {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ citizenship_declaration_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -92,10 +92,10 @@
                                     <select
                                         class="form__input"
                                         name="veteran_status_id">
-                                        {% for option in application.veterans_options|sort %}
+                                        {% for option in veteran_options %}
                                             <option
                                                 value="{{ option.id }}"
-                                                {% if option.id == job_application.veteran_status_id %}selected{% endif %}>{{ option }}</option>
+                                                {% if option.id == job_application.veteran_status_id %}selected{% endif %}>{{ veteran_status_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -141,10 +141,10 @@
                                     <select
                                         class="form__input"
                                         name="preferred_language_id">
-                                        {% for option in application.language_options %}
+                                        {% for option in language_options %}
                                             <option
                                                 value="{{ option.id }}"
-                                                {% if option.id == job_application.preferred_language_id %}selected{% endif %}>{{ option }}</option>
+                                                {% if option.id == job_application.preferred_language_id %}selected{% endif %}>{{ preferred_language_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

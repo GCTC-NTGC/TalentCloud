@@ -100,7 +100,31 @@
         .profile-element-list {
             padding: 2rem 0 0 0;
 
-            .profile-element {
+        }
+
+        .profile-element {
+
+            .profile-element__preview {
+                padding: 1rem;
+
+                .box {
+                    padding: 1rem;
+
+                    span {
+                        color: $palette--blue;
+                        display: block;
+                        font-family: $font--sans;
+                        font-size: $font-scale--regular;
+                        font-weight: 600;
+                        margin: 0 0 .5rem 0;
+                    }
+
+                    p {
+                        @extend %paragraph;
+                        margin: 0;
+                    }
+
+                }
 
             }
 
