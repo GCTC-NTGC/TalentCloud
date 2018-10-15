@@ -185,6 +185,11 @@
 
     // Experience
 
+        .application-preview__context {
+            @extend %paragraph;
+            margin-bottom: 0;
+        }
+
     // Skills
 
     // Actions

@@ -39,6 +39,16 @@
                         <div
                             class="login-copy">
 
+                            @if ($errors->any())
+                                <div class="box full register-alert">
+                                    @foreach ($errors->all() as $error)
+                                        <span class="help-block">
+                                            <strong>{{ $error }}</strong>
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <div
                                 class="form__input-wrapper--float @if (old('email'))active @endif">
                                 <label

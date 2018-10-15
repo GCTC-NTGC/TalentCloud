@@ -26,6 +26,9 @@ return [
             "name" => "My Profile",
             //"link" => route('manager.profile')
         ],
+        "faq" => [
+            "name" => "FAQ"
+        ]
     ],
     "register" => "Register",
     "login" => "Login / Register",

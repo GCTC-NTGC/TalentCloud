@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use App\Models\UserRole;
 use App\Models\Applicant;
 use Facades\App\Services\WhichPortal;
@@ -65,11 +66,17 @@ class RegisterController extends AuthController
      */
     protected function validator(array $data)
     {
+        $messages = Lang::get('validation.custom.password');
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                'confirmed'
+           ],
+       ], $messages);
     }
 
     /**

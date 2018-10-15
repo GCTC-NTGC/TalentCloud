@@ -22,6 +22,7 @@ class CreateJobPosterTranslationsTable extends Migration {
 			$table->text('impact')->nullable();
 			$table->text('branch')->nullable();
 			$table->text('division')->nullable();
+			$table->text('education')->nullable();
 			$table->timestamps();
 
 			$table->unique(['job_poster_id','locale']);

@@ -106,6 +106,7 @@
             @import "components/common/buttons";
             @import "components/common/forms";
             @import "components/common/accordions";
+            @import "components/common/error";
 
         // Authentication
 
@@ -120,6 +121,10 @@
         // Home
 
             @import "components/common/home/hero";
+
+        // Static Content
+
+            @import "components/common/static/faq";
 
         // Application View
 
@@ -176,6 +181,10 @@
             // Step 04 (Asset Criteria)
 
             // Step 05 (Preview)
+
+            // Step 06 (Complete)
+
+                @import "components/applicant/application/post/complete";
 
         // Profile
 

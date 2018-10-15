@@ -18,9 +18,9 @@ return [
         "section_course_title" => "My Courses/Certifications",
         "add_course_label" => "Add Course/Certification",
         "null_course_copy" => "You don't currently have any courses or certifications on your profile! Use the button above to add one.",
-        "section_work_title" => "My Lived Experience",
-        "add_work_label" => "Add Lived Experience",
-        "null_work_copy" => "You don't currently have any lived experience on your profile! Use the button above to add some.",
+        "section_work_title" => "My Equivalent Experience",
+        "add_work_label" => "Add Equivalent Experience",
+        "null_work_copy" => "You don't currently have any equivalent experiences on your profile! Use the button above to add some.",
     ],
 
     //TODO: move modals to under a ViewComposer's responsability
@@ -49,10 +49,10 @@ return [
         ],
         "delete_work_experience" => [
             "type" => "deleteConfirmation",
-            "title" => "Delete this Lived Experience?",
+            "title" => "Delete this equivalent experience?",
             "content" => [
-                "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
-                "01" => "All previously submitted applications will retain this experience."
+                "00" => "Are you sure you want to permanently delete this equivalent experience from your profile?",
+                "01" => "All previously submitted applications will retain this equivalent experience."
             ],
             "id" => "deleteWork",
             "action_01" => "Cancel",

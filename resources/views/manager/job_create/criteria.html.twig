@@ -121,6 +121,48 @@
 
             </div>
 
+            <div
+                class="box med-1of2">
+
+                <div
+                    class="form__input-wrapper--float {% if criteria.translate('en').description != null %}active{% endif %}">
+
+                    <label
+                        class="form__label"
+                        for="createJobCriteriaDescriptionEN">
+                        Optional Skill Context (English)
+                    </label>
+
+                    <textarea
+                        class="form__textarea"
+                        id="createJobCriteriaDescriptionEN"
+                        name="{{ name_prefix }}[description][en]">{{ criteria.translate('en').description }}</textarea>
+
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div
+                    class="form__input-wrapper--float {% if criteria.translate('fr').description != null %}active{% endif %}">
+
+                    <label
+                        class="form__label"
+                        for="createJobCriteriaDescriptionFR">
+                        Optional Skill Context (Français)
+                    </label>
+
+                    <textarea
+                        class="form__textarea"
+                        id="createJobCriteriaDescriptionFR"
+                        name="{{ name_prefix }}[description][fr]">{{ criteria.translate('fr').description }}</textarea>
+
+                </div>
+
+            </div>
+
         </div>
 
     </fieldset>

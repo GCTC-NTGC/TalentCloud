@@ -9,6 +9,9 @@ namespace App\Models;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
+use Illuminate\Notifications\Notifiable;
+use App\Events\ApplicationSaved;
+use App\Events\ApplicationRetrieved;
 
 /**
  * Class JobApplication
@@ -21,6 +24,8 @@ use App\Models\Lookup\CitizenshipDeclaration;
  * @property int $preferred_language_id
  * @property int $applicant_id
  * @property int $applicant_snapshot_id
+ * @property string $submission_signature
+ * @property string $submission_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -36,6 +41,13 @@ use App\Models\Lookup\CitizenshipDeclaration;
  */
 class JobApplication extends BaseModel {
 
+    use Notifiable;
+
+    protected $dispatchesEvents = [
+        'retrieved' => ApplicationRetrieved::class,
+        'saved' => ApplicationSaved::class,
+    ];
+
     protected $casts = [
         'job_poster_id' => 'int',
         'application_status_id' => 'int',
@@ -43,12 +55,16 @@ class JobApplication extends BaseModel {
         'veteran_status_id' => 'int',
         'preferred_language_id' => 'int',
         'applicant_id' => 'int',
-        'applicant_snapshot_id' => 'int'
+        'applicant_snapshot_id' => 'int',
+        'submission_signature' => 'string',
+        'submission_date' => 'string',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
         'veteran_status_id',
         'preferred_language_id',
+        'submission_signature',
+        'submission_date',
     ];
 
     protected function createApplicantSnapshot($applicant_id) {

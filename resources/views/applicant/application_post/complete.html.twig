@@ -1,0 +1,51 @@
+<section
+	class="application__complete">
+
+	<div
+		class="container--copy">
+
+		<h3>{{ application.complete.title }}</h3>
+
+		<p>{{ application.complete.copy_01 }}</p>
+
+		<span
+			class="centre">
+			<a
+				class="button--blue"
+				href="{{ application.complete.survey_link }}"
+				target="_blank"
+				title="{{ application.complete.survey_title }}">
+				{{ application.complete.survey_label }}
+			</a>
+		</span>
+
+		<p>{{ application.complete.copy_02 }}</p>
+		
+		<div
+			class="flex-grid">
+
+			<div
+				class="box med-1of2">
+				<a
+					class="button--blue"
+					href="/"
+					title="{{ application.complete.return_title }}">
+					{{ application.complete.return_label }}
+				</a>
+			</div>
+
+			<div
+				class="box med-1of2">
+				<a
+					class="button--blue"
+					href="/faq"
+					title="{{ application.complete.faq_title }}">
+					{{ application.complete.faq_label }}
+				</a>
+			</div>
+
+		</div>
+
+	</div>
+
+</section>

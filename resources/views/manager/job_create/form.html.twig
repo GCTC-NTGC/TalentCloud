@@ -704,6 +704,69 @@
 
         <h4>Skills &amp; Competencies</h4>
 
+        {# Education #}
+
+            <fieldset
+                class="form__fieldset">
+
+                <legend
+                    class="form__legend">
+                    Education or Equivalency
+                </legend>
+
+                <div
+                class="flex-grid">
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('en').education != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobEducationEN">
+                                Education (English)
+                            </label>
+
+                            <textarea
+                                class="form__textarea"
+                                id="createJobEducationEN"
+                                name="education[en]">{{ job.translate('en').education }}</textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--float {% if job.translate('fr').education != null %}active{% endif %}">
+
+                            <label
+                                class="form__label"
+                                for="createJobEducationFR">
+                                Education (Français)
+                            </label>
+
+                            <textarea
+                                class="form__textarea"
+                                id="createJobEducationFR"
+                                name="education[fr]">{{ job.translate('fr').education }}</textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            <br>
+
+            <br>
+
         {# Essential Skills #}
 
             <h5>Essential Criteria (Hard Skills)</h5>

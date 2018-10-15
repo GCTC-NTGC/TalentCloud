@@ -1,0 +1,13 @@
+{% if errors.any() %}
+    <div class="box full register-alert">
+        <ul>
+        {% for error in errors.all() %}
+            <li>
+                <span class="help-block">
+                    <strong>{{ error }}</strong>
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endif %}

@@ -125,9 +125,10 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'password' => [
+            'regex' => 'The :attribute must contain at least one character from three of the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumirc symbols (%, $, !, etc.).',
         ],
+        'password_correct' => 'Old password isn\'t correct',
     ],
 
     /*
@@ -141,6 +142,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'submisstion_signature' => 'Signature',
+        'submission_date' => 'Submission Date',
+    ],
 
 ];

@@ -25,7 +25,7 @@ return [
             "title" => "Delete this Skill?",
             "content" => [
                 "00" => "Are you sure you want to permanently delete this skill from your profile?",
-                "01" => "All previously submitted applications will retain this skill, its references, and its work samples. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
+                "01" => "All previously submitted applications will retain this skill. By deleting this skill you acknowledge the permanent deletion of all credit earned towards this skill."
             ],
             "id" => "deleteSkill",
             "action_01" => "Cancel",

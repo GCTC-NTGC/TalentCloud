@@ -24,9 +24,12 @@ return [
             //"link" => "/applications/"
         ],
         "profile" => [
-            "name" => "Mon profile",
+            "name" => "Mon profil",
             //"link" => route('profile')
         ],
+        "faq" => [
+            "name" => "FAQ"
+        ]
     ],
     "register" => "Inscription",
     "login" => "Ouverture de session / Inscription",
