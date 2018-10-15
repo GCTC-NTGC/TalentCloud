@@ -331,8 +331,14 @@
                                         class="form__label"
                                         for="{{ id_prefix }}skillLevel">
                                         {{ skill_template.level_label }}
+                                        <a
+                                            href="/faq#levels"
+                                            title="{{ skill_template.level_link_title }}"
+                                            target="_blank">
+                                            {{ skill_template.level_link_label }}
+                                        </a>
                                     </label>
-
+                                    
                                     <div class="flex-grid">
 
                                         {% set counter = 0 %}

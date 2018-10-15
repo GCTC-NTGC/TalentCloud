@@ -69,6 +69,9 @@ class MenuComposer
                 case 'logout':
                     $menu['items']['logout']['active'] = true;
                     break;
+                case 'faq':
+                    $menu['items']['faq']['active'] = true;
+                    break;
                 default:
                     //No menu item will be active
                     break;
@@ -79,6 +82,7 @@ class MenuComposer
             $menu['items']['jobs']['link'] = route('jobs.index');
             $menu['items']['applications']['link'] = route('applications.index');
             $menu['items']['profile']['link'] = route('profile');
+            $menu['items']['faq']['link'] = route('faq');
 
             //Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
@@ -120,6 +124,9 @@ class MenuComposer
                     break;
                 case 'logout':
                     $menu['items']['logout']['active'] = true;
+                    break;
+                case 'faq':
+                    $menu['items']['faq']['active'] = true;
                     break;
                 default:
                     //No menu item will be active

@@ -1,16 +1,15 @@
 <?php
-
 return [
     /*
      * --------------------------------------------------------------------------
-     * Menu Language Lines
+     * French Menu Language Lines
      * --------------------------------------------------------------------------
      *
      * The following language lines are used in the nav menu.
      *
      */
     "home" => [
-        "name" => "Home",
+        "name" => "Page d'accueil",
         "access" => [
             "applicant" => true,
             "manager" => false
@@ -18,7 +17,7 @@ return [
         //"link" => route('home')
     ],
     "browse" => [
-        "name" => "Browse Jobs",
+        "name" => "Parcourir les emplois",
         "access" => [
             "applicant" => true,
             "manager" => false
@@ -26,7 +25,7 @@ return [
         //"link" => route('jobs.index')
     ],
     "applications" => [
-        "name" => "My Applications",
+        "name" => "Mes applications",
         "access" => [
             "applicant" => true,
             "manager" => false
@@ -35,22 +34,15 @@ return [
         //"link" => "/applications/"
     ],
     "profile" => [
-        "name" => "My Profile",
+        "name" => "Mon profil",
         "access" => [
             "applicant" => true,
             "manager" => false
         ],
         //"link" => route('profile')
     ],
-    "faq" => [
-        "name" => "FAQ",
-        "access" => [
-            "applicant" => true,
-            "manager" => true
-        ]
-    ],
     "admin" => [
-        "name" => "Home",
+        "name" => "Page d'accueil",
         "access" => [
             "applicant" => false,
             "manager" => true
@@ -58,22 +50,19 @@ return [
         //"link" => "/admin/"
     ],
     "adminjobs" => [
-        "name" => "My Jobs",
+        "name" => "Mes emplois",
         "access" => [
             "applicant" => false,
             "manager" => true
         ],
-        //"link" => "/admin/jobs/"
+        //"link" => "/admin/emplois/"
     ],
     "adminprofile" => [
-        "name" => "My Profile",
+        "name" => "My profile",
         "access" => [
             "applicant" => false,
             "manager" => true
         ],
-        //"link" => "/admin/profile/"
+        //"link" => "/admin/profil/"
     ]
 ];
-
-
-

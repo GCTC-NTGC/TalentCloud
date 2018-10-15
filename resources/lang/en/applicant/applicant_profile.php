@@ -24,7 +24,7 @@ return [
         'user_new_password_label' => 'New Password',
         'user_confirm_new_password_label' => 'Confirm New Password',
         'social_media_form_legend' => 'Social Media',
-        'twitter_label' => 'Twitter Profile Name',
+        'twitter_label' => 'Twitter Profile Handle',
         'linkedin_label' => 'LinkedIn Profile Url',
         'other_form_legend' => 'Other Information',
         'tagline_label' => 'Tagline',

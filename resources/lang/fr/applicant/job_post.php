@@ -33,7 +33,7 @@ return [
         'duration' => [
             'week' => ':count semaine.|:count semaines',
             'month' => ':count mois.|:count mois',
-            'year' => ':count un année.|:count un années',
+            'year' => ':count ans.|:count années',
             'permanent' => 'Permanent'
         ],
         'start_date_format' => 'F, Y',
@@ -54,22 +54,23 @@ return [
         'sidebar_title' => 'Voir les critères pour cet emploi.',
         'title' => 'Critères',
         'essential_title' => 'Nécessaires d\'avoir',
-        'asset_title' => 'Bon d\'avoir'
+        'asset_title' => 'Bon d\'avoir',
+        'requirement_label' => 'Niveau requis: ',
     ],
     'culture' => [
         'sidebar_title' => 'Voir la culture à cet emploi.',
         'title' => 'Culture d\'équipe',
         'manager_title' => 'Votre gestionnaire',
         'manager_department_bridge' => ' au ',
-        'guest_manager_link_label' => 'Please Log In to View :name\'s Profile.',
+        'guest_manager_link_label' => 'Veuillez vous connecter pour voir le profil de :name.',
         'manager_link_label' => 'Voir le profil de :name.',
         'work_environment_label' => 'Environnement de travail',
         'team_narrative_label' => 'Ce qu\'il faut savoir',
         'team_culture_label' => 'Culture d\'équipe',
         'team_size_label' => 'Taille de l\'équipe',
         'gcdirectory_label' => 'Rencontre l\'équipe dans GCdirectory',
-        'team_link_title' => 'View le profile de l\'équipe.',
-        'team_link_label' => 'Profile de l\'équipe',
+        'team_link_title' => 'Voir le profil de l\'équipe.',
+        'team_link_label' => 'Profil de l\'équipe',
         'operating_label' => 'Notre contexte opérationnel',
         'team_value_label' => 'Nos valeurs',
         'team_work_label' => 'Notre mode de fonctionnement'
@@ -108,8 +109,8 @@ return [
         'accommodation' => 'Veuillez informer l\'équipe du nuage de talents de toute mesure d\'adaptation dont vous pourriez avez besoin au cours du processus en écrivant à talent.cloud-nuage.de.talents@tbs-sct.gc.ca.',
         'preference' => 'On accordera la préférence aux anciens combattants et aux citoyens canadiens dans cet ordre.',
         'apply_link_title' => 'Postuler pour cet emploi.',
-        'apply_link_label' => 'Postuler maintenant',
+        'apply_link_label' => 'Postuler maintenant.',
         'login_link_title' => 'Ouvrir une session et postuler pour cet emploi.',
-        'login_link_label' => 'Ouvrir une session et postuler '
+        'login_link_label' => 'Ouvrir une session et postuler. '
     ],
 ];

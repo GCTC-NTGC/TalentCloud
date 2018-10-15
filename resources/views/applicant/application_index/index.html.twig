@@ -19,9 +19,9 @@
 
             {% set draftCounter = 0 %}
 
-            {% for item in applicant.applications %}
+            {% for item in applications %}
 
-                {% if item.status =="draft" %}
+                {% if item.application_status.name =="draft" and date() < date(item.job_poster.close_date_time) %}
 
                     {% set draftCounter = draftCounter + 1 %}
 
@@ -46,9 +46,9 @@
 
             {% set completedCounter = 0 %}
 
-            {% for item in applicant.applications %}
+            {% for item in applications %}
 
-                {% if item.status =="completed" %}
+                {% if item.application_status.name != "draft" %}
 
                     {% set completedCounter = completedCounter + 1 %}
 
@@ -73,9 +73,9 @@
 
             {% set expiredCounter = 0 %}
 
-            {% for item in applicant.applications %}
+            {% for item in applications %}
 
-                {% if item.status =="expired" %}
+                {% if item.application_status.name == "draft" and date() > date(item.job_poster.close_date_time) %}
 
                     {% set expiredCounter = expiredCounter + 1 %}
 
