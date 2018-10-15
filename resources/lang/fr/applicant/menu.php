@@ -27,6 +27,9 @@ return [
             "name" => "Mon profil",
             //"link" => route('profile')
         ],
+        "faq" => [
+            "name" => "FAQ"
+        ]
     ],
     "register" => "Inscription",
     "login" => "Ouverture de session / Inscription",

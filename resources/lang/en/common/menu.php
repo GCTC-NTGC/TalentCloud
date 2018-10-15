@@ -42,6 +42,13 @@ return [
         ],
         //"link" => route('profile')
     ],
+    "faq" => [
+        "name" => "FAQ",
+        "access" => [
+            "applicant" => true,
+            "manager" => true
+        ]
+    ],
     "admin" => [
         "name" => "Home",
         "access" => [
