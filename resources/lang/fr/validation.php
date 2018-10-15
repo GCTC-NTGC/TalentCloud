@@ -122,9 +122,10 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'password' => [
+            'regex' => 'Le mot de passe doit contenir au moins un caractère appartenant à trois des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
         ],
+        'password_correct' => 'mot de passe incorrect',
     ],
     /*
     |--------------------------------------------------------------------------
@@ -137,6 +138,9 @@ return [
     |
     */
     'attributes' => [
+        'submisstion_signature' => 'signature',
+        'submission_date'       => 'date',
+
         'name'                  => 'nom',
         'username'              => "nom d'utilisateur",
         'email'                 => 'adresse courriel',
@@ -144,6 +148,8 @@ return [
         'last_name'             => 'nom',
         'password'              => 'mot de passe',
         'password_confirmation' => 'confirmation du mot de passe',
+        'new_password'          => 'nouveau du mot de passe',
+        'new_password_confirmation' => 'confirmation du nouveau mot de passe',
         'city'                  => 'ville',
         'country'               => 'pays',
         'address'               => 'adresse',
