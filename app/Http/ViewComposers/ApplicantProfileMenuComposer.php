@@ -17,38 +17,13 @@ class ApplicantProfileMenuComposer
      */
     public function compose(View $view)
     {
-        $profileMenu = [
-            "about" => [
-                "active" => false,
-                "link" => route('profile.about.edit', $view->getData()['applicant']),
-                "title" => "Go to the About Me section of your profile.",
-                "label" => "About Me"
-            ],
-            "experience" => [
-                "active" => false,
-                "link" => route('profile.experience.edit', $view->getData()['applicant']),
-                "title" => "Go to the Experience section of your profile.",
-                "label" => "My Experience"
-            ],
-            "skills" => [
-                "active" => false,
-                "link" => route('profile.skills.edit', $view->getData()['applicant']),
-                "title" => "Go to the Skills section of your profile.",
-                "label" => "My Skills"
-            ],
-            "references" => [
-                "active" => false,
-                "link" => route('profile.references.edit', $view->getData()['applicant']),
-                "title" => "Go to the References section of your profile.",
-                "label" => "My References"
-            ],
-            "portfolio" => [
-                "active" => false,
-                "link" =>route('profile.work_samples.edit', $view->getData()['applicant']),
-                "title" => "Go to the Portfolio section of your profile.",
-                "label" => "My Portfolio"
-            ]
-        ];
+        $profileMenu = Lang::get('applicant/applicant_profile_menu');
+
+        $profileMenu['about']['link'] = route('profile.about.edit', $view->getData()['applicant']);
+        $profileMenu['experience']['link'] = route('profile.experience.edit', $view->getData()['applicant']);
+        $profileMenu['skills']['link'] = route('profile.skills.edit', $view->getData()['applicant']);
+        $profileMenu['references']['link'] = route('profile.references.edit', $view->getData()['applicant']);
+        $profileMenu['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
 
         //Set active on the proper item
         switch(Route::currentRouteName()) {
