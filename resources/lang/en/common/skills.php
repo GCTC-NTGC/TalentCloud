@@ -8,17 +8,17 @@ return [
     * The following language lines are used when displaying Skills
     *
     */
-    'new_skill_title' => 'New Skill',
-    'name_label' => 'Project Name',
-    'type_label' => 'Project Type',
-    'skill_selection_label' => 'Select Skill',
-    'level_label' => 'My Level',
-    'level_link_title' => 'Learn more about finding your skill level.',
-    'level_link_label' => '(Find Your Level)',
-    'knowledge_label' => 'My Knowledge',
-    'skill_status_null_label' => 'Status: Skill Unclaimed',
-    'skill_status_label' => 'Status: Skill ',
-    'skill_level_null' => 'No level has been selected.',
+    'new_skill_title' => 'Nouvelle compétence',
+    'name_label' => 'Nom du projet',
+    'type_label' => 'Type de projet',
+    'skill_selection_label' => 'Sélectionner une compétence',
+    'level_label' => 'Mon niveau',
+    'level_link_title' => 'En savoir plus sur la façon de déterminer votre niveau de compétence.',
+    'level_link_label' => '(Trouvez votre niveau)',
+    'knowledge_label' => 'Ma connaissance',
+    'skill_status_null_label' => 'Statut: Compétence ajoutée',
+    'skill_status_label' => 'Statut: Compétence',
+    'skill_level_null' => 'Aucun niveau n\'a été sélectionné.',
     'skill_levels' => [
         'hard' => [
             'basic' => 'Basic',
