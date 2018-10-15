@@ -5,11 +5,11 @@
         class="container--copy">
 
         <h3>
-            {{ application.experience.title }}
+            {{ application_template.experience.title }}
         </h3>
 
         <p>
-            {{ application.experience.description }}
+            {{ application_template.experience.description }}
         </p>
 
     </div>
@@ -30,7 +30,7 @@
                         <div
                             class="box med-1of2">
 
-                            <h3>{{ application.experience_section.section_degree_title }}</h3>
+                            <h3>{{ application_template.experience_section.section_degree_title }}</h3>
 
                         </div>
 
@@ -39,7 +39,7 @@
 
                             <button
                                 class="profile-list__add-element-trigger">
-                                {{ application.experience_section.add_degree_label }}
+                                {{ application_template.experience_section.add_degree_label }}
                             </button>
 
                         </div>
@@ -72,7 +72,7 @@
                         <div
                             class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
 
-                            <p>{{ application.experience_section.null_degree_copy }}</p>
+                            <p>{{ application_template.experience_section.null_degree_copy }}</p>
 
                         </div>
 
@@ -93,7 +93,7 @@
                         <div
                             class="box med-1of2">
 
-                            <h3>{{ application.experience_section.section_course_title }}</h3>
+                            <h3>{{ application_template.experience_section.section_course_title }}</h3>
 
                         </div>
 
@@ -102,7 +102,7 @@
 
                             <button
                                 class="profile-list__add-element-trigger">
-                                {{ application.experience_section.add_course_label }}
+                                {{ application_template.experience_section.add_course_label }}
                             </button>
 
                         </div>
@@ -131,7 +131,7 @@
                         <div
                             class="profile-null {% if courseCounter == 0 %}active{% endif %}">
 
-                            <p>{{ application.experience_section.null_course_copy }}</p>
+                            <p>{{ application_template.experience_section.null_course_copy }}</p>
 
                         </div>
 
@@ -152,7 +152,7 @@
                         <div
                             class="box med-1of2">
 
-                            <h3>{{ application.experience_section.section_work_title }}</h3>
+                            <h3>{{ application_template.experience_section.section_work_title }}</h3>
 
                         </div>
 
@@ -161,7 +161,7 @@
 
                             <button
                                 class="profile-list__add-element-trigger">
-                                {{ application.experience_section.add_work_label }}
+                                {{ application_template.experience_section.add_work_label }}
                             </button>
 
                         </div>
@@ -190,7 +190,7 @@
                         <div
                             class="profile-null {% if workCounter == 0 %}active{% endif %}">
 
-                            <p>{{ application.experience_section.null_work_copy }}</p>
+                            <p>{{ application_template.experience_section.null_work_copy }}</p>
 
                         </div>
 
@@ -210,7 +210,7 @@
 
                 <button
                     class="button--blue light-bg">
-                    {{ application.save_quit_button_label }}
+                    {{ application_template.save_quit_button_label }}
                 </button>
 
             </div>
@@ -220,7 +220,7 @@
 
                 <button
                     class="button--blue light-bg">
-                    {{ application.save_continue_button_label }}
+                    {{ application_template.save_continue_button_label }}
                 </button>
 
             </div>

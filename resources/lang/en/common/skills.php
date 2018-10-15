@@ -22,7 +22,7 @@ return [
             'basic' => 'Basic',
             'intermediate' => 'Intermediate',
             'advanced' => 'Advanced',
-            'expert' => 'Expert'
+            'expert' => 'Lead'
         ],
         'soft' => [
             'basic' => 'In Early Development',

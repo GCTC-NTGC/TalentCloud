@@ -21,9 +21,9 @@
 
         <div
             class="application-preview__status">
-                {% if applicant.application.citizenship != false %}
+                {% if application_template.application.citizenship != false %}
                     <i class="fas fa-check"></i>
-                    <span>{{ applicant.application.citizenship }}</span>
+                    <span>{{ application_template.application.citizenship }}</span>
                 {% else %}
                     <i class="fas fa-times"></i>
                     <span>{{ application.preview.citizenship_null_copy }}</span>
@@ -34,9 +34,9 @@
     
         <div
             class="application-preview__status">
-                {% if applicant.application.veteran != false %}
+                {% if application_template.application.veteran != false %}
                     <i class="fas fa-check"></i>
-                    <span>{{ applicant.application.veteran }}</span>
+                    <span>{{ application_template.application.veteran }}</span>
                 {% else %}
                     <i class="fas fa-times"></i>
                     <span>{{ application.preview.veteran_null_copy }}</span>
@@ -47,9 +47,9 @@
     
         <div
             class="application-preview__status">
-                {% if applicant.application.language != false %}
+                {% if application_template.application.language != false %}
                     <i class="fas fa-check"></i>
-                    <span>{{ applicant.application.language }}</span>
+                    <span>{{ application_template.application.language }}</span>
                 {% else %}
                     <i class="fas fa-times"></i>
                     <span>{{ application.preview.language_null_copy }}</span>
@@ -71,7 +71,7 @@
 
                     {% set questionCounter = 0 %}
 
-                    {% for applicantQuestion in applicant.application.questions %}
+                    {% for applicantQuestion in application_template.application.questions %}
                         {% if applicantQuestion.id == question.id %}
                             {% set questionCounter = questionCounter + 1 %} 
                             {{ applicantQuestion.answer }}
