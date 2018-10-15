@@ -1,0 +1,25 @@
+{% extends "layouts/base" %}
+
+{% block body %}
+
+	{% include "common/alert" %}
+
+    {% include "common/goc" %}
+
+    {% include "common/header" with {"header":error} %}
+
+	<section
+		class="error">
+
+		<div
+			class="container--copy">
+
+			<h1> {{ exception.getStatusCode() }} </h1>
+
+			<h2>{{ exception.getMessage() }}</h2>
+
+		</div>
+
+	</section>
+
+{% endblock %}
