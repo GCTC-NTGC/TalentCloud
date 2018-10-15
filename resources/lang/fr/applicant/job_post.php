@@ -53,6 +53,7 @@ return [
     'criteria' => [
         'sidebar_title' => 'Voir les critères pour cet emploi.',
         'title' => 'Critères',
+        'education_title' => 'Exigences d\'éducation',
         'essential_title' => 'Nécessaires d\'avoir',
         'asset_title' => 'Bon d\'avoir',
         'requirement_label' => 'Niveau requis: ',
