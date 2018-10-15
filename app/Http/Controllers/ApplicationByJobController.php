@@ -1948,7 +1948,6 @@ class ApplicationByJobController extends Controller
         //Change status to 'submitted'
         $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
 
-        //TODO: where should we redirect after submitting?
-        return redirect( route('applications.index', $jobPoster));
+        return redirect( route('job.application.complete', $jobPoster));
     }
 }
