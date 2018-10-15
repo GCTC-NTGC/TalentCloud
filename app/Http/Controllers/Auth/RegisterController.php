@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Http\Request;
 use App\Models\UserRole;
 use App\Models\Applicant;
 use Facades\App\Services\WhichPortal;
@@ -106,5 +107,18 @@ class RegisterController extends AuthController
         //     'email' => $data['email'],
         //     'password' => Hash::make($data['password']),
         // ]);
+    }
+
+    /**
+     * OVERRIDE
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        return redirect()->intended($this->redirectTo());
     }
 }

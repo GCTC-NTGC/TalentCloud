@@ -111,6 +111,26 @@
                     font-size: $font-scale--regular;
                 }
 
+                .flex-grid {
+
+                    .box {
+
+                        &:last-child {
+
+                            @media #{$p-tablet} {
+                                text-align: right;
+                            }
+
+                        }
+
+                        a {
+                            font-family: $font--sans;
+                        }
+
+                    }
+
+                }
+
             }
 
         }

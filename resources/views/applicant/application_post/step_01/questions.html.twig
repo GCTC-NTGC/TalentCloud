@@ -16,8 +16,8 @@
                 class="application-post__citizenship">
 
                 <h3>
-                    {# {{ application.citizenship_title }} #}
-                    {{ application.claim_title }}
+                    {# {{ application_template.citizenship_title }} #}
+                    {{ application_template.claim_title }}
                 </h3>
 
                 <div
@@ -26,7 +26,7 @@
                     <div
                         class="flex-grid">
 
-                        <p>{{ application.citizenship_content }}</p>
+                        <p>{{ application_template.citizenship_content }}</p>
 
                         <div
                             class="box full">
@@ -36,7 +36,7 @@
                                 <label
                                     class="form__label"
                                     for="">
-                                    {{ application.citizenship_label }}
+                                    {{ application_template.citizenship_label }}
                                 </label>
                                 <div
                                     class="form__select-wrapper fas fa-chevron-down">
@@ -46,6 +46,7 @@
                                         {% for option in citizenship_options %}
                                             <option
                                                 value="{{ option.id }}"
+                                                {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ option.value|title }}</option>
                                                 {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ citizenship_declaration_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
@@ -66,7 +67,7 @@
                 class="application-post__veterans">
 
                 {# <h3>
-                    {{ application.veterans_title }}
+                    {{ application_template.veterans_title }}
                 </h3> #}
 
                 <div
@@ -75,7 +76,7 @@
                     <div
                         class="flex-grid">
 
-                        <p>{{ application.veterans_content }}</p>
+                        <p>{{ application_template.veterans_content }}</p>
 
                         <div
                             class="box full">
@@ -85,7 +86,7 @@
                                 <label
                                     class="form__label"
                                     for="">
-                                    {{ application.veterans_label }}
+                                    {{ application_template.veterans_label }}
                                 </label>
                                 <div
                                     class="form__select-wrapper fas fa-chevron-down">
@@ -115,7 +116,7 @@
                 class="application-post__veterans">
 
                 {# <h3>
-                    {{ application.language_title }}
+                    {{ application_template.language_title }}
                 </h3> #}
 
                 <div
@@ -124,7 +125,7 @@
                     <div
                         class="flex-grid">
 
-                        <p>{{ application.language_copy }}</p>
+                        <p>{{ application_template.language_copy }}</p>
 
                         <div
                             class="box full">
@@ -134,7 +135,7 @@
                                 <label
                                     class="form__label"
                                     for="">
-                                    {{ application.language_label }}
+                                    {{ application_template.language_label }}
                                 </label>
                                 <div
                                     class="form__select-wrapper fas fa-chevron-down">
@@ -159,7 +160,7 @@
             </div>
 
         <h3>
-            {{ application.question_title }}
+            {{ application_template.question_title }}
         </h3>
 
         {% for question in job.job_poster_questions %}
@@ -177,7 +178,7 @@
                 <label
                     class="form__label"
                     for="">
-                    {{ application.question_label }}
+                    {{ application_template.question_label }}
                 </label>
                 <textarea
                     class="form__textarea"
@@ -194,7 +195,7 @@
 
                 <button
                     class="button--blue light-bg">
-                    {{ application.save_quit_button_label }}
+                    {{ application_template.save_quit_button_label }}
                 </button>
 
             </div>
@@ -204,7 +205,7 @@
 
                 <button
                     class="button--blue light-bg">
-                    {{ application.save_continue_button_label }}
+                    {{ application_template.save_continue_button_label }}
                 </button>
 
             </div>

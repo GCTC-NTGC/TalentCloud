@@ -55,7 +55,7 @@
 
                 <span
                     class="application-post__tracker-step">
-                    {{ application.tracker_label }} {{ application.step }} / 5
+                    {{ application_template.tracker_label }} {{ application_step }} / 5
                 </span>
 
                 {% for item in application_tracker.items %}
@@ -67,7 +67,7 @@
                             {% elseif item.status == "complete" %}
                                 complete
                             {% endif %}
-                            {% if item.step == application.step %}
+                            {% if item.step == application_step %}
                                 active
                             {% endif %}
                         "

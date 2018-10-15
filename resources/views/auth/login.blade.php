@@ -81,16 +81,33 @@
                             </div>
 
                             <div
-                                class="form__checkbox-wrapper">
+                                class="flex-grid">
+                                
+                                <div
+                                    class="box med-1of2">
+                                    <div
+                                        class="form__checkbox-wrapper">
 
-                                <label
-                                    class="form__label">
-                                    <input
-                                        class="form__input"
-                                        {{ old('remember') ? 'checked' : '' }}
-                                        name="remember"
-                                        type="checkbox"> Remember Me
-                                </label>
+                                        <label
+                                            class="form__label">
+                                            <input
+                                                class="form__input"
+                                                {{ old('remember') ? 'checked' : '' }}
+                                                name="remember"
+                                                type="checkbox"> Remember Me
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="box med-1of2">
+                                    <a
+                                        href="/register"
+                                        title="Register for Talent Cloud">
+                                        Register
+                                    </a>
+                                </div>
 
                             </div>
 

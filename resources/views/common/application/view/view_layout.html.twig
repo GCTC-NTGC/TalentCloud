@@ -15,10 +15,14 @@
             {% include "errors/form_errors" %}
 
             <h3>
-                Review My Application
+                {{ application_template.preview.title }}
             </h3>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet suscipit nisi, et interdum nibh vulputate quis. Etiam quis sapien sed ex placerat sodales convallis et nibh. Phasellus placerat dapibus erat, at vestibulum purus eleifend vel. Sed at orci nisl. Donec vel rutrum eros. Pellentesque quis euismod neque. Etiam ligula enim, ultrices at elementum a, pellentesque eu magna. Maecenas tempus sit amet mi at efficitur. Curabitur nisl quam, porta a pretium sit amet, consequat id tortor. Vivamus ornare nisi ipsum. Nunc placerat non eros quis dapibus. Vivamus commodo tortor odio, quis tincidunt tortor venenatis vitae.</p>
+            <p>{{ application_template.preview.copy_01 }}</p>
+
+            <p>{{ application_template.preview.copy_02 }}</p>
+
+            <p>{{ application_template.preview.copy_03|nl2br }}</p>
 
             <div
                 class="form__wrapper">
@@ -34,7 +38,7 @@
                                 <label
                                     class="form__label"
                                     for="applicationReviewSignature">
-                                    Sign (Type) Your Full Name
+                                    {{ application_template.preview.integrity_name_label }}
                                 </label>
                                 <input
                                     class="form__input"
@@ -53,7 +57,7 @@
                                 <label
                                     class="form__label"
                                     for="applicationReviewDate">
-                                    Today's Date
+                                    {{ application_template.preview.integrity_date_label }}
                                 </label>
                                 <input
                                     class="form__input"

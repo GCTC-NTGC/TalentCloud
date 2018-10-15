@@ -208,7 +208,7 @@ return [
             "01" => [
                 "title" => "Find your level: Hard Skills",
                 "copy" => [
-                    "00" => "Beginner:",
+                    "00" => "Basic:",
                     "01" => [
                         "type" => "ul",
                         "items" => [
