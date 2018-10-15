@@ -20,6 +20,10 @@ return [
             'year' => ':count year.|:count year.',
             'permanent' => 'Permanent.'
         ],
+        'remote_work_allowed' => [
+            true => 'Remote Work Allowed',
+            false => 'Remote Work Not Allowed',
+        ],
         "duration_label" => "Duration",
         "remote_label" => "Remote Work",
         "days_remaining_label" => "day until close.|days until close.",

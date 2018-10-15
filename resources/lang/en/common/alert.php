@@ -11,7 +11,7 @@ return [
      *
      */
 
-    "copy" => "This site is under construction. The jobs are not in fact real at the moment.",
+    "copy" => "This site is currently under development, along with the hiring model behind it. Expect a few glitches and bugs.",
     "feedback_copy" => "Help us improve GC Talent Cloud.",
     "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
     "feedback_link_title" => "Submit feedback to GC Talent Cloud via email.",

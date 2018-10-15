@@ -15,4 +15,5 @@ return [
     'sent' => "Votre mot de passe a été réinitialisé!",
     'token' => "Ce jeton de réinitialisation de mot de passe n'est pas valide.",
     'user' => "Nous ne pouvons trouver un utilisateur avec cette address courriel.",
+    "password_validation_label" => "Create a password that contains at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.)."
 ];

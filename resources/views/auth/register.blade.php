@@ -95,6 +95,13 @@
                                 </div>
 
                                 <div
+                                    class="box full">
+
+                                    <p>Create a password that contains at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).</p>
+
+                                </div>
+
+                                <div
                                     class="box med-1of2">
 
                                     <div

@@ -14,21 +14,10 @@
     class="application-preview__section-01">
 
     <h3>
-        Basic Information
+        {{ application_template.preview.section_01_title }}
     </h3>
 
     {# Citizenship #}
-
-        {# <div
-            class="application-preview__status">
-                {% if applicant.application.citizenship != false %}
-                    <i class="fas fa-check"></i>
-                    <span>{{ applicant.application.citizenship }}</span>
-                {% else %}
-                    <i class="fas fa-times"></i>
-                    <span>{{ application.preview.citizenship_null_copy }}</span>
-                {% endif %}
-        </div> #}
 
         <div
             class="application-preview__status">
@@ -39,22 +28,11 @@
                 </span>
             {% else %}
                 <i class="fas fa-times"></i>
-                <span>{{ application.preview.citizenship_null_copy }}</span>
+                <span>{{ application_template.preview.citizenship_null_copy }}</span>
             {% endif %}
         </div>
 
     {# Veteran Status #}
-
-        {# <div
-            class="application-preview__status">
-            {% if applicant.application.veteran != false %}
-                <i class="fas fa-check"></i>
-                <span>{{ applicant.application.veteran }}</span>
-            {% else %}
-                <i class="fas fa-times"></i>
-                <span>{{ application.preview.veteran_null_copy }}</span>
-            {% endif %}
-        </div> #}
 
         <div
             class="application-preview__status">
@@ -65,22 +43,11 @@
                 </span>
             {% else %}
                 <i class="fas fa-times"></i>
-                <span>{{ application.preview.veteran_null_copy }}</span>
+                <span>{{ application_template.preview.veteran_null_copy }}</span>
             {% endif %}
         </div>
 
     {# Language Choice #}
-
-        {# <div
-            class="application-preview__status">
-            {% if applicant.application.language != false %}
-                <i class="fas fa-check"></i>
-                <span>{{ applicant.application.language }}</span>
-            {% else %}
-                <i class="fas fa-times"></i>
-                <span>{{ application.preview.language_null_copy }}</span>
-            {% endif %}
-        </div> #}
 
         <div
             class="application-preview__status">
@@ -91,7 +58,7 @@
                 </span>
             {% else %}
                 <i class="fas fa-times"></i>
-                <span>{{ application.preview.language_null_copy }}</span>
+                <span>{{ application_template.preview.language_null_copy }}</span>
             {% endif %}
         </div>
 
@@ -109,6 +76,13 @@
                 <p>
 
                     {% set questionCounter = 0 %}
+                        
+                    {% for applicantQuestion in application_template.application.questions %}
+                        {% if applicantQuestion.id == question.id %}
+                            {% set questionCounter = questionCounter + 1 %} 
+                            {{ applicantQuestion.answer }}
+                        {% endif %}
+                    {% endfor %}
 
                     {% for userAnswer in job_application.job_application_answers %}
                         {% if userAnswer.job_poster_question.id == question.id %}
@@ -118,7 +92,7 @@
                     {% endfor %}
 
                     {% if questionCounter == 0 %}
-                        {{ application.preview.long_question_null }}
+                        {{ application_template.preview.long_question_null }}
                     {% endif %}
 
                 </p>
