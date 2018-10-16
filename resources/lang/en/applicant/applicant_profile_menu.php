@@ -26,7 +26,7 @@ return [
         "label" => "My References"
     ],
     "portfolio" => [
-        "title" => "Go to the Portfolio section of your profile.",
-        "label" => "My Portfolio"
+        "title" => "Go to the Work Samples section of your profile.",
+        "label" => "My Work Samples"
     ]
 ];
