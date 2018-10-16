@@ -18,7 +18,11 @@ return [
             'week' => ':count semaine.|:count semaines.',
             'month' => ':count mois.|:count mois.',
             'year' => ':count ans.|:count années.',
-            'permanent' => 'Permanent.'
+            'permanent' => 'Permanent.'        
+        ],
+        'remote_work_allowed' => [
+            true => 'Travail à distance autorisé',
+            false => 'travail à distance non autorisé',
         ],
         "duration_label" => "Durée",
         "remote_label" => "Travail à distance",
