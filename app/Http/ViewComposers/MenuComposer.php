@@ -43,6 +43,7 @@ class MenuComposer
                 case 'job.application.edit.3':
                 case 'job.application.edit.4':
                 case 'job.application.edit.5':
+                case 'job.application.complete':
                     $menu['items']['applications']['active'] = true;
                     break;
                 case 'profile':
