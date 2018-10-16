@@ -12,25 +12,21 @@ return [
     "items" => [
         "home" => [
             "name" => "Home",
-            //"link" => route('manager.home')
         ],
         "jobs" => [
             "name" => "My Job Posters",
-            //"link" => route('manager.jobs.index')
         ],
         "create_job" => [
             "name" => "Create Job Poster",
-            //"link" => route('manager.jobs.create')
         ],
         "profile" => [
             "name" => "My Profile",
-            //"link" => route('manager.profile')
         ],
         "faq" => [
             "name" => "FAQ"
-        ]
+        ],
     ],
     "register" => "Register",
-    "login" => "Login / Register",
+    "login" => "Login",
     "logout" => "Logout",
 ];
