@@ -56,7 +56,10 @@ class RegisterController extends AuthController
      */
     public function showRegistrationForm()
     {
-        return view('auth.register', ['routes' => $this->auth_routes()]);
+        return view('auth.register', [
+            'routes' => $this->auth_routes(),
+            'register_template' => Lang::get('common/auth/register'),
+        ]);
     }
 
     /**
