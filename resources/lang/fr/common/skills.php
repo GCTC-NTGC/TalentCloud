@@ -13,8 +13,12 @@ return [
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
     'level_label' => 'Mon niveau de compétence',
+    'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
+    'level_link_label' => '(Trouvez votre niveau de compétence)',
     'knowledge_label' => 'Ma connaissance',
+     'skill_status_null_label' => 'Statut: compétence pas ajouté',
     'skill_status_label' => 'Statut: compétence',
+    'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',
     'skill_levels' => [
         'hard' => [
             'basic' => 'Débutant',
@@ -29,6 +33,7 @@ return [
             'expert' => 'Démonstration à un niveau profond'
         ],
     ],
+    'skill_description_null' => 'Vous n\'avez pas encore décrit comment cette compétence s\'applique à vous.',
     'action_01' => 'Supprimer cette compétence',
     'action_02' => 'Enregistrer cette compétence',
     'skills' => [
