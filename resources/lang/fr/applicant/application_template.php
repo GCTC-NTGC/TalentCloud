@@ -13,6 +13,7 @@ return [
     "job_context_copy" => "Vous postulez pour:",
     "save_quit_button_label" => "Sauvegarder et quitter",
     "save_continue_button_label" => "Sauvegarder & continuer",
+    "submit_button_label" => "Soumettre",
 
     /* Modals */
         "modals" => [
