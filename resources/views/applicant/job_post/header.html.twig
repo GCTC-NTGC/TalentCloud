@@ -19,13 +19,11 @@
                 <p
                     class="job-post__header-meta">
                     <span>
-                        {% set diffTime = date(job.close_date_time).diff(date()) %}
-                        {{ job_post.header.days_remaining|trans_choice(diffTime.days) }}
+                        {{ job_post.header.days_remaining|trans_choice(job.days_remaining) }}
                     </span>
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>
-                        {% set applicantCount = job.job_applications|length %}
-                        {{ job_post.header.applicants_so_far|trans_choice(applicantCount) }}
+                        {{ job_post.header.applicants_so_far|trans_choice(job.applicant_count) }}
                     </span>
                 </p>
 
