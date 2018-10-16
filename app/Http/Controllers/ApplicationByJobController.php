@@ -313,9 +313,8 @@ class ApplicationByJobController extends Controller
 
             $application = $this->getApplicationFromJob($jobPoster);
 
-            //Ensure user has permissions to view and update application
+            //Ensure user has permissions to view application
             $this->authorize('view', $application);
-            $this->authorize('update', $application);
 
         /* Return the Completion View */
 
