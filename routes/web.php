@@ -39,6 +39,8 @@ Route::group(['domain' => config('app.applicant_domain'),
     /* Require being logged in as applicant */
     Route::middleware(['auth', 'role:applicant'])->group(function() {
 
+        //Application permissions are handled within the controller instead of with middleware
+
         /* Applications */
         Route::get('applications', 'ApplicationController@index')->name('applications.index');
 

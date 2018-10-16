@@ -12,26 +12,21 @@ return [
     "items" => [
         "home" => [
             "name" => "Accueil",
-            //"link" => route('home')
         ],
-        "browse" => [
+        "jobs" => [
             "name" => "Parcourir les emplois",
-            //"link" => route('jobs.index')
         ],
         "applications" => [
             "name" => "Mes applications",
-            // //"link" => route('application.index')
-            //"link" => "/applications/"
         ],
         "profile" => [
             "name" => "Mon profil",
-            //"link" => route('profile')
         ],
         "faq" => [
             "name" => "FAQ"
-        ]
+        ],
     ],
     "register" => "Inscription",
-    "login" => "Ouverture de session / Inscription",
+    "login" => "Ouverture de session",
     "logout" => "Se déconnecter",
 ];

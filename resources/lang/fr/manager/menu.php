@@ -8,35 +8,26 @@ return [
      * The following language lines are used in the nav menu.
      *
      */
-    "home" => [
-        "name" => "Accueil",
-        //"link" => route('manager.home')
+    "items" => [
+        "home" => [
+            "name" => "Accueil",
+        ],
+        "jobs" => [
+            "name" => "Mes affiches d\'emploi",
+        ],
+        "create_job" => [
+            "name" => "Créer une affiche d\'emploi",
+        ],
+        "profile" => [
+            "name" => "Mon profile",
+        ],
+        "faq" => [
+            "name" => "FAQ"
+        ],
     ],
-    "jobs" => [
-        "name" => "Mes affiches d\'emploi",
-        //"link" => route('manager.jobs.index')
-    ],
-    "create_job" => [
-        "name" => "Créer une affiche d\'emploi",
-        //"link" => route('manager.jobs.create')
-    ],
-    "profile" => [
-        "name" => "Mon profile",
-        //"link" => route('manager.profile')
-    ],
-    "faq" => [
-        "name" => "FAQ"
-    ]
-    "register" => [
-        "name" => "Inscription",
-        //"link" => route('manager.register')
-    ],
-    "login" => [
-        "name" => "Ouvrir une session (Compte GCcollab)",
-        //"link" => route('manager.login')
-    ],
-    "logout" => [
-        "name" => "Déconnexion",
-        //"link" => route('manager.logout')
-    ]
+    "register" => "Inscription",
+
+    "login" => "Ouvrir une session (Compte GCcollab)",
+
+    "logout" => "Déconnexion",
 ];
