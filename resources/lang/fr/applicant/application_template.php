@@ -3,7 +3,7 @@
 return [
     /*
     * --------------------------------------------------------------------------
-    * Application Process Language Lines
+    * French Application Process Language Lines
     * --------------------------------------------------------------------------
     *
     * The following language lines are used in the application process.
@@ -105,70 +105,70 @@ return [
         ],
 
     /* Step 03/04 */
-        "sidebar_item_title" => "Scroll to this skill.",
+        "sidebar_item_title" => "Faites défiler jusqu'à cette compétence",
         "skills_section" => [
-            "essential_title" => "Need to Have",
-            "asset_title" => "Nice to Have",
-            "add_button_label" => "Add Skill",
-            "null_copy" => "You don't currently have any skills on your profile! Use the button above to add a skill."
+            "essential_title" => "Nécessaire d'avoir",
+            "asset_title" => "Bon d'avoir",
+            "add_button_label" => "Ajouter une compétence",
+            "null_copy" => "Vous n'avez actuellement aucune compétence sur votre profil. Utilisez le bouton ci-dessus pour ajouter une compétence."
         ],
-        "essential_title" => "Skills You Need to Have",
-        "asset_title" => "Skills That Are Nice to Have",
+        "essential_title" => "Les compétences que vous devez avoir",
+        "asset_title" => "Des compétences qu'il est bon d'avoir",
         "essential_context" => "Le poste auquel vous êtes sur le point de postuler requiert les compétences suivantes. Oui, vraiment, toutes. Chacune au niveau minimum d’expertise précisé par le responsable du recrutement. Même si vous êtes incroyable et qu'il ne vous manque qu'une de ces compétences, on ne tiendra pas compte de votre candidature dans le cadre de ce poste. Vous devez également fournir des preuves de toute revendication de compétence que vous faites qui font partie d'un dossier gouvernemental. Donc, ne soyez pas tenté(e) d’étirer la vérité juste pour postuler. Vous êtes meilleur(e) que ça. Gagnez du temps et envisagez plutôt de postuler pour autre chose.",
         "asset_context" => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
-        "essential_start_button_title" => "Scroll to begin filling out the skills you need to have.",
-        "asset_start_button_title" => "Scroll to begin filling out the skills that are nice to have.",
-        "skills_start_button_label" => "Get Started",
-        "essential_sidebar_label" => "Skills Checklist",
-        "asset_sidebar_label" => "Skills Checklist",
+        "essential_start_button_title" => "Faites défiler pour commencer à remplir les compétences que vous devez avoir.",
+        "asset_start_button_title" => "Faites défiler pour commencer à remplir les compétences qu'il est bon d'avoir.",
+        "skills_start_button_label" => "Commencer",
+        "essential_sidebar_label" => "Liste de compétences",
+        "asset_sidebar_label" => "Liste de compétences",
 
     /* Step 05 */
         "preview" => [
-            "title" => "Review My Application",
+            "title" => "Revoir ma candidature",
             "copy_01" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
             "copy_02" => "En signant votre nom ci-dessous, vous confirmez:",
             "copy_03" => "J'ai examiné ce que j'ai écrit dans ma candidature.\nJe comprends que je fais partie d'une collectivité de gens qui se font confiance.\nJe jure que l’information que je fournis est vraie.",
-            "integrity_name_label" => "Sign (Type) Your Full Name",
-            "integrity_date_label" => "Today's Date",
+            "integrity_name_label" => "Signez (tapez) votre nom complet",
+            "integrity_date_label" => "La date d'aujourd'hui",
             "sidebar" => [
-                "label" => "Application Sections",
-                "item_01" => "Basic Information",
-                "item_02" => "My Experience",
-                "item_03" => "Skills I Need to Have",
-                "item_04" => "Skills That Are Nice to Have",
-                "item_05" => "Submit"
+                "label" => "Sections d'application",
+                "item_01" => "Renseignements généraux",
+                "item_02" => "Mon expérience",
+                "item_03" => "Les compétences que vous devez avoir",
+                "item_04" => "Des compétences qu'il est bon d'avoir",
+                "item_05" => "Soumettre"
             ],
-            "section_01_title" => "Basic Information",
-            "citizenship_null_copy" => "No Citizenship Selected",
-            "veteran_null_copy" => "No Veteran Status Selected",
-            "language_null_copy" => "No Language Selected",
-            "long_question_null" => "This question has not been answered.",
-            "section_02_title" => "My Experience",
+            "section_01_title" => "Renseignements généraux",
+            "citizenship_null_copy" => "Aucun statut de citoyenneté sélectionné",
+            "veteran_null_copy" => "Aucun statut de vétéran sélectionné",
+            "language_null_copy" => "Aucune langue sélectionnée",
+            "long_question_null" => "Cette question n'a pas de réponse.",
+            "section_02_title" => "Mon expérience",
             "experience" => [
-                "requirement_label" => "Experience required for this position:",
-                "degree_label" => "My Diplomas / Degrees",
-                "null_degree_copy" => "You have no diplomas or degrees added to your profile.",
-                "course_label" => "My Courses / Certifications",
-                "null_course_copy" => "You have no courses or certifications added to your profile.",
-                "work_label" => "My Equivalent Experience",
-                "null_work_copy" => "You have no lived experience added to your profile."
+                "requirement_label" => "Expérience nécessaire pour ce poste:",
+                "degree_label" => "Mes diplômes et diplômes universitaires",
+                "null_degree_copy" => "Vous n'avez actuellement aucun diplôme sur votre profil.",
+                "course_label" => "Mes cours et certifications",
+                "null_course_copy" => "Vous n'avez actuellement aucun cours ou certification sur votre profil.",
+                "work_label" => "Mon expérience équivalente",
+                "null_work_copy" => "Vous n'avez actuellement aucune expérience équivalente listée dans votre profil."
             ],
-            "section_03_title" => "Skills I Need to Have",
-            "section_04_title" => "Skills That Are Nice to Have"
+            "section_03_title" => "Les compétences que vous devez avoir",
+            "section_04_title" => "Des compétences qu'il est bon d'avoir"
         ],
 
     /* Step 06 (Complete) */
         "complete" => [
-            "title" => "Thanks for applying!",
-            "copy_01" => "Talent Cloud is an experimental site. Please help us improve the federal staffing process by completing a short experience survey. This information will be anonymous and go directly towards helping us improve the platform!",
+            "title" => "Merci d'avoir postulé!",
+            "copy_01" => "Talent Cloud est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
             "survey_link" => "GOOGLE",
-            "survey_title" => "Take the survey.",
-            "survey_label" => "Take the Survey",
-            "copy_02" => "Curious about what's next for your application? Learn more about the staffing process in our FAQ",
-            "return_title" => "Go to the Talent Cloud homepage.",
-            "return_label" => "Return Home",
-            "faq_title" => "Go to the Talent Cloud FAQ.",
-            "faq_label" => "View the FAQ"
+            "survey_title" => "Participer à l'enquête.",
+            "survey_label" => "Participer à l'enquête",
+            "copy_02" => "Curieux de savoir quelle est la prochaine étape pour votre application?Pour en savoir plus sur le processus de dotation, consultez notre page foire aux questions.",
+            "return_title" => "Aller à la page d'accueil de Nuage de talents.",
+            "return_label" => "Retour à la page d'accueil",
+            "faq_title" => "Accéder à la foire aux questions du Talent Cloud.",
+            "faq_label" => "Voir la foire aux questions"
         ]
 
 ];
