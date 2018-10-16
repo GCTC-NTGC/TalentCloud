@@ -49,7 +49,7 @@ return [
         ],
         "delete_work_experience" => [
             "type" => "deleteConfirmation",
-            "title" => "Supprimer cette expérience vécue?",
+            "title" => "Supprimer cette expérience équivalente?",
             "content" => [
                 "00" => "Êtes-vous sûr de vouloir supprimer définitivement cette expérience équivalente de votre profil?",
                 "01" => "Toutes les applications soumises précédemment conserveront cette expérience équivalente."
