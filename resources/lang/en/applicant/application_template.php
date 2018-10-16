@@ -43,7 +43,7 @@ return [
                 "type" => "confirmation",
                 "title" => "Delete this Lived Experience?",
                 "content" => [
-                    "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
+                    "00" => "Are you sure you want to permanently delete this equivalent experience from your profile?",
                     "01" => "All previously submitted applications will retain this experience."
                 ],
                 "id" => "deleteWork",
@@ -102,7 +102,7 @@ return [
             "null_course_copy" => "You don't currently have any courses or certifications on your profile! Use the button above to add one.",
             "section_work_title" => "My Lived Experience",
             "add_work_label" => "Add Lived Experience",
-            "null_work_copy" => "You don't currently have any lived experience on your profile! Use the button above to add some.",
+            "null_work_copy" => "You don't currently have any equivalent experience on your profile! Use the button above to add some.",
         ],
 
     /* Step 03/04 */
@@ -152,7 +152,7 @@ return [
                 "course_label" => "My Courses / Certifications",
                 "null_course_copy" => "You have no courses or certifications added to your profile.",
                 "work_label" => "My Equivalent Experience",
-                "null_work_copy" => "You have no lived experience added to your profile."
+                "null_work_copy" => "You have no equivalent experience added to your profile."
             ],
             "section_03_title" => "Skills I Need to Have",
             "section_04_title" => "Skills That Are Nice to Have"
