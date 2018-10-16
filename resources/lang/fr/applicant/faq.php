@@ -111,11 +111,11 @@ return [
                             "00" => "Secrétariat du Conseil du Trésor (ministère hôte)",
                             "01" => "Emploi et Développement social Canada",
                             "02" => "Environnement et Changement climatique Canada",
-                            "03" => "Défense nationale",
+                            "03" => "Ressources naturelles Canada",
                             "04" => "Transports Canada",
                             "05" => "Affaires mondiales Canada",
                             "06" => "Agence des services frontaliers du Canada",
-                            "07" => "Commission des champs de bataille nationaux",
+                            "07" => "Pêches et Océans Canada",
                             "08" => "Innovation, Sciences et Développement économique Canada",
                             "09" => "Services publics et Approvisionnement Canada"
                         ]
