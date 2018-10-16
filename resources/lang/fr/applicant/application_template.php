@@ -9,99 +9,99 @@ return [
     * The following language lines are used in the application process.
     *
     */
-    "title" => "Apply Now",
-    "job_context_copy" => "You are applying for:",
-    "save_quit_button_label" => "Save & Quit",
-    "save_continue_button_label" => "Save & Continue",
+    "title" => "Postuler maintenant",
+    "job_context_copy" => "Vous postulez pour:",
+    "save_quit_button_label" => "Sauvegarder et quitter",
+    "save_continue_button_label" => "Sauvegarder & continuer",
 
     /* Modals */
         "modals" => [
             "00" => [
-                "type" => "confirmation",
-                "title" => "Delete this Diploma/Degree?",
+            "type" => "deleteConfirmation",
+            "title" => "Supprimer ce diplôme?",
                 "content" => [
-                    "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
-                    "01" => "All previously submitted applications will retain this experience."
+                "00" => "Êtes-vous certain de vouloir supprimer définitivement ce diplôme de votre profil?",
+                "01" => "Toutes les applications soumises précédemment conserveront cette expérience."
                 ],
                 "id" => "deleteDegree",
-                "action_01" => "Cancel",
-                "action_02" => "Delete"
+                "action_01" => "Annuler",
+                "action_02" => "Supprimer"
             ],
             "01" => [
                 "type" => "confirmation",
-                "title" => "Delete this Course/Certification?",
+                "title" => "Supprimer ce cours ou certification?",
                 "content" => [
-                    "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
-                    "01" => "All previously submitted applications will retain this experience."
+                "00" => "Êtes-vous sûr de vouloir supprimer définitivement ce cours ou cette certification de votre profil?",
+                "01" => "Toutes les applications soumises précédemment conserveront cette expérience."
                 ],
                 "id" => "deleteCourse",
-                "action_01" => "Cancel",
-                "action_02" => "Delete"
+                "action_01" => "Annuler",
+                "action_02" => "Supprimer"
             ],
             "02" => [
                 "type" => "confirmation",
-                "title" => "Delete this Lived Experience?",
+                "title" => "Supprimer cette expérience équivalente?",
                 "content" => [
-                    "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
-                    "01" => "All previously submitted applications will retain this experience."
+                "00" => "Êtes-vous sûr de vouloir supprimer définitivement cette expérience équivalente de votre profil?",
+                "01" => "Toutes les applications soumises précédemment conserveront cette expérience équivalente."
                 ],
                 "id" => "deleteWork",
-                "action_01" => "Cancel",
-                "action_02" => "Delete"
+                "action_01" => "Annuler",
+                "action_02" => "Supprimer"
             ],
             "03" => [
                 "type" => "createReference",
-                "title" => "Create a New Reference",
+                "title" => "Créer une nouvelle référence",
                 "content" => [
-                    "00" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process."
+                    "00" => "En soumettant une référence, vous acceptez d'avoir préalablement demandé l'autorisation de fournir leurs informations. Veuillez noter que toutes les informations fournies dans une référence peuvent être envoyées à votre référence lors d'un processus d'embauche."
                 ],
                 "id" => "createReference",
-                "action_01" => "Cancel",
-                "action_02" => "Save"
+                "action_01" => "Annuler",
+                "action_02" => "Enregistrer"
             ],
             "04" => [
                 "type" => "createSample",
-                "title" => "Create a New Work Sample",
+                "title" => "Ajouter un nouvel échantillon de travail",
                 "content" => [
                 ],
                 "id" => "createSample",
-                "action_01" => "Cancel",
-                "action_02" => "Save"
+                "action_01" => "Annuler",
+                "action_02" => "Enregistrer"
             ]
         ],
 
     /* Step 01 */
-        "question_label" => "Your Answer",
-        "question_title" => "My Fit",
-        "claim_title" => "Basic Information",
-        "language_title" => "Language Selection",
-        "language_copy" => "Which language would you prefer for this application process?",
-        "language_label" => "Select One",
-        "citizenship_title" => "Citizenship Claim",
-        "citizenship_content" => "Which of the following applies to you?",
-        "citizenship_label" => "Select One",
-        "veterans_title" => "Veterans Claim",
-        "veterans_content" => "Are you a veteran or a member of the Canadian Armed Forces?",
-        "veterans_label" => "Select One",
-        "language_title" => "Language Requirement",
-        "language_copy" => "Which language would you prefer for this application process?",
-        "language_label" => "Select One",
+        "question_label" => "Votre réponse",
+        "question_title" => "Ma compatibilité",
+        "claim_title" => "Renseignements généraux",
+        "language_title" => "Sélection de la langue",
+        "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
+        "language_label" => "En choisir un",
+        "citizenship_title" => "Statut de citoyenneté",
+        "citizenship_content" => "Lequel des cas suivants s'applique à vous?",
+        "citizenship_label" => "En choisir un",
+        "veterans_title" => "Statut Vétéran",
+        "veterans_content" => "Êtes-vous membre des Forces armées canadiennes?",
+        "veterans_label" => "En choisir un",
+        "language_title" => "Exigence linguistique",
+        "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
+        "language_label" => "En choisir un",
 
     /* Step 02 */
         "experience" => [
-            "title" => "My Experience",
+            "title" => "Mon expérience",
             "description" => "Le poste auquel vous êtes sur le point de postuler requiert les études ou l'expérience minimales suivantes. Vous ne pouvez pas être considéré(e) pour ce travail à moins que vous ayez celles-ci, même si vous êtes vraiment génial(e). Les gestionnaires ne sont pas autorisés à vous engager pour cet emploi dans cette classification sans cette éducation ou cette expérience."
         ],
         "experience_section" => [
-            "section_degree_title" => "My Diplomas/Degrees",
-            "add_degree_label" => "Add Diploma/Degree",
-            "null_degree_copy" => "You don't currently have any diplomas or degrees on your profile! Use the button above to add one.",
-            "section_course_title" => "My Courses/Certifications",
-            "add_course_label" => "Add Course/Certification",
-            "null_course_copy" => "You don't currently have any courses or certifications on your profile! Use the button above to add one.",
-            "section_work_title" => "My Lived Experience",
-            "add_work_label" => "Add Lived Experience",
-            "null_work_copy" => "You don't currently have any lived experience on your profile! Use the button above to add some.",
+            "section_degree_title" => "Mes diplômes et diplômes universitaires",
+            "add_degree_label" => "Ajouter un diplôme",
+            "null_degree_copy" => "Vous n'avez actuellement aucun diplôme sur votre profil. Utilisez le bouton ci-dessus pour en ajouter un.",
+            "section_course_title" => "Mes cours et certifications",
+            "add_course_label" => "Ajouter un cours ou certification",
+            "null_course_copy" => "Vous n'avez actuellement aucun cours ou certification sur votre profil. Utilisez le bouton ci-dessus pour en ajouter un.",
+            "section_work_title" => "Mon expérience équivalente",
+            "add_work_label" => "Ajouter une expérience équivalente",
+            "null_work_copy" => "Vous n'avez actuellement aucune expérience équivalente listée dans votre profil. Utilisez le bouton ci-dessus pour en ajouter un.",
         ],
 
     /* Step 03/04 */
