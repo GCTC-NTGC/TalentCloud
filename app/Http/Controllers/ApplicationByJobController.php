@@ -74,11 +74,9 @@ class ApplicationByJobController extends Controller
 
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //This is an alternative way of using policies instead of via middleware
-        if (!Auth::user()->can('view', $application) ||
-            !Auth::user()->can('update', $application)) {
-            abort(401);
-        }
+        //Ensure user has permissions to view and update application
+        $this->authorize('view', $application);
+        $this->authorize('update', $application);
 
         return view('applicant/application_post_01', [
 
@@ -119,6 +117,10 @@ class ApplicationByJobController extends Controller
 
         $application = $this->getApplicationFromJob($jobPoster);
 
+        //Ensure user has permissions to view and update application
+        $this->authorize('view', $application);
+        $this->authorize('update', $application);
+
         return view('applicant/application_post_02', [
 
             /* Application Template Data */
@@ -152,6 +154,10 @@ class ApplicationByJobController extends Controller
 
         $application = $this->getApplicationFromJob($jobPoster);
 
+        //Ensure user has permissions to view and update application
+        $this->authorize('view', $application);
+        $this->authorize('update', $application);
+
         $criteria = [
             'essential' => $jobPoster->criteria->filter(function($value, $key) {
                 return $value->criteria_type->name == 'essential';
@@ -162,7 +168,7 @@ class ApplicationByJobController extends Controller
         ];
 
         return view('applicant/application_post_03', [
-            
+
             /* Application Template Data */
                 "application_step" => 3,
                 "application_template" => Lang::get("applicant/application_template"),
@@ -198,6 +204,10 @@ class ApplicationByJobController extends Controller
         $applicant = Auth::user()->applicant;
 
         $application = $this->getApplicationFromJob($jobPoster);
+
+        //Ensure user has permissions to view and update application
+        $this->authorize('view', $application);
+        $this->authorize('update', $application);
 
         $criteria = [
             'essential' => $jobPoster->criteria->filter(function($value, $key) {
@@ -243,6 +253,13 @@ class ApplicationByJobController extends Controller
         $applicant = Auth::user()->applicant;
 
         $application = $this->getApplicationFromJob($jobPoster);
+
+        //TODO: Right now preview can't have the update gate, because we use the
+            //  same view for viewing even after its been submitted. These should
+            //  be seperate views, and then Preview can require the update permission.
+        //Ensure user has permissions to view and update application
+        $this->authorize('view', $application);
+        //$this->authorize('update', $application);
 
         $criteria = [
             'essential' => $jobPoster->criteria->filter(function($value, $key) {
@@ -296,6 +313,9 @@ class ApplicationByJobController extends Controller
 
             $application = $this->getApplicationFromJob($jobPoster);
 
+            //Ensure user has permissions to view application
+            $this->authorize('view', $application);
+
         /* Return the Completion View */
 
             return view('applicant/application_post_complete', [
@@ -326,6 +346,9 @@ class ApplicationByJobController extends Controller
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+
+        //Ensure user has permissions to update this application
+        $this->authorize('update', $application);
 
         $application->fill([
             'citizenship_declaration_id' => $input['citizenship_declaration_id'],
@@ -368,11 +391,9 @@ class ApplicationByJobController extends Controller
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: save stuff to application
+        //Ensure user has permissions to update this application
+        $this->authorize('update', $application);
 
-        //TODO: Note from Tristan: I did test this function, and it works as I expect,
-        //TODO:     saving new/updated degrees, courses and work experiences
-        //TODO:     to the profile.
         $degrees = $input['degrees'];
 
         //Save new degrees
@@ -505,11 +526,8 @@ class ApplicationByJobController extends Controller
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: save stuff to application
-
-        //TODO: Note from Tristan: I haven't tested this. This was copied from the SkillsController.
-        //TODO: But for now, if we're just updating the Applicant's Profile through this page,
-        //TODO: then this same code, or something very close, should work.
+        //Ensure user has permissions to update this application
+        $this->authorize('update', $application);
 
         $skillDeclarations = $input['skill_declarations'];
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
@@ -579,11 +597,8 @@ class ApplicationByJobController extends Controller
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: save stuff to application
-
-        //TODO: Note from Tristan: I haven't tested this. This was copied from the SkillsController.
-        //TODO: But for now, if we're just updating the Applicant's Profile through this page,
-        //TODO: then this same code, or something very close, should work.
+        //Ensure user has permissions to update this application
+        $this->authorize('update', $application);
 
         $skillDeclarations = $input['skill_declarations'];
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
@@ -665,6 +680,9 @@ class ApplicationByJobController extends Controller
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
+
+        //Ensure user has permissions to update this application
+        $this->authorize('update', $application);
 
         //Save any final info
         $application->fill([
