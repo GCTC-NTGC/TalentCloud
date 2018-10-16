@@ -40,7 +40,7 @@ return [
     "team_button_gccollab_link" => "https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent",
     "team_button_gccollab_title" => "Visit the team on GCcollab.",
     "team_button_gccollab_label" => "GCcollab",
-    "team_button_twitter_link" => "https://twitter.com/TalentCloudGC",
+    "team_button_twitter_link" => "https://twitter.com/GC_Talent",
     "team_button_twitter_title" => "Visit the team on Twitter.",
     "team_button_twitter_label" => "Twitter",
     "team_button_email_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
