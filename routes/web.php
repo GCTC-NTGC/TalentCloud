@@ -159,12 +159,25 @@ Route::group(['domain' => config('app.applicant_domain'),
     });
 
     /* Static - FAQ */
-
         Route::get('faq', function () {
             return view('applicant/static_faq', [
                 'faq' => Lang::get('applicant/faq')
             ]);
         })->name('faq');
+
+    /* Static - Privacy Policy */
+        Route::get('privacy', function () {
+            return view('common/static_privacy', [
+                'privacy' => Lang::get('common/privacy')
+            ]);
+        })->name('privacy');
+
+    /* Static - Terms of Service */
+        Route::get('tos', function () {
+            return view('common/static_tos', [
+                'tos' => Lang::get('common/tos')
+            ]);
+        })->name('tos');
 
     /* Static - Credentialing */
 
