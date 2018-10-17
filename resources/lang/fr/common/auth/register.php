@@ -3,19 +3,19 @@
 return [
     /*
      * --------------------------------------------------------------------------
-     * Register Language Lines
+     * French Register Language Lines
      * --------------------------------------------------------------------------
      *
      * The following language lines are used on the register page
      *
      */
-    
-    'title' => 'Register for Talent Cloud',
-    'return' => "Return Home",
-    'name' => 'Name',
-    'email' => 'E-Mail Address',
-    'password_copy' => 'Create a password that contains at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).',
-    'password' => 'Mot de Passe',
-    'confirm_password' => 'Confirm Password',
-    'register' => 'Register',
+
+    'title' => 'Inscrivez-vous pour le Nuage de talents',
+    'return' => "Retour à la page d'accueil",
+    'name' => 'Prénom et nom',
+    'email' => 'Courriel',
+    'password_copy' => 'Créez un mot de passe contenant au moins un caractère de chacune des catégories suivantes: caractères minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!!). , etc.).',
+    'password' => 'Mot de passe',
+    'confirm_password' => 'Confirmez le mot de passe',
+    'register' => 'S\'inscrire',
 ];

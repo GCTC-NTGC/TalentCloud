@@ -3,19 +3,19 @@
 return [
     /*
      * --------------------------------------------------------------------------
-     * Login Language Lines
+     * French Login Language Lines
      * --------------------------------------------------------------------------
      *
      * The following language lines are used on the login page
      *
      */
-    
-    'title' => 'Login to Talent Cloud',
-    'return' => "Return Home",
-    'email' => 'E-Mail Address',
+
+    'title' => 'Overture de session pour le Nuage de talents',
+    'return' => "Retour à la page d'accueil",
+    'email' => 'Courriel',
     'password' => 'Mot de Passe',
-    'register' => 'Register',
-    'remember_me' => 'Remember Me',
-    'forgot_password' => 'Forgot Password',
-    'login' => 'Login',   
+    'register' => 'Inscription',
+    'remember_me' => 'Se souvenir de moi',
+    'forgot_password' => 'Mot de passe oublié',
+    'login' => 'Ouvrir la session',
 ];
