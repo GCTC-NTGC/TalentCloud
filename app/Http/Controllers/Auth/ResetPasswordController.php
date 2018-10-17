@@ -55,10 +55,12 @@ class ResetPasswordController extends AuthController
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email,
-            'routes' => $this->auth_routes()]
-        );
+        return view('auth.passwords.reset')->with([
+            'token' => $token, 
+            'email' => $request->email,
+            'routes' => $this->auth_routes(),
+            'reset_password_template' => Lang::get('common/auth/reset_password'),
+        ]);
     }
 
     /**

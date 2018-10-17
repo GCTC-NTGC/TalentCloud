@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use Facades\App\Services\WhichPortal;
 
@@ -65,7 +66,10 @@ class LoginController extends AuthController
      */
     public function showLoginForm()
     {
-        return view('auth.login', ['routes' => $this->auth_routes()]);
+        return view('auth.login', [
+            'routes' => $this->auth_routes(),
+            'login_template' => Lang::get('common/auth/login'),
+        ]);
     }
 
     /**
