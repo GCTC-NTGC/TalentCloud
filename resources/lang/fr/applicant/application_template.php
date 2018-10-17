@@ -15,6 +15,11 @@ return [
     "save_continue_button_label" => "Sauvegarder & continuer",
     "submit_button_label" => "Soumettre",
 
+    /* Tracker */
+        "tracker_label" => "Étape",
+        "tracker_previous_label" => "Précédente",
+        "tracker_next_label" => "Suivante",
+
     /* Modals */
         "modals" => [
             "00" => [

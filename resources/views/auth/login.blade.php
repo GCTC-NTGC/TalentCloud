@@ -81,10 +81,10 @@
                             </div>
 
                             <div
-                                class="flex-grid">
+                                class="flex-grid middle">
                                 
                                 <div
-                                    class="box med-1of2">
+                                    class="box small-1of2">
                                     <div
                                         class="form__checkbox-wrapper">
 
@@ -101,7 +101,7 @@
                                 </div>
 
                                 <div
-                                    class="box med-1of2">
+                                    class="box small-1of2">
                                     <a
                                         href="/register"
                                         title="Register for Talent Cloud">

@@ -30,29 +30,87 @@
         top: 0;
         left: 0;
         width: 100%;
+        z-index: 4;
     }
 
-    >.container--layout {
-        position: relative;
+    .application-post__tracker-button {
+        background: none;
+        border: none;
+        color: $palette--white;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        padding: 0 2rem;
+        position: absolute;
+        top: 50%;
+        text-decoration: none;
+        z-index: 6;
 
-        >.flex-grid {
+        span {
+            display: none;
 
-            >.box {
-                padding: calc(#{$unit} * 1.5) 0;
+            @media #{$p-tablet} {
+                display: inline-block;
+            }
 
-                &:last-child {
-                    text-align: center;
+        }
 
-                    @media #{$l-tablet} {
-                        text-align: right;
-                    }
+        i {
+            transform: translate(0, 0);
+            transition: all .2s ease;
+        }
 
+        &:hover {
+
+            &.previous {
+                    
+                i {
+                    transform: translate(-50%, 0);
+                    transition: all .2s ease;
+                }
+
+            }
+
+            &.next {
+                
+                i {
+                    transform: translate(50%, 0);
+                    transition: all .2s ease;
                 }
 
             }
 
         }
 
+        &.previous {
+            left: 0;
+            transform: translate(0, -50%);
+
+            span {
+                margin: 0 0 0 .5rem;
+            }
+
+        }
+
+        &.next {
+            right: 0;
+            transform: translate(0, -50%);
+
+            span {
+                margin: 0 .5rem 0 0;
+            }
+
+        }
+
+    }
+
+    .application-post__step-wrapper {
+        display: block;
+        padding: 1rem 0;
+        position: relative;
+        text-align: center;
+        width: 100%;
+        z-index: 5;
     }
 
     .application-post__tracker-user-photo {

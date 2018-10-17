@@ -116,15 +116,12 @@
                     .box {
 
                         &:last-child {
-
-                            @media #{$p-tablet} {
-                                text-align: right;
-                            }
-
+                            text-align: right;
                         }
 
                         a {
                             font-family: $font--sans;
+                            font-size: $font-scale--regular;
                         }
 
                     }

@@ -48,8 +48,14 @@
 
                     a {
                         color: $palette--font-white;
+                        display: inline-block;
                         font-family: $font--sans;
                         font-size: $font-scale--regular;
+                        padding: 1rem;
+
+                        @media #{$p-tablet} {
+                            padding: 0;
+                        }
 
                         &:hover {
                             color: $palette--blue;

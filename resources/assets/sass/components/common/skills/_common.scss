@@ -10,6 +10,11 @@
         .profile-list__header {
 
             .box {
+                text-align: center;
+
+                @media #{$p-tablet} {
+                    text-align: left;
+                }
 
                 h3 {
                     color: $palette--black;
@@ -18,7 +23,12 @@
                     font-weight: 400;
                     margin: 0;
                     padding: 0;
-                    text-align: left;
+                    text-align: center;
+
+                    @media #{$p-tablet} {
+                        text-align: left;
+                    }
+
                 }
 
                 button {
@@ -31,11 +41,16 @@
                     font-family: $font--sans;
                     font-size: $font-scale--regular;
                     font-weight: 400;
+                    margin: 2rem 0 0 0;
                     outline: none;
                     padding: $unit calc(#{$unit} * 2);
                     text-decoration: none;
                     color: $palette--font-white;
                     transition: none;
+
+                    @media #{$p-tablet} {
+                        margin: 0;
+                    }
 
                     &:focus,
                     &:hover {
