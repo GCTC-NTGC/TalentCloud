@@ -18,8 +18,8 @@ RUN apk update && apk upgrade && \
         imagemagick-dev && \
         pecl install imagick && \
         docker-php-ext-enable imagick && \
-            # pecl install xdebug && \
-            # docker-php-ext-enable xdebug && \
+        pecl install xdebug && \
+        docker-php-ext-enable xdebug && \
         docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
         docker-php-ext-install pgsql pdo_pgsql && \
     apk del .build-dependencies && \
