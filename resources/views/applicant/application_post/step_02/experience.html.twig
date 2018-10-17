@@ -60,7 +60,7 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set degreeCounter = 0 %}
@@ -119,7 +119,7 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set courseCounter = 0 %}
@@ -178,7 +178,7 @@
 
                 {# Profile Element List #}
 
-                    <div 
+                    <div
                         class="profile-element-list">
 
                         {% set workCounter = 0 %}
@@ -209,21 +209,27 @@
         <div
             class="flex-grid middle application-post__action-wrapper">
 
-            <div 
+            <div
                 class="box med-1of2">
 
                 <button
-                    class="button--blue light-bg">
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_quit">
                     {{ application_template.save_quit_button_label }}
                 </button>
 
             </div>
 
-            <div 
+            <div
                 class="box med-1of2">
 
                 <button
-                    class="button--blue light-bg">
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_continue">
                     {{ application_template.save_continue_button_label }}
                 </button>
 
