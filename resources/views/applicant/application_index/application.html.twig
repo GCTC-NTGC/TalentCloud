@@ -21,8 +21,7 @@
 
         <span
             class="application-index__item-time-wrapper">
-            {% set diffTime = date(item.job_poster.close_date_time).diff(date()) %}
-            {{ application_index.days_remaining_label|trans_choice(diffTime.days) }}
+            {{ application_index.days_remaining_label|trans_choice(item.job_poster.days_remaining) }}
         </span>
 
     </div>

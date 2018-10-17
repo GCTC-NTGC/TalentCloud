@@ -9,6 +9,7 @@ namespace App\Models;
 
 use App\Events\JobSaved;
 use Illuminate\Notifications\Notifiable;
+use Jenssegers\Date\Date;
 
 /**
  * Class JobPoster
@@ -138,6 +139,20 @@ class JobPoster extends BaseModel {
 
     public function job_poster_translations() {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
+    }
+    
+    //Accessors
+    
+    public function getApplicantCountAttribute() {
+        $applicant_count = $this->job_applications->whereNotIn('application_status.name', 'draft')->count();
+        debugbar()->info($applicant_count);
+        return $applicant_count;
+    }
+    
+    public function getDaysRemainingAttribute() {
+        $days_remaining = $this->close_date_time->diffInDays(Date::now());
+        debugbar()->info($days_remaining);
+        return $days_remaining;
     }
 
 }

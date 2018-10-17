@@ -26,8 +26,8 @@ return [
         ],
         "duration_label" => "Durée",
         "remote_label" => "Travail à distance",
-        "days_remaining_label" => "jour jusqu’à la date de clôture.|jours jusqu’à la date de clôture.",
-        "applicants_label" => "demandeur jusqu'à présent.|demandeurs jusqu'à présent.",
+        "days_remaining_label" => ":count jour jusqu’à la date de clôture.|:count jours jusqu’à la date de clôture.",
+        "applicants_label" => ":count demandeur jusqu'à présent.|:count demandeurs jusqu'à présent.",
         "button_label" => "Voir le travail"
     ]
 ];
