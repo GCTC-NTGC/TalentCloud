@@ -9,9 +9,9 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "about_card_copy_01" => "Les emplois sont reels.",
+    "about_card_copy_01" => "Les emplois sont réels.",
     "about_card_copy_02" => "La plateforme est expérimentale.",
-    "about_cta" => "Le Nuage de talents est la plateforme d’embauche expérimentale du gouvernement du Canada, pour des emplois fondés sur certains projets. Au cours des quelques prochains mois, le gouvernement publiera quelques avis d’emplois intéressants dans les domaines numérique, technologique, et de la conception de l’expérience utilisateur.",
+    "about_cta" => "Le Nuage de talents est la plateforme d’embauche expérimentale du gouvernement du Canada, pour des emplois fondés sur certains projets. Au cours des prochains mois, le gouvernement publiera quelques avis d’emplois intéressants dans les domaines numérique, technologique, et de la conception de l’expérience utilisateur.",
     "about_copy" => "Chaque avis d’emploi vous renseignera sur le travail, les équipes et les gestionnaires de chaque poste, vous permettant de réfléchir à comment vous pourriez vous intégrer avant même de postuler.",
     "about_copy_2" => "Testez le modèle, et faites-nous part de vos commentaires.",
     "about_copy_3" => "Aidez-nous à bâtir un nouveau modèle d’embauche pour le gouvernement du Canada.",
@@ -20,7 +20,7 @@ return [
     "how_intro_2" => "Tous les emplois du Nuage de talents sont des postes à durée déterminée dont les processus de sélections sont annoncés et ouverts au public.",
     "how_intro_3" => "Faites le bien, et profitez également d’un régime de pension et d’avantages sociaux.",
     "how_step01_title" => "Soyez maître de votre histoire",
-    "how_step01_copy" => "Chaque personne est unique. Prenez part à un processus de sélection qui vous permettra de démontrer vos compétences à votre manière. Apprenez de plus amples détails sur les détails pratiques, la culture d’équipe et l’environnement de travail de chaque poste pour vous assurer de postuler un emploi qui vous convient.",
+    "how_step01_copy" => "Chaque personne est unique. Prenez part à un processus de sélection qui vous permettra de démontrer vos compétences à votre manière. Apprenez plus sur les détails pratiques, la culture d’équipe et l’environnement de travail de chaque poste pour vous assurer de postuler à un emploi qui vous convient.",
     "how_step02_title" => "Faites-vous reconnaître",
     "how_step02_copy" => "Grâce au Nuage de talents, vous pouvez acquérir des compétences, des connaissances et des capacités, en plus de valider celles que vous possédez déjà, en postulant des emplois, et de même qu’en cours d’emploi. Qu’est-ce que cela signifie? Les qualifications obtenues par l’entremise du Nuage de talents sont reconnues et peuvent être transférées à d’autres demandes d’emploi… et peut-être à l’ensemble du Canada, un jour.",
     "how_step03_title" => "Contribuez",
