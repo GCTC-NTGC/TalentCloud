@@ -17,7 +17,9 @@ return [
 
     /* Tracker */
         "tracker_label" => "Étape",
+        "tracker_previous_title" => "Aller à l'étape précédente de la demande d'emploi.",
         "tracker_previous_label" => "Précédente",
+        "tracker_next_title" => "Passez à l'étape suivante de la demande d'emploi.",
         "tracker_next_label" => "Suivante",
 
     /* Modals */
