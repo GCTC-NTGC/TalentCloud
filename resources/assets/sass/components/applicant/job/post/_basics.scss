@@ -17,6 +17,24 @@
     border-radius: 3px;
     margin: 0 0 4rem 0;
     padding: 3rem;
+
+    .flex-grid {
+
+        .med-1of2 {
+
+            &:last-child {
+                margin-top: 2rem;
+
+                @media #{$p-tablet} {
+                    margin-top: 0;
+                }
+
+            }
+
+        }
+
+    }
+
 }
 
 .job-poster__basics-title {

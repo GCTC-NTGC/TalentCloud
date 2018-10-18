@@ -15,6 +15,13 @@ return [
     "save_continue_button_label" => "Save & Continue",
     "submit_button_label" => "Submit",
 
+    /* Tracker */
+        "tracker_label" => "Step",
+        "tracker_previous_title" => "Go to the previous step in the application process.",
+        "tracker_previous_label" => "Previous",
+        "tracker_next_title" => "Go to the next step in the application process.",
+        "tracker_next_label" => "Next",
+
     /* Modals */
         "modals" => [
             "00" => [
