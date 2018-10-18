@@ -343,7 +343,6 @@ class ApplicationByJobController extends Controller
      */
     public function update_basics(Request $request, JobPoster $jobPoster)
     {
-        $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
@@ -351,18 +350,18 @@ class ApplicationByJobController extends Controller
         $this->authorize('update', $application);
 
         $application->fill([
-            'citizenship_declaration_id' => $input['citizenship_declaration_id'],
-            'veteran_status_id' => $input['veteran_status_id'],
-            'preferred_language_id' => $input['preferred_language_id'],
+            'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
+            'veteran_status_id' => $request->input('veteran_status_id'),
+            'preferred_language_id' => $request->input('preferred_language_id'),
         ]);
         $application->save();
 
         $questions = $jobPoster->job_poster_questions;
+        $questionsInput = $request->input('questions');
         foreach($questions as $question) {
             $answer = null;
-            if (isset($input['questions']) &&
-                isset($input['questions'][$question->id])) {
-                $answer = $input['questions'][$question->id];
+            if (isset($questionsInput[$question->id])) {
+                $answer = $questionsInput[$question->id];
             }
             $answerObj = $application->job_application_answers
                 ->firstWhere('job_poster_question_id', $question->id);
@@ -376,7 +375,7 @@ class ApplicationByJobController extends Controller
         }
 
         //Redirect to correct page
-        switch($input['submit']) {
+        switch($request->input('submit')) {
             case 'save_and_quit':
                 return redirect()->route('applications.index');
                 break;
@@ -398,14 +397,13 @@ class ApplicationByJobController extends Controller
      */
     public function update_experience(Request $request, JobPoster $jobPoster)
     {
-        $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //Ensure user has permissions to update this application
         $this->authorize('update', $application);
 
-        $degrees = $input['degrees'];
+        $degrees = $request->input('degrees');
 
         //Save new degrees
         if (isset($degrees['new'])) {
@@ -445,7 +443,7 @@ class ApplicationByJobController extends Controller
             }
         }
 
-        $courses = $input['courses'];
+        $courses = $request->input('courses');
 
         //Save new courses
         if (isset($courses['new'])) {
@@ -483,7 +481,7 @@ class ApplicationByJobController extends Controller
             }
         }
 
-        $work_experiences = $input['work_experiences'] ;
+        $work_experiences = $request->input('work_experiences');
 
         //Save new work_experiences
         if (isset($work_experiences['new'])) {
@@ -522,7 +520,7 @@ class ApplicationByJobController extends Controller
         }
 
         //Redirect to correct page
-        switch($input['submit']) {
+        switch($request->input('submit')) {
             case 'save_and_quit':
                 return redirect()->route('applications.index');
                 break;
@@ -544,14 +542,13 @@ class ApplicationByJobController extends Controller
      */
     public function update_essential_skills(Request $request, JobPoster $jobPoster)
     {
-        $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //Ensure user has permissions to update this application
         $this->authorize('update', $application);
 
-        $skillDeclarations = $input['skill_declarations'];
+        $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
         //Save new skill declarartions
@@ -604,7 +601,7 @@ class ApplicationByJobController extends Controller
         }
 
         //Redirect to correct page
-        switch($input['submit']) {
+        switch($request->input('submit')) {
             case 'save_and_quit':
                 return redirect()->route('applications.index');
                 break;
@@ -626,14 +623,13 @@ class ApplicationByJobController extends Controller
      */
     public function update_asset_skills(Request $request, JobPoster $jobPoster)
     {
-        $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
         //Ensure user has permissions to update this application
         $this->authorize('update', $application);
 
-        $skillDeclarations = $input['skill_declarations'];
+        $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
         //Save new skill declarartions
@@ -686,7 +682,7 @@ class ApplicationByJobController extends Controller
         }
 
         //Redirect to correct page
-        switch($input['submit']) {
+        switch($request->input('submit')) {
             case 'save_and_quit':
                 return redirect()->route('applications.index');
                 break;
@@ -721,7 +717,6 @@ class ApplicationByJobController extends Controller
            ]
        ]);
 
-        $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
@@ -730,12 +725,12 @@ class ApplicationByJobController extends Controller
 
         //Save any final info
         $application->fill([
-            'submission_signature' => $input['submission_signature'],
-            'submission_date' => $input['submission_date'],
+            'submission_signature' => $request->input('submission_signature'),
+            'submission_date' => $request->input('submission_date'),
         ]);
 
         //Only complete submission if submit button was pressed
-        if ($input['submit'] == "submit") {
+        if ($request->input('submit') == "submit") {
             $validator = new ApplicationValidator();
             $validator->validate($application);
 
@@ -746,7 +741,7 @@ class ApplicationByJobController extends Controller
         $application->save();
 
         //Redirect to correct page
-        switch($input['submit']) {
+        switch($request->input('submit')) {
             case 'save_and_quit':
                 return redirect()->route('applications.index');
                 break;
