@@ -166,7 +166,7 @@ return [
     /* Step 06 (Complete) */
         "complete" => [
             "title" => "Merci d'avoir postulé!",
-            "copy_01" => "Talent Cloud est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
+            "copy_01" => "Nuage de talents est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
             "survey_link" => "GOOGLE",
             "survey_title" => "Participer à l'enquête.",
             "survey_label" => "Participer à l'enquête",

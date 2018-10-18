@@ -63,13 +63,13 @@
                 class="login-return-link"
                 href="/"
                 title="Return Home">
-                <i class="fas fa-chevron-left"></i> Return Home
+                <i class="fas fa-chevron-left"></i>{{ $forgot_password_template['return'] }}
             </a>
 
             <div
                 class="login-heading">
 
-                <h1>Reset Your Password</h1>
+                <h1>{{ $forgot_password_template['title'] }}</h1>
 
             </div>
 
@@ -106,7 +106,7 @@
                                 <label
                                     class="form__label"
                                     for="email">
-                                    E-Mail Address
+                                    {{ $forgot_password_template['email'] }}
                                 </label>
                                 <input
                                     class="form__input"
@@ -140,7 +140,7 @@
                             <button
                                 class="button--blue light-bg"
                                 type="submit">
-                                Send Reset Password Link
+                                {{ $forgot_password_template['submit'] }}
                             </button>
 
                         </div>

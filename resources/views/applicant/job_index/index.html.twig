@@ -84,14 +84,12 @@
 
                             <div class="box small-1of2">
                                 <span>
-                                    {% set diffTime = date(job.close_date_time).diff(date()) %}
-                                    {{ diffTime.days }} {{ job_index.index.days_remaining_label|trans_choice(diffTime.days) }}
+                                    {{ job_index.index.days_remaining_label|trans_choice(job.days_remaining) }}
                                 </span>
                             </div>
                             <div class="box small-1of2">
                                 <span>
-                                    {% set applicantCount = job.job_applications|length %}
-                                    {{ applicantCount }} {{ job_index.index.applicants_label|trans_choice(applicantCount) }}
+                                    {{ job_index.index.applicants_label|trans_choice(job.applicant_count) }}
                                 </span>
                             </div>
 

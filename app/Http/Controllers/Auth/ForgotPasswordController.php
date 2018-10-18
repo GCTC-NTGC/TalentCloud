@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Auth\AuthController;
 
 class ForgotPasswordController extends AuthController
@@ -39,6 +40,9 @@ class ForgotPasswordController extends AuthController
      */
     public function showLinkRequestForm()
     {
-        return view('auth.passwords.email', ['routes' => $this->auth_routes()]);
+        return view('auth.passwords.email', [
+            'routes' => $this->auth_routes(),
+            'forgot_password_template' => Lang::get('common/auth/forgot_password'),
+        ]);
     }
 }
