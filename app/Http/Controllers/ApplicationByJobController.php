@@ -375,7 +375,18 @@ class ApplicationByJobController extends Controller
             $answerObj->save();
         }
 
-        return redirect( route('job.application.edit.2', $jobPoster));
+        //Redirect to correct page
+        switch($input['submit']) {
+            case 'save_and_quit':
+                return redirect()->route('applications.index');
+                break;
+            case 'save_and_continue':
+                return redirect()->route('job.application.edit.2', $jobPoster);
+                break;
+            default:
+                return redirect()->back()->withInput();
+                break;
+        }
     }
 
     /**
@@ -510,7 +521,18 @@ class ApplicationByJobController extends Controller
             }
         }
 
-        return redirect( route('job.application.edit.3', $jobPoster));
+        //Redirect to correct page
+        switch($input['submit']) {
+            case 'save_and_quit':
+                return redirect()->route('applications.index');
+                break;
+            case 'save_and_continue':
+                return redirect()->route('job.application.edit.3', $jobPoster);
+                break;
+            default:
+                return redirect()->back()->withInput();
+                break;
+        }
     }
 
     /**
@@ -581,7 +603,18 @@ class ApplicationByJobController extends Controller
             }
         }
 
-        return redirect( route('job.application.edit.4', $jobPoster));
+        //Redirect to correct page
+        switch($input['submit']) {
+            case 'save_and_quit':
+                return redirect()->route('applications.index');
+                break;
+            case 'save_and_continue':
+                return redirect()->route('job.application.edit.4', $jobPoster);
+                break;
+            default:
+                return redirect()->back()->withInput();
+                break;
+        }
     }
 
     /**
@@ -652,7 +685,18 @@ class ApplicationByJobController extends Controller
             }
         }
 
-        return redirect( route('job.application.edit.5', $jobPoster));
+        //Redirect to correct page
+        switch($input['submit']) {
+            case 'save_and_quit':
+                return redirect()->route('applications.index');
+                break;
+            case 'save_and_continue':
+                return redirect()->route('job.application.edit.5', $jobPoster);
+                break;
+            default:
+                return redirect()->back()->withInput();
+                break;
+        }
     }
 
     /**
@@ -690,15 +734,28 @@ class ApplicationByJobController extends Controller
             'submission_date' => $input['submission_date'],
         ]);
 
-        //TODO: Check that application is valid and complete
-        $validator = new ApplicationValidator();
-        $validator->validate($application);
+        //Only complete submission if submit button was pressed
+        if ($input['submit'] == "submit") {
+            $validator = new ApplicationValidator();
+            $validator->validate($application);
 
-        //Change status to 'submitted'
-        $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+            //Change status to 'submitted'
+            $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+        }
 
         $application->save();
 
-        return redirect( route('job.application.complete', $jobPoster));
+        //Redirect to correct page
+        switch($input['submit']) {
+            case 'save_and_quit':
+                return redirect()->route('applications.index');
+                break;
+            case 'submit':
+                return redirect()->route('job.application.complete', $jobPoster);
+                break;
+            default:
+                return redirect()->back()->withInput();
+                break;
+        }
     }
 }
