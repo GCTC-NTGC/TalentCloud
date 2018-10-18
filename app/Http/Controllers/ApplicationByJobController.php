@@ -378,9 +378,11 @@ class ApplicationByJobController extends Controller
         //Redirect to correct page
         switch($input['submit']) {
             case 'save_and_quit':
+            case 'previous':
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
+            case 'next':
                 return redirect()->route('job.application.edit.2', $jobPoster);
                 break;
             default:
@@ -527,7 +529,11 @@ class ApplicationByJobController extends Controller
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
+            case 'next':
                 return redirect()->route('job.application.edit.3', $jobPoster);
+                break;
+            case 'previous':
+                return redirect()->route('job.application.edit.1', $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
@@ -609,7 +615,11 @@ class ApplicationByJobController extends Controller
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
+            case 'next':
                 return redirect()->route('job.application.edit.4', $jobPoster);
+                break;
+            case 'previous':
+                return redirect()->route('job.application.edit.2', $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
@@ -691,7 +701,11 @@ class ApplicationByJobController extends Controller
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
+            case 'next':
                 return redirect()->route('job.application.edit.5', $jobPoster);
+                break;
+            case 'previous':
+                return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
@@ -708,19 +722,6 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
-        $request->validate([
-            'submission_signature' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'submission_date' => [
-                'required',
-                'string',
-                'max:191',
-           ]
-       ]);
-
         $input = $request->input();
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
@@ -728,14 +729,28 @@ class ApplicationByJobController extends Controller
         //Ensure user has permissions to update this application
         $this->authorize('update', $application);
 
-        //Save any final info
-        $application->fill([
-            'submission_signature' => $input['submission_signature'],
-            'submission_date' => $input['submission_date'],
-        ]);
-
-        //Only complete submission if submit button was pressed
+        //Only save anything if submit button was pressed
         if ($input['submit'] == "submit") {
+
+            $request->validate([
+                'submission_signature' => [
+                    'required',
+                    'string',
+                    'max:191',
+                ],
+                'submission_date' => [
+                    'required',
+                    'string',
+                    'max:191',
+               ]
+           ]);
+
+            //Save any final info
+            $application->fill([
+                'submission_signature' => $input['submission_signature'],
+                'submission_date' => $input['submission_date'],
+            ]);
+
             $validator = new ApplicationValidator();
             $validator->validate($application);
 
@@ -752,6 +767,9 @@ class ApplicationByJobController extends Controller
                 break;
             case 'submit':
                 return redirect()->route('job.application.complete', $jobPoster);
+                break;
+            case 'previous':
+                return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
