@@ -43,8 +43,8 @@ return [
     "team_button_twitter_link" => "https://twitter.com/GC_Talent",
     "team_button_twitter_title" => "Visitez l'équipe sur Twitter.",
     "team_button_twitter_label" => "Twitter",
-    "team_button_email_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
-    "team_button_email_title" => "TRANSLATION",
-    "team_button_email_label" => "TRANSLATION",
+    "team_button_email_link" => "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
+    "team_button_email_title" => "Contactez-nous par courriel.",
+    "team_button_email_label" => "Courriel",
     "home_title" => "Nuage de talents | Candidat : Accueil"
 ];
