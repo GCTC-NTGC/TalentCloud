@@ -36,6 +36,7 @@ class SkillsController extends Controller
     public function edit(Request $request, Applicant $applicant)
     {
         $skills = Skill::all();
+
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
