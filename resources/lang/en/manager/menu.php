@@ -33,4 +33,10 @@ return [
     "profile_title" => "Talent Cloud | Manager: My Profile",
     "job_index_title" => "Talent Cloud | Manager: My Job Posts",
     "job_create_title" => "Talent Cloud | Manager: Create a Job Poster",
+    # Button labels
+    "mobile_trigger_label" => "Mobile Menu",
+    "modal_cancel_label" => "Cancel",
+    "delete_label" => "Delete",
+    "view_label" => "View this application",
+    "edit_label" => "Edit this application",
 ];
