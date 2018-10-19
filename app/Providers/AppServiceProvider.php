@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
         // A lower default string length for migrations is required for
         // versions of MySQL < 5.7.7
         Schema::defaultStringLength(191);
+
+        //Force all routes and requests to use HTTPS
+        $this->app['request']->server->set('HTTPS', true);
     }
 
     /**
