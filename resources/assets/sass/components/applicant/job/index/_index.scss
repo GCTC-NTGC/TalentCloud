@@ -41,23 +41,25 @@
             transition: all .2s ease;
 
             .browse__index-job-card-title {
-                background-color: transparentize($palette--black, .15);
+                background-color: $palette--black;
+                background: transparentize($palette--black, .15);
                 background-image: url("/images/bg_lightning_texture.png");
+
                 background-position: center;
                 background-repeat: repeat;
                 background-size: 75px;
                 padding: calc(#{$unit} * 1.5);
 
                 h3 {
-                    color: $palette--font-white;
+                    color: lighten($palette--blue, 10%);
                     display: block;
-                    font-weight: 600;
+                    font-weight: 400;
                     margin: 0 0 $unit 0;
                     width: 100%;
                 }
 
                 span {
-                    color: $palette--blue;
+                    color: $palette--font-white;
                     display: block;
                     font-family: $font--sans;
                     font-size: $font-scale--regular;

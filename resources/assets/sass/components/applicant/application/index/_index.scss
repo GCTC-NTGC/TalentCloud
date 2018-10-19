@@ -47,15 +47,15 @@
             }
 
             h4 {
-                color: $palette--font-white;
+                color: lighten($palette--blue, 10%);
                 font-family: $font--sans;
                 font-size: $font-scale--h3;
-                font-weight: 600;
+                font-weight: 400;
                 margin: 0 0 $unit;
             }
 
             .application-index__item-department {
-                color: $palette--blue;
+                color: $palette--font-white;
                 display: inline-block;
                 font-family: $font--sans;
                 font-size: $font-scale--regular;
