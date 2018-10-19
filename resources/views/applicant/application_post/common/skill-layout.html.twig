@@ -10,31 +10,31 @@
     <div
         class="container--copy">
 
-        {% if application.step == "3" %}
+        {% if application_step == "3" %}
             <h3>
-                {{ application.essential_title }}
+                {{ application_template.essential_title }}
             </h3>
             <p>
-                {{ application.essential_context }}
+                {{ application_template.essential_context }}
             </p>
-        {% elseif application.step == "4" %}
+        {% elseif application_step == "4" %}
             <h3>
-                {{ application.asset_title }}
+                {{ application_template.asset_title }}
             </h3>
             <p>
-                {{ application.asset_context }}
+                {{ application_template.asset_context }}
             </p>
         {% endif %}
 
         <a
             class="button--blue light-bg"
             href="#begin"
-            {% if application.step == "3" %}
-                title="{{ application.essential_start_button_title }}"
-            {% elseif application.step == "4" %}
-                title="{{ application.asset_start_button_title }}"
+            {% if application_step == "3" %}
+                title="{{ application_template.essential_start_button_title }}"
+            {% elseif application_step == "4" %}
+                title="{{ application_template.asset_start_button_title }}"
             {% endif %}>
-            {{ application.skills_start_button_label }}
+            {{ application_template.skills_start_button_label }}
         </a>
 
     </div>
@@ -74,10 +74,10 @@
                                         <div
                                             class="box med-1of2">
 
-                                            {% if application.step == "3" %}
-                                                <h3>{{ application.skills_section.essential_title }}</h3>
-                                            {% elseif application.step == "4" %}
-                                                <h3>{{ application.skills_section.asset_title }}</h3>
+                                            {% if application_step == "3" %}
+                                                <h3>{{ application_template.skills_section.essential_title }}</h3>
+                                            {% elseif application_step == "4" %}
+                                                <h3>{{ application_template.skills_section.asset_title }}</h3>
                                             {% endif %}
 
                                         </div>
@@ -98,7 +98,7 @@
                                     <div
                                         class="profile-element-list">
 
-                                        {% if application.step == "3" %}
+                                        {% if application_step == "3" %}
 
                                             {% for criterion in criteria.essential %}
 
@@ -132,7 +132,7 @@
 
                                         {% endif %}
 
-                                        {% if application.step == "4" %}
+                                        {% if application_step == "4" %}
 
                                             {% for criterion in criteria.asset %}
 
@@ -188,8 +188,11 @@
                     class="box med-1of2">
 
                     <button
-                        class="button--blue light-bg">
-                        {{ application.save_quit_button_label }}
+                        class="button--blue light-bg"
+                        type="submit"
+                        name="submit"
+                        value="save_and_quit">
+                        {{ application_template.save_quit_button_label }}
                     </button>
 
                 </div>
@@ -198,8 +201,11 @@
                     class="box med-1of2">
 
                     <button
-                        class="button--blue light-bg">
-                        {{ application.save_continue_button_label }}
+                        class="button--blue light-bg"
+                        type="submit"
+                        name="submit"
+                        value="save_and_continue">
+                        {{ application_template.save_continue_button_label }}
                     </button>
 
                 </div>

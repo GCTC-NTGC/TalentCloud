@@ -1,3 +1,9 @@
 section.error {
 	padding: $section-padding;
+	text-align: center;
+
+	* {
+		font-family: $font--sans;
+	}
+
 }

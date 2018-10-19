@@ -10,7 +10,7 @@
     id="applicationView05">
 </a>
 
-<div 
+<div
     class="container--copy">
 
     {# Save Buttons #}
@@ -18,22 +18,28 @@
         <div
             class="flex-grid middle application-post__action-wrapper">
 
-            <div 
+            <div
                 class="box med-1of2">
 
                 <button
-                    class="button--blue light-bg">
-                    {{ application.save_quit_button_label }}
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_quit">
+                    {{ application_template.save_quit_button_label }}
                 </button>
 
             </div>
 
-            <div 
+            <div
                 class="box med-1of2">
 
                 <button
-                    class="button--blue light-bg">
-                    {{ application.save_continue_button_label }}
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="submit">
+                    {{ application_template.submit_button_label }}
                 </button>
 
             </div>

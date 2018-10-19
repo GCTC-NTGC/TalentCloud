@@ -5,7 +5,9 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Lang;
 
 class Handler extends ExceptionHandler
 {
@@ -26,6 +28,9 @@ class Handler extends ExceptionHandler
     protected $dontFlash = [
         'password',
         'password_confirmation',
+        'old_password',
+        'new_password',
+        'new_password_confirmation',
     ];
 
     /**
@@ -69,5 +74,27 @@ class Handler extends ExceptionHandler
             $loginRoute = route('login');
         }
         return redirect()->guest($loginRoute);
+    }
+
+    /**
+     * OVERRIDE
+     * Render the given HttpException.
+     *
+     * @param  \Symfony\Component\HttpKernel\Exception\HttpException  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderHttpException(HttpException $e)
+    {
+        if (! view()->exists("errors.{$e->getStatusCode()}")) {
+            return response()->view('errors.default', [
+                'exception' => $e,
+                'goc' => Lang::get('common/goc'),
+                'alert' => Lang::get('common/alert'),
+                'error' => [
+                    "title" => "Error"
+                ]
+            ], 500, $e->getHeaders());
+        }
+        return parent::renderHttpException($e);
     }
 }

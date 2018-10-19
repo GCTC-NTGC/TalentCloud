@@ -1,0 +1,73 @@
+{# =============================================================================
+
+    Talent Cloud
+    Static: Terms of Service
+
+============================================================================= #}
+{% extends "layouts/base" %}
+
+{% block body %}
+
+    {# Alert #}
+
+        {% include "common/alert" %}
+
+    {# Government of Canada Banner #}
+
+        {% include "common/goc" %}
+
+    {# Page Header #}
+
+        {% include "common/header" with {'header':tos} %}
+
+    {# Privacy Policy #}
+
+        <section
+            class="faq__content">
+
+            <div
+                class="container--copy">
+
+                {% for category in tos.categories %}
+
+                    <h3>{{ category.title }}</h3>
+
+                    {% for section in category.sections %}
+
+                        {% if section.title %}
+
+                            <h4>{{ section.title }}</h4>
+
+                        {% endif %}
+
+                        {% for item in section.copy %}
+
+                            {% if item is iterable %}
+                                {% if item.type == "ol" %}
+                                    <ol>
+                                        {% for list_item in item.items %}
+                                            <li>{{ list_item|raw }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                {% elseif item.type == "ul" %}
+                                    <ul>
+                                        {% for list_item in item.items %}
+                                            <li>{{ list_item|raw }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% else %}
+                                <p>{{ item|raw }}</p>
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% endfor %}
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+{% endblock %}

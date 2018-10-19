@@ -39,6 +39,8 @@ Route::group(['domain' => config('app.applicant_domain'),
     /* Require being logged in as applicant */
     Route::middleware(['auth', 'role:applicant'])->group(function() {
 
+        //Application permissions are handled within the controller instead of with middleware
+
         /* Applications */
         Route::get('applications', 'ApplicationController@index')->name('applications.index');
 
@@ -159,12 +161,25 @@ Route::group(['domain' => config('app.applicant_domain'),
     });
 
     /* Static - FAQ */
-
         Route::get('faq', function () {
             return view('applicant/static_faq', [
                 'faq' => Lang::get('applicant/faq')
             ]);
         })->name('faq');
+
+    /* Static - Privacy Policy */
+        Route::get('privacy', function () {
+            return view('common/static_privacy', [
+                'privacy' => Lang::get('common/privacy')
+            ]);
+        })->name('privacy');
+
+    /* Static - Terms of Service */
+        Route::get('tos', function () {
+            return view('common/static_tos', [
+                'tos' => Lang::get('common/tos')
+            ]);
+        })->name('tos');
 
     /* Static - Credentialing */
 

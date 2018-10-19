@@ -54,10 +54,10 @@ services:
             - "5434-5432"
     # Adminer
     adminer:
-        image: adminer:4.6
+        image: adminer
         container_name: adminer
         restart: always
         links:
             - talentcloud-db
         ports:
-            - "8888:8888"
+            - "8080:8080"

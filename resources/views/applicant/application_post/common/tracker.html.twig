@@ -7,87 +7,83 @@
 <section
     class="application-post__tracker">
 
+    {% if application_step == "1" %}
+
+        {# Show nothing. #}
+
+    {% else %}
+
+        <button
+            class="application-post__tracker-button previous"
+            name="submit"
+            title="{{ application_template.tracker_previous_title }}"
+            type="submit"
+            value="previous">
+
+            <i class="fas fa-chevron-left"></i>
+
+            <span>{{ application_template.tracker_previous_label }}</span>
+
+        </button>
+
+    {% endif %}
+
     <div
-        class="container--layout">
+        class="application-post__step-wrapper">
 
-        <div
-            class="flex-grid middle">
+        <span
+            class="application-post__tracker-step">
+            {{ application_template.tracker_label }} {{ application_step }} / 5
+        </span>
 
-            <div
-                class="box lg-1of2 flex-grid middle">
+        {% for item in application_tracker.items %}
 
-                <div
-                    class="box small-1of3 lg-1of4">
+            <a
+                class="application-post__tracker-item
+                    {% if item.status == "error" %}
+                        error
+                    {% elseif item.status == "complete" %}
+                        complete
+                    {% endif %}
+                    {% if item.step == application_step %}
+                        active
+                    {% endif %}
+                "
+                href="{{ item.url }}"
+                title="{{ application_tracker.tracker_link_title }} {{ item.step }}.">
 
-                    <div
-                        class="application-post__tracker-user-photo"
-                        {% if user.photo %}
-                            style="background-image:url('{{ user.photo }}');"
-                        {% else %}
-                            style="background-image:url('/images/user.png');"
-                        {% endif %}>
-                    </div>
+                <i class="fas fa-times-circle"></i>
 
-                </div>
+                <i class="fas fa-circle"></i>
 
-                <div
-                    class="box small-2of3 lg-3of4">
+                <i class="fas fa-check-circle"></i>
 
-                    <a
-                        class="application-post__tracker-job-title"
-                        href="{{ job.link }}"
-                        target="_blank"
-                        title="{{ application_tracker.job_link_title }}">
-                        {{ job.title }}
-                    </a>
+            </a>
 
-                    <span
-                        class="application-post__tracker-job-department">
-                        {{ job.department.value }}
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div
-                class="box lg-1of2">
-
-                <span
-                    class="application-post__tracker-step">
-                    {{ application.tracker_label }} {{ application.step }} / 5
-                </span>
-
-                {% for item in application_tracker.items %}
-
-                    <a
-                        class="application-post__tracker-item
-                            {% if item.status == "error" %}
-                                error
-                            {% elseif item.status == "complete" %}
-                                complete
-                            {% endif %}
-                            {% if item.step == application.step %}
-                                active
-                            {% endif %}
-                        "
-                        href="{{ item.url }}"
-                        title="{{ application_tracker.tracker_link_title }} {{ item.step }}.">
-
-                        <i class="fas fa-times-circle"></i>
-
-                        <i class="fas fa-circle"></i>
-
-                        <i class="fas fa-check-circle"></i>
-
-                    </a>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
+        {% endfor %}
 
     </div>
+
+    {% if application_step == "5" %}
+
+        {# Show nothing. #}
+
+    {% else %}
+
+        <button
+            class="application-post__tracker-button next"
+            href=""
+            name="submit"
+            title="{{ application_template.tracker_next_title }}"
+            type="submit"
+            value="next">
+
+            <span>{{ application_template.tracker_next_label }}</span>
+
+            <i class="fas fa-chevron-right"></i>
+
+        </button>
+
+    {% endif %}
 
 </section>

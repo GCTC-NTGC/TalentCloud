@@ -34,8 +34,8 @@
 
         {% if auth_guest() %}
 
-            <li><a href="{{ login_modals.login_link }}">Login</a></li>
-            <li><a href="{{ login_modals.register_link }}">Register</a></li>
+            <li><a href="{{ login_modals.login_link }}">{{ menu.login }}</a></li>
+            <li><a href="{{ login_modals.register_link }}">{{ menu.register }}</a></li>
 
         {% else %}
 
@@ -43,7 +43,7 @@
                 <a href="{{ login_modals.logout_link }}"
                     onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
-                    Logout
+                    {{ menu.logout }}
                 </a>
 
                 <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">

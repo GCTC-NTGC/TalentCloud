@@ -13,13 +13,13 @@
                 class="login-return-link"
                 href="/"
                 title="Return Home">
-                <i class="fas fa-chevron-left"></i> Return Home
+                <i class="fas fa-chevron-left"></i> {{ $login_template['return'] }}
             </a>
 
             <div
                 class="login-heading">
 
-                <h1>Login to Talent Cloud</h1>
+                <h1>{{ $login_template['title'] }}</h1>
 
             </div>
 
@@ -54,7 +54,7 @@
                                 <label
                                     class="form__label"
                                     for="email">
-                                    E-Mail Address
+                                    {{ $login_template['email'] }}
                                 </label>
                                 <input
                                     class="form__input"
@@ -70,7 +70,7 @@
                                 <label
                                     class="form__label"
                                     for="password">
-                                    Password
+                                    {{ $login_template['password'] }}
                                 </label>
                                 <input
                                     class="form__input"
@@ -81,16 +81,33 @@
                             </div>
 
                             <div
-                                class="form__checkbox-wrapper">
+                                class="flex-grid middle">
+                                
+                                <div
+                                    class="box small-1of2">
+                                    <div
+                                        class="form__checkbox-wrapper">
 
-                                <label
-                                    class="form__label">
-                                    <input
-                                        class="form__input"
-                                        {{ old('remember') ? 'checked' : '' }}
-                                        name="remember"
-                                        type="checkbox"> Remember Me
-                                </label>
+                                        <label
+                                            class="form__label">
+                                            <input
+                                                class="form__input"
+                                                {{ old('remember') ? 'checked' : '' }}
+                                                name="remember"
+                                                type="checkbox">{{ $login_template['remember_me'] }}
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="box small-1of2">
+                                    <a
+                                        href="/register"
+                                        title="Register for Talent Cloud">
+                                        {{ $login_template['register'] }}
+                                    </a>
+                                </div>
 
                             </div>
 
@@ -112,7 +129,7 @@
                             <a
                                 class="button--red light-bg"
                                 href="{{ $routes['password']['request'] }}">
-                                Forgot Password
+                                {{ $login_template['forgot_password'] }}
                             </a>
 
                         </div>
@@ -123,7 +140,7 @@
                             <button
                                 class="button--blue light-bg"
                                 type="submit">
-                                Login
+                                {{ $login_template['login'] }}
                             </button>
 
                         </div>

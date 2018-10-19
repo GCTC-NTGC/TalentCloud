@@ -111,6 +111,23 @@
                     font-size: $font-scale--regular;
                 }
 
+                .flex-grid {
+
+                    .box {
+
+                        &:last-child {
+                            text-align: right;
+                        }
+
+                        a {
+                            font-family: $font--sans;
+                            font-size: $font-scale--regular;
+                        }
+
+                    }
+
+                }
+
             }
 
         }

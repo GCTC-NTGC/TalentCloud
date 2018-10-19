@@ -18,15 +18,15 @@ RUN apk update && apk upgrade && \
         imagemagick-dev && \
         pecl install imagick && \
         docker-php-ext-enable imagick && \
-            # pecl install xdebug && \
-            # docker-php-ext-enable xdebug && \
+        pecl install xdebug && \
+        docker-php-ext-enable xdebug && \
         docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
         docker-php-ext-install pgsql pdo_pgsql && \
     apk del .build-dependencies && \
-        rm -rf /var/cache/apk/* && \
-    curl -sS https://getcomposer.org/installer | php && \
-        mv composer.phar /usr/local/bin/ && \
-        ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
+        rm -rf /var/cache/apk/*
+ #   curl -sS https://getcomposer.org/installer | php && \
+ #       mv composer.phar /usr/local/bin/ && \
+ #       ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 COPY . /var/www
 WORKDIR /var/www
@@ -38,7 +38,7 @@ RUN mkdir -p /var/www/vendor && \
 
 USER www-data
 
-RUN composer install --no-interaction
+#RUN composer install --no-interaction
 
 USER root
 

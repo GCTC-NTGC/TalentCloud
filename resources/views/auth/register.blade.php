@@ -13,13 +13,13 @@
                 class="register-return-link"
                 href="/"
                 title="Return Home">
-                <i class="fas fa-chevron-left"></i> Return Home
+                <i class="fas fa-chevron-left"></i>{{ $register_template['return'] }}
             </a>
 
             <div
                 class="register-heading">
 
-                <h1>Register for Talent Cloud</h1>
+                <h1>{{ $register_template['title'] }}</h1>
 
             </div>
 
@@ -60,7 +60,7 @@
                                         <label
                                             class="form__label"
                                             for="name">
-                                            Name
+                                            {{ $register_template['name'] }}
                                         </label>
                                         <input
                                             class="form__input"
@@ -81,7 +81,7 @@
                                         <label
                                             class="form__label"
                                             for="email">
-                                            E-Mail Address
+                                            {{ $register_template['email'] }}
                                         </label>
                                         <input
                                             class="form__input"
@@ -95,6 +95,13 @@
                                 </div>
 
                                 <div
+                                    class="box full">
+
+                                    <p>{{ $register_template['password_copy'] }}</p>
+
+                                </div>
+
+                                <div
                                     class="box med-1of2">
 
                                     <div
@@ -102,7 +109,7 @@
                                         <label
                                             class="form__label"
                                             for="password">
-                                            Password
+                                            {{ $register_template['password'] }}
                                         </label>
                                         <input
                                             class="form__input"
@@ -122,7 +129,7 @@
                                         <label
                                             class="form__label"
                                             for="password-confirm">
-                                            Confirm Password
+                                            {{ $register_template['confirm_password'] }}
                                         </label>
                                         <input
                                             class="form__input"
@@ -159,7 +166,7 @@
                             <button
                                 class="button--blue light-bg"
                                 type="submit">
-                                Register
+                                {{ $register_template['register'] }}
                             </button>
 
                         </div>

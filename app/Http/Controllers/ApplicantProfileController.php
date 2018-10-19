@@ -84,7 +84,7 @@ class ApplicantProfileController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-        $messages = Lang::get('passwords.password_validation');
+        $messages = Lang::get('validation.custom.password');
         $request->validate([
             'old_password' => [
                 'nullable',

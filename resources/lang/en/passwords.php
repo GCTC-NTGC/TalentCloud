@@ -12,10 +12,8 @@ return [
     */
     'password' => 'Passwords must be at least eight characters and match the confirmation.',
     'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
+    'sent' => 'We have emailed your password reset link!',
     'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
-    'password_validation' => [
-        'regex' => 'The :attribute must contain at least one character from three of the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumirc symbols (%, $, !, etc.).',
-    ]
+    'user' => "We can't find a user with that email address.",
+
 ];
