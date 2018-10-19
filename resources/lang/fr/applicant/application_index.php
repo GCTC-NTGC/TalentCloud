@@ -26,6 +26,7 @@ return [
     "view_link_title" => "Voir la demande d'emploi.",
     "view_link_label" => "Voir la demande d'emploi.",
     "delete_title" => "Supprimer cette demande d'emploi.",
+    "delete_label" => "Supprimer",
     "null" => [
         "title" => "Il y a aucune applications."
     ],

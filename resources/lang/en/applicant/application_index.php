@@ -26,6 +26,7 @@ return [
     "view_link_title" => "View this application.",
     "view_link_label" => "View Application",
     "delete_title" => "Delete this application.",
+    "delete_label" => "Delete",
     "null" => [
         "title" => "There are no applications."
     ],
