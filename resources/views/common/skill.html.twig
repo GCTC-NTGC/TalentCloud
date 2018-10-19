@@ -267,11 +267,33 @@
                                                 class="form__input"
                                                 id="{{ id_prefix }}skillSelection"
                                                 name="{{ name_prefix }}[skill_id]">
+
                                                 {% for skill in skills %}
+
                                                     {% if skillType == skill.skill_type.name %}
-                                                        <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
+
+                                                        {% set declarationStatus = false %}
+
+                                                        {% for declaration in applicant.skill_declarations %}
+
+                                                            {% if declaration.skill_id == skill.id %}
+
+                                                                {% set declarationStatus = true %}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                        {% if declarationStatus == false %}
+
+                                                           <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
+
+                                                        {% endif %}
+
                                                     {% endif %}
+
                                                 {% endfor %}
+
                                             </select>
                                         </div>
                                     </div>
