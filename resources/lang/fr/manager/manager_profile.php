@@ -9,7 +9,7 @@ return [
     *
     */
     //TODO: complete sections other than about_me and header
-    'title' => 'Mon profile',
+    'title' => 'Mon profil',
     'header' => [
         'twitter_title' => 'Voir le profile Twitter de :name.',
         'linkedin_title' => 'Voir le profile LinkedIn de :name.',

@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Talent Cloud User Guide",
+    "faq_title" => "Talent Cloud | Applicant: FAQ",
     "sidebar_label" => "On This Page",
     "modals" => [
         "00" => [

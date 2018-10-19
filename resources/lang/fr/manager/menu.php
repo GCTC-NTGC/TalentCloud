@@ -13,21 +13,24 @@ return [
             "name" => "Accueil",
         ],
         "jobs" => [
-            "name" => "Mes affiches d\'emploi",
+            "name" => "Mes affiches d'emploi",
         ],
         "create_job" => [
-            "name" => "Créer une affiche d\'emploi",
+            "name" => "Créer une affiche d'emploi",
         ],
         "profile" => [
-            "name" => "Mon profile",
+            "name" => "Mon profil",
         ],
         "faq" => [
             "name" => "FAQ"
         ],
     ],
     "register" => "Inscription",
-
     "login" => "Ouvrir une session (Compte GCcollab)",
-
     "logout" => "Déconnexion",
+    /* <title> tag content */
+    "home_title" => "Nuage de talents | Gestionnaire : Accueil",
+    "profile_title" => "Nuage de talents | Gestionnaire : Mon profil",
+    "job_index_title" => "Nuage de talents | Gestionnaire : Mes affiches d'emploi",
+    "job_create_title" => "Nuage de talents | Gestionnaire : Créer une affiche d'emploi",
 ];

@@ -1,5 +1,4 @@
 <?php
-
 return [
     /*
      * --------------------------------------------------------------------------
@@ -29,4 +28,9 @@ return [
     "register" => "Register",
     "login" => "Login",
     "logout" => "Logout",
+    /* <title> tag content */
+    "home_title" => "Talent Cloud | Manager: Home",
+    "profile_title" => "Talent Cloud | Manager: My Profile",
+    "job_index_title" => "Talent Cloud | Manager: My Job Posts",
+    "job_create_title" => "Talent Cloud | Manager: Create a Job Poster",
 ];

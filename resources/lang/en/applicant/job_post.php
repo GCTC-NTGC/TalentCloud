@@ -10,6 +10,7 @@ return [
     *
     */
     'title' => 'Browse Jobs',
+    'job_post_title' => 'Talent Cloud | Applicant: Job Poster',
     'header' => [
         'days_remaining' => ':count day until close|:count days until close',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',

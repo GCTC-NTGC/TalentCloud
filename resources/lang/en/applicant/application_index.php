@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "My Applications",
+    "application_index_title" => "Talent Cloud | Applicant: My Applications",
     "progress_title" => "Applications in Progress",
     "completed_title" => "Completed Applications",
     "expired_title" => "Expired Applications",

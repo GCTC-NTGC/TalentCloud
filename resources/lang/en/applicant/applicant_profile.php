@@ -12,6 +12,7 @@ return [
     'title' => 'About Me',
     'about_section' => [
         'about_title' => 'My Information',
+        'profile_title' => 'Talent Cloud | Applicant: Profile - About Me',
         'about_gc_disclaimer' => 'Please note that your name can be changed through your GC Account settings. Profile photos will be added as a feature at a later time.',
         'gc_link' => 'https://account.gccollab.ca/profile/',
         'gc_link_title' => 'Visit your GC Account in a new tab or window.',
