@@ -70,7 +70,7 @@
                     }
 
                 }
-                
+
             }
 
         }
@@ -80,6 +80,7 @@
     &[class*="blue"] {
         @extend %gradient--vertical;
         color: $palette--font-white;
+        background-color: $palette--font-black;
         transition: none;
 
         &:focus,
