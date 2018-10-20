@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Privacy Notice",
+    "privacy_title" => "Talent Cloud | Privacy Notice",
     "categories" => [
         "00" => [
             "title" => "Privacy Notice",

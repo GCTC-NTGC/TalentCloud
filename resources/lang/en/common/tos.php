@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Terms and Conditions",
+    "tos_title" => "Talent Cloud | Terms and Conditions",
     "categories" => [
         "00" => [
             "title" => "Terms and Conditions",
@@ -165,5 +166,5 @@ return [
         ]
 
     ]
-        
+
 ];
