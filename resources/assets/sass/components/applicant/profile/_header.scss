@@ -4,7 +4,8 @@
 
 // =============================================================================
 .applicant-profile__header {
-    background-color: transparentize($palette--black, .15);
+    background-color: $palette--black;
+    background: transparentize($palette--black, .15);
     background-image: url("/images/bg_lightning_texture.png");
     background-position: center;
     background-repeat: repeat;
@@ -33,10 +34,10 @@
         }
 
         >span {
-            color: $palette--blue;
+            color: lighten($palette--blue, 10%);
             display: inline-block;
             font-family: $font--sans;
-            font-size: $font-scale--regular;
+            font-size: $font-scale--h4;
             font-weight: 400;
             margin: 0 0 calc(#{$unit} * 2) 0;
         }
