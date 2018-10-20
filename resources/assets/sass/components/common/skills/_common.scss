@@ -46,6 +46,7 @@
                     padding: $unit calc(#{$unit} * 2);
                     text-decoration: none;
                     color: $palette--font-white;
+                    background-color: $palette--black;
                     transition: none;
 
                     @media #{$p-tablet} {
@@ -176,7 +177,7 @@
                         }
 
                         button {
-                            background: none;
+                            background: $palette--black;
                             border: none;
                             color: $palette--blue;
                             cursor: pointer;
@@ -274,7 +275,7 @@
                     }
 
                     .profile-relative__null {
-                        color: rgba(180, 180, 180, 1);
+                        color: rgba(120, 120, 120, 1);
                         font-family: $font--sans;
                         font-size: $font-scale--regular;
                         font-weight: 600;

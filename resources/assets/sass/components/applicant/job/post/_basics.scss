@@ -46,7 +46,7 @@
 }
 
 .job-poster__basics-label {
-    color: $palette--blue;
+    color: lighten($palette--blue, 10%);
     display: block;
     font-family: $font--sans;
     font-size: $font-scale--regular;

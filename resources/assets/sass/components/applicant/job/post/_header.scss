@@ -21,7 +21,7 @@
         >.flex-grid {
 
             >.box:last-child {
-                
+
                 @media #{$l-tablet} {
                     text-align: right;
                 }
@@ -35,7 +35,7 @@
 }
 
 .job-post__header-meta {
-    color: $palette--blue;
+    color: lighten($palette--blue, 10%);
     display: block;
     font-size: $font-scale--regular;
     line-height: 1.5;
