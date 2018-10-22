@@ -32,6 +32,7 @@ Route::group(['domain' => config('app.applicant_domain'),
         Route::get('managers/{manager}', 'ManagerProfileController@show')
             ->middleware('can:view,manager')
             ->name('managers.show');
+
     });
 
     /* Require being logged in as applicant */
@@ -41,6 +42,11 @@ Route::group(['domain' => config('app.applicant_domain'),
 
         /* Applications */
         Route::get('applications', 'ApplicationController@index')->name('applications.index');
+
+        /* View Application */
+        Route::get('applications/{application}', 'ApplicationController@show')
+            ->middleware('can:view,application')
+            ->name('applications.show');
 
         /* Step 01 */
         Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@edit_basics')->name('job.application.edit.1');
@@ -305,6 +311,11 @@ $managerGroup = function() {
         Route::post('profile/{manager}/update', 'ManagerProfileController@update')
             ->middleware('can:update,manager')
             ->name('manager.profile.update');
+
+        /* View Application */
+        Route::get('applications/{application}', 'ApplicationController@show')
+            ->middleware('can:view,application')
+            ->name('manager.applications.show');
 
 
         /* Job Index */

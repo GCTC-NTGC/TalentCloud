@@ -37,17 +37,6 @@ class ApplicationByJobController extends Controller
         //
     }
 
-    /**
-     * Display the Application for the specified job
-     *
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return \Illuminate\Http\Response
-     */
-    public function show(JobPoster $jobPoster)
-    {
-        //
-    }
-
     protected function getApplicationFromJob(JobPoster $jobPoster) {
         $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
             ->where('job_poster_id', $jobPoster->id)->first();
