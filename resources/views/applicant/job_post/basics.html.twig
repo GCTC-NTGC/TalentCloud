@@ -38,13 +38,13 @@
                 <span
                     class="job-poster__basics-content">
                     {% if (app.getLocale() == "en") %}
-                        <p>
-                            ${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}
-                        </p>
+                    
+                        ${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}
+
                     {% else %}
-                        <p>
-                            {{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
-                        </p>
+
+                        {{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
+
                     {% endif %}
                 </span>
 
