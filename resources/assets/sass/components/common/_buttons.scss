@@ -15,7 +15,6 @@
     outline: none;
     padding: $unit calc(#{$unit} * 2);
     text-decoration: none;
-    background-clip: padding-box;
 
     &[class*="add"] {
         background: none;
@@ -101,10 +100,10 @@
     }
 
     &[class*="red"] {
-        background: $palette--red;
-        color: $palette--font-white;
         background-color: $palette--black;
         background-clip: padding-box;
+        background: $palette--red;
+        color: $palette--font-white;
         transition: none;
 
         &:focus,
@@ -123,10 +122,10 @@
     }
 
     &[class*="purple"] {
-        background: $palette--purple;
-        color: $palette--font-white;
         background-color: $palette--black;
         background-clip: padding-box;
+        background: $palette--purple;
+        color: $palette--font-white;
         transition: none;
 
         &:focus,
