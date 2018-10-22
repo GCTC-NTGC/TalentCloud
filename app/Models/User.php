@@ -16,6 +16,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
+use App\Notifications\ResetPasswordNotification;
 
 /**
  * Class User
@@ -123,6 +124,18 @@ class User extends BaseModel implements
     {
         return $this->user_role->name == $role;
         //return null !== $this->roles()->where(‘name’, $role)->first();
+    }
+
+    /**
+     * OVERRIDE
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
 }
