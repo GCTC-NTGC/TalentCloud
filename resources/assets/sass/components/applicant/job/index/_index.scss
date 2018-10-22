@@ -51,9 +51,9 @@
                 padding: calc(#{$unit} * 1.5);
 
                 h3 {
-                    color: lighten($palette--blue, 10%);
+                    color: $palette--font-white;
                     display: block;
-                    font-weight: 400;
+                    font-weight: 700;
                     margin: 0 0 $unit 0;
                     width: 100%;
                 }

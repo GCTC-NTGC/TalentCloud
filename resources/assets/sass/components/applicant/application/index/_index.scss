@@ -47,10 +47,10 @@
             }
 
             h4 {
-                color: lighten($palette--blue, 10%);
+                color: $palette--white;
                 font-family: $font--sans;
                 font-size: $font-scale--h3;
-                font-weight: 400;
+                font-weight: 700;
                 margin: 0 0 $unit;
             }
 

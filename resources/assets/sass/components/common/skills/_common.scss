@@ -32,6 +32,8 @@
                 }
 
                 button {
+                    background-color: $palette--black;
+                    background-clip: padding-box;
                     @extend %gradient--vertical;
                     border: none;
                     border-radius: 5px;
@@ -46,7 +48,6 @@
                     padding: $unit calc(#{$unit} * 2);
                     text-decoration: none;
                     color: $palette--font-white;
-                    background-color: $palette--black;
                     transition: none;
 
                     @media #{$p-tablet} {
