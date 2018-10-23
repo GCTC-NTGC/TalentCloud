@@ -75,9 +75,28 @@ B) If prompted, allow Docker through Windows Firewall.
 	```
 
 9. For testing, you may want to create fake data with the following command:
-	`docker-compose exec talentcloud sh -c "php artisan db:seed"``
+	`docker-compose exec talentcloud sh -c "php artisan db:seed"`
 
 10. After the first-time set up, you should be able to start up the server simply by running `docker-compose up`, as long as other MySQL and Apache services are stopped.
+
+## OPTIONAL Installing and Running PHPUnit via composer in your docker container: 
+
+First confirm that you have a successful installation of Composer running by typing out the command `composer`. 
+
+Second, you will want to run `docker-compose up -d` if you have not already done so and then `docker-compose exec talentcloud sh -c` to connect to your workspace.
+
+Finally, once you've connected to the TalentCloud server use the command below to run the tests in your tests folder.
+
+```
+docker-compose exec talentcloud sh -c "vendor/bin/phpunit" 
+```
+
+Or specify wherever you keep your tests saved if saved elsewhere on your filesystem.
+
+If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sample.php files from both the Unit and Feature folders and attempt to run them again.
+
+For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
+
 
 useful commands:
 ```
