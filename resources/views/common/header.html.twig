@@ -16,7 +16,7 @@
             class="header__content">
 
             <h2 class="heading--01">
-                {{ header.title }}{% if application_step == true %}: {{ job.title }}{% endif %}
+                {{ header.title }}{% if (app.getLocale() == 'fr') %}&nbsp;{% endif %}{% if (application_step == true) %}: {{ job.title }}{% endif %}
             </h2>
 
         </div>

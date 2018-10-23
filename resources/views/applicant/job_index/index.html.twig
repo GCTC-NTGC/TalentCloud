@@ -52,9 +52,15 @@
                                 <span>
                                     {{ job_index.index.salary_label }}
                                 </span>
-                                <p>
-                                    {{ job.salary_min }} - {{ job.salary_max }}
-                                </p>
+                                {% if (app.getLocale() == "en") %}
+                                    <p>
+                                        ${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        {{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
+                                    </p>
+                                {% endif %}
                             </div>
 
                             <div

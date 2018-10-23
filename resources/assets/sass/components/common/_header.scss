@@ -7,6 +7,7 @@
     background-position: top center;
     background-size: cover;
     position: relative;
+    background-color: $palette--black;
 
     &::before {
         background: transparentize($palette--black, .2);

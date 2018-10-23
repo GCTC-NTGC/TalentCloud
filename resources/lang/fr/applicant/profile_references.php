@@ -10,6 +10,7 @@ return [
     */
     "title" => "Mes références",
     "reference_section" => [
+        "reference_title" => "Nuage de talents | Candidat : Profil - Mes références",
         "section_title" => "Mes références",
         "section_description" => "En soumettant une référence, vous acceptez d'avoir préalablement demandé l'autorisation de fournir leurs informations. Veuillez noter que toutes les informations fournies dans une référence peuvent être envoyées à cette référence au cours d'un processus d'embauche.",
         "add_button_label" => "Ajouter une référence",

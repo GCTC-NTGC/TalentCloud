@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "Manager Profile",
+    "manager_title" => "Talent Cloud | Applicant: Manager Profile",
     "manager_department_bridge" => " at ",
     "twitter_label" => "Visit :name's Twitter profile.",
     "linkedin_label" => "Visit :name's LinkedIn profile.",
