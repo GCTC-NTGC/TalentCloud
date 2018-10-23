@@ -33,13 +33,13 @@
 
 
 <div
-    class="profile-element accordion skill 
-        {% if locale == "profile" and skill_declaration == false %}template active{% endif %} 
-        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %} 
-        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %} 
+    class="profile-element accordion skill
+        {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
+        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %}
+        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
         {% if locale == "application" and skill_declaration == true %}complete{% endif %}
-        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %} 
-        modal-target-object" 
+        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %}
+        modal-target-object"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
@@ -322,6 +322,11 @@
                                         class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
                                 </div>
 
+                                <input
+                                    type='hidden'
+                                    name='{{ name_prefix }}[skill_declaration_id]'
+                                    value={{ skill_declaration.id }} ></input>
+
                             {% endif %}
 
                         {# Application Skill Description #}
@@ -338,6 +343,18 @@
                                     {% if skill_declaration == true %}
                                         <p
                                             class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
+
+                                        <input
+                                            type='hidden'
+                                            name='{{ name_prefix }}[skill_declaration_id]'
+                                            value={{ skill_declaration.id }} ></input>
+                                    {% else %}
+
+                                        <input
+                                            type='hidden'
+                                            name='{{ name_prefix }}[skill_id]'
+                                            value={{ criterion.skill.id }} ></input>
+
                                     {% endif %}
 
                                 </div>
@@ -365,7 +382,7 @@
                                             {{ skill_template.level_link_label }}
                                         </a>
                                     </label>
-                                    
+
                                     <div class="flex-grid">
 
                                         {% set counter = 0 %}
