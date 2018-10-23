@@ -9,7 +9,8 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "title" => "Nuage de talents : mode d'emploi",
+    "title" => "Mode d'emploi",
+    "faq_title" => "Nuage de talents | Mode d'emploi et FAQ",
     "sidebar_label" => "Sur cette page",
     "modals" => [
         "00" => [

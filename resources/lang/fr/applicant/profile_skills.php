@@ -10,6 +10,7 @@ return [
     */
     "title" => "Mes compétences",
     "skills_section" => [
+        "skills_title" => "Nuage de talents | Candidat : Profil - Mes compétences",
         "soft_title" => "Mes compétences non spécialisées",
         "hard_title" => "Mes compétences spécialisées",
         "add_button_label" => "Ajouter une compétence",

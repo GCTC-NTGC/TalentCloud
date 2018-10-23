@@ -10,6 +10,7 @@ return [
     */
     "title" => "Mes échantillons de travail",
     "sample_section" => [
+        "sample_title" => "Nuage de talents | Candidat : Profil - Mes échantillons de travail",
         "section_title" => "Mes échantillons de travail",
         "add_button_label" => "Ajouter un échantillon de travail",
         "null_copy" => "Vous n'avez actuellement aucun échantillon de travail dans votre portefeuille. Utilisez le bouton ci-dessus pour ajouter un échantillon de travail."

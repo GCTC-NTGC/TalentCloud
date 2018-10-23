@@ -18,4 +18,5 @@ return [
     'remember_me' => 'Se souvenir de moi',
     'forgot_password' => 'Mot de passe oublié',
     'login' => 'Ouvrir la session',
+    'auth_logo' => '/images/logo_tc_colour_fr.png'
 ];

@@ -11,8 +11,6 @@
 |
 */
 
-URL::forceScheme('https');
-
 /* Home */
 // Route::get('/', 'HomepageController')->name('home');
 

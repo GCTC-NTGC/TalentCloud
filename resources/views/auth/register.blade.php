@@ -186,7 +186,7 @@
             <img
                 alt="The Talent Cloud Logo"
                 class=""
-                src="/images/logo_tc_colour.png">
+                src="{{ $register_template['auth_logo'] }}">
         </a>
 
     </section>

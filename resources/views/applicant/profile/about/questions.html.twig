@@ -29,6 +29,7 @@
                     {{ question.answer_label }}
                 </label>
                 <textarea
+                    id="{{ question.input_name }}"
                     class="form__textarea"
                     name="{{ question.input_name }}">{% if question.answer != null %}{{ question.answer }}{% endif %}</textarea>
             </div>

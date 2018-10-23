@@ -40,6 +40,7 @@
                         type="button"
                         class="manager-jobs__delete-skill-button">
                         <i class="fas fa-trash-alt"></i>
+                        <span class="hidden">{{ menu.delete_label }}</span>
                     </button>
                 </div>
 
@@ -129,13 +130,13 @@
 
                     <label
                         class="form__label"
-                        for="createJobCriteriaDescriptionEN">
+                        for="{{ id_prefix }}[description][en]">
                         Optional Skill Context (English)
                     </label>
 
                     <textarea
                         class="form__textarea"
-                        id="createJobCriteriaDescriptionEN"
+                        id="{{ id_prefix }}[description][en]"
                         name="{{ name_prefix }}[description][en]">{{ criteria.translate('en').description }}</textarea>
 
                 </div>
@@ -150,13 +151,13 @@
 
                     <label
                         class="form__label"
-                        for="createJobCriteriaDescriptionFR">
+                        for="{{ id_prefix }}[description][fr]">
                         Optional Skill Context (Français)
                     </label>
 
                     <textarea
                         class="form__textarea"
-                        id="createJobCriteriaDescriptionFR"
+                        id="{{ id_prefix }}[description][fr]"
                         name="{{ name_prefix }}[description][fr]">{{ criteria.translate('fr').description }}</textarea>
 
                 </div>

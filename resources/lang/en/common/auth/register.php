@@ -18,4 +18,5 @@ return [
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'register' => 'Register',
+    'auth_logo' => '/images/logo_tc_colour.png'
 ];
