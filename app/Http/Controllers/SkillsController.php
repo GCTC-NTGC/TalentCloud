@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Skill;
@@ -10,6 +11,7 @@ use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
+use App\Services\Validation\BulkSkillDeclarationValidator;
 
 class SkillsController extends Controller
 {
@@ -54,12 +56,12 @@ class SkillsController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-
         $input = $request->input();
 
-        Debugbar::info($input);
+        $validator = new BulkSkillDeclarationValidator($applicant, $input);
+        $validator->validate($input);
 
-        $skillDeclarations = $input['skill_declarations'];
+        $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
         //Delete old skill declarations that weren't resubmitted
@@ -118,7 +120,7 @@ class SkillsController extends Controller
                         $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
                         $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
-                        Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
+                        Log::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
                     }
                 }
             }
