@@ -100,10 +100,8 @@
     }
 
     &[class*="red"] {
-        background-color: $palette--black;
-        background-clip: padding-box;
-        background: $palette--red;
-        color: $palette--font-white;
+        background: darken($palette--red, 20%);
+        color: $palette--white;
         transition: none;
 
         &:focus,
@@ -122,8 +120,6 @@
     }
 
     &[class*="purple"] {
-        background-color: $palette--black;
-        background-clip: padding-box;
         background: $palette--purple;
         color: $palette--font-white;
         transition: none;

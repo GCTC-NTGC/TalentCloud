@@ -25,7 +25,7 @@
         }
 
         >h3 {
-            color: $palette--white;
+            color: $palette--font-white;
             font-family: $font--sans;
             font-size: $font-scale--h2;
             font-weight: 700;
@@ -34,7 +34,7 @@
         }
 
         >span {
-            color: lighten($palette--blue, 10%);
+            color: $palette--font-white;
             display: inline-block;
             font-family: $font--sans;
             font-size: $font-scale--h4;
