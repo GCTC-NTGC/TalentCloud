@@ -45,6 +45,7 @@ class ApplicationStatusChanged
         }
         //Log if application status has been changed
         else if ($application->application_status_id != $application->getOriginal('application_status_id')) {
+            $application->refresh();
             $applicationText = "{id=".$application->id."}";
             $statusText = "{".$application->application_status->name."}";
 
