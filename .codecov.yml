@@ -3,19 +3,13 @@ codecov:
   branch: dev
 
 coverage:
-  status:
-    project:
-      default:
-        # basic
-        target: 5
-        base: auto
-
-coverage:
   notify:
     slack:
       default:
         url: "https://hooks.slack.com/services/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"
         only_pulls: true
+        base: auto
+        # target: 5
         # threshold: null
         # flags: null
         # paths: null
