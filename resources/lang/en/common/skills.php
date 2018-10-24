@@ -17,7 +17,7 @@ return [
     'level_link_label' => '(Find Your Level)',
     'knowledge_label' => 'My Knowledge',
     'skill_status_null_label' => 'Status: Skill Unclaimed',
-    'skill_status_label' => 'Status: Skill ',
+    'skill_status_label' => 'Status: Skill',
     'skill_level_null' => 'No level has been selected.',
     'skill_levels' => [
         'hard' => [
@@ -212,6 +212,54 @@ return [
         'willingness_learn' => [
             'name' => 'Willingness to learn',
             'description' => 'Defined as: Seeking opportunities and taking the initiative to continuously develop.'
+        ],
+        'management_ability' => [
+            'name' => 'Management Ability',
+            'description' => 'Defined as: Having been given responsibility for a team or initiative, demonstrating the ability to plan, organize, motivate and enable others, strategize, make decisions and collaborate in order to deliver'
+        ],
+        'experience_design' => [
+            'name' => 'Service Experience Design',
+            'description' => 'Defined as: Planning and organizing people, infrastructure, communication and material components as a service in order to improve its quality and the interaction between the service provider and its user'
+        ],
+        'project_management' => [
+            'name' => 'Project Management',
+            'description' => 'Defined as: Ability to prioritize the most impactful changes, managing competing priorities, advancing a continuous cycle of improvement'
+        ],
+        'stakeholder_relations' => [
+            'name' => 'Stakeholder Relations',
+            'description' => 'Defined as: Ability to communicate clearly with stakeholders and negotiate outcomes in collaboration with partners, advancing common goals through collaboration and skilled communication '
+        ],
+        'dot_net' => [
+            'name' => '.Net Programming',
+            'description' => 'Defined as: Ability to program .Net applications using C#, C++, F# or Visual Basic'
+        ],
+        'geospacial_programming' => [
+            'name' => 'Geospacial programming',
+            'description' => 'Defined as: Ability to design and build applications that handle, transform, use and display geospatial data.'
+        ],
+        'microsoft_dynamics' => [
+            'name' => 'Microsoft Dynamics',
+            'description' => 'Defined as: Ability to use Microsoft Dynamics for enterprise resource planning and customer relationship management'
+        ],
+        'facilitation' => [
+            'name' => 'Facilitation',
+            'description' => 'Defined as: Ability to run a meeting or workshop in a manner that encourages full participation, promotes mutual understanding and cultivates shared responsibility '
+        ],
+        'systems_thinking' => [
+            'name' => 'Systems Thinking',
+            'description' => 'Defined as: Ability to understand and analyze how disparate aspects of service integrate and impact eachother and turn into a clear direction for the service'
+        ],
+        'web_architecture' => [
+            'name' => 'Web Information Architecture',
+            'description' => 'Defined as: ability to redesign web architecture from an information management perspective (not coding) '
+        ],
+        'storytelling' => [
+            'name' => 'Storytelling',
+            'description' => 'Defined as: Ability to communicate progress, sharing success stories and lessons learned with diverse audiences and senior management in a clear, compelling manner'
+        ],
+        'user_design' => [
+            'name' => 'User-Centered Design',
+            'description' => 'Defined as: Ability to apply user centred design techniques to: understand the user journey; develop and test new approaches to user-product interaction; and provide results that support an improved, intuitive, pleasant user experience'
         ],
     ],
     'status' => [
