@@ -14,7 +14,7 @@
 /* Home */
 // Route::get('/', 'HomepageController')->name('home');
 
-Route::group('prefix' => config('app.applicant_prefix')], function() {
+Route::group(['prefix' => config('app.applicant_prefix')], function() {
 
     /* Home */
     Route::get('/', 'HomepageController')->name('home');
@@ -666,7 +666,7 @@ $managerGroup = function() {
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('manager.password.reset.post');
 };
 
-Route::group('prefix' => config('app.manager_prefix')], $managerGroup);
+Route::group(['prefix' => config('app.manager_prefix')], $managerGroup);
 //Route::group(['domain' => 'hr.tc.gccollab.ca'], $managerGroup);
 
 
