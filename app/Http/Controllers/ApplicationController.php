@@ -47,10 +47,14 @@ class ApplicationController extends Controller
             }),
         ];
 
-        return view('applicant/application_post_05', [
+        return view('common/application_preview', [
 
             /* Application Template Data */
                 "application_template" => Lang::get("applicant/application_template"),
+                "application_preview" => true,
+                "preferred_language_template" => Lang::get('common/preferred_language'),
+                "citizenship_declaration_template" => Lang::get('common/citizenship_declaration'),
+                "veteran_status_template" => Lang::get('common/veteran_status'),
 
             /* Job Data */
                 "job" => $application->job_poster,

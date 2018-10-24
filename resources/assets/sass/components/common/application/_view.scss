@@ -7,6 +7,41 @@
     .application__view-layout {
         padding: 0 0 5rem 0;
 
+        &.submitted {
+            padding-bottom: 0;
+
+            .sidebar {
+                top: 0 !important;
+            }
+
+            .container--layout {
+                border-bottom: 0;
+                margin-bottom: 0;
+
+                .application__view-anchor {
+
+                    &::before {
+                        content: "";
+                        display: block;
+                        height: 1rem;
+                        margin: -1rem 0 0;
+                    }
+
+                    &:first-of-type {
+
+                        &::before {
+                            height: 13rem;
+                            margin: -13rem 0 0;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
         .sidebar {
             top: 8rem !important;
         }
