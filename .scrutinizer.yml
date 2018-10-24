@@ -31,7 +31,7 @@ build:
         nginx:
             sites:
                 # will add configuration file to "/etc/nginx/sites-enabled"
-                tc.gccollab.ca:
+                talent.local.ca:
                     host: 'local.dev'
                     web_root: 'public/'
 

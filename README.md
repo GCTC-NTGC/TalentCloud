@@ -52,7 +52,7 @@ B) If prompted, allow Docker through Windows Firewall.
     If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 5. Execute gen_certs.bat or run
-	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate`
+	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
 
 	If that doesn't work, try manually replacing $pwd with the absolute path to the TalentCloud directory.
 
@@ -100,7 +100,7 @@ For further customization to your tests investigate the php.xml file and include
 useful commands:
 ```
 Generate site certificate
-	docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate
+	docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 Run composer install
 	docker run --rm -v $(pwd):/app composer/composer install
