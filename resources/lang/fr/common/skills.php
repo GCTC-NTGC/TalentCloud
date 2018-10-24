@@ -175,7 +175,7 @@ return [
         ],
         'dependability' => [
             'name' => 'Fiabilité',
-            'description' => 'Se définit comme suit : Être fiable, responsable et fiable et remplir ses obligations.'
+            'description' => 'Se définit comme suit : Être fiable, responsable et respecter ses obligations; ces qualités sont démontrées en ayant de bonnes compétences à prévoir les échéanciers, savoir ce que vous pouvez livrer, veiller à ce que tout soit fait et communiquer à l’avance en cas de problèmes ou de retards.'
         ],
         'ability_follow_instructions' => [
             'name' => 'Capacité à suivre les instructions',

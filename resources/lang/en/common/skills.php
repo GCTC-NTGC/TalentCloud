@@ -119,7 +119,7 @@ return [
         ],
         'ability_collaborate' => [
             'name' => 'Ability to collaborate',
-            'description' => 'Defined as: Ability to work with others to advance initiatives and build bridges within and across teams, generating mutual trust and respect. '
+            'description' => 'Defined as: Ability to work with others to advance initiatives and build bridges within and across teams, generating mutual trust and respect.'
         ],
         'initiative' => [
             'name' => 'Initiative',
@@ -175,7 +175,7 @@ return [
         ],
         'dependability' => [
             'name' => 'Dependability',
-            'description' => 'Defined as: Being reliable, responsible and dependable, and fulfilling obligations.'
+            'description' => 'Defined as: Being reliable, responsible and fulfilling obligations; demonstrated by being good at estimating timelines, clear on what you can deliver, ensuring things get done, and communicating in advance when there are issues or delays'
         ],
         'ability_follow_instructions' => [
             'name' => 'Ability to follow instructions',
