@@ -24,7 +24,7 @@ script:
   - sudo make build-db
 
 after_script:
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - docker exec -ti talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - sudo make docker-stop
@@ -32,7 +32,7 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t gctcntgc/talentcloud:travis
+  - docker -t gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
