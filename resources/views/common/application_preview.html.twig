@@ -6,7 +6,7 @@
 
     {% include "common/goc" %}
 
-    {% include "common/header" with {'header':application_template} %}
+    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
     <section
 		class="application__view-layout submitted">
