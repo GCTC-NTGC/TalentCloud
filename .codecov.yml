@@ -23,6 +23,10 @@ coverage:
         flags: null
         paths: null
 
+parsers:
+  javascript:
+    enable_partials: yes
+
 comment:
   layout: "header, diff, tree, changes"
   behavior: default
