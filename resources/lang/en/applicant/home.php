@@ -9,6 +9,8 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
+    "home_title" => "Talent Cloud | Applicant: Home",
+    "cred_title" => "Talent Cloud | Applicant: Credentialing",
     "about_card_copy_01" => "The jobs are real.",
     "about_card_copy_02" => "The platform is experimental.",
     "about_cta" => "Talent Cloud is the Government of Canada's experimental new hiring platform for project-based or \"gig\" employment. For the next few months, Government will be posting a few cool new jobs a week in digital, tech, and user experience design.",
@@ -45,6 +47,5 @@ return [
     "team_button_twitter_label" => "Twitter",
     "team_button_email_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
     "team_button_email_title" => "Get in touch with GC Talent Cloud via email.",
-    "team_button_email_label" => "Email",
-    "home_title" => "Talent Cloud | Applicant: Home"
+    "team_button_email_label" => "Email"
 ];

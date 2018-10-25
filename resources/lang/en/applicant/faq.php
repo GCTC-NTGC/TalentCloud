@@ -9,7 +9,8 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "title" => "Talent Cloud User Guide",
+    "title" => "User Guide",
+    "faq_title" => "Talent Cloud | User Guide and FAQ",
     "sidebar_label" => "On This Page",
     "modals" => [
         "00" => [

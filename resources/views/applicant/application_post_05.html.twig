@@ -11,6 +11,7 @@
     lang="en">
 
     <head>
+        <title>{{ application_template.step_05_title }}</title>
 
         {% include "common/head" %}
 
@@ -25,10 +26,10 @@
         {% include "common/goc" %}
 
         {% include "common/header" with {'header':application_template} %}
-        
+
         {# Form containing all about_me editable elements #}
         <form action="{{ form_submit_action }}" method="post">
-            
+
             {% include "applicant/application_post/common/tracker" %}
 
             {# Builds an input field for CSRF token validation #}

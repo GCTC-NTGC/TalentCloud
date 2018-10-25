@@ -80,6 +80,7 @@ return [
         ],
 
     /* Step 01 */
+        "step_01_title" => "Talent Cloud | Applicant: Apply Now - Step 1",
         "question_label" => "Your Answer",
         "question_title" => "My Fit",
         "claim_title" => "Basic Information",
@@ -97,6 +98,7 @@ return [
         "language_label" => "Select One",
 
     /* Step 02 */
+        "step_02_title" => "Talent Cloud | Applicant: Apply Now - Step 2",
         "experience" => [
             "title" => "My Experience",
             "description" => "The job you’re about to apply to requires the following minimum education or experience. You can’t be considered for this job unless you have this. Even if you’re really awesome. Managers are not allowed to hire you for this job in this classification without this education or experience."
@@ -114,6 +116,8 @@ return [
         ],
 
     /* Step 03/04 */
+        "step_03_title" => "Talent Cloud | Applicant: Apply Now - Step 3",
+        "step_04_title" => "Talent Cloud | Applicant: Apply Now - Step 4",
         "sidebar_item_title" => "Scroll to this skill.",
         "skills_section" => [
             "essential_title" => "Need to Have",
@@ -132,6 +136,7 @@ return [
         "asset_sidebar_label" => "Skills Checklist",
 
     /* Step 05 */
+        "step_05_title" => "Talent Cloud | Applicant: Apply Now - Step 5",
         "preview" => [
             "title" => "Review My Application",
             "copy_01" => "This is your final chance to review your application before submitting. Scroll down to review. If there’s anything you’d like to change, feel free to go back and do so now.",
@@ -168,6 +173,7 @@ return [
 
     /* Step 06 (Complete) */
         "complete" => [
+            "step_06_title" => "Talent Cloud | Applicant: Apply Now - Step 6",
             "title" => "Thanks for applying!",
             "copy_01" => "Talent Cloud is an experimental site. Please help us improve the federal staffing process by completing a short experience survey. This information will be anonymous and go directly towards helping us improve the platform!",
             "survey_link" => "https://talentcloud1.typeform.com/to/tWIPup",

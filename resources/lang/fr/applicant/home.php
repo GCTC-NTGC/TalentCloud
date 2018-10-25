@@ -9,6 +9,7 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
+    "home_title" => "Nuage de talents | Candidat : Accueil",
     "about_card_copy_01" => "Les emplois sont réels.",
     "about_card_copy_02" => "La plateforme est expérimentale.",
     "about_cta" => "Le Nuage de talents est la plateforme d’embauche expérimentale du gouvernement du Canada, pour des emplois fondés sur certains projets. Au cours des prochains mois, le gouvernement publiera quelques avis d’emplois intéressants dans les domaines numérique, technologique, et de la conception de l’expérience utilisateur.",
@@ -45,6 +46,5 @@ return [
     "team_button_twitter_label" => "Twitter",
     "team_button_email_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
     "team_button_email_title" => "Contactez-nous par courriel.",
-    "team_button_email_label" => "Courriel",
-    "home_title" => "Nuage de talents | Candidat : Accueil"
+    "team_button_email_label" => "Courriel"
 ];
