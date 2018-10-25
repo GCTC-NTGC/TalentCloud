@@ -1,6 +1,6 @@
 FROM php:7.0-fpm
 
-RUN apt-get update -y && apt-get install -y libpq-dev libmcrypt-dev openssl curl git unzip
+RUN apt-get update -y && apt-get install -y libpq-dev zlib1g-dev libmcrypt-dev openssl curl git unzip
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
