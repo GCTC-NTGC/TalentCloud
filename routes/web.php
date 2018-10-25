@@ -669,7 +669,7 @@ $managerGroup = function() {
 
 Route::group(['domain' => config('app.manager_domain'),
     'prefix' => config('app.manager_prefix')], $managerGroup);
-//Route::group(['domain' => 'hr.tc.gccollab.ca'], $managerGroup);
+//Route::group(['domain' => 'hr.talent.local.ca'], $managerGroup);
 
 
 /* Testing ================================================================== */
