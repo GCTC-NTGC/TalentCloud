@@ -21,7 +21,7 @@ script:
   - sudo make gen-certs
   - sudo make build-db
   - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run -rm $ci_env talentcloud_talentcloud bash
+  - docker run --rm $ci_env talentcloud_talentcloud bash
   - docker exec -ti talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
