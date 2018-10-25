@@ -10,14 +10,6 @@ coverage:
         threshold: null
         base: auto
 
-comment:
-  layout: "header, diff, tree, changes"
-  behavior: default
-  require_changes: false  # if true: only post the comment if coverage changes
-  branches: null
-  flags: null
-  paths: null
-
 coverage:
   notify:
     slack:
@@ -27,3 +19,11 @@ coverage:
         # threshold: null
         # flags: null
         # paths: null
+
+comment:
+  layout: "header, diff, tree, changes"
+  behavior: default
+  require_changes: false  # if true: only post the comment if coverage changes
+  branches: null
+  flags: null
+  paths: null
