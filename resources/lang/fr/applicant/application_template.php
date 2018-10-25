@@ -80,6 +80,7 @@ return [
         ],
 
     /* Step 01 */
+        "step_01_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 1",
         "question_label" => "Votre réponse",
         "question_title" => "Ma compatibilité",
         "claim_title" => "Renseignements généraux",
@@ -97,6 +98,7 @@ return [
         "language_label" => "En choisir un",
 
     /* Step 02 */
+        "step_02_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 2",
         "experience" => [
             "title" => "Mon expérience",
             "description" => "Le poste auquel vous êtes sur le point de postuler requiert les études ou l'expérience minimales suivantes. Vous ne pouvez pas être considéré(e) pour ce travail à moins que vous ayez celles-ci, même si vous êtes vraiment génial(e). Les gestionnaires ne sont pas autorisés à vous engager pour cet emploi dans cette classification sans cette éducation ou cette expérience."
@@ -114,6 +116,8 @@ return [
         ],
 
     /* Step 03/04 */
+        "step_03_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 3",
+        "step_04_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 4",
         "sidebar_item_title" => "Faites défiler jusqu'à cette compétence",
         "skills_section" => [
             "essential_title" => "Nécessaire d'avoir",
@@ -132,6 +136,7 @@ return [
         "asset_sidebar_label" => "Liste de compétences",
 
     /* Step 05 */
+        "step_05_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 5",
         "preview" => [
             "title" => "Revoir ma candidature",
             "copy_01" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
@@ -163,11 +168,12 @@ return [
                 "null_work_copy" => "Vous n'avez actuellement aucune expérience équivalente listée dans votre profil."
             ],
             "section_03_title" => "Les compétences que vous devez avoir",
-            "section_04_title" => "Des compétences qu'il est bon d'avoir"
+            "section_04_title" => "Des compétences qu'il est bon d'avoir",
         ],
 
     /* Step 06 (Complete) */
         "complete" => [
+            "step_06_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 6",
             "title" => "Merci d'avoir postulé!",
             "copy_01" => "Nuage de talents est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
             "survey_link" => "GOOGLE",

@@ -15,6 +15,7 @@
             <button
                 class="applicant-profile__header-photo"
                 onclick="">
+                <span class="hidden">{{ manager.user.name }}</span>
                 <div
                     style="background-image:url('{{ manager_profile_photo_url }}')">
                 </div>
@@ -45,6 +46,7 @@
                             target="_blank"
                             title="{{ manager_profile.twitter_label|replace({":name":manager.user.name}) }}">
                             <i class="fab fa-twitter"></i>
+                            <span class="hidden">{{ manager_profile.twitter_label|replace({":name":manager.user.name}) }}</span>
                         </a>
                     </li>
 
@@ -54,6 +56,7 @@
                             target="_blank"
                             title="{{ manager_profile.linkedin_label|replace({":name":manager.user.name}) }}">
                             <i class="fab fa-linkedin"></i>
+                            <span class="hidden">{{ manager_profile.linkedin_label|replace({":name":manager.user.name}) }}</span>
                         </a>
                     </li>
 

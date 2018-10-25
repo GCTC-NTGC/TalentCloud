@@ -12,6 +12,7 @@ return [
 
     "title" => "Mon expérience",
     "experience_section" => [
+        "experience_title" => "Nuage de talents | Candidat : Profil - Mon expérience",
         "section_degree_title" => "Mes diplômes",
         "add_degree_label" => "Ajouter un diplôme",
         "null_degree_copy" => "Vous n'avez actuellement aucun diplôme sur votre profil! Utilisez le bouton ci-dessus pour en ajouter un.",

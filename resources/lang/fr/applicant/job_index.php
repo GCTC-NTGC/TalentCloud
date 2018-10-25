@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Parcourir les emplois",
+    "job_index_title" => "Nuage de talents | Candidat : Parcourir les emplois",
     "index" => [
         "view_title" => "Voir l'affiche de travail pour",
         "location_label" => "Emplacement",
@@ -18,7 +19,7 @@ return [
             'week' => ':count semaine.|:count semaines.',
             'month' => ':count mois.|:count mois.',
             'year' => ':count ans.|:count années.',
-            'permanent' => 'Permanent.'        
+            'permanent' => 'Permanent.'
         ],
         'remote_work_allowed' => [
             true => 'Travail à distance autorisé',
