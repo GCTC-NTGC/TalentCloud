@@ -21,10 +21,11 @@ script:
   - sudo make gen-certs
   - sudo make build-db
   - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run $ci_env talentcloud_talentcloud
   - docker exec -ti talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
-  
+
 after_script:
-  - docker exec -it $ci_env talentcloud bash -c "bash <(curl -s https://codecov.io/bash)"
+  - bash <(curl -s https://codecov.io/bash)
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - sudo make docker-stop
