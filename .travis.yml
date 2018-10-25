@@ -20,11 +20,11 @@ script:
   - docker exec -ti talentcloud sh -c "php artisan config:cache"
   - sudo make gen-certs
   - sudo make build-db
-  - docker exec -ti talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run $ci_env --name codecov
+  - docker exec -ti codecov bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
-  - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run --name codecov $ci_env
   - docker exec -ti codecov bash -c "bash <(curl -s https://codecov.io/bash)"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
