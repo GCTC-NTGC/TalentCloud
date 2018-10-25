@@ -12,6 +12,7 @@ return [
 
     "title" => "My Experience",
     "experience_section" => [
+        "experience_title" => "Talent Cloud | Applicant: Profile - My Experience",
         "section_degree_title" => "My Diplomas/Degrees",
         "add_degree_label" => "Add Diploma/Degree",
         "null_degree_copy" => "You don't currently have any diplomas or degrees on your profile! Use the button above to add one.",

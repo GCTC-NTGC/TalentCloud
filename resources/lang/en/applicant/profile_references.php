@@ -12,6 +12,7 @@ return [
 
     "title" => "My References",
     "reference_section" => [
+        "reference_title" => "Talent Cloud | Applicant: Profile - My References",
         "section_title" => "My References",
         "section_description" => "By submitting a reference you agree to having first asked their permission to provide their information. Please note that all information provided within a reference might be sent to said reference during a hiring process.",
         "add_button_label" => "Add Reference",

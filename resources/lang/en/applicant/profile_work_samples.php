@@ -12,6 +12,7 @@ return [
 
     "title" => "My Work Samples",
     "sample_section" => [
+        "sample_title" => "Talent Cloud | Applicant: Profile - My Work Samples",
         "section_title" => "My Work Samples",
         "add_button_label" => "Add Sample",
         "null_copy" => "You don't currently have any work samples in your profile! Use the button above to add a work sample."

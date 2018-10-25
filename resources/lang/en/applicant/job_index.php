@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Browse Jobs",
+    "job_index_title" => "Talent Cloud | Applicant: Browse Jobs",
     "index" => [
         "view_title" => "View the job post for",
         "location_label" => "Location",

@@ -35,12 +35,13 @@
                                 class="form__input-wrapper--select">
                                 <label
                                     class="form__label"
-                                    for="">
+                                    for="citizenship_declaration_id">
                                     {{ application_template.citizenship_label }}
                                 </label>
                                 <div
                                     class="form__select-wrapper fas fa-chevron-down">
                                     <select
+                                        id="citizenship_declaration_id"
                                         class="form__input"
                                         name="citizenship_declaration_id" >
                                         {% for option in citizenship_options %}
@@ -85,12 +86,13 @@
                                 class="form__input-wrapper--select">
                                 <label
                                     class="form__label"
-                                    for="">
+                                    for="veteran_status_id">
                                     {{ application_template.veterans_label }}
                                 </label>
                                 <div
                                     class="form__select-wrapper fas fa-chevron-down">
                                     <select
+                                        id="veteran_status_id"
                                         class="form__input"
                                         name="veteran_status_id">
                                         {% for option in veteran_options %}
@@ -134,12 +136,13 @@
                                 class="form__input-wrapper--select">
                                 <label
                                     class="form__label"
-                                    for="">
+                                    for="preferred_language_id">
                                     {{ application_template.language_label }}
                                 </label>
                                 <div
                                     class="form__select-wrapper fas fa-chevron-down">
                                     <select
+                                        id="preferred_language_id"
                                         class="form__input"
                                         name="preferred_language_id">
                                         {% for option in language_options %}
@@ -177,10 +180,11 @@
                 class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
                 <label
                     class="form__label"
-                    for="">
+                    for="questions[{{ question.id }}]">
                     {{ application_template.question_label }}
                 </label>
                 <textarea
+                    id="questions[{{ question.id }}]"
                     class="form__textarea"
                     name="questions[{{ question.id }}]">{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
             </div>
