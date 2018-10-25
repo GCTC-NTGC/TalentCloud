@@ -17,8 +17,8 @@ INSERT INTO applicant_profile_question_translations VALUES
 (8,4,'fr','Je travaille mieux lorsque...','Tu es introverti? Extraverti? Un peu des deux? Tu aimes les délais serrés, ou, au contraire, tu préfères avoir du temps pour étudier tes options? Tu as une bonne autonomie au travail? Tu aimes travailler en équipe? Voici ta chance d’indiquer à tes gestionnaires potentiels les conditions dans lesquelles tu performes le mieux au sein d’une équipe.',current_timestamp,current_timestamp),
 (9,5,'en','I learn best when...','Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.',current_timestamp,current_timestamp),
 (10,5,'fr','J’apprends mieux lorsque... ','Retiens-tu mieux l’information en la lisant, en la mettant en pratique, ou encore en observant son application? Es-tu de ceux qui apprennent rapidement, ou préfères-tu acquérir une expertise approfondie au fil du temps? Se joindre à une nouvelle équipe signifie apprendre de nouvelles choses. Décris ton style d’apprentissage à tes gestionnaires potentiels pour qu’ils puissent t’aider à te mettre au diapason et à mettre tes talents à contribution rapidement.',current_timestamp,current_timestamp),
-(11,6,'en','Types of teams I work well on...','Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.',current_timestamp,current_timestamp),
-(12,6,'fr','Les types d’équipe dans lesquels je travaille bien ','Retiens-tu mieux l’information en la lisant, en la mettant en pratique, ou encore en observant son application? Es-tu de ceux qui apprennent rapidement, ou préfères-tu acquérir une expertise approfondie au fil du temps? Se joindre à une nouvelle équipe signifie apprendre de nouvelles choses. Décris ton style d’apprentissage à tes gestionnaires potentiels pour qu’ils puissent t’aider à te mettre au diapason et à mettre tes talents à contribution rapidement.',current_timestamp,current_timestamp);
+(11,6,'en','Types of teams I work well on...','Do you work best when you collaborate on projects or when you have a role where you can do your own thing? Do you prefer having a routine or do you thrive on teams where every day is something different? Are you highly adaptable to different work styles or do you have a preference for particular ways of working? Here’s your chance to let managers learn about the type of team(s) you work well on and the role(s) you prefer to play.',current_timestamp,current_timestamp),
+(12,6,'fr','Les types d’équipe dans lesquels je travaille bien ','Travaillez-vous mieux lorsque vous collaborer sur des projets ou lorsque vous avez un rôle où vous pouvez faire votre propre travail? Préférez-vous avoir une routine ou prospérez-vous dans des équipes où chaque jour est différent? Êtes-vous très adaptable à différents styles de travail ou avez-vous une préférence pour des méthodes de travail particulières? Voici votre chance de faire savoir aux gestionnaires sur quel type d’équipe (s) vous travaillez bien et le(s) rôle(s) que vous préférez jouer.',current_timestamp,current_timestamp);
 
 INSERT INTO application_status VALUES
 (1,'draft',current_timestamp,current_timestamp),
@@ -325,16 +325,4 @@ INSERT INTO skills (name, skill_type_id, created_at, updated_at) VALUES
 ('stress_management', 1, current_timestamp, current_timestamp),
 ('stress_tolerance', 1, current_timestamp, current_timestamp),
 ('time_management', 1, current_timestamp, current_timestamp),
-('willingness_learn', 1, current_timestamp, current_timestamp),
-('management_ability', 2, current_timestamp, current_timestamp),
-('experience_design', 2, current_timestamp, current_timestamp),
-('project_management', 2, current_timestamp, current_timestamp),
-('stakeholder_relations', 2, current_timestamp, current_timestamp),
-('dot_net', 2, current_timestamp, current_timestamp),
-('geospacial_programming', 2, current_timestamp, current_timestamp),
-('microsoft_dynamics', 2, current_timestamp, current_timestamp),
-('facilitation', 2, current_timestamp, current_timestamp),
-('systems_thinking', 2, current_timestamp, current_timestamp),
-('web_architecture', 2, current_timestamp, current_timestamp),
-('storytelling', 2, current_timestamp, current_timestamp),
-('user_design', 2, current_timestamp, current_timestamp);
+('willingness_learn', 1, current_timestamp, current_timestamp);
