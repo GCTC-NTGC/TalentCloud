@@ -6,7 +6,7 @@
 DB_DUMPS_DIR=database/db/dumps
 
 build-db:
-	@docker exec -ti talentcloud sh -c "php artisan migrate"
+	@docker exec -ti talentcloud sh -c "php artisan migrate:fresh"
 	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	@docker exec -ti talentcloud sh -c "php artisan db:seed"
 
