@@ -10,8 +10,9 @@ services:
   - postgresql
 
 install:
+  - docker run --rm -v $(pwd):/app composer/composer install
   - sudo make docker-start
-  - composer install
+  # composer install
   - npm install
 
 script:
