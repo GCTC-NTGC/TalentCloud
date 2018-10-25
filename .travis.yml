@@ -23,12 +23,12 @@ script:
 
 after_script:
   - docker exec -ti talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - docker exec -ti talentcloud bash -c "bash <(curl -s https://codecov.io/bash)"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - sudo make docker-stop
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
@@ -39,3 +39,11 @@ notifications:
   slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
   on_success: always
   on_failure: change
+
+
+# request codecov to detect CI environment to pass through to docker
+ci_env=`bash <(curl -s https://codecov.io/env)`
+docker run $ci_env ...
+   |----- inside docker container
+   | # exec tests
+   | bash <(curl -s https://codecov.io/bash)
