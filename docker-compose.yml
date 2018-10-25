@@ -28,7 +28,6 @@ services:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
-            - "./vendor:/app/vendor"
         links:
             - talentcloud-db
         environment:
