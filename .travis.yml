@@ -9,10 +9,12 @@ services:
   - docker
   - postgresql
 
+before_install:
+  - sudo make docker-start
+
 install:
   # composer install
   - npm install
-  - sudo make docker-start
 
 script:
   - sudo cp -a .env.example .env
@@ -20,7 +22,7 @@ script:
   - docker exec -ti talentcloud sh -c "php artisan key:generate"
   - docker exec -ti talentcloud sh -c "php artisan config:cache"
   - docker exec -ti talentcloud sh -c "php artisan migrate:fresh"
-  - docker exec -ti talentcloud sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+  - docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
   - docker exec -ti talentcloud sh -c "php artisan db:seed"
   # sudo make build-db
 
