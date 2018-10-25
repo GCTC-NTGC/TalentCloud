@@ -11,5 +11,6 @@ RUN docker-php-ext-install pdo mbstring pgsql pdo_pgsql zip && \
 
 WORKDIR /var/www
 COPY . /var/www
-RUN composer install
+RUN --rm -v $(pwd):/app composer/composer install
+#RUN composer install
 EXPOSE 9000
