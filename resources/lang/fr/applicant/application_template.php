@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "Postuler maintenant",
+    "view_title" => "Application",
     "job_context_copy" => "Vous postulez pour:",
     "save_quit_button_label" => "Sauvegarder et quitter",
     "save_continue_button_label" => "Sauvegarder & continuer",
