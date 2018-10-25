@@ -10,29 +10,28 @@ services:
   - postgresql
 
 before_install:
-  # sudo make docker-start
-  - docker build -t gctcntgc/talentcloud:travis .
-  - sudo docker-compose up -d
+  - sudo make docker-start
   # composer install
   # npm install
 
 script:
   - sudo cp -a .env.example .env
-  - sudo make gen-certs
   - docker exec -ti talentcloud sh -c "php artisan key:generate"
   - docker exec -ti talentcloud sh -c "php artisan config:cache"
+  - sudo make gen-certs
   - sudo make build-db
 
 after_script:
   - docker exec -ti talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-  - sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
+  - sudo make docker-stop
 
 # Slack notifications / do not send emails
 notifications:
