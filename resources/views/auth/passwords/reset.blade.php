@@ -1,72 +1,168 @@
-
-
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ $reset_password_template['title'] }}</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ $routes['password']['request'] }}">
-                        {{ csrf_field() }}
+    <section
+        class="auth"
+        style="background-image: url('/images/bg_crowd.jpg');">
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+        <div
+            class="register">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">{{ $reset_password_template['email'] }}</label>
+            <div
+                class="register-heading">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
+                <h1>{{ $reset_password_template['title'] }}</h1>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+            </div>
+
+            <form
+                action="{{ $routes['password']['request'] }}"
+                class="form__wrapper"
+                method="POST">
+
+                {{ csrf_field() }}
+
+                <input type="hidden" name="token" value="{{ $token }}">
+
+                <div
+                    class="register-content">
+
+                    <div
+                        class="register-scroll-wrapper">
+
+                        <div
+                            class="register-copy">
+
+                            <div 
+                                class="flex-grid">
+
+                                @if ($errors->any())
+                                    <div class="box full register-alert">
+                                        @foreach ($errors->all() as $error)
+                                            <span class="help-block">
+                                                <strong>{{ $error }}</strong>
+                                            </span>
+                                        @endforeach
+                                    </div>
                                 @endif
+
+                                <div
+                                    class="box full">
+
+                                    <div
+                                        class="form__input-wrapper--float @if (old('email'))active @endif @if ($email)active @endif">
+                                        <label
+                                            class="form__label"
+                                            for="email">
+                                            {{ $reset_password_template['email'] }}
+                                        </label>
+                                        <input
+                                            class="form__input"
+                                            id="email"
+                                            name="email"
+                                            required
+                                            type="email"
+                                            value="{{ $email or old('email') }}" />
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="box full">
+
+                                    <p>{{ $reset_password_template['password_copy'] }}</p>
+
+                                </div>
+
+                                <div
+                                    class="box med-1of2">
+
+                                    <div
+                                        class="form__input-wrapper--float">
+                                        <label
+                                            class="form__label"
+                                            for="password">
+                                            {{ $reset_password_template['password'] }}
+                                        </label>
+                                        <input
+                                            class="form__input"
+                                            id="password"
+                                            name="password"
+                                            required
+                                            type="password" />
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="box med-1of2">
+
+                                    <div
+                                        class="form__input-wrapper--float">
+                                        <label
+                                            class="form__label"
+                                            for="password-confirm">
+                                            {{ $reset_password_template['confirm_password'] }}
+                                        </label>
+                                        <input
+                                            class="form__input"
+                                            id="password-confirm"
+                                            name="password_confirmation"
+                                            required
+                                            type="password" />
+                                    </div>
+
+                                </div>
+
                             </div>
+
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">{{ $reset_password_template['password'] }}</label>
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                    <div
+                        class="register-action-wrapper">
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                        <div
+                            class="flex-grid">
+
+                            <div
+                                class="box small-1of2">
+
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">{{ $reset_password_template['confirm_password'] }}</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <div
+                                class="box small-1of2">
 
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button
+                                    class="button--blue light-bg"
+                                    type="submit">
                                     {{ $reset_password_template['submit'] }}
                                 </button>
+
                             </div>
+
                         </div>
-                    </form>
+
+                    </div>
+
                 </div>
-            </div>
+
+            </form>
+
         </div>
-    </div>
-</div>
+
+        <a
+            class="register-logo"
+            href="/"
+            title="Return to Talent Cloud.">
+            <img
+                alt="The Talent Cloud Logo"
+                class=""
+                src="{{ $reset_password_template['auth_logo'] }}">
+        </a>
+
+    </section>
+
 @endsection
