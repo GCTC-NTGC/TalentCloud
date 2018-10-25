@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Nuage de talents : mode d'emploi",
+    "faq_title" => "Nuage de talents | Candidat : FAQ",
     "sidebar_label" => "Sur cette page",
     "modals" => [
         "00" => [
