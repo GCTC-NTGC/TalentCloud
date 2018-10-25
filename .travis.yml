@@ -11,10 +11,8 @@ services:
 
 before_install:
   - sudo make docker-start
-
-install:
   # composer install
-  - npm install
+  # npm install
 
 script:
   - sudo cp -a .env.example .env
@@ -32,7 +30,7 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker -t gctcntgc/talentcloud:travis
+  - docker tag gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
