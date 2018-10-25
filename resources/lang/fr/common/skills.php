@@ -175,7 +175,7 @@ return [
         ],
         'dependability' => [
             'name' => 'Fiabilité',
-            'description' => 'Se définit comme suit : Être fiable, responsable et fiable et remplir ses obligations.'
+            'description' => 'Se définit comme suit : Être fiable, responsable et respecter ses obligations; ces qualités sont démontrées en ayant de bonnes compétences à prévoir les échéanciers, savoir ce que vous pouvez livrer, veiller à ce que tout soit fait et communiquer à l’avance en cas de problèmes ou de retards.'
         ],
         'ability_follow_instructions' => [
             'name' => 'Capacité à suivre les instructions',
@@ -212,6 +212,54 @@ return [
         'willingness_learn' => [
             'name' => 'Envie d\'apprendre',
             'description' => 'Se définit comme suit : Chercher des occasions et prendre l’initiative de se perfectionner de façon continue.'
+        ],
+        'management_ability' => [
+            'name' => 'Compétences en gestion',
+            'description' => 'Se définit comme suit : Être responsable d’une équipe ou d’une initiative; démontrer la capacité de planifier, organiser, élaborer des stratégies, prendre des décisions, motiver les autres et leur donner des possibilités, collaborer et bâtir des relations afin de répondre aux attentes.'
+        ],
+        'experience_design' => [
+            'name' => 'Conception de l’expérience de service',
+            'description' => 'Se définit comme suit : Planifier et organiser les personnes, l’infrastructure, la communication et les composantes matérielles d’un service afin d’améliorer sa qualité et l’interaction entre le fournisseur de service et ses utilisateurs'
+        ],
+        'project_management' => [
+            'name' => 'Gestion de projet',
+            'description' => 'Se définit comme suit : Capacité à prioriser les changements ayant le plus d’incidence, à gérer des priorités concurrentes, à faire avancer un cycle continu d’amélioration'
+        ],
+        'stakeholder_relations' => [
+            'name' => 'Relations avec les intervenants',
+            'description' => 'Se définit comme suit : Capacité à communiquer clairement avec les intervenants et à négocier les résultats en collaboration avec les partenaires, en faisant progresser les objectifs communs par la collaboration et une communication habile'
+        ],
+        'dot_net' => [
+            'name' => 'Programmation .Net',
+            'description' => 'Se définit comme suit : Capacité de programmer des applications .Net à l\'aide de C #, C ++, F # ou Visual Basic'
+        ],
+        'geospacial_programming' => [
+            'name' => 'Programmes géospatiaux',
+            'description' => 'Se définit comme suit : Capacité à concevoir et à créer des applications qui traitent, transforment, utilisent et affichent des données géospatiales.'
+        ],
+        'microsoft_dynamics' => [
+            'name' => 'Microsoft Dynamics',
+            'description' => 'Se définit comme suit : Capacité à utiliser Microsoft Dynamics pour la planification des ressources d\'entreprise et la gestion de la relation client'
+        ],
+        'facilitation' => [
+            'name' => 'Facilitation',
+            'description' => 'Se définit comme suit : Capacité de tenir une réunion ou un atelier d’une façon qui encourage l’entière participation, qui encourage de la compréhension mutuelle et qui cultive une responsabilité commune'
+        ],
+        'systems_thinking' => [
+            'name' => 'Pensée systémique',
+            'description' => 'Se définit comme suit : Capacité à comprendre et à analyser la manière dont des aspects disparates d’un service s’intègrent et s’influencent, et les transformer en une orientation claire du service'
+        ],
+        'web_architecture' => [
+            'name' => 'Architecture d’information sur le Web',
+            'description' => 'Se définit comme suit : Capacité à restructurer l’architecture Web du point de vue de la gestion de l’information (sans codage)'
+        ],
+        'storytelling' => [
+            'name' => 'Communication narrative',
+            'description' => 'Se définit comme suit : Capacité à communiquer les progrès, à communiquer des histoires de réussite et des leçons apprises avec divers publics et la haute direction, de manière claire et convaincante'
+        ],
+        'user_design' => [
+            'name' => 'Conception centrée sur l\'utilisateur',
+            'description' => 'Se définit comme suit : Capacité à appliquer des techniques de conception centrées sur l\'utilisateur pour: comprendre le parcours de l\'utilisateur; développer et tester de nouvelles approches d\'interaction utilisateur-produit; et produire des fonctionnalités qui prennent en charge une expérience utilisateur améliorée, intuitive et agréable'
         ],
     ],
     'status' => [
