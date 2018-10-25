@@ -25,8 +25,7 @@ script:
   - docker exec -ti talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
-  - docker exec -ti talentcloud bash -c "bash <(curl -s https://codecov.io/bash)"
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - sudo make docker-stop
