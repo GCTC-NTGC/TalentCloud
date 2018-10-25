@@ -15,11 +15,11 @@ install:
 
 script:
   - sudo cp -a .env.example .env
-  - php artisan key:generate
-  - php artisan config:cache
   - sudo make gen-certs
   - sudo make docker-start
   - sudo make build-db
+  - php artisan key:generate
+  - php artisan config:cache
 
 after_script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
