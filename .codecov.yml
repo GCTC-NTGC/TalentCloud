@@ -9,14 +9,6 @@ coverage:
         target: auto
         threshold: null
         base: auto
-  notify:
-    slack:
-      default:
-        url: "https://hooks.slack.com/services/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"
-        only_pulls: true
-        # threshold: null
-        # flags: null
-        # paths: null
 
 comment:
   layout: "header, diff, tree, changes"
@@ -25,3 +17,13 @@ comment:
   branches: null
   flags: null
   paths: null
+
+coverage:
+  notify:
+    slack:
+      default:
+        url: "https://hooks.slack.com/services/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"
+        only_pulls: true
+        # threshold: null
+        # flags: null
+        # paths: null
