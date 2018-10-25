@@ -10,7 +10,7 @@ return [
     *
     */
     "title" => "Apply Now",
-    "view_title" => "My Application",
+    "view_title" => "Application",
     "job_context_copy" => "You are applying for:",
     "save_quit_button_label" => "Save & Quit",
     "save_continue_button_label" => "Save & Continue",

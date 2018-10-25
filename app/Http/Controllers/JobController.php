@@ -44,6 +44,352 @@ class JobController extends Controller
     }
 
     /**
+     * Display a listing of a manager's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function managerIndex()
+    {
+        $manager = Auth::user()->manager;
+
+        return view('manager/job_index', [
+            "manager_job_index" => [
+                "title" => "My Job Posts"
+            ],
+            'jobs' => $manager->job_posters,
+        ]);
+
+        // return view('manager/job_index', [
+        //     "manager_job_index" => [
+        //         "title" => "My Job Posts"
+        //     ],
+        //     "user" => [
+        //         "posts" => [
+        //             "00" => [
+        //                 "status" => "draft",
+        //                 "link" => "/browse/jobs/00/",
+        //                 "title" => "Front-end Developer",
+        //                 "department" => "Treasury Board of Canada Secretariat",
+        //                 "city" => "Ottawa",
+        //                 "province" => "Ontario",
+        //                 "salary" => "80,000 - 120,000",
+        //                 "duration" => "1 Year",
+        //                 "remote" => "Allowed",
+        //                 "telework" => "Allowed",
+        //                 "time_flexibility" => "Allowed",
+        //                 "end_date" => "2018-04-09",
+        //                 "days_remaining" => "12",
+        //                 "applicants" => "2",
+        //                 "reference_id" => "14234",
+        //                 "start" => "January 3rd, 2019",
+        //                 "language" => "English Essential",
+        //                 "security" => "Top Secret",
+        //                 "classification" => "CS3",
+        //                 "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+        //                 "work" => [
+        //                     "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+        //                 ],
+        //                 "criteria" => [
+        //                     "essential" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ],
+        //                     "asset" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ]
+        //                 ],
+        //                 "extras" => [
+        //                     "00" => [
+        //                         "title" => "What You Need for Security Clearance",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "01" => [
+        //                         "title" => "The Application Process",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "02" => [
+        //                         "title" => "Other Paperwork & Preparation",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ]
+        //                 ]
+        //             ],
+        //             "01" => [
+        //                 "status" => "draft",
+        //                 "link" => "/browse/jobs/00/",
+        //                 "title" => "Back-end Developer",
+        //                 "department" => "Treasury Board of Canada Secretariat",
+        //                 "city" => "Ottawa",
+        //                 "province" => "Ontario",
+        //                 "salary" => "80,000 - 120,000",
+        //                 "duration" => "1 Year",
+        //                 "remote" => "Allowed",
+        //                 "telework" => "Allowed",
+        //                 "time_flexibility" => "Allowed",
+        //                 "end_date" => "2018-04-09",
+        //                 "days_remaining" => "12",
+        //                 "applicants" => "2",
+        //                 "reference_id" => "14234",
+        //                 "start" => "January 3rd, 2019",
+        //                 "language" => "English Essential",
+        //                 "security" => "Top Secret",
+        //                 "classification" => "CS3",
+        //                 "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+        //                 "work" => [
+        //                     "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+        //                 ],
+        //                 "criteria" => [
+        //                     "essential" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ],
+        //                     "asset" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ]
+        //                 ],
+        //                 "extras" => [
+        //                     "00" => [
+        //                         "title" => "What You Need for Security Clearance",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "01" => [
+        //                         "title" => "The Application Process",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "02" => [
+        //                         "title" => "Other Paperwork & Preparation",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ]
+        //                 ]
+        //             ],
+        //             "02" => [
+        //                 "status" => "active",
+        //                 "link" => "/browse/jobs/00/",
+        //                 "title" => "UX Designer",
+        //                 "department" => "Treasury Board of Canada Secretariat",
+        //                 "city" => "Ottawa",
+        //                 "province" => "Ontario",
+        //                 "salary" => "80,000 - 120,000",
+        //                 "duration" => "1 Year",
+        //                 "remote" => "Allowed",
+        //                 "telework" => "Allowed",
+        //                 "time_flexibility" => "Allowed",
+        //                 "end_date" => "2018-04-09",
+        //                 "days_remaining" => "12",
+        //                 "applicants" => "2",
+        //                 "reference_id" => "14234",
+        //                 "start" => "January 3rd, 2019",
+        //                 "language" => "English Essential",
+        //                 "security" => "Top Secret",
+        //                 "classification" => "CS3",
+        //                 "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+        //                 "work" => [
+        //                     "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+        //                 ],
+        //                 "criteria" => [
+        //                     "essential" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ],
+        //                     "asset" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ]
+        //                 ],
+        //                 "extras" => [
+        //                     "00" => [
+        //                         "title" => "What You Need for Security Clearance",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "01" => [
+        //                         "title" => "The Application Process",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "02" => [
+        //                         "title" => "Other Paperwork & Preparation",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ]
+        //                 ],
+        //                 "applicants" => [
+        //                     "00" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "01" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "02" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "03" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "04" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ]
+        //                 ]
+        //             ],
+        //             "03" => [
+        //                 "status" => "active",
+        //                 "link" => "/browse/jobs/00/",
+        //                 "title" => "Front-end Developer",
+        //                 "department" => "Treasury Board of Canada Secretariat",
+        //                 "city" => "Ottawa",
+        //                 "province" => "Ontario",
+        //                 "salary" => "80,000 - 120,000",
+        //                 "duration" => "1 Year",
+        //                 "remote" => "Allowed",
+        //                 "telework" => "Allowed",
+        //                 "time_flexibility" => "Allowed",
+        //                 "end_date" => "2018-04-09",
+        //                 "days_remaining" => "12",
+        //                 "applicants" => "2",
+        //                 "reference_id" => "14234",
+        //                 "start" => "January 3rd, 2019",
+        //                 "language" => "English Essential",
+        //                 "security" => "Top Secret",
+        //                 "classification" => "CS3",
+        //                 "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+        //                 "work" => [
+        //                     "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+        //                 ],
+        //                 "criteria" => [
+        //                     "essential" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ],
+        //                     "asset" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ]
+        //                 ],
+        //                 "extras" => [
+        //                     "00" => [
+        //                         "title" => "What You Need for Security Clearance",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "01" => [
+        //                         "title" => "The Application Process",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "02" => [
+        //                         "title" => "Other Paperwork & Preparation",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ]
+        //                 ],
+        //                 "applicants" => [
+        //                     "00" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "01" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "02" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "03" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ],
+        //                     "04" => [
+        //                         "name" => "Jake McMahon",
+        //                         "link" => "http://google.com",
+        //                         "application_link" => "http://google.com"
+        //                     ]
+        //                 ]
+        //             ],
+        //             "04" => [
+        //                 "status" => "closed",
+        //                 "link" => "/browse/jobs/00/",
+        //                 "title" => "Front-end Developer",
+        //                 "department" => "Treasury Board of Canada Secretariat",
+        //                 "city" => "Ottawa",
+        //                 "province" => "Ontario",
+        //                 "salary" => "80,000 - 120,000",
+        //                 "duration" => "1 Year",
+        //                 "remote" => "Allowed",
+        //                 "telework" => "Allowed",
+        //                 "time_flexibility" => "Allowed",
+        //                 "end_date" => "2018-04-09",
+        //                 "days_remaining" => "12",
+        //                 "applicants" => "2",
+        //                 "reference_id" => "14234",
+        //                 "start" => "January 3rd, 2019",
+        //                 "language" => "English Essential",
+        //                 "security" => "Top Secret",
+        //                 "classification" => "CS3",
+        //                 "impact" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat. Sed quis laoreet tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla at ligula id porttitor. Nullam ac viverra velit, et rhoncus tellus. Praesent in lacus magna. Duis ut vulputate ipsum. In ut ornare elit. Donec id massa felis. Nam at ullamcorper risus. Vestibulum vitae aliquet ex, et ornare libero. Pellentesque sit amet vehicula neque. Donec auctor a erat posuere vehicula.",
+        //                 "work" => [
+        //                     "00" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "01" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat.",
+        //                     "02" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porttitor magna et ante ornare faucibus. Quisque ligula enim, finibus vel velit quis, aliquam cursus nunc. Fusce quis urna ut dolor pharetra bibendum. Aliquam erat volutpat."
+        //                 ],
+        //                 "criteria" => [
+        //                     "essential" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ],
+        //                     "asset" => [
+        //                         "00" => "Criteria 01",
+        //                         "01" => "Criteria 02",
+        //                         "02" => "Criteria 03"
+        //                     ]
+        //                 ],
+        //                 "extras" => [
+        //                     "00" => [
+        //                         "title" => "What You Need for Security Clearance",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "01" => [
+        //                         "title" => "The Application Process",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ],
+        //                     "02" => [
+        //                         "title" => "Other Paperwork & Preparation",
+        //                         "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus, purus a congue bibendum, nibh quam convallis leo, a pharetra dui ante nec magna. Proin elementum lacus venenatis nulla luctus, sed porttitor quam ullamcorper. Proin in facilisis sapien, in ullamcorper orci."
+        //                     ]
+        //                 ]
+        //             ]
+        //         ]
+        //     ]
+        // ]);
+    }
+
+    /**
      * Display the specified job poster.
      *
      * @param  Request  $request
