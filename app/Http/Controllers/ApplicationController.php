@@ -17,9 +17,6 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        debugbar()->info(JobApplication::all());
-        debugbar()->info(Auth::user()->applicant);
-        debugbar()->info(Auth::user()->applicant->job_applications);
         $applications = Auth::user()->applicant->job_applications;
         return view('applicant/application_index', [
             "application_index" => Lang::get('applicant/application_index'),
