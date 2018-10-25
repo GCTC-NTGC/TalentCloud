@@ -10,16 +10,16 @@ services:
   - postgresql
 
 install:
-   - composer install
+   # composer install
    - npm install
 
 script:
   - sudo cp -a .env.example .env
   - sudo make docker-start
   - sudo make gen-certs
-  - sudo make build-db
   - php artisan key:generate
   - php artisan config:cache
+  - sudo make build-db
 
 after_script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
