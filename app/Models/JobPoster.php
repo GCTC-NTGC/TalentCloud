@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use App\Events\JobSaved;
+use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
 use Jenssegers\Date\Date;
 
@@ -33,6 +34,9 @@ use Jenssegers\Date\Date;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
+ * @property int $submitted_applications_count
+ * @property int $days_remaining
+ *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
  * @property \App\Models\Lookup\LanguageRequirement $language_requirement
@@ -44,6 +48,7 @@ use Jenssegers\Date\Date;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_key_tasks
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
+ * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
  *
  * Localized Properties:
  * @property string $city
@@ -92,6 +97,7 @@ class JobPoster extends BaseModel {
         'language_requirement_id',
         'published'
     ];
+    protected $withCount = ['submitted_applications'];
 
     protected $dispatchesEvents = [
         'saved' => JobSaved::class,
@@ -140,15 +146,17 @@ class JobPoster extends BaseModel {
     public function job_poster_translations() {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
-    
-    //Accessors
-    
-    public function getApplicantCountAttribute() {
-        $applicant_count = $this->job_applications->whereNotIn('application_status.name', 'draft')->count();
-        debugbar()->info($applicant_count);
-        return $applicant_count;
+
+    // Artificial Relations
+
+    public function submitted_applications() {
+        return $this->hasMany(\App\Models\JobApplication::class)->whereHas('application_status', function ($query) {
+            $query->where('name', '!=', 'draft');
+        });
     }
-    
+
+    // Accessors
+
     public function getDaysRemainingAttribute() {
         $days_remaining = $this->close_date_time->diffInDays(Date::now());
         debugbar()->info($days_remaining);
