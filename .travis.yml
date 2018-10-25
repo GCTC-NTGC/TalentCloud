@@ -10,12 +10,12 @@ services:
   - postgresql
 
 install:
-   # composer install
-   - npm install
+  - sudo make docker-start
+  # composer install
+  - npm install
 
 script:
   - sudo cp -a .env.example .env
-  - sudo make docker-start
   - sudo make gen-certs
   - php artisan key:generate
   - php artisan config:cache
