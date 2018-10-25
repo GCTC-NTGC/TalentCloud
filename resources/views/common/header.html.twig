@@ -15,13 +15,7 @@
         <div
             class="header__content">
 
-            <h2 class="heading--01">
-                {% if application_preview == true%}
-                    {{ header.view_title }}: {{ job.title }}
-                {% else %}
-                    {{ header.title }}{% if application_step == true %}: {{ job.title }}{% endif %}
-                {% endif %}
-            </h2>
+            <h2 class="heading--01">{{ header.title }}</h2>
 
         </div>
 
