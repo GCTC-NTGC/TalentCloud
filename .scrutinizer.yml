@@ -10,6 +10,7 @@ build:
 
   dependencies:
     before:
+      - npm install
       - composer update
 
   environment:
