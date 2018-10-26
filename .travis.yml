@@ -34,14 +34,13 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
+  - heroku git:remote -a tc-container
 
 deploy:
   provider: heroku
-  api_key: $HEROKU_API_KEY
+  api_key: "$HEROKU_API_KEY"
   on:
     all_branches: true
-  run:
-    - heroku git:remote -a tc-container"
 
 # Slack notifications / do not send emails
 notifications:
