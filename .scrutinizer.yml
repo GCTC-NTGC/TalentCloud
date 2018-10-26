@@ -40,11 +40,11 @@ build:
           - scss-lint-run
           - phpcs-run
 
-    deployment:
-      -
-        commands:
-          - heroku git:remote -a gc-talentcloud
-          - git push heroku HEAD:master
+  deployment:
+    -
+      commands:
+        - heroku git:remote -a gc-talentcloud
+        - git push heroku HEAD:master
 
 filter:
   excluded_paths:
