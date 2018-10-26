@@ -1,6 +1,5 @@
 build:
   nodes:
-
     analysis:
       tests:
         override:
@@ -8,7 +7,7 @@ build:
           - js-scrutinizer-run
           - phpcs-run ./app
           - scss-lint-run
-          
+
     docker-build:
       environment:
         docker: true
@@ -27,7 +26,7 @@ build:
             talent.local.ca:
               host: 'local.dev'
               web_root: 'public/'
-
+              
       commands:
         -
           command: restore-from-cache repository docker-layers - | docker load
