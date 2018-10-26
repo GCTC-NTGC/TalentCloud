@@ -10,26 +10,26 @@ build:
 
   dependencies:
     before:
-      - composer install
       - npm install
+      - composer update
 
   environment:
     docker: true
     postgresql: true
     ruby: "2.3.1"
     node: "v6.2.0"
+    php:
+      version: "7.0"
+      ini:
+        memory_limit: "-1"
+    selenium: true
     # hosts:
     #   local.dev: 127.0.0.1
-    # php:
-    #   version: "7.0"
-    #   ini:
-    #     memory_limit: "-1"
     # nginx:
     #   sites:
     #     talent.local.ca:
     #       host: 'local.dev'
     #       web_root: 'public/'
-    # selenium: true
 
   deployment:
     -
