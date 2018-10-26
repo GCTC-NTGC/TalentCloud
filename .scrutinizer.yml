@@ -1,12 +1,13 @@
 build:
   nodes:
 
-    tests:
-      override:
-        - php-scrutinizer-run
-        - js-scrutinizer-run
-        - scss-lint-run
-        - phpcs-run
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+          - js-scrutinizer-run
+          - scss-lint-run
+          - phpcs-run
 
     docker-build:
       environment:
