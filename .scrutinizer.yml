@@ -1,6 +1,6 @@
 build:
   nodes:
-    talentcloud:
+    analysis:
       tests:
         override:
           - php-scrutinizer-run
@@ -10,8 +10,8 @@ build:
 
   dependencies:
     before:
+      - composer install
       - npm install
-      - composer update
 
   environment:
     docker: true
@@ -30,7 +30,7 @@ build:
           host: 'local.dev'
           web_root: 'public/'
     # selenium: true
-    
+
   deployment:
     -
       commands:
