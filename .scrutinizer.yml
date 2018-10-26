@@ -1,62 +1,70 @@
 build:
+  environment:
+    docker: true
+    postgresql: true
+    selenium: true
+    ruby: "2.3.1"
+    node: "v6.2.0"
+    hosts:
+      local.dev: 127.0.0.1
+    php:
+      version: "7.0"
+      ini:
+        memory_limit: "-1"
+    nginx:
+      sites:
+        talent.local.ca:
+          host: 'local.dev'
+          web_root: 'public/'
+          
+  commands:
+    -
+      command: restore-from-cache repository docker-layers - | docker load
+      only_if: exists-in-cache repository docker-layers
+    - sudo make docker-start
+    - sudo cp -a .env.example .env
+    - docker exec -ti talentcloud sh -c "php artisan key:generate"
+    - docker exec -ti talentcloud sh -c "php artisan config:cache"
+    - sudo make gen-certs
+    - sudo make build-db
+    - sudo make docker-stop
+    # see "docker save --help" for syntax
+    - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
+
   nodes:
-    docker-build:
-      environment:
-        docker: true
-        postgresql: true
-        selenium: true
-        ruby: "2.3.1"
-        node: "v6.2.0"
-        hosts:
-          local.dev: 127.0.0.1
-        php:
-          version: "7.0"
-          ini:
-            memory_limit: "-1"
-        nginx:
-          sites:
-            talent.local.ca:
-              host: 'local.dev'
-              web_root: 'public/'
-
-      commands:
-        - command: restore-from-cache repository docker-layers - | docker load
-          only_if: exists-in-cache repository docker-layers
-        - sudo make docker-start
-        - sudo cp -a .env.example .env
-        - docker exec -ti talentcloud sh -c "php artisan key:generate"
-        - docker exec -ti talentcloud sh -c "php artisan config:cache"
-        - sudo make gen-certs
-        - sudo make build-db
-        - sudo make docker-stop
-        # see "docker save --help" for syntax
-        - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
-        - heroku git:remote -a gc-talentcloud
-        - git push heroku HEAD:master
-
     analysis:
       tests:
         override:
           - php-scrutinizer-run
           - js-scrutinizer-run
-          - phpcs-run ./app
+          - scss-lint-run
+          - phpcs-run
+
+    deployment:
+      -
+        # Optional. If this should only be executed for pushes to a certain branch.
+        # branch: master            The branch name is exactly "master"
+        # branch: '/^feature/'      Any branch name that starts with "feature"
+        commands:
+          - heroku git:remote -a gc-talentcloud
+          - git push heroku HEAD:master
 
 filter:
-    excluded_paths:
-        - '*/database/*'
-        - '*/node_modules/*'
-        - '*/tests/*'
-        - '*/vendor/*'
+  excluded_paths:
+    - '*/database/*'
+    - '*/node_modules/*'
+    - '*/tests/*'
+    - '*/vendor/*'
 
 checks:
-    php: true
-    javascript: true
+  php: true
+  javascript: true
 
 tools:
-    external_code_coverage:
-        timeout: 777
-        runs: 2
-    custom_commands:
-        -
-            scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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
+  external_code_coverage:
+    timeout: 777
+    runs: 2
+  custom_commands:
+    -
+      scope: project
+      command: vendor/bin/slack --token=https://hooks.slack.com/services/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
