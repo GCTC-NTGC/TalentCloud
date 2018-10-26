@@ -1,42 +1,45 @@
 build:
-  environment:
-    docker: true
-    postgresql: true
-    selenium: true
-    ruby: "2.3.1"
-    node: "v6.2.0"
-    hosts:
-      local.dev: 127.0.0.1
-    php:
-      version: "7.0"
-      ini:
-        memory_limit: "-1"
-    nginx:
-      sites:
-        talent.local.ca:
-          host: 'local.dev'
-          web_root: 'public/'
+  nodes:
 
-  tests:
-    before:
-      -
-        command: restore-from-cache repository docker-layers - | docker load
-        only_if: exists-in-cache repository docker-layers
-      - sudo make docker-start
-      - sudo cp -a .env.example .env
-      - docker exec -ti talentcloud sh -c "php artisan key:generate"
-      - docker exec -ti talentcloud sh -c "php artisan config:cache"
-      - sudo make gen-certs
-      - sudo make build-db
-    override:
-      - php-scrutinizer-run
-      - js-scrutinizer-run
-      - scss-lint-run
-      - phpcs-run
-    after:
-      - sudo make docker-stop
-      # see "docker save --help" for syntax
-      - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
+    tests:
+      override:
+        - php-scrutinizer-run
+        - js-scrutinizer-run
+        - scss-lint-run
+        - phpcs-run
+
+    docker-build:
+      environment:
+        docker: true
+        postgresql: true
+        selenium: true
+        ruby: "2.3.1"
+        node: "v6.2.0"
+        hosts:
+          local.dev: 127.0.0.1
+        php:
+          version: "7.0"
+          ini:
+            memory_limit: "-1"
+        nginx:
+          sites:
+            talent.local.ca:
+              host: 'local.dev'
+              web_root: 'public/'
+
+      commands:
+        -
+          command: restore-from-cache repository docker-layers - | docker load
+          only_if: exists-in-cache repository docker-layers
+        - sudo make docker-start
+        - sudo cp -a .env.example .env
+        - docker exec -ti talentcloud sh -c "php artisan key:generate"
+        - docker exec -ti talentcloud sh -c "php artisan config:cache"
+        - sudo make gen-certs
+        - sudo make build-db
+        - sudo make docker-stop
+        # see "docker save --help" for syntax
+        - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
 
   deployment:
     -
