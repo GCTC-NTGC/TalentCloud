@@ -36,6 +36,7 @@ build:
     -
       commands:
         - heroku git:remote -a gc-talentcloud
+        - git pull --rebase
         - git push -f heroku HEAD:master
 
 filter:
