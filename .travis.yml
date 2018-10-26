@@ -11,8 +11,6 @@ services:
 
 before_install:
   - sudo make docker-start
-  # composer install
-  # npm install
 
 script:
   - sudo cp -a .env.example .env
@@ -34,12 +32,13 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
-  - heroku git:remote -a tc-container
+  # heroku git:remote -a tc-container
 
 deploy:
   provider: heroku
+  api_key:
+    secure: D2K0kAROVNR6JQYJdrswkEpkYtIYFb6NqzJqKAUMxj6oBf0/9iBDa7iVrEOBNzRz45KfbtYxhxtJ6EzOOx84PbQYM4Zw1DuH1X8W3YdPUb5YzZl5cUAyFvxVVTYZNpSN+XpLT8l74CL0ZcFrGMPnoek/kdJrPwsibJ/3zIR3yRw5Wu83X21EdNu5gUvUQHEQisb/UahJ5r5T5Ora0wCB2XQrdNtnsoh+Ep0MKgaVLE0g5nyEauH/MDwtit5gt1KQBnJuwp59uapMRYNCLJOZOJQ6h19rndgJsPL9hdyFvoyu6lpVUaaoy6gZFP8VyDxVWtMBs2splkEfagIx6vvXYE9Nv75iibreYbuLEtgvi5Kk3gwC2DuHHDl0duraO+CFkFNgTh3E4zEVYq5r9xs6PUEhqBXK+kwB1vLRgrKVTCSolFXF12gOKohjiMFn130Cc182D9/7DP5L+SrsburqoS2FZ3P/rQN/IQhymMKfc961hbWotI/XTOgpU1dWIN/zTFr9ta+Xp9XfaUqbs/c3oAXL+RGFc/3TzH0cpFiz7BVcLDsuJlJDAGSk2XgoXepDwp1IVA+1ZJJlQOUofDGiMrb7nDCu9HpNTdhu5YBLewcz2GWuhn9oM2Uivpdz5yigu7ZgncIZSXe9dmn/MJK35Vcq00aUcPMXh8h0ZjhHk1M=
   app: tc-container
-  api_key: "848f7563-88f5-413c-a557-710b66088d62"
   on:
     all_branches: true
 
