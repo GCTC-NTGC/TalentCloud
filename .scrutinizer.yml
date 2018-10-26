@@ -31,13 +31,6 @@ build:
     # see "docker save --help" for syntax
     - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
 
-  tests:
-    override:
-      - php-scrutinizer-run
-      - js-scrutinizer-run
-      - scss-lint-run
-      - phpcs-run
-
   deployment:
     -
       commands:
