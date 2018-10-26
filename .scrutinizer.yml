@@ -7,11 +7,7 @@ build:
           - js-scrutinizer-run
           - phpcs-run ./app
           - scss-lint-run
-        after:
-          - sudo make docker-stop
-          # see "docker save --help" for syntax
-          - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
-
+        
   dependencies:
     before:
       - sudo make docker-start
@@ -20,7 +16,11 @@ build:
       - docker exec -ti talentcloud sh -c "php artisan config:cache"
       - sudo make gen-certs
       - sudo make build-db
-      
+    after:
+      - sudo make docker-stop
+      # see "docker save --help" for syntax
+      - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
+
   environment:
     docker: true
     postgresql: true
