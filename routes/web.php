@@ -19,6 +19,12 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
     /* Home */
     Route::get('/', 'HomepageController')->name('home');
 
+    Route::get('test', function(Illuminate\Http\Request $request){
+        return [
+            'message' => 'This is a test message'
+        ];
+    });
+
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
 
@@ -117,6 +123,18 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
             ->middleware('can:update,applicant')
             ->name('profile.experience.update');
 
+        Route::delete('courses/{course}', 'CourseController@destroy')
+            ->middleware('can:delete,course')
+            ->name('courses.destroy');
+
+        Route::delete('degrees/{degree}', 'DegreeController@destroy')
+            ->middleware('can:delete,degree')
+            ->name('degrees.destroy');
+
+        Route::delete('work-experiences/{workExperience}', 'WorkExperienceController@destroy')
+            ->middleware('can:delete,workExperience')
+            ->name('work_experiences.destroy');
+
         /* Profile - My Skills */
         Route::get('profile/skills', function() {
             $applicant = Auth::user()->applicant;
@@ -133,7 +151,7 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
             ->name('profile.skills.update');
 
         Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
-            //->middleware('can:delete,skillDeclaration')
+            ->middleware('can:delete,skillDeclaration')
             ->name('skill_declarations.destroy');
 
         /* Profile - My References */
@@ -151,6 +169,10 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
             ->middleware('can:update,applicant')
             ->name('profile.references.update');
 
+        Route::delete('references/{reference}', 'ReferencesController@destroy')
+            ->middleware('can:delete,reference')
+            ->name('references.destroy');
+
         /* Profile - My Portfolio */
         Route::get('profile/portfolio', function() {
             $applicant = Auth::user()->applicant;
@@ -165,6 +187,10 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
         Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
             ->middleware('can:update,applicant')
             ->name('profile.work_samples.update');
+
+        Route::delete('work-samples/{workSample}', 'WorkSampleController@destroy')
+            ->middleware('can:delete,workSample')
+            ->name('work_samples.destroy');
 
     });
 

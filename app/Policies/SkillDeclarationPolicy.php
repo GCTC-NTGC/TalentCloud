@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\SkillDeclaration;
 use App\Policies\BasePolicy;
-use Illuminate\Support\Facades\Log;
 
 class SkillDeclarationPolicy extends BasePolicy
 {
@@ -54,9 +53,6 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function delete(User $user, SkillDeclaration $skillDeclaration)
     {
-        debugbar()->info($user);
-        Log::info($user);
-
         return ($user->hasRole('applicant') && $skillDeclaration->applicant->user->is($user));
     }
 }

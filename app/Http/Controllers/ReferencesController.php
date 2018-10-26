@@ -162,14 +162,27 @@ class ReferencesController extends Controller
         }
 
         return redirect( route('profile.references.edit', $applicant) );
-        // return view('applicant/profile_04_references', [
-        //     'applicant' => $applicant,
-        //     'profile' => Lang::get('applicant/profile_references'),
-        //     'relative_template' => Lang::get('common/relatives'),
-        //     'skills' => Skill::all(),
-        //     'relationships' => Relationship::all(),
-        //     'form_submit_action' => route('profile.references.update', $applicant),
-        // ]);
+    }
+
+    /**
+     * Delete the particular reference from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reference  $reference
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, Reference $reference)
+    {
+        $this->authorize('delete', $reference);
+        $reference->delete();
+
+        if($request->ajax()) {
+            return [
+                "message" => 'Reference deleted'
+            ];
+        }
+
+        return redirect()->back();
     }
 
 }

@@ -136,11 +136,11 @@ class SkillsController extends Controller
      */
     public function destroy(Request $request, SkillDeclaration $skillDeclaration)
     {
+        $this->authorize('delete', $skillDeclaration);
         $skillDeclaration->delete();
-        debugbar()->info('deleted skill declaration '.$skillDeclaration->id);
 
         if($request->ajax()) {
-            return 'Skill deleted';
+            return ['message' => 'Skill deleted'];
         }
 
         return redirect()->back();
