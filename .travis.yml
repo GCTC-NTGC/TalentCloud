@@ -38,8 +38,8 @@ after_success:
 
 deploy:
   provider: heroku
-  api_key:
-    secure: "a3+efisAcomRMDNqryEch6ytV8rPsZhYJ0RqAOdMwGFtA+7iS/5+a/6KtPjVXVkkfd9CDvbU3VWSeV6Mbyk4oM5qnzqYTGcoc0A5BBDi+AuQ2AGKJfDc63qIRhAfDLI3icNs8VZGGoMrAYE+mRSjtGfRSzJTRYbBHsNg67JFsHPFXhiguAf3lHcrKBObQeb/jziU9EG4rCKdLvk7num0JAaJCg0x8UnN3VcfSZ2Hi5xiigOKebNAOmVdpJsqk2ZvWMBHuqc5Pht9E2L54VTDEmFhXHUppdp52bGwDWPAuv1EJSGTDcGhXGGrIdPnYxWLpiEcDj2rYh7vBJ9jEutk6iDgiaoYJTxPF8oTXxN8YrtEKO/Lwau6npEuPaZqHtsb/lZuzp2Ue70oZ7rA6Dd4KyUu09tm4OaPn3glPXyaTOGOA3z7leNCMy6pmqZFdjf9lBjhTx5/XEKFlTeDzW+/JLrH3eRp6pWGDIOHIREtvu89nP5tPTS7YExN5MTS9XyEyRHHiqj/h4o79GRTuZjNUKByMMc1/K3UsyH5ftCMjYEN8rCY+uM2CPIoC4Ds62RkZS3Bi0eKA/b+UnEKMsz9zic0wiZHOLlTiS+/qyElKw48rZ+COalB6U4H6vmqMfjtIFLwLc1mxngb6a449+s0vuMFpBj7/TtRHOvn6PGQlQw="
+  app: tc-container
+  api_key: "848f7563-88f5-413c-a557-710b66088d62"
   on:
     all_branches: true
 
