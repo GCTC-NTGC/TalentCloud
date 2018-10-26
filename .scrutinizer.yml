@@ -34,7 +34,7 @@ build:
     -
       commands:
         - heroku git:remote -a gc-talentcloud
-        - git push heroku HEAD:master
+        - git push -f heroku HEAD:master
 
 filter:
   excluded_paths:
