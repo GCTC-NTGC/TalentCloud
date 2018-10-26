@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "Profil du gestionnaire",
+    "manager_title" => "Nuage de talents | Candidat : Profil du gestionnaire",
     "manager_department_bridge" => " à ",
     "twitter_label" => 'Voir le profil Twitter de :name.',
     "linkedin_label" => 'Voir le profil LinkedIn de :name.',

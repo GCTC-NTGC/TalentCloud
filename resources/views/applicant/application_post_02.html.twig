@@ -11,6 +11,7 @@
     lang="en">
 
     <head>
+        <title>{{ application_template.step_02_title }}</title>
 
         {% include "common/head" %}
 
@@ -24,7 +25,7 @@
 
         {% include "common/goc" %}
 
-        {% include "common/header" with {'header':application_template} %}
+        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
         {# Form containing all about_me editable elements #}
         <form action="{{ form_submit_action }}" method="post">

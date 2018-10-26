@@ -11,10 +11,15 @@
     lang="en">
 
     <head>
-        {% include "common/head" %}
-    </head>
+        <title>{{ profile.about_section.profile_title }}</title>
 
-    <body>
+        {% include "common/head" %}
+
+        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+
+    {# /head #}
+
+    {# body #}
 
         {% include "common/alert" %}
 

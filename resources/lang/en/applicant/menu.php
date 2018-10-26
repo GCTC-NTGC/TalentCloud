@@ -29,4 +29,7 @@ return [
     "register" => "Register",
     "login" => "Login",
     "logout" => "Logout",
+    # Button labels
+    "mobile_trigger_label" => "Mobile Menu",
+    "modal_cancel_label" => "Cancel",
 ];

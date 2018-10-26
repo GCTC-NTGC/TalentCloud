@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "Mes demandes d'emploi",
+    "application_index_title" => "Nuage de talents | Candidat : Mes demandes d'emploi",
     "progress_title" => "Demandes d'emploi en cours",
     "completed_title" => "Demandes d'emploi soumises",
     "expired_title" => "Demandes d'emploi expirées",
@@ -25,6 +26,7 @@ return [
     "view_link_title" => "Voir la demande d'emploi.",
     "view_link_label" => "Voir la demande d'emploi.",
     "delete_title" => "Supprimer cette demande d'emploi.",
+    "delete_label" => "Supprimer",
     "null" => [
         "title" => "Il y a aucune applications."
     ],
