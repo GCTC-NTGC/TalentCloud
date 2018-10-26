@@ -1,6 +1,6 @@
 build:
   nodes:
-    analysis:
+    review:
       tests:
         override:
           - php-scrutinizer-run
@@ -10,7 +10,8 @@ build:
 
   dependencies:
     before:
-      - composer update
+      - composer install
+      - npm install
 
   environment:
     hosts:
