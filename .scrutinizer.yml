@@ -10,6 +10,7 @@ build:
 
   dependencies:
     before:
+      - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
       - npm install
       - composer update
 
