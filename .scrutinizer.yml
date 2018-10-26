@@ -25,7 +25,7 @@ build:
           host: 'local.dev'
           web_root: 'public/'
     # selenium: true
-    # ruby: "2.3.1"
+    ruby: "2.3.1"
     node: "v6.2.0"
     docker: true
     postgresql: true
