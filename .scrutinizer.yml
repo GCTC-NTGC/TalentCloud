@@ -26,11 +26,8 @@ build:
             talent.local.ca:
               host: 'local.dev'
               web_root: 'public/'
-              
+
       commands:
-        -
-          command: restore-from-cache repository docker-layers - | docker load
-          only_if: exists-in-cache repository docker-layers
         - sudo make docker-start
         - sudo cp -a .env.example .env
         - docker exec -ti talentcloud sh -c "php artisan key:generate"
