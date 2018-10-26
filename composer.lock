@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff62b05017a72c56f117893ea2158a4b",
+    "content-hash": "da63f8b0cf2f3f1b356dc46540598d56",
     "packages": [
         {
             "name": "dimsav/laravel-translatable",

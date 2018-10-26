@@ -1,6 +1,6 @@
 build:
   nodes:
-    review:
+    talentcloud:
       tests:
         override:
           - php-scrutinizer-run
