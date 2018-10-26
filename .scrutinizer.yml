@@ -11,8 +11,6 @@ build:
   dependencies:
     before:
       - composer update
-      - npm install
-      - php artisan migrate
 
   environment:
     hosts:
