@@ -16,7 +16,7 @@ build:
         talent.local.ca:
           host: 'local.dev'
           web_root: 'public/'
-          
+
   commands:
     -
       command: restore-from-cache repository docker-layers - | docker load
@@ -42,9 +42,6 @@ build:
 
     deployment:
       -
-        # Optional. If this should only be executed for pushes to a certain branch.
-        # branch: master            The branch name is exactly "master"
-        # branch: '/^feature/'      Any branch name that starts with "feature"
         commands:
           - heroku git:remote -a gc-talentcloud
           - git push heroku HEAD:master
