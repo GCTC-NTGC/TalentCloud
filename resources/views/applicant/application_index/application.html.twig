@@ -96,7 +96,7 @@
 
                 <a
                     class="button--blue light-bg"
-                    href={{ route('job.application.edit.5', item.job_poster) }}
+                    href={{ route('applications.show', item) }}
                     title="{{ application_index.view_link_title }}">
                     {{ application_index.view_link_label }}
                 </a>
@@ -114,6 +114,7 @@
                     data-modal-id="deleteTrash"
                     title="{{ application_index.delete_title }}">
                     <i class="fas fa-trash-alt"></i>
+                    <span class="hidden">{{ application_index.delete_label }}</span>
                 </button>
 
             {% endif %}

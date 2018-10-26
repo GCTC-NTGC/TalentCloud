@@ -11,6 +11,7 @@
     lang="en">
 
     <head>
+        <title>{{ menu.job_index_title }}</title>
 
         {% include "common/head" %}
 
@@ -19,14 +20,15 @@
     {# /head #}
 
     {# body #}
-    
+
         {% include "common/alert" %}
 
         {% include "common/goc" %}
 
         {% include "common/header" with {"header":manager_job_index} %}
 
-        {% include "manager/job_index/layout" %}
+        {# include "manager/job_index/layout" #}
+        {% include "manager/job_index/temp_layout" %}
 
         {# Login Modals #}
 

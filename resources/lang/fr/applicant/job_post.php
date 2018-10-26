@@ -9,6 +9,7 @@ return [
     *
     */
     'title' => 'Parcourir les emplois',
+    'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi',
     'header' => [
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',

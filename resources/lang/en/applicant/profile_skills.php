@@ -12,6 +12,7 @@ return [
 
     "title" => "My Skills",
     "skills_section" => [
+        "skills_title" => "Talent Cloud | Applicant: Profile - My Skills",
         "soft_title" => "My Soft Skills",
         "hard_title" => "My Hard Skills",
         "add_button_label" => "Add Skill",

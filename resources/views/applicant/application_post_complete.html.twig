@@ -18,7 +18,7 @@
 
     {# Page Header #}
 
-        {% include "common/header" with {"header":application_template} %}
+        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
     {# Page Content #}
 

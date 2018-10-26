@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "My Applications",
+    "application_index_title" => "Talent Cloud | Applicant: My Applications",
     "progress_title" => "Applications in Progress",
     "completed_title" => "Completed Applications",
     "expired_title" => "Expired Applications",
@@ -25,6 +26,7 @@ return [
     "view_link_title" => "View this application.",
     "view_link_label" => "View Application",
     "delete_title" => "Delete this application.",
+    "delete_label" => "Delete",
     "null" => [
         "title" => "There are no applications."
     ],
