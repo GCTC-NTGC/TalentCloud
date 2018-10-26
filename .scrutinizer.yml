@@ -2,13 +2,6 @@ build:
   nodes:
     analysis:
       tests:
-        before:
-          - sudo make docker-start
-          - sudo cp -a .env.example .env
-          - docker exec -ti talentcloud sh -c "php artisan key:generate"
-          - docker exec -ti talentcloud sh -c "php artisan config:cache"
-          - sudo make gen-certs
-          - sudo make build-db
         override:
           - php-scrutinizer-run
           - js-scrutinizer-run
@@ -19,6 +12,15 @@ build:
           # see "docker save --help" for syntax
           - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
 
+  dependencies:
+    before:
+      - sudo make docker-start
+      - sudo cp -a .env.example .env
+      - docker exec -ti talentcloud sh -c "php artisan key:generate"
+      - docker exec -ti talentcloud sh -c "php artisan config:cache"
+      - sudo make gen-certs
+      - sudo make build-db
+      
   environment:
     docker: true
     postgresql: true
@@ -36,7 +38,7 @@ build:
         talent.local.ca:
           host: 'local.dev'
           web_root: 'public/'
-          
+
   deployment:
     -
       commands:
