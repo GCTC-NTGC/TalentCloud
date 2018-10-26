@@ -40,6 +40,8 @@ deploy:
   api_key: $HEROKU_API_KEY
   on:
     all_branches: true
+  run:
+    - heroku git:remote -a tc-container"
 
 # Slack notifications / do not send emails
 notifications:
