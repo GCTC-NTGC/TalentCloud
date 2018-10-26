@@ -1,4 +1,13 @@
 build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+          - js-scrutinizer-run
+          - scss-lint-run
+          - phpcs-run
+
   environment:
     docker: true
     postgresql: true
