@@ -1,9 +1,9 @@
 version: '2'
 services:
     # Web Server / Nginx
-    nginx:
+    web:
         image: nginx:1.13.9-alpine
-        container_name: nginx
+        container_name: web
         working_dir: /var/www
         volumes_from:
             - talentcloud
@@ -16,6 +16,7 @@ services:
         ports:
             - "80:80"
             - "443:443"
+            - "5000:5000"
     # Application / PHP-FPM
     talentcloud:
         build: .
