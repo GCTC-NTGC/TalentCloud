@@ -6,9 +6,9 @@ build:
         override:
           - php-scrutinizer-run
           - js-scrutinizer-run
+          - phpcs-run ./app
           - scss-lint-run
-          - phpcs-run
-
+          
     docker-build:
       environment:
         docker: true
