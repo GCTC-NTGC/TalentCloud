@@ -1,4 +1,13 @@
 build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+          - js-scrutinizer-run
+          - scss-lint-run
+          - phpcs-run
+
   environment:
     docker: true
     postgresql: true
@@ -30,15 +39,6 @@ build:
     - sudo make docker-stop
     # see "docker save --help" for syntax
     - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
-
-  nodes:
-    analysis:
-      tests:
-        override:
-          - php-scrutinizer-run
-          - js-scrutinizer-run
-          - scss-lint-run
-          - phpcs-run
 
   deployment:
     -
