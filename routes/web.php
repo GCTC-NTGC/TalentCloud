@@ -132,6 +132,10 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
             ->middleware('can:update,applicant')
             ->name('profile.skills.update');
 
+        Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
+            //->middleware('can:delete,skillDeclaration')
+            ->name('skill_declarations.destroy');
+
         /* Profile - My References */
         Route::get('profile/references', function() {
             $applicant = Auth::user()->applicant;
@@ -161,6 +165,7 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
         Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
             ->middleware('can:update,applicant')
             ->name('profile.work_samples.update');
+
     });
 
     /* Static - FAQ */

@@ -63,27 +63,15 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.3.1
- * https://jquery.com/
- *
- * Includes Sizzle.js
- * https://sizzlejs.com/
- *
- * Copyright JS Foundation and other contributors
- * Released under the MIT license
- * https://jquery.org/license
- *
- * Date: 2018-01-20T17:24Z
- */
-( function( global, factory ) {
+module.exports = __webpack_require__(31);
 
 	"use strict";
 
@@ -10438,10 +10426,13 @@ return jQuery;
 
 
 /***/ }),
-/* 1 */
+
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {// =============================================================================
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+// =============================================================================
 
 // Utilities JavaScript (jQuery)
 
@@ -10458,6 +10449,14 @@ return jQuery;
                     // Root
 
                     var $root = $('html, body');
+
+                    // Add has attribute Function
+                    $.fn.hasAttr = function (name) {
+                                        var attr = $(this).attr(name);
+                                        // For some browsers, `attr` is undefined; for others,
+                                        // `attr` is false.  Check for both.
+                                        return (typeof attr === 'undefined' ? 'undefined' : _typeof(attr)) !== ( true ? 'undefined' : _typeof(undefined)) && attr !== false;
+                    };
 
                     // User Agent Data Attributes ==============================================
 
@@ -10560,9 +10559,29 @@ return jQuery;
 
                                                             $(document).on("click", ".modal-delete-trigger", function (e) {
 
-                                                                                closeModal(trigger);
+                                                                                //TODO: when items are saved with ajax too, the check
+                                                                                // will become more complicated than checking for a
+                                                                                // delete url
 
-                                                                                $(object).remove();
+                                                                                //If object has been saved to server, make an ajax delete
+                                                                                // call to the item url, and only close the modal when it
+                                                                                // succeeds
+                                                                                if ($(object).attr('data-item-saved')) {
+                                                                                                    var itemId = $(object).attr('data-item-id');
+                                                                                                    var deleteUrl = $(object).attr('data-item-url').replace(':id', itemId);
+
+                                                                                                    axios.delete(deleteUrl).then(function (response) {
+                                                                                                                        closeModal(trigger);
+                                                                                                                        $(object).remove();
+                                                                                                    });
+                                                                                                    //TODO: catch and present errors
+                                                                                } else {
+                                                                                                    //If no deletion url provided, simply delete the
+                                                                                                    // object and close the modal.
+
+                                                                                                    closeModal(trigger);
+                                                                                                    $(object).remove();
+                                                                                }
                                                             });
                                         }
 
@@ -11295,23 +11314,7 @@ return jQuery;
                                         deleteQuestionTrigger();
                     });
 })(jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1);
-module.exports = __webpack_require__(4);
-
 
 /***/ })
-/******/ ]);
+
+/******/ });

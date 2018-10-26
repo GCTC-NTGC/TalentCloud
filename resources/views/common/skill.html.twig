@@ -33,13 +33,16 @@
 
 
 <div
-    class="profile-element accordion skill 
-        {% if locale == "profile" and skill_declaration == false %}template active{% endif %} 
-        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %} 
-        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %} 
+    class="profile-element accordion skill
+        {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
+        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %}
+        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
         {% if locale == "application" and skill_declaration == true %}complete{% endif %}
-        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %} 
-        modal-target-object" 
+        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %}
+        modal-target-object"
+
+    data-item-saved="{{ skill_declaration ? "true" : "" }}"
+    data-item-url="{{ route("skill_declarations.destroy", ':id') }}"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
@@ -343,7 +346,7 @@
                                             {{ skill_template.level_link_label }}
                                         </a>
                                     </label>
-                                    
+
                                     <div class="flex-grid">
 
                                         {% set counter = 0 %}
