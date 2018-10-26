@@ -37,8 +37,9 @@ after_success:
 
 deploy:
   provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
+  api_key: $HEROKU_API_KEY
+  on:
+    all_branches: true
 
 # Slack notifications / do not send emails
 notifications:
