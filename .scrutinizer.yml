@@ -17,6 +17,18 @@ build:
                 ruby: "2.3.1"
                 node: "v6.2.0"
                 docker: true
+                    commands:
+                        - command: restore-from-cache repository docker-layers - | docker load
+                          only_if: exists-in-cache repository docker-layers
+                        - sudo make docker-start
+                        - sudo cp -a .env.example .env
+                        - docker exec -ti talentcloud sh -c "php artisan key:generate"
+                        - docker exec -ti talentcloud sh -c "php artisan config:cache"
+                        - sudo make gen-certs
+                        - sudo make build-db
+                        - sudo make docker-stop
+                        # see "docker save --help" for syntax
+                        - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
                 postgresql: true
                 nginx:
                     sites:
@@ -24,18 +36,6 @@ build:
                             host: 'local.dev'
                             web_root: 'public/'
                 selenium: true
-                commands:
-                    - command: restore-from-cache repository docker-layers - | docker load
-                      only_if: exists-in-cache repository docker-layers
-                    - sudo make docker-start
-                    - sudo cp -a .env.example .env
-                    - docker exec -ti talentcloud sh -c "php artisan key:generate"
-                    - docker exec -ti talentcloud sh -c "php artisan config:cache"
-                    - sudo make gen-certs
-                    - sudo make build-db
-                    - sudo make docker-stop
-                    # see "docker save --help" for syntax
-                    - docker save talentcloud talentcloud-db nginx adminer | store-in-cache repository docker-layers -
 
 filter:
     excluded_paths:
