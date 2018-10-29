@@ -56,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider
         Course::class => CoursePolicy::class,
         Degree::class => DegreePolicy::class,
         Reference::class => ReferencePolicy::class,
-        SkillDeclaration::class => SkillDeclaration::class,
+        SkillDeclaration::class => SkillDeclarationPolicy::class,
         WorkExperience::class => WorkExperiencePolicy::class,
         WorkSample::class => WorkSamplePolicy::class,
     ];
