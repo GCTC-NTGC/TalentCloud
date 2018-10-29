@@ -26,7 +26,7 @@ return [
     'basics' => [
         'sidebar_title' => 'View this job\'s basic information.',
         'title' => 'Basic Information',
-        'salary_label' => 'Salary Range',
+        'salary_label' => 'Annual Salary Range',
         'duration_label' => 'Duration',
         'start_label' => 'Target Start Date',
         'language_label' => 'Language Requirement',
