@@ -29,15 +29,16 @@
 
             {% if post.status == "draft" %}
 
-                <a
-                    href=""
-                    title="">
+                <button
+                    title="{{ menu.edit_label }}"
+                    type="button">
                     <i class="fas fa-edit"></i>
                     <span class="hidden">{{ menu.edit_label }}</span>
-                </a>
+                </button>
 
                 <button
-                    class="">
+                    title="{{ menu.delete_label }}"
+                    type="button">
                     <i class="fas fa-trash-alt"></i>
                     <span class="hidden">{{ menu.delete_label }}</span>
                 </button>
@@ -45,7 +46,7 @@
             {% else %}
                 <a
                     href="{{ post.link }}"
-                    title="">
+                    title="{{ menu.view_label }}">
                     <i class="fas fa-eye"></i>
                     <span class="hidden">{{ menu.view_label }}</span>
                 </a>
