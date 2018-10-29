@@ -58,6 +58,7 @@ return [
         'essential_title' => 'Nécessaires d\'avoir',
         'asset_title' => 'Bon d\'avoir',
         'requirement_label' => 'Niveau requis: ',
+        'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.'
     ],
     'culture' => [
         'sidebar_title' => 'Voir la culture à cet emploi.',
