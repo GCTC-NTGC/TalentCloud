@@ -150,6 +150,14 @@ class ReferencesController extends Controller
                             }
                         }
                     }
+                    //TODO: when projects exists independpently on profile, don't delete them Here
+                    // Delete projects that will be detached from this reference
+                    foreach($reference->projects as $project) {
+                        if (!in_array($project->id, $projectIds)) {
+                            $project->delete();
+                        }
+                    }
+
                     //Sync attaches the specified ids, and detaches all others
                     $reference->projects()->sync($projectIds);
 
