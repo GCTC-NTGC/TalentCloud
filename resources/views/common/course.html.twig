@@ -19,6 +19,8 @@
 
 <div
     class="profile-element accordion course {% if course == false %}template active{% endif %} modal-target-object"
+    data-item-saved="{{ course ? "true" : "" }}"
+    data-item-url="{{ route("courses.destroy", ":id") }}"
     data-item-id="{{ course ? course.id : 0 }}">
 
     {# Accordion Trigger #}

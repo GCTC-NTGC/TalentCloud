@@ -174,6 +174,12 @@ class ReferencesController extends Controller
     public function destroy(Request $request, Reference $reference)
     {
         $this->authorize('delete', $reference);
+
+        //TODO: when projects exist independently on profile, delete seperatley
+        foreach($reference->projects as $project) {
+            $project->delete();
+        }
+
         $reference->delete();
 
         if($request->ajax()) {
