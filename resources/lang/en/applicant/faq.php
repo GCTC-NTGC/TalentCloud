@@ -110,7 +110,7 @@ return [
                         "type" => "ul",
                         "items" => [
                             "00" => "Treasury Board Secretariat (host department)",
-                            "01" => "Employment and Skills Development Canada",
+                            "01" => "Employment and Social Development Canada",
                             "02" => "Environment and Climate Change Canada",
                             "03" => "Natural Resources Canada",
                             "04" => "Transport Canada",
