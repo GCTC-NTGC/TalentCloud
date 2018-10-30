@@ -26,7 +26,7 @@ return [
     /* Modals */
         "modals" => [
             "00" => [
-                "type" => "confirmation",
+                "type" => "deleteConfirmation",
                 "title" => "Delete this Diploma/Degree?",
                 "content" => [
                     "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
@@ -34,10 +34,11 @@ return [
                 ],
                 "id" => "deleteDegree",
                 "action_01" => "Cancel",
-                "action_02" => "Delete"
+                "action_02" => "Delete",
+                "action_02_progress" => "Working..."
             ],
             "01" => [
-                "type" => "confirmation",
+                "type" => "deleteConfirmation",
                 "title" => "Delete this Course/Certification?",
                 "content" => [
                     "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
@@ -45,10 +46,11 @@ return [
                 ],
                 "id" => "deleteCourse",
                 "action_01" => "Cancel",
-                "action_02" => "Delete"
+                "action_02" => "Delete",
+                "action_02_progress" => "Working..."
             ],
             "02" => [
-                "type" => "confirmation",
+                "type" => "deleteConfirmation",
                 "title" => "Delete this Lived Experience?",
                 "content" => [
                     "00" => "Are you sure you want to permanently delete this equivalent experience from your profile?",
@@ -56,7 +58,8 @@ return [
                 ],
                 "id" => "deleteWork",
                 "action_01" => "Cancel",
-                "action_02" => "Delete"
+                "action_02" => "Delete",
+                "action_02_progress" => "Working..."
             ],
             "03" => [
                 "type" => "createReference",
