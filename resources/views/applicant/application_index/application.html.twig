@@ -107,11 +107,7 @@
 
             {% endif %}
 
-            {% if item.application_status.name == "completed" %}
-
-                <i class="fas fa-check"></i>
-
-            {% else %}
+            {% if item.application_status.name == "draft" %}
 
                 <button
                     class="modal-trigger"
@@ -121,6 +117,10 @@
                     <i class="fas fa-trash-alt"></i>
                     <span class="hidden">{{ application_index.delete_label }}</span>
                 </button>
+
+            {% else %}
+
+                <i class="fas fa-check"></i>        
 
             {% endif %}
 
