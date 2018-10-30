@@ -59,6 +59,7 @@ return [
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
+        'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.'
     ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',
