@@ -147,11 +147,15 @@
                         if ( $(object).attr('data-item-saved') ) {
                             var itemId = $(object).attr('data-item-id');
                             var deleteUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                            $(modal).addClass('working');
 
                             axios.delete(deleteUrl)
                                 .then(function(response) {
                                     closeModal(trigger);
                                     $(object).remove();
+                                    $(modal).removeClass('working');
+                                }).catch(function(error) {
+                                    $(modal).removeClass('working');
                                 });
                             //TODO: catch and present errors
 
