@@ -25,12 +25,12 @@ return [
     'basics' => [
         'sidebar_title' => 'Voir les renseignements généraux pour cet emploi.',
         'title' => 'Renseignements généraux',
-        'salary_label' => 'Échelle salariale',
+        'salary_label' => 'Échelle de salaire annuel',
         'duration_label' => 'Durée',
         'start_label' => 'Date cible de début d\'emploi',
         'language_label' => 'Exigence linguistique',
         'security_label' => 'Niveau d\'autorisation de sécurité',
-        'classification_label' => 'Classification gouvernemental',
+        'classification_label' => 'Classification gouvernementale',
         'duration' => [
             'week' => ':count semaine.|:count semaines',
             'month' => ':count mois.|:count mois',
@@ -56,8 +56,9 @@ return [
         'title' => 'Critères',
         'education_title' => 'Exigences d\'éducation',
         'essential_title' => 'Nécessaires d\'avoir',
-        'asset_title' => 'Bon d\'avoir',
+        'asset_title' => 'Bon à avoir',
         'requirement_label' => 'Niveau requis: ',
+        'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.'
     ],
     'culture' => [
         'sidebar_title' => 'Voir la culture à cet emploi.',
