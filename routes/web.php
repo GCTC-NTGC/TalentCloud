@@ -410,4 +410,8 @@ Route::middleware(['auth'])->group(function() {
     Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
         ->middleware('can:delete,workSample')
         ->name('work_samples.destroy');
+
+    Route::delete('applications/{application}', 'ApplicationController@destroy')
+        ->middleware('can:delete,application')
+        ->name('applications.destroy');
 });

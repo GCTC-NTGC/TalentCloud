@@ -5,7 +5,11 @@
 
 ============================================================================= #}
 <div
-    class="application-index__item">
+    class="application-index__item modal-target-object"
+    data-item-saved="true"
+    data-item-url="{{ route('applications.destroy', ":id") }}"
+    data-item-id="{{ item.id }}"
+    >
 
     <div
         class="application-index__item-header">
@@ -112,7 +116,8 @@
                 <button
                     class="modal-trigger"
                     data-modal-id="deleteTrash"
-                    title="{{ application_index.delete_title }}">
+                    title="{{ application_index.delete_title }}"
+                    type="button">
                     <i class="fas fa-trash-alt"></i>
                     <span class="hidden">{{ application_index.delete_label }}</span>
                 </button>

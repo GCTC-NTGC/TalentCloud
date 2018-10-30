@@ -32,7 +32,7 @@ return [
     ],
     "modals" => [
         "delete_application" => [
-            "type" => "confirmation",
+            "type" => "deleteConfirmation",
             "title" => "Application Deletion",
             "content" => [
                 "00" => "Are you sure you want to delete this application? All progress will be lost.",
