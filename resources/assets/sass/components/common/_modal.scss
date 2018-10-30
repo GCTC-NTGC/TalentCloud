@@ -38,8 +38,12 @@
     left: -100%;
     transform: translate(-50%, -25%);
     transition: opacity .2s ease, transform 0s linear .2s, left 0s linear .2s;
-    width: 40vw;
+    width: 90vw;
     z-index: 550;
+
+    @media #{$l-tablet} {
+        width: 40vw;
+    }
 
     .modal-heading {
         background-color: transparentize($palette--black, .15);
