@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Validation;
+namespace App\Services\Validation\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
