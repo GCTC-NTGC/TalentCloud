@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Avis",
+    "tos_title" => "Nuage de talents | Avis",
     "categories" => [
         "00" => [
             "title" => "Avis",
@@ -165,5 +166,5 @@ return [
         ]
 
     ]
-        
+
 ];

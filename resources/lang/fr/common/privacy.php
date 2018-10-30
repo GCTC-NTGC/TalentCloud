@@ -10,6 +10,7 @@ return [
      *
      */
     "title" => "Énoncé de confidentialité",
+    "privacy_title" => "Nuage de talents | Énoncé de confidentialité",
     "categories" => [
         "00" => [
             "title" => "Énoncé de confidentialité",
