@@ -86,6 +86,8 @@ class ApplicantProfileController extends Controller
     {
         $messages = Lang::get('validation.custom.password');
         $request->validate([
+            
+            //Password validation
             'old_password' => [
                 'nullable',
                 'required_with:new_password',
@@ -96,7 +98,23 @@ class ApplicantProfileController extends Controller
                 'min:8',
                 'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
                 'confirmed'
-           ]
+           ],
+            
+           //Social Media Validation
+            'twitter_username' => [
+                'nullable', //Some people may not have a handle.
+                'max:15', //Per Twitter's Terms/Service.
+            ],
+            'linkedin_url' => [
+                'nullable', // Some people may not be on LinkedIn
+                'url:required' // We imply they should input a Url here, so to limit other undesirable inputs we should validate this.
+            ],
+            
+            //Other Information Tagline
+            'tagline' => [
+                'nullable',
+                'string'
+            ],
        ], $messages);
 
         $questions = ApplicantProfileQuestion::all();
