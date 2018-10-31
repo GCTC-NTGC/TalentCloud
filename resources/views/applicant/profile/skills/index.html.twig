@@ -10,6 +10,8 @@
     <div
         class="container--layout">
 
+            {% include "errors/form_errors" %}
+
         {# Profile List (Soft Skills) #}
 
             <div
@@ -31,6 +33,7 @@
                             class="box med-1of2">
 
                             <button
+                                type="button"
                                 class="profile-list__add-element-trigger">
                                 {{ profile.skills_section.add_button_label }}
                             </button>
@@ -64,6 +67,7 @@
                             class="box med-1of2">
 
                             <button
+                                type="button"
                                 class="profile-list__add-element-trigger">
                                 {{ profile.skills_section.add_button_label }}
                             </button>

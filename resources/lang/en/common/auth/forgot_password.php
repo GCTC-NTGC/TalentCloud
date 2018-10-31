@@ -14,4 +14,5 @@ return [
     'return' => "Return Home",
     'email' => 'E-Mail Address',
     'submit' => 'Send Reset Password Link',
+    'auth_logo' => '/images/logo_tc_colour.png'
 ];
