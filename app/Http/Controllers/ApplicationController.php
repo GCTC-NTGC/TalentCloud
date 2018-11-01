@@ -59,6 +59,8 @@ class ApplicationController extends Controller
             /* Skills Data */
                 "skills" => Skill::all(),
                 "skill_template" => Lang::get("common/skills"),
+                'reference_template' => Lang::get('common/references'),
+                'sample_template' => Lang::get('common/work_samples'),
                 "criteria" => $criteria,
 
             /* Applicant Data */
