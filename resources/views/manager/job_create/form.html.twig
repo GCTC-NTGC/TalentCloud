@@ -280,6 +280,36 @@
                 <div
                     class="flex-grid">
 
+                    <div 
+                        class="box full">
+
+                        <div
+                            class="form__input-wrapper--checkbox">
+
+                            <label
+                                class="form__label"
+                                for="remoteWork">
+
+                                <span 
+                                    class="hidden">
+                                    Remote Work Allowed
+                                </span>
+
+                                <input 
+                                    class="form__input"
+                                    id="remoteWork"
+                                    name="remoteWork"
+                                    type="checkbox"/>
+                                    {# Tristan, let me know if you want to collaborate on the logic to check this box if it has been checked previously (when someone is editing their already started job poster, for example) #}
+
+                                Remote Work Allowed
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
                     <div
                         class="box med-1of2">
 
@@ -617,7 +647,7 @@
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
-                                Impact (English)
+                                Impact 01 (English)
                             </label>
                             <textarea
                                 class="form__textarea"
@@ -633,12 +663,46 @@
                         <div class="form__input-wrapper--float
                             {% if job.translate('fr').impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
-                                Impact (Français)
+                                Impact 01 (Français)
                             </label>
                             <textarea
                                 class="form__textarea"
                                 id="createJobImpactFR"
                                 name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('en').impact_02 != null %}active{% endif %}">
+                            <label
+                                class="form__label"
+                                for="createJobImpact02EN">
+                                Impact 02 (English)
+                            </label>
+                            <textarea
+                                class="form__textarea"
+                                id="createJobImpact02EN"
+                                name="impact02[en]">{{ job.translate('en').impact_02 }}</textarea>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div class="form__input-wrapper--float
+                            {% if job.translate('fr').impact_02 != null %}active{% endif %}">
+                            <label class="form__label" for="createJobImpact02FR">
+                                Impact 02 (Français)
+                            </label>
+                            <textarea
+                                class="form__textarea"
+                                id="createJobImpact02FR"
+                                name="impact02[fr]">{{ job.translate('fr').impact_02 }}</textarea>
                         </div>
 
                     </div>
