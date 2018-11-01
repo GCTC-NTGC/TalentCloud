@@ -31,7 +31,7 @@ return [
         ],
         "asset_skills" => [
             "step" => "4",
-            "title" => "Bon d'avoir",
+            "title" => "Bon à avoir",
             "status" => "incomplet",
         ],
         "preview" => [
