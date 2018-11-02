@@ -96,7 +96,7 @@ class ApplicantProfileController extends Controller
             'new_password' => [
                 'nullable',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z.])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
                 'confirmed'
            ],
             
@@ -104,6 +104,11 @@ class ApplicantProfileController extends Controller
             'twitter_username' => [
                 'nullable', //Some people may not have a handle.
                 'max:15', //Per Twitter's Terms/Service.
+                'regex:/^[A-Za-z0-9_]+$/', /*
+                 * Twitters Terms of Service only allows ". A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores"
+                 * This regex will allow only alphamumeric characters and the underscore. 
+                 * Keep this handy if we need to validate other usernames.
+                 */
             ],
             'linkedin_url' => [
                 'nullable', // Some people may not be on LinkedIn
