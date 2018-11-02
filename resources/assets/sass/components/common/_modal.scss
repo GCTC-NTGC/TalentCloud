@@ -38,8 +38,12 @@
     left: -100%;
     transform: translate(-50%, -25%);
     transition: opacity .2s ease, transform 0s linear .2s, left 0s linear .2s;
-    width: 40vw;
+    width: 90vw;
     z-index: 550;
+
+    @media #{$l-tablet} {
+        width: 40vw;
+    }
 
     .modal-heading {
         background-color: transparentize($palette--black, .15);
@@ -131,11 +135,31 @@
 
     }
 
+    .modal-delete-default-copy {
+        display: block;
+    }
+
+    .modal-delete-progress-copy {
+        display: none;
+    }
+
     &.active {
         opacity: 1;
         left: 50%;
         transform: translate(-50%, -50%);
         transition: opacity .2s ease .2s, transform .2s ease .2s, left 0s linear;
+    }
+
+    &.working {
+
+        .modal-delete-default-copy {
+            display: none;
+        }
+
+        .modal-delete-progress-copy {
+            display: block;
+        }
+
     }
 
 }

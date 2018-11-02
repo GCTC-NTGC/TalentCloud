@@ -59,12 +59,36 @@ class ApplicationController extends Controller
             /* Skills Data */
                 "skills" => Skill::all(),
                 "skill_template" => Lang::get("common/skills"),
+                'reference_template' => Lang::get('common/references'),
+                'sample_template' => Lang::get('common/work_samples'),
                 "criteria" => $criteria,
 
             /* Applicant Data */
                 "applicant" => $application->applicant,
                 "job_application" => $application,
         ]);
+    }
+
+    /**
+     * Delete the particular resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\JobApplication  $application
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, JobApplication $application)
+    {
+        $this->authorize('delete', $application);
+
+        $application->delete();
+
+        if($request->ajax()) {
+            return [
+                "message" => 'Application deleted'
+            ];
+        }
+
+        return redirect()->back();
     }
 
 }

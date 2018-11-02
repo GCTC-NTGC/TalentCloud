@@ -55,7 +55,7 @@ class WorkSample extends BaseModel {
         return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
 
-    public function application() {
+    public function applicant() {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
