@@ -19,6 +19,12 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
     /* Home */
     Route::get('/', 'HomepageController')->name('home');
 
+    Route::get('test', function(Illuminate\Http\Request $request){
+        return [
+            'message' => 'This is a test message'
+        ];
+    });
+
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
 
@@ -161,6 +167,7 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
         Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
             ->middleware('can:update,applicant')
             ->name('profile.work_samples.update');
+
     });
 
     /* Static - FAQ */
@@ -373,3 +380,38 @@ Route::get('en', function() {
     //TODO
     return redirect()->home();
 })->name('lang.en');
+
+
+/* AJAX calls =============================================================== */
+
+/* Require being logged in */
+Route::middleware(['auth'])->group(function() {
+
+    Route::delete('courses/{course}', 'CourseController@destroy')
+        ->middleware('can:delete,course')
+        ->name('courses.destroy');
+
+    Route::delete('degrees/{degree}', 'DegreeController@destroy')
+        ->middleware('can:delete,degree')
+        ->name('degrees.destroy');
+
+    Route::delete('work-experiences/{workExperience}', 'WorkExperienceController@destroy')
+        ->middleware('can:delete,workExperience')
+        ->name('work_experiences.destroy');
+
+    Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
+        ->middleware('can:delete,skillDeclaration')
+        ->name('skill_declarations.destroy');
+
+    Route::delete('references/{reference}', 'ReferencesController@destroy')
+        ->middleware('can:delete,reference')
+        ->name('references.destroy');
+
+    Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
+        ->middleware('can:delete,workSample')
+        ->name('work_samples.destroy');
+
+    Route::delete('applications/{application}', 'ApplicationController@destroy')
+        ->middleware('can:delete,application')
+        ->name('applications.destroy');
+});

@@ -27,7 +27,8 @@ return [
             ],
             "id" => "deleteReference",
             "action_01" => "Annuler",
-            "action_02" => "Supprimer"
+            "action_02" => "Supprimer",
+            "action_02_progress" => "Agissant..."
         ]
     ]
 ];

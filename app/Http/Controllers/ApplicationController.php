@@ -69,4 +69,26 @@ class ApplicationController extends Controller
         ]);
     }
 
+    /**
+     * Delete the particular resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\JobApplication  $application
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, JobApplication $application)
+    {
+        $this->authorize('delete', $application);
+
+        $application->delete();
+
+        if($request->ajax()) {
+            return [
+                "message" => 'Application deleted'
+            ];
+        }
+
+        return redirect()->back();
+    }
+
 }
