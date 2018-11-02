@@ -40,6 +40,9 @@
         {% if locale == "application" and skill_declaration == true %}complete{% endif %}
         {% if locale == "application-view" and skill_declaration == true %}complete{% endif %}
         modal-target-object"
+
+    data-item-saved="{{ skill_declaration ? "true" : "" }}"
+    data-item-url="{{ route("skill_declarations.destroy", ':id') }}"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
@@ -190,7 +193,7 @@
                             {% else %}
 
                                 <div
-                                    class="box med-1of2">
+                                    class="box full">
 
                                     <span
                                         class="profile-relative-list__label">
@@ -199,7 +202,40 @@
 
                                     {% for relative in skill_declaration.references %}
 
-                                        <p>{{ relative.name }}</p>
+                                        <div
+                                            class="profile-relative__reference">
+
+                                            <p
+                                                class="profile-relative__reference-name">{{ relative.name }}</p>
+
+                                            <p>{{ relative.email }}</p>
+
+                                            <p>{{ relative.relationship.name|title }}</p>
+
+                                            <p>{{ relative.description }}</p>
+
+                                            <div
+                                                class="flex-grid">
+
+                                                {% for project in relative.projects %}
+
+                                                    <div class="box small-1of2">
+                                                        <p>{{ project.name }}</p>
+                                                    </div>
+
+                                                    <div class="box small-1of4">
+                                                        <p>{{ project.start_date }}</p>
+                                                    </div>
+
+                                                    <div class="box small-1of4">
+                                                        <p>{{ project.end_date }}</p>
+                                                    </div>
+
+                                                {% endfor %}
+
+                                            </div>
+
+                                        </div>
 
                                     {% endfor %}
 
@@ -213,21 +249,33 @@
 
                         {% if skill_declaration == true %}
 
-                            {% if skill_declaration.samples is empty %}
+                            {% if skill_declaration.work_samples is empty %}
 
                             {% else %}
 
                                 <div
-                                    class="box med-1of2">
+                                    class="box full">
 
                                     <span
                                         class="profile-relative-list__label">
                                         <i class="fas fa-users"></i> {{ relative_template.sample.title }}
                                     </span>
 
-                                    {% for relative in skill_declaration.samples %}
+                                    {% for relative in skill_declaration.work_samples %}
 
-                                        <p>{{ relative.name }}</p>
+                                        <div
+                                            class="profile-relative__sample">
+
+                                            <p
+                                                class="profile-relative__sample-name">{{ relative.name }}</p>
+
+                                            <p>{{ relative.file_type.name|title }}</p>
+
+                                            <p>{{ relative.url }}</p>
+
+                                            <p>{{ relative.description }}</p>
+
+                                        </div>
 
                                     {% endfor %}
 

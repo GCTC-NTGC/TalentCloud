@@ -150,6 +150,14 @@ class ReferencesController extends Controller
                             }
                         }
                     }
+                    //TODO: when projects exists independpently on profile, don't delete them Here
+                    // Delete projects that will be detached from this reference
+                    foreach($reference->projects as $project) {
+                        if (!in_array($project->id, $projectIds)) {
+                            $project->delete();
+                        }
+                    }
+
                     //Sync attaches the specified ids, and detaches all others
                     $reference->projects()->sync($projectIds);
 
@@ -162,14 +170,33 @@ class ReferencesController extends Controller
         }
 
         return redirect( route('profile.references.edit', $applicant) );
-        // return view('applicant/profile_04_references', [
-        //     'applicant' => $applicant,
-        //     'profile' => Lang::get('applicant/profile_references'),
-        //     'relative_template' => Lang::get('common/relatives'),
-        //     'skills' => Skill::all(),
-        //     'relationships' => Relationship::all(),
-        //     'form_submit_action' => route('profile.references.update', $applicant),
-        // ]);
+    }
+
+    /**
+     * Delete the particular reference from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reference  $reference
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, Reference $reference)
+    {
+        $this->authorize('delete', $reference);
+
+        //TODO: when projects exist independently on profile, delete seperatley
+        foreach($reference->projects as $project) {
+            $project->delete();
+        }
+
+        $reference->delete();
+
+        if($request->ajax()) {
+            return [
+                "message" => 'Reference deleted'
+            ];
+        }
+
+        return redirect()->back();
     }
 
 }

@@ -19,6 +19,8 @@
 
 <div
     class="profile-element accordion sample {% if sample == false %}template active{% endif %} modal-target-object"
+    data-item-saved="{{ sample ? "true" : "" }}"
+    data-item-url="{{ route("work_samples.destroy", ":id") }}"
     data-item-id="{{ sample ? sample.id : 0 }}">
 
     {# Accordion Trigger #}
