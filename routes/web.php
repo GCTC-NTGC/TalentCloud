@@ -19,12 +19,6 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
     /* Home */
     Route::get('/', 'HomepageController')->name('home');
 
-    Route::get('test', function(Illuminate\Http\Request $request){
-        return [
-            'message' => 'This is a test message'
-        ];
-    });
-
     /* Jobs */
     Route::get('jobs', 'JobController@index')->name('jobs.index');
 
