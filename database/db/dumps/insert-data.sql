@@ -107,9 +107,9 @@ INSERT INTO department_translations VALUES
 (17,8,'en','Innovation, Science and Economic Development Canada',current_timestamp,current_timestamp),
 (18,8,'fr','Innovation, Sciences et Développement économique Canada',current_timestamp,current_timestamp),
 (19,9,'en','Public Services and Procurement Canada',current_timestamp,current_timestamp),
-(20,9,'fr','Services publics et Approvisionnement Canada',current_timestamp,current_timestamp);
+(20,9,'fr','Services publics et Approvisionnement Canada',current_timestamp,current_timestamp),
 (13,10,'en','Canada Border Services Agency',current_timestamp,current_timestamp),
-(14,10,'fr','Agence des services frontaliers du Canada',current_timestamp,current_timestamp),
+(14,10,'fr','Agence des services frontaliers du Canada',current_timestamp,current_timestamp);
 
 
 INSERT INTO experience_levels VALUES
