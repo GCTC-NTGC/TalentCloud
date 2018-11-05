@@ -112,7 +112,10 @@ class ApplicantProfileController extends Controller
             ],
             'linkedin_url' => [
                 'nullable', // Some people may not be on LinkedIn
-                'url:required' // We imply they should input a Url here, so to limit other undesirable inputs we should validate this.
+                'url:required', // We imply they should input a Url here, so to limit other undesirable inputs we should validate this.
+                'regex:/^https:\\/\\/[a-z]{2,3}\\.linkedin\\.com\\/.*$', // Code sourced from Thomas Ayoub at https://stackoverflow.com/questions/33760452/how-to-check-linkedin-web-link-using-regex-patterns-in-java
+
+
             ],
             
             //Other Information Tagline
