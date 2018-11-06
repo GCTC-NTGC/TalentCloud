@@ -27,7 +27,27 @@ class ApplicantProfileController extends Controller
      */
     public function show(Applicant $applicant)
     {
-        //
+        $user = $request->user();
+
+        //TODO:
+        //Josh, to loop through answers&question data, leverage this data structure:
+        // applicant
+        //     [applicant_profile_answers]
+        //         answer
+        //         applicant_profile_question
+        //             id
+        //             value // The question text
+        //             description // Question description text
+
+        return view('applicant/profile_01_about', [ //TODO: change view
+            /* Localized strings*/
+            'profile' => Lang::get('applicant/applicant_profile'), // Change text
+
+            /* User Data */
+            'user' => $user,
+            'applicant' => $applicant,
+            'profile_photo_url' => '/images/user.png', //TODO: get real photos
+        ]);
     }
 
     /**

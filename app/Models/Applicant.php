@@ -50,7 +50,7 @@ class Applicant extends BaseModel {
         'twitter_username',
         'linkedin_url'
     ];
-
+    
     public function user() {
         return $this->belongsTo(\App\Models\User::class);
     }
@@ -92,5 +92,12 @@ class Applicant extends BaseModel {
 
     public function projects() {
         return $this->hasMany(\App\Models\Project::class);
+    }
+
+    //Accessors
+    public function getApplicantProfileAnswersAttribute() {
+        return $this->applicant_profile_answers->sortBy(function ($answer){
+            return $answer->applicant_profile_question->id;
+        });
     }
 }
