@@ -3,12 +3,29 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Manager;
 use App\Models\Applicant;
+use App\Models\JobPoster;
 use App\Policies\BasePolicy;
 use Barryvdh\Debugbar\Facade as Debugbar;
 
 class ApplicantPolicy extends BasePolicy
 {
+
+    /**
+     * Returns true if $manager owns a job to which $applicant has applied
+     * @param  Manager   $manager   [description]
+     * @param  Applicant $applicant [description]
+     * @return [type]               [description]
+     */
+    protected function managerCanViewApplicant(Manager $manager, Applicant $applicant) {
+        $applicant_id = $applicant->id;
+        return JobPoster::where('manager_id', $manager->id)
+            ->whereHas('submitted_applications', function ($q) use ($applicant_id){
+                $q->where('applicant_id', $applicant_id);
+            })
+            ->get()->isNotEmpty();
+    }
 
     /**
      * Determine whether the user can view the applicant.
@@ -19,8 +36,10 @@ class ApplicantPolicy extends BasePolicy
      */
     public function view(User $user, Applicant $applicant)
     {
-        return $user->user_role->name === "applicant" &&
+        $authApplicant =  $user->user_role->name === "applicant" &&
             $applicant->user_id === $user->id;
+        $authManager = $user->hasRole('manager') && $this->managerCanViewApplicant($user->manager, $applicant);
+        return $authApplicant || $authManager;
     }
 
     /**

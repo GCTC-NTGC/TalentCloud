@@ -319,6 +319,7 @@ $managerGroup = function() {
 
         /* View Applicant Profile */
         Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+            ->middleware('can:view,applicant')
             ->name('manager.applicants.show');
 
         /* Job Index */
