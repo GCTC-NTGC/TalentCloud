@@ -35,7 +35,6 @@ use Jenssegers\Date\Date;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property int $submitted_applications_count
- * @property int $days_remaining
  *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
@@ -60,6 +59,7 @@ use Jenssegers\Date\Date;
  *
  * Methods
  * @method boolean isOpen()
+ * @method string timeRemaining()
  */
 class JobPoster extends BaseModel {
 
@@ -160,12 +160,6 @@ class JobPoster extends BaseModel {
 
     // Accessors
 
-    public function getDaysRemainingAttribute() {
-        $days_remaining = $this->close_date_time->diffInDays(Date::now());
-        debugbar()->info($days_remaining);
-        return $days_remaining;
-    }
-
     // Methods
 
     public function isOpen() {
@@ -174,4 +168,11 @@ class JobPoster extends BaseModel {
             && $this->close_date_time->isFuture();
     }
 
+    public function timeRemaining() {
+        if ($this->close_date_time->isFuture()) {
+            return $this->close_date_time->diffForHumans(null, true);
+        } else {
+            return $this->close_date_time->diffForHumans(Date::now());
+        }
+    }
 }
