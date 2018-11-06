@@ -318,7 +318,7 @@ $managerGroup = function() {
             ->name('manager.applications.show');
 
         /* View Applicant Profile */
-        Route::get('applicants/{applicant}', 'ApplicantController@show')
+        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
             ->name('manager.applicants.show');
 
         /* Job Index */

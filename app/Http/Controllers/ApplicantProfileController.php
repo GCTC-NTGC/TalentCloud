@@ -22,13 +22,12 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  Request  $request
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function show(Applicant $applicant)
+    public function show(Request $request, Applicant $applicant)
     {
-        $user = $request->user();
-
         //TODO:
         //Josh, to loop through answers&question data, leverage this data structure:
         // applicant
@@ -44,7 +43,7 @@ class ApplicantProfileController extends Controller
             'profile' => Lang::get('applicant/applicant_profile'), // Change text
 
             /* User Data */
-            'user' => $user,
+            'user' => $applicant->user,
             'applicant' => $applicant,
             'profile_photo_url' => '/images/user.png', //TODO: get real photos
         ]);
@@ -59,7 +58,6 @@ class ApplicantProfileController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        $user = $request->user();
         $profileQuestions = ApplicantProfileQuestion::all();
 
         $profileText = Lang::get('applicant/applicant_profile');
@@ -87,7 +85,7 @@ class ApplicantProfileController extends Controller
             /* Applicant Profile Questions */
             'applicant_profile_questions' => $profileQuestionForms,
             /* User Data */
-            'user' => $user,
+            'user' => $applicant->user,
             'applicant' => $applicant,
             'profile_photo_url' => '/images/user.png', //TODO: get real photos
 
