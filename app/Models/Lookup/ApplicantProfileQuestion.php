@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Lang;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
- * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
  *
  * Accessors:
  * @property string $question
@@ -31,10 +30,6 @@ class ApplicantProfileQuestion extends BaseModel {
 
     public function applicant_profile_answers() {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
-    }
-
-    public function applicant_profile_question_translations() {
-        return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
     }
 
     // Accessors
