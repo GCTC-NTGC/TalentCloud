@@ -29,6 +29,7 @@ use Jenssegers\Date\Date;
  * @property string $classification
  * @property int $security_clearance_id
  * @property int $language_requirement_id
+ * @property boolean $remote_work_allowed
  * @property int $manager_id
  * @property boolean $published
  * @property \Jenssegers\Date\Date $created_at
@@ -73,6 +74,7 @@ class JobPoster extends BaseModel {
         'noc' => 'int',
         'security_clearance_id' => 'int',
         'language_requirement_id' => 'int',
+        'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
         'published' => 'boolean'
     ];
@@ -95,6 +97,7 @@ class JobPoster extends BaseModel {
         'classification',
         'security_clearance_id',
         'language_requirement_id',
+        'remote_work_allowed',
         'published'
     ];
     protected $withCount = ['submitted_applications'];

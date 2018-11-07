@@ -280,7 +280,7 @@
                 <div
                     class="flex-grid">
 
-                    <div 
+                    <div
                         class="box full">
 
                         <div
@@ -290,18 +290,18 @@
                                 class="form__label"
                                 for="remoteWork">
 
-                                <span 
+                                <span
                                     class="hidden">
                                     Remote Work Allowed
                                 </span>
 
-                                <input 
+                                <input
                                     class="form__input"
                                     id="remoteWork"
-                                    name="remoteWork"
-                                    type="checkbox"/>
-                                    {# Tristan, let me know if you want to collaborate on the logic to check this box if it has been checked previously (when someone is editing their already started job poster, for example) #}
-
+                                    name="remote_work_allowed"
+                                    type="checkbox"
+                                    value="true"
+                                    {% if job.remote_work_allowed %}checked{% endif%}/>
                                 Remote Work Allowed
 
                             </label>
