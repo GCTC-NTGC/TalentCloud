@@ -50,7 +50,7 @@ class Applicant extends BaseModel {
         'twitter_username',
         'linkedin_url'
     ];
-    
+
     public function user() {
         return $this->belongsTo(\App\Models\User::class);
     }
@@ -95,9 +95,15 @@ class Applicant extends BaseModel {
     }
 
     //Accessors
-    public function getApplicantProfileAnswersAttribute() {
-        return $this->applicant_profile_answers->sortBy(function ($answer){
-            return $answer->applicant_profile_question->id;
-        });
+
+    // Always return profile answers in the order the questions appear in
+    public function getApplicantProfileAnswersAttribute($applicant_profile_answers) {
+        if ($applicant_profile_answers) {
+            return $applicant_profile_answers->sortBy(function ($answer){
+                return $answer->applicant_profile_question->id;
+            });
+        } else {
+            return collect($applicant_profile_answers);
+        }
     }
 }
