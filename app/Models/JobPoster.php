@@ -58,6 +58,9 @@ use Jenssegers\Date\Date;
  * @property string $branch
  * @property string $division
  * @property string $education
+ *
+ * Methods
+ * @method boolean isOpen()
  */
 class JobPoster extends BaseModel {
 
@@ -164,6 +167,14 @@ class JobPoster extends BaseModel {
         $days_remaining = $this->close_date_time->diffInDays(Date::now());
         debugbar()->info($days_remaining);
         return $days_remaining;
+    }
+
+    // Methods
+
+    public function isOpen() {
+        return $this->published
+            && $this->open_date_time->isPast()
+            && $this->close_date_time->isFuture();
     }
 
 }

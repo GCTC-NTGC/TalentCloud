@@ -45,9 +45,9 @@ class ApplicationStatusChanged
         }
         //Log if application status has been changed
         else if ($application->application_status_id != $application->getOriginal('application_status_id')) {
-            $application->refresh();
-            $applicationText = "{id=".$application->id."}";
-            $statusText = "{".$application->application_status->name."}";
+            $freshApplication = $application->fresh();
+            $applicationText = "{id=".$freshApplication->id."}";
+            $statusText = "{".$freshApplication->application_status->name."}";
 
             Log::notice("Application status changed: application ".$applicationText." has been changed to ".$statusText." by user ".$userText);
         }

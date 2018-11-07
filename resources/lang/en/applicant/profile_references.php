@@ -30,7 +30,8 @@ return [
             ],
             "id" => "deleteReference",
             "action_01" => "Cancel",
-            "action_02" => "Delete"
+            "action_02" => "Delete",
+            "action_02_progress" => "Working..."
         ]
     ]
 ];
