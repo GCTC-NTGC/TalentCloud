@@ -281,6 +281,36 @@
                     class="flex-grid">
 
                     <div
+                        class="box full">
+
+                        <div
+                            class="form__input-wrapper--checkbox">
+
+                            <label
+                                class="form__label"
+                                for="remoteWork">
+
+                                <span
+                                    class="hidden">
+                                    Remote Work Allowed
+                                </span>
+
+                                <input
+                                    class="form__input"
+                                    id="remoteWork"
+                                    name="remote_work_allowed"
+                                    type="checkbox"
+                                    value="true"
+                                    {% if job.remote_work_allowed %}checked{% endif%}/>
+                                Remote Work Allowed
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div
                         class="box med-1of2">
 
                         <div
