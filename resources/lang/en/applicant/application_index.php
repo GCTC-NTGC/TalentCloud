@@ -15,6 +15,8 @@ return [
     "completed_title" => "Completed Applications",
     "expired_title" => "Expired Applications",
     "days_remaining_label" => ":count Days Remaining",
+    "time_remaining" => ":time remaining",
+    "job_closed" => "Job closed",
     "edit_date_label" => "Last Edited",
     "post_label" => "Job Post",
     "post_link_title" => "View the job post for this application",

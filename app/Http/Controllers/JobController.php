@@ -472,8 +472,8 @@ class JobController extends Controller
         $job->fill([
             'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
             'term_qty' => $input['term_qty'],
-            'open_date_time' => new Date($input['open_date_time']),
-            'close_date_time' => new Date($input['close_date_time']),
+            'open_date_time' => new Date($input['open_date'].$input['open_time']),
+            'close_date_time' => new Date($input['close_date'].$input['close_time']),
             'start_date_time' => new Date($input['start_date_time']),
             'department_id' => $input['department'],
             'province_id' => $input['province'],
