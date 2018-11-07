@@ -18,9 +18,7 @@
 
                 <p
                     class="job-post__header-meta">
-                    <span>
-                        {{ job_post.header.days_remaining|trans_choice(job.days_remaining) }}
-                    </span>
+                    {% include "common/job_time_remaining" with {template:job_post.header} %}
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>
                         {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count) }}
@@ -47,7 +45,7 @@
 
                     <div>
                         <i class="fas fa-home" title="{{ job_post.header.remote_work_icon_label }}"></i>
-                        <span>{{ job_post.header.remote_work_allowed[work_environment.remote_work_allowed] }}</span>
+                        <span>{{ job_post.header.remote_work_allowed[job.remote_work_allowed] }}</span>
                     </div>
 
                 </div>

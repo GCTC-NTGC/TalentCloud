@@ -19,6 +19,8 @@
 
 <div
     class="profile-element accordion reference {% if reference == false %}template active{% endif %} modal-target-object"
+    data-item-saved="{{ reference ? "true" : "" }}"
+    data-item-url="{{ route("references.destroy", ":id") }}"
     data-item-id="{{ reference ? reference.id : 0 }}">
 
     {# Accordion Trigger #}

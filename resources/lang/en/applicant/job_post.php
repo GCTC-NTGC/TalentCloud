@@ -12,6 +12,8 @@ return [
     'title' => 'Browse Jobs',
     'job_post_title' => 'Talent Cloud | Applicant: Job Poster',
     'header' => [
+        'time_remaining' => ':time until close',
+        "job_closed" => "Job has closed",
         'days_remaining' => ':count day until close|:count days until close',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'location_icon_label' => 'Location Icon.',
@@ -26,7 +28,7 @@ return [
     'basics' => [
         'sidebar_title' => 'View this job\'s basic information.',
         'title' => 'Basic Information',
-        'salary_label' => 'Salary Range',
+        'salary_label' => 'Annual Salary Range',
         'duration_label' => 'Duration',
         'start_label' => 'Target Start Date',
         'language_label' => 'Language Requirement',
@@ -59,6 +61,7 @@ return [
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
+        'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.'
     ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',

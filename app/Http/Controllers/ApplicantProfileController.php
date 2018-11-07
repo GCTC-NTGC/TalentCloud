@@ -11,7 +11,7 @@ use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
-use App\Services\Validation\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordCorrectRule;
 use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller

@@ -281,6 +281,36 @@
                     class="flex-grid">
 
                     <div
+                        class="box full">
+
+                        <div
+                            class="form__input-wrapper--checkbox">
+
+                            <label
+                                class="form__label"
+                                for="remoteWork">
+
+                                <span
+                                    class="hidden">
+                                    Remote Work Allowed
+                                </span>
+
+                                <input
+                                    class="form__input"
+                                    id="remoteWork"
+                                    name="remote_work_allowed"
+                                    type="checkbox"
+                                    value="true"
+                                    {% if job.remote_work_allowed %}checked{% endif%}/>
+                                Remote Work Allowed
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div
                         class="box med-1of2">
 
                         <div
@@ -364,8 +394,31 @@
                                 class="form__input"
                                 id="createJobOpenDate"
                                 type="date"
-                                name="open_date_time"
+                                name="open_date"
                                 value="{{ job.open_date_time|date("Y-m-d") }}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--date">
+
+                            <label
+                                class="form__label"
+                                for="createJobOpenTime">
+                                Opening Time, UTC
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobOpenTime"
+                                type="time"
+                                name="open_time"
+                                value="{{ job.open_date_time|date("H:i") }}">
 
                         </div>
 
@@ -387,8 +440,31 @@
                                 class="form__input"
                                 id="createJobCloseDate"
                                 type="date"
-                                name="close_date_time"
-                                value="{{ job.close_date_time|date("Y-m-d") }}">
+                                name="close_date"
+                                value="{{ job.close_date_time|date("Y-m-d")}}">
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <div
+                            class="form__input-wrapper--date">
+
+                            <label
+                                class="form__label"
+                                for="createJobCloseTime">
+                                Close Time, UTC
+                            </label>
+
+                            <input
+                                class="form__input"
+                                id="createJobCloseTime"
+                                type="time"
+                                name="close_time"
+                                value="{{ job.close_date_time|date("H:i") }}">
 
                         </div>
 
@@ -819,7 +895,7 @@
                         <button
                             type="button"
                             class="manager-jobs__add-skill-button"
-                            id="addSkillButton">
+                            id="addSkillButton1">
                             Add an Essential Hard Skill
                         </button>
 
@@ -877,7 +953,7 @@
                         <button
                             type="button"
                             class="manager-jobs__add-skill-button"
-                            id="addSkillButton">
+                            id="addSkillButton2">
                             Add an Essential Hard Skill
                         </button>
 
@@ -935,7 +1011,7 @@
                         <button
                             type="button"
                             class="manager-jobs__add-skill-button"
-                            id="addSkillButton">
+                            id="addSkillButton3">
                             Add an Asset Hard Skill
                         </button>
 
@@ -993,7 +1069,7 @@
                         <button
                             type="button"
                             class="manager-jobs__add-skill-button"
-                            id="addSkillButton">
+                            id="addSkillButton4">
                             Add an Asset Soft Skill
                         </button>
 

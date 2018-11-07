@@ -27,7 +27,14 @@ namespace App\Models;
 class JobPosterTranslation extends BaseModel {
 
     protected $casts = [
-        'job_poster_id' => 'int'
+        'job_poster_id' => 'int',
+        'locale' => 'string',
+        'city' => 'string',
+        'title' => 'string',
+        'impact' => 'string',
+        'branch' => 'string',
+        'division' => 'string',
+        'education' => 'string',
     ];
     protected $fillable = [
         'locale',

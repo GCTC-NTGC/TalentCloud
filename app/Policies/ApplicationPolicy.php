@@ -50,7 +50,8 @@ class ApplicationPolicy extends BasePolicy
     {
         return $user->user_role->name === "applicant" &&
             $user->applicant->id === $jobApplication->applicant_id &&
-            $jobApplication->application_status->name == "draft";
+            $jobApplication->application_status->name == "draft" &&
+            $jobApplication->job_poster->isOpen();
     }
 
     /**

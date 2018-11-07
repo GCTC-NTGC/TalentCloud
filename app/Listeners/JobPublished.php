@@ -33,7 +33,6 @@ class JobPublished
         //If job is being modified, only want to log when it goes from unpublished to published
         if ( ($job->wasRecentlyCreated && $job->published) ||
                 (!$job->wasRecentlyCreated && $job->published && !$job->getOriginal('published'))) {
-            $job->refresh();
             Log::notice('Job published: job {id='.$job->id."} published by manager {id=".$job->manager->id.", email=".$job->manager->user->email."}");
         }
     }
