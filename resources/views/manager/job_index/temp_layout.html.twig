@@ -14,10 +14,16 @@
                 <ul>
                     {% for application in job.submitted_applications %}
                     <li>
+                        {{ application.applicant.user.name }},
+                        <a
+                            href="{{ route('manager.applicants.show', application.applicant) }}"
+                            >
+                            Profile,
+                        </a>
                         <a
                             href="{{ route('manager.applications.show', application) }}"
                             >
-                            {{ application.applicant.user.name }}
+                            Application
                         </a>
                     </li>
                     {% endfor %}

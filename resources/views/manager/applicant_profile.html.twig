@@ -1,0 +1,44 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Applicant Profile
+
+============================================================================= #}
+{% extends "layouts/base" %}
+
+{% block body %}
+
+	{# Alert #}
+
+		{% include "common/alert" %}
+
+	{# Government of Canada #}
+
+    	{% include "common/goc" %}
+
+    {# Page Header #}
+
+    	{% include "common/header" with {"header":manager_applicant_profile_template} %}
+
+    {# Content #}
+
+    	<div
+    		class="container--copy">
+
+    		{{ applicant.user.name }}
+
+    		{{ applicant }}
+
+    		{# {% for question in applicant.applicant_profile_answers %}
+
+    			{{ question.applicant_profile_question.value }}
+
+    			{{ question.applicant_profile_question.description }}
+
+    			{{ question.answer }}
+
+    		{% endfor %} #}
+
+    	</div>
+
+{% endblock %}

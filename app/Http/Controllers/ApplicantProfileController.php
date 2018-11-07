@@ -38,9 +38,9 @@ class ApplicantProfileController extends Controller
         //             value // The question text
         //             description // Question description text
 
-        return view('applicant/profile_01_about', [ //TODO: change view
+        return view('manager/applicant_profile', [
             /* Localized strings*/
-            'profile' => Lang::get('applicant/applicant_profile'), // Change text
+            'profile' => Lang::get('manager/applicant_profile'), // Change text
 
             /* User Data */
             'user' => $applicant->user,

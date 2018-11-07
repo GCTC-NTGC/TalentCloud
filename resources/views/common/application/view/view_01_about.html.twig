@@ -17,6 +17,17 @@
         {{ application_template.preview.section_01_title }}
     </h3>
 
+    {# Applicant Name #}
+
+        {% if auth_check() and auth_user().hasAnyRole(['manager', 'admin']) %}
+            <div
+                class="application-preview__status">
+            
+                <span>Applicant: {{ applicant.user.name }}</span>
+
+            </div>
+        {% endif %}
+
     {# Citizenship #}
 
         <div
