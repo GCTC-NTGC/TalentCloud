@@ -8,6 +8,7 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class ApplicantProfileQuestion
@@ -20,15 +21,12 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_question_translations
  *
- * Localized Properties:
- * @property string $value
+ * Accessors:
+ * @property string $question
  * @property string $description
  */
 class ApplicantProfileQuestion extends BaseModel {
 
-    use \Dimsav\Translatable\Translatable;
-
-    public $translatedAttributes = ['value', 'description'];
     protected $fillable = [];
 
     public function applicant_profile_answers() {
@@ -37,6 +35,16 @@ class ApplicantProfileQuestion extends BaseModel {
 
     public function applicant_profile_question_translations() {
         return $this->hasMany(\App\Models\Lookup\ApplicantProfileQuestionTranslation::class);
+    }
+
+    // Accessors
+
+    public function getQuestionAttribute() {
+        return Lang::get('common/lookup/applicant_profile_questions')[$this->name]['question'];
+    }
+
+    public function getDescriptionAttribute() {
+        return Lang::get('common/lookup/applicant_profile_questions')[$this->name]['description'];
     }
 
 }
