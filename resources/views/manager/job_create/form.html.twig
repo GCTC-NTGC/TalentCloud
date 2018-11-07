@@ -647,7 +647,7 @@
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
-                                Impact 01 (English)
+                                Impact (English)
                             </label>
                             <textarea
                                 class="form__textarea"
@@ -663,46 +663,12 @@
                         <div class="form__input-wrapper--float
                             {% if job.translate('fr').impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
-                                Impact 01 (Français)
+                                Impact (Français)
                             </label>
                             <textarea
                                 class="form__textarea"
                                 id="createJobImpactFR"
                                 name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <div class="form__input-wrapper--float
-                            {% if job.translate('en').impact_02 != null %}active{% endif %}">
-                            <label
-                                class="form__label"
-                                for="createJobImpact02EN">
-                                Impact 02 (English)
-                            </label>
-                            <textarea
-                                class="form__textarea"
-                                id="createJobImpact02EN"
-                                name="impact02[en]">{{ job.translate('en').impact_02 }}</textarea>
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <div class="form__input-wrapper--float
-                            {% if job.translate('fr').impact_02 != null %}active{% endif %}">
-                            <label class="form__label" for="createJobImpact02FR">
-                                Impact 02 (Français)
-                            </label>
-                            <textarea
-                                class="form__textarea"
-                                id="createJobImpact02FR"
-                                name="impact02[fr]">{{ job.translate('fr').impact_02 }}</textarea>
                         </div>
 
                     </div>
