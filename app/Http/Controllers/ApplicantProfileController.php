@@ -52,7 +52,7 @@ class ApplicantProfileController extends Controller
 
             $formValues = [
                 'id' => $question->id,
-                'value' => $question->value,
+                'question' => $question->question,
                 'description' => $question->description,
                 'answer' => $answer,
                 'answer_label' => $profileText['about_section']['answer_label'],
