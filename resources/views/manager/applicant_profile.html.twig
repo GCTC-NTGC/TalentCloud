@@ -18,27 +18,40 @@
 
     {# Page Header #}
 
-    	{% include "common/header" with {"header":manager_applicant_profile_template} %}
+    	{% include "common/header" with {"header":profile} %}
 
     {# Content #}
 
-    	<div
-    		class="container--copy">
+    	<section
+    		class="applicant-profile-preview">
 
-    		{{ applicant.user.name }}
+	    	<div
+	    		class="container--copy">
 
-    		{{ applicant }}
+	    		<h3>You are viewing {{ applicant.user.name }}'s profile.</h3>
 
-    		{# {% for question in applicant.applicant_profile_answers %}
+	    		{# {{ applicant }} #}
 
-    			{{ question.applicant_profile_question.value }}
+	    		{% if applicant.applicant_profile_answers is empty %}
 
-    			{{ question.applicant_profile_question.description }}
+	    			<p>The applicant hasn't answered any questions.</p>
 
-    			{{ question.answer }}
+		    	{% else %}
 
-    		{% endfor %} #}
+		    		{% for question in applicant.applicant_profile_answers %}
 
-    	</div>
+		    			<h4>{{ question.applicant_profile_question.value }}</h4>
+
+		    			<p>{{ question.applicant_profile_question.description }}</p>
+
+		    			<p>{{ question.answer }}</p>
+
+		    		{% endfor %}
+
+		    	{% endif %}
+
+	    	</div>
+
+    	</section>
 
 {% endblock %}
