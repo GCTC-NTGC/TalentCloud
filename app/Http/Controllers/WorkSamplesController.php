@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
@@ -104,7 +104,7 @@ class WorkSamplesController extends Controller
                     $skillDeclarationIds =$this->getRelativeIds($workSampleInput, 'skills');
                     $workSample->skill_declarations()->sync($skillDeclarationIds);
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update workSample with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update workSample with invalid id '.$id);
                 }
             }
         }

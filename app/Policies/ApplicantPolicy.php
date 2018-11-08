@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Applicant;
 use App\Policies\BasePolicy;
-use Barryvdh\Debugbar\Facade as Debugbar;
 
 class ApplicantPolicy extends BasePolicy
 {

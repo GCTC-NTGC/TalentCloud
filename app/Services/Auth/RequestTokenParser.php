@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 //use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Parser;
-use Barryvdh\Debugbar\Facade as Debugbar;
 
 /**
  * Adapted from the OpenIDConnect Laravel package at
@@ -46,8 +45,6 @@ class RequestTokenParser
 //            throw new AuthenticationException("Request doesn't contain id token");
 //        }
         $token = $request->cookie(static::COOKIE_KEY);
-        Debugbar::info("Retrieving token:");
-        Debugbar::info($token);
         if (empty($token)) {
             throw new AuthenticationException("Request doesn't contain id token");
         }
@@ -79,8 +76,6 @@ class RequestTokenParser
     public function save(Token $token) {
         //session([static::COOKIE_KEY => (string)$token]);
         //Cookie::queue(static::COOKIE_KEY, (string)$token);
-        Debugbar::info("Saving token:");
-        Debugbar::info($token);
         cookie()->queue(cookie()->forever(static::COOKIE_KEY, (string)$token));
     }
 

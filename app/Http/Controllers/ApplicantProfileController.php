@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
@@ -137,8 +136,6 @@ class ApplicantProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.about.edit', $applicant);
-        //Debugbar::info($input);
-        //return view('welcome', ['t1' => 'update applicant']);
     }
 
 }

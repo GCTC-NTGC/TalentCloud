@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\JobPoster;
@@ -38,7 +37,6 @@ class JobController extends Controller
             ->where('published', true)
             ->get();
         $jobs->load('manager.work_environment');
-        debugbar()->info($jobs->toArray());
         return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs]);
     }
@@ -88,7 +86,6 @@ class JobController extends Controller
                 return $value->criteria_type->name == 'asset';
             }),
         ];
-        Debugbar::info(Criteria::all());
         return view('applicant/job_post', [
             'job_post' =>Lang::get('applicant/job_post'),
             'manager' => $jobPoster->manager,
