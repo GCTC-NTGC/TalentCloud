@@ -12,6 +12,8 @@ return [
     'title' => 'Browse Jobs',
     'job_post_title' => 'Talent Cloud | Applicant: Job Poster',
     'header' => [
+        'time_remaining' => ':time until close',
+        "job_closed" => "Job has closed",
         'days_remaining' => ':count day until close|:count days until close',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'location_icon_label' => 'Location Icon.',

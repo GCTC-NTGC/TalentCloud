@@ -21,7 +21,7 @@
 
             {% for item in applications %}
 
-                {% if item.application_status.name =="draft" and date() < date(item.job_poster.close_date_time) %}
+                {% if item.application_status.name =="draft" and item.job_poster.close_date_time.isFuture() %}
 
                     {% set draftCounter = draftCounter + 1 %}
 
@@ -75,7 +75,7 @@
 
             {% for item in applications %}
 
-                {% if item.application_status.name == "draft" and date() > date(item.job_poster.close_date_time) %}
+                {% if item.application_status.name == "draft" and item.job_poster.close_date_time.isPast() %}
 
                     {% set expiredCounter = expiredCounter + 1 %}
 

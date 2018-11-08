@@ -32,7 +32,6 @@ class WorkEnvironmentSeeder extends Seeder
             $workEnvironment = new WorkEnvironment();
             $workEnvironment->manager_id = $manager->id;
             $workEnvironment->fill([
-                'remote_work_allowed' => $this->faker->boolean(),
                 'telework_allowed_frequency_id' => Frequency::inRandomOrder()->first()->id,
                 'flexible_hours_frequency_id' => Frequency::inRandomOrder()->first()->id,
                 'en' => [
