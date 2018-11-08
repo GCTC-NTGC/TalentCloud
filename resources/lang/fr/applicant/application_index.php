@@ -15,6 +15,8 @@ return [
     "completed_title" => "Demandes d'emploi soumises",
     "expired_title" => "Demandes d'emploi expirées",
     "days_remaining_label" => ":count jours restant",
+    "time_remaining" => ":time restant",
+    "job_closed" => "Fermée",
     "edit_date_label" => "Dernière modification",
     "post_label" => "Affiche d'emploi",
     "post_link_title" => "Voir l'affiche pour cette demandes d'emploi",
