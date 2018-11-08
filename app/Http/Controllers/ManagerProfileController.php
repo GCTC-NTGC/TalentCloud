@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
@@ -119,8 +118,6 @@ class ManagerProfileController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Manager $manager) {
-        Debugbar::info($request->input());
-
         $input = $request->input();
 
         //TODO: remove control of name in production

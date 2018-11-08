@@ -7,7 +7,6 @@ use App\Models\Manager;
 use App\Models\Applicant;
 use App\Models\JobPoster;
 use App\Policies\BasePolicy;
-use Barryvdh\Debugbar\Facade as Debugbar;
 
 class ApplicantPolicy extends BasePolicy
 {

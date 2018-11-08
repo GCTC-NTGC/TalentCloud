@@ -97,12 +97,6 @@ class BaseOidcUserProvider implements UserProvider {
 
             $user = $model->findByOidcSub($credentials['iss'], $credentials['sub']);
 
-            debugbar()->info("in Provider.retrieveByCredentials()");
-            if ($user) {
-                debugbar()->info("Provider found user:");
-                debugbar()->info($user);
-            }
-
             // If no user was found, use the provided credentials to create a
             // new user
             if ($user === null) {
@@ -113,8 +107,6 @@ class BaseOidcUserProvider implements UserProvider {
                     $user->save();
                 }
 
-                debugbar()->info("Provider created user:");
-                debugbar()->info($user);
             }
 
             //If running in a local environment, and FORCE_ADMIN is true,
@@ -184,8 +176,6 @@ class BaseOidcUserProvider implements UserProvider {
      * @return bool
      */
     public function validateCredentials(Authenticatable $user, array $credentials) {
-        debugbar()->info("in Provider.validateCredentials()");
-
         return $user instanceof Authenticatable;
         //$subMatches = $credentials['sub'] === $user->getSub($credentials['iss']);
         //return $subMatches;
