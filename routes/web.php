@@ -317,11 +317,6 @@ $managerGroup = function() {
             ->middleware('can:view,application')
             ->name('manager.applications.show');
 
-        /* View Applicant Profile */
-        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
-            ->middleware('can:view,applicant')
-            ->name('manager.applicants.show');
-
         /* Job Index */
         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
