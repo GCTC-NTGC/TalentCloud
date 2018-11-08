@@ -17,8 +17,8 @@ INSERT INTO applicant_profile_question_translations VALUES
 (8,4,'fr','Je travaille mieux lorsque...','Tu es introverti? Extraverti? Un peu des deux? Tu aimes les délais serrés, ou, au contraire, tu préfères avoir du temps pour étudier tes options? Tu as une bonne autonomie au travail? Tu aimes travailler en équipe? Voici ta chance d’indiquer à tes gestionnaires potentiels les conditions dans lesquelles tu performes le mieux au sein d’une équipe.',current_timestamp,current_timestamp),
 (9,5,'en','I learn best when...','Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.',current_timestamp,current_timestamp),
 (10,5,'fr','J’apprends mieux lorsque... ','Retiens-tu mieux l’information en la lisant, en la mettant en pratique, ou encore en observant son application? Es-tu de ceux qui apprennent rapidement, ou préfères-tu acquérir une expertise approfondie au fil du temps? Se joindre à une nouvelle équipe signifie apprendre de nouvelles choses. Décris ton style d’apprentissage à tes gestionnaires potentiels pour qu’ils puissent t’aider à te mettre au diapason et à mettre tes talents à contribution rapidement.',current_timestamp,current_timestamp),
-(11,6,'en','Types of teams I work well on...','Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.',current_timestamp,current_timestamp),
-(12,6,'fr','Les types d’équipe dans lesquels je travaille bien ','Retiens-tu mieux l’information en la lisant, en la mettant en pratique, ou encore en observant son application? Es-tu de ceux qui apprennent rapidement, ou préfères-tu acquérir une expertise approfondie au fil du temps? Se joindre à une nouvelle équipe signifie apprendre de nouvelles choses. Décris ton style d’apprentissage à tes gestionnaires potentiels pour qu’ils puissent t’aider à te mettre au diapason et à mettre tes talents à contribution rapidement.',current_timestamp,current_timestamp);
+(11,6,'en','Types of teams I work well on...','Do you work best when you collaborate on projects or when you have a role where you can do your own thing? Do you prefer having a routine or do you thrive on teams where every day is something different? Are you highly adaptable to different work styles or do you have a preference for particular ways of working? Here’s your chance to let managers learn about the type of team(s) you work well on and the role(s) you prefer to play.',current_timestamp,current_timestamp),
+(12,6,'fr','Les types d’équipe dans lesquels je travaille bien...','Travaillez-vous mieux lorsque vous collaborer sur des projets ou lorsque vous avez un rôle où vous pouvez faire votre propre travail? Préférez-vous avoir une routine ou prospérez-vous dans des équipes où chaque jour est différent? Êtes-vous très adaptable à différents styles de travail ou avez-vous une préférence pour des méthodes de travail particulières? Voici votre chance de faire savoir aux gestionnaires sur quel type d’équipe (s) vous travaillez bien et le(s) rôle(s) que vous préférez jouer.',current_timestamp,current_timestamp);
 
 INSERT INTO application_status VALUES
 (1,'draft',current_timestamp,current_timestamp),
@@ -82,7 +82,12 @@ INSERT INTO departments VALUES
 (2,'natural_resources',current_timestamp,current_timestamp),
 (3,'transport',current_timestamp,current_timestamp),
 (4,'enviroment_and_climate_change',current_timestamp,current_timestamp),
-(5,'employment_and_social_development',current_timestamp,current_timestamp);
+(5,'employment_and_social_development',current_timestamp,current_timestamp),
+(6,'global_affairs',current_timestamp,current_timestamp),
+(7,'fisheries_and_oceans',current_timestamp,current_timestamp),
+(8,'innovation_science',current_timestamp,current_timestamp),
+(9,'public_service_and_procurement',current_timestamp,current_timestamp),
+(10,'border_services_agency',current_timestamp,current_timestamp);
 
 INSERT INTO department_translations VALUES
 (1,1,'en','Treasury Board of Canada Secretariat',current_timestamp,current_timestamp),
@@ -94,7 +99,18 @@ INSERT INTO department_translations VALUES
 (7,4,'en','Environment and Climate Change Canada',current_timestamp,current_timestamp),
 (8,4,'fr','Environnement et Changement climatique Canada',current_timestamp,current_timestamp),
 (9,5,'en','Employment and Social Development Canada',current_timestamp,current_timestamp),
-(10,5,'fr','Emploi et Développement social Canada',current_timestamp,current_timestamp);
+(10,5,'fr','Emploi et Développement social Canada',current_timestamp,current_timestamp),
+(11,6,'en','Global Affairs Canada',current_timestamp,current_timestamp),
+(12,6,'fr','Affaires mondiales Canada',current_timestamp,current_timestamp),
+(15,7,'en','Fisheries and Oceans Canada',current_timestamp,current_timestamp),
+(16,7,'fr','Pêches et Océans Canada',current_timestamp,current_timestamp),
+(17,8,'en','Innovation, Science and Economic Development Canada',current_timestamp,current_timestamp),
+(18,8,'fr','Innovation, Sciences et Développement économique Canada',current_timestamp,current_timestamp),
+(19,9,'en','Public Services and Procurement Canada',current_timestamp,current_timestamp),
+(20,9,'fr','Services publics et Approvisionnement Canada',current_timestamp,current_timestamp),
+(13,10,'en','Canada Border Services Agency',current_timestamp,current_timestamp),
+(14,10,'fr','Agence des services frontaliers du Canada',current_timestamp,current_timestamp);
+
 
 INSERT INTO experience_levels VALUES
 (1,'1 or Less years',current_timestamp,current_timestamp),
