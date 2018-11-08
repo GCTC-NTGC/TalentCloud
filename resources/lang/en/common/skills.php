@@ -15,7 +15,7 @@ return [
     'level_label' => 'My Level',
     'level_link_title' => 'Learn more about finding your skill level.',
     'level_link_label' => '(Find Your Level)',
-    'knowledge_label' => 'My Knowledge',
+    'knowledge_label' => 'How I Acquired This Skill',
     'skill_status_null_label' => 'Status: Skill Unclaimed',
     'skill_status_label' => 'Status: Skill',
     'skill_level_null' => 'No level has been selected.',
