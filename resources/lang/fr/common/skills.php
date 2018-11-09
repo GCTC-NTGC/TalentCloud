@@ -39,11 +39,11 @@ return [
     'skills' => [
         'front_end_dev' => [
             'name' => 'Développement frontal',
-            'description' => 'Se définissant comme suit : Développement d’applications Web à l’aide de HTML5, CSS3 et JavaScript.'
+            'description' => 'Se définissant comme suit : Développement d\'applications Web à l\'aide de HTML5, CSS3 et JavaScript.'
         ],
         'web_programming' => [
             'name' => 'Programmation Web',
-            'description' => 'Se définissant comme suit : Développement d’applications Web à l’aide de JavaScript et un langage finaux comme PHP, Python ou autre'
+            'description' => 'Se définissant comme suit : Développement d\'applications Web à l\'aide de JavaScript et un langage finaux comme PHP, Python ou autre'
         ],
         'server_admin' => [
             'name' => 'Administration de serveurs Web',
@@ -51,15 +51,15 @@ return [
         ],
         'linux' => [
             'name' => 'Linux',
-            'description' => 'Se définissant comme suit : Expérience de travail de Linux et de la configuration d’applications dans des environnements basés sur Linux.'
+            'description' => 'Se définissant comme suit : Expérience de travail de Linux et de la configuration d\'applications dans des environnements basés sur Linux.'
         ],
         'css' => [
             'name' => 'CSS',
-            'description' => 'Se définissant comme suit : Création de pages Web à l’aide de HTML et de CSS.'
+            'description' => 'Se définissant comme suit : Création de pages Web à l\'aide de HTML et de CSS.'
         ],
         'javascript' => [
             'name' => 'Javascript',
-            'description' => 'Se définissant comme suit : Développement d’applications Web à l’aide de JavaScript.'
+            'description' => 'Se définissant comme suit : Développement d\'applications Web à l\'aide de JavaScript.'
         ],
         'c_plus_plus' => [
             'name' => 'C++',
@@ -95,7 +95,7 @@ return [
         ],
         'open_source' => [
             'name' => 'Développement de sources ouvertes',
-            'description' => 'Se définissant comme suit : Développement d’applications à l’aide d’outils et de langages à source ouverte.'
+            'description' => 'Se définissant comme suit : Développement d\'applications à l\'aide d\'outils et de langages à source ouverte.'
         ],
         'verbal_communication' => [
             'name' => 'Communication verbale',
@@ -103,19 +103,19 @@ return [
         ],
         'written_communication' => [
             'name' => 'Communication écrite',
-            'description' => 'Se définissant comme suit : Capacité d’articuler par écrit des idées et des discussions de manière progressive, claire et logique permettant aux lecteurs de comprendre et d’utiliser les concepts partagés.'
+            'description' => 'Se définissant comme suit : Capacité d\'articuler par écrit des idées et des discussions de manière progressive, claire et logique permettant aux lecteurs de comprendre et d\'utiliser les concepts partagés.'
         ],
         'ability_distributed_team' => [
-            'name' => 'Capacité de travailler au sein d’une équipe divisée',
-            'description' => 'Se définissant comme suit : Capacité de communiquer et de livrer le travail d’une manière qui mobilise les membres travaillant à d’autres endroits. Capacité d’utiliser des outils en ligne afin de collaborer avec des collègues travaillant à d’autres endroits, y compris des logiciels de gestion de projet, des outils de clavardage et de conversations vidéo.'
+            'name' => 'Capacité de travailler au sein d\'une équipe divisée',
+            'description' => 'Se définissant comme suit : Capacité de communiquer et de livrer le travail d\'une manière qui mobilise les membres travaillant à d\'autres endroits. Capacité d\'utiliser des outils en ligne afin de collaborer avec des collègues travaillant à d\'autres endroits, y compris des logiciels de gestion de projet, des outils de clavardage et de conversations vidéo.'
         ],
         'ability_learn' => [
-            'name' => 'Capacité d’apprendre',
-            'description' => 'Se définissant comme suit : Capacité d’acquérir rapidement de nouvelles habiletés et compétences et de les utiliser en situation de travail. Capacité d’avoir recours à la curiosité et à ses capacités cognitives afin de découvrir de nouvelles approches destinées à faire progresser le travail lorsque les compétences existantes sont insuffisantes.'
+            'name' => 'Capacité d\'apprendre',
+            'description' => 'Se définissant comme suit : Capacité d\'acquérir rapidement de nouvelles habiletés et compétences et de les utiliser en situation de travail. Capacité d\'avoir recours à la curiosité et à ses capacités cognitives afin de découvrir de nouvelles approches destinées à faire progresser le travail lorsque les compétences existantes sont insuffisantes.'
         ],
         'integrity' => [
             'name' => 'Intégrité',
-            'description' => 'Se définissant comme suit : Capacité de traiter le personnel du milieu de travail avec équité, courtoisie et respect des différences et d’effectuer le travail de manière à maintenir la confiance du public et à respecter les valeurs de ses collègues.'
+            'description' => 'Se définissant comme suit : Capacité de traiter le personnel du milieu de travail avec équité, courtoisie et respect des différences et d\'effectuer le travail de manière à maintenir la confiance du public et à respecter les valeurs de ses collègues.'
         ],
         'ability_collaborate' => [
             'name' => 'Capacité de collaborer',
@@ -127,7 +127,7 @@ return [
         ],
         'humility' => [
             'name' => 'Humilité',
-            'description' => 'Se définit comme suit : Constamment démontré qu’une personne n’est qu’une parmi tant d’autres; se comporter de manière à créer un espace pour les autres et à leur faire sentir qu\'ils sont valorisés.'
+            'description' => 'Se définit comme suit : Constamment démontré qu\'une personne n\'est qu\'une parmi tant d\'autres; se comporter de manière à créer un espace pour les autres et à leur faire sentir qu\'ils sont valorisés.'
         ],
         'passion' => [
             'name' => 'Passion',
@@ -135,7 +135,7 @@ return [
         ],
         'flexibility' => [
             'name' => 'Flexibilité',
-            'description' => 'Se définit comme suit : Être ouvert à de multiples points de vue lorsque vous travaillez de manière interpersonnelle; démontrer une volonté d’avoir recours à diverses approches pour faire avancer les initiatives et livrer son travail.'
+            'description' => 'Se définit comme suit : Être ouvert à de multiples points de vue lorsque vous travaillez de manière interpersonnelle; démontrer une volonté d\'avoir recours à diverses approches pour faire avancer les initiatives et livrer son travail.'
         ],
         'judgement' => [
             'name' => 'Jugement',
@@ -147,7 +147,7 @@ return [
         ],
         'accountability' => [
             'name' => 'Responsabilité',
-            'description' => 'Se définit comme suit : Assumer la responsabilité de ses propres actions et de celles d’un groupe.'
+            'description' => 'Se définit comme suit : Assumer la responsabilité de ses propres actions et de celles d\'un groupe.'
         ],
         'attention_detail' => [
             'name' => 'Attention au détail',
@@ -175,7 +175,7 @@ return [
         ],
         'dependability' => [
             'name' => 'Fiabilité',
-            'description' => 'Se définit comme suit : Être fiable, responsable et respecter ses obligations; ces qualités sont démontrées en ayant de bonnes compétences à prévoir les échéanciers, savoir ce que vous pouvez livrer, veiller à ce que tout soit fait et communiquer à l’avance en cas de problèmes ou de retards.'
+            'description' => 'Se définit comme suit : Être fiable, responsable et respecter ses obligations; ces qualités sont démontrées en ayant de bonnes compétences à prévoir les échéanciers, savoir ce que vous pouvez livrer, veiller à ce que tout soit fait et communiquer à l\'avance en cas de problèmes ou de retards.'
         ],
         'ability_follow_instructions' => [
             'name' => 'Capacité à suivre les instructions',
@@ -187,7 +187,7 @@ return [
         ],
         'resilience' => [
             'name' => 'Résistance',
-            'description' => 'Se définit comme suit : Capacité de se remettre de difficultés ou de changer – pour fonctionner aussi bien qu\'avant et ensuite aller de l\'avant. On parle souvent d’une capacité de « rebondir » face aux difficultés ou aux défis. Avoir la persévérance nécessaire pour faire face à la résistance.'
+            'description' => 'Se définit comme suit : Capacité de se remettre de difficultés ou de changer – pour fonctionner aussi bien qu\'avant et ensuite aller de l\'avant. On parle souvent d\'une capacité de « rebondir » face aux difficultés ou aux défis. Avoir la persévérance nécessaire pour faire face à la résistance.'
         ],
         'service_orientation' => [
             'name' => 'Orientation de service',
@@ -199,7 +199,7 @@ return [
         ],
         'stress_management' => [
             'name' => 'La gestion du stress',
-            'description' => 'Se définit comme suit : Contrôler le niveau de stress et prévenir l’anxiété non productive, afin d\'améliorer/maintenir le fonctionnement; être conscient de l\'incidence de son propre niveau de stress sur les autres.'
+            'description' => 'Se définit comme suit : Contrôler le niveau de stress et prévenir l\'anxiété non productive, afin d\'améliorer/maintenir le fonctionnement; être conscient de l\'incidence de son propre niveau de stress sur les autres.'
         ],
         'stress_tolerance' => [
             'name' => 'Tolérance au stress',
@@ -211,19 +211,19 @@ return [
         ],
         'willingness_learn' => [
             'name' => 'Envie d\'apprendre',
-            'description' => 'Se définit comme suit : Chercher des occasions et prendre l’initiative de se perfectionner de façon continue.'
+            'description' => 'Se définit comme suit : Chercher des occasions et prendre l\'initiative de se perfectionner de façon continue.'
         ],
         'management_ability' => [
             'name' => 'Compétences en gestion',
-            'description' => 'Se définit comme suit : Être responsable d’une équipe ou d’une initiative; démontrer la capacité de planifier, organiser, élaborer des stratégies, prendre des décisions, motiver les autres et leur donner des possibilités, collaborer et bâtir des relations afin de répondre aux attentes.'
+            'description' => 'Se définit comme suit : Être responsable d\'une équipe ou d\'une initiative; démontrer la capacité de planifier, organiser, élaborer des stratégies, prendre des décisions, motiver les autres et leur donner des possibilités, collaborer et bâtir des relations afin de répondre aux attentes.'
         ],
         'experience_design' => [
-            'name' => 'Conception de l’expérience de service',
-            'description' => 'Se définit comme suit : Planifier et organiser les personnes, l’infrastructure, la communication et les composantes matérielles d’un service afin d’améliorer sa qualité et l’interaction entre le fournisseur de service et ses utilisateurs'
+            'name' => 'Conception de l\'expérience de service',
+            'description' => 'Se définit comme suit : Planifier et organiser les personnes, l\'infrastructure, la communication et les composantes matérielles d\'un service afin d\'améliorer sa qualité et l\'interaction entre le fournisseur de service et ses utilisateurs'
         ],
         'project_management' => [
             'name' => 'Gestion de projet',
-            'description' => 'Se définit comme suit : Capacité à prioriser les changements ayant le plus d’incidence, à gérer des priorités concurrentes, à faire avancer un cycle continu d’amélioration'
+            'description' => 'Se définit comme suit : Capacité à prioriser les changements ayant le plus d\'incidence, à gérer des priorités concurrentes, à faire avancer un cycle continu d\'amélioration'
         ],
         'stakeholder_relations' => [
             'name' => 'Relations avec les intervenants',
@@ -243,15 +243,15 @@ return [
         ],
         'facilitation' => [
             'name' => 'Facilitation',
-            'description' => 'Se définit comme suit : Capacité de tenir une réunion ou un atelier d’une façon qui encourage l’entière participation, qui encourage de la compréhension mutuelle et qui cultive une responsabilité commune'
+            'description' => 'Se définit comme suit : Capacité de tenir une réunion ou un atelier d\'une façon qui encourage l\'entière participation, qui encourage de la compréhension mutuelle et qui cultive une responsabilité commune'
         ],
         'systems_thinking' => [
             'name' => 'Pensée systémique',
-            'description' => 'Se définit comme suit : Capacité à comprendre et à analyser la manière dont des aspects disparates d’un service s’intègrent et s’influencent, et les transformer en une orientation claire du service'
+            'description' => 'Se définit comme suit : Capacité à comprendre et à analyser la manière dont des aspects disparates d\'un service s\'intègrent et s\'influencent, et les transformer en une orientation claire du service'
         ],
         'web_architecture' => [
-            'name' => 'Architecture d’information sur le Web',
-            'description' => 'Se définit comme suit : Capacité à restructurer l’architecture Web du point de vue de la gestion de l’information (sans codage)'
+            'name' => 'Architecture d\'information sur le Web',
+            'description' => 'Se définit comme suit : Capacité à restructurer l\'architecture Web du point de vue de la gestion de l\'information (sans codage)'
         ],
         'storytelling' => [
             'name' => 'Communication narrative',
@@ -260,6 +260,14 @@ return [
         'user_design' => [
             'name' => 'Conception centrée sur l\'utilisateur',
             'description' => 'Se définit comme suit : Capacité à appliquer des techniques de conception centrées sur l\'utilisateur pour: comprendre le parcours de l\'utilisateur; développer et tester de nouvelles approches d\'interaction utilisateur-produit; et produire des fonctionnalités qui prennent en charge une expérience utilisateur améliorée, intuitive et agréable'
+        ],
+        'empathy' => [
+            'name' => 'Empathie',
+            'description' => 'Se définit comme suit : être en mesure de se mettre à la place d\'une personne ayant une façon de penser et un ensemble de priorité très différents.'
+        ],
+        'analysis' => [
+            'name' => 'Analyse',
+            'description' => 'Se définit comme suit : Capacité à recueillir et à utiliser des données qualitatives et quantitatives pour prendre des décisions de conception.'
         ],
     ],
     'status' => [
