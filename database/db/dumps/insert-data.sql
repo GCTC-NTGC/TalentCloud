@@ -353,4 +353,6 @@ INSERT INTO skills (name, skill_type_id, created_at, updated_at) VALUES
 ('systems_thinking', 2, current_timestamp, current_timestamp),
 ('web_architecture', 2, current_timestamp, current_timestamp),
 ('storytelling', 2, current_timestamp, current_timestamp),
-('user_design', 2, current_timestamp, current_timestamp);
+('user_design', 2, current_timestamp, current_timestamp),
+('empathy', 1, current_timestamp, current_timestamp),
+('analysis', 2, current_timestamp, current_timestamp);
