@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "7.0.*",
+        "php": "7.*",
         "dimsav/laravel-translatable": "8.*",
         "guzzlehttp/guzzle": "^6",
         "fideloper/proxy": "~3.3",
