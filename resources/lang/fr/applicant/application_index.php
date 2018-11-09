@@ -15,6 +15,8 @@ return [
     "completed_title" => "Demandes d'emploi soumises",
     "expired_title" => "Demandes d'emploi expirées",
     "days_remaining_label" => ":count jours restant",
+    "time_remaining" => ":time restant",
+    "job_closed" => "Fermée",
     "edit_date_label" => "Dernière modification",
     "post_label" => "Affiche d'emploi",
     "post_link_title" => "Voir l'affiche pour cette demandes d'emploi",
@@ -32,7 +34,7 @@ return [
     ],
     "modals" => [
         "delete_application" => [
-            "type" => "confirmation",
+            "type" => "deleteConfirmation",
             "title" => "Supprimer la demande d'emploi.",
             "content" => [
                 "00" => "Êtes-vous sûr de vouloir supprimer cette demande d'emploi? Tous votre progrès sera perdus.",
@@ -40,7 +42,8 @@ return [
             ],
             "id" => "deleteTrash",
             "action_01" => "Annuler",
-            "action_02" => "Supprimer"
+            "action_02" => "Supprimer",
+            "action_02_progress" => "Agissant..."
         ],
     ]
 ];

@@ -33,13 +33,16 @@
 
 
 <div
-    class="profile-element accordion skill 
-        {% if locale == "profile" and skill_declaration == false %}template active{% endif %} 
-        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %} 
-        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %} 
+    class="profile-element accordion skill
+        {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
+        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %}
+        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
         {% if locale == "application" and skill_declaration == true %}complete{% endif %}
-        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %} 
-        modal-target-object" 
+        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %}
+        modal-target-object"
+
+    data-item-saved="{{ skill_declaration ? "true" : "" }}"
+    data-item-url="{{ route("skill_declarations.destroy", ':id') }}"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
 
     {# Accordion Trigger #}
@@ -190,7 +193,7 @@
                             {% else %}
 
                                 <div
-                                    class="box med-1of2">
+                                    class="box full">
 
                                     <span
                                         class="profile-relative-list__label">
@@ -199,7 +202,40 @@
 
                                     {% for relative in skill_declaration.references %}
 
-                                        <p>{{ relative.name }}</p>
+                                        <div
+                                            class="profile-relative__reference">
+
+                                            <p
+                                                class="profile-relative__reference-name">{{ relative.name }}</p>
+
+                                            <p>{{ relative.email }}</p>
+
+                                            <p>{{ relative.relationship.name|title }}</p>
+
+                                            <p>{{ relative.description }}</p>
+
+                                            <div
+                                                class="flex-grid">
+
+                                                {% for project in relative.projects %}
+
+                                                    <div class="box small-1of2">
+                                                        <p>{{ project.name }}</p>
+                                                    </div>
+
+                                                    <div class="box small-1of4">
+                                                        <p>{{ project.start_date }}</p>
+                                                    </div>
+
+                                                    <div class="box small-1of4">
+                                                        <p>{{ project.end_date }}</p>
+                                                    </div>
+
+                                                {% endfor %}
+
+                                            </div>
+
+                                        </div>
 
                                     {% endfor %}
 
@@ -213,21 +249,33 @@
 
                         {% if skill_declaration == true %}
 
-                            {% if skill_declaration.samples is empty %}
+                            {% if skill_declaration.work_samples is empty %}
 
                             {% else %}
 
                                 <div
-                                    class="box med-1of2">
+                                    class="box full">
 
                                     <span
                                         class="profile-relative-list__label">
                                         <i class="fas fa-users"></i> {{ relative_template.sample.title }}
                                     </span>
 
-                                    {% for relative in skill_declaration.samples %}
+                                    {% for relative in skill_declaration.work_samples %}
 
-                                        <p>{{ relative.name }}</p>
+                                        <div
+                                            class="profile-relative__sample">
+
+                                            <p
+                                                class="profile-relative__sample-name">{{ relative.name }}</p>
+
+                                            <p>{{ relative.file_type.name|title }}</p>
+
+                                            <p>{{ relative.url }}</p>
+
+                                            <p>{{ relative.description }}</p>
+
+                                        </div>
 
                                     {% endfor %}
 
@@ -267,11 +315,33 @@
                                                 class="form__input"
                                                 id="{{ id_prefix }}skillSelection"
                                                 name="{{ name_prefix }}[skill_id]">
+
                                                 {% for skill in skills %}
+
                                                     {% if skillType == skill.skill_type.name %}
-                                                        <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
+
+                                                        {% set declarationStatus = false %}
+
+                                                        {% for declaration in applicant.skill_declarations %}
+
+                                                            {% if declaration.skill_id == skill.id %}
+
+                                                                {% set declarationStatus = true %}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                        {% if declarationStatus == false %}
+
+                                                           <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
+
+                                                        {% endif %}
+
                                                     {% endif %}
+
                                                 {% endfor %}
+
                                             </select>
                                         </div>
                                     </div>
@@ -300,6 +370,11 @@
                                         class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
                                 </div>
 
+                                <input
+                                    type='hidden'
+                                    name='{{ name_prefix }}[skill_declaration_id]'
+                                    value={{ skill_declaration.id }} ></input>
+
                             {% endif %}
 
                         {# Application Skill Description #}
@@ -316,6 +391,18 @@
                                     {% if skill_declaration == true %}
                                         <p
                                             class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
+
+                                        <input
+                                            type='hidden'
+                                            name='{{ name_prefix }}[skill_declaration_id]'
+                                            value={{ skill_declaration.id }} ></input>
+                                    {% else %}
+
+                                        <input
+                                            type='hidden'
+                                            name='{{ name_prefix }}[skill_id]'
+                                            value={{ criterion.skill.id }} ></input>
+
                                     {% endif %}
 
                                 </div>
@@ -343,7 +430,7 @@
                                             {{ skill_template.level_link_label }}
                                         </a>
                                     </label>
-                                    
+
                                     <div class="flex-grid">
 
                                         {% set counter = 0 %}
@@ -397,7 +484,8 @@
                                     <textarea
                                         class="form__textarea"
                                         id="{{ id_prefix }}skillDescription"
-                                        name="{{ name_prefix }}[description]">{{ skill_declaration.description }}</textarea>
+                                        name="{{ name_prefix }}[description]"
+                                        >{{ skill_declaration.description }}</textarea>
 
                                 </div>
 

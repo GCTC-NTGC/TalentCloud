@@ -20,8 +20,12 @@ class ApplicationPolicy extends BasePolicy
      */
     public function view(User $user, JobApplication $jobApplication)
     {
-        return $user->user_role->name === "applicant" &&
-            $user->applicant->id === $jobApplication->applicant_id;
+        $authApplicant = ($user->user_role->name === "applicant" &&
+            $user->applicant->id === $jobApplication->applicant_id);
+        $authManager = ($user->hasRole('manager') &&
+            $jobApplication->job_poster->manager->user->is($user));
+
+        return $authApplicant||$authManager;
     }
 
     /**
@@ -46,7 +50,8 @@ class ApplicationPolicy extends BasePolicy
     {
         return $user->user_role->name === "applicant" &&
             $user->applicant->id === $jobApplication->applicant_id &&
-            $jobApplication->application_status->name == "draft";
+            $jobApplication->application_status->name == "draft" &&
+            $jobApplication->job_poster->isOpen();
     }
 
     /**

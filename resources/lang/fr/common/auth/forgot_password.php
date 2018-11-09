@@ -14,4 +14,5 @@ return [
     'return' => "Retour à la page d'accueil",
     'email' => 'Courriel',
     'submit' => 'Envoyer le lien de réinitialisation du mot de passe',
+    'auth_logo' => '/images/logo_tc_colour_fr.png'
 ];

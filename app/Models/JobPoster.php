@@ -29,13 +29,13 @@ use Jenssegers\Date\Date;
  * @property string $classification
  * @property int $security_clearance_id
  * @property int $language_requirement_id
+ * @property boolean $remote_work_allowed
  * @property int $manager_id
  * @property boolean $published
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property int $submitted_applications_count
- * @property int $days_remaining
  *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
@@ -57,6 +57,10 @@ use Jenssegers\Date\Date;
  * @property string $branch
  * @property string $division
  * @property string $education
+ *
+ * Methods
+ * @method boolean isOpen()
+ * @method string timeRemaining()
  */
 class JobPoster extends BaseModel {
 
@@ -73,6 +77,7 @@ class JobPoster extends BaseModel {
         'noc' => 'int',
         'security_clearance_id' => 'int',
         'language_requirement_id' => 'int',
+        'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
         'published' => 'boolean'
     ];
@@ -95,6 +100,7 @@ class JobPoster extends BaseModel {
         'classification',
         'security_clearance_id',
         'language_requirement_id',
+        'remote_work_allowed',
         'published'
     ];
     protected $withCount = ['submitted_applications'];
@@ -157,10 +163,19 @@ class JobPoster extends BaseModel {
 
     // Accessors
 
-    public function getDaysRemainingAttribute() {
-        $days_remaining = $this->close_date_time->diffInDays(Date::now());
-        debugbar()->info($days_remaining);
-        return $days_remaining;
+    // Methods
+
+    public function isOpen() {
+        return $this->published
+            && $this->open_date_time->isPast()
+            && $this->close_date_time->isFuture();
     }
 
+    public function timeRemaining() {
+        if ($this->close_date_time->isFuture()) {
+            return $this->close_date_time->diffForHumans(null, true);
+        } else {
+            return $this->close_date_time->diffForHumans(Date::now());
+        }
+    }
 }

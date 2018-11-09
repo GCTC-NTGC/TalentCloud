@@ -6,12 +6,11 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
-use App\Services\Validation\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordCorrectRule;
 use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller
@@ -22,12 +21,31 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  Request  $request
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function show(Applicant $applicant)
+    public function show(Request $request, Applicant $applicant)
     {
-        //
+        //TODO:
+        //Josh, to loop through answers&question data, leverage this data structure:
+        // applicant
+        //     [applicant_profile_answers]
+        //         answer
+        //         applicant_profile_question
+        //             id
+        //             value // The question text
+        //             description // Question description text
+
+        return view('manager/applicant_profile', [
+            /* Localized strings*/
+            'profile' => Lang::get('manager/applicant_profile'), // Change text
+
+            /* User Data */
+            'user' => $applicant->user,
+            'applicant' => $applicant,
+            'profile_photo_url' => '/images/user.png', //TODO: get real photos
+        ]);
     }
 
     /**
@@ -39,7 +57,6 @@ class ApplicantProfileController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        $user = $request->user();
         $profileQuestions = ApplicantProfileQuestion::all();
 
         $profileText = Lang::get('applicant/applicant_profile');
@@ -52,7 +69,7 @@ class ApplicantProfileController extends Controller
 
             $formValues = [
                 'id' => $question->id,
-                'value' => $question->value,
+                'question' => $question->question,
                 'description' => $question->description,
                 'answer' => $answer,
                 'answer_label' => $profileText['about_section']['answer_label'],
@@ -67,7 +84,7 @@ class ApplicantProfileController extends Controller
             /* Applicant Profile Questions */
             'applicant_profile_questions' => $profileQuestionForms,
             /* User Data */
-            'user' => $user,
+            'user' => $applicant->user,
             'applicant' => $applicant,
             'profile_photo_url' => '/images/user.png', //TODO: get real photos
 
@@ -137,8 +154,6 @@ class ApplicantProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.about.edit', $applicant);
-        //Debugbar::info($input);
-        //return view('welcome', ['t1' => 'update applicant']);
     }
 
 }

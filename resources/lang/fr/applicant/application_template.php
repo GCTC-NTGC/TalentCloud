@@ -10,6 +10,7 @@ return [
     *
     */
     "title" => "Postuler maintenant",
+    "view_title" => "Application",
     "job_context_copy" => "Vous postulez pour :",
     "save_quit_button_label" => "Sauvegarder et quitter",
     "save_continue_button_label" => "Sauvegarder & continuer",
@@ -120,16 +121,16 @@ return [
         "sidebar_item_title" => "Faites défiler jusqu'à cette compétence",
         "skills_section" => [
             "essential_title" => "Nécessaire d'avoir",
-            "asset_title" => "Bon d'avoir",
+            "asset_title" => "Bon à avoir",
             "add_button_label" => "Ajouter une compétence",
             "null_copy" => "Vous n'avez actuellement aucune compétence sur votre profil. Utilisez le bouton ci-dessus pour ajouter une compétence."
         ],
         "essential_title" => "Les compétences que vous devez avoir",
-        "asset_title" => "Des compétences qu'il est bon d'avoir",
+        "asset_title" => "Des compétences qu'il est bon à avoir",
         "essential_context" => "Le poste auquel vous êtes sur le point de postuler requiert les compétences suivantes. Oui, vraiment, toutes. Chacune au niveau minimum d’expertise précisé par le responsable du recrutement. Même si vous êtes incroyable et qu'il ne vous manque qu'une de ces compétences, on ne tiendra pas compte de votre candidature dans le cadre de ce poste. Vous devez également fournir des preuves de toute revendication de compétence que vous faites qui font partie d'un dossier gouvernemental. Donc, ne soyez pas tenté(e) d’étirer la vérité juste pour postuler. Vous êtes meilleur(e) que ça. Gagnez du temps et envisagez plutôt de postuler pour autre chose.",
         "asset_context" => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
         "essential_start_button_title" => "Faites défiler pour commencer à remplir les compétences que vous devez avoir.",
-        "asset_start_button_title" => "Faites défiler pour commencer à remplir les compétences qu'il est bon d'avoir.",
+        "asset_start_button_title" => "Faites défiler pour commencer à remplir les compétences qu'il est bon à avoir.",
         "skills_start_button_label" => "Commencer",
         "essential_sidebar_label" => "Liste de compétences",
         "asset_sidebar_label" => "Liste de compétences",
@@ -148,7 +149,7 @@ return [
                 "item_01" => "Renseignements généraux",
                 "item_02" => "Mon expérience",
                 "item_03" => "Les compétences que vous devez avoir",
-                "item_04" => "Des compétences qu'il est bon d'avoir",
+                "item_04" => "Des compétences qu'il est bon à avoir",
                 "item_05" => "Soumettre"
             ],
             "section_01_title" => "Renseignements généraux",
@@ -167,7 +168,7 @@ return [
                 "null_work_copy" => "Vous n'avez actuellement aucune expérience équivalente listée dans votre profil."
             ],
             "section_03_title" => "Les compétences que vous devez avoir",
-            "section_04_title" => "Des compétences qu'il est bon d'avoir",
+            "section_04_title" => "Des compétences qu'il est bon à avoir",
         ],
 
     /* Step 06 (Complete) */

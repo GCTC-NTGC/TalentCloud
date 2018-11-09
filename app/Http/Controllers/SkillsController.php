@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Skill;
 use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
+use App\Services\Validation\BulkSkillDeclarationValidator;
 
 class SkillsController extends Controller
 {
@@ -36,6 +37,7 @@ class SkillsController extends Controller
     public function edit(Request $request, Applicant $applicant)
     {
         $skills = Skill::all();
+
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
@@ -53,12 +55,12 @@ class SkillsController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-
         $input = $request->input();
 
-        Debugbar::info($input);
+        $validator = new BulkSkillDeclarationValidator($applicant, $input);
+        $validator->validate($input);
 
-        $skillDeclarations = $input['skill_declarations'];
+        $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
         //Delete old skill declarations that weren't resubmitted
@@ -117,7 +119,7 @@ class SkillsController extends Controller
                         $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
                         $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
-                        Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
+                        Log::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
                     }
                 }
             }
@@ -125,15 +127,25 @@ class SkillsController extends Controller
 
 
         return redirect( route('profile.skills.edit', $applicant) );
-        // return view('applicant/profile_03_skills', [
-        //     'applicant' => $applicant->fresh(),
-        //     'profile' => Lang::get('applicant/profile_skills'),
-        //     'skill_template' => Lang::get('common/skills'),
-        //     'relative_template' => Lang::get('common/relatives'),
-        //     'skills' => Skill::all(),
-        //     'skill_levels' => SkillLevel::all(),
-        //     'form_submit_action' => route('profile.skills.update', $applicant),
-        // ]);
+    }
+
+    /**
+     * Delete the particular skill declaration in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\SkillDeclaration  $skillDeclaration
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, SkillDeclaration $skillDeclaration)
+    {
+        $this->authorize('delete', $skillDeclaration);
+        $skillDeclaration->delete();
+
+        if($request->ajax()) {
+            return ['message' => 'Skill deleted'];
+        }
+
+        return redirect()->back();
     }
 
 }

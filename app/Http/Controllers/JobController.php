@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\JobPoster;
@@ -38,9 +37,25 @@ class JobController extends Controller
             ->where('published', true)
             ->get();
         $jobs->load('manager.work_environment');
-        debugbar()->info($jobs->toArray());
         return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs]);
+    }
+
+    /**
+     * Display a listing of a manager's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function managerIndex()
+    {
+        $manager = Auth::user()->manager;
+
+        return view('manager/job_index', [
+            "manager_job_index" => [
+                "title" => "My Job Posts"
+            ],
+            'jobs' => $manager->job_posters,
+        ]);
     }
 
     /**
@@ -71,7 +86,6 @@ class JobController extends Controller
                 return $value->criteria_type->name == 'asset';
             }),
         ];
-        Debugbar::info(Criteria::all());
         return view('applicant/job_post', [
             'job_post' =>Lang::get('applicant/job_post'),
             'manager' => $jobPoster->manager,
@@ -126,8 +140,8 @@ class JobController extends Controller
         $job->fill([
             'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
             'term_qty' => $input['term_qty'],
-            'open_date_time' => new Date($input['open_date_time']),
-            'close_date_time' => new Date($input['close_date_time']),
+            'open_date_time' => new Date($input['open_date'].$input['open_time']),
+            'close_date_time' => new Date($input['close_date'].$input['close_time']),
             'start_date_time' => new Date($input['start_date_time']),
             'department_id' => $input['department'],
             'province_id' => $input['province'],
@@ -137,6 +151,7 @@ class JobController extends Controller
             'classification' => $input['classification'],
             'security_clearance_id' => $input['security_clearance'],
             'language_requirement_id' => $input['language_requirement'],
+            'remote_work_allowed' => $request->input('remote_work_allowed', false),
             'en' => [
                 'city' => $input['city'],
                 'title' => $input['title']['en'],

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Models\Lookup\ApplicationStatus;
@@ -23,6 +22,7 @@ use App\Models\Course;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class ApplicationByJobController extends Controller
@@ -33,17 +33,6 @@ class ApplicationByJobController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Display the Application for the specified job
-     *
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return \Illuminate\Http\Response
-     */
-    public function show(JobPoster $jobPoster)
     {
         //
     }
@@ -440,7 +429,7 @@ class ApplicationByJobController extends Controller
                     ]);
                     $degree->save();
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update degree with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update degree with invalid id '.$id);
                 }
             }
         }
@@ -478,7 +467,7 @@ class ApplicationByJobController extends Controller
                     ]);
                     $course->save();
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update course with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update course with invalid id '.$id);
                 }
             }
         }
@@ -516,7 +505,7 @@ class ApplicationByJobController extends Controller
                     ]);
                     $workExperience->save();
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update work_experience with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update work_experience with invalid id '.$id);
                 }
             }
         }
@@ -600,7 +589,7 @@ class ApplicationByJobController extends Controller
                         $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
                         $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
-                        Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
+                        Log::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
                     }
                 }
             }
@@ -685,7 +674,7 @@ class ApplicationByJobController extends Controller
                         $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
                         $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
-                        Debugbar::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
+                        Log::warning('Applicant '.$applicant->id.' attempted to update skill declaration with invalid id '.$id);
                     }
                 }
             }

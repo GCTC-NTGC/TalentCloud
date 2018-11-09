@@ -36,8 +36,7 @@ B) If prompted, allow Docker through Windows Firewall.
 
 2. If using Docker for Windows, add
 	```
-	127.0.0.1	tc.gccollab.ca
-	127.0.0.1	manager.tc.gccollab.ca
+	127.0.0.1	talent.local.ca
 	```
 	to windows hosts file (at `C:\Windows\System32\Drivers\etc\hosts`).
     If using Docker Toolbox, instead of `127.0.0.1` use the ip address that appears when you open the Docker Quickstart Terminal.
@@ -53,7 +52,7 @@ B) If prompted, allow Docker through Windows Firewall.
     If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 5. Execute gen_certs.bat or run
-	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate`
+	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
 
 	If that doesn't work, try manually replacing $pwd with the absolute path to the TalentCloud directory.
 
@@ -79,16 +78,16 @@ B) If prompted, allow Docker through Windows Firewall.
 
 10. After the first-time set up, you should be able to start up the server simply by running `docker-compose up`, as long as other MySQL and Apache services are stopped.
 
-## OPTIONAL Installing and Running PHPUnit via composer in your docker container: 
+## OPTIONAL Installing and Running PHPUnit via composer in your docker container:
 
-First confirm that you have a successful installation of Composer running by typing out the command `composer`. 
+First confirm that you have a successful installation of Composer running by typing out the command `composer`.
 
 Second, you will want to run `docker-compose up -d` if you have not already done so and then `docker-compose exec talentcloud sh -c` to connect to your workspace.
 
 Finally, once you've connected to the TalentCloud server use the command below to run the tests in your tests folder.
 
 ```
-docker-compose exec talentcloud sh -c "vendor/bin/phpunit" 
+docker-compose exec talentcloud sh -c "vendor/bin/phpunit"
 ```
 
 Or specify wherever you keep your tests saved if saved elsewhere on your filesystem.
@@ -98,16 +97,16 @@ If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sa
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
 
-useful commands:
+## Useful Commands:
 ```
 Generate site certificate
-	docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=tc.gccollab.ca" jacoelho/generate-certificate
+	docker run --rm -v ${pwd}/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 Run composer install
-	docker run --rm -v $(pwd):/app composer/composer install
+	docker run --rm -v ${pwd}:/app composer/composer install
 
 Run composer update
-	docker run --rm --interactive --tty --volume $pwd/:/app composer "update"
+	docker run --rm --interactive --tty --volume ${pwd}/:/app composer "update"
 
 To stop and delete all existing Docker containers (can fix some errors)
 	docker stop $(docker ps -a -q)

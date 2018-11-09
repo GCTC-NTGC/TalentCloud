@@ -25,7 +25,7 @@
 
         {% include "common/goc" %}
 
-        {% include "common/header" with {'header':application_template} %}
+        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
         {# Form containing all about_me editable elements #}
         <form action="{{ form_submit_action }}" method="post">
@@ -35,7 +35,16 @@
             {# Builds an input field for CSRF token validation #}
             {{ csrf_field() }}
 
-            {% include "common/application/view/view_layout" %}
+            <section
+                class="application__view-layout">
+
+                {% include "applicant/application_post/step_05/signature" %}
+
+                {% include "common/application/view/view_layout" %}
+
+                {% include "common/application/view/view_05_actions" %}
+
+            </section>
 
         </form>
 

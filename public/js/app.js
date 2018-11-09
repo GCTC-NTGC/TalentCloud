@@ -60,20 +60,23 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1);
-module.exports = __webpack_require__(2);
+module.exports = __webpack_require__(31);
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
+
+/***/ 31:
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 // =============================================================================
 
@@ -93,7 +96,15 @@ module.exports = __webpack_require__(2);
 
     var $root = $('html, body');
 
-    // User Agent Data Attributes ==============================================
+                    // Add has attribute Function
+                    $.fn.hasAttr = function (name) {
+                                        var attr = $(this).attr(name);
+                                        // For some browsers, `attr` is undefined; for others,
+                                        // `attr` is false.  Check for both.
+                                        return (typeof attr === 'undefined' ? 'undefined' : _typeof(attr)) !== ( true ? 'undefined' : _typeof(undefined)) && attr !== false;
+                    };
+
+                    // User Agent Data Attributes ==============================================
 
     var ua = navigator.userAgent;
     ua = ua.toString();
@@ -192,9 +203,35 @@ module.exports = __webpack_require__(2);
 
         function modalDeleteTrigger(trigger, modal, object) {
 
-            $(document).on("click", ".modal-delete-trigger", function (e) {
+                                                                                //TODO: when items are saved with ajax too, the check
+                                                                                // will become more complicated than checking for a
+                                                                                // delete url
 
-                closeModal(trigger);
+                                                                                //If object has been saved to server, make an ajax delete
+                                                                                // call to the item url, and only close the modal when it
+                                                                                // succeeds
+                                                                                if ($(object).attr('data-item-saved')) {
+                                                                                                    var itemId = $(object).attr('data-item-id');
+                                                                                                    var deleteUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                                                                                                    $(modal).addClass('working');
+
+                                                                                                    axios.delete(deleteUrl).then(function (response) {
+                                                                                                                        closeModal(trigger);
+                                                                                                                        $(object).remove();
+                                                                                                                        $(modal).removeClass('working');
+                                                                                                    }).catch(function (error) {
+                                                                                                                        $(modal).removeClass('working');
+                                                                                                    });
+                                                                                                    //TODO: catch and present errors
+                                                                                } else {
+                                                                                                    //If no deletion url provided, simply delete the
+                                                                                                    // object and close the modal.
+
+                                                                                                    closeModal(trigger);
+                                                                                                    $(object).remove();
+                                                                                }
+                                                            });
+                                        }
 
                 $(object).remove();
             });
@@ -930,11 +967,6 @@ module.exports = __webpack_require__(2);
     });
 })(jQuery);
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
 /***/ })
-/******/ ]);
+
+/******/ });

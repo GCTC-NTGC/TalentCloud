@@ -109,31 +109,25 @@ class OidConnectGuard implements Guard {
             $idToken = $this->requestTokenParser->parse($this->request);
         } catch (AuthenticationException $exception) {
             //Return a null user is enough, swallow the exception here
-            debugbar()->warning($exception->getMessage());
             return $user;
         }
 
         if (!$this->jwtValidator->claimsAreValid($idToken) ||
                 !$this->jwtValidator->signatureIsValid($idToken)) {
-            debugbar()->warning("Bearer token exists but is not valid");
             return $user;
         }
 
         //At this point, token is definitely valid
         if ($this->jwtValidator->isExpired($idToken)) {
-            debugbar()->info("Id token expired");
 
             $iss = $idToken->getClaim("iss");
             $sub = $idToken->getClaim("sub");
             try {
                 $idToken = $this->tokenRefresher->refreshIDToken($iss, $sub);
-                debugbar()->info("Refreshed id token");
 
             } catch (TokenStorageException $storageException) {
-                debugbar()->warning($storageException->getMessage());
-                return $user;
+                //DO NOTHING
             } catch (TokenRequestException $requestException) {
-                debugBar()->warning($requestException->getMessage());
                 return $user;
             }
             $this->requestTokenParser->save($idToken);
@@ -148,7 +142,6 @@ class OidConnectGuard implements Guard {
     }
 
     public function validate(array $credentials = array()) {
-        debugbar()->info("in Guard.validate()");
         if (empty($credentials['id_token'])) {
             return false;
         }

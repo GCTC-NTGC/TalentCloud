@@ -9,8 +9,8 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
-    "title" => "User Guide",
-    "faq_title" => "Talent Cloud | User Guide and FAQ",
+    "title" => "Talent Cloud User Guide",
+    "faq_title" => "Talent Cloud | Applicant: FAQ",
     "sidebar_label" => "On This Page",
     "modals" => [
         "00" => [
@@ -110,7 +110,7 @@ return [
                         "type" => "ul",
                         "items" => [
                             "00" => "Treasury Board Secretariat (host department)",
-                            "01" => "Employment and Skills Development Canada",
+                            "01" => "Employment and Social Development Canada",
                             "02" => "Environment and Climate Change Canada",
                             "03" => "Natural Resources Canada",
                             "04" => "Transport Canada",
@@ -127,9 +127,7 @@ return [
                 "title" => "What can I expect in the application and selection process?",
                 "copy" => [
                     "00" => "Eventually, Talent Cloud is hoping to be able to offer a 30 day hiring experience (from job advertisement to letter of offer). For the initial experiment, applicants should expect to hear back about their initial application within 2 weeks of the job advertisement closing. For those moving on to further rounds of screening in a position that has been advertised as bilingual, expect language testing early in the process. (If you have never taken any language testing with the Government of Canada before, you may want to try these <a href='https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html' title'Take the tests.'>self-assessment tests</a> to get a sense of what the tests are like.)",
-                    "01" => "In terms of screening for other competencies, you can also expect alternative testing and evaluation approaches throughout the process that are more informal and designed to test right fit to team and overall capacity. Talent Cloud encourages managers to apply a “best overall” approach to selection, rather than a “screen out a few at each stage” approach.",
-                    "02" => "All Government of Canada employees are required to pass reliability security checks and many will require secret level clearance. This involves giving fingerprints, having a criminal record check and a credit check. These functions are conducted by authorized security officials in Government (not Talent Cloud).",
-                    "03" => "If you’ve lived outside of Canada for more than six months in a row in the last 5 years (10, if your job requires secret clearance) then you’ll need to provide an “out of country” criminal record check. This can take a while, as it depends on procedural timelines of the country you’ve lived in. Applicants can request this “out of country” criminal record check at any time, outside of any staffing process. This record is submitted from the applicant to the Government of Canada at the time of security screening. So if you’ve spent 8 months in South Africa or hung out in the Alps for a year or been at school in Australia, we suggest requesting your records up front. This can save you and your hiring manager a lot of time later. (And if a particular project-based position starts at fixed date, the lack of security clearance in time may force the hiring manager to select another candidate…)"
+                    "01" => "In terms of screening for other competencies, you can also expect alternative testing and evaluation approaches throughout the process that are more informal and designed to test right fit to team and overall capacity. Talent Cloud encourages managers to apply a “best overall” approach to selection, rather than a “screen out a few at each stage” approach."
                 ]
             ],
             "06" => [
@@ -148,6 +146,31 @@ return [
                 "title" => "Is this a marketplace for casual appointments?",
                 "copy" => [
                     "00" => "A “casual appointment” is government-speak for a 90 day position that can be given to a worker on the basis of merit without a competitive process. Those in casual positions don’t earn pension or benefits, and can only hold one casual appointment a year in a department. Some workers string together government employment by taking a series of casuals over the course of the year. Because of Talent Cloud’s commitment to advancing workers’ rights and benefits, casual appointments are not permitted on the platform."
+                ]
+            ]
+        ]
+    ],
+    "speed" => [
+        "sidebar_title" => "After You Apply",
+        "category_anchor" => "post-application",
+        "category_title" => "How You Can Speed Things Up After Applying",
+        "sections" => [
+            "00" => [
+                "copy" => [
+                    "00" => "All Government of Canada employees are required to pass reliability security checks and many will require secret level clearance. This involves giving fingerprints, having a criminal record check and a credit check. These functions are conducted by authorized security officials in Government (not Talent Cloud).",
+                    "01" => "All this can take a while.",
+                    "02" => "Want to speed this up?",
+                    "03" => "There are 2 things you can do:",
+                    "04" => [
+                        "type" => "ul",
+                        "items" => [
+                            "00" => "Fill out the papers you’ll need to submit in advance",
+                            "01" => "If you’ve lived out of Canada, read below"
+                        ]
+                    ],
+                    "05" => "If the job you’ve applied to requires Reliability Level security, complete the <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-23-eng.asp\" target=\"__blank\" title=\"Open the form in a new tab or window.\">form found here</a> and then hold onto it. Once complete, don’t email it to Talent Cloud until you get asked for it.",
+                    "06" => "If the job you’ve applied to requires Secret Level security, you’ll need to complete both a <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-23-eng.asp\" target=\"__blank\" title=\"Open the form in a new tab or window.\">Reliability Clearance form</a> and a <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-60-eng.asp\" target=\"__blank\" title=\"Open the form in a new tab or window.\">Secret Clearance form</a>. Once these two forms are complete, don’t email them to Talent Cloud until you get asked for them.",
+                    "07" => "If you’ve lived outside of Canada for more than six months in a row in the last 5 years (10, if your job requires secret clearance) then you’ll need to provide an “out of country” criminal record check. This can take a while, as it depends on procedural timelines of the country you’ve lived in. Applicants can request this “out of country” criminal record check at any time, outside of any staffing process. This record is submitted from the applicant to the Government of Canada at the time of security screening. So if you’ve spent 8 months in South Africa or hung out in the Alps for a year or been at school in Australia, we suggest requesting your records up front. This can save you and your hiring manager a lot of time later. (And if a particular project-based position starts at fixed date, the lack of security clearance in time may force the hiring manager to select another candidate…)"
                 ]
             ]
         ]

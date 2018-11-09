@@ -1,0 +1,36 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager - Job Index Layout
+
+============================================================================= #}
+<div class="manager-job-index__section-wrapper">
+
+    <div class="container--layout">
+
+        {% for job in jobs %}
+            <div>
+                <h3>{{ job.title }}</h3>
+                <ul>
+                    {% for application in job.submitted_applications %}
+                    <li>
+                        {{ application.applicant.user.name }},
+                        <a
+                            href="{{ route('manager.applicants.show', application.applicant) }}"
+                            >
+                            Profile,
+                        </a>
+                        <a
+                            href="{{ route('manager.applications.show', application) }}"
+                            >
+                            Application
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
