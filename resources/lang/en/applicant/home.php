@@ -16,7 +16,7 @@ return [
     "about_cta" => "Talent Cloud is the Government of Canada's experimental new hiring platform for project-based or \"gig\" employment. For the next few months, Government will be posting a few cool new jobs a week in digital, tech, and user experience design.",
     "about_copy" => "Each poster lets you learn about the work, the teams, and the managers of each position, so you can think about where you'll fit before you apply.",
     "about_copy_2" => "Test it out and tell us what you think.",
-    "about_copy_3" => "Help us buld a new hiring model for the Government of Canada.",
+    "about_copy_3" => "Help us build a new hiring model for the Government of Canada.",
     "how_title" => "How It Works",
     "how_intro" => "GC Talent Cloud connects you to teams and projects where you can use your unique skills to make a difference in the lives of Canadians.",
     "how_intro_2" => "All Talent Cloud jobs are competitively staffed term positions, open to the public.",

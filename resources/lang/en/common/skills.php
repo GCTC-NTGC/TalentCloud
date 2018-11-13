@@ -147,7 +147,7 @@ return [
         ],
         'accountability' => [
             'name' => 'Accountability',
-            'description' => 'Defined as: Taking responsibility for one’s own actions and the actions of a group.'
+            'description' => 'Defined as: Taking responsibility for one\'s own actions and the actions of a group.'
         ],
         'attention_detail' => [
             'name' => 'Attention to Detail',
@@ -187,7 +187,7 @@ return [
         ],
         'resilience' => [
             'name' => 'Resilience',
-            'description' => 'Defined as: Ability to recover from difficulties or change – to function as well as before and then move forward. It is often referred to as the ability to ‘bounce back’ from difficulties or challenges. The perseverance to deal with resistance.'
+            'description' => 'Defined as: Ability to recover from difficulties or change – to function as well as before and then move forward. It is often referred to as the ability to \'bounce back\' from difficulties or challenges. The perseverance to deal with resistance.'
         ],
         'service_orientation' => [
             'name' => 'Service Orientation',
@@ -260,6 +260,14 @@ return [
         'user_design' => [
             'name' => 'User-Centered Design',
             'description' => 'Defined as: Ability to apply user centred design techniques to: understand the user journey; develop and test new approaches to user-product interaction; and provide results that support an improved, intuitive, pleasant user experience'
+        ],
+        'empathy' => [
+            'name' => 'Empathy',
+            'description' => 'Defined as: being able to put themselves in the shoes of people with a very different mindset and set of priorities'
+        ],
+        'analysis' => [
+            'name' => 'Analysis',
+            'description' => 'Defined as: Ability to collect and utilize qualitative and quantitative data to make design decisions'
         ],
     ],
     'status' => [
