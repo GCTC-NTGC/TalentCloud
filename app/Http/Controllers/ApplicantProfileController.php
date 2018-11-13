@@ -11,6 +11,7 @@ use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller
@@ -95,7 +96,7 @@ class ApplicantProfileController extends Controller
             'new_password' => [
                 'nullable',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z.])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                new PasswordFormatRule,
                 'confirmed'
            ],
 
