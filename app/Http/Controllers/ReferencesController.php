@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
@@ -52,8 +52,6 @@ class ReferencesController extends Controller
     public function update(Request $request, Applicant $applicant)
     {
         $input = $request->input();
-
-        Debugbar::info($input);
 
         $references = $input['references'];
 
@@ -164,7 +162,7 @@ class ReferencesController extends Controller
                     $skillDeclarationIds =$this->getRelativeIds($referenceInput, 'skills');
                     $reference->skill_declarations()->sync($skillDeclarationIds);
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update reference with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update reference with invalid id '.$id);
                 }
             }
         }

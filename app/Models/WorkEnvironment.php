@@ -14,7 +14,6 @@ use Prophecy\Prediction\CallTimesPrediction;
  *
  * @property int $id
  * @property int $manager_id
- * @property boolean $remote_work_allowed
  * @property int $telework_allowed_frequency_id
  * @property int $flexible_hours_frequency_id
  * @property \Jenssegers\Date\Date $created_at
@@ -32,13 +31,13 @@ use Prophecy\Prediction\CallTimesPrediction;
 class WorkEnvironment extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
-    
+
     public $translatedAttributes = ['things_to_know'];
     protected $casts = [
-        'remote_work_allowed' => 'boolean'
+        'telework_allowed_frequency_id' => 'int',
+        'flexible_hours_frequency_id' => 'int',
     ];
     protected $fillable = [
-        'remote_work_allowed',
         'telework_allowed_frequency_id',
         'flexible_hours_frequency_id'
     ];
