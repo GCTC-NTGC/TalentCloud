@@ -125,7 +125,7 @@ return [
     */
 
     'custom' => [
-        'new_password' => [
+        'password' => [
             'regex' => 'The password must contain at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).',
         ],
         'password_correct' => 'Old password isn\'t correct',
