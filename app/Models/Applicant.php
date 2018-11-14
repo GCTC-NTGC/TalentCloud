@@ -93,4 +93,18 @@ class Applicant extends BaseModel {
     public function projects() {
         return $this->hasMany(\App\Models\Project::class);
     }
+
+    //Accessors
+
+    // Always return profile answers in the order the questions appear in
+    // public function getApplicantProfileAnswersAttribute($applicant_profile_answers) {
+    //     debugbar()->debug($applicant_profile_answers);
+    //     if ($applicant_profile_answers !== null) {
+    //         return $applicant_profile_answers->sortBy(function ($answer){
+    //             return $answer->applicant_profile_question->id;
+    //         });
+    //     } else {
+    //         return collect($applicant_profile_answers);
+    //     }
+    // }
 }
