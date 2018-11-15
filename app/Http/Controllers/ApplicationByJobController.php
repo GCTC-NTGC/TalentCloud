@@ -22,6 +22,7 @@ use App\Models\Criteria;
 use App\Models\Course;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use App\Servicees\Validation\Rules\UniqueApplicantSkillRule;  // Added this use case for validation
 use Illuminate\Support\Facades\Auth;
 
 
@@ -537,6 +538,14 @@ class ApplicationByJobController extends Controller
      */
     public function update_essential_skills(Request $request, JobPoster $jobPoster)
     {
+        
+        $messages = Lang::get('validation.custom.user_skill_unique'); // Found under app/rules/validation/rules. Wrote up some validaiton for the My Knowledge form.
+        $request->validate([
+            'skill_declarations[old][soft][1][description]' => [
+               'required'
+               ]      
+        ], $messages);
+       
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
@@ -553,12 +562,12 @@ class ApplicationByJobController extends Controller
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
                     $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
-                    $skillDeclaration->skill_status_id = $claimedStatusId;
+                    $skillDeclaration->skill_status_id = null; // changed into nul from SkillClaimed and skill still shows claiimed?
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
                         'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
-                    $skillDeclaration->save();
+                    $skillDeclaration->save();  //Commented out to see if it will save new skill declarations.
 
                     $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
                     $skillDeclaration->references()->sync($referenceIds);
@@ -622,6 +631,15 @@ class ApplicationByJobController extends Controller
      */
     public function update_asset_skills(Request $request, JobPoster $jobPoster)
     {
+        $messages = Lang::get('validation.custom.user_skill_unique'); // Found under app/rules/validation/rules. Wrote up some validaiton for the My Knowledge form.
+        $request->validate([
+            'skill_declarations[new][soft][1][description]' => [
+               'required'
+               ]      
+        ], $messages);
+        
+        
+        
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
