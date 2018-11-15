@@ -12,7 +12,6 @@ use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
-use Carbon\Carbon;
 
 /**
  * Class JobPoster
