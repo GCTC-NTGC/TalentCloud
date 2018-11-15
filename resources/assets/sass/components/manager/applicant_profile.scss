@@ -1,0 +1,40 @@
+// =============================================================================
+
+    // Manager: Applicant Profile Preview
+
+// =============================================================================
+.applicant-profile-preview {
+	padding: 5rem 0;
+
+	h3 {
+		color: $palette--font-black;
+		display: block;
+		font-family: $font--sans;
+		font-size: $font-scale--h4;
+		font-weight: 600;
+		margin: 0 0 2rem 0;
+	}
+
+	h4 {
+		color: $palette--blue;
+	    display: block;
+	    font-family: $font--sans;
+	    font-size: $font-scale--h4;
+	    font-weight: 600;
+	    margin: 0 0 1rem;
+	}
+
+	p {
+		@extend %paragraph;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+	}
+
+}

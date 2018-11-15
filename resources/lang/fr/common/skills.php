@@ -15,7 +15,7 @@ return [
     'level_label' => 'Mon niveau de compétence',
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Trouvez votre niveau de compétence)',
-    'knowledge_label' => 'Ma connaissance',
+    'knowledge_label' => 'Comment j\'ai acquis cette compétence',
      'skill_status_null_label' => 'Statut: compétence pas ajouté',
     'skill_status_label' => 'Statut: compétence',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',

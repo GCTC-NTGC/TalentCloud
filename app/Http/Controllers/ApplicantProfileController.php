@@ -11,6 +11,7 @@ use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller
@@ -21,12 +22,31 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  Request  $request
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function show(Applicant $applicant)
+    public function show(Request $request, Applicant $applicant)
     {
-        //
+        //TODO:
+        //Josh, to loop through answers&question data, leverage this data structure:
+        // applicant
+        //     [applicant_profile_answers]
+        //         answer
+        //         applicant_profile_question
+        //             id
+        //             value // The question text
+        //             description // Question description text
+
+        return view('manager/applicant_profile', [
+            /* Localized strings*/
+            'profile' => Lang::get('manager/applicant_profile'), // Change text
+
+            /* User Data */
+            'user' => $applicant->user,
+            'applicant' => $applicant,
+            'profile_photo_url' => '/images/user.png', //TODO: get real photos
+        ]);
     }
 
     /**
@@ -38,7 +58,6 @@ class ApplicantProfileController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        $user = $request->user();
         $profileQuestions = ApplicantProfileQuestion::all();
 
         $profileText = Lang::get('applicant/applicant_profile');
@@ -66,7 +85,7 @@ class ApplicantProfileController extends Controller
             /* Applicant Profile Questions */
             'applicant_profile_questions' => $profileQuestionForms,
             /* User Data */
-            'user' => $user,
+            'user' => $applicant->user,
             'applicant' => $applicant,
             'profile_photo_url' => '/images/user.png', //TODO: get real photos
 
@@ -83,9 +102,9 @@ class ApplicantProfileController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-        $messages = Lang::get('validation.custom.password');
+        $messages = Lang::get('validation.custom');
         $request->validate([
-            
+
             //Password validation
             'old_password' => [
                 'nullable',
@@ -95,25 +114,25 @@ class ApplicantProfileController extends Controller
             'new_password' => [
                 'nullable',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z.])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                new PasswordFormatRule,
                 'confirmed'
            ],
-            
+
            //Social Media Validation
             'twitter_username' => [
                 'nullable', //Some people may not have a handle.
                 'max:15', //Per Twitter's Terms/Service.
                 'regex:/^[A-Za-z0-9_]+$/', /*
                  * Twitters Terms of Service only allows ". A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores"
-                 * This regex will allow only alphamumeric characters and the underscore. 
+                 * This regex will allow only alphamumeric characters and the underscore.
                  * Keep this handy if we need to validate other usernames.
                  */
             ],
             'linkedin_url' => [
                 'nullable', // Some people may not be on LinkedIn
-                'url:required' // We imply they should input a Url here, so to limit other undesirable inputs we should validate this.
+                'regex:/^(https:\\/\\/|http:\\/\\/)?www\\.linkedin\\.com\\/in\\/[^\\/]+(\\/)?$/', // Validation for linkedIn profile URLS only.
             ],
-            
+
             //Other Information Tagline
             'tagline' => [
                 'nullable',

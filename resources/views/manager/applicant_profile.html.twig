@@ -1,0 +1,57 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Applicant Profile
+
+============================================================================= #}
+{% extends "layouts/base" %}
+
+{% block body %}
+
+	{# Alert #}
+
+		{% include "common/alert" %}
+
+	{# Government of Canada #}
+
+    	{% include "common/goc" %}
+
+    {# Page Header #}
+
+    	{% include "common/header" with {"header":profile} %}
+
+    {# Content #}
+
+    	<section
+    		class="applicant-profile-preview">
+
+	    	<div
+	    		class="container--copy">
+
+	    		<h3>You are viewing {{ applicant.user.name }}'s profile.</h3>
+
+	    		{# {{ applicant }} #}
+
+	    		{% if applicant.applicant_profile_answers is empty %}
+
+	    			<p>The applicant hasn't answered any questions.</p>
+
+		    	{% else %}
+
+		    		{% for question in applicant.applicant_profile_answers %}
+
+		    			<h4>{{ question.applicant_profile_question.value }}</h4>
+
+		    			<p>{{ question.applicant_profile_question.description }}</p>
+
+		    			<p>{{ question.answer }}</p>
+
+		    		{% endfor %}
+
+		    	{% endif %}
+
+	    	</div>
+
+    	</section>
+
+{% endblock %}

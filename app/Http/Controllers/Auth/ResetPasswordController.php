@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Facades\App\Services\WhichPortal;
+use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Lang;
 
 class ResetPasswordController extends AuthController
@@ -56,7 +57,7 @@ class ResetPasswordController extends AuthController
     public function showResetForm(Request $request, $token = null)
     {
         return view('auth.passwords.reset')->with([
-            'token' => $token, 
+            'token' => $token,
             'email' => $request->email,
             'routes' => $this->auth_routes(),
             'reset_password_template' => Lang::get('common/auth/reset_password'),
@@ -77,7 +78,7 @@ class ResetPasswordController extends AuthController
             'password' => [
                 'required',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                new PasswordFormatRule,
                 'confirmed'
            ],
         ];
@@ -91,6 +92,6 @@ class ResetPasswordController extends AuthController
      */
     protected function validationErrorMessages()
     {
-        return Lang::get('validation.custom.password');
+        return [];
     }
 }
