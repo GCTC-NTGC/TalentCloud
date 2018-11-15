@@ -10,7 +10,9 @@ namespace App\Models;
 use App\Events\JobSaved;
 use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
+use Carbon\Carbon;
 
 /**
  * Class JobPoster
@@ -172,9 +174,16 @@ class JobPoster extends BaseModel {
     }
 
     public function timeRemaining() {
-        if ($this->close_date_time->isFuture()) {
+        $oneDay = Date::now()->addDay();
+        if ($this->close_date_time->greaterThan($oneDay)) {
+            // Returns "n days"
+            $diffDays = $this->close_date_time->diffInDays();
+            return trans_choice('common/time.days', $diffDays);
+        } else if ($this->close_date_time->isFuture()) {
+            //Returns "n hours", "n minutes", or "n seconds"
             return $this->close_date_time->diffForHumans(null, true);
         } else {
+            // Should return "0 days" or something similar
             return $this->close_date_time->diffForHumans(Date::now());
         }
     }
