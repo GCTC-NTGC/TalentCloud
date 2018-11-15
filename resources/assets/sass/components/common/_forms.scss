@@ -685,6 +685,20 @@
 
     }
 
+    &[class*="checkbox"] {
+        margin: 2rem 0;
+
+        .form__label {
+            color: $palette--black;
+            display: inline-block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            line-height: 20px;
+            margin: 0 0 calc(#{$unit} / 2);
+        }
+
+    }
+
     .form__radio-wrapper {
         font-size: $font-scale--regular;
         margin: 0;

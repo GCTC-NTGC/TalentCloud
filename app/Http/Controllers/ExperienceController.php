@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Degree;
 use App\Models\Applicant;
 use App\Models\Course;
@@ -139,7 +139,7 @@ class ExperienceController extends Controller
                     ]);
                     $degree->save();
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update degree with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update degree with invalid id '.$id);
                 }
             }
         }
@@ -188,7 +188,7 @@ class ExperienceController extends Controller
                     ]);
                     $course->save();
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update course with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update course with invalid id '.$id);
                 }
             }
         }
@@ -237,23 +237,12 @@ class ExperienceController extends Controller
                     ]);
                     $workExperience->save();
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update work_experience with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update work_experience with invalid id '.$id);
                 }
             }
         }
 
         return redirect( route('profile.experience.edit', $applicant) );
-        // Debugbar::info($input);
-        // return view('applicant/profile_02_experience', [
-        //     'applicant' => $applicant->fresh(),
-        //     'profile' => Lang::get('applicant/profile_experience'),
-        //     'degree_types' => DegreeType::all(),
-        //     'course_status' => CourseStatus::all(),
-        //     'degree_template' => Lang::get('common/degree'),
-        //     'course_template' => Lang::get('common/course'),
-        //     'work_template' => Lang::get('common/work_experience'),
-        //     'form_submit_action' => route('profile.experience.update', $applicant)
-        // ]);
     }
 
 }

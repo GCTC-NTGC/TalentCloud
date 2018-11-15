@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Skill;
 use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
@@ -128,15 +127,25 @@ class SkillsController extends Controller
 
 
         return redirect( route('profile.skills.edit', $applicant) );
-        // return view('applicant/profile_03_skills', [
-        //     'applicant' => $applicant->fresh(),
-        //     'profile' => Lang::get('applicant/profile_skills'),
-        //     'skill_template' => Lang::get('common/skills'),
-        //     'relative_template' => Lang::get('common/relatives'),
-        //     'skills' => Skill::all(),
-        //     'skill_levels' => SkillLevel::all(),
-        //     'form_submit_action' => route('profile.skills.update', $applicant),
-        // ]);
+    }
+
+    /**
+     * Delete the particular skill declaration in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\SkillDeclaration  $skillDeclaration
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, SkillDeclaration $skillDeclaration)
+    {
+        $this->authorize('delete', $skillDeclaration);
+        $skillDeclaration->delete();
+
+        if($request->ajax()) {
+            return ['message' => 'Skill deleted'];
+        }
+
+        return redirect()->back();
     }
 
 }

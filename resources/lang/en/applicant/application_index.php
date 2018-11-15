@@ -15,6 +15,8 @@ return [
     "completed_title" => "Completed Applications",
     "expired_title" => "Expired Applications",
     "days_remaining_label" => ":count Days Remaining",
+    "time_remaining" => ":time remaining",
+    "job_closed" => "Job closed",
     "edit_date_label" => "Last Edited",
     "post_label" => "Job Post",
     "post_link_title" => "View the job post for this application",
@@ -32,7 +34,7 @@ return [
     ],
     "modals" => [
         "delete_application" => [
-            "type" => "confirmation",
+            "type" => "deleteConfirmation",
             "title" => "Application Deletion",
             "content" => [
                 "00" => "Are you sure you want to delete this application? All progress will be lost.",
@@ -40,7 +42,8 @@ return [
             ],
             "id" => "deleteTrash",
             "action_01" => "Cancel",
-            "action_02" => "Delete"
+            "action_02" => "Delete",
+            "action_02_progress" => "Working..."
         ],
     ]
 

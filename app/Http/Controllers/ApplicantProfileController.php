@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
@@ -52,7 +51,7 @@ class ApplicantProfileController extends Controller
 
             $formValues = [
                 'id' => $question->id,
-                'value' => $question->value,
+                'question' => $question->question,
                 'description' => $question->description,
                 'answer' => $answer,
                 'answer_label' => $profileText['about_section']['answer_label'],
@@ -86,6 +85,8 @@ class ApplicantProfileController extends Controller
     {
         $messages = Lang::get('validation.custom.password');
         $request->validate([
+            
+            //Password validation
             'old_password' => [
                 'nullable',
                 'required_with:new_password',
@@ -94,9 +95,30 @@ class ApplicantProfileController extends Controller
             'new_password' => [
                 'nullable',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z.])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
                 'confirmed'
-           ]
+           ],
+            
+           //Social Media Validation
+            'twitter_username' => [
+                'nullable', //Some people may not have a handle.
+                'max:15', //Per Twitter's Terms/Service.
+                'regex:/^[A-Za-z0-9_]+$/', /*
+                 * Twitters Terms of Service only allows ". A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores"
+                 * This regex will allow only alphamumeric characters and the underscore. 
+                 * Keep this handy if we need to validate other usernames.
+                 */
+            ],
+            'linkedin_url' => [
+                'nullable', // Some people may not be on LinkedIn
+                'url:required' // We imply they should input a Url here, so to limit other undesirable inputs we should validate this.
+            ],
+            
+            //Other Information Tagline
+            'tagline' => [
+                'nullable',
+                'string'
+            ],
        ], $messages);
 
         $questions = ApplicantProfileQuestion::all();
@@ -137,8 +159,6 @@ class ApplicantProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.about.edit', $applicant);
-        //Debugbar::info($input);
-        //return view('welcome', ['t1' => 'update applicant']);
     }
 
 }
