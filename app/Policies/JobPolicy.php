@@ -32,7 +32,6 @@ class JobPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        debugbar()->info('in JobPolicy');
         //Any manager can create a new job poster
         return $user->user_role->name == 'manager';
     }

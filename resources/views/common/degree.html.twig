@@ -19,6 +19,8 @@
 
 <div
     class="profile-element accordion degree {% if degree == false %}template active{% endif %} modal-target-object"
+    data-item-saved="{{ degree ? "true" : "" }}"
+    data-item-url="{{ route("degrees.destroy", ":id") }}"
     data-item-id="{{ degree ? degree.id : 0 }}">
 
     {# Accordion Trigger #}

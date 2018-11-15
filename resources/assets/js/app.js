@@ -16,8 +16,17 @@
 
         var $root = $('html, body');
 
+    // Add has attribute Function
+    $.fn.hasAttr = function(name) {
+        var attr = $(this).attr(name);
+        // For some browsers, `attr` is undefined; for others,
+        // `attr` is false.  Check for both.
+        return (typeof attr !== typeof undefined && attr !== false);
+
+    };
+
     // User Agent Data Attributes ==============================================
-    
+
         var ua = navigator.userAgent;
         ua = ua.toString();
         console.log("hello");
@@ -128,10 +137,35 @@
 
                     $(document).on("click", ".modal-delete-trigger", function(e){
 
-                        closeModal(trigger);
+                        //TODO: when items are saved with ajax too, the check
+                        // will become more complicated than checking for a
+                        // delete url
 
-                        $(object).remove();
+                        //If object has been saved to server, make an ajax delete
+                        // call to the item url, and only close the modal when it
+                        // succeeds
+                        if ( $(object).attr('data-item-saved') ) {
+                            var itemId = $(object).attr('data-item-id');
+                            var deleteUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                            $(modal).addClass('working');
 
+                            axios.delete(deleteUrl)
+                                .then(function(response) {
+                                    closeModal(trigger);
+                                    $(object).remove();
+                                    $(modal).removeClass('working');
+                                }).catch(function(error) {
+                                    $(modal).removeClass('working');
+                                });
+                            //TODO: catch and present errors
+
+                        } else {
+                            //If no deletion url provided, simply delete the
+                            // object and close the modal.
+
+                            closeModal(trigger);
+                            $(object).remove();
+                        }
                     });
 
                 }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Models\UserRole;
 use App\Models\Applicant;
+use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
 
 class RegisterController extends AuthController
@@ -70,17 +71,16 @@ class RegisterController extends AuthController
      */
     protected function validator(array $data)
     {
-        $messages = Lang::get('validation.custom.password');
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => [
                 'required',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                new PasswordFormatRule,
                 'confirmed'
            ],
-       ], $messages);
+       ]);
     }
 
     /**

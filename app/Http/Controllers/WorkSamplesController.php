@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facade as Debugbar;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
@@ -104,21 +104,34 @@ class WorkSamplesController extends Controller
                     $skillDeclarationIds =$this->getRelativeIds($workSampleInput, 'skills');
                     $workSample->skill_declarations()->sync($skillDeclarationIds);
                 } else {
-                    Debugbar::warning('Applicant '.$applicant->id.' attempted to update workSample with invalid id '.$id);
+                    Log::warning('Applicant '.$applicant->id.' attempted to update workSample with invalid id '.$id);
                 }
             }
         }
 
         return redirect( route('profile.work_samples.edit', $applicant) );
-        // Debugbar::info($input);
-        // return view('applicant/profile_04_workSamples', [
-        //     'applicant' => $applicant,
-        //     'profile' => Lang::get('applicant/profile_workSamples'),
-        //     'relative_template' => Lang::get('common/relatives'),
-        //     'skills' => Skill::all(),
-        //     'relationships' => Relationship::all(),
-        //     'form_submit_action' => route('profile.workSamples.update', $applicant),
-        // ]);
+    }
+
+    /**
+     * Delete the particular work sample from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\WorkSample  $workSample
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, WorkSample $workSample)
+    {
+        $this->authorize('delete', $workSample);
+
+        $workSample->delete();
+
+        if($request->ajax()) {
+            return [
+                "message" => 'Work sample deleted'
+            ];
+        }
+
+        return redirect()->back();
     }
 
 }

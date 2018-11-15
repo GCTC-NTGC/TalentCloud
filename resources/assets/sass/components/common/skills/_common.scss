@@ -284,3 +284,27 @@
                 }
 
             }
+
+            .profile-relative__reference-name,
+            .profile-relative__sample-name {
+                font-weight: 700 !important;
+            }
+
+            .profile-relative__reference,
+            .profile-relative__sample {
+                margin: 1rem 0;
+
+                &:last-child {
+                    margin-bottom: 0 !important;
+                }
+
+                .flex-grid {
+                    margin: 0 -1rem;
+
+                    .box {
+                        padding-bottom: 0;
+                    }
+
+                }
+
+            }

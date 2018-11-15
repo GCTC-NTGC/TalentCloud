@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Barryvdh\Debugbar\Facade as Debugbar;
+use Illuminate\Support\Facades\Log;
 
 class BasePolicy
 {
@@ -12,7 +12,8 @@ class BasePolicy
     public function before($user, $ability)
     {
         if ($user->user_role->name == 'admin') {
-            Debugbar::info('User has bypassed policy as Admin');
+            $userText = '{id='.$user->id.'}';
+            Log::notice('User '.$userText.' has bypassed policy as an Admin');
             return true;
         }
     }

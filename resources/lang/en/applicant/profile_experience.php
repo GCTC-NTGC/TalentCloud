@@ -35,7 +35,8 @@ return [
             ],
             "id" => "deleteDegree",
             "action_01" => "Cancel",
-            "action_02" => "Delete"
+            "action_02" => "Delete",
+            "action_02_progress" => "Working..."
         ],
         "delete_course" => [
             "type" => "deleteConfirmation",
@@ -46,7 +47,8 @@ return [
             ],
             "id" => "deleteCourse",
             "action_01" => "Cancel",
-            "action_02" => "Delete"
+            "action_02" => "Delete",
+            "action_02_progress" => "Working..."
         ],
         "delete_work_experience" => [
             "type" => "deleteConfirmation",
@@ -57,7 +59,8 @@ return [
             ],
             "id" => "deleteWork",
             "action_01" => "Cancel",
-            "action_02" => "Delete"
+            "action_02" => "Delete",
+            "action_02_progress" => "Working..."
         ]
     ]
 ];
