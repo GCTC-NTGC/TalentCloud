@@ -57,14 +57,7 @@ class ExperienceController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-      
-
-        //Delete old degrees that weren't resubmitted
-        //Note: this must be done before adding new degrees, so we don't delete
-        // them right after adding them
-        
-        $messages = Lang::get(''); // Place correct error messages in the quotations here. 
-        $request->validate([
+       $request->validate([
             'degrees[:template][:id][area_of_study]' => [
                 'required',
                 
