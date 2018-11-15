@@ -91,6 +91,12 @@ class ExperienceController extends Controller
         $input = $request->input();
 
         $degrees = $input['degrees'];
+        
+        
+        //Delete old degrees that weren't resubmitted	
+        //Note: this must be done before adding new degrees, so we don't delete	
+        // them right after adding them
+        
         foreach($applicant->degrees as $oldDegree) {
             //Check if no degrees were resubmitted, or if this specific one wasn't
             if (!isset($degrees['old']) ||
