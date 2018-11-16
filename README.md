@@ -107,9 +107,9 @@ Then after installation completes, restart your computer and open Powershell. Na
 Type in the commands,
 
 ```
-npm install and
+npm install 
 ```
-then,
+and then,
 ```
 npm update
 ```
