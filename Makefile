@@ -5,10 +5,12 @@
 # MySQL
 DB_DUMPS_DIR=database/db/dumps
 
+ROOT=/var/www
+
 build-db:
-	@docker exec -ti talentcloud sh -c "php artisan migrate:fresh"
-	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
-	@docker exec -ti talentcloud sh -c "php artisan db:seed"
+	@docker exec talentcloud sh -c "php artisan migrate:fresh"
+	@docker exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	@docker exec talentcloud sh -c "php artisan db:seed"
 
 clean:
 	@rm -Rf database/db/pgsql/*
@@ -40,7 +42,11 @@ phpmd:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
 	text cleancode,codesize
 
+set-root-perms:
+	@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage ${ROOT}/bootstrap/cache"
+	@docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage ${ROOT}/bootstrap/cache"
+
 test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
-.PHONY: clean test code-sniff
+.PHONY: build-db clean code-sniff docker-start docker-stop gen-certs logs phpmd set-root-perms test
