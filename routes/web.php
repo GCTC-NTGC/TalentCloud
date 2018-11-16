@@ -128,7 +128,7 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
             ->middleware('can:update,applicant')
             ->name('profile.skills.edit');
 
-        Route::post('profile/{applicant}/skills/update', 'SkillsController@update')
+        Route::post('profile/{applicant}/skills/update', 'SkillsController@updateAll')
             ->middleware('can:update,applicant')
             ->name('profile.skills.update');
 
@@ -398,6 +398,14 @@ Route::middleware(['auth'])->group(function() {
         ->middleware('can:delete,workExperience')
         ->name('work_experiences.destroy');
 
+    Route::post('skill-declarations', 'SkillsController@create')
+        ->middleware('can:create,App\Models\SkillDeclaration')
+        ->name('skill_declarations.create');
+
+    Route::put('skill-declarations/{skillDeclaration}', 'SkillsController@update')
+        ->middleware('can:update,skillDeclaration')
+        ->name('skill_declarations.update');
+
     Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
         ->middleware('can:delete,skillDeclaration')
         ->name('skill_declarations.destroy');
@@ -413,4 +421,5 @@ Route::middleware(['auth'])->group(function() {
     Route::delete('applications/{application}', 'ApplicationController@destroy')
         ->middleware('can:delete,application')
         ->name('applications.destroy');
+
 });

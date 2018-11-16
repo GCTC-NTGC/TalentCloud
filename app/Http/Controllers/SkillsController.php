@@ -53,7 +53,7 @@ class SkillsController extends Controller
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Applicant $applicant)
+    public function updateAll(Request $request, Applicant $applicant)
     {
         $input = $request->input();
 
@@ -127,6 +127,91 @@ class SkillsController extends Controller
 
 
         return redirect( route('profile.skills.edit', $applicant) );
+    }
+
+    /**
+     * Create the particular skill declaration in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $user = $request->user();
+        $applicant = $user->applicant;
+
+        debugbar()->debug($request->input());
+
+        //Get the default claim status id
+        $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
+
+        // Create a new Skill Declaration
+        $skillDeclaration = new SkillDeclaration();
+        $skillDeclaration->applicant_id = $applicant->id;
+        $skillDeclaration->skill_id = $request->input('skill_id');
+        $skillDeclaration->skill_status_id = $claimedStatusId;
+
+        //Fill variable values
+        $skillDeclaration->fill([
+            'description' => $request->input('description'),
+            'skill_level_id' => $request->input('skill_level_id'),
+        ]);
+
+        //Save this skill declaration
+        $skillDeclaration->save();
+
+        //Attach relatives
+        $referenceIds = $this->getRelativeIds($request->input(), 'references');
+        $skillDeclaration->references()->sync($referenceIds);
+
+        $sampleIds = $this->getRelativeIds($request->input(), 'samples');
+        $skillDeclaration->work_samples()->sync($sampleIds);
+
+        // If an ajax request, return the new object
+        if($request->ajax()) {
+            $skillDeclaration->load('references');
+            $skillDeclaration->load('work_samples');
+            return $skillDeclaration->toArray();
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Update the particular skill declaration in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\SkillDeclaration  $skillDeclaration
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, SkillDeclaration $skillDeclaration)
+    {
+        $this->authorize('update', $skillDeclaration);
+
+        //Fill variable values
+        $skillDeclaration->fill([
+            'description' => $request->input('description'),
+            'skill_level_id' => $request->input('skill_level_id'),
+        ]);
+
+        //Save this skill declaration
+        $skillDeclaration->save();
+
+        //Attach relatives
+        $referenceIds = $this->getRelativeIds($request->input(), 'references');
+        $skillDeclaration->references()->sync($referenceIds);
+
+        $sampleIds = $this->getRelativeIds($request->input(), 'samples');
+        $skillDeclaration->work_samples()->sync($sampleIds);
+
+        // If an ajax request, return the new object
+        if($request->ajax()) {
+            $skillDeclaration->load('references');
+            $skillDeclaration->load('work_samples');
+            return $skillDeclaration->toArray();
+        }
+
+        return redirect()->back();
     }
 
     /**

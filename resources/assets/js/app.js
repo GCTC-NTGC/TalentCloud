@@ -29,7 +29,6 @@
 
         var ua = navigator.userAgent;
         ua = ua.toString();
-        console.log("hello");
         $('body').attr('id', ua);
 
     $(document).ready(function() {
@@ -160,7 +159,7 @@
                             //TODO: catch and present errors
 
                         } else {
-                            //If no deletion url provided, simply delete the
+                            //If item isn't saved on server yet, simply delete the
                             // object and close the modal.
 
                             closeModal(trigger);
@@ -284,6 +283,73 @@
 
                 labelHandlers();
 
+                // Save Trigger ==================================================
+
+                    function addSubmitTrigger(object) {
+
+                        var form = $(object).find('form').first();
+
+                        $(form).on("submit", function(event){
+                            event.preventDefault();
+                            var formData = $(form).serialize();
+
+                            //If object has been saved to server, update it
+                            if ( $(object).attr('data-item-saved') ) {
+                                var itemId = $(object).attr('data-item-id');
+                                var itemUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                                $(object).addClass('working');
+
+                                axios.put(itemUrl, formData)
+                                    .then(function(response) {
+                                        console.log(response);
+                                        var itemId = response.data.id; //TODO: set response up
+                                        setItemSaved(object, itemId);
+
+                                        $(object).removeClass('working');
+                                    }).catch(function(error) {
+                                        console.log(error);
+                                        $(object).removeClass('working');
+                                    });
+                                //TODO: catch and present errors
+
+                            } else {
+                                //If item isn't saved on server yet, create it
+
+                                var resourceUrl = $(object).attr('data-item-url').replace(':id', "");
+                                $(object).addClass('working');
+
+                                axios.post(resourceUrl, formData)
+                                    .then(function(response) {
+                                        console.log(response);
+                                        //Prepare object to Update next time
+                                        var itemId = response.data.id; //TODO: set response up
+                                        setItemSaved(object, itemId);
+
+                                        $(object).removeClass('working');
+                                    }).catch(function(error) {
+                                        console.log(error);
+                                        $(object).removeClass('working');
+                                    });
+                            }
+                        });
+                    }
+
+                    //Set object attributes to reflect that it has been saved on server
+                    function setItemSaved(object, id) {
+                        var itemUrl = $(object).attr('data-item-url').replace(':id', id);
+
+                        $(object).attr('data-item-saved', 'true');
+                        $(object).attr('data-item-id', id);
+
+                        var form = $(object).find('form').first();
+                        $(form).attr('action', itemUrl);
+                        $(form).find('input[name=_method]').attr('value', 'PUT');
+
+                        $(object).removeClass('active');
+                    }
+
+
+
         // Individualizing repeater name and id attributes======================
 
                 //Individualize template attributes
@@ -390,6 +456,11 @@
                     // Reactivate Nested Relatives
                         loadProfileRelatives();
 
+                    // Set save trigger on ajax forms
+                    if (template.hasClass('ajax-form')) {
+                        addSubmitTrigger(template);
+                    }
+
                 }
 
                 // Click Trigger
@@ -416,6 +487,11 @@
 
                         }
 
+                    });
+
+                // add submit listener to ajax forms
+                    $(".ajax-form").each(function(index, element) {
+                        addSubmitTrigger(element);
                     });
 
             // Remove Profile Element
