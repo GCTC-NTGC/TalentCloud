@@ -96,6 +96,28 @@ If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sa
 
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
+## OPTIONAL Installing and using NODE.js for CSS/JavaScript editing:
+
+You can choose to install NODE.js if you don't already have it, particularly for the purposes of editing css or javascript code. 
+
+First download the applicable package here ; https://nodejs.org/en/
+
+Then after installation completes, restart your computer and open Powershell.
+
+Type in the commands,
+
+```
+npm install and
+```
+then,
+```
+npm update
+```
+Finally type in,
+```
+npm run dev
+```
+And you are done.
 
 ## Useful Commands:
 ```
