@@ -102,7 +102,7 @@ You can choose to install NODE.js if you don't already have it, particularly for
 
 First download the applicable package here ; https://nodejs.org/en/
 
-Then after installation completes, restart your computer and open Powershell.
+Then after installation completes, restart your computer and open Powershell. Navigate to your TalentCloud directory. 
 
 Type in the commands,
 
