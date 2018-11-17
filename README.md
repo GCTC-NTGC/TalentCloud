@@ -18,7 +18,7 @@ The Talent Cloud site uses:
 ## Running the Talent Cloud server with Docker on a Windows machine:
 1. Install Docker for Windows
 
-A) Check your evironment variables for any Docker Toolboxor or previous Docker installaion version remnants and clear them.
+A) Check your environment variables for any Docker Toolbox or previous Docker installation version remnants and clear them.
 
 Go to Control Panel\All Control Panel Items\System Then click Advanced system settings, In System Properties, Go to Advanced Tab and Click Environment Variables. Delete all DOCKER_* from System/User variables.
 
@@ -52,9 +52,9 @@ B) If prompted, allow Docker through Windows Firewall.
     If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 5. Execute gen_certs.bat or run
-	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
+	`docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
 
-	If that doesn't work, try manually replacing $pwd with the absolute path to the TalentCloud directory.
+	If that doesn't work, try manually replacing $PWD with the absolute path to the TalentCloud directory.
 
     If that doesn't work, you should restart your computer and attempt to run gen_certs.bat again.
 
@@ -100,13 +100,13 @@ For further customization to your tests investigate the php.xml file and include
 ## Useful Commands:
 ```
 Generate site certificate
-	docker run --rm -v ${pwd}/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+	docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 Run composer install
-	docker run --rm -v ${pwd}:/app composer/composer install
+	docker run --rm -v $PWD:/app composer/composer install
 
 Run composer update
-	docker run --rm --interactive --tty --volume ${pwd}/:/app composer "update"
+	docker run --rm --interactive --tty --volume $PWD/:/app composer "update"
 
 To stop and delete all existing Docker containers (can fix some errors)
 	docker stop $(docker ps -a -q)
