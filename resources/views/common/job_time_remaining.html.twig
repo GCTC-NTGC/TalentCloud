@@ -1,6 +1,7 @@
 <span>
     {% if job.close_date_time.isFuture() %}
-        {{ template.time_remaining|replace({":time":job.timeRemaining()}) }}
+        {% set time = job.close_date_time.diffForHumans(null, true) %}
+        {{ template.time_remaining|replace({':time': time}) }}
     {% else %}
         {{ template.job_closed }}
     {% endif %}

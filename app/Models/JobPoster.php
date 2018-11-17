@@ -170,12 +170,4 @@ class JobPoster extends BaseModel {
             && $this->open_date_time->isPast()
             && $this->close_date_time->isFuture();
     }
-
-    public function timeRemaining() {
-        if ($this->close_date_time->isFuture()) {
-            return $this->close_date_time->diffForHumans(null, true);
-        } else {
-            return $this->close_date_time->diffForHumans(Date::now());
-        }
-    }
 }
