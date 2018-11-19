@@ -50,28 +50,7 @@ class WorkSamplesController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-
-        $request->validate([
-            'work_samples[:template][:id][name]' => [
-                'required',
-             ],   
-            'work_samples[:template][:id][file_type_id] ' => [
-                'required',
-            ],
-            'work_samples[:template][:id][url]' => [
-                'url:required', //  The work might not be hosted online depending on the nature of it. i.e. senstiive data/international work/NDA's etc. Maybe revise the required URL?
-            ],
-            'work_samples[:template][:id][description]' => [
-                'nullable',
-                'string',
-                'max:4000' // Allows the applicant to be descriptive with a rather generous paragraph but not so descriptive that the hiring manager will have to contend with a page of text. 
-            ]
-           
-        ]);
-        
-        
         $input = $request->input();
-
         $workSamples = $input['work_samples'];
 
         //Delete old workSamples that weren't resubmitted

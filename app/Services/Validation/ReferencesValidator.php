@@ -5,7 +5,7 @@ namespace App\Services\Validation;
 class ReferencesValidator 
 {
 /* 
-*
+* Requires error message implementation and proper namespace usage. 
 */
 
   public function validate(Request $request, Applicant $applicant)

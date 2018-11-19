@@ -2,15 +2,13 @@
 
 namespace App\Services\Validation;
 
-use App\Http\Controllers\ExperienceController
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\ExperienceController;
+
 
 class ExperienceValidator
 {
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Requires error message implementation and proper namespace usage. 
  */
 
     public function validate(Request $request, Applicant $applicant)
