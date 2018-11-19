@@ -6,11 +6,15 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Skill;
+use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\BulkSkillDeclarationValidator;
+use App\Services\Validation\Rules\UniqueApplicantSkillRule;
+use App\Services\Validation\Rules\ApplicantHasRelationRule;
+use Illuminate\Validation\Rule;
 
 class SkillsController extends Controller
 {
@@ -137,10 +141,30 @@ class SkillsController extends Controller
      */
     public function create(Request $request)
     {
+        $this->authorize('create', SkillDeclaration::class);
+
         $user = $request->user();
         $applicant = $user->applicant;
 
-        debugbar()->debug($request->input());
+        $skill_level_ids = SkillLevel::all()->pluck('id');
+        $skill_ids = Skill::all()->pluck('id');
+        $uniqueSkillRule = new UniqueApplicantSkillRule($applicant);
+        $applicantHasSkillRule = new ApplicantHasRelationRule($applicant, 'skill_declarations');
+
+        $request->validate([
+            'skill_id' => [
+                'required',
+                Rule::in($skill_ids->toArray()),
+                $uniqueSkillRule,
+            ],
+            'skill_level_id' => [
+                'required',
+                Rule::in($skill_level_ids->toArray()),
+            ],
+            'description' => 'string|required',
+            'fake' => 'string',
+            'fake_2' => 'numeric|min:10'
+        ]);
 
         //Get the default claim status id
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
@@ -151,32 +175,8 @@ class SkillsController extends Controller
         $skillDeclaration->skill_id = $request->input('skill_id');
         $skillDeclaration->skill_status_id = $claimedStatusId;
 
-        //Fill variable values
-        $skillDeclaration->fill([
-            'description' => $request->input('description'),
-            'skill_level_id' => $request->input('skill_level_id'),
-        ]);
-
-        //Save this skill declaration
-        $skillDeclaration->save();
-
-        //Attach relatives
-        $referenceIds = $this->getRelativeIds($request->input(), 'references');
-        $skillDeclaration->references()->sync($referenceIds);
-
-        $sampleIds = $this->getRelativeIds($request->input(), 'samples');
-        $skillDeclaration->work_samples()->sync($sampleIds);
-
-        // If an ajax request, return the new object
-        if($request->ajax()) {
-            $skillDeclaration->load('references');
-            $skillDeclaration->load('work_samples');
-            $skillDeclaration->load('skill');
-            $skillDeclaration->load('skill_status');
-            return $skillDeclaration->toArray();
-        }
-
-        return redirect()->back();
+        //Update variable fields in skill declaration
+        return $this->updateSkillDeclaration($request, $skillDeclaration);
     }
 
     /**
@@ -190,6 +190,23 @@ class SkillsController extends Controller
     {
         $this->authorize('update', $skillDeclaration);
 
+        $skill_level_ids = SkillLevel::all()->pluck('id');
+
+        $request->validate([
+            'skill_level_id' => [
+                'required',
+                Rule::in($skill_level_ids->toArray()),
+            ],
+            'description' => 'string|required',
+            'fake' => 'string',
+            'fake_2' => 'numeric|min:10'
+        ]);
+
+        return $this->updateSkillDeclaration($request, $skillDeclaration);
+    }
+
+    protected function updateSkillDeclaration(Request $request, SkillDeclaration $skillDeclaration)
+    {
         //Fill variable values
         $skillDeclaration->fill([
             'description' => $request->input('description'),

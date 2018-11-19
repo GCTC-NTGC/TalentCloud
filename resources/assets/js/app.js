@@ -302,10 +302,10 @@
                                 axios.put(itemUrl, formData)
                                     .then(function(response) {
                                         setItemSaved(object, response);
-
+                                        clearFormErrors(object);
                                         $(object).removeClass('working');
                                     }).catch(function(error) {
-                                        console.log(error);
+                                        showFormErrors(object, error.response);
                                         $(object).removeClass('working');
                                     });
                                 //TODO: catch and present errors
@@ -319,10 +319,10 @@
                                 axios.post(resourceUrl, formData)
                                     .then(function(response) {
                                         setItemSaved(object, response);
-
+                                        clearFormErrors(object);
                                         $(object).removeClass('working');
                                     }).catch(function(error) {
-                                        console.log(error);
+                                        showFormErrors(object, error.response);
                                         $(object).removeClass('working');
                                     });
                             }
@@ -363,6 +363,42 @@
                         $(object).find('.skill__status--level').text(response.data.skill_status.status);
                     }
 
+                    function clearFormErrors(object) {
+                        $(object).find(".form-error").empty();
+                    }
+
+                    function showFormErrors(object, response) {
+                        clearFormErrors(object);
+
+                        //TODO: is this correct way of checking if empty?
+                        if (response.data.errors) {
+                            var list = document.createElement("ul");
+                            $.each(response.data.errors, function(key, value) {
+                                //key is the name of the field associated with the error
+                                //value is a list of error messages associated with a single field
+                                $.each(value, function(i, errorMsg) {
+                                    list.append(makeErrorElement(errorMsg));
+                                });
+                            });
+                            var div = document.createElement("div");
+                            $(div).addClass("site-error").append(list);
+                            $(object).find(".form-error").append(div);
+                        }
+                    }
+
+                    // Return an <li> html element displaying the errorMsg
+                    function makeErrorElement(errorMsg) {
+                        var inner = document.createElement("strong");
+                        $(inner).text(errorMsg);
+
+                        var block = document.createElement("span");
+                        $(block).addClass("help-block").append(inner);
+
+                        var li = document.createElement("li");
+                        $(li).append(block);
+
+                        return li;
+                    }
 
 
 
