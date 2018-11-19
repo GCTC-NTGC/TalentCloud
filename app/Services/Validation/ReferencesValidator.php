@@ -2,42 +2,31 @@
 
 namespace App\Services\Validation;
 
-use
-use Illuminate\Support\Facades\Validator;
-
 class ReferencesValidator 
 {
 /* 
-
- */
+*
+*/
 
   public function validate(Request $request, Applicant $applicant)
     {
-       $request->validate([
-            'degrees[:template][:id][area_of_study]' => [
-                'required',     
+        $request->validate([
+            'references[:template][:id][name]' => [
+                'required',      // Name of Reference shoud be required.
             ],
-            'degrees[:template][:id][institution]' => [
-                'nullable', // Institution is nullable because applicant might have acquired the skills/knowledge on their own or through some other way.
-                'max:255',          
-           ],
-            'courses[:template][:id][name]' => [
-                'required',
+            'references[:template][:id][relationship_id]' => [
+                'required', // Your Relationship should be required. 
             ],
-            'courses[:template][:id][institution]' => [
-                'required', // If someone declares a course we should require them to say where they completed this course.
+            'references[:template][:id][email]' => [
+                'email:required', // Maybe don't make email required incase applicant only has another form of contact info for this reference (Like phone number?) Potentially open this up for more forms of contacting the reference.
             ],
-            'work_experiences[:template][:id][role]' => [
-                'required', // If they decide to fill out Equivalent Experience, a Role should be as well defined,           
-            ], 
-            'work_experiences[:template][:id][company]' => [
-                'nullable', // Not every role belongs to a Company or Group. Someone could be a hobbyist and as such might be hesistant to put something else down here. So nullable.               
-            ],
-            'work_experiences[:template][:id][description]' => [
-                'required',
-                'min:2500' // Hiring managers will probably like atleast a paragraph's worth of information here. Since you tend to have to back up Equivalent Experience more often than other forms of "Experience".
+            'references[:template][:id][description]' => [
+                'nullable',
+                'string',
+                'max:4000' // Allows the applicant to be descriptive with a rather generous paragraph but not so descriptive that the hiring manager will have to contend with a page of text. 
             ]
             
-        ]);
+        ]);            
+        
     }
 }

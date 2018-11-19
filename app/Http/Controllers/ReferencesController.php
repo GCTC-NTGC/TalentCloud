@@ -51,24 +51,6 @@ class ReferencesController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-        $request->validate([
-            'references[:template][:id][name]' => [
-                'required',     
-            ],
-            'references[:template][:id][relationship_id]' => [
-                'required',
-            ],
-            'references[:template][:id][email]' => [
-                'email:required', // Maybe don't make email required incase applicant only has another form of contact info for this reference (Like phone number?) Potentially open this up for more forms of contacting the reference.
-            ],
-            'references[:template][:id][description]' => [
-                'nullable',
-                'string',
-                'max:4000' // Allows the applicant to be descriptive with a rather generous paragraph but not so descriptive that the hiring manager will have to contend with a page of text. 
-            ]
-            
-        ]);
-        
         $input = $request->input();
 
         $references = $input['references'];
