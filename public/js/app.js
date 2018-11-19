@@ -341,7 +341,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                 //If object has been saved to server, update it
                                                                                 if ($(object).attr('data-item-saved')) {
                                                                                                     var itemId = $(object).attr('data-item-id');
-                                                                                                    var itemUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                                                                                                    var itemUrl = [$(object).attr('data-item-url'), itemId].join('/');
                                                                                                     $(object).addClass('working');
 
                                                                                                     axios.put(itemUrl, formData).then(function (response) {
@@ -356,7 +356,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                 } else {
                                                                                                     //If item isn't saved on server yet, create it
 
-                                                                                                    var resourceUrl = $(object).attr('data-item-url').replace(':id', "");
+                                                                                                    var resourceUrl = $(object).attr('data-item-url');
                                                                                                     $(object).addClass('working');
 
                                                                                                     axios.post(resourceUrl, formData).then(function (response) {
@@ -384,7 +384,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                                             $(object).addClass('complete');
 
-                                                            var itemUrl = $(object).attr('data-item-url').replace(':id', id);
+                                                            var itemUrl = [$(object).attr('data-item-url'), id].join('/');
 
                                                             $(object).attr('data-item-saved', 'true');
                                                             $(object).attr('data-item-id', id);

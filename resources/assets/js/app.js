@@ -299,7 +299,7 @@
                             //If object has been saved to server, update it
                             if ( $(object).attr('data-item-saved') ) {
                                 var itemId = $(object).attr('data-item-id');
-                                var itemUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                                var itemUrl = [$(object).attr('data-item-url'), itemId].join('/');
                                 $(object).addClass('working');
 
                                 axios.put(itemUrl, formData)
@@ -316,7 +316,7 @@
                             } else {
                                 //If item isn't saved on server yet, create it
 
-                                var resourceUrl = $(object).attr('data-item-url').replace(':id', "");
+                                var resourceUrl = $(object).attr('data-item-url');
                                 $(object).addClass('working');
 
                                 axios.post(resourceUrl, formData)
@@ -345,7 +345,7 @@
                         
                         $(object).addClass('complete');
 
-                        var itemUrl = $(object).attr('data-item-url').replace(':id', id);
+                        var itemUrl = [$(object).attr('data-item-url'), id].join('/');
 
                         $(object).attr('data-item-saved', 'true');
                         $(object).attr('data-item-id', id);

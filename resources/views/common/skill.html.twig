@@ -30,6 +30,50 @@
     {% endif %}
 {% endif %}
 
+{# NOTE: AJAX Form Submission #}
+{#
+    This template contains a form meant to be submitted through AJAX. A number
+     of elements make this work.
+    First, the parent div must have the class 'ajax-form', which triggers the
+     js handlers.
+    This parent div mus also have the following data- attributes:
+        data-item-saved: this should be "true" if this item is represented on
+         server, and empty otherwise. (NOTE that the string "false" still
+         evaluates to True in js because it is not empty.)
+        data-item-url: this should be the api url for this resource. A POST to
+         this url should create a resource, a PUT to 'url/id' should update
+         the resource with that id, and a DELETE to 'url/id' should delete the
+         resource.
+        data-item-id: if data-item-saved is True, this must be the primary id
+         of the resource according to the server. Otherwise, it is ignored.
+
+        NOTE: data-item-saved and data-item-id are modified by javascript when
+         the item is saved with AJAX
+
+    Any element with the class "remove-on-save" will be removed from the DOM
+     when the form is successfully submitted.
+    Any element with the class "reveal-on-save" will have the "hidden" class
+     removed when the form is successfully submitted.
+
+    Add an empty div with the "form-error" to contain errors returned by the
+     server. NOTE: the contents of this div will be removed on successful
+     submission.
+
+    The 'skill' class in the parent div is used to determine that skill-specific
+     logic should run when this item is saved. (Updating the UI.)
+
+    HTML Form Fallback:
+        A few features make this form work even when Javascript is disabled,
+         though less elegantly.
+        The form element 'action' attribute is set by the template to be correct
+         whether this item exists on the server yet or not.
+        Similarly, a hidden input field named "_method" allows the server to
+         treat the form request as a PUT request if appropriate.
+        NOTE: Errors from an HTML form request will not display within the
+         "form-error" element. The 'form_errors' template should still be
+         included somewhere on the page that contains this template.
+
+#}
 <div
     class="profile-element accordion skill ajax-form
         {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
@@ -39,7 +83,7 @@
         modal-target-object"
 
     data-item-saved="{{ skill_declaration ? "true" : "" }}"
-    data-item-url="{{ route("skill_declarations.destroy", ':id') }}"
+    data-item-url="{{ route("skill_declarations.create") }}"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}"
     >
 
