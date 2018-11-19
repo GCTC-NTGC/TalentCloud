@@ -10,6 +10,7 @@ namespace App\Models;
 use App\Events\JobSaved;
 use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 
 /**
@@ -195,6 +196,6 @@ class JobPoster extends BaseModel {
 
         $key = "common/time.$unit";
 
-        return app('translator')->transChoice($key, $count);
+        return Lang::choice($key, $count);
     }
 }
