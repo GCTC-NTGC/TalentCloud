@@ -172,10 +172,29 @@ class JobPoster extends BaseModel {
     }
 
     public function timeRemaining() {
-        if ($this->close_date_time->isFuture()) {
-            return $this->close_date_time->diffForHumans(null, true);
+        $interval = $this->close_date_time->diff(Date::now());
+
+        $d = $interval->d;
+        $h = $interval->h;
+        $m = $interval->i;
+        $s = $interval->s;
+
+        if ($d > 0) {
+            $unit = 'day';
+            $count = $d;
+        } else if ($h > 0) {
+            $unit = 'hour';
+            $count = $h;
+        } else if ($m > 0) {
+            $unit = 'minute';
+            $count = $m;
         } else {
-            return $this->close_date_time->diffForHumans(Date::now());
+            $unit = 'second';
+            $count = $s;
         }
+
+        $key = "common/time.$unit";
+
+        return app('translator')->transChoice($key, $count);
     }
 }
