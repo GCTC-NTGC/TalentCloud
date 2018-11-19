@@ -537,6 +537,17 @@ class ApplicationByJobController extends Controller
      */
     public function update_essential_skills(Request $request, JobPoster $jobPoster)
     {
+       $messages = Lang:: get('validation.custom');
+       $request->validate([
+           'skill_declarations[old][soft][1][description]' => [
+               'required'
+           ],
+           'skill_declarations[old][soft][2][description]' => [
+               'required'
+           ]
+       ]);
+    
+    
         $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
