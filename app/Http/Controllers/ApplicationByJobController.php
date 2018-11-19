@@ -564,12 +564,12 @@ class ApplicationByJobController extends Controller
                     $skillDeclaration = new SkillDeclaration();
                     $skillDeclaration->applicant_id = $applicant->id;
                     $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
-                    $skillDeclaration->skill_status_id = null; // changed into nul from SkillClaimed and skill still shows claiimed?
+                    $skillDeclaration->skill_status_id = null; 
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
                         'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
-                    $skillDeclaration->save();  //Commented out to see if it will save new skill declarations.
+                    $skillDeclaration->save();  
 
                     $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
                     $skillDeclaration->references()->sync($referenceIds);
