@@ -134,7 +134,10 @@
 
                 function modalDeleteTrigger(trigger, modal, object) {
 
-                    $(document).on("click", ".modal-delete-trigger", function(e){
+                    // .one() unbinds the event handler once it triggers
+                    // This is important because this modal is reused to delete
+                    //  different items.
+                    $(".modal-delete-trigger").one("click", function(e){
 
                         //TODO: when items are saved with ajax too, the check
                         // will become more complicated than checking for a
