@@ -171,6 +171,8 @@ class SkillsController extends Controller
         if($request->ajax()) {
             $skillDeclaration->load('references');
             $skillDeclaration->load('work_samples');
+            $skillDeclaration->load('skill');
+            $skillDeclaration->load('skill_status');
             return $skillDeclaration->toArray();
         }
 
@@ -208,7 +210,9 @@ class SkillsController extends Controller
         if($request->ajax()) {
             $skillDeclaration->load('references');
             $skillDeclaration->load('work_samples');
-            return $skillDeclaration->toArray();
+            $skillDeclaration->load('skill');
+            $skillDeclaration->load('skill_status');
+            return $skillDeclaration->toJson();
         }
 
         return redirect()->back();

@@ -308,7 +308,7 @@
                                 {% if locale == "profile" and skill_declaration == false %}
 
                                     <div
-                                        class="box full">
+                                        class="box full remove-on-save">
 
                                         <div
                                             class="form__input-wrapper--select">
@@ -363,6 +363,8 @@
                                         <p
                                             class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
 
+                                        <p
+                                            class="skill__status reveal-on-save hidden">{{ skill_template.skill_status_label }} <span class="skill__status--level"></span></p>
                                     </div>
 
                                 {% endif %}
@@ -376,7 +378,7 @@
                                         <p
                                             class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
                                         <p
-                                            class="skill__status">{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</p>
+                                            class="skill__status">{{ skill_template.skill_status_label }} {{ skill_template.status[skill_declaration.skill_status.name] }}</p>
                                     </div>
 
                                     <input

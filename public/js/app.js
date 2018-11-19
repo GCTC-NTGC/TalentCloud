@@ -325,7 +325,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                         labelHandlers();
 
-                                        // Save Trigger ==================================================
+                                        // AJAX Form Handlers ==========================================
 
                                         function addSubmitTrigger(object) {
 
@@ -342,9 +342,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                                     $(object).addClass('working');
 
                                                                                                     axios.put(itemUrl, formData).then(function (response) {
-                                                                                                                        console.log(response);
-                                                                                                                        var itemId = response.data.id; //TODO: set response up
-                                                                                                                        setItemSaved(object, itemId);
+                                                                                                                        setItemSaved(object, response);
 
                                                                                                                         $(object).removeClass('working');
                                                                                                     }).catch(function (error) {
@@ -359,10 +357,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                                     $(object).addClass('working');
 
                                                                                                     axios.post(resourceUrl, formData).then(function (response) {
-                                                                                                                        console.log(response);
-                                                                                                                        //Prepare object to Update next time
-                                                                                                                        var itemId = response.data.id; //TODO: set response up
-                                                                                                                        setItemSaved(object, itemId);
+                                                                                                                        setItemSaved(object, response);
 
                                                                                                                         $(object).removeClass('working');
                                                                                                     }).catch(function (error) {
@@ -374,7 +369,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                         }
 
                                         //Set object attributes to reflect that it has been saved on server
-                                        function setItemSaved(object, id) {
+                                        function setItemSaved(object, response) {
+                                                            var id = response.data.id;
+
+                                                            // Run model specific ui updates
+                                                            // Do this before updating data-item-saved attr, so that
+                                                            //  functions can can if they're already saved
+                                                            if ($(object).hasClass('skill')) {
+                                                                                setSkillSaved(object, response);
+                                                            }
+
                                                             var itemUrl = $(object).attr('data-item-url').replace(':id', id);
 
                                                             $(object).attr('data-item-saved', 'true');
@@ -384,7 +388,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                             $(form).attr('action', itemUrl);
                                                             $(form).find('input[name=_method]').attr('value', 'PUT');
 
-                                                            $(object).removeClass('active');
+                                                            $(object).find('.remove-on-save').remove();
+                                                            $(object).find('.reveal-on-save').removeClass('hidden');
+
+                                                            //$(object).removeClass('active');
+                                        }
+
+                                        //Update ui for Skill object to reflect that it has been setItem
+                                        function setSkillSaved(object, response) {
+                                                            console.log(response);
+                                                            $(object).find('.accordion-title').text(response.data.skill.skill);
+                                                            $(object).find('.skill__description').text(response.data.skill.description);
+                                                            $(object).find('.skill__status--level').text(response.data.skill_status.status);
                                         }
 
                                         // Individualizing repeater name and id attributes======================

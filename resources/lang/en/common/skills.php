@@ -17,7 +17,7 @@ return [
     'level_link_label' => '(Find Your Level)',
     'knowledge_label' => 'How I Acquired This Skill',
     'skill_status_null_label' => 'Status: Skill Unclaimed',
-    'skill_status_label' => 'Status: Skill',
+    'skill_status_label' => 'Status:',
     'skill_level_null' => 'No level has been selected.',
     'skill_levels' => [
         'hard' => [
@@ -271,6 +271,6 @@ return [
         ],
     ],
     'status' => [
-        'claimed' => 'Claimed'
+        'claimed' => 'Skill Claimed'
     ]
 ];
