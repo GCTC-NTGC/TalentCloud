@@ -540,6 +540,7 @@ class ApplicationByJobController extends Controller
     {
          //This bit of code validates whether or not there was input in the skill declarations field. It will stop the greencheckmark from appearing after the user has not submitted anything.
         //Code will be expanded upon and fixed once ajax is implemented.
+        //For Need To Have Skills
         $request->validate([
             'skill_declarations[old][soft][1][description]' => [
                'required'
@@ -632,12 +633,14 @@ class ApplicationByJobController extends Controller
      */
     public function update_asset_skills(Request $request, JobPoster $jobPoster)
     {
-        $messages = Lang::get('validation.custom.user_skill_unique'); // Found under app/rules/validation/rules. Wrote up some validaiton for the My Knowledge form.
+         //This bit of code validates whether or not there was input in the skill declarations field. It will stop the greencheckmark from appearing after the user has not submitted anything.
+        //Code will be expanded upon and fixed once ajax is implemented.
+        //For Nice To Have Skills
         $request->validate([
-            'skill_declarations[new][soft][1][description]' => [
+            'skill_declarations[old][soft][1][description]' => [
                'required'
                ]      
-        ], $messages);
+        ] );
         
         
         
