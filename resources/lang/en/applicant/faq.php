@@ -6,7 +6,7 @@ return [
      * FAQ Language Lines
      * --------------------------------------------------------------------------
      *
-     * The following language lines are used in the applicant home page.
+     * The following language lines are used on the FAQ page.
      *
      */
     "title" => "Talent Cloud User Guide",

@@ -104,8 +104,7 @@ return [
     ],
     'know' => [
         'sidebar_title' => 'Voir les informations supplémentaires pour cet emploi.',
-        'title' => 'Bon à savoir
-'
+        'title' => 'Bon à savoir'
     ],
     'apply' => [
         'sidebar_title' => 'Voir la section de candidature pour cet emploi.',

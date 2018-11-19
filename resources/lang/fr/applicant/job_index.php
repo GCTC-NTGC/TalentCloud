@@ -3,10 +3,10 @@
 return [
     /*
      * --------------------------------------------------------------------------
-     * Home Language Lines
+     * Job Index Language Lines
      * --------------------------------------------------------------------------
      *
-     * The following language lines are used in the applicant home page.
+     * The following language lines are used on the job index page.
      *
      */
     "title" => "Parcourir les emplois",

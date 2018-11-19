@@ -18,7 +18,7 @@ return [
         "duration" => [
             'week' => ':count week.|:count weeks.',
             'month' => ':count month.|:count months.',
-            'year' => ':count year.|:count year.',
+            'year' => ':count year.|:count years.',
             'permanent' => 'Permanent.'
         ],
         'remote_work_allowed' => [
