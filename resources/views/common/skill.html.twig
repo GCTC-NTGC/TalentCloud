@@ -35,8 +35,7 @@
         {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
         {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %}
         {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
-        {% if locale == "application" and skill_declaration == true %}complete{% endif %}
-        {% if locale == "application-view" and skill_declaration == true %}complete{% endif %}
+        {% if skill_declaration %}complete{% endif %}
         modal-target-object"
 
     data-item-saved="{{ skill_declaration ? "true" : "" }}"

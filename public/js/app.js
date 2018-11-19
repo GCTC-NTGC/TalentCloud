@@ -382,6 +382,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                 setSkillSaved(object, response);
                                                             }
 
+                                                            $(object).addClass('complete');
+
                                                             var itemUrl = $(object).attr('data-item-url').replace(':id', id);
 
                                                             $(object).attr('data-item-saved', 'true');

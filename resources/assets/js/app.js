@@ -342,6 +342,8 @@
                         if ($(object).hasClass('skill')) {
                             setSkillSaved(object, response);
                         }
+                        
+                        $(object).addClass('complete');
 
                         var itemUrl = $(object).attr('data-item-url').replace(':id', id);
 
