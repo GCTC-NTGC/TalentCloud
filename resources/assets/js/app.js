@@ -148,7 +148,7 @@
                         // succeeds
                         if ( $(object).attr('data-item-saved') ) {
                             var itemId = $(object).attr('data-item-id');
-                            var deleteUrl = $(object).attr('data-item-url').replace(':id', itemId);
+                            var deleteUrl = [$(object).attr('data-item-url'), itemId].join('/');
                             $(modal).addClass('working');
 
                             axios.delete(deleteUrl)
@@ -288,47 +288,54 @@
 
                 // AJAX Form Handlers ==========================================
 
+                    // Submits the object's form, and returns the request Promise
+                    function submitItem(object) {
+                        var form = $(object).find('form').first();
+                        var formData = $(form).serialize();
+
+                        var requestPromise;
+
+                        //If object already exists on server, update it
+                        if ( $(object).attr('data-item-saved') ) {
+                            var itemId = $(object).attr('data-item-id');
+                            var itemUrl = [$(object).attr('data-item-url'), itemId].join('/');
+                            requestPromise = axios.put(itemUrl, formData);
+                        } else {
+                            //If item isn't saved on server yet, create it
+                            var resourceUrl = $(object).attr('data-item-url');
+                            requestPromise = axios.post(resourceUrl, formData);
+                        }
+
+                        return requestPromise;
+                    }
+
+                    function submitAllForms(onSuccess, onError) {
+                        var forms = $(".ajax-form");
+                        var waiting = forms.size();
+
+                    }
+
                     function addSubmitTrigger(object) {
 
                         var form = $(object).find('form').first();
 
+                        function onSave(response) {
+                            setItemSaved(object, response);
+                            clearFormErrors(object);
+                            $(object).removeClass('working');
+                        }
+
+                        function onError(error) {
+                            showFormErrors(object, error.response);
+                            $(object).removeClass('working');
+                        }
+
                         $(form).on("submit", function(event){
+                            $(object).addClass('working');
                             event.preventDefault();
-                            var formData = $(form).serialize();
-
-                            //If object has been saved to server, update it
-                            if ( $(object).attr('data-item-saved') ) {
-                                var itemId = $(object).attr('data-item-id');
-                                var itemUrl = [$(object).attr('data-item-url'), itemId].join('/');
-                                $(object).addClass('working');
-
-                                axios.put(itemUrl, formData)
-                                    .then(function(response) {
-                                        setItemSaved(object, response);
-                                        clearFormErrors(object);
-                                        $(object).removeClass('working');
-                                    }).catch(function(error) {
-                                        showFormErrors(object, error.response);
-                                        $(object).removeClass('working');
-                                    });
-                                //TODO: catch and present errors
-
-                            } else {
-                                //If item isn't saved on server yet, create it
-
-                                var resourceUrl = $(object).attr('data-item-url');
-                                $(object).addClass('working');
-
-                                axios.post(resourceUrl, formData)
-                                    .then(function(response) {
-                                        setItemSaved(object, response);
-                                        clearFormErrors(object);
-                                        $(object).removeClass('working');
-                                    }).catch(function(error) {
-                                        showFormErrors(object, error.response);
-                                        $(object).removeClass('working');
-                                    });
-                            }
+                            submitItem(object)
+                                .then(onSave)
+                                .catch(onError);
                         });
                     }
 
@@ -342,7 +349,7 @@
                         if ($(object).hasClass('skill')) {
                             setSkillSaved(object, response);
                         }
-                        
+
                         $(object).addClass('complete');
 
                         var itemUrl = [$(object).attr('data-item-url'), id].join('/');
@@ -357,7 +364,7 @@
                         $(object).find('.remove-on-save').remove();
                         $(object).find('.reveal-on-save').removeClass('hidden');
 
-                        //$(object).removeClass('active');
+                        $(object).removeClass('active');
                     }
 
                     //Update ui for Skill object to reflect that it has been setItem
