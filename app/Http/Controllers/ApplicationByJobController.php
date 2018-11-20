@@ -542,9 +542,12 @@ class ApplicationByJobController extends Controller
         //Code will be expanded upon and fixed once ajax is implemented.
         //For Need To Have Skills
         $request->validate([
-            'skill_declarations[old][soft][1][description]' => [
+            'skill_declarations[old][hard][1][description]' => [
                'required'
-               ]      
+               ],
+            'skill_declarations[new][hard][1][description]' => [
+               'required'
+            ]
         ]
                 );
        
@@ -639,7 +642,10 @@ class ApplicationByJobController extends Controller
         $request->validate([
             'skill_declarations[old][soft][1][description]' => [
                'required'
-               ]      
+               ],
+            'skill_declarations[new][soft][1][description]' => [
+               'required' 
+            ]
         ] );
         
         
