@@ -1,8 +1,28 @@
 <?php
 
+namespace App\Services\Validation;
+
+use App\Http\Controllers\DegreeController;
+
+
+class DegreeValidator
+{
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Requires error message implementation and proper namespace usage. 
  */
 
+    public function validate(Request $request, Applicant $applicant)
+    {
+       $request->validate([
+            'degrees[:template][:id][area_of_study]' => [
+                'required',
+                
+            ],
+            'degrees[:template][:id][institution]' => [
+                'nullable', // Institution is nullable because applicant might have acquired the skills/knowledge on their own or some other way.
+                'max:255'
+           ]          
+            
+        ]);
+    } 
+}

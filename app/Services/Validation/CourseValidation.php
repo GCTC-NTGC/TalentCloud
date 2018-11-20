@@ -1,8 +1,26 @@
 <?php
 
+namespace App\Services\Validation;
+
+use App\Http\Controllers\CourseController;
+
+
+class CourseValidator
+{
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Requires error message implementation and proper namespace usage. 
  */
 
+    public function validate(Request $request, Applicant $applicant)
+    {
+       $request->validate([
+            'courses[:template][:id][name]' => [
+                'required',
+            ],
+            'courses[:template][:id][institution]' => [
+                'required', // If someone declares a course we should require them to say where they completed this course.
+            ]
+            
+        ]);
+    } 
+}
