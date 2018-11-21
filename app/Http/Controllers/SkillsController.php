@@ -12,9 +12,7 @@ use App\Models\SkillDeclaration;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\BulkSkillDeclarationValidator;
-use App\Services\Validation\Rules\UniqueApplicantSkillRule;
-use App\Services\Validation\Rules\ApplicantHasRelationRule;
-use Illuminate\Validation\Rule;
+use App\Services\Validation\SkillDeclarationValidator;
 
 class SkillsController extends Controller
 {
@@ -146,30 +144,11 @@ class SkillsController extends Controller
         $user = $request->user();
         $applicant = $user->applicant;
 
-        $skill_level_ids = SkillLevel::all()->pluck('id');
-        $skill_ids = Skill::all()->pluck('id');
-        $uniqueSkillRule = new UniqueApplicantSkillRule($applicant);
-        $applicantHasSkillRule = new ApplicantHasRelationRule($applicant, 'skill_declarations');
-
-        $request->validate([
-            'skill_id' => [
-                'required',
-                Rule::in($skill_ids->toArray()),
-                $uniqueSkillRule,
-            ],
-            'skill_level_id' => [
-                'required',
-                Rule::in($skill_level_ids->toArray()),
-            ],
-            'description' => 'string|required',
-            'fake' => 'string',
-            'fake_2' => 'numeric|min:10'
-        ]);
-
         //Get the default claim status id
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
         // Create a new Skill Declaration
+        // But don't save, as it hasn't been validated yet
         $skillDeclaration = new SkillDeclaration();
         $skillDeclaration->applicant_id = $applicant->id;
         $skillDeclaration->skill_id = $request->input('skill_id');
@@ -190,18 +169,6 @@ class SkillsController extends Controller
     {
         $this->authorize('update', $skillDeclaration);
 
-        $skill_level_ids = SkillLevel::all()->pluck('id');
-
-        $request->validate([
-            'skill_level_id' => [
-                'required',
-                Rule::in($skill_level_ids->toArray()),
-            ],
-            'description' => 'string|required',
-            'fake' => 'string',
-            'fake_2' => 'numeric|min:10'
-        ]);
-
         return $this->updateSkillDeclaration($request, $skillDeclaration);
     }
 
@@ -212,6 +179,10 @@ class SkillsController extends Controller
             'description' => $request->input('description'),
             'skill_level_id' => $request->input('skill_level_id'),
         ]);
+
+        //Validate before saving
+        $validator = new SkillDeclarationValidator($request->user()->applicant);
+        $validator->validate($skillDeclaration);
 
         //Save this skill declaration
         $skillDeclaration->save();
