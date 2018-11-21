@@ -356,3 +356,9 @@ INSERT INTO skills (name, skill_type_id, created_at, updated_at) VALUES
 ('user_design', 2, current_timestamp, current_timestamp),
 ('empathy', 1, current_timestamp, current_timestamp),
 ('analysis', 2, current_timestamp, current_timestamp);
+('data_science', 2, current_timestamp, current_timestamp);
+('results_oriented', 1, current_timestamp, current_timestamp);
+('relationship_management', 1, current_timestamp, current_timestamp);
+('data_analysis', 2, current_timestamp, current_timestamp);
+('data_mining', 2, current_timestamp, current_timestamp);
+('r_programming', 2, current_timestamp, current_timestamp);
