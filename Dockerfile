@@ -9,7 +9,8 @@ RUN docker-php-ext-install pdo mbstring pgsql pdo_pgsql zip && \
         pecl install xdebug && \
         docker-php-ext-enable xdebug
 
-WORKDIR /var/www
 COPY . /var/www
+WORKDIR /var/www
+USER www-data
 RUN composer install
 EXPOSE 9000
