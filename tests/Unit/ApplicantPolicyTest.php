@@ -29,5 +29,13 @@ class ApplicantPolicyTest extends BasePolicyTest
         $applicant2 = $this->makeApplicant(2);
         $user1CanViewApplicant2 = $this->getPolicy()->view($applicant->user, $applicant2);
         $this->assertFalse($user1CanViewApplicant2);
+
+        //Test 3: new manager cannot view new applicant
+
+        //Test 4: applicant starts a job application but doesn't submit.
+        //  Manager should not be able to view applicant
+
+        //Test 5: applicant submits a job application. Job's manager should be
+        //  able to view applicant.
     }
 }
