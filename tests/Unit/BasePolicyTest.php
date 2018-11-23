@@ -6,17 +6,21 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use App\Models\User;
+use App\Models\Applicant;
+use App\Models\UserRole;
+
 /**
  * A base class for Policy tests
  */
-class BasePolicyTest extends TestCase
+abstract class BasePolicyTest extends TestCase
 {
 
     protected $nextId = 1;
 
     protected function makeId() {
-        $id = $nextId;
-        $nextId = $nextId + 1;
+        $id = $this->nextId;
+        $this->nextId = $this->nextId + 1;
         return $id;
     }
 
