@@ -18,12 +18,13 @@ install:
   - docker exec talentcloud sh -c "php artisan key:generate"
   - docker exec talentcloud sh -c "php artisan config:cache"
   - make build-db
+  - docker tag . gctcntgc/talentcloud:travis
 
 script:
-  # vendor/bin/phpunit --coverage-clover=coverage.xml
   - make phpunit
-  - docker exec talentcloud sh -c "wget https://scrutinizer-ci.com/ocular.phar"
-  - docker exec talentcloud sh -c "php ocular.phar code-coverage:upload --format=php-clover coverage.xml"
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
 after_script:
   - make docker-stop
@@ -31,7 +32,6 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker tag . gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
