@@ -22,7 +22,7 @@ script:
   - docker exec talentcloud sh -c "php artisan key:generate"
   - docker exec talentcloud sh -c "php artisan config:cache"
   - make build-db
-  - docker tag talentcloud:travis gctcntgc/talentcloud:travis
+  - docker tag talentcloud:latest gctcntgc/talentcloud:travis
 
 after_script:
   - make phpunit
