@@ -11,12 +11,13 @@ services:
 
 install:
   - cp -a .env.example .env
+  - php artisan key:generate
+  - php artisan config:cache
   - make gen-certs
   - docker-compose up -d
   - docker run --rm -v $PWD:/app composer/composer install
+  - make set-root-perms
   - make build-db
-  - php artisan key:generate
-  - php artisan config:cache
 
 script:
   # make code-sniff
