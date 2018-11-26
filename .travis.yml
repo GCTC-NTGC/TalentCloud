@@ -29,7 +29,7 @@ after_script:
   # make phpunit
   - mkdir shared
   - docker volume create sharedir
-  - docker run -v /var/www/shared:/var/lib/docker/volumes/sharedir/_data talentcloud_talentcloud:latest
+  - docker run -d -v /var/www/shared:/var/lib/docker/volumes/sharedir/_data talentcloud_talentcloud:latest
   - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-text=coverage.txt --configuration ./
   - docker cp coverage.txt var/lib/docker/volumes/sharedir/_data
   - docker exec talentcloud sh -c "mv coverage.txt /var/lib/docker/volumes/sharedir/_data/coverage.txt"
