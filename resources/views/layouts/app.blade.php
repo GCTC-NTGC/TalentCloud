@@ -44,20 +44,29 @@
         <?php /* Google Fonts */ ?>
 
             <link
+<<<<<<< HEAD
+                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
+                rel="stylesheet">
+=======
                 rel="stylesheet"
                 href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
                 integrity="sha384-wtubEdaW1fZdR8xN2bJ3LDIl8dy78toAxZPHgcxeSe8U4pHzzkYzFwR5spr/tDUj"
                 crossorigin="anonymous">
+>>>>>>> dev
 
         <?php /* Google Analytics */ ?>
 
             <!-- Global site tag (gtag.js) - Google Analytics -->
 
+<<<<<<< HEAD
+                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"></script>
+=======
                 <script
                     async
                     src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
                     integrity="sha384-bRIbmosc8tXvRiCc91flCR8aYMe9gO4uflxPoGoBsRSw8gfjtnNFcTJhonxfWKqF"
                     crossorigin="anonymous"></script>
+>>>>>>> dev
 
                 <script>
                     window.dataLayer = window.dataLayer || [];
@@ -76,9 +85,9 @@
 
         <?php /* Modernizr */ ?>
 
-            <script
-                src="/js/modernizr.js">
-            </script>
+        <script
+            src="{{ mix('/js/modernizr.js') }}">
+        </script>
 
         <?php /* jQuery & UI */ ?>
 
@@ -118,7 +127,7 @@
             <?php /* App */ ?>
 
                 <link
-                    href="/css/app.css"
+                    href="{{ mix('/css/app.css') }}"
                     rel="stylesheet"
                     type="text/css"/>
 
@@ -140,15 +149,19 @@
         @yield('content')
 
         <script
-            src="/js/jquery-ui.min.js">
+            src="{{ mix('/js/bootstrap.js') }}">
         </script>
 
         <script
-            src="/js/autocomplete.js">
+            src="{{ mix('/js/jquery-ui.min.js') }}">
         </script>
 
         <script
-            src="/js/app.js">
+            src="{{ mix('/js/autocomplete.js') }}">
+        </script>
+
+        <script
+            src="{{ mix('/js/app.js') }}">
         </script>
 
     </body>
