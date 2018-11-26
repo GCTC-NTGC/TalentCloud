@@ -44,6 +44,7 @@
                         <a
                             href="{{ urls.twitter|replace({':username':manager.twitter_username}) }}"
                             target="_blank"
+                            rel="noopener noreferrer"
                             title="{{ profile.header.twitter_title|replace({':name':user.name}) }}">
                             <i class="fab fa-twitter"></i>
                             <span class="hidden">{{ profile.header.twitter_title|replace({':name':user.name}) }}</span>
@@ -54,6 +55,7 @@
                         <a
                             href="{{ manager.linkedin_url }}"
                             target="_blank"
+                            rel="noopener noreferrer"
                             title="{{ profile.header.linkedin_title|replace({':name':user.name}) }}">
                             <i class="fab fa-linkedin"></i>
                             <span class="hidden">{{ profile.header.linkedin_title|replace({':name':user.name}) }}</span>
