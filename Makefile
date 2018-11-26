@@ -23,6 +23,9 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
+composer-install:
+	@docker run --rm -v $(shell pwd):/app composer/composer install
+
 docker-start:
 	@docker-compose up -d
 
@@ -51,4 +54,4 @@ set-root-perms:
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff docker-start docker-stop fake-data gen-certs logs phpmd phpunit set-root-perms test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data gen-certs logs phpmd phpunit set-root-perms test-all

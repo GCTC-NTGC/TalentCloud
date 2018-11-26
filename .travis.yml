@@ -14,14 +14,12 @@ install:
   - make gen-certs
   - docker-compose up -d
   - make set-root-perms
-  - docker run --rm -v $PWD:/app composer/composer install
+  - make composer-install
   - docker exec talentcloud sh -c "php artisan key:generate"
   - docker exec talentcloud sh -c "php artisan config:cache"
   - make build-db
 
 script:
-  # make code-sniff
-  # make test
   # vendor/bin/phpunit --coverage-clover=coverage.xml
   - make phpunit
   - wget https://scrutinizer-ci.com/ocular.phar
@@ -32,9 +30,9 @@ after_script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  # docker build -t gctcntgc/talentcloud:travis
-  # docker push gctcntgc/talentcloud:travis
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t gctcntgc/talentcloud:travis
+  - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:
