@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         //Force all routes and requests to use HTTPS
-        $this->app['request']->server->set('HTTPS', true);
+        $this->app['request']->server->set('HTTPS', config('app.force_https'));
     }
 
     /**

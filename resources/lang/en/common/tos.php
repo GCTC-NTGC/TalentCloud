@@ -18,20 +18,20 @@ return [
                 "00" => [
                     "title" => "Using files located on non-Government of Canada servers",
                     "copy" => [
-                        "00" => "To improve the functionality of Government of Canada websites, certain files (such as open source libraries, images and scripts) may be delivered automatically to your browser via a trusted third-party server or content delivery network. The delivery of these files is intended to provide a seamless user experience by speeding response times and avoiding the need for each visitor to download these files. Where applicable, specific privacy statements covering these files are included in our <a href=\"https://www.canada.ca/en/transparency/privacy.html\" target=\"_target\">Privacy Notice</a>."
+                        "00" => "To improve the functionality of Government of Canada websites, certain files (such as open source libraries, images and scripts) may be delivered automatically to your browser via a trusted third-party server or content delivery network. The delivery of these files is intended to provide a seamless user experience by speeding response times and avoiding the need for each visitor to download these files. Where applicable, specific privacy statements covering these files are included in our <a href=\"https://www.canada.ca/en/transparency/privacy.html\" target=\"_blank\">Privacy Notice</a>."
                     ]
                 ],
                 "01" => [
                     "title" => "Providing content in Canada’s official languages",
                     "copy" => [
-                        "00" => "The <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/\" target=\"_target\">Official Languages Act</a>, the <a href=\"http://laws.justice.gc.ca/eng/regulations/SOR-92-48/index.html\" target=\"_target\">Official Languages (Communications with and Services to the Public) Regulations</a> and Treasury Board policy requirements establish when we use both English and French to provide services to or communicate with members of the public. When there is no obligation to provide information in both official languages, content may be available in one official language only. Information provided by organizations not subject to the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/\" target=\"_target\">Official Languages Act</a> is in the language(s) provided. Information provided in a language other than English or French is only for the convenience of our visitors."
+                        "00" => "The <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/\" target=\"_blank\" rel=\"noopener noreferrer\">Official Languages Act</a>, the <a href=\"http://laws.justice.gc.ca/eng/regulations/SOR-92-48/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Official Languages (Communications with and Services to the Public) Regulations</a> and Treasury Board policy requirements establish when we use both English and French to provide services to or communicate with members of the public. When there is no obligation to provide information in both official languages, content may be available in one official language only. Information provided by organizations not subject to the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/\" target=\"_blank\" rel=\"noopener noreferrer\">Official Languages Act</a> is in the language(s) provided. Information provided in a language other than English or French is only for the convenience of our visitors."
                     ]
                 ],
                 "02" => [
                     "title" => "Linking to non-Government of Canada websites",
                     "copy" => [
                         "00" => "Links to websites not under the control of the Government of Canada, including those to our social media accounts, are provided solely for the convenience of our website visitors. We are not responsible for the accuracy, currency or reliability of the content of such websites. The Government of Canada does not offer any guarantee in that regard and is not responsible for the information found through these links, and does not endorse the sites and their content.",
-                        "01" => "Visitors should also be aware that information offered by non-Government of Canada sites to which this website links is not subject to the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/P-21/index.html\" target=\"_target\">Privacy Act</a> or the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/\" target=\"_target\">Official Languages Act</a> and may not be accessible to persons with disabilities. The information offered may be available only in the language(s) used by the sites in question. With respect to privacy, visitors should research the privacy policies of these non-government websites before providing personal information."
+                        "01" => "Visitors should also be aware that information offered by non-Government of Canada sites to which this website links is not subject to the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/P-21/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy Act</a> or the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/\" target=\"_blank\" rel=\"noopener noreferrer\">Official Languages Act</a> and may not be accessible to persons with disabilities. The information offered may be available only in the language(s) used by the sites in question. With respect to privacy, visitors should research the privacy policies of these non-government websites before providing personal information."
                     ]
                 ],
                 "03" => [
@@ -68,22 +68,22 @@ return [
                         "03" => [
                             "type" => "ul",
                             "items" => [
-                                "00" => "complete the <a href=\"http://www1.canada.ca/en/contact/questions.html\" target=\"_target\">Questions and comments form</a>"
+                                "00" => "complete the <a href=\"http://www1.canada.ca/en/contact/questions.html\" target=\"_blank\">Questions and comments form</a>"
                             ]
                         ],
-                        "04" => "Some of the content on this site may be subject to the copyright of another party. Where information has been produced or copyright is not held by the Government of Canada, the materials are protected under the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-42/index.html\" target=\"_target\">Copyright Act</a>, and international agreements. Details concerning copyright ownership are indicated on the relevant page(s)."
+                        "04" => "Some of the content on this site may be subject to the copyright of another party. Where information has been produced or copyright is not held by the Government of Canada, the materials are protected under the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-42/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Copyright Act</a>, and international agreements. Details concerning copyright ownership are indicated on the relevant page(s)."
                     ]
                 ],
                 "06" => [
                     "title" => "Trademark notice",
                     "copy" => [
-                        "00" => "The official symbols of the Government of Canada, including the Canada wordmark, the Arms of Canada, and the flag symbol may not be reproduced, whether for commercial or non-commercial purposes, without prior <a href=\"https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/federal-identity-program/technical-specifications/official-symbols/legal-protection-canada.html\" target=\"_target\">written authorization</a>."
+                        "00" => "The official symbols of the Government of Canada, including the Canada wordmark, the Arms of Canada, and the flag symbol may not be reproduced, whether for commercial or non-commercial purposes, without prior <a href=\"https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/federal-identity-program/technical-specifications/official-symbols/legal-protection-canada.html\" target=\"_blank\">written authorization</a>."
                     ]
                 ],
                 "07" => [
                     "title" => "Our commitment to accessibility",
                     "copy" => [
-                        "00" => "The Government of Canada is committed to achieving a high standard of accessibility as defined in the <a href=\"http://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=23601\" target=\"_target\">Standard on Web Accessibility</a> and the <a href=\"http://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=27088\" target=\"_target\">Standard on Optimizing Websites and Applications for Mobile Devices</a>. In the event of difficulty using our web pages, applications or device-based mobile applications, contact us for assistance or to obtain alternative formats such as regular print, Braille or another appropriate format."
+                        "00" => "The Government of Canada is committed to achieving a high standard of accessibility as defined in the <a href=\"http://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=23601\" target=\"_blank\" rel=\"noopener noreferrer\">Standard on Web Accessibility</a> and the <a href=\"http://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=27088\" target=\"_blank\" rel=\"noopener noreferrer\">Standard on Optimizing Websites and Applications for Mobile Devices</a>. In the event of difficulty using our web pages, applications or device-based mobile applications, contact us for assistance or to obtain alternative formats such as regular print, Braille or another appropriate format."
                     ]
                 ],
                 "08" => [
@@ -147,7 +147,7 @@ return [
                 "14" => [
                     "title" => "Copyright",
                     "copy" => [
-                        "00" => "Information posted by the Government of Canada is subject to the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-42/index.html\" target=\"_target\">Copyright Act</a>."
+                        "00" => "Information posted by the Government of Canada is subject to the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-42/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Copyright Act</a>."
                     ]
                 ],
                 "15" => [
@@ -159,7 +159,7 @@ return [
                 "15" => [
                     "title" => "Official languages",
                     "copy" => [
-                        "00" => "Many social media platforms have multiple language options and provide instructions on how to set your preferences. The Government of Canada respects the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/index.html\" target=\"_target\">Official Languages Act</a> and is committed to ensuring that our information is available in both French and English and that both versions are of equal quality."
+                        "00" => "Many social media platforms have multiple language options and provide instructions on how to set your preferences. The Government of Canada respects the <a href=\"http://laws-lois.justice.gc.ca/eng/acts/O-3.01/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Official Languages Act</a> and is committed to ensuring that our information is available in both French and English and that both versions are of equal quality."
                     ]
                 ]
             ]

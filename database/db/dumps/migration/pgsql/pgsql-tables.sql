@@ -25,7 +25,7 @@ DROP DATABASE IF EXISTS testdb;
 -- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
--- Host: talentcloud-db
+-- Host: postgres
 -- Generation Time: Aug 01, 2018 at 07:41 PM
 -- Server version: 5.6.41
 -- PHP Version: 7.2.6

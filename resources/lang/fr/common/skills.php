@@ -269,6 +269,30 @@ return [
             'name' => 'Analyse',
             'description' => 'Se définit comme suit : Capacité à recueillir et à utiliser des données qualitatives et quantitatives pour prendre des décisions de conception.'
         ],
+        'data_science' => [
+            'name' => 'Science des données',
+            'description' => 'Se définit comme suit : Capacité à utiliser des méthodes, processus, algorithmes et systèmes scientifiques pour extraire des connaissances et des perceptions des données de diverses formes, structurées ou non structurées. '
+        ],
+        'results_oriented' => [
+            'name' => 'Axé sur les résultats',
+            'description' => 'Se définit comme suit : Capacité d’axer les efforts pour atteindre des résultats de qualité conformes à la vision globale.'
+        ],
+        'relationship_management' => [
+            'name' => 'Gestion des relations',
+            'description' => 'Se définit comme suit : Capacité de développer des relations de travail respectueuses, constructives et coopératives avec les autres, et de les maintenir au fil du temps.'
+        ],
+        'data_analysis' => [
+            'name' => 'Analyse de données',
+            'description' => 'Se définit comme suit : Capacité d’inspecter, d’épurer, de transformer et de modéliser des données, dans le but de découvrir des renseignements utiles, d’atteindre des conclusions informées, et d’appuyer la prise de décision.'
+        ],
+        'data_mining' => [
+            'name' => 'Extraction de données',
+            'description' => 'Se définit comme suit : Capacité d’utiliser une technique d’analyse de données axée sur la modélisation et la découverte de connaissances à des fins de prédiction plutôt que des fins purement descriptives.'
+        ],
+        'r_programming' => [
+            'name' => 'Programmation R',
+            'description' => 'Se définit comme suit : un langage de programmation voué à l’informatique statistique et aux graphiques. Le langage R est largement utilisé par les statisticiens et les extracteurs de données pour l’élaboration de logiciels statistiques et l’analyse de données.'
+        ],
     ],
     'status' => [
         'claimed' => 'Ajoutée'
