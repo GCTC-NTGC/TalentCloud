@@ -7,7 +7,7 @@ DB_DUMPS_DIR=database/db/dumps
 
 build-db:
 	@docker exec -ti talentcloud sh -c "php artisan migrate:fresh"
-	@docker exec -ti talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	@docker exec -ti postgres sh -c "psql -U talentcloud -f /database/db/dumps/insert-data.sql"
 	@docker exec -ti talentcloud sh -c "php artisan db:seed"
 
 clean:
@@ -27,8 +27,7 @@ docker-start:
 	docker-compose up -d
 
 docker-stop:
-	@docker-compose down -v
-	@make clean
+	@docker-compose down
 
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate

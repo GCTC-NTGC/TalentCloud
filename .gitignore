@@ -26,7 +26,6 @@ npm-debug.log
 /etc/ssl/
 /report
 /tests
-/database/db/pgsql
 
 ## Laravel
 /node_modules
@@ -46,13 +45,8 @@ yarn-error.log
 
 ## Composer
 /vendor
-#composer.lock
+composer.lock
 
 ## node.js
 /node_modules
 package-lock.json
-
-# PHPStorm
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
