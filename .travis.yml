@@ -22,11 +22,12 @@ script:
   - docker-compose up -d
   - make set-root-perms
   - make composer-install
+  - php artisan key:generate
   - make build-db
 
 after_script:
   - mkdir shared
-  - docker run -v "$PWD/shared:/shared" talentcloud
+  - docker run -v "$PWD/shared:/shared" talentcloud_talentcloud
   - make phpunit
   - docker exec talentcloud sh -c "cp coverage.txt shared"
   - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-clover=coverage.xml
