@@ -67,10 +67,14 @@ B) If prompted, allow Docker through Windows Firewall.
 	- Get the `GCCOLLAB_CLIENT_SECRET` from another team member and paste it in
 	- If testing, consider setting `FORCE_ADMIN` and/or `DEBUGBAR_ENABLED` to true.
 
+8. Run the following command so that the database will persist across containers being brought and down:
+	`docker volume create pgdata`
+	You can run `docker-compose down -v` to erase this data volume.
+
 8. Run the following commands to manually set up database
 	```
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	docker-compose exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	```
 
 9. For testing, you may want to create fake data with the following command:
@@ -96,18 +100,23 @@ If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sa
 
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
-## OPTIONAL Installing and using NODE.js for CSS/JavaScript editing:
+## Editing Frontent Assets (CSS/SASS and JavaScript files):
 
-You can choose to install NODE.js if you don't already have it, particularly for the purposes of editing css or javascript code. 
+Laravel Mix is used to compile frontend assets (CSS, SASS, and JS).
+
+Files in the `public/` folder must never be modified directly. Instead, modify files in the `resources/assets/` folder, and then run `npm run dev` or `npm run prod` to compile these assets to the `public/` folder.
+
+See the documentation for more details: https://laravel.com/docs/5.5/mix
+See below for installing `npm`:
 
 First download the applicable package here ; https://nodejs.org/en/
 
-Then after installation completes, restart your computer and open Powershell. Navigate to your TalentCloud directory. 
+Then after installation completes, restart your computer and open Powershell. Navigate to your TalentCloud directory.
 
 Type in the commands,
 
 ```
-npm install 
+npm install
 ```
 and then,
 ```
@@ -136,9 +145,9 @@ To stop and delete all existing Docker containers (can fix some errors)
 
 To set up your database manually (MySQL)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "mysql --password talentcloud < /docker-entrypoint-initdb.d/seed_lookup_tables.sql"
+	docker-compose exec postgres sh -c "mysql --password talentcloud < /docker-entrypoint-initdb.d/seed_lookup_tables.sql"
 
 To set up your database manually (PostGres)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	docker-compose exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 ```
