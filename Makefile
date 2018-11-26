@@ -12,8 +12,10 @@ build-db:
 	@docker exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
+fake-data:
+	@docker exec talentcloud sh -c "php artisan db:seed"
+
 clean:
-	@rm -Rf database/db/pgsql/*
 	@rm -Rf vendor/
 	@rm -Rf composer.lock
 	@rm -Rf etc/ssl/*
@@ -29,8 +31,7 @@ docker-start:
 	@docker-compose up -d
 
 docker-stop:
-	@docker-compose down -v
-	@make clean
+	@docker-compose down
 
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
@@ -49,4 +50,4 @@ set-root-perms:
 test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
-.PHONY: build-db clean code-sniff docker-start docker-stop gen-certs logs phpmd set-root-perms test
+.PHONY: build-db fake-data clean code-sniff docker-start docker-stop gen-certs logs phpmd set-root-perms test
