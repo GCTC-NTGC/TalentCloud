@@ -31,7 +31,6 @@
     </php>
     <logging>
         <log type="coverage-html" target="./report/phpunit"/>
-        <log type="coverage-text" target="./shared/phpunit"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
 </phpunit>
