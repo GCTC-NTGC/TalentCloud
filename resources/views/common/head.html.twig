@@ -31,11 +31,13 @@
             name="csrf-token">
 
 {# Google Fonts #}
-
+{#
+    NOTE: Google Fonts does not support Subresource Integrity (SRI).
+    see: https://github.com/google/fonts/issues/473
+#}
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
-        integrity="sha384-wtubEdaW1fZdR8xN2bJ3LDIl8dy78toAxZPHgcxeSe8U4pHzzkYzFwR5spr/tDUj"
         crossorigin="anonymous">
 
 {# Google Analytics #}
