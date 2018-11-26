@@ -7,11 +7,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Policies\ApplicantPolicy;
+use App\Policies\ManagerPolicy;
 
 class ApplicantPolicyTest extends BasePolicyTest
 {
-    protected function getPolicy() {
+    protected function getApplicantPolicy() {
         return new ApplicantPolicy();
+    }
+
+    protected function getManagerPolicy() {
+        return new ManagerPolicy();
     }
 
     public function testView()
@@ -19,15 +24,25 @@ class ApplicantPolicyTest extends BasePolicyTest
         //Test 1: User is the applicant
         //Expect to be allowed to view
         $applicant = $this->makeApplicant();
-        $userCanViewOwnApplicant = $this->getPolicy()->view($applicant->user, $applicant);
+        $userCanViewOwnApplicant = $this->getApplicantPolicy()->view($applicant->user, $applicant);
         $this->assertTrue($userCanViewOwnApplicant);
 
         //Test 2: Applicants cannot view other applicant
         $applicant2 = $this->makeApplicant();
-        $user1CanViewApplicant2 = $this->getPolicy()->view($applicant->user, $applicant2);
+        $user1CanViewApplicant2 = $this->getApplicantPolicy()->view($applicant->user, $applicant2);
         $this->assertFalse($user1CanViewApplicant2);
 
         //Test 3: new manager cannot view new applicant
+        $jillManager = $this->makeManager();
+        $jennyApplicant = $this->makeApplicant();
+        $canManagerViewapplicant = $this->getApplicantPolicy()->view($applicant->user, $jennyApplicant);
+        $this->assertFalse($canManagerViewapplicant);
+
+        //Test 3.5: applicants can view manager
+        $steveManager = $this->makeManager();
+        $bobApplicant = $this->makeApplicant();
+        $canApplicantViewManager = $this->getManagerPolicy()->view($bobApplicant->user, $steveManager);
+        $this->assertTrue($canApplicantViewManager);
 
         //Test 4: applicant starts a job application but doesn't submit.
         //  Manager should not be able to view applicant

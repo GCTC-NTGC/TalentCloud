@@ -8,7 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\User;
 use App\Models\Applicant;
+use App\Models\Manager;
 use App\Models\UserRole;
+use App\Policies\ManagerPolicy;
 
 /**
  * A base class for Policy tests
@@ -37,6 +39,21 @@ abstract class BasePolicyTest extends TestCase
         $userApplicant->user()->associate($user);
 
         return $userApplicant;
+    }
+
+    protected function makeManager() {
+        //New managers get a new user
+        $user =  User::make();
+        $user->id = $this->makeId();
+        // Make user a manager
+        $user->user_role()->associate(
+            UserRole::where('name', 'manager')->firstOrFail());
+
+        $userManager = new Manager();
+        $userManager->id = $this->makeId();
+        $userManager->user()->associate($user);
+
+        return $userManager;
     }
 
     //makeManager(), comes with a user
