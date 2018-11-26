@@ -10,24 +10,23 @@ services:
   - postgresql
 
 install:
-  - sudo cp -a .env.example .env
-  - sudo make gen-certs
-  - sudo docker-compose up -d
-  - sudo make build-db
-  - composer install
-  - npm install
+  - cp -a .env.example .env
+  - make gen-certs
+  - docker-compose up -d
+  - docker run --rm -v $PWD:/app composer/composer install
+  - make build-db
   - php artisan key:generate
   - php artisan config:cache
 
 script:
-  # sudo make code-sniff
-  # sudo make test
+  # make code-sniff
+  # make test
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
 after_script:
-  - sudo make docker-stop
+  - make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
