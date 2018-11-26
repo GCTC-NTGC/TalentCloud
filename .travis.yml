@@ -13,10 +13,10 @@ install:
   - cp -a .env.example .env
   - make gen-certs
   - docker-compose up -d
-  - php artisan key:generate
-  - php artisan config:cache
-  - docker run --rm -v $PWD:/app composer/composer install
   - make set-root-perms
+  - docker exec talentcloud sh -c "php artisan key:generate"
+  - docker exec talentcloud sh -c "php artisan config:cache"
+  - docker run --rm -v $PWD:/app composer/composer install
   - make build-db
 
 script:
