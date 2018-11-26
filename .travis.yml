@@ -25,14 +25,18 @@ script:
   - php artisan key:generate
   - make build-db
 
+
 after_script:
+  - chgrp -R www-data /var/www/storage /var/www/bootstrap/cache
+  - chmod -R g+w /var/www/storage /var/www/bootstrap/cache
+  - ./vendor/bin/phpunit
   - make phpunit
   - mkdir shared
   - docker volume create sharedir
-  - docker run -d -v /var/www/shared:/var/lib/docker/volumes/sharedir/_data talentcloud_talentcloud:latest
+  - docker run -d -v /shared:/var/lib/docker/volumes/sharedir/_data talentcloud_talentcloud:latest
   - docker-compose exec -T talentcloud ./vendor/bin/phpunit --coverage-text=coverage.txt
-  - sudo docker cp talentcloud:/coverage.txt sharedir:/var/lib/docker/volumes/sharedir/_data
-  - sudo docker cp talentcloud:/coverage.txt /var/lib/docker/volumes/sharedir/_data
+  - sudo docker cp . sharedir:/var/lib/docker/volumes/sharedir/_data
+  - sudo docker cp . /var/lib/docker/volumes/sharedir/_data
   - docker exec talentcloud sh -c "mv /var/www/coverage.txt /var/lib/docker/volumes/sharedir/_data/coverage.txt"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
