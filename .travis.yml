@@ -14,9 +14,9 @@ install:
   - make gen-certs
   - docker-compose up -d
   - make set-root-perms
+  - docker run --rm -v $PWD:/app composer/composer install
   - docker exec talentcloud sh -c "php artisan key:generate"
   - docker exec talentcloud sh -c "php artisan config:cache"
-  - docker run --rm -v $PWD:/app composer/composer install
   - make build-db
 
 script:
