@@ -22,7 +22,8 @@ install:
 script:
   # make code-sniff
   # make test
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  # vendor/bin/phpunit --coverage-clover=coverage.xml
+  - make phpunit
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
