@@ -12,7 +12,8 @@ services:
 install:
   - sudo cp -a .env.example .env
   - sudo make gen-certs
-  - sudo docker-compose up --abort-on-container-exit -d
+  - sudo docker-compose up -d
+  # --abort-on-container-exit
   - composer install
   - npm install
   - php artisan key:generate
