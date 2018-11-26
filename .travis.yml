@@ -26,11 +26,11 @@ script:
   - make build-db
 
 after_script:
+  # make phpunit
   - mkdir shared
-  - docker run -d --name sharedir -v /var/www/shared:/shared talentcloud_talentcloud:latest
-  - make phpunit
+  - docker run -d --name sharedir -v $PWD/shared:/shared talentcloud_talentcloud:latest
+  - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-text=coverage.txt
   - docker exec talentcloud sh -c "cp coverage.txt shared"
-  - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - make docker-stop
