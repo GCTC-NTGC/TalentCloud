@@ -8,11 +8,8 @@ DB_DUMPS_DIR=database/db/dumps
 ROOT=/var/www
 
 build-db:
-	@docker exec talentcloud sh -c "php artisan migrate:fresh"
+	@docker exec talentcloud sh -c "php artisan migrate"
 	@docker exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
-	@docker exec talentcloud sh -c "php artisan db:seed"
-
-fake-data:
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
 clean:
@@ -24,7 +21,6 @@ clean:
 code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
-	@echo "Checking the standard code..."
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 docker-start:
@@ -33,6 +29,9 @@ docker-start:
 docker-stop:
 	@docker-compose down
 
+fake-data:
+	@docker exec talentcloud sh -c "php artisan db:seed"
+
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
@@ -40,14 +39,16 @@ logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd /app \
-	text cleancode,codesize
+	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
+	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
+
+phpunit:
+	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
 set-root-perms:
 	@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage ${ROOT}/bootstrap/cache"
 	@docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage ${ROOT}/bootstrap/cache"
 
-test: code-sniff
-	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
+test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db fake-data clean code-sniff docker-start docker-stop gen-certs logs phpmd set-root-perms test
+.PHONY: build-db clean code-sniff docker-start docker-stop fake-data gen-certs logs phpmd phpunit set-root-perms test-all
