@@ -26,11 +26,12 @@ script:
   - make build-db
 
 after_script:
-  # make phpunit
+  - make phpunit
+  - ./vendor/bin/phpunit
   - mkdir shared
   - docker volume create sharedir
   - docker run -d -v /var/www/shared:/var/lib/docker/volumes/sharedir/_data talentcloud_talentcloud:latest
-  - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-text=coverage.txt
+  - docker-compose exec -T talentcloud /vendor/bin/phpunit --coverage-text=coverage.txt
   - sudo docker cp talentcloud:/var/www/coverage.txt sharedir:/var/lib/docker/volumes/sharedir/_data
   - sudo docker cp talentcloud:/var/www/coverage.txt /var/lib/docker/volumes/sharedir/_data
   - docker exec talentcloud sh -c "mv/var/www/coverage.txt /var/lib/docker/volumes/sharedir/_data/coverage.txt"
