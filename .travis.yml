@@ -9,7 +9,7 @@ services:
   - docker
   - postgresql
 
-install:
+script:
   - cp -a .env.example .env
   - make gen-certs
   - docker-compose up -d
@@ -18,15 +18,13 @@ install:
   - docker exec talentcloud sh -c "php artisan key:generate"
   - docker exec talentcloud sh -c "php artisan config:cache"
   - make build-db
-  - docker tag . gctcntgc/talentcloud:travis
+  - docker tag talentcloud gctcntgc/talentcloud:travis
 
-script:
+after_script:
   - make phpunit
   - vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-
-after_script:
   - make docker-stop
 
 after_success:
