@@ -9,6 +9,9 @@ services:
   - docker
   - postgresql
 
+addons:
+  postgresql: "9.6"
+
 cache:
   directories:
     - vendor
