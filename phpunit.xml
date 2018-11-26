@@ -29,8 +29,8 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="MAIL_DRIVER" value="array"/>
     </php>
-    <logging>
+    <!--<logging>
         <log type="coverage-html" target="./report/phpunit"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-    </logging>
+    </logging>-->
 </phpunit>
