@@ -2,7 +2,7 @@ version: '2'
 services:
     # Web Server / Nginx
     web:
-        image: nginx:stable
+        image: nginx:1.14-alpine
         container_name: web
         working_dir: /var/www
         volumes_from:
@@ -20,11 +20,13 @@ services:
     talentcloud:
         build: .
         # image: gctcntgc/talentcloud
+        container_name: talentcloud
         working_dir: /var/www
         restart: always
         volumes:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+            - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
             - "/var/www/vendor"
         links:
@@ -36,7 +38,7 @@ services:
             - "9000:9000"
     # Database / Postgres
     postgres:
-        image: postgres:9.6
+        image: postgres:9.6-alpine
         container_name: postgres
         restart: always
         volumes:
