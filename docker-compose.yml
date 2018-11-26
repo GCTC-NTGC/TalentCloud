@@ -43,13 +43,12 @@ services:
         container_name: talentcloud-db
         restart: always
         volumes:
-            - "./database/db/pgsql/data:/var/lib/postgresql/data"
             - "./database/db/dumps:/manual_db"
+            - "pgdata:/var/lib/postgresql/data"
         environment:
             - "POSTGRES_DB=talentcloud"
             - "POSTGRES_USER=talentcloud"
             - "POSTGRES_PASSWORD=talentcloud"
-            - "PGDATA=/database/db/pgsql/data"
         ports:
             - "5434-5432"
     # Adminer
@@ -61,3 +60,5 @@ services:
             - talentcloud-db
         ports:
             - "8080:8080"
+volumes:
+    pgdata:

@@ -25,6 +25,7 @@ npm-debug.log
 ## TalentCloud
 /etc/ssl/
 /report
+/tests
 /database/db/pgsql
 
 ## Laravel
@@ -50,8 +51,3 @@ composer.lock
 ## node.js
 /node_modules
 package-lock.json
-
-# PHPStorm
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
