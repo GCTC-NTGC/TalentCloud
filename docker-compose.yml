@@ -10,7 +10,7 @@ services:
         restart: always
         depends_on:
             - talentcloud
-            - talentcloud-db
+            - postgres
         environment:
             - "NGINX_HOST=talent.local.ca"
         command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
@@ -31,16 +31,16 @@ services:
             - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
         links:
-            - talentcloud-db
+            - postgres
         environment:
             - "DB_PORT=5432"
-            - "DB_HOST=talentcloud-db"
+            - "DB_HOST=postgres"
         ports:
             - "9000:9000"
     # Database / Postgres
-    talentcloud-db:
+    postgres:
         image: postgres:9.6-alpine
-        container_name: talentcloud-db
+        container_name: postgres
         restart: always
         volumes:
             - "./database/db/dumps:/manual_db"
@@ -57,7 +57,7 @@ services:
         container_name: adminer
         restart: always
         links:
-            - talentcloud-db
+            - postgres
         ports:
             - "8080:8080"
 volumes:
