@@ -13,7 +13,7 @@ install:
   - sudo cp -a .env.example .env
   - sudo make gen-certs
   - sudo docker-compose up -d
-  # --abort-on-container-exit
+  - sudo make build-db
   - composer install
   - npm install
   - php artisan key:generate
