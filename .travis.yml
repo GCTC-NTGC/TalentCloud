@@ -27,7 +27,7 @@ script:
 
 after_script:
   - mkdir shared
-  - docker run -v /var/www/shared:/shared talentcloud_talentcloud:latest
+  - docker run -vd /var/www/shared:/shared talentcloud_talentcloud:latest
   - make phpunit
   - docker exec talentcloud sh -c "cp coverage.txt shared"
   - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-clover=coverage.xml
