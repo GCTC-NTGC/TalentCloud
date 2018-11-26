@@ -6,16 +6,13 @@ php:
 sudo: required
 
 services:
-  # docker
+  - docker
   - postgresql
-
-before_install:
-  - psql -c 'create database talentcloud;' -U postgres
 
 install:
   - sudo cp -a .env.example .env
-  # sudo make gen-certs
-  # sudo docker-compose up --abort-on-container-exit -d
+  - sudo make gen-certs
+  - sudo docker-compose up --abort-on-container-exit -d
   - composer install
   - npm install
   - php artisan key:generate
@@ -28,8 +25,8 @@ script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
-#after_script:
-  # sudo make docker-stop
+after_script:
+  - sudo make docker-stop
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
