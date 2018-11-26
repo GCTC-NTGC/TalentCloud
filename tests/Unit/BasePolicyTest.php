@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\UserRole;
+use App\Policies\ApplicantPolicy;
 use App\Policies\ManagerPolicy;
 
 /**
@@ -43,7 +44,7 @@ abstract class BasePolicyTest extends TestCase
 
     protected function makeManager() {
         //New managers get a new user
-        $user =  User::make();
+        $user = User::make();
         $user->id = $this->makeId();
         // Make user a manager
         $user->user_role()->associate(
@@ -54,6 +55,10 @@ abstract class BasePolicyTest extends TestCase
         $userManager->user()->associate($user);
 
         return $userManager;
+    }
+
+    protected function makeJobPoster() {
+        $jobPoster = JobPoster::make();
     }
 
     //makeManager(), comes with a user
