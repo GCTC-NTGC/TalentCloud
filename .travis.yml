@@ -9,6 +9,9 @@ services:
   # docker
   - postgresql
 
+before_install:
+  - psql -c 'create database talentcloud;' -U postgres
+
 install:
   - sudo cp -a .env.example .env
   # sudo make gen-certs
