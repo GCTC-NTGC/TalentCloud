@@ -22,12 +22,10 @@ script:
   - docker-compose up -d
   - make set-root-perms
   - make composer-install
-  - docker exec talentcloud sh -c "php artisan key:generate"
-  - docker exec talentcloud sh -c "php artisan config:cache"
   - make build-db
-  - docker tag talentcloud_talentcloud:latest gctcntgc/talentcloud:travis
 
 after_script:
+  - ./vendor/bin/phpunit
   - make phpunit
   - docker-compose exec -T talentcloud vendor/bin/phpunit --coverage-clover=coverage.xml
   - wget https://scrutinizer-ci.com/ocular.phar
@@ -37,6 +35,7 @@ after_script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker tag talentcloud_talentcloud:latest gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
