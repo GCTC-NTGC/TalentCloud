@@ -2,9 +2,6 @@ ALTER ROLE postgres WITH CREATEDB CREATEROLE;
 
 \c postgres postgres;
 
-DROP DATABASE IF EXISTS talentcloud;
-DROP ROLE IF EXISTS talentcloud;
-
 CREATE ROLE talentcloud WITH SUPERUSER LOGIN PASSWORD 'talentcloud';
 CREATE DATABASE talentcloud
     WITH OWNER = "talentcloud"
