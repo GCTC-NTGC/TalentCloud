@@ -27,10 +27,8 @@ services:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
-            - "./:/var/www"
+            - ".:/var/www"
             - "/var/www/vendor"
-        links:
-            - postgres
         environment:
             - "DB_HOST=postgres"
             - "DB_PORT=5432"
@@ -43,6 +41,7 @@ services:
         restart: always
         volumes:
             - "pgdata:/var/lib/postgresql/data"
+            - "./database/db/dumps:/manual_db"
         environment:
             - "POSTGRES_DB=talentcloud"
             - "POSTGRES_USER=talentcloud"

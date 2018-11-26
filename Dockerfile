@@ -12,4 +12,5 @@ RUN docker-php-ext-install pgsql pdo_pgsql zip && \
 COPY . /var/www
 WORKDIR /var/www
 RUN composer install
+ENV PATH="~/.composer/vendor/bin:./vendor/bin"
 EXPOSE 9000
