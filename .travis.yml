@@ -16,34 +16,26 @@ cache:
   directories:
     - vendor
 
+before_script:
+  - make docker-start
+
 script:
   - cp -a .env.example .env
   - make gen-certs
-  - docker-compose up -d
   - make set-root-perms
   - make composer-install
-  - php artisan key:generate
   - make build-db
 
-
 after_script:
-  - chgrp -R www-data $PWD/storage $PWD/bootstrap/cache
-  - chmod -R g+w $PWD/storage $PWD/bootstrap/cache
-  - ./vendor/bin/phpunit
-  - make phpunit
-  - mkdir shared
-  - docker volume create sharedir
-  - docker run -d -v /shared:/var/lib/docker/volumes/sharedir/_data talentcloud_talentcloud:latest
-  - docker-compose exec -T talentcloud ./vendor/bin/phpunit --coverage-text=coverage.txt
-  - sudo docker cp . sharedir:/var/lib/docker/volumes/sharedir/_data
-  - sudo docker cp . /var/lib/docker/volumes/sharedir/_data
-  - docker exec talentcloud sh -c "mv /var/www/coverage.txt /var/lib/docker/volumes/sharedir/_data/coverage.txt"
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run --rm $ci_env talentcloud_talentcloud bash
+  - docker exec -ti talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - make docker-stop
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker tag talentcloud_talentcloud:latest gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
@@ -52,5 +44,5 @@ after_success:
 notifications:
   email: never
   slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
-  on_success: change
-  on_failure: always
+  on_success: always
+  on_failure: change
