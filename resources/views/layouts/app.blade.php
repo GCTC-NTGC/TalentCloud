@@ -43,30 +43,22 @@
 
         <?php /* Google Fonts */ ?>
 
-            <link
-<<<<<<< HEAD
-                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
-                rel="stylesheet">
-=======
-                rel="stylesheet"
-                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
-                integrity="sha384-wtubEdaW1fZdR8xN2bJ3LDIl8dy78toAxZPHgcxeSe8U4pHzzkYzFwR5spr/tDUj"
-                crossorigin="anonymous">
->>>>>>> dev
+        <!-- Google Fonts does not support Subresource Integrity (SRI) -->
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
+            crossorigin="anonymous">
 
         <?php /* Google Analytics */ ?>
 
             <!-- Global site tag (gtag.js) - Google Analytics -->
 
-<<<<<<< HEAD
-                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"></script>
-=======
                 <script
                     async
                     src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
                     integrity="sha384-bRIbmosc8tXvRiCc91flCR8aYMe9gO4uflxPoGoBsRSw8gfjtnNFcTJhonxfWKqF"
                     crossorigin="anonymous"></script>
->>>>>>> dev
 
                 <script>
                     window.dataLayer = window.dataLayer || [];
