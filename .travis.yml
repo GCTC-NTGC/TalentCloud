@@ -16,26 +16,25 @@ cache:
   directories:
     - vendor
 
-before_script:
-  - make docker-start
-
 script:
   - cp -a .env.example .env
   - make gen-certs
-  - sudo make set-root-perms
+  - make docker-start
+  - make set-root-perms
   - make composer-install
+  - php artisan key:generate
   - make build-db
 
 after_script:
-  # docker exec -ti talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - docker exec -ti talentcloud bash -c "./vendor/bin/phpunit --coverage-clover=coverage.xml"
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run --rm $ci_env talentcloud_talentcloud bash -c "./vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - make docker-stop
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker tag talentcloud_talentcloud:latest gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
