@@ -1,4 +1,4 @@
-FROM php:7.0-fpm-alpine3.7
+FROM php:7-fpm-alpine
 
 RUN apk update && apk upgrade && \
         docker-php-source extract && \
@@ -23,3 +23,5 @@ RUN apk update && apk upgrade && \
 COPY . /var/www
 WORKDIR /var/www
 EXPOSE 9000
+
+RUN sed -i 's/127.0.0.1:9000/0.0.0.0:9000/g' /etc/php7/php-fpm.d/www.conf
