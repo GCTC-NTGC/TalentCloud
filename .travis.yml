@@ -16,7 +16,7 @@ cache:
   directories:
     - vendor
 
-script:
+before_script:
   - cp -a .env.example .env
   - make gen-certs
   - make docker-start
@@ -24,9 +24,11 @@ script:
   - make composer-install
   - php artisan key:generate
   - make build-db
+
+script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run --rm $ci_env talentcloud_talentcloud bash
-  - docker exec -ti talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - docker run $ci_env talentcloud_talentcloud bash
+  - docker exec talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'

@@ -30,7 +30,7 @@
         <env name="MAIL_DRIVER" value="array"/>
     </php>
     <logging>
-        <log type="coverage-html" target="./report/phpunit"/>
+        <log type="coverage-clover" target="coverage.xml"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
 </phpunit>
