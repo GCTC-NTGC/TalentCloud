@@ -43,7 +43,7 @@ phpunit:
 
 set-root-perms:
 	@docker exec talentcloud sh -c "chgrp -R www-data /var/www/storage /var/www/bootstrap/cache"
-	@docker exec talentcloud sh -c "chmod -R g+w /var/www/storage /var/www/bootstrap/cache"
+	#@docker exec talentcloud sh -c "chmod -R g+w /var/www/storage /var/www/bootstrap/cache"
 
 test-all: code-sniff phpmd phpunit
 
