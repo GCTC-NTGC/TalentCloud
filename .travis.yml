@@ -27,8 +27,8 @@ script:
 
 
 after_script:
-  - chgrp -R www-data /var/www/storage /var/www/bootstrap/cache
-  - chmod -R g+w /var/www/storage /var/www/bootstrap/cache
+  - chgrp -R www-data $PWD/storage $PWD/bootstrap/cache
+  - chmod -R g+w $PWD/storage $PWD/bootstrap/cache
   - ./vendor/bin/phpunit
   - make phpunit
   - mkdir shared
