@@ -1,4 +1,4 @@
-FROM php:7-fpm-alpine
+FROM php:7.0-fpm-alpine3.7
 
 RUN apk update && apk upgrade && \
         docker-php-source extract && \

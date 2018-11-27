@@ -15,6 +15,7 @@ services:
             - "NGINX_HOST=talent.local.ca"
         ports:
             - "80:80"
+            - "443:443"
     # Application / PHP-FPM
     talentcloud:
         build: .
