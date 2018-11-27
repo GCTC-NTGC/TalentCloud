@@ -22,5 +22,4 @@ RUN apk update && apk upgrade && \
 
 COPY . /var/www
 WORKDIR /var/www
-USER www-data
 EXPOSE 9000
