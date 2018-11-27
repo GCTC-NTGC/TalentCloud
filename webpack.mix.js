@@ -15,6 +15,7 @@ mix.js('resources/assets/js/bootstrap.js', 'public/js')
    .js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/autocomplete.js', 'public/js')
    .js('resources/assets/js/modernizr.js', 'public/js')
+   .js('resources/assets/js/jquery-ui.min.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .options({
         processCssUrls: false,
@@ -30,4 +31,5 @@ mix.js('resources/assets/js/bootstrap.js', 'public/js')
                 browsers: '>0.1%'
             })
         ]
-   });
+   })
+   .version();

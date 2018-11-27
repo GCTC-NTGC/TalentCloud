@@ -61,6 +61,12 @@ return [
     'applicant_prefix' => env('APPLICANT_PREFIX', ''),
     'manager_prefix' => env('MANAGER_PREFIX', ''),
 
+    /*
+    | Should all app routes use https:// instead of http://
+    */
+
+    'force_https' => env('FORCE_HTTPS', true),
+
 
     /*
     |--------------------------------------------------------------------------

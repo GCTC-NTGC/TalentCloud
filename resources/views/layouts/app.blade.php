@@ -33,7 +33,7 @@
 
             <?php /* CRF Token */ ?>
 
-                <meta 
+                <meta
                     content="{{ csrf_token() }}"
                     name="csrf-token">
 
@@ -42,17 +42,32 @@
             <title>{{ config('app.name', 'Laravel') }}</title>
 
         <?php /* Google Fonts */ ?>
-            
-            <link 
-                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext" 
+
+            <link
+<<<<<<< HEAD
+                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
                 rel="stylesheet">
+=======
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
+                integrity="sha384-wtubEdaW1fZdR8xN2bJ3LDIl8dy78toAxZPHgcxeSe8U4pHzzkYzFwR5spr/tDUj"
+                crossorigin="anonymous">
+>>>>>>> dev
 
         <?php /* Google Analytics */ ?>
 
             <!-- Global site tag (gtag.js) - Google Analytics -->
-            
+
+<<<<<<< HEAD
                 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"></script>
-            
+=======
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+                    integrity="sha384-bRIbmosc8tXvRiCc91flCR8aYMe9gO4uflxPoGoBsRSw8gfjtnNFcTJhonxfWKqF"
+                    crossorigin="anonymous"></script>
+>>>>>>> dev
+
                 <script>
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
@@ -61,7 +76,7 @@
                 </script>
 
             <!-- Google Tag Manager -->
-            
+
                 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -70,9 +85,9 @@
 
         <?php /* Modernizr */ ?>
 
-            <script
-                src="/js/modernizr.js">
-            </script>
+        <script
+            src="{{ mix('/js/modernizr.js') }}">
+        </script>
 
         <?php /* jQuery & UI */ ?>
 
@@ -104,15 +119,15 @@
             <?php /* Font Awesome */ ?>
 
                 <link
-                    crossorigin="anonymous"
+                    rel="stylesheet"
                     href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
                     integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-                    rel="stylesheet">
+                    crossorigin="anonymous">
 
             <?php /* App */ ?>
 
                 <link
-                    href="/css/app.css"
+                    href="{{ mix('/css/app.css') }}"
                     rel="stylesheet"
                     type="text/css"/>
 
@@ -122,10 +137,10 @@
 
         <!-- Google Tag Manager (noscript) -->
             <noscript>
-                <iframe 
+                <iframe
                     src="https://www.googletagmanager.com/ns.html?id=GTM-MW8P8KB"
-                    height="0" 
-                    width="0" 
+                    height="0"
+                    width="0"
                     style="display:none;visibility:hidden">
                 </iframe>
             </noscript>
@@ -134,15 +149,19 @@
         @yield('content')
 
         <script
-            src="/js/jquery-ui.min.js">
+            src="{{ mix('/js/bootstrap.js') }}">
         </script>
 
         <script
-            src="/js/autocomplete.js">
+            src="{{ mix('/js/jquery-ui.min.js') }}">
         </script>
 
         <script
-            src="/js/app.js">
+            src="{{ mix('/js/autocomplete.js') }}">
+        </script>
+
+        <script
+            src="{{ mix('/js/app.js') }}">
         </script>
 
     </body>
