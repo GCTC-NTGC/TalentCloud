@@ -24,14 +24,14 @@ script:
   - make composer-install
   - php artisan key:generate
   - make build-db
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run --rm $ci_env talentcloud_talentcloud bash
+  - docker exec -ti talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
-  - docker exec -ti talentcloud bash -c "./vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-  - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run --rm $ci_env talentcloud_talentcloud bash -c "./vendor/bin/phpunit --coverage-clover=coverage.xml"
-  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - make docker-stop
 
 after_success:
