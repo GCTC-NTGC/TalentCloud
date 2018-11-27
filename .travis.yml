@@ -22,7 +22,7 @@ before_script:
 script:
   - cp -a .env.example .env
   - make gen-certs
-  - make set-root-perms
+  - sudo make set-root-perms
   - make composer-install
   - make build-db
 
@@ -31,7 +31,7 @@ after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run --rm $ci_env talentcloud_talentcloud bash -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
+  - docker run --rm $ci_env talentcloud_talentcloud bash -c "./vendor/bin/phpunit --coverage-clover=coverage.xml"
   - make docker-stop
 
 after_success:
