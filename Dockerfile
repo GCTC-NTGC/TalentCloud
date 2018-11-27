@@ -24,4 +24,4 @@ COPY . /var/www
 WORKDIR /var/www
 EXPOSE 9000
 
-RUN sed -i 's/127.0.0.1:9000/0.0.0.0:9000/g' /etc/php7/php-fpm.d/www.conf
+# RUN sed -i 's/127.0.0.1:9000/0.0.0.0:9000/g' /usr/local/etc/php-fpm.d/www.conf
