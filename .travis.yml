@@ -20,7 +20,7 @@ before_script:
   - cp -a .env.example .env
   - make gen-certs
   - make docker-start
-  - make set-root-perms
+  # make set-root-perms
   - make composer-install
   - php artisan key:generate
   - make build-db
@@ -38,7 +38,7 @@ after_script:
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker tag talentcloud_talentcloud:latest gctcntgc/talentcloud:travis
+  - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails

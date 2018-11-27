@@ -1,12 +1,5 @@
 # Makefile for Docker Nginx PHP Composer MySQL
 
-# include .env
-
-# MySQL
-DB_DUMPS_DIR=database/db/dumps
-
-ROOT=/var/www
-
 build-db:
 	@docker exec talentcloud sh -c "php artisan migrate"
 	@docker exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
@@ -49,8 +42,8 @@ phpunit:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
 set-root-perms:
-	@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage ${ROOT}/bootstrap/cache"
-	@docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage ${ROOT}/bootstrap/cache"
+	@docker exec talentcloud sh -c "chgrp -R www-data /var/www/storage /var/www/bootstrap/cache"
+	@docker exec talentcloud sh -c "chmod -R g+w /var/www/storage /var/www/bootstrap/cache"
 
 test-all: code-sniff phpmd phpunit
 
