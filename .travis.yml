@@ -19,10 +19,10 @@ cache:
 before_script:
   - make docker-start
   - cp -a .env.example .env
-  - docker exec talentcloud sh -c "php artisan key:generate"
-  - make set-root-perms
-  - make gen-certs
   - make composer-install
+  - make set-root-perms
+  - docker exec talentcloud sh -c "php artisan key:generate"
+  - make gen-certs
   - make build-db
 
 script:
