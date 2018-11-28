@@ -47,4 +47,12 @@ class ApplicationReview extends Model
     public function review_decision() {
         return $this->belongsTo(ReviewDecision::class);
     }
+
+    public function getStatusAttribute() {
+        return $this->review_status->translation;
+    }
+
+    public function getDecisionAttribute() {
+        return $this->review_decision->translation;
+    }
 }
