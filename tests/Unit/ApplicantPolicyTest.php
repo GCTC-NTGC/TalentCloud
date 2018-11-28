@@ -46,7 +46,11 @@ class ApplicantPolicyTest extends BasePolicyTest
 
         //Test 4: applicant starts a job application but doesn't submit.
         //  Manager should not be able to view applicant
-
+      //  $jackManager = $this->makeManager();
+      //  $juneApplicant= $this->makeApplicant();
+      //  $canManagerViewApplicant = $this->getApplicantPolicy()->view($jackManager->user, $juneApplicant);
+      //  $this->assertTrue($canManagerViewapplicant);
+                
         //Test 5: applicant submits a job application. Job's manager should be
         //  able to view applicant.
     }
@@ -54,5 +58,5 @@ class ApplicantPolicyTest extends BasePolicyTest
 
 // git pull origin this
 
-// Move these tests to another file? Ask G or T.
+// Move these tests to another file? One test per file? Ask G or T.
 
