@@ -20,7 +20,7 @@ build:
             local.dev: 127.0.0.1
         # Languages
         php:
-            version: "7.0"
+            version: "7.2"
             ini:
                 memory_limit: "-1"
         ruby: "2.3.1"

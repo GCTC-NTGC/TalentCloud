@@ -19,7 +19,7 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 composer-install:
-	@docker run --rm -v $(shell pwd):/app composer/composer install
+	@docker run --rm -v $(shell pwd):/app composer:latest install
 
 docker-start:
 	@docker-compose up -d
