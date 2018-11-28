@@ -20,12 +20,12 @@ before_script:
   - make docker-start
   - cp -a .env.example .env
   - make composer-install
-  # make set-root-perms
   - docker exec talentcloud sh -c "php artisan key:generate"
   - make gen-certs
   - make build-db
 
 script:
+  - sudo make set-root-perms
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env talentcloud_talentcloud sh
   - docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
