@@ -29,7 +29,6 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="MAIL_DRIVER" value="array"/>
     </php>
-<<<<<<< HEAD
     <!-- Commented out this bit of code to stop CodeCoverage Reports from generating everytime PHPUnit is run
 	<logging>
         <log type="coverage-html" target="./report/phpunit"/>

@@ -57,14 +57,13 @@ abstract class BasePolicyTest extends TestCase
         return $userManager;
     }
 
-<<<<<<< HEAD
-=======
+
+
     protected function makeJobPoster() {
         $jobPoster = JobPoster::make();
     }
 
     //makeManager(), comes with a user
->>>>>>> ddfd0c72ee4fa44a5a84888ff5f29d0353e03696
 
     //makeJob($manager) {} Also look to Create a job on the base policy and test to see if the user can access it. 11/27/2018
     protected function makeJob() {
@@ -73,7 +72,7 @@ abstract class BasePolicyTest extends TestCase
         
         //Test to see if userApplicant can access the job
       
-        $userApplicant = new Applicnet();
+        $userApplicant = new Applicant();
         $userApplicant->id = $this->makeId();
         $userApplicant->user()->associate($job);
         

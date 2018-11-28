@@ -46,12 +46,14 @@ class ApplicantPolicyTest extends BasePolicyTest
         $this->assertTrue($canApplicantViewManager);
 
         //Test 4: applicant starts a job application but doesn't submit.
-        //  Manager should not be able to view applicant
-      //  $jackManager = $this->makeManager();
-      //  $juneApplicant= $this->makeApplicant();
-      //  $canManagerViewApplicant = $this->getApplicantPolicy()->view($jackManager->user, $juneApplicant);
-      //  $this->assertTrue($canManagerViewapplicant);
-                
+        //
+        //
+        //Test 4.5 : Manager should not be able to view applicant
+        //$jackManager = $this->makeManager();
+       // $juneApplicant= $this->makeApplicant();
+       // $canManagerViewApplicant = $this->getApplicantPolicy()->view($jackManager->user, $juneApplicant);
+       // $this->assertTrue($canManagerViewapplicant);
+              
         //Test 5: applicant submits a job application. Job's manager should be
         //  able to view applicant.
     }
