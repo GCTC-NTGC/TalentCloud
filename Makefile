@@ -1,9 +1,4 @@
-# Makefile for Docker Nginx PHP Composer MySQL
-
-# include .env
-
-# MySQL
-DB_DUMPS_DIR=database/db/dumps
+# Makefile for Docker Nginx PHP Composer
 
 ROOT=/var/www
 
@@ -46,7 +41,7 @@ phpmd:
 	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
 
 phpunit:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
+	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --configuration ./
 
 set-root-perms:
 	@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage ${ROOT}/bootstrap/cache"

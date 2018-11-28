@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\UserRole;
+use App\Policies\ApplicantPolicy;
 use App\Policies\ManagerPolicy;
 
 /**
@@ -43,7 +44,7 @@ abstract class BasePolicyTest extends TestCase
 
     protected function makeManager() {
         //New managers get a new user
-        $user =  User::make();
+        $user = User::make();
         $user->id = $this->makeId();
         // Make user a manager
         $user->user_role()->associate(
@@ -56,6 +57,14 @@ abstract class BasePolicyTest extends TestCase
         return $userManager;
     }
 
+<<<<<<< HEAD
+=======
+    protected function makeJobPoster() {
+        $jobPoster = JobPoster::make();
+    }
+
+    //makeManager(), comes with a user
+>>>>>>> ddfd0c72ee4fa44a5a84888ff5f29d0353e03696
 
     //makeJob($manager) {} Also look to Create a job on the base policy and test to see if the user can access it. 11/27/2018
     protected function makeJob() {
