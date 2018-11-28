@@ -17,10 +17,11 @@ cache:
     - vendor
 
 before_script:
-  - make docker-start
   - cp -a .env.example .env
+  - make docker-start
   - make composer-install
   - docker exec talentcloud sh -c "php artisan key:generate"
+  - docker exec talentcloud sh -c "php artisan cache:clear"
   - make gen-certs
   - make build-db
   - make set-root-perms
