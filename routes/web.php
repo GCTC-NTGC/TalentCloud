@@ -325,6 +325,10 @@ $managerGroup = function() {
         /* Job Index */
         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
+        /* View Job Poster */
+        Route::get('jobs/{jobPoster}', 'JobController@show')
+            ->name('manager.jobs.show');
+
         /* Create Job */
         Route::get('jobs/create', 'JobController@create')
             ->middleware('can:create,App\Models\JobPoster')

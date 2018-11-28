@@ -1,9 +1,9 @@
 <?php
 
 return [
-    "undecided" => "Indécis",
-    "clarification" => "Clarification",
-    "screened_in" => "Choisi",
-    "screened_out" => "Filtré",
-    "fake" => "Faux",
+    "undecided" => "Undecided",
+    "clarification" => "Clarification Required",
+    "screened_in" => "To Hiring Manager",
+    "screened_out" => "Do Not Forward",
+    "fake" => "Test Application",
 ];
