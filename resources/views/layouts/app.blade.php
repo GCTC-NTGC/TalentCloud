@@ -43,15 +43,22 @@
 
         <?php /* Google Fonts */ ?>
 
-            <link
-                href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
-                rel="stylesheet">
+        <!-- Google Fonts does not support Subresource Integrity (SRI) -->
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Euphoria+Script&amp;subset=latin-ext"
+            crossorigin="anonymous">
 
         <?php /* Google Analytics */ ?>
 
             <!-- Global site tag (gtag.js) - Google Analytics -->
 
-                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"></script>
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+                    integrity="sha384-bRIbmosc8tXvRiCc91flCR8aYMe9gO4uflxPoGoBsRSw8gfjtnNFcTJhonxfWKqF"
+                    crossorigin="anonymous"></script>
 
                 <script>
                     window.dataLayer = window.dataLayer || [];
@@ -104,10 +111,10 @@
             <?php /* Font Awesome */ ?>
 
                 <link
-                    crossorigin="anonymous"
+                    rel="stylesheet"
                     href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
                     integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-                    rel="stylesheet">
+                    crossorigin="anonymous">
 
             <?php /* App */ ?>
 

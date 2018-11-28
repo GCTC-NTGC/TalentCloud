@@ -6,20 +6,6 @@ INSERT INTO applicant_profile_questions VALUES
 (5,'learn_best_when',current_timestamp,current_timestamp),
 (6,'types_of_teams',current_timestamp,current_timestamp);
 
-INSERT INTO applicant_profile_question_translations VALUES
-(1,1,'en','My career journey so far...','This is your chance to share the unique story of how you got to where you are now… and where you want to go from here.',current_timestamp,current_timestamp),
-(2,1,'fr','Mon parcours professionnel jusqu’à présent','Dans cette section, on t’invite à raconter le chemin unique que tu as parcouru jusqu’à maintenant, de même que tes aspirations professionnelles pour l’avenir.',current_timestamp,current_timestamp),
-(3,2,'en','My learning journey so far...','Learning never stops, and it comes to all of us in different ways. Whether it comes from formal education or life lessons, knowledge passed on from elders or things you’ve picked up along the way, here’s your chance to share a bit about this side of who you are.',current_timestamp,current_timestamp),
-(4,2,'fr','Mon parcours d’apprentissage jusqu’à présent','L’apprentissage ne s’arrête jamais, et il nous parvient à tous de différentes façons. Qu’il s’agisse d’une formation officielle, de leçons de vie ou encore de connaissances transmises par les aînés ou apprises en cours de route, fais-nous connaître ton parcours ici.',current_timestamp,current_timestamp),
-(5,3,'en','What I bring to a team...','People take note of the rock star and forget they are nothing without the band. Help potential teams and managers see what unique skills, attributes and knowledge you bring to help a team do great work.',current_timestamp,current_timestamp),
-(6,3,'fr','Ce que j’apporte à une équipe','Les gens remarquent les joueurs étoiles et oublient qu’ils ne sont rien sans les autres membres de leur équipe. Dans cette section, on t’invite à indiquer à tes équipes et gestionnaires potentiels les compétences, attributs et connaissances uniques que tu apportes aux équipes auxquelles tu te joins pour les aider à atteindre l’excellence.',current_timestamp,current_timestamp),
-(7,4,'en','I work best when...','Introvert? Extrovert? Bit of both? Do you like tight deadlines or do you prefer to have time to process ideas? Do you work well independently or are team products more your thing? Here’s your chance to let a potential manager know what will let you give the team your best.',current_timestamp,current_timestamp),
-(8,4,'fr','Je travaille mieux lorsque...','Tu es introverti? Extraverti? Un peu des deux? Tu aimes les délais serrés, ou, au contraire, tu préfères avoir du temps pour étudier tes options? Tu as une bonne autonomie au travail? Tu aimes travailler en équipe? Voici ta chance d’indiquer à tes gestionnaires potentiels les conditions dans lesquelles tu performes le mieux au sein d’une équipe.',current_timestamp,current_timestamp),
-(9,5,'en','I learn best when...','Do you absorb information best by reading? By doing? Or are you a visual learner? Do you pick things up quickly or do you like to develop deep expertise over time? Joining a new team means learning new things. Help a potential manager understand your learning style so you can get up to speed and contributing quickly.',current_timestamp,current_timestamp),
-(10,5,'fr','J’apprends mieux lorsque... ','Retiens-tu mieux l’information en la lisant, en la mettant en pratique, ou encore en observant son application? Es-tu de ceux qui apprennent rapidement, ou préfères-tu acquérir une expertise approfondie au fil du temps? Se joindre à une nouvelle équipe signifie apprendre de nouvelles choses. Décris ton style d’apprentissage à tes gestionnaires potentiels pour qu’ils puissent t’aider à te mettre au diapason et à mettre tes talents à contribution rapidement.',current_timestamp,current_timestamp),
-(11,6,'en','Types of teams I work well on...','Do you work best when you collaborate on projects or when you have a role where you can do your own thing? Do you prefer having a routine or do you thrive on teams where every day is something different? Are you highly adaptable to different work styles or do you have a preference for particular ways of working? Here’s your chance to let managers learn about the type of team(s) you work well on and the role(s) you prefer to play.',current_timestamp,current_timestamp),
-(12,6,'fr','Les types d’équipe dans lesquels je travaille bien...','Travaillez-vous mieux lorsque vous collaborer sur des projets ou lorsque vous avez un rôle où vous pouvez faire votre propre travail? Préférez-vous avoir une routine ou prospérez-vous dans des équipes où chaque jour est différent? Êtes-vous très adaptable à différents styles de travail ou avez-vous une préférence pour des méthodes de travail particulières? Voici votre chance de faire savoir aux gestionnaires sur quel type d’équipe (s) vous travaillez bien et le(s) rôle(s) que vous préférez jouer.',current_timestamp,current_timestamp);
-
 INSERT INTO application_status VALUES
 (1,'draft',current_timestamp,current_timestamp),
 (2,'submitted',current_timestamp,current_timestamp),
@@ -355,4 +341,10 @@ INSERT INTO skills (name, skill_type_id, created_at, updated_at) VALUES
 ('storytelling', 2, current_timestamp, current_timestamp),
 ('user_design', 2, current_timestamp, current_timestamp),
 ('empathy', 1, current_timestamp, current_timestamp),
-('analysis', 2, current_timestamp, current_timestamp);
+('analysis', 2, current_timestamp, current_timestamp),
+('data_science', 2, current_timestamp, current_timestamp),
+('results_oriented', 1, current_timestamp, current_timestamp),
+('relationship_management', 1, current_timestamp, current_timestamp),
+('data_analysis', 2, current_timestamp, current_timestamp),
+('data_mining', 2, current_timestamp, current_timestamp),
+('r_programming', 2, current_timestamp, current_timestamp);

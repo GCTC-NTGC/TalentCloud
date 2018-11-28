@@ -18,7 +18,7 @@ The Talent Cloud site uses:
 ## Running the Talent Cloud server with Docker on a Windows machine:
 1. Install Docker for Windows
 
-A) Check your evironment variables for any Docker Toolboxor or previous Docker installaion version remnants and clear them.
+A) Check your environment variables for any Docker Toolbox or previous Docker installation version remnants and clear them.
 
 Go to Control Panel\All Control Panel Items\System Then click Advanced system settings, In System Properties, Go to Advanced Tab and Click Environment Variables. Delete all DOCKER_* from System/User variables.
 
@@ -52,9 +52,9 @@ B) If prompted, allow Docker through Windows Firewall.
     If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 5. Execute gen_certs.bat or run
-	`docker run --rm -v $pwd/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
+	`docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
 
-	If that doesn't work, try manually replacing $pwd with the absolute path to the TalentCloud directory.
+	If that doesn't work, try manually replacing $PWD with the absolute path to the TalentCloud directory.
 
     If that doesn't work, you should restart your computer and attempt to run gen_certs.bat again.
 
@@ -67,10 +67,14 @@ B) If prompted, allow Docker through Windows Firewall.
 	- Get the `GCCOLLAB_CLIENT_SECRET` from another team member and paste it in
 	- If testing, consider setting `FORCE_ADMIN` and/or `DEBUGBAR_ENABLED` to true.
 
+8. Run the following command so that the database will persist across containers being brought and down:
+	`docker volume create pgdata`
+	You can run `docker-compose down -v` to erase this data volume.
+
 8. Run the following commands to manually set up database
 	```
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	docker-compose exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	```
 
 9. For testing, you may want to create fake data with the following command:
@@ -96,17 +100,44 @@ If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sa
 
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
+## Editing Frontend Assets (CSS/SASS and JavaScript files):
+
+Laravel Mix is used to compile frontend assets (CSS, SASS, and JS).
+
+Files in the `public/` folder must never be modified directly. Instead, modify files in the `resources/assets/` folder, and then run `npm run dev` or `npm run prod` to compile these assets to the `public/` folder.
+
+See the documentation for more details: https://laravel.com/docs/5.5/mix
+See below for installing `npm`:
+
+First download the applicable package here ; https://nodejs.org/en/
+
+Then after installation completes, restart your computer and open Powershell. Navigate to your TalentCloud directory.
+
+Type in the commands,
+
+```
+npm install
+```
+and then,
+```
+npm update
+```
+Finally type in,
+```
+npm run dev
+```
+And you are done.
 
 ## Useful Commands:
 ```
 Generate site certificate
-	docker run --rm -v ${pwd}/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+	docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 Run composer install
-	docker run --rm -v ${pwd}:/app composer/composer install
+	docker run --rm -v $PWD:/app composer/composer install
 
 Run composer update
-	docker run --rm --interactive --tty --volume ${pwd}/:/app composer "update"
+	docker run --rm --interactive --tty --volume $PWD/:/app composer "update"
 
 To stop and delete all existing Docker containers (can fix some errors)
 	docker stop $(docker ps -a -q)
@@ -114,9 +145,9 @@ To stop and delete all existing Docker containers (can fix some errors)
 
 To set up your database manually (MySQL)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "mysql --password talentcloud < /docker-entrypoint-initdb.d/seed_lookup_tables.sql"
+	docker-compose exec postgres sh -c "mysql --password talentcloud < /docker-entrypoint-initdb.d/seed_lookup_tables.sql"
 
 To set up your database manually (PostGres)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec talentcloud-db sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+	docker-compose exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 ```

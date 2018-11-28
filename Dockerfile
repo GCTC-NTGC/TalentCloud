@@ -12,14 +12,10 @@ RUN apk update && apk upgrade && \
         libtool \
         make \
         pcre-dev && \
-    apk add --no-cache \
-        sudo \
-        postgresql-dev \
-        imagemagick-dev && \
+    apk add --no-cache postgresql-dev imagemagick-dev && \
         pecl install imagick && \
-        docker-php-ext-enable imagick && \
         pecl install xdebug && \
-        docker-php-ext-enable xdebug && \
+        docker-php-ext-enable imagick xdebug && \
         docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
         docker-php-ext-install pgsql pdo_pgsql && \
     apk del .build-dependencies && \
@@ -33,8 +29,7 @@ WORKDIR /var/www
 
 RUN mkdir -p /var/www/vendor && \
     rm -rf .composer && \
-    chown -R www-data /var/www && \
-    sudo chown -R www-data /usr/local
+    chown -R www-data /usr/local
 
 USER www-data
 

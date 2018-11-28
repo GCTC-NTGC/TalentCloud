@@ -269,6 +269,30 @@ return [
             'name' => 'Analysis',
             'description' => 'Defined as: Ability to collect and utilize qualitative and quantitative data to make design decisions'
         ],
+        'data_science' => [
+            'name' => 'Data Science',
+            'description' => 'Defined as: Ability to use scientific methods, processes, algorithms and systems to extract knowledge and insights from data in various forms, both structured and unstructured.'
+        ],
+        'results_oriented' => [
+            'name' => 'Results-Oriented',
+            'description' => 'Defined as: Ability to focus efforts on achieving quality results consistent with the overall vision.'
+        ],
+        'relationship_management' => [
+            'name' => 'Relationship Management',
+            'description' => 'Defined as: Ability to develop respectful, constructive and cooperative working relationships with others, and maintaining them over time.'
+        ],
+        'data_analysis' => [
+            'name' => 'Data Analysis',
+            'description' => 'Defined as: Ability to inspect, cleanse, transform, and model data with the goal of discovering useful information, informing conclusions, and supporting decision-making.'
+        ],
+        'data_mining' => [
+            'name' => 'Data Mining',
+            'description' => 'Defined as: Ability to use a data analysis technique that focuses on modeling and knowledge discovery for predictive rather than purely descriptive purposes.'
+        ],
+        'r_programming' => [
+            'name' => 'R programming',
+            'description' => 'Defined as: A programming language for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.'
+        ],
     ],
     'status' => [
         'claimed' => 'Skill Claimed'
