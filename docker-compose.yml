@@ -11,8 +11,6 @@ services:
         depends_on:
             - talentcloud
             - postgres
-        environment:
-            - "NGINX_HOST=talent.local.ca"
         ports:
             - "80:80"
             - "443:443"
@@ -28,8 +26,6 @@ services:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
-        links:
-            - postgres
         environment:
             - "DB_PORT=5432"
             - "DB_HOST=postgres"

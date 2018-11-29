@@ -16,72 +16,27 @@ use App\Policies\ManagerPolicy;
 /**
  * A base class for Policy tests
  */
+
 abstract class BasePolicyTest extends TestCase
 {
-
-    protected $nextId = 1;
-
-    protected function makeId() {
-        $id = $this->nextId;
-        $this->nextId = $this->nextId + 1;
-        return $id;
+    //factory includes a user
+    public function createApplicant() {
+        $applicant = factory(\App\Models\Applicant::class)->create();
+        return $applicant;
+    }
+    //factory includes a user
+    public function createManager() {
+        $manager = factory(\App\Models\Manager::class)->create();
+        return $manager;
     }
 
-    protected function makeApplicant() {
-        //New applicants get a new user
-        $user =  User::make();
-        $user->id = $this->makeId();
-        // Make user an Applicant
-        $user->user_role()->associate(
-            UserRole::where('name', 'applicant')->firstOrFail());
-
-        $userApplicant = new Applicant();
-        $userApplicant->id = $this->makeId();
-        $userApplicant->user()->associate($user);
-
-        return $userApplicant;
-    }
-
-    protected function makeManager() {
-        //New managers get a new user
-        $user = User::make();
-        $user->id = $this->makeId();
-        // Make user a manager
-        $user->user_role()->associate(
-            UserRole::where('name', 'manager')->firstOrFail());
-
-        $userManager = new Manager();
-        $userManager->id = $this->makeId();
-        $userManager->user()->associate($user);
-
-        return $userManager;
-    }
-
-
-
+    /*
     protected function makeJobPoster() {
         $jobPoster = JobPoster::make();
     }
 
-    //makeManager(), comes with a user
-
-    //makeJob($manager) {} Also look to Create a job on the base policy and test to see if the user can access it. 11/27/2018
-    protected function makeJob() {
-        $job = Job::make();
-        $job->id = $this->makeId();
-        
-        //Test to see if userApplicant can access the job
-      
-        $userApplicant = new Applicant();
-        $userApplicant->id = $this->makeId();
-        $userApplicant->user()->associate($job);
-        
-        return $userApplicant; 
-    }
-    
-    
-    
-    //makeManager(), comes with a user
+    //makeJob($manager) {}
 
     //makeApplication($applicant, $job) {}
+    */
 }

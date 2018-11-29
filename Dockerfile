@@ -22,9 +22,4 @@ RUN apk update && apk upgrade && \
 
 COPY . /var/www
 WORKDIR /var/www
-
-# Replace localhost with wildcard port
-RUN sed -i 's/0.0.0.0/127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf
-
-USER www-data
 EXPOSE 9000
