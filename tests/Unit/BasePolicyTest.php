@@ -18,6 +18,16 @@ use App\Policies\ManagerPolicy;
  */
 abstract class BasePolicyTest extends TestCase
 {
+/*
+    protected function makeUser() {
+        $user = factory(App\User::class)->make();
+        return $user;
+    }
+
+    protected function makeManager() {
+        $userManager = factory(App\User::class)->states('manager')->make();
+        return $userManager;
+    }*/
 
     protected $nextId = 1;
 
