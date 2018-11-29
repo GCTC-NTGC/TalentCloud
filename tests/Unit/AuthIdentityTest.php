@@ -1,25 +1,20 @@
 <?php
 
-
 namespace Tests\Unit;
-use PHPUnit\Framework\TestCase; 
-use App\Models\UserRole; // This tells this file anytime you are referecning userRole you are referencing them here exactly.
 
+use App\Services\Auth;
 
-class JobPolicyTest extends \App\Policies\JobPolicy
+class JobPolicyTest extends BasePolicyTest {
 
-
-
-{
-    public function testThatWeCanGetTheAuthIdentifier()
+    public function testAuthIdentifier()
     {
-        $authIdentity = new \App\Models\User;
-        
-        $authIdentity->setAuthIdentity('2');
-        
-        $this->assertEquals($authIdentity->getAuthIdentifier(),'2' );
-    }
-    
-    
-}
+        //TODO: write a real test
+        //$authIdentity = factory(\App\Models\User::class)->make();
 
+        $this->assertDatabaseMissing('users', [
+            'email' => 'oprah@oprah.com'
+        ]);
+
+        $this->assertEquals('123','123');
+    }
+}

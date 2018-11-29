@@ -6,19 +6,12 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-use App\Models\User;
-use App\Models\Applicant;
-use App\Models\Manager;
-use App\Models\UserRole;
-use App\Policies\ApplicantPolicy;
-use App\Policies\ManagerPolicy;
-
 /**
  * A base class for Policy tests
  */
 
-abstract class BasePolicyTest extends TestCase
-{
+abstract class BasePolicyTest extends TestCase {
+
     //factory includes a user
     public function createApplicant() {
         $applicant = factory(\App\Models\Applicant::class)->create();
