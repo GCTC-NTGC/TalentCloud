@@ -16,16 +16,14 @@ class ManagerPolicyTest extends BasePolicyTest
 
     public function testView()
     {
-        // Test 1: applicants can view manager
-        // Expect to be true
-        //$steveManager = $this->makeManager();
-        //$bobApplicant = $this->makeApplicant();
-        //$canApplicantViewManager = $this->getManagerPolicy()->view($bobApplicant->user, $steveManager);
-        //$this->assertTrue($canApplicantViewManager);
+        //Test 1: applicant can view manager
+        $ianApplicant = $this->createApplicant();
+        $maryManager = $this->createManager();
+        $canApplicantViewManager = $this->getManagerPolicy()->view($ianApplicant->user, $maryManager);
+        $this->assertTrue($canApplicantViewManager);
 
-        // Test 2: managers can view managers
-        // Expect to be true
-        //$canManagerViewManager = $this->getManagerPolicy()->view($steveManager->user, $steveManager);
-        //$this->assertTrue($canManagerViewManager);
+        //Test 2: manager can view manager
+        $canManagerViewManager = $this->getManagerPolicy()->view($maryManager->user, $maryManager);
+        $this->assertTrue($canManagerViewManager);
     }
 }
