@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine3.7
+FROM php:7.0-fpm-alpine3.7
 
 RUN apk update && apk upgrade && \
         docker-php-source extract && \
@@ -22,9 +22,4 @@ RUN apk update && apk upgrade && \
 
 COPY . /var/www
 WORKDIR /var/www
-
-# Replace localhost with wildcard port
-#RUN sed -i 's/0.0.0.0/127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf
-
-#USER www-data
 EXPOSE 9000
