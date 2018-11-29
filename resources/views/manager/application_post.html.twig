@@ -11,7 +11,12 @@
     <section
 		class="application__view-layout submitted">
 
-		{% include "manager/application_post/application_review" with {'application': job_application} %}
+		<div class="container--layout-xl">
+			<p>
+				<a href="{{ route('manager.jobs.show', job) }}">Job Poster</a>
+			</p>
+			{% include "manager/application_post/application_review" with {'application': job_application} %}
+		</div>
 
     	{% include "common/application/view/view_layout" %}
 
