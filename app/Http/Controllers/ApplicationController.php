@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
 use App\Models\Skill;
+use Facades\App\Services\WhichPortal;
 
 class ApplicationController extends Controller
 {
@@ -44,7 +45,12 @@ class ApplicationController extends Controller
             }),
         ];
 
-        return view('common/application_preview', [
+        //Display slightly different views on different portals
+        $view = WhichPortal::isManagerPortal() ?
+            'manager/application_post' :
+            'applicant/application_preview';
+
+        return view($view, [
 
             /* Application Template Data */
                 "application_template" => Lang::get("applicant/application_template"),
