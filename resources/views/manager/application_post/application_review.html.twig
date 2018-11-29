@@ -1,5 +1,7 @@
 {# Requires an application object to be passed in #}
 
+{% include 'errors/form_errors' %}
+
 <div class="manager-job-index__temp-labels flex-grid">
     <div class="box small-1of12">
         <strong>Name</strong>
@@ -30,7 +32,13 @@
     </div>
 </div>
 
-<form class="manager-job-index__temp-form flex-grid middle">
+<form class="manager-job-index__temp-form flex-grid middle"
+    action="{{ route('application_reviews.update', application) }}"
+    method="post">
+
+    {{ csrf_field() }}
+
+    <input type="hidden" name="_method" value="PUT">
 
     <div class="box small-1of12">
         {{ application.applicant.user.name }}
@@ -49,7 +57,8 @@
             <div
                 class="form__select-wrapper fas fa-chevron-down">
                 <select
-                    class="form__input">
+                    class="form__input"
+                    name="review_status">
                     {% for review_status in review_statuses %}
                         <option
                             value="{{ review_status.id }}"
@@ -66,7 +75,8 @@
             <div
                 class="form__select-wrapper fas fa-chevron-down">
                 <select
-                    class="form__input">
+                    class="form__input"
+                    name="review_decision">
                     {% for review_decision in review_decisions %}
                         <option
                             value="{{ review_decision.id }}"
@@ -83,7 +93,10 @@
             <input
                 class="form__input"
                 placeholder="Reviewer"
-                type="text"/>
+                name="reviewer"
+                type="text"
+                required
+                value="{{ application.application_review.reviewer }}"/>
         </div>
     </div>
 
@@ -91,16 +104,19 @@
         <div class="form__input-wrapper--float">
             <input
                 class="form__input"
-                id=""
                 placeholder="Other Notes..."
-                type="text" />
+                name="notes"
+                type="text"
+                value="{{ application.application_review.notes }}"/>
         </div>
     </div>
 
     <div class="box small-1of12">
         <button
             class="button--blue"
-            type="button">
+            type="submit"
+            name="submit"
+            value="application_review">
             Save
         </button>
     </div>
