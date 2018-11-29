@@ -16,64 +16,27 @@ use App\Policies\ManagerPolicy;
 /**
  * A base class for Policy tests
  */
+
 abstract class BasePolicyTest extends TestCase
 {
-/*
-    protected function makeUser() {
-        $user = factory(App\User::class)->make();
-        return $user;
+    //factory includes a user
+    public function createApplicant() {
+        $applicant = factory(\App\Models\Applicant::class)->create();
+        return $applicant;
+    }
+    //factory includes a user
+    public function createManager() {
+        $manager = factory(\App\Models\Manager::class)->create();
+        return $manager;
     }
 
-    protected function makeManager() {
-        $userManager = factory(App\User::class)->states('manager')->make();
-        return $userManager;
-    }*/
-
-    protected $nextId = 1;
-
-    protected function makeId() {
-        $id = $this->nextId;
-        $this->nextId = $this->nextId + 1;
-        return $id;
-    }
-
-    protected function makeApplicant() {
-        //New applicants get a new user
-        $user =  User::make();
-        $user->id = $this->makeId();
-        // Make user an Applicant
-        $user->user_role()->associate(
-            UserRole::where('name', 'applicant')->firstOrFail());
-
-        $userApplicant = new Applicant();
-        $userApplicant->id = $this->makeId();
-        $userApplicant->user()->associate($user);
-
-        return $userApplicant;
-    }
-
-    protected function makeManager() {
-        //New managers get a new user
-        $user = User::make();
-        $user->id = $this->makeId();
-        // Make user a manager
-        $user->user_role()->associate(
-            UserRole::where('name', 'manager')->firstOrFail());
-
-        $userManager = new Manager();
-        $userManager->id = $this->makeId();
-        $userManager->user()->associate($user);
-
-        return $userManager;
-    }
-
+    /*
     protected function makeJobPoster() {
         $jobPoster = JobPoster::make();
     }
 
-    //makeManager(), comes with a user
-
     //makeJob($manager) {}
 
     //makeApplication($applicant, $job) {}
+    */
 }
