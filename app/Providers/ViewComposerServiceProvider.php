@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\ApplicationReviewComposer;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -75,6 +76,10 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer(
             'common/work', 'App\Http\ViewComposers\WorkExperienceComposer'
+        );
+
+        View::composer(
+            'manager/application_post/application_review', ApplicationReviewComposer::class
         );
 
     }
