@@ -32,10 +32,6 @@
     <!-- Commented out this bit of code to stop CodeCoverage Reports from generating everytime PHPUnit is run
 	<logging>
         <log type="coverage-html" target="./report/phpunit"/>
-=======
-    <logging>
-        <log type="coverage-clover" target="coverage.xml"/>
->>>>>>> ddfd0c72ee4fa44a5a84888ff5f29d0353e03696
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
 	-->
