@@ -310,6 +310,9 @@
                     }
 
                     function submitAllForms(event) {
+                        //Add working class to triggering button
+                        $(event.target).addClass('working');
+
                         const forms = $(".ajax-form");
                         const requests = $.map(forms, function(object) {
 
@@ -323,6 +326,7 @@
                                 showFormErrors(object, error.response);
                                 $(object).removeClass('working');
                                 $(object).addClass('active'); //Ensure errors are displayed
+                                $(object).find('.accordion-trigger').focus();
                             }
                             const request = submitItem(object);
                             request.then(onSave).catch(onError);
@@ -335,8 +339,10 @@
                             if ($(event.target).hasAttr('data-on-success-url')) {
                                 window.location = $(event.target).attr('data-on-success-url');
                             }
+                            $(event.target).removeClass('working');
                         }).catch(function(error) {
                             //If something went wrong, do nothing (individual errors processed seperately)
+                            $(event.target).removeClass('working');
                         });
                     }
 
@@ -354,11 +360,13 @@
                             setItemSaved(object, response);
                             clearFormErrors(object);
                             $(object).removeClass('working');
+                            $(object).find('.accordion-trigger').focus();
                         }
 
                         function onError(error) {
                             showFormErrors(object, error.response);
                             $(object).removeClass('working');
+                            $(object).find('.accordion-trigger').focus();
                         }
 
                         $(form).on("submit", function(event){

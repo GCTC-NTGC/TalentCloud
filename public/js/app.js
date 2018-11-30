@@ -352,6 +352,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                         }
 
                                         function submitAllForms(event) {
+                                                            //Add working class to triggering button
+                                                            $(event.target).addClass('working');
+
                                                             var forms = $(".ajax-form");
                                                             var requests = $.map(forms, function (object) {
 
@@ -365,6 +368,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                                     showFormErrors(object, error.response);
                                                                                                     $(object).removeClass('working');
                                                                                                     $(object).addClass('active'); //Ensure errors are displayed
+                                                                                                    $(object).find('.accordion-trigger').focus();
                                                                                 }
                                                                                 var request = submitItem(object);
                                                                                 request.then(onSave).catch(onError);
@@ -377,8 +381,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                 if ($(event.target).hasAttr('data-on-success-url')) {
                                                                                                     window.location = $(event.target).attr('data-on-success-url');
                                                                                 }
+                                                                                $(event.target).removeClass('working');
                                                             }).catch(function (error) {
                                                                                 //If something went wrong, do nothing (individual errors processed seperately)
+                                                                                $(event.target).removeClass('working');
                                                             });
                                         }
 
@@ -396,11 +402,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                 setItemSaved(object, response);
                                                                                 clearFormErrors(object);
                                                                                 $(object).removeClass('working');
+                                                                                $(object).find('.accordion-trigger').focus();
                                                             }
 
                                                             function onError(error) {
                                                                                 showFormErrors(object, error.response);
                                                                                 $(object).removeClass('working');
+                                                                                $(object).find('.accordion-trigger').focus();
                                                             }
 
                                                             $(form).on("submit", function (event) {
