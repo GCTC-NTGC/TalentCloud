@@ -351,10 +351,42 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                             return requestPromise;
                                         }
 
-                                        function submitAllForms(onSuccess, onError) {
+                                        function submitAllForms(event) {
                                                             var forms = $(".ajax-form");
-                                                            var waiting = forms.size();
+                                                            var requests = $.map(forms, function (object) {
+
+                                                                                function onSave(response) {
+                                                                                                    setItemSaved(object, response);
+                                                                                                    clearFormErrors(object);
+                                                                                                    $(object).removeClass('working');
+                                                                                }
+
+                                                                                function onError(error) {
+                                                                                                    showFormErrors(object, error.response);
+                                                                                                    $(object).removeClass('working');
+                                                                                                    $(object).addClass('active'); //Ensure errors are displayed
+                                                                                }
+                                                                                var request = submitItem(object);
+                                                                                request.then(onSave).catch(onError);
+                                                                                return request;
+                                                            });
+
+                                                            //Define processing for when all requests have returned
+                                                            axios.all(requests).then(function (responses) {
+                                                                                //If nothing went wrong, continue
+                                                                                if ($(event.target).hasAttr('data-on-success-url')) {
+                                                                                                    window.location = $(event.target).attr('data-on-success-url');
+                                                                                }
+                                                            }).catch(function (error) {
+                                                                                //If something went wrong, do nothing (individual errors processed seperately)
+                                                            });
                                         }
+
+                                        // all .ajax-submit-all elements should trigger submitAllForms()
+                                        $(".ajax-submit-all").on("click", function (e) {
+                                                            e.preventDefault();
+                                                            submitAllForms(e);
+                                        });
 
                                         function addSubmitTrigger(object) {
 
@@ -403,7 +435,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                             $(object).find('.remove-on-save').remove();
                                                             $(object).find('.reveal-on-save').removeClass('hidden');
 
-                                                            $(object).removeClass('active');
+                                                            //$(object).removeClass('active');
                                         }
 
                                         //Update ui for Skill object to reflect that it has been setItem
