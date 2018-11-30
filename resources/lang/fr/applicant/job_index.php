@@ -14,7 +14,7 @@ return [
     "index" => [
         "view_title" => "Voir l'affiche de travail pour",
         "location_label" => "Emplacement",
-        "salary_label" => "Salaire",
+        "salary_label" => "Échelle de salaire annuel",
         "duration" => [
             'week' => ':count semaine.|:count semaines.',
             'month' => ':count mois.|:count mois.',
