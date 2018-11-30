@@ -1,0 +1,25 @@
+{% extends "layouts/base" %}
+
+{% block body %}
+
+	{% include "common/alert" %}
+
+    {% include "common/goc" %}
+
+    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.view_title, ':job':job.title})}} %}
+
+    <section
+		class="application__view-layout submitted">
+
+		<div class="container--layout-xl">
+			<p>
+				<a href="{{ route('manager.jobs.show', job) }}">Job Poster</a>
+			</p>
+			{% include "manager/application_post/application_review" with {'application': job_application} %}
+		</div>
+
+    	{% include "common/application/view/view_layout" %}
+
+	</section>
+
+{% endblock %}

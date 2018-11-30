@@ -115,3 +115,48 @@
     }
 
 }
+
+.manager-job-index__temp {
+    font-family: $font--sans;
+
+    .manager-job-index__temp-labels {
+
+        &.flex-grid {
+            margin: .5rem -.5rem;
+
+            >.box {
+                padding: 0 .5rem;
+
+                [class*=form__input-wrapper] {
+                    margin: 0;
+                }
+
+            }
+
+        }
+
+    }
+
+    .manager-job-index__temp-form {
+
+        &.flex-grid {
+            margin: .5rem -.5rem;
+
+            >.box {
+                padding: 0 .5rem;
+
+                [class*=form__input-wrapper] {
+                    margin: 0;
+                }
+
+            }
+
+        }
+
+        textarea {
+            min-height: 0!important;
+        }
+
+    }
+
+}

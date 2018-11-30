@@ -325,6 +325,10 @@ $managerGroup = function() {
         /* Job Index */
         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
+        /* View Job Poster */
+        Route::get('jobs/{jobPoster}', 'JobController@show')
+            ->name('manager.jobs.show');
+
         /* Create Job */
         Route::get('jobs/create', 'JobController@create')
             ->middleware('can:create,App\Models\JobPoster')
@@ -422,4 +426,11 @@ Route::middleware(['auth'])->group(function() {
         ->middleware('can:delete,application')
         ->name('applications.destroy');
 
+    //TODO: Because this is for reviews indexed by application, it checks that user is a manager
+    //  with view permissions for the applicaiton. Using an ApplicationReview
+    //  policy would be better, but I'm not sure how to set it up for now.
+    Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
+        ->middleware('role:manager')
+        ->middleware('can:view,application')
+        ->name('application_reviews.update');
 });
