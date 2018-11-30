@@ -327,6 +327,7 @@ $managerGroup = function() {
 
         /* View Job Poster */
         Route::get('jobs/{jobPoster}', 'JobController@show')
+            ->where('jobPoster', '[0-9]+')
             ->name('manager.jobs.show');
 
         /* Create Job */
