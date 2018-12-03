@@ -4,31 +4,55 @@
     Manager - Job Index Layout
 
 ============================================================================= #}
-<div class="manager-job-index__section-wrapper">
+<div class="manager-job-index__section-wrapper manager-job-index__temp">
 
-    <div class="container--layout">
+    <div class="container--layout-xl">
 
         {% for job in jobs %}
+
             <div>
+
                 <h3>{{ job.title }}</h3>
-                <ul>
-                    {% for application in job.submitted_applications %}
-                    <li>
-                        {{ application.applicant.user.name }},
-                        <a
-                            href="{{ route('manager.applicants.show', application.applicant) }}"
-                            >
-                            Profile,
-                        </a>
-                        <a
-                            href="{{ route('manager.applications.show', application) }}"
-                            >
-                            Application
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
+
+                <a href="{{ route('manager.jobs.show', job) }}">Job Poster</a>
+
+                <div class="container--layout-xl">
+
+                <h4>Veteran Applicants</h4>
+                    <div class="container--layout-xl">
+                        {% if veteran_applications[job.id]|length > 0 %}
+                            {% for application in veteran_applications[job.id] %}
+                                    {% include "manager/application_post/application_review" %}
+                            {% endfor %}
+                        {% else %}
+                            <p>None</p>
+                        {% endif %}
+                    </div>
+
+                <h4>Citizen Applicants</h4>
+                    <div class="container--layout-xl">
+                        {% if citizen_applications[job.id]|length > 0 %}
+                            {% for application in citizen_applications[job.id] %}
+                                    {% include "manager/application_post/application_review" %}
+                            {% endfor %}
+                        {% else %}
+                            <p>None</p>
+                        {% endif %}
+                    </div>
+
+                <h4>Other Applicants</h4>
+                    <div class="container--layout-xl">
+                        {% if other_applications[job.id]|length > 0 %}
+                            {% for application in other_applications[job.id] %}
+                                    {% include "manager/application_post/application_review" %}
+                            {% endfor %}
+                        {% else %}
+                            <p>None</p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
+
         {% endfor %}
 
     </div>

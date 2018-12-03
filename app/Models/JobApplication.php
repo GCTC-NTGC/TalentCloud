@@ -9,6 +9,7 @@ namespace App\Models;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\ApplicationReview;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
 use App\Events\ApplicationRetrieved;
@@ -38,6 +39,7 @@ use App\Events\ApplicationRetrieved;
  * @property \App\Models\JobPoster $job_poster
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
+ * @property \App\Models\ApplicationReview $application_review
  */
 class JobApplication extends BaseModel {
 
@@ -104,6 +106,10 @@ class JobApplication extends BaseModel {
 
     public function job_application_answers() {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
+    }
+
+    public function application_review() {
+        return $this->hasOne(ApplicationReview::class);
     }
 
     /**

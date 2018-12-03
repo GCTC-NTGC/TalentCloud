@@ -12,9 +12,12 @@ use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\CriteriaType;
+use App\Models\Lookup\VeteranStatus;
+use App\Models\JobApplication;
 use App\Models\Criteria;
 use App\Models\Skill;
 use App\Models\JobPosterQuestion;
@@ -50,11 +53,33 @@ class JobController extends Controller
     {
         $manager = Auth::user()->manager;
 
+        $veteran_applications = [];
+        $citizen_applications = [];
+        $other_applications = [];
+
+        foreach($manager->job_posters as $job) {
+            $job->submitted_applications->load(['veteran_status', 'citizenship_declaration']);
+            $veteran_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+                return $application->veteran_status->name !== "none" &&
+                        $application->citizenship_declaration->name === "citizen";
+            });
+            $citizen_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+                return $application->veteran_status->name === "none" &&
+                        $application->citizenship_declaration->name === "citizen";
+            });
+            $other_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+                return $application->citizenship_declaration->name !== "citizen";
+            });
+        }
+
         return view('manager/job_index', [
             "manager_job_index" => [
                 "title" => "My Job Posts"
             ],
             'jobs' => $manager->job_posters,
+            'veteran_applications' => $veteran_applications,
+            'citizen_applications' => $citizen_applications,
+            'other_applications' => $other_applications,
         ]);
     }
 
