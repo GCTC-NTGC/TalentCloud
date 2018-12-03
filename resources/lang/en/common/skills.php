@@ -293,6 +293,10 @@ return [
             'name' => 'R programming',
             'description' => 'Defined as: A programming language for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.'
         ],
+        'database_design_and_management' => [
+            'name' => 'Database Design & Management',
+            'description' => 'Defined as: Knowledge and ability to apply the methods, practices and policies that are used in the design and the management of databases'
+        ],
         'scrum' => [
             'name' => 'SCRUM',
             'description' => 'Defined as: Ability to work under Scrum, an Agile framework for complex projects that helps break down a project into tangible goals through daily meetings, detailed project timelines, and identification of potential project roadblocks.'

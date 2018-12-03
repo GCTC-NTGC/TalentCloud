@@ -293,6 +293,10 @@ return [
             'name' => 'Programmation R',
             'description' => 'Se définit comme suit : un langage de programmation voué à l’informatique statistique et aux graphiques. Le langage R est largement utilisé par les statisticiens et les extracteurs de données pour l’élaboration de logiciels statistiques et l’analyse de données.'
         ],
+        'database_design_and_management' => [
+            'name' => 'Conception et gestion de bases de données',
+            'description' => 'Se définissant comme suit : Connaissances et capacités nécessaires pour appliquer les méthodes, les pratiques et les politiques utilisées dans la conception et la gestion des bases de données'
+        ],
         'scrum' => [
             'name' => 'Méthodologie SCRUM',
             'description' => 'Se définissant comme suit : Capacité de travailler selon la méthodologie Scrum, un cadre Agile pour des projets complexes qui aide à décomposer un projet en objectifs tangibles par la tenue de réunions quotidiennes, l’établissement d’échéanciers de projet détaillés et la détermination des obstacles éventuels au projet.'
