@@ -311,7 +311,8 @@
 
                     function submitAllForms(event) {
                         //Add working class to triggering button
-                        $(event.target).addClass('working');
+                        const button = $(event.currentTarget);
+                        button.addClass('working');
 
                         const forms = $(".ajax-form");
                         const requests = $.map(forms, function(object) {
@@ -336,13 +337,13 @@
                         //Define processing for when all requests have returned
                         axios.all(requests).then(function(responses) {
                             //If nothing went wrong, continue
-                            if ($(event.target).hasAttr('data-on-success-url')) {
-                                window.location = $(event.target).attr('data-on-success-url');
+                            if (button.hasAttr('data-on-success-url')) {
+                                window.location = button.attr('data-on-success-url');
                             }
-                            $(event.target).removeClass('working');
+                            button.removeClass('working');
                         }).catch(function(error) {
                             //If something went wrong, do nothing (individual errors processed seperately)
-                            $(event.target).removeClass('working');
+                            button.removeClass('working');
                         });
                     }
 
@@ -452,7 +453,24 @@
                     }
 
 
+        // Confirmable link handlers
+        function confirmLink(event) {
+            event.preventDefault();
+            const anchor = $(event.currentTarget);
+            const link = anchor.attr('href');
+            var message = "";
 
+            if (anchor.hasAttr('data-confirm-message')) {
+                message = anchor.attr('data-confirm-message');
+            } else {
+                message = "Are you sure you want to continue?";
+            }
+
+            if (window.confirm(message)) {
+                window.location = link;
+            }
+        }
+        $('a.confirm-link').click(confirmLink);
 
         // Individualizing repeater name and id attributes======================
 

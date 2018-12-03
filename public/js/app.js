@@ -353,7 +353,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                         function submitAllForms(event) {
                                                             //Add working class to triggering button
-                                                            $(event.target).addClass('working');
+                                                            var button = $(event.currentTarget);
+                                                            button.addClass('working');
 
                                                             var forms = $(".ajax-form");
                                                             var requests = $.map(forms, function (object) {
@@ -378,13 +379,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                             //Define processing for when all requests have returned
                                                             axios.all(requests).then(function (responses) {
                                                                                 //If nothing went wrong, continue
-                                                                                if ($(event.target).hasAttr('data-on-success-url')) {
-                                                                                                    window.location = $(event.target).attr('data-on-success-url');
+                                                                                if (button.hasAttr('data-on-success-url')) {
+                                                                                                    window.location = button.attr('data-on-success-url');
                                                                                 }
-                                                                                $(event.target).removeClass('working');
+                                                                                button.removeClass('working');
                                                             }).catch(function (error) {
                                                                                 //If something went wrong, do nothing (individual errors processed seperately)
-                                                                                $(event.target).removeClass('working');
+                                                                                button.removeClass('working');
                                                             });
                                         }
 
@@ -490,6 +491,25 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                                             return li;
                                         }
+
+                                        // Confirmable link handlers
+                                        function confirmLink(event) {
+                                                            event.preventDefault();
+                                                            var anchor = $(event.currentTarget);
+                                                            var link = anchor.attr('href');
+                                                            var message = "";
+
+                                                            if (anchor.hasAttr('data-confirm-message')) {
+                                                                                message = anchor.attr('data-confirm-message');
+                                                            } else {
+                                                                                message = "Are you sure you want to continue?";
+                                                            }
+
+                                                            if (window.confirm(message)) {
+                                                                                window.location = link;
+                                                            }
+                                        }
+                                        $('a.confirm-link').click(confirmLink);
 
                                         // Individualizing repeater name and id attributes======================
 
