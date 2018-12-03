@@ -348,8 +348,9 @@ INSERT INTO skills (id, name, skill_type_id, created_at, updated_at) VALUES
 (62, 'data_analysis', 2, current_timestamp, current_timestamp),
 (63, 'data_mining', 2, current_timestamp, current_timestamp),
 (64, 'r_programming', 2, current_timestamp, current_timestamp),
-(65, 'scrum', 2, current_timestamp, current_timestamp),
-(66, 'team_foundation_server', 2, current_timestamp, current_timestamp),
-(67, 'n_unit_testing', 2, current_timestamp, current_timestamp),
-(68, 'asp_net_mvc', 2, current_timestamp, current_timestamp),
-(69, 'ef6', 2, current_timestamp, current_timestamp);
+(65, 'database_design_and_management', 2, current_timestamp, current_timestamp),
+(66, 'scrum', 2, current_timestamp, current_timestamp),
+(67, 'team_foundation_server', 2, current_timestamp, current_timestamp),
+(68, 'n_unit_testing', 2, current_timestamp, current_timestamp),
+(69, 'asp_net_mvc', 2, current_timestamp, current_timestamp),
+(70, 'ef6', 2, current_timestamp, current_timestamp);
