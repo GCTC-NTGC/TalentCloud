@@ -63,7 +63,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            'applicant/application_post/common/tracker', 'App\Http\ViewComposers\ApplicationTrackerComposer'
+            ['applicant/application_post/common/tracker', 'applicant/application_post/common/tracker-ajax'], 'App\Http\ViewComposers\ApplicationTrackerComposer'
         );
 
         View::composer(

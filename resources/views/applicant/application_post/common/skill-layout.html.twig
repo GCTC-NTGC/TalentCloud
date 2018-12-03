@@ -188,10 +188,11 @@
                     class="box med-1of2">
 
                     <button
-                        class="button--blue light-bg"
-                        type="submit"
+                        class="button--blue light-bg ajax-submit-all"
+                        type="button"
                         name="submit"
-                        value="save_and_quit">
+                        value="save_and_quit"
+                        data-on-success-url="{{ route('applications.index') }}">
                         {{ application_template.save_quit_button_label }}
                     </button>
 

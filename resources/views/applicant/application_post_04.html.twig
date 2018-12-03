@@ -27,7 +27,7 @@
 
         {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
-        {% include "applicant/application_post/common/tracker" %}
+        {% include "applicant/application_post/common/tracker-ajax" %}
 
         {% include "applicant/application_post/common/skill-layout" %}
 
