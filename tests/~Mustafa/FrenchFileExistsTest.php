@@ -13,12 +13,12 @@ class FrenchFileExistsTest extends TestCase
         // Created an array that contains the name and path of the first 3 files under the FR lang applicant files. Can expand scope if go ahead is given.     
         
         $frLangFiles = array(
-    array('name'  => 'applicant_profile', 'path'  =>  'C:\Users\Mustafa\TalentCloud\resources\lang\fr\applicant\applicant_profile.php'),
-    array('name'  => 'applicant_profile_menu', 'path'  =>  'C:\Users\Mustafa\TalentCloud\resources\lang\fr\applicant\applicant_profile_menu.php'),
-    array('name'  => 'application_index', 'path'  =>  'C:\Users\Mustafa\TalentCloud\resources\lang\fr\applicant\application_index.php')
+    array('name'  => 'applicant_profile', 'path'  =>  'resources\lang\fr\applicant\applicant_profile.php'),
+    array('name'  => 'applicant_profile_menu', 'path'  =>  'resources\lang\fr\applicant\applicant_profile_menu.php'),
+    array('name'  => 'application_index', 'path'  =>  'resources\lang\fr\applicant\application_index.php')
     );
         
-        $filename = 'C:\Users\Mustafa\TalentCloud\resources\lang\fr\applicant\applicant_profile.php';
+        $filename = 'resources\lang\en\applicant';
        
                 if (file_exists($filename)) {
                     echo "The file $filename exists";
