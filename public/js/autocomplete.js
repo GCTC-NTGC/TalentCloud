@@ -1,1 +1,439 @@
-!function(t){var e={};function o(s){if(e[s])return e[s].exports;var i=e[s]={i:s,l:!1,exports:{}};return t[s].call(i.exports,i,i.exports,o),i.l=!0,i.exports}o.m=t,o.c=e,o.d=function(t,e,s){o.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:s})},o.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return o.d(e,"a",e),e},o.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},o.p="/",o(o.s=2)}({2:function(t,e,o){t.exports=o("C14S")},C14S:function(t,e){$(document).ready(function(){var t=$(".js-combobox"),e=$("body"),o=[];function s(){$("#js-codeit").html("You have to code a function or a redirection to display more results ;)")}t.length&&(t.each(function(t){var e=$(this),s=e.attr("id"),i=$('label[for="'+s+'"]'),n=t+1,a=e.data(),r=void 0!==a.comboboxPrefixClass?a.comboboxPrefixClass+"-":"",l=void 0!==a.comboboxHelpText?a.comboboxHelpText:"",u=$("#"+e.attr("list")),d=void 0!==a.comboboxButtonTitle?a.comboboxButtonTitle:"clear this field",c=void 0!==a.comboboxButtonText?a.comboboxButtonText:"X",b=void 0!==a.comboboxCaseSensitive?a.comboboxCaseSensitive:"no",f=[];e.attr({"data-number":n,autocorrect:"off",autocapitalize:"off",spellcheck:"false",autocomplete:"off","aria-describedby":r+"help-text"+n,"aria-autocomplete":"list","data-lastval":"","aria-owns":r+"suggest_"+n}),u.find("option").each(function(t,e){f.push(e.value)}),o[n]="no"===b?f.sort(function(t,e){return(t=t.toLowerCase())==(e=e.toLowerCase())?0:t>e?1:-1}):f.sort(),e.wrap('<div class="'+r+'container js-container" data-combobox-prefix-class="'+r+'"></div>');var g=e.parent();g.append('<div id="'+r+"suggest_"+n+'" class="js-suggest '+r+'suggestions"><div role="listbox"></div></div>'),u.remove(),g.prepend('<span id="'+r+"help-text"+n+'" class="'+r+'help-text invisible">'+l+"</span>"),i.attr("id","label-id-"+s),e.after('<button class="js-clear-button '+r+'clear-button" aria-label="'+d+'" title="'+d+'" aria-describedby="label-id-'+s+'" type="button">'+c+"</button>")}),e.on("keyup",".js-combobox",function(t){var e=$(this),s=e.data(),i=e.parent(),n=i.parents("form"),a=i.data(),r=void 0!==a.comboboxPrefixClass?a.comboboxPrefixClass:"",l=i.find(".js-suggest div"),u=i.find(".js-suggestion-text"),d=void 0!==s.suggestionSingle?s.suggestionSingle:"There is ",c=void 0!==s.suggestionPlural?s.suggestionPlural:"There are ",b=void 0!==s.suggestionWord?s.suggestionWord:"suggestion",f=void 0!==s.suggestionWord?s.suggestionWordPlural:"suggestions",g=void 0!==s.comboboxMinLength?Math.abs(s.comboboxMinLength):0,p=void 0!==s.comboboxCaseSensitive?s.comboboxCaseSensitive:"no",v=void 0!==s.comboboxLimitNumberSuggestions?Math.abs(s.comboboxLimitNumberSuggestions):666,m=void 0!==s.comboboxSearchOption?s.comboboxSearchOption:"beginning",x=void 0!==s.comboboxSeeMoreText?s.comboboxSeeMoreText:"See more results…",y=e.attr("data-number"),h=e.val(),j="";if(13===t.keyCode)n.submit();else if(27!==t.keyCode){e.attr("data-lastval",h);var C=o[y].length,k=0,T=0;if(l.empty(),""!=h&&h.length>=g){for(;k<C;)T<v&&("containing"===m&&("yes"===p&&o[y][k].indexOf(h)>=0||"no"===p&&o[y][k].toUpperCase().indexOf(h.toUpperCase())>=0)||"beginning"===m&&("yes"===p&&o[y][k].substring(0,h.length)===h||"no"===p&&o[y][k].substring(0,h.length).toUpperCase()===h.toUpperCase()))&&(l.append('<div id="suggestion-'+y+"-"+T+'" class="js-suggestion '+r+'suggestion" tabindex="-1" role="option">'+o[y][k]+"</div>"),T++),k++;if(T>=v&&(l.append('<div id="suggestion-'+y+"-"+T+'" class="js-suggestion js-seemore '+r+'suggestion" tabindex="-1" role="option">'+x+"</div>"),T++),T>1&&(j=c+T+" "+f+"."),1===T&&(j=d+T+" "+b+"."),0===T&&(j=d+T+" "+b+"."),T>=0)if(j!=u.text()){var S=$("<p>").text(j);u.attr("aria-live","polite"),u.empty(),u.append(S)}}}}).on("click",function(t){var e=$(t.target),o=$(".js-suggestion-text:not(:empty)"),s=o.parents(".js-container"),i=s.find(".js-combobox"),n=s.find(".js-suggest div");e.is(".js-suggestion")||e.is(".js-combobox")||!o.length||(i.val(i.attr("data-lastval")),n.empty(),o.empty())}).on("keydown",".js-combobox",function(t){var e=$(this),o=e.parent(),s=o.find(".js-combobox"),i=o.find(".js-suggest div"),n=i.find(".js-suggestion"),a=o.find(".js-suggestion-text"),r=void 0===e.attr("data-combobox-notab-options"),l=n.first();(!t.shiftKey&&9==t.keyCode&&r||40==t.keyCode)&&n.length&&(s.val(l.html()),n.first().focus(),t.preventDefault()),(27==t.keyCode||!1===r&&9==t.keyCode)&&(s.val(s.attr("data-lastval")),i.empty(),a.empty(),27==t.keyCode&&(t.preventDefault(),setTimeout(function(){s.focus()},300)))}).on("keydown",".js-suggestion",function(t){var e=$(this),o=e.parents(".js-container"),i=o.find(".js-combobox"),n=void 0===i.attr("data-combobox-notab-options"),a=o.find(".js-suggest div"),r=o.find(".js-suggestion-text"),l=e.next(),u=e.prev();if((27==t.keyCode||!1===n&&9==t.keyCode)&&(27==t.keyCode&&(i.val(i.attr("data-lastval")),a.empty(),r.empty(),setTimeout(function(){i.focus()},300),t.preventDefault()),!1===n&&9==t.keyCode&&(a.empty(),r.empty(),i.focus())),13!=t.keyCode&&32!=t.keyCode||(e.hasClass("js-seemore")?(i.val(i.attr("data-lastval")),a.empty(),r.empty(),setTimeout(function(){i.focus()},300),setTimeout(function(){s()},301),t.preventDefault()):(i.val(e.html()),i.attr("data-lastval",e.html()),a.empty(),r.empty(),setTimeout(function(){i.focus()},300),t.preventDefault())),!t.shiftKey&&9==t.keyCode&&n||40==t.keyCode){if(l.length)i.val(l.html()),l.focus();else if(i.val(i.attr("data-lastval")),t.shiftKey||9!=t.keyCode)setTimeout(function(){i.focus()},300);else{var d=jQuery.Event("keydown");d.which=27,d.keyCode=27,e.trigger(d)}t.preventDefault()}(t.shiftKey&&9==t.keyCode&&n||38==t.keyCode)&&(u.length?(i.val(u.html()),u.focus()):i.val(i.attr("data-lastval")).focus(),t.preventDefault())}).on("click",".js-clear-button",function(){var t=$(this).parent(),e=t.find(".js-combobox"),o=t.find(".js-suggest div"),s=t.find(".js-suggestion-text");o.empty(),s.empty(),e.val(""),e.attr("data-lastval","")}).on("click",".js-suggestion",function(){var t=$(this),e=t.html(),o=t.parents(".js-container"),i=o.find(".js-combobox"),n=o.find(".js-suggest div"),a=o.find(".js-suggestion-text");t.hasClass("js-seemore")?(n.empty(),a.empty(),i.focus(),s()):(i.val(e).focus(),n.empty(),a.empty())}))})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/autocomplete.js":
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+
+    /*
+     * jQuery accessible and keyboard-enhanced autocomplete list
+     * @version v1.6.0
+     * Website: https://a11y.nicolas-hoffmann.net/autocomplet-list/
+     * License MIT: https://github.com/nico3333fr/jquery-accessible-autocomplete-list-aria/blob/master/LICENSE
+     */
+    // loading combobox ------------------------------------------------------------------------------------------------------------
+    // init
+    var $js_combobox = $('.js-combobox'),
+        $body = $('body'),
+
+    // default_text_help = 'Use tabulation (or down) key to access and browse suggestions after input. Confirm your choice with enter key, or esc key to close suggestions box.',
+    default_text_help = '',
+        default_class_for_invisible_text = 'invisible',
+        suggestion_single = 'There is ',
+        suggestion_plural = 'There are ',
+        suggestion_word = 'suggestion',
+        suggestion_word_plural = 'suggestions',
+        button_clear_title = 'clear this field',
+        button_clear_text = 'X',
+        case_sensitive = 'no',
+        min_length = 0,
+        limit_number_suggestions = 666,
+        search_option = 'beginning',
+        // or 'containing'
+    see_more_text = 'See more results…',
+        tablo_suggestions = [];
+
+    function do_see_more_option() {
+        var $output_content = $('#js-codeit');
+        $output_content.html('You have to code a function or a redirection to display more results ;)');
+    }
+
+    if ($js_combobox.length) {
+        // if there are at least one :)
+
+        // init
+        $js_combobox.each(function (index_combo) {
+            var $this = $(this),
+                $this_id = $this.attr('id'),
+                $label_this = $('label[for="' + $this_id + '"]'),
+                index_lisible = index_combo + 1,
+                options = $this.data(),
+                $combobox_prefix_class = typeof options.comboboxPrefixClass !== 'undefined' ? options.comboboxPrefixClass + '-' : '',
+                $combobox_help_text = typeof options.comboboxHelpText !== 'undefined' ? options.comboboxHelpText : default_text_help,
+                $list_suggestions = $('#' + $this.attr('list')),
+                $combobox_button_title = typeof options.comboboxButtonTitle !== 'undefined' ? options.comboboxButtonTitle : button_clear_title,
+                $combobox_button_text = typeof options.comboboxButtonText !== 'undefined' ? options.comboboxButtonText : button_clear_text,
+                $combobox_case_sensitive = typeof options.comboboxCaseSensitive !== 'undefined' ? options.comboboxCaseSensitive : case_sensitive,
+                tablo_temp_suggestions = [];
+
+            // input
+            $this.attr({
+                'data-number': index_lisible,
+                'autocorrect': 'off',
+                'autocapitalize': 'off',
+                'spellcheck': 'false',
+                'autocomplete': 'off',
+                'aria-describedby': $combobox_prefix_class + 'help-text' + index_lisible,
+                'aria-autocomplete': 'list',
+                'data-lastval': '',
+                'aria-owns': $combobox_prefix_class + 'suggest_' + index_lisible
+            });
+            // stock into tables
+            $list_suggestions.find('option').each(function (index_option, index_element) {
+                tablo_temp_suggestions.push(index_element.value);
+            });
+            if ($combobox_case_sensitive === 'no') {
+                // order case tablo_temp_suggestions
+                tablo_suggestions[index_lisible] = tablo_temp_suggestions.sort(function (a, b) {
+                    a = a.toLowerCase();
+                    b = b.toLowerCase();
+                    if (a == b) {
+                        return 0;
+                    }
+                    if (a > b) {
+                        return 1;
+                    }
+                    return -1;
+                });
+            } else {
+                tablo_suggestions[index_lisible] = tablo_temp_suggestions.sort();
+            }
+
+            // wrap into a container
+            $this.wrap('<div class="' + $combobox_prefix_class + 'container js-container" data-combobox-prefix-class="' + $combobox_prefix_class + '"></div>');
+
+            var $combobox_container = $this.parent();
+
+            // custom datalist/listbox linked to input
+            $combobox_container.append('<div id="' + $combobox_prefix_class + 'suggest_' + index_lisible + '" class="js-suggest ' + $combobox_prefix_class + 'suggestions"><div role="listbox"></div></div>');
+            $list_suggestions.remove();
+
+            // status zone
+            // $combobox_container.prepend('<div id="' + $combobox_prefix_class + 'suggestion-text' + index_lisible + '" class="js-suggestion-text ' + $combobox_prefix_class + 'suggestion-text ' + default_class_for_invisible_text + '" aria-live="assertive"></div>');
+
+            // help text
+            $combobox_container.prepend('<span id="' + $combobox_prefix_class + 'help-text' + index_lisible + '" class="' + $combobox_prefix_class + 'help-text ' + default_class_for_invisible_text + '">' + $combobox_help_text + '</span>');
+
+            // label id
+            $label_this.attr('id', 'label-id-' + $this_id);
+
+            // button clear
+            $this.after('<button class="js-clear-button ' + $combobox_prefix_class + 'clear-button" aria-label="' + $combobox_button_title + '" title="' + $combobox_button_title + '" aria-describedby="label-id-' + $this_id + '" type="button">' + $combobox_button_text + '</button>');
+        });
+
+        // listeners
+        // keydown on field
+        $body.on('keyup', '.js-combobox', function (event) {
+            var $this = $(this),
+                options_combo = $this.data(),
+                $container = $this.parent(),
+                $form = $container.parents('form'),
+                options = $container.data(),
+                $combobox_prefix_class = typeof options.comboboxPrefixClass !== 'undefined' ? options.comboboxPrefixClass : '',
+                // no "-"" because already generated
+            $suggestions = $container.find('.js-suggest div'),
+
+            //$suggestion_list = $suggestions.find('.js-suggestion'),
+            $suggestions_text = $container.find('.js-suggestion-text'),
+                $combobox_suggestion_single = typeof options_combo.suggestionSingle !== 'undefined' ? options_combo.suggestionSingle : suggestion_single,
+                $combobox_suggestion_plural = typeof options_combo.suggestionPlural !== 'undefined' ? options_combo.suggestionPlural : suggestion_plural,
+                $combobox_suggestion_word = typeof options_combo.suggestionWord !== 'undefined' ? options_combo.suggestionWord : suggestion_word,
+                $combobox_suggestion_word_plural = typeof options_combo.suggestionWord !== 'undefined' ? options_combo.suggestionWordPlural : suggestion_word_plural,
+                combobox_min_length = typeof options_combo.comboboxMinLength !== 'undefined' ? Math.abs(options_combo.comboboxMinLength) : min_length,
+                $combobox_case_sensitive = typeof options_combo.comboboxCaseSensitive !== 'undefined' ? options_combo.comboboxCaseSensitive : case_sensitive,
+                combobox_limit_number_suggestions = typeof options_combo.comboboxLimitNumberSuggestions !== 'undefined' ? Math.abs(options_combo.comboboxLimitNumberSuggestions) : limit_number_suggestions,
+                $combobox_search_option = typeof options_combo.comboboxSearchOption !== 'undefined' ? options_combo.comboboxSearchOption : search_option,
+                $combobox_see_more_text = typeof options_combo.comboboxSeeMoreText !== 'undefined' ? options_combo.comboboxSeeMoreText : see_more_text,
+                index_table = $this.attr('data-number'),
+                value_to_search = $this.val(),
+                text_number_suggestions = '';
+
+            if (event.keyCode === 13) {
+                $form.submit();
+            } else {
+
+                if (event.keyCode !== 27) {
+                    // No Escape
+
+                    $this.attr('data-lastval', value_to_search);
+                    // search for text suggestion in the array tablo_suggestions[index_table]
+                    var size_tablo = tablo_suggestions[index_table].length,
+                        i = 0,
+                        counter = 0;
+
+                    $suggestions.empty();
+
+                    if (value_to_search != '' && value_to_search.length >= combobox_min_length) {
+                        while (i < size_tablo) {
+                            if (counter < combobox_limit_number_suggestions) {
+                                if ($combobox_search_option === 'containing' && ($combobox_case_sensitive === 'yes' && tablo_suggestions[index_table][i].indexOf(value_to_search) >= 0 || $combobox_case_sensitive === 'no' && tablo_suggestions[index_table][i].toUpperCase().indexOf(value_to_search.toUpperCase()) >= 0) || $combobox_search_option === 'beginning' && ($combobox_case_sensitive === 'yes' && tablo_suggestions[index_table][i].substring(0, value_to_search.length) === value_to_search || $combobox_case_sensitive === 'no' && tablo_suggestions[index_table][i].substring(0, value_to_search.length).toUpperCase() === value_to_search.toUpperCase())) {
+                                    $suggestions.append('<div id="suggestion-' + index_table + '-' + counter + '" class="js-suggestion ' + $combobox_prefix_class + 'suggestion" tabindex="-1" role="option">' + tablo_suggestions[index_table][i] + '</div>');
+                                    counter++;
+                                }
+                            }
+                            i++;
+                        }
+                        if (counter >= combobox_limit_number_suggestions) {
+                            $suggestions.append('<div id="suggestion-' + index_table + '-' + counter + '" class="js-suggestion js-seemore ' + $combobox_prefix_class + 'suggestion" tabindex="-1" role="option">' + $combobox_see_more_text + '</div>');
+                            counter++;
+                        }
+                        // update number of suggestions
+                        if (counter > 1) {
+                            text_number_suggestions = $combobox_suggestion_plural + counter + ' ' + $combobox_suggestion_word_plural + '.';
+                        }
+                        if (counter === 1) {
+                            text_number_suggestions = $combobox_suggestion_single + counter + ' ' + $combobox_suggestion_word + '.';
+                        }
+                        if (counter === 0) {
+                            text_number_suggestions = $combobox_suggestion_single + counter + ' ' + $combobox_suggestion_word + '.';
+                        }
+                        if (counter >= 0) {
+                            var text_number_suggestions_default = $suggestions_text.text();
+                            if (text_number_suggestions != text_number_suggestions_default) {
+                                // @Goestu trick to make it work on all AT
+                                var suggestions_to_add = $("<p>").text(text_number_suggestions);
+                                $suggestions_text.attr('aria-live', 'polite');
+                                $suggestions_text.empty();
+                                $suggestions_text.append(suggestions_to_add);
+                            }
+                        }
+                    }
+                }
+            }
+        }).on('click', function (event) {
+            var $target = $(event.target),
+                $suggestions_text = $('.js-suggestion-text:not(:empty)'),
+                // if a suggestion text is not empty => suggestion opened somewhere
+            $container = $suggestions_text.parents('.js-container'),
+                $input_text = $container.find('.js-combobox'),
+                $suggestions = $container.find('.js-suggest div');
+
+            // if click outside => close opened suggestions 
+            if (!$target.is('.js-suggestion') && !$target.is('.js-combobox') && $suggestions_text.length) {
+                $input_text.val($input_text.attr('data-lastval'));
+                $suggestions.empty();
+                $suggestions_text.empty();
+            }
+        })
+        // tab + down management for autocomplete (when list of suggestion)
+        .on('keydown', '.js-combobox', function (event) {
+            var $this = $(this),
+                $container = $this.parent(),
+                $input_text = $container.find('.js-combobox'),
+                $suggestions = $container.find('.js-suggest div'),
+                $suggestion_list = $suggestions.find('.js-suggestion'),
+                $suggestions_text = $container.find('.js-suggestion-text'),
+                $autorise_tab_options = typeof $this.attr('data-combobox-notab-options') !== 'undefined' ? false : true,
+                $first_suggestion = $suggestion_list.first();
+
+            if (!event.shiftKey && event.keyCode == 9 && $autorise_tab_options || event.keyCode == 40) {
+                // tab (if authorised) or bottom
+                // See if there are suggestions, and yes => focus on first one
+                if ($suggestion_list.length) {
+                    $input_text.val($first_suggestion.html());
+                    $suggestion_list.first().focus();
+                    event.preventDefault();
+                }
+            }
+            if (event.keyCode == 27 || $autorise_tab_options === false && event.keyCode == 9) {
+                // esc or (tab/shift tab + notab option) = close
+                $input_text.val($input_text.attr('data-lastval'));
+                $suggestions.empty();
+                $suggestions_text.empty();
+                if (event.keyCode == 27) {
+                    // Esc prevented only, tab can go :)
+                    event.preventDefault();
+                    setTimeout(function () {
+                        $input_text.focus();
+                    }, 300); // timeout to avoid problem in suggestions display
+                }
+            }
+        })
+        // tab + down management in list of suggestions
+        .on('keydown', '.js-suggestion', function (event) {
+            var $this = $(this),
+                $container = $this.parents('.js-container'),
+                $input_text = $container.find('.js-combobox'),
+                $autorise_tab_options = typeof $input_text.attr('data-combobox-notab-options') !== 'undefined' ? false : true,
+                $suggestions = $container.find('.js-suggest div'),
+                $suggestions_text = $container.find('.js-suggestion-text'),
+                $next_suggestion = $this.next(),
+                $previous_suggestion = $this.prev();
+
+            if (event.keyCode == 27 || $autorise_tab_options === false && event.keyCode == 9) {
+                // esc or (tab/shift tab + notab option) = close
+                if (event.keyCode == 27) {
+                    // Esc prevented only, tab can go :)
+                    $input_text.val($input_text.attr('data-lastval'));
+                    $suggestions.empty();
+                    $suggestions_text.empty();
+                    setTimeout(function () {
+                        $input_text.focus();
+                    }, 300); // timeout to avoid problem in suggestions display
+                    event.preventDefault();
+                }
+                if ($autorise_tab_options === false && event.keyCode == 9) {
+                    $suggestions.empty();
+                    $suggestions_text.empty();
+                    $input_text.focus();
+                }
+            }
+            if (event.keyCode == 13 || event.keyCode == 32) {
+                // Enter or space
+                if ($this.hasClass('js-seemore')) {
+                    $input_text.val($input_text.attr('data-lastval'));
+                    $suggestions.empty();
+                    $suggestions_text.empty();
+                    setTimeout(function () {
+                        $input_text.focus();
+                    }, 300); // timeout to avoid problem in suggestions display
+                    // go define the function you need when we click the see_more option
+                    setTimeout(function () {
+                        do_see_more_option();
+                    }, 301); // timeout to avoid problem in suggestions display
+                    event.preventDefault();
+                } else {
+                    $input_text.val($this.html());
+                    $input_text.attr('data-lastval', $this.html());
+                    $suggestions.empty();
+                    $suggestions_text.empty();
+                    setTimeout(function () {
+                        $input_text.focus();
+                    }, 300); // timeout to avoid problem in suggestions display
+                    event.preventDefault();
+                }
+            }
+            if (!event.shiftKey && event.keyCode == 9 && $autorise_tab_options || event.keyCode == 40) {
+                // tab (if authorised) or bottom
+                if ($next_suggestion.length) {
+                    $input_text.val($next_suggestion.html());
+                    $next_suggestion.focus();
+                } else {
+                    $input_text.val($input_text.attr('data-lastval'));
+                    if (!event.shiftKey && event.keyCode == 9) {
+                        // tab closes the list
+                        var e = jQuery.Event("keydown");
+                        e.which = 27; // # Some key code value
+                        e.keyCode = 27;
+                        $this.trigger(e);
+                    } else {
+                        setTimeout(function () {
+                            $input_text.focus();
+                        }, 300);
+                    } // timeout to avoid problem in suggestions display
+                }
+                event.preventDefault();
+            }
+
+            if (event.shiftKey && event.keyCode == 9 && $autorise_tab_options || event.keyCode == 38) {
+                // top or Maj+tab (if authorised)
+                if ($previous_suggestion.length) {
+                    $input_text.val($previous_suggestion.html());
+                    $previous_suggestion.focus();
+                } else {
+                    $input_text.val($input_text.attr('data-lastval')).focus();
+                }
+                event.preventDefault();
+            }
+        })
+        // clear button
+        .on('click', '.js-clear-button', function () {
+            var $this = $(this),
+                $container = $this.parent(),
+                $input_text = $container.find('.js-combobox'),
+                $suggestions = $container.find('.js-suggest div'),
+                $suggestions_text = $container.find('.js-suggestion-text');
+
+            $suggestions.empty();
+            $suggestions_text.empty();
+            $input_text.val('');
+            $input_text.attr('data-lastval', '');
+        }).on('click', '.js-suggestion', function () {
+            var $this = $(this),
+                value = $this.html(),
+                $container = $this.parents('.js-container'),
+                $input_text = $container.find('.js-combobox'),
+                $suggestions = $container.find('.js-suggest div'),
+                $suggestions_text = $container.find('.js-suggestion-text');
+
+            if ($this.hasClass('js-seemore')) {
+                $suggestions.empty();
+                $suggestions_text.empty();
+                $input_text.focus();
+                // go define the function you need when we click the see_more option
+                do_see_more_option();
+            } else {
+                $input_text.val(value).focus();
+                $suggestions.empty();
+                $suggestions_text.empty();
+            }
+        });
+    }
+});
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./resources/assets/js/autocomplete.js");
+
+
+/***/ })
+
+/******/ });
