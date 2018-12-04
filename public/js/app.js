@@ -330,6 +330,26 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                         // AJAX Form Handlers ==========================================
 
+                                        //Return an onSave function specific to this ajax object
+                                        function ajaxOnSave(object) {
+                                                            return function onSave(response) {
+                                                                                setItemSaved(object, response);
+                                                                                clearFormErrors(object);
+                                                                                $(object).removeClass('working');
+                                                                                $(object).find('.accordion-trigger').focus();
+                                                            };
+                                        }
+
+                                        //Return an onError function specific to this ajax object
+                                        function ajaxOnError(object) {
+                                                            return function onError(error) {
+                                                                                showFormErrors(object, error.response);
+                                                                                $(object).removeClass('working');
+                                                                                $(object).addClass('active'); //Ensure errors are displayed
+                                                                                $(object).find('.accordion-trigger').focus();
+                                                            };
+                                        }
+
                                         // Submits the object's form, and returns the request Promise
                                         function submitItem(object) {
                                                             var form = $(object).find('form').first();
@@ -358,21 +378,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                                             var forms = $(".ajax-form");
                                                             var requests = $.map(forms, function (object) {
-
-                                                                                function onSave(response) {
-                                                                                                    setItemSaved(object, response);
-                                                                                                    clearFormErrors(object);
-                                                                                                    $(object).removeClass('working');
-                                                                                }
-
-                                                                                function onError(error) {
-                                                                                                    showFormErrors(object, error.response);
-                                                                                                    $(object).removeClass('working');
-                                                                                                    $(object).addClass('active'); //Ensure errors are displayed
-                                                                                                    $(object).find('.accordion-trigger').focus();
-                                                                                }
                                                                                 var request = submitItem(object);
-                                                                                request.then(onSave).catch(onError);
+                                                                                request.then(ajaxOnSave(object)).catch(ajaxOnError(object));
                                                                                 return request;
                                                             });
 
@@ -399,23 +406,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                                             var form = $(object).find('form').first();
 
-                                                            function onSave(response) {
-                                                                                setItemSaved(object, response);
-                                                                                clearFormErrors(object);
-                                                                                $(object).removeClass('working');
-                                                                                $(object).find('.accordion-trigger').focus();
-                                                            }
-
-                                                            function onError(error) {
-                                                                                showFormErrors(object, error.response);
-                                                                                $(object).removeClass('working');
-                                                                                $(object).find('.accordion-trigger').focus();
-                                                            }
-
                                                             $(form).on("submit", function (event) {
                                                                                 $(object).addClass('working');
                                                                                 event.preventDefault();
-                                                                                submitItem(object).then(onSave).catch(onError);
+                                                                                submitItem(object).then(ajaxOnSave(object)).catch(ajaxOnError(object));
                                                             });
                                         }
 

@@ -288,6 +288,26 @@
 
                 // AJAX Form Handlers ==========================================
 
+                    //Return an onSave function specific to this ajax object
+                    function ajaxOnSave(object) {
+                        return function onSave(response) {
+                            setItemSaved(object, response);
+                            clearFormErrors(object);
+                            $(object).removeClass('working');
+                            $(object).find('.accordion-trigger').focus();
+                        };
+                    }
+
+                    //Return an onError function specific to this ajax object
+                    function ajaxOnError(object) {
+                        return function onError(error) {
+                            showFormErrors(object, error.response);
+                            $(object).removeClass('working');
+                            $(object).addClass('active'); //Ensure errors are displayed
+                            $(object).find('.accordion-trigger').focus();
+                        };
+                    }
+
                     // Submits the object's form, and returns the request Promise
                     function submitItem(object) {
                         const form = $(object).find('form').first();
@@ -316,21 +336,8 @@
 
                         const forms = $(".ajax-form");
                         const requests = $.map(forms, function(object) {
-
-                            function onSave(response) {
-                                setItemSaved(object, response);
-                                clearFormErrors(object);
-                                $(object).removeClass('working');
-                            }
-
-                            function onError(error) {
-                                showFormErrors(object, error.response);
-                                $(object).removeClass('working');
-                                $(object).addClass('active'); //Ensure errors are displayed
-                                $(object).find('.accordion-trigger').focus();
-                            }
                             const request = submitItem(object);
-                            request.then(onSave).catch(onError);
+                            request.then(ajaxOnSave(object)).catch(ajaxOnError(object));
                             return request;
                         });
 
@@ -357,25 +364,12 @@
 
                         var form = $(object).find('form').first();
 
-                        function onSave(response) {
-                            setItemSaved(object, response);
-                            clearFormErrors(object);
-                            $(object).removeClass('working');
-                            $(object).find('.accordion-trigger').focus();
-                        }
-
-                        function onError(error) {
-                            showFormErrors(object, error.response);
-                            $(object).removeClass('working');
-                            $(object).find('.accordion-trigger').focus();
-                        }
-
                         $(form).on("submit", function(event){
                             $(object).addClass('working');
                             event.preventDefault();
                             submitItem(object)
-                                .then(onSave)
-                                .catch(onError);
+                                .then(ajaxOnSave(object))
+                                .catch(ajaxOnError(object));
                         });
                     }
 
