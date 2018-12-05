@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class GrantleyTest extends TestCase {
 
-    public function testDatabase() {
+    public function testDatabaseForGrantley() {
 
         $this->assertDatabaseHas('users', [
             'email' => 'grant.d.barnes@gmail.com'
