@@ -466,9 +466,7 @@
         }
 
         function noUnsavedDataOnPage() {
-            $(":input").every(function isSaved(item) {
-                return item.data("edited") !== true;
-            });
+            return $('.ajax-form.edited').length === 0;
         }
 
         // Confirmable link handlers

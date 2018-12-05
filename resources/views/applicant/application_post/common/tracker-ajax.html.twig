@@ -35,7 +35,7 @@
         class="application-post__tracker-button previous confirm-unsaved-data"
         href="{{ previous_url }}"
         title="{{ application_template.tracker_previous_title }}"
-        data-confirm-message="Unsaved data will be lost. Are you sure you want to continue?"
+        data-confirm-message="{{ application_tracker.confirm_message }}"
         >
         <i class="fas fa-chevron-left"></i>
         <span>{{ application_template.tracker_previous_label }}</span>
@@ -64,7 +64,7 @@
                         active
                     {% endif %}
                 "
-                data-confirm-message="Unsaved data will be lost. Are you sure you want to continue?"
+                data-confirm-message="{{ application_tracker.confirm_message }}"
                 href="{{ item.url }}"
                 title="{{ application_tracker.tracker_link_title }} {{ item.step }}.">
 
@@ -92,7 +92,7 @@
             class="application-post__tracker-button next confirm-unsaved-data"
             href="{{ next_url }}"
             title="{{ application_template.tracker_next_title }}"
-            data-confirm-message="Unsaved data will be lost. Are you sure you want to continue?"
+            data-confirm-message="{{ application_tracker.confirm_message }}"
             >
             <span>{{ application_template.tracker_next_label }}</span>
             <i class="fas fa-chevron-right"></i>

@@ -13,6 +13,7 @@ return [
     "job_link_title" => "View the poster for this job.",
     "tracker_label" => "Step",
     "tracker_link_title" => "Go to step",
+    "confirm_message" => "Unsaved data will be lost. Are you sure you want to continue?",
     "items" => [
         "basics" => [
             "step" => "1",
