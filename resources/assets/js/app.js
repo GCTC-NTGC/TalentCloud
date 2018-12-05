@@ -373,6 +373,20 @@
             });
         }
 
+        //Update ajax-form to reflect that it has been edited since being saved.
+        function setItemEdited(object) {
+            $(object).removeClass('complete');
+            $(object).addClass('edited');
+        }
+
+        //Add setItemEdited handlers to all ajax forms
+        $(".ajax-form").each(function(){
+            const object = $(this);
+            object.find(":input").change(function() {
+                setItemEdited(object);
+            });
+        });
+
         //Set object attributes to reflect that it has been saved on server
         function setItemSaved(object, response) {
             var id = response.data.id;
@@ -384,6 +398,7 @@
                 setSkillSaved(object, response);
             }
 
+            $(object).removeClass('edited');
             $(object).addClass('complete');
 
             var itemUrl = [$(object).attr('data-item-url'), id].join('/');
@@ -445,9 +460,6 @@
 
             return li;
         }
-
-
-
 
         // Confirmable link handlers
         function confirmLink(event) {
