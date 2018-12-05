@@ -293,7 +293,7 @@
             return function onSave(response) {
                 setItemSaved(object, response);
                 clearFormErrors(object);
-                $(object).removeClass('working');
+                $(object).find('button[type=submit]').removeClass('working');
                 $(object).find('.accordion-trigger').focus();
             };
         }
@@ -302,7 +302,7 @@
         function ajaxOnError(object) {
             return function onError(error) {
                 showFormErrors(object, error.response);
-                $(object).removeClass('working');
+                $(object).find('button[type=submit]').removeClass('working');
                 $(object).addClass('active'); //Ensure errors are displayed
                 $(object).find('.accordion-trigger').focus();
             };
@@ -313,8 +313,10 @@
             const form = $(object).find('form').first();
             const formData = $(form).serialize();
 
-            var requestPromise;
+            //Add working class to submit button
+            $(object).find('button[type=submit]').addClass('working');
 
+            var requestPromise;
             //If object already exists on server, update it
             if ( $(object).attr('data-item-saved') ) {
                 var itemId = $(object).attr('data-item-id');
@@ -334,7 +336,7 @@
             const button = $(event.currentTarget);
             button.addClass('working');
 
-            const forms = $(".ajax-form");
+            const forms = $(".ajax-form.edited");
             const requests = $.map(forms, function(object) {
                 const request = submitItem(object);
                 request.then(ajaxOnSave(object)).catch(ajaxOnError(object));
@@ -365,7 +367,6 @@
             var form = $(object).find('form').first();
 
             $(form).on("submit", function(event){
-                $(object).addClass('working');
                 event.preventDefault();
                 submitItem(object)
                 .then(ajaxOnSave(object))
@@ -384,6 +385,8 @@
             const object = $(this);
             object.find(":input").change(function() {
                 setItemEdited(object);
+                //Set data on input element to reflect it has been edited
+                $(this).data("edited", true);
             });
         });
 
@@ -400,6 +403,7 @@
 
             $(object).removeClass('edited');
             $(object).addClass('complete');
+            $(object).find(":input").data("edited", false);
 
             var itemUrl = [$(object).attr('data-item-url'), id].join('/');
 
@@ -461,8 +465,18 @@
             return li;
         }
 
+        function noUnsavedDataOnPage() {
+            $(":input").every(function isSaved(item) {
+                return item.data("edited") !== true;
+            });
+        }
+
         // Confirmable link handlers
-        function confirmLink(event) {
+        function confirmLinkIfUnsavedData(event) {
+            if (noUnsavedDataOnPage()) {
+                return;
+            }
+
             event.preventDefault();
             const anchor = $(event.currentTarget);
             const link = anchor.attr('href');
@@ -478,7 +492,7 @@
                 window.location = link;
             }
         }
-        $('a.confirm-link').click(confirmLink);
+        $('a.confirm-unsaved-data').click(confirmLinkIfUnsavedData);
 
         // Individualizing repeater name and id attributes======================
 

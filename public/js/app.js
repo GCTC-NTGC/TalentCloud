@@ -335,7 +335,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     return function onSave(response) {
                                                 setItemSaved(object, response);
                                                 clearFormErrors(object);
-                                                $(object).removeClass('working');
+                                                $(object).find('button[type=submit]').removeClass('working');
                                                 $(object).find('.accordion-trigger').focus();
                                     };
                         }
@@ -344,7 +344,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         function ajaxOnError(object) {
                                     return function onError(error) {
                                                 showFormErrors(object, error.response);
-                                                $(object).removeClass('working');
+                                                $(object).find('button[type=submit]').removeClass('working');
                                                 $(object).addClass('active'); //Ensure errors are displayed
                                                 $(object).find('.accordion-trigger').focus();
                                     };
@@ -355,8 +355,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var form = $(object).find('form').first();
                                     var formData = $(form).serialize();
 
-                                    var requestPromise;
+                                    //Add working class to submit button
+                                    $(object).find('button[type=submit]').addClass('working');
 
+                                    var requestPromise;
                                     //If object already exists on server, update it
                                     if ($(object).attr('data-item-saved')) {
                                                 var itemId = $(object).attr('data-item-id');
@@ -376,7 +378,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var button = $(event.currentTarget);
                                     button.addClass('working');
 
-                                    var forms = $(".ajax-form");
+                                    var forms = $(".ajax-form.edited");
                                     var requests = $.map(forms, function (object) {
                                                 var request = submitItem(object);
                                                 request.then(ajaxOnSave(object)).catch(ajaxOnError(object));
@@ -407,7 +409,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var form = $(object).find('form').first();
 
                                     $(form).on("submit", function (event) {
-                                                $(object).addClass('working');
                                                 event.preventDefault();
                                                 submitItem(object).then(ajaxOnSave(object)).catch(ajaxOnError(object));
                                     });
@@ -424,6 +425,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var object = $(this);
                                     object.find(":input").change(function () {
                                                 setItemEdited(object);
+                                                //Set data on input element to reflect it has been edited
+                                                $(this).data("edited", true);
                                     });
                         });
 
@@ -440,6 +443,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                     $(object).removeClass('edited');
                                     $(object).addClass('complete');
+                                    $(object).find(":input").data("edited", false);
 
                                     var itemUrl = [$(object).attr('data-item-url'), id].join('/');
 
@@ -501,8 +505,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     return li;
                         }
 
+                        function noUnsavedDataOnPage() {
+                                    $(":input").every(function isSaved(item) {
+                                                return item.data("edited") !== true;
+                                    });
+                        }
+
                         // Confirmable link handlers
-                        function confirmLink(event) {
+                        function confirmLinkIfUnsavedData(event) {
+                                    if (noUnsavedDataOnPage()) {
+                                                return;
+                                    }
+
                                     event.preventDefault();
                                     var anchor = $(event.currentTarget);
                                     var link = anchor.attr('href');
@@ -518,7 +532,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                 window.location = link;
                                     }
                         }
-                        $('a.confirm-link').click(confirmLink);
+                        $('a.confirm-unsaved-data').click(confirmLinkIfUnsavedData);
 
                         // Individualizing repeater name and id attributes======================
 

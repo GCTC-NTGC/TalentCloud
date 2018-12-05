@@ -32,7 +32,7 @@
     {% else %}
 
     <a
-        class="application-post__tracker-button previous confirm-link"
+        class="application-post__tracker-button previous confirm-unsaved-data"
         href="{{ previous_url }}"
         title="{{ application_template.tracker_previous_title }}"
         data-confirm-message="Unsaved data will be lost. Are you sure you want to continue?"
@@ -54,7 +54,7 @@
         {% for item in application_tracker.items %}
 
             <a
-                class="application-post__tracker-item confirm-link
+                class="application-post__tracker-item confirm-unsaved-data
                     {% if item.status == "error" %}
                         error
                     {% elseif item.status == "complete" %}
@@ -89,7 +89,7 @@
     {% else %}
 
         <a
-            class="application-post__tracker-button next confirm-link"
+            class="application-post__tracker-button next confirm-unsaved-data"
             href="{{ next_url }}"
             title="{{ application_template.tracker_next_title }}"
             data-confirm-message="Unsaved data will be lost. Are you sure you want to continue?"
