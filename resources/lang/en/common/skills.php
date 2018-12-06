@@ -36,6 +36,8 @@ return [
     'skill_description_null' => 'You have not yet described how this skill applies to you.',
     'action_01' => 'Delete Skill',
     'action_02' => 'Save Skill',
+    'action_02_working' => 'Saving...',
+    'action_02_saved' => 'Saved!',
     'skills' => [
         'front_end_dev' => [
             'name' => 'Front-end development',
@@ -295,6 +297,6 @@ return [
         ],
     ],
     'status' => [
-        'claimed' => 'Skill Claimed'
+        'claimed' => 'Claimed'
     ]
 ];
