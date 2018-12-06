@@ -100,7 +100,7 @@ If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sa
 
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
-## Editing Frontent Assets (CSS/SASS and JavaScript files):
+## Editing Frontend Assets (CSS/SASS and JavaScript files):
 
 Laravel Mix is used to compile frontend assets (CSS, SASS, and JS).
 
