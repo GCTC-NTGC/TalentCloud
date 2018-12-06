@@ -36,6 +36,7 @@ class LoginController extends Controller
     protected $callbackUrl;
     protected $clientId;
     protected $clientSecret;
+    protected $credentials; 
 
     /**
      *
@@ -210,5 +211,14 @@ class LoginController extends Controller
         } else {
             return 'logout.callback';
         }
+    }
+    
+    protected function credentials(Request $request) {
+    $credentials = [
+        $this->username() => strtolower($request->get($this->username())),
+        "password" => $request->get("password")
+    ];
+
+    return $credentials;
     }
 }
