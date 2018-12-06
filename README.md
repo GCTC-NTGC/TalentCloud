@@ -96,8 +96,6 @@ docker-compose exec talentcloud sh -c "vendor/bin/phpunit"
 
 Or specify wherever you keep your tests saved if saved elsewhere on your filesystem.
 
-If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sample.php files from both the Unit and Feature folders and attempt to run them again.
-
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
 ## Editing Frontend Assets (CSS/SASS and JavaScript files):
