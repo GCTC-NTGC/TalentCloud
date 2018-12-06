@@ -20,6 +20,7 @@ code-sniff:
 
 composer-install:
 	@docker run --rm -v $(shell pwd):/app composer:latest install
+	@docker run --rm --interactive --tty --volume $(shell pwd):/app composer "update"
 
 docker-start:
 	@docker-compose up -d
