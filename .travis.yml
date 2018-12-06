@@ -20,6 +20,7 @@ before_script:
   - cp -a .env.example .env
   - make docker-start
   - make composer-install
+  - composer update
   - docker exec talentcloud sh -c "php artisan optimize"
   - docker exec talentcloud sh -c "php artisan cache:clear"
   - docker exec talentcloud sh -c "php artisan key:generate"
