@@ -8,7 +8,7 @@ class GrantleyTest extends TestCase {
 
     public function testDatabaseForGrantley() {
 
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseMissing('users', [
             'email' => 'grant.d.barnes@gmail.com'
         ]);
     }

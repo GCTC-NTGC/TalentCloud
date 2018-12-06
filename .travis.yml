@@ -29,6 +29,7 @@ before_script:
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env talentcloud_talentcloud sh
+  - php artisan dusk
   - docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
