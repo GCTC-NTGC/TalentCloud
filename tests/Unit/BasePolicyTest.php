@@ -12,12 +12,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 abstract class BasePolicyTest extends TestCase {
 
-    //factory includes a user
+    //create basic user
+    public function createUser() {
+        $user = factory(\App\Models\User::class)->create();
+        return $user;
+    }
+
+    //create applicant, factory includes a user
     public function createApplicant() {
         $applicant = factory(\App\Models\Applicant::class)->create();
         return $applicant;
     }
-    //factory includes a user
+    //create manager, factory includes a user
     public function createManager() {
         $manager = factory(\App\Models\Manager::class)->create();
         return $manager;
