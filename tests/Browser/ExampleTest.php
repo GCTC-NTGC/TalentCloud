@@ -17,7 +17,9 @@ class ExampleTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('GC Talent Cloud');
+                    ->assertSee('GC Talent Cloud')
+                    ->assertRouteIs('lang.en')
+                    ->assertDontSee('404');
         });
     }
 }
