@@ -192,8 +192,9 @@
                         type="button"
                         name="submit"
                         value="save_and_quit"
-                        data-on-success-url="{{ route('applications.index') }}">
-                        {{ application_template.save_quit_button_label }}
+                        data-on-success-url="{{ route('applications.index') }}">                        
+                        <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
+                        <span class="submit-working">{{ application_template.save_button_working }}</span>
                     </button>
 
                 </div>
@@ -212,7 +213,8 @@
                             data-on-success-url="{{ route('job.application.edit.5', job) }}"
                         {% endif %}
                         >
-                        {{ application_template.save_continue_button_label }}
+                        <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
+                        <span class="submit-working">{{ application_template.save_button_working }}</span>
                     </button>
 
                 </div>

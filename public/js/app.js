@@ -356,6 +356,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var formData = $(form).serialize();
 
                                     //Add working class to submit button
+                                    $(object).find('button[type=submit]').removeClass('saved');
                                     $(object).find('button[type=submit]').addClass('working');
 
                                     var requestPromise;
@@ -376,6 +377,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         function submitAllForms(event) {
                                     //Add working class to triggering button
                                     var button = $(event.currentTarget);
+
+                                    button.removeClass('saved');
                                     button.addClass('working');
 
                                     var forms = $(".ajax-form.edited");
@@ -418,6 +421,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         function setItemEdited(object) {
                                     $(object).removeClass('complete');
                                     $(object).addClass('edited');
+
+                                    $(object).find('button[type=submit]').removeClass('saved');
                         }
 
                         //Add setItemEdited handlers to all ajax forms
@@ -425,8 +430,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var object = $(this);
                                     object.find(":input").change(function () {
                                                 setItemEdited(object);
-                                                //Set data on input element to reflect it has been edited
-                                                $(this).data("edited", true);
                                     });
                         });
 
@@ -443,7 +446,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                     $(object).removeClass('edited');
                                     $(object).addClass('complete');
-                                    $(object).find(":input").data("edited", false);
+                                    $(object).find('button[type=submit]').addClass('saved');
 
                                     var itemUrl = [$(object).attr('data-item-url'), id].join('/');
 

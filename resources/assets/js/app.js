@@ -314,6 +314,7 @@
             const formData = $(form).serialize();
 
             //Add working class to submit button
+            $(object).find('button[type=submit]').removeClass('saved');
             $(object).find('button[type=submit]').addClass('working');
 
             var requestPromise;
@@ -334,6 +335,8 @@
         function submitAllForms(event) {
             //Add working class to triggering button
             const button = $(event.currentTarget);
+
+            button.removeClass('saved');
             button.addClass('working');
 
             const forms = $(".ajax-form.edited");
@@ -378,6 +381,8 @@
         function setItemEdited(object) {
             $(object).removeClass('complete');
             $(object).addClass('edited');
+
+            $(object).find('button[type=submit]').removeClass('saved');
         }
 
         //Add setItemEdited handlers to all ajax forms
@@ -385,8 +390,6 @@
             const object = $(this);
             object.find(":input").change(function() {
                 setItemEdited(object);
-                //Set data on input element to reflect it has been edited
-                $(this).data("edited", true);
             });
         });
 
@@ -403,7 +406,7 @@
 
             $(object).removeClass('edited');
             $(object).addClass('complete');
-            $(object).find(":input").data("edited", false);
+            $(object).find('button[type=submit]').addClass('saved');
 
             var itemUrl = [$(object).attr('data-item-url'), id].join('/');
 
