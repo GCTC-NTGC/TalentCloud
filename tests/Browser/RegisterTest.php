@@ -26,8 +26,27 @@ class RegisterTest extends DuskTestCase
                     ->type('password_confirmation', $user->password)
                     ->press('Register');
 
-            $browser->assertSee('GC Talent Cloud')
+            $browser->assertSee('My Profile')
                     ->assertPathIs('/en');
+
+        });
+
+        $this->browse(function ($browser) use ($user) {
+            $browser->clickLink('Logout')
+                    ->assertDontSee('My Profile')
+                    ->assertPathIs('/en');
+
+        });
+
+        $this->browse(function ($browser) use ($user) {
+            $browser->clickLink('Login')
+                    ->type('email', $user->email)
+                    ->type('password', $user->password)
+                    ->press('Login');
+
+            $browser->assertSee('My Profile')
+                    ->assertPathIs('/en');
+
 
         });
     }
