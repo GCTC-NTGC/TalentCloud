@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Services\Validation;
+
+use App\Models\JobApplication;
+use App\Models\JobApplicationAnswer;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
+class JobApplicationAnswerValidator {
+
+    protected $application;
+    protected $questionIds;
+
+    public function __construct(JobApplication $application) {
+        $this->application = $application;
+        $this->questionIds = $application->job_poster->job_poster_questions->pluck('id')->toArray();
+    }
+
+    public function validator(JobApplicationAnswer $answer) {
+        // rules consistent for every answer
+        $rules = [
+            'answer' => 'required|string',
+            'job_poster_question_id' => [
+                'required',
+                Rule::in($this->questionIds),
+            ],
+            'job_application_id' => [
+                'required',
+                Rule::in([$this->application->id]),
+            ]
+        ];
+
+        return Validator::make($answer->toArray(), $rules);
+    }
+
+    public function validate(JobApplicationAnswer $answer) {
+        return $this->validator($answer)->validate();
+    }
+
+    public function isComplete(JobApplicationAnswer $answer) {
+        return $this->validator($answer)->passes();
+    }
+}

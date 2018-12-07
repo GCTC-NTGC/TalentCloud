@@ -111,6 +111,19 @@ return [
     'unique'               => 'La valeur du champ :attribute est déjà utilisée.',
     'uploaded'             => "Le fichier du champ :attribute n'a pu être téléversé.",
     'url'                  => "Le format de l'URL de :attribute n'est pas valide.",
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Rule Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify validation messages for custom rules and validtors.
+    */
+    'applicant_has_relation' => 'Applicant must own this :attribute',
+    'contains_object_with_relation' => ':attribute ne contient pas la :relation requise',
+    'user_skill_unique' => 'You may only add each skill once',
+    'password_correct' => 'mot de passe incorrect',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -123,9 +136,6 @@ return [
     */
     'custom' => [
         'password' => 'Le mot de passe doit contenir au moins un caractère appartenant à trois des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
-        'password_correct' => 'mot de passe incorrect',
-        'user_skill_unique' => 'You may only add each skill once',
-        'applicant_has_relation' => 'Applicant must own this :attribute',
     ],
     /*
     |--------------------------------------------------------------------------

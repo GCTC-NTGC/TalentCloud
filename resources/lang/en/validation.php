@@ -115,6 +115,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Rule Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify validation messages for custom rules and validtors.
+    */
+    'applicant_has_relation' => 'Applicant must own this :attribute',
+    'contains_object_with_relation' => ':attribute doesn\'t contain required :relation',
+    'user_skill_unique' => 'You may only add each skill once',
+    'password_correct' => 'Old password isn\'t correct',
+
+    /*
+    |--------------------------------------------------------------------------
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
     |
@@ -126,9 +138,6 @@ return [
 
     'custom' => [
         'password' => 'The password must contain at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).',
-        'password_correct' => 'Old password isn\'t correct',
-        'user_skill_unique' => 'You may only add each skill once',
-        'applicant_has_relation' => 'Applicant must own this :attribute',
     ],
 
     /*

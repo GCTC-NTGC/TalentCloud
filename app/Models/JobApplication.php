@@ -13,6 +13,7 @@ use App\Models\ApplicationReview;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
 use App\Events\ApplicationRetrieved;
+use App\Services\Validation\ApplicationValidator;
 
 /**
  * Class JobApplication
@@ -126,11 +127,14 @@ class JobApplication extends BaseModel {
      * @return string $status   'complete', 'incomplete' or 'error'
      */
     public function getSectionStatus(string $section) {
-        //TODO: determine whether sections are complete or opcache_invalid
-
+        //TODO: determine whether sections are complete or invalid
+        $validator = new ApplicationValidator();
         $status = 'incomplete';
         switch($section) {
             case 'basics':
+                if ($validator->basicsComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'experience':
                 break;
