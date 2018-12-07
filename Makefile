@@ -19,8 +19,7 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 composer-install:
-	@docker run --rm -v $(shell pwd):/app composer:latest install
-	@docker run --rm --interactive --tty --volume $(shell pwd):/app composer "update"
+	@docker run --rm -v $(shell pwd):/app composer install
 
 docker-start:
 	@docker-compose up -d
@@ -44,10 +43,10 @@ phpmd:
 phpunit:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit
 
-set-root-perms:
+	#set-root-perms:
 	#@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
-	@docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
+	#docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data gen-certs logs phpmd phpunit set-root-perms test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data gen-certs logs phpmd phpunit test-all
