@@ -17,8 +17,7 @@ class JobApplicationAnswerValidator {
         $this->questionIds = $application->job_poster->job_poster_questions->pluck('id')->toArray();
     }
 
-    public function validator(JobApplicationAnswer $answer) {
-        // rules consistent for every answer
+    public function rules() {
         $rules = [
             'answer' => 'required|string',
             'job_poster_question_id' => [
@@ -30,8 +29,13 @@ class JobApplicationAnswerValidator {
                 Rule::in([$this->application->id]),
             ]
         ];
+        return $rules;
+    }
 
-        return Validator::make($answer->toArray(), $rules);
+    public function validator(JobApplicationAnswer $answer) {
+
+
+        return Validator::make($answer->toArray(), $this->rules());
     }
 
     public function validate(JobApplicationAnswer $answer) {

@@ -10,6 +10,7 @@ use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
+use App\Services\Validation\JobApplicationAnswerValidator;
 
 class ApplicationValidator {
 
@@ -48,24 +49,48 @@ class ApplicationValidator {
         //Validate that essential skill declarations have been supplied
     }
 
+    protected function arrayMapKeys($fn, $array) {
+        $newArray = [];
+        foreach($array as $key => $value) {
+            $newArray[$fn($key)] = $value;
+        }
+        return $newArray;
+    }
+
     public function basicsValidator(JobApplication $application) {
-        // Questions consistent on every application
+        // Validate the fields common to every application
         $rules = [
             'citizenship_declaration_id' => ['required', Rule::in($this->citizenship_ids)],
             'veteran_status_id' => ['required', Rule::in($this->veteran_status_ids)],
             'preferred_language_id' => ['required', Rule::in($this->preferred_language_ids)],
         ];
-        // questions that depend on job poster
+
+        //Load application answers so they are included in application->toArray()
+        $application->load('job_application_answers');
+
+        // Validate that each question has been answered
         $jobPosterQuestionRules = [];
         foreach($application->job_poster->job_poster_questions as $question) {
             $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
         }
         $rules['job_application_answers'] = $jobPosterQuestionRules;
-        //Load application answers so they are included in application->toArray()
-        $application->load('job_application_answers');
+        $answerValidator = new JobApplicationAnswerValidator($application);
 
+        //Validate that each answer is complete
+        foreach($application->job_application_answers as $key=>$answer) {
+            $attribute = implode('.', ['job_application_answers', $key]);
+            $newRules = $this->arrayMapKeys(function($key) use ($attribute) {
+                    return implode('.', [$attribute, $key]);
+                },
+                $answerValidator->rules());
+            debugbar()->debug($newRules);
+            $rules = array_merge($rules, $newRules);
+        }
+
+        $validator = Validator::make($application->toArray(), $rules);
         debugbar()->debug($application->toArray());
-        return Validator::make($application->toArray(), $rules);
+        debugbar()->debug($validator->getRules());
+        return $validator;
     }
 
     public function basicsComplete(JobApplication $application) {
