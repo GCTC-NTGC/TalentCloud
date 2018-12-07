@@ -1,5 +1,3 @@
-os: osx
-
 language: php
 
 php:
@@ -14,9 +12,7 @@ services:
 
 addons:
   postgresql: "9.6"
-  # OSX:
   chrome: beta
-  # Linux:
   # chrome: stable
 
 cache:
@@ -34,10 +30,7 @@ install:
 
 before_script:
   - docker container run -d -p 9222:9222 tiancheng91/chrome-headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222
-  # PSX
-  - "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --remote-debugging-port=9222 http://localhost &"
-  # Linux
-  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - google-chrome-stable --headless --remote-debugging-port=9222 http://localhost &
   - php artisan serve &
 
 script:
