@@ -6,7 +6,7 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class BrowsePagesTest extends DuskTestCase
+class BrowseApplicantPagesTest extends DuskTestCase
 {
     /**
      * A basic browser test example.
