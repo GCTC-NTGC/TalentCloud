@@ -1,4 +1,6 @@
-language: objective-c
+os: osx
+
+language: php
 
 php:
   - 7.0
