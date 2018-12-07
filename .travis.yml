@@ -21,13 +21,14 @@ cache:
 install:
   - cp .env.testing .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-
-before_script:
   - make docker-start
   - docker exec talentcloud sh -c "php artisan optimize"
   - docker exec talentcloud sh -c "php artisan key:generate"
   - make gen-certs
   - make build-db
+
+before_script:
+  - docker container run -d -p 9222:9222 tiancheng91/chrome-headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - php artisan serve &
 
@@ -36,7 +37,6 @@ script:
   - docker run $ci_env talentcloud_talentcloud sh
   - make phpunit
   - php artisan dusk
-  # docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'

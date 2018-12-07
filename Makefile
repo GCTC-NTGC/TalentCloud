@@ -41,7 +41,7 @@ phpmd:
 	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
 
 phpunit:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpunit
+	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 	#set-root-perms:
 	#@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
