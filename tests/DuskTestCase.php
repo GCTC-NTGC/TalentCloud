@@ -38,7 +38,7 @@ abstract class DuskTestCase extends BaseTestCase
         switch (config('dusk.driver')) {
         case 'container':
             return RemoteWebDriver::create(
-                'http://selenium:4444/wd/hub', DesiredCapabilities::chrome()
+                'http://localhost:4444/wd/hub', DesiredCapabilities::chrome()
             );
         default: // local
             return RemoteWebDriver::create(
