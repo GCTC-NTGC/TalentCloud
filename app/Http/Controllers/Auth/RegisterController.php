@@ -124,4 +124,15 @@ class RegisterController extends AuthController
     {
         return redirect()->intended($this->redirectTo());
     }
+    protected function LoginCaseSenstivityResolver(array $data)
+    {
+        return User::create([
+         'name' => $data['name'],
+         'email' => strtolower($data['email']),
+         'password' => bcrypt($data['password']),
+    ]);
+    }
+    
+    
+    
 }
