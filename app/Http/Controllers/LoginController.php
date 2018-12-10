@@ -211,15 +211,5 @@ class LoginController extends Controller
             return 'logout.callback';
         }
     }
-    
-    protected function credentials() {
-    $username = $this->username();
-    $credentials = request()->only($username, 'password');
-    
-    if (isset($credentials[$username])) {
-        $credentials[$username] = strtolower($credentials[$username]);
-    }
-    return $credentials;
-    }    
 }
 

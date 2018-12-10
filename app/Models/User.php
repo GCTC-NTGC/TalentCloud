@@ -43,7 +43,7 @@ class User extends BaseModel implements
         AuthorizableContract
     // Custom contract for use with openid login
     //    \App\Services\Auth\Contracts\OidcAuthenticatable
-        {
+{
 
     //Traits for Laravel basic authentication
     use Authenticatable, CanResetPassword;
@@ -88,6 +88,20 @@ class User extends BaseModel implements
 
     public function user_role() {
         return $this->belongsTo(\App\Models\UserRole::class);
+    }
+
+    // Mutators
+
+    // public function setEmailAttribute($value)
+    // {
+    //     $this->attributes['email'] = strtolower($value);
+    // }
+
+    // Accessors
+
+    public function getEmailAttribute($value)
+    {
+        return strtolower($value);
     }
 
     //Role related functions
@@ -136,11 +150,6 @@ class User extends BaseModel implements
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-    
-    public function makeEmailsCaseInsensitive($value) 
-    {    
-        $this->attributes['email'] = strtolower($value); // Mutator function will convert all emails into lowercase whenever a user registers an account on TalentCloud. 
     }
 
 }

@@ -58,7 +58,7 @@ class ResetPasswordController extends AuthController
     {
         return view('auth.passwords.reset')->with([
             'token' => $token,
-            'email' => $request->email,
+            'email' => strtolower($request->email),
             'routes' => $this->auth_routes(),
             'reset_password_template' => Lang::get('common/auth/reset_password'),
         ]);
@@ -80,7 +80,7 @@ class ResetPasswordController extends AuthController
                 'min:8',
                 new PasswordFormatRule,
                 'confirmed'
-           ],
+            ],
         ];
     }
 
@@ -93,5 +93,26 @@ class ResetPasswordController extends AuthController
     protected function validationErrorMessages()
     {
         return [];
+    }
+
+    /**
+     * OVERRIDE
+     * Get the password reset credentials from the request, with case insensitive email
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only(
+            'email',
+            'password',
+            'password_confirmation',
+            'token'
+        );
+        if (isset($credentials['email'])) {
+            $credentials['email'] = strtolower($credentials['email']);
+        }
+        return $credentials;
     }
 }

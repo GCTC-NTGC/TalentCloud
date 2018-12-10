@@ -11,7 +11,7 @@ class PasswordCorrectRule implements Rule
 {
     public function passes($attribute, $value)
     {
-        return Hash::check($value, Auth::user()->getAuthPassword());
+        return Hash::check(strtolower($value), strtolower(Auth::user()->getAuthPassword()));
     }
 
     public function message()
