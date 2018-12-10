@@ -212,13 +212,14 @@ class LoginController extends Controller
         }
     }
     
-    protected function credentials () {
-        $username = $this->username(); 
-        $credentials = request()->only($username, 'password')
+    protected function credentials()
+{
+    $username = $this->username();
+    $credentials = request()->only($username, 'password');
     if (isset($credentials[$username])) {
         $credentials[$username] = strtolower($credentials[$username]);
-       }
-       return $crdentials; 
     }
-    
+    return $credentials;
+}    
 }
+

@@ -104,6 +104,7 @@ class BaseOidcUserProvider implements UserProvider {
                 $user = $this->createUserFromCredentials($credentials);
                 if ($user) {
                     //If a user was created successfully, save it to database
+                    
                     $user->save();
                 }
 
