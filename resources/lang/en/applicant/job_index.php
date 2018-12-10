@@ -14,7 +14,7 @@ return [
     "index" => [
         "view_title" => "View the job post for",
         "location_label" => "Location",
-        "salary_label" => "Salary",
+        "salary_label" => "Annual Salary Range",
         "duration" => [
             'week' => ':count week.|:count weeks.',
             'month' => ':count month.|:count months.',
