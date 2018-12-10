@@ -50,3 +50,11 @@ composer.lock
 ## node.js
 /node_modules
 package-lock.json
+
+## Visual Studio Code
+.vs/*
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
