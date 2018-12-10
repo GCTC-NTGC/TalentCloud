@@ -9,6 +9,8 @@ namespace App\Models;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Applicant;
+use App\Models\SkillDeclaration;
 use App\Models\ApplicationReview;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
@@ -107,6 +109,11 @@ class JobApplication extends BaseModel {
 
     public function job_application_answers() {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
+    }
+
+    public function skill_declarations() {
+        return $this->applicant->skill_declarations()
+            ->whereIn('skill_id', $this->job_poster->criteria->pluck('skill_id'));
     }
 
     public function application_review() {
