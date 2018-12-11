@@ -338,7 +338,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                 setItemSaved(object, response);
                                                 clearFormErrors(object);
                                                 $(object).find('button[type=submit]').removeClass('working');
-                                                $(object).find('.accordion-trigger').focus();
+                                                //$(object).find('.accordion-trigger').focus();
                                     };
                         }
 

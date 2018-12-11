@@ -296,7 +296,7 @@
                 setItemSaved(object, response);
                 clearFormErrors(object);
                 $(object).find('button[type=submit]').removeClass('working');
-                $(object).find('.accordion-trigger').focus();
+                //$(object).find('.accordion-trigger').focus();
             };
         }
 
