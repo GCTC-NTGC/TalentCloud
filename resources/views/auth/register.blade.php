@@ -116,7 +116,8 @@
                                             id="password"
                                             name="password"
                                             required
-                                            type="password" />
+                                            type="password"
+                                            autocomplete="off" />
                                     </div>
 
                                 </div>
@@ -136,7 +137,8 @@
                                             id="password-confirm"
                                             name="password_confirmation"
                                             required
-                                            type="password" />
+                                            type="password"
+                                            autocomplete="off" />
                                     </div>
 
                                 </div>

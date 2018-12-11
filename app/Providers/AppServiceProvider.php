@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         //Force all routes and requests to use HTTPS
-        $this->app['request']->server->set('HTTPS', true);
+        $this->app['request']->server->set('HTTPS', config('app.force_https'));
     }
 
     /**
@@ -32,10 +32,14 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-        if ($this->app->environment() !== 'production') {
-            //Generate migrations from database
-            $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
-            $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
+        // if ($this->app->environment() !== 'production') {
+        //     //Generate migrations from database
+        //     $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
+        //     $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
+        //
+        //     //Generate models from database
+        //     $this->app->register(\Reliese\Coders\CodersServiceProvider::class);
+        // }
 
             //Generate models from database
             $this->app->register(\Reliese\Coders\CodersServiceProvider::class);
