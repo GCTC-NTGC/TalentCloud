@@ -161,11 +161,6 @@
             action="{{ skill_declaration ? route("skill_declarations.update", skill_declaration) : route("skill_declarations.create") }}"
             method="POST">
 
-                {# Builds an input field for CSRF token validation #}
-                {{ csrf_field() }}
-
-                <input name="_method" type="hidden" value="{{ skill_declaration ? "PUT" : "POST" }}">
-
                 {% if locale == "application-view" %}
 
                     <div
@@ -339,6 +334,11 @@
                     </div>
 
                 {% else %}
+
+                    {# Builds an input field for CSRF token validation #}
+                    {{ csrf_field() }}
+
+                    <input name="_method" type="hidden" value="{{ skill_declaration ? "PUT" : "POST" }}">
 
                     <div
                         class="form__wrapper">
