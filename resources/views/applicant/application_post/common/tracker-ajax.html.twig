@@ -1,0 +1,103 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Post - Tracker
+
+============================================================================= #}
+
+{% if application_step == 1 %}
+    {% set previous_url = route('applications.index') %}
+    {% set next_url = route('job.application.edit.2', job) %}
+{% elseif application_step == 2 %}
+    {% set previous_url = route('job.application.edit.1', job) %}
+    {% set next_url = route('job.application.edit.3', job) %}
+{% elseif application_step == 3 %}
+    {% set previous_url = route('job.application.edit.2', job) %}
+    {% set next_url = route('job.application.edit.4', job) %}
+{% elseif application_step == 4 %}
+    {% set previous_url = route('job.application.edit.3', job) %}
+    {% set next_url = route('job.application.edit.5', job) %}
+{% elseif application_step == 5 %}
+    {% set previous_url = route('job.application.edit.4', job) %}
+    {% set next_url = route('applications.index') %}
+{% endif %}
+
+<section
+    class="application-post__tracker">
+
+    {% if application_step == "1" %}
+
+        {# Show nothing. #}
+
+    {% else %}
+
+    <a
+        class="application-post__tracker-button previous confirm-unsaved-data"
+        href="{{ previous_url }}"
+        title="{{ application_template.tracker_previous_title }}"
+        data-confirm-message="{{ application_tracker.confirm_message }}"
+        >
+        <i class="fas fa-chevron-left"></i>
+        <span>{{ application_template.tracker_previous_label }}</span>
+    </a>
+
+    {% endif %}
+
+    <div
+        class="application-post__step-wrapper">
+
+        <span
+            class="application-post__tracker-step">
+            {{ application_template.tracker_label }} {{ application_step }} / 5
+        </span>
+
+        {% for item in application_tracker.items %}
+
+            <a
+                class="application-post__tracker-item confirm-unsaved-data
+                    {% if item.status == "error" %}
+                        error
+                    {% elseif item.status == "complete" %}
+                        complete
+                    {% endif %}
+                    {% if item.step == application_step %}
+                        active
+                    {% endif %}
+                "
+                data-confirm-message="{{ application_tracker.confirm_message }}"
+                href="{{ item.url }}"
+                title="{{ application_tracker.tracker_link_title }} {{ item.step }}.">
+
+                <i class="fas fa-times-circle"></i>
+
+                <i class="fas fa-circle"></i>
+
+                <i class="fas fa-check-circle"></i>
+
+                <span class="hidden">{{ application_tracker.tracker_link_title }} {{ item.step }}.</span>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% if application_step == "5" %}
+
+        {# Show nothing. #}
+
+    {% else %}
+
+        <a
+            class="application-post__tracker-button next confirm-unsaved-data"
+            href="{{ next_url }}"
+            title="{{ application_template.tracker_next_title }}"
+            data-confirm-message="{{ application_tracker.confirm_message }}"
+            >
+            <span>{{ application_template.tracker_next_label }}</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+
+    {% endif %}
+
+</section>

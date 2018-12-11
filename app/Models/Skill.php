@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class Skill
@@ -13,6 +14,10 @@ namespace App\Models;
  * @property int $id
  * @property string $name
  * @property int $skill_type_id
+ *
+ * Accessors:
+ * @property string $skill
+ * @property string $description
  *
  * @property \App\Models\Lookup\SkillType $skill_type
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
@@ -28,6 +33,11 @@ class Skill extends BaseModel {
         'skill_type_id'
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     */
+    protected $appends = ['skill', 'description'];
+
     public function skill_type() {
         return $this->belongsTo(\App\Models\Lookup\SkillType::class);
     }
@@ -36,4 +46,12 @@ class Skill extends BaseModel {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
 
+    // Accessors
+    public function getSkillAttribute() {
+        return Lang::get('common/skills.skills')[$this->name]['name'];
+    }
+
+    public function getDescriptionAttribute() {
+        return Lang::get('common/skills.skills')[$this->name]['description'];
+    }
 }

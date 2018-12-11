@@ -188,11 +188,13 @@
                     class="box med-1of2">
 
                     <button
-                        class="button--blue light-bg"
-                        type="submit"
+                        class="button--blue light-bg ajax-submit-all"
+                        type="button"
                         name="submit"
-                        value="save_and_quit">
-                        {{ application_template.save_quit_button_label }}
+                        value="save_and_quit"
+                        data-on-success-url="{{ route('applications.index') }}">                        
+                        <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
+                        <span class="submit-working">{{ application_template.save_button_working }}</span>
                     </button>
 
                 </div>
@@ -201,11 +203,18 @@
                     class="box med-1of2">
 
                     <button
-                        class="button--blue light-bg"
-                        type="submit"
+                        class="button--blue light-bg ajax-submit-all"
+                        type="button"
                         name="submit"
-                        value="save_and_continue">
-                        {{ application_template.save_continue_button_label }}
+                        value="save_and_continue"
+                        {% if application_step == "3" %}
+                            data-on-success-url="{{ route('job.application.edit.4', job) }}"
+                        {% elseif application_step == "4" %}
+                            data-on-success-url="{{ route('job.application.edit.5', job) }}"
+                        {% endif %}
+                        >
+                        <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
+                        <span class="submit-working">{{ application_template.save_button_working }}</span>
                     </button>
 
                 </div>
