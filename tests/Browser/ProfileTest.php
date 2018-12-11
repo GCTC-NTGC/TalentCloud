@@ -14,7 +14,7 @@ class ProfileTest extends DuskTestCase {
         // User with name / email / password, not saved to database
         $user = factory(\App\Models\User::class)->make();
 
-        // Register with factory credentials, save database record
+        // Register with factory credentials
         $this->browse(function ($browser) use ($user) {
             $browser->visit('/register')
                     ->type('name', $user->name)
@@ -27,13 +27,68 @@ class ProfileTest extends DuskTestCase {
 
             // Go to profile
             $browser->clickLink('My Profile')
-                    ->assertSee('About Me')
-                    // Go to work samples, add one
-                    ->clickLink('My Work Samples')
+                    ->assertSee('About Me');
+
+            // Go to My References, open accordion
+            $browser->clickLink('My References')
+                    ->assertSee('My References')
+                    ->press('Add Reference')
+                    ->assertSee('New Reference');
+
+            // Add a reference
+            $browser->type('#references\5b new\5d \5b 1\5d referenceName', 'Test Reference')
+                    ->select('#references\5b new\5d \5b 1\5d referenceRelationship') // Selects random if not specified
+                    ->type('#references\5b new\5d \5b 1\5d referenceEmail', 'grant.d.barnes@gmail.com')
+                    ->type('#references\5b new\5d \5b 1\5d referenceDescription', 'Test reference description');
+
+            // Scroll down (button click will fail if not visible on test browser screen)
+            $browser->script('window.scrollTo(0, 1000);');
+
+            // Saved work sample name should be visible
+            $browser->assertSee('Save Reference')
+                    ->pause(777) // Fails without a short pause
+                    ->press('Save Reference')
+                    ->assertSee('Test Reference');
+
+            // Go to My Skills page
+            $browser->clickLink('My Skills')
+                    ->assertSee('My Skills')
+                    ->press('Add Skill')
+                    ->assertSee('New Skill');
+
+            // Add a soft skill
+            $browser->select('#skill_declarations\5b new\5d \5b soft\5d \5b 1\5d skillSelection', '24') // Select dropdown by value
+                    ->keys('#skill_declarations\5b new\5d \5b soft\5d \5b 1\5d skillSelection',
+                        ['{tab}'], ['{tab}'], ['{arrow_right}']) // Keyboard controls were necessary to select skill level properly
+                    ->type('#skill_declarations\5b new\5d \5b soft\5d \5b 1\5d skillDescription', 'Test skill description');
+
+            $browser->script('window.scrollTo(0, 1000);');
+
+            // Text corresponding to skill selection value should be visible
+            $browser->assertSee('Save Skill')
+                    ->pause(777)
+                    ->press('Save Skill')
+                    ->assertSee('Passion');
+
+            // Go to My Work Samples, open accordion
+            $browser->clickLink('My Work Samples')
+                    ->assertSee('My Work Samples')
                     ->press('Add Sample')
-                    ->assertSee('New Work Sample')
-                    ->type('sampleName', 'abcdefg');
+                    ->assertSee('New Work Sample');
+
+            // Add work sample data, wouln't work without copying the full selector
+            $browser->type('#work_samples\5b new\5d \5b 1\5d sampleName', 'Test Sample')
+                    ->select('#work_samples\5b new\5d \5b 1\5d sampleType') // Selects random if not specified
+                    ->type('#work_samples\5b new\5d \5b 1\5d sampleLink', 'http://talent.canada.ca')
+                    ->type('#work_samples\5b new\5d \5b 1\5d sampleDescription', 'Test sample description');
+
+            $browser->script('window.scrollTo(0, 1000);');
+
+            // Saved work sample name should be visible
+            $browser->assertSee('Save Sample')
+                    ->pause(777) // Fails without a short pause
+                    ->press('Save Sample')
+                    ->assertSee('Test Sample');
         });
     }
 }
-//http://www.linkedin.com/in/grantbarnes
