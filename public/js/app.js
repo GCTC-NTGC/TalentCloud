@@ -281,7 +281,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         function requiredFields() {
                                     $("input:required, textarea:required").each(function (e) {
                                                 $(this).parent().addClass("required");
-                                                $(this).parent().find("label").append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
+                                                //Find labels that haven't had the asterisk added yet
+                                                var label = $(this).parent().find("label:not(:has(.fa-asterisk))");
+                                                label.append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
                                     });
                         }
 
