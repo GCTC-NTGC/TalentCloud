@@ -29,26 +29,30 @@ class ProfileTest extends DuskTestCase {
             $browser->clickLink('My Profile')
                     ->assertSee('About Me');
 
-            // Go to My References, open accordion
-            $browser->clickLink('My References')
-                    ->assertSee('My References')
-                    ->press('Add Reference')
-                    ->assertSee('New Reference');
+            // Go to My Experience, open accordion
+            $browser->clickLink('My Experience')
+                    ->assertSee('My Experience')
+                    ->press('Add Diploma/Degree')
+                    ->assertSee('New Diploma/Degree');
 
-            // Add a reference
-            $browser->type('#references\5b new\5d \5b 1\5d referenceName', 'Test Reference')
-                    ->select('#references\5b new\5d \5b 1\5d referenceRelationship') // Selects random if not specified
-                    ->type('#references\5b new\5d \5b 1\5d referenceEmail', 'grant.d.barnes@gmail.com')
-                    ->type('#references\5b new\5d \5b 1\5d referenceDescription', 'Test reference description');
-
-            // Scroll down (button click will fail if not visible on test browser screen)
-            $browser->script('window.scrollTo(0, 1000);');
+            // Add a diploma
+            $browser->select('#degrees\5b new\5d \5b 1\5d degreeType', '4')
+                    ->type('#degrees\5b new\5d \5b 1\5d degreeArea', 'Test area of study')
+                    ->type('#degrees\5b new\5d \5b 1\5d degreeInstitution', 'Test institution');
+                    // TODO: Selectors for date picker
+                    //->click('#degrees\5b new\5d \5b 1\5d degreeStartDate')
+                    //->type('#degrees\5b new\5d \5b 1\5d degreeStartDate', ['2017'], ['{tab}'], ['0717']);
+                    //->type('#degrees\5b new\5d \5b 1\5d degreeEndDate', '2018', ['{tab}'], '08', ['{tab}'], '18');
 
             // Saved work sample name should be visible
-            $browser->assertSee('Save Reference')
+            $browser->assertSee('Save Diploma/Degree')
                     ->pause(777) // Fails without a short pause
-                    ->press('Save Reference')
-                    ->assertSee('Test Reference');
+                    ->press('Save Diploma/Degree')
+                    ->assertSee('Phd, Test area of study');
+
+            // TODO: Repeat for certification / equivalent experience
+            //$browser->press('Add Course/Certification')
+            //        ->assertSee('New Course/Certification');
 
             // Go to My Skills page
             $browser->clickLink('My Skills')
@@ -70,6 +74,29 @@ class ProfileTest extends DuskTestCase {
                     ->press('Save Skill')
                     ->assertSee('Passion');
 
+            // TODO: Repeat for hard skill
+
+            // Go to My References, open accordion
+            $browser->clickLink('My References')
+                    ->assertSee('My References')
+                    ->press('Add Reference')
+                    ->assertSee('New Reference');
+
+            // Add a reference
+            $browser->type('#references\5b new\5d \5b 1\5d referenceName', 'Test Reference')
+                    ->select('#references\5b new\5d \5b 1\5d referenceRelationship') // Selects random if not specified
+                    ->type('#references\5b new\5d \5b 1\5d referenceEmail', 'grant.d.barnes@gmail.com')
+                    ->type('#references\5b new\5d \5b 1\5d referenceDescription', 'Test reference description');
+
+            // Scroll down (button click will fail if not visible on test browser screen)
+            $browser->script('window.scrollTo(0, 1000);');
+
+            // Saved work sample name should be visible
+            $browser->assertSee('Save Reference')
+                    ->pause(777) // Fails without a short pause
+                    ->press('Save Reference')
+                    ->assertSee('Test Reference');
+
             // Go to My Work Samples, open accordion
             $browser->clickLink('My Work Samples')
                     ->assertSee('My Work Samples')
@@ -89,6 +116,7 @@ class ProfileTest extends DuskTestCase {
                     ->pause(777) // Fails without a short pause
                     ->press('Save Sample')
                     ->assertSee('Test Sample');
+
         });
     }
 }
