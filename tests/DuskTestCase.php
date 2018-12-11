@@ -6,6 +6,7 @@ use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Laravel\Dusk\Browser;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -20,6 +21,13 @@ abstract class DuskTestCase extends BaseTestCase
     public static function prepare()
     {
         static::startChromeDriver();
+
+        // Use scrollTo macro if element is off the browser screen
+        // Example: clicking a button that's below the visible content will eroor
+        Browser::macro('scrollTo', function($selector) {
+            $this->driver->executeScript("$(\"html, body\").animate({scrollTop: $(\"$selector\").offset().top}, 0);");
+            return $this;
+        });
     }
 
     /**
