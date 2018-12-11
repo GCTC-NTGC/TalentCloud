@@ -39,7 +39,7 @@ class StaticPagesTest extends DuskTestCase
                     ->assertSee('Nuage de talents : mode d\'emploi')
                     ->assertPathIs('/fr/faq');
 
-            // Move to job application test
+            // TODO: Move to job application test
             $browser->clickLink('Parcourir les emplois')
                     ->assertSee('Parcourir les emplois')
                     ->assertPathIs('/fr/jobs');
