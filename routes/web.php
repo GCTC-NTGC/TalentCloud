@@ -339,6 +339,16 @@ $managerGroup = function() {
             ->middleware('can:create,App\Models\JobPoster')
             ->name('manager.jobs.store');
 
+        /* Edit Job */
+        Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
+            ->where('jobPoster', '[0-9]+')
+            ->middleware('can:edit,App\Models\JobPoster')
+            ->name('manager.jobs.edit');
+
+        Route::post('jobs/{jobPoster}', 'JobController@update')
+            ->where('jobPoster', '[0-9]+')
+            ->middleware('can:update,App\Models\JobPoster')
+            ->name('manager.jobs.update');
 
     });
 
