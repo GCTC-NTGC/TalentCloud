@@ -17,7 +17,7 @@ return [
     'level_link_label' => '(Find Your Level)',
     'knowledge_label' => 'How I Acquired This Skill',
     'skill_status_null_label' => 'Status: Skill Unclaimed',
-    'skill_status_label' => 'Status: Skill',
+    'skill_status_label' => 'Status:',
     'skill_level_null' => 'No level has been selected.',
     'skill_levels' => [
         'hard' => [
@@ -36,6 +36,8 @@ return [
     'skill_description_null' => 'You have not yet described how this skill applies to you.',
     'action_01' => 'Delete Skill',
     'action_02' => 'Save Skill',
+    'action_02_working' => 'Saving...',
+    'action_02_saved' => 'Saved!',
     'skills' => [
         'front_end_dev' => [
             'name' => 'Front-end development',

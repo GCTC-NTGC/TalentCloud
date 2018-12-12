@@ -38,7 +38,7 @@ class UniqueApplicantSkillRule implements Rule
         $prev_skills = $this->applicant->skill_declarations->where('skill_id', $value)->pluck('id');
 
         return $prev_skills->isEmpty() ||
-            ($this->skill_declaration_id != null && $prev_skill->contains($this->skill_declaration_id));
+            ($this->skill_declaration_id != null && $prev_skills->contains($this->skill_declaration_id));
     }
 
     public function message()
