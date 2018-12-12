@@ -126,24 +126,53 @@ class JobController extends Controller
 
     /**
      * Display the form for creating a new Job Poster
-     * @param  Request $request [description]
+     * @param  Request $request
      * @return \Illuminate\Http\Response           A view
      */
-    public function create(Request $request) {
-        $manager = $request->user() ? $request->user()->manager : null;
+    public function create(Request $request)
+    {
+        return $this->populateCreateView($request);
+    }
 
-        //No job details exist yet because we're creating a new one
-        $job = [];
+    /**
+     * Display the form for editing an existing Job Poster
+     * @param  Request  $request
+     * @param  \App\Models\JobPoster  $jobPoster
+     * @return \Illuminate\Http\Response           A view
+     */
+    public function edit(Request $request, JobPoster $jobPoster)
+    {
+        return $this->populateCreateView($request, $jobPoster);
+    }
+
+    /**
+     * Get the manager from the request object and check if creating or editing
+     * @param  Request  $request
+     * @param  \App\Models\JobPoster  $jobPoster
+     * @return \Illuminate\Http\Response           A view
+     */
+    public function populateCreateView(Request $request, JobPoster $jobPoster = null)
+    {
+        $manager = $request->user() ? $request->user()->manager : null;
+        if (isset($jobPoster)) {
+            $job = $jobPoster;
+            $route = ['manager.jobs.update', $jobPoster];
+            $jobHeading = 'manager/job_edit';
+        } else {
+            $job = [];
+            $route = ['manager.jobs.store'];
+            $jobHeading = 'manager/job_create';
+        }
 
         return view('manager/job_create', [
-            'job_create' => Lang::get('manager/job_create'),
+            'job_heading' => Lang::get($jobHeading),
             'manager' => $manager,
             'provinces' => Province::all(),
             'departments' => Department::all(),
             'language_requirments' => LanguageRequirement::all(),
             'security_clearances' => SecurityClearance::all(),
             'job' => $job,
-            'form_action_url' => route('manager.jobs.store'),
+            'form_action_url' => route(...$route),
             'skills' => Skill::all(),
             'skill_levels' => SkillLevel::all(),
             'skill_template' => Lang::get('common/skills'),
@@ -151,11 +180,22 @@ class JobController extends Controller
     }
 
     /**
+     * Update an existing resource in storage
+     * @param  Request $request
+     * @return \Illuminate\Http\Response           A redirect
+     */
+    public function update(Request $request, JobPoster $jobPoster)
+    {
+        return redirect(route('manager.jobs.index'));
+    }
+
+    /**
      * Create a new resource in storage
      * @param  Request $request
      * @return \Illuminate\Http\Response           A redirect
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $input = $request->input();
 
