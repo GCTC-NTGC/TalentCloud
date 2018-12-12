@@ -13,6 +13,7 @@ return [
     "job_link_title" => "Voir l'affiche pour cet emploi.",
     "tracker_label" => "Étape",
     "tracker_link_title" => "Aller à l'étape",
+    "confirm_message" => "Les données non sauvegardées seront perdues. Es-tu sur de vouloir continuer?",
     "items" => [
         "basics" => [
             "step" => "1",
