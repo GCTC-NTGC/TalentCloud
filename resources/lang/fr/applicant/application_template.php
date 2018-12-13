@@ -14,6 +14,7 @@ return [
     "job_context_copy" => "Vous postulez pour :",
     "save_quit_button_label" => "Sauvegarder et quitter",
     "save_continue_button_label" => "Sauvegarder & continuer",
+    "save_button_working" => "Saving...",
     "submit_button_label" => "Soumettre",
 
     /* Tracker */

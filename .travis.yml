@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 7.1
+  - 7.2
 
 sudo: required
 dist: trusty
@@ -25,11 +25,11 @@ install:
   - make docker-start
   - make gen-certs
   - make laravel-init
-  - make build-db
+  # make build-db
 
-before_script:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-  - php artisan serve &
+#before_script:
+  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  # php artisan serve &
 
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`

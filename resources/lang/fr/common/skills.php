@@ -36,6 +36,8 @@ return [
     'skill_description_null' => 'Vous n\'avez pas encore décrit comment cette compétence s\'applique à vous.',
     'action_01' => 'Supprimer cette compétence',
     'action_02' => 'Enregistrer cette compétence',
+    'action_02_working' => 'Pensant...',
+    'action_02_saved' => 'Enregistré!',
     'skills' => [
         'front_end_dev' => [
             'name' => 'Développement frontal',

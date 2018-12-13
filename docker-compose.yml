@@ -44,7 +44,7 @@ services:
             - "POSTGRES_USER=talentcloud"
             - "POSTGRES_PASSWORD=talentcloud"
         ports:
-            - "5433:5432"
+            - "54321:5432"
     # Adminer
     adminer:
         image: adminer
