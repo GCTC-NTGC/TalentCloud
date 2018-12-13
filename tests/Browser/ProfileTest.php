@@ -44,6 +44,8 @@ class ProfileTest extends DuskTestCase {
                     //->type('#degrees\5b new\5d \5b 1\5d degreeStartDate', ['2017'], ['{tab}'], ['0717']);
                     //->type('#degrees\5b new\5d \5b 1\5d degreeEndDate', '2018', ['{tab}'], '08', ['{tab}'], '18');
 
+            $browser->script('window.scrollTo(0, 1000);');
+
             // Saved work sample name should be visible
             $browser->assertSee('Save Diploma/Degree')
                     ->pause(777) // Fails without a short pause
