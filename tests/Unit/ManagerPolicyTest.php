@@ -22,8 +22,14 @@ class ManagerPolicyTest extends BasePolicyTest
         $canApplicantViewManager = $this->getManagerPolicy()->view($ianApplicant->user, $maryManager);
         $this->assertTrue($canApplicantViewManager);
 
-        //Test 2: manager can view manager
-        $canManagerViewManager = $this->getManagerPolicy()->view($maryManager->user, $maryManager);
+        //Test 2: manager can view self
+        $canManagerViewSelf = $this->getManagerPolicy()->view($maryManager->user, $maryManager);
+        $this->assertTrue($canManagerViewSelf);
+
+        //Test 3: manager can view other manager
+        $daveManager = $this->createManager();
+        $sallyManager = $this->createManager();
+        $canManagerViewManager = $this->getManagerPolicy()->view($daveManager->user, $sallyManager);
         $this->assertTrue($canManagerViewManager);
     }
 }
