@@ -136,7 +136,9 @@ return [
     */
     'custom' => [
         'password' => 'Le mot de passe doit contenir au moins un caractère appartenant à trois des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
-        'experience_saved.accepted' => 'Vous devez revoir et sauvegarder l\'étape 2.'
+        'experience_saved.accepted' => 'Vous devez revoir et sauvegarder l\'étape 2.',        ,
+        'application_step_1.accepted' => 'L\'étape 1 doit être complétée',
+        'application_step_3.accepted' => 'L\'étape 3 doit être complétée',
     ],
     /*
     |--------------------------------------------------------------------------

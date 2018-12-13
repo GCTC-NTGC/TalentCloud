@@ -35,14 +35,28 @@ class ApplicationValidator {
 
         $rules = array_merge(
             $backendRules,
-            $this->basicsValidator($application)->getRules(),
+            //$this->basicsValidator($application)->getRules(),
             $this->experienceValidator($application)->getRules(),
-            $this->essentialSkillsValidator($application)->getRules(),
+            //$this->essentialSkillsValidator($application)->getRules(),
             $this->affirmationValidator($application)->getRules()
         );
 
+        $data = $application->toArray();
+
+        // Combining and simplifiying error messages
+        $rules = array_merge(
+            $rules,
+            ['application_step_1' => 'required|boolean|accepted'],
+            ['application_step_3' => 'required|boolean|accepted']
+        );
+        $data = array_merge(
+            $data,
+            ['application_step_1' => $this->basicsComplete($application)],
+            ['application_step_3' => $this->essentialSkillsComplete($application)]
+        );
+
         //Validate basic data is filled in
-        Validator::make($application->toArray(), $rules)->validate();
+        Validator::make($data, $rules)->validate();
     }
 
     protected function arrayMapKeys($fn, $array) {
