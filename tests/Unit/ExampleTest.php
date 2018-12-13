@@ -23,11 +23,11 @@ class ExampleTest extends TestCase
 
     public function testSkillsValidator()
     {
-        // $application = JobApplication::find(5);
-        // $validator = new ApplicationValidator();
-        // print_r($validator->essentialSkillsValidator($application)->messages());
+        $application = JobApplication::find(5);
+        $validator = new ApplicationValidator();
+        print_r($validator->essentialSkillsValidator($application)->getRules());
         // print_r($application->toArray());
-        // $this->assertTrue($validator->essentialSkillsComplete($application));
+        $this->assertFalse($validator->essentialSkillsComplete($application));
     }
 
     public function testContainsObjectWithAttributeRule()

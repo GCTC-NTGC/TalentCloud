@@ -32,9 +32,6 @@ class SkillDeclarationValidator
     public function validator(SkillDeclaration $skillDeclaration) {
         $uniqueSkillRule = new UniqueApplicantSkillRule($this->applicant, $skillDeclaration->id);
 
-        //This array is reset every time because applicants table can change frequently
-        $applicant_ids = Applicant::all()->pluck('id');
-
         //Validate basic data is filled in
         $validator = Validator::make($skillDeclaration->getAttributes(), [
             'skill_id' => [
@@ -44,7 +41,7 @@ class SkillDeclarationValidator
             ],
             'applicant_id' => [
                 'required',
-                Rule::in($applicant_ids->toArray()),
+                Rule::in([$this->applicant->id]),
             ],
             'skill_status_id' => [
                 'required',

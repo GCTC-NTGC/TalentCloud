@@ -27,27 +27,21 @@ class ApplicationValidator {
 
     public function validate(JobApplication $application) {
 
-        $rules = [
-
-        ];
-
-        //Validate basic data is filled in
-        Validator::make($application->getAttributes(), [
+        $backendRules = [
             'job_poster_id' => 'required',
             'application_status_id' => 'required',
-            'citizenship_declaration_id' => ['required', Rule::in($this->citizenship_ids)],
-            'veteran_status_id' => ['required', Rule::in($this->veteran_status_ids)],
-            'preferred_language_id' => ['required', Rule::in($this->preferred_language_ids)],
-            'applicant_id' => 'required',
-            'submission_signature' => 'required|string|max:191',
-            'submission_date' => 'required|string|max:191',
-        ])->validate();
+            'applicant_id' => 'required'
+        ];
 
-        //TODO
-        //Validate that all questions have been answered
+        $rules = array_merge(
+            $backendRules,
+            $this->basicsValidator($application)->getRules(),
+            $this->essentialSkillsValidator($application)->getRules(),
+            $this->affirmationValidator($application)->getRules()
+        );
 
-        //TODO
-        //Validate that essential skill declarations have been supplied
+        //Validate basic data is filled in
+        Validator::make($application->toArray(), $rules)->validate();
     }
 
     protected function arrayMapKeys($fn, $array) {
@@ -117,10 +111,13 @@ class ApplicationValidator {
 
         //Validate that those declarations are complete
         $skilDeclarationValidatorFactory = new SkillDeclarationValidator($application->applicant);
-        foreach($application->skill_declarations->where('criteria_type_id', $criteriaTypeId) as $key=>$declaration) {
-            $attribute = implode('.', ['skill_declarations', $key]);
-            $skilDeclarationValidator = $skilDeclarationValidatorFactory->validator($declaration);
-            $rules = $this->addNestedValidatorRules($attribute, $skilDeclarationValidator->getRules(), $rules);
+        $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
+        foreach( $application->skill_declarations as $key=>$declaration) {
+            if ($relevantSkillIds->contains($declaration->skill_id)) {
+                $attribute = implode('.', ['skill_declarations', $key]);
+                $skillDeclarationValidator = $skilDeclarationValidatorFactory->validator($declaration);
+                $rules = $this->addNestedValidatorRules($attribute, $skillDeclarationValidator->getRules(), $rules);
+            }
         }
 
         $validator = Validator::make($application->toArray(), $rules);
