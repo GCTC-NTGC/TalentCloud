@@ -146,8 +146,14 @@ class JobApplication extends BaseModel {
             case 'experience':
                 break;
             case 'essential_skills':
+                if ($validator->essentialSkillsComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'asset_skills':
+                if ($validator->assetSkillsComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'preview':
                 break;

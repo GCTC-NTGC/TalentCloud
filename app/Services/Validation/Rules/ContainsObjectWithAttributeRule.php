@@ -52,6 +52,6 @@ class ContainsObjectWithAttributeRule implements Rule
 
     public function message()
     {
-        return Lang::trans('validation.contains_object_with_relation', ['relation' => $this->attributeName]);
+        return Lang::trans('validation.contains_object_with_attribute', ['relation' => $this->attributeName, 'attributeValue' => $this->attributeValue]);
     }
 }

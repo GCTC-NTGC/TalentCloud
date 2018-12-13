@@ -121,7 +121,7 @@ return [
     | Here you may specify validation messages for custom rules and validtors.
     */
     'applicant_has_relation' => 'Applicant must own this :attribute',
-    'contains_object_with_relation' => ':attribute doesn\'t contain required :relation',
+    'contains_object_with_attribute' => ':attribute doesn\'t contain required :relation equal to :attributeValue',
     'user_skill_unique' => 'You may only add each skill once',
     'password_correct' => 'Old password isn\'t correct',
 

@@ -58,6 +58,17 @@ class ApplicationValidator {
         return $newArray;
     }
 
+    protected function addNestedValidatorRules($nestedAttribute, $validatorRules, $rules = []) {
+        // prepend the attribute name of each validator rule with the nested attribute name
+        $newRules = $this->arrayMapKeys(function($key) use ($nestedAttribute) {
+                return implode('.', [$nestedAttribute, $key]);
+            },
+            $validatorRules);
+        //Merge new rules with old rules
+        $rules = array_merge($rules, $newRules);
+        return $rules;
+    }
+
     public function basicsValidator(JobApplication $application) {
         // Validate the fields common to every application
         $rules = [
@@ -75,16 +86,12 @@ class ApplicationValidator {
             $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
         }
         $rules['job_application_answers'] = $jobPosterQuestionRules;
-        $answerValidator = new JobApplicationAnswerValidator($application);
+        $answerValidatorFactory = new JobApplicationAnswerValidator($application);
 
         //Validate that each answer is complete
         foreach($application->job_application_answers as $key=>$answer) {
             $attribute = implode('.', ['job_application_answers', $key]);
-            $newRules = $this->arrayMapKeys(function($key) use ($attribute) {
-                    return implode('.', [$attribute, $key]);
-                },
-                $answerValidator->rules());
-            $rules = array_merge($rules, $newRules);
+            $rules = $this->addNestedValidatorRules($attribute, $answerValidatorFactory->rules(), $rules);
         }
 
         $validator = Validator::make($application->toArray(), $rules);
@@ -96,21 +103,43 @@ class ApplicationValidator {
         return $validator->passes();
     }
 
-    public function essentialSkillsValidator(JobApplication $application) {
+    protected function skillsValidator(JobApplication $application, $criteria_type) {
         $rules = [];
 
         $skillDeclarationRules = [];
-        $essential_id = CriteriaType::where('name', 'essential')->firstOrFail()->id;
-        foreach($application->job_poster->criteria->where('criteria_type_id', $essential_id) as $criteria) {
+        $criteriaTypeId = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
+        foreach($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
             //Validate that every essential skill has a corresponding declaration
             $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
-            //Validate that those declarations are complete
-            //TODO:
         }
         $rules['skill_declarations'] = $skillDeclarationRules;
-        $application->load('skill_declarations');
+        $application->applicant->load('skill_declarations');
+
+        //Validate that those declarations are complete
+        $skilDeclarationValidatorFactory = new SkillDeclarationValidator($application->applicant);
+        foreach($application->skill_declarations->where('criteria_type_id', $criteriaTypeId) as $key=>$declaration) {
+            $attribute = implode('.', ['skill_declarations', $key]);
+            $skilDeclarationValidator = $skilDeclarationValidatorFactory->validator($declaration);
+            $rules = $this->addNestedValidatorRules($attribute, $skilDeclarationValidator->getRules(), $rules);
+        }
 
         $validator = Validator::make($application->toArray(), $rules);
         return $validator;
+    }
+
+    public function essentialSkillsValidator(JobApplication $application) {
+        return $this->skillsValidator($application, 'essential');
+    }
+
+    public function essentialSkillsComplete(JobApplication $application) {
+        return $this->essentialSkillsValidator($application)->passes();
+    }
+
+    public function assetSkillsValidator(JobApplication $application) {
+        return $this->skillsValidator($application, 'asset');
+    }
+
+    public function assetSkillsComplete(JobApplication $application) {
+        return $this->assetSkillsValidator($application)->passes();
     }
 }
