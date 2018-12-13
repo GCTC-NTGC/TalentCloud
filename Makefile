@@ -34,7 +34,7 @@ gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 laravel-init:
-	@docker exec talentcloud sh -c "php artisan optimize && php artisan key:generate"
+	@docker exec talentcloud sh -c "php artisan key:generate"
 
 logs:
 	@docker-compose logs -f
