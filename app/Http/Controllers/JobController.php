@@ -86,15 +86,16 @@ class JobController extends Controller
     /**
      * Display the specified job poster.
      *
-     * @param  Request  $request
-     * @param  \App\Models\JobPoster  $jobPoster
+     * @param \Illuminate\Http\Request $request   Incoming request object
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, JobPoster $jobPoster)
     {
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
-        foreach($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
+        foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
             $workplacePhotos[] = [
                 'description' => $photoCaption->description,
                 'url' => '/images/user.png'
@@ -104,30 +105,39 @@ class JobController extends Controller
         //TODO: replace route('manager.show',manager.id) in templates with link using slug
 
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(function($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
+            'essential' => $jobPoster->criteria->filter(
+                function ($value, $key) {
+                    return $value->criteria_type->name == 'essential';
+                }
+            ),
+            'asset' => $jobPoster->criteria->filter(
+                function ($value, $key) {
+                    return $value->criteria_type->name == 'asset';
+                }
+            ),
         ];
-        return view('applicant/job_post', [
-            'job_post' =>Lang::get('applicant/job_post'),
-            'manager' => $jobPoster->manager,
-            'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
-            'team_culture' => $jobPoster->manager->team_culture,
-            'work_environment' => $jobPoster->manager->work_environment,
-            'workplace_photos' => $workplacePhotos,
-            'job' => $jobPoster,
-            'criteria' => $criteria,
-            'skill_template' => Lang::get('common/skills'),
-        ]);
+        return view(
+            'applicant/job_post',
+            [
+                'job_post' => Lang::get('applicant/job_post'),
+                'manager' => $jobPoster->manager,
+                'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
+                'team_culture' => $jobPoster->manager->team_culture,
+                'work_environment' => $jobPoster->manager->work_environment,
+                'workplace_photos' => $workplacePhotos,
+                'job' => $jobPoster,
+                'criteria' => $criteria,
+                'skill_template' => Lang::get('common/skills'),
+            ]
+        );
     }
 
     /**
      * Display the form for creating a new Job Poster
-     * @param  Request $request
-     * @return \Illuminate\Http\Response           A view
+     *
+     * @param \Illuminate\Http\Request $request Incoming request object
+     *
+     * @return \Illuminate\Http\Response A view
      */
     public function create(Request $request)
     {
@@ -136,9 +146,11 @@ class JobController extends Controller
 
     /**
      * Display the form for editing an existing Job Poster
-     * @param  Request  $request
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return \Illuminate\Http\Response           A view
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object
+     *
+     * @return \Illuminate\Http\Response A view
      */
     public function edit(Request $request, JobPoster $jobPoster)
     {
@@ -147,9 +159,11 @@ class JobController extends Controller
 
     /**
      * Get the manager from the request object and check if creating or editing
-     * @param  Request  $request
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return \Illuminate\Http\Response           A view
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object
+     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object
+     *
+     * @return \Illuminate\Http\Response A view
      */
     public function populateCreateView(Request $request, JobPoster $jobPoster = null)
     {
@@ -164,25 +178,31 @@ class JobController extends Controller
             $jobHeading = 'manager/job_create';
         }
 
-        return view('manager/job_create', [
-            'job_heading' => Lang::get($jobHeading),
-            'manager' => $manager,
-            'provinces' => Province::all(),
-            'departments' => Department::all(),
-            'language_requirments' => LanguageRequirement::all(),
-            'security_clearances' => SecurityClearance::all(),
-            'job' => $job,
-            'form_action_url' => route(...$route),
-            'skills' => Skill::all(),
-            'skill_levels' => SkillLevel::all(),
-            'skill_template' => Lang::get('common/skills'),
-        ]);
+        return view(
+            'manager/job_create',
+            [
+                'job_heading' => Lang::get($jobHeading),
+                'manager' => $manager,
+                'provinces' => Province::all(),
+                'departments' => Department::all(),
+                'language_requirments' => LanguageRequirement::all(),
+                'security_clearances' => SecurityClearance::all(),
+                'job' => $job,
+                'form_action_url' => route(...$route),
+                'skills' => Skill::all(),
+                'skill_levels' => SkillLevel::all(),
+                'skill_template' => Lang::get('common/skills'),
+            ]
+        );
     }
 
     /**
      * Update an existing resource in storage
-     * @param  Request $request
-     * @return \Illuminate\Http\Response           A redirect
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object
+     *
+     * @return \Illuminate\Http\Response A redirect
      */
     public function update(Request $request, JobPoster $jobPoster)
     {
@@ -191,8 +211,10 @@ class JobController extends Controller
 
     /**
      * Create a new resource in storage
-     * @param  Request $request
-     * @return \Illuminate\Http\Response           A redirect
+     *
+     * @param \Illuminate\Http\Request $request Incoming request object
+     *
+     * @return \Illuminate\Http\Response A redirect
      */
     public function store(Request $request)
     {
