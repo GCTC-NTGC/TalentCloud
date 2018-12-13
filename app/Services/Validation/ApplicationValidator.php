@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator as BaseValidator;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
@@ -83,19 +84,33 @@ class ApplicationValidator {
                     return implode('.', [$attribute, $key]);
                 },
                 $answerValidator->rules());
-            debugbar()->debug($newRules);
             $rules = array_merge($rules, $newRules);
         }
 
         $validator = Validator::make($application->toArray(), $rules);
-        debugbar()->debug($application->toArray());
-        debugbar()->debug($validator->getRules());
         return $validator;
     }
 
     public function basicsComplete(JobApplication $application) {
         $validator = $this->basicsValidator($application);
-        debugbar()->debug($validator->messages());
         return $validator->passes();
+    }
+
+    public function essentialSkillsValidator(JobApplication $application) {
+        $rules = [];
+
+        $skillDeclarationRules = [];
+        $essential_id = CriteriaType::where('name', 'essential')->firstOrFail()->id;
+        foreach($application->job_poster->criteria->where('criteria_type_id', $essential_id) as $criteria) {
+            //Validate that every essential skill has a corresponding declaration
+            $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
+            //Validate that those declarations are complete
+            //TODO:
+        }
+        $rules['skill_declarations'] = $skillDeclarationRules;
+        $application->load('skill_declarations');
+
+        $validator = Validator::make($application->toArray(), $rules);
+        return $validator;
     }
 }
