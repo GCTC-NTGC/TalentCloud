@@ -156,6 +156,9 @@ class JobApplication extends BaseModel {
                 }
                 break;
             case 'preview':
+                if ($validator->affirmationComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             default:
                 $status = 'error';
