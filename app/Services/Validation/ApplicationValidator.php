@@ -36,6 +36,7 @@ class ApplicationValidator {
         $rules = array_merge(
             $backendRules,
             $this->basicsValidator($application)->getRules(),
+            $this->experienceValidator($application)->getRules(),
             $this->essentialSkillsValidator($application)->getRules(),
             $this->affirmationValidator($application)->getRules()
         );
@@ -95,6 +96,15 @@ class ApplicationValidator {
     public function basicsComplete(JobApplication $application) {
         $validator = $this->basicsValidator($application);
         return $validator->passes();
+    }
+
+    public function experienceValidator(JobApplication $application) {
+        $rules = ['experience_saved' => 'required|boolean|accepted'];
+        return Validator::make($application->toArray(), $rules);
+    }
+
+    public function experinceComplete(JobApplication $application) {
+        return $this->experienceValidator($application)->passes();
     }
 
     protected function skillsValidator(JobApplication $application, $criteria_type) {

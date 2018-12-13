@@ -138,6 +138,7 @@ return [
 
     'custom' => [
         'password' => 'The password must contain at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).',
+        'experience_saved.accepted' => 'You must review and save Step 2.'
     ],
 
     /*

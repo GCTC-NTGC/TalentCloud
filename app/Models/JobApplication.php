@@ -30,6 +30,7 @@ use App\Services\Validation\ApplicationValidator;
  * @property int $applicant_snapshot_id
  * @property string $submission_signature
  * @property string $submission_date
+ * @property boolean $experience_saved
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -63,6 +64,7 @@ class JobApplication extends BaseModel {
         'applicant_snapshot_id' => 'int',
         'submission_signature' => 'string',
         'submission_date' => 'string',
+        'experience_saved' => 'boolean',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -70,6 +72,7 @@ class JobApplication extends BaseModel {
         'preferred_language_id',
         'submission_signature',
         'submission_date',
+        'experience_saved',
     ];
 
     protected function createApplicantSnapshot($applicant_id) {
@@ -144,6 +147,9 @@ class JobApplication extends BaseModel {
                 }
                 break;
             case 'experience':
+                if ($validator->experinceComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'essential_skills':
                 if ($validator->essentialSkillsComplete($this)) {
