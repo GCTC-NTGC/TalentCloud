@@ -8,7 +8,7 @@ dist: trusty
 
 services:
   - docker
-  - postgresql
+  # postgresql
 
 addons:
   postgresql: "9.6"

@@ -11,9 +11,6 @@ services:
         depends_on:
             - talentcloud
             - postgres
-        environment:
-            - "NGINX_HOST=talent.local.ca"
-        command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
         ports:
             - "80:80"
             - "443:443"
@@ -25,7 +22,6 @@ services:
         working_dir: /var/www
         restart: always
         volumes:
-            - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
