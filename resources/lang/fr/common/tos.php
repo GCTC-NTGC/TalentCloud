@@ -24,14 +24,14 @@ return [
                 "01" => [
                     "title" => "Présentation d’un contenu dans les deux langues officielles du Canada",
                     "copy" => [
-                        "00" => "La <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/\" target=\"_blank\">Loi sur les langues officielles</a>, le <a href=\"http://laws-lois.justice.gc.ca/fra/reglements/DORS-92-48/index.html\" target=\"_blank\">Règlement sur les langues officielles – communications avec le public et prestation des services</a> et les exigences des politiques du Conseil du Trésor prévoient les circonstances où nous employons le français et l’anglais dans la prestation des services au public. S’il n’y a pas d’obligation d’offrir le contenu dans les deux langues officielles, celui-ci pourrait être offert uniquement dans une des langues officielles. L’information offerte par des entités non assujetties à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/\" target=\"_blank\">Loi sur les langues officielles</a> est diffusée que dans la langue dans laquelle elle est fournie. Toute information dans une langue autre que l’anglais ou le français est offerte seulement à titre gracieux aux visiteurs de notre site Web."
+                        "00" => "La <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur les langues officielles</a>, le <a href=\"http://laws-lois.justice.gc.ca/fra/reglements/DORS-92-48/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Règlement sur les langues officielles – communications avec le public et prestation des services</a> et les exigences des politiques du Conseil du Trésor prévoient les circonstances où nous employons le français et l’anglais dans la prestation des services au public. S’il n’y a pas d’obligation d’offrir le contenu dans les deux langues officielles, celui-ci pourrait être offert uniquement dans une des langues officielles. L’information offerte par des entités non assujetties à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur les langues officielles</a> est diffusée que dans la langue dans laquelle elle est fournie. Toute information dans une langue autre que l’anglais ou le français est offerte seulement à titre gracieux aux visiteurs de notre site Web."
                     ]
                 ],
                 "02" => [
                     "title" => "Établissement d’hyperliens vers des sites Web autres que ceux du gouvernement du Canada",
                     "copy" => [
                         "00" => "Les hyperliens menant à des sites Web qui ne sont pas gérés par le gouvernement du Canada, y compris ceux qui mènent à nos comptes de médias sociaux, sont offerts uniquement par commodité aux visiteurs de notre site Web. Nous n’assumons aucune responsabilité quant à la précision, l’actualité ou la fiabilité du contenu de ces sites. Le gouvernement du Canada n’offre aucune garantie à cet égard, n’assume aucune responsabilité concernant l’information obtenue au moyen de ces liens et n’approuve ni ces sites, ni leur contenu.",
-                        "01" => "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/P-21/index.html\" target=\"_blank\">Loi sur la protection des renseignements personnels</a> ni à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/\" target=\"_blank\">Loi sur les langues officielles</a>, et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels."
+                        "01" => "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/P-21/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur la protection des renseignements personnels</a> ni à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur les langues officielles</a>, et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels."
                     ]
                 ],
                 "03" => [
@@ -71,7 +71,7 @@ return [
                                 "00" => "remplissez le <a href=\"http://www1.canada.ca/fr/contact/questions.html\" target=\"_blank\">formulaire pour questions et commentaires</a>"
                             ]
                         ],
-                        "04" => "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/C-42/index.html\" target=\"_blank\">Loi sur le droit d'auteur</a> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes."
+                        "04" => "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/C-42/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur le droit d'auteur</a> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes."
                     ]
                 ],
                 "06" => [
@@ -83,7 +83,7 @@ return [
                 "07" => [
                     "title" => "Notre engagement à l’égard de l’accessibilité",
                     "copy" => [
-                        "00" => "Le gouvernement du Canada est déterminé à observer une norme d’accessibilité élevée conformément à la <a href=\"http://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=23601\" target=\"_blank\">Norme sur l’accessibilité des sites Web</a> et la <a href=\"http://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=27088\" target=\"_blank\">Norme sur l’optimisation des sites Web et des applications pour appareils mobiles</a>. Communiquez avec nous si vous éprouvez des difficultés à utiliser nos pages Web, nos applications ou nos applications mobiles axées sur l’appareil, ou si vous désirez obtenir des documents en médias substituts comme le caractère ordinaire, le Braille ou un autre format approprié."
+                        "00" => "Le gouvernement du Canada est déterminé à observer une norme d’accessibilité élevée conformément à la <a href=\"http://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=23601\" target=\"_blank\" rel=\"noopener noreferrer\">Norme sur l’accessibilité des sites Web</a> et la <a href=\"http://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=27088\" target=\"_blank\" rel=\"noopener noreferrer\">Norme sur l’optimisation des sites Web et des applications pour appareils mobiles</a>. Communiquez avec nous si vous éprouvez des difficultés à utiliser nos pages Web, nos applications ou nos applications mobiles axées sur l’appareil, ou si vous désirez obtenir des documents en médias substituts comme le caractère ordinaire, le Braille ou un autre format approprié."
                     ]
                 ],
                 "08" => [
@@ -147,7 +147,7 @@ return [
                 "14" => [
                     "title" => "Droit d'auteur",
                     "copy" => [
-                        "00" => "L'information publiée par le gouvernement du Canada est assujettie à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/C-42/index.html\" target=\"_blank\">Loi sur le droit d'auteur</a>."
+                        "00" => "L'information publiée par le gouvernement du Canada est assujettie à la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/C-42/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur le droit d'auteur</a>."
                     ]
                 ],
                 "15" => [
@@ -159,7 +159,7 @@ return [
                 "15" => [
                     "title" => "Langues officielles",
                     "copy" => [
-                        "00" => "Bon nombre de plateformes de médias sociaux offrent plusieurs choix de langues et donnent des instructions pour définir des préférences. Le gouvernement du Canada respecte la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/index.html\" target=\"_blank\">Loi sur les langues officielles</a> et est déterminé à prendre les moyens nécessaires pour que son information soit disponible en français et en anglais et pour que la qualité soit égale dans les deux versions."
+                        "00" => "Bon nombre de plateformes de médias sociaux offrent plusieurs choix de langues et donnent des instructions pour définir des préférences. Le gouvernement du Canada respecte la <a href=\"http://laws-lois.justice.gc.ca/fra/lois/O-3.01/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">Loi sur les langues officielles</a> et est déterminé à prendre les moyens nécessaires pour que son information soit disponible en français et en anglais et pour que la qualité soit égale dans les deux versions."
                     ]
                 ]
             ]

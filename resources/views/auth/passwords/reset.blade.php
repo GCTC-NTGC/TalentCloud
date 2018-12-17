@@ -34,7 +34,7 @@
                         <div
                             class="register-copy">
 
-                            <div 
+                            <div
                                 class="flex-grid">
 
                                 @if ($errors->any())
@@ -90,7 +90,8 @@
                                             id="password"
                                             name="password"
                                             required
-                                            type="password" />
+                                            type="password"
+                                            autocomplete="off" />
                                     </div>
 
                                 </div>
@@ -110,7 +111,8 @@
                                             id="password-confirm"
                                             name="password_confirmation"
                                             required
-                                            type="password" />
+                                            type="password"
+                                            autocomplete="off" />
                                     </div>
 
                                 </div>

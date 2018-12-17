@@ -147,7 +147,7 @@ return [
         ],
         'accountability' => [
             'name' => 'Accountability',
-            'description' => 'Defined as: Taking responsibility for one’s own actions and the actions of a group.'
+            'description' => 'Defined as: Taking responsibility for one\'s own actions and the actions of a group.'
         ],
         'attention_detail' => [
             'name' => 'Attention to Detail',
@@ -187,7 +187,7 @@ return [
         ],
         'resilience' => [
             'name' => 'Resilience',
-            'description' => 'Defined as: Ability to recover from difficulties or change – to function as well as before and then move forward. It is often referred to as the ability to ‘bounce back’ from difficulties or challenges. The perseverance to deal with resistance.'
+            'description' => 'Defined as: Ability to recover from difficulties or change – to function as well as before and then move forward. It is often referred to as the ability to \'bounce back\' from difficulties or challenges. The perseverance to deal with resistance.'
         ],
         'service_orientation' => [
             'name' => 'Service Orientation',
@@ -260,6 +260,74 @@ return [
         'user_design' => [
             'name' => 'User-Centered Design',
             'description' => 'Defined as: Ability to apply user centred design techniques to: understand the user journey; develop and test new approaches to user-product interaction; and provide results that support an improved, intuitive, pleasant user experience'
+        ],
+        'empathy' => [
+            'name' => 'Empathy',
+            'description' => 'Defined as: being able to put themselves in the shoes of people with a very different mindset and set of priorities'
+        ],
+        'analysis' => [
+            'name' => 'Analysis',
+            'description' => 'Defined as: Ability to collect and utilize qualitative and quantitative data to make design decisions'
+        ],
+        'data_science' => [
+            'name' => 'Data Science',
+            'description' => 'Defined as: Ability to use scientific methods, processes, algorithms and systems to extract knowledge and insights from data in various forms, both structured and unstructured.'
+        ],
+        'results_oriented' => [
+            'name' => 'Results-Oriented',
+            'description' => 'Defined as: Ability to focus efforts on achieving quality results consistent with the overall vision.'
+        ],
+        'relationship_management' => [
+            'name' => 'Relationship Management',
+            'description' => 'Defined as: Ability to develop respectful, constructive and cooperative working relationships with others, and maintaining them over time.'
+        ],
+        'data_analysis' => [
+            'name' => 'Data Analysis',
+            'description' => 'Defined as: Ability to inspect, cleanse, transform, and model data with the goal of discovering useful information, informing conclusions, and supporting decision-making.'
+        ],
+        'data_mining' => [
+            'name' => 'Data Mining',
+            'description' => 'Defined as: Ability to use a data analysis technique that focuses on modeling and knowledge discovery for predictive rather than purely descriptive purposes.'
+        ],
+        'r_programming' => [
+            'name' => 'R programming',
+            'description' => 'Defined as: A programming language for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.'
+        ],
+        'database_design_and_management' => [
+            'name' => 'Database Design & Management',
+            'description' => 'Defined as: Knowledge and ability to apply the methods, practices and policies that are used in the design and the management of databases'
+        ],
+        'scrum' => [
+            'name' => 'SCRUM',
+            'description' => 'Defined as: Ability to work under Scrum, an Agile framework for complex projects that helps break down a project into tangible goals through daily meetings, detailed project timelines, and identification of potential project roadblocks.'
+        ],
+        'team_foundation_server' => [
+            'name' => 'TFS Work Items',
+            'description' => 'Defined as: Ability to work with Team Foundation Server (commonly abbreviated to TFS), which covers the entire application lifecycle, and enables DevOps capabilities.'
+        ],
+        'n_unit_testing' => [
+            'name' => 'N-Unit Testing',
+            'description' => 'Defined as: Ability to work with N-Unit, an evolving, open source framework designed for writing and running tests in Microsoft .NET programming languages.'
+        ],
+        'asp_net_mvc' => [
+            'name' => 'ASP.net MVC',
+            'description' => 'Defined as: Ability to work with ASP.NET MVC, a web application framework developed by Microsoft, which implements the model–view–controller (MVC) pattern. '
+        ],
+        'ef6' => [
+            'name' => 'EF6',
+            'description' => 'Defined as: Ability to work with Entity Framework (EF), an open source object-relational mapping (ORM) framework for ADO.NET.'
+        ],
+        'cloud_architecture_for_mobile_and_applications' => [
+            'name' => 'Cloud Architecture for Mobile and Applications',
+            'description' => 'Defined as: Ability to architect, design and implement infrastructure technologies, solutions and services such as: compute, storage, networking, physical infrastructures, software, commercial off the shelf (COTS) and Open Source packages and solutions, virtual and cloud including PaaS, SaaS, using Azure, AWS, Xamarin, Java, C#, CSS or Python.'
+        ],
+        'cloud_computing_platform_configuration' => [
+            'name' => 'Cloud Computing Platform Configuration',
+            'description' => 'Defined as: Ability to work with Azure and AWS to set hardware and software details for elements of a cloud environment to ensure that they can interoperate and communicate.'
+        ],
+        'strategy_development' => [
+            'name' => 'Strategy Development',
+            'description' => 'Defined as: Ability to identify specific objectives, then set achievable goals, identify priorities, allocate energy and resources, and work with stakeholders to work towards intended outcomes/results, while assessing and adjusting the organization\'s direction in response to a changing environment.'
         ],
     ],
     'status' => [

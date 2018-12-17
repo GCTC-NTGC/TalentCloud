@@ -122,9 +122,7 @@ return [
     |
     */
     'custom' => [
-        'password' => [
-            'regex' => 'Le mot de passe doit contenir au moins un caractère appartenant à trois des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
-        ],
+        'password' => 'Le mot de passe doit contenir au moins un caractère appartenant à trois des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
         'password_correct' => 'mot de passe incorrect',
         'user_skill_unique' => 'You may only add each skill once',
         'applicant_has_relation' => 'Applicant must own this :attribute',

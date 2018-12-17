@@ -4,7 +4,7 @@
 -- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
--- Host: talentcloud-db
+-- Host: postgres
 -- Generation Time: Aug 20, 2018 at 05:32 PM
 -- Server version: 5.6.41
 -- PHP Version: 7.2.6

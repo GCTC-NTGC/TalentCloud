@@ -11,6 +11,7 @@ use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Hash;
 
 class ApplicantProfileController extends Controller
@@ -101,8 +102,10 @@ class ApplicantProfileController extends Controller
      */
     public function update(Request $request, Applicant $applicant)
     {
-        $messages = Lang::get('validation.custom.password');
+        $messages = Lang::get('validation.custom');
         $request->validate([
+
+            //Password validation
             'old_password' => [
                 'nullable',
                 'required_with:new_password',
@@ -111,9 +114,30 @@ class ApplicantProfileController extends Controller
             'new_password' => [
                 'nullable',
                 'min:8',
-                'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
+                new PasswordFormatRule,
                 'confirmed'
-           ]
+           ],
+
+           //Social Media Validation
+            'twitter_username' => [
+                'nullable', //Some people may not have a handle.
+                'max:15', //Per Twitter's Terms/Service.
+                'regex:/^[A-Za-z0-9_]+$/', /*
+                 * Twitters Terms of Service only allows ". A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores"
+                 * This regex will allow only alphamumeric characters and the underscore.
+                 * Keep this handy if we need to validate other usernames.
+                 */
+            ],
+            'linkedin_url' => [
+                'nullable', // Some people may not be on LinkedIn
+                'regex:/^(https:\\/\\/|http:\\/\\/)?www\\.linkedin\\.com\\/in\\/[^\\/]+(\\/)?$/', // Validation for linkedIn profile URLS only.
+            ],
+
+            //Other Information Tagline
+            'tagline' => [
+                'nullable',
+                'string'
+            ],
        ], $messages);
 
         $questions = ApplicantProfileQuestion::all();
