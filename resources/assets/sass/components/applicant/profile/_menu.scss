@@ -4,17 +4,17 @@
 
 // =============================================================================
 .applicant-profile__sticky-menu {
-    background-color: $palette--white;
+    background-color: $palette--black;
+    background: transparentize($palette--black, .15);
+    background-image: url("/images/bg_lightning_texture.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 75px;
     padding: calc(#{$unit} * 1.5);
     position: relative;
     z-index: 50;
 
     &::before {
-        background-color: transparentize($palette--black, .15);
-        background-image: url("/images/bg_lightning_texture.png");
-        background-position: center;
-        background-repeat: repeat;
-        background-size: 75px;
         content: " ";
         display: block;
         height: 100%;
@@ -62,7 +62,7 @@
                         }
 
                         &.active {
-                            color: $palette--blue;
+                            color: lighten($palette--blue, 10%);
                         }
 
                     }

@@ -38,7 +38,7 @@
 }
 
 .job-poster__basics-title {
-    color: $palette--white;
+    color: $palette--font-white;
     font-family: $font--sans;
     font-size: $font-scale--h3;
     //font-weight: 700;
@@ -46,16 +46,16 @@
 }
 
 .job-poster__basics-label {
-    color: $palette--blue;
+    color: lighten($palette--blue, 20%);
     display: block;
     font-family: $font--sans;
     font-size: $font-scale--regular;
-    font-weight: 700;
+    font-weight: 400;
     margin: 0 0 .5rem 0;
 }
 
 .job-poster__basics-content {
-    color: $palette--white;
+    color: $palette--font-white;
     display: block;
     font-family: $font--sans;
     font-size: $font-scale--regular;
