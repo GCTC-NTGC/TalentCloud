@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Usage in production:
+# sudo chmod 775 replaceAppContents.sh
+# sudo ./replaceAppContents.sh .  [From inside the TalentCloud directory with new files]
+
 mydir=$1
 echo "Updating app with contents of ${mydir}:"
 
