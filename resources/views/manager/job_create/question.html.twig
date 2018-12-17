@@ -59,7 +59,7 @@
                                 class="form__input"
                                 id="createJobQuestionEN"
                                 type="text"
-                                name="question[:id][question][en]"
+                                name="question[{{ question ? question.id : ':id' }}][question][en]"
                                 value="{{ question.translate('en').question }}">
 
                         </div>
@@ -81,7 +81,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="createJobQuestionDescriptionEN"
-                                name="question[:id][description][en]">{{ question.translate('en').description }}</textarea>
+                                name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.translate('en').description }}</textarea>
 
                         </div>
 
@@ -113,7 +113,7 @@
                                 class="form__input"
                                 id="createJobQuestionFR"
                                 type="text"
-                                name="question[:id][question][fr]"
+                                name="question[{{ question ? question.id : ':id' }}][question][fr]"
                                 value="{{ question.translate('fr').question }}">
 
                         </div>
@@ -135,7 +135,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="createJobQuestionDescriptionFR"
-                                name="question[:id][description][fr]">{{ question.translate('fr').description }}</textarea>
+                                name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.translate('fr').description }}</textarea>
 
                         </div>
 
