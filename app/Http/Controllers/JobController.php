@@ -22,6 +22,7 @@ use App\Models\Criteria;
 use App\Models\Skill;
 use App\Models\JobPosterQuestion;
 use App\Models\JobPosterKeyTask;
+use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
 
 class JobController extends Controller
@@ -170,7 +171,7 @@ class JobController extends Controller
         $manager = $request->user() ? $request->user()->manager : null;
         if (isset($jobPoster)) {
             $job = $jobPoster;
-            $route = ['manager.jobs.update', $jobPoster];
+            $route = ['manager.jobs.store', $jobPoster];
             $jobHeading = 'manager/job_edit';
         } else {
             $job = [];
@@ -197,127 +198,140 @@ class JobController extends Controller
     }
 
     /**
-     * Update an existing resource in storage
-     *
-     * @param \Illuminate\Http\Request $request   Incoming request object
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object
-     *
-     * @return \Illuminate\Http\Response A redirect
-     */
-    public function update(Request $request, JobPoster $jobPoster)
-    {
-        return redirect(route('manager.jobs.index'));
-    }
-
-    /**
      * Create a new resource in storage
      *
-     * @param \Illuminate\Http\Request $request Incoming request object
+     * @param \Illuminate\Http\Request $request   Incoming request object
+     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object
      *
      * @return \Illuminate\Http\Response A redirect
      */
-    public function store(Request $request)
+    public function store(Request $request, JobPoster $jobPoster = null)
     {
+        // Don't allow edits for published Job Posters
+        if (isset($jobPoster)) {
+            JobPosterValidator::validateUnpublished($jobPoster);
+        }
 
         $input = $request->input();
 
-        $job = new JobPoster();
+        $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
+
         $job->manager_id = $request->user()->manager->id;
         $job->published = ($input['submit'] == 'publish');
-        $job->fill([
-            'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
-            'term_qty' => $input['term_qty'],
-            'open_date_time' => new Date($input['open_date'].$input['open_time']),
-            'close_date_time' => new Date($input['close_date'].$input['close_time']),
-            'start_date_time' => new Date($input['start_date_time']),
-            'department_id' => $input['department'],
-            'province_id' => $input['province'],
-            'salary_min' => $input['salary_min'],
-            'salary_max' => $input['salary_max'],
-            'noc' => $input['noc'],
-            'classification' => $input['classification'],
-            'security_clearance_id' => $input['security_clearance'],
-            'language_requirement_id' => $input['language_requirement'],
-            'remote_work_allowed' => $request->input('remote_work_allowed', false),
-            'en' => [
-                'city' => $input['city'],
-                'title' => $input['title']['en'],
-                'impact' => $input['impact']['en'],
-                'branch' => $input['branch']['en'],
-                'division' => $input['division']['en'],
-                'education' => $input['education']['en'],
-            ],
-            'fr' => [
-                'city' => $input['city'],
-                'title' => $input['title']['fr'],
-                'impact' => $input['impact']['fr'],
-                'branch' => $input['branch']['fr'],
-                'division' => $input['division']['fr'],
-                'education' => $input['education']['fr'],
-            ],
-        ]);
+        $job->fill(
+            [
+                'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
+                'term_qty' => $input['term_qty'],
+                'open_date_time' => new Date($input['open_date'] . $input['open_time']),
+                'close_date_time' => new Date($input['close_date'] . $input['close_time']),
+                'start_date_time' => new Date($input['start_date_time']),
+                'department_id' => $input['department'],
+                'province_id' => $input['province'],
+                'salary_min' => $input['salary_min'],
+                'salary_max' => $input['salary_max'],
+                'noc' => $input['noc'],
+                'classification' => $input['classification'],
+                'security_clearance_id' => $input['security_clearance'],
+                'language_requirement_id' => $input['language_requirement'],
+                'remote_work_allowed' => $request->input('remote_work_allowed', false),
+                'en' => [
+                    'city' => $input['city'],
+                    'title' => $input['title']['en'],
+                    'impact' => $input['impact']['en'],
+                    'branch' => $input['branch']['en'],
+                    'division' => $input['division']['en'],
+                    'education' => $input['education']['en'],
+                ],
+                'fr' => [
+                    'city' => $input['city'],
+                    'title' => $input['title']['fr'],
+                    'impact' => $input['impact']['fr'],
+                    'branch' => $input['branch']['fr'],
+                    'division' => $input['division']['fr'],
+                    'education' => $input['education']['fr'],
+                ],
+            ]
+        );
         $job->save();
 
+        if (isset($jobPoster)) {
+            $jobPoster->job_poster_key_tasks()->delete();
+        }
+
         if (isset($input['task'])) {
-            foreach($input['task'] as $task) {
+            foreach ($input['task'] as $task) {
                 $jobPosterTask = new JobPosterKeyTask();
-                $jobPosterTask->job_poster_id =  $job->id;
-                $jobPosterTask->fill([
-                    'en' => [
-                        'description' => $task['en']
-                    ],
-                    'fr' => [
-                        'description' => $task['fr']
+                $jobPosterTask->job_poster_id = $job->id;
+                $jobPosterTask->fill(
+                    [
+                        'en' => [
+                            'description' => $task['en']
+                        ],
+                        'fr' => [
+                            'description' => $task['fr']
+                        ]
                     ]
-                ]);
+                );
                 $jobPosterTask->save();
             }
         }
 
+        if (isset($jobPoster)) {
+            $jobPoster->job_poster_questions()->delete();
+        }
+
         if (isset($input['question'])) {
-            foreach($input['question'] as $question) {
+            foreach ($input['question'] as $question) {
                 $jobQuestion = new JobPosterQuestion();
                 $jobQuestion->job_poster_id = $job->id;
-                $jobQuestion->fill([
-                    'en'=> [
-                        'question' => $question['question']['en'],
-                        'description' => $question['description']['en']
-                    ],
-                    'fr'=> [
-                        'question' => $question['question']['fr'],
-                        'description' => $question['description']['fr']
+                $jobQuestion->fill(
+                    [
+                        'en' => [
+                            'question' => $question['question']['en'],
+                            'description' => $question['description']['en']
+                        ],
+                        'fr' => [
+                            'question' => $question['question']['fr'],
+                            'description' => $question['description']['fr']
+                        ]
                     ]
-                ]);
+                );
                 $jobQuestion->save();
             }
+        }
+
+        if (isset($jobPoster)) {
+            $jobPoster->criteria()->delete();
         }
 
         $criteria = $input['criteria'];
 
         //Save new criteria
         if (isset($criteria['new'])) {
-            foreach($criteria['new'] as $criteriaType => $criteriaTypeInput) {
-                foreach($criteriaTypeInput as $skillType => $skillTypeInput) {
-                    foreach($skillTypeInput as $criteriaInput) {
+            foreach ($criteria['new'] as $criteriaType => $criteriaTypeInput) {
+                foreach ($criteriaTypeInput as $skillType => $skillTypeInput) {
+                    foreach ($skillTypeInput as $criteriaInput) {
                         $criteria = new Criteria();
                         $criteria->job_poster_id = $job->id;
-                        $criteria->fill([
-                            'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
-                            'skill_id' => $criteriaInput['skill_id'],
-                            'skill_level_id' => $criteriaInput['skill_level_id'],
-                            'en' => [
-                                'description' => $criteriaInput['description']['en'],
-                            ],
-                            'fr' => [
-                                'description' => $criteriaInput['description']['fr'],
-                            ],
-                        ]);
+                        $criteria->fill(
+                            [
+                                'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
+                                'skill_id' => $criteriaInput['skill_id'],
+                                'skill_level_id' => $criteriaInput['skill_level_id'],
+                                'en' => [
+                                    'description' => $criteriaInput['description']['en'],
+                                ],
+                                'fr' => [
+                                    'description' => $criteriaInput['description']['fr'],
+                                ],
+                            ]
+                        );
                         $criteria->save();
                     }
                 }
             }
         }
 
-        return redirect( route('manager.jobs.index') );
+        return redirect(route('manager.jobs.index'));
     }
 }
