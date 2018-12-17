@@ -103,21 +103,41 @@
         text-align: center;
     }
 
-    .skill-assessment-list {
-        display: inline-block;
-        width: auto;
+    .skill-assessment-wrapper {
+        margin-top: -2rem;
 
-        .skill-assessment {
-            max-width: 20rem;
+        .skill-assessment-list {
+            display: inline-block;
+            width: auto;
 
-            .form__input-wrapper--select {
-                margin: .5rem 0;
+            .skill-assessment {
+                max-width: 20rem;
+                position: relative;
 
-                label {
-                    height: 1px;
-                    overflow: hidden;
-                    width: 1px;
-                    visibility: hidden;
+                .form__input-wrapper--select {
+                    // margin: .5rem 0;
+
+                    label {
+                        height: 1px;
+                        overflow: hidden;
+                        width: 1px;
+                        visibility: hidden;
+                    }
+
+                }
+
+                .remove-assessment-button {
+                    appearance: none;
+                    background: none;
+                    border: none;
+                    color: $palette--red;
+                    cursor: pointer;
+                    font-size: .707rem;
+                    padding: 0;
+                    position: absolute;
+                    right: 0;
+                    bottom: -.5rem;
+                    transform: translate(0, 100%);
                 }
 
             }
@@ -145,6 +165,100 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+    }
+
+    .screening-plan-context {
+        @extend %paragraph;
+        font-size: $font-scale--regular;
+        margin: 0 2rem 2rem;
+    }
+
+    .screening-plan {
+        background: lighten($palette--black, 90%);
+        border: 1px solid lighten($palette--black, 40%);
+        border-radius: 5px;
+        padding: 2rem;
+        position: relative;
+
+        .action-wrapper {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .screening-plan-title {
+            color: $palette--font-black;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 400;
+            margin: 0;
+
+            &+.assessment-title {
+                margin-top: 2rem;
+            }
+
+        }
+
+        .assessment-title {
+            color: $palette--blue;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            margin: 3rem 0 1.5rem;
+        }
+
+        .screening-plan-skill-list {
+            margin: -1rem;
+
+            .screening-plan-skill {
+                padding: 1rem;
+
+                .card {
+                    background: $palette--white;
+                    border-radius: 5px;
+                    box-shadow: 0 3px 10px rgba(0, 0, 10, .5);
+                    height: 100%;
+                    padding: 1.5rem;
+
+                    .skill-title {
+                        color: $palette--font-black;
+                        font-family: $font--sans;
+                        font-size: $font-scale--h5;
+                        margin: 0 0 1rem;
+                    }
+
+                    .skill-label {
+                        color: $palette--blue;
+                        display: block;
+                        font-family: $font--sans;
+                        font-size: $font-scale--regular;
+                        margin: 0 0 .5rem;
+                    }
+
+                    p {
+                        @extend %paragraph;
+                        font-size: .707rem;
+                        margin: .5rem 0;
+
+                        &:first-child {
+                            margin-top: 0;
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        &+.skill-label {
+                            margin-top: 1rem;
+                        }
+
+                    }
+
+                }
+
+            }
+
         }
 
     }
