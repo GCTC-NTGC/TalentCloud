@@ -27,55 +27,103 @@
 
             <div class="container--layout-xl">
 
-                <h2 class="page-category">Generate a Screening Plan for: <span>JOB TITLE</span></h2>
+                {# Templates #}
 
-                <p class="narrative-warning">Please note that all screening plans will include an assessment of the narrative evidence provided via the platform.</p>
+                    {# Assessment Selection #}
 
-                <h3 class="skill-category">Essential Skills</h3>
+                        {% include "manager/components/skill-assessment-builder" with {"template":true} %}
 
-                <div class="skill-assessment-builder">
+                    {# Screening Plan #}
 
-                    {% include "manager/components/skill-assessment-builder" %}
+                        {# Screening Plan Layout #}
 
-                </div>
+                            {% include "manager/components/screening-plan" with {"template":true} %}
 
-                <h3 class="skill-category">Asset Skills</h3>
+                        {# Screening Plan Skill #}
 
-                <div class="skill-assessment-builder">
+                            {% include "manager/components/screening-plan-skill" with {"template":true} %}
 
-                    {% for criterion in criteria %}
+                {# Plan Generator #}
 
-                        {% if criterion.type == "asset" %}
+                    <h2 class="page-category">{{ screening.interface.job_id_copy }} <span>JOB TITLE</span></h2>
 
-                            {# Asset Criteria Go Here #}
+                    <p class="narrative-warning">{{ screening.interface.narrative_warning }}</p>
 
-                        {% endif %}
+                    {# Essential Criteria #}
 
-                    {% endfor %}
+                        <h3 class="skill-category">{{ screening.interface.essential_skills_label }}</h3>
 
-                    {% if criteria is empty %}
+                        <div class="skill-assessment-builder">
 
-                        <p class="skill-null-state">No Asset Criteria Exist</p>
+                            {% set essentialCriteria = 0 %}
 
-                    {% endif %}
+                            {% for criterion in criteria %}
 
-                </div>
+                                {% if criterion.type == "asset" %}
 
-                <div class="generate-wrapper">
+                                    {% include "manager/components/skill-assessment-builder" %}
 
-                    <button class="button--blue light-bg">Build New Screening Plan</button>
+                                    {% set essentialCriteria = essentialCriteria + 1 %}
 
-                </div>
+                                {% endif %}
 
-                <h2 class="page-category">Screening Plans</h2>
+                            {% endfor %}
 
-                <p class="screening-plan-context">Generated screening plans will appear here.</p>
+                            {% if essentialCriteria == 0 %}
 
-                <div class="screening-plan-list">
+                                <p class="skill-null-state">{{ screening.interface.essential_skills_null_copy }}</p>
 
-                    {% include "manager/components/screening-plan" %}
+                            {% endif %}
 
-                </div>
+                        </div>
+
+                    {# Asset Criteria #}
+
+                        <h3 class="skill-category">{{ screening.interface.asset_skills_label }}</h3>
+
+                        <div class="skill-assessment-builder">
+
+                            {% set assetCriteria = 0 %}
+
+                            {% for criterion in criteria %}
+
+                                {% if criterion.type == "asset" %}
+
+                                    {% include "manager/components/skill-assessment-builder" %}
+
+                                    {% set assetCriteria = assetCriteria + 1 %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% if assetCriteria == 0 %}
+
+                                <p class="skill-null-state">{{ screening.interface.asset_skills_null_copy }}</p>
+
+                            {% endif %}
+
+                        </div>
+
+                    {# Generation Button #}
+
+                        <div class="generate-wrapper">
+
+                            <button class="button--blue light-bg">{{ screening.interface.build_button_label }}</button>
+
+                        </div>
+
+                {# Screening Plans #}
+
+                    <h2 class="page-category">{{ screening.interface.screening_plan_section_label }}</h2>
+
+                    <p class="screening-plan-context">{{ screening.interface.screening_plan_section_context }}</p>
+
+                    <div class="screening-plan-list">
+
+                        {% include "manager/components/screening-plan" %}
+
+                    </div>
 
             </div>
 

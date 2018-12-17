@@ -1,4 +1,4 @@
-<div class="screening-plan">
+<div class="screening-plan {% if template == true %}template{% endif %}">
 
     <div class="action-wrapper">
 
@@ -21,10 +21,6 @@
     <h4 class="assessment-title">Assessment of Narrative Evidence:</h4>
 
     <div class="screening-plan-skill-list flex-grid">
-
-        {% include "manager/components/screening-plan-skill" %}
-
-        {% include "manager/components/screening-plan-skill" %}
 
         {% include "manager/components/screening-plan-skill" %}
 

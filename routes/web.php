@@ -351,10 +351,7 @@ $managerGroup = function() {
 
             Route::get('temp/000/screening-plan', function () {
                 return view('manager/screening-plan', [
-                    'faq' => Lang::get('applicant/faq'),
-                    'screening' => [
-                        'title' => 'Screening Plan Builder'
-                    ]
+                    'screening' => Lang::get('manager/screening-plan')
                 ]);
             })->name('screening-plan');
 
