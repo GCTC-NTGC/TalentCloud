@@ -45,7 +45,7 @@
 
                 {# Plan Generator #}
 
-                    <h2 class="page-category">{{ screening.interface.job_id_copy }} <span>JOB TITLE</span></h2>
+                    <h2 class="page-category">{{ screening.interface.job_id_copy }} <span>{{ job.title }}</span></h2>
 
                     <p class="narrative-warning">{{ screening.interface.narrative_warning }}</p>
 
@@ -57,9 +57,9 @@
 
                             {% set essentialCriteria = 0 %}
 
-                            {% for criterion in criteria %}
+                            {% for criterion in job.criteria %}
 
-                                {% if criterion.type == "asset" %}
+                                {% if criterion.type == "essential" %}
 
                                     {% include "manager/components/skill-assessment-builder" %}
 
@@ -85,7 +85,7 @@
 
                             {% set assetCriteria = 0 %}
 
-                            {% for criterion in criteria %}
+                            {% for criterion in job.criteria %}
 
                                 {% if criterion.type == "asset" %}
 
@@ -109,7 +109,7 @@
 
                         <div class="generate-wrapper">
 
-                            <button class="button--blue light-bg">{{ screening.interface.build_button_label }}</button>
+                            <button class="button--blue light-bg" type="button">{{ screening.interface.build_button_label }}</button>
 
                         </div>
 
