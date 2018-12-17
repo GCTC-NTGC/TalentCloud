@@ -129,6 +129,9 @@ return [
         'password_correct' => 'Old password isn\'t correct',
         'user_skill_unique' => 'You may only add each skill once',
         'applicant_has_relation' => 'Applicant must own this :attribute',
+        'published' => [
+            'in' => 'You cannot edit a Job Poster that has been published'
+        ]
     ],
 
     /*
