@@ -27,15 +27,10 @@
 
         {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
-        {# Form containing all about_me editable elements #}
-        <form action="{{ form_submit_action }}" method="post">
 
-            {% include "applicant/application_post/common/tracker" %}
+        {% include "applicant/application_post/common/tracker-ajax" %}
 
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {% include "applicant/application_post/common/skill-layout" %}
+        {% include "applicant/application_post/common/skill-layout" %}
 
         </form>
 

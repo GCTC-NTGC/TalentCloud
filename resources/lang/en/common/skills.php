@@ -17,7 +17,7 @@ return [
     'level_link_label' => '(Find Your Level)',
     'knowledge_label' => 'How I Acquired This Skill',
     'skill_status_null_label' => 'Status: Skill Unclaimed',
-    'skill_status_label' => 'Status: Skill',
+    'skill_status_label' => 'Status:',
     'skill_level_null' => 'No level has been selected.',
     'skill_levels' => [
         'hard' => [
@@ -36,6 +36,8 @@ return [
     'skill_description_null' => 'You have not yet described how this skill applies to you.',
     'action_01' => 'Delete Skill',
     'action_02' => 'Save Skill',
+    'action_02_working' => 'Saving...',
+    'action_02_saved' => 'Saved!',
     'skills' => [
         'front_end_dev' => [
             'name' => 'Front-end development',
@@ -293,6 +295,31 @@ return [
             'name' => 'R programming',
             'description' => 'Defined as: A programming language for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.'
         ],
+        'database_design_and_management' => [
+            'name' => 'Database Design & Management',
+            'description' => 'Defined as: Knowledge and ability to apply the methods, practices and policies that are used in the design and the management of databases'
+        ],
+        'scrum' => [
+            'name' => 'SCRUM',
+            'description' => 'Defined as: Ability to work under Scrum, an Agile framework for complex projects that helps break down a project into tangible goals through daily meetings, detailed project timelines, and identification of potential project roadblocks.'
+        ],
+        'team_foundation_server' => [
+            'name' => 'TFS Work Items',
+            'description' => 'Defined as: Ability to work with Team Foundation Server (commonly abbreviated to TFS), which covers the entire application lifecycle, and enables DevOps capabilities.'
+        ],
+        'n_unit_testing' => [
+            'name' => 'N-Unit Testing',
+            'description' => 'Defined as: Ability to work with N-Unit, an evolving, open source framework designed for writing and running tests in Microsoft .NET programming languages.'
+        ],
+        'asp_net_mvc' => [
+            'name' => 'ASP.net MVC',
+            'description' => 'Defined as: Ability to work with ASP.NET MVC, a web application framework developed by Microsoft, which implements the model–view–controller (MVC) pattern. '
+        ],
+        'ef6' => [
+            'name' => 'EF6',
+            'description' => 'Defined as: Ability to work with Entity Framework (EF), an open source object-relational mapping (ORM) framework for ADO.NET.'
+        ],
+
     ],
     'status' => [
         'claimed' => 'Claimed'
