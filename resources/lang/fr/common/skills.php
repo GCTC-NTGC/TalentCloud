@@ -319,6 +319,18 @@ return [
             'name' => 'EF6',
             'description' => 'Se définissant comme suit : Capacité d’utiliser Entity Framework (EF), un cadre source ouverte de mappage objet-relationnel (ORM) pour ADO.NET.'
         ],
+        'cloud_architecture_for_mobile_and_applications' => [
+            'name' => 'Architecture en nuage pour dispositifs mobiles et applications',
+            'description' => 'Définition : Capacité à structurer, à concevoir et à mettre en œuvre des technologies, des solutions et des services d’infrastructure, par exemple calcul, stockage, réseaux, infrastructures physiques, logiciels, logiciels disponibles sur le marché, trousses et solutions de sources ouvertes, infrastructure virtuelle et en nuage, y compris PaaS, SaaS, en utilisant Azure, AWS, Xamarin, Java, C#, CSS ou Python.'
+        ],
+        'cloud_computing_platform_configuration' => [
+            'name' => 'Configuration d’une plateforme en nuage',
+            'description' => 'Définition : Capacité à travailler avec Azure et AWS pour définir tous les détails propres au matériel et aux logiciels des éléments d’un environnement en nuage afin d’en assurer l’interopérabilité et de faire en sorte qu’ils puissent communiquer ensemble.'
+        ],
+        'strategy_development' => [
+            'name' => 'Élaboration de la stratégie',
+            'description' => 'Se définit comme suit : Capacité à définir des objectifs précis, puis des buts réalisables, à établir l’ordre des priorités, à répartir efficacement les efforts et les ressources et à travailler avec les parties concernées à l’atteinte des résultats escomptés, tout en évaluant et en rajustant, au besoin, l’orientation de l’organisation pour qu’elle puisse s’adapter à un environnement en constante évolution.'
+        ],
     ],
     'status' => [
         'claimed' => 'Ajoutée'
