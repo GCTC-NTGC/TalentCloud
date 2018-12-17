@@ -284,16 +284,18 @@ Route::group(['prefix' => config('app.applicant_prefix')], function() {
 /* Manager Portal =========================================================== */
 
 $managerGroup = function() {
+
     /* Home */
-    Route::get('/', function () {
-        return view('manager/home', [
-            "hero" => [
-                "hero_logo" => "/images/logo_tc_colour.png",
-                "hero_logo_alt" => "The GC Talent Cloud Graphic Identifier.",
-                "hero_tagline" => "People want meaningful work."
-            ]
-        ]);
-    })->name('manager.home');
+
+        Route::get('/', function () {
+            return view('manager/home', [
+                "hero" => [
+                    "hero_logo" => "/images/logo_tc_colour.png",
+                    "hero_logo_alt" => "The GC Talent Cloud Graphic Identifier.",
+                    "hero_tagline" => "People want meaningful work."
+                ]
+            ]);
+        })->name('manager.home');
 
     Route::middleware(['auth', 'role:manager'])->group(function(){
 
@@ -303,42 +305,58 @@ $managerGroup = function() {
         })->name('manager.profile');
 
         /* Profile */
-        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
-            ->middleware('can:view,manager')
-            ->middleware('can:update,manager')
-            ->name('manager.profile.edit');
 
-        Route::post('profile/{manager}/update', 'ManagerProfileController@update')
-            ->middleware('can:update,manager')
-            ->name('manager.profile.update');
+            Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+                ->middleware('can:view,manager')
+                ->middleware('can:update,manager')
+                ->name('manager.profile.edit');
+
+            Route::post('profile/{manager}/update', 'ManagerProfileController@update')
+                ->middleware('can:update,manager')
+                ->name('manager.profile.update');
 
         /* View Application */
-        Route::get('applications/{application}', 'ApplicationController@show')
-            ->middleware('can:view,application')
-            ->name('manager.applications.show');
+
+            Route::get('applications/{application}', 'ApplicationController@show')
+                ->middleware('can:view,application')
+                ->name('manager.applications.show');
 
         /* View Applicant Profile */
-        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
-            ->middleware('can:view,applicant')
-            ->name('manager.applicants.show');
+
+            Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                ->middleware('can:view,applicant')
+                ->name('manager.applicants.show');
 
         /* Job Index */
-        Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
+
+            Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
         /* View Job Poster */
-        Route::get('jobs/{jobPoster}', 'JobController@show')
-            ->where('jobPoster', '[0-9]+')
-            ->name('manager.jobs.show');
+        
+            Route::get('jobs/{jobPoster}', 'JobController@show')
+                ->where('jobPoster', '[0-9]+')
+                ->name('manager.jobs.show');
 
         /* Create Job */
-        Route::get('jobs/create', 'JobController@create')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('manager.jobs.create');
 
-        Route::post('jobs', 'JobController@store')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('manager.jobs.store');
+            Route::get('jobs/create', 'JobController@create')
+                ->middleware('can:create,App\Models\JobPoster')
+                ->name('manager.jobs.create');
 
+            Route::post('jobs', 'JobController@store')
+                ->middleware('can:create,App\Models\JobPoster')
+                ->name('manager.jobs.store');
+
+        /* Screening Plan Builder */
+
+            Route::get('temp/000/screening-plan', function () {
+                return view('manager/screening-plan', [
+                    'faq' => Lang::get('applicant/faq'),
+                    'screening' => [
+                        'title' => 'Screening Plan Builder'
+                    ]
+                ]);
+            })->name('screening-plan');
 
     });
 

@@ -1,0 +1,152 @@
+.screening-plan-layout {
+    background: $palette--white;
+    padding: 5rem 0;
+
+    .page-category {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--h2;
+        margin: 5rem 2rem 2rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        span {
+            color: $palette--blue;
+        }
+
+    }
+
+    .narrative-warning {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        margin: 0 2rem 3rem;
+    }
+
+    .skill-category {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        margin: 5rem 2rem 2rem 2rem;
+    }
+
+    .skill-assessment-builder {
+
+        &__item {
+            border-bottom: 1px solid lighten($palette--black, 40%);
+            padding: 2rem 1rem;
+
+            &:first-child {
+                border-top: 1px solid lighten($palette--black, 40%);
+            }
+
+            &:nth-child(odd) {
+                background: lighten($palette--black, 90%);
+            }
+
+            >.box {
+                padding: 0 1rem;
+
+                p {
+                    @extend %paragraph;
+                    font-size: .707rem;
+                    margin: 1rem 0;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                }
+
+            }
+
+            .skill-title {
+                font-family: $font--sans;
+                font-size: $font-scale--h4;
+                font-weight: 400;
+                margin: 0 0 1.5rem 0;
+            }
+
+            .skill-label {
+                color: $palette--blue;
+                display: block;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 600;
+                margin: 0 0 1rem;
+            }
+
+        }
+
+        .skill-null-state {
+            border-top: 1px solid lighten($palette--black, 40%);
+            border-bottom: 1px solid lighten($palette--black, 40%);
+            color: lighten($palette--black, 80%);
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+            padding: 2rem;
+            text-align: center;
+        }
+
+    }
+
+    .generate-wrapper {
+        padding-top: 4rem;
+        text-align: center;
+    }
+
+    .skill-assessment-list {
+        display: inline-block;
+        width: auto;
+
+        .skill-assessment {
+            max-width: 20rem;
+
+            .form__input-wrapper--select {
+                margin: .5rem 0;
+
+                label {
+                    height: 1px;
+                    overflow: hidden;
+                    width: 1px;
+                    visibility: hidden;
+                }
+
+            }
+
+        }
+
+    }
+
+    .add-assessment-button {
+        appearance: none;
+        background: $palette--blue;
+        border: none;
+        border-radius:  100%;
+        cursor: pointer;
+        height: 3rem;
+        margin: 0 0 0 1rem;
+        padding: 0;
+        position: relative;
+        width: 3rem;
+
+        i {
+            color: $palette--white;
+            font-size: $font-scale--regular;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    }
+
+}
