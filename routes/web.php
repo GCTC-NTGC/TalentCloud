@@ -332,7 +332,7 @@ $managerGroup = function() {
             Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
         /* View Job Poster */
-        
+
             Route::get('jobs/{jobPoster}', 'JobController@show')
                 ->where('jobPoster', '[0-9]+')
                 ->name('manager.jobs.show');
@@ -349,12 +349,8 @@ $managerGroup = function() {
 
         /* Screening Plan Builder */
 
-            Route::get('temp/000/screening-plan', function () {
-                return view('manager/screening-plan', [
-                    'screening' => Lang::get('manager/screening-plan')
-                ]);
-            })->name('screening-plan');
-
+            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+                ->name('manager.jobs.screening_plan');
     });
 
     //Laravel default login, logout, register, and reset routes
