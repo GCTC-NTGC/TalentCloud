@@ -1,0 +1,4 @@
+{
+    "phpcs.executablePath": "vendor\\squizlabs\\php_codesniffer\\bin\\phpcs",
+    "phpcbf.executablePath": ".\\vendor\\squizlabs\\php_codesniffer\\bin\\phpcbf.bat"
+}

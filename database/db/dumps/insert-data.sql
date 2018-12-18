@@ -353,4 +353,7 @@ INSERT INTO skills (id, name, skill_type_id, created_at, updated_at) VALUES
 (67, 'team_foundation_server', 2, current_timestamp, current_timestamp),
 (68, 'n_unit_testing', 2, current_timestamp, current_timestamp),
 (69, 'asp_net_mvc', 2, current_timestamp, current_timestamp),
-(70, 'ef6', 2, current_timestamp, current_timestamp);
+(70, 'ef6', 2, current_timestamp, current_timestamp),
+(71, 'cloud_architecture_for_mobile_and_applications', 2, current_timestamp, current_timestamp),
+(72, 'cloud_computing_platform_configuration', 2, current_timestamp, current_timestamp),
+(73, 'strategy_development', 2, current_timestamp, current_timestamp);

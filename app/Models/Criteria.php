@@ -25,6 +25,9 @@ use App\Models\Lookup\CriteriaTypeTranslation;
  * @property \App\Models\Lookup\SkillLevel $skill_level
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
  *
+ *  Accessors
+ * @property string $type
+ *
  *  Localized Properties:
   * @property string $description
  */
@@ -71,4 +74,12 @@ class Criteria extends BaseModel {
         return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
     }
 
+    /**
+     * Returns the associated criteria-type name
+     * @return string
+     */
+    public function getTypeAttribute(): string
+    {
+        return $this->criteria_type->name;
+    }
 }
