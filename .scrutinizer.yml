@@ -23,6 +23,11 @@ build:
         postgresql: true
         # docker: true
 
+    cache:
+        directories:
+            - node_modules/
+            - vendor/
+
 filter:
     excluded_paths:
         - '*/database/*'
