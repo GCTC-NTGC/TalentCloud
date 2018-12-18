@@ -12,7 +12,7 @@ build:
             - composer install
             - npm install
             # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
-            - make build-db-scrutinizer
+            - php artisan migrate
 
     environment:
         php:
@@ -21,7 +21,7 @@ build:
                 memory_limit: "-1"
         ruby: "2.5.1"
         node: "v6.5.0"
-        postgresql: true
+        postgresql: "9.6"
         # docker: true
 
     cache:
