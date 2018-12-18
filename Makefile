@@ -14,7 +14,7 @@ build-db:
 
 build-db-scrutinizer:
 	@php artisan migrate
-	@psql -U scrutinizer -f /manual_db/insert-data.sql
+	#@psql -U scrutinizer -f /manual_db/insert-data.sql
 	@php artisan db:seed
 
 fake-data:
