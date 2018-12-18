@@ -41,6 +41,6 @@ class CreateSkillsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('skills');
-        Schema::dropIfExists('skill_types');
+        //Schema::dropIfExists('skill_types');
     }
 }
