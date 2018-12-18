@@ -12,6 +12,11 @@ build-db:
 	@docker exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
+build-db-scrutinizer:
+	@php artisan migrate
+	@psql -U scrutinizer -f /manual_db/insert-data.sql
+	@php artisan db:seed
+
 fake-data:
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
@@ -50,4 +55,4 @@ set-root-perms:
 test: code-sniff
 	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --colors=always --configuration ./
 
-.PHONY: build-db fake-data clean code-sniff docker-start docker-stop gen-certs logs phpmd set-root-perms test
+.PHONY: build-db build-db-scrutinizer fake-data clean code-sniff docker-start docker-stop gen-certs logs phpmd set-root-perms test

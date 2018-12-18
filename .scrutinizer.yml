@@ -11,7 +11,8 @@ build:
         before:
             - composer install
             - npm install
-            - make build-db
+            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+            - make build-db-scrutinizer
 
     environment:
         php:
