@@ -4,39 +4,53 @@ php:
   - 7.0
 
 sudo: required
+dist: trusty
 
 services:
-  # docker
+  - docker
   - postgresql
 
+addons:
+  postgresql: "9.6"
+  chrome: stable
+  #chrome: beta
+
+cache:
+  directories:
+    - vendor
+
 install:
-  - sudo cp -a .env.example .env
-  # sudo make gen-certs
-  # sudo docker-compose up --abort-on-container-exit -d
-  - composer install
-  - npm install
-  - php artisan key:generate
-  - php artisan config:cache
+  - cp .env.example .env
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - make docker-start
+  - make gen-certs
+  - make laravel-init
+  - make build-db
+
+#before_script:
+  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  # php artisan serve &
 
 script:
-  # sudo make code-sniff
-  # sudo make test
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run $ci_env talentcloud_talentcloud sh
+  - make phpunit
+  # php artisan dusk
+
+after_script:
+  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-
-#after_script:
-  # sudo make docker-stop
+  - make docker-stop
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-  # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  # docker build -t gctcntgc/talentcloud:travis
-  # docker push gctcntgc/talentcloud:travis
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
+  - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:
   email: never
   slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
-  on_success: change
-  on_failure: always
+  on_success: always
+  on_failure: change
