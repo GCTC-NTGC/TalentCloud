@@ -31,7 +31,7 @@
 
                     {# Assessment Selection #}
 
-                        {% include "manager/components/skill-assessment-builder" with {"template":true} %}
+                        {% include "manager/components/skill-assessment-select" with {"template":true} %}
 
                     {# Screening Plan #}
 
@@ -45,7 +45,7 @@
 
                 {# Plan Generator #}
 
-                    <h2 class="page-category">{{ screening.interface.job_id_copy }} <span>JOB TITLE</span></h2>
+                    <h2 class="page-category">{{ screening.interface.job_id_copy }} <span>{{ job.title }}</span></h2>
 
                     <p class="narrative-warning">{{ screening.interface.narrative_warning }}</p>
 

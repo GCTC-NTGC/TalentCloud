@@ -8,17 +8,23 @@
             Copy
         </button>
 
-        <button 
-            class="" 
-            type="button">
-            <i class="fas fa-trash-alt"></i>
-        </button>
+    </div>
+
+    <h3 class="screening-plan-title">{{ screening.interface.plan.essential_criteria_title }}</h3>
+
+    <div class="flex-grid">
+
+        {% include "manager/components/skill-assessment-preview" %}
 
     </div>
 
-    <h3 class="screening-plan-title">Screening Plan #1</h3>
+    <h3 class="screening-plan-title">{{ screening.interface.plan.asset_criteria_title }}</h3>
 
-    <h4 class="assessment-title">Assessment of Narrative Evidence:</h4>
+    <h3 class="screening-plan-title">{{ screening.interface.plan.plan_title }}</h3>
+
+
+
+    {# <h4 class="assessment-title">Assessment of Narrative Evidence:</h4>
 
     <div class="screening-plan-skill-list flex-grid">
 
@@ -36,6 +42,6 @@
 
         {% include "manager/components/screening-plan-skill" %}
 
-    </div>
+    </div> #}
 
 </div>
