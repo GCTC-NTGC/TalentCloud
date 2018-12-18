@@ -869,7 +869,7 @@
 
                                     {% set skillType = skill.skill_type.name %}
 
-                                    {% if skillType == "hard" %}
+                                    {% if skillType == "hard" and criteria.criteria_type.name == "essential" %}
                                         {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
                                     {% endif %}
 
@@ -884,6 +884,8 @@
                     </div>
 
                     {# Skill Template #}
+
+                    {% set skillType = "hard" %}
 
                     {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
 
@@ -927,7 +929,7 @@
 
                                     {% set skillType = skill.skill_type.name %}
 
-                                    {% if skillType == "soft" %}
+                                    {% if skillType == "soft" and criteria.criteria_type.name == "essential" %}
                                         {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
                                     {% endif %}
 
@@ -943,6 +945,8 @@
 
                     {# Skill Template #}
 
+                    {% set skillType = "soft" %}
+
                     {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
 
                 {# Skill Controls #}
@@ -954,7 +958,7 @@
                             type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton2">
-                            Add an Essential Hard Skill
+                            Add an Essential Soft Skill
                         </button>
 
                     </div>
@@ -985,7 +989,7 @@
 
                                     {% set skillType = skill.skill_type.name %}
 
-                                    {% if skillType == "hard" %}
+                                    {% if skillType == "hard" and criteria.criteria_type.name == "asset" %}
                                         {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
                                     {% endif %}
 
@@ -1000,6 +1004,8 @@
                     </div>
 
                     {# Skill Template #}
+
+                    {% set skillType = "hard" %}
 
                     {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
 
@@ -1043,7 +1049,7 @@
 
                                     {% set skillType = skill.skill_type.name %}
 
-                                    {% if skillType == "soft" %}
+                                    {% if skillType == "soft" and criteria.criteria_type.name == "asset" %}
                                         {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
                                     {% endif %}
 
@@ -1058,6 +1064,8 @@
                     </div>
 
                     {# Skill Template #}
+
+                    {% set skillType = "soft" %}
 
                     {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
 
