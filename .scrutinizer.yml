@@ -11,7 +11,7 @@ build:
         before:
             - composer install
             - npm install
-            # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
+            - psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
             - php artisan migrate
 
     services:
