@@ -14,6 +14,9 @@ build:
             # psql --cluster 9.6/main -c 'CREATE DATABASE talentcloud WITH OWNER scrutinizer'
             - php artisan migrate
 
+    services:
+        postgres: 9.6
+
     environment:
         php:
             version: "7.0"
@@ -21,7 +24,6 @@ build:
                 memory_limit: "-1"
         ruby: 2.5.1
         node: v6.5.0
-        postgres: 10
         # docker: true
         variables:
             POSTGRES_DB: 'scrutinizer'
