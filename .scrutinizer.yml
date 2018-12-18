@@ -25,10 +25,6 @@ build:
         ruby: 2.5.1
         node: v6.5.0
         # docker: true
-        variables:
-            POSTGRES_DB: 'scrutinizer'
-            POSTGRES_USER: 'scrutinizer'
-            POSTGRES_PASSWORD: 'scrutinizer'
 
     cache:
         directories:
