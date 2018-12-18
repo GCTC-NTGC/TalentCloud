@@ -21,7 +21,7 @@ build:
                 memory_limit: "-1"
         ruby: 2.5.1
         node: v6.5.0
-        postgresql: 10
+        postgres: 9.6
         # docker: true
         variables:
             - POSTGRES_DB: 'scrutinizer'
