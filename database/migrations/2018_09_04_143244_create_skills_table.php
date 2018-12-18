@@ -13,15 +13,15 @@ class CreateSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('skill_types', function (Blueprint $table) {
+        Schema::create('skills', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('skill_type_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('skills', function (Blueprint $table) {
+        Schema::create('skill_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('skill_type_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });
