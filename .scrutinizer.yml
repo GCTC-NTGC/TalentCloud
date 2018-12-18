@@ -24,9 +24,9 @@ build:
         postgres: 9.6
         # docker: true
         variables:
-            - POSTGRES_DB: 'scrutinizer'
-            - POSTGRES_USER: 'scrutinizer'
-            - POSTGRES_PASSWORD: 'scrutinizer'
+            POSTGRES_DB: 'scrutinizer'
+            POSTGRES_USER: 'scrutinizer'
+            POSTGRES_PASSWORD: 'scrutinizer'
 
     cache:
         directories:
