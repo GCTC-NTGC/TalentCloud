@@ -13,7 +13,11 @@ class PopulateLookups extends Migration
      */
     public function up()
     {
-        //
+        // Populate SkillTypes
+        DB::table('skill_types')->insert([
+            ['id' => 1, 'name' => 'soft'],
+            ['id' => 2, 'name' => 'hard'],
+        ]);
     }
 
     /**
@@ -23,6 +27,6 @@ class PopulateLookups extends Migration
      */
     public function down()
     {
-        //
+        DB::table('skill_types')->whereIn('id', [1, 2])->delete();
     }
 }
