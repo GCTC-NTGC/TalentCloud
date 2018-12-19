@@ -319,7 +319,18 @@ return [
             'name' => 'EF6',
             'description' => 'Defined as: Ability to work with Entity Framework (EF), an open source object-relational mapping (ORM) framework for ADO.NET.'
         ],
-
+        'cloud_architecture_for_mobile_and_applications' => [
+            'name' => 'Cloud Architecture for Mobile and Applications',
+            'description' => 'Defined as: Ability to architect, design and implement infrastructure technologies, solutions and services such as: compute, storage, networking, physical infrastructures, software, commercial off the shelf (COTS) and Open Source packages and solutions, virtual and cloud including PaaS, SaaS, using Azure, AWS, Xamarin, Java, C#, CSS or Python.'
+        ],
+        'cloud_computing_platform_configuration' => [
+            'name' => 'Cloud Computing Platform Configuration',
+            'description' => 'Defined as: Ability to work with Azure and AWS to set hardware and software details for elements of a cloud environment to ensure that they can interoperate and communicate.'
+        ],
+        'strategy_development' => [
+            'name' => 'Strategy Development',
+            'description' => 'Defined as: Ability to identify specific objectives, then set achievable goals, identify priorities, allocate energy and resources, and work with stakeholders to work towards intended outcomes/results, while assessing and adjusting the organization\'s direction in response to a changing environment.'
+        ],
     ],
     'status' => [
         'claimed' => 'Claimed'
