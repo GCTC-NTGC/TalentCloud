@@ -49,7 +49,7 @@ class ApplicantPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
     /**

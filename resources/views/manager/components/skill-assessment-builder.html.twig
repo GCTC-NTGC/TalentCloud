@@ -1,5 +1,5 @@
 <div class="skill-assessment-builder__item flex-grid top {% if template == true %}template{% endif %}">
-  
+
     <div class="box full">
         <h4 class="skill-title">{{ criterion.skill.skill }}</h4>
     </div>
@@ -18,15 +18,17 @@
 
         <span class="skill-label">ASSESSMENT TYPES LABEL</span>
 
-        <div class="flex-grid middle skill-assessment-wrapper">
+        <div class="flex-grid middle skill-assessment-wrapper repeater-list">
 
-            <div class="skill-assessment-list">
+            {% include "manager/components/skill-assessment-select" with {"template": true} %}
+
+            <div class="skill-assessment-list repeater-element-list">
 
                 {% include "manager/components/skill-assessment-select" %}
 
             </div>
 
-            <button class="add-assessment-button"><i class="fa fa-plus"></i></button>
+            <button class="add-assessment-button repeater-list__add-repeater-trigger"><i class="fa fa-plus"></i></button>
 
         </div>
 
