@@ -18,7 +18,7 @@ build:
             ini:
                 memory_limit: "-1"
         ruby: 2.5.1
-        node: v6.5.0
+        node: v6.2.0
         # docker: true
 
     cache:
