@@ -147,7 +147,7 @@ class JobApplication extends BaseModel {
                 }
                 break;
             case 'experience':
-                if ($validator->experinceComplete($this)) {
+                if ($validator->experienceComplete($this)) {
                     $status = 'complete';
                 }
                 break;
