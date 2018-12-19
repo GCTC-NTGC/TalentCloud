@@ -22,7 +22,13 @@ return [
         "plan" => [
             "essential_criteria_title" => "Essential Criteria",
             "asset_criteria_title" => "Asset Criteria",
-            "plan_title" => "Assessment Plan"
+            "plan_title" => "Assessment Plan",
+            "skill_description_label" => "Skill Description",
+            "assessment_types_label" => "Assessment Types",
+            "assessment_selection_label" => "Select an Assessment",
+            "assessment_removal_title" => "Removes the assessment above.",
+            "assessment_removal_label" => "Remove",
+            "add_assessment_title" => "Add another assessment to this criteria."
         ]
     ]
 ];

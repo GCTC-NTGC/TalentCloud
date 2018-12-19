@@ -5,7 +5,7 @@
         <label
             class="form__label"
             for="">
-            Assessment 01
+            {{ screening.interface.plan.assessment_selection_label }}
         </label>
 
         <div class="form__select-wrapper fas fa-chevron-down">
@@ -22,8 +22,9 @@
 
     <button
         class="remove-assessment-button remove-repeater-button"
+        title="{{ screening.interface.plan.assessment_removal_title }}"
         type="button">
-        Remove
+        {{ screening.interface.plan.assessment_removal_label }}
     </button>
 
 </div>
