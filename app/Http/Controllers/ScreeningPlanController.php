@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\JobPoster;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
+use App\Models\Skill;
+use App\Models\Lookup\SkillLevel;
 
 class ScreeningPlanController extends Controller
 {
@@ -19,12 +21,14 @@ class ScreeningPlanController extends Controller
     public function createForJob(JobPoster $jobPoster): View
     {
         $jobPoster->load('criteria');
+        $skills = Skill::all();
         debugbar()->debug($jobPoster->toArray());
         return view(
             'manager/screening-plan',
             [
                 'screening' => Lang::get('manager/screening-plan'),
                 'job' => $jobPoster,
+                'skill_template' => Lang::get('common/skills'),
             ]
         );
     }

@@ -12,36 +12,38 @@
 
     <h3 class="screening-plan-title">{{ screening.interface.plan.essential_criteria_title }}</h3>
 
-    <div class="flex-grid">
+    <div class="">
 
+        {# Get rid of these. #}
+
+        {% include "manager/components/skill-assessment-preview" %}
+        {% include "manager/components/skill-assessment-preview" %}
+        {% include "manager/components/skill-assessment-preview" %}
         {% include "manager/components/skill-assessment-preview" %}
 
     </div>
 
     <h3 class="screening-plan-title">{{ screening.interface.plan.asset_criteria_title }}</h3>
 
-    <h3 class="screening-plan-title">{{ screening.interface.plan.plan_title }}</h3>
+    <div class="">
 
+        {# Get rid of these. #}
 
-
-    {# <h4 class="assessment-title">Assessment of Narrative Evidence:</h4>
-
-    <div class="screening-plan-skill-list flex-grid">
-
-        {% include "manager/components/screening-plan-skill" %}
-
-        {% include "manager/components/screening-plan-skill" %}
-
-        {% include "manager/components/screening-plan-skill" %}
+        {% include "manager/components/skill-assessment-preview" %}
+        {% include "manager/components/skill-assessment-preview" %}
+        {% include "manager/components/skill-assessment-preview" %}
+        {% include "manager/components/skill-assessment-preview" %}
 
     </div>
 
-    <h4 class="assessment-title">Take-home Exam:</h4>
+    <h3 class="screening-plan-title">{{ screening.interface.plan.plan_title }}</h3>
 
-    <div class="screening-plan-skill-list flex-grid">
+    <div class="">
 
-        {% include "manager/components/screening-plan-skill" %}
+        {# Get rid of these. #}
 
-    </div> #}
+        {% include "manager/components/assessment-summary" %}
+
+    </div>
 
 </div>
