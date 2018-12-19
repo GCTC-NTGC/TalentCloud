@@ -24,6 +24,7 @@ use App\Models\Lookup\CriteriaTypeTranslation;
  * @property \App\Models\Skill $skill
  * @property \App\Models\Lookup\SkillLevel $skill_level
  * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
+ * @property \Illuminate\Database\Eloquent\Collection[Assessment] $assessments
  *
  *  Accessors
  * @property string $type
@@ -72,6 +73,16 @@ class Criteria extends BaseModel {
 
     public function criteria_translations() {
         return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
+    }
+
+    /**
+     * Get all assessments for this Criteria, for all Screening Plans.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function assessments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\ScreeningPlan::class);
     }
 
     /**
