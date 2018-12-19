@@ -139,7 +139,7 @@ class JobController extends Controller
      *
      * @param \Illuminate\Http\Request $request Incoming request object
      *
-     * @return Illuminate\View\View Job Create view
+     * @return \Illuminate\View\View Job Create view
      */
     public function create(Request $request)
     {
@@ -152,7 +152,7 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object
      * @param \App\Models\JobPoster    $jobPoster Job Poster object
      *
-     * @return Illuminate\View\View Job Create view
+     * @return \Illuminate\View\View Job Create view
      */
     public function edit(Request $request, JobPoster $jobPoster)
     {
@@ -165,7 +165,7 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object
      * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object
      *
-     * @return Illuminate\View\View Job Create view
+     * @return \Illuminate\View\View Job Create view
      */
     public function populateCreateView(Request $request, JobPoster $jobPoster = null)
     {
@@ -190,10 +190,7 @@ class JobController extends Controller
                 'language_requirments' => LanguageRequirement::all(),
                 'security_clearances' => SecurityClearance::all(),
                 'job' => $job,
-                'form_action_url' => route(
-                    /** @scrutinizer ignore-type */ // phpcs:ignore
-                    ...$route
-                ),
+                'form_action_url' => route(/** @scrutinizer ignore-type */ ...$route), // phpcs:ignore
                 'skills' => Skill::all(),
                 'skill_levels' => SkillLevel::all(),
                 'skill_template' => Lang::get('common/skills'),
@@ -207,7 +204,7 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object
      * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object
      *
-     * @return Illuminate\Http\RedirectResponsee A redirect to the Job Index
+     * @return \Illuminate\Http\RedirectResponse A redirect to the Job Index
      */
     public function store(Request $request, JobPoster $jobPoster = null)
     {
