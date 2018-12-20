@@ -279,10 +279,6 @@ INSERT INTO course_status (name, created_at, updated_at) VALUES
 INSERT INTO skill_statuses (name, created_at, updated_at) VALUES
 ('claimed', current_timestamp, current_timestamp);
 
-INSERT INTO skill_types (id, name, created_at, updated_at) VALUES
-(1, 'soft', current_timestamp, current_timestamp),
-(2, 'hard', current_timestamp, current_timestamp);
-
 INSERT INTO skills (id, name, skill_type_id, created_at, updated_at) VALUES
 (1, 'front_end_dev', 2, current_timestamp, current_timestamp),
 (2, 'web_programming', 2, current_timestamp, current_timestamp),
