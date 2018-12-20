@@ -1,24 +1,3 @@
-
-
-INSERT INTO application_status VALUES
-(1,'draft',current_timestamp,current_timestamp),
-(2,'submitted',current_timestamp,current_timestamp),
-(3,'requires_action',current_timestamp,current_timestamp),
-(4,'under_review',current_timestamp,current_timestamp),
-(5,'rejected',current_timestamp,current_timestamp);
-
-INSERT INTO application_status_translations VALUES
-(1,1,'en','Draft',current_timestamp,current_timestamp),
-(2,1,'fr','Provisoire',current_timestamp,current_timestamp),
-(3,2,'en','Submitted',current_timestamp,current_timestamp),
-(4,2,'fr','Soumis',current_timestamp,current_timestamp),
-(5,3,'en','Requires Action',current_timestamp,current_timestamp),
-(6,3,'fr','Nécessite une action',current_timestamp,current_timestamp),
-(7,4,'en','Under Review',current_timestamp,current_timestamp),
-(8,4,'fr','À létude',current_timestamp,current_timestamp),
-(9,5,'en','Rejected',current_timestamp,current_timestamp),
-(10,5,'fr','Rejeté',current_timestamp,current_timestamp);
-
 INSERT INTO citizenship_declarations VALUES
 (1,'citizen',current_timestamp,current_timestamp),
 (2,'permanent_resident',current_timestamp,current_timestamp),
