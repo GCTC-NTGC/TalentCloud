@@ -7,8 +7,8 @@
 {% endif %}
 
 {% if criterion %}
-    {% set name_prefix = name_prefix|replace({":template":"old", ":id":criterion.id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"old", ":id":criterion.id}) %}
+    {% set name_prefix = name_prefix|replace({":id":criterion.id}) %}
+    {% set id_prefix = id_prefix|replace({":id":criterion.id}) %}
 {% endif %}
 
 <div class="skill-assessment-builder__item flex-grid top {% if template == true %}template{% endif %}">

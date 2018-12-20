@@ -1,17 +1,17 @@
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[assessment][:template][:id]" %}
+    {% set name_prefix = prefix ~ "[assessment][:id]" %}
     {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_prefix = "assessment[:template][:id]" %}
+    {% set name_prefix = "assessment[:id]" %}
     {% set id_prefix = name_prefix %}
 {% endif %}
 
 {% if assessment %}
-    {% set name_prefix = name_prefix|replace({":template":"old", ":id":assessment.id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"old", ":id":assessment.id}) %}
+    {% set name_prefix = name_prefix|replace({":id":assessment.id}) %}
+    {% set id_prefix = id_prefix|replace({":id":assessment.id}) %}
 {% elseif item_id %}
-    {% set name_prefix = name_prefix|replace({":template":"new", ":id":item_id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"new", ":id":item_id}) %}
+    {% set name_prefix = name_prefix|replace({":id":item_id}) %}
+    {% set id_prefix = id_prefix|replace({":id":item_id}) %}
 {% endif %}
 
 <div class="skill-assessment repeater-element {% if template == true %}template{% endif %}"
@@ -28,9 +28,11 @@
 
         <div class="form__select-wrapper fas fa-chevron-down">
             <select
-                class="form__input"
+                class="form__input template-disabled"
                 id="{{ id_prefix }}assessmentType"
-                name="{{ name_prefix }}[assessment_type]">
+                name="{{ name_prefix }}[assessment_type]"
+                {% if template %}disabled{% endif %}
+                >
                 {% for type in assessment_types %}
                     <option value={{ type.id }}>{{ type.name }}</option>
                 {% endfor %}
