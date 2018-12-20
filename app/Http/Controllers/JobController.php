@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\JobPoster;
@@ -87,12 +90,12 @@ class JobController extends Controller
     /**
      * Display the specified job poster.
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function show(Request $request, JobPoster $jobPoster)
+    public function show(Request $request, JobPoster $jobPoster) : View
     {
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
@@ -137,11 +140,11 @@ class JobController extends Controller
     /**
      * Display the form for creating a new Job Poster
      *
-     * @param \Illuminate\Http\Request $request Incoming request object
+     * @param \Illuminate\Http\Request $request Incoming request object.
      *
      * @return \Illuminate\View\View Job Create view
      */
-    public function create(Request $request)
+    public function create(Request $request) : View
     {
         return $this->populateCreateView($request);
     }
@@ -149,12 +152,12 @@ class JobController extends Controller
     /**
      * Display the form for editing an existing Job Poster
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
      * @return \Illuminate\View\View Job Create view
      */
-    public function edit(Request $request, JobPoster $jobPoster)
+    public function edit(Request $request, JobPoster $jobPoster) : View
     {
         return $this->populateCreateView($request, $jobPoster);
     }
@@ -162,12 +165,12 @@ class JobController extends Controller
     /**
      * Get the manager from the request object and check if creating or editing
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object
-     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
      *
      * @return \Illuminate\View\View Job Create view
      */
-    public function populateCreateView(Request $request, JobPoster $jobPoster = null)
+    public function populateCreateView(Request $request, JobPoster $jobPoster = null) : View
     {
         $manager = $request->user() ? $request->user()->manager : null;
         if (isset($jobPoster)) {
@@ -201,12 +204,12 @@ class JobController extends Controller
     /**
      * Create a new resource in storage
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object
-     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
      *
      * @return \Illuminate\Http\RedirectResponse A redirect to the Job Index
      */
-    public function store(Request $request, JobPoster $jobPoster = null)
+    public function store(Request $request, JobPoster $jobPoster = null) : RedirectResponse
     {
         // Don't allow edits for published Job Posters
         if (isset($jobPoster)) {
@@ -234,12 +237,12 @@ class JobController extends Controller
     /**
      * Fill Job Poster model's properties and save
      *
-     * @param array                 $input     Field values
-     * @param \App\Models\JobPoster $jobPoster Job Poster object
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
      *
-     * @return null
+     * @return void
      */
-    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster)
+    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
     {
         $jobPoster->fill(
             [
@@ -281,13 +284,13 @@ class JobController extends Controller
     /**
      * Fill Job Poster's tasks and save
      *
-     * @param array                 $input     Field values
-     * @param \App\Models\JobPoster $jobPoster Job Poster object
-     * @param bool                  $replace   Remove existing relationships
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param boolean               $replace   Remove existing relationships.
      *
-     * @return null
+     * @return void
      */
-    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->job_poster_key_tasks()->delete();
@@ -317,13 +320,13 @@ class JobController extends Controller
     /**
      * Fill Job Poster's questions and save
      *
-     * @param array                 $input     Field values
-     * @param \App\Models\JobPoster $jobPoster Job Poster object
-     * @param bool                  $replace   Remove existing relationships
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param boolean               $replace   Remove existing relationships.
      *
-     * @return null
+     * @return void
      */
-    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->job_poster_questions()->delete();
@@ -355,13 +358,13 @@ class JobController extends Controller
     /**
      * Fill Job Poster's criteria and save
      *
-     * @param array                 $input     Field values
-     * @param \App\Models\JobPoster $jobPoster Job Poster object
-     * @param bool                  $replace   Remove existing relationships
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param boolean               $replace   Remove existing relationships.
      *
-     * @return null
+     * @return void
      */
-    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->criteria()->delete();
