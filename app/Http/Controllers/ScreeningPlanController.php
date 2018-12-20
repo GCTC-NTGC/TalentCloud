@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
 use App\Models\Skill;
 use App\Models\Lookup\SkillLevel;
+use App\Models\Lookup\AssessmentType;
 
 class ScreeningPlanController extends Controller
 {
@@ -29,6 +30,7 @@ class ScreeningPlanController extends Controller
                 'screening' => Lang::get('manager/screening-plan'),
                 'job' => $jobPoster,
                 'skill_template' => Lang::get('common/skills'),
+                'assessment_types' => AssessmentType::all(),
             ]
         );
     }
