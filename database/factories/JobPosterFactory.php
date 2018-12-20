@@ -2,6 +2,12 @@
 
 use Faker\Generator as Faker;
 
+use App\Models\Lookup\Department;
+use App\Models\Lookup\JobTerm;
+use App\Models\Lookup\LanguageRequirement;
+use App\Models\Lookup\Province;
+use App\Models\Lookup\SecurityClearance;
+
 $factory->define(App\Models\JobPoster::class, function (Faker $faker) {
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
