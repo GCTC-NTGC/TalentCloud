@@ -1,21 +1,3 @@
-INSERT INTO citizenship_declarations VALUES
-(1,'citizen',current_timestamp,current_timestamp),
-(2,'permanent_resident',current_timestamp,current_timestamp),
-(3,'work_permit_open',current_timestamp,current_timestamp),
-(4,'work_permit_closed',current_timestamp,current_timestamp),
-(5,'not_entitled',current_timestamp,current_timestamp);
-
-INSERT INTO citizenship_declaration_translations VALUES
-(1,1,'en','Canadian Citizen',current_timestamp,current_timestamp),
-(2,1,'fr','Citoyen Canadien',current_timestamp,current_timestamp),
-(3,2,'en','Permanent Resident of Canada',current_timestamp,current_timestamp),
-(4,2,'fr','Résident Permanent du Canada',current_timestamp,current_timestamp),
-(5,3,'en','Open - Work Permit',current_timestamp,current_timestamp),
-(6,3,'fr','Open - Permis de Travail',current_timestamp,current_timestamp),
-(7,4,'en','Closed - Work Permit',current_timestamp,current_timestamp),
-(8,4,'fr','Fermé - Permis de Travail',current_timestamp,current_timestamp),
-(9,5,'en','I am currently not entitled to work in Canada',current_timestamp,current_timestamp),
-(10,5,'fr','Je nai Actuellement pas le Droit de Travailler au Canada',current_timestamp,current_timestamp);
 
 INSERT INTO veteran_statuses VALUES
 (1,'none',current_timestamp,current_timestamp),
