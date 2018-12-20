@@ -1,10 +1,4 @@
-INSERT INTO applicant_profile_questions VALUES
-(1,'career_journey',current_timestamp,current_timestamp),
-(2,'learning_journey',current_timestamp,current_timestamp),
-(3,'bring_to_team',current_timestamp,current_timestamp),
-(4,'work_best_when',current_timestamp,current_timestamp),
-(5,'learn_best_when',current_timestamp,current_timestamp),
-(6,'types_of_teams',current_timestamp,current_timestamp);
+
 
 INSERT INTO application_status VALUES
 (1,'draft',current_timestamp,current_timestamp),
