@@ -13,7 +13,7 @@ class PopulateApplicationStatusAndTranslations extends Migration
      */
     public function up()
     {
-        Schema::table('application_status')->insert() {
+        DB::table('application_status')->insert() {
             ['id' => 1, 'name' => 'draft'],
             ['id' => 2, 'name' => 'submitted'],
             ['id' => 3, 'name' => 'requires_action'],
@@ -21,17 +21,17 @@ class PopulateApplicationStatusAndTranslations extends Migration
             ['id' => 5, 'name' => 'rejected'],
         ]);
 
-        Schema::table('application_status_translations')->insert() {
-            ['id' => 1, 'application_status_id' => 1, 'name' => 'Draft'],
-            ['id' => 2, 'application_status_id' => 1, 'name' => 'Provisoire'],
-            ['id' => 3, 'application_status_id' => 2, 'name' => 'Submitted'],
-            ['id' => 4, 'application_status_id' => 2, 'name' => 'Soumis'],
-            ['id' => 5, 'application_status_id' => 3, 'name' => 'Requires Action'],
-            ['id' => 6, 'application_status_id' => 3, 'name' => 'Nécessite une action'],
-            ['id' => 7, 'application_status_id' => 4, 'name' => 'Under Review'],
-            ['id' => 8, 'application_status_id' => 4, 'name' => 'À létude'],
-            ['id' => 9, 'application_status_id' => 5, 'name' => 'Rejected'],
-            ['id' => 10, 'application_status_id' => 5, 'name' => 'Rejeté'],
+        DB::table('application_status_translations')->insert() {
+            ['id' => 1, 'application_status_id' => 1, 'locale' => 'en', 'value' => 'Draft'],
+            ['id' => 2, 'application_status_id' => 1, 'locale' => 'fr', 'value' => 'Provisoire'],
+            ['id' => 3, 'application_status_id' => 2, 'locale' => 'en', 'value' => 'Submitted'],
+            ['id' => 4, 'application_status_id' => 2, 'locale' => 'fr', 'value' => 'Soumis'],
+            ['id' => 5, 'application_status_id' => 3, 'locale' => 'en', 'value' => 'Requires Action'],
+            ['id' => 6, 'application_status_id' => 3, 'locale' => 'fr', 'value' => 'Nécessite une action'],
+            ['id' => 7, 'application_status_id' => 4, 'locale' => 'en', 'value' => 'Under Review'],
+            ['id' => 8, 'application_status_id' => 4, 'locale' => 'fr', 'value' => 'À létude'],
+            ['id' => 9, 'application_status_id' => 5, 'locale' => 'en', 'value' => 'Rejected'],
+            ['id' => 10, 'application_status_id' => 5, 'locale' => 'fr', 'value' => 'Rejeté'],
         ]);
     }
 
