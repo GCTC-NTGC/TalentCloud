@@ -8,18 +8,23 @@
             Copy
         </button>
 
+        <button
+            class=""
+            type="button">
+            Delete
+        </button>
+
     </div>
 
     <h3 class="screening-plan-title">{{ screening.interface.plan.essential_criteria_title }}</h3>
 
     <div class="">
 
-        {# Get rid of these. #}
+        {% for criterion in criteria.essential %}
 
-        {% include "manager/components/skill-assessment-preview" %}
-        {% include "manager/components/skill-assessment-preview" %}
-        {% include "manager/components/skill-assessment-preview" %}
-        {% include "manager/components/skill-assessment-preview" %}
+            {% include "manager/components/skill-assessment-preview" %}
+
+        {% endfor %}
 
     </div>
 
@@ -27,12 +32,11 @@
 
     <div class="">
 
-        {# Get rid of these. #}
+        {% for criterion in criteria.asset %}
 
-        {% include "manager/components/skill-assessment-preview" %}
-        {% include "manager/components/skill-assessment-preview" %}
-        {% include "manager/components/skill-assessment-preview" %}
-        {% include "manager/components/skill-assessment-preview" %}
+            {% include "manager/components/skill-assessment-preview" %}
+
+        {% endfor %}
 
     </div>
 
