@@ -22,12 +22,9 @@ class CreateAssessmentsTable extends Migration
 
             $table->unique(['screening_plan_id', 'criterion_id', 'assessment_type_id']);
 
-            $table->foreign('screening_plan_id')->references('id')
-                ->on('screening_plans')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('criterion_id')->refernces('id')->on('criteria')
-                ->onUpdate('CASCADE')->onDelete('NO ACTION');
-            $table->foreign('assessment_type_id')->references('id')
-                ->on('assessment_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('screening_plan_id')->references('id')->on('screening_plans')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('criterion_id')->references('id')->on('criteria')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('assessment_type_id')->references('id')->on('assessment_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
     }
 
