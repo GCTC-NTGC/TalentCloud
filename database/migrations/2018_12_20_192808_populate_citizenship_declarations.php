@@ -13,15 +13,15 @@ class PopulateCitizenshipDeclarations extends Migration
      */
     public function up()
     {
-        DB::table('citizenship_declarations')->insert() {
+        DB::table('citizenship_declarations')->insert([
             ['id' => 1, 'name' => 'citizen'],
             ['id' => 2, 'name' => 'permanent_resident'],
             ['id' => 3, 'name' => 'work_permit_open'],
             ['id' => 4, 'name' => 'work_permit_closed'],
             ['id' => 5, 'name' => 'not_entitled'],
-        });
+        ]);
 
-        DB::table('citizenship_declaration_translations')->insert() {
+        DB::table('citizenship_declaration_translations')->insert([
             ['id' => 1, 'citizenship_declaration_id' => 1, 'locale' => 'en', 'value' => 'Canadian Citizen'],
             ['id' => 2, 'citizenship_declaration_id' => 1, 'locale' => 'fr', 'value' => 'Citoyen Canadien'],
             ['id' => 3, 'citizenship_declaration_id' => 2, 'locale' => 'en', 'value' => 'Permanent Resident of Canada'],
