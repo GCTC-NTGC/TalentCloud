@@ -9,9 +9,7 @@
 {% if assessment %}
     {% set name_prefix = name_prefix|replace({":template":"old", ":id":assessment.id}) %}
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":assessment.id}) %}
-{% endif %}
-
-{% if item_id %}
+{% elseif item_id %}
     {% set name_prefix = name_prefix|replace({":template":"new", ":id":item_id}) %}
     {% set id_prefix = id_prefix|replace({":template":"new", ":id":item_id}) %}
 {% endif %}

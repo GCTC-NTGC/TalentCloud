@@ -1,8 +1,8 @@
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[criterion][:template][:id]" %}
+    {% set name_prefix = prefix ~ "[criteria][:id]" %}
     {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_prefix = "criterion[:template][:id]" %}
+    {% set name_prefix = "criteria[:id]" %}
     {% set id_prefix = name_prefix %}
 {% endif %}
 
