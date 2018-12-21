@@ -1,19 +1,3 @@
-INSERT INTO job_terms VALUES
-(1,'week',current_timestamp,current_timestamp),
-(2,'month',current_timestamp,current_timestamp),
-(3,'year',current_timestamp,current_timestamp),
-(4,'permanent',current_timestamp,current_timestamp);
-
-INSERT INTO job_term_translations VALUES
-(1,1,'week','en',current_timestamp,current_timestamp),
-(2,1,'semaine','fr',current_timestamp,current_timestamp),
-(3,2,'month','en',current_timestamp,current_timestamp),
-(4,2,'mois','fr',current_timestamp,current_timestamp),
-(5,3,'year','en',current_timestamp,current_timestamp),
-(6,3,'an','fr',current_timestamp,current_timestamp),
-(7,4,'permanent','en',current_timestamp,current_timestamp),
-(8,4,'permanent','fr',current_timestamp,current_timestamp);
-
 INSERT INTO language_requirements VALUES
 (1,'english',current_timestamp,current_timestamp),
 (2,'french',current_timestamp,current_timestamp),
