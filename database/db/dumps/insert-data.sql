@@ -1,38 +1,3 @@
-INSERT INTO departments VALUES
-(1,'treasury_board',current_timestamp,current_timestamp),
-(2,'natural_resources',current_timestamp,current_timestamp),
-(3,'transport',current_timestamp,current_timestamp),
-(4,'enviroment_and_climate_change',current_timestamp,current_timestamp),
-(5,'employment_and_social_development',current_timestamp,current_timestamp),
-(6,'global_affairs',current_timestamp,current_timestamp),
-(7,'fisheries_and_oceans',current_timestamp,current_timestamp),
-(8,'innovation_science',current_timestamp,current_timestamp),
-(9,'public_service_and_procurement',current_timestamp,current_timestamp),
-(10,'border_services_agency',current_timestamp,current_timestamp);
-
-INSERT INTO department_translations VALUES
-(1,1,'en','Treasury Board of Canada Secretariat',current_timestamp,current_timestamp),
-(2,1,'fr','Secrétariat du Conseil du Trésor du Canada',current_timestamp,current_timestamp),
-(3,2,'en','Natural Resources Canada',current_timestamp,current_timestamp),
-(4,2,'fr','Ressources naturelles Canada',current_timestamp,current_timestamp),
-(5,3,'en','Transport Canada',current_timestamp,current_timestamp),
-(6,3,'fr','Transports Canada',current_timestamp,current_timestamp),
-(7,4,'en','Environment and Climate Change Canada',current_timestamp,current_timestamp),
-(8,4,'fr','Environnement et Changement climatique Canada',current_timestamp,current_timestamp),
-(9,5,'en','Employment and Social Development Canada',current_timestamp,current_timestamp),
-(10,5,'fr','Emploi et Développement social Canada',current_timestamp,current_timestamp),
-(11,6,'en','Global Affairs Canada',current_timestamp,current_timestamp),
-(12,6,'fr','Affaires mondiales Canada',current_timestamp,current_timestamp),
-(15,7,'en','Fisheries and Oceans Canada',current_timestamp,current_timestamp),
-(16,7,'fr','Pêches et Océans Canada',current_timestamp,current_timestamp),
-(17,8,'en','Innovation, Science and Economic Development Canada',current_timestamp,current_timestamp),
-(18,8,'fr','Innovation, Sciences et Développement économique Canada',current_timestamp,current_timestamp),
-(19,9,'en','Public Services and Procurement Canada',current_timestamp,current_timestamp),
-(20,9,'fr','Services publics et Approvisionnement Canada',current_timestamp,current_timestamp),
-(13,10,'en','Canada Border Services Agency',current_timestamp,current_timestamp),
-(14,10,'fr','Agence des services frontaliers du Canada',current_timestamp,current_timestamp);
-
-
 INSERT INTO experience_levels VALUES
 (1,'1 or Less years',current_timestamp,current_timestamp),
 (2,'2 - 3 years',current_timestamp,current_timestamp),
