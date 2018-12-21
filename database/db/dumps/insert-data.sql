@@ -1,10 +1,3 @@
-INSERT INTO frequencies VALUES
-(1,'never',current_timestamp,current_timestamp),
-(2,'rarely',current_timestamp,current_timestamp),
-(3,'sometimes',current_timestamp,current_timestamp),
-(4,'often',current_timestamp,current_timestamp),
-(5,'always',current_timestamp,current_timestamp);
-
 INSERT INTO degree_types (name, created_at, updated_at) VALUES
 ('diploma', current_timestamp, current_timestamp),
 ('bachelors', current_timestamp, current_timestamp),
