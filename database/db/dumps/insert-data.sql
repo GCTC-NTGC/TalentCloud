@@ -1,9 +1,3 @@
-INSERT INTO degree_types (name, created_at, updated_at) VALUES
-('diploma', current_timestamp, current_timestamp),
-('bachelors', current_timestamp, current_timestamp),
-('masters', current_timestamp, current_timestamp),
-('phd', current_timestamp, current_timestamp);
-
 INSERT INTO course_status (name, created_at, updated_at) VALUES
 ('certificate_granted', current_timestamp, current_timestamp),
 ('credits_towards_degree', current_timestamp, current_timestamp),
