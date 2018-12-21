@@ -42,7 +42,7 @@ class PopulateFileTypes extends Migration
     */
     public function down()
     {
-        DB::table('experience_levels')->whereIn('id', [1, 2, 3, 4, 5])->delete();
-        DB::table('experience_level_translations')->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])->delete();
+        DB::table('file_types')->whereIn('id', [1, 2, 3, 4, 5])->delete();
+        DB::table('file_type_translations')->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])->delete();
     }
 }
