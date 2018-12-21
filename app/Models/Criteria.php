@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\Lookup\CriteriaTypeTranslation;
 
 /**
@@ -82,7 +83,7 @@ class Criteria extends BaseModel {
      */
     public function assessments() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\ScreeningPlan::class);
+        return $this->hasMany(\App\Models\Assessment::class);
     }
 
     /**
