@@ -1,16 +1,3 @@
-INSERT INTO language_requirements VALUES
-(1,'english',current_timestamp,current_timestamp),
-(2,'french',current_timestamp,current_timestamp),
-(3,'bilingual',current_timestamp,current_timestamp);
-
-INSERT INTO language_requirement_translations VALUES
-(1,'en',1,'English essential',current_timestamp,current_timestamp),
-(2,'fr',1,'Anglais essentiel',current_timestamp,current_timestamp),
-(3,'en',2,'French essential',current_timestamp,current_timestamp),
-(4,'fr',2,'Français essentiel',current_timestamp,current_timestamp),
-(5,'en',3,'Bilingual',current_timestamp,current_timestamp),
-(6,'fr',3,'Bilingue',current_timestamp,current_timestamp);
-
 INSERT INTO provinces VALUES
 (1,'ab',current_timestamp,current_timestamp),
 (2,'bc',current_timestamp,current_timestamp),
