@@ -1,22 +1,3 @@
-INSERT INTO file_types VALUES
-(1,'word',current_timestamp,current_timestamp),
-(2,'powerpoint',current_timestamp,current_timestamp),
-(3,'video',current_timestamp,current_timestamp),
-(4,'publication',current_timestamp,current_timestamp),
-(5,'other',current_timestamp,current_timestamp);
-
-INSERT INTO file_type_translations VALUES
-(1,1,'en','Word Document',current_timestamp,current_timestamp),
-(2,1,'fr','Document Word',current_timestamp,current_timestamp),
-(3,2,'en','PowerPoint Presentation',current_timestamp,current_timestamp),
-(4,2,'fr','Présentation PowerPoint',current_timestamp,current_timestamp),
-(5,3,'en','Video',current_timestamp,current_timestamp),
-(6,3,'fr','Vidéo',current_timestamp,current_timestamp),
-(7,4,'en','Article Publication',current_timestamp,current_timestamp),
-(8,4,'fr','Publication dArticle',current_timestamp,current_timestamp),
-(9,5,'en','Other',current_timestamp,current_timestamp),
-(10,5,'fr','Autre',current_timestamp,current_timestamp);
-
 INSERT INTO job_terms VALUES
 (1,'week',current_timestamp,current_timestamp),
 (2,'month',current_timestamp,current_timestamp),
