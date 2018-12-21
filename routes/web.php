@@ -450,4 +450,9 @@ Route::middleware(['auth'])->group(function() {
         ->middleware('role:manager')
         ->middleware('can:view,application')
         ->name('application_reviews.update');
+
+    Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
+        ->middleware('role:manager')
+        //TODO: add can:delete middleware for screening plan
+        ->name('screening_plans.destroy');
 });

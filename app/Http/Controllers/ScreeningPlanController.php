@@ -62,4 +62,24 @@ class ScreeningPlanController extends Controller
 
         return redirect(route('manager.jobs.screening_plan', $jobPoster));
     }
+
+    /**
+     * Delete the particular skill declaration in storage.
+     *
+     * @param \Illuminate\Http\Request  $request       The request object.
+     * @param \App\Models\ScreeningPlan $screeningPlan The screening plan to delete.
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, ScreeningPlan $screeningPlan): \Illuminate\Http\Response
+    {
+        $this->authorize('delete', $screeningPlan);
+        $skillDeclaration->delete();
+
+        if ($request->ajax()) {
+            $content = ['message' => 'Screening Plan deleted'];
+            return $this->formatAjaxResponse($content);
+        }
+
+        return redirect()->back();
+    }
 }
