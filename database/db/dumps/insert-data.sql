@@ -1,7 +1,3 @@
-INSERT INTO preferred_languages VALUES
-(1,'en',current_timestamp,current_timestamp),
-(2,'fr',current_timestamp,current_timestamp);
-
 INSERT INTO criteria_types VALUES
 (1,'essential',current_timestamp,current_timestamp),
 (2,'asset',current_timestamp,current_timestamp);
