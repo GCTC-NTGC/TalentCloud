@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use App\Models\Skill;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\AssessmentType;
+use App\Models\ScreeningPlan;
+use App\Models\Assessment;
 
 class ScreeningPlanController extends Controller
 {
@@ -33,5 +35,29 @@ class ScreeningPlanController extends Controller
                 'assessment_types' => AssessmentType::all(),
             ]
         );
+    }
+
+    public function store(Request $request, JobPoster $jobPoster)
+    {
+        //TODO: Validate every job criteria is represented
+        //TODO: Validate every job criteria has at least one assessment (?)
+        //TODO: Validate every assessment is correct and complete
+
+        $plan = new ScreeningPlan();
+        $plan->job_poster_id = $jobPoster->id;
+        $plan->version = ScreeningPlan::max('version') + 1;
+        $plan->save();
+
+        foreach ($request->input('criteria') as $criteriaId => $assessments) {
+            foreach ($assessments['assessment'] as $assessmentData) {
+                $assessment = new Assessment();
+                $assessment->screening_plan_id = $plan->id;
+                $assessment->criterion_id = $criteriaId;
+                $assessment->assessment_type_id = $assessmentData['assessment_type'];
+                $assessment->save();
+            }
+        }
+
+        return redirect(route('manager.jobs.screening_plan', $jobPoster));
     }
 }
