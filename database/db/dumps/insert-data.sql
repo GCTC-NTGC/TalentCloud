@@ -1,16 +1,3 @@
-INSERT INTO security_clearances VALUES
-(1,'reliability',current_timestamp,current_timestamp),
-(2,'secret',current_timestamp,current_timestamp),
-(3,'top_secret',current_timestamp,current_timestamp);
-
-INSERT INTO security_clearance_translations VALUES
-(1,'en',1,'Reliability',current_timestamp,current_timestamp),
-(2,'fr',1,'Fiabilité',current_timestamp,current_timestamp),
-(3,'en',2,'Secret',current_timestamp,current_timestamp),
-(4,'fr',2,'Secret',current_timestamp,current_timestamp),
-(5,'en',3,'Top Secret',current_timestamp,current_timestamp),
-(6,'fr',3,'Très secret',current_timestamp,current_timestamp);
-
 INSERT INTO skill_levels VALUES
 (1,'basic',current_timestamp,current_timestamp),
 (2,'intermediate',current_timestamp,current_timestamp),
