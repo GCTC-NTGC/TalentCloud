@@ -1,9 +1,3 @@
-
-INSERT INTO veteran_statuses VALUES
-(1,'none',current_timestamp,current_timestamp),
-(2,'current',current_timestamp,current_timestamp),
-(3,'past',current_timestamp,current_timestamp);
-
 INSERT INTO preferred_languages VALUES
 (1,'en',current_timestamp,current_timestamp),
 (2,'fr',current_timestamp,current_timestamp);
