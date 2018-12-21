@@ -1,19 +1,3 @@
-INSERT INTO skill_levels VALUES
-(1,'basic',current_timestamp,current_timestamp),
-(2,'intermediate',current_timestamp,current_timestamp),
-(3,'advanced',current_timestamp,current_timestamp),
-(4,'expert',current_timestamp,current_timestamp);
-
-INSERT INTO skill_level_translations VALUES
-(1,1,'en','Basic',current_timestamp,current_timestamp),
-(2,1,'fr','Débutant',current_timestamp,current_timestamp),
-(3,2,'en','Intermediate',current_timestamp,current_timestamp),
-(4,2,'fr','Intermédiaire',current_timestamp,current_timestamp),
-(5,3,'en','Advanced',current_timestamp,current_timestamp),
-(6,3,'fr','Avancé',current_timestamp,current_timestamp),
-(7,4,'en','Expert',current_timestamp,current_timestamp),
-(8,4,'fr','Expert',current_timestamp,current_timestamp);
-
 INSERT INTO user_roles VALUES
 (1,'applicant',current_timestamp,current_timestamp),
 (2,'manager',current_timestamp,current_timestamp),
