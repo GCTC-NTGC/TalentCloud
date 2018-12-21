@@ -1,8 +1,3 @@
-INSERT INTO user_roles VALUES
-(1,'applicant',current_timestamp,current_timestamp),
-(2,'manager',current_timestamp,current_timestamp),
-(3,'admin',current_timestamp,current_timestamp);
-
 INSERT INTO frequencies VALUES
 (1,'never',current_timestamp,current_timestamp),
 (2,'rarely',current_timestamp,current_timestamp),
