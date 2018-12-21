@@ -27,7 +27,7 @@
 
         {% for criterion in job.criteria %}
 
-            {% if criterion.type == "essential" %}
+            {% if criterion.criteria_type.name == "essential" %}
 
                 {% include "manager/components/skill-assessment-preview" %}
 
@@ -43,7 +43,7 @@
 
         {% for criterion in job.criteria %}
 
-            {% if criterion.type == "asset" %}
+            {% if criterion.criteria_type.name == "asset" %}
 
                 {% include "manager/components/skill-assessment-preview" %}
 

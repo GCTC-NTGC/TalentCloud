@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use App\Models\Lookup\CriteriaTypeTranslation;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class Criteria
@@ -28,7 +29,9 @@ use App\Models\Lookup\CriteriaTypeTranslation;
  * @property \Illuminate\Database\Eloquent\Collection[Assessment] $assessments
  *
  *  Accessors
- * @property string $type
+//  * @property string $criteria_type The criteria-type name, 'essential' or 'asset'
+ * @property string $level_name The localized name of the skill level (accounts for skill type).
+ * @property string $level_description The localized description of the skill level (accounts for skill type).
  *
  *  Localized Properties:
   * @property string $description
@@ -86,12 +89,36 @@ class Criteria extends BaseModel {
         return $this->hasMany(\App\Models\Assessment::class, 'criterion_id');
     }
 
+    // /**
+    //  * Returns the associated criteria-type name, either 'essential' or 'asset'
+    //  * @return string
+    //  */
+    // public function getCriteriaTypeAttribute(): string
+    // {
+    //     return $this->criteria_type->name;
+    // }
+
     /**
-     * Returns the associated criteria-type name
+     * Get the translated name of this Criteria's required skill level.
+     *
      * @return string
      */
-    public function getTypeAttribute(): string
+    public function getLevelNameAttribute(): string
     {
-        return $this->criteria_type->name;
+        $level = $this->skill_level->name;
+        $type = $this->skill->skill_type->name;
+        return Lang::get("common/lookup/skill_level.$level.$type.name");
+    }
+
+    /**
+     * Get the translated description of this Criteria's required skill level.
+     *
+     * @return string
+     */
+    public function getLevelDescriptionAttribute() : string
+    {
+        $level = $this->skill_level->name;
+        $type = $this->skill->skill_type->name;
+        return Lang::get("common/lookup/skill_level.$level.$type.description");
     }
 }
