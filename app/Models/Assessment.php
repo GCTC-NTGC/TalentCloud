@@ -47,7 +47,7 @@ class Assessment extends BaseModel
      */
     public function criterion() // phpcs:ignore
     {
-        return $this->belongsTo(Criteria::class);
+        return $this->belongsTo(Criteria::class, 'criterion_id');
     }
 
     /**
