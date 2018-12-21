@@ -56,9 +56,8 @@
 
                 <script
                     async
-                    src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-                    integrity="sha384-bRIbmosc8tXvRiCc91flCR8aYMe9gO4uflxPoGoBsRSw8gfjtnNFcTJhonxfWKqF"
-                    crossorigin="anonymous"></script>
+                    src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+                </script>
 
                 <script>
                     window.dataLayer = window.dataLayer || [];

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Usage in production:
+# sudo chmod 775 setPermissions.sh
+# sudo ./setPermissions.sh /var/www
+
 mydir=$1
 echo "Setting proper app permissions in ${mydir}:"
 

@@ -142,5 +142,4 @@ class User extends BaseModel implements
     $this->attributes['email'] = strtolower($fillable); // Mutator function will convert all emails into lowercase whenever a user registers an account on TalentCloud. 
     }
 
-
 }

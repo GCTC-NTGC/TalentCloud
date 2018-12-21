@@ -4,6 +4,7 @@ php:
   - 7.0
 
 sudo: required
+dist: trusty
 
 services:
   - docker
@@ -12,22 +13,16 @@ services:
 addons:
   postgresql: "9.6"
 
+  chrome: stable
+  #chrome: beta
+
 cache:
   directories:
     - vendor
 
-before_script:
-  - make docker-start
-  - cp -a .env.example .env
-  - docker exec talentcloud sh -c "php artisan key:generate"
-  - make gen-certs
-  - make composer-install
-  - make build-db
-
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env talentcloud_talentcloud sh
-  - docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'

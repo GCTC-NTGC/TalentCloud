@@ -8,9 +8,6 @@ build-db:
 
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
-fake-data:
-	@docker exec talentcloud sh -c "php artisan db:seed"
-
 clean:
 	@rm -Rf vendor/
 	@rm -Rf composer.lock
@@ -23,7 +20,9 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 composer-install:
-	@docker run --rm -v $(shell pwd):/app composer/composer install
+
+	@docker run --rm -v $(shell pwd):/app composer install
+
 
 docker-start:
 	@docker-compose up -d
@@ -37,20 +36,19 @@ fake-data:
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
+laravel-init:
+	@docker exec talentcloud sh -c "php artisan key:generate"
+
 logs:
 	@docker-compose logs -f
 
 phpmd:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
 	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
-
 phpunit:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpunit --configuration ./
-
-set-root-perms:
-	@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage ${ROOT}/bootstrap/cache"
-	@docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage ${ROOT}/bootstrap/cache"
+	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 test-all: code-sniff phpmd phpunit
+
 
 .PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data gen-certs logs phpmd phpunit set-root-perms test-all
