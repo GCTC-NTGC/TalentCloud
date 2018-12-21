@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ScreeningPlanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -351,6 +353,9 @@ $managerGroup = function() {
 
             Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
                 ->name('manager.jobs.screening_plan');
+
+            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
+                ->name('manager.jobs.screening_plan.store');
     });
 
     //Laravel default login, logout, register, and reset routes

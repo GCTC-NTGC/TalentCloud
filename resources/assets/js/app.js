@@ -589,6 +589,9 @@
             // Remove Template Class
             template.removeClass("template");
 
+            // un-disable form inputs
+            template.find(".template-disabled").removeAttr("disabled");
+
             //Set ids and form names to be unique
             individualizeFormIdsAndNames(template, wrapper);
 
@@ -601,7 +604,9 @@
             // Reactivate Labels
             labelHandlers();
 
-            template.find(".remove-repeater-button").on("click", removeRepeater);
+            template
+                .find(".remove-repeater-button")
+                .on("click", removeRepeater);
 
             // Set save trigger on ajax forms
             if (template.hasClass("ajax-form")) {
@@ -646,6 +651,9 @@
 
             // Remove Template Class
             template.removeClass("template");
+
+            // un-disable form inputs
+            template.find('template-disabled').removeAttr('disabled');
 
             //Set ids and form names to be unique
             individualizeFormIdsAndNames(template, wrapper);

@@ -45,7 +45,12 @@
 
                     <p class="narrative-warning">{{ screening.interface.narrative_warning }}</p>
 
-                    {# Essential Criteria #}
+                    <form action="{{ route('manager.jobs.screening_plan.store', job) }}" method="POST">
+
+                        {# Builds an input field for CSRF token validation #}
+                        {{ csrf_field() }}
+
+                        {# Essential Criteria #}
 
                         <h3 class="skill-category">{{ screening.interface.essential_skills_label }}</h3>
 
@@ -73,7 +78,7 @@
 
                         </div>
 
-                    {# Asset Criteria #}
+                        {# Asset Criteria #}
 
                         <h3 class="skill-category">{{ screening.interface.asset_skills_label }}</h3>
 
@@ -101,13 +106,15 @@
 
                         </div>
 
-                    {# Generation Button #}
+                        {# Generation Button #}
 
                         <div class="generate-wrapper">
 
-                            <button class="button--blue light-bg" type="button">{{ screening.interface.build_button_label }}</button>
+                            <button class="button--blue light-bg" type="submit">{{ screening.interface.build_button_label }}</button>
 
                         </div>
+
+                    </form>
 
                 {# Screening Plans #}
 

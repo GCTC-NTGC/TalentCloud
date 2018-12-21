@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Date\Date;
 use App\Models\ScreeningPlan;
 use App\Models\Criteria;
@@ -22,7 +21,7 @@ use App\Models\Lookup\AssessmentType;
  * @property \App\Models\Criteria $criterion
  * @property \App\Models\Lookup\AssessmentType $assessment_type
  */
-class Assessment extends Model
+class Assessment extends BaseModel
 {
     /**
      * The columns that can be filled with mass-assignment

@@ -2,8 +2,8 @@
 
 namespace App\Models\Lookup;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Assessment;
+use App\Models\BaseModel;
 
 /**
  * Class AssessmentType
@@ -17,7 +17,7 @@ use App\Models\Assessment;
  * Accessors:
  * @property string $name   The localized name for this type.
  */
-class AssessmentType extends Model
+class AssessmentType extends BaseModel
 {
     /**
      * The columns that can be filled with mass-assignment

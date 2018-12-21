@@ -1,3 +1,16 @@
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[criteria][:id]" %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "criteria[:id]" %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{% if criterion %}
+    {% set name_prefix = name_prefix|replace({":id":criterion.id}) %}
+    {% set id_prefix = id_prefix|replace({":id":criterion.id}) %}
+{% endif %}
+
 <div class="skill-assessment-builder__item flex-grid top {% if template == true %}template{% endif %}">
 
     <div class="box full">
@@ -20,11 +33,11 @@
 
         <div class="flex-grid middle skill-assessment-wrapper repeater-list">
 
-            {% include "manager/components/skill-assessment-select" with {"template": true} %}
+            {% include "manager/components/skill-assessment-select" with {"template": true, "prefix": name_prefix } %}
 
             <div class="skill-assessment-list repeater-element-list">
 
-                {% include "manager/components/skill-assessment-select" %}
+                {% include "manager/components/skill-assessment-select" with {"item_id": 1, "prefix": name_prefix} %}
 
             </div>
 
