@@ -57,9 +57,19 @@
 
     <div class="">
 
-        {# Get rid of these. #}
+        {% for assessment_type in assessment_types %}
 
-        {% include "manager/components/assessment-summary" %}
+            {% for assessment in plan.assessments %}
+
+                {% if assessment.assessment_type_id == assessment_type.id %}
+
+                    {% include "manager/components/assessment-summary" %}
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
 
     </div>
 

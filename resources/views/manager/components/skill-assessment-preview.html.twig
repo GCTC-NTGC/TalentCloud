@@ -14,7 +14,17 @@
         <span>{{ screening.interface.plan.assessment_types_label }}</span>
         <ul>
             <li>Talent Cloud Narrative Assessment</li>
-            {{ dump(criterion.assessments) }}
+            {% for assessment in criterion.assessments %}
+                {# {{dump(assessment)}} #}
+                {# {{dump(plan.id)}} #}
+                {% if assessment.screening_plan_id == plan.id %}
+                    {% for assessment_type in assessment_types %}
+                        {% if assessment_type.id == assessment.assessment_type_id %}
+                            <li>{{ assessment_type.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         </ul>
     </div>
 
