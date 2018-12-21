@@ -5,7 +5,6 @@
     </div>
 
     <div class="box small-4of5">
-        {{dump(assessment)}}
         {% for criterion in assessment.criteria %}
             {{ criterion.skill.skill }},
         {% endfor %}

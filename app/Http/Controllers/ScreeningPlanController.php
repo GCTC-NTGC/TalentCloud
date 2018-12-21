@@ -25,7 +25,6 @@ class ScreeningPlanController extends Controller
     {
         $jobPoster->load('criteria');
         $skills = Skill::all();
-        debugbar()->debug($jobPoster->toArray());
         return view(
             'manager/screening-plan',
             [
