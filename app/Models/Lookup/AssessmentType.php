@@ -43,6 +43,6 @@ class AssessmentType extends BaseModel
      */
     public function getNameAttribute(): string
     {
-        return $this->key; //TODO: actually return a localized name
+        return ucwords(str_replace('_', ' ', $this->key)); //TODO: actually return a localized name
     }
 }
