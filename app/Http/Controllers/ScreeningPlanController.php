@@ -48,13 +48,15 @@ class ScreeningPlanController extends Controller
         $plan->version = ScreeningPlan::max('version') + 1;
         $plan->save();
 
-        foreach ($request->input('criteria') as $criteriaId => $assessments) {
-            foreach ($assessments['assessment'] as $assessmentData) {
-                $assessment = new Assessment();
-                $assessment->screening_plan_id = $plan->id;
-                $assessment->criterion_id = $criteriaId;
-                $assessment->assessment_type_id = $assessmentData['assessment_type'];
-                $assessment->save();
+        if ($request->input('criteria')) {
+            foreach ($request->input('criteria') as $criteriaId => $assessments) {
+                foreach ($assessments['assessment'] as $assessmentData) {
+                    $assessment = new Assessment();
+                    $assessment->screening_plan_id = $plan->id;
+                    $assessment->criterion_id = $criteriaId;
+                    $assessment->assessment_type_id = $assessmentData['assessment_type'];
+                    $assessment->save();
+                }
             }
         }
 
