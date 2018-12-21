@@ -1,16 +1,3 @@
-INSERT INTO relationships VALUES
-(1,'superior',current_timestamp,current_timestamp),
-(2,'coworker',current_timestamp,current_timestamp),
-(3,'subordinate',current_timestamp,current_timestamp);
-
-INSERT INTO relationship_translations VALUES
-(1,1,'en','Superior',current_timestamp,current_timestamp),
-(2,1,'fr','Supérieur',current_timestamp,current_timestamp),
-(3,2,'en','Coworker',current_timestamp,current_timestamp),
-(4,2,'fr','Collaborateur',current_timestamp,current_timestamp),
-(5,3,'en','Subordinate',current_timestamp,current_timestamp),
-(6,3,'fr','Subalterne',current_timestamp,current_timestamp);
-
 INSERT INTO security_clearances VALUES
 (1,'reliability',current_timestamp,current_timestamp),
 (2,'secret',current_timestamp,current_timestamp),
