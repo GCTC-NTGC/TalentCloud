@@ -1,13 +1,3 @@
-INSERT INTO criteria_types VALUES
-(1,'essential',current_timestamp,current_timestamp),
-(2,'asset',current_timestamp,current_timestamp);
-
-INSERT INTO criteria_type_translations VALUES
-(1,1,'en','Need to Have','',current_timestamp,current_timestamp),
-(2,1,'fr','Qualifications essentielles','',current_timestamp,current_timestamp),
-(3,2,'en','Nice to Have','',current_timestamp,current_timestamp),
-(4,2,'fr','Qualifications constituant un atout','',current_timestamp,current_timestamp);
-
 INSERT INTO departments VALUES
 (1,'treasury_board',current_timestamp,current_timestamp),
 (2,'natural_resources',current_timestamp,current_timestamp),
