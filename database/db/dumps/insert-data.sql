@@ -1,11 +1,3 @@
-INSERT INTO course_status (name, created_at, updated_at) VALUES
-('certificate_granted', current_timestamp, current_timestamp),
-('credits_towards_degree', current_timestamp, current_timestamp),
-('audited', current_timestamp, current_timestamp),
-('online_no_proof', current_timestamp, current_timestamp),
-('online_certificate', current_timestamp, current_timestamp),
-('learning_in_progress', current_timestamp, current_timestamp);
-
 INSERT INTO skill_statuses (name, created_at, updated_at) VALUES
 ('claimed', current_timestamp, current_timestamp);
 
