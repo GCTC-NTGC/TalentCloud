@@ -20,9 +20,13 @@
 
     <div class="">
 
-        {% for criterion in criteria.essential %}
+        {% for criterion in job.criteria %}
 
-            {% include "manager/components/skill-assessment-preview" %}
+            {% if criterion.type == "essential" %}
+
+                {% include "manager/components/skill-assessment-preview" %}
+
+            {% endif %}
 
         {% endfor %}
 
@@ -32,9 +36,13 @@
 
     <div class="">
 
-        {% for criterion in criteria.asset %}
+        {% for criterion in job.criteria %}
 
-            {% include "manager/components/skill-assessment-preview" %}
+            {% if criterion.type == "asset" %}
+
+                {% include "manager/components/skill-assessment-preview" %}
+
+            {% endif %}
 
         {% endfor %}
 
