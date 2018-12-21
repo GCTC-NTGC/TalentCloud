@@ -1,22 +1,3 @@
-INSERT INTO experience_levels VALUES
-(1,'1 or Less years',current_timestamp,current_timestamp),
-(2,'2 - 3 years',current_timestamp,current_timestamp),
-(3,'4 - 5 years',current_timestamp,current_timestamp),
-(4,'6 - 7 years',current_timestamp,current_timestamp),
-(5,'8 or More years',current_timestamp,current_timestamp);
-
-INSERT INTO experience_level_translations VALUES
-(1,'en',1,'1 or less years',current_timestamp,current_timestamp),
-(2,'fr',1,'Un an ou moins',current_timestamp,current_timestamp),
-(3,'en',2,'2 - 3 years',current_timestamp,current_timestamp),
-(4,'fr',2,'2 - 3 ans',current_timestamp,current_timestamp),
-(5,'en',3,'4 - 5 years',current_timestamp,current_timestamp),
-(6,'fr',3,'4 - 5 ans',current_timestamp,current_timestamp),
-(7,'en',4,'6 - 7 years',current_timestamp,current_timestamp),
-(8,'fr',4,'6 - 7 ans',current_timestamp,current_timestamp),
-(9,'en',5,'8 or more years',current_timestamp,current_timestamp),
-(10,'fr',5,'Huit ans ou plus',current_timestamp,current_timestamp);
-
 INSERT INTO file_types VALUES
 (1,'word',current_timestamp,current_timestamp),
 (2,'powerpoint',current_timestamp,current_timestamp),
