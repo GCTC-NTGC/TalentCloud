@@ -70,10 +70,10 @@ class ScreeningPlanController extends Controller
      * @param \App\Models\ScreeningPlan $screeningPlan The screening plan to delete.
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, ScreeningPlan $screeningPlan): \Illuminate\Http\Response
+    public function destroy(Request $request, ScreeningPlan $screeningPlan)
     {
         $this->authorize('delete', $screeningPlan);
-        $skillDeclaration->delete();
+        $screeningPlan->delete();
 
         if ($request->ajax()) {
             $content = ['message' => 'Screening Plan deleted'];

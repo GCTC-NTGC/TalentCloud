@@ -1,4 +1,8 @@
-<div class="screening-plan {% if template == true %}template{% endif %}">
+<div class="screening-plan modal-target-object {% if template == true %}template{% endif %}"
+    data-item-saved="true"
+    data-item-url="{{ route("screening_plans.destroy", ":id") }}"
+    data-item-id="{{ plan.id }}"
+    >
 
     <div class="action-wrapper">
 
@@ -9,7 +13,8 @@
         </button>
 
         <button
-            class=""
+            class="modal-trigger"
+            data-modal-id="deleteScreeningPlan"
             type="button">
             Delete
         </button>

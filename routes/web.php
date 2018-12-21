@@ -351,11 +351,14 @@ $managerGroup = function() {
 
         /* Screening Plan Builder */
 
-            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
-                ->name('manager.jobs.screening_plan');
+        // Use the JobPoster to determin permissions
+        Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+            ->middleware('can:view,jobPoster')
+            ->name('manager.jobs.screening_plan');
 
-            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
-                ->name('manager.jobs.screening_plan.store');
+        Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
+            ->middleware('can:update,jobPoster')
+            ->name('manager.jobs.screening_plan.store');
     });
 
     //Laravel default login, logout, register, and reset routes
@@ -453,6 +456,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
         ->middleware('role:manager')
+        ->middleware('can:delete,screeningPlan')
         //TODO: add can:delete middleware for screening plan
         ->name('screening_plans.destroy');
 });

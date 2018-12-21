@@ -122,7 +122,7 @@ class Controller extends BaseController
      * @param string[] $content The array being returned in response.
      * @return \Illuminate\Http\Response
      */
-    protected function formatAjaxResponse(array $content): \Illuminate\Http\Response
+    protected function formatAjaxResponse(array $content)
     {
         return response()->json($content);
     }

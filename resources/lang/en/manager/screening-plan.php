@@ -30,5 +30,14 @@ return [
             "assessment_removal_label" => "Remove",
             "add_assessment_title" => "Add another assessment to this criteria."
         ]
+    ],
+    "delete_plan_modal" => [
+        "title" => "Delete this Screening Plan?",
+        "content" => [
+            "Are you sure you want to permanently delete this Screening Plan from this Job?",
+        ],
+        "action_01" => "Cancel",
+        "action_02" => "Delete",
+        "action_02_progress" => "Working..."
     ]
 ];
