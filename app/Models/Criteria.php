@@ -83,7 +83,7 @@ class Criteria extends BaseModel {
      */
     public function assessments() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\Assessment::class);
+        return $this->hasMany(\App\Models\Assessment::class, 'criterion_id');
     }
 
     /**
