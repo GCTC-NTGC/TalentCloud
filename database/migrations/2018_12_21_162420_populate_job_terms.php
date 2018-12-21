@@ -20,15 +20,15 @@ class PopulateJobTerms extends Migration
             ['id' => 4, 'name' => 'permanent'],
         ]);
 
-        DB::table('file_type_translations')->insert([
-            ['id' => 1, 'file_type_id' => 1, 'locale' => 'en', 'value' => 'week'],
-            ['id' => 2, 'file_type_id' => 1, 'locale' => 'fr', 'value' => 'semaine'],
-            ['id' => 3, 'file_type_id' => 2, 'locale' => 'en', 'value' => 'month'],
-            ['id' => 4, 'file_type_id' => 2, 'locale' => 'fr', 'value' => 'mois'],
-            ['id' => 5, 'file_type_id' => 3, 'locale' => 'en', 'value' => 'year'],
-            ['id' => 6, 'file_type_id' => 3, 'locale' => 'fr', 'value' => 'an'],
-            ['id' => 7, 'file_type_id' => 4, 'locale' => 'en', 'value' => 'permanent'],
-            ['id' => 8, 'file_type_id' => 4, 'locale' => 'fr', 'value' => 'permanent'],
+        DB::table('job_term_translations')->insert([
+            ['id' => 1, 'job_term_id' => 1, 'locale' => 'en', 'value' => 'week'],
+            ['id' => 2, 'job_term_id' => 1, 'locale' => 'fr', 'value' => 'semaine'],
+            ['id' => 3, 'job_term_id' => 2, 'locale' => 'en', 'value' => 'month'],
+            ['id' => 4, 'job_term_id' => 2, 'locale' => 'fr', 'value' => 'mois'],
+            ['id' => 5, 'job_term_id' => 3, 'locale' => 'en', 'value' => 'year'],
+            ['id' => 6, 'job_term_id' => 3, 'locale' => 'fr', 'value' => 'an'],
+            ['id' => 7, 'job_term_id' => 4, 'locale' => 'en', 'value' => 'permanent'],
+            ['id' => 8, 'job_term_id' => 4, 'locale' => 'fr', 'value' => 'permanent'],
         ]);
     }
 
