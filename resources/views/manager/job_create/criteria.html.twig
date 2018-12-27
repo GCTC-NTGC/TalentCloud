@@ -5,21 +5,21 @@
 
 ============================================================================= #}
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[criteria][:template][:criteria_type][:skill_type][:id]"|replace({":criteria_type":criteria_type, ":skill_type":skillType}) %}
+    {% set name_prefix = prefix ~ "[criteria][:template][:criteria_type][:skill_type][:id]"|replace({":criteria_type":criteriaKey, ":skill_type":skillTypeKey}) %}
     {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_prefix = "criteria[:template][:criteria_type][:skill_type][:id]"|replace({":criteria_type":criteria_type, ":skill_type":skillType}) %}
+    {% set name_prefix = "criteria[:template][:criteria_type][:skill_type][:id]"|replace({":criteria_type":criteriaKey, ":skill_type":skillTypeKey}) %}
     {% set id_prefix = name_prefix %}
 {% endif %}
 
-{% if criteria %}
-    {% set name_prefix = name_prefix|replace({":template":"old", ":id":criteria.id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"old", ":id":criteria.id}) %}
+{% if savedCriteria %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":savedCriteria.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":savedCriteria.id}) %}
 {% endif %}
 
 <div
-    class="manager-jobs__create-skill {% if criteria == false %}template{% endif %}"
-    data-item-id="{% if criteria == false %}0{% else %}{{ criteria.id }}{% endif %}">
+    class="manager-jobs__create-skill {% if savedCriteria == false %}template{% endif %}"
+    data-item-id="{% if savedCriteria == false %}0{% else %}{{ savedCriteria.id }}{% endif %}">
 
     <fieldset
         class="form__fieldset">
@@ -71,15 +71,11 @@
                             class="form__input"
                             name="{{ name_prefix }}[skill_id]">
 
-                            {% for skill in skills %}
+                            {% for id, skill in skillType %}
 
-                                {% if skill.skill_type.name == skillType %}
-
-                                    <option
-                                        value="{{ skill.id }}"
-                                        {% if criteria.skill.id == skill.id %}selected{% endif %}>{{ skill_template.skills[skill.name].name }}</option>
-
-                                {% endif %}
+                            <option
+                                value="{{ id }}"
+                                {% if savedCriteria.skill.id == id %}selected{% endif %}>{{ skill }}</option>
 
                             {% endfor %}
 
@@ -111,8 +107,8 @@
 
                                 <option
                                     value="{{ level.id }}"
-                                    {% if criteria.skill_level_id == level.id %}selected{% endif %}
-                                    >{{ skill_template.skill_levels[skillType][level.name] }}</option>
+                                    {% if savedCriteria.skill_level_id == level.id %}selected{% endif %}
+                                    >{{ skill_template.skill_levels[skillTypeKey][level.name] }}</option>
 
                             {% endfor %}
 
@@ -126,7 +122,7 @@
                 class="box med-1of2">
 
                 <div
-                    class="form__input-wrapper--float {% if criteria.translate('en').description != null %}active{% endif %}">
+                    class="form__input-wrapper--float {% if savedCriteria.translate('en').description != null %}active{% endif %}">
 
                     <label
                         class="form__label"
@@ -137,7 +133,7 @@
                     <textarea
                         class="form__textarea"
                         id="{{ id_prefix }}[description][en]"
-                        name="{{ name_prefix }}[description][en]">{{ criteria.translate('en').description }}</textarea>
+                        name="{{ name_prefix }}[description][en]">{{ savedCriteria.translate('en').description }}</textarea>
 
                 </div>
 
@@ -147,7 +143,7 @@
                 class="box med-1of2">
 
                 <div
-                    class="form__input-wrapper--float {% if criteria.translate('fr').description != null %}active{% endif %}">
+                    class="form__input-wrapper--float {% if savedCriteria.translate('fr').description != null %}active{% endif %}">
 
                     <label
                         class="form__label"
@@ -158,7 +154,7 @@
                     <textarea
                         class="form__textarea"
                         id="{{ id_prefix }}[description][fr]"
-                        name="{{ name_prefix }}[description][fr]">{{ criteria.translate('fr').description }}</textarea>
+                        name="{{ name_prefix }}[description][fr]">{{ savedCriteria.translate('fr').description }}</textarea>
 
                 </div>
 
