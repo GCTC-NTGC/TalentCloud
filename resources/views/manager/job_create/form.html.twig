@@ -851,6 +851,8 @@
 
             {% for skillTypeKey, skillType in criteria %}
 
+            {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
+
             <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)</h5>
 
             <div
@@ -861,7 +863,7 @@
 
                         {% for savedCriteria in job.criteria %}
 
-                        {% include "manager/job_create/criteria" %}
+                        {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
 
                         {% endfor %}
 

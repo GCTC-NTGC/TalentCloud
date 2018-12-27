@@ -171,6 +171,16 @@ class JobController extends Controller
             ]
         ];
 
+        $skillLevelCollection = SkillLevel::all();
+
+        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
+            return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
+        })->all();
+
+        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
+            return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
+        })->all();
+
         return view('manager/job_create', [
             'job_create' => Lang::get('manager/job_create'),
             'manager' => $manager,
@@ -181,7 +191,7 @@ class JobController extends Controller
             'job' => $job,
             'form_action_url' => route('manager.jobs.store'),
             'skills' => $skills,
-            'skill_levels' => SkillLevel::all(),
+            'skill_levels' => $skillLevels,
             'skill_template' => $skillLangs,
         ]);
     }
