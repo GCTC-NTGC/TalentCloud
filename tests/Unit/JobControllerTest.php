@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-use App\Models\User;
+use App\Models\Manager;
 
 class JobControllerTest extends TestCase
 {
@@ -17,13 +17,9 @@ class JobControllerTest extends TestCase
      */
     public function testManagerIndex()
     {
-        $manager = factory(User::class)->make(
-            [
-                'user_role_id' => 2
-            ]
-        );
+        $manager = factory(Manager::class)->create();
 
-        $response = $this->actingAs($manager)
+        $response = $this->actingAs($manager->user)
                         ->get('manager/jobs');
         $response->assertStatus(200);
     }
