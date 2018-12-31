@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Manager;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Hash;
 
 $faker_fr = Faker\Factory::create('fr');
 
-$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+$factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name(),
         'email' => $faker->unique()->safeEmail(),
@@ -31,15 +32,15 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->state(App\Models\User::class, 'manager', [
+$factory->state(User::class, 'manager', [
     'user_role_id' => UserRole::where('name', 'manager')->first()->id
 ]);
 
-$factory->state(App\Models\User::class, 'applicant', [
+$factory->state(User::class, 'applicant', [
     'user_role_id' => UserRole::where('name', 'applicant')->first()->id
 ]);
 
-$factory->define(App\Models\Applicant::class, function (Faker\Generator $faker) {
+$factory->define(Applicant::class, function (Faker\Generator $faker) {
     return [
         'twitter_username' => $faker->firstName(),
         'linkedin_url' => $faker->url(),
@@ -47,12 +48,12 @@ $factory->define(App\Models\Applicant::class, function (Faker\Generator $faker) 
         'personal_website' => $faker->url(),
         'is_snapshot' => false,
         'user_id' => function () {
-            return factory(App\Models\User::class)->states('applicant')->create()->id;
+            return factory(User::class)->states('applicant')->create()->id;
         },
     ];
 });
 
-$factory->define(App\Models\Manager::class, function (Faker\Generator $faker) use ($faker_fr) {
+$factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_fr) {
     return [
         'twitter_username' => $faker->firstName(),
         'linkedin_url' => $faker->url(),
@@ -64,7 +65,7 @@ $factory->define(App\Models\Manager::class, function (Faker\Generator $faker) us
         'refuse_low_value_work_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'years_experience' => $faker->numberBetween(2, 25),
         'user_id' => function () {
-            return factory(App\Models\User::class)->states('manager')->create()->id;
+            return factory(User::class)->states('manager')->create()->id;
         },
         'about_me:en' => $faker->paragraphs(3, true),
         'greatest_accomplishment:en' => $faker->paragraphs(3, true),
