@@ -5,27 +5,34 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Applicant;
+use App\Models\Manager;
+use App\Models\User;
 
 /**
  * A base class for Policy tests
  */
 
-abstract class BasePolicyTest extends TestCase {
+abstract class BasePolicyTest extends TestCase
+{
 
     //create basic user
-    public function createUser() {
-        $user = factory(\App\Models\User::class)->create();
+    public function createUser()
+    {
+        $user = factory(User::class)->create();
         return $user;
     }
 
     //create applicant, factory includes a user
-    public function createApplicant() {
-        $applicant = factory(\App\Models\Applicant::class)->create();
+    public function createApplicant()
+    {
+        $applicant = factory(Applicant::class)->create();
         return $applicant;
     }
     //create manager, factory includes a user
-    public function createManager() {
-        $manager = factory(\App\Models\Manager::class)->create();
+    public function createManager()
+    {
+        $manager = factory(Manager::class)->create();
         return $manager;
     }
 
