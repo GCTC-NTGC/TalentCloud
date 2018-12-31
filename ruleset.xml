@@ -3,9 +3,10 @@
     <description>An extended PSR2 standard for the Talent Cloud codebase</description>
     <!-- Paths to sniff -->
     <file>./app</file>
+    <file>./database/factories</file>
     <!-- Directories/Files to ignore -->
     <exclude-pattern>*/cache/*</exclude-pattern>
-    <exclude-pattern>*/database/*</exclude-pattern>
+    <exclude-pattern>*/database/migrations/*</exclude-pattern>
     <exclude-pattern>*/migrations/*</exclude-pattern>
     <exclude-pattern>*/storage/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
