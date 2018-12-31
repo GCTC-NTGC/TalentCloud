@@ -20,17 +20,13 @@ class JobPosterTest extends TestCase
      */
     public function testJobPosterIsOpen()
     {
-        $jobPoster = factory(\App\Models\JobPoster::class)->make();
+        $jobPoster = factory(JobPoster::class)->states('published')->make();
         $this->assertTrue($jobPoster->isOpen());
 
         $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', 'now');
         $this->assertFalse($jobPoster->isOpen());
 
-        $jobPoster = factory(\App\Models\JobPoster::class)->make(
-            [
-                'published' => false
-            ]
-        );
+        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
         $this->assertFalse($jobPoster->isOpen());
     }
 
@@ -41,14 +37,14 @@ class JobPosterTest extends TestCase
      */
     public function testJobPosterTimeRemaining()
     {
-        $jobPoster = factory(\App\Models\JobPoster::class)->make(
+        $jobPoster = factory(JobPoster::class)->make(
             [
                 'close_date_time' => date('Y-m-d H:i:s', strtotime('-1 hour'))
             ]
         );
         $this->assertEquals(Lang::choice('common/time.hour', 1), $jobPoster->timeRemaining());
 
-        $jobPoster = factory(\App\Models\JobPoster::class)->make(
+        $jobPoster = factory(JobPoster::class)->make(
             [
                 'close_date_time' => date('Y-m-d H:i:s', strtotime('-2 days'))
             ]
