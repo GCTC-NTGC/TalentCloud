@@ -851,19 +851,19 @@
 
             {% for skillTypeKey, skillType in criteria %}
 
-            {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
+                {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
 
-            <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)</h5>
+                <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)</h5>
 
-            <div
-                class="manager-jobs__skill-wrapper">
+                <div
+                    class="manager-jobs__skill-wrapper">
 
                     <div
                         class="manager-jobs__create-skill-wrapper">
 
                         {% for savedCriteria in job.criteria %}
 
-                        {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
+                            {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
 
                         {% endfor %}
 
@@ -875,7 +875,7 @@
 
                     {% include "manager/job_create/criteria" %}
 
-                {# Skill Controls #}
+                    {# Skill Controls #}
 
                     <div
                         class="manager-jobs__create-action-wrapper">
@@ -889,9 +889,9 @@
 
                     </div>
 
-            </div>
+                </div>
 
-            {% set loopIteration = loopIteration + 1 %}
+                {% set loopIteration = loopIteration + 1 %}
 
             {% endfor %}
 
