@@ -24,8 +24,8 @@ npm-debug.log
 
 ## TalentCloud
 /etc/ssl/
+!/etc/ssl/.gitkeep
 /report
-/tests
 
 ## Laravel
 /node_modules
