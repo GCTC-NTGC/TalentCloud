@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PopulateLookups extends Migration
+class PopulateVeteranStatuses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class PopulateLookups extends Migration
      */
     public function up()
     {
-        // Populate SkillTypes
-        DB::table('skill_types')->insert([
-            ['id' => 1, 'name' => 'soft'],
-            ['id' => 2, 'name' => 'hard'],
+        DB::table('veteran_statuses')->insert([
+            ['id' => 1, 'name' => 'none'],
+            ['id' => 2, 'name' => 'current'],
+            ['id' => 3, 'name' => 'past'],
         ]);
     }
 
@@ -27,6 +27,6 @@ class PopulateLookups extends Migration
      */
     public function down()
     {
-        DB::table('skill_types')->whereIn('id', [1, 2])->delete();
+        DB::table('veteran_statuses')->whereIn('id', [1, 2, 3])->delete();
     }
 }
