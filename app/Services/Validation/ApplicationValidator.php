@@ -125,7 +125,7 @@ class ApplicationValidator {
         return Validator::make($application->toArray(), $rules);
     }
 
-    public function experinceComplete(JobApplication $application) {
+    public function experienceComplete(JobApplication $application) {
         return $this->experienceValidator($application)->passes();
     }
 
