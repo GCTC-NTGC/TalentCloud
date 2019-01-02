@@ -8,9 +8,9 @@ use App\Models\JobApplication;
 use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Validator;
 
-class SkillsValidatorTest extends TestCase
+class ApplicationValidatorTest extends TestCase
 {
-    public function testSkillsValidator()
+    public function testApplicationValidator()
     {
         // TODO: finish test
         // $application = JobApplication::find(5);

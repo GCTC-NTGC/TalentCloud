@@ -59,9 +59,17 @@ class ApplicationValidator {
         Validator::make($data, $rules)->validate();
     }
 
-    protected function arrayMapKeys($fn, $array) {
+    /**
+     * Return a copy of $array, with function $fn applied to each key, but values left unchanged.
+     *
+     * @param function $fn    Function applied to each key.
+     * @param array    $array Array to operate on.
+     * @return array
+     */
+    protected function arrayMapKeys($fn, $array): array
+    {
         $newArray = [];
-        foreach($array as $key => $value) {
+        foreach ($array as $key => $value) {
             $newArray[$fn($key)] = $value;
         }
         return $newArray;
