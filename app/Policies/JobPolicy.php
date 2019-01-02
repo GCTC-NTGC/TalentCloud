@@ -51,20 +51,6 @@ class JobPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can edit the job poster.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return mixed
-     */
-    public function edit(User $user, JobPoster $jobPoster)
-    {
-        //Only managers can edit jobs, and only their own
-        return $user->user_role->name == 'manager' &&
-            $jobPoster->manager->user->id == $user->id;
-    }
-
-    /**
      * Determine whether the user can delete the job poster.
      *
      * @param  \App\Models\User  $user
