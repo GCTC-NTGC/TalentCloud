@@ -55,4 +55,41 @@ class JobControllerTest extends TestCase
         $response->assertSee('<h2 class="heading--01">' . Lang::get('manager/job_create')['title'] . '</h2>');
         $response->assertViewIs('manager.job_create');
     }
+
+    /**
+     * Ensure a manager can edit an unpublished Job Poster they created.
+     *
+     * @return void
+     */
+    public function testManagerEdit()
+    {
+        $manager = factory(Manager::class)->create();
+        $jobPoster = factory(JobPoster::class)->states('unpublished')->create([
+            'manager_id' => $manager->id
+        ]);
+
+        $jobPoster->criteria()->saveMany(factory(Criteria::class, 2)->make([
+            'job_poster_id' => $jobPoster->id
+        ]));
+        $jobPoster->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 2)->make([
+            'job_poster_id' => $jobPoster->id
+        ]));
+        $jobPoster->job_poster_questions()->saveMany(factory(JobPosterQuestion::class, 2)->make([
+            'job_poster_id' => $jobPoster->id
+        ]));
+
+        $response = $this->actingAs($manager->user)
+            ->get("manager/jobs/$jobPoster->id/edit");
+
+        $response->assertStatus(200);
+        $response->assertViewIs('manager.job_create');
+        // Check for a handful of properties
+        $response->assertSee($jobPoster->city);
+        $response->assertSee($jobPoster->education);
+        $response->assertSee($jobPoster->title);
+        $response->assertSee($jobPoster->impact);
+        $response->assertSee($jobPoster->branch);
+        $response->assertSee($jobPoster->division);
+        $response->assertSee($jobPoster->education);
+    }
 }
