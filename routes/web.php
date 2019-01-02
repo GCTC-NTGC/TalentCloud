@@ -337,8 +337,6 @@ $managerGroup = function() {
 
         Route::post('jobs/{jobPoster?}', 'JobController@store')
             ->where('jobPoster', '[0-9]+')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->middleware('can:update,jobPoster')
             ->name('manager.jobs.store');
 
         /* Edit Job */

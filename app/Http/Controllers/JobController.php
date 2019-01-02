@@ -260,8 +260,12 @@ class JobController extends Controller
     public function store(Request $request, JobPoster $jobPoster = null) : RedirectResponse
     {
         // Don't allow edits for published Job Posters
+        // Also check auth while we're at it
         if (isset($jobPoster)) {
+            $this->authorize('update', $jobPoster);
             JobPosterValidator::validateUnpublished($jobPoster);
+        } else {
+            $this->authorize('create', JobPoster::class);
         }
 
         $input = $request->input();
@@ -344,7 +348,7 @@ class JobController extends Controller
             $jobPoster->job_poster_key_tasks()->delete();
         }
 
-        if (!is_array($input['task'])) {
+        if (!array_key_exists('task', $input) || !is_array($input['task'])) {
             return;
         }
 
@@ -380,7 +384,7 @@ class JobController extends Controller
             $jobPoster->job_poster_questions()->delete();
         }
 
-        if (!is_array($input['question'])) {
+        if (!array_key_exists('question', $input) || !is_array($input['question'])) {
             return;
         }
 
@@ -418,7 +422,7 @@ class JobController extends Controller
             $jobPoster->criteria()->delete();
         }
 
-        if (!is_array($input['criteria'])) {
+        if (!array_key_exists('criteria', $input) || !is_array($input['criteria'])) {
             return;
         }
 
