@@ -4,7 +4,6 @@ ROOT=/var/www
 
 build-db:
 	@docker exec talentcloud sh -c "php artisan migrate"
-	@docker exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
 clean:
@@ -30,6 +29,9 @@ docker-stop:
 fake-data:
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
+fresh-db:
+	@docker exec talentcloud sh -c "php artisan migrate:fresh"
+
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
@@ -48,4 +50,4 @@ phpunit:
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data gen-certs laravel-init logs phpmd phpunit test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-init logs phpmd phpunit test-all

@@ -183,6 +183,54 @@ class JobController extends Controller
             $jobHeading = 'manager/job_create';
         }
 
+        $skillLangs = Lang::get('common/skills');
+
+        $softSkills = Skill::whereHas('skill_type', function ($query) {
+            $query->where('name', '=', 'soft');
+        })->get()
+            ->mapWithKeys(function ($skill) use ($skillLangs) {
+                return [
+                    $skill->id => $skillLangs['skills'][$skill->name]['name']
+                ];
+            })
+            ->all();
+
+        $hardSkills = Skill::whereHas('skill_type', function ($query) {
+            $query->where('name', '=', 'hard');
+        })->get()
+            ->mapWithKeys(function ($skill) use ($skillLangs) {
+                return [
+                    $skill->id => $skillLangs['skills'][$skill->name]['name']
+                ];
+            })
+            ->all();
+
+        asort($softSkills, SORT_LOCALE_STRING);
+        asort($hardSkills, SORT_LOCALE_STRING);
+
+        $skills = [
+            'essential' => [
+                'hard' => $hardSkills,
+                'soft' => $softSkills
+            ],
+            'asset' => [
+                'hard' => $hardSkills,
+                'soft' => $softSkills
+            ]
+        ];
+
+        $skillLevelCollection = SkillLevel::all();
+
+        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
+            return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
+        })->all();
+
+        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
+            return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
+        })->all();
+
+        // dd($job->criteria);
+
         return view(
             'manager/job_create',
             [
@@ -194,9 +242,9 @@ class JobController extends Controller
                 'security_clearances' => SecurityClearance::all(),
                 'job' => $job,
                 'form_action_url' => route(/** @scrutinizer ignore-type */ ...$route), // phpcs:ignore
-                'skills' => Skill::all(),
-                'skill_levels' => SkillLevel::all(),
-                'skill_template' => Lang::get('common/skills'),
+                'skills' => $skills,
+                'skill_levels' => $skillLevels,
+                'skill_template' => $skillLangs,
             ]
         );
     }
@@ -242,7 +290,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
+    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster)
     {
         $jobPoster->fill(
             [
@@ -290,7 +338,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace) : void
+    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace)
     {
         if ($replace) {
             $jobPoster->job_poster_key_tasks()->delete();
@@ -326,7 +374,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace)
     {
         if ($replace) {
             $jobPoster->job_poster_questions()->delete();
@@ -364,7 +412,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace) : void
+    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace)
     {
         if ($replace) {
             $jobPoster->criteria()->delete();
