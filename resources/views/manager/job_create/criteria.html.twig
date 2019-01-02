@@ -106,7 +106,7 @@
                             {% for id, level in skillLevel %}
 
                                 <option
-                                    value="{{ level.id }}"
+                                    value="{{ id }}"
                                     {% if savedCriteria.skill_level_id == id %}selected{% endif %}
                                     >{{ level }}</option>
 
