@@ -185,24 +185,34 @@ class JobController extends Controller
 
         $skillLangs = Lang::get('common/skills');
 
-        $softSkills = Skill::whereHas('skill_type', function ($query) {
-            $query->where('name', '=', 'soft');
-        })->get()
-            ->mapWithKeys(function ($skill) use ($skillLangs) {
-                return [
-                    $skill->id => $skillLangs['skills'][$skill->name]['name']
-                ];
-            })
+        $softSkills = Skill::whereHas(
+            'skill_type',
+            function ($query) {
+                $query->where('name', '=', 'soft');
+            }
+        )->get()
+            ->mapWithKeys(
+                function ($skill) use ($skillLangs) {
+                    return [
+                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                    ];
+                }
+            )
             ->all();
 
-        $hardSkills = Skill::whereHas('skill_type', function ($query) {
-            $query->where('name', '=', 'hard');
-        })->get()
-            ->mapWithKeys(function ($skill) use ($skillLangs) {
-                return [
-                    $skill->id => $skillLangs['skills'][$skill->name]['name']
-                ];
-            })
+        $hardSkills = Skill::whereHas(
+            'skill_type',
+            function ($query) {
+                $query->where('name', '=', 'hard');
+            }
+        )->get()
+            ->mapWithKeys(
+                function ($skill) use ($skillLangs) {
+                    return [
+                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                    ];
+                }
+            )
             ->all();
 
         asort($softSkills, SORT_LOCALE_STRING);
@@ -221,15 +231,19 @@ class JobController extends Controller
 
         $skillLevelCollection = SkillLevel::all();
 
-        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
-            return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
-        })->all();
+        $skillLevels = array();
 
-        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
-            return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
-        })->all();
+        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(
+            function ($skillLevel) use ($skillLangs) {
+                return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
+            }
+        )->all();
 
-        // dd($job->criteria);
+        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(
+            function ($skillLevel) use ($skillLangs) {
+                return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
+            }
+        )->all();
 
         return view(
             'manager/job_create',
