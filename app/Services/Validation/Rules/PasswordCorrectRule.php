@@ -16,6 +16,6 @@ class PasswordCorrectRule implements Rule
 
     public function message()
     {
-        return Lang::get('validation.custom.password_correct');
+        return Lang::get('validation.password_correct');
     }
 }
