@@ -94,9 +94,9 @@ class JobControllerTest extends TestCase
             'salary_max' => $this->faker->numberBetween(80000, 100000),
             'noc' => $this->faker->numberBetween(1, 9999),
             'classification' => $this->faker->regexify('[A-Z]{2}-0[1-5]'),
-            'remote_work_allowed' => $this->faker->boolean(50),
             'manager_id' => $this->manager->id,
             'published' => $this->faker->boolean(50),
+            'remote_work_allowed' => $this->faker->boolean(50),
             'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
             'open_time' => $this->faker->time(),
             'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
@@ -136,7 +136,7 @@ class JobControllerTest extends TestCase
             'submit' => '',
         ];
 
-        $dbValues = array_slice($newJob, 0, 8);
+        $dbValues = array_slice($newJob, 0, 6);
 
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
