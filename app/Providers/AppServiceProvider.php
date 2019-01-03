@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Services\WhichPortal;
+use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
         //     //Generate models from database
         //     $this->app->register(\Reliese\Coders\CodersServiceProvider::class);
         // }
+
+        if ($this->app->environment() !== 'production') {
+            //Browser testing
+            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
+        }
 
         $this->app->singleton(WhichPortal::class, function ($app) {
             return new WhichPortal();
