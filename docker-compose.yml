@@ -39,7 +39,6 @@ services:
         container_name: postgres
         restart: always
         volumes:
-            - "./database/db/dumps:/manual_db"
             - "pgdata:/var/lib/postgresql/data"
         environment:
             - "POSTGRES_DB=talentcloud"

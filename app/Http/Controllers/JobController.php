@@ -135,6 +135,52 @@ class JobController extends Controller
         //No job details exist yet because we're creating a new one
         $job = [];
 
+        $skillLangs = Lang::get('common/skills');
+
+        $softSkills = Skill::whereHas('skill_type', function ($query) {
+            $query->where('name', '=', 'soft');
+        })->get()
+            ->mapWithKeys(function ($skill) use ($skillLangs) {
+                return [
+                    $skill->id => $skillLangs['skills'][$skill->name]['name']
+                ];
+            })
+            ->all();
+
+        $hardSkills = Skill::whereHas('skill_type', function ($query) {
+            $query->where('name', '=', 'hard');
+        })->get()
+            ->mapWithKeys(function ($skill) use ($skillLangs) {
+                return [
+                    $skill->id => $skillLangs['skills'][$skill->name]['name']
+                ];
+            })
+            ->all();
+
+        asort($softSkills, SORT_LOCALE_STRING);
+        asort($hardSkills, SORT_LOCALE_STRING);
+
+        $skills = [
+            'essential' => [
+                'hard' => $hardSkills,
+                'soft' => $softSkills
+            ],
+            'asset' => [
+                'hard' => $hardSkills,
+                'soft' => $softSkills
+            ]
+        ];
+
+        $skillLevelCollection = SkillLevel::all();
+
+        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
+            return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
+        })->all();
+
+        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(function ($skillLevel) use ($skillLangs) {
+            return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
+        })->all();
+
         return view('manager/job_create', [
             'job_create' => Lang::get('manager/job_create'),
             'manager' => $manager,
@@ -144,9 +190,9 @@ class JobController extends Controller
             'security_clearances' => SecurityClearance::all(),
             'job' => $job,
             'form_action_url' => route('manager.jobs.store'),
-            'skills' => Skill::all(),
-            'skill_levels' => SkillLevel::all(),
-            'skill_template' => Lang::get('common/skills'),
+            'skills' => $skills,
+            'skill_levels' => $skillLevels,
+            'skill_template' => $skillLangs,
         ]);
     }
 

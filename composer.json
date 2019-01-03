@@ -1,4 +1,6 @@
 {
+    "name": "gctc-ntgc/talent-cloud",
+    "description": "Codebase for talent.canada.ca",
     "require": {
         "php": "7.2.*",
         "dimsav/laravel-translatable": "9.*",
@@ -22,6 +24,7 @@
         "phpmd/phpmd" : "@stable",
         "phpunit/phpunit": "~6.0",
         "reliese/laravel": "^0.0.13",
+        "slevomat/coding-standard": "~4.0",
         "squizlabs/php_codesniffer": "3.*",
         "xethron/migrations-generator": "^2.0"
     },

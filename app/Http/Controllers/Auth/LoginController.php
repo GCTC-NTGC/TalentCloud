@@ -72,6 +72,16 @@ class LoginController extends AuthController
         ]);
     }
 
+    protected function credentials()
+    {
+    $username = $this->username();
+    $credentials = request()->only($username, 'password');
+    if (isset($credentials[$username])) {
+        $credentials[$username] = strtolower($credentials[$username]);
+    }
+    return $credentials;
+    }
+    
     /**
      * OVERRIDE
      * Log the user out of the application.

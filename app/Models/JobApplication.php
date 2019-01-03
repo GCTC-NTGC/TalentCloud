@@ -9,10 +9,13 @@ namespace App\Models;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Applicant;
+use App\Models\SkillDeclaration;
 use App\Models\ApplicationReview;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
 use App\Events\ApplicationRetrieved;
+use App\Services\Validation\ApplicationValidator;
 
 /**
  * Class JobApplication
@@ -27,6 +30,7 @@ use App\Events\ApplicationRetrieved;
  * @property int $applicant_snapshot_id
  * @property string $submission_signature
  * @property string $submission_date
+ * @property boolean $experience_saved
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -60,6 +64,7 @@ class JobApplication extends BaseModel {
         'applicant_snapshot_id' => 'int',
         'submission_signature' => 'string',
         'submission_date' => 'string',
+        'experience_saved' => 'boolean',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -67,6 +72,7 @@ class JobApplication extends BaseModel {
         'preferred_language_id',
         'submission_signature',
         'submission_date',
+        'experience_saved',
     ];
 
     protected function createApplicantSnapshot($applicant_id) {
@@ -108,6 +114,11 @@ class JobApplication extends BaseModel {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
 
+    public function skill_declarations() {
+        return $this->applicant->skill_declarations()
+            ->whereIn('skill_id', $this->job_poster->criteria->pluck('skill_id'));
+    }
+
     public function application_review() {
         return $this->hasOne(ApplicationReview::class);
     }
@@ -126,19 +137,34 @@ class JobApplication extends BaseModel {
      * @return string $status   'complete', 'incomplete' or 'error'
      */
     public function getSectionStatus(string $section) {
-        //TODO: determine whether sections are complete or opcache_invalid
-
+        //TODO: determine whether sections are complete or invalid
+        $validator = new ApplicationValidator();
         $status = 'incomplete';
         switch($section) {
             case 'basics':
+                if ($validator->basicsComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'experience':
+                if ($validator->experienceComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'essential_skills':
+                if ($validator->essentialSkillsComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'asset_skills':
+                if ($validator->assetSkillsComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             case 'preview':
+                if ($validator->affirmationComplete($this)) {
+                    $status = 'complete';
+                }
                 break;
             default:
                 $status = 'error';

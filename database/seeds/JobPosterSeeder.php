@@ -52,6 +52,7 @@ class JobPosterSeeder extends Seeder
             'classification' => $faker->regexify('[A-Z]{2}-0[1-5]'),
             'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
             'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
+            'remote_work_allowed' => $faker->boolean(),
             'published' => true,
             'en' => [
                 'city' => $faker->city(),

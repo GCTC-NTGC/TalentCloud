@@ -20,12 +20,12 @@ cache:
     - vendor
 
 install:
-  - cp .env.testing .env
+  - cp .env.example .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - make docker-start
   - make gen-certs
   - make laravel-init
-  # make build-db
+  - make build-db
 
 #before_script:
   # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
