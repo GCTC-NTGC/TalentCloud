@@ -54,7 +54,7 @@
                         class="form__input"
                         id="createJobTaskEN"
                         type="text"
-                        name="task[:id][en]"
+                        name="task[{{ task ? task.id : ':id' }}][en]"
                         value="{{ task.translate('en').description }}">
 
                 </div>
@@ -78,7 +78,7 @@
                         class="form__input"
                         id="createJobTaskFR"
                         type="text"
-                        name="task[:id][fr]"
+                        name="task[{{ task ? task.id : ':id' }}][fr]"
                         value="{{ task.translate('fr').description }}">
 
                 </div>

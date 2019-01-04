@@ -340,10 +340,15 @@ function()
                 ->middleware('can:create,App\Models\JobPoster')
                 ->name('manager.jobs.create');
 
-            Route::post('jobs', 'JobController@store')
-                ->middleware('can:create,App\Models\JobPoster')
-                ->name('manager.jobs.store');
+        Route::post('jobs/{jobPoster?}', 'JobController@store')
+            ->where('jobPoster', '[0-9]+')
+            ->name('manager.jobs.store');
 
+        /* Edit Job */
+        Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
+            ->where('jobPoster', '[0-9]+')
+            ->middleware('can:update,jobPoster')
+            ->name('manager.jobs.edit');
 
         });
 

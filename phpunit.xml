@@ -28,6 +28,7 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="MAIL_DRIVER" value="array"/>
+        <env name="HIDE_LOCALE_IN_URL" value="true"/>
     </php>
 	<logging>
         <log type="coverage-html" target="./report/phpunit"/>

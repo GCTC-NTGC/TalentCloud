@@ -141,6 +141,9 @@ return [
         'experience_saved.accepted' => 'You must review and save Step 2.',
         'application_step_1.accepted' => 'Step 1 must be completed',
         'application_step_3.accepted' => 'Step 3 must be completed',
+        'published' => [
+            'in' => 'You cannot edit a Job Poster that has been published'
+        ]
     ],
 
     /*

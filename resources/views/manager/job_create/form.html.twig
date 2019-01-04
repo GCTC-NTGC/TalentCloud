@@ -863,7 +863,11 @@
 
                         {% for savedCriteria in job.criteria %}
 
-                            {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
+                            {% if savedCriteria.criteria_type.name == criteriaKey and savedCriteria.skill.skill_type.name == skillTypeKey %}
+
+                                {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
+
+                            {% endif %}
 
                         {% endfor %}
 
