@@ -2,7 +2,8 @@
 
 # Usage in production:
 # sudo chmod 775 setPermissions.sh
-# sudo ./setPermissions.sh /var/www
+# sudo ./setPermissions.sh [Unzipped directory name - probably TalentCloud]
+# Suggest using this before replaceAppContents.sh in your home directory (~)
 
 mydir=$1
 echo "Setting proper app permissions in ${mydir}:"

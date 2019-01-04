@@ -2,7 +2,7 @@
 
 # Usage in production:
 # sudo chmod 775 replaceAppContents.sh
-# sudo ./replaceAppContents.sh .  [From inside the TalentCloud directory with new files]
+# sudo ./replaceAppContents.sh [Unzipped directory name - probably TalentCloud]
 
 mydir=$1
 echo "Updating app with contents of ${mydir}:"
