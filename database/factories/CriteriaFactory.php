@@ -1,0 +1,22 @@
+<?php
+
+use App\Models\Criteria;
+use App\Models\Lookup\CriteriaType;
+use App\Models\JobPoster;
+use App\Models\Skill;
+use App\Models\Lookup\SkillLevel;
+
+$faker_fr = Faker\Factory::create('fr');
+
+$factory->define(Criteria::class, function (Faker\Generator $faker) use ($faker_fr) {
+    return [
+        'criteria_type_id' => CriteriaType::inRandomOrder()->first()->id,
+        'job_poster_id' => function () {
+            return factory(JobPoster::class)->create()->id;
+        },
+        'skill_id' => Skill::inRandomOrder()->first()->id,
+        'skill_level_id' => SkillLevel::inRandomOrder()->first()->id,
+        'description:en' => $faker->sentence(),
+        'description:fr' => $faker_fr->sentence()
+    ];
+});

@@ -139,6 +139,9 @@ return [
         'experience_saved.accepted' => 'Vous devez revoir et sauvegarder l\'étape 2.',        ,
         'application_step_1.accepted' => 'L\'étape 1 doit être complétée',
         'application_step_3.accepted' => 'L\'étape 3 doit être complétée',
+        'published' => [
+            'in' => 'You cannot edit a Job Poster that has been published'
+        ]
     ],
     /*
     |--------------------------------------------------------------------------
