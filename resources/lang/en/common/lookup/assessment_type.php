@@ -1,6 +1,26 @@
 <?php
 
 return [
+/**
+ * Narrative evidence of skill
+ Narrative assessment
+ Take home exam
+ Problem- based role play scenario
+ Coding Test
+ Portfolio of past work paired with a selection of situational interview
+questions
+ Written exam
+ Interview questions
+ Group test to develop a UX approach with particular scenarios
+ Individual interview
+o Behaviour based on client-relations and end users questions
+o Scenario based questions
+o Both scenario based and behaviour based questions
+ Reference check
+ Certificate or formal credential
+ Overall interview performance
+ */
+
     "narrative_assessment" => "Narrative assessment",
     "scenario_interview" => "Interview involving scenario-based questions",
     "ux_take_home_exam" => "Take-home exam involving preparation of a UX product or plan based on a scenario or client-role play",
