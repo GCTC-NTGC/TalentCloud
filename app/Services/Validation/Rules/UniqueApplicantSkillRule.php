@@ -43,6 +43,6 @@ class UniqueApplicantSkillRule implements Rule
 
     public function message()
     {
-        return Lang::get('validation.custom.user_skill_unique');
+        return Lang::get('validation.user_skill_unique');
     }
 }

@@ -115,6 +115,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Rule Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify validation messages for custom rules and validtors.
+    */
+    'applicant_has_relation' => 'Applicant must own this :attribute',
+    'contains_object_with_attribute' => ':attribute doesn\'t contain required :relation equal to :attributeValue',
+    'user_skill_unique' => 'You may only add each skill once',
+    'password_correct' => 'Old password isn\'t correct',
+
+    /*
+    |--------------------------------------------------------------------------
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
     |
@@ -126,9 +138,9 @@ return [
 
     'custom' => [
         'password' => 'The password must contain at least one character from the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).',
-        'password_correct' => 'Old password isn\'t correct',
-        'user_skill_unique' => 'You may only add each skill once',
-        'applicant_has_relation' => 'Applicant must own this :attribute',
+        'experience_saved.accepted' => 'You must review and save Step 2.',
+        'application_step_1.accepted' => 'Step 1 must be completed',
+        'application_step_3.accepted' => 'Step 3 must be completed',
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
         ]

@@ -394,6 +394,10 @@ class ApplicationByJobController extends Controller
         //Ensure user has permissions to update this application
         $this->authorize('update', $application);
 
+        // Record that the user has saved their experience for this application
+        $application->experience_saved = true;
+        $application->save();
+
         $degrees = $request->input('degrees');
 
         //Save new degrees
