@@ -218,24 +218,89 @@
             padding-bottom: 2rem;
 
             .assessment-summary {
-                padding: 1rem 0 0 0;
+                margin: 0 -1rem -1rem -1rem;
+                padding: 2rem 0 0 0;
 
-                &__item {
-                    padding: .5rem 0;
+                .skill-label {
+                    color: $palette--blue;
+                    display: block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 600;
+                }
 
-                    .assessment-label {
+                .skill-list {
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        @extend %paragraph;
+                        font-size: .707rem;
+                        margin: 0;
+                    }
+
+                }
+
+                .box {
+                    @extend %paragraph;
+                    font-size: .707rem;
+                    margin: 0;
+                    padding: 0 1rem 1rem 1rem;
+                }
+
+                .assessment_label {
+                    // color: $palette--blue;
+                    font-weight: 600;
+                }
+
+            }
+
+        }
+
+        .criteria-grid {
+            border-bottom: 1px solid black;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+
+            &:last-child {
+                border-bottom: 0;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .skill-assessment-preview__item {
+                margin: 0 -1rem -1rem -1rem;
+
+                .box {
+                    padding: 0 1rem 1rem 1rem;
+
+                    .skill-label {
                         color: $palette--blue;
                         display: block;
                         font-family: $font--sans;
                         font-size: $font-scale--regular;
                         font-weight: 600;
-                        margin: 0;
-                        padding: 0 1rem 0 0;
+                        margin: 0 0 1rem;
                     }
 
-                    .assessment-skills {
+                    .skill-description,
+                    .level-description {
                         @extend %paragraph;
-                        margin: 0;
+                        font-size: .707rem;
+                        margin: 1rem 0 0 0;
+                    }
+
+                    .skill-list {
+                        margin: 1rem 0 0 0;
+                        padding: 0;
+
+                        li {
+                            @extend %paragraph;
+                            font-size: .707rem;
+                            margin: 0;
+                        }
+
                     }
 
                 }
@@ -244,10 +309,45 @@
 
         }
 
-        .essential-criteria {
-            border-bottom: 1px solid black;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
+    }
+
+    .plan-table {
+
+        table {
+            @extend %paragraph;
+            background: white;
+            border: 1px solid black;
+            border-collapse: collapse;
+            display: table;
+
+            tr {
+                background: white;
+
+                &.plan-table__title {
+                    background: black;
+                    color: white;
+                    font-weight: 600;
+                }
+
+                &.plan-table__section-title {
+                    background: $palette--blue;
+                    color: white;
+                    font-weight: 600;
+                }
+
+            }
+
+            th, td {
+                color: black;
+                background: none;
+                border: 1px solid black;
+                vertical-align: top;
+
+                ul, li {
+                    color: black;
+                }
+
+            }
 
         }
 

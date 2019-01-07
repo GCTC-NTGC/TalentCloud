@@ -35,8 +35,8 @@ class ApplicantPolicy extends BasePolicy
      */
     public function view(User $user, Applicant $applicant)
     {
-        $authApplicant =  $user->user_role->name === "applicant" &&
-            $applicant->user_id === $user->id;
+        $authApplicant =  $user->hasRole('applicant') &&
+            $applicant->user->is($user);
         $authManager = $user->hasRole('manager') && $this->managerCanViewApplicant($user->manager, $applicant);
         return $authApplicant || $authManager;
     }

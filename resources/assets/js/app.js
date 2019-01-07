@@ -1237,6 +1237,62 @@
 
         deleteQuestionTrigger();
 
+        // Screening Plan Copy Function =====================================================
+
+            $(".screening-plan-action__copy").on("click", function(e) {
+                e.preventDefault();
+                var body = document.body, range, sel;
+                var table = document.getElementById("planTable");
+                if (document.createRange && window.getSelection) {
+                    range = document.createRange();
+                    sel = window.getSelection();
+                    sel.removeAllRanges();
+                    try {
+                        range.selectNodeContents(table);
+                        sel.addRange(range);
+                    } catch (e) {
+                        range.selectNode(table);
+                        sel.addRange(range);
+                    }
+                    document.execCommand("copy");
+
+                } else if (body.createTextRange) {
+                    range = body.createTextRange();
+                    range.moveToElementText(table);
+                    range.select();
+                    range.execCommand("Copy");
+                }
+            });
+
+            $(".screening-plan-action__copy").on("keyup", function(e) {
+
+                if (e.which == 13) {
+                    e.preventDefault();
+                    var body = document.body, range, sel;
+                    var table = document.getElementById("planTable");
+                    if (document.createRange && window.getSelection) {
+                        range = document.createRange();
+                        sel = window.getSelection();
+                        sel.removeAllRanges();
+                        try {
+                            range.selectNodeContents(table);
+                            sel.addRange(range);
+                        } catch (e) {
+                            range.selectNode(table);
+                            sel.addRange(range);
+                        }
+                        document.execCommand("copy");
+
+                    } else if (body.createTextRange) {
+                        range = body.createTextRange();
+                        range.moveToElementText(table);
+                        range.select();
+                        range.execCommand("Copy");
+                    }
+                }
+
+            });
+
     });
 
 })(jQuery);

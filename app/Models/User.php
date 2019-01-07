@@ -137,5 +137,9 @@ class User extends BaseModel implements
     {
         $this->notify(new ResetPasswordNotification($token));
     }
-
+    
+    public function getEmailAttribute($value) 
+    {
+    return strtolower($value);
+    }
 }

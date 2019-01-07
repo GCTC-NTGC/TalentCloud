@@ -845,37 +845,29 @@
 
         {# Essential Skills #}
 
-            <h5>Essential Criteria (Hard Skills)</h5>
+        {% set loopIteration = 1 %}
 
-            <div
-                class="manager-jobs__skill-wrapper">
+        {% for criteriaKey, criteria in skills %}
 
-                {# Essential Hard Skills List #}
+            {% for skillTypeKey, skillType in criteria %}
+
+                {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
+
+                <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)</h5>
+
+                <div
+                    class="manager-jobs__skill-wrapper">
 
                     <div
                         class="manager-jobs__create-skill-wrapper">
 
-                        {% set skillCounter = 0 %}
+                        {% for savedCriteria in job.criteria %}
 
-                        {% set skillType = "hard" %}
+                            {% if savedCriteria.criteria_type.name == criteriaKey and savedCriteria.skill.skill_type.name == skillTypeKey %}
 
-                        {% for criteria in job.criteria %}
+                                {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
 
-                            {% set skillCounter = skillCounter + 1 %}
-
-                            {% for skill in skills %}
-
-                                {% if criteria.skill.id == skill.id %}
-
-                                    {% set skillType = skill.skill_type.name %}
-
-                                    {% if skillType == "hard" %}
-                                        {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {% endfor %}
+                            {% endif %}
 
                         {% endfor %}
 
@@ -885,67 +877,9 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
+                    {% include "manager/job_create/criteria" %}
 
-                {# Skill Controls #}
-
-                    <div
-                        class="manager-jobs__create-action-wrapper">
-
-                        <button
-                            type="button"
-                            class="manager-jobs__add-skill-button"
-                            id="addSkillButton1">
-                            Add an Essential Hard Skill
-                        </button>
-
-                    </div>
-
-            </div>
-
-            <h5>Essential Criteria (Soft Skills)</h5>
-
-            <div
-                class="manager-jobs__skill-wrapper">
-
-                {# Essential Soft Skills List #}
-
-                    <div
-                        class="manager-jobs__create-skill-wrapper">
-
-                        {% set skillCounter = 0 %}
-
-                        {% set skillType = "soft" %}
-
-                        {% for criteria in job.criteria %}
-
-                            {% set skillCounter = skillCounter + 1 %}
-
-                            {% for skill in skills %}
-
-                                {% if criteria.skill.id == skill.id %}
-
-                                    {% set skillType = skill.skill_type.name %}
-
-                                    {% if skillType == "soft" %}
-                                        {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {% endfor %}
-
-                        {% endfor %}
-
-                        {# Skills get added here. #}
-
-                    </div>
-
-                    {# Skill Template #}
-
-                    {% include "manager/job_create/criteria" with {"criteria_type":"essential"} %}
-
-                {# Skill Controls #}
+                    {# Skill Controls #}
 
                     <div
                         class="manager-jobs__create-action-wrapper">
@@ -953,129 +887,19 @@
                         <button
                             type="button"
                             class="manager-jobs__add-skill-button"
-                            id="addSkillButton2">
-                            Add an Essential Hard Skill
+                            id="addSkillButton{{ loopIteration }}">
+                            Add an {{ criteriaKey|title }} {{ skillTypeKey|title }} Skill
                         </button>
 
                     </div>
 
-            </div>
+                </div>
 
-            <h5>Asset Criteria (Hard Skills)</h5>
+                {% set loopIteration = loopIteration + 1 %}
 
-            <div
-                class="manager-jobs__skill-wrapper">
+            {% endfor %}
 
-                {# Asset Hard Skills List #}
-
-                    <div
-                        class="manager-jobs__create-skill-wrapper">
-
-                        {% set skillCounter = 0 %}
-
-                        {% set skillType = "hard" %}
-
-                        {% for criteria in job.criteria %}
-
-                            {% set skillCounter = skillCounter + 1 %}
-
-                            {% for skill in skills %}
-
-                                {% if criteria.skill.id == skill.id %}
-
-                                    {% set skillType = skill.skill_type.name %}
-
-                                    {% if skillType == "hard" %}
-                                        {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {% endfor %}
-
-                        {% endfor %}
-
-                        {# Skills get added here. #}
-
-                    </div>
-
-                    {# Skill Template #}
-
-                    {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
-
-                {# Skill Controls #}
-
-                    <div
-                        class="manager-jobs__create-action-wrapper">
-
-                        <button
-                            type="button"
-                            class="manager-jobs__add-skill-button"
-                            id="addSkillButton3">
-                            Add an Asset Hard Skill
-                        </button>
-
-                    </div>
-
-            </div>
-
-            <h5>Asset Criteria (Soft Skills)</h5>
-
-            <div
-                class="manager-jobs__skill-wrapper">
-
-                {# Asset Soft Skills List #}
-
-                    <div
-                        class="manager-jobs__create-skill-wrapper">
-
-                        {% set skillCounter = 0 %}
-
-                        {% set skillType = "soft" %}
-
-                        {% for criteria in job.criteria %}
-
-                            {% set skillCounter = skillCounter + 1 %}
-
-                            {% for skill in skills %}
-
-                                {% if criteria.skill.id == skill.id %}
-
-                                    {% set skillType = skill.skill_type.name %}
-
-                                    {% if skillType == "soft" %}
-                                        {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {% endfor %}
-
-                        {% endfor %}
-
-                        {# Skills get added here. #}
-
-                    </div>
-
-                    {# Skill Template #}
-
-                    {% include "manager/job_create/criteria" with {"criteria_type":"asset"} %}
-
-                {# Skill Controls #}
-
-                    <div
-                        class="manager-jobs__create-action-wrapper">
-
-                        <button
-                            type="button"
-                            class="manager-jobs__add-skill-button"
-                            id="addSkillButton4">
-                            Add an Asset Soft Skill
-                        </button>
-
-                    </div>
-
-            </div>
+        {% endfor %}
 
     </div>
 

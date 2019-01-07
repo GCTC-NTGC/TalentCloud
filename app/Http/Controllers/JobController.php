@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\JobPoster;
@@ -22,6 +25,7 @@ use App\Models\Criteria;
 use App\Models\Skill;
 use App\Models\JobPosterQuestion;
 use App\Models\JobPosterKeyTask;
+use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
 
 class JobController extends Controller
@@ -86,15 +90,16 @@ class JobController extends Controller
     /**
      * Display the specified job poster.
      *
-     * @param  Request  $request
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return \Illuminate\View\View
      */
-    public function show(Request $request, JobPoster $jobPoster)
+    public function show(Request $request, JobPoster $jobPoster) : View
     {
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
-        foreach($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
+        foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
             $workplacePhotos[] = [
                 'description' => $photoCaption->description,
                 'url' => '/images/user.png'
@@ -104,158 +109,370 @@ class JobController extends Controller
         //TODO: replace route('manager.show',manager.id) in templates with link using slug
 
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(function($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
+            'essential' => $jobPoster->criteria->filter(
+                function ($value, $key) {
+                    return $value->criteria_type->name == 'essential';
+                }
+            ),
+            'asset' => $jobPoster->criteria->filter(
+                function ($value, $key) {
+                    return $value->criteria_type->name == 'asset';
+                }
+            ),
         ];
-        return view('applicant/job_post', [
-            'job_post' =>Lang::get('applicant/job_post'),
-            'manager' => $jobPoster->manager,
-            'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
-            'team_culture' => $jobPoster->manager->team_culture,
-            'work_environment' => $jobPoster->manager->work_environment,
-            'workplace_photos' => $workplacePhotos,
-            'job' => $jobPoster,
-            'criteria' => $criteria,
-            'skill_template' => Lang::get('common/skills'),
-        ]);
+
+        return view(
+            'applicant/job_post',
+            [
+                'job_post' => Lang::get('applicant/job_post'),
+                'manager' => $jobPoster->manager,
+                'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
+                'team_culture' => $jobPoster->manager->team_culture,
+                'work_environment' => $jobPoster->manager->work_environment,
+                'workplace_photos' => $workplacePhotos,
+                'job' => $jobPoster,
+                'criteria' => $criteria,
+                'skill_template' => Lang::get('common/skills'),
+            ]
+        );
     }
 
     /**
      * Display the form for creating a new Job Poster
-     * @param  Request $request [description]
-     * @return \Illuminate\Http\Response           A view
+     *
+     * @param \Illuminate\Http\Request $request Incoming request object.
+     *
+     * @return \Illuminate\View\View Job Create view
      */
-    public function create(Request $request) {
+    public function create(Request $request) : View
+    {
+        return $this->populateCreateView($request);
+    }
+
+    /**
+     * Display the form for editing an existing Job Poster
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return \Illuminate\View\View Job Create view
+     */
+    public function edit(Request $request, JobPoster $jobPoster) : View
+    {
+        return $this->populateCreateView($request, $jobPoster);
+    }
+
+    /**
+     * Get the manager from the request object and check if creating or editing
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
+     *
+     * @return \Illuminate\View\View Job Create view
+     */
+    public function populateCreateView(Request $request, JobPoster $jobPoster = null) : View
+    {
         $manager = $request->user() ? $request->user()->manager : null;
+        if (isset($jobPoster)) {
+            $job = $jobPoster;
+            $route = ['manager.jobs.store', $jobPoster];
+            $jobHeading = 'manager/job_edit';
+        } else {
+            $job = [];
+            $route = ['manager.jobs.store'];
+            $jobHeading = 'manager/job_create';
+        }
 
-        //No job details exist yet because we're creating a new one
-        $job = [];
+        $skillLangs = Lang::get('common/skills');
 
-        return view('manager/job_create', [
-            'job_create' => Lang::get('manager/job_create'),
-            'manager' => $manager,
-            'provinces' => Province::all(),
-            'departments' => Department::all(),
-            'language_requirments' => LanguageRequirement::all(),
-            'security_clearances' => SecurityClearance::all(),
-            'job' => $job,
-            'form_action_url' => route('manager.jobs.store'),
-            'skills' => Skill::all(),
-            'skill_levels' => SkillLevel::all(),
-            'skill_template' => Lang::get('common/skills'),
-        ]);
+        $softSkills = Skill::whereHas(
+            'skill_type',
+            function ($query) {
+                $query->where('name', '=', 'soft');
+            }
+        )->get()
+            ->mapWithKeys(
+                function ($skill) use ($skillLangs) {
+                    return [
+                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                    ];
+                }
+            )
+            ->all();
+
+        $hardSkills = Skill::whereHas(
+            'skill_type',
+            function ($query) {
+                $query->where('name', '=', 'hard');
+            }
+        )->get()
+            ->mapWithKeys(
+                function ($skill) use ($skillLangs) {
+                    return [
+                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                    ];
+                }
+            )
+            ->all();
+
+        asort($softSkills, SORT_LOCALE_STRING);
+        asort($hardSkills, SORT_LOCALE_STRING);
+
+        $skills = [
+            'essential' => [
+                'hard' => $hardSkills,
+                'soft' => $softSkills
+            ],
+            'asset' => [
+                'hard' => $hardSkills,
+                'soft' => $softSkills
+            ]
+        ];
+
+        $skillLevelCollection = SkillLevel::all();
+
+        $skillLevels = array();
+
+        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(
+            function ($skillLevel) use ($skillLangs) {
+                return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
+            }
+        )->all();
+
+        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(
+            function ($skillLevel) use ($skillLangs) {
+                return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
+            }
+        )->all();
+
+        return view(
+            'manager/job_create',
+            [
+                'job_heading' => Lang::get($jobHeading),
+                'manager' => $manager,
+                'provinces' => Province::all(),
+                'departments' => Department::all(),
+                'language_requirments' => LanguageRequirement::all(),
+                'security_clearances' => SecurityClearance::all(),
+                'job' => $job,
+                'form_action_url' => route(/** @scrutinizer ignore-type */ ...$route), // phpcs:ignore
+                'skills' => $skills,
+                'skill_levels' => $skillLevels,
+                'skill_template' => $skillLangs,
+            ]
+        );
     }
 
     /**
      * Create a new resource in storage
-     * @param  Request $request
-     * @return \Illuminate\Http\Response           A redirect
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
+     *
+     * @return \Illuminate\Http\RedirectResponse A redirect to the Job Index
      */
-    public function store(Request $request) {
+    public function store(Request $request, JobPoster $jobPoster = null) : RedirectResponse
+    {
+        // Don't allow edits for published Job Posters
+        // Also check auth while we're at it
+        if (isset($jobPoster)) {
+            $this->authorize('update', $jobPoster);
+            JobPosterValidator::validateUnpublished($jobPoster);
+        } else {
+            $this->authorize('create', JobPoster::class);
+        }
 
         $input = $request->input();
 
-        $job = new JobPoster();
+        $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
+
         $job->manager_id = $request->user()->manager->id;
         $job->published = ($input['submit'] == 'publish');
-        $job->fill([
-            'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
-            'term_qty' => $input['term_qty'],
-            'open_date_time' => new Date($input['open_date'].$input['open_time']),
-            'close_date_time' => new Date($input['close_date'].$input['close_time']),
-            'start_date_time' => new Date($input['start_date_time']),
-            'department_id' => $input['department'],
-            'province_id' => $input['province'],
-            'salary_min' => $input['salary_min'],
-            'salary_max' => $input['salary_max'],
-            'noc' => $input['noc'],
-            'classification' => $input['classification'],
-            'security_clearance_id' => $input['security_clearance'],
-            'language_requirement_id' => $input['language_requirement'],
-            'remote_work_allowed' => $request->input('remote_work_allowed', false),
-            'en' => [
-                'city' => $input['city'],
-                'title' => $input['title']['en'],
-                'impact' => $input['impact']['en'],
-                'branch' => $input['branch']['en'],
-                'division' => $input['division']['en'],
-                'education' => $input['education']['en'],
-            ],
-            'fr' => [
-                'city' => $input['city'],
-                'title' => $input['title']['fr'],
-                'impact' => $input['impact']['fr'],
-                'branch' => $input['branch']['fr'],
-                'division' => $input['division']['fr'],
-                'education' => $input['education']['fr'],
-            ],
-        ]);
-        $job->save();
 
-        if (isset($input['task'])) {
-            foreach($input['task'] as $task) {
-                $jobPosterTask = new JobPosterKeyTask();
-                $jobPosterTask->job_poster_id =  $job->id;
-                $jobPosterTask->fill([
+        $this->fillAndSaveJobPoster($input, $job);
+
+        $this->fillAndSaveJobPosterTasks($input, $job, isset($jobPoster));
+
+        $this->fillAndSaveJobPosterQuestions($input, $job, isset($jobPoster));
+
+        $this->fillAndSaveJobPosterCriteria($input, $job, isset($jobPoster));
+
+        return redirect(route('manager.jobs.index'));
+    }
+
+    /**
+     * Fill Job Poster model's properties and save
+     *
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     *
+     * @return void
+     */
+    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster)
+    {
+        $jobPoster->fill(
+            [
+                'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
+                'term_qty' => $input['term_qty'],
+                'open_date_time' => new Date($input['open_date'] . $input['open_time']),
+                'close_date_time' => new Date($input['close_date'] . $input['close_time']),
+                'start_date_time' => new Date($input['start_date_time']),
+                'department_id' => $input['department'],
+                'province_id' => $input['province'],
+                'salary_min' => $input['salary_min'],
+                'salary_max' => $input['salary_max'],
+                'noc' => $input['noc'],
+                'classification' => $input['classification'],
+                'security_clearance_id' => $input['security_clearance'],
+                'language_requirement_id' => $input['language_requirement'],
+                'remote_work_allowed' => (isset($input['remote_work_allowed']) ? $input['remote_work_allowed'] : false),
+                'en' => [
+                    'city' => $input['city'],
+                    'title' => $input['title']['en'],
+                    'impact' => $input['impact']['en'],
+                    'branch' => $input['branch']['en'],
+                    'division' => $input['division']['en'],
+                    'education' => $input['education']['en'],
+                ],
+                'fr' => [
+                    'city' => $input['city'],
+                    'title' => $input['title']['fr'],
+                    'impact' => $input['impact']['fr'],
+                    'branch' => $input['branch']['fr'],
+                    'division' => $input['division']['fr'],
+                    'education' => $input['education']['fr'],
+                ],
+            ]
+        );
+        $jobPoster->save();
+    }
+
+    /**
+     * Fill Job Poster's tasks and save
+     *
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param boolean               $replace   Remove existing relationships.
+     *
+     * @return void
+     */
+    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace)
+    {
+        if ($replace) {
+            $jobPoster->job_poster_key_tasks()->delete();
+        }
+
+        if (!array_key_exists('task', $input) || !is_array($input['task'])) {
+            return;
+        }
+
+        foreach ($input['task'] as $task) {
+            $jobPosterTask = new JobPosterKeyTask();
+            $jobPosterTask->job_poster_id = $jobPoster->id;
+            $jobPosterTask->fill(
+                [
                     'en' => [
                         'description' => $task['en']
                     ],
                     'fr' => [
                         'description' => $task['fr']
                     ]
-                ]);
-                $jobPosterTask->save();
-            }
+                ]
+            );
+            $jobPosterTask->save();
+        }
+    }
+
+    /**
+     * Fill Job Poster's questions and save
+     *
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param boolean               $replace   Remove existing relationships.
+     *
+     * @return void
+     */
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace)
+    {
+        if ($replace) {
+            $jobPoster->job_poster_questions()->delete();
         }
 
-        if (isset($input['question'])) {
-            foreach($input['question'] as $question) {
-                $jobQuestion = new JobPosterQuestion();
-                $jobQuestion->job_poster_id = $job->id;
-                $jobQuestion->fill([
-                    'en'=> [
+        if (!array_key_exists('question', $input) || !is_array($input['question'])) {
+            return;
+        }
+
+        foreach ($input['question'] as $question) {
+            $jobQuestion = new JobPosterQuestion();
+            $jobQuestion->job_poster_id = $jobPoster->id;
+            $jobQuestion->fill(
+                [
+                    'en' => [
                         'question' => $question['question']['en'],
                         'description' => $question['description']['en']
                     ],
-                    'fr'=> [
+                    'fr' => [
                         'question' => $question['question']['fr'],
                         'description' => $question['description']['fr']
                     ]
-                ]);
-                $jobQuestion->save();
-            }
+                ]
+            );
+            $jobQuestion->save();
+        }
+    }
+
+    /**
+     * Fill Job Poster's criteria and save
+     *
+     * @param mixed[]               $input     Field values.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param boolean               $replace   Remove existing relationships.
+     *
+     * @return void
+     */
+    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace)
+    {
+        if ($replace) {
+            $jobPoster->criteria()->delete();
+        }
+
+        if (!array_key_exists('criteria', $input) || !is_array($input['criteria'])) {
+            return;
         }
 
         $criteria = $input['criteria'];
 
-        //Save new criteria
+        $combinedCriteria = [];
+        if (isset($criteria['old'])) {
+            $combinedCriteria = array_replace_recursive($combinedCriteria, $criteria['old']);
+        }
         if (isset($criteria['new'])) {
-            foreach($criteria['new'] as $criteriaType => $criteriaTypeInput) {
-                foreach($criteriaTypeInput as $skillType => $skillTypeInput) {
-                    foreach($skillTypeInput as $criteriaInput) {
+            $combinedCriteria = array_replace_recursive($combinedCriteria, $criteria['new']);
+        }
+
+        if (! empty($combinedCriteria)) {
+            foreach ($combinedCriteria as $criteriaType => $criteriaTypeInput) {
+                foreach ($criteriaTypeInput as $skillType => $skillTypeInput) {
+                    foreach ($skillTypeInput as $criteriaInput) {
                         $criteria = new Criteria();
-                        $criteria->job_poster_id = $job->id;
-                        $criteria->fill([
-                            'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
-                            'skill_id' => $criteriaInput['skill_id'],
-                            'skill_level_id' => $criteriaInput['skill_level_id'],
-                            'en' => [
-                                'description' => $criteriaInput['description']['en'],
-                            ],
-                            'fr' => [
-                                'description' => $criteriaInput['description']['fr'],
-                            ],
-                        ]);
+                        $criteria->job_poster_id = $jobPoster->id;
+                        $criteria->fill(
+                            [
+                                'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
+                                'skill_id' => $criteriaInput['skill_id'],
+                                'skill_level_id' => $criteriaInput['skill_level_id'],
+                                'en' => [
+                                    'description' => $criteriaInput['description']['en'],
+                                ],
+                                'fr' => [
+                                    'description' => $criteriaInput['description']['fr'],
+                                ],
+                            ]
+                        );
                         $criteria->save();
                     }
                 }
             }
         }
-
-        return redirect( route('manager.jobs.index') );
     }
 }

@@ -14,7 +14,7 @@ build:
 
     environment:
         php:
-            version: "7.0"
+            version: "7.2"
             ini:
                 memory_limit: "-1"
         ruby: 2.5.1
