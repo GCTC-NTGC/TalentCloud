@@ -212,56 +212,42 @@
             margin: 3rem 0 1.5rem;
         }
 
-        .screening-plan-skill-list {
-            margin: -1rem;
+        .assessment-plan {
+            border-bottom: 1px solid black;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
 
-            .screening-plan-skill {
-                padding: 1rem;
+            .assessment-summary {
+                padding: 1rem 0 0 0;
 
-                .card {
-                    background: $palette--white;
-                    border-radius: 5px;
-                    box-shadow: 0 3px 10px rgba(0, 0, 10, .5);
-                    height: 100%;
-                    padding: 1.5rem;
+                &__item {
+                    padding: .5rem 0;
 
-                    .skill-title {
-                        color: $palette--font-black;
-                        font-family: $font--sans;
-                        font-size: $font-scale--h5;
-                        margin: 0 0 1rem;
-                    }
-
-                    .skill-label {
+                    .assessment-label {
                         color: $palette--blue;
                         display: block;
                         font-family: $font--sans;
                         font-size: $font-scale--regular;
-                        margin: 0 0 .5rem;
+                        font-weight: 600;
+                        margin: 0;
+                        padding: 0 1rem 0 0;
                     }
 
-                    p {
+                    .assessment-skills {
                         @extend %paragraph;
-                        font-size: .707rem;
-                        margin: .5rem 0;
-
-                        &:first-child {
-                            margin-top: 0;
-                        }
-
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-
-                        &+.skill-label {
-                            margin-top: 1rem;
-                        }
-
+                        margin: 0;
                     }
 
                 }
 
             }
+
+        }
+
+        .essential-criteria {
+            border-bottom: 1px solid black;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
 
         }
 

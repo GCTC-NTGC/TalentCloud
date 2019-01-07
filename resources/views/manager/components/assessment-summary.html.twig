@@ -1,13 +1,25 @@
 <div class="assessment-summary__item flex-grid top {% if template == true %}template{% endif %}">
 
     <div class="box small-1of5">
-        {{ assessment_type.name }}
+        <span class="assessment-label">
+            {{ assessment_type }}
+            {% if narrative == true %}
+                {{ screening.interface.plan.narrative_assessment_label }}
+            {% endif %}
+        </span>
     </div>
 
     <div class="box small-4of5">
-        {% for criterion in assessment.criteria %}
-            {{ criterion.skill.skill }},
-        {% endfor %}
+        <span class="assessment-skills">
+            {% for skill in skills %}
+                {{ skill }},
+            {% endfor %}
+            {% if narrative == true %}
+                {% for criterion in job.criteria %}
+                    {{ criterion.skill.skill}},
+                {% endfor %}
+            {% endif %}
+        </span>
     </div>
 
 </div>

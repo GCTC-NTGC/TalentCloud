@@ -11,9 +11,9 @@
     </div>
 
     <div class="box small-3of5">
-        <span>{{ screening.interface.plan.assessment_types_label }}</span>
+        <span class="skill-label">{{ screening.interface.plan.assessment_types_label }}</span>
         <ul>
-            <li>Talent Cloud Narrative Assessment</li>
+            <li>{{ screening.interface.plan.narrative_assessment_label }}</li>
             {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
                 {% for assessment_type in assessment_types.where("id", assessment.assessment_type_id) %}
                     <li>{{ assessment_type.name }}</li>
