@@ -14,17 +14,22 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $updated_at
  * Relations:
  * @property Collection[Assessment] $assessments
- * Accessors:
- * @property string $name   The localized name for this type.
+ * @property Collection[AssessmentTypeTranslation] $assessment_type_translations
+ * Localized Properties:
+ * @property string $name
  */
 class AssessmentType extends BaseModel
 {
+    use \Dimsav\Translatable\Translatable;
+
     /**
      * The columns that can be filled with mass-assignment
      *
      * @var string[]
      */
     protected $fillable = [];
+
+    public $translatedAttributes = ['name'];
 
     /**
      * Get the collection of Assessments of this type.
@@ -36,13 +41,8 @@ class AssessmentType extends BaseModel
         return $this->hasMany(Assessment::class);
     }
 
-    /**
-     * Get the localized name of this Type
-     *
-     * @return string
-     */
-    public function getNameAttribute(): string
+    public function assessment_type_translations()
     {
-        return ucwords(str_replace('_', ' ', $this->key)); //TODO: actually return a localized name
+        return $this->hasMany(App\Models\Lookup\AssessmentTypeTranslation::class);
     }
 }
