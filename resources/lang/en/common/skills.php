@@ -331,6 +331,22 @@ return [
             'name' => 'Strategy Development',
             'description' => 'Defined as: Ability to identify specific objectives, then set achievable goals, identify priorities, allocate energy and resources, and work with stakeholders to work towards intended outcomes/results, while assessing and adjusting the organization\'s direction in response to a changing environment.'
         ],
+        'requirements_analysis' => [
+            'name' => 'Requirements Analysis',
+            'description' => 'Defined as: Ability to collect and utilize qualitative and quantitative data to make design decisions and identify appropriate solutions, and to inform the preparation of business and technical documentation.'
+        ],
+        'quality_assurance' => [
+            'name' => 'Quality Assurance',
+            'description' => 'Defined as: Ability to design a wide range of testing techniques, identify the most effective techniques, data sets and tools to use, and communicate the testing approaches to both technical and non-technical stakeholders.'
+        ],
+        'accessibility_assessment_apps' => [
+            'name' => 'Accessibility Assessment for Applications',
+            'description' => 'Defined as: Familiar with accessibility guidelines and best practices in industry and the public sector.'
+        ],
+        'community_engagement' => [
+            'name' => 'Community Engagement',
+            'description' => 'Defined as: Ability to effectively communicate with a community of interested parties or stakeholders.'
+        ],
     ],
     'status' => [
         'claimed' => 'Claimed'
