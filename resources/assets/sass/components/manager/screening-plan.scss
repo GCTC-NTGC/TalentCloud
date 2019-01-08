@@ -183,8 +183,13 @@
         background: lighten($palette--black, 90%);
         border: 1px solid lighten($palette--black, 40%);
         border-radius: 5px;
+        margin: 0 0 2rem 0;
         padding: 2rem;
         position: relative;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
 
         .action-wrapper {
             position: absolute;
@@ -270,7 +275,11 @@
             }
 
             .skill-assessment-preview__item {
-                margin: 0 -1rem -1rem -1rem;
+                margin: 0 -1rem 1rem -1rem;
+
+                &:last-child {
+                    margin-bottom: -1rem;
+                }
 
                 .box {
                     padding: 0 1rem 1rem 1rem;
@@ -312,10 +321,23 @@
     }
 
     .plan-table {
+        background: white;
+        height: 1px;
+        position: absolute;
+        top: -1000rem;
+        width: 1px;
+
+        * {
+            background: white;
+
+            th, td, ul, li {
+                font-size: 12px !important;
+            }
+
+        }
 
         table {
             @extend %paragraph;
-            background: white;
             border: 1px solid black;
             border-collapse: collapse;
             display: table;
@@ -324,14 +346,14 @@
                 background: white;
 
                 &.plan-table__title {
-                    background: black;
-                    color: white;
+                    // background: black;
+                    // color: white;
                     font-weight: 600;
                 }
 
                 &.plan-table__section-title {
-                    background: $palette--blue;
-                    color: white;
+                    // background: $palette--blue;
+                    // color: white;
                     font-weight: 600;
                 }
 

@@ -1246,7 +1246,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     var body = document.body,
                                         range,
                                         sel;
-                                    var table = document.getElementById("planTable");
+                                    var tableID = $(this).parents(".screening-plan").attr("data-item-id");
+                                    // var table = $(".screening-plan-list").find("[data-table-id='" + tableID + "']");
+                                    var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
+                                    var table = tableArray[0];
+                                    console.log(tableID);
+                                    console.log(table);
                                     if (document.createRange && window.getSelection) {
                                                 range = document.createRange();
                                                 sel = window.getSelection();
@@ -1274,7 +1279,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                 var body = document.body,
                                                     range,
                                                     sel;
-                                                var table = document.getElementById("planTable");
+                                                var tableID = $(this).parents(".screening-plan").attr("data-item-id");
+                                                var table = $(".screening-plan-list").find("[data-table-id='" + tableID + "']");
                                                 if (document.createRange && window.getSelection) {
                                                             range = document.createRange();
                                                             sel = window.getSelection();

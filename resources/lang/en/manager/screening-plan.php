@@ -17,7 +17,7 @@ return [
         "asset_skills_label" => "Asset Skills",
         "asset_skills_null_copy" => "No Asset Criteria Exist",
         "build_button_label" => "Build New Screening Plan",
-        "screening_plan_section_label" => "My Screening Plan",
+        "screening_plan_section_label" => "My Screening Plans",
         "screening_plan_section_context" => "The screening plan that you generate using the button above will appear here.",
         "plan" => [
             "essential_criteria_title" => "Essential Criteria",

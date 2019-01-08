@@ -1,4 +1,4 @@
-<div class="screening-plan modal-target-object {% if template == true %}template{% endif %}"
+<div class="screening-plan modal-target-object"
     data-item-saved="true"
     data-item-url="{{ route("screening_plans.destroy", ":id") }}"
     data-item-id="{{ plan.id }}"
@@ -73,14 +73,18 @@
 
 </div>
 
-<div class="plan-table">
+<div aria-hidden="true" class="plan-table">
 
-    <table id="planTable">
+    <table data-table-id="{{ plan.id }}">
 
         <thead>
 
             <tr class="plan-table__title">
-                <td colspan="3"><h1>{{ screening.interface.screening_plan_section_label }}</h1></td>
+                <td colspan="3"><h1>{{ job.title }}</h1></td>
+            </tr>
+
+            <tr class="plan-table__title">
+                <td colspan="3"><h2>{{ screening.interface.screening_plan_section_label }} (#{{ plan.id }})</h2></td>
             </tr>
 
         </thead>
@@ -88,7 +92,7 @@
         <tbody>
 
             <tr class="plan-table__section-title">
-                <td colspan="3"><h2>{{ screening.interface.plan.plan_title }}</h2></td>
+                <td colspan="3"><h3>{{ screening.interface.plan.plan_title }}</h3></td>
             </tr>
 
             <tr>
@@ -118,7 +122,7 @@
             {% endfor %}
 
             <tr class="plan-table__section-title">
-                <td colspan="3"><h2>{{ screening.interface.plan.essential_criteria_title }}</h2></td>
+                <td colspan="3"><h3>{{ screening.interface.plan.essential_criteria_title }}</h3></td>
             </tr>
 
             {% for criterion in job.criteria %}
@@ -127,15 +131,15 @@
 
                     <tr>
                         <td>
-                            <h3>{{ criterion.skill.skill }}</h3>
+                            <h4>{{ criterion.skill.skill }}</h4>
                             {{ criterion.skill.description }}
                         </td>
                         <td>
-                            <h3>{{ criterion.level_name|title }}</h3>
+                            <h4>{{ criterion.level_name|title }}</h4>
                             {{ criterion.level_description|nl2br }}
                         </td>
                         <td>
-                            <h3>{{ screening.interface.plan.assessment_types_label }}</h3>
+                            <h4>{{ screening.interface.plan.assessment_types_label }}</h4>
                             <ul>
                                 <li>{{ screening.interface.plan.narrative_assessment_label }}</li>
                                 {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
@@ -150,7 +154,7 @@
             {% endfor %}
 
             <tr class="plan-table__section-title">
-                <td colspan="3"><h2>{{ screening.interface.plan.asset_criteria_title }}</h2></td>
+                <td colspan="3"><h3>{{ screening.interface.plan.asset_criteria_title }}</h3></td>
             </tr>
 
             {% for criterion in job.criteria %}
@@ -159,15 +163,15 @@
 
                     <tr>
                         <td>
-                            <h3>{{ criterion.skill.skill }}</h3>
+                            <h4>{{ criterion.skill.skill }}</h4>
                             {{ criterion.skill.description }}
                         </td>
                         <td>
-                            <h3>{{ criterion.level_name|title }}</h3>
+                            <h4>{{ criterion.level_name|title }}</h4>
                             {{ criterion.level_description|nl2br }}
                         </td>
                         <td>
-                            <h3>{{ screening.interface.plan.assessment_types_label }}</h3>
+                            <h4>{{ screening.interface.plan.assessment_types_label }}</h4>
                             <ul>
                                 <li>{{ screening.interface.plan.narrative_assessment_label }}</li>
                                 {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
