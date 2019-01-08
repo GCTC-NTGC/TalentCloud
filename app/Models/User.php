@@ -131,14 +131,15 @@ class User extends BaseModel implements
      * Send the password reset notification.
      *
      * @param  string  $token
+     *
      * @return void
      */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
     }
-    
-    public function getEmailAttribute($value) 
+
+    public function getEmailAttribute($value)
     {
     return strtolower($value);
     }

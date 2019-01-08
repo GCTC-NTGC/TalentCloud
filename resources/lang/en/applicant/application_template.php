@@ -52,7 +52,7 @@ return [
             ],
             "deleteWork" => [
                 "type" => "deleteConfirmation",
-                "title" => "Delete this Lived Experience?",
+                "title" => "Delete this Equivalent Experience?",
                 "content" => [
                     "00" => "Are you sure you want to permanently delete this equivalent experience from your profile?",
                     "01" => "All previously submitted applications will retain this experience."
@@ -114,8 +114,8 @@ return [
             "section_course_title" => "My Courses/Certifications",
             "add_course_label" => "Add Course/Certification",
             "null_course_copy" => "You don't currently have any courses or certifications on your profile! Use the button above to add one.",
-            "section_work_title" => "My Lived Experience",
-            "add_work_label" => "Add Lived Experience",
+            "section_work_title" => "My Equivalent Experience",
+            "add_work_label" => "Add Equivalent Experience",
             "null_work_copy" => "You don't currently have any equivalent experience on your profile! Use the button above to add some.",
         ],
 
