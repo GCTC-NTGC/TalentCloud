@@ -239,9 +239,13 @@
                     padding: 0;
 
                     li {
-                        @extend %paragraph;
+                        background: $palette--blue;
+                        border-radius: 5px;
+                        color: white;
+                        display: inline-block;
                         font-size: .707rem;
-                        margin: 0;
+                        font-weight: 600;
+                        padding: .5rem;
                     }
 
                 }
@@ -323,6 +327,7 @@
     .plan-table {
         background: white;
         height: 1px;
+        overflow: hidden;
         position: absolute;
         top: -1000rem;
         width: 1px;
