@@ -210,6 +210,22 @@
 
         }
 
+        .screening-plan-context {
+            @extend %paragraph;
+            margin: 2rem 0 0 0;
+
+            .blue {
+                color: $palette--blue;
+                font-weight: 600;
+            }
+
+            .green {
+                color: $palette--green;
+                font-weight: 600;
+            }
+
+        }
+
         .assessment-title {
             color: $palette--blue;
             font-family: $font--sans;
@@ -244,13 +260,21 @@
                     padding: 0;
 
                     li {
-                        background: $palette--blue;
                         border-radius: 5px;
                         color: white;
                         display: inline-block;
                         font-size: .707rem;
                         font-weight: 600;
                         padding: .5rem;
+
+                        &.blue {
+                            background: $palette--blue;
+                        }
+
+                        &.green {
+                            background: $palette--green;
+                        }
+
                     }
 
                 }
@@ -269,6 +293,11 @@
 
                     .box {
                         padding: 1rem;
+
+                        &:last-child {
+                            padding-left: 0;
+                        }
+
                     }
 
                 }

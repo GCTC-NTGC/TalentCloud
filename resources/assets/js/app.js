@@ -27,6 +27,10 @@
 
     // User Agent Data Attributes ==============================================
 
+    // Sample Git Commit Test
+
+    // Second Git Test
+
     var ua = navigator.userAgent;
     ua = ua.toString();
     $('body').attr('id', ua);
@@ -1243,11 +1247,8 @@
                 e.preventDefault();
                 var body = document.body, range, sel;
                 var tableID = $(this).parents(".screening-plan").attr("data-item-id");
-                // var table = $(".screening-plan-list").find("[data-table-id='" + tableID + "']");
                 var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
                 var table = tableArray[0];
-                console.log(tableID);
-                console.log(table);
                 if (document.createRange && window.getSelection) {
                     range = document.createRange();
                     sel = window.getSelection();
@@ -1275,7 +1276,8 @@
                     e.preventDefault();
                     var body = document.body, range, sel;
                     var tableID = $(this).parents(".screening-plan").attr("data-item-id");
-                    var table = $(".screening-plan-list").find("[data-table-id='" + tableID + "']");
+                    var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
+                    var table = tableArray[0];
                     if (document.createRange && window.getSelection) {
                         range = document.createRange();
                         sel = window.getSelection();
