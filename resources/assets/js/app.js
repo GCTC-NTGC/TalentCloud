@@ -1243,63 +1243,45 @@
 
         // Screening Plan Copy Function =====================================================
 
-            $(".screening-plan-action__copy").on("click", function(e) {
+        function copyScreeningPlan(copyButton) {
+            var body = document.body, range, sel;
+            var tableID = $(copyButton)
+                .parents(".screening-plan")
+                .attr("data-item-id");
+            var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
+            var table = tableArray[0];
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                sel = window.getSelection();
+                sel.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    sel.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    sel.addRange(range);
+                }
+                document.execCommand("copy");
+
+            } else if (body.createTextRange) {
+                range = body.createTextRange();
+                range.moveToElementText(table);
+                range.select();
+                range.execCommand("Copy");
+            }
+        }
+
+        $(".screening-plan-action__copy").on("click", function(e) {
+            e.preventDefault();
+            copyScreeningPlan(this);
+        });
+
+        $(".screening-plan-action__copy").on("keyup", function(e) {
+            if (e.which == 13) {
                 e.preventDefault();
-                var body = document.body, range, sel;
-                var tableID = $(this).parents(".screening-plan").attr("data-item-id");
-                var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
-                var table = tableArray[0];
-                if (document.createRange && window.getSelection) {
-                    range = document.createRange();
-                    sel = window.getSelection();
-                    sel.removeAllRanges();
-                    try {
-                        range.selectNodeContents(table);
-                        sel.addRange(range);
-                    } catch (e) {
-                        range.selectNode(table);
-                        sel.addRange(range);
-                    }
-                    document.execCommand("copy");
-
-                } else if (body.createTextRange) {
-                    range = body.createTextRange();
-                    range.moveToElementText(table);
-                    range.select();
-                    range.execCommand("Copy");
-                }
-            });
-
-            $(".screening-plan-action__copy").on("keyup", function(e) {
-
-                if (e.which == 13) {
-                    e.preventDefault();
-                    var body = document.body, range, sel;
-                    var tableID = $(this).parents(".screening-plan").attr("data-item-id");
-                    var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
-                    var table = tableArray[0];
-                    if (document.createRange && window.getSelection) {
-                        range = document.createRange();
-                        sel = window.getSelection();
-                        sel.removeAllRanges();
-                        try {
-                            range.selectNodeContents(table);
-                            sel.addRange(range);
-                        } catch (e) {
-                            range.selectNode(table);
-                            sel.addRange(range);
-                        }
-                        document.execCommand("copy");
-
-                    } else if (body.createTextRange) {
-                        range = body.createTextRange();
-                        range.moveToElementText(table);
-                        range.select();
-                        range.execCommand("Copy");
-                    }
-                }
-
-            });
+                copyScreeningPlan(this);
+            }
+        });
 
     });
 
