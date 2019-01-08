@@ -277,7 +277,7 @@ return [
         ],
         'results_oriented' => [
             'name' => 'Axé sur les résultats',
-            'description' => 'Se définit comme suit : Capacité d’axer les efforts pour atteindre des résultats de qualité conformes à la vision globale.'
+            'description' => 'Se définit comme suit : Capacité d\'axer les efforts pour atteindre des résultats de qualité conformes à la vision globale.'
         ],
         'relationship_management' => [
             'name' => 'Gestion des relations',
@@ -285,15 +285,15 @@ return [
         ],
         'data_analysis' => [
             'name' => 'Analyse de données',
-            'description' => 'Se définit comme suit : Capacité d’inspecter, d’épurer, de transformer et de modéliser des données, dans le but de découvrir des renseignements utiles, d’atteindre des conclusions informées, et d’appuyer la prise de décision.'
+            'description' => 'Se définit comme suit : Capacité d\'inspecter, d\'épurer, de transformer et de modéliser des données, dans le but de découvrir des renseignements utiles, d\'atteindre des conclusions informées, et d\'appuyer la prise de décision.'
         ],
         'data_mining' => [
             'name' => 'Extraction de données',
-            'description' => 'Se définit comme suit : Capacité d’utiliser une technique d’analyse de données axée sur la modélisation et la découverte de connaissances à des fins de prédiction plutôt que des fins purement descriptives.'
+            'description' => 'Se définit comme suit : Capacité d\'utiliser une technique d\'analyse de données axée sur la modélisation et la découverte de connaissances à des fins de prédiction plutôt que des fins purement descriptives.'
         ],
         'r_programming' => [
             'name' => 'Programmation R',
-            'description' => 'Se définit comme suit : un langage de programmation voué à l’informatique statistique et aux graphiques. Le langage R est largement utilisé par les statisticiens et les extracteurs de données pour l’élaboration de logiciels statistiques et l’analyse de données.'
+            'description' => 'Se définit comme suit : un langage de programmation voué à l\'informatique statistique et aux graphiques. Le langage R est largement utilisé par les statisticiens et les extracteurs de données pour l\'élaboration de logiciels statistiques et l\'analyse de données.'
         ],
         'database_design_and_management' => [
             'name' => 'Conception et gestion de bases de données',
@@ -301,35 +301,51 @@ return [
         ],
         'scrum' => [
             'name' => 'Méthodologie SCRUM',
-            'description' => 'Se définissant comme suit : Capacité de travailler selon la méthodologie Scrum, un cadre Agile pour des projets complexes qui aide à décomposer un projet en objectifs tangibles par la tenue de réunions quotidiennes, l’établissement d’échéanciers de projet détaillés et la détermination des obstacles éventuels au projet.'
+            'description' => 'Se définissant comme suit : Capacité de travailler selon la méthodologie Scrum, un cadre Agile pour des projets complexes qui aide à décomposer un projet en objectifs tangibles par la tenue de réunions quotidiennes, l\'établissement d\'échéanciers de projet détaillés et la détermination des obstacles éventuels au projet.'
         ],
         'team_foundation_server' => [
             'name' => 'Éléments de travail du TFS',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser Team Foundation Server (communément appelé TFS), qui couvre la totalité du cycle de vie de l’application et permet les capacités de développement et d’exploitation.'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser Team Foundation Server (communément appelé TFS), qui couvre la totalité du cycle de vie de l\'application et permet les capacités de développement et d\'exploitation.'
         ],
         'n_unit_testing' => [
             'name' => 'Essais de N-Unit',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser N-Unit, un cadre source ouverte en évolution conçu pour la rédaction et l’exécution d’essais dans les langages de programmation de Microsoft.NET.'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser N-Unit, un cadre source ouverte en évolution conçu pour la rédaction et l\'exécution d\'essais dans les langages de programmation de Microsoft.NET.'
         ],
         'asp_net_mvc' => [
             'name' => 'ASP.NET MVC',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser ASP.NET MVC, un cadre d’application Web élaboré par Microsoft, qui met en application le parcours Modèle-Vue-Contrôleur (MVC).'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser ASP.NET MVC, un cadre d\'application Web élaboré par Microsoft, qui met en application le parcours Modèle-Vue-Contrôleur (MVC).'
         ],
         'ef6' => [
             'name' => 'EF6',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser Entity Framework (EF), un cadre source ouverte de mappage objet-relationnel (ORM) pour ADO.NET.'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser Entity Framework (EF), un cadre source ouverte de mappage objet-relationnel (ORM) pour ADO.NET.'
         ],
         'cloud_architecture_for_mobile_and_applications' => [
             'name' => 'Architecture en nuage pour dispositifs mobiles et applications',
-            'description' => 'Définition : Capacité à structurer, à concevoir et à mettre en œuvre des technologies, des solutions et des services d’infrastructure, par exemple calcul, stockage, réseaux, infrastructures physiques, logiciels, logiciels disponibles sur le marché, trousses et solutions de sources ouvertes, infrastructure virtuelle et en nuage, y compris PaaS, SaaS, en utilisant Azure, AWS, Xamarin, Java, C#, CSS ou Python.'
+            'description' => 'Définition : Capacité à structurer, à concevoir et à mettre en œuvre des technologies, des solutions et des services d\'infrastructure, par exemple calcul, stockage, réseaux, infrastructures physiques, logiciels, logiciels disponibles sur le marché, trousses et solutions de sources ouvertes, infrastructure virtuelle et en nuage, y compris PaaS, SaaS, en utilisant Azure, AWS, Xamarin, Java, C#, CSS ou Python.'
         ],
         'cloud_computing_platform_configuration' => [
-            'name' => 'Configuration d’une plateforme en nuage',
-            'description' => 'Définition : Capacité à travailler avec Azure et AWS pour définir tous les détails propres au matériel et aux logiciels des éléments d’un environnement en nuage afin d’en assurer l’interopérabilité et de faire en sorte qu’ils puissent communiquer ensemble.'
+            'name' => 'Configuration d\'une plateforme en nuage',
+            'description' => 'Définition : Capacité à travailler avec Azure et AWS pour définir tous les détails propres au matériel et aux logiciels des éléments d\'un environnement en nuage afin d\'en assurer l\'interopérabilité et de faire en sorte qu\'ils puissent communiquer ensemble.'
         ],
         'strategy_development' => [
             'name' => 'Élaboration de la stratégie',
-            'description' => 'Se définit comme suit : Capacité à définir des objectifs précis, puis des buts réalisables, à établir l’ordre des priorités, à répartir efficacement les efforts et les ressources et à travailler avec les parties concernées à l’atteinte des résultats escomptés, tout en évaluant et en rajustant, au besoin, l’orientation de l’organisation pour qu’elle puisse s’adapter à un environnement en constante évolution.'
+            'description' => 'Se définit comme suit : Capacité à définir des objectifs précis, puis des buts réalisables, à établir l\'ordre des priorités, à répartir efficacement les efforts et les ressources et à travailler avec les parties concernées à l\'atteinte des résultats escomptés, tout en évaluant et en rajustant, au besoin, l\'orientation de l\'organisation pour qu\'elle puisse s\'adapter à un environnement en constante évolution.'
+        ],
+        'requirements_analysis' => [
+            'name' => 'Analyse des exigences',
+            'description' => 'Se définit comme suit : capacité à recueillir et à utiliser des données qualitatives et quantitatives pour prendre des décisions en matière de conception et trouver des solutions appropriées, et pour éclairer la préparation de documents fonctionnels et techniques.'
+        ],
+        'quality_assurance' => [
+            'name' => 'Assurance de la qualité',
+            'description' => 'Se définit comme suit : capacité à concevoir un vaste éventail de techniques d\'essai, à cerner les techniques, jeux de données et outils les plus efficaces, et à communiquer les méthodes d\'essai à des intervenants techniques et non techniques.'
+        ],
+        'accessibility_assessment_apps' => [
+            'name' => 'Évaluation de l\'accessibilité pour les demandes',
+            'description' => 'Se définit comme suit : connaissance des lignes directrices en matière d\'accessibilité et des pratiques exemplaires de l\'industrie et du secteur public.'
+        ],
+        'community_engagement' => [
+            'name' => 'Mobilisation communautaire',
+            'description' => 'Se définit comme suit : capacité à communiquer de façon efficace avec une communauté de parties intéressées ou d\'intervenants.'
         ],
     ],
     'status' => [
