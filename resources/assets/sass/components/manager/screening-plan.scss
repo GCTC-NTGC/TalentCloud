@@ -226,12 +226,17 @@
                 margin: 0 -1rem -1rem -1rem;
                 padding: 2rem 0 0 0;
 
+                &__item {
+                    padding: 0 1rem;
+                }
+
                 .skill-label {
                     color: $palette--blue;
                     display: block;
                     font-family: $font--sans;
                     font-size: $font-scale--regular;
                     font-weight: 600;
+                    margin-bottom: 1rem;
                 }
 
                 .skill-list {
@@ -254,7 +259,18 @@
                     @extend %paragraph;
                     font-size: .707rem;
                     margin: 0;
-                    padding: 0 1rem 1rem 1rem;
+                }
+
+                .row {
+
+                    &:nth-child(odd) {
+                        background: white;
+                    }
+
+                    .box {
+                        padding: 1rem;
+                    }
+
                 }
 
                 .assessment_label {

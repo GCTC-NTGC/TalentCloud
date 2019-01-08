@@ -8,30 +8,46 @@
         <span class="skill-label">{{ screening.interface.plan.skills_label }}</span>
     </div>
 
-    <div class="box small-1of5 assessment_label">
-        {{ screening.interface.plan.narrative_assessment_label }}
-    </div>
+    <div class="box full row">
 
-    <div class="box small-4of5">
-        <ul class="skill-list">
-            {% for criterion in job.criteria %}
-                <li>{{ criterion.skill.skill }}</li>
-            {% endfor %}
-        </ul>
+        <div class="flex-grid">
+
+            <div class="box small-1of5 assessment_label">
+                {{ screening.interface.plan.narrative_assessment_label }}
+            </div>
+
+            <div class="box small-4of5">
+                <ul class="skill-list">
+                    {% for criterion in job.criteria %}
+                        <li>{{ criterion.skill.skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
     </div>
 
     {% for assessment_type, skills in assessment_plans[plan.id] %}
 
-        <div class="box small-1of5 assessment_label">
-            {{ assessment_type|title }}
-        </div>
+        <div class="box full row">
 
-        <div class="box small-4of5">
-            <ul class="skill-list">
-                {% for skill in skills %}
-                    <li>{{ skill }}</li>
-                {% endfor %}
-            </ul>
+            <div class="flex-grid">
+
+                <div class="box small-1of5 assessment_label">
+                    {{ assessment_type|title }}
+                </div>
+
+                <div class="box small-4of5">
+                    <ul class="skill-list">
+                        {% for skill in skills %}
+                            <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
         </div>
 
     {% endfor %}
