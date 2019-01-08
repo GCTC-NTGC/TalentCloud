@@ -10,7 +10,7 @@
 
     <div class="box full row">
 
-        <div class="flex-grid">
+        <div class="flex-grid middle">
 
             <div class="box small-1of5 assessment_label">
                 {{ screening.interface.plan.narrative_assessment_label }}
@@ -19,7 +19,7 @@
             <div class="box small-4of5">
                 <ul class="skill-list">
                     {% for criterion in job.criteria %}
-                        <li>{{ criterion.skill.skill }}</li>
+                        <li class="{% if criterion.criteria_type.name == "essential" %}green{% else %}blue{% endif %}">{{ criterion.skill.skill }} ({{ criterion.level_name|title }})</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -32,7 +32,7 @@
 
         <div class="box full row">
 
-            <div class="flex-grid">
+            <div class="flex-grid middle">
 
                 <div class="box small-1of5 assessment_label">
                     {{ assessment_type|title }}
@@ -41,7 +41,11 @@
                 <div class="box small-4of5">
                     <ul class="skill-list">
                         {% for skill in skills %}
-                            <li>{{ skill }}</li>
+                            {% for criterion in job.criteria %}
+                                {% if skill == criterion.skill.skill %}
+                                    <li class="{% if criterion.criteria_type.name == "essential" %}green{% else %}blue{% endif %}">{{ skill }} ({{ criterion.level_name|title }})</li>
+                                {% endif %}
+                            {% endfor %}
                         {% endfor %}
                     </ul>
                 </div>

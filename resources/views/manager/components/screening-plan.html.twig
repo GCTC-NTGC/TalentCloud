@@ -23,6 +23,8 @@
 
     <h3 class="screening-plan-title">{{ screening.interface.plan.plan_title }}</h3>
 
+    <p class="screening-plan-context">Skills below are colour coded so that <span class="green">Essential Skills</span> are green and <span class="blue">Asset Skills</span> are blue.</p>
+
     <div class="assessment-plan">
 
         <div class="assessment-summary">
@@ -100,7 +102,7 @@
                 <td colspan="2">
                     <ul>
                         {% for criterion in job.criteria %}
-                            <li>{{ criterion.skill.skill }}</li>
+                            <li>{{ criterion.skill.skill }} ({% if criterion.criteria_type.name == "essential" %}Essential{% else %}Asset{% endif %}, {{ criterion.level_name|title }})</li>
                         {% endfor %}
                     </ul>
                 </td>
@@ -113,7 +115,11 @@
                     <td colspan="2">
                         <ul>
                             {% for skill in skills %}
-                                <li>{{ skill }}</li>
+                                {% for criterion in job.criteria %}
+                                    {% if skill == criterion.skill.skill %}
+                                        <li>{{ skill }} ({% if criterion.criteria_type.name == "essential" %}Essential{% else %}Asset{% endif %}, {{ criterion.level_name|title }})</li>
+                                    {% endif %}
+                                {% endfor %}
                             {% endfor %}
                         </ul>
                     </td>
