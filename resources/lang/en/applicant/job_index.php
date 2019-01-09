@@ -27,10 +27,11 @@ return [
         ],
         "duration_label" => "Duration",
         "remote_label" => "Remote Work",
+        "apply_by_label" => "Apply By",
         "time_remaining" => ":time until close",
         "job_closed" => "Job has closed",
         "days_remaining_label" => ":count day until close.|:count days until close.",
-        "applicants_label" => ":count applicant so far.|:count applicants so far.",
+        "applicants_label" => "Applicants to Date",
         "button_label" => "View Job"
     ]
 ];

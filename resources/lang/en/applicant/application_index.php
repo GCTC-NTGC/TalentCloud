@@ -14,6 +14,7 @@ return [
     "progress_title" => "Applications in Progress",
     "completed_title" => "Completed Applications",
     "expired_title" => "Expired Applications",
+    "apply_by_label" => "Apply By",
     "days_remaining_label" => ":count Days Remaining",
     "time_remaining" => ":time remaining",
     "job_closed" => "Job closed",
