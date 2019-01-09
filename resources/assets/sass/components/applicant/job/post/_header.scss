@@ -4,7 +4,7 @@
 
 // =============================================================================
 .job-post__header {
-    background-color: transparentize($palette--black, .15);
+    background-color: #202023;
     background-image: url("/images/bg_lightning_texture.png");
     background-position: center;
     background-repeat: repeat;
@@ -21,7 +21,7 @@
         >.flex-grid {
 
             >.box:last-child {
-                
+
                 @media #{$l-tablet} {
                     text-align: right;
                 }
