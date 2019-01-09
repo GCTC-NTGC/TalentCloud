@@ -166,13 +166,36 @@ class JobPoster extends BaseModel {
 
     // Methods
 
-    public function isOpen() {
+    /**
+     * Formatted and localized date and time the Job Poster closes.
+     *
+     * @return string
+     */
+    public function applyBy() : string
+    {
+        $date = new Date($this->close_date_time, 'America/Toronto');
+        return $date->format('F jS, Y, gA T');
+    }
+
+    /**
+     * Check if a Job Poster is open for applications.
+     *
+     * @return boolean
+     */
+    public function isOpen() : bool
+    {
         return $this->published
             && $this->open_date_time->isPast()
             && $this->close_date_time->isFuture();
     }
 
-    public function timeRemaining() {
+    /**
+     * Calculate the remaining time a Job Poster is open.
+     *
+     * @return string
+     */
+    public function timeRemaining() : string
+    {
         $interval = $this->close_date_time->diff(Date::now());
 
         $d = $interval->d;
