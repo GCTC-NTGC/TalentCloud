@@ -18,7 +18,9 @@
 
                 <p
                     class="job-post__header-meta">
-                    {% include "common/job_time_remaining" with {template:job_post.header} %}
+                    <span>
+                        {{ job_post.header.apply_by_label|trans }} {% include "common/job_time_remaining" with {template:job_post.header} %}
+                    </span>
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>
                         {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count) }}
