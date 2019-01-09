@@ -22,8 +22,8 @@ return [
             'permanent' => 'Permanent.'
         ],
         'remote_work_allowed' => [
-            true => 'Remote Work Allowed',
-            false => 'Remote Work Not Allowed',
+            true => 'Allowed',
+            false => 'Not Allowed',
         ],
         "duration_label" => "Duration",
         "remote_label" => "Remote Work",
