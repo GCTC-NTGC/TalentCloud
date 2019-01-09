@@ -12,6 +12,7 @@ return [
     "title" => "Browse Jobs",
     "job_index_title" => "Talent Cloud | Applicant: Browse Jobs",
     "index" => [
+        "null_state" => "We're sorry, there aren't any jobs currently posted on Talent Cloud. Check back regularly for updates!",
         "view_title" => "View the job post for",
         "location_label" => "Location",
         "salary_label" => "Annual Salary Range",
