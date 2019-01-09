@@ -333,7 +333,7 @@
                 requestPromise = axios.put(itemUrl, formData);
             } else {
                 //If item isn't saved on server yet, create it
-                var resourceUrl = $(object).attr('data-item-url').replate(":id", "");
+                var resourceUrl = $(object).attr('data-item-url').replace(":id", "");
                 requestPromise = axios.post(resourceUrl, formData);
             }
 
