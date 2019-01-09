@@ -3,22 +3,21 @@
 return [
 /**
  * Narrative evidence of skill
- Narrative assessment
- Take home exam
- Problem- based role play scenario
- Coding Test
- Portfolio of past work paired with a selection of situational interview
-questions
- Written exam
- Interview questions
- Group test to develop a UX approach with particular scenarios
- Individual interview
-o Behaviour based on client-relations and end users questions
-o Scenario based questions
-o Both scenario based and behaviour based questions
- Reference check
- Certificate or formal credential
- Overall interview performance
+ * Narrative assessment
+ * Take home exam
+ * Problem- based role play scenario
+ * Coding Test
+ * Portfolio of past work paired with a selection of situational interview questions
+ * Written exam
+ * Interview questions
+ * Group test to develop a UX approach with particular scenarios
+ * Individual interview
+ * Behaviour based on client-relations and end users questions
+ * Scenario based questions
+ * Both scenario based and behaviour based questions
+ * Reference check
+ * Certificate or formal credential
+ * Overall interview performance
  */
 
     "narrative_assessment" => "Narrative assessment",

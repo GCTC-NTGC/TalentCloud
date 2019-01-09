@@ -15,19 +15,19 @@ class PopulateAssessmentTypeTranslations extends Migration
     {
         /**
          * Narrative assessment
-     Take home exam – Scenario
-     Take home exam – Technical
-     Take home exam – Behavioural
-     Portfolio review
-     Portfolio review with candidate
-     Interview question – Technical
-     Interview question – Scenario
-     Interview question – Behaviour
-     Interview – Overall performance
-     Group test
-     Reference check – Traditional
-     Reference check – Micro
-     Certificate or formal credential
+         * Take home exam – Scenario
+         * Take home exam – Technical
+         * Take home exam – Behavioural
+         * Portfolio review
+         * Portfolio review with candidate
+         * Interview question – Technical
+         * Interview question – Scenario
+         * Interview question – Behaviour
+         * Interview – Overall performance
+         * Group test
+         * Reference check – Traditional
+         * Reference check – Micro
+         * Certificate or formal credential
         */
         DB::table('assessment_type_translations')->insert([
             ['id' => 1, 'assessment_type_id' => 1, 'locale' => 'en', 'name' => 'Narrative Assessment'],

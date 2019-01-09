@@ -14,14 +14,14 @@ use App\Models\Assessment;
 
 class ScreeningPlanController extends Controller
 {
-
     /**
      * Show the form for creating a new resource.
      *
-     * @param  JobPoster $job The job to create a screen plan for.
-     * @return View
+     * @param JobPoster $jobPoster The job to create a screening plan for.
+     *
+     * @return View|\Illuminate\Contracts\View\Factory
      */
-    public function createForJob(JobPoster $jobPoster): View
+    public function createForJob(JobPoster $jobPoster)
     {
         $jobPoster->load('criteria');
         $skills = Skill::all();
@@ -40,7 +40,7 @@ class ScreeningPlanController extends Controller
             }
             $assessment_plans[$plan->id] = $assessment_plan;
         }
-        debugbar()->debug($assessment_plans);
+
         return view(
             'manager/screening-plan',
             [
@@ -53,6 +53,14 @@ class ScreeningPlanController extends Controller
         );
     }
 
+    /**
+     * Save the screening plan.
+     *
+     * @param Request   $request   The incoming request object.
+     * @param JobPoster $jobPoster The job to create a screen plan for.
+     *
+     * @return \Illuminate\Routing\Redirector|Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, JobPoster $jobPoster)
     {
         //TODO: Validate every job criteria is represented
@@ -84,9 +92,10 @@ class ScreeningPlanController extends Controller
      *
      * @param \Illuminate\Http\Request  $request       The request object.
      * @param \App\Models\ScreeningPlan $screeningPlan The screening plan to delete.
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, ScreeningPlan $screeningPlan)
+    public function destroy(Request $request, ScreeningPlan $screeningPlan) // phpcs:ignore
     {
         $this->authorize('delete', $screeningPlan);
         $screeningPlan->delete();
