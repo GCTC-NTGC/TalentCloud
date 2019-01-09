@@ -83,7 +83,7 @@
         modal-target-object"
 
     data-item-saved="{{ skill_declaration ? "true" : "" }}"
-    data-item-url="{{ route("skill_declarations.create") }}"
+    data-item-url="{{ route("skill_declarations.destroy", ":id") }}"
     data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}"
     >
 
