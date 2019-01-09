@@ -418,7 +418,7 @@
 
             var itemUrl = $(object)
                 .attr("data-item-url")
-                .replace(":id", itemId);
+                .replace(":id", id);
 
             $(object).attr('data-item-saved', 'true');
             $(object).attr('data-item-id', id);
