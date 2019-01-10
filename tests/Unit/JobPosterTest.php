@@ -6,8 +6,10 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
+use Jenssegers\Date\Date;
 
 use App\Models\JobPoster;
+use Doctrine\Common\Cache\VoidCache;
 
 class JobPosterTest extends TestCase
 {
@@ -18,7 +20,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterIsOpen()
+    public function testJobPosterIsOpen() : void
     {
         $jobPoster = factory(JobPoster::class)->states('published')->make();
         $this->assertTrue($jobPoster->isOpen());
@@ -35,7 +37,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterTimeRemaining()
+    public function testJobPosterTimeRemaining() : void
     {
         $jobPoster = factory(JobPoster::class)->make(
             [
@@ -51,5 +53,17 @@ class JobPosterTest extends TestCase
         );
         $langString = Lang::choice('common/time.day', 2);
         $this->assertEquals($langString, $jobPoster->timeRemaining());
+    }
+
+    /**
+     * Test that JobPoster->applyBy() behaves properly
+     *
+     * @return void
+     */
+    public function testJobPosterApplyBy() : void
+    {
+        $jobPoster = factory(JobPoster::class)->make();
+        $date = new Date($jobPoster->close_date_time, JobPoster::TIMEZONE);
+        $this->assertEquals($date->format('F jS, Y, gA T'), $jobPoster->applyBy());
     }
 }

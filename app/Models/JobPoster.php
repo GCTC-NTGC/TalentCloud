@@ -68,6 +68,8 @@ class JobPoster extends BaseModel {
     use \Dimsav\Translatable\Translatable;
     use Notifiable;
 
+    const TIMEZONE = 'America/Toronto';
+
     public $translatedAttributes = ['city', 'title', 'impact', 'branch', 'division', 'education'];
     protected $casts = [
         'job_term_id' => 'int',
@@ -173,7 +175,7 @@ class JobPoster extends BaseModel {
      */
     public function applyBy() : string
     {
-        $date = new Date($this->close_date_time, 'America/Toronto');
+        $date = new Date($this->close_date_time, self::TIMEZONE);
         return $date->format('F jS, Y, gA T');
     }
 
