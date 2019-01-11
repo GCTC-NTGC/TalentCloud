@@ -114,6 +114,8 @@ return [
         'apply_link_title' => 'Postuler pour cet emploi.',
         'apply_link_label' => 'Postuler maintenant.',
         'login_link_title' => 'Ouvrir une session et postuler pour cet emploi.',
-        'login_link_label' => 'Ouvrir une session et postuler. '
+        'login_link_label' => 'Ouvrir une session et postuler. ',
+        'edit_link_title' => 'Edit this job.',
+        'edit_link_label' => 'Edit'
     ],
 ];
