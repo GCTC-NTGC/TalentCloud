@@ -33,7 +33,7 @@ class JobController extends Controller
     /**
      * Display a listing of JobPosters.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
@@ -44,14 +44,16 @@ class JobController extends Controller
             ->where('published', true)
             ->get();
         $jobs->load('manager.work_environment');
-        return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
-            'jobs' => $jobs]);
+        return view('applicant/job_index', [
+            'job_index' => Lang::get('applicant/job_index'),
+            'jobs' => $jobs
+        ]);
     }
 
     /**
      * Display a listing of a manager's JobPosters.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function managerIndex()
     {
@@ -61,17 +63,17 @@ class JobController extends Controller
         $citizen_applications = [];
         $other_applications = [];
 
-        foreach($manager->job_posters as $job) {
+        foreach ($manager->job_posters as $job) {
             $job->submitted_applications->load(['veteran_status', 'citizenship_declaration']);
-            $veteran_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+            $veteran_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
                 return $application->veteran_status->name !== "none" &&
-                        $application->citizenship_declaration->name === "citizen";
+                    $application->citizenship_declaration->name === "citizen";
             });
-            $citizen_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+            $citizen_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
                 return $application->veteran_status->name === "none" &&
-                        $application->citizenship_declaration->name === "citizen";
+                    $application->citizenship_declaration->name === "citizen";
             });
-            $other_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+            $other_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
                 return $application->citizenship_declaration->name !== "citizen";
             });
         }
@@ -93,10 +95,12 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function show(Request $request, JobPoster $jobPoster) : View
+    public function show(Request $request, JobPoster $jobPoster)
     {
+        $user = Auth::user();
+
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
         foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
@@ -121,10 +125,36 @@ class JobController extends Controller
             ),
         ];
 
+        $jobLang = Lang::get('applicant/job_post');
+
+        $applyButton = [];
+
+        if (isset($user)) {
+            if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+                $applyButton = [
+                    'href' => route('manager.jobs.edit', $jobPoster->id),
+                    'title' => $jobLang['apply']['edit_link_title'],
+                    'text' => $jobLang['apply']['edit_link_label'],
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'title' => $jobLang['apply']['apply_link_title'],
+                    'text' => $jobLang['apply']['apply_link_label'],
+                ];
+            }
+        } else {
+            $applyButton = [
+                'href' => route('job.application.edit.1', $jobPoster->id),
+                'title' => $jobLang['apply']['login_link_title'],
+                'text' => $jobLang['apply']['login_link_label'],
+            ];
+        }
+
         return view(
             'applicant/job_post',
             [
-                'job_post' => Lang::get('applicant/job_post'),
+                'job_post' => $jobLang,
                 'manager' => $jobPoster->manager,
                 'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
                 'team_culture' => $jobPoster->manager->team_culture,
@@ -132,6 +162,7 @@ class JobController extends Controller
                 'workplace_photos' => $workplacePhotos,
                 'job' => $jobPoster,
                 'criteria' => $criteria,
+                'apply_button' => $applyButton,
                 'skill_template' => Lang::get('common/skills'),
             ]
         );
@@ -187,7 +218,7 @@ class JobController extends Controller
 
         $softSkills = Skill::whereHas(
             'skill_type',
-            function ($query) {
+            function ($query) : void {
                 $query->where('name', '=', 'soft');
             }
         )->get()
@@ -202,7 +233,7 @@ class JobController extends Controller
 
         $hardSkills = Skill::whereHas(
             'skill_type',
-            function ($query) {
+            function ($query) : void {
                 $query->where('name', '=', 'hard');
             }
         )->get()
@@ -269,9 +300,9 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
      *
-     * @return \Illuminate\Http\RedirectResponse A redirect to the Job Index
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, JobPoster $jobPoster = null) : RedirectResponse
+    public function store(Request $request, JobPoster $jobPoster = null)
     {
         // Don't allow edits for published Job Posters
         // Also check auth while we're at it
@@ -297,7 +328,9 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterCriteria($input, $job, isset($jobPoster));
 
-        return redirect(route('manager.jobs.index'));
+        $route = $job->published ? route('manager.jobs.index') : route('manager.jobs.show', $job->id);
+
+        return redirect($route);
     }
 
     /**
@@ -308,7 +341,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster)
+    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
     {
         $jobPoster->fill(
             [
@@ -356,7 +389,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->job_poster_key_tasks()->delete();
@@ -392,7 +425,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->job_poster_questions()->delete();
@@ -430,7 +463,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->criteria()->delete();
