@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class ApplicantProfileController extends Controller
 {
@@ -104,6 +105,19 @@ class ApplicantProfileController extends Controller
     {
         $messages = Lang::get('validation.custom');
         $request->validate([
+            // Name validation
+            'profile_name' => 'required|string|max:191',
+
+            // Email validation
+            'profile_email' => [
+                'required',
+                'string',
+                'max:191',
+                'email',
+                // Email may match existing email for this user,
+                //  but must be unique if changed.
+                Rule::unique('users', 'email')->ignore($applicant->user->id)
+            ],
 
             //Password validation
             'old_password' => [
