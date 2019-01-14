@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Lang;
  * @property \Illuminate\Database\Eloquent\Collection[Assessment] $assessments
  *
  *  Accessors
-//  * @property string $criteria_type The criteria-type name, 'essential' or 'asset'
  * @property string $level_name The localized name of the skill level (accounts for skill type).
  * @property string $level_description The localized description of the skill level (accounts for skill type).
  *
@@ -88,15 +87,6 @@ class Criteria extends BaseModel {
     {
         return $this->hasMany(\App\Models\Assessment::class, 'criterion_id');
     }
-
-    // /**
-    //  * Returns the associated criteria-type name, either 'essential' or 'asset'
-    //  * @return string
-    //  */
-    // public function getCriteriaTypeAttribute(): string
-    // {
-    //     return $this->criteria_type->name;
-    // }
 
     /**
      * Get the translated name of this Criteria's required skill level.
