@@ -37,20 +37,6 @@ class ExperienceController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        $applicant->load(
-            [
-                'courses' => function ($query) : void {
-                    $query->orderBy('end_date', 'desc');
-                },
-                'degrees' => function ($query) : void {
-                    $query->orderBy('end_date', 'desc');
-                },
-                'work_experiences' => function ($query) : void {
-                    $query->orderBy('end_date', 'desc');
-                },
-            ]
-        );
-
         return view('applicant/profile_02_experience', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_experience'),
