@@ -347,6 +347,18 @@ return [
             'name' => 'Community Engagement',
             'description' => 'Defined as: Ability to effectively communicate with a community of interested parties or stakeholders.'
         ],
+        'solution_architecture_mobile' => [
+            'name' => 'Solution Architecture for Mobile',
+            'description' => 'Defined as: Ability to architect, design and implement infrastructure technologies, solutions and services for mobile using languages such as Xamarin, Java, C#, CSS, Python, Objective-C, Swift, Apple Xcode, ADT, Android SDK, React Native, JavaScript, or HTML 5.'
+        ],
+        'mobile_app_design' => [
+            'name' => 'Mobile App Design, Architecture and Development',
+            'description' => 'Defined as: Ability to architect, design and develop mobile applications using either hybrid or native solutions.'
+        ],
+        'mobile_development_cloud' => [
+            'name' => 'Mobile Development in the Cloud',
+            'description' => 'Defined as: Ability to architect, design and develop and/or deploy and test mobile applications on a Cloud (MS Azure or Amazon AWS) platform.'
+        ],
     ],
     'status' => [
         'claimed' => 'Claimed'
