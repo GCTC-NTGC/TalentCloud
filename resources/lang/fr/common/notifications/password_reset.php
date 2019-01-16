@@ -11,10 +11,10 @@ return [
     |*
     |*
  */
-    'subject' => 'Réinitialisation de Mot de Passe',
+    'subject' => 'Réinitialiser votre mot de passe',
     'greeting' => 'Bonjour!',
     'line_1' => 'Vous recevez ce courriel parce que nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
     'action' => 'Réinitialiser le mot de passe',
-    'line_2' => 'Si vous n`avez pas soumis une demande de réinitialisation de mot de passe, aucune action est requise.',
+    'line_2' => 'Si vous n\'avez pas soumis une demande de réinitialisation de mot de passe, aucune action est requise.',
     'salutation' => "Cordialement,  \n:name"
 ];
