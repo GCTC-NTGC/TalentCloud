@@ -273,6 +273,12 @@ Route::group(
                     ->name('manager.jobs.edit');
             });
 
+            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+                ->name('manager.jobs.screening_plan');
+
+            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
+                ->name('manager.jobs.screening_plan.store');
+
             //Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
             Route::post('login', 'Auth\LoginController@login')->name('manager.login.post');
