@@ -40,11 +40,15 @@
 
 		    		{% for question in applicant.applicant_profile_answers %}
 
-		    			<h4>{{ question.applicant_profile_question.value }}</h4>
+						<div class="question">
 
-		    			<p>{{ question.applicant_profile_question.description }}</p>
+							<h4>{{ question.applicant_profile_question.question }}</h4>
 
-		    			<p>{{ question.answer }}</p>
+							<p>{{ question.applicant_profile_question.description }}</p>
+
+							<p><span class="bold">Their Answer:</span>{{ question.answer }}</p>
+
+						</div>
 
 		    		{% endfor %}
 
