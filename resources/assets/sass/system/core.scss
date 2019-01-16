@@ -45,8 +45,8 @@ footer{
 }
 
 .template {
-    display: none;
-    visibility: hidden;
+    display: none !important;
+    visibility: hidden !important;
 }
 
 .repeater__template {

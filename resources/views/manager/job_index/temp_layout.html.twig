@@ -16,6 +16,7 @@
 
                 <a href="{{ route('manager.jobs.show', job) }}">Job Poster</a>
                 {% if not job.published %}<a href="{{ route('manager.jobs.edit', job) }}">Edit</a>{% endif %}
+                {% if job.published %}<a href="{{ route('manager.jobs.screening_plan', job) }}">Screening Plan Builder</a>{% endif %}
 
                 <div class="container--layout-xl">
 

@@ -164,6 +164,8 @@
                         $(modal).removeClass('working');
                     }).catch(function(error) {
                         $(modal).removeClass('working');
+                        // Allow for retrying
+                        modalDeleteTrigger(trigger, modal, object);
                     });
                     //TODO: catch and present errors
 
@@ -578,6 +580,70 @@
             replaceInAttributes(template, 'value', ':id', newId, filter+'[name=submit]');
         }
 
+        // Repeater Handlers ===================================================
+
+        function addRepeater(trigger)
+        {
+            // Get Parent
+            var parent = $(trigger).parents(".repeater-list");
+
+            // Get List Wrapper
+            var wrapper = parent.find(".repeater-element-list");
+
+            // Set Null to Hidden
+            parent.find(".repeater-null").removeClass("active");
+
+            // Get Template
+            var template = parent
+                .find(".repeater-element.template")
+                .clone();
+
+            // Remove Template Class
+            template.removeClass("template");
+
+            // un-disable form inputs
+            template.find(".template-disabled").removeAttr("disabled");
+
+            //Set ids and form names to be unique
+            individualizeFormIdsAndNames(template, wrapper);
+
+            // Prepend Clone to the Wrapper
+            wrapper.append(template);
+
+            // Reactivate Required Fields
+            requiredFields();
+
+            // Reactivate Labels
+            labelHandlers();
+
+            template
+                .find(".remove-repeater-button")
+                .on("click", removeRepeater);
+
+            // Set save trigger on ajax forms
+            if (template.hasClass("ajax-form")) {
+                addSubmitTrigger(template);
+            }
+        }
+
+        function removeRepeater(event) {
+            event.preventDefault();
+            var repeater = $(this).parents(".repeater-element");
+            if (!repeater.hasClass("template"))
+            {
+                repeater.remove();
+            }
+        }
+
+        $(".repeater-list__add-repeater-trigger").on("click", function (e) {
+            // Prevent Default Functions
+            e.preventDefault();
+            // Add Profile Elements
+            addRepeater(this);
+        });
+
+        $(".remove-repeater-button").on("click", removeRepeater);
+
         // Profile List Handlers ===============================================
 
         // Add Profile Element
@@ -597,6 +663,9 @@
 
             // Remove Template Class
             template.removeClass("template");
+
+            // un-disable form inputs
+            template.find('template-disabled').removeAttr('disabled');
 
             //Set ids and form names to be unique
             individualizeFormIdsAndNames(template, wrapper);
@@ -1173,6 +1242,48 @@
         }
 
         deleteQuestionTrigger();
+
+        // Screening Plan Copy Function =====================================================
+
+        function copyScreeningPlan(copyButton) {
+            var body = document.body, range, sel;
+            var tableID = $(copyButton)
+                .parents(".screening-plan")
+                .attr("data-item-id");
+            var tableArray = document.querySelectorAll("[data-table-id='" + tableID + "']");
+            var table = tableArray[0];
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                sel = window.getSelection();
+                sel.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    sel.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    sel.addRange(range);
+                }
+                document.execCommand("copy");
+
+            } else if (body.createTextRange) {
+                range = body.createTextRange();
+                range.moveToElementText(table);
+                range.select();
+                range.execCommand("Copy");
+            }
+        }
+
+        $(".screening-plan-action__copy").on("click", function(e) {
+            e.preventDefault();
+            copyScreeningPlan(this);
+        });
+
+        $(".screening-plan-action__copy").on("keyup", function(e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                copyScreeningPlan(this);
+            }
+        });
 
     });
 

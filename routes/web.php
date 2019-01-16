@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ScreeningPlanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -189,7 +191,7 @@ Route::group(
 
             /* Authentication =========================================================== */
 
-            //Laravel default login, logout, register, and reset routes
+            // Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
             Route::post('login', 'Auth\LoginController@login')->name('login.post');
             Route::post('logout', 'Auth\LoginController@logout')->name('logout');
@@ -270,6 +272,12 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
             });
+
+            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+                ->name('manager.jobs.screening_plan');
+
+            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
+                ->name('manager.jobs.screening_plan.store');
 
             //Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
@@ -353,4 +361,10 @@ Route::middleware(['auth'])->group(function () : void {
         ->middleware('role:manager')
         ->middleware('can:view,application')
         ->name('application_reviews.update');
+
+    Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
+        ->middleware('role:manager')
+        ->middleware('can:delete,screeningPlan')
+        //TODO: add can:delete middleware for screening plan
+        ->name('screening_plans.destroy');
 });
