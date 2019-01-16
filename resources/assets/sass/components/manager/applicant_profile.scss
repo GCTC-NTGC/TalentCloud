@@ -6,6 +6,10 @@
 .applicant-profile-preview {
 	padding: 5rem 0;
 
+	.question {
+		margin: 3rem 0;
+	}
+
 	h3 {
 		color: $palette--font-black;
 		display: block;
@@ -35,6 +39,11 @@
 			margin-bottom: 0;
 		}
 
+	}
+
+	.bold {
+		display: block;
+		font-weight: 600;
 	}
 
 }

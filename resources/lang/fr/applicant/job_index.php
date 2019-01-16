@@ -23,8 +23,8 @@ return [
             'permanent' => 'Permanent.'
         ],
         'remote_work_allowed' => [
-            true => 'Travail à distance autorisé',
-            false => 'travail à distance non autorisé',
+            true => 'Autorisé',
+            false => 'Non autorisé',
         ],
         "duration_label" => "Durée",
         "remote_label" => "Travail à distance",

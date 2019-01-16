@@ -212,7 +212,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                 // succeeds
                                                 if ($(object).attr('data-item-saved')) {
                                                             var itemId = $(object).attr('data-item-id');
-                                                            var deleteUrl = [$(object).attr('data-item-url'), itemId].join('/');
+                                                            var deleteUrl = $(object).attr("data-item-url").replace(":id", itemId);
                                                             $(modal).addClass('working');
 
                                                             axios.delete(deleteUrl).then(function (response) {
@@ -369,11 +369,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     //If object already exists on server, update it
                                     if ($(object).attr('data-item-saved')) {
                                                 var itemId = $(object).attr('data-item-id');
-                                                var itemUrl = [$(object).attr('data-item-url'), itemId].join('/');
+                                                var itemUrl = $(object).attr("data-item-url").replace(":id", itemId);
                                                 requestPromise = axios.put(itemUrl, formData);
                                     } else {
                                                 //If item isn't saved on server yet, create it
-                                                var resourceUrl = $(object).attr('data-item-url');
+                                                var resourceUrl = $(object).attr('data-item-url').replace(":id", "");
                                                 requestPromise = axios.post(resourceUrl, formData);
                                     }
 
@@ -454,7 +454,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     $(object).addClass('complete');
                                     $(object).find('button[type=submit]').addClass('saved');
 
-                                    var itemUrl = [$(object).attr('data-item-url'), id].join('/');
+                                    var itemUrl = $(object).attr("data-item-url").replace(":id", id);
 
                                     $(object).attr('data-item-saved', 'true');
                                     $(object).attr('data-item-id', id);
