@@ -22,10 +22,12 @@ use Illuminate\Support\Facades\Hash;
 $faker_fr = Faker\Factory::create('fr');
 
 $factory->define(User::class, function (Faker\Generator $faker) {
+    static $password;
+
     return [
         'name' => $faker->name(),
         'email' => $faker->unique()->safeEmail(),
-        'password' => Hash::make('password'),
+        'password' => $password ? : $password = Hash::make('password'),
         'is_confirmed' => 1,
         'user_role_id' => UserRole::inRandomOrder()->first()->id,
         'remember_token' => str_random(10),
