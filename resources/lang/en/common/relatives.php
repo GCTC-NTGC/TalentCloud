@@ -36,7 +36,7 @@ return [
         "delete_title" => "Remove this work sample."
     ],
     "project" => [
-        "title" => "Projects You've Worked on with this Reference",
+        "title" => "Projects with this Reference",
         "name_label" => "Project Name",
         "start_date_label" => "Project Started",
         "end_date_label" => "Project Ended",
