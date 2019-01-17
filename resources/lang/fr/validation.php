@@ -119,7 +119,7 @@ return [
     |
     | Here you may specify validation messages for custom rules and validtors.
     */
-    'applicant_has_relation' => 'le demandeur doit posséder cet :attribute',
+    'applicant_has_relation' => 'le candidat doit posséder cet :attribute',
     'contains_object_with_attribute' => ':attribute ne contient pas la :relation egal à :attributeValue',
     'user_skill_unique' => 'cette compétence est déjà ajoutée',
     'password_correct' => 'mot de passe incorrect',
