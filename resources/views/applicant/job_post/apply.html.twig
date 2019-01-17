@@ -57,24 +57,28 @@
 
     </div>
 
-    {# Tristan, we need to check for the user's log state to display the appropriate button here. #}
-
     <div
         class="job-post__button-wrapper">
 
-        <a
+        {% if not job.isOpen() %}
+            <div class="job-post__apply-button--closed">
+                    {{ job_post.apply.job_closed_label }}
+            </div>
+        {% elseif auth_check() %}
+            <a
             class="job-post__apply-button"
-            {% if auth_check() %}
                 href="{{ route('job.application.edit.1', job.id) }}"
                 title="{{ job_post.apply.apply_link_title }}">
                 {{ job_post.apply.apply_link_label }}
-            {% else %}
+            </a>
+        {% else %}
+            <a
+            class="job-post__apply-button"
                 href="{{ route('job.application.edit.1', job.id) }}"
                 title="{{ job_post.apply.login_link_title }}">
                 {{ job_post.apply.login_link_label }}
-            {% endif %}
-        </a>
-
+            </a>
+        {% endif %}
     </div>
 
 </section>
