@@ -35,16 +35,6 @@ class JobControllerTest extends TestCase
             'manager_id' => $this->manager->id
         ]);
 
-        $this->jobPoster->criteria()->saveMany(factory(Criteria::class, 2)->make([
-            'job_poster_id' => $this->jobPoster->id
-        ]));
-        $this->jobPoster->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 2)->make([
-            'job_poster_id' => $this->jobPoster->id
-        ]));
-        $this->jobPoster->job_poster_questions()->saveMany(factory(JobPosterQuestion::class, 2)->make([
-            'job_poster_id' => $this->jobPoster->id
-        ]));
-
         $this->otherManager = factory(Manager::class)->create();
         $this->otherJobPoster = factory(JobPoster::class)->create([
             'manager_id' => $this->otherManager->id
