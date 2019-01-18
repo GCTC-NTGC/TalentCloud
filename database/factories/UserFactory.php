@@ -7,6 +7,8 @@ use App\Models\Manager;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
 use Illuminate\Support\Facades\Hash;
+use App\Models\TeamCulture;
+use App\Models\WorkEnvironment;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,4 +92,13 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         'learning_path:fr' => $faker_fr->paragraphs(3, true),
         'education:fr' => $faker_fr->paragraphs(3, true),
     ];
+});
+
+$factory->afterCreating(Manager::class, function ($manager) {
+    $manager->team_culture()->save(factory(TeamCulture::class)->create([
+        'manager_id' => $manager->id,
+    ]));
+    $manager->work_environment()->save(factory(WorkEnvironment::class)->create([
+        'manager_id' => $manager->id,
+    ]));
 });
