@@ -519,6 +519,11 @@ class JobController extends Controller
                     ]
                 ]
             );
+            // Workaround for Default Questions with empty descriptions
+            // throwing an error during save.
+            // The id isn't actually used during the fillAndSaveJobPosterQuestions
+            // method call.
+            $jobQuestion->id = $i + 1;
             $jobQuestions[] = $jobQuestion;
         }
 
