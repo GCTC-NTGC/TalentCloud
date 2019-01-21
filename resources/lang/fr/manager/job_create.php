@@ -25,7 +25,7 @@ return [
         ]
     ],
     'questions' => [
-        "00" => "Pourquoi êtes - vous intéressé par ce travail?",
-        "01" => "Pourquoi pensez - vous que vous serez un bon candidat pour ce poste?"
+        "00" => "Pourquoi êtes-vous intéressé par ce travail?",
+        "01" => "Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?"
     ],
 ];
