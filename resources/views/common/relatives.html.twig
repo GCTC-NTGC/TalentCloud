@@ -12,7 +12,7 @@
 {% endif %}
 
 <div
-    class="profile-relative {% if relative == null %}template{% endif %}"
+    class="profile-relative {% if template %}template{% endif %}"
     data-item-id="{{ relative ? relative.id : 0 }}">
 
     <div class="form__input-wrapper--select">
@@ -32,6 +32,7 @@
             <select
                 class="form__input"
                 id="{{ id_prefix }}relativeId"
+                {% if template %}disabled{% endif %}
                 name="{{ name_prefix }}[id]">
 
                 {# Skills #}

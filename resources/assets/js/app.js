@@ -163,7 +163,9 @@
                         $(object).remove();
                         $(modal).removeClass('working');
                     }).catch(function(error) {
-                        $(modal).removeClass('working');
+                        $(modal).removeClass("working");
+                        //TODO: deal with error better, localized text at least
+                        window.alert("Something went wrong deleting item!");
                         // Allow for retrying
                         modalDeleteTrigger(trigger, modal, object);
                     });
@@ -582,47 +584,48 @@
 
         // Repeater Handlers ===================================================
 
-        function addRepeater(trigger)
-        {
-            // Get Parent
-            var parent = $(trigger).parents(".repeater-list");
-
+        function cloneRepeatingElement(trigger, parentSelector, listWrapperSelector, nullSelector, templateSelector, prepend = false) {
+            var parent = $(trigger).parents(parentSelector);
             // Get List Wrapper
-            var wrapper = parent.find(".repeater-element-list");
-
+            var wrapper = parent.find(listWrapperSelector);
             // Set Null to Hidden
-            parent.find(".repeater-null").removeClass("active");
-
+            parent.find(nullSelector).removeClass("active");
             // Get Template
             var template = parent
-                .find(".repeater-element.template")
+                .find(templateSelector)
                 .clone();
-
             // Remove Template Class
             template.removeClass("template");
-
-            // un-disable form inputs
-            template.find(".template-disabled").removeAttr("disabled");
-
+            // un-disable form inputs (except in sub-templates)
+            template.find(":input").not(".template :input").removeAttr("disabled");
             //Set ids and form names to be unique
             individualizeFormIdsAndNames(template, wrapper);
-
-            // Prepend Clone to the Wrapper
-            wrapper.append(template);
+            // Add Clone to the Wrapper
+            if (prepend) {
+                wrapper.prepend(template);
+            } else {
+                wrapper.append(template);
+            }
 
             // Reactivate Required Fields
             requiredFields();
-
             // Reactivate Labels
             labelHandlers();
+            return template;
+        }
 
-            template
+        function addRepeater(trigger)
+        {
+            // Get Parent
+            var clone = cloneRepeatingElement(trigger, ".repeater-list", ".repeater-element-list", ".repeater-null", ".repeater-element.template");
+
+            clone
                 .find(".remove-repeater-button")
                 .on("click", removeRepeater);
 
             // Set save trigger on ajax forms
             if (template.hasClass("ajax-form")) {
-                addSubmitTrigger(template);
+                addSubmitTrigger(clone);
             }
         }
 
@@ -649,44 +652,22 @@
         // Add Profile Element
         function addProfileElement(trigger) {
 
-            // Get Parent
-            var parent = $(trigger).parents(".profile-list");
-
-            // Get List Wrapper
-            var wrapper = parent.find(".profile-element-list");
-
-            // Set Null to Hidden
-            parent.find(".profile-null").removeClass("active");
-
-            // Get Template
-            var template = parent.find(".profile-element.template").clone();
-
-            // Remove Template Class
-            template.removeClass("template");
-
-            // un-disable form inputs
-            template.find('template-disabled').removeAttr('disabled');
-
-            //Set ids and form names to be unique
-            individualizeFormIdsAndNames(template, wrapper);
-
-            // Prepend Clone to the Wrapper
-            wrapper.prepend(template);
-
-            // Reactivate Required Fields
-            requiredFields();
-
-            // Reactivate Labels
-            labelHandlers();
+            var clone = cloneRepeatingElement(
+                    trigger,
+                    ".profile-list",
+                    ".profile-element-list",
+                    ".profile-null",
+                    ".profile-element.template",
+                    true
+                );
 
             // Reactivate Nested Relatives
             loadProfileRelatives();
 
             // Set save trigger on ajax forms
-            if (template.hasClass('ajax-form')) {
-                addSubmitTrigger(template);
+            if (clone.hasClass("ajax-form")) {
+                addSubmitTrigger(clone);
             }
-
         }
 
         // Click Trigger

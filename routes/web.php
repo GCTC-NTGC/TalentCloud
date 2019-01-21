@@ -148,7 +148,7 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.references.edit');
 
-                Route::post('profile/{applicant}/references/update', 'ReferencesController@update')
+                Route::post('profile/{applicant}/references/update', 'ReferencesController@updateAll')
                     ->middleware('can:update,applicant')
                     ->name('profile.references.update');
 
@@ -341,6 +341,14 @@ Route::middleware(['auth'])->group(function () : void {
     Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
         ->middleware('can:delete,skillDeclaration')
         ->name('skill_declarations.destroy');
+
+    Route::put('references/{reference}', 'ReferencesController@update')
+        ->middleware('can:update,reference')
+        ->name('references.update');
+
+    Route::post('references', 'ReferencesController@update')
+        ->middleware('can:create,App\Models\Reference')
+        ->name('references.create');
 
     Route::delete('references/{reference}', 'ReferencesController@destroy')
         ->middleware('can:delete,reference')

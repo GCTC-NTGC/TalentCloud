@@ -43,13 +43,13 @@ class ReferencesController extends Controller
     }
 
     /**
-     * Update the applicant's references in storage.
+     * Update all the applicant's references in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Applicant $applicant)
+    public function updateAll(Request $request, Applicant $applicant)
     {
         $input = $request->input();
 
@@ -168,6 +168,37 @@ class ReferencesController extends Controller
         }
 
         return redirect( route('profile.references.edit', $applicant) );
+    }
+
+    /**
+     * Update or create a reference with the supplied data.
+     *
+     * @param \Illuminate\Http\Request   $request   The incoming request object.
+     * @param \App\Models\Reference|null $reference The reference to update. If null, a new one should be created.
+     *
+     * @return
+     */
+    public function update(Request $request, ?Reference $reference = null)
+    {
+        if ($reference === null) {
+            $reference = new Reference();
+            $reference->applicant_id = $request->user()->applicant->id;
+        }
+        debugbar()->debug($request->input());
+        $reference->fill([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'relationship_id' => $request->input('relationship_id'),
+            'description' => $request->input('description'),
+        ]);
+        $reference->save();
+
+        // if an ajax request, return the new object
+        if ($request->ajax()) {
+            return $reference->toJson();
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
