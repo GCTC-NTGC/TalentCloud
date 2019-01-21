@@ -25,15 +25,14 @@
 
         <span
             class="application-index__item-time-wrapper">
-            {% if item.job_poster.close_date_time.isFuture() %}
+
             <span>
-                {{ application_index.apply_by_label|trans }} {% include "common/job_time_remaining" with {template:application_index, job:item.job_poster} %}
-            </span>
-            {% else %}
-            <span>
+                {% if item.job_poster.close_date_time.isFuture() %}
+                    {{ application_index.apply_by_label|trans }}
+                {% endif %}
                 {% include "common/job_time_remaining" with {template:application_index, job:item.job_poster} %}
             </span>
-            {% endif %}
+
         </span>
 
     </div>
