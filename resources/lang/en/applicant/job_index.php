@@ -31,7 +31,7 @@ return [
         "time_remaining" => ":time until close",
         "job_closed" => "Job has closed",
         "days_remaining_label" => ":count day until close.|:count days until close.",
-        "applicants_label" => "Applicants to Date",
+        "applicants_label" => "Applicant to Date|Applicants to Date",
         "button_label" => "View Job"
     ]
 ];

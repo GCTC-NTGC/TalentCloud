@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     * --------------------------------------------------------------------------
@@ -12,7 +13,9 @@ return [
     'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi',
     'header' => [
         'time_remaining' => ':time jusqu\'à la date de clôture',
+        "job_closed" => "l'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
+        "apply_by_label" => "postuler avant le",
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
         'location_icon_label' => 'Symbole d\'emplacement.',
         'remote_work_icon_label' => 'Symbole de travail à distance.',

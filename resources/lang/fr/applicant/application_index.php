@@ -14,6 +14,7 @@ return [
     "progress_title" => "Demandes d'emploi en cours",
     "completed_title" => "Demandes d'emploi soumises",
     "expired_title" => "Demandes d'emploi expirées",
+    "apply_by_label" => "Postuler Avant le",
     "days_remaining_label" => ":count jours restant",
     "time_remaining" => ":time restant",
     "job_closed" => "Fermée",
