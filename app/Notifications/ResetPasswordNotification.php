@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Lang;
 
 class ResetPasswordNotification extends Notification
 {
@@ -49,8 +50,11 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', url(route('password.reset', $this->token, false)))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->subject(Lang::get('common/notifications/password_reset.subject'))
+            ->greeting(Lang::get('common/notifications/password_reset.greeting'))
+            ->line(Lang::get('common/notifications/password_reset.line_1'))
+            ->action(Lang::get('common/notifications/password_reset.action'), url(route('password.reset', $this->token, false)))
+            ->line(Lang::get('common/notifications/password_reset.line_2'))
+            ->salutation(Lang::get('common/notifications/password_reset.salutation', ['name' => config('mail.from.name')]));
     }
 }

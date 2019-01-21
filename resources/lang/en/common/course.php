@@ -24,6 +24,6 @@ return [
      ],
      "start_date_label" => "Start Date",
      "end_date_label" => "End Date",
-     "action_01" => "Delete Diploma/Degree",
-     "action_02" => "Save Diploma/Degree"
+     "action_01" => "Delete Course/Certification",
+     "action_02" => "Save Course/Certification"
 ];

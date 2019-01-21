@@ -1,0 +1,428 @@
+.screening-plan-layout {
+    background: $palette--white;
+    padding: 5rem 0;
+
+    .page-category {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--h2;
+        margin: 5rem 2rem 2rem;
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+
+        span {
+            color: $palette--blue;
+        }
+
+    }
+
+    .narrative-warning {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        margin: 0 2rem 3rem;
+    }
+
+    .skill-category {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        margin: 5rem 2rem 2rem 2rem;
+    }
+
+    .skill-assessment-builder {
+
+        &__item {
+            border-bottom: 1px solid lighten($palette--black, 40%);
+            padding: 2rem 1rem;
+
+            &:first-child {
+                border-top: 1px solid lighten($palette--black, 40%);
+            }
+
+            &:nth-child(odd) {
+                background: lighten($palette--black, 90%);
+            }
+
+            >.box {
+                padding: 0 1rem;
+
+                p {
+                    @extend %paragraph;
+                    font-size: .707rem;
+                    margin: 1rem 0;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                }
+
+            }
+
+            .skill-title {
+                font-family: $font--sans;
+                font-size: $font-scale--h4;
+                font-weight: 400;
+                margin: 0 0 1.5rem 0;
+            }
+
+            .skill-label {
+                color: $palette--blue;
+                display: block;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 600;
+                margin: 0 0 1rem;
+            }
+
+        }
+
+        .skill-null-state {
+            border-top: 1px solid lighten($palette--black, 40%);
+            border-bottom: 1px solid lighten($palette--black, 40%);
+            color: lighten($palette--black, 80%);
+            display: block;
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+            padding: 2rem;
+            text-align: center;
+        }
+
+    }
+
+    .generate-wrapper {
+        padding-top: 4rem;
+        text-align: center;
+    }
+
+    .skill-assessment-wrapper {
+        margin-top: -2rem;
+
+        .skill-assessment-list {
+            display: inline-block;
+            margin: 0 -1rem;
+            width: auto;
+
+            .skill-assessment {
+                display: inline-block;
+                max-width: 20rem;
+                padding: 0 1rem;
+                position: relative;
+
+                .form__input-wrapper--select {
+                    // margin: .5rem 0;
+
+                    label {
+                        height: 1px;
+                        overflow: hidden;
+                        width: 1px;
+                        visibility: hidden;
+                    }
+
+                }
+
+                .remove-assessment-button {
+                    appearance: none;
+                    background: none;
+                    border: none;
+                    color: $palette--red;
+                    cursor: pointer;
+                    font-size: .707rem;
+                    padding: 0;
+                    position: absolute;
+                    right: 1rem;
+                    bottom: 1.5rem;
+                    transform: translate(0, 100%);
+                }
+
+            }
+
+        }
+
+    }
+
+    .add-assessment-button {
+        appearance: none;
+        background: $palette--blue;
+        border: none;
+        border-radius:  100%;
+        cursor: pointer;
+        display: inline-block;
+        height: 3rem;
+        margin: 2rem 0 2rem 1rem;
+        padding: 0;
+        position: relative;
+        width: 3rem;
+
+        i {
+            color: $palette--white;
+            font-size: $font-scale--regular;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    }
+
+    .screening-plan-context {
+        @extend %paragraph;
+        font-size: $font-scale--regular;
+        margin: 0 2rem 2rem;
+    }
+
+    .screening-plan {
+        background: lighten($palette--black, 90%);
+        border: 1px solid lighten($palette--black, 40%);
+        border-radius: 5px;
+        margin: 0 0 2rem 0;
+        padding: 2rem;
+        position: relative;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .action-wrapper {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .screening-plan-title {
+            color: $palette--font-black;
+            font-family: $font--sans;
+            font-size: $font-scale--h3;
+            font-weight: 400;
+            margin: 0;
+
+            &+.assessment-title {
+                margin-top: 2rem;
+            }
+
+        }
+
+        .screening-plan-context {
+            @extend %paragraph;
+            margin: 2rem 0 0 0;
+
+            .blue {
+                color: $palette--blue;
+                font-weight: 600;
+            }
+
+            .green {
+                color: $palette--green;
+                font-weight: 600;
+            }
+
+        }
+
+        .assessment-title {
+            color: $palette--blue;
+            font-family: $font--sans;
+            font-size: $font-scale--h4;
+            margin: 3rem 0 1.5rem;
+        }
+
+        .assessment-plan {
+            border-bottom: 1px solid black;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+
+            .assessment-summary {
+                margin: 0 -1rem -1rem -1rem;
+                padding: 2rem 0 0 0;
+
+                &__item {
+                    padding: 0 1rem;
+                }
+
+                .skill-label {
+                    color: $palette--blue;
+                    display: block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 600;
+                    margin-bottom: 1rem;
+                }
+
+                .skill-list {
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        border-radius: 5px;
+                        color: white;
+                        display: inline-block;
+                        font-size: .707rem;
+                        font-weight: 600;
+                        padding: .5rem;
+
+                        &.blue {
+                            background: $palette--blue;
+                        }
+
+                        &.green {
+                            background: $palette--green;
+                        }
+
+                    }
+
+                }
+
+                .box {
+                    @extend %paragraph;
+                    font-size: .707rem;
+                    margin: 0;
+                }
+
+                .row {
+
+                    &:nth-child(odd) {
+                        background: white;
+                    }
+
+                    .box {
+                        padding: 1rem;
+
+                        &:last-child {
+                            padding-left: 0;
+                        }
+
+                    }
+
+                }
+
+                .assessment_label {
+                    // color: $palette--blue;
+                    font-weight: 600;
+                }
+
+            }
+
+        }
+
+        .criteria-grid {
+            border-bottom: 1px solid black;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+
+            &:last-child {
+                border-bottom: 0;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .skill-assessment-preview__item {
+                margin: 0 -1rem 1rem -1rem;
+
+                &:last-child {
+                    margin-bottom: -1rem;
+                }
+
+                .box {
+                    padding: 0 1rem 1rem 1rem;
+
+                    .skill-label {
+                        color: $palette--blue;
+                        display: block;
+                        font-family: $font--sans;
+                        font-size: $font-scale--regular;
+                        font-weight: 600;
+                        margin: 0 0 1rem;
+                    }
+
+                    .skill-description,
+                    .level-description {
+                        @extend %paragraph;
+                        font-size: .707rem;
+                        margin: 1rem 0 0 0;
+                    }
+
+                    .skill-list {
+                        margin: 1rem 0 0 0;
+                        padding: 0;
+
+                        li {
+                            @extend %paragraph;
+                            font-size: .707rem;
+                            margin: 0;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .plan-table {
+        background: white;
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        top: -1000rem;
+        width: 1px;
+
+        * {
+            background: white;
+
+            th, td, ul, li {
+                font-size: 12px !important;
+            }
+
+        }
+
+        table {
+            @extend %paragraph;
+            border: 1px solid black;
+            border-collapse: collapse;
+            display: table;
+
+            tr {
+                background: white;
+
+                &.plan-table__title {
+                    // background: black;
+                    // color: white;
+                    font-weight: 600;
+                }
+
+                &.plan-table__section-title {
+                    // background: $palette--blue;
+                    // color: white;
+                    font-weight: 600;
+                }
+
+            }
+
+            th, td {
+                color: black;
+                background: none;
+                border: 1px solid black;
+                vertical-align: top;
+
+                ul, li {
+                    color: black;
+                }
+
+            }
+
+        }
+
+    }
+
+}
