@@ -347,6 +347,18 @@ return [
             'name' => 'Mobilisation communautaire',
             'description' => 'Se définit comme suit : capacité à communiquer de façon efficace avec une communauté de parties intéressées ou d\'intervenants.'
         ],
+        'solution_architecture_mobile' => [
+            'name' => 'Architecture de solutions pour l\'environnement mobile',
+            'description' => 'Se définit comme suit : Capacité d\'élaborer l\'architecture, de concevoir et de mettre en œuvre des technologies, des solutions et des services d\'infrastructure pour l\'environnement mobile à l\'aide de langages comme Xamarin, Java, C#, CSS, Python, Objective-C, Swift, Apple Xcode, ADT, Android SDK, React Native, JavaScript, ou HTML 5.'
+        ],
+        'mobile_app_design' => [
+            'name' => 'Conception, architecture et développement d\'applications mobiles',
+            'description' => 'Se définit comme suit : Capacité d\'élaborer, de concevoir et de développer des applications mobiles à l\'aide de solutions hybrides ou d\'origine.'
+        ],
+        'mobile_development_cloud' => [
+            'name' => 'Développement de technologies mobiles en nuage',
+            'description' => 'Se définit comme suit : Capacité d\'élaborer l\'architecture, de concevoir et de développer ou de déployer et de mettre à l\'essai des applications mobiles sur une plateforme en nuage (MS Azure ou Amazon AWS).'
+        ],
     ],
     'status' => [
         'claimed' => 'Ajoutée'
