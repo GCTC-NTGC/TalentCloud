@@ -732,32 +732,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         // Add Profile Relative
         function addProfileRelative(trigger) {
 
-            // Get Parent
-            var parent = $(trigger).parents(".profile-relative-list");
-
-            // Get List Wrapper
-            var wrapper = parent.find(".profile-relative-list__wrapper");
-
-            // Set Null to Hidden
-            // parent.find(".profile-null").removeClass("active");
-
-            // Get Template
-            var template = parent.find(".profile-relative.template").clone();
-
-            // Remove Template Class
-            template.removeClass("template");
-
-            //Set ids and form names to be unique
-            individualizeFormIdsAndNames(template, wrapper);
-
-            // Append Clone to the Wrapper
-            wrapper.append(template);
-
-            // Reactivate Required Fields
-            requiredFields();
-
-            // Reactivate Labels
-            labelHandlers();
+            var clone = cloneRepeatingElement(trigger, ".profile-relative-list", ".profile-relative-list__wrapper", ".profile-null", ".profile-relative.template", false);
 
             // Reactivate Nested Relatives
             loadProfileRelativeDeletion();

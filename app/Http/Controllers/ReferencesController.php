@@ -184,13 +184,38 @@ class ReferencesController extends Controller
             $reference = new Reference();
             $reference->applicant_id = $request->user()->applicant->id;
         }
-        debugbar()->debug($request->input());
         $reference->fill([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'relationship_id' => $request->input('relationship_id'),
             'description' => $request->input('description'),
         ]);
+        $reference->save();
+
+        $reference->load('projects');
+
+        //TODO: As soon as you can interact with projects outside of references,
+        //  this will become a dangerous operation
+        foreach ($reference->projects as $project) {
+            $project->delete();
+        }
+
+        $newProjects = [];
+        if ($request->input('projects')) {
+            foreach ($request->input('projects') as $projectInput) {
+                $project = new Project();
+                $project->applicant_id = $reference->applicant_id;
+                $project->fill([
+                    'name' => $projectInput['name'],
+                    'start_date' => $projectInput['start_date'],
+                    'end_date' => $projectInput['end_date'],
+                ]);
+                $project->save();
+                $newProjects[] = $project->id;
+                // $reference->projects()->attach($project);
+            }
+        }
+        $reference->projects()->sync($newProjects);
         $reference->save();
 
         // if an ajax request, return the new object
