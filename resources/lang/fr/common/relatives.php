@@ -36,7 +36,7 @@ return [
         "delete_title" => "Supprimer cet échantillon de travail"
     ],
     "project" => [
-        "title" => "Projets liés",
+        "title" => "Projets avec cette référence",
         "name_label" => "Nom du projet",
         "start_date_label" => "Début du projet",
         "end_date_label" => "Fin du projet",

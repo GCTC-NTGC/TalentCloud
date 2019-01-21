@@ -30,9 +30,10 @@ class ExperienceController extends Controller
     /**
      * Show the form for editing the applicant's experience
      *
-     * @param  Request  $request
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\Applicant    $applicant Incoming applicant object.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, Applicant $applicant)
     {

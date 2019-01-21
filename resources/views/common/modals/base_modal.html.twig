@@ -1,0 +1,46 @@
+{# =============================================================================
+
+    Talent Cloud
+    Base Modal
+
+============================================================================= #}
+<div
+    class="modal-overlay modal-cancel-trigger"></div>
+
+    <div
+        aria-hidden="true"
+        aria-labelled-by="dialogLabel{{ modal_id }}"
+        aria-modal="true"
+        class="modal"
+        data-modal-id="{{ modal_id }}"
+        role="dialog">
+
+        <div
+            class="modal-heading">
+
+            <h1
+                id="dialogLabel{{ modal_id }}">{{ modal.title }}</h1>
+
+            <button>
+                <i class="fas fa-times modal-cancel-trigger"
+                type="button"></i>
+                <span class="hidden">{{ menu.modal_cancel_label }}</span>
+            </button>
+
+        </div>
+
+        <div
+            class="modal-content">
+
+            <div
+                class="modal-scroll-wrapper">
+
+                {% block content %}{% endblock %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
