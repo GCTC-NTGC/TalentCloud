@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Lang;
 
+use App\Models\Applicant;
 use App\Models\Criteria;
 use App\Models\Lookup\Department;
 use App\Models\JobPoster;
@@ -15,6 +16,7 @@ use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
+use Doctrine\Common\Cache\VoidCache;
 
 class JobControllerTest extends TestCase
 {
@@ -49,6 +51,35 @@ class JobControllerTest extends TestCase
         $this->otherJobPoster = factory(JobPoster::class)->create([
             'manager_id' => $this->otherManager->id
         ]);
+
+        $this->publishedJob = factory(JobPoster::class)->states('published')->create();
+    }
+
+    /**
+     * Ensure an unauthorized user receives the correct job poster view.
+     *
+     * @return void
+     */
+    public function testGuestSingleView() : void
+    {
+        $response = $this->get('jobs/' . $this->publishedJob->id);
+        $response->assertStatus(200);
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['login_link_title']);
+    }
+
+    /**
+     * Ensure an authorized applicant receives the correct job poster view.
+     *
+     * @return void
+     */
+    public function testApplicantSingleView() : void
+    {
+        $applicant = factory(Applicant::class)->create();
+
+        $response = $this->actingAs($applicant->user)
+            ->get('jobs/' . $this->publishedJob->id);
+        $response->assertStatus(200);
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['apply_link_title']);
     }
 
     /**
@@ -98,7 +129,7 @@ class JobControllerTest extends TestCase
             'noc' => $this->faker->numberBetween(1, 9999),
             'classification' => $this->faker->regexify('[A-Z]{2}-0[1-5]'),
             'manager_id' => $this->manager->id,
-            'published' => $this->faker->boolean(50),
+            'published' => false,
             'remote_work_allowed' => $this->faker->boolean(50),
             'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
             'open_time' => $this->faker->time(),
@@ -139,14 +170,15 @@ class JobControllerTest extends TestCase
             'submit' => '',
         ];
 
-        $dbValues = array_slice($newJob, 0, 6);
+        $dbValues = array_slice($newJob, 0, 8);
 
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
             ->post('manager/jobs/', $newJob);
         $response->assertStatus(200);
-        $response->assertViewIs('manager.job_index');
+        $response->assertViewIs('applicant.job_post');
         $this->assertDatabaseHas('job_posters', $dbValues);
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['edit_link_title']);
     }
 
     /**

@@ -49,7 +49,6 @@ class JobController extends Controller
             ->where('published', true)
             ->get();
         $jobs->load('manager.work_environment');
-
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs
@@ -105,6 +104,8 @@ class JobController extends Controller
      */
     public function show(Request $request, JobPoster $jobPoster)
     {
+        $user = Auth::user();
+
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
         foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
@@ -129,10 +130,36 @@ class JobController extends Controller
             ),
         ];
 
+        $jobLang = Lang::get('applicant/job_post');
+
+        $applyButton = [];
+
+        if (isset($user)) {
+            if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+                $applyButton = [
+                    'href' => route('manager.jobs.edit', $jobPoster->id),
+                    'title' => $jobLang['apply']['edit_link_title'],
+                    'text' => $jobLang['apply']['edit_link_label'],
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'title' => $jobLang['apply']['apply_link_title'],
+                    'text' => $jobLang['apply']['apply_link_label'],
+                ];
+            }
+        } else {
+            $applyButton = [
+                'href' => route('job.application.edit.1', $jobPoster->id),
+                'title' => $jobLang['apply']['login_link_title'],
+                'text' => $jobLang['apply']['login_link_label'],
+            ];
+        }
+
         return view(
             'applicant/job_post',
             [
-                'job_post' => Lang::get('applicant/job_post'),
+                'job_post' => $jobLang,
                 'manager' => $jobPoster->manager,
                 'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
                 'team_culture' => $jobPoster->manager->team_culture,
@@ -140,6 +167,7 @@ class JobController extends Controller
                 'workplace_photos' => $workplacePhotos,
                 'job' => $jobPoster,
                 'criteria' => $criteria,
+                'apply_button' => $applyButton,
                 'skill_template' => Lang::get('common/skills'),
             ]
         );
@@ -309,7 +337,9 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterCriteria($input, $job, isset($jobPoster));
 
-        return redirect(route('manager.jobs.index'));
+        $route = $job->published ? route('manager.jobs.index') : route('manager.jobs.show', $job->id);
+
+        return redirect($route);
     }
 
     /**
