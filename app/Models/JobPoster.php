@@ -10,6 +10,7 @@ namespace App\Models;
 use App\Events\JobSaved;
 use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 
@@ -197,8 +198,19 @@ class JobPoster extends BaseModel {
      */
     public function applyBy() : string
     {
-        $date = new Date($this->close_date_time, self::TIMEZONE);
-        return $date->format('F jS, Y, gA T');
+        $format = "%B, %Y, %p";
+
+        if (App::isLocale('fr')) {
+            $format = '';
+        }
+
+        $displayDate = $this->close_date_time;
+        date_default_timezone_set(self::TIMEZONE);
+        dump($format);
+        dump(strtotime($displayDate));
+        dump(strftime($format, strtotime($displayDate)));
+
+        return strftime($format, strtotime($displayDate));
     }
 
     /**
