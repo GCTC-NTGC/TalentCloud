@@ -80,10 +80,10 @@ return [
         'team_work_label' => 'Notre mode de fonctionnement'
     ],
     'work_environment' => [
-        'remote_work_label' => 'Travail à distance autorisé:',
+        'remote_work_label' => 'Travail à distance :',
         'remote_work_allowed' => [
-            true => 'Oui',
-            false => 'Non',
+            true => 'Autorisé',
+            false => 'Non autorisé',
         ],
         'telework_label' => 'Télétravail',
         'telework_allowed' => [

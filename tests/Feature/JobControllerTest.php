@@ -110,6 +110,9 @@ class JobControllerTest extends TestCase
 
         $response->assertSee('<h2 class="heading--01">' . Lang::get('manager/job_create')['title'] . '</h2>');
         $response->assertViewIs('manager.job_create');
+
+        $response->assertSee(Lang::get('manager/job_create', [], 'en')['questions']['00']);
+        $response->assertSee(Lang::get('manager/job_create', [], 'fr')['questions']['00']);
     }
 
     /**

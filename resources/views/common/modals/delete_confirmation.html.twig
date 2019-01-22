@@ -1,0 +1,56 @@
+{# =============================================================================
+
+    Talent Cloud
+    Delete Confirmation Modal
+
+============================================================================= #}
+
+{% extends "common/modals/base_modal" %}
+
+{% block content %}
+
+    <div
+        class="modal-copy">
+
+        {% for item in modal.content %}
+
+            <p>{{ item }}</p>
+
+        {% endfor %}
+
+    </div>
+
+    <div
+        class="flex-grid modal-action-wrapper">
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box small-1of2">
+
+                <button
+                    class="modal-cancel-trigger button--blue light-bg"
+                    type="button">
+                    {{ modal.action_01 }}
+                </button>
+
+            </div>
+
+            <div
+                class="box small-1of2">
+
+                <button
+                    class="modal-delete-trigger button--red light-bg"
+                    type="button">
+                    <span class="modal-delete-default-copy">{{ modal.action_02 }}</span>
+                    <span class="modal-delete-progress-copy">{{ modal.action_02_progress }}</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -40,6 +40,8 @@ use App\Policies\ApplicationPolicy;
 use App\Policies\SkillDeclarationPolicy;
 use App\Policies\WorkExperiencePolicy;
 use App\Policies\WorkSamplePolicy;
+use App\Models\ScreeningPlan;
+use App\Policies\ScreeningPlanPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -59,6 +61,7 @@ class AuthServiceProvider extends ServiceProvider
         SkillDeclaration::class => SkillDeclarationPolicy::class,
         WorkExperience::class => WorkExperiencePolicy::class,
         WorkSample::class => WorkSamplePolicy::class,
+        ScreeningPlan::class => ScreeningPlanPolicy::class
     ];
 
     public function register() {
