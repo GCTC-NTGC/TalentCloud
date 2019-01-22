@@ -133,10 +133,6 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.skills.edit');
 
-                Route::post('profile/{applicant}/skills/update', 'SkillsController@updateAll')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.skills.update');
-
                 /* Profile - My References */
                 Route::get('profile/references', function () {
                     $applicant = Auth::user()->applicant;

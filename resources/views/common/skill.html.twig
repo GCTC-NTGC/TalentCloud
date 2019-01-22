@@ -593,7 +593,7 @@
 
                                     {% set relativeToken = "references" %}
 
-                                    {% include "common/relatives" with {"prefix":name_prefix} %}
+                                    {% include "common/relatives" with {"template":true } %}
 
                                 {# Relative List #}
 
@@ -606,7 +606,7 @@
 
                                             {% set relativeCounter = relativeCounter + 1 %}
 
-                                            {% include "common/relatives" with {"prefix":name_prefix} %}
+                                            {% include "common/relatives" %}
 
                                         {% endfor %}
 
@@ -675,7 +675,7 @@
 
                                     {% set relativeToken = "samples" %}
 
-                                    {% include "common/relatives" with {"prefix":name_prefix} %}
+                                    {% include "common/relatives" with {"template":true } %}
 
                                 {# Relative List #}
 
@@ -688,7 +688,7 @@
 
                                             {% set relativeCounter = relativeCounter + 1 %}
 
-                                            {% include "common/relatives" with {"prefix":name_prefix} %}
+                                            {% include "common/relatives" %}
 
                                         {% endfor %}
 
