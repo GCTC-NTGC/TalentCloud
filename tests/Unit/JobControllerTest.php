@@ -23,7 +23,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -56,7 +56,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerIndexView()
+    public function testManagerIndexView() : void
     {
         $response = $this->actingAs($this->manager->user)
             ->get('manager/jobs');
@@ -71,7 +71,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerCreateView()
+    public function testManagerCreateView() : void
     {
         $response = $this->actingAs($this->manager->user)
             ->get('manager/jobs/create');
@@ -79,6 +79,9 @@ class JobControllerTest extends TestCase
 
         $response->assertSee('<h2 class="heading--01">' . Lang::get('manager/job_create')['title'] . '</h2>');
         $response->assertViewIs('manager.job_create');
+
+        $response->assertSee(Lang::get('manager/job_create', [], 'en')['questions']['00']);
+        $response->assertSee(Lang::get('manager/job_create', [], 'fr')['questions']['00']);
     }
 
     /**
@@ -86,7 +89,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerCreate()
+    public function testManagerCreate() : void
     {
         $newJob = [
             'term_qty' => $this->faker->numberBetween(1, 4),
@@ -151,7 +154,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerEditView()
+    public function testManagerEditView() : void
     {
         $response = $this->actingAs($this->manager->user)
             ->get('manager/jobs/' . $this->jobPoster->id . '/edit');
