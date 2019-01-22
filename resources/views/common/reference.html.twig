@@ -213,9 +213,7 @@
 
                             {# Relative Template #}
 
-                                {% set relativeToken = "projects" %}
-
-                                {% include "common/relatives-projects" with {"template": true} %}
+                                {% include "common/relatives-projects" with {"template": true, "relativeToken": "projects"} %}
 
                             {# Relative List #}
 
@@ -228,7 +226,7 @@
 
                                         {% set relativeCounter = relativeCounter + 1 %}
 
-                                        {% include "common/relatives-projects" %}
+                                        {% include "common/relatives-projects" with {"relativeToken": "projects"} %}
 
                                     {% endfor %}
 
@@ -277,9 +275,7 @@
 
                             {# Relative Template #}
 
-                                {% set relativeToken = "skills" %}
-
-                                {% include "common/relatives" with {"template": true} %}
+                                {% include "common/relatives" with {"template": true, "relativeToken": "skills"} %}
 
                             {# Relative List #}
 
@@ -292,7 +288,7 @@
 
                                         {% set relativeCounter = relativeCounter + 1 %}
 
-                                        {% include "common/relatives" %}
+                                        {% include "common/relatives" with {"relativeToken": "skills"} %}
 
                                     {% endfor %}
 

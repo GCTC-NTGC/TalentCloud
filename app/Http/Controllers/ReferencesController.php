@@ -216,7 +216,10 @@ class ReferencesController extends Controller
             }
         }
         $reference->projects()->sync($newProjects);
-        $reference->save();
+
+        //Attach relatives
+        $skillIds = $this->getRelativeIds($request->input(), 'skills');
+        $reference->skill_declarations()->sync($skillIds);
 
         // if an ajax request, return the new object
         if ($request->ajax()) {

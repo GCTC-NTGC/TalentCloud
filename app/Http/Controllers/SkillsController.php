@@ -110,7 +110,7 @@ class SkillsController extends Controller
         $sampleIds = $this->getRelativeIds($request->input(), 'samples');
         $skillDeclaration->work_samples()->sync($sampleIds);
 
-        $skillDeclaration->save();
+        // $skillDeclaration->save();
 
         // If an ajax request, return the new object
         if($request->ajax()) {
