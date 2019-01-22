@@ -158,10 +158,6 @@ Route::group(
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.work_samples.edit');
-
-                Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.work_samples.update');
             });
 
             /* Static - FAQ */
@@ -353,6 +349,14 @@ Route::middleware(['auth'])->group(function () : void {
     Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
         ->middleware('can:delete,workSample')
         ->name('work_samples.destroy');
+
+    Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
+        ->middleware('can:update,reference')
+        ->name('work_samples.update');
+
+    Route::post('work-samples', 'WorkSamplesController@update')
+        ->middleware('can:create,App\Models\WorkSample')
+        ->name('work_samples.create');
 
     Route::delete('applications/{application}', 'ApplicationController@destroy')
         ->middleware('can:delete,application')

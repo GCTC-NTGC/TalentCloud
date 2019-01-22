@@ -48,7 +48,6 @@ class ApplicantProfileMenuComposer
                 break;
             case('profile.portfolio'):
             case('profile.work_samples.edit'):
-            case('profile.work_samples.update'):
                 $profileMenu['portfolio']['active'] = true;
                 break;
             default:

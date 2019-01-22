@@ -25,5 +25,7 @@ return [
     "skill_label" => "Sélectionner une compétence",
     "add_skill_label" => "Ajouter une compétence",
     "action_01" => "Supprimer cet exemple de travail",
-    "action_02" => "Enregistrer cet exemple de travail"
+    "action_02" => "Enregistrer cet exemple de travail",
+    'action_02_working' => 'Pensant...',
+    'action_02_saved' => 'Enregistré!',
 ];

@@ -37,79 +37,41 @@ class WorkSamplesController extends Controller
         return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_work_samples'),
-            'form_submit_action' => route('profile.work_samples.update', $applicant),
         ]);
     }
 
     /**
-     * Update the applicant's workSamples in storage.
+     * Update the workSample in storage, or create new one.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Applicant  $applicant
+     * @param  \App\Models\WorkSample|null  $workSample
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Applicant $applicant)
+    public function update(Request $request, ?WorkSample $workSample = null)
     {
-
-        $input = $request->input();
-
-        $workSamples = $input['work_samples'];
-
-        //Delete old workSamples that weren't resubmitted
-        //Note: this must be done before adding new workSamples, so we don't delete
-        // them right after adding them
-        foreach($applicant->work_samples as $oldWorkSample) {
-            //Check if no workSamples were resubmitted, or if this specific one wasn't
-            if (!isset($workSamples['old']) ||
-                !isset($workSamples['old'][$oldWorkSample->id])) {
-                $oldWorkSample->delete();
-            }
+        if ($workSample === null) {
+            $workSample = new WorkSample();
+            $workSample->applicant_id = $request->user()->applicant->id;
         }
+        $workSample->fill([
+            'name' => $request->input('name'),
+            'file_type_id' => $request->input('file_type_id'),
+            'url' => $request->input('url'),
+            'description' => $request->input('description'),
+        ]);
+        $workSample->save();
 
-        //Save new workSamples
-        if (isset($workSamples['new'])) {
-            foreach($workSamples['new'] as $workSampleInput) {
-                $workSample = new WorkSample();
-                $workSample->applicant_id = $applicant->id;
-                $workSample->fill([
-                    'name' => $workSampleInput['name'],
-                    'date_created' => isset($workSampleInput['date_created']) ? $workSampleInput['date_created'] : null,
-                    'file_type_id' => $workSampleInput['file_type_id'],
-                    'url' => $workSampleInput['url'],
-                    'description' => $workSampleInput['description'],
-                ]);
+        //Attach relatives
+        $skillIds = $this->getRelativeIds($request->input(), 'skills');
+        $workSample->skill_declarations()->sync($skillIds);
 
-                $workSample->save();
-
-                $skillDeclarationIds =$this->getRelativeIds($workSampleInput, 'skills');
-                $workSample->skill_declarations()->sync($skillDeclarationIds);
-            }
+        // if an ajax request, return the new object
+        if ($request->ajax()) {
+            $workSample->load('file_type');
+            return $workSample->toJson();
+        } else {
+            return redirect()->back();
         }
-
-        //Update old workSamples
-        if (isset($workSamples['old'])) {
-            foreach($workSamples['old'] as $id=>$workSampleInput) {
-                //Ensure this workSample belongs to this applicant
-                $workSample = $applicant->work_samples->firstWhere('id', $id);
-                if ($workSample != null) {
-                    $workSample->fill([
-                        'name' => $workSampleInput['name'],
-                        'date_created' => isset($workSampleInput['date_created']) ? $workSampleInput['date_created'] : null,
-                        'file_type_id' => $workSampleInput['file_type_id'],
-                        'url' => $workSampleInput['url'],
-                        'description' => $workSampleInput['description'],
-                    ]);
-                    $workSample->save();
-
-                    $skillDeclarationIds =$this->getRelativeIds($workSampleInput, 'skills');
-                    $workSample->skill_declarations()->sync($skillDeclarationIds);
-                } else {
-                    Log::warning('Applicant '.$applicant->id.' attempted to update workSample with invalid id '.$id);
-                }
-            }
-        }
-
-        return redirect( route('profile.work_samples.edit', $applicant) );
     }
 
     /**

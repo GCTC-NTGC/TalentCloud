@@ -18,7 +18,7 @@
 {% endif %}
 
 <div
-    class="profile-element accordion reference ajax-form {% if reference == false %}template active{% endif %} modal-target-object"
+    class="profile-element accordion reference ajax-form {% if template %}template active{% endif %} modal-target-object"
     data-item-saved="{{ reference ? "true" : "" }}"
     data-item-url="{{ route("references.destroy", ":id") }}"
     data-item-id="{{ reference ? reference.id : 0 }}">
@@ -103,7 +103,7 @@
                                 <input
                                     class="form__input"
                                     id="{{ id_prefix }}referenceName"
-                                    {% if template %}disabled{% endif %}
+
                                     type="text"
                                     name="name"
                                     required
@@ -213,7 +213,7 @@
 
                             {# Relative Template #}
 
-                                {% include "common/relatives-projects" with {"template": true, "relativeToken": "projects"} %}
+                                {% include "common/relatives-projects" with {"template": true} %}
 
                             {# Relative List #}
 
@@ -337,7 +337,9 @@
                             type="submit"
                             name="submit"
                             value="{{ name_prefix }}">
-                            {{ reference_template.action_02 }}
+                            <span class="submit-default">{{ reference_template.action_02 }}</span>
+                            <span class="submit-working">{{ reference_template.action_02_working }}</span>
+                            <span class="submit-saved">{{ reference_template.action_02_saved }}</span>
                         </button>
                     </div>
 

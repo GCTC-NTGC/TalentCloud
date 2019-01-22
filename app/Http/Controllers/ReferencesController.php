@@ -223,6 +223,8 @@ class ReferencesController extends Controller
 
         // if an ajax request, return the new object
         if ($request->ajax()) {
+            $reference->load('relationship');
+            $reference->load('projects');
             return $reference->toJson();
         } else {
             return redirect()->back();

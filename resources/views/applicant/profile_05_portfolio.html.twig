@@ -29,18 +29,10 @@
 
         {# Menu #}
 
-            {% include "applicant/profile/menu" %}
+        {% include "applicant/profile/menu" %}
 
-        {# Form containing all about_me editable elements #}
-        <form action="{{ form_submit_action }}" method="post">
 
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {# Portfolio #}
-            {% include "applicant/profile/portfolio/index" %}
-
-        </form>
+        {% include "applicant/profile/portfolio/index" %}
 
         {# Modals #}
 

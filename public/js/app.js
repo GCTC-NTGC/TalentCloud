@@ -452,6 +452,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             //  functions can can if they're already saved
             if ($(object).hasClass('skill')) {
                 setSkillSaved(object, response);
+            } else if ($(object).hasClass('reference')) {
+                setReferenceSaved(object, response);
+            } else if ($(object).hasClass('sample')) {
+                setSampleSaved(object, response);
             }
 
             $(object).removeClass('edited');
@@ -475,10 +479,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         //Update ui for Skill object to reflect that it has been setItem
         function setSkillSaved(object, response) {
-            console.log(response);
             $(object).find('.accordion-title').text(response.data.skill.skill);
             $(object).find('.skill__description').text(response.data.skill.description);
             $(object).find('.skill__status--level').text(response.data.skill_status.status);
+        }
+
+        //Update ui for Reference object to reflect that it has been setItem
+        function setReferenceSaved(object, response) {
+            $(object).find('.accordion-title').text(response.data.name);
+        }
+
+        //Update ui for WorkSample object to reflect that it has been setItem
+        function setSampleSaved(object, response) {
+            $(object).find('.accordion-title').text(response.data.name);
         }
 
         function clearFormErrors(object) {
@@ -934,8 +947,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // Get Template
             var template = $(".manager-jobs__create-task.template").clone();
 
-            console.log(wrapper.find(".manager-jobs__create-task"));
-
             // Get New ID
             if (wrapper.find(".manager-jobs__create-task").length == 0) {
                 var newID = parseInt(template.attr("data-task-id")) + 1;
@@ -1036,8 +1047,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // Get Template
             var template = parent.find(".manager-jobs__create-skill.template").clone();
 
-            console.log(wrapper.find(".manager-jobs__create-skill"));
-
             // Remove Template Class
             template.removeClass("template");
 
@@ -1103,8 +1112,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             // Get Template
             var template = $(".manager-jobs__create-question.template").clone();
-
-            console.log(wrapper.find(".manager-jobs__create-question"));
 
             // Get New ID
             if (wrapper.find(".manager-jobs__create-question").length == 0) {
