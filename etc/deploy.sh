@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Usage in production:
-# WinSCP this script and the TalentCloud.zip file to your home directory
-# sudo chmod 775 TalentCloud.zip
-# sudo chmod 775 deploy.sh
-# sudo ./deploy.sh
-
 # Extract files
 echo "Unzipping contents of TalentCloud.zip...";
 sudo unzip -qq TalentCloud.zip;
@@ -40,7 +34,7 @@ sudo rm -Rf /var/www/*;
 echo "Moving contents of TalentCloud to app directory...";
 sudo mv TalentCloud/* /var/www/;
 
-echo "Deleting empty TalentCloud";
+echo "Deleting empty TalentCloud...";
 sudo rm -R TalentCloud;
 
 # Migrations and optimizing Laravel
