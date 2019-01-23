@@ -82,10 +82,10 @@ return [
         'team_work_label' => 'How We Work'
     ],
     'work_environment' => [
-        'remote_work_label' => 'Remote Work Allowed:',
+        'remote_work_label' => 'Remote Work',
         'remote_work_allowed' => [
-            true => 'Yes',
-            false => 'No',
+            true => 'Allowed',
+            false => 'Not Allowed',
         ],
         'telework_label' => 'Telework',
         'telework_allowed' => [
@@ -116,6 +116,8 @@ return [
         'apply_link_title' => 'Apply to this job.',
         'apply_link_label' => 'Apply Now',
         'login_link_title' => 'Log in to apply for this job.',
-        'login_link_label' => 'Login & Apply'
+        'login_link_label' => 'Login & Apply',
+        'edit_link_title'  => 'Edit this job poster.',
+        'edit_link_label'  => 'Edit'
     ],
 ];

@@ -80,10 +80,10 @@ return [
         'team_work_label' => 'Notre mode de fonctionnement'
     ],
     'work_environment' => [
-        'remote_work_label' => 'Travail à distance autorisé:',
+        'remote_work_label' => 'Travail à distance :',
         'remote_work_allowed' => [
-            true => 'Oui',
-            false => 'Non',
+            true => 'Autorisé',
+            false => 'Non autorisé',
         ],
         'telework_label' => 'Télétravail',
         'telework_allowed' => [
@@ -114,6 +114,8 @@ return [
         'apply_link_title' => 'Postuler pour cet emploi.',
         'apply_link_label' => 'Postuler maintenant.',
         'login_link_title' => 'Ouvrir une session et postuler pour cet emploi.',
-        'login_link_label' => 'Ouvrir une session et postuler. '
+        'login_link_label' => 'Ouvrir une session et postuler. ',
+        'edit_link_title' => 'Modifier cette affiche d\'emploi.',
+        'edit_link_label' => 'Modifier'
     ],
 ];

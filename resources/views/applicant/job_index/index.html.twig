@@ -10,6 +10,14 @@
     <div
         class="container--layout-xl">
 
+        {% if jobs is empty %}
+
+            <div class="browse__index-job-null">
+                <span>{{ job_index.index.null_state }}</span>
+            </div>
+
+        {% endif %}
+
         <div
             div class="flex-grid">
 

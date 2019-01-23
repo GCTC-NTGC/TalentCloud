@@ -11,6 +11,16 @@
         margin: calc(#{$unit} * -1);
     }
 
+    .browse__index-job-null {
+        text-align: center;
+
+        span {
+            @extend %paragraph;
+            margin: 0;
+        }
+
+    }
+
     .browse__index-job {
         cursor: pointer;
         display: flex;

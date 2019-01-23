@@ -115,4 +115,15 @@ class Controller extends BaseController
         }
         return $rotatedArray;
     }
+
+    /**
+     * Formats the $content array into JSON.
+     *
+     * @param string[] $content The array being returned in response.
+     * @return \Illuminate\Http\Response
+     */
+    protected function formatAjaxResponse(array $content)
+    {
+        return response()->json($content);
+    }
 }
