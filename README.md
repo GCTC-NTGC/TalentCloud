@@ -75,7 +75,6 @@ B) If prompted, allow Docker through Windows Firewall.
 11. Run the following commands to manually set up database
 	```
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
 	```
 
 12. For testing, you may want to create fake data with the following command:
@@ -146,5 +145,7 @@ To stop and delete all existing Docker containers (can fix some errors)
 
 To set up your database manually (PostGres)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-	docker-compose exec postgres sh -c "psql -U talentcloud -f /manual_db/insert-data.sql"
+    
+To add fake data to your database
+	docker-compose exec talentcloud sh -c "php artisan db:seed"
 ```
