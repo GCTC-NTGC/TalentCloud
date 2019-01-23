@@ -78,7 +78,9 @@ B) If prompted, allow Docker through Windows Firewall.
 	```
 
 12. For testing, you may want to create fake data with the following command:
-	`docker-compose exec talentcloud sh -c "php artisan db:seed"`
+	```
+    docker-compose exec talentcloud sh -c "php artisan db:seed"
+    ```
 
 13. After the first-time set up, you should be able to start up the server simply by running `docker-compose up`, as long as other MySQL and Apache services are stopped.
 
