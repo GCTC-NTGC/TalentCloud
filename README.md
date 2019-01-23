@@ -24,7 +24,7 @@ A) Check your environment variables for any Docker Toolbox or previous Docker in
 
 Go to Control Panel -> All Control Panel Items -> System Then click Advanced system settings, In System Properties, Go to Advanced Tab and Click Environment Variables. Delete all DOCKER_* from System/User variables.
 
-Remove DOCKER_* from command prompt or PowerShell,  used PowerShell. using following steps
+Remove DOCKER_* from command prompt or PowerShell, using following steps
 ```
 [Environment]::SetEnvironmentVariable("DOCKER_CERT_PATH", $null, "User")
 [Environment]::SetEnvironmentVariable("DOCKER_HOST", $null, "User")
