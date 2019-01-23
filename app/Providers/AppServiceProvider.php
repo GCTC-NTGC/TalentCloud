@@ -42,12 +42,7 @@ class AppServiceProvider extends ServiceProvider
         //     //Generate models from database
         //     $this->app->register(\Reliese\Coders\CodersServiceProvider::class);
         // }
-
-        if ($this->app->environment() !== 'production') {
-            //Browser testing
-            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
-        }
-
+        
         $this->app->singleton(WhichPortal::class, function ($app) {
             return new WhichPortal();
         });
