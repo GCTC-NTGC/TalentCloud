@@ -6,7 +6,9 @@
  */
 
 namespace App\Models;
+
 use Illuminate\Support\Facades\Lang;
+use \Backpack\CRUD\CrudTrait;
 
 /**
  * Class Skill
@@ -23,6 +25,8 @@ use Illuminate\Support\Facades\Lang;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
 class Skill extends BaseModel {
+
+    use CrudTrait;
 
     protected $casts = [
         'name' => 'string',
