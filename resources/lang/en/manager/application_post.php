@@ -21,7 +21,7 @@ return [
         'review' => [
             'name' => 'Name',
             'info' => 'Info',
-            'reviewed' => 'Reviewed?tasitc',
+            'reviewed' => 'Reviewed?',
             'decision' => 'Decision',
             'reviewer' => 'Reviewer',
             'notes' => 'Notestasitc',
