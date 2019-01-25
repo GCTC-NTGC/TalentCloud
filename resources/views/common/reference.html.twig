@@ -25,14 +25,15 @@
 
     {# Accordion Trigger #}
 
-        <div
+        <button
             {% if reference == false %}
                 aria-expanded="true"
             {% else %}
                 aria-expanded="false"
             {% endif %}
             class="accordion-trigger"
-            tabindex="0">
+            tabindex="0"
+            type="button">
 
             {% if locale == "profile" %}
 
@@ -60,7 +61,7 @@
 
             <i class="fas fa-chevron-up"></i>
 
-        </div>
+        </button>
 
     {# Accordion Content #}
 
