@@ -3,11 +3,11 @@
 return [
     /*
     * --------------------------------------------------------------------------
-    * Manager Applicant Profile View Language Lines
+    * Manager Applicant Profile Localization
     * --------------------------------------------------------------------------
+    * route: /manager/applicants/#
     * controller: Controllers/ApplicantProfileController.php
     * view: views/manager/applicant_profile.html.twig
-    * route: /manager/applicants/#
     *
     *
     */

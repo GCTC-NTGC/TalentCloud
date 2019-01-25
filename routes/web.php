@@ -217,7 +217,7 @@ Route::group(
                     "hero" => [
                         "hero_logo" => "/images/logo_tc_colour.png",
                         "hero_logo_alt" => "The GC Talent Cloud Graphic Identifier.",
-                        "hero_tagline" => "People want meaningful work."
+                        "hero_tagline" => Lang::get('manager/home_hero')['tagline']
                     ]
                 ]);
             })->name('manager.home');

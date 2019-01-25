@@ -3,16 +3,15 @@
 return [
     /*
     * --------------------------------------------------------------------------
-    * Manager Application Post View Language Lines
+    * Manager Application Post Localization
     * --------------------------------------------------------------------------
+    * route: /manager/applications/#
     * controller: Controllers/ApplicationController.php
     * view: views/manager/application_post.html.twig
-    * route: /manager/applications/#
     *
     *
     */
 
-    'title' => 'Applicant Profile',
     'header' => [
         'twitter_title' => 'Visit :name\'s Twitter profile.',
         'linkedin_title' => 'Visit :name\'s LinkedIn profile.'
