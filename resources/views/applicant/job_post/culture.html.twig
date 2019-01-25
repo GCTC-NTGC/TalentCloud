@@ -33,12 +33,13 @@
             <div
                 class="box med-1of4">
                 <a
+                    aria-label="{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}"
                     class="job-post__culture-manager-profile-photo"
                     href="{{ route('managers.show',{'manager':manager.id}) }}"
                     target="_blank"
                     title="{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}"
                     style="background-image:url('{{ manager_profile_photo_url }}');">
-                    <span class="hidden">{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}</span>
+                    <span class="invisible">{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}</span>
                 </a>
             </div>
 
