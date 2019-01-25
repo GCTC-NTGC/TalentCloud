@@ -39,6 +39,7 @@
         {% for item in application_tracker.items %}
 
             <a
+                aria-label="{{ application_tracker.tracker_link_title }} {{ item.step }}."
                 class="application-post__tracker-item
                     {% if item.status == "error" %}
                         error
@@ -58,7 +59,7 @@
 
                 <i class="fas fa-check-circle"></i>
 
-                <span class="hidden">{{ application_tracker.tracker_link_title }} {{ item.step }}.</span>
+                <span class="invisible">{{ application_tracker.tracker_link_title }} {{ item.step }}.</span>
 
             </a>
 

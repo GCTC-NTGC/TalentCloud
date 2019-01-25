@@ -110,12 +110,13 @@
             {% if item.application_status.name == "draft" %}
 
                 <button
+                    aria-label="{{ application_index.delete_label }}"
                     class="modal-trigger"
                     data-modal-id="deleteTrash"
                     title="{{ application_index.delete_title }}"
                     type="button">
                     <i class="fas fa-trash-alt"></i>
-                    <span class="hidden">{{ application_index.delete_label }}</span>
+                    <span class="invisible">{{ application_index.delete_label }}</span>
                 </button>
 
             {% else %}
