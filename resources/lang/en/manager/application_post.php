@@ -24,7 +24,7 @@ return [
             'reviewed' => 'Reviewed?',
             'decision' => 'Decision',
             'reviewer' => 'Reviewer',
-            'notes' => 'Notestasitc',
+            'notes' => 'Notes',
             'form' => [
                 'email' => 'Email',
                 'profile' => 'Profile',
