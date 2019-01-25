@@ -7,8 +7,8 @@ return [
     * --------------------------------------------------------------------------
     * controller: Controllers/ApplicantProfileController.php
     * view: views/manager/applicant_profile.html.twig
-    * route: /en/manager/applicants/1
-    * The following language lines are used in the Manager Applicant Profile page.
+    * route: /manager/applicants/#
+    *
     *
     */
 
