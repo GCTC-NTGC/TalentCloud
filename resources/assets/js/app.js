@@ -755,6 +755,10 @@
             // Reactivate Nested Relatives
             loadProfileRelativeDeletion();
 
+            var inputs = template.find(":focusable:not(button)");
+
+            inputs[0].focus();
+
         }
 
         // Load Function

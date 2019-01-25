@@ -784,6 +784,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                     // Reactivate Nested Relatives
                                     loadProfileRelativeDeletion();
+
+                                    var inputs = template.find(":focusable:not(button)");
+
+                                    inputs[0].focus();
                         }
 
                         // Load Function
