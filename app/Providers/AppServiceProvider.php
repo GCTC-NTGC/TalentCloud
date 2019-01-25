@@ -33,16 +33,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        // if ($this->app->environment() !== 'production') {
-        //     //Generate migrations from database
-        //     $this->app->register(\Way\Generators\GeneratorsServiceProvider::class);
-        //     $this->app->register(\Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
-        //
-        //     //Generate models from database
-        //     $this->app->register(\Reliese\Coders\CodersServiceProvider::class);
-        // }
-
         /* Browser testing
 
         if ($this->app->environment() !== 'production') {
