@@ -7,6 +7,8 @@ use App\Models\Manager;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
 use Illuminate\Support\Facades\Hash;
+use App\Models\TeamCulture;
+use App\Models\WorkEnvironment;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +24,12 @@ use Illuminate\Support\Facades\Hash;
 $faker_fr = Faker\Factory::create('fr');
 
 $factory->define(User::class, function (Faker\Generator $faker) {
+    static $password;
+
     return [
         'name' => $faker->name(),
         'email' => $faker->unique()->safeEmail(),
-        'password' => Hash::make('password'),
+        'password' => $password ? : $password = Hash::make('password'),
         'is_confirmed' => 1,
         'user_role_id' => UserRole::inRandomOrder()->first()->id,
         'remember_token' => str_random(10),
@@ -90,4 +94,13 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         'learning_path:fr' => $faker_fr->paragraphs(3, true),
         'education:fr' => $faker_fr->paragraphs(3, true),
     ];
+});
+
+$factory->afterCreating(Manager::class, function ($manager) {
+    $manager->team_culture()->save(factory(TeamCulture::class)->create([
+        'manager_id' => $manager->id,
+    ]));
+    $manager->work_environment()->save(factory(WorkEnvironment::class)->create([
+        'manager_id' => $manager->id,
+    ]));
 });
